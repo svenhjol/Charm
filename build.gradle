@@ -1,0 +1,90 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+ext.configFile = file('build.properties')
+ext.config = parseConfig(configFile)
+
+version = config.version
+group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = config.mod_name
+
+minecraft {
+    version = "${config.mc_version}-${config.forge_version}"
+    runDir = "run"
+
+    coreMod = "svenhjol.charm.base.CharmLoadingPlugin"
+
+    mappings = config.mc_mappings
+    replace 'GRADLE:VERSION', config.version
+    replace 'scala.actors.threadpool.Arrays', 'java.util.Arrays' // Vazkii did this so I am too
+    replace '@MOD_VERSION@', project.version
+    replaceIn 'Charm.java'
+    makeObfSourceJar = false
+}
+
+jar {
+    exclude "**/*.bat"
+    exclude "**/*.psd"
+    exclude "**/*.exe"
+    exclude "**/unused"
+
+    manifest {
+        attributes("FMLCorePluginContainsFMLMod": "true", "FMLCorePlugin": "svenhjol.charm.base.CharmLoadingPlugin")
+    }
+}
+
+
+repositories {
+    maven {
+        // for AutoRegLib and Quark
+        name "blamejared"
+        url "http://maven.blamejared.com/"
+    }
+    maven { // JEI & Tinkers
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
+    }
+}
+
+dependencies {
+    compileOnly "vazkii.autoreglib:AutoRegLib:1.3-27.13"
+    compileOnly "vazkii.quark:Quark:r1.5-146.8"
+}
+
+processResources {
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version': project.version, 'mcversion': config.mc_version
+    }
+
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info', '**/psd/**'
+    }
+}
+
+static def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
+    }
+}
+
+
+defaultTasks 'clean', 'build'

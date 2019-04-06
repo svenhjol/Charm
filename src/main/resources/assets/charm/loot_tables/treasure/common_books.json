@@ -1,0 +1,33 @@
+{
+  "pools": [
+    {
+      "name": "charm:treasure/books",
+      "rolls": {
+        "min": 2,
+        "max": 4
+      },
+      "bonus_rolls": {
+        "min": 2,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:book",
+          "weight": 10,
+          "quality": 2,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": {
+                "min": 1,
+                "max": 5
+              },
+              "treasure": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

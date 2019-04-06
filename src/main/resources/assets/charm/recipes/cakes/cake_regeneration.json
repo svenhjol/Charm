@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "result": {
+    "item": "charm:cake_regeneration"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:cake"
+    },
+    {
+      "type": "minecraft:item_nbt",
+      "item": "minecraft:potion",
+      "nbt": {
+        "Potion": "minecraft:long_regeneration"
+      }
+    }
+  ]
+}

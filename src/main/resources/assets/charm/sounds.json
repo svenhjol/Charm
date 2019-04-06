@@ -1,0 +1,283 @@
+{
+  "homing": {
+    "category": "neutral",
+    "sounds": [
+      "charm:homing"
+    ]
+  },
+  "wood_open": {
+    "category": "neutral",
+    "sounds": [
+      "charm:wood_open1",
+      "charm:wood_open2"
+    ]
+  },
+  "wood_close": {
+    "category": "neutral",
+    "sounds": [
+      "charm:wood_close1",
+      "charm:wood_close2"
+    ]
+  },
+  "wood_smash": {
+    "category": "neutral",
+    "sounds": [
+      "charm:wood_smash"
+    ]
+  },
+  "bookshelf_open": {
+    "category": "neutral",
+    "sounds": [
+      "charm:bookshelf_open1",
+      "charm:bookshelf_open2"
+    ]
+  },
+  "bookshelf_close": {
+    "category": "neutral",
+    "sounds": [
+      "charm:bookshelf_close1",
+      "charm:bookshelf_close2"
+    ]
+  },
+  "little_fire": {
+    "category": "ambient",
+    "sounds": [
+      "charm:little_fire"
+    ]
+  },
+  "spectre_disappear": {
+    "category": "hostile",
+    "sounds": [
+      "charm:spectre_disappear"
+    ],
+    "subtitle": "subtitle.charm.spectre.disappear"
+  },
+  "spectre_hit": {
+    "category": "hostile",
+    "sounds": [
+      "charm:spectre_hit"
+    ],
+    "subtitle": "subtitle.charm.spectre.hit"
+  },
+  "spectre_move": {
+    "category": "hostile",
+    "sounds": [
+      "charm:spectre_move1",
+      "charm:spectre_move2"
+    ],
+    "subtitle": "subtitle.charm.spectre.move"
+  },
+  "spectre_ambient": {
+    "category": "hostile",
+    "sounds": [
+      "charm:spectre_ambient1",
+      "charm:spectre_ambient2"
+    ],
+    "subtitle": "subtitle.charm.spectre.ambient"
+  },
+  "whispers": {
+    "category": "neutral",
+    "sounds": [
+      "charm:whispers"
+    ],
+    "subtitle": "subtitle.charm.whispers"
+  },
+  "ender_resonance": {
+    "category": "neutral",
+    "sounds": [
+      "charm:resonance1",
+      "charm:resonance2",
+      "charm:resonance3",
+      "charm:resonance4"
+    ]
+  },
+  "above_stronghold": {
+    "category": "neutral",
+    "sounds": [
+      "charm:above_stronghold"
+    ],
+    "subtitle": "subtitle.charm.aboveStronghold"
+  },
+  "record.calm1": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/calm1",
+      "stream": true
+    }]
+  },
+  "record.calm2": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/calm2",
+      "stream": true
+    }]
+  },
+  "record.calm3": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/calm3",
+      "stream": true
+    }]
+  },
+  "record.hal1": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/hal1",
+      "stream": true
+    }]
+  },
+  "record.hal2": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/hal2",
+      "stream": true
+    }]
+  },
+  "record.hal3": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/hal3",
+      "stream": true
+    }]
+  },
+  "record.hal4": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/hal4",
+      "stream": true
+    }]
+  },
+  "record.nuance1": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/nuance1",
+      "stream": true
+    }]
+  },
+  "record.nuance2": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/nuance2",
+      "stream": true
+    }]
+  },
+  "record.piano1": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/piano1",
+      "stream": true
+    }]
+  },
+  "record.piano2": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/piano2",
+      "stream": true
+    }]
+  },
+  "record.piano3": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/piano3",
+      "stream": true
+    }]
+  },
+  "record.creative1": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/creative/creative1",
+      "stream": true
+    }]
+  },
+  "record.creative2": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/creative/creative2",
+      "stream": true
+    }]
+  },
+  "record.creative3": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/creative/creative3",
+      "stream": true
+    }]
+  },
+  "record.creative4": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/creative/creative4",
+      "stream": true
+    }]
+  },
+  "record.creative5": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/creative/creative5",
+      "stream": true
+    }]
+  },
+  "record.creative6": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/creative/creative6",
+      "stream": true
+    }]
+  },
+  "record.nether1": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/nether/nether1",
+      "stream": true
+    }]
+  },
+  "record.nether2": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/nether/nether2",
+      "stream": true
+    }]
+  },
+  "record.nether3": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/nether/nether3",
+      "stream": true
+    }]
+  },
+  "record.nether4": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/game/nether/nether4",
+      "stream": true
+    }]
+  },
+  "record.menu1": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/menu/menu1",
+      "stream": true
+    }]
+  },
+  "record.menu2": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/menu/menu2",
+      "stream": true
+    }]
+  },
+  "record.menu3": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/menu/menu3",
+      "stream": true
+    }]
+  },
+  "record.menu4": {
+    "category": "records",
+    "sounds": [{
+      "name": "minecraft:music/menu/menu4",
+      "stream": true
+    }]
+  }
+}

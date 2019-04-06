@@ -1,0 +1,201 @@
+{
+  "pools": [
+    {
+      "name": "main",
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "bonus_rolls": {
+        "min": 2,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:stone_sword",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:stone_shovel",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:stone_axe",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:stone_pickaxe",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:stone_hoe",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_sword",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_pickaxe",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_axe",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_shovel",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_hoe",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:flint_and_steel",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 5,
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:minecraft:iron_nugget",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 4,
+                "max": 16
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_ingot",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:shears",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "minecraft:tripwire_hook",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:bucket",
+          "weight": 2
+        }
+      ]
+    }
+  ]
+}

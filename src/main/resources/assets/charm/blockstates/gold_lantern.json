@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "normal": {
+            "model": "charm:gold_lantern"
+        },
+        "inventory": {
+            "model": "charm:gold_lantern"
+        },
+        "hanging=true": {
+            "model": "charm:hanging_gold_lantern"
+        },
+        "hanging=false": {
+            "model": "charm:gold_lantern"
+        }
+    }
+}

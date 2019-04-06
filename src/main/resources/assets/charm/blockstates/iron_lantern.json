@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "normal": {
+            "model": "charm:iron_lantern"
+        },
+        "inventory": {
+            "model": "charm:iron_lantern"
+        },
+        "hanging=true": {
+            "model": "charm:hanging_iron_lantern"
+        },
+        "hanging=false": {
+            "model": "charm:iron_lantern"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "charm:suspicious_soup",
+    "data": 4
+  },
+  "pattern": [
+    "BBB",
+    "BBB",
+    "FWF"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:beetroot"
+    },
+    "W": {
+      "item": "minecraft:bowl"
+    },
+    "F": {
+      "item": "minecraft:red_flower",
+      "data": 3
+    }
+  }
+}

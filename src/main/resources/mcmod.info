@@ -1,0 +1,15 @@
+[{
+  "modid": "charm",
+  "name": "Charm",
+  "description": "Smaller things.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "logoFile": "",
+  "url": "http://www.example.com",
+  "updateUrl": "",
+  "authorList": ["svenhjol"],
+  "credits": "",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}]
