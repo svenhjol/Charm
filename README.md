@@ -9,7 +9,7 @@ Please report any issues in the tracker here.
 ## Credits
 
 * Includes **Quark** [API interfaces](https://github.com/Vazkii/Quark/tree/master/src/main/java/vazkii/quark/api) for inventory sorting and searching.
-* Includes **BetterWithMods** `canMobSpawnInPos()` method.  [Link to code](https://github.com/BetterWithMods/BetterWithMods/blob/bf630aa1fade156ce8fae0d769ad745a4161b0ba/src/main/java/betterwithmods/event/PotionEventHandler.java)
+* Includes **BetterWithMods** `canMobsSpawnHere()` method.  [Link to code](https://github.com/DaedalusGame/BetterWithMods/blob/bf630aa1fade156ce8fae0d769ad745a4161b0ba/src/main/java/betterwithmods/event/PotionEventHandler.java)
 * Includes **CoFHCore** `transferEntityToWorld()` and `transferPlayerToDimension()` methods.  [Link to code](https://github.com/CoFH/CoFHCore/blob/1.12/src/main/java/cofh/core/util/helpers/EntityHelper.java)
 * Includes **Shadowfacts** `transferStackInSlot()`.  [Link to code](https://github.com/shadowfacts/ShadowMC/blob/1.11/src/main/java/net/shadowfacts/shadowmc/inventory/ContainerBase.java)
 * Includes **AutoRegLib** `ProxyRegistry` (modified).  [Link to code](https://github.com/Vazkii/AutoRegLib/blob/master/src/main/java/vazkii/arl/util/ProxyRegistry.java)
