@@ -33,7 +33,7 @@ public class BookshelfChest extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         bookshelfChest = new BlockBookshelfChest();
-        GameRegistry.registerTileEntity(bookshelfChest.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID, "bookshelf_chest"));
+        GameRegistry.registerTileEntity(bookshelfChest.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":bookshelf_chest"));
         NetworkHandler.register(MessageUpdateBookshelf.class, Side.CLIENT);
     }
 }
