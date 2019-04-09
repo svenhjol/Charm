@@ -67,6 +67,7 @@ public class ChargedEmeralds extends Feature
     @SideOnly(Side.CLIENT)
     public void preInitClient(FMLPreInitializationEvent event)
     {
+        //noinspection unchecked,unchecked
         RenderingRegistry.registerEntityRenderingHandler(EntityChargedEmerald.class, RenderChargedEmerald.FACTORY);
     }
 

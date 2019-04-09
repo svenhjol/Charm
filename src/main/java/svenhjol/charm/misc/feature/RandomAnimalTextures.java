@@ -120,7 +120,9 @@ public class RandomAnimalTextures extends Feature
     @Override
     public void preInitClient(FMLPreInitializationEvent event)
     {
+        //noinspection unchecked
         RenderingRegistry.registerEntityRenderingHandler(EntityWolf.class, RenderWolfTextures.factory());
+        //noinspection unchecked
         RenderingRegistry.registerEntityRenderingHandler(EntityOcelot.class, RenderOcelotTextures.factory());
     }
 

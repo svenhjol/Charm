@@ -95,6 +95,7 @@ public class LootHelper
 
         LootEntryItem lootItem = new LootEntryItem(item, weight, quality, functions, conditions, Objects.requireNonNull(item.getRegistryName()).toString());
         LootPool pool = table.getPool("main");
+        //noinspection ConstantConditions
         if (pool != null) { // this is nullable, so I don't know what table.getPool() is on about
             pool.addEntry(lootItem);
         }

@@ -119,6 +119,7 @@ public abstract class MesonTileInventory extends MesonTile
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing)
     {
+        //noinspection unchecked
         return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)getInventory() : super.getCapability(capability, facing);
     }
 }

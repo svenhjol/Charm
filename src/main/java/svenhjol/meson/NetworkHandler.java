@@ -12,6 +12,7 @@ public class NetworkHandler
 
     public static void register(Class message, Side side)
     {
+        //noinspection unchecked
         INSTANCE.registerMessage(message, message, i++, side);
     }
 }
