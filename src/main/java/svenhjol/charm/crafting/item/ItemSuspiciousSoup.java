@@ -43,7 +43,9 @@ public class ItemSuspiciousSoup extends ItemFood implements IMesonItem, IMesonIt
     @Override
     protected void onFoodEaten(ItemStack stack, World world, EntityPlayer player)
     {
-        int meta = stack.getMetadata();
-        SuspiciousSoup.effects.get(meta).performEffect(player, SuspiciousSoup.duration * 20, SuspiciousSoup.amplifier);
+        if (!world.isRemote) {
+            int meta = stack.getMetadata();
+            SuspiciousSoup.effects.get(meta).performEffect(player, SuspiciousSoup.duration * 20, SuspiciousSoup.amplifier);
+        }
     }
 }
