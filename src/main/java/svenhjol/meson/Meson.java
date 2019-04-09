@@ -22,6 +22,7 @@ public class Meson
 
     public static void debug(Object ...out)
     {
+        if (!Meson.DEBUG) return;
         System.out.println("=============== MESON DEBUG ================");
         for (Object obj : out) {
             System.out.println(obj);
