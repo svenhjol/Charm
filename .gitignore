@@ -15,7 +15,7 @@
 /*.ipr
 /*.iws
 /*.iml
-
+/src/main/main.iml
 /docs
 
 ## Windows
