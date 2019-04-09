@@ -22,7 +22,7 @@ public class SpongesReduceFallDamage extends Feature
     public void setupConfig()
     {
         // internal
-        amountAbsorbed = 0.75f;
+        amountAbsorbed = 0.5f;
     }
 
     @SubscribeEvent

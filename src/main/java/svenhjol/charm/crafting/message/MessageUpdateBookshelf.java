@@ -15,15 +15,17 @@ public class MessageUpdateBookshelf extends MesonMessage
     public BlockPos pos;
     public int books;
 
+    @SuppressWarnings("unused")
     public MessageUpdateBookshelf(BlockPos pos, int books)
     {
         this.pos = pos;
         this.books = books;
     }
 
+    @SuppressWarnings("unused")
     public MessageUpdateBookshelf()
     {
-
+        // no op
     }
 
     @Override

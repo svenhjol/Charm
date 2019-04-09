@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -37,10 +38,13 @@ public class UseTotemFromInventory extends Feature
                 int slot = inventory.findSlotMatchingUnusedItem(totem);
                 inventory.removeStackFromSlot(slot);
 
-                // do the achievement stuff
+                // do the achievement stuff.  From base MC
                 if (player instanceof EntityPlayerMP) {
                     EntityPlayerMP entityplayermp = (EntityPlayerMP) player;
-                    entityplayermp.addStat(StatList.getObjectUseStats(Items.TOTEM_OF_UNDYING));
+                    StatBase objectUseStats = StatList.getObjectUseStats(Items.TOTEM_OF_UNDYING);
+                    if (objectUseStats != null) {
+                        entityplayermp.addStat(objectUseStats);
+                    }
                     CriteriaTriggers.USED_TOTEM.trigger(entityplayermp, totem);
                 }
 

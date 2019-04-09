@@ -10,19 +10,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.meson.IMesonItem.IItemCustomModelRegister;
 
 import java.util.List;
+import java.util.Objects;
 
 public final class ModelHandler
 {
     @SubscribeEvent
     public static void onRegister(ModelRegistryEvent event)
     {
-        ProxyRegistry.items.forEach(item -> {
-            registerItemModels(item);
-        });
-
-        ProxyRegistry.blocks.forEach(block -> {
-            registerBlockModels(block);
-        });
+        ProxyRegistry.items.forEach(ModelHandler::registerItemModels);
+        ProxyRegistry.blocks.forEach(ModelHandler::registerBlockModels);
     }
 
     public static void registerItemModels(Item item)
@@ -32,7 +28,7 @@ public final class ModelHandler
         if (item instanceof IItemCustomModelRegister) {
             ((IItemCustomModelRegister) item).registerItemModels(item);
         } else {
-            ModelResourceLocation loc = new ModelResourceLocation(item.getRegistryName(), "inventory");
+            ModelResourceLocation loc = new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), "inventory");
             ModelLoader.setCustomModelResourceLocation(item, meta, loc);
         }
 
@@ -44,26 +40,6 @@ public final class ModelHandler
             }
             ModelLoader.registerItemVariants(item, variants.toArray(new ResourceLocation[0]));
         }
-
-//        if (item instanceof MesonItemBlock) {
-//            MesonItemBlock itemBlock = (MesonItemBlock)item;
-//            ResourceLocation[] variants = new ResourceLocation[itemBlock.variants.size()];
-//            variants = itemBlock.variants.toArray(variants);
-//
-//            for (int i = 0; i < variants.length; i++) {
-//                ResourceLocation variant = variants[i];
-//                ModelResourceLocation loc = new ModelResourceLocation(variant, "inventory");
-//                ModelLoader.setCustomModelResourceLocation(itemBlock, i, loc);
-//            }
-//
-//            ModelLoader.registerItemVariants(itemBlock, variants);
-//            ModelBakery.registerItemVariants(itemBlock, variants);
-//            ModelLoader.setCustomMeshDefinition(itemBlock, itemBlock.getCustomMeshDefinition());
-//        } else {
-//
-//            ModelResourceLocation loc = new ModelResourceLocation(item.getRegistryName(), "inventory");
-//            ModelLoader.setCustomModelResourceLocation(item, meta, loc);
-//        }
     }
 
     public static void registerBlockModels(Block block)
@@ -75,10 +51,9 @@ public final class ModelHandler
         if (block instanceof IMesonBlock.IHasCustomInventoryItemModel) {
             ((IMesonBlock.IHasCustomInventoryItemModel) block).setInventoryItemModel();
         } else {
-            /** @todo Item variants */
             int meta = 0;
             Item item = Item.getItemFromBlock(block);
-            ModelResourceLocation loc = new ModelResourceLocation(item.getRegistryName(), "inventory");
+            ModelResourceLocation loc = new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), "inventory");
             ModelLoader.setCustomModelResourceLocation(item, meta, loc);
         }
     }

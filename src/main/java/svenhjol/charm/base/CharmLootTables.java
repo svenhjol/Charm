@@ -5,6 +5,7 @@ import svenhjol.charm.Charm;
 import svenhjol.meson.helper.LootHelper;
 import svenhjol.meson.helper.LootHelper.*;
 
+@SuppressWarnings("unused")
 public class CharmLootTables
 {
     public static final ResourceLocation TREASURE_COMMON = LootHelper.addLootLocation(RARITY.COMMON, TYPE.MISC, new ResourceLocation(Charm.MOD_ID, "treasure/common"));

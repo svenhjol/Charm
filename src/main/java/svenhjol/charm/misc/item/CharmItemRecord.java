@@ -13,7 +13,6 @@ public class CharmItemRecord extends ItemRecord implements IMesonItem
         super(modId + ":" + name, sound);
         register("record_" + name);
         setCreativeTab(CreativeTabs.MISC);
-//        setHasSubtypes(true);
     }
 
     @Override

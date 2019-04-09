@@ -4,6 +4,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import svenhjol.meson.helper.ConfigHelper;
 
+@SuppressWarnings("unused")
 public abstract class Feature implements IFMLEvents
 {
     private Module module;

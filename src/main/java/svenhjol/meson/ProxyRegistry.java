@@ -12,11 +12,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Elements from AutoRegLink ProxyRegisty
+ * @link {https://github.com/Vazkii/AutoRegLib/blob/master/src/main/java/vazkii/arl/util/ProxyRegistry.java}
+ */
 public class ProxyRegistry
 {
     public static List<Item> items = new ArrayList<>();
     public static List<Block> blocks = new ArrayList<>();
 
+    @SuppressWarnings("UnstableApiUsage")
     private static Multimap<Class<?>, IForgeRegistryEntry<?>> entries = MultimapBuilder.hashKeys().arrayListValues().build();
 
     public static <T extends IForgeRegistryEntry<T>> void register(IForgeRegistryEntry<T> object)
@@ -24,6 +29,7 @@ public class ProxyRegistry
         entries.put(object.getRegistryType(), object);
     }
 
+    @SafeVarargs
     public static <T extends IForgeRegistryEntry<T>> void registerAll(IForgeRegistryEntry<T>... object)
     {
         for (IForgeRegistryEntry<T> entry : object) {
@@ -36,6 +42,7 @@ public class ProxyRegistry
      * all the entries, registering them by type.
      */
     @SubscribeEvent
+    @SuppressWarnings("unchecked")
     public static void onRegister(RegistryEvent.Register event)
     {
        Class<?> type = event.getRegistry().getRegistrySuperType();

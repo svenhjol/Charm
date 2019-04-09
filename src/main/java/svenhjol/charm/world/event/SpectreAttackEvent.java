@@ -15,6 +15,7 @@ public class SpectreAttackEvent extends Event
         this.attacked = attacked;
     }
 
+    @SuppressWarnings("unused")
     public EntitySpectre getAttacker()
     {
         return attacker;

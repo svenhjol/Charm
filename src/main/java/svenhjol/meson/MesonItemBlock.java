@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public abstract class MesonItemBlock extends ItemBlock
 {
     public List<ResourceLocation> variants = new ArrayList<>();

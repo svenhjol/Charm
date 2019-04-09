@@ -100,18 +100,21 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
         return new TileBarrel();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return getDefaultState().withProperty(FACING, facing);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
         return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
@@ -124,6 +127,7 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
         return state.getValue(FACING).getIndex();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta)
     {

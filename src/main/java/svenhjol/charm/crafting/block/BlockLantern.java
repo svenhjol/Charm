@@ -26,7 +26,6 @@ import svenhjol.charm.crafting.feature.Lantern;
 import svenhjol.meson.MesonBlock;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockLantern extends MesonBlock
@@ -45,6 +44,7 @@ public class BlockLantern extends MesonBlock
         setDefaultState(blockState.getBaseState().withProperty(HANGING, false));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
@@ -57,18 +57,21 @@ public class BlockLantern extends MesonBlock
         return Charm.MOD_ID;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state)
     {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullBlock(IBlockState state)
     {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
@@ -76,7 +79,7 @@ public class BlockLantern extends MesonBlock
         return new AxisAlignedBB(pad, 0F, pad, 1F - pad, 1F - pad, 1F - pad);
     }
 
-    @Nullable
+    @SuppressWarnings("deprecation")
     @Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
     {
@@ -99,6 +102,7 @@ public class BlockLantern extends MesonBlock
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
@@ -117,7 +121,13 @@ public class BlockLantern extends MesonBlock
         return 2;
     }
 
-    // Copypasta from Quark BlockCandle's Copypasta from BlockFalling
+    /**
+     * Copypasta from Quark BlockCandle's Copypasta from BlockFalling.
+     *
+     * @link {https://github.com/Vazkii/Quark/blob/master/src/main/java/vazkii/quark/decoration/block/BlockCandle.java}
+     * @param worldIn World
+     * @param pos Pos
+     */
     private void checkFallable(World worldIn, BlockPos pos) {
         boolean hanging = worldIn.getBlockState(pos).getValue(BlockLantern.HANGING);
         if (hanging && !worldIn.isAirBlock(pos.up())) return;
@@ -126,7 +136,7 @@ public class BlockLantern extends MesonBlock
         if ((worldIn.isAirBlock(pos.down()) || BlockFalling.canFallThrough(worldIn.getBlockState(pos.down()))) && pos.getY() >= 0) {
             int i = 32;
 
-            if(!BlockFalling.fallInstantly && worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32))) {
+            if(!BlockFalling.fallInstantly && worldIn.isAreaLoaded(pos.add(-i, -i, -i), pos.add(i, i, i))) {
                 if(!worldIn.isRemote) {
                     EntityFallingBlock entityfallingblock = new EntityFallingBlock(worldIn, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, worldIn.getBlockState(pos).withProperty(HANGING, false));
                     worldIn.spawnEntity(entityfallingblock);
@@ -136,6 +146,7 @@ public class BlockLantern extends MesonBlock
                 worldIn.setBlockToAir(pos);
                 BlockPos blockpos;
 
+                //noinspection StatementWithEmptyBody
                 for(blockpos = pos.down(); (worldIn.isAirBlock(blockpos) || BlockFalling.canFallThrough(worldIn.getBlockState(blockpos))) && blockpos.getY() > 0; blockpos = blockpos.down());
 
                 if(blockpos.getY() > 0)
@@ -144,7 +155,7 @@ public class BlockLantern extends MesonBlock
         }
     }
 
-
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state)
     {
@@ -157,6 +168,7 @@ public class BlockLantern extends MesonBlock
         return state.getValue(HANGING) ? 1 : 0;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
@@ -170,6 +182,7 @@ public class BlockLantern extends MesonBlock
         return new BlockStateContainer(this, HANGING);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
@@ -186,6 +199,7 @@ public class BlockLantern extends MesonBlock
         return side.equals(EnumFacing.DOWN) || side.equals(EnumFacing.UP);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
     {

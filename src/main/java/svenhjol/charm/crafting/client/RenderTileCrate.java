@@ -6,6 +6,9 @@ import svenhjol.charm.crafting.tile.TileCrate;
 
 public class RenderTileCrate extends TileEntitySpecialRenderer<TileCrate>
 {
+    /**
+     * Allows names to hover above crate tile entities.
+     */
     public void render(TileCrate te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
         ITextComponent itextcomponent = te.getDisplayName();

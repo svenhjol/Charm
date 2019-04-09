@@ -18,9 +18,10 @@ public class MessageGlowing extends MesonMessage
         this.range = range;
     }
 
+    @SuppressWarnings("unused")
     public MessageGlowing()
     {
-
+        // no op
     }
 
     @Override

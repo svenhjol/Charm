@@ -96,7 +96,6 @@ public class EnderSight extends Feature
 
                 // ender sight started
                 hasEnderSight = true;
-                //world.playSound(player, player.posX, player.posY, player.posZ, CharmSounds.ENDER_WHISPERS, SoundCategory.NEUTRAL, 0.4f, 0.75f);
                 mc.getSoundHandler().playSound(new EnderSightSound(CharmSounds.ENDER_WHISPERS, player, 0.4f, 0.8f));
                 if (doShaderEffects) mc.entityRenderer.loadShader(new ResourceLocation(Charm.MOD_ID, "shaders/ender_sight.json"));
             } else if (hasEnderSight && player.getActivePotionEffect(potion) != null) {
@@ -124,7 +123,6 @@ public class EnderSight extends Feature
                                 float amp = (float) (0.1D - Math.abs(d0));
                                 float vol = (amp * 5.0f);
                                 float pitch = (0.8f + (amp * 1.0f));
-//                                world.playSound(player, player.posX, player.posY, player.posZ, CharmSounds.ENDER_RESONANCE, SoundCategory.NEUTRAL, vol, pitch);
                                 mc.getSoundHandler().playSound(new EnderSightSound(CharmSounds.ENDER_RESONANCE, player, vol, pitch));
                             }
                         }
@@ -132,7 +130,6 @@ public class EnderSight extends Feature
 
                         if (!isCloseAndPlaying) {
                             isCloseAndPlaying = true;
-//                            world.playSound(player, player.posX, player.posY, player.posZ, CharmSounds.ENDER_ABOVE_STRONGHOLD, SoundCategory.NEUTRAL, 0.8f, 1.0f);
                             mc.getSoundHandler().playSound(new EnderSightSound(CharmSounds.ENDER_ABOVE_STRONGHOLD, player, 0.8f, 1.0f));
                         }
                     }

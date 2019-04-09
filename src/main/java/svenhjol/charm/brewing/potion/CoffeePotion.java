@@ -30,6 +30,7 @@ public class CoffeePotion extends CharmPotion
         effects.add(new PotionEffect(MobEffects.HASTE, Coffee.duration * 20));
         effects.add(new PotionEffect(MobEffects.STRENGTH, Coffee.duration * 20));
         PotionEffect[] potionEffects = effects.toArray(new PotionEffect[0]);
+
         type = new PotionType(name, potionEffects).setRegistryName(new ResourceLocation(getModId(), name));
         ProxyRegistry.register(type);
 

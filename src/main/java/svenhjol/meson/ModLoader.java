@@ -38,8 +38,7 @@ public class ModLoader
         // set up configuration
         File configFile = event.getSuggestedConfigurationFile();
 
-        // TODO do something if the config file doesn't exist
-//        if (!configFile.exists()) { }
+        /* @todo do something if the config file doesn't exist */
 
         config = new Configuration(configFile);
         config.load();

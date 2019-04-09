@@ -20,7 +20,7 @@ public class CauldronWaterSource extends Feature
     @Override
     public String getDescription()
     {
-        return "Cauldrons can be used as a permanent water source when holding down shift.";
+        return "Cauldrons can be used as a permanent water source when sneaking.";
     }
 
     @SubscribeEvent

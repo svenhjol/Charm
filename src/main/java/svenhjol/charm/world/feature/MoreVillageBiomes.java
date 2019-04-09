@@ -96,7 +96,7 @@ public class MoreVillageBiomes extends Feature
         final IBlockState original = event.getOriginal();
         Block block = original.getBlock();
         Biome biome = event.getBiome();
-        if (original == null || biome == null || block == null) return;
+        if (biome == null) return;
 
         IBlockState replacement = null;
 

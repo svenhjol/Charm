@@ -63,7 +63,6 @@ public class ContainerBarrel extends MesonContainer
     }
 
     @Override
-    @SuppressWarnings("NullableProblems")
     public boolean canInteractWith(EntityPlayer playerIn)
     {
         return true;

@@ -105,6 +105,11 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
         return rand;
     }
 
+    /**
+     * Probably use this in a future version of Charm.
+     * @return True if this structure is part of a village that is zombie infested
+     */
+    @SuppressWarnings("unused")
     public boolean isZombieInfested()
     {
         return ReflectionHelper.getPrivateValue(StructureVillagePieces.Village.class, (StructureVillagePieces.Village)structure, ObfuscationHelper.Fields.IS_ZOMBIE_INFESTED);

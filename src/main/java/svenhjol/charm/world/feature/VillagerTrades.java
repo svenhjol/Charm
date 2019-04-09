@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("unused")
 public class VillagerTrades extends Feature
 {
     @Override
@@ -47,15 +48,15 @@ public class VillagerTrades extends Feature
         priestProf = event.getRegistry().getValue(new ResourceLocation("minecraft:priest"));
         smithProf = event.getRegistry().getValue(new ResourceLocation("minecraft:smith"));
         librarianProf = event.getRegistry().getValue(new ResourceLocation("minecraft:librarian"));
-        nitwitProf = event.getRegistry().getValue(new ResourceLocation("minecraft:nitwit"));
+//        nitwitProf = event.getRegistry().getValue(new ResourceLocation("minecraft:nitwit"));
 
         // assign careers from professions
 
         if (farmerProf != null) {
             farmer = farmerProf.getCareer(0);
             fisherman = farmerProf.getCareer(1);
-            shepherd = farmerProf.getCareer(2);
-            fletcher = farmerProf.getCareer(3);
+//            shepherd = farmerProf.getCareer(2);
+//            fletcher = farmerProf.getCareer(3);
 
             if (Charm.hasFeature(SuspiciousSoup.class)) {
                 farmer.addTrade(2, new SuspiciousSoupTrade());
@@ -65,7 +66,7 @@ public class VillagerTrades extends Feature
 
         if (librarianProf != null) {
             librarian = librarianProf.getCareer(0);
-            cartographer = librarianProf.getCareer(1);
+//            cartographer = librarianProf.getCareer(1);
 
             librarian.addTrade(1, new EnchantedBookTrade());
         }
@@ -162,7 +163,7 @@ public class VillagerTrades extends Feature
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
         {
             int fleshCount = random.nextInt(10) + 5;
-            int tradeCount = Math.min(random.nextInt(5) + 5, fleshCount);
+            int tradeCount = Math.min(random.nextInt(2) + 2, fleshCount);
 
             List<Item> items = Arrays.asList(forWhat);
 

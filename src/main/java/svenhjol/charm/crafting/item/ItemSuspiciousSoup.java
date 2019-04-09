@@ -33,8 +33,10 @@ public class ItemSuspiciousSoup extends ItemFood implements IMesonItem, IMesonIt
     public void registerItemModels(Item item)
     {
         for (int i = 0; i < SuspiciousSoup.maxTypes; i++) {
-            ModelResourceLocation loc = new ModelResourceLocation(item.getRegistryName(), "inventory");
-            ModelLoader.setCustomModelResourceLocation(item, i, loc);
+            if (item != null && item.getRegistryName() != null) {
+                ModelResourceLocation loc = new ModelResourceLocation(item.getRegistryName(), "inventory");
+                ModelLoader.setCustomModelResourceLocation(item, i, loc);
+            }
         }
     }
 

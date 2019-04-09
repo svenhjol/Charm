@@ -6,6 +6,8 @@ import net.minecraft.world.WorldServer;
 
 public class WorldHelper
 {
+
+    @SuppressWarnings("unused")
     public static BlockPos getNearestStronghold(World world, BlockPos chunk)
     {
         return getNearestStructure(world, chunk, "Stronghold");
@@ -33,7 +35,8 @@ public class WorldHelper
         return seed;
     }
 
-    public static  double getDistanceSq(BlockPos pos1, BlockPos pos2)
+    @SuppressWarnings("unused")
+    public static double getDistanceSq(BlockPos pos1, BlockPos pos2)
     {
         double d0 = (double)(pos1.getX());
         double d1 = (double)(pos1.getZ());

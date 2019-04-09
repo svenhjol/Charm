@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+@SuppressWarnings("unused")
 public class EntityChargedEmerald extends EntityThrowable
 {
     public EntityChargedEmerald(World world)
@@ -76,7 +77,7 @@ public class EntityChargedEmerald extends EntityThrowable
     {
         EntityLivingBase entitylivingbase = this.getThrower();
 
-        if (entitylivingbase != null && entitylivingbase instanceof EntityPlayer && !entitylivingbase.isEntityAlive())
+        if (entitylivingbase instanceof EntityPlayer && !entitylivingbase.isEntityAlive())
         {
             this.setDead();
         }

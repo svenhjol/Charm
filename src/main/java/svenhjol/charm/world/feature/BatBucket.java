@@ -1,6 +1,5 @@
 package svenhjol.charm.world.feature;
 
-import com.google.common.base.Predicate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityBat;
@@ -30,6 +29,7 @@ import svenhjol.meson.helper.PlayerHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class BatBucket extends Feature
 {

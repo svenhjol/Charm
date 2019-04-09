@@ -1,5 +1,6 @@
 package svenhjol.charm.world.decorator.theme;
 
+import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockWoodSlab;
 import net.minecraft.block.state.IBlockState;
@@ -7,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.base.CharmDecoratorTheme;
 import svenhjol.charm.base.CharmLootTables;
@@ -28,7 +30,7 @@ public class VillageCarpenterTheme extends CharmDecoratorTheme
         List<IBlockState> states = new ArrayList<>();
         if (uncommon()) states.add(Blocks.STICKY_PISTON.getDefaultState());
         states.add(Blocks.CRAFTING_TABLE.getDefaultState());
-        states.add(Blocks.PISTON.getDefaultState());
+        states.add(Blocks.PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, EnumFacing.UP));
 
         return states.get(getRand().nextInt(states.size()));
     }

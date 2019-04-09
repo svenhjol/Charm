@@ -73,7 +73,7 @@ public abstract class MesonClassTransformer implements IClassTransformer
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static byte[] transform(byte[] basicClass, Pair<MethodSignature, MethodAction>... methods)
     {
         ClassReader reader = new ClassReader(basicClass);
@@ -142,7 +142,6 @@ public abstract class MesonClassTransformer implements IClassTransformer
         return false;
     }
 
-    @SuppressWarnings("SameParameterValue")
     public static boolean checkDesc(String desc, String expected)
     {
         return desc.equals(expected) || desc.equals(MethodSignature.obfuscate(expected));

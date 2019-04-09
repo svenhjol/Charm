@@ -28,7 +28,6 @@ public interface IMesonBlock
         ProxyRegistry.register(self);
 
         // register the item that the block becomes in your inventory
-        //        ProxyRegistry.register( new ItemBlock(this).setRegistryName(name) );
         this.createItemBlock(name);
     }
 

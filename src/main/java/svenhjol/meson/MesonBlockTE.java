@@ -19,6 +19,7 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNullableByDefault;
+import java.util.Objects;
 
 public abstract class MesonBlockTE<TE extends TileEntity> extends MesonBlock
 {
@@ -56,7 +57,7 @@ public abstract class MesonBlockTE<TE extends TileEntity> extends MesonBlock
      * 
      * @see BlockFlowerPot (the FORGE START and FORGE END show the necessary overrides)
      */
-    public void dropsSelfWithInventory(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+    public void dropsSelfWithInventory(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos)
     {
         TileEntity tile = getTileEntity(world, pos);
 
@@ -84,7 +85,7 @@ public abstract class MesonBlockTE<TE extends TileEntity> extends MesonBlock
         }
 
         for (int i = 0; i < inventorySize; i++) {
-            ItemStack stack = itemHandler.getStackInSlot(i);
+            ItemStack stack = Objects.requireNonNull(itemHandler).getStackInSlot(i);
             if (!stack.isEmpty()) {
                 doItemSpawn(stack, world, pos);
             }

@@ -1,12 +1,13 @@
 package svenhjol.charm.crafting.feature;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import svenhjol.charm.Charm;
+import svenhjol.charm.crafting.block.BlockBookshelfChest;
 import svenhjol.charm.crafting.message.MessageUpdateBookshelf;
 import svenhjol.meson.Feature;
-import svenhjol.charm.crafting.block.BlockBookshelfChest;
 import svenhjol.meson.NetworkHandler;
 
 public class BookshelfChest extends Feature
@@ -32,7 +33,7 @@ public class BookshelfChest extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         bookshelfChest = new BlockBookshelfChest();
-        GameRegistry.registerTileEntity(bookshelfChest.getTileEntityClass(), Charm.MOD_ID + ":bookshelf_chest");
+        GameRegistry.registerTileEntity(bookshelfChest.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID, "bookshelf_chest"));
         NetworkHandler.register(MessageUpdateBookshelf.class, Side.CLIENT);
     }
 }

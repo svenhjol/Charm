@@ -66,7 +66,7 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IBlockDropsIn
         }
 
         if (!isSealedCrate()) {
-            dropsSelfWithInventory(drops, world, pos, state, fortune);
+            dropsSelfWithInventory(drops, world, pos);
         }
     }
 
@@ -85,6 +85,7 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IBlockDropsIn
 
         // if TNT, prime it!
         if (Block.getBlockFromItem(stack.getItem()) instanceof BlockTNT) {
+            @SuppressWarnings("ConstantConditions") // igniter of null seems to be valid when fetched via EntityTNTPrimed::getTntPlacedBy
             EntityTNTPrimed tnt = new EntityTNTPrimed(world, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), null);
 
             if (world.spawnEntity(tnt)) {
@@ -188,12 +189,14 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IBlockDropsIn
         return new TileCrate();    
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state)
     {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state)
     {

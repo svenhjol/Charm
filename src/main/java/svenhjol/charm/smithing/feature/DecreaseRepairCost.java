@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class DecreaseRepairCost extends Feature
 {
-    public static Map<Item, Class<? extends Item>> tools = new HashMap<Item, Class<? extends Item>>();
-    public static Map<Item, EntityEquipmentSlot> armor = new HashMap<Item, EntityEquipmentSlot>();
+    public static Map<Item, Class<? extends Item>> tools = new HashMap<>();
+    public static Map<Item, EntityEquipmentSlot> armor = new HashMap<>();
 
     public static int decreaseCost; // how much the golden item will decrease repair cost by
     public static int xpCost; // the base XP cost to activate

@@ -154,6 +154,10 @@ public class MesonDecoratorItems
         world.spawnEntity(frame);
     }
 
+    /**
+     * Highly likely to be used in future decorations.
+     */
+    @SuppressWarnings("unused")
     public void addPainting(int x, int y, int z, EnumFacing direction)
     {
         BlockPos place = new BlockPos(x, y, z);

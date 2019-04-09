@@ -59,7 +59,6 @@ public class ContainerBookshelfChest extends MesonContainer
     }
 
     @Override
-    @SuppressWarnings("NullableProblems")
     public boolean canInteractWith(EntityPlayer playerIn)
     {
         return true;

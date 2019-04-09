@@ -50,10 +50,11 @@ public class Crate extends Feature
         public String id;
         public ResourceLocation pool;
 
+        @SuppressWarnings("deprecation")
         public CrateType(String id, ResourceLocation pool)
         {
             this.id = id;
-            this.name = I18n.translateToLocal(id) + " " + I18n.translateToLocal("crate");
+            this.name = I18n.translateToLocal(id) + " " + I18n.translateToLocal("crate"); // deprecated, but what's the alternative?
             this.pool = pool;
         }
     }
@@ -93,7 +94,7 @@ public class Crate extends Feature
         // register the crate and sealed crate blocks
         crate = new BlockCrate(BlockCrate.Type.CRATE);
         crateSealed = new BlockCrate(BlockCrate.Type.CRATE_SEALED);
-        GameRegistry.registerTileEntity(crate.getTileEntityClass(), Charm.MOD_ID + ":crate");
+        GameRegistry.registerTileEntity(crate.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID, "crate"));
 
         //  get all loot tables for each rarity type
         Map<RARITY, List<ResourceLocation>> map = new HashMap<RARITY, List<ResourceLocation>>() {{

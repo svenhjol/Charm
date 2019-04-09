@@ -67,12 +67,14 @@ public class LootHelper
         return location;
     }
 
+    @SuppressWarnings("unused")
     public static void addLootLocation(RARITY rarity, TYPE type, List<ResourceLocation> locations)
     {
         checkLootTable(rarity, type);
         lootTables.get(rarity).get(type).addAll(locations);
     }
 
+    @SuppressWarnings("unused")
     public static void addToVanillaLoot(String modId, LootTable table, ResourceLocation res)
     {
         LootPool pool = new LootPool(
@@ -91,9 +93,9 @@ public class LootHelper
         if (functions == null) functions = new LootFunction[0];
         if (conditions == null) conditions = new LootCondition[0];
 
-        LootEntryItem lootItem = new LootEntryItem(item, weight, quality, functions, conditions, item.getRegistryName().toString());
+        LootEntryItem lootItem = new LootEntryItem(item, weight, quality, functions, conditions, Objects.requireNonNull(item.getRegistryName()).toString());
         LootPool pool = table.getPool("main");
-        if (pool != null) {
+        if (pool != null) { // this is nullable, so I don't know what table.getPool() is on about
             pool.addEntry(lootItem);
         }
     }

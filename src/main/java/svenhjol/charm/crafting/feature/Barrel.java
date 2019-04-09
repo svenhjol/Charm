@@ -52,7 +52,7 @@ public class Barrel extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         barrel = new BlockBarrel();
-        GameRegistry.registerTileEntity(barrel.getTileEntityClass(), Charm.MOD_ID + ":barrel");
+        GameRegistry.registerTileEntity(barrel.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID, "barrel"));
 
         //  get all loot tables for each rarity type
         Map<RARITY, List<ResourceLocation>> map = new HashMap<RARITY, List<ResourceLocation>>() {{
@@ -74,6 +74,11 @@ public class Barrel extends Feature
         }
     }
 
+    /**
+     * Gets a barrel type by its rarity.
+     * May be used in future versions of Charm.
+     */
+    @SuppressWarnings("unused")
     public static BarrelType getRandomBarrelType(RARITY r)
     {
         Random rand = new Random();

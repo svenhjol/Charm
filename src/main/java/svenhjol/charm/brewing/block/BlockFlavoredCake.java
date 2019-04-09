@@ -23,7 +23,6 @@ import svenhjol.meson.IMesonBlock.*;
 /**
  * Block-flavored Cake.  Mmmmm
  */
-@SuppressWarnings("NullableProblems")
 public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCustomInventoryItemModel, IHasCustomStateMapper
 {
     public Potion flavor;

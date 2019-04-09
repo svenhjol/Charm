@@ -24,8 +24,8 @@ import java.util.List;
 public class EntityHelper
 {
     /**
-     * Credit to Vazkii
-     * DepthMobs.java
+     * From Quark's DepthMobs.java
+     * @link {https://github.com/Vazkii/Quark/blob/master/src/main/java/vazkii/quark/world/feature/DepthMobs.java}
      */
     public static Biome[] getBiomesWithMob(Class<? extends Entity> clazz)
     {
@@ -43,7 +43,7 @@ public class EntityHelper
     }
 
     /**
-     * Credit to BetterWithMods
+     * From BetterWithMods PotionEventHandler.java
      * @link {https://github.com/BetterWithMods/BetterWithMods/blob/bf630aa1fade156ce8fae0d769ad745a4161b0ba/src/main/java/betterwithmods/event/PotionEventHandler.java}
      */
     public static boolean canMobsSpawnInPos(World world, BlockPos pos)
@@ -147,7 +147,7 @@ public class EntityHelper
     }
 
     /**
-     * Credit to CoFH
+     * From CoFH EntityHelper::transferEntityToWorld
      * @link {https://github.com/CoFH/CoFHCore/blob/1.12/src/main/java/cofh/core/util/helpers/EntityHelper.java}
      */
     public static void transferEntityToWorld(Entity entity, WorldServer oldWorld, WorldServer newWorld)

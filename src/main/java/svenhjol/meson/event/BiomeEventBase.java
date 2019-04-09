@@ -5,6 +5,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.terraingen.BiomeEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
+@SuppressWarnings("unused")
 public class BiomeEventBase extends Event
 {
     @HasResult

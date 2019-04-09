@@ -100,20 +100,20 @@ public class BlockBookshelfChest extends MesonBlockTE<TileBookshelfChest> implem
         return state.getValue(SLOTS);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
         return getDefaultState().withProperty(SLOTS, meta & 9);
     }
-//
+
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
         int slots = this.getNumberOfOccupiedSlots(worldIn, pos);
-        IBlockState s = state.withProperty(SLOTS, slots);
-        return s;
+        return state.withProperty(SLOTS, slots);
     }
-
 
     @Override
     public float getEnchantPowerBonus(World world, BlockPos pos)

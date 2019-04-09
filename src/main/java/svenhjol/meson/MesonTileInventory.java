@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public abstract class MesonTileInventory extends MesonTile
 {
     protected String lootTable;
@@ -118,10 +119,6 @@ public abstract class MesonTileInventory extends MesonTile
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing)
     {
-//        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-//            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getInventory());
-//        }
-//        return null;
         return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)getInventory() : super.getCapability(capability, facing);
     }
 }

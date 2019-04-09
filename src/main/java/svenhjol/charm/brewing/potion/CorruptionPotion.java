@@ -100,7 +100,7 @@ public class CorruptionPotion extends CharmPotion
                 Block b = s.getBlock();
                 if (!undecayable.contains(b) && world.rand.nextFloat() < 0.75f
                 ) {
-                    IBlockState decay = null;
+                    IBlockState decay;
                     if (b == Blocks.STONE) {
                         decay = Blocks.COBBLESTONE.getDefaultState();
                     } else if (b == Blocks.COBBLESTONE) {

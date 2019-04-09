@@ -44,7 +44,7 @@ public class UnearthItems extends Feature
         unearthChance = propDouble(
                 "Unearthing item chance",
                 "Chance (out of 1.0) of unearthing a treasure item when digging with an enchanted shovel/spade.",
-                0.005D
+                0.001D
         );
 
         damage = propInt(

@@ -8,7 +8,6 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.HashMap;
 
-@SuppressWarnings("NullableProblems")
 public class FlavoredCakeStateMapper extends StateMapperBase
 {
     public static final FlavoredCakeStateMapper INSTANCE = new FlavoredCakeStateMapper();

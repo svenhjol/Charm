@@ -3,11 +3,11 @@ package svenhjol.charm.smithing.feature;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.meson.Feature;
-import svenhjol.meson.Meson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +84,7 @@ public class RecycleWithFlint extends Feature
 
         if (c != Items.FLINT) return;
 
-        String material;
+        String material = null;
         float durability = 1.0f;
 
         if (in.getItemDamage() > 0 && in.getMaxDamage() > 0) {
@@ -97,9 +97,11 @@ public class RecycleWithFlint extends Feature
             // handle player armor
             ItemArmor a = (ItemArmor) i;
             ItemStack repairMaterial = a.getArmorMaterial().getRepairItemStack();
-            material = repairMaterial.getItem().getRegistryName().toString();
+            ResourceLocation res = repairMaterial.getItem().getRegistryName();
+            if (res != null) {
+                material = res.toString();
+            }
             units = armor.get(a.armorType);
-            Meson.debug(material, units);
         } else if (i.getRegistryName() != null && horseArmor.get(i.getRegistryName().toString()) != null) {
 
             // handle horse armour

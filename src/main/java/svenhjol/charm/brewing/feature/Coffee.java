@@ -18,7 +18,6 @@ public class Coffee extends Feature
     @Override
     public void setupConfig()
     {
-        // configurable
         duration = propInt(
             "Coffee effect duration",
             "Duration (in seconds) of Coffee effects.",

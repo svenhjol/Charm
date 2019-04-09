@@ -10,7 +10,8 @@ public abstract class MesonContainer extends Container
 {
     /**
      * Thank you ShadowFacts.  You've saved me days of work.
-     * @link https://github.com/shadowfacts/ShadowMC/blob/1.11/src/main/java/net/shadowfacts/shadowmc/inventory/MesonContainer.java
+	 * From Shadowfacts ContainerBase::transferStackInSlot
+     * @link {https://github.com/shadowfacts/ShadowMC/blob/1.11/src/main/java/net/shadowfacts/shadowmc/inventory/ContainerBase.java}
      */
     @Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {

@@ -7,6 +7,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -54,10 +55,14 @@ public class ItemBatBucket extends Item implements IMesonItem
             NetworkHandler.INSTANCE.sendTo(new MessageGlowing(max, range), (EntityPlayerMP) player);
         }
         player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET));
-        player.addStat(StatList.getObjectUseStats(this));
+
+        // stat handling, taken from base MC
+        StatBase objectUseStats = StatList.getObjectUseStats(this);
+        if (objectUseStats != null) {
+            player.addStat(objectUseStats);
+        }
 
         return EnumActionResult.PASS;
-//        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 
 }

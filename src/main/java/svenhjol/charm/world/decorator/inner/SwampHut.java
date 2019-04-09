@@ -26,7 +26,8 @@ public class SwampHut extends MesonInnerDecorator
     @Override
     public void generate()
     {
-        items.spawnCat(4, 3, 4, 1, true, null);
+        /* @todo this is supposed to be a black cat */
+        items.spawnCat(4, 3, 4, 2, true, null);
         if (common()) items.addStorageBlock(2, 2, 6, EnumFacing.SOUTH);
         if (common()) add(Blocks.CAULDRON.getDefaultState().withProperty(BlockCauldron.LEVEL, 3), 4, 2, 6, EnumFacing.SOUTH);
 

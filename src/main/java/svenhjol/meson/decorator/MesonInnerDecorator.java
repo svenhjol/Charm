@@ -310,6 +310,7 @@ public abstract class MesonInnerDecorator
     {
         float newAngle = angle;
 
+        /* @todo There's something wrong with armor stand placing still */
         if (axis != null) {
             switch (axis) {
                 case SOUTH:
@@ -325,7 +326,7 @@ public abstract class MesonInnerDecorator
                     break;
 
                 case NORTH:
-//                    newAngle += 180.0f;
+                    //
 
                 default:
                     break;

@@ -15,14 +15,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-@SuppressWarnings("unused")
 public class PlayerHelper
 {
     public static List<String> getBiomeTypes(EntityPlayer player)
@@ -33,6 +31,7 @@ public class PlayerHelper
         return actualTypes;
     }
 
+    @SuppressWarnings("unused")
     public static List<NonNullList<ItemStack>> getAllInventories(EntityPlayer player)
     {
         InventoryPlayer inventory = player.inventory;
@@ -44,11 +43,7 @@ public class PlayerHelper
         return Math.atan2((double)location.getZ() - player.posZ, (double)location.getX() - player.posX);
     }
 
-    public static boolean isShiftHeld()
-    {
-        return Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
-    }
-
+    @SuppressWarnings("unused")
     public static void replaceHeldItem(EntityPlayer player, EnumHand hand, ItemStack item)
     {
         player.setHeldItem(hand, item);
@@ -93,6 +88,7 @@ public class PlayerHelper
     }
 
     /**
+     * From CoFH EntityHelper::transferPlayerToDimension
      * @link {https://github.com/CoFH/CoFHCore/blob/1.12/src/main/java/cofh/core/util/helpers/EntityHelper.java}
      */
     public static void transferPlayerToDimension(EntityPlayerMP player, int dimension, PlayerList manager)

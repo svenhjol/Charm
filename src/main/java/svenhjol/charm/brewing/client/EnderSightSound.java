@@ -8,7 +8,6 @@ import net.minecraft.util.SoundEvent;
 public class EnderSightSound extends MovingSound
 {
     private EntityPlayer player;
-    private float distance;
 
     public EnderSightSound(SoundEvent sound, EntityPlayer player, float volume, float pitch)
     {

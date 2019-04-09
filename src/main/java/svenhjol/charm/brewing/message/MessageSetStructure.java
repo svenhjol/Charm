@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import svenhjol.meson.ClientHandler;
 import svenhjol.meson.MesonMessage;
 
-@SuppressWarnings("unused")
 public class MessageSetStructure extends MesonMessage
 {
     private BlockPos pos;
@@ -21,9 +20,10 @@ public class MessageSetStructure extends MesonMessage
         this.name = name;
     }
 
+    @SuppressWarnings("unused")
     public MessageSetStructure()
     {
-
+        // no op
     }
 
     @Override

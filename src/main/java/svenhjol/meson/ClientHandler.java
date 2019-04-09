@@ -10,11 +10,13 @@ public class ClientHandler
 {
     private static Map<String, BlockPos> structures = new HashMap<>();
 
+    @SuppressWarnings("unused")
     public static void setNearestStronghold(@Nullable BlockPos structure)
     {
         structures.put("Stronghold", structure);
     }
 
+    @SuppressWarnings("unused")
     public static void setNearestEndCity(@Nullable BlockPos structure)
     {
         structures.put("EndCity", structure);

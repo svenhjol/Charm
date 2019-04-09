@@ -11,7 +11,6 @@ public class ClassTransformer extends MesonClassTransformer
     private static final String ASM_HOOKS = "svenhjol/charm/base/ASMHooks";
 
     static {
-
         // find these from mcp-notch.srg
         CLASS_MAPPINGS = new ClassNameMap(
                 "net/minecraft/init/Blocks", "aox",
@@ -47,56 +46,8 @@ public class ClassTransformer extends MesonClassTransformer
             ClassTransformer::transformLayerArmorBase);
         transformers.put("net.minecraft.inventory.ContainerRepair$2",
             ClassTransformer::transformContainerRepair);
-//        transformers.put("net.minecraft.inventory.ContainerBrewingStand",
-//            ClassTransformer::transformContainerBrewingStand);
-//        transformers.put("net.minecraft.inventory.ContainerBrewingStand$Potion",
-//                ClassTransformer::transformContainerBrewingStandPotion);
         transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry",
-                ClassTransformer::transformBrewingRecipeRegistry);
-    }
-
-    private static byte[] transformContainerBrewingStand(byte[] basicClass)
-    {
-        log("Transforming ContainerBrewingStand");
-        MethodSignature transferStackInSlot = new MethodSignature("transferStackInSlot", "func_82846_b", "b", "(Lnet/minecraft/entity/player/EntityPlayer;I)Lnet/minecraft/item/ItemStack;");
-
-        byte[] transClass = basicClass;
-
-        transClass = transform(transClass, Pair.of(transferStackInSlot, combine(
-            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.IF_ICMPNE,
-            (MethodNode method, AbstractInsnNode node) -> {
-                InsnList newInstructions = new InsnList();
-                newInstructions.add(new JumpInsnNode(Opcodes.IF_ICMPLT, ((JumpInsnNode)node).label));
-
-                method.instructions.insertBefore(node, newInstructions);
-                method.instructions.remove(node);
-                return true;
-            }
-        )));
-
-        return transClass;
-    }
-
-    private static byte[] transformContainerBrewingStandPotion(byte[] basicClass)
-    {
-        log("Transforming ContainerBrewingStand$Potion");
-        MethodSignature getSlotStackLimit = new MethodSignature("getSlotStackLimit", "func_75219_a", "a", "()I");
-
-        byte[] transClass = basicClass;
-
-        transClass = transform(transClass, Pair.of(getSlotStackLimit, combine(
-                (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ICONST_1,
-                (MethodNode method, AbstractInsnNode node) -> {
-                    InsnList newInstructions = new InsnList();
-                    newInstructions.add(new IntInsnNode(Opcodes.BIPUSH, 64));
-
-                    method.instructions.insertBefore(node, newInstructions);
-                    method.instructions.remove(node);
-                    return true;
-                }
-        )));
-
-        return transClass;
+            ClassTransformer::transformBrewingRecipeRegistry);
     }
 
     private static byte[] transformBrewingRecipeRegistry(byte[] basicClass)
@@ -120,6 +71,13 @@ public class ClassTransformer extends MesonClassTransformer
         return transClass;
     }
 
+    /**
+     * ContainerRepair: Class transformer
+     * - allow for zero XP cost
+     *
+     * @param basicClass Class to transform
+     * @return Transformed class
+     */
     private static byte[] transformContainerRepair(byte[] basicClass)
     {
         log("Transforming ContainerRepair");
@@ -141,10 +99,8 @@ public class ClassTransformer extends MesonClassTransformer
         return transClass;
     }
 
-
-
     /**
-     * LayerArmorBase: ASM hooks
+     * LayerArmorBase: Class transformer
      * - check if the armour is leather and the player is invisible, prevents renderArmorLayer from rendering the armour if true.
      *
      * @param basicClass Class to transform
@@ -179,13 +135,12 @@ public class ClassTransformer extends MesonClassTransformer
     }
 
     /**
-     * EntityPlayer ASM hooks:
+     * EntityPlayer: Class transformer
      * - prevents detection of player if they are invisible and wearing leather armour
      *
      * @param basicClass Class to transform
      * @return Transformed class
      */
-    @SuppressWarnings("unchecked")
     private static byte[] transformEntityPlayer(byte[] basicClass)
     {
         log("Transforming EntityPlayer");
@@ -217,13 +172,12 @@ public class ClassTransformer extends MesonClassTransformer
     }
 
     /**
-     * StructureVillagePieces$Village: ASM hooks
+     * StructureVillagePieces$Village: Class transformer
      * - adds a GetVillageBlockID event fire to the `biomeDoor` method so that the correct door wood can be used when building villages.
      *
      * @param basicClass Class to transform
      * @return Transformed class
      */
-    @SuppressWarnings("unchecked")
     private static byte[] transformStructureVillagePiecesVillage(byte[] basicClass)
     {
         log("Transforming StructureVillagePieces$Village");
@@ -242,6 +196,13 @@ public class ClassTransformer extends MesonClassTransformer
         )));
     }
 
+    /**
+     * StructureStart: Class transformer
+     * - change the addComponentParts method so we can hook into it while rendering is happening.
+     *
+     * @param basicClass Class to transform
+     * @return Transformed class
+     */
     private static byte[] transformStructureStart(byte[] basicClass)
     {
         log("Transforming StructureStart");
