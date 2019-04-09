@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 public class Meson
 {
     public static final String MOD_ID = "Meson";
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
     private static boolean hasInit = false;
 
     public static void log(Object ...out)
