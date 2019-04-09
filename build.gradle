@@ -16,7 +16,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 
-version = config.version
+version = "${config.mc_version}-${config.version}"
 group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = config.mod_name
 
@@ -64,15 +64,11 @@ dependencies {
 }
 
 processResources {
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-
-        // replace version and mcversion
         expand 'version': project.version, 'mcversion': config.mc_version
     }
 
-    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info', '**/psd/**'
     }
