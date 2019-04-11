@@ -3,6 +3,7 @@ package svenhjol.charm.world.decorator.inner;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -117,7 +118,15 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
 
     public Biome getBiome()
     {
-        return world.getBiome(WorldHelper.getNearestVillage(world, pos));
+        Biome biome;
+        BlockPos nearest = WorldHelper.getNearestVillage(world, pos);
+        if (nearest != null) {
+            biome = world.getBiome(nearest);
+        } else {
+            biome = Biomes.PLAINS;
+        }
+
+        return biome;
     }
 
     public static class Church extends VillageInnerDecorator

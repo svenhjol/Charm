@@ -59,8 +59,8 @@ repositories {
 }
 
 dependencies {
-    compile "vazkii.autoreglib:AutoRegLib:1.3-27.13"
-    compile "vazkii.quark:Quark:r1.5-146.8"
+    compileOnly "vazkii.autoreglib:AutoRegLib:1.3-27.13"
+    compileOnly "vazkii.quark:Quark:r1.5-146.8"
 }
 
 processResources {
