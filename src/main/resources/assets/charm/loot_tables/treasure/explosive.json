@@ -91,16 +91,6 @@
           "type": "item",
           "name": "minecraft:beacon",
           "weight": 4
-        },
-        {
-          "type": "item",
-          "name": "minecraft:elytra",
-          "weight": 2
-        },
-        {
-          "type": "item",
-          "name": "minecraft:nether_star",
-          "weight": 2
         }
       ]
     }

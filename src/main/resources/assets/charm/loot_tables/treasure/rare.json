@@ -198,11 +198,6 @@
               "treasure": true
             }
           ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:nether_star",
-          "weight": 1
         }
       ]
     },

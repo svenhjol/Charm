@@ -122,23 +122,17 @@ crate=Crate
 
 # Loot location classifications
 common=Common
-common_armor=Common
-common_tools=Common
 common_books=Common
-common_potions=Common
-junk=Common
+common_potions=Potions
+junk=Boring
 smith=Village
 librarian=Village
 priest=Village
 butcher=Village
 farmer=Village
 uncommon=Uncommon
-uncommon_armor=Uncommon
-uncommon_tools=Uncommon
 uncommon_books=Uncommon
 valuable=Valuable
-valuable_armor=Valuable
-valuable_tools=Valuable
 rare=Rare
 explosive=Dangerous
 dangerous=Dangerous
