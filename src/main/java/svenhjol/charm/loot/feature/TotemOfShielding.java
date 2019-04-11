@@ -97,9 +97,9 @@ public class TotemOfShielding extends Feature
         LootFunction[] functions = new LootFunction[0];
         LootCondition[] conditions = new LootCondition[0];
 
-        if (event.getName().equals(LootTableList.CHESTS_WOODLAND_MANSION)) { weight = 12; }
-        if (event.getName().equals(LootTableList.CHESTS_DESERT_PYRAMID)) { weight = 12; }
-        if (event.getName().equals(LootTableList.CHESTS_JUNGLE_TEMPLE)) { weight = 12; }
+        if (event.getName().equals(LootTableList.CHESTS_WOODLAND_MANSION)) { weight = 14; }
+        if (event.getName().equals(LootTableList.CHESTS_DESERT_PYRAMID)) { weight = 14; }
+        if (event.getName().equals(LootTableList.CHESTS_JUNGLE_TEMPLE)) { weight = 14; }
         if (event.getName().equals(CharmLootTables.VILLAGE_PRIEST)) { weight = 4; }
         if (event.getName().equals(CharmLootTables.TREASURE_VALUABLE)) { weight = 12; }
         if (event.getName().equals(CharmLootTables.TREASURE_RARE)) { weight = 16; }
