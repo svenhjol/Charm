@@ -118,15 +118,8 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
 
     public Biome getBiome()
     {
-        Biome biome;
         BlockPos nearest = WorldHelper.getNearestVillage(world, pos);
-        if (nearest != null) {
-            biome = world.getBiome(nearest);
-        } else {
-            biome = Biomes.PLAINS;
-        }
-
-        return biome;
+        return nearest != null ? world.getBiome(nearest) : Biomes.PLAINS; // just default to plains, gah
     }
 
     public static class Church extends VillageInnerDecorator
