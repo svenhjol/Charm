@@ -12,3 +12,12 @@
 ## Next up
 
     [ ] Mystcraft profile village biome crash [https://github.com/svenhjol/Charm/issues/9]()  
+    [ ] Decrease bat glowing time
+    [ ] increase village deco spawn rate for common
+    [ ] more village variations: beds in house3, fisherman and shepherd themes
+    [ ] more wood open/close sounds, remember refs
+    [ ] look into cake naming and pickblock
+    [ ] cactuses could smash without drops on water collect 
+    [ ] increase spectre spawn rate and group size
+    [ ] mobs in villages should not be so tame
+    [ ] pumpkins spawn in villages as part of outer deco
