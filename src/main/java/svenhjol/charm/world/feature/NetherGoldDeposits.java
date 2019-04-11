@@ -41,4 +41,10 @@ public class NetherGoldDeposits extends Feature
         ore = new BlockNetherGoldDeposit();
         GameRegistry.registerWorldGenerator(new NetherGoldDepositGenerator(), 0);
     }
+
+    @Override
+    public String[] getDisableMods()
+    {
+        return new String[] { "nethergoldore" };
+    }
 }

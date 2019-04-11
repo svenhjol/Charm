@@ -34,9 +34,13 @@ public abstract class Module implements IFMLEvents
         features.forEach(feature -> {
             feature.enabled = ConfigHelper.propBoolean(getConfig(), feature.getName(), this.getName(), feature.getDescription(), feature.enabledByDefault);
 
-            // check compatibilities
-            if (feature.requiresMods()) {
+            // only enable feature if these mods are present
+            if (feature.getRequiredMods().length > 0) {
                 feature.enabled = checkMods(feature.getRequiredMods());
+            }
+            // disable the feature if these mods exist
+            if (feature.getDisableMods().length > 0) {
+                feature.enabled = !checkMods(feature.getDisableMods());
             }
 
             if (feature.enabled) {
@@ -116,10 +120,10 @@ public abstract class Module implements IFMLEvents
 
     protected boolean checkMods(String[] mods)
     {
-        boolean isCompatible = true;
+        boolean modsLoaded = true;
         for (String mod : mods) {
-            isCompatible = isCompatible && Loader.isModLoaded(mod);
+            modsLoaded = modsLoaded && Loader.isModLoaded(mod);
         }
-        return isCompatible;
+        return modsLoaded;
     }
 }

@@ -28,7 +28,7 @@ public abstract class Feature implements IFMLEvents
         if (this.hasTerrainSubscriptions()) {
             MinecraftForge.TERRAIN_GEN_BUS.register(this);
         }
-        if (this.requiresMods()) {
+        if (this.getRequiredMods().length > 0) {
             setupCompat();
         }
 
@@ -93,15 +93,12 @@ public abstract class Feature implements IFMLEvents
         return false;
     }
 
-    public boolean requiresMods()
-    {
-        return getRequiredMods().length > 0;
-    }
-
     public String[] getRequiredMods()
     {
         return new String[] {};
     }
+
+    public String[] getDisableMods() { return new String[] {}; }
 
     public FeatureCompat getCompat()
     {
