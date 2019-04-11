@@ -44,10 +44,14 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        boolean eaten = super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
-        if (eaten) {
-            PotionEffect effect = new PotionEffect(flavor, FlavoredCake.duration * 20, FlavoredCake.amplifier);
-            playerIn.addPotionEffect(effect);
+        boolean eaten = false;
+
+        if (!worldIn.isRemote) {
+            eaten = super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+            if (eaten) {
+                PotionEffect effect = new PotionEffect(flavor, FlavoredCake.duration * 20, FlavoredCake.amplifier);
+                playerIn.addPotionEffect(effect);
+            }
         }
 
         return eaten;
