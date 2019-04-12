@@ -54,7 +54,7 @@ public class BatBucket extends Feature
         maxSeconds = propInt(
             "Maximum time",
             "Maximum time (in seconds) that the glowing effect will last.",
-            12
+            10
         );
         range = propInt(
             "Viewing range",
