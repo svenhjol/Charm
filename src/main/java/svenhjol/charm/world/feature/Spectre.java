@@ -49,6 +49,11 @@ public class Spectre extends Feature
                 "Maximum depth at which Spectres can spawn.",
                 24
         );
+        weight = propInt(
+                "Spawn weight",
+                "The higher this value, the more Spectres will spawn.",
+                100
+        );
 
         // internal
         applyCurse = true;
@@ -57,9 +62,8 @@ public class Spectre extends Feature
         maxHealth = 0.5f;
         attackDamage = 0.01f;
         movementSpeed = 0.2f;
-        min = 3;
+        min = 4;
         max = 8;
-        weight = 80;
         trackingRange = 100;
     }
 
