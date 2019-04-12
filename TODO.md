@@ -9,16 +9,20 @@
     [X] Add new Nether ore texture [https://github.com/svenhjol/Charm/issues/5]()  
     [X] Disable NetherGoldDeposits if Nether gold ore mod is present [https://github.com/svenhjol/Charm/issues/6]()
 
+## Alpha 4
+
+    [X] Mystcraft profile village biome crash [https://github.com/svenhjol/Charm/issues/9]()  
+    [X] Decrease bat glowing time
+    [X] increase village deco spawn rate for common
+    [X] increase spectre spawn rate and group size
+    [X] mobs in villages should not be so tame
+    [X] outer deco config options [https://github.com/svenhjol/Charm/issues/10]()
+    [X] Reduce golem spawn rate by default [https://github.com/svenhjol/Charm/issues/11]()
+
 ## Next up
 
-    [ ] Mystcraft profile village biome crash [https://github.com/svenhjol/Charm/issues/9]()  
-    [ ] Decrease bat glowing time
-    [ ] increase village deco spawn rate for common
     [ ] more village variations: beds in house3, fisherman and shepherd themes
     [ ] more wood open/close sounds, remember refs
     [ ] look into cake naming and pickblock
     [ ] cactuses could smash without drops on water collect 
-    [ ] increase spectre spawn rate and group size
-    [ ] mobs in villages should not be so tame
     [ ] pumpkins spawn in villages as part of outer deco
-    [ ] outer deco config options
