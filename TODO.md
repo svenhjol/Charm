@@ -21,3 +21,4 @@
     [ ] increase spectre spawn rate and group size
     [ ] mobs in villages should not be so tame
     [ ] pumpkins spawn in villages as part of outer deco
+    [ ] outer deco config options
