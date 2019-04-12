@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonOuterDecorator;
 import svenhjol.meson.helper.EntityHelper;
 
@@ -32,7 +33,7 @@ public class Mobs extends MesonOuterDecorator
 
         int max = 1;
         for (int i = 0; i < max; i++) {
-            if (rand.nextFloat() < 0.7f) return;
+            if (rand.nextFloat() <= VillageDecorations.mobsWeight) return;
 
             int xx = rand.nextInt(16) + 8;
             int zz = rand.nextInt(16) + 8;
@@ -44,7 +45,7 @@ public class Mobs extends MesonOuterDecorator
 
             int mobType = rand.nextInt(3);
 
-            if (biome.isSnowyBiome() && rand.nextFloat() <= 0.4f) {
+            if (biome.isSnowyBiome() && rand.nextFloat() <= VillageDecorations.golemsWeight) {
                 // Jon Snow
                 EntitySnowman snowGolem = new EntitySnowman(world);
                 snowGolem.setPosition(posForMob.getX(), posForMob.getY(), posForMob.getZ());
@@ -58,7 +59,7 @@ public class Mobs extends MesonOuterDecorator
                     EntityOcelot cat = (EntityOcelot) entity;
                     cat.setTameSkin(rand.nextInt(4));
                     cat.setSitting(false);
-                    if (rand.nextFloat() < 0.9f) {
+                    if (rand.nextFloat() < 0.2f) {
                         cat.setTamed(true);
                         cat.setOwnerId(cat.getUniqueID());
                     }
@@ -69,12 +70,12 @@ public class Mobs extends MesonOuterDecorator
                 if (entity != null) {
                     EntityWolf wolf = (EntityWolf) entity;
                     wolf.setSitting(false);
-                    if (rand.nextFloat() < 0.9f) {
+                    if (rand.nextFloat() < 0.2f) {
                         wolf.setTamed(true);
                         wolf.setOwnerId(wolf.getUniqueID());
                     }
                 }
-            } else if (mobType == 2 && rand.nextFloat() < 0.4f) {
+            } else if (mobType == 2 && rand.nextFloat() <= VillageDecorations.golemsWeight) {
                 // Iron Golem
                 EntityIronGolem golem = new EntityIronGolem(world);
                 golem.setPosition(posForMob.getX(), posForMob.getY(), posForMob.getZ());

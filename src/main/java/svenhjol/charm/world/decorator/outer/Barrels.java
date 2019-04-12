@@ -11,6 +11,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmLootTables;
 import svenhjol.charm.crafting.feature.Barrel;
 import svenhjol.charm.crafting.tile.TileBarrel;
+import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonOuterDecorator;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class Barrels extends MesonOuterDecorator
 
         int max = 1;
         for (int i = 0; i < max; i++) {
-            if (rand.nextFloat() < 0.8f) continue;
+            if (rand.nextFloat() < VillageDecorations.barrelsWeight) continue;
 
             int xx = rand.nextInt(16) + 8;
             int zz = rand.nextInt(16) + 8;

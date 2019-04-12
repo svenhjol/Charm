@@ -29,8 +29,20 @@ public class VillageDecorations extends Feature
     public static boolean decorativeBlocks;
     public static boolean carpet;
 
-    public static float common = 0.85f;
-    public static float uncommon = 0.4f;
+    public static double cropsChance;
+    public static double flowersChance;
+    public static double lightsChance;
+    public static double mobsChance;
+    public static double barrelsChance;
+    public static double treesChance;
+    public static double mushroomsChance;
+
+    public static double golemsWeight;
+    public static double barrelsWeight;
+    public static double mobsWeight;
+
+    public static float common = 0.88f;
+    public static float uncommon = 0.35f;
     public static float valuable = 0.05f;
     public static float rare = 0.005f;
 
@@ -50,7 +62,7 @@ public class VillageDecorations extends Feature
         common = (float)propDouble(
                 "Common chance",
                 "Chance (out of 1.0) of items and blocks considered 'common' to spawn.",
-                0.8
+                0.90
         );
         uncommon = (float)propDouble(
                 "Uncommon chance",
@@ -107,6 +119,61 @@ public class VillageDecorations extends Feature
                 "Coloured rugs appear in village houses and on the top of the village well.",
                 true
         );
+        cropsChance = propDouble(
+                "Crops outside",
+                "Chance (out of 1.0) of a village having tilled soil, crops and water wells within its boundary.",
+                0.75
+        );
+        flowersChance = propDouble(
+                "Flowers outside",
+                "Chance (out of 1.0) of a village having more flowers (up to 3 types chosen based on village seed) within its boundary.",
+                0.9
+        );
+        lightsChance = propDouble(
+                "Lights outside",
+                "Chance (out of 1.0) of a village having torches and lanterns scattered within its boundary.",
+                0.75
+        );
+        mobsChance = propDouble(
+                "Mobs outside",
+                "Chance (out of 1.0) of a village having more dogs, cats and golems within its boundary.\n" +
+                        "If the village is in a snowy biome, this option lets snow golems spawn.",
+                0.75
+        );
+        barrelsChance = propDouble(
+                "Barrels outside",
+                "Chance (out of 1.0) of a village having barrels containing farming-related loot scattered within its boundary.",
+                0.6
+        );
+        treesChance = propDouble(
+                "Trees outside",
+                "Chance (out of 1.0) of a village having different types of trees spawn within its boundary.",
+                0.75
+        );
+        mushroomsChance = propDouble(
+                "Mushrooms outside",
+                "Chance (out of 1.0) of a village having mushrooms spawn, including large mushrooms, within its boundary.",
+                0.75
+        );
+        golemsWeight = propDouble(
+                "Extra golem weight",
+                "Chance (out of 1.0) of a chunk within the village boundary spawning a golem.\n" +
+                        "This is only valid if the 'Mobs outside' config option allows it.",
+                0.2
+        );
+        barrelsWeight = propDouble(
+                "Extra barrels weight",
+                "Chance (out of 1.0) of a chunk within the village boundary spawning a barrel.\n" +
+                        "This is only valid if the 'Barrels outside' config option allows it.",
+                0.7
+        );
+        mobsWeight = propDouble(
+                "Extra mobs weight",
+                "Chance (out of 1.0) of a chunk allowing any kind of mob generation.\n" +
+                        "The greater the chance, the more likely a mob will be considered to spawn.\n" +
+                        "This is only valid is the 'Mobs outside' config option allows it.",
+                0.75
+        );
     }
 
     @SubscribeEvent
@@ -140,7 +207,6 @@ public class VillageDecorations extends Feature
             Random rand = new Random();
             long villageSeed = villageChunks.get(chunk);
             rand.setSeed(villageSeed);
-//            Meson.debug("Decorate", chunk, villageSeed);
 
             List<ChunkPos> chunks = new ArrayList<>();
             for (ChunkPos c : villageChunks.keySet()) {
@@ -149,13 +215,13 @@ public class VillageDecorations extends Feature
 
             // use the village seed rand for deterministic decoration types
             List<MesonOuterDecorator> decorators = new ArrayList<>();
-            if (rand.nextFloat() <= 0.9f) decorators.add(new Flowers(world, pos, rand, chunks));
-            if (rand.nextFloat() <= 1.0f) decorators.add(new Lights(world, pos, rand, chunks));
-            if (rand.nextFloat() <= 0.9f) decorators.add(new Mobs(world, pos, rand, chunks));
-            if (rand.nextFloat() <= 0.7f) decorators.add(new Crops(world, pos, rand, chunks));
-            if (rand.nextFloat() <= 0.7f) decorators.add(new Barrels(world, pos, rand, chunks));
-            if (rand.nextFloat() <= 0.7f) decorators.add(new Trees(world, pos, rand, chunks));
-            if (rand.nextFloat() <= 0.7f) decorators.add(new Mushrooms(world, pos, rand, chunks));
+            if (rand.nextFloat() <= flowersChance) decorators.add(new Flowers(world, pos, rand, chunks));
+            if (rand.nextFloat() <= lightsChance) decorators.add(new Lights(world, pos, rand, chunks));
+            if (rand.nextFloat() <= mobsChance) decorators.add(new Mobs(world, pos, rand, chunks));
+            if (rand.nextFloat() <= cropsChance) decorators.add(new Crops(world, pos, rand, chunks));
+            if (rand.nextFloat() <= barrelsChance) decorators.add(new Barrels(world, pos, rand, chunks));
+            if (rand.nextFloat() <= treesChance) decorators.add(new Trees(world, pos, rand, chunks));
+            if (rand.nextFloat() <= mushroomsChance) decorators.add(new Mushrooms(world, pos, rand, chunks));
 
             decorators.forEach(MesonOuterDecorator::generate);
 
