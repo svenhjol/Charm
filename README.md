@@ -15,3 +15,7 @@ Please report any issues in the tracker here.
 * Includes **AutoRegLib** `ProxyRegistry` (modified).  [Link to code](https://github.com/Vazkii/AutoRegLib/blob/master/src/main/java/vazkii/arl/util/ProxyRegistry.java)
 * "Spectre" texture modelled on "Wraith" texture from **Quark**.
 * Crates and other inventory code heavily inspired by [Shadowfacts' 1.12 Forge tutorials](https://shadowfacts.net/tutorials/forge-modding-112/).
+
+## Notes
+
+* Mystcraft compatibility requires Forge 2770.
