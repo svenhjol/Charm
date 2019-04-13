@@ -39,7 +39,7 @@ public class CactusWater extends Feature
                 SoundHelper.playerSound(event.getEntityPlayer(), SoundEvents.ITEM_BOTTLE_EMPTY, 0.5f, 1.1f);
             } else {
                 if (event.getWorld().rand.nextFloat() <= Math.min(1.0, chance * 2)) {
-                    event.getWorld().destroyBlock(event.getPos(), true);
+                    event.getWorld().destroyBlock(event.getPos(), event.getWorld().rand.nextBoolean());
                 }
                 if (event.getWorld().rand.nextFloat() <= chance) {
                     EntityPlayer player = event.getEntityPlayer();
