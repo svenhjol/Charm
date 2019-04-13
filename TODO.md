@@ -18,11 +18,14 @@
     [X] mobs in villages should not be so tame
     [X] outer deco config options [https://github.com/svenhjol/Charm/issues/10]()
     [X] Reduce golem spawn rate by default [https://github.com/svenhjol/Charm/issues/11]()
+    [X] JEI layer appearing above tooltips [https://github.com/svenhjol/Charm/issues/12]()
+    [X] cactuses could smash without drops on water collect
+    [X] Swamphut cat is supposed to be black
 
 ## Next up
 
     [ ] more village variations: beds in house3, fisherman and shepherd themes
     [ ] more wood open/close sounds, remember refs
     [ ] look into cake naming and pickblock
-    [ ] cactuses could smash without drops on water collect 
     [ ] pumpkins spawn in villages as part of outer deco
+    [ ] Village bookshelf chests don't show the right texture [https://github.com/svenhjol/Charm/issues/14]()
