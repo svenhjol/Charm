@@ -1,0 +1,57 @@
+{
+  "pools": [
+    {
+      "name": "charm:village/shepherd",
+      "rolls": {
+        "min": 2,
+        "max": 4
+      },
+      "bonus_rolls": {
+        "min": 2,
+        "max": 4
+      },
+      "entries":[
+        {
+          "type": "item",
+          "name": "minecraft:wool",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": {
+                "min": 0,
+                "max": 15
+              }
+            },
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:string",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:shears",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
