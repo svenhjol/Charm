@@ -1,10 +1,14 @@
 package svenhjol.charm.brewing.block;
 
 import net.minecraft.block.BlockCake;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
@@ -27,6 +31,7 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
 {
     public Potion flavor;
     private static ModelResourceLocation MODEL_INVENTORY = new ModelResourceLocation(new ResourceLocation("minecraft", "cake"), "inventory");
+    protected Material material;
 
     @Override
     public String getModId()
@@ -36,9 +41,11 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
 
     public BlockFlavoredCake(String name)
     {
-        super();
         this.register("cake_" + name);
+        this.material = Material.CAKE;
         this.flavor = Potion.getPotionFromResourceLocation(name);
+        this.setSoundType(SoundType.CLOTH);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(BITES, 0));
     }
 
     @Override
@@ -55,6 +62,11 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
         }
 
         return eaten;
+    }
+
+    @Override
+    public ItemStack getItem(World world, BlockPos pos, IBlockState state) {
+        return new ItemStack(Item.getItemFromBlock(this));
     }
 
     @Override
