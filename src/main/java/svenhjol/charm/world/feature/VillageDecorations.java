@@ -34,11 +34,13 @@ public class VillageDecorations extends Feature
     public static double lightsChance;
     public static double mobsChance;
     public static double barrelsChance;
+    public static double pumpkinsChance;
     public static double treesChance;
     public static double mushroomsChance;
 
     public static double golemsWeight;
     public static double barrelsWeight;
+    public static double pumpkinsWeight;
     public static double mobsWeight;
 
     public static float common = 0.88f;
@@ -145,6 +147,11 @@ public class VillageDecorations extends Feature
                 "Chance (out of 1.0) of a village having barrels containing farming-related loot scattered within its boundary.",
                 0.6
         );
+        pumpkinsChance = propDouble(
+                "Pumpkins outside",
+                "Chance (out of 1.0) of a village having pumpkins (and rarely melons) scattered within its boundary.",
+                0.6
+        );
         treesChance = propDouble(
                 "Trees outside",
                 "Chance (out of 1.0) of a village having different types of trees spawn within its boundary.",
@@ -165,6 +172,12 @@ public class VillageDecorations extends Feature
                 "Extra barrels weight",
                 "Chance (out of 1.0) of a chunk within the village boundary spawning a barrel.\n" +
                         "This is only valid if the 'Barrels outside' config option allows it.",
+                0.7
+        );
+        pumpkinsWeight = propDouble(
+                "Extra pumpkins weight",
+                "Chance (out of 1.0) of a chunk within the village boundary spawning some pumpkins.\n" +
+                        "This is only valid if the 'Pumpkins outside' config option allows it.",
                 0.7
         );
         mobsWeight = propDouble(
@@ -220,6 +233,7 @@ public class VillageDecorations extends Feature
             if (rand.nextFloat() <= mobsChance) decorators.add(new Mobs(world, pos, rand, chunks));
             if (rand.nextFloat() <= cropsChance) decorators.add(new Crops(world, pos, rand, chunks));
             if (rand.nextFloat() <= barrelsChance) decorators.add(new Barrels(world, pos, rand, chunks));
+            if (rand.nextFloat() <= pumpkinsChance) decorators.add(new Pumpkins(world, pos, rand, chunks));
             if (rand.nextFloat() <= treesChance) decorators.add(new Trees(world, pos, rand, chunks));
             if (rand.nextFloat() <= mushroomsChance) decorators.add(new Mushrooms(world, pos, rand, chunks));
 
