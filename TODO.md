@@ -24,14 +24,15 @@
 
 ## Alpha 5
 
+    [-] More cake issues [https://github.com/svenhjol/Charm/issues/16]()
     [ ] Village bookshelf chests don't show the right texture [https://github.com/svenhjol/Charm/issues/14]()
-    [ ] Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
-    [ ] look into cake naming and pickblock
-    [ ] pumpkins spawn in villages as part of outer deco
-    [ ] more wood open/close sounds, remember refs
-    [ ] more village variations: beds in house3, fisherman and shepherd themes
+    [T] pumpkins spawn in villages as part of outer deco
+    [T] more village variations: blocks in house 3, rug when bed in house 4 and woodhut
+    [-] fisherman and shepherd themes
 
 ## Next up
 
+    [ ] more wood open/close sounds, remember refs
+    [ ] Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
     [ ] Test dispenser behaviour with Charged Emeralds [https://github.com/svenhjol/Charm/issues/3]()
     [ ] Container compatibility with Inventory Tweaks [https://github.com/svenhjol/Charm/issues/15]()
