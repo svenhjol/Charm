@@ -24,6 +24,7 @@ public abstract class MesonGuiContainer extends GuiContainer
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
+        this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }
@@ -48,6 +49,7 @@ public abstract class MesonGuiContainer extends GuiContainer
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         fontRenderer.drawString(displayName, 8, 6, 0x404040);
         fontRenderer.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
     }
