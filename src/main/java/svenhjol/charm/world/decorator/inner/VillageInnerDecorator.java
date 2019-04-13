@@ -376,16 +376,21 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
         @Override
         public void generate()
         {
-            if (VillageDecorations.beds && VillageDecorations.decorativeBlocks) {
-                // add beds and table
-                if (chance(0.5f)) {
+            float r = rand.nextFloat();
+
+            if (r <= 0.25f) {
+
+                if (VillageDecorations.beds && VillageDecorations.decorativeBlocks) {
                     // add two beds with decoration by side
                     addRow(items.getBed(), 4, floor, 9, EnumFacing.NORTH, EnumFacing.NORTH);
                     addRow(items.getBed(), 6, floor, 9, EnumFacing.NORTH, EnumFacing.NORTH);
                     add(Blocks.CRAFTING_TABLE.getDefaultState(), 5, floor, 9);
                     add(Blocks.BOOKSHELF.getDefaultState(), 3, floor, 9);
                     add(Blocks.BOOKSHELF.getDefaultState(), 7, floor, 9);
-                } else {
+                }
+            } else if (r <= 0.5f) {
+
+                if (VillageDecorations.beds && VillageDecorations.decorativeBlocks) {
                     // add twos bed along the wall
                     addRow(items.getBed(), 4, floor, 9, EnumFacing.WEST, EnumFacing.EAST);
                     add(Blocks.BOOKSHELF.getDefaultState(), 5, floor, 9);
@@ -394,6 +399,21 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
                     if (common()) items.addRandomBlock(6, floor, 1, EnumFacing.SOUTH);
                     if (common()) items.addRandomBlock(7, floor, 1, EnumFacing.SOUTH);
                 }
+            } else if (r <= 0.75f) {
+
+                if (VillageDecorations.functionalBlocks && VillageDecorations.decorativeBlocks) {
+                    if (common()) items.addFunctionalBlock(4, floor, 9, EnumFacing.SOUTH);
+                    if (common()) items.addDecorationBlock(5, floor, 9, EnumFacing.SOUTH);
+                    if (common()) items.addFunctionalBlock(6, floor, 9, EnumFacing.SOUTH);
+                    if (common()) items.addDecorationBlock(7, floor, 9, EnumFacing.SOUTH);
+                }
+
+            } else {
+
+                if (VillageDecorations.storage) {
+                    if (common()) items.addStorageBlock(6, floor, 9, EnumFacing.SOUTH);
+                }
+
             }
 
             if (VillageDecorations.decorativeBlocks && VillageDecorations.functionalBlocks) {
@@ -455,6 +475,9 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
                 if (VillageDecorations.beds) {
                     addRow(items.getBed(), 2, 1, 3, EnumFacing.WEST, EnumFacing.EAST);
                 }
+                if (VillageDecorations.carpet) {
+                    items.addRug(1, 1, 2, 2, 2, null);
+                }
             } else {
                 if (VillageDecorations.storage) {
                     // add storage in the corner
@@ -468,9 +491,6 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
                 BlockPlanks.EnumType wood = MoreVillageBiomes.getWoodForBiome(biome);
                 items.addDoor(2, 1, 0, EnumFacing.NORTH, MoreVillageBiomes.getDoorForWood(wood));
             }
-
-            // add rug
-            items.addRug(1, 1, 2, 2, 2, null);
 
             if (isRoofAccessible()) {
                 if (VillageDecorations.storage) {
@@ -555,12 +575,21 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
         @Override
         public void generate()
         {
+            if (common()) {
+                // make a proper floor
+                fill(Blocks.COBBLESTONE, 1, 0, 1, 2, 0, 3, true);
+            }
+
             if (chance(0.5f)) {
                 if (VillageDecorations.beds) {
                     // remove the table and put a bed in there
                     addRow(items.getBed(), 2, 1, 3, EnumFacing.WEST, EnumFacing.EAST);
                     add(Blocks.AIR, 1, 2, 3);
                     add(Blocks.AIR, 2, 2, 3);
+                }
+
+                if (VillageDecorations.carpet) {
+                    items.addRug(1, 1, 2, 2, 2, null);
                 }
             } else {
                 if (VillageDecorations.storage) {
@@ -581,14 +610,6 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
             } else {
                 if (VillageDecorations.armorStands) {
                     if (valuable()) items.addArmorStand(2, floor, 1, 135.0f);
-                }
-            }
-
-            if (VillageDecorations.carpet) {
-                // make a proper floor with a rug
-                if (common()) {
-                    fill(Blocks.COBBLESTONE, 1, 0, 1, 2, 0, 3, true);
-                    items.addRug(1, 1, 2, 2, 2, null);
                 }
             }
 
