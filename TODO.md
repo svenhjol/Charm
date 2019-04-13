@@ -22,10 +22,16 @@
     [X] cactuses could smash without drops on water collect
     [X] Swamphut cat is supposed to be black
 
-## Next up
+## Alpha 5
 
-    [ ] more village variations: beds in house3, fisherman and shepherd themes
-    [ ] more wood open/close sounds, remember refs
+    [ ] Village bookshelf chests don't show the right texture [https://github.com/svenhjol/Charm/issues/14]()
+    [ ] Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
     [ ] look into cake naming and pickblock
     [ ] pumpkins spawn in villages as part of outer deco
-    [ ] Village bookshelf chests don't show the right texture [https://github.com/svenhjol/Charm/issues/14]()
+    [ ] more wood open/close sounds, remember refs
+    [ ] more village variations: beds in house3, fisherman and shepherd themes
+
+## Next up
+
+    [ ] Test dispenser behaviour with Charged Emeralds [https://github.com/svenhjol/Charm/issues/3]()
+    [ ] Container compatibility with Inventory Tweaks [https://github.com/svenhjol/Charm/issues/15]()
