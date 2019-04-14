@@ -98,7 +98,7 @@ public class UnearthItems extends Feature
                 EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), list.get(world.rand.nextInt(list.size())));
 
                 if (world.isRemote) {
-                    SoundHelper.playerSound(player, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.1f, SoundCategory.NEUTRAL);
+                    SoundHelper.playerSound(player, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.1f, SoundCategory.AMBIENT);
                 }
 
                 world.spawnEntity(item);

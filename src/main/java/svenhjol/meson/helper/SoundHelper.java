@@ -23,13 +23,13 @@ public class SoundHelper
 
     public static void playerSound(EntityPlayer player, SoundEvent sound, float volume, float pitch)
     {
-        playerSound(player, sound, volume, pitch, SoundCategory.NEUTRAL);
+        playerSound(player, sound, volume, pitch, SoundCategory.AMBIENT);
     }
 
     public static void playerSound(EntityPlayer player, SoundEvent sound, float volume, float pitch, SoundCategory category)
     {
         if (category == null) {
-            category = SoundCategory.NEUTRAL;
+            category = SoundCategory.AMBIENT;
         }
         player.world.playSound(player, player.posX, player.posY, player.posZ, sound, category, volume, pitch);
     }

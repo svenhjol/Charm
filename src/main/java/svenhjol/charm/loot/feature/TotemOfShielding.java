@@ -78,7 +78,7 @@ public class TotemOfShielding extends Feature
                 boolean totemDead = stack.attemptDamageItem((int) Math.ceil(totemDamage), player.world.rand, (EntityPlayerMP) player);
                 if (totemDead) {
                     stack.shrink(1);
-                    player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ITEM_TOTEM_USE, SoundCategory.NEUTRAL, 0.8f, 1f);
+                    player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ITEM_TOTEM_USE, SoundCategory.BLOCKS, 0.8f, 1f);
                 } else {
                     player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1f, 1.25f);
                 }

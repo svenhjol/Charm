@@ -97,7 +97,7 @@ public class EnchantmentHoming extends MesonEnchantment
                         float vol = 1 - (Math.min((float) distance, 100) / 100);
                         float pitch = 1.0f - (Math.min((float) distance, 100) / 100);
                         player.swingArm(event.getHand());
-                        SoundHelper.playerSound(player, CharmSounds.HOMING, vol, pitch, SoundCategory.NEUTRAL);
+                        SoundHelper.playerSound(player, CharmSounds.HOMING, vol, pitch, SoundCategory.AMBIENT);
                     }
                 }
             }
