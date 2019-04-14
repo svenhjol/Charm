@@ -36,7 +36,7 @@ public class AbandonedCrates extends Feature
         generateChance = propDouble(
             "Generate crate chance",
             "Chance (out of 1.0) of a crate generating in a chunk, if it is possible to do so.",
-            0.12D
+            0.18D
         );
 
         // internal
