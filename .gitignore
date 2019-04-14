@@ -17,6 +17,7 @@
 /*.iml
 /src/main/main.iml
 /docs
+/heap
 
 ## Windows
 Thumbs.db
