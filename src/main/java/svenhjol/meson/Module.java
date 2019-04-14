@@ -39,7 +39,7 @@ public abstract class Module implements IFMLEvents
                 feature.enabled = checkMods(feature.getRequiredMods());
             }
             // disable the feature if these mods exist
-            if (feature.getDisableMods().length > 0) {
+            if (feature.enabled && feature.getDisableMods().length > 0) {
                 feature.enabled = !checkMods(feature.getDisableMods());
             }
 
