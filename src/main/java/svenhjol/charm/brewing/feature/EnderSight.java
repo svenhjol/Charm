@@ -69,7 +69,7 @@ public class EnderSight extends Feature
         );
 
         // internal
-        minDist = 2500D;
+        minDist = 2000D;
         endermanSpawnDistance = 5;
     }
 
@@ -96,7 +96,7 @@ public class EnderSight extends Feature
 
                 // ender sight started
                 hasEnderSight = true;
-                mc.getSoundHandler().playSound(new EnderSightSound(CharmSounds.ENDER_WHISPERS, player, 0.4f, 0.8f));
+                mc.getSoundHandler().playSound(new EnderSightSound(CharmSounds.ENDER_WHISPERS, player, 0.25f, 0.8f));
                 if (doShaderEffects) mc.entityRenderer.loadShader(new ResourceLocation(Charm.MOD_ID, "shaders/ender_sight.json"));
             } else if (hasEnderSight && player.getActivePotionEffect(potion) != null) {
 
@@ -117,13 +117,13 @@ public class EnderSight extends Feature
 
                     if (dist >= minDist) {
 
+                        double d = MathHelper.positiveModulo(d0, 1.0D);
+
                         // far away, do the angle thing
-                        if (d0 > -0.1D && d0 < 0.1D) {
+                        if (d > 0.95D || d < 0.05D) {
                             if (clientTicks % 4 + (mc.world.rand.nextInt(4)) == 0) {
-                                float amp = (float) (0.1D - Math.abs(d0));
-                                float vol = (amp * 5.0f);
-                                float pitch = (0.8f + (amp * 1.0f));
-                                mc.getSoundHandler().playSound(new EnderSightSound(CharmSounds.ENDER_RESONANCE, player, vol, pitch));
+                                float pitch = (0.9f + (0.1f - (float)(d > 0.95 ? 1.0 - d : d)));
+                                mc.getSoundHandler().playSound(new EnderSightSound(CharmSounds.ENDER_RESONANCE, player, 0.8f, pitch));
                             }
                         }
                     } else {

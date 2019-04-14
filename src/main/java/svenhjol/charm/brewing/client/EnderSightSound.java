@@ -11,7 +11,7 @@ public class EnderSightSound extends MovingSound
 
     public EnderSightSound(SoundEvent sound, EntityPlayer player, float volume, float pitch)
     {
-        super(sound, SoundCategory.NEUTRAL);
+        super(sound, SoundCategory.AMBIENT);
         this.player = player;
         this.volume = volume;
         this.pitch = pitch;
