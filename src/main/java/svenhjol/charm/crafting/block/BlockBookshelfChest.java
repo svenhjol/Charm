@@ -32,10 +32,10 @@ public class BlockBookshelfChest extends MesonBlockTE<TileBookshelfChest> implem
     public BlockBookshelfChest()
     {
         super(Material.WOOD, "bookshelf_chest");
-        this.setHardness(BookshelfChest.hardness);
-        this.setSoundType(SoundType.WOOD);
-
+        setHardness(BookshelfChest.hardness);
+        setSoundType(SoundType.WOOD);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setDefaultState(this.blockState.getBaseState().withProperty(SLOTS, 0));
     }
 
     @Override

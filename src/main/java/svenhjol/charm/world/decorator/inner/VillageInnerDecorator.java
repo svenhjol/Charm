@@ -14,6 +14,7 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmDecoratorItems;
+import svenhjol.charm.crafting.block.BlockBookshelfChest;
 import svenhjol.charm.crafting.feature.BookshelfChest;
 import svenhjol.charm.world.decorator.theme.*;
 import svenhjol.charm.world.feature.MoreVillageBiomes;
@@ -159,7 +160,7 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
 
             if (VillageDecorations.storage) {
                 if (common()) {
-                    items.addStorageBlock(3, 10, 2, EnumFacing.NORTH);
+                    items.addStorageBlock(3, 10, 1, EnumFacing.NORTH);
                 }
             }
         }
@@ -292,8 +293,10 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
                 if (Charm.hasFeature(BookshelfChest.class)) {
                     IBlockState type = BookshelfChest.bookshelfChest.getDefaultState();
                     for (int i = 0; i < 7; i++) {
-                        if (uncommon()) {
-                            items.addStorageBlock(type, i + 1, 3, 4, EnumFacing.SOUTH, LootHelper.getRandomLootTable(LootHelper.RARITY.COMMON, LootHelper.TYPE.BOOK));
+                        if (common()) {
+                            int numberOfBooks = rand.nextInt(4) + 1;
+                            type.withProperty(BlockBookshelfChest.SLOTS, numberOfBooks);
+                            items.addStorageBlock(type, i + 1, 3, 4, EnumFacing.SOUTH, LootHelper.getRandomLootTable(LootHelper.RARITY.COMMON, LootHelper.TYPE.BOOK), numberOfBooks);
                         }
                     }
                 }
@@ -402,15 +405,17 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
             } else if (r <= 0.75f) {
 
                 if (VillageDecorations.functionalBlocks && VillageDecorations.decorativeBlocks) {
+                    if (common()) items.addFunctionalBlock(3, floor, 9, EnumFacing.SOUTH);
                     if (common()) items.addFunctionalBlock(4, floor, 9, EnumFacing.SOUTH);
-                    if (common()) items.addDecorationBlock(5, floor, 9, EnumFacing.SOUTH);
+                    if (uncommon()) items.addStorageBlock(5, floor, 9, EnumFacing.SOUTH);
                     if (common()) items.addFunctionalBlock(6, floor, 9, EnumFacing.SOUTH);
-                    if (common()) items.addDecorationBlock(7, floor, 9, EnumFacing.SOUTH);
+                    if (common()) items.addFunctionalBlock(7, floor, 9, EnumFacing.SOUTH);
                 }
 
             } else {
 
                 if (VillageDecorations.storage) {
+                    if (common()) items.addStorageBlock(5, floor, 9, EnumFacing.SOUTH);
                     if (common()) items.addStorageBlock(6, floor, 9, EnumFacing.SOUTH);
                 }
 

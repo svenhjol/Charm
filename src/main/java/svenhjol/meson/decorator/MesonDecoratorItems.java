@@ -56,16 +56,16 @@ public class MesonDecoratorItems
 
     public void addStorageBlock(IBlockState type, int x, int y, int z, EnumFacing facing)
     {
-        addStorageBlock(type, x, y, z, facing, theme.getLootTable());
+        addStorageBlock(type, x, y, z, facing, theme.getLootTable(), 0);
     }
 
-    public void addStorageBlock(IBlockState type, int x, int y, int z, EnumFacing facing, ResourceLocation loot)
+    public void addStorageBlock(IBlockState type, int x, int y, int z, EnumFacing facing, ResourceLocation loot, int lootSize)
     {
         BlockPos place = new BlockPos(x, y, z);
         TileEntity tile = generator.addTileEntity(place, type, facing);
 
         if (tile instanceof MesonTileInventory) {
-            ((MesonTileInventory)tile).setLootTable(loot);
+            ((MesonTileInventory)tile).setLootTable(loot, lootSize);
         } else if (tile instanceof TileEntityChest) {
             ((TileEntityChest)tile).setLootTable(loot, world.rand.nextLong());
         }

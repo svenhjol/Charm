@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 
 public class TileBookshelfChest extends MesonTileInventory implements IDropoffManager
 {
+    private int inventorySize;
     public static final int SIZE = 9;
     public ItemStackHandler inventory = new ItemStackHandler(SIZE)
     {
@@ -34,10 +35,27 @@ public class TileBookshelfChest extends MesonTileInventory implements IDropoffMa
         }
 
         @Override
+        protected void onLoad()
+        {
+            super.onLoad();
+            recalculateSize();
+        }
+
+        @Override
         protected void onContentsChanged(int slot)
         {
+            recalculateSize();
             TileBookshelfChest.this.markDirty();
             TileBookshelfChest.this.updateBlock();
+        }
+
+        protected void recalculateSize()
+        {
+            int occupied = 0;
+            for (int i = 0; i < getSlots(); i++) {
+                if (!getStackInSlot(i).isEmpty()) occupied++;
+            }
+            inventorySize = occupied;
         }
     };
 
@@ -74,10 +92,16 @@ public class TileBookshelfChest extends MesonTileInventory implements IDropoffMa
 
     public int getNumberOfFilledSlots()
     {
-        int occupied = 0;
-        for (int i = 0; i < this.inventory.getSlots(); i++) {
-            if (!this.inventory.getStackInSlot(i).isEmpty()) occupied++;
+        if (this.hasLootTable() && this.lootSize > 0) {
+            return this.lootSize;
+        } else {
+            return inventorySize;
         }
-        return occupied;
+//
+//        int occupied = 0;
+//        for (int i = 0; i < this.inventory.getSlots(); i++) {
+//            if (!this.inventory.getStackInSlot(i).isEmpty()) occupied++;
+//        }
+//        return occupied;
     }
 }
