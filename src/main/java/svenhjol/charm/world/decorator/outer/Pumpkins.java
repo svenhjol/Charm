@@ -1,26 +1,17 @@
 package svenhjol.charm.world.decorator.outer;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockPumpkin;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.*;
-import svenhjol.charm.Charm;
-import svenhjol.charm.base.CharmLootTables;
-import svenhjol.charm.crafting.feature.Barrel;
-import svenhjol.charm.crafting.tile.TileBarrel;
 import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonOuterDecorator;
 
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
 public class Pumpkins extends MesonOuterDecorator
 {
@@ -44,18 +35,18 @@ public class Pumpkins extends MesonOuterDecorator
             boolean grassBelow = world.getBlockState(current.offset(EnumFacing.DOWN)) == Blocks.GRASS.getDefaultState();
             if (!airAbove || !grassBelow) continue;
 
-            Block block;
+            IBlockState state;
             float r = rand.nextFloat();
 
-            if (r <= 0.2) {
-                block = Blocks.MELON_BLOCK;
-            } else if (r <= 0.5) {
-                block = Blocks.LIT_PUMPKIN;
+            if (r <= 0.05) {
+                state = Blocks.MELON_BLOCK.getDefaultState();
+            } else if (r <= 0.3) {
+                state = Blocks.LIT_PUMPKIN.getDefaultState().withProperty(BlockPumpkin.FACING, EnumFacing.byHorizontalIndex(rand.nextInt(4)));
             } else {
-                block = Blocks.PUMPKIN;
+                state = Blocks.PUMPKIN.getDefaultState().withProperty(BlockPumpkin.FACING, EnumFacing.byHorizontalIndex(rand.nextInt(4)));
             }
 
-            world.setBlockState(current, block.getDefaultState());
+            world.setBlockState(current, state);
         }
     }
 }
