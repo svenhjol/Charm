@@ -293,7 +293,7 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
                 if (Charm.hasFeature(BookshelfChest.class)) {
                     IBlockState type = BookshelfChest.bookshelfChest.getDefaultState();
                     for (int i = 0; i < 7; i++) {
-                        if (common()) {
+                        if (uncommon()) {
                             int numberOfBooks = rand.nextInt(4) + 1;
                             type.withProperty(BlockBookshelfChest.SLOTS, numberOfBooks);
                             items.addStorageBlock(type, i + 1, 3, 4, EnumFacing.SOUTH, LootHelper.getRandomLootTable(LootHelper.RARITY.COMMON, LootHelper.TYPE.BOOK), numberOfBooks);
