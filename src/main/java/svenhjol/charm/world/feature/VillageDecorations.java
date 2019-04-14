@@ -166,7 +166,7 @@ public class VillageDecorations extends Feature
                 "Extra golem weight",
                 "Chance (out of 1.0) of a chunk within the village boundary spawning a golem.\n" +
                         "This is only valid if the 'Mobs outside' config option allows it.",
-                0.2
+                0.25
         );
         barrelsWeight = propDouble(
                 "Extra barrels weight",
@@ -216,7 +216,7 @@ public class VillageDecorations extends Feature
             World world = event.getWorld();
             ChunkPos chunk = event.getChunkPos();
             BlockPos pos = new BlockPos(chunk.x << 4, 0, chunk.z << 4);
-
+            Random eventRand = event.getRand();
             Random rand = new Random();
             long villageSeed = villageChunks.get(chunk);
             rand.setSeed(villageSeed);
@@ -226,16 +226,16 @@ public class VillageDecorations extends Feature
                 if (villageChunks.get(c) == villageSeed) chunks.add(c);
             }
 
-            // use the village seed rand for deterministic decoration types
+            // use the rand for deterministic decoration types, eventRand for more random scattering
             List<MesonOuterDecorator> decorators = new ArrayList<>();
-            if (rand.nextFloat() <= flowersChance) decorators.add(new Flowers(world, pos, rand, chunks));
-            if (rand.nextFloat() <= lightsChance) decorators.add(new Lights(world, pos, rand, chunks));
-            if (rand.nextFloat() <= mobsChance) decorators.add(new Mobs(world, pos, rand, chunks));
-            if (rand.nextFloat() <= cropsChance) decorators.add(new Crops(world, pos, rand, chunks));
-            if (rand.nextFloat() <= barrelsChance) decorators.add(new Barrels(world, pos, rand, chunks));
-            if (rand.nextFloat() <= pumpkinsChance) decorators.add(new Pumpkins(world, pos, rand, chunks));
-            if (rand.nextFloat() <= treesChance) decorators.add(new Trees(world, pos, rand, chunks));
-            if (rand.nextFloat() <= mushroomsChance) decorators.add(new Mushrooms(world, pos, rand, chunks));
+            if (rand.nextFloat() <= flowersChance) decorators.add(new Flowers(world, pos, rand, chunks)); // specifically rand here so we get the same flowers
+            if (rand.nextFloat() <= lightsChance) decorators.add(new Lights(world, pos, eventRand, chunks));
+            if (rand.nextFloat() <= mobsChance) decorators.add(new Mobs(world, pos, eventRand, chunks));
+            if (rand.nextFloat() <= cropsChance) decorators.add(new Crops(world, pos, eventRand, chunks));
+            if (rand.nextFloat() <= barrelsChance) decorators.add(new Barrels(world, pos, eventRand, chunks));
+            if (rand.nextFloat() <= pumpkinsChance) decorators.add(new Pumpkins(world, pos, eventRand, chunks));
+            if (rand.nextFloat() <= treesChance) decorators.add(new Trees(world, pos, eventRand, chunks));
+            if (rand.nextFloat() <= mushroomsChance) decorators.add(new Mushrooms(world, pos, eventRand, chunks));
 
             decorators.forEach(MesonOuterDecorator::generate);
 
