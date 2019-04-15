@@ -36,7 +36,7 @@ public class AbandonedCrates extends Feature
         generateChance = propDouble(
             "Generate crate chance",
             "Chance (out of 1.0) of a crate generating in a chunk, if it is possible to do so.",
-            0.18D
+            0.28D
         );
 
         // internal
@@ -44,8 +44,8 @@ public class AbandonedCrates extends Feature
         maxDepth = 32;
         maxTries = 1;
         rareChance = 0.005f;
-        valuableChance = 0.08f;
-        uncommonChance = 0.2f;
+        valuableChance = 0.07f;
+        uncommonChance = 0.20f;
     }
 
     @SubscribeEvent
