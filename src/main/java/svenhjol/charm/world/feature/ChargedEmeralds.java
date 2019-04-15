@@ -1,11 +1,16 @@
 package svenhjol.charm.world.feature;
 
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.dispenser.BehaviorProjectileDispense;
+import net.minecraft.dispenser.IPosition;
+import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.functions.LootFunction;
@@ -69,6 +74,16 @@ public class ChargedEmeralds extends Feature
     {
         //noinspection unchecked,unchecked
         RenderingRegistry.registerEntityRenderingHandler(EntityChargedEmerald.class, RenderChargedEmerald.FACTORY);
+
+        // fun times with dispensers!
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(emerald, new BehaviorProjectileDispense()
+        {
+            @Override
+            protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn)
+            {
+                return new EntityChargedEmerald(worldIn, position.getX(), position.getY(), position.getZ());
+            }
+        });
     }
 
     @SubscribeEvent
