@@ -1,8 +1,12 @@
 package svenhjol.charm.crafting.feature;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import svenhjol.meson.Feature;
 import svenhjol.charm.crafting.block.BlockLantern;
+import svenhjol.meson.Feature;
+import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.RecipeHandler;
 
 public class Lantern extends Feature
 {
@@ -35,7 +39,6 @@ public class Lantern extends Feature
             true
         );
 
-
         // internal
         hardness = 2.0f;
         resistance = 4.0f;
@@ -47,5 +50,17 @@ public class Lantern extends Feature
     {
         ironLantern = new BlockLantern("iron");
         goldLantern = new BlockLantern("gold");
+
+        // add lantern recipes
+        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, 2),
+            "III", "ITI", "III",
+            'I', Items.IRON_NUGGET,
+            'T', Blocks.TORCH
+        );
+        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(goldLantern, 2),
+            "GGG", "GTG", "GGG",
+            'G', Items.GOLD_NUGGET,
+            'T', Blocks.TORCH
+        );
     }
 }

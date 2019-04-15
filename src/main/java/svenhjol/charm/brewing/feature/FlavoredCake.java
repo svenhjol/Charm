@@ -1,8 +1,8 @@
 package svenhjol.charm.brewing.feature;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import svenhjol.meson.Feature;
 import svenhjol.charm.brewing.block.BlockFlavoredCake;
+import svenhjol.meson.Feature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,23 +25,23 @@ public class FlavoredCake extends Feature
     public void setupConfig()
     {
         duration = propInt(
-                "Cake effect duration",
-                "Duration (in seconds) of the potion effect when eating a single slice of cake.",
-                100
+            "Cake effect duration",
+            "Duration (in seconds) of the potion effect when eating a single slice of cake.",
+            100
         );
         validPotions = propStringList(
-                "Cake effect potion types",
-                "List of Long Potions that can be used to make a cake.",
-                new String[] {
-                        "speed",
-                        "strength",
-                        "jump_boost",
-                        "regeneration",
-                        "fire_resistance",
-                        "water_breathing",
-                        "invisibility",
-                        "night_vision"
-                }
+            "Cake effect potion types",
+            "List of Long Potions that can be used to make a cake.",
+            new String[] {
+                "speed",
+                "strength",
+                "jump_boost",
+                "regeneration",
+                "fire_resistance",
+                "water_breathing",
+                "invisibility",
+                "night_vision"
+            }
         );
 
         // internal
@@ -51,8 +51,9 @@ public class FlavoredCake extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        for (String potion : validPotions) {
-            cakes.add(new BlockFlavoredCake(potion));
+        for (String potionName : validPotions) {
+            BlockFlavoredCake cake = new BlockFlavoredCake(potionName);
+            cakes.add(cake);
         }
     }
 }

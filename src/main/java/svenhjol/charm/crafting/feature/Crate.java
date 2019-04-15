@@ -24,6 +24,8 @@ import svenhjol.charm.crafting.block.BlockCrate;
 import svenhjol.charm.crafting.client.RenderTileCrate;
 import svenhjol.charm.crafting.tile.TileCrate;
 import svenhjol.meson.Feature;
+import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.RecipeHandler;
 import svenhjol.meson.helper.LootHelper;
 
 import java.util.*;
@@ -120,6 +122,13 @@ public class Crate extends Feature
         // add a couple of crate-specific treasures
         types.get(RARITY.VALUABLE).add(new CrateType("dangerous", CharmLootTables.TREASURE_DANGEROUS));
         types.get(RARITY.RARE).add(new CrateType("explosive", CharmLootTables.TREASURE_EXPLOSIVE));
+
+        // add crate recipe
+        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(crate, 1),
+            "IWI", "W W", "IWI",
+            'W', "plankWood",
+            'I', "ingotIron"
+        );
     }
 
     public static ItemStack getSealedCrateItem(ItemStack in, String name)
