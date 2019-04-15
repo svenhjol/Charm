@@ -9,6 +9,8 @@ import svenhjol.charm.crafting.block.BlockBookshelfChest;
 import svenhjol.charm.crafting.message.MessageUpdateBookshelf;
 import svenhjol.meson.Feature;
 import svenhjol.meson.NetworkHandler;
+import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.RecipeHandler;
 
 public class BookshelfChest extends Feature
 {
@@ -35,5 +37,12 @@ public class BookshelfChest extends Feature
         bookshelfChest = new BlockBookshelfChest();
         GameRegistry.registerTileEntity(bookshelfChest.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":bookshelf_chest"));
         NetworkHandler.register(MessageUpdateBookshelf.class, Side.CLIENT);
+
+        // add bookshelf chest recipe
+        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(bookshelfChest, 1),
+            "WWW", "WBW", "WWW",
+            'W', "plankWood",
+            'B', "bookshelf"
+        );
     }
 }
