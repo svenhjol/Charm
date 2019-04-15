@@ -1,5 +1,6 @@
 package svenhjol.charm.crafting.container;
 
+import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -11,6 +12,7 @@ import svenhjol.charm.base.CharmSounds;
 import svenhjol.meson.MesonContainer;
 import svenhjol.charm.crafting.tile.TileBookshelfChest;
 
+@ChestContainer
 public class ContainerBookshelfChest extends MesonContainer
 {
     protected TileEntity tile;

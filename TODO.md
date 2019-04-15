@@ -28,15 +28,15 @@
     [X] Village bookshelf chests don't show the right texture [https://github.com/svenhjol/Charm/issues/14]()
     [X] pumpkins spawn in villages as part of outer deco
     [X] more village variations: blocks in house 3, rug when bed in house 4 and woodhut
-    [-] fisherman and shepherd themes
     [X] Ender sight stronghold detection issues [https://github.com/svenhjol/Charm/issues/19]()
     [X] Nether gold deposits config [https://github.com/svenhjol/Charm/issues/18]()
-    [ ] Suspicious soup doesn't work with all flowers [https://github.com/svenhjol/Charm/issues/20]()
+    [X] Suspicious soup doesn't work with all flowers [https://github.com/svenhjol/Charm/issues/20]()
     [X] Same village mob spawning in each village chunk, need eventRand as well as deterministic rand
+    [X] Container compatibility with Inventory Tweaks [https://github.com/svenhjol/Charm/issues/15]()
+    [ ] Test dispenser behaviour with Charged Emeralds [https://github.com/svenhjol/Charm/issues/3]()
 
 ## Next up
 
+    [-] fisherman and shepherd themes
     [ ] more wood open/close sounds, remember refs
     [ ] Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
-    [ ] Test dispenser behaviour with Charged Emeralds [https://github.com/svenhjol/Charm/issues/3]()
-    [ ] Container compatibility with Inventory Tweaks [https://github.com/svenhjol/Charm/issues/15]()
