@@ -42,8 +42,8 @@ public class ModLoader
         config = new Configuration(configFile);
         config.load();
 
-        // debug switch in config
-        ConfigHelper.propBoolean(config, "Debug mode", "_meson", "Allows extra debug output in the console.", false);
+        // allow config to switch on debug mode
+        Meson.DEBUG = ConfigHelper.propBoolean(config, "Debug mode", "_meson", "Allows extra debug output in the console.", false);
 
         // setup all enabled modules
         List<Module> enabled = new ArrayList<>();
