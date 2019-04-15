@@ -94,7 +94,7 @@ public class RecipeHandler
 
     public static void addRecipe(ResourceLocation res, IRecipe recipe)
     {
-        Meson.log("Adding recipe " + res.toString());
+        Meson.debug("Adding recipe " + res.toString());
         recipe.setRegistryName(res);
         ProxyRegistry.register(recipe);
         usedNames.add(res);
