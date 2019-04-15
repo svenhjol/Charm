@@ -33,7 +33,7 @@
     [X] Suspicious soup doesn't work with all flowers [https://github.com/svenhjol/Charm/issues/20]()
     [X] Same village mob spawning in each village chunk, need eventRand as well as deterministic rand
     [X] Container compatibility with Inventory Tweaks [https://github.com/svenhjol/Charm/issues/15]()
-    [ ] Test dispenser behaviour with Charged Emeralds [https://github.com/svenhjol/Charm/issues/3]()
+    [X] Test dispenser behaviour with Charged Emeralds [https://github.com/svenhjol/Charm/issues/3]()
 
 ## Next up
 
