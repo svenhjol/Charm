@@ -1,6 +1,9 @@
 package svenhjol.charm.crafting.feature;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.RandomValueRange;
@@ -15,6 +18,8 @@ import svenhjol.charm.base.CharmLootTables;
 import svenhjol.charm.crafting.item.ItemSuspiciousSoup;
 import svenhjol.charm.crafting.potion.SuspiciousEffects;
 import svenhjol.meson.Feature;
+import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.RecipeHandler;
 import svenhjol.meson.helper.LootHelper;
 
 import java.util.ArrayList;
@@ -52,7 +57,7 @@ public class SuspiciousSoup extends Feature
         duration = propInt(
                 "Suspicious Soup duration",
                 "Minimum duration (in seconds) of the effect(s) of the soup when consumed.",
-                15
+                20
         );
         heal = propInt(
                 "Health restored",
@@ -66,7 +71,8 @@ public class SuspiciousSoup extends Feature
         );
 
         // internal
-        maxTypes = 10;
+        SuspiciousEffects.init();
+        maxTypes = effects.size(); // should match the number of suspicious effects
         maxStackSize = 16;
         amplifier = 1;
         saturation = 0.2D;
@@ -76,6 +82,27 @@ public class SuspiciousSoup extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         suspiciousSoup = new ItemSuspiciousSoup();
+
+        // dynamic flower recipes
+        List<ItemStack> flowers = new ArrayList<>();
+        flowers.add(new ItemStack(Blocks.YELLOW_FLOWER, 1));
+        for (int i = 0; i <= 8; i++) {
+            flowers.add(new ItemStack(Blocks.RED_FLOWER, 1, i));
+        }
+        for (int i = 0; i <= 5; i++) {
+            flowers.add(new ItemStack(Blocks.DOUBLE_PLANT, 1, i));
+        }
+
+        int i = 0;
+        for (ItemStack flower : flowers) {
+            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(suspiciousSoup, 1, i),
+                "BBB", "BBB", "FWF",
+                'B', Items.BEETROOT,
+                'W', Items.BOWL,
+                'F', flower
+            );
+            if (++i == maxTypes) i = 0;
+        }
     }
 
     @SubscribeEvent
@@ -119,7 +146,6 @@ public class SuspiciousSoup extends Feature
 
     private void assignEffects()
     {
-        SuspiciousEffects.init();
         Collections.shuffle(effects, new Random(lastSeed));
     }
 }
