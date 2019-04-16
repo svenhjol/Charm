@@ -59,6 +59,8 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
             add(VillageLibrarianTheme.class);
             add(VillageButcherTheme.class);
             add(VillageCarpenterTheme.class);
+            add(VillageShepherdTheme.class);
+            add(VillageFishermanTheme.class);
         }};
 
         return availableThemes.get(rand.nextInt(availableThemes.size()));
@@ -345,8 +347,8 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
                 if (common()) {
                     // add a chimney
                     fill(Blocks.STONE_SLAB, 6, 5, 4, 8, 5, 6, true);
-                    add(Blocks.FIRE, 7, 4, 5);
-                    add(Blocks.FIRE, 8, 4, 5);
+                    add(Blocks.AIR, 7, 4, 5);
+                    add(Blocks.AIR, 8, 4, 5);
                     add(Blocks.AIR, 7, 5, 5);
                     add(Blocks.AIR, 8, 5, 5);
                     add(Blocks.MAGMA, 7, 3, 5);
