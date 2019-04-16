@@ -47,6 +47,7 @@
     [X] improve desert village outer deco, trees should spawn
     [X] Horses should be a mob that spawns in village outer deco
     [X] Fix inventory icons for lanterns
+    [ ] Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
 
 ## Next up
 
