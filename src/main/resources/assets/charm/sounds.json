@@ -1,39 +1,42 @@
 {
   "homing": {
-    "category": "neutral",
+    "category": "ambient",
     "sounds": [
-      "charm:homing"
+      "charm:homing1",
+      "charm:homing2"
     ]
   },
   "wood_open": {
-    "category": "neutral",
+    "category": "ambient",
     "sounds": [
       "charm:wood_open1",
-      "charm:wood_open2"
+      "charm:wood_open2",
+      "charm:wood_open3"
     ]
   },
   "wood_close": {
-    "category": "neutral",
+    "category": "ambient",
     "sounds": [
       "charm:wood_close1",
-      "charm:wood_close2"
+      "charm:wood_close2",
+      "charm:wood_close3"
     ]
   },
   "wood_smash": {
-    "category": "neutral",
+    "category": "ambient",
     "sounds": [
       "charm:wood_smash"
     ]
   },
   "bookshelf_open": {
-    "category": "neutral",
+    "category": "ambient",
     "sounds": [
       "charm:bookshelf_open1",
       "charm:bookshelf_open2"
     ]
   },
   "bookshelf_close": {
-    "category": "neutral",
+    "category": "ambient",
     "sounds": [
       "charm:bookshelf_close1",
       "charm:bookshelf_close2"
@@ -76,25 +79,24 @@
     "subtitle": "subtitle.charm.spectre.ambient"
   },
   "whispers": {
-    "category": "neutral",
+    "category": "ambient",
     "sounds": [
       "charm:whispers"
     ],
     "subtitle": "subtitle.charm.whispers"
   },
   "ender_resonance": {
-    "category": "neutral",
+    "category": "ambient",
     "sounds": [
       "charm:resonance1",
       "charm:resonance2",
-      "charm:resonance3",
-      "charm:resonance4"
+      "charm:resonance3"
     ]
   },
   "above_stronghold": {
-    "category": "neutral",
+    "category": "ambient",
     "sounds": [
-      "charm:above_stronghold"
+      "charm:above"
     ],
     "subtitle": "subtitle.charm.aboveStronghold"
   },
