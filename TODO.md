@@ -37,7 +37,7 @@
 
 ## Beta 1
 
-    [X] Test out WW's modpack [https://github.com/svenhjol/Charm/issues/4]()
+    [X] Test modpack for bookshelf dupe issue [https://github.com/svenhjol/Charm/issues/4]()
     [X] Compatibility with Future MC [https://github.com/svenhjol/Charm/issues/21]()
     [X] Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
     [X] Wooden blocks (crates, barrels, bookshelf chests) should burn
@@ -51,7 +51,7 @@
     [X] Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
     [X] Fix url in mcmod.info
     [X] more wood open/close sounds, remember refs
-    [T] PT nether fortress loot
+    [X] PT nether fortress loot
     
 ## Next up
 
