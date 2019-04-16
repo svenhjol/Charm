@@ -38,6 +38,8 @@ public class VillageDecorations extends Feature
     public static double treesChance;
     public static double mushroomsChance;
 
+    public static boolean treesHaveVines;
+
     public static double golemsWeight;
     public static double barrelsWeight;
     public static double pumpkinsWeight;
@@ -186,6 +188,12 @@ public class VillageDecorations extends Feature
                         "The greater the chance, the more likely a mob will be considered to spawn.\n" +
                         "This is only valid is the 'Mobs outside' config option allows it.",
                 0.75
+        );
+        treesHaveVines = propBoolean(
+                "Trees can have vines",
+                "If true, trees that spawn within the village boundary can have vines hanging from them.\n" +
+                        "This is only valid if the 'Trees outside' config option allows it.",
+                true
         );
     }
 
