@@ -33,7 +33,6 @@ public class Crops extends MesonOuterDecorator
 
             if (!airAbove || !grassBelow) continue;
 
-
             if (rand.nextFloat() < 0.15f) {
                 if (!world.getBlockState(current.offset(EnumFacing.DOWN, 2)).isNormalCube()) continue;
                 if (!world.getBlockState(current.offset(EnumFacing.NORTH).offset(EnumFacing.DOWN, 1)).isNormalCube()) continue;
@@ -45,7 +44,6 @@ public class Crops extends MesonOuterDecorator
                 world.setBlockState(current, Blocks.TRAPDOOR.getDefaultState().withProperty(BlockTrapDoor.OPEN, false), 2);
                 continue;
             }
-
 
             if (rand.nextFloat() < 0.85f) {
                 IBlockState farmland = Blocks.FARMLAND.getDefaultState().withProperty(BlockFarmland.MOISTURE, 6 + rand.nextInt(2));

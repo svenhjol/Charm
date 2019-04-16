@@ -35,8 +35,20 @@
     [X] Container compatibility with Inventory Tweaks [https://github.com/svenhjol/Charm/issues/15]()
     [X] Test dispenser behaviour with Charged Emeralds [https://github.com/svenhjol/Charm/issues/3]()
 
+## Beta 1
+
+    [ ] Tribe test!
+    [X] Test out WW's modpack [https://github.com/svenhjol/Charm/issues/4]()
+    [X] Compatibility with Future MC [https://github.com/svenhjol/Charm/issues/21]()
+    [X] Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
+    [X] Wooden blocks (crates, barrels, bookshelf chests) should burn
+    [X] fisherman and shepherd themes, improve carpenter theme
+    [X] vines configurable on tree decoration
+    [X] improve desert village outer deco, trees should spawn
+    [X] Horses should be a mob that spawns in village outer deco
+    [X] Fix inventory icons for lanterns
+
 ## Next up
 
-    [-] fisherman and shepherd themes
     [ ] more wood open/close sounds, remember refs
-    [ ] Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
+    [ ] Translations (Icelandic, Dutch, French, Italian, Spanish ...)
