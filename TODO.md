@@ -37,7 +37,6 @@
 
 ## Beta 1
 
-    [ ] Tribe test!
     [X] Test out WW's modpack [https://github.com/svenhjol/Charm/issues/4]()
     [X] Compatibility with Future MC [https://github.com/svenhjol/Charm/issues/21]()
     [X] Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
@@ -47,10 +46,13 @@
     [X] improve desert village outer deco, trees should spawn
     [X] Horses should be a mob that spawns in village outer deco
     [X] Fix inventory icons for lanterns
-    [ ] Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
-    [ ] Fix url in mcmod.info
+    [T] Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
+    [T] Fix url in mcmod.info
     [T] more wood open/close sounds, remember refs
     [ ] PT nether fortress loot
+    [ ] Zombie villages spawn zombie/skeleton horses
+    [T] Change "corruption" to "decay", remove damage, curse and mob conversion
+    
 ## Next up
 
     [ ] Translations (Icelandic, Korean, Dutch, French, Italian, Spanish ...)

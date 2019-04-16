@@ -11,7 +11,7 @@ public class CharmLoot extends Module
         features.add(new TotemOfReturning());
         features.add(new TotemOfShielding());
         features.add(new UnearthItems());
-        features.add(new WitchesDropCorruption());
+        features.add(new WitchesDropDecay());
         features.add(new WitchesDropLuck());
         features.add(new WitchHatProtection());
     }

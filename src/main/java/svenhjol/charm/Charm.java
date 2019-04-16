@@ -49,8 +49,8 @@ public class Charm
             new CharmCrafting(),
             new CharmEnchanting(),
             new CharmLoot(),
-            new CharmTweaks(),
             new CharmSmithing(),
+            new CharmTweaks(),
             new CharmWorld()
         );
 

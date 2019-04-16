@@ -36,7 +36,7 @@ public class ExtraCurses extends Feature
     public String getDescription()
     {
         return "Additional curses to ruin your day.\n" +
-                "These curses can be given to player items when touched by a Spectre or being affected by the Corruption potion.";
+                "These curses can be given to player items when touched by a Spectre or being affected by the Decay potion.";
     }
 
     @Override

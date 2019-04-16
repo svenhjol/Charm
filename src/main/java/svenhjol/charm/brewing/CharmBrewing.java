@@ -8,7 +8,7 @@ public class CharmBrewing extends Module
     public CharmBrewing()
     {
         features.add(new Coffee());
-        features.add(new Corruption());
+        features.add(new Decay());
         features.add(new EnderSight());
         features.add(new FlavoredCake());
         features.add(new PoisonousPotatoBrew());
