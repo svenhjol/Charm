@@ -7,7 +7,7 @@ import svenhjol.meson.helper.ConfigHelper;
 @SuppressWarnings("unused")
 public abstract class Feature implements IFMLEvents
 {
-    private Module module;
+    protected Module module;
 
     public boolean enabled;
     public boolean enabledByDefault = true;

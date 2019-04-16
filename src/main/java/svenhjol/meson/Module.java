@@ -1,7 +1,6 @@
 package svenhjol.meson;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -36,11 +35,11 @@ public abstract class Module implements IFMLEvents
 
             // only enable feature if these mods are present
             if (feature.getRequiredMods().length > 0) {
-                feature.enabled = checkMods(feature.getRequiredMods());
+                feature.enabled = ConfigHelper.checkMods(feature.getRequiredMods());
             }
             // disable the feature if these mods exist
             if (feature.enabled && feature.getDisableMods().length > 0) {
-                feature.enabled = !checkMods(feature.getDisableMods());
+                feature.enabled = !ConfigHelper.checkMods(feature.getDisableMods());
             }
 
             if (feature.enabled) {
@@ -116,14 +115,5 @@ public abstract class Module implements IFMLEvents
     public void postInitClient(FMLPostInitializationEvent event)
     {
         features.forEach(feature -> feature.postInitClient(event));
-    }
-
-    protected boolean checkMods(String[] mods)
-    {
-        boolean modsLoaded = true;
-        for (String mod : mods) {
-            modsLoaded = modsLoaded && Loader.isModLoaded(mod);
-        }
-        return modsLoaded;
     }
 }

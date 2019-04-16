@@ -2,6 +2,7 @@ package svenhjol.meson.helper;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import net.minecraftforge.fml.common.Loader;
 
 public class ConfigHelper
 {
@@ -38,5 +39,14 @@ public class ConfigHelper
         Property prop = config.get(category, name, def);
         prop.setComment(comment);
         return prop.getStringList();
+    }
+
+    public static boolean checkMods(String ...mods)
+    {
+        boolean modsLoaded = true;
+        for (String mod : mods) {
+            modsLoaded = modsLoaded && Loader.isModLoaded(mod);
+        }
+        return modsLoaded;
     }
 }

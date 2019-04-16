@@ -44,6 +44,12 @@ public class Barrel extends Feature
     }
 
     @Override
+    public String[] getDisableMods()
+    {
+        return new String[] {"minecraftfuture"};
+    }
+
+    @Override
     public void setupConfig()
     {
         // internal
