@@ -1,7 +1,7 @@
 {
   "pools": [
     {
-      "name": "charm:village/carpenter/oak",
+      "name": "charm:village/carpenter",
       "rolls": {
         "min": 2,
         "max": 4
@@ -25,7 +25,10 @@
             },
             {
               "function": "set_data",
-              "data": 0
+              "data": {
+                "min": 0,
+                "max": 5
+              }
             }
           ]
         },
@@ -56,6 +59,25 @@
               }
             }
           ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:boat",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:ladder",
+          "weight": 6
         }
       ]
     }

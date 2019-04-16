@@ -17,6 +17,7 @@ public class CharmLootTables
     public static final ResourceLocation VILLAGE_BUTCHER = LootHelper.addLootLocation(RARITY.COMMON, TYPE.MISC, new ResourceLocation(Charm.MOD_ID, "village/butcher"));
     public static final ResourceLocation VILLAGE_FARMER = LootHelper.addLootLocation(RARITY.COMMON, TYPE.MISC, new ResourceLocation(Charm.MOD_ID, "village/farmer"));
     public static final ResourceLocation VILLAGE_SHEPHERD = LootHelper.addLootLocation(RARITY.COMMON, TYPE.MISC, new ResourceLocation(Charm.MOD_ID, "village/shepherd"));
+    public static final ResourceLocation VILLAGE_FISHERMAN = LootHelper.addLootLocation(RARITY.COMMON, TYPE.MISC, new ResourceLocation(Charm.MOD_ID, "village/fisherman"));
     public static final ResourceLocation TREASURE_COMMON_BOOKS = LootHelper.addLootLocation(RARITY.COMMON, TYPE.BOOK, new ResourceLocation(Charm.MOD_ID, "treasure/common_books"));
     public static final ResourceLocation TREASURE_COMMON_POTIONS = LootHelper.addLootLocation(RARITY.COMMON, TYPE.POTION, new ResourceLocation(Charm.MOD_ID, "treasure/common_potions"));
     public static final ResourceLocation TREASURE_UNCOMMON = LootHelper.addLootLocation(RARITY.UNCOMMON, TYPE.MISC, new ResourceLocation(Charm.MOD_ID, "treasure/uncommon"));

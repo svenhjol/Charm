@@ -28,8 +28,11 @@ public class VillageCarpenterTheme extends CharmDecoratorTheme
     public IBlockState getFunctionalBlock()
     {
         List<IBlockState> states = new ArrayList<>();
-        if (uncommon()) states.add(Blocks.STICKY_PISTON.getDefaultState());
+        if (rare()) states.add(Blocks.STICKY_PISTON.getDefaultState());
+        if (uncommon()) states.add(Blocks.NOTEBLOCK.getDefaultState());
+        if (uncommon()) states.add(Blocks.JUKEBOX.getDefaultState());
         states.add(Blocks.CRAFTING_TABLE.getDefaultState());
+        states.add(Blocks.BOOKSHELF.getDefaultState());
         states.add(Blocks.PISTON.getDefaultState().withProperty(BlockPistonBase.FACING, EnumFacing.UP));
 
         return states.get(getRand().nextInt(states.size()));
