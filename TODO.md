@@ -49,7 +49,7 @@
     [T] Zombie villages spawn zombie/skeleton horses
     [X] Fix inventory icons for lanterns
     [X] Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
-    [T] Fix url in mcmod.info
+    [X] Fix url in mcmod.info
     [X] more wood open/close sounds, remember refs
     [T] PT nether fortress loot
     

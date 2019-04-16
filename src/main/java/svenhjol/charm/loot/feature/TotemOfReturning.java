@@ -62,10 +62,10 @@ public class TotemOfReturning extends Feature
         LootFunction[] functions = new LootFunction[0];
         LootCondition[] conditions = new LootCondition[0];
 
-        if (event.getName().equals(LootTableList.CHESTS_WOODLAND_MANSION)) { weight = 14; }
-        if (event.getName().equals(LootTableList.CHESTS_ABANDONED_MINESHAFT)) { weight = 14; }
-        if (event.getName().equals(LootTableList.CHESTS_NETHER_BRIDGE)) { weight = 14; }
-        if (event.getName().equals(CharmLootTables.VILLAGE_PRIEST)) { weight = 4; }
+        if (event.getName().equals(LootTableList.CHESTS_WOODLAND_MANSION)) { weight = 12; }
+        if (event.getName().equals(LootTableList.CHESTS_ABANDONED_MINESHAFT)) { weight = 12; }
+        if (event.getName().equals(LootTableList.CHESTS_NETHER_BRIDGE)) { weight = 8; }
+        if (event.getName().equals(CharmLootTables.VILLAGE_PRIEST)) { weight = 2; }
         if (event.getName().equals(CharmLootTables.TREASURE_VALUABLE)) { weight = 12; }
         if (event.getName().equals(CharmLootTables.TREASURE_RARE)) { weight = 16; }
 
