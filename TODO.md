@@ -51,4 +51,4 @@
 ## Next up
 
     [ ] more wood open/close sounds, remember refs
-    [ ] Translations (Icelandic, Dutch, French, Italian, Spanish ...)
+    [ ] Translations (Icelandic, Korean, Dutch, French, Italian, Spanish ...)
