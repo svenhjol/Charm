@@ -1,11 +1,11 @@
-package svenhjol.charm.misc.render;
+package svenhjol.charm.tweaks.render;
 
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderOcelot;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import svenhjol.charm.misc.feature.RandomAnimalTextures;
+import svenhjol.charm.tweaks.feature.RandomAnimalTextures;
 
 public class RenderOcelotTextures extends RenderOcelot
 {

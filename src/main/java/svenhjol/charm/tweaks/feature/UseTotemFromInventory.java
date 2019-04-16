@@ -1,4 +1,4 @@
-package svenhjol.charm.misc.feature;
+package svenhjol.charm.tweaks.feature;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.player.EntityPlayer;

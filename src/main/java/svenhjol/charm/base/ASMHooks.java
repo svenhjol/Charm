@@ -9,7 +9,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
-import svenhjol.charm.misc.feature.LeatherArmorInvisibility;
+import svenhjol.charm.tweaks.feature.LeatherArmorInvisibility;
 import svenhjol.charm.world.feature.MoreVillageBiomes;
 import svenhjol.meson.event.StructureEventBase.AddComponentPartsEvent;
 

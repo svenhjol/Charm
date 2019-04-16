@@ -1,4 +1,4 @@
-package svenhjol.charm.misc.feature;
+package svenhjol.charm.tweaks.feature;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityOcelot;
@@ -9,8 +9,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.meson.Feature;
-import svenhjol.charm.misc.render.RenderOcelotTextures;
-import svenhjol.charm.misc.render.RenderWolfTextures;
+import svenhjol.charm.tweaks.render.RenderOcelotTextures;
+import svenhjol.charm.tweaks.render.RenderWolfTextures;
 import svenhjol.meson.IMesonEnum;
 
 import java.util.HashMap;

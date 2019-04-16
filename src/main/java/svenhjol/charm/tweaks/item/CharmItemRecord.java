@@ -1,4 +1,4 @@
-package svenhjol.charm.misc.item;
+package svenhjol.charm.tweaks.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemRecord;

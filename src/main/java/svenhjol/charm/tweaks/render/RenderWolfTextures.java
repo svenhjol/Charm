@@ -1,11 +1,11 @@
-package svenhjol.charm.misc.render;
+package svenhjol.charm.tweaks.render;
 
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWolf;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import svenhjol.charm.misc.feature.RandomAnimalTextures;
+import svenhjol.charm.tweaks.feature.RandomAnimalTextures;
 
 public class RenderWolfTextures extends RenderWolf
 {

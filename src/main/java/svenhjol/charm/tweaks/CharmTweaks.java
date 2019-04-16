@@ -1,11 +1,11 @@
-package svenhjol.charm.misc;
+package svenhjol.charm.tweaks;
 
 import svenhjol.meson.Module;
-import svenhjol.charm.misc.feature.*;
+import svenhjol.charm.tweaks.feature.*;
 
-public class CharmMisc extends Module
+public class CharmTweaks extends Module
 {
-    public CharmMisc()
+    public CharmTweaks()
     {
         features.add(new CactusWater());
         features.add(new CauldronWaterSource());

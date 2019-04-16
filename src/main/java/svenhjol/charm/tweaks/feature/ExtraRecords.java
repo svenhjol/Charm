@@ -1,4 +1,4 @@
-package svenhjol.charm.misc.feature;
+package svenhjol.charm.tweaks.feature;
 
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
@@ -8,7 +8,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.Charm;
-import svenhjol.charm.misc.item.CharmItemRecord;
+import svenhjol.charm.tweaks.item.CharmItemRecord;
 import svenhjol.meson.Feature;
 
 import java.util.ArrayList;

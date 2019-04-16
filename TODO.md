@@ -49,7 +49,7 @@
     [X] Fix inventory icons for lanterns
     [ ] Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
     [ ] Fix url in mcmod.info
-    [ ] more wood open/close sounds, remember refs
+    [T] more wood open/close sounds, remember refs
     [ ] PT nether fortress loot
 ## Next up
 

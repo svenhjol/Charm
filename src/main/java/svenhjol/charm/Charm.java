@@ -14,7 +14,7 @@ import svenhjol.charm.brewing.CharmBrewing;
 import svenhjol.charm.crafting.CharmCrafting;
 import svenhjol.charm.enchanting.CharmEnchanting;
 import svenhjol.charm.loot.CharmLoot;
-import svenhjol.charm.misc.CharmMisc;
+import svenhjol.charm.tweaks.CharmTweaks;
 import svenhjol.charm.smithing.CharmSmithing;
 import svenhjol.charm.world.CharmWorld;
 import svenhjol.meson.Feature;
@@ -49,7 +49,7 @@ public class Charm
             new CharmCrafting(),
             new CharmEnchanting(),
             new CharmLoot(),
-            new CharmMisc(),
+            new CharmTweaks(),
             new CharmSmithing(),
             new CharmWorld()
         );
