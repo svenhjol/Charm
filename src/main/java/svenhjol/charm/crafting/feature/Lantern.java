@@ -7,6 +7,7 @@ import svenhjol.charm.crafting.block.BlockLantern;
 import svenhjol.meson.Feature;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.RecipeHandler;
+import svenhjol.meson.helper.ConfigHelper;
 
 public class Lantern extends Feature
 {
@@ -48,15 +49,17 @@ public class Lantern extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        ironLantern = new BlockLantern("iron");
-        goldLantern = new BlockLantern("gold");
+        if (!ConfigHelper.checkMods("minecraftfuture")) {
+            // register iron lantern if not overridden by other mods
+            ironLantern = new BlockLantern("iron");
+            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, 2),
+                "III", "ITI", "III",
+                'I', Items.IRON_NUGGET,
+                'T', Blocks.TORCH
+            );
+        }
 
-        // add lantern recipes
-        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, 2),
-            "III", "ITI", "III",
-            'I', Items.IRON_NUGGET,
-            'T', Blocks.TORCH
-        );
+        goldLantern = new BlockLantern("gold");
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(goldLantern, 2),
             "GGG", "GTG", "GGG",
             'G', Items.GOLD_NUGGET,
