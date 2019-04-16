@@ -3,6 +3,7 @@ package svenhjol.charm.world.decorator.outer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntitySnowman;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
@@ -43,7 +44,7 @@ public class Mobs extends MesonOuterDecorator
             boolean grassBelow = world.getBlockState(posForMob.offset(EnumFacing.DOWN)) == Blocks.GRASS.getDefaultState();
             if (!airAbove && !grassBelow && !EntityHelper.canMobsSpawnInPos(world, posForMob)) continue;
 
-            int mobType = rand.nextInt(3);
+            int mobType = rand.nextInt(4);
 
             if (biome.isSnowyBiome() && rand.nextFloat() <= VillageDecorations.golemsWeight) {
                 // Jon Snow
@@ -80,6 +81,13 @@ public class Mobs extends MesonOuterDecorator
                 EntityIronGolem golem = new EntityIronGolem(world);
                 golem.setPosition(posForMob.getX(), posForMob.getY(), posForMob.getZ());
                 world.spawnEntity(golem);
+            } else if (mobType == 3) {
+                // Hest
+                Entity entity = EntityHelper.spawnEntity(new ResourceLocation("minecraft:horse"), world, posForMob);
+                if (entity instanceof EntityHorse) {
+                    EntityHorse horse = (EntityHorse) entity;
+                    horse.setHorseVariant(rand.nextInt(7));
+                }
             }
         }
     }
