@@ -16,6 +16,7 @@ import net.minecraft.world.biome.Biome;
 import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonOuterDecorator;
 import svenhjol.meson.helper.EntityHelper;
+import svenhjol.meson.helper.WorldHelper;
 
 import java.util.List;
 import java.util.Random;
@@ -43,6 +44,21 @@ public class Mobs extends MesonOuterDecorator
             boolean airAbove = world.getBlockState(posForMob) == Blocks.AIR.getDefaultState();
             boolean grassBelow = world.getBlockState(posForMob.offset(EnumFacing.DOWN)) == Blocks.GRASS.getDefaultState();
             if (!airAbove && !grassBelow && !EntityHelper.canMobsSpawnInPos(world, posForMob)) continue;
+
+
+            if (VillageDecorations.villageInfested.contains(WorldHelper.getChunkPos(pos))) {
+                String horseType;
+
+                if (rand.nextFloat() < 0.5) {
+                    horseType = "minecraft:zombie_horse";
+                } else {
+                    horseType = "minecraft:skeleton_horse";
+                }
+
+                EntityHelper.spawnEntity(new ResourceLocation(horseType), world, posForMob);
+                continue;
+            }
+
 
             int mobType = rand.nextInt(4);
 

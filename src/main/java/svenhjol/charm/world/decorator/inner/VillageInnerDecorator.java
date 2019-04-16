@@ -7,6 +7,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
@@ -101,6 +102,11 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
         return new BlockPos(bb.minX, bb.minY, bb.minZ);
     }
 
+    public ChunkPos getChunkPos()
+    {
+        return WorldHelper.getChunkPos(getPos());
+    }
+
     public Random getVillageRand()
     {
         long seed = getSeed();
@@ -110,10 +116,8 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
     }
 
     /**
-     * Probably use this in a future version of Charm.
      * @return True if this structure is part of a village that is zombie infested
      */
-    @SuppressWarnings("unused")
     public boolean isZombieInfested()
     {
         return ReflectionHelper.getPrivateValue(StructureVillagePieces.Village.class, (StructureVillagePieces.Village)structure, ObfuscationHelper.Fields.IS_ZOMBIE_INFESTED);

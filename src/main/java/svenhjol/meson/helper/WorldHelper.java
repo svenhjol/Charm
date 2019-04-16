@@ -1,6 +1,7 @@
 package svenhjol.meson.helper;
 
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
@@ -43,5 +44,10 @@ public class WorldHelper
         double d2 = d0 - pos2.getX();
         double d3 = d1 - pos2.getZ();
         return d2 * d2 + d3 * d3;
+    }
+
+    public static ChunkPos getChunkPos(BlockPos pos)
+    {
+        return new ChunkPos(pos.getX() >> 4, pos.getZ() >> 4);
     }
 }

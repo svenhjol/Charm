@@ -51,6 +51,7 @@ public class VillageDecorations extends Feature
     public static float rare = 0.005f;
 
     public static Map<ChunkPos, Long> villageChunks = new HashMap<>();
+    public static List<ChunkPos> villageInfested = new ArrayList<>();
 
     @Override
     public String getDescription()
@@ -273,6 +274,9 @@ public class VillageDecorations extends Feature
             if (component instanceof Well) decorator = new VillageInnerDecorator.Well(component, world, box);
 
             if (decorator != null) {
+                if (decorator.isZombieInfested()) {
+                    villageInfested.add(decorator.getChunkPos());
+                }
                 decorator.generate();
             }
         }

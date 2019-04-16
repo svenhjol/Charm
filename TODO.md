@@ -42,16 +42,16 @@
     [X] Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
     [X] Wooden blocks (crates, barrels, bookshelf chests) should burn
     [X] fisherman and shepherd themes, improve carpenter theme
+    [X] Change "corruption" to "decay", nerf: remove damage, curse and mob conversion
     [X] vines configurable on tree decoration
     [X] improve desert village outer deco, trees should spawn
     [X] Horses should be a mob that spawns in village outer deco
+    [T] Zombie villages spawn zombie/skeleton horses
     [X] Fix inventory icons for lanterns
-    [T] Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
+    [X] Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
     [T] Fix url in mcmod.info
-    [T] more wood open/close sounds, remember refs
-    [ ] PT nether fortress loot
-    [ ] Zombie villages spawn zombie/skeleton horses
-    [T] Change "corruption" to "decay", remove damage, curse and mob conversion
+    [X] more wood open/close sounds, remember refs
+    [T] PT nether fortress loot
     
 ## Next up
 
