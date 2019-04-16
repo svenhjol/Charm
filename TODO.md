@@ -48,8 +48,9 @@
     [X] Horses should be a mob that spawns in village outer deco
     [X] Fix inventory icons for lanterns
     [ ] Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
-
+    [ ] Fix url in mcmod.info
+    [ ] more wood open/close sounds, remember refs
+    [ ] PT nether fortress loot
 ## Next up
 
-    [ ] more wood open/close sounds, remember refs
     [ ] Translations (Icelandic, Korean, Dutch, French, Italian, Spanish ...)
