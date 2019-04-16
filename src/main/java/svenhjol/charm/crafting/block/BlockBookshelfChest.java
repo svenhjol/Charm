@@ -76,6 +76,18 @@ public class BlockBookshelfChest extends MesonBlockTE<TileBookshelfChest> implem
     }
 
     @Override
+    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face)
+    {
+        return true;
+    }
+
+    @Override
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face)
+    {
+        return 50;
+    }
+
+    @Override
     public Class<TileBookshelfChest> getTileEntityClass()
     {
         return TileBookshelfChest.class;

@@ -18,7 +18,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNullableByDefault;
 import java.util.Objects;
 
 public abstract class MesonBlockTE<TE extends TileEntity> extends MesonBlock
@@ -121,8 +120,27 @@ public abstract class MesonBlockTE<TE extends TileEntity> extends MesonBlock
         return true;
     }
 
-    @Nullable
     @Override
-    @ParametersAreNullableByDefault
     public abstract TE createTileEntity(World world, IBlockState state);
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean hasComparatorInputOverride(IBlockState state)
+    {
+        return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
+    {
+        int out = 0;
+
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile instanceof MesonTileInventory) {
+            out = ((MesonTileInventory)tile).getComparatorOutput();
+        }
+
+        return out;
+    }
 }

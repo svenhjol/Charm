@@ -22,7 +22,8 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.GuiHandler;
 import svenhjol.charm.crafting.tile.TileCrate;
-import svenhjol.meson.IMesonBlock.IBlockDropsInventory;
+import svenhjol.meson.IMesonBlock;
+import svenhjol.meson.IMesonBlock.*;
 import svenhjol.meson.IMesonEnum;
 import svenhjol.meson.MesonBlockTE;
 import svenhjol.meson.helper.EntityHelper;
@@ -30,7 +31,7 @@ import svenhjol.meson.helper.SoundHelper;
 
 import javax.annotation.Nullable;
 
-public class BlockCrate extends MesonBlockTE<TileCrate> implements IBlockDropsInventory
+public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock, IBlockDropsInventory
 {
     public enum Type implements IMesonEnum
     {
@@ -187,6 +188,19 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IBlockDropsIn
     public TileCrate createTileEntity(World world, IBlockState state)
     {
         return new TileCrate();    
+    }
+
+
+    @Override
+    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face)
+    {
+        return !isSealedCrate();
+    }
+
+    @Override
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face)
+    {
+        return isSealedCrate() ? 0 : 50;
     }
 
     @SuppressWarnings("deprecation")

@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
@@ -73,6 +74,25 @@ public abstract class MesonTileInventory extends MesonTile
         }
 
         return loot;
+    }
+
+    public int getComparatorOutput()
+    {
+        float f = 0;
+        int i = 0;
+        ItemStackHandler inventory = getInventory();
+
+        for (int slot = 0; slot < getInventorySize(); slot++) {
+            ItemStack stack = inventory.getStackInSlot(slot);
+            if (!stack.isEmpty()) {
+                f += (float)stack.getCount() / (float)Math.min(inventory.getSlotLimit(slot), stack.getMaxStackSize());
+                ++i;
+            }
+        }
+
+        f = f / (float)getInventorySize();
+
+        return MathHelper.floor(f * 14.0) + (i > 0 ? 1 : 0);
     }
 
     @Override
