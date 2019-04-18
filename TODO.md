@@ -1,6 +1,6 @@
 # TODO
 
-## Alpha 3
+## 1.0 Alpha 3
 
     [X] Increase weight of totems in building/structure loot  
     [X] Remove old loot tables, nerf rare and valuable  
@@ -9,7 +9,7 @@
     [X] Add new Nether ore texture [https://github.com/svenhjol/Charm/issues/5]()  
     [X] Disable NetherGoldDeposits if Nether gold ore mod is present [https://github.com/svenhjol/Charm/issues/6]()
 
-## Alpha 4
+## 1.0 Alpha 4
 
     [X] Mystcraft profile village biome crash [https://github.com/svenhjol/Charm/issues/9]()  
     [X] Decrease bat glowing time
@@ -22,7 +22,7 @@
     [X] cactuses could smash without drops on water collect
     [X] Swamphut cat is supposed to be black
 
-## Alpha 5
+## 1.0 Alpha 5
 
     [X] More cake issues [https://github.com/svenhjol/Charm/issues/16]()
     [X] Village bookshelf chests don't show the right texture [https://github.com/svenhjol/Charm/issues/14]()
@@ -35,7 +35,7 @@
     [X] Container compatibility with Inventory Tweaks [https://github.com/svenhjol/Charm/issues/15]()
     [X] Test dispenser behaviour with Charged Emeralds [https://github.com/svenhjol/Charm/issues/3]()
 
-## Beta 1
+## 1.0 Beta 1
 
     [X] Test modpack for bookshelf dupe issue [https://github.com/svenhjol/Charm/issues/4]()
     [X] Compatibility with Future MC [https://github.com/svenhjol/Charm/issues/21]()
@@ -53,6 +53,8 @@
     [X] more wood open/close sounds, remember refs
     [X] PT nether fortress loot
     
-## Next up
+## 1.0 Beta 2
 
-    [ ] Translations (Icelandic, Korean, Dutch, French, Italian, Spanish ...)
+    [X] Fix AABB on lantern and gold lantern texture
+    [X] Flavored Cakes should not stack
+    [-] Translations (Icelandic, Korean, Dutch, French, Italian, Spanish ...)
