@@ -52,7 +52,7 @@ public class BlockRottenFlesh extends MesonBlock
 
         if (!world.isRemote) {
             if (!RottenFleshBlock.transformToPodzol && !RottenFleshBlock.transformToSoil) return;
-            if (!world.isAreaLoaded(pos, 2)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading
+            if (!world.isAreaLoaded(pos, 2)) return; // Forge: prevent loading unloaded chunks
 
             // transform sides to podzol if dirt above
             if (RottenFleshBlock.transformToPodzol) {
