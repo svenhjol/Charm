@@ -36,7 +36,7 @@ public class Lights extends MesonOuterDecorator
             IBlockState light;
 
             if (f > 0.93f && Charm.hasFeature(Lantern.class)) {
-                light = Lantern.ironLantern.getDefaultState();
+                light = Lantern.getDefaultLantern().getDefaultState();
             } else if (f > 0.84f) {
                 light = Blocks.REDSTONE_TORCH.getDefaultState();
             } else {
