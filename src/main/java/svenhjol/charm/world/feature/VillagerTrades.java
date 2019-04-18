@@ -121,7 +121,7 @@ public class VillagerTrades extends Feature
         {
             int emeraldCount = random.nextInt(1) + 1;
             int lanternCount = random.nextInt(2) + 2;
-            ItemStack lanterns = new ItemStack(Lantern.ironLantern, lanternCount);
+            ItemStack lanterns = new ItemStack(Lantern.getDefaultLantern(), lanternCount);
             recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, emeraldCount), lanterns));
         }
     }

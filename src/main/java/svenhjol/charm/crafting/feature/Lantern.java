@@ -66,4 +66,9 @@ public class Lantern extends Feature
             'T', Blocks.TORCH
         );
     }
+
+    public static BlockLantern getDefaultLantern()
+    {
+        return ironLantern == null ? goldLantern : ironLantern;
+    }
 }

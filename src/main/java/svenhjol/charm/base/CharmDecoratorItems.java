@@ -48,14 +48,14 @@ public class CharmDecoratorItems extends MesonDecoratorItems
     public void addLantern(int x, int y, int z, boolean hanging)
     {
         if (!Charm.hasFeature(Lantern.class)) return;
-        generator.add(Lantern.ironLantern.getDefaultState().withProperty(BlockLantern.HANGING, hanging), x, y, z, EnumFacing.NORTH);
+        generator.add(Lantern.getDefaultLantern().getDefaultState().withProperty(BlockLantern.HANGING, hanging), x, y, z, EnumFacing.NORTH);
     }
 
     public IBlockState getLantern()
     {
         IBlockState state;
         if (Charm.hasFeature(Lantern.class)) {
-            state = Lantern.ironLantern.getDefaultState();
+            state = Lantern.getDefaultLantern().getDefaultState();
         } else {
             state = Blocks.TORCH.getDefaultState();
         }
