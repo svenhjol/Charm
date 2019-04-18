@@ -61,9 +61,11 @@ public class TileBookshelfChest extends MesonTileInventory implements IDropoffMa
 
     protected void updateBlock()
     {
-        int slots = getNumberOfFilledSlots();
-        IBlockState state = world.getBlockState(pos).withProperty(BlockBookshelfChest.SLOTS, slots);
-        world.setBlockState(pos, state, 2);
+        if (world.getBlockState(pos).getBlock() instanceof BlockBookshelfChest) {
+            int slots = getNumberOfFilledSlots();
+            IBlockState state = world.getBlockState(pos).withProperty(BlockBookshelfChest.SLOTS, slots);
+            world.setBlockState(pos, state, 2);
+        }
     }
 
     @Override
@@ -97,11 +99,5 @@ public class TileBookshelfChest extends MesonTileInventory implements IDropoffMa
         } else {
             return inventorySize;
         }
-//
-//        int occupied = 0;
-//        for (int i = 0; i < this.inventory.getSlots(); i++) {
-//            if (!this.inventory.getStackInSlot(i).isEmpty()) occupied++;
-//        }
-//        return occupied;
     }
 }
