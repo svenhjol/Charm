@@ -6,7 +6,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -22,7 +21,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
 import svenhjol.charm.brewing.feature.FlavoredCake;
 import svenhjol.meson.IMesonBlock;
-import svenhjol.meson.IMesonBlock.*;
+import svenhjol.meson.IMesonBlock.IHasCustomInventoryItemModel;
+import svenhjol.meson.IMesonBlock.IHasCustomStateMapper;
 
 /**
  * Block-flavored Cake.  Mmmmm
@@ -46,6 +46,12 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
         this.flavor = Potion.getPotionFromResourceLocation(name);
         this.setSoundType(SoundType.CLOTH);
         this.setDefaultState(this.blockState.getBaseState().withProperty(BITES, 0));
+    }
+
+    @Override
+    public int getMaxStackSize()
+    {
+        return 1;
     }
 
     @Override

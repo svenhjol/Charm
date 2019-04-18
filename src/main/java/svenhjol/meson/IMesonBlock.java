@@ -11,7 +11,10 @@ public interface IMesonBlock
     default void createItemBlock(String name)
     {
         Block self = (Block)this;
-        ProxyRegistry.register( new ItemBlock(self).setRegistryName(new ResourceLocation(getModId() + ":" + name)) );
+        ProxyRegistry.register( new ItemBlock(self)
+            .setMaxStackSize(getMaxStackSize())
+            .setRegistryName(new ResourceLocation(getModId() + ":" + name))
+        );
     }
 
     default void register(String name)
@@ -29,6 +32,11 @@ public interface IMesonBlock
 
         // register the item that the block becomes in your inventory
         this.createItemBlock(name);
+    }
+
+    default int getMaxStackSize()
+    {
+        return 64;
     }
 
     interface IBlockDropsInventory
