@@ -44,13 +44,6 @@ public class BlockLantern extends MesonBlock
         setDefaultState(blockState.getBaseState().withProperty(HANGING, false));
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
-    {
-        return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
-    }
-
     @Override
     public String getModId()
     {
@@ -75,8 +68,18 @@ public class BlockLantern extends MesonBlock
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        float pad = 6 / 16F;
-        return new AxisAlignedBB(pad, 0F, pad, 1F - pad, 1F - pad, 1F - pad);
+        AxisAlignedBB aabb;
+        float hpad = 5 / 16F;
+        float vpad = 7 / 16F;
+        float voff = 0.06F;
+
+        if (state.getValue(HANGING)) {
+            aabb = new AxisAlignedBB(hpad, voff, hpad, 1F - hpad, (1F - vpad) + voff, 1F - hpad);
+        } else {
+            aabb = new AxisAlignedBB(hpad, 0F, hpad, 1F - hpad, 1F - vpad, 1F - hpad);
+        }
+
+        return aabb;
     }
 
     @SuppressWarnings("deprecation")
@@ -98,7 +101,7 @@ public class BlockLantern extends MesonBlock
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
         if (Lantern.playSound && rand.nextFloat() <= 0.04f) {
-            worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, CharmSounds.LITTLE_FIRE, SoundCategory.BLOCKS, 0.2F, 1.0F, false);
+            worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, CharmSounds.LITTLE_FIRE, SoundCategory.BLOCKS, 0.24F, 1.0F, false);
         }
     }
 
