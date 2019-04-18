@@ -1,0 +1,15 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "minecraft:cube_all",
+        "transform": "forge:default-block"
+    },
+    "variants": {
+        "normal": {
+            "model": "charm:gunpowder_block"
+        },
+        "inventory": {
+            "model": "charm:gunpowder_block"
+        }
+    }
+}
