@@ -19,6 +19,13 @@ public class RottenFleshBlock extends Feature
     public static BlockRottenFlesh block;
 
     @Override
+    public String getDescription()
+    {
+        return "A storage block for rotten flesh.  If the rotten flesh block has water on any of its sides, it has a chance to turn into dirt.\n" +
+                "If there is a soil block above the rotten flesh block, it has a chance to turn into podzol.";
+    }
+
+    @Override
     public void setupConfig()
     {
         transformToSoil = propBoolean(
