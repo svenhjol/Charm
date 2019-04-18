@@ -13,6 +13,12 @@ public class GunpowderBlock extends Feature
     public static BlockGunpowder block;
 
     @Override
+    public String getDescription()
+    {
+        return "A storage block for gunpowder.  Like Quark's sugar block, but dissolves in lava.";
+    }
+
+    @Override
     public void setupConfig()
     {
         // internal
