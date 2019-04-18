@@ -79,6 +79,8 @@ public class BlockRottenFlesh extends MesonBlock
                     add(pos.east());
                     add(pos.south());
                     add(pos.west());
+                    add(pos.up());
+                    add(pos.down());
                 }};
 
                 for (BlockPos side : sides) {
