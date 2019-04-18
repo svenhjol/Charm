@@ -3,6 +3,7 @@ package svenhjol.meson.helper;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionUtils;
 
 import java.util.ArrayList;
@@ -33,5 +34,28 @@ public class ItemHelper
         ItemStack out = new ItemStack(Items.POTIONITEM, amount);
         PotionUtils.addPotionToItemStack(out, PotionTypes.WATER);
         return out;
+    }
+
+    public static int getInt(ItemStack stack, String tag, int defaultExpected)
+    {
+        return tagExists(stack, tag) ? getNBT(stack).getInteger(tag) : defaultExpected;
+    }
+
+    public static void setInt(ItemStack stack, String tag, int i)
+    {
+        getNBT(stack).setInteger(tag, i);
+    }
+
+    public static NBTTagCompound getNBT(ItemStack stack)
+    {
+        if (!stack.hasTagCompound()) {
+            stack.setTagCompound(new NBTTagCompound());
+        }
+        return stack.getTagCompound();
+    }
+
+    public static boolean tagExists(ItemStack stack, String tag)
+    {
+        return !stack.isEmpty() && stack.hasTagCompound() && getNBT(stack).hasKey(tag);
     }
 }

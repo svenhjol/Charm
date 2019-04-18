@@ -1,0 +1,41 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "charm:items/bound_compass/bound_compass_16"
+    },
+    "overrides": [
+        { "predicate": { "angle": 0.000000 }, "model": "charm:item/bound_compass" },
+        { "predicate": { "angle": 0.015625 }, "model": "charm:item/bound_compass_17" },
+        { "predicate": { "angle": 0.046875 }, "model": "charm:item/bound_compass_18" },
+        { "predicate": { "angle": 0.078125 }, "model": "charm:item/bound_compass_19" },
+        { "predicate": { "angle": 0.109375 }, "model": "charm:item/bound_compass_20" },
+        { "predicate": { "angle": 0.140625 }, "model": "charm:item/bound_compass_21" },
+        { "predicate": { "angle": 0.171875 }, "model": "charm:item/bound_compass_22" },
+        { "predicate": { "angle": 0.203125 }, "model": "charm:item/bound_compass_23" },
+        { "predicate": { "angle": 0.234375 }, "model": "charm:item/bound_compass_24" },
+        { "predicate": { "angle": 0.265625 }, "model": "charm:item/bound_compass_25" },
+        { "predicate": { "angle": 0.296875 }, "model": "charm:item/bound_compass_26" },
+        { "predicate": { "angle": 0.328125 }, "model": "charm:item/bound_compass_27" },
+        { "predicate": { "angle": 0.359375 }, "model": "charm:item/bound_compass_28" },
+        { "predicate": { "angle": 0.390625 }, "model": "charm:item/bound_compass_29" },
+        { "predicate": { "angle": 0.421875 }, "model": "charm:item/bound_compass_30" },
+        { "predicate": { "angle": 0.453125 }, "model": "charm:item/bound_compass_31" },
+        { "predicate": { "angle": 0.484375 }, "model": "charm:item/bound_compass_0" },
+        { "predicate": { "angle": 0.515625 }, "model": "charm:item/bound_compass_1" },
+        { "predicate": { "angle": 0.546875 }, "model": "charm:item/bound_compass_2" },
+        { "predicate": { "angle": 0.578125 }, "model": "charm:item/bound_compass_3" },
+        { "predicate": { "angle": 0.609375 }, "model": "charm:item/bound_compass_4" },
+        { "predicate": { "angle": 0.640625 }, "model": "charm:item/bound_compass_5" },
+        { "predicate": { "angle": 0.671875 }, "model": "charm:item/bound_compass_6" },
+        { "predicate": { "angle": 0.703125 }, "model": "charm:item/bound_compass_7" },
+        { "predicate": { "angle": 0.734375 }, "model": "charm:item/bound_compass_8" },
+        { "predicate": { "angle": 0.765625 }, "model": "charm:item/bound_compass_9" },
+        { "predicate": { "angle": 0.796875 }, "model": "charm:item/bound_compass_10" },
+        { "predicate": { "angle": 0.828125 }, "model": "charm:item/bound_compass_11" },
+        { "predicate": { "angle": 0.859375 }, "model": "charm:item/bound_compass_12" },
+        { "predicate": { "angle": 0.890625 }, "model": "charm:item/bound_compass_13" },
+        { "predicate": { "angle": 0.921875 }, "model": "charm:item/bound_compass_14" },
+        { "predicate": { "angle": 0.953125 }, "model": "charm:item/bound_compass_15" },
+        { "predicate": { "angle": 0.984375 }, "model": "charm:item/bound_compass" }
+    ]
+}

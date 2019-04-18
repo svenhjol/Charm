@@ -12,6 +12,7 @@ tile.charm:rotten_flesh_block.name=Rotten Flesh Block
 
 # Items
 item.charm:bat_bucket.name=Bat in a Bucket
+item.charm:beacon_compass.name=Beacon Compass
 item.charm:charged_emerald.name=Charged Emerald
 item.charm:totem_of_returning.name=Totem of Returning
 item.charm:totem_of_shielding.name=Totem of Shielding

@@ -9,6 +9,7 @@ public class CharmWorld extends Module
     {
         features.add(new BatBucket());
         features.add(new ChargedEmeralds());
+        features.add(new CompassBinding());
         features.add(new IllusionersInRoofedForest());
         features.add(new MoreVillageBiomes());
         features.add(new NetherGoldDeposits());
