@@ -7,6 +7,7 @@ tile.charm:crate_sealed.name=Sealed Crate
 tile.charm:gold_lantern.name=Gold Lantern
 tile.charm:iron_lantern.name=Lantern
 tile.charm:nether_gold_deposit.name=Nether Gold Deposit
+tile.charm:rotten_flesh_block.name=Rotten Flesh Block
 
 # Items
 item.charm:bat_bucket.name=Bat in a Bucket
