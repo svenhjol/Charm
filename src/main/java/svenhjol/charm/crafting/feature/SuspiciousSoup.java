@@ -51,6 +51,12 @@ public class SuspiciousSoup extends Feature
     }
 
     @Override
+    public String[] getDisableMods()
+    {
+        return new String[] { "sm" }; // sm is "Soups and Stews Mod"
+    }
+
+    @Override
     public void setupConfig()
     {
         // configurable
