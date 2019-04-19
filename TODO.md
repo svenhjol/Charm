@@ -61,10 +61,15 @@
     [X] Fix AABB on lantern and gold lantern texture
     [X] Flavored Cakes should not stack
     
+### Beta 3
+
+    [T] Extra checks on TileBookshelfChest. When block causes TE to drop inventory, crashes on updateblock
+    
 ### Next up
 
-    [-] Translations (Icelandic, Korean, Dutch, French, Italian, Spanish ...)
-
+    [-] Translations (Icelandic, Korean, Dutch, French, Italian ...)
+    [ ] All mod compatibility stuff from github
+    
 
 ## 1.1
 
@@ -72,7 +77,11 @@
 
     [X] Rotten flesh block
     [T] Dirt conversion should happen when water is above and below as well as any side
+    [T] Beacon compass
+    [T] Gunpower block
+    [ ] Composter
     
 ### Next up
 
-    [ ] Gunpower block
+    [ ] Rewrite the tag stuff in ToR now that the ItemHelper can do it more elegantly
+ 
