@@ -21,6 +21,15 @@ public final class ModelHandler
         ProxyRegistry.blocks.forEach(ModelHandler::registerBlockModels);
     }
 
+//    @SubscribeEvent
+//    public static void onItemColorRegister(ColorHandlerEvent.Item event)
+//    {
+//        for (Item item : ProxyRegistry.items) {
+//            if (!(item instanceof IMesonItem.IItemColorHandler)) continue;
+//            event.getItemColors().registerItemColorHandler(((IMesonItem.IItemColorHandler)item).getItemColor(), item);
+//        }
+//    }
+
     public static void registerItemModels(Item item)
     {
         int meta = 0;

@@ -4,7 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -15,17 +14,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
 import svenhjol.meson.MesonItem;
 import svenhjol.meson.helper.ItemHelper;
-import vazkii.quark.api.ICustomEnchantColor;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class ItemBoundCompass extends MesonItem implements IItemPropertyGetter, ICustomEnchantColor
+public class ItemBoundCompass extends MesonItem implements IItemPropertyGetter
 {
     private static final String POSX = "posX";
     private static final String POSY = "posY"; // the dimension
     private static final String POSZ = "posZ";
-    private static final String COLOR = "color";
 
     @SideOnly(Side.CLIENT)
     double rotation;
@@ -33,18 +30,18 @@ public class ItemBoundCompass extends MesonItem implements IItemPropertyGetter, 
     double rota;
     @SideOnly(Side.CLIENT)
     long lastUpdateTick;
-
-    @Override
-    public boolean hasEffect(ItemStack stack)
-    {
-        return getPos(stack).getY() < 255;
-    }
-
-    @Override
-    public int getEnchantEffectColor(ItemStack stack)
-    {
-        return ItemHelper.getInt(stack, COLOR, 0);
-    }
+//
+//    @Override
+//    public boolean hasEffect(ItemStack stack)
+//    {
+//        return getPos(stack).getY() < 255;
+//    }
+//
+//    @Override
+//    public int getEnchantEffectColor(ItemStack stack)
+//    {
+//        return ItemHelper.getInt(stack, COLOR, 0);
+//    }
 
     public ItemBoundCompass(String name)
     {
@@ -68,7 +65,9 @@ public class ItemBoundCompass extends MesonItem implements IItemPropertyGetter, 
 
     public static ItemStack setColor(ItemStack stack, int meta)
     {
-        ItemHelper.setInt(stack, COLOR, ItemDye.DYE_COLORS[15 - meta]);
+        if (meta > 0) {
+            ItemHelper.setInt(stack, "Quark:ItemNameDye", meta);
+        }
         return stack;
     }
 

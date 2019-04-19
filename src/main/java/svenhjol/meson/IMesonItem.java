@@ -1,7 +1,10 @@
 package svenhjol.meson;
 
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -28,5 +31,11 @@ public interface IMesonItem
     interface IVariants
     {
         List<ResourceLocation> getVariants();
+    }
+
+    interface IItemColorHandler
+    {
+        @SideOnly(Side.CLIENT)
+        IItemColor getItemColor();
     }
 }
