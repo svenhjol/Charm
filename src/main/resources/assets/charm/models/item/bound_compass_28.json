@@ -1,6 +1,0 @@
-{
-	"parent": "item/generated",
-	"textures": { 
-		"layer0": "charm:items/bound_compass/bound_compass_28"
-	}
-}
