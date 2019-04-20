@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "charm:composter",
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "item",
+          "name": "charm:composter"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:dye",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 15
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "charm:composter",
+          "properties": {
+            "level": "8"
+          }
+        }
+      ]
+    }
+  ]
+}

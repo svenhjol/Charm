@@ -9,6 +9,7 @@ public class CharmCrafting extends Module
     {
         features.add(new Barrel());
         features.add(new BookshelfChest());
+        features.add(new Composter());
         features.add(new Crate());
         features.add(new GunpowderBlock());
         features.add(new Lantern());

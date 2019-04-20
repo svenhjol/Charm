@@ -1,0 +1,14 @@
+{
+    "textures": {
+        "particle": "charm:blocks/composter_compost",
+        "inside": "charm:blocks/composter_compost"
+    },
+    "elements": [
+        {   "from": [ 2, 0, 2 ],
+            "to": [ 14, 11, 14 ],
+            "faces": {
+                "up": { "texture": "#inside", "cullface": "up" }
+            }
+        }
+    ]
+}

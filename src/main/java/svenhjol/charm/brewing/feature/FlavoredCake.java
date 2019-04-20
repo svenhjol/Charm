@@ -1,11 +1,14 @@
 package svenhjol.charm.brewing.feature;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import svenhjol.charm.Charm;
 import svenhjol.charm.brewing.block.BlockFlavoredCake;
+import svenhjol.charm.crafting.feature.Composter;
 import svenhjol.meson.Feature;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FlavoredCake extends Feature
 {
@@ -54,6 +57,11 @@ public class FlavoredCake extends Feature
         for (String potionName : validPotions) {
             BlockFlavoredCake cake = new BlockFlavoredCake(potionName);
             cakes.add(cake);
+
+            if (Charm.hasFeature(Composter.class)) {
+                // add flavored cakes to the composter inputs
+                Composter.inputs.put(Objects.requireNonNull(cake.getRegistryName()).toString(), 1.0f);
+            }
         }
     }
 }

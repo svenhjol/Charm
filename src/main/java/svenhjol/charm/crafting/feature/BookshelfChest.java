@@ -3,12 +3,9 @@ package svenhjol.charm.crafting.feature;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBookshelfChest;
-import svenhjol.charm.crafting.message.MessageUpdateBookshelf;
 import svenhjol.meson.Feature;
-import svenhjol.meson.NetworkHandler;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.RecipeHandler;
 
@@ -36,7 +33,6 @@ public class BookshelfChest extends Feature
     {
         bookshelfChest = new BlockBookshelfChest();
         GameRegistry.registerTileEntity(bookshelfChest.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":bookshelf_chest"));
-        NetworkHandler.register(MessageUpdateBookshelf.class, Side.CLIENT);
 
         // add bookshelf chest recipe
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(bookshelfChest, 1),

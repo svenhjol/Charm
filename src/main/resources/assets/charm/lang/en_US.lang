@@ -2,6 +2,7 @@
 tile.charm:barrel.name=Barrel
 tile.charm:bookshelf_chest.name=Bookshelf Chest
 tile.charm:bookshelf_container.name=Bookshelf Chest
+tile.charm:composter.name=Composter
 tile.charm:crate.name=Crate
 tile.charm:crate_sealed.name=Sealed Crate
 tile.charm:gold_lantern.name=Gold Lantern
