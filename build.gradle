@@ -13,24 +13,30 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-ext.configFile = file('build.properties')
+version = "${mc_version}-${version}.${build_number}"
+if (release_type != "") {
+    version += "-${release_type}"
+}
+
+ext.configFile = file('gradle.properties')
 ext.config = parseConfig(configFile)
 
-version = "${config.mc_version}-${config.version}"
 group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = config.mod_name
+archivesBaseName = mod_name
 
 minecraft {
-    version = "${config.mc_version}-${config.forge_version}"
+    version = "${mc_version}-${forge_version}"
     runDir = "run"
 
     coreMod = "svenhjol.charm.base.CharmLoadingPlugin"
 
-    mappings = config.mc_mappings
-    replace 'GRADLE:VERSION', config.version
+    mappings = mc_mappings
+    replace 'GRADLE:VERSION', version
     replace 'scala.actors.threadpool.Arrays', 'java.util.Arrays' // Vazkii did this so I am too
     replace '@MOD_VERSION@', project.version
     replaceIn 'Charm.java'
+
+    useDepAts = true
     makeObfSourceJar = false
 }
 
@@ -45,10 +51,8 @@ jar {
     }
 }
 
-
 repositories {
-    maven {
-        // for AutoRegLib and Quark
+    maven { // for AutoRegLib and Quark
         name "blamejared"
         url "http://maven.blamejared.com/"
     }
@@ -56,21 +60,23 @@ repositories {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }
-    maven {
-        name = "CurseForge"
-        url = "https://minecraft.curseforge.com/api/maven/"
+    maven { // for HWYLA
+        name 'Mobius'
+        url "https://tehnut.info/maven"
     }
 }
 
 dependencies {
-    compileOnly "vazkii.autoreglib:AutoRegLib:1.3-27.13"
-    compileOnly "vazkii.quark:Quark:r1.5-146.8"
+    compile "vazkii.autoreglib:AutoRegLib:1.3-27.13"
+    compile "vazkii.quark:Quark:r1.5-146.8"
+    runtime "mcp.mobius.waila:Hwyla:1.8.26-B41_1.12.2"
+    runtime "mezz.jei:jei_1.12.2:4.14.3.242"
 }
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-        expand 'version': project.version, 'mcversion': config.mc_version
+        expand 'version': project.version, 'mcversion': mc_version
     }
 
     from(sourceSets.main.resources.srcDirs) {
@@ -83,7 +89,19 @@ task deObfJar(type: Jar) {
     archiveName = "${baseName}-${version}-deobf.${extension}"
 }
 
-static def parseConfig(File config) {
+/**
+ * Increments the buildnumber in your config file, and saves it
+ */
+task incrementBuildNumber {
+    doFirst {
+        config.build_number = (build_number.toString().toInteger()) + 1
+        configFile.withWriter {
+            config.toProperties().store(it, "")
+        }
+    }
+}
+
+def parseConfig(File config) {
     config.withReader {
         def prop = new Properties()
         prop.load(it)
@@ -91,5 +109,4 @@ static def parseConfig(File config) {
     }
 }
 
-
-defaultTasks 'clean', 'build'
+defaultTasks 'clean', 'build', 'incrementBuildNumber'
