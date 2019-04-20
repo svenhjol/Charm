@@ -63,12 +63,15 @@
     
 ### Beta 3
 
-    [T] Extra checks on TileBookshelfChest. When block causes TE to drop inventory, crashes on updateblock
+    [T] Extra checks on TileBookshelfChest, inventory drop is crashing [https://github.com/svenhjol/Charm/issues/27]()
+    [X] Disable Suspicious Soup feature when SSM is installed [https://github.com/svenhjol/Charm/issues/28]()
+    [ ] Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
+    [ ] Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
+    [ ] Remove tame sitting cats from villages [https://github.com/svenhjol/Charm/issues/8]()
     
 ### Next up
 
     [-] Translations (Icelandic, Korean, Dutch, French, Italian ...)
-    [ ] All mod compatibility stuff from github
     
 
 ## 1.1
