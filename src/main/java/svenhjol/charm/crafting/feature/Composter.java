@@ -1,8 +1,17 @@
 package svenhjol.charm.crafting.feature;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.crafting.block.BlockComposter;
+import svenhjol.charm.crafting.message.MessageComposterAddLevel;
 import svenhjol.meson.Feature;
+import svenhjol.meson.NetworkHandler;
 
 import java.util.*;
 
@@ -111,8 +120,23 @@ public class Composter extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         block = new BlockComposter();
-//        NetworkHandler.register(MessageComposterInteract.class, Side.CLIENT);
+        NetworkHandler.register(MessageComposterAddLevel.class, Side.CLIENT);
 
         /* @todo recipe */
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void spawnComposterParticles(BlockPos pos, int level)
+    {
+        WorldClient world = Minecraft.getMinecraft().world;
+        for (int i = 0; i < level + 2; ++i) {
+            double d0 = world.rand.nextGaussian() * 0.02D;
+            double d1 = world.rand.nextGaussian() * 0.02D;
+            double d2 = world.rand.nextGaussian() * 0.02D;
+            double dx = (float)pos.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+            double dy = (float)pos.getY() + 1.05f;
+            double dz = (float)pos.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+            world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, dx, dy, dz, d0, d1, d2);
+        }
     }
 }
