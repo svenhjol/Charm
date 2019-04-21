@@ -1,6 +1,5 @@
 package svenhjol.charm.world.decorator.outer;
 
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -10,7 +9,6 @@ import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonOuterDecorator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -38,13 +36,14 @@ public class Trees extends MesonOuterDecorator
             WorldGenerator gen = generators.get(rand.nextInt(generators.size()));
             if (gen != null) {
 
-                // ensure trees can spawn on ground that currently doesn't allow it
-                List<Block> validBaseBlocks = Arrays.asList(Blocks.SAND, Blocks.SANDSTONE);
-
                 BlockPos atPos = world.getHeight(pos.add(xx, 0, zz));
-                if (validBaseBlocks.contains(world.getBlockState(atPos.down()).getBlock())) {
-                    world.setBlockState(atPos.down(), Blocks.DIRT.getDefaultState());
-                }
+
+                // ensure trees can spawn on ground that currently doesn't allow it
+//                List<Block> validBaseBlocks = Arrays.asList(Blocks.SAND, Blocks.SANDSTONE);
+//
+//                if (validBaseBlocks.contains(world.getBlockState(atPos.down()).getBlock())) {
+//                    world.setBlockState(atPos.down(), Blocks.DIRT.getDefaultState());
+//                }
 
                 // generate the tree
                 gen.generate(world, rand, atPos);
