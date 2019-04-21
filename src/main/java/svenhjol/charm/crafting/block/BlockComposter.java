@@ -36,6 +36,7 @@ public class BlockComposter extends MesonBlock
         setHarvestLevel("axe", 1);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS); // ?
         setDefaultState(blockState.getBaseState().withProperty(LEVEL, 0));
+        setTickRandomly(true);
     }
 
     @Override
@@ -95,6 +96,7 @@ public class BlockComposter extends MesonBlock
 
         if (newLevel != level) {
             world.setBlockState(pos, state.withProperty(LEVEL, newLevel), 2);
+            world.updateComparatorOutputLevel(pos, null);
         }
 
         return true;
@@ -122,12 +124,7 @@ public class BlockComposter extends MesonBlock
     @Override
     public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos)
     {
-        int out = 0;
-        IBlockState state = world.getBlockState(pos);
-        if (state.getBlock() instanceof BlockComposter) {
-            out = state.getValue(LEVEL);
-        }
-        return out;
+        return blockState.getValue(LEVEL);
     }
 
     @Override
