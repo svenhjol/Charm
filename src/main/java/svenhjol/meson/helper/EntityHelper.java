@@ -87,7 +87,8 @@ public class EntityHelper
 
     public static void spawnEntityItem(World world, BlockPos pos, ItemStack stack)
     {
-        EntityItem item = new EntityItem(world, pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, stack);
+        EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+        item.setLocationAndAngles(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, 0f, 0.0F);
         world.spawnEntity(item);
     }
 

@@ -2,25 +2,37 @@ package svenhjol.charm.crafting.feature;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockComposter;
 import svenhjol.charm.crafting.message.MessageComposterAddLevel;
 import svenhjol.meson.Feature;
 import svenhjol.meson.NetworkHandler;
+import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.RecipeHandler;
+import svenhjol.meson.helper.SoundHelper;
 
 import java.util.*;
 
 public class Composter extends Feature
 {
-    public static BlockComposter block;
+    public static BlockComposter composter;
     public static Map<String, Float> inputs = new HashMap<>();
     public static List<String> outputs = new ArrayList<>();
     public static int maxOutput;
+
+    @Override
+    public String getDescription()
+    {
+        return "Right-click the composter with organic items to add them.  When the composter is full, bonemeal will be returned.";
+    }
 
     @Override
     public void setupConfig()
@@ -119,24 +131,22 @@ public class Composter extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        block = new BlockComposter();
+        composter = new BlockComposter();
+        GameRegistry.registerTileEntity(composter.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":composter"));
         NetworkHandler.register(MessageComposterAddLevel.class, Side.CLIENT);
 
-        /* @todo recipe */
+        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(composter),
+            "F F", "F F", "PPP",
+                'F', "fenceWood",
+                'P', "plankWood"
+        );
     }
 
     @SideOnly(Side.CLIENT)
-    public static void spawnComposterParticles(BlockPos pos, int level)
+    public static void levelAdded(BlockPos pos, int level)
     {
         WorldClient world = Minecraft.getMinecraft().world;
-        for (int i = 0; i < level + 2; ++i) {
-            double d0 = world.rand.nextGaussian() * 0.02D;
-            double d1 = world.rand.nextGaussian() * 0.02D;
-            double d2 = world.rand.nextGaussian() * 0.02D;
-            double dx = (float)pos.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
-            double dy = (float)pos.getY() + 1.05f;
-            double dz = (float)pos.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
-            world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, dx, dy, dz, d0, d1, d2);
-        }
+        SoundEvent sound = level == 8 ? SoundEvents.ENTITY_ITEM_PICKUP : SoundEvents.ITEM_HOE_TILL;
+        SoundHelper.playSoundAtPos(world, pos, sound, 1.0f, 1.0f);
     }
 }

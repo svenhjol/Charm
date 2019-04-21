@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmLootTables;
 import svenhjol.charm.crafting.feature.Barrel;
+import svenhjol.charm.crafting.feature.Composter;
 import svenhjol.charm.crafting.tile.TileBarrel;
 import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonOuterDecorator;
@@ -27,7 +28,7 @@ public class Barrels extends MesonOuterDecorator
     @Override
     public void generate()
     {
-        if (!Charm.hasFeature(Barrel.class)) return;
+        if (!Charm.hasFeature(Barrel.class) && !Charm.hasFeature(Composter.class)) return;
         ResourceLocation loot = CharmLootTables.VILLAGE_FARMER;
 
         int max = 1;
@@ -42,11 +43,19 @@ public class Barrels extends MesonOuterDecorator
             boolean grassBelow = world.getBlockState(current.offset(EnumFacing.DOWN)) == Blocks.GRASS.getDefaultState();
             if (!airAbove || !grassBelow) continue;
 
-            world.setBlockState(current, Barrel.barrel.getDefaultState());
-            TileEntity tile = world.getTileEntity(current);
+            if (rand.nextFloat() < 0.5f) {
+                if (Charm.hasFeature(Barrel.class)) {
+                    world.setBlockState(current, Barrel.barrel.getDefaultState());
+                    TileEntity tile = world.getTileEntity(current);
 
-            if (tile instanceof TileBarrel) {
-                ((TileBarrel)tile).setLootTable(loot);
+                    if (tile instanceof TileBarrel) {
+                        ((TileBarrel) tile).setLootTable(loot);
+                    }
+                }
+            } else {
+                if (Charm.hasFeature(Composter.class)) {
+                    world.setBlockState(current, Composter.composter.getDefaultState());
+                }
             }
         }
     }

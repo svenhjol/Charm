@@ -21,8 +21,7 @@ public class Lantern extends Feature
     @Override
     public String getDescription()
     {
-        return "An elegant lighting solution borrowed lovingly from Minecraft 1.14.\n" +
-                "Now with special Golden edition!";
+        return "An elegant lighting solution.  Comes in iron and gold.";
     }
 
     @Override

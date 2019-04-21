@@ -604,7 +604,10 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
                 }
             } else {
                 if (VillageDecorations.storage) {
-                    if (uncommon()) items.addStorageBlock(1, 1, 3, EnumFacing.SOUTH);
+                    if (uncommon()) {
+                        items.addStorageBlock(1, 1, 3, EnumFacing.SOUTH);
+                        add(Blocks.AIR, 1, 2, 3);
+                    }
                 }
             }
 

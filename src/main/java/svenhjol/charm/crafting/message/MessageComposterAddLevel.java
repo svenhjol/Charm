@@ -43,7 +43,7 @@ public class MessageComposterAddLevel extends MesonMessage
     public IMessage handle(MessageContext context)
     {
         Minecraft.getMinecraft().addScheduledTask(() -> {
-            Composter.spawnComposterParticles(pos, level);
+            Composter.levelAdded(pos, level);
         });
 
         return null;

@@ -146,8 +146,8 @@ public class VillageDecorations extends Feature
                 0.75
         );
         barrelsChance = propDouble(
-                "Barrels outside",
-                "Chance (out of 1.0) of a village having barrels containing farming-related loot scattered within its boundary.",
+                "Barrels and composters outside",
+                "Chance (out of 1.0) of a village having barrels containing farming-related loot and composters scattered within its boundary.",
                 0.6
         );
         pumpkinsChance = propDouble(
@@ -169,7 +169,7 @@ public class VillageDecorations extends Feature
                 "Extra golem weight",
                 "Chance (out of 1.0) of a chunk within the village boundary spawning a golem.\n" +
                         "This is only valid if the 'Mobs outside' config option allows it.",
-                0.25
+                0.1
         );
         barrelsWeight = propDouble(
                 "Extra barrels weight",
