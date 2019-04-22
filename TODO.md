@@ -82,9 +82,11 @@
     [T] Dirt conversion should happen when water is above and below as well as any side
     [T] Beacon compass
     [T] Gunpower block
-    [ ] Composter
+    [T] Composter
     
 ### Next up
 
     [ ] Rewrite the tag stuff in ToR now that the ItemHelper can do it more elegantly
+    [ ] Shouldn't consume items from hand when in creative
+    [ ] JEI tab for composter materials
  
