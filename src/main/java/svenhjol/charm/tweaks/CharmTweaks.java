@@ -11,6 +11,7 @@ public class CharmTweaks extends Module
         features.add(new CauldronWaterSource());
         features.add(new ExtraRecords());
         features.add(new LeatherArmorInvisibility());
+        features.add(new PickaxesBreakPistons());
         features.add(new RandomAnimalTextures());
         features.add(new RecordsStopBackgroundMusic());
         features.add(new ShearedFlowers());
