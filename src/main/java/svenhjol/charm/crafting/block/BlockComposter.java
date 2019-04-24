@@ -32,7 +32,7 @@ public class BlockComposter extends MesonBlockTE<TileComposter> implements IMeso
         setHardness(2.0f);
         setSoundType(SoundType.WOOD);
         setHarvestLevel("axe", 1);
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS); // ?
+        setCreativeTab(CreativeTabs.DECORATIONS);
         setDefaultState(blockState.getBaseState().withProperty(LEVEL, 0));
         setTickRandomly(true);
     }
