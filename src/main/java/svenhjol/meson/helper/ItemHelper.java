@@ -1,11 +1,13 @@
 package svenhjol.meson.helper;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.NonNullList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,11 +63,12 @@ public class ItemHelper
         Item item = Item.getByNameOrId(name);
         if (item != null) {
             if (meta.equals("*") || meta.isEmpty()) {
-                ItemStack itemHolder = new ItemStack(item);
-                for (int i = 0; i < itemHolder.getMaxDamage(); i++) {
-                    ItemStack copy = itemHolder.copy();
-                    copy.setItemDamage(i);
-                    stacks.add(copy);
+                if (item.getHasSubtypes()) {
+                    NonNullList<ItemStack> subItems = NonNullList.create();
+                    item.getSubItems(CreativeTabs.SEARCH, subItems);
+                    stacks.addAll(subItems);
+                } else {
+                    stacks.add(new ItemStack(item, 1, 0));
                 }
             } else {
                 stacks.add(new ItemStack(item, 1, Integer.parseInt(meta)));

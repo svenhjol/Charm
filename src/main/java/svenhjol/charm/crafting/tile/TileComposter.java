@@ -33,7 +33,7 @@ public class TileComposter extends MesonTile
         public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate)
         {
             if (world.getBlockState(pos).getBlock() instanceof BlockComposter) {
-                if (!stack.isEmpty() && addItem(stack)) {
+                if (!stack.isEmpty() && addItem(stack, false)) {
                     return ItemStack.EMPTY;
                 }
             }
@@ -59,7 +59,7 @@ public class TileComposter extends MesonTile
         return null;
     }
 
-    public boolean addItem(ItemStack inputStack)
+    public boolean addItem(ItemStack inputStack, boolean keepInput)
     {
         IBlockState state = world.getBlockState(pos);
         int level = state.getValue(BlockComposter.LEVEL);
@@ -125,7 +125,9 @@ public class TileComposter extends MesonTile
             if (!Composter.inputs.containsKey(itemName)) return false;
 
             if (!world.isRemote) {
-                inputStack.shrink(1);
+                if (!keepInput) {
+                    inputStack.shrink(1);
+                }
                 if (world.rand.nextFloat() < Composter.inputs.get(itemName)) {
                     newLevel++;
 

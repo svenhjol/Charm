@@ -44,15 +44,13 @@ public class ComposterCategory implements IRecipeCategory
     @Override
     public IDrawable getBackground()
     {
-        return guiHelper.createDrawable(new ResourceLocation(Charm.MOD_ID, "textures/gui/generic27.png"), 7, 5, 163, 96);
+        return guiHelper.createDrawable(new ResourceLocation(Charm.MOD_ID, "textures/gui/composter_jei.png"), 7, 5, 163, 120);
     }
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipe, IIngredients ingredients)
     {
         IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-
-//        guiItemStacks.init(0, false, 118, 10);
 
         // position input items
         int y = 12;
@@ -70,7 +68,7 @@ public class ComposterCategory implements IRecipeCategory
         }
 
         // position output items
-        y += 66;
+        y += 85;
         i = 27;
         j = 0;
         k = 0;
@@ -82,7 +80,5 @@ public class ComposterCategory implements IRecipeCategory
                 k += j == 0 ? 1 : 0;
             }
         }
-//        guiItemStacks.init(i, false, 118, 10);
-//        guiItemStacks.set(i, ingredients.getOutputs(ItemStack.class).get(0));
     }
 }

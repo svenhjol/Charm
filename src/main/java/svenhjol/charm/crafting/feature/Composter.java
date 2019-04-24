@@ -25,7 +25,6 @@ public class Composter extends Feature
 {
     public static BlockComposter composter;
     public static Map<String, Float> inputs = new HashMap<>();
-    public static Map<Float, List<String>> inputsByChance = new HashMap<>();
     public static List<String> outputs = new ArrayList<>();
     public static int maxOutput;
 
@@ -47,6 +46,7 @@ public class Composter extends Feature
                         "minecraft:beetroot_seeds",
                         "minecraft:grass",
                         "minecraft:leaves",
+                        "minecraft:leaves2",
                         "minecraft:melon_seeds",
                         "minecraft:pumpkin_seeds",
                         "minecraft:sapling",
@@ -128,15 +128,6 @@ public class Composter extends Feature
                 "Sets the maximum stack size of the composter output.",
                 3
         );
-
-        // organise inputs
-        for (String s : inputs.keySet()) {
-            float chance = inputs.get(s);
-            if (!inputsByChance.containsKey(chance)) {
-                inputsByChance.put(chance, new ArrayList<>());
-            }
-            inputsByChance.get(chance).add(s);
-        }
     }
 
     @Override
@@ -159,5 +150,21 @@ public class Composter extends Feature
         WorldClient world = Minecraft.getMinecraft().world;
         SoundEvent sound = level == 8 ? SoundEvents.ENTITY_ITEM_PICKUP : SoundEvents.ITEM_HOE_TILL;
         SoundHelper.playSoundAtPos(world, pos, sound, 1.0f, 1.0f);
+    }
+
+    public static Map<Float, List<String>> getInputsByChance()
+    {
+        Map<Float, List<String>> inputsByChance = new HashMap<>();
+
+        // organise inputs
+        for (String s : inputs.keySet()) {
+            float chance = inputs.get(s);
+            if (!inputsByChance.containsKey(chance)) {
+                inputsByChance.put(chance, new ArrayList<>());
+            }
+            inputsByChance.get(chance).add(s);
+        }
+
+        return inputsByChance;
     }
 }

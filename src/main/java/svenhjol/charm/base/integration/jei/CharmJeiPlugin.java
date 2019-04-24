@@ -33,35 +33,22 @@ public class CharmJeiPlugin implements IModPlugin
         composterOutputs.forEach(name -> outputs.addAll(ItemHelper.getItemStacksFromItemString(name)));
 
         // set inputs by chance
-        Map<Float, List<String>> composterInputs = Composter.inputsByChance;
-        Map<Float, List<ItemStack>> inputs = new HashMap<>();
+        Map<Float, List<String>> composterInputs = Composter.getInputsByChance();
+        Map<Float, List<ItemStack>> inputs = new TreeMap<>();
+        Float[] chances = composterInputs.keySet().toArray(new Float[0]);
+        Arrays.sort(chances);
 
-        composterInputs.keySet().forEach(chance -> composterInputs.get(chance).forEach(name -> {
-            if (!inputs.containsKey(chance)) inputs.put(chance, new ArrayList<>());
-            inputs.get(chance).addAll(ItemHelper.getItemStacksFromItemString(name));
-        }));
-
-        // convert the inputsByChance into ItemStacks
-//        Composter.inputsByChance.keySet().forEach(chance ->
-//        {
-//            Composter.inputsByChance.get(chance).stream().map(name ->
-//            {
-//                if (!map.containsKey(chance)) map.put(chance, new ArrayList<>());
-//                return map.get(chance).add(ItemHelper.getItemStacksFromItemString(name));
-//            });
-//        });
-//
-//        Map<Float, List<ItemStack>> map = new HashMap<>();
-//        map.put(0.3f, Arrays.asList(
-//                new ItemStack(Items.BREAD),
-//                new ItemStack(Items.APPLE)
-//        ));
+        for (Float chance : chances) {
+            inputs.put(chance, new ArrayList<>());
+            composterInputs.get(chance).forEach(name -> {
+                inputs.get(chance).addAll(ItemHelper.getItemStacksFromItemString(name));
+            });
+        }
 
         registry.addRecipeCatalyst(new ItemStack(Composter.composter), composter.getUid());
         registry.addRecipes(inputs.keySet()
                 .stream()
                 .map(chance -> new ComposterRecipe(inputs.get(chance), outputs, chance))
                 .collect(Collectors.toList()), composter.getUid());
-
     }
 }
