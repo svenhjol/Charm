@@ -25,6 +25,7 @@ public class Composter extends Feature
 {
     public static BlockComposter composter;
     public static Map<String, Float> inputs = new HashMap<>();
+    public static Map<Float, List<String>> inputsByChance = new HashMap<>();
     public static List<String> outputs = new ArrayList<>();
     public static int maxOutput;
 
@@ -117,6 +118,7 @@ public class Composter extends Feature
                 "Items that may be produced by the composter when it is full.",
                 new String[] {
                         "minecraft:dye[15]",
+                        "minecraft:dirt[2]"
                 }
         );
         outputs.addAll(Arrays.asList(items));
@@ -126,6 +128,15 @@ public class Composter extends Feature
                 "Sets the maximum stack size of the composter output.",
                 3
         );
+
+        // organise inputs
+        for (String s : inputs.keySet()) {
+            float chance = inputs.get(s);
+            if (!inputsByChance.containsKey(chance)) {
+                inputsByChance.put(chance, new ArrayList<>());
+            }
+            inputsByChance.get(chance).add(s);
+        }
     }
 
     @Override

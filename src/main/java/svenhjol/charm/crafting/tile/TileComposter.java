@@ -21,6 +21,8 @@ import svenhjol.meson.helper.ItemHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileComposter extends MesonTile
 {
@@ -67,33 +69,41 @@ public class TileComposter extends MesonTile
 
             // composter is full
             String itemName = Composter.outputs.get(world.rand.nextInt(Composter.outputs.size()));
-            ItemStack stack = ItemHelper.getItemStackFromItemString(itemName);
+            List<ItemStack> stacks = ItemHelper.getItemStacksFromItemString(itemName);
 
-            if (stack != null) {
+            if (!stacks.isEmpty()) {
 
                 if (!world.isRemote) {
-                    stack.setCount(world.rand.nextInt(Composter.maxOutput) + 1);
+                    // select number of stacks according to maxOutput
+                    ArrayList<ItemStack> useStacks = new ArrayList<>();
+                    for (int i = 0; i < Composter.maxOutput; i++) {
+                        useStacks.add(stacks.get(world.rand.nextInt(stacks.size())));
+                    }
 
-                    // try pushing into neighbour
-                    boolean inserted = false;
-                    TileEntity n = world.getTileEntity(pos.down());
-                    if (n != null) {
-                        IItemHandler ni = n.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
-                        if (ni != null) {
-                            ItemStack copy = stack.copy();
-                            if (ItemHandlerHelper.insertItemStacked(ni, copy, false).isEmpty()) {
-                                if (ni instanceof TileEntityHopper) {
-                                    ((TileEntityHopper) ni).setTransferCooldown(7);
+                    for (ItemStack stack : useStacks) {
+                        stack.setCount(1);
+
+                        // try pushing into neighbour
+                        boolean inserted = false;
+                        TileEntity n = world.getTileEntity(pos.down());
+                        if (n != null) {
+                            IItemHandler ni = n.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+                            if (ni != null) {
+                                ItemStack copy = stack.copy();
+                                if (ItemHandlerHelper.insertItemStacked(ni, copy, false).isEmpty()) {
+                                    if (ni instanceof TileEntityHopper) {
+                                        ((TileEntityHopper) ni).setTransferCooldown(7);
+                                    }
+                                    inserted = true;
+                                    this.markDirty();
                                 }
-                                inserted = true;
-                                this.markDirty();
                             }
                         }
-                    }
-                    if (!inserted) {
+                        if (!inserted) {
 
-                        // if couldn't push into neighbour container, pop it out the top of the composter
-                        EntityHelper.spawnEntityItem(world, pos.up(), stack);
+                            // if couldn't push into neighbour container, pop it out the top of the composter
+                            EntityHelper.spawnEntityItem(world, pos.up(), stack);
+                        }
                     }
                 }
                 newLevel = 0;
@@ -105,22 +115,23 @@ public class TileComposter extends MesonTile
         } else {
 
             // check item and increase level based on item chance
-            String itemName = ItemHelper.getItemStringFromItemStack(inputStack);
+            String itemName = ItemHelper.getItemStringFromItemStack(inputStack, true);
 
-            if (Composter.inputs.containsKey(itemName)) {
+            if (!Composter.inputs.containsKey(itemName)) {
+                itemName = itemName.substring(0, itemName.indexOf('['));
+            }
 
-                if (!world.isRemote) {
-                    inputStack.shrink(1);
-                    if (world.rand.nextFloat() < Composter.inputs.get(itemName)) {
-                        newLevel++;
+            // try again after stripping metadata bit
+            if (!Composter.inputs.containsKey(itemName)) return false;
 
-                        // let clients know the level has increased
-                        NetworkHandler.INSTANCE.sendToAll(new MessageComposterAddLevel(pos, newLevel));
-                    }
+            if (!world.isRemote) {
+                inputStack.shrink(1);
+                if (world.rand.nextFloat() < Composter.inputs.get(itemName)) {
+                    newLevel++;
+
+                    // let clients know the level has increased
+                    NetworkHandler.INSTANCE.sendToAll(new MessageComposterAddLevel(pos, newLevel));
                 }
-
-            } else {
-                return false; // invalid input item
             }
         }
 
