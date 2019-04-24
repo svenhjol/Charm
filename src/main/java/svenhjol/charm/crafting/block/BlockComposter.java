@@ -61,7 +61,7 @@ public class BlockComposter extends MesonBlockTE<TileComposter> implements IMeso
         boolean added = false;
         TileComposter composter = getTileEntity(world, pos);
         if (validTileEntity(composter)) {
-            added = composter.addItem(player.getHeldItem(hand));
+            added = composter.addItem(player.getHeldItem(hand), player.isCreative());
             if (added && world.isRemote) {
                 playAddItemSound(world, pos);
                 spawnParticles(world, pos);

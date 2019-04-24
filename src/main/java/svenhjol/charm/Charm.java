@@ -22,7 +22,7 @@ import svenhjol.meson.Meson;
 import svenhjol.meson.Module;
 
 @SuppressWarnings("unused")
-@Mod(modid = Charm.MOD_ID, version = Charm.MOD_VERSION, name = Charm.MOD_NAME)
+@Mod(modid = Charm.MOD_ID, version = Charm.MOD_VERSION, name = Charm.MOD_NAME, dependencies = Charm.DEPENDENCIES)
 public class Charm
 {
     public static final String MOD_NAME = "Charm";
@@ -30,6 +30,7 @@ public class Charm
     public static final String MOD_VERSION = "@MOD_VERSION@";
     public static final String PROXY_COMMON = "svenhjol.charm.base.CommonProxy";
 	public static final String PROXY_CLIENT = "svenhjol.charm.base.ClientProxy";
+	public static final String DEPENDENCIES = "after:jei@[4.14.3,);";
 
     @Instance(Charm.MOD_ID)
     public static Charm instance;
