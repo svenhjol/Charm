@@ -102,7 +102,7 @@ task incrementBuildNumber {
     }
 }
 
-def parseConfig(File config) {
+static def parseConfig(File config) {
     config.withReader {
         def prop = new Properties()
         prop.load(it)
