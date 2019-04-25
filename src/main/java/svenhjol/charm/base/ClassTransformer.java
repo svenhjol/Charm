@@ -33,7 +33,10 @@ public class ClassTransformer extends MesonClassTransformer
                 "net/minecraft/world/gen/structure/StructureComponent", "bbx",
                 "net/minecraft/item/ItemStack", "aip",
                 "net/minecraft/inventory/ContainerBrewingStand", "afu",
-                "net/minecraft/inventory/ContainerBrewingStand$Potion", "afu$c"
+                "net/minecraft/inventory/ContainerBrewingStand$Potion", "afu$c",
+                "net/minecraft/tileentity/TileEntityBeacon", "avh",
+                "net/minecraft/potion/Potion", "uz",
+                "net/minecraft/util/math/AxisAlignedBB", "bhb"
         );
 
         transformers.put("net.minecraft.world.gen.structure.StructureStart",
@@ -48,6 +51,50 @@ public class ClassTransformer extends MesonClassTransformer
             ClassTransformer::transformContainerRepair);
         transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry",
             ClassTransformer::transformBrewingRecipeRegistry);
+        transformers.put("net.minecraft.tileentity.TileEntityBeacon",
+            ClassTransformer::transformTileEntityBeacon);
+    }
+
+    private static int countTransformTileEntityBeacon;
+
+    private static byte[] transformTileEntityBeacon(byte[] basicClass)
+    {
+        log("Transforming TileEntityBeacon");
+        MethodSignature addEffectsToPlayers = new MethodSignature("addEffectsToPlayers", "func_146000_x", "E", "()V");
+
+        byte[] transClass = basicClass;
+
+        transClass = transform(transClass, Pair.of(addEffectsToPlayers, combine(
+                (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ALOAD && ((VarInsnNode)node).var == 9 && ++countTransformTileEntityBeacon == 2,
+                (MethodNode method, AbstractInsnNode node) -> {
+                    InsnList newInstructions = new InsnList();
+                    newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                    newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/TileEntityBeacon", "world", "Lnet/minecraft/world/World;"));
+                    newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 8));
+                    newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                    newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/TileEntityBeacon", "primaryEffect", "Lnet/minecraft/potion/Potion;"));
+                    newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                    newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/TileEntityBeacon", "secondaryEffect", "Lnet/minecraft/potion/Potion;"));
+                    newInstructions.add(new VarInsnNode(Opcodes.ILOAD, 4));
+                    newInstructions.add(new VarInsnNode(Opcodes.ILOAD, 3));
+                    newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "addBeaconEffect", "(Lnet/minecraft/world/World;Lnet/minecraft/util/math/AxisAlignedBB;Lnet/minecraft/potion/Potion;Lnet/minecraft/potion/Potion;II)V", false));
+                    method.instructions.insertBefore(node, newInstructions);
+                    return true;
+                }
+        )));
+
+//        ALOAD 0
+//        GETFIELD svenhjol/charm/test/TileEntityBeacon.world : Lnet/minecraft/world/World;
+//        ALOAD 8
+//        ALOAD 0
+//        GETFIELD svenhjol/charm/test/TileEntityBeacon.primaryEffect : Lnet/minecraft/potion/Potion;
+//        ALOAD 0
+//        GETFIELD svenhjol/charm/test/TileEntityBeacon.secondaryEffect : Lnet/minecraft/potion/Potion;
+//        ILOAD 4
+//        ILOAD 3
+//        INVOKESTATIC svenhjol/charm/base/ASMHooks.addBeaconEffect (Lnet/minecraft/world/World;Lnet/minecraft/util/math/AxisAlignedBB;Lnet/minecraft/potion/Potion;Lnet/minecraft/potion/Potion;II)V
+
+        return transClass;
     }
 
     private static byte[] transformBrewingRecipeRegistry(byte[] basicClass)

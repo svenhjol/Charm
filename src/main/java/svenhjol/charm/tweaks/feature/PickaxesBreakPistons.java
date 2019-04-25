@@ -9,6 +9,12 @@ import svenhjol.meson.Feature;
 public class PickaxesBreakPistons extends Feature
 {
     @Override
+    public String getDescription()
+    {
+        return "Pickaxes break pistons (and sticky pistons) faster.";
+    }
+
+    @Override
     public void preInit(FMLPreInitializationEvent event)
     {
         // get the piston instance and set the harvest level... ¯\_(ツ)_/¯
