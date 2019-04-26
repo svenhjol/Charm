@@ -69,7 +69,7 @@ public class ComposterCategory implements IRecipeCategory
 
         // position output items
         y += 85;
-        i = 27;
+        i = 36;
         j = 0;
         k = 0;
         for (List<ItemStack> stacks : ingredients.getOutputs(ItemStack.class)) {

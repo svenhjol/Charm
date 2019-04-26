@@ -32,23 +32,35 @@ public class CharmJeiPlugin implements IModPlugin
 
         composterOutputs.forEach(name -> outputs.addAll(ItemHelper.getItemStacksFromItemString(name)));
 
-        // set inputs by chance
+        // set inputs by page + chance
         Map<Float, List<String>> composterInputs = Composter.getInputsByChance();
-        Map<Float, List<ItemStack>> inputs = new TreeMap<>();
+        Map<Integer, Map<Float, List<ItemStack>>> inputs = new TreeMap<>();
         Float[] chances = composterInputs.keySet().toArray(new Float[0]);
         Arrays.sort(chances);
 
+        int page = 0;
         for (Float chance : chances) {
-            inputs.put(chance, new ArrayList<>());
-            composterInputs.get(chance).forEach(name -> {
-                inputs.get(chance).addAll(ItemHelper.getItemStacksFromItemString(name));
-            });
+            int i = 0;
+            for (String itemName : composterInputs.get(chance)) {
+                List<ItemStack> stacks = ItemHelper.getItemStacksFromItemString(itemName);
+                for (ItemStack stack : stacks) {
+                    if (!inputs.containsKey(page)) {
+                        inputs.put(page, new HashMap<Float, List<ItemStack>>() {{ put(chance, new ArrayList<>()); }});
+                    }
+                    inputs.get(page).get(chance).add(stack);
+                    page += (++i % 36 == 0) ? 1 : 0; // if there are more than 36 input items, add a "page"
+                }
+            }
+            page++;
         }
 
         registry.addRecipeCatalyst(new ItemStack(Composter.composter), composter.getUid());
         registry.addRecipes(inputs.keySet()
                 .stream()
-                .map(chance -> new ComposterRecipe(inputs.get(chance), outputs, chance))
+                .map(p -> {
+                    Map.Entry<Float, List<ItemStack>> entry = inputs.get(p).entrySet().iterator().next(); // this is crazy right
+                    return new ComposterRecipe(entry.getValue(), outputs, entry.getKey());
+                })
                 .collect(Collectors.toList()), composter.getUid());
     }
 }

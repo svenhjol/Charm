@@ -37,7 +37,7 @@ public class ComposterRecipe implements IRecipeWrapper
     public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY)
     {
         int max = Composter.maxOutput;
-        String numItems = max > 1 ? "up to " + max + " items" : "1 item";
+        String numItems = max > 1 ? "1-" + max + " items" : "1 item";
         drawStringCentered(minecraft.fontRenderer, TextFormatting.DARK_GRAY + "Compost chance: " + Math.round(chance * 100) + "%", 81, 1);
         drawStringCentered(minecraft.fontRenderer, TextFormatting.DARK_GRAY + "Outputs " + numItems, 81, 87);
 //        y += minecraft.fontRenderer.FONT_HEIGHT + 2;
