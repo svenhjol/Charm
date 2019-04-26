@@ -3,13 +3,17 @@ package svenhjol.charm.base;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import svenhjol.charm.Charm;
 import svenhjol.charm.tweaks.feature.LeatherArmorInvisibility;
+import svenhjol.charm.tweaks.feature.TamedAnimalsHealing;
 import svenhjol.charm.world.feature.MoreVillageBiomes;
 import svenhjol.meson.event.StructureEventBase.AddComponentPartsEvent;
 
@@ -21,6 +25,13 @@ import java.util.Random;
 public final class ASMHooks
 {
     public static List<StructureComponent> villageStructures = new ArrayList<>();
+
+    public static void addBeaconEffect(World world, AxisAlignedBB aabb, Potion primaryEffect, Potion secondaryEffect, int duration, int amplifier)
+    {
+        if (Charm.hasFeature(TamedAnimalsHealing.class)) {
+            TamedAnimalsHealing.heal(world, aabb, primaryEffect, secondaryEffect, duration, amplifier);
+        }
+    }
 
     public static BlockDoor villageDoorsForBiome(StructureVillagePieces.Start start)
     {
