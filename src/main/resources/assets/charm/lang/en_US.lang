@@ -9,6 +9,7 @@ tile.charm:gold_lantern.name=Gold Lantern
 tile.charm:gunpowder_block.name=Gunpowder Block
 tile.charm:iron_lantern.name=Lantern
 tile.charm:nether_gold_deposit.name=Nether Gold Deposit
+tile.charm:redstone_sand.name=Redstone Sand
 tile.charm:rotten_flesh_block.name=Rotten Flesh Block
 
 # Items

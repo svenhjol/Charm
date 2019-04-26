@@ -13,6 +13,7 @@ public class CharmCrafting extends Module
         features.add(new Crate());
         features.add(new GunpowderBlock());
         features.add(new Lantern());
+        features.add(new RedstoneSand());
         features.add(new RottenFleshBlock());
         features.add(new SuspiciousSoup());
     }
