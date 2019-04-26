@@ -1,8 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "charm:items/compass_overlay",
-        "layer1": "minecraft:items/compass_16"
+        "layer0": "minecraft:items/compass_16"
     },
     "overrides": [
         { "predicate": { "angle": 0.000000 }, "model": "minecraft:item/compass" },

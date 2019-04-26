@@ -8,7 +8,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.tileentity.TileEntityBeacon;
@@ -42,7 +41,7 @@ public class CompassBinding extends Feature
     @Override
     public void setupConfig()
     {
-        showInformation = true || propBoolean(
+        showInformation = propBoolean(
                 "Add compass information",
                 "If true, adds co-ordinates and dimension to the bound compass tooltip.",
                 true
@@ -52,12 +51,12 @@ public class CompassBinding extends Feature
                 "If true, compasses can bind to active beacons.",
                 true
         );
-        useBeds = true || propBoolean(
+        useBeds = propBoolean(
                 "Use Beds",
                 "If true, compasses can bind to beds.",
                 false
         );
-        useBanners = true || propBoolean(
+        useBanners = propBoolean(
                 "Use Banners",
                 "If true, compasses can bind to banners.",
                 false
@@ -92,6 +91,7 @@ public class CompassBinding extends Feature
             ItemStack compass = new ItemStack(boundCompass);
             TileEntity tile = world.getTileEntity(pos);
 
+            // handle beacons
             if (useBeacons && tile instanceof TileEntityBeacon) {
                 TileEntityBeacon beacon = (TileEntityBeacon) tile;
 
@@ -110,6 +110,7 @@ public class CompassBinding extends Feature
                 validCompass = true;
             }
 
+            // handle beds
             if (useBeds && tile instanceof TileEntityBed) {
                 TileEntityBed bed = (TileEntityBed) tile;
                 color = bed.getColor().getDyeDamage();
@@ -119,6 +120,7 @@ public class CompassBinding extends Feature
                 validCompass = true;
             }
 
+            // handle banners
             if (useBanners && tile instanceof TileEntityBanner) {
                 TileEntityBanner banner = (TileEntityBanner) tile;
                 List<EnumDyeColor> colorList = banner.getColorList();
@@ -140,11 +142,6 @@ public class CompassBinding extends Feature
             compass.setStackDisplayName(name); // I18n.translateToLocal is deprecated?
             ItemBoundCompass.setPos(compass, compassPos);
             ItemBoundCompass.setColor(compass, color);
-
-            NBTTagCompound tag = compass.getTagCompound();
-            NBTTagCompound tag1 = tag.getCompoundTag("display");
-            tag.setTag("display", tag1);
-            tag1.setInteger("color", 0x80f030);
 
             // set the player to hold it or in their inventory
             PlayerHelper.setHeldItem(player, hand, compass);
