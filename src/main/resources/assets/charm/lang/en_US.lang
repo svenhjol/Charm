@@ -5,6 +5,7 @@ tile.charm:bookshelf_container.name=Bookshelf Chest
 tile.charm:composter.name=Composter
 tile.charm:crate.name=Crate
 tile.charm:crate_sealed.name=Sealed Crate
+tile.charm:ender_pearl_block.name=Ender Pearl Block
 tile.charm:gold_lantern.name=Gold Lantern
 tile.charm:gunpowder_block.name=Gunpowder Block
 tile.charm:iron_lantern.name=Lantern

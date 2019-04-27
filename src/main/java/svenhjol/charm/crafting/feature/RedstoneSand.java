@@ -14,6 +14,12 @@ public class RedstoneSand extends Feature
     public static BlockRedstoneSand block;
 
     @Override
+    public String getDescription()
+    {
+        return "A block that acts like sand but is powered like a block of redstone.";
+    }
+
+    @Override
     public void setupConfig()
     {
         // internal

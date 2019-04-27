@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "charm:blocks/ender_pearl_block"
+    }
+}
