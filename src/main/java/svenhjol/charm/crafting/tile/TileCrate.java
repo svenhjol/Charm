@@ -11,7 +11,9 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockCrate;
 import svenhjol.meson.MesonTileInventory;
 import vazkii.quark.api.IDropoffManager;
+import net.minecraftforge.fml.common.Optional;
 
+@Optional.Interface(iface = "vazkii.quark.api.IDropoffManager", modid = "quark")
 public class TileCrate extends MesonTileInventory implements IDropoffManager
 {
     protected boolean showName;

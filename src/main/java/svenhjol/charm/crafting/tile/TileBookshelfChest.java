@@ -12,7 +12,9 @@ import svenhjol.meson.MesonTileInventory;
 import vazkii.quark.api.IDropoffManager;
 
 import javax.annotation.Nonnull;
+import net.minecraftforge.fml.common.Optional;
 
+@Optional.Interface(iface = "vazkii.quark.api.IDropoffManager", modid = "quark")
 public class TileBookshelfChest extends MesonTileInventory implements IDropoffManager
 {
     private int inventorySize;

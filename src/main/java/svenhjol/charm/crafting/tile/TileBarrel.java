@@ -5,7 +5,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import svenhjol.charm.Charm;
 import svenhjol.meson.MesonTileInventory;
 import vazkii.quark.api.IDropoffManager;
+import net.minecraftforge.fml.common.Optional;
 
+@Optional.Interface(iface = "vazkii.quark.api.IDropoffManager", modid = "quark")
 public class TileBarrel extends MesonTileInventory implements IDropoffManager
 {
     public static final int SIZE = 27;
