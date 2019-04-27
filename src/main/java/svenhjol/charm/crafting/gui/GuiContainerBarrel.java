@@ -12,8 +12,8 @@ import vazkii.quark.api.IItemSearchBar;
 import net.minecraftforge.fml.common.Optional;
 
 @Optional.InterfaceList({
-    Optional.Interface(iface = "vazkii.quark.api.IChestButtonCallback", modid = "quark"),
-    Optional.Interface(iface = "vazkii.quark.api.IItemSearchBar", modid = "quark")
+    @Optional.Interface(iface = "vazkii.quark.api.IChestButtonCallback", modid = "quark"),
+    @Optional.Interface(iface = "vazkii.quark.api.IItemSearchBar", modid = "quark")
 })
 public class GuiContainerBarrel extends MesonGuiContainer implements IChestButtonCallback, IItemSearchBar
 {
