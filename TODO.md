@@ -80,13 +80,16 @@
 
     [X] Rotten flesh block
     [T] Dirt conversion should happen when water is above and below as well as any side
-    [T] Beacon compass
+    [X] Beacon compass
     [T] Gunpower block
     [T] Composter
+    
+### Alpha 2
+
+    [X] Shouldn't consume items from hand when in creative
+    [X] JEI tab for composter materials
     
 ### Next up
 
     [ ] Rewrite the tag stuff in ToR now that the ItemHelper can do it more elegantly
-    [ ] Shouldn't consume items from hand when in creative
-    [ ] JEI tab for composter materials
  
