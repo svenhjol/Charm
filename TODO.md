@@ -68,6 +68,8 @@
     [ ] Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
     [ ] Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
     [ ] Remove tame sitting cats from villages [https://github.com/svenhjol/Charm/issues/8]()
+    [ ] Crash with Quark r1.5-147 [https://github.com/svenhjol/Charm/issues/31]()
+    [ ] Weirdness with bookshelves [https://github.com/svenhjol/Charm/issues/32]()
     
 ### Next up
 
