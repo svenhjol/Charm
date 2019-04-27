@@ -1,26 +1,32 @@
 package svenhjol.charm.crafting.feature;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.monster.EntitySilverfish;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.crafting.ai.AIFormEndermite;
 import svenhjol.charm.crafting.block.BlockEnderPearl;
 import svenhjol.meson.Feature;
-import svenhjol.meson.Meson;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.RecipeHandler;
+import svenhjol.meson.helper.WorldHelper;
 
 public class EnderPearlBlock extends Feature
 {
     public static BlockEnderPearl block;
     public static int hardness;
+    public static int range;
     public static boolean showParticles;
+    public static boolean teleportStabilize;
     public static double endermiteChance;
 
     @Override
@@ -32,8 +38,15 @@ public class EnderPearlBlock extends Feature
                 0.5D
         );
 
+        teleportStabilize = propBoolean(
+                "Teleport stabilization",
+                "If true, eating a Chorus Fruit while in range of an Ender Pearl Block will teleport you to it.",
+                true
+        );
+
         // internal
         hardness = 2;
+        range = 8;
         showParticles = true;
     }
 
@@ -50,16 +63,50 @@ public class EnderPearlBlock extends Feature
                 ProxyRegistry.newStack(block));
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onItemUseFinish(LivingEntityUseItemEvent.Finish event)
+    public static boolean onChorusFruitEaten(World world, EntityLivingBase entity)
     {
-        if (event.getEntityLiving() != null
-            && !event.getEntityLiving().world.isRemote
-            && event.getItem().getItem() == Items.CHORUS_FRUIT
-        ) {
-            Meson.log("Nom");
-            event.setResult(Event.Result.DENY);
+        boolean didTeleport = false;
+
+        if (!world.isRemote && entity != null && teleportStabilize) {
+
+            // find the blocks around the entity
+            double distance = 0;
+            BlockPos selectedPos = null;
+            BlockPos entityPos = entity.getPosition();
+
+            Iterable<BlockPos> positions = BlockPos.getAllInBox(entityPos.add(-range, -range, -range), entityPos.add(range, range, range));
+            for (BlockPos pos : positions) {
+                if (world.getBlockState(pos).getBlock() == block && !pos.up(1).equals(entityPos)) {
+
+                    // should be able to stand on it
+                    if (world.getBlockState(pos.up(1)).getMaterial() == Material.AIR
+                        && world.getBlockState(pos.up(2)).getMaterial() == Material.AIR)
+                    {
+                        double d = WorldHelper.getDistanceSq(entityPos, pos.up(1));
+                        if (distance == 0 || d < distance) {
+                            distance = d;
+                            selectedPos = pos.up(1); // the air block above
+                        }
+                    }
+                }
+            }
+            if (selectedPos != null) {
+                double x = selectedPos.getX() + 0.5D;
+                double y = selectedPos.getY();
+                double z = selectedPos.getZ() + 0.5D;
+                if (entity.attemptTeleport(x, y, z)) {
+                    world.playSound(null, x, y, z, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    entity.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, 1.0F);
+                    didTeleport = true;
+                }
+            }
+
+            if (didTeleport && entity instanceof EntityPlayer) {
+                ((EntityPlayer)entity).getCooldownTracker().setCooldown(Items.CHORUS_FRUIT, 20);
+            }
         }
+
+        return didTeleport;
     }
 
     @SubscribeEvent

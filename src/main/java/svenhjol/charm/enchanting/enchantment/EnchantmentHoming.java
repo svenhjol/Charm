@@ -17,6 +17,7 @@ import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.enchanting.feature.Homing;
 import svenhjol.meson.MesonEnchantment;
 import svenhjol.meson.helper.SoundHelper;
+import svenhjol.meson.helper.WorldHelper;
 
 public class EnchantmentHoming extends MesonEnchantment
 {
@@ -85,7 +86,7 @@ public class EnchantmentHoming extends MesonEnchantment
                 Iterable<BlockPos> positions = BlockPos.getAllInBox(eventPos.add(-range, -range, -range), eventPos.add(range, range, range));
                 for (BlockPos pos : positions) {
                     if (world.getBlockState(pos).getBlock() == checkFor) {
-                        double d = getDistanceSq(eventPos, pos);
+                        double d = WorldHelper.getDistanceSq(eventPos, pos);
                         if (distance == 0 || d < distance) distance = d;
                     }
                 }
@@ -102,15 +103,5 @@ public class EnchantmentHoming extends MesonEnchantment
                 }
             }
         }
-    }
-
-
-    private double getDistanceSq(BlockPos pos1, BlockPos pos2)
-    {
-        double d0 = (double)(pos1.getX());
-        double d1 = (double)(pos1.getZ());
-        double d2 = d0 - pos2.getX();
-        double d3 = d1 - pos2.getZ();
-        return d2 * d2 + d3 * d3;
     }
 }

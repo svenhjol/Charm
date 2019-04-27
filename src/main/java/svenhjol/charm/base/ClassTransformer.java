@@ -36,7 +36,8 @@ public class ClassTransformer extends MesonClassTransformer
                 "net/minecraft/inventory/ContainerBrewingStand$Potion", "afu$c",
                 "net/minecraft/tileentity/TileEntityBeacon", "avh",
                 "net/minecraft/potion/Potion", "uz",
-                "net/minecraft/util/math/AxisAlignedBB", "bhb"
+                "net/minecraft/util/math/AxisAlignedBB", "bhb",
+                "net/minecraft/item/ItemChorusFruit", "ahk"
         );
 
         transformers.put("net.minecraft.world.gen.structure.StructureStart",
@@ -53,6 +54,36 @@ public class ClassTransformer extends MesonClassTransformer
             ClassTransformer::transformBrewingRecipeRegistry);
         transformers.put("net.minecraft.tileentity.TileEntityBeacon",
             ClassTransformer::transformTileEntityBeacon);
+        transformers.put("net.minecraft.item.ItemChorusFruit",
+            ClassTransformer::transformItemChorusFruit);
+    }
+
+    private static byte[] transformItemChorusFruit(byte[] basicClass)
+    {
+        log("Transforming ItemChorusFruit");
+        MethodSignature onItemUseFinish = new MethodSignature("onItemUseFinish", "func_77654_b", "a", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityLivingBase;)Lnet/minecraft/item/ItemStack;");
+
+        byte[] transClass = basicClass;
+
+        transClass = transform(transClass, Pair.of(onItemUseFinish, combine(
+                (AbstractInsnNode node) -> node.getOpcode() == Opcodes.IFNE,
+                (MethodNode method, AbstractInsnNode node) -> {
+                    InsnList newInstructions = new InsnList();
+                    newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
+                    newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
+                    newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "onChorusFruitEaten", "(Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityLivingBase;)Z", false));
+                    newInstructions.add(new JumpInsnNode(Opcodes.IFNE, ((JumpInsnNode)node).label));
+                    method.instructions.insert(node, newInstructions);
+                    return true;
+                }
+        )));
+
+//        ALOAD 2
+//        ALOAD 3
+//        INVOKESTATIC svenhjol/charm/base/ASMHooks.onChorusFruitEaten (Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityLivingBase;)Z
+//        IFNE L2
+
+        return transClass;
     }
 
     private static int countTransformTileEntityBeacon;
@@ -82,17 +113,6 @@ public class ClassTransformer extends MesonClassTransformer
                     return true;
                 }
         )));
-
-//        ALOAD 0
-//        GETFIELD svenhjol/charm/test/TileEntityBeacon.world : Lnet/minecraft/world/World;
-//        ALOAD 8
-//        ALOAD 0
-//        GETFIELD svenhjol/charm/test/TileEntityBeacon.primaryEffect : Lnet/minecraft/potion/Potion;
-//        ALOAD 0
-//        GETFIELD svenhjol/charm/test/TileEntityBeacon.secondaryEffect : Lnet/minecraft/potion/Potion;
-//        ILOAD 4
-//        ILOAD 3
-//        INVOKESTATIC svenhjol/charm/base/ASMHooks.addBeaconEffect (Lnet/minecraft/world/World;Lnet/minecraft/util/math/AxisAlignedBB;Lnet/minecraft/potion/Potion;Lnet/minecraft/potion/Potion;II)V
 
         return transClass;
     }

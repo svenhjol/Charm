@@ -36,7 +36,6 @@ public class WorldHelper
         return seed;
     }
 
-    @SuppressWarnings("unused")
     public static double getDistanceSq(BlockPos pos1, BlockPos pos2)
     {
         double d0 = (double)(pos1.getX());
