@@ -67,8 +67,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly "vazkii.autoreglib:AutoRegLib:1.3-27.13"
-    compileOnly "vazkii.quark:Quark:r1.5-146.8"
+    compile "vazkii.autoreglib:AutoRegLib:1.3-27.13"
+    compile "vazkii.quark:Quark:r1.5-146.64"
+    deobfCompile "vazkii.quark:Quark:r1.5-146.64:api"
     runtime "mcp.mobius.waila:Hwyla:1.8.26-B41_1.12.2"
     runtime "mezz.jei:jei_1.12.2:4.14.3.242"
 }
@@ -101,7 +102,7 @@ task incrementBuildNumber {
     }
 }
 
-def parseConfig(File config) {
+def static parseConfig(File config) {
     config.withReader {
         def prop = new Properties()
         prop.load(it)
