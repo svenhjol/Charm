@@ -68,10 +68,14 @@
     [X] Reduce tame sitting cats from villages [https://github.com/svenhjol/Charm/issues/8]()
     [X] Crash with Quark r1.5-147 [https://github.com/svenhjol/Charm/issues/31]()
     
+### 1.0.x
+
+    [ ] A crate has no name [https://github.com/svenhjol/Charm/issues/34]()
+    [ ] Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
+    [?] Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
+    [ ] Weirdness with bookshelves [https://github.com/svenhjol/Charm/issues/32]()
+    
 ### Next up
 
     [-] Translations (Icelandic, Korean, Dutch, French, Italian ...)
-    [ ] Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
-    [ ] Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
-    [ ] Weirdness with bookshelves [https://github.com/svenhjol/Charm/issues/32]()
  
