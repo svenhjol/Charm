@@ -70,9 +70,9 @@
     
 ### 1.0.x
 
-    [ ] A crate has no name [https://github.com/svenhjol/Charm/issues/34]()
-    [ ] Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
-    [?] Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
+    [X] A crate has no name [https://github.com/svenhjol/Charm/issues/34]()
+    [X] Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
+    [X] Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
     [ ] Weirdness with bookshelves [https://github.com/svenhjol/Charm/issues/32]()
     
 ### Next up
