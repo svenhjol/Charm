@@ -5,6 +5,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.ItemStackHandler;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBookshelfChest;
@@ -12,7 +14,6 @@ import svenhjol.meson.MesonTileInventory;
 import vazkii.quark.api.IDropoffManager;
 
 import javax.annotation.Nonnull;
-import net.minecraftforge.fml.common.Optional;
 
 @Optional.Interface(iface = "vazkii.quark.api.IDropoffManager", modid = "quark")
 public class TileBookshelfChest extends MesonTileInventory implements IDropoffManager
@@ -101,5 +102,11 @@ public class TileBookshelfChest extends MesonTileInventory implements IDropoffMa
         } else {
             return inventorySize;
         }
+    }
+
+    @Override
+    public String getDefaultName()
+    {
+        return I18n.translateToLocal("tile.charm:bookshelf_chest.name");
     }
 }
