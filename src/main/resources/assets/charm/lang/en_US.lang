@@ -124,6 +124,7 @@ item.record.charm:menu4.desc=C418 - Floating Trees
 
 # Misc strings
 crate=Crate
+crate_sealed=Sealed Crate
 compass=Compass
 dimension=Dimension
 
