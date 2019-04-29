@@ -6,12 +6,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.items.ItemStackHandler;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockCrate;
 import svenhjol.meson.MesonTileInventory;
 import vazkii.quark.api.IDropoffManager;
+import net.minecraftforge.fml.common.Optional;
 
+@Optional.Interface(iface = "vazkii.quark.api.IDropoffManager", modid = "quark")
 public class TileCrate extends MesonTileInventory implements IDropoffManager
 {
     protected boolean showName;
@@ -60,7 +63,6 @@ public class TileCrate extends MesonTileInventory implements IDropoffManager
     @Override
     public void readTag(NBTTagCompound tag)
     {
-        name = tag.getString("name");
         showName = tag.getBoolean("showname");
         super.readTag(tag);
     }
@@ -68,7 +70,6 @@ public class TileCrate extends MesonTileInventory implements IDropoffManager
     @Override
     public void writeTag(NBTTagCompound tag)
     {
-        tag.setString("name", getName());
         tag.setBoolean("showname", showName);
         super.writeTag(tag);
     }
@@ -76,6 +77,12 @@ public class TileCrate extends MesonTileInventory implements IDropoffManager
     public void setShowName(boolean show)
     {
         this.showName = show;
+    }
+
+    @Override
+    public String getDefaultName()
+    {
+        return I18n.translateToLocal("tile.charm:crate.name");
     }
 
     @Override

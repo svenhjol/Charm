@@ -63,15 +63,17 @@
     
 ### Beta 3
 
-    [T] Extra checks on TileBookshelfChest, inventory drop is crashing [https://github.com/svenhjol/Charm/issues/27]()
+    [X] Extra checks on TileBookshelfChest, inventory drop is crashing [https://github.com/svenhjol/Charm/issues/27]()
     [X] Disable Suspicious Soup feature when SSM is installed [https://github.com/svenhjol/Charm/issues/28]()
-    [ ] Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
-    [ ] Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
-    [ ] Remove tame sitting cats from villages [https://github.com/svenhjol/Charm/issues/8]()
+    [X] Reduce tame sitting cats from villages [https://github.com/svenhjol/Charm/issues/8]()
+    [X] Crash with Quark r1.5-147 [https://github.com/svenhjol/Charm/issues/31]()
     
-### Next up
+### 1.0.x
 
-    [-] Translations (Icelandic, Korean, Dutch, French, Italian ...)
+    [X] A crate has no name [https://github.com/svenhjol/Charm/issues/34]()
+    [X] Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
+    [X] Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
+    [ ] Weirdness with bookshelves [https://github.com/svenhjol/Charm/issues/32]()
     
 
 ## 1.1
@@ -89,7 +91,4 @@
     [X] Shouldn't consume items from hand when in creative
     [X] JEI tab for composter materials
     
-### Next up
-
-    [ ] Rewrite the tag stuff in ToR now that the ItemHelper can do it more elegantly
  

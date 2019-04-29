@@ -1,11 +1,14 @@
 package svenhjol.charm.crafting.tile;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.items.ItemStackHandler;
 import svenhjol.charm.Charm;
 import svenhjol.meson.MesonTileInventory;
 import vazkii.quark.api.IDropoffManager;
+import net.minecraftforge.fml.common.Optional;
 
+@Optional.Interface(iface = "vazkii.quark.api.IDropoffManager", modid = "quark")
 public class TileBarrel extends MesonTileInventory implements IDropoffManager
 {
     public static final int SIZE = 27;
@@ -41,5 +44,11 @@ public class TileBarrel extends MesonTileInventory implements IDropoffManager
     public boolean acceptsDropoff(EntityPlayer player)
     {
         return true;
+    }
+
+    @Override
+    public String getDefaultName()
+    {
+        return I18n.translateToLocal("tile.charm:barrel.name");
     }
 }

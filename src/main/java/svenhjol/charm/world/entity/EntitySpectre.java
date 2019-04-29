@@ -127,7 +127,7 @@ public class EntitySpectre extends EntityZombie
     public void despawn()
     {
         /* @todo check this visual effect */
-        getEntityWorld().spawnParticle(EnumParticleTypes.SPELL_MOB, posX, this.getEntityBoundingBox().minY + 2, posZ, 0, 0, 0);
+        getEntityWorld().spawnParticle(EnumParticleTypes.SPELL_MOB, posX, posY + 1, posZ, 0, 0, 0);
         this.setDead();
     }
 

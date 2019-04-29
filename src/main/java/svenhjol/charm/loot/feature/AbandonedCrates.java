@@ -39,9 +39,20 @@ public class AbandonedCrates extends Feature
             0.28D
         );
 
+        startDepth = propInt(
+                "Start depth",
+                "Crate will spawn lower than this number of blocks below the surface.",
+                16
+        );
+
+        maxDepth = propInt(
+                "Maximum depth",
+                "Number of blocks below the start depth where a crate may spawn.\n" +
+                        "For Cubic Chunks you may want to set this value quite high.",
+                32
+        );
+
         // internal
-        startDepth = 16;
-        maxDepth = 32;
         maxTries = 1;
         rareChance = 0.005f;
         valuableChance = 0.07f;
