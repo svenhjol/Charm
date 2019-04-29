@@ -12,6 +12,8 @@ import javax.annotation.Nullable;
 
 public abstract class MesonTile extends TileEntity implements IMesonTile
 {
+    protected String name;
+
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
     {
@@ -46,6 +48,7 @@ public abstract class MesonTile extends TileEntity implements IMesonTile
     public NBTTagCompound getUpdateTag()
     {
         NBTTagCompound tag = super.getUpdateTag();
+        tag.setString("name", getName());
         writeTag(tag);
         return tag;
     }
@@ -54,6 +57,7 @@ public abstract class MesonTile extends TileEntity implements IMesonTile
     public void handleUpdateTag(NBTTagCompound tag)
     {
         super.handleUpdateTag(tag);
+        name = tag.getString("name");
         readTag(tag);
     }
 
@@ -72,5 +76,25 @@ public abstract class MesonTile extends TileEntity implements IMesonTile
     public void readTag(NBTTagCompound tag)
     {
         // hook for TEs to do things with nbt data
+    }
+
+    public String getDefaultName()
+    {
+        return "";
+    }
+
+    public String getName()
+    {
+        return hasCustomName() ? name : getDefaultName();
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public boolean hasCustomName()
+    {
+        return name != null && !name.isEmpty();
     }
 }

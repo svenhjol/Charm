@@ -24,7 +24,6 @@ public abstract class MesonTileInventory extends MesonTile
 {
     protected String lootTable;
     protected int lootSize;
-    protected String name;
 
     public abstract ItemStackHandler getInventory();
 
@@ -111,21 +110,6 @@ public abstract class MesonTileInventory extends MesonTile
         tag.setTag("inventory", getInventory().serializeNBT());
         tag.setInteger("lootSize", getLootSize());
         tag.setString("lootTable", getLootTable());
-    }
-
-    public String getName()
-    {
-        return hasCustomName() ? name : "";
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public boolean hasCustomName()
-    {
-        return name != null && !name.isEmpty();
     }
 
     public boolean hasLootTable()
