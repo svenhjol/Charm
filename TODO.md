@@ -91,4 +91,7 @@
     [X] Shouldn't consume items from hand when in creative
     [X] JEI tab for composter materials
     
+### Notes
+
+    Quark's CapabilityHandler good reference for handling API interfaces on items
  
