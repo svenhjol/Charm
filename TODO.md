@@ -90,6 +90,8 @@
 
     [X] Shouldn't consume items from hand when in creative
     [X] JEI tab for composter materials
+    [ ] Extend ToR material and number of increases
+    [ ] Tooltip on ToR to show how many uses remain
     
 ### Notes
 
