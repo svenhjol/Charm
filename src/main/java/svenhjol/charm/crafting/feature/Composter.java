@@ -50,7 +50,8 @@ public class Composter extends Feature
                         "minecraft:melon_seeds",
                         "minecraft:pumpkin_seeds",
                         "minecraft:sapling",
-                        "minecraft:wheat_seeds"
+                        "minecraft:wheat_seeds",
+                        "quark:leaf_carpet"
                 }
         );
         for (String item : items) inputs.put(item, 0.3f);
@@ -64,6 +65,10 @@ public class Composter extends Feature
                         "minecraft:reeds",
                         "minecraft:double_plant",
                         "minecraft:tallgrass",
+                        "quark:roots",
+                        "quark:roots_black_flower",
+                        "quark:roots_blue_flower",
+                        "quark:roots_white_flower",
                 }
         );
         for (String item : items) inputs.put(item, 0.5f);
@@ -84,7 +89,8 @@ public class Composter extends Feature
                         "minecraft:potato",
                         "minecraft:poisonous_potato",
                         "minecraft:pumpkin",
-                        "minecraft:wheat"
+                        "minecraft:wheat",
+                        "quark:root_flower",
                 }
         );
         for (String item : items) inputs.put(item, 0.65f);
@@ -98,7 +104,8 @@ public class Composter extends Feature
                         "minecraft:cookie",
                         "minecraft:hay_block",
                         "minecraft:red_mushroom_block",
-                        "minecraft:brown_mushroom_block"
+                        "minecraft:brown_mushroom_block",
+                        "quark:turf"
                 }
         );
         for (String item : items) inputs.put(item, 0.85f);
@@ -108,7 +115,8 @@ public class Composter extends Feature
                 "These items have a 100% chance of adding a level of compost.",
                 new String[] {
                         "minecraft:cake",
-                        "minecraft:pumpkin_pie"
+                        "minecraft:pumpkin_pie",
+                        "quark:reed_block"
                 }
         );
         for (String item : items) inputs.put(item, 1.0f);
