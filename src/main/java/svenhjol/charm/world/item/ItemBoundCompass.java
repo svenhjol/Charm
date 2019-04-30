@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
 import svenhjol.charm.world.feature.CompassBinding;
 import svenhjol.meson.MesonItem;
-import svenhjol.meson.helper.ItemHelper;
+import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.helper.TextHelper;
 
 import javax.annotation.Nullable;
@@ -98,9 +98,9 @@ public class ItemBoundCompass extends MesonItem
                     return 0.0f;
                 }
 
-                double rotation = ItemHelper.getDouble(stack, ROTATION, 0);
-                double rota = ItemHelper.getDouble(stack, ROTA, 0);
-                long lastUpdateTick = ItemHelper.getLong(stack, LASTUPDATE, 0);
+                double rotation = ItemNBTHelper.getDouble(stack, ROTATION, 0);
+                double rota = ItemNBTHelper.getDouble(stack, ROTA, 0);
+                long lastUpdateTick = ItemNBTHelper.getLong(stack, LASTUPDATE, 0);
 
                 if (worldIn.getTotalWorldTime() != lastUpdateTick)
                 {
@@ -112,9 +112,9 @@ public class ItemBoundCompass extends MesonItem
                     rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
                 }
 
-                ItemHelper.setLong(stack, LASTUPDATE, lastUpdateTick);
-                ItemHelper.setDouble(stack, ROTATION, rotation);
-                ItemHelper.setDouble(stack, ROTA, rota);
+                ItemNBTHelper.setLong(stack, LASTUPDATE, lastUpdateTick);
+                ItemNBTHelper.setDouble(stack, ROTATION, rotation);
+                ItemNBTHelper.setDouble(stack, ROTA, rota);
 
                 return rotation;
             }
@@ -157,31 +157,31 @@ public class ItemBoundCompass extends MesonItem
 
     public static ItemStack setPos(ItemStack stack, BlockPos pos)
     {
-        ItemHelper.setInt(stack, POSX, pos.getX());
-        ItemHelper.setInt(stack, POSY, pos.getY()); // the dimension
-        ItemHelper.setInt(stack, POSZ, pos.getZ());
+        ItemNBTHelper.setInt(stack, POSX, pos.getX());
+        ItemNBTHelper.setInt(stack, POSY, pos.getY()); // the dimension
+        ItemNBTHelper.setInt(stack, POSZ, pos.getZ());
         return stack;
     }
 
     public static ItemStack setColor(ItemStack stack, int meta)
     {
         if (meta > 0) {
-            ItemHelper.setInt(stack, COLOR, meta);
+            ItemNBTHelper.setInt(stack, COLOR, meta);
         }
         return stack;
     }
 
     public static int getColor(ItemStack stack)
     {
-        return ItemHelper.getInt(stack, COLOR, 0);
+        return ItemNBTHelper.getInt(stack, COLOR, 0);
     }
 
     public BlockPos getPos(ItemStack stack)
     {
         if (stack.hasTagCompound()) {
-            int x = ItemHelper.getInt(stack, POSX, 0);
-            int y = ItemHelper.getInt(stack, POSY, 0);
-            int z = ItemHelper.getInt(stack, POSZ, 0);
+            int x = ItemNBTHelper.getInt(stack, POSX, 0);
+            int y = ItemNBTHelper.getInt(stack, POSY, 0);
+            int z = ItemNBTHelper.getInt(stack, POSZ, 0);
             return new BlockPos(x, y, z);
         }
         return null;
