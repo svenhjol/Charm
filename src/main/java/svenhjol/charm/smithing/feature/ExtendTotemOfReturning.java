@@ -1,20 +1,22 @@
 package svenhjol.charm.smithing.feature;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loot.entry.TotemOfReturningEntry;
 import svenhjol.charm.loot.feature.TotemOfReturning;
 import svenhjol.charm.loot.item.ItemTotemOfReturning;
 import svenhjol.meson.Feature;
+import svenhjol.meson.helper.ItemHelper;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ExtendTotemOfReturning extends Feature
 {
     public static int xpCost;
-    public static int increaseBy;
-    public static int materialCost;
+    public static Map<String, Integer> useItemMap = new HashMap<>();
 
     @Override
     public String getDescription()
@@ -31,9 +33,19 @@ public class ExtendTotemOfReturning extends Feature
             5
         );
 
-        // internal
-        increaseBy = 1;
-        materialCost = 1;
+        String[] items = propStringList("Items and uses",
+                "A map of items and the amount of uses they add to the totem.\n" +
+                    "Format is 'modid:name[meta]->uses'.  If meta is not set, or '*', all meta values of the item will be used.",
+                new String[] {
+                        "minecraft:clock->1",
+                        "minecraft:sapling[2]->2"
+                });
+
+        for (String line : items) {
+            String[] split = line.split("->");
+            if (split.length != 2) continue;
+            useItemMap.put(split[0], Integer.parseInt(split[1]));
+        }
     }
 
     @SubscribeEvent
@@ -44,21 +56,17 @@ public class ExtendTotemOfReturning extends Feature
         ItemStack in = event.getLeft();
         ItemStack combine = event.getRight();
 
-        if (!in.isEmpty() && !combine.isEmpty()) {
-            if (in.getItem() == TotemOfReturning.totem && combine.getItem() == Items.CLOCK) {
+        if (!in.isEmpty() && !combine.isEmpty() && in.getItem() == TotemOfReturning.totem) {
+            String name = ItemHelper.getMatchingItemKey(new ArrayList<>(useItemMap.keySet()), combine);
+            if (!name.isEmpty()) {
+                int amount = useItemMap.get(name);
+
                 ItemStack out = in.copy();
-                ItemTotemOfReturning totem = new ItemTotemOfReturning();
-                TotemOfReturningEntry entry = totem.getEntry(out);
-
-                if (entry == null) {
-                    totem.setEntry(out, TotemOfReturning.numberOfUses);
-                    entry = totem.getEntry(out);
-                }
-
-                totem.setEntry(out, entry.uses + increaseBy);
+                int uses = ItemTotemOfReturning.getUses(out);
+                ItemTotemOfReturning.setUses(out, uses + amount);
 
                 event.setOutput(out);
-                event.setMaterialCost(materialCost);
+                event.setMaterialCost(1);
                 event.setCost(xpCost);
             }
         }

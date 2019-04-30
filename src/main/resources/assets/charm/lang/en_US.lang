@@ -127,6 +127,7 @@ crate=Crate
 crate_sealed=Sealed Crate
 compass=Compass
 dimension=Dimension
+number_of_uses=Number of uses
 
 # Loot location classifications
 common=Common
