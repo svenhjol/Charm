@@ -125,8 +125,7 @@ public class Composter extends Feature
                 "Output from composter",
                 "Items that may be produced by the composter when it is full.",
                 new String[] {
-                        "minecraft:dye[15]",
-                        "minecraft:dirt[2]"
+                        "minecraft:dye[15]"
                 }
         );
         outputs.addAll(Arrays.asList(items));
