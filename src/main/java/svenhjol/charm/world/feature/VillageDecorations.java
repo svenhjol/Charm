@@ -39,11 +39,13 @@ public class VillageDecorations extends Feature
     public static double mushroomsChance;
 
     public static boolean treesHaveVines;
+    public static boolean zombieVillageErosion;
 
     public static double golemsWeight;
     public static double barrelsWeight;
     public static double pumpkinsWeight;
     public static double mobsWeight;
+    public static int erosionDamage;
 
     public static float common = 0.88f;
     public static float uncommon = 0.35f;
@@ -196,6 +198,16 @@ public class VillageDecorations extends Feature
                         "This is only valid if the 'Trees outside' config option allows it.",
                 true
         );
+        zombieVillageErosion = propBoolean(
+                "Zombie villages are eroded",
+                "If true, zombie villages have damaged and eroded buildings and structures.",
+                true
+        );
+        erosionDamage = propInt(
+                "Zombie village erosion damage",
+                "Number of passes that the generator will erode structures in a zombie village chunk.",
+                512
+        );
     }
 
     @SubscribeEvent
@@ -246,6 +258,10 @@ public class VillageDecorations extends Feature
             if (rand.nextFloat() <= treesChance) decorators.add(new Trees(world, pos, eventRand, chunks));
             if (rand.nextFloat() <= mushroomsChance) decorators.add(new Mushrooms(world, pos, eventRand, chunks));
 
+            if (zombieVillageErosion && villageInfested.contains(chunk)) {
+                decorators.add(new Erosion(world, pos, rand, chunks));
+            }
+
             decorators.forEach(MesonOuterDecorator::generate);
 
             villageChunks.remove(chunk);
@@ -262,16 +278,16 @@ public class VillageDecorations extends Feature
 
             VillageInnerDecorator decorator = null;
 
-            if (component instanceof Church) decorator = new VillageInnerDecorator.Church(component, world, box);
-            if (component instanceof Field2) decorator = new VillageInnerDecorator.Field1(component, world, box);
-            if (component instanceof Field1) decorator = new VillageInnerDecorator.Field2(component, world, box);
-            if (component instanceof Hall) decorator = new VillageInnerDecorator.Hall(component, world, box);
-            if (component instanceof House1) decorator = new VillageInnerDecorator.House1(component, world, box);
-            if (component instanceof House2) decorator = new VillageInnerDecorator.House2(component, world, box);
-            if (component instanceof House3) decorator = new VillageInnerDecorator.House3(component, world, box);
-            if (component instanceof House4Garden) decorator = new VillageInnerDecorator.House4(component, world, box);
-            if (component instanceof WoodHut) decorator = new VillageInnerDecorator.WoodHut(component, world, box);
-            if (component instanceof Well) decorator = new VillageInnerDecorator.Well(component, world, box);
+            if (component.getClass() == Church.class) decorator = new VillageInnerDecorator.Church(component, world, box);
+            if (component.getClass() == Field2.class) decorator = new VillageInnerDecorator.Field1(component, world, box);
+            if (component.getClass() == Field1.class) decorator = new VillageInnerDecorator.Field2(component, world, box);
+            if (component.getClass() == Hall.class) decorator = new VillageInnerDecorator.Hall(component, world, box);
+            if (component.getClass() == House1.class) decorator = new VillageInnerDecorator.House1(component, world, box);
+            if (component.getClass() == House2.class) decorator = new VillageInnerDecorator.House2(component, world, box);
+            if (component.getClass() == House3.class) decorator = new VillageInnerDecorator.House3(component, world, box);
+            if (component.getClass() == House4Garden.class) decorator = new VillageInnerDecorator.House4(component, world, box);
+            if (component.getClass() == WoodHut.class) decorator = new VillageInnerDecorator.WoodHut(component, world, box);
+            if (component.getClass() == Well.class) decorator = new VillageInnerDecorator.Well(component, world, box);
 
             if (decorator != null) {
                 if (decorator.isZombieInfested()) {
