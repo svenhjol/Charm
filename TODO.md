@@ -75,6 +75,7 @@
     [X] Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
     [X] Weirdness with bookshelves [https://github.com/svenhjol/Charm/issues/32]()
     [X] Zombie villages have eroded buildings, some mossy cobblestone, some cobwebs.
+    [X] Test Abyssalcraft, blockstate have been fixed in beta3 [https://github.com/svenhjol/Charm/issues/35]()
     
 ### Next up
 
