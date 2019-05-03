@@ -9,6 +9,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
+import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 
 public abstract class MesonEnchantment extends Enchantment implements IMesonEnchantment
 {
@@ -60,6 +61,11 @@ public abstract class MesonEnchantment extends Enchantment implements IMesonEnch
     }
 
     public void onBreak(EntityPlayer player, BreakEvent event)
+    {
+        // no op
+    }
+
+    public void onBreakDrop(EntityPlayer player, HarvestDropsEvent event)
     {
         // no op
     }

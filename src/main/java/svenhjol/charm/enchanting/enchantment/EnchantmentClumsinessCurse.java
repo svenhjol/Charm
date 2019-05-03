@@ -10,10 +10,10 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import svenhjol.charm.Charm;
-import svenhjol.meson.IMesonEnchantment.*;
+import svenhjol.charm.enchanting.feature.ExtraCurses;
+import svenhjol.meson.IMesonEnchantment.ICurse;
 import svenhjol.meson.MesonEnchantment;
 import svenhjol.meson.helper.SoundHelper;
-import svenhjol.charm.enchanting.feature.ExtraCurses;
 
 public class EnchantmentClumsinessCurse extends MesonEnchantment implements ICurse
 {
@@ -21,7 +21,7 @@ public class EnchantmentClumsinessCurse extends MesonEnchantment implements ICur
 
     public EnchantmentClumsinessCurse()
     {
-        super("clumsiness_curse", Rarity.VERY_RARE, EnumEnchantmentType.WEAPON, EntityEquipmentSlot.MAINHAND);
+        super("clumsiness_curse", Rarity.VERY_RARE, EnumEnchantmentType.BREAKABLE, EntityEquipmentSlot.MAINHAND);
         this.clumsiness = ExtraCurses.clumsinessMissChance;
     }
 
@@ -32,9 +32,13 @@ public class EnchantmentClumsinessCurse extends MesonEnchantment implements ICur
     }
 
     @Override
-    public void onBreak(EntityPlayer player, BlockEvent.BreakEvent event)
+    public void onBreakDrop(EntityPlayer player, BlockEvent.HarvestDropsEvent event)
     {
-        this.tryMiss(player, event);
+        if (this.isHeldItemEnchanted(player, this)
+                && player.world.rand.nextFloat() < clumsiness
+        ) {
+            event.setDropChance(0.0f);
+        }
     }
 
     @Override

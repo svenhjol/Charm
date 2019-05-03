@@ -15,6 +15,7 @@ Please report any issues in the tracker here.
 * "Spectre" texture modelled on "Wraith" texture from **Quark**.
 * Crates and other inventory code heavily inspired by [Shadowfacts' 1.12 Forge tutorials](https://shadowfacts.net/tutorials/forge-modding-112/).
 * All sound samples from [https://freesound.org](https://freesound.org).
+* Translations: Fuzss, ChingTing2586, thedarkcolour.
 
 ## Compatibility
 
