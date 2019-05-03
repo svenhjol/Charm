@@ -68,7 +68,7 @@
     [X] Reduce tame sitting cats from villages [https://github.com/svenhjol/Charm/issues/8]()
     [X] Crash with Quark r1.5-147 [https://github.com/svenhjol/Charm/issues/31]()
     
-### 1.0.x
+### 1.0.0
 
     [X] A crate has no name [https://github.com/svenhjol/Charm/issues/34]()
     [X] Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
@@ -77,7 +77,9 @@
     [X] Zombie villages have eroded buildings, some mossy cobblestone, some cobwebs.
     [X] Test Abyssalcraft, blockstate have been fixed in beta3 [https://github.com/svenhjol/Charm/issues/35]()
     
-### Next up
+### 1.0.1
 
-    [-] Translations (Icelandic, Korean, Dutch, French, Italian ...)
+    [X] Clumsiness curse now prevents block drops rather than not mining
+    [X] Fix lingering potion and cake lang strings
+    [T] Totem of Shielding should not be enchantable
  
