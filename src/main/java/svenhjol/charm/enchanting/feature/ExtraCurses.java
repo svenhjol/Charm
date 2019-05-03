@@ -7,6 +7,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
+import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.enchanting.enchantment.EnchantmentClumsinessCurse;
@@ -106,6 +107,18 @@ public class ExtraCurses extends Feature
         if (!event.isCanceled() && !event.getEntityPlayer().world.isRemote) {
             for (MesonEnchantment curse : activeCurses) {
                 curse.onAttack(event.getEntityPlayer(), event);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onBreakDrop(HarvestDropsEvent event)
+    {
+        if (!event.isCanceled()
+            && event.getHarvester() != null
+            && !event.getHarvester().world.isRemote) {
+            for (MesonEnchantment curse : activeCurses) {
+                curse.onBreakDrop(event.getHarvester(), event);
             }
         }
     }
