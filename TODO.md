@@ -100,9 +100,3 @@
     [X] JEI tab for composter materials
     [X] Extend ToR material and number of increases
     [X] Tooltip on ToR to show how many uses remain
-    
-### Notes
-
-    Quark's CapabilityHandler good reference for handling API interfaces on items
- 
- 
