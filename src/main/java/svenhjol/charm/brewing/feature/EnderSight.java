@@ -166,7 +166,9 @@ public class EnderSight extends Feature
                 }
                 if (!structureType.isEmpty()) {
                     nearestStructure = event.player.getEntityWorld().findNearestStructure(structureType, event.player.getPosition(), false);
-                    NetworkHandler.INSTANCE.sendTo(new MessageSetStructure(structureType, nearestStructure), (EntityPlayerMP) event.player);
+                    if (nearestStructure != null) { // can be null if structures turned off for this world
+                        NetworkHandler.INSTANCE.sendTo(new MessageSetStructure(structureType, nearestStructure), (EntityPlayerMP) event.player);
+                    }
                 }
             }
 

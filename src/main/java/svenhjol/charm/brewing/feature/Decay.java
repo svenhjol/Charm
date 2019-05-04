@@ -34,6 +34,12 @@ public class Decay extends Feature
     }
 
     @Override
+    public String[] getDisableMods()
+    {
+        return new String[] { "inspirations" };
+    }
+
+    @Override
     public void preInit(FMLPreInitializationEvent event)
     {
         decay = new DecayPotion();

@@ -81,9 +81,11 @@
 
     [X] Clumsiness curse now prevents block drops rather than not mining
     [X] Fix lingering potion and cake lang strings
-    [T] Totem of Shielding should not be enchantable
-
-
+    [?] Totem of Shielding should not be enchantable
+    [T] Ender Sight issue when structures disabled [https://github.com/svenhjol/Charm/issues/38]()
+    [X] Inspirations integration (lantern connects to chain/rope, disable Charm's Decay)
+    
+    
 ## 1.1
 
 ### Alpha 1
