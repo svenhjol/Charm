@@ -51,7 +51,12 @@ public class Composter extends Feature
                         "minecraft:pumpkin_seeds",
                         "minecraft:sapling",
                         "minecraft:wheat_seeds",
-                        "quark:leaf_carpet"
+                        "quark:leaf_carpet",
+                        "inspirations:enlightened_bush",
+                        "inspirations:cactus_seeds",
+                        "inspirations:sugar_cane_seeds",
+                        "inspirations:carrot_seeds",
+                        "inspirations:potato_seeds"
                 }
         );
         for (String item : items) inputs.put(item, 0.3f);
@@ -91,6 +96,10 @@ public class Composter extends Feature
                         "minecraft:pumpkin",
                         "minecraft:wheat",
                         "quark:root_flower",
+                        "inspirations:flower",
+                        "inspirations:materials[4]",
+                        "inspirations:materials[5]",
+                        "inspirations:edibles[0]"
                 }
         );
         for (String item : items) inputs.put(item, 0.65f);

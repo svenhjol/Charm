@@ -81,7 +81,7 @@
 
     [X] Clumsiness curse now prevents block drops rather than not mining
     [X] Fix lingering potion and cake lang strings
-    [?] Totem of Shielding should not be enchantable
+    [X] Totem of Shielding should not be enchantable
     [T] Ender Sight issue when structures disabled [https://github.com/svenhjol/Charm/issues/38]()
     [X] Inspirations integration (lantern connects to chain/rope, disable Charm's Decay)
     
@@ -102,3 +102,7 @@
     [X] JEI tab for composter materials
     [X] Extend ToR material and number of increases
     [X] Tooltip on ToR to show how many uses remain
+ 
+ ### Beta 1
+ 
+    [T] Inspirations integration for composter
