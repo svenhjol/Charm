@@ -37,6 +37,12 @@ public class CompassBinding extends Feature
     public static boolean useBanners;
     public static boolean showInformation;
 
+    @Override
+    public String getDescription()
+    {
+        return "Right-click on a beacon whilst crouching to bind the compass to the beacon's location.\n" +
+            "If Quark is enabled the compass tooltip will be the same color as the beacon's beam.";
+    }
 
     @Override
     public void setupConfig()
