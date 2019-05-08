@@ -287,7 +287,7 @@ public class VillageDecorations extends Feature
             if (component.getClass() == House3.class) decorator = new VillageInnerDecorator.House3(component, world, box);
             if (component.getClass() == House4Garden.class) decorator = new VillageInnerDecorator.House4(component, world, box);
             if (component.getClass() == WoodHut.class) decorator = new VillageInnerDecorator.WoodHut(component, world, box);
-            if (component.getClass() == Well.class) decorator = new VillageInnerDecorator.Well(component, world, box);
+            if (component instanceof Well) decorator = new VillageInnerDecorator.Well(component, world, box);
 
             if (decorator != null) {
                 if (decorator.isZombieInfested()) {
