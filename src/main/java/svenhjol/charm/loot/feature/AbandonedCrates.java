@@ -18,6 +18,7 @@ public class AbandonedCrates extends Feature
 {
     public static int maxTries;
     public static int maxDepth;
+    public static int cutoffLevel;
     public static int startDepth;
     public static double generateChance;
     public static float rareChance;
@@ -50,6 +51,13 @@ public class AbandonedCrates extends Feature
                 "Number of blocks below the start depth where a crate may spawn.\n" +
                         "For Cubic Chunks you may want to set this value quite high.",
                 32
+        );
+
+        cutoffLevel = propInt(
+                "Cut-off level",
+                "Crates cannot spawn below this Y-level.\n" +
+                        "For Cubic Chunks you may want to set a negative value.  Otherwise, set above zero.",
+                5
         );
 
         // internal
@@ -88,8 +96,9 @@ public class AbandonedCrates extends Feature
             BlockPos pos = new BlockPos((chunkPos.x << 4) + xx, 255, (chunkPos.z << 4) + zz);
 
             cratePos = world.getTopSolidOrLiquidBlock(pos).add(0, -start, 0);
-            for (int d = 0; d < max; d += 2) {
+            for (int d = 0; d < max; d += 3) {
                 cratePos.add(0, -1, 0);
+                if (cratePos.getY() < cutoffLevel) break; // don't try and spawn lower than cutoff
                 IBlockState state = world.getBlockState(cratePos);
                 if (state.getMaterial() == Material.AIR) {
                     Material below = world.getBlockState(cratePos.down()).getMaterial();
