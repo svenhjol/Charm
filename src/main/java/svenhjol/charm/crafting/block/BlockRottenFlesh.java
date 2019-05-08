@@ -26,6 +26,7 @@ public class BlockRottenFlesh extends MesonBlock
     {{
         add(Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
         add(Blocks.GRASS.getDefaultState());
+        add(Blocks.GRASS_PATH.getDefaultState());
     }};
     protected static IBlockState podzol = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
 
