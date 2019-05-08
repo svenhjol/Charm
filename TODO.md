@@ -86,7 +86,7 @@
     [X] Inspirations integration (lantern connects to chain/rope, disable Charm's Decay)
     
     
-## Next
+## 1.1
 
 ### Alpha 1
 
@@ -106,4 +106,6 @@
  ### Beta 1
  
     [X] Inspirations integration for composter
-    [ ] Config for bookshelf loot in villages
+    [X] Reduce weight of enchanted books in villages
+    [X] Stop Abandoned Crates void checks
+    [X] Replace wood open sounds from 1.14
