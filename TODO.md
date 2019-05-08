@@ -86,23 +86,24 @@
     [X] Inspirations integration (lantern connects to chain/rope, disable Charm's Decay)
     
     
-## 1.1
+## Next
 
 ### Alpha 1
 
-    [X] Rotten flesh block
+    [X] Add Rotten flesh block
     [T] Dirt conversion should happen when water is above and below as well as any side
-    [X] Beacon compass
-    [T] Gunpower block
-    [T] Composter
+    [X] Add Beacon compass
+    [T] Add Gunpower block
+    [T] Add composter
     
 ### Alpha 2
 
-    [X] Shouldn't consume items from hand when in creative
+    [X] Composter shouldn't consume items from hand when in creative
     [X] JEI tab for composter materials
     [X] Extend ToR material and number of increases
     [X] Tooltip on ToR to show how many uses remain
  
  ### Beta 1
  
-    [T] Inspirations integration for composter
+    [X] Inspirations integration for composter
+    [ ] Config for bookshelf loot in villages
