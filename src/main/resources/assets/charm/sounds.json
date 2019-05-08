@@ -10,16 +10,14 @@
     "category": "ambient",
     "sounds": [
       "charm:wood_open1",
-      "charm:wood_open2",
-      "charm:wood_open3"
+      "charm:wood_open2"
     ]
   },
   "wood_close": {
     "category": "ambient",
     "sounds": [
       "charm:wood_close1",
-      "charm:wood_close2",
-      "charm:wood_close3"
+      "charm:wood_close2"
     ]
   },
   "wood_smash": {
