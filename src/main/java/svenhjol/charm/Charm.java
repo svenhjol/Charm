@@ -30,7 +30,7 @@ public class Charm
     public static final String MOD_VERSION = "@MOD_VERSION@";
     public static final String PROXY_COMMON = "svenhjol.charm.base.CommonProxy";
 	public static final String PROXY_CLIENT = "svenhjol.charm.base.ClientProxy";
-	public static final String DEPENDENCIES = "after:jei@[4.14.3,);";
+	public static final String DEPENDENCIES = "after:jei@[4.14.3,);after:redstoneplusplus";
 
     @Instance(Charm.MOD_ID)
     public static Charm instance;

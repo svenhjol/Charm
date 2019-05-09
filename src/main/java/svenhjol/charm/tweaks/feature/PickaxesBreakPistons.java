@@ -3,7 +3,7 @@ package svenhjol.charm.tweaks.feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import svenhjol.meson.Feature;
 
 public class PickaxesBreakPistons extends Feature
@@ -15,7 +15,7 @@ public class PickaxesBreakPistons extends Feature
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event)
+    public void postInit(FMLPostInitializationEvent event)
     {
         // get the piston instance and set the harvest level... ¯\_(ツ)_/¯
         BlockPistonBase basePiston = (BlockPistonBase)Block.REGISTRY.getObject(new ResourceLocation("minecraft", "piston"));
