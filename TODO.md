@@ -4,108 +4,115 @@
 
 ### Alpha 3
 
-    [X] Increase weight of totems in building/structure loot  
-    [X] Remove old loot tables, nerf rare and valuable  
-    [?] Movable TEs cause dupe [https://github.com/svenhjol/Charm/issues/4]()  
-    [X] Flavored cake ghost effects [https://github.com/svenhjol/Charm/issues/2]()  
-    [X] Add new Nether ore texture [https://github.com/svenhjol/Charm/issues/5]()  
-    [X] Disable NetherGoldDeposits if Nether gold ore mod is present [https://github.com/svenhjol/Charm/issues/6]()
+    * Increase weight of totems in building/structure loot
+    * Remove old loot tables, nerf rare and valuable
+    * DUNNO Movable TEs cause dupe [https://github.com/svenhjol/Charm/issues/4]()
+    * Flavored cake ghost effects [https://github.com/svenhjol/Charm/issues/2]()
+    * Add new Nether ore texture [https://github.com/svenhjol/Charm/issues/5]()
+    * Disable NetherGoldDeposits if Nether gold ore mod is present [https://github.com/svenhjol/Charm/issues/6]()
 
 ### Alpha 4
 
-    [X] Mystcraft profile village biome crash [https://github.com/svenhjol/Charm/issues/9]()  
-    [X] Decrease bat glowing time
-    [X] increase village deco spawn rate for common
-    [X] increase spectre spawn rate and group size
-    [X] mobs in villages should not be so tame
-    [X] outer deco config options [https://github.com/svenhjol/Charm/issues/10]()
-    [X] Reduce golem spawn rate by default [https://github.com/svenhjol/Charm/issues/11]()
-    [X] JEI layer appearing above tooltips [https://github.com/svenhjol/Charm/issues/12]()
-    [X] cactuses could smash without drops on water collect
-    [X] Swamphut cat is supposed to be black
+    * Mystcraft profile village biome crash [https://github.com/svenhjol/Charm/issues/9]()
+    * Decrease bat glowing time
+    * increase village deco spawn rate for common
+    * increase spectre spawn rate and group size
+    * mobs in villages should not be so tame
+    * outer deco config options [https://github.com/svenhjol/Charm/issues/10]()
+    * Reduce golem spawn rate by default [https://github.com/svenhjol/Charm/issues/11]()
+    * JEI layer appearing above tooltips [https://github.com/svenhjol/Charm/issues/12]()
+    * cactuses could smash without drops on water collect
+    * Swamphut cat is supposed to be black
 
 ### Alpha 5
 
-    [X] More cake issues [https://github.com/svenhjol/Charm/issues/16]()
-    [X] Village bookshelf chests don't show the right texture [https://github.com/svenhjol/Charm/issues/14]()
-    [X] pumpkins spawn in villages as part of outer deco
-    [X] more village variations: blocks in house 3, rug when bed in house 4 and woodhut
-    [X] Ender sight stronghold detection issues [https://github.com/svenhjol/Charm/issues/19]()
-    [X] Nether gold deposits config [https://github.com/svenhjol/Charm/issues/18]()
-    [X] Suspicious soup doesn't work with all flowers [https://github.com/svenhjol/Charm/issues/20]()
-    [X] Same village mob spawning in each village chunk, need eventRand as well as deterministic rand
-    [X] Container compatibility with Inventory Tweaks [https://github.com/svenhjol/Charm/issues/15]()
-    [X] Test dispenser behaviour with Charged Emeralds [https://github.com/svenhjol/Charm/issues/3]()
+    * More cake issues [https://github.com/svenhjol/Charm/issues/16]()
+    * Village bookshelf chests don't show the right texture [https://github.com/svenhjol/Charm/issues/14]()
+    * pumpkins spawn in villages as part of outer deco
+    * more village variations: blocks in house 3, rug when bed in house 4 and woodhut
+    * Ender sight stronghold detection issues [https://github.com/svenhjol/Charm/issues/19]()
+    * Nether gold deposits config [https://github.com/svenhjol/Charm/issues/18]()
+    * Suspicious soup doesn't work with all flowers [https://github.com/svenhjol/Charm/issues/20]()
+    * Same village mob spawning in each village chunk, need eventRand as well as deterministic rand
+    * Container compatibility with Inventory Tweaks [https://github.com/svenhjol/Charm/issues/15]()
+    * Test dispenser behaviour with Charged Emeralds [https://github.com/svenhjol/Charm/issues/3]()
 
 ### Beta 1
 
-    [X] Test modpack for bookshelf dupe issue [https://github.com/svenhjol/Charm/issues/4]()
-    [X] Compatibility with Future MC [https://github.com/svenhjol/Charm/issues/21]()
-    [X] Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
-    [X] Wooden blocks (crates, barrels, bookshelf chests) should burn
-    [X] fisherman and shepherd themes, improve carpenter theme
-    [X] Change "corruption" to "decay", nerf: remove damage, curse and mob conversion
-    [X] vines configurable on tree decoration
-    [X] improve desert village outer deco, trees should spawn
-    [X] Horses should be a mob that spawns in village outer deco
-    [T] Zombie villages spawn zombie/skeleton horses
-    [X] Fix inventory icons for lanterns
-    [X] Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
-    [X] Fix url in mcmod.info
-    [X] more wood open/close sounds, remember refs
-    [X] PT nether fortress loot
+    * Test modpack for bookshelf dupe issue [https://github.com/svenhjol/Charm/issues/4]()
+    * Compatibility with Future MC [https://github.com/svenhjol/Charm/issues/21]()
+    * Comparator support for containers [https://github.com/svenhjol/Charm/issues/1]()
+    * Wooden blocks (crates, barrels, bookshelf chests) should burn
+    * fisherman and shepherd themes, improve carpenter theme
+    * Change "corruption" to "decay", nerf: remove damage, curse and mob conversion
+    * vines configurable on tree decoration
+    * improve desert village outer deco, trees should spawn
+    * Horses should be a mob that spawns in village outer deco
+    * TEST Zombie villages spawn zombie/skeleton horses
+    * Fix inventory icons for lanterns
+    * Rename "Miscellaneous" to "Tweaks" globally, note about breaking config change
+    * Fix url in mcmod.info
+    * more wood open/close sounds, remember refs
+    * PT nether fortress loot
     
 ### Beta 2
 
-    [X] !! Lantern null pointer exception
-    [X] Fix AABB on lantern and gold lantern texture
-    [X] Flavored Cakes should not stack
+    * !! Lantern null pointer exception
+    * Fix AABB on lantern and gold lantern texture
+    * Flavored Cakes should not stack
     
 ### Beta 3
 
-    [X] Extra checks on TileBookshelfChest, inventory drop is crashing [https://github.com/svenhjol/Charm/issues/27]()
-    [X] Disable Suspicious Soup feature when SSM is installed [https://github.com/svenhjol/Charm/issues/28]()
-    [X] Reduce tame sitting cats from villages [https://github.com/svenhjol/Charm/issues/8]()
-    [X] Crash with Quark r1.5-147 [https://github.com/svenhjol/Charm/issues/31]()
+    * Extra checks on TileBookshelfChest, inventory drop is crashing [https://github.com/svenhjol/Charm/issues/27]()
+    * Disable Suspicious Soup feature when SSM is installed [https://github.com/svenhjol/Charm/issues/28]()
+    * Reduce tame sitting cats from villages [https://github.com/svenhjol/Charm/issues/8]()
+    * Crash with Quark r1.5-147 [https://github.com/svenhjol/Charm/issues/31]()
     
 ### 1.0.0
 
-    [X] A crate has no name [https://github.com/svenhjol/Charm/issues/34]()
-    [X] Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
-    [X] Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
-    [X] Weirdness with bookshelves [https://github.com/svenhjol/Charm/issues/32]()
-    [X] Zombie villages have eroded buildings, some mossy cobblestone, some cobwebs.
-    [X] Test Abyssalcraft, blockstate have been fixed in beta3 [https://github.com/svenhjol/Charm/issues/35]()
+    * A crate has no name [https://github.com/svenhjol/Charm/issues/34]()
+    * Cubic Chunks compatibility [https://github.com/svenhjol/Charm/issues/22]()
+    * Village buildings are on fire in a specific modpack [https://github.com/svenhjol/Charm/issues/13]()
+    * Weirdness with bookshelves [https://github.com/svenhjol/Charm/issues/32]()
+    * Zombie villages have eroded buildings, some mossy cobblestone, some cobwebs.
+    * Test Abyssalcraft, blockstate have been fixed in beta3 [https://github.com/svenhjol/Charm/issues/35]()
     
 ### 1.0.1
 
-    [X] Clumsiness curse now prevents block drops rather than not mining
-    [X] Fix lingering potion and cake lang strings
-    [X] Totem of Shielding should not be enchantable
-    [T] Ender Sight issue when structures disabled [https://github.com/svenhjol/Charm/issues/38]()
-    [X] Inspirations integration (lantern connects to chain/rope, disable Charm's Decay)
+    * Clumsiness curse now prevents block drops rather than not mining
+    * Fix lingering potion and cake lang strings
+    * Totem of Shielding should not be enchantable
+    * TEST Ender Sight issue when structures disabled [https://github.com/svenhjol/Charm/issues/38]()
+    * Inspirations integration (lantern connects to chain/rope, disable Charm's Decay)
     
     
 ## 1.1
 
 ### Alpha 1
 
-    [X] Add Rotten flesh block
-    [T] Dirt conversion should happen when water is above and below as well as any side
-    [X] Add Beacon compass
-    [T] Add Gunpower block
-    [T] Add composter
+    * Add Rotten flesh block
+    * TEST Dirt conversion should happen when water is above and below as well as any side
+    * Add Beacon compass
+    * TEST Add Gunpower block
+    * TEST Add composter
     
 ### Alpha 2
 
-    [X] Composter shouldn't consume items from hand when in creative
-    [X] JEI tab for composter materials
-    [X] Extend ToR material and number of increases
-    [X] Tooltip on ToR to show how many uses remain
+    * Composter shouldn't consume items from hand when in creative
+    * JEI tab for composter materials
+    * Extend ToR material and number of increases
+    * Tooltip on ToR to show how many uses remain
  
- ### Beta 1
+### Beta 1
  
-    [X] Inspirations integration for composter
-    [X] Reduce weight of enchanted books in villages
-    [X] Stop Abandoned Crates void checks
-    [X] Replace wood open sounds from 1.14
+    * Inspirations integration for composter
+    * Reduce weight of enchanted books in villages
+    * Stop Abandoned Crates void checks
+    * Replace wood open sounds from 1.14
+
+### Beta 2
+
+    * Composter gives more items than config [https://github.com/svenhjol/Charm/issues/42]()
+    * Effective tool for pistons with Redstone++ [https://github.com/svenhjol/Charm/issues/41]()
+    * Infinite diamonds, rework recycler [https://github.com/svenhjol/Charm/issues/40]()
+    * Blaze powder to find End Cities
