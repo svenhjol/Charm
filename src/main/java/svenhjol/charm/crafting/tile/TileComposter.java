@@ -21,7 +21,6 @@ import svenhjol.meson.helper.ItemHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TileComposter extends MesonTile
@@ -74,36 +73,30 @@ public class TileComposter extends MesonTile
             if (!stacks.isEmpty()) {
 
                 if (!world.isRemote) {
-                    // select number of stacks according to maxOutput
-                    ArrayList<ItemStack> useStacks = new ArrayList<>();
-                    for (int i = 0; i < Composter.maxOutput; i++) {
-                        useStacks.add(stacks.get(world.rand.nextInt(stacks.size())));
-                    }
 
-                    for (ItemStack stack : useStacks) {
-                        stack.setCount(1);
+                    // select item output to use
+                    ItemStack stack = stacks.get(world.rand.nextInt(stacks.size()));
+                    stack.setCount(world.rand.nextInt(Composter.maxOutput) + 1);
 
-                        // try pushing into neighbour
-                        boolean inserted = false;
-                        TileEntity n = world.getTileEntity(pos.down());
-                        if (n != null) {
-                            IItemHandler ni = n.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
-                            if (ni != null) {
-                                ItemStack copy = stack.copy();
-                                if (ItemHandlerHelper.insertItemStacked(ni, copy, false).isEmpty()) {
-                                    if (ni instanceof TileEntityHopper) {
-                                        ((TileEntityHopper) ni).setTransferCooldown(7);
-                                    }
-                                    inserted = true;
-                                    this.markDirty();
+                    // try pushing into neighbour
+                    boolean inserted = false;
+                    TileEntity n = world.getTileEntity(pos.down());
+                    if (n != null) {
+                        IItemHandler ni = n.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+                        if (ni != null) {
+                            ItemStack copy = stack.copy();
+                            if (ItemHandlerHelper.insertItemStacked(ni, copy, false).isEmpty()) {
+                                if (ni instanceof TileEntityHopper) {
+                                    ((TileEntityHopper) ni).setTransferCooldown(7);
                                 }
+                                inserted = true;
+                                this.markDirty();
                             }
                         }
-                        if (!inserted) {
-
-                            // if couldn't push into neighbour container, pop it out the top of the composter
-                            EntityHelper.spawnEntityItem(world, pos.up(), stack);
-                        }
+                    }
+                    if (!inserted) {
+                        // if couldn't push into neighbour container, pop it out the top of the composter
+                        EntityHelper.spawnEntityItem(world, pos.up(), stack);
                     }
                 }
                 newLevel = 0;
