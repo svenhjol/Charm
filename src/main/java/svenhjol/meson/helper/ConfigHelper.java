@@ -6,6 +6,8 @@ import net.minecraftforge.fml.common.Loader;
 
 public class ConfigHelper
 {
+    public static final String TRANSFORMERS = "Transformers";
+
     public static int propInt(Configuration config, String name, String category, String comment, int def)
     {
         Property prop = config.get(category, name, def);
@@ -54,15 +56,28 @@ public class ConfigHelper
     {
         boolean loaded = true;
         for (String transformer : transformers) {
-            loaded = loaded && propBoolean(config, transformer, "Transformers", "", true);
+            loaded = loaded && propBoolean(config, transformer, TRANSFORMERS, "", true);
         }
+
+        saveIfChanged(config);
         return loaded;
     }
 
-    public static void saveChanges(Configuration config)
+    public static void saveIfChanged(Configuration config)
     {
         if (config.hasChanged()) {
+            setTransformersCategoryComment(config);
             config.save();
         }
+    }
+
+    private static void setTransformersCategoryComment(Configuration config)
+    {
+        config.setCategoryComment(TRANSFORMERS,
+                "This section contains core classes that are patched by Charm.\n" +
+                "You may disable these patches in case of compatibility problems.\n" +
+                "Any Charm features that depend on a manually disabled patch will not be enabled."
+        );
+        saveIfChanged(config);
     }
 }
