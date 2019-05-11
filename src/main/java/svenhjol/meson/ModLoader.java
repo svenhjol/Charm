@@ -56,10 +56,11 @@ public class ModLoader
 
         modules = enabled;
 
-        ConfigHelper.saveChanges(config);
         setupConfig();
 
         modules.forEach(module -> module.preInit(event));
+
+        ConfigHelper.saveIfChanged(config);
     }
 
     public void init(FMLInitializationEvent event)
