@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.feature.EnderPearlBlock;
 import svenhjol.charm.smithing.feature.FurnacesRecycleMore;
+import svenhjol.charm.smithing.feature.RestrictFurnaceInput;
 import svenhjol.charm.tweaks.feature.LeatherArmorInvisibility;
 import svenhjol.charm.tweaks.feature.TamedAnimalsHealing;
 import svenhjol.charm.world.feature.MoreVillageBiomes;
@@ -75,5 +76,13 @@ public final class ASMHooks
             return FurnacesRecycleMore.changeSmeltingResult(input, output);
         }
         return output;
+    }
+
+    public static boolean canSmelt(ItemStack stack)
+    {
+        if (Charm.hasFeature(RestrictFurnaceInput.class)) {
+            return RestrictFurnaceInput.canSmelt(stack);
+        }
+        return true;
     }
 }

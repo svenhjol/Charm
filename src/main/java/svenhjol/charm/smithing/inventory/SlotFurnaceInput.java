@@ -3,7 +3,8 @@ package svenhjol.charm.smithing.inventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
+import svenhjol.charm.Charm;
+import svenhjol.charm.smithing.feature.RestrictFurnaceInput;
 
 @SuppressWarnings("unused")
 public class SlotFurnaceInput extends Slot
@@ -18,6 +19,9 @@ public class SlotFurnaceInput extends Slot
      */
     public boolean isItemValid(ItemStack stack)
     {
-        return FurnaceRecipes.instance().getSmeltingResult(stack) != ItemStack.EMPTY;
+        if (Charm.hasFeature(RestrictFurnaceInput.class)) {
+            return RestrictFurnaceInput.canSmelt(stack);
+        }
+        return true;
     }
 }
