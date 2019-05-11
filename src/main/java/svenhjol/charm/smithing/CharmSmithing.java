@@ -12,6 +12,7 @@ public class CharmSmithing extends Module
         features.add(new ExtractBookXP());
         features.add(new ExtractEnchantments());
         features.add(new FurnacesRecycleMore());
+        features.add(new RestrictFurnaceInput());
         features.add(new TallowIncreasesDurability());
     }
 }
