@@ -14,11 +14,10 @@ import java.util.List;
 
 public abstract class Module implements IFMLEvents
 {
-    private ModLoader modLoader;
-
     public List<Feature> features = new ArrayList<>();
     public boolean enabled;
     public boolean enabledByDefault = true;
+    private ModLoader modLoader;
 
     public void setup(ModLoader modLoader)
     {
@@ -34,12 +33,16 @@ public abstract class Module implements IFMLEvents
             feature.enabled = ConfigHelper.propBoolean(getConfig(), feature.getName(), this.getName(), feature.getDescription(), feature.enabledByDefault);
 
             // only enable feature if these mods are present
-            if (feature.getRequiredMods().length > 0) {
+            if (feature.enabled && feature.getRequiredMods().length > 0) {
                 feature.enabled = ConfigHelper.checkMods(feature.getRequiredMods());
             }
             // disable the feature if these mods exist
             if (feature.enabled && feature.getDisableMods().length > 0) {
                 feature.enabled = !ConfigHelper.checkMods(feature.getDisableMods());
+            }
+            // disable feature if ASM transformers are disabled
+            if (feature.enabled && feature.getTransformers().length > 0) {
+                feature.enabled = ConfigHelper.checkTransformers(getConfig(), feature.getTransformers());
             }
 
             if (feature.enabled) {
@@ -64,13 +67,13 @@ public abstract class Module implements IFMLEvents
 
     public ModLoader getModLoader()
     {
-        if (modLoader == null) Meson.runtimeException("You need to setup the module using the ModLoader");
+        if (modLoader == null) Meson.runtimeException("Invalid ModLoader");
         return modLoader;
     }
 
     public Configuration getConfig()
     {
-        if (modLoader == null) Meson.runtimeException("You need to setup the module using the ModLoader");
+        if (modLoader == null) Meson.runtimeException("Invalid ModLoader");
         return modLoader.getConfig();
     }
 
