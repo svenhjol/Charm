@@ -7,6 +7,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import svenhjol.charm.base.CharmClassTransformer;
+import svenhjol.charm.base.CharmLoadingPlugin;
 import svenhjol.meson.helper.ConfigHelper;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public abstract class Module implements IFMLEvents
             }
             // disable feature if ASM transformers are disabled
             if (feature.enabled && feature.getTransformers().length > 0) {
-                feature.enabled = ConfigHelper.checkTransformers(getConfig(), feature.getTransformers());
+                feature.enabled = CharmClassTransformer.checkTransformers(CharmLoadingPlugin.config, feature.getTransformers());
             }
 
             if (feature.enabled) {
@@ -51,14 +53,12 @@ public abstract class Module implements IFMLEvents
             }
         });
 
-        // set features to the enabled ones
         features = enabled;
     }
 
     public String getName()
     {
-        String withSpaces = this.getClass().getSimpleName().replaceAll("(?<=.)([A-Z])", " $1").toLowerCase();
-        return Character.toUpperCase(withSpaces.charAt(0)) + withSpaces.substring(1);
+        return this.getClass().getSimpleName();
     }
 
     public String getDescription()

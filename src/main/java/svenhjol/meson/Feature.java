@@ -67,8 +67,7 @@ public abstract class Feature implements IFMLEvents
 
     public String getName()
     {
-        String withSpaces = this.getClass().getSimpleName().replaceAll("(?<=.)([A-Z])", " $1").toLowerCase();
-        return Character.toUpperCase(withSpaces.charAt(0)) + withSpaces.substring(1);
+        return this.getClass().getSimpleName();
     }
 
     public String getDescription()
