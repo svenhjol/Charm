@@ -91,10 +91,10 @@
 ### Alpha 1
 
     * Add Rotten flesh block
-    * TEST Dirt conversion should happen when water is above and below as well as any side
+    * Dirt conversion should happen when water is above and below as well as any side
     * Add Beacon compass
-    * TEST Add Gunpower block
-    * TEST Add composter
+    * Add Gunpower block
+    * Add composter
     
 ### Alpha 2
 
@@ -114,5 +114,15 @@
 
     * Composter gives more items than config [https://github.com/svenhjol/Charm/issues/42]()
     * Effective tool for pistons with Redstone++ [https://github.com/svenhjol/Charm/issues/41]()
-    * Infinite diamonds, rework recycler [https://github.com/svenhjol/Charm/issues/40]()
-    * Blaze powder to find End Cities
+    * Infinite diamonds, remove RecycleWithFlint [https://github.com/svenhjol/Charm/issues/40]()
+    * Bookshelf Chests don't give correct comparator output [https://github.com/svenhjol/Charm/issues/43]()
+    * Add FurnacesRecycleMore
+    * Add RestrictFurnaceItems
+    * Config category names change to camelcase rather than lowercase
+    * Separate charm_asm.cfg for enabling/disabling core patches
+    * Fix issue with village well not being decorated (introduced by #32)
+    * Rotten flesh now converts grass path to podzol
+
+### Beta 3
+
+    * Endermite powder to find End Cities
