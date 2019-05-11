@@ -7,10 +7,9 @@ import svenhjol.meson.helper.ConfigHelper;
 @SuppressWarnings("unused")
 public abstract class Feature implements IFMLEvents
 {
-    protected Module module;
-
     public boolean enabled;
     public boolean enabledByDefault = true;
+    protected Module module;
     private FeatureCompat compat;
 
     public void setup(Module module)
@@ -39,9 +38,7 @@ public abstract class Feature implements IFMLEvents
     public void setupCompat()
     {
         try {
-            compat = getCompatClass()
-                .getConstructor(Feature.class)
-                .newInstance(this);
+            compat = getCompatClass().getConstructor(Feature.class).newInstance(this);
 
             if (compat.hasSubscriptions()) {
                 MinecraftForge.EVENT_BUS.register(compat);
@@ -58,13 +55,13 @@ public abstract class Feature implements IFMLEvents
 
     public ModLoader getModLoader()
     {
-        if (module == null) Meson.runtimeException("You need to setup the Feature using feature.setup()");
+        if (module == null) Meson.runtimeException("Invalid ModLoader");
         return module.getModLoader();
     }
 
     public Configuration getConfig()
     {
-        if (module == null) Meson.runtimeException("You need to setup the Feature using feature.setup()");
+        if (module == null) Meson.runtimeException("Invalid ModLoader");
         return module.getConfig();
     }
 
@@ -99,6 +96,8 @@ public abstract class Feature implements IFMLEvents
     }
 
     public String[] getDisableMods() { return new String[] {}; }
+
+    public String[] getTransformers() { return new String[] {}; }
 
     public FeatureCompat getCompat()
     {
