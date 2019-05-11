@@ -20,7 +20,8 @@ public class CharmLoadingPlugin extends MesonLoadingPlugin
     public void injectData(Map<String, Object> data) {
         super.injectData(data);
 
-        File configFile = new File(((File) data.get("mcLocation")).getPath() + "/config/charm.cfg");
-        config = new Configuration(configFile);
+        File configFile = new File(((File) data.get("mcLocation")).getPath() + "/config/charm_asm.cfg");
+        config = new Configuration(configFile, true);
+        config.load();
     }
 }
