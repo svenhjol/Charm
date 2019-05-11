@@ -14,12 +14,11 @@ import java.util.*;
 
 public class ModLoader
 {
-    private Configuration config;
     public List<Module> modules = new ArrayList<>();
     public List<Class<? extends Feature>> enabledFeatures = new ArrayList<>();
     public List<Class<? extends Module>> enabledModules = new ArrayList<>();
-
     public static Map<String, ModLoader> instances = new HashMap<>();
+    private Configuration config;
 
     public ModLoader registerModLoader(String id)
     {
@@ -39,14 +38,14 @@ public class ModLoader
         File configFile = event.getSuggestedConfigurationFile();
 
 //        configFile.delete();
-        config = new Configuration(configFile);
+        config = new Configuration(configFile, true);
         config.load();
 
         // setup all enabled modules
         List<Module> enabled = new ArrayList<>();
 
         modules.forEach(module -> {
-            module.enabled = ConfigHelper.propBoolean(config, module.getName(), "_modules", module.getDescription(), module.enabledByDefault);
+            module.enabled = ConfigHelper.propBoolean(config, module.getName(), ConfigHelper.MODULES, module.getDescription(), module.enabledByDefault);
 
             if (module.enabled) {
                 module.setup(this);
@@ -59,8 +58,6 @@ public class ModLoader
         setupConfig();
 
         modules.forEach(module -> module.preInit(event));
-
-        ConfigHelper.saveIfChanged(config);
     }
 
     public void init(FMLInitializationEvent event)
@@ -76,6 +73,8 @@ public class ModLoader
     public void finalInit(FMLPostInitializationEvent event)
     {
         modules.forEach(module -> module.finalInit(event));
+
+        ConfigHelper.saveIfChanged(config);
     }
 
     public void serverStarting(FMLServerStartingEvent event)
