@@ -30,6 +30,13 @@ public class EnderPearlBlock extends Feature
     public static double endermiteChance;
 
     @Override
+    public String getDescription()
+    {
+        return "A storage block for ender pearls. Eating a chorus fruit will teleport you to a nearby ender pearl block.\n" +
+                "If a silverfish burrows into an ender pearl block, it will become an endermite.";
+    }
+
+    @Override
     public void setupConfig()
     {
         endermiteChance = propDouble(
