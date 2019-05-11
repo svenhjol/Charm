@@ -57,7 +57,8 @@ public abstract class Module implements IFMLEvents
 
     public String getName()
     {
-        return this.getClass().getSimpleName();
+        String withSpaces = this.getClass().getSimpleName().replaceAll("(?<=.)([A-Z])", " $1").toLowerCase();
+        return Character.toUpperCase(withSpaces.charAt(0)) + withSpaces.substring(1);
     }
 
     public String getDescription()
