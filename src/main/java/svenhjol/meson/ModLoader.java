@@ -38,12 +38,9 @@ public class ModLoader
         // set up configuration
         File configFile = event.getSuggestedConfigurationFile();
 
-        /* @todo do something if the config file doesn't exist? */
+//        configFile.delete();
         config = new Configuration(configFile);
         config.load();
-
-        // allow config to switch on debug mode
-        Meson.DEBUG = ConfigHelper.propBoolean(config, "Debug mode", "_meson", "Allows extra debug output in the console.", false);
 
         // setup all enabled modules
         List<Module> enabled = new ArrayList<>();
@@ -59,10 +56,7 @@ public class ModLoader
 
         modules = enabled;
 
-        if (config.hasChanged()) {
-            config.save();
-        }
-
+        ConfigHelper.saveChanges(config);
         setupConfig();
 
         modules.forEach(module -> module.preInit(event));
@@ -108,7 +102,7 @@ public class ModLoader
 
     public Configuration getConfig()
     {
-        if (config == null) Meson.runtimeException("You need to call modLoader.preInit() in CommonProxy");
+        if (config == null) Meson.runtimeException("Invalid ModLoader");
         return config;
     }
 
