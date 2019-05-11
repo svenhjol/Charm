@@ -2,7 +2,6 @@ package svenhjol.meson;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import svenhjol.meson.asm.MesonLoadingPlugin;
 
 public class Meson
 {
@@ -58,7 +57,6 @@ public class Meson
     {
         if (!hasInit) {
             MinecraftForge.EVENT_BUS.register(ProxyRegistry.class);
-            Meson.DEBUG = MesonLoadingPlugin.runtimeDeobfuscationEnabled;
             hasInit = true;
         }
     }
