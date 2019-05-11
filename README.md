@@ -19,11 +19,11 @@ Please report any issues in the tracker here.
 
 ## Compatibility
 
-* Quark r1.5-147 and r1.5-149
+* Quark r1.5-150
 * Traverse 1.6.0-69
 * Dynamic Surroundings (3.5.4.3), HUDs (3.5.4), OreLib (3.5.2.2)
 * JEI (4.14.3.239)
 * HYWLA (1.8.26)
 * Future MC (0.1.2c)
-* Temporarily disabled: Inventory Tweaks containers support, tested with 1.64+dev.146.
+* Inventory Tweaks containers support, tested with 1.64+dev.146.
 * Mystcraft support is limited. Village biomes in ages might not detect village seed or biome properly.
