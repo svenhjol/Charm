@@ -1,6 +1,7 @@
 package svenhjol.meson.asm;
 
 import net.minecraft.launchwrapper.IClassTransformer;
+import net.minecraftforge.common.config.Configuration;
 import org.apache.commons.lang3.tuple.Pair;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -11,6 +12,7 @@ import org.objectweb.asm.util.Printer;
 import org.objectweb.asm.util.Textifier;
 import org.objectweb.asm.util.TraceMethodVisitor;
 import svenhjol.meson.Meson;
+import svenhjol.meson.helper.ConfigHelper;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -20,6 +22,8 @@ import java.util.Map;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
+import static svenhjol.meson.helper.ConfigHelper.TRANSFORMERS;
 
 public abstract class MesonClassTransformer implements IClassTransformer
 {
@@ -164,5 +168,23 @@ public abstract class MesonClassTransformer implements IClassTransformer
     public static void log(String string)
     {
         System.out.println(String.format("[Meson ASM] %s", string));
+    }
+
+    public static boolean checkTransformers(Configuration config, String ...transformers)
+    {
+        boolean loaded = true;
+        for (String transformer : transformers) {
+            loaded = loaded && ConfigHelper.propBoolean(config, transformer, TRANSFORMERS, "", true);
+        }
+
+        config.setCategoryComment(TRANSFORMERS,
+                "This section contains core classes.\n" +
+                        "You may disable these patches in case of compatibility problems.\n" +
+                        "Any features that depend on a manually disabled patch will not be enabled."
+        );
+
+        if (config.hasChanged()) config.save();
+
+        return loaded;
     }
 }
