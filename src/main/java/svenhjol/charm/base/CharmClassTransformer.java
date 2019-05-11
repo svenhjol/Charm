@@ -5,7 +5,6 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 import svenhjol.meson.asm.ClassNameMap;
 import svenhjol.meson.asm.MesonClassTransformer;
-import svenhjol.meson.helper.ConfigHelper;
 
 public class CharmClassTransformer extends MesonClassTransformer
 {
@@ -44,31 +43,21 @@ public class CharmClassTransformer extends MesonClassTransformer
                 "net/minecraft/entity/player/InventoryPlayer", "aec"
         );
 
-        transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry",
-                CharmClassTransformer::transformBrewingRecipeRegistry);
-        transformers.put("net.minecraft.inventory.ContainerFurnace",
-                CharmClassTransformer::transformContainerFurnace);
-        transformers.put("net.minecraft.inventory.ContainerRepair$2",
-                CharmClassTransformer::transformContainerRepair);
-        transformers.put("net.minecraft.entity.player.EntityPlayer",
-                CharmClassTransformer::transformEntityPlayer);
-        transformers.put("net.minecraft.item.ItemChorusFruit",
-                CharmClassTransformer::transformItemChorusFruit);
-        transformers.put("net.minecraft.client.renderer.entity.layers.LayerArmorBase",
-                CharmClassTransformer::transformLayerArmorBase);
-        transformers.put("net.minecraft.world.gen.structure.StructureStart",
-                CharmClassTransformer::transformStructureStart);
-        transformers.put("net.minecraft.world.gen.structure.StructureVillagePieces$Village",
-                CharmClassTransformer::transformStructureVillagePiecesVillage);
-        transformers.put("net.minecraft.tileentity.TileEntityBeacon",
-                CharmClassTransformer::transformTileEntityBeacon);
-        transformers.put("net.minecraft.tileentity.TileEntityFurnace",
-            CharmClassTransformer::transformTileEntityFurnace);
+        transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry", CharmClassTransformer::transformBrewingRecipeRegistry);
+        transformers.put("net.minecraft.inventory.ContainerFurnace", CharmClassTransformer::transformContainerFurnace);
+        transformers.put("net.minecraft.inventory.ContainerRepair$2", CharmClassTransformer::transformContainerRepair);
+        transformers.put("net.minecraft.entity.player.EntityPlayer", CharmClassTransformer::transformEntityPlayer);
+        transformers.put("net.minecraft.item.ItemChorusFruit", CharmClassTransformer::transformItemChorusFruit);
+        transformers.put("net.minecraft.client.renderer.entity.layers.LayerArmorBase", CharmClassTransformer::transformLayerArmorBase);
+        transformers.put("net.minecraft.world.gen.structure.StructureStart", CharmClassTransformer::transformStructureStart);
+        transformers.put("net.minecraft.world.gen.structure.StructureVillagePieces$Village", CharmClassTransformer::transformStructureVillagePiecesVillage);
+        transformers.put("net.minecraft.tileentity.TileEntityBeacon", CharmClassTransformer::transformTileEntityBeacon);
+        transformers.put("net.minecraft.tileentity.TileEntityFurnace", CharmClassTransformer::transformTileEntityFurnace);
     }
 
     private static byte[] transformContainerFurnace(byte[] basicClass)
     {
-        if (!ConfigHelper.checkTransformers(CharmLoadingPlugin.config, "ContainerFurnace")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.config, "ContainerFurnace")) return basicClass;
         log("Transforming ContainerFurnace");
 
         MethodSignature init = new MethodSignature("<init>", "<init>", "", "(Lnet/minecraft/entity/player/InventoryPlayer;Lnet/minecraft/inventory/IInventory;)V");
@@ -102,7 +91,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformTileEntityFurnace(byte[] basicClass)
     {
-        if (!ConfigHelper.checkTransformers(CharmLoadingPlugin.config,"TileEntityFurnace")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.config,"TileEntityFurnace")) return basicClass;
         log("Transforming TileEntityFurnace");
 
         MethodSignature smeltItem = new MethodSignature("smeltItem", "func_145949_j", "o", "()V");
@@ -143,7 +132,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformItemChorusFruit(byte[] basicClass)
     {
-        if (!ConfigHelper.checkTransformers(CharmLoadingPlugin.config,"ItemChorusFruit")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.config,"ItemChorusFruit")) return basicClass;
         log("Transforming ItemChorusFruit");
 
         MethodSignature onItemUseFinish = new MethodSignature("onItemUseFinish", "func_77654_b", "a", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityLivingBase;)Lnet/minecraft/item/ItemStack;");
@@ -170,7 +159,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformTileEntityBeacon(byte[] basicClass)
     {
-        if (!ConfigHelper.checkTransformers(CharmLoadingPlugin.config,"TileEntityBeacon")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.config,"TileEntityBeacon")) return basicClass;
         log("Transforming TileEntityBeacon");
 
         MethodSignature addEffectsToPlayers = new MethodSignature("addEffectsToPlayers", "func_146000_x", "E", "()V");
@@ -201,7 +190,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformBrewingRecipeRegistry(byte[] basicClass)
     {
-        if (!ConfigHelper.checkTransformers(CharmLoadingPlugin.config,"BrewingRecipeRegistry")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.config,"BrewingRecipeRegistry")) return basicClass;
         log("Transforming BrewingRecipeRegistry");
 
         MethodSignature getSlotStackLimit = new MethodSignature("isValidInput", "isValidInput", "", "(Lnet/minecraft/item/ItemStack;)Z");
@@ -231,7 +220,7 @@ public class CharmClassTransformer extends MesonClassTransformer
      */
     private static byte[] transformContainerRepair(byte[] basicClass)
     {
-        if (!ConfigHelper.checkTransformers(CharmLoadingPlugin.config,"ContainerRepair")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.config,"ContainerRepair")) return basicClass;
         log("Transforming ContainerRepair");
 
         MethodSignature canTakeStack = new MethodSignature("canTakeStack", "func_82869_a", "a", "(Lnet/minecraft/entity/player/EntityPlayer;)Z");
@@ -260,7 +249,7 @@ public class CharmClassTransformer extends MesonClassTransformer
      */
     private static byte[] transformLayerArmorBase(byte[] basicClass)
     {
-        if (!ConfigHelper.checkTransformers(CharmLoadingPlugin.config,"LayerArmorBase")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.config,"LayerArmorBase")) return basicClass;
         log("Transforming LayerArmorBase");
 
         MethodSignature renderArmorLayer = new MethodSignature("renderArmorLayer", "func_188361_a", "a", "(Lnet/minecraft/entity/EntityLivingBase;FFFFFFFLnet/minecraft/inventory/EntityEquipmentSlot;)V");
@@ -296,7 +285,7 @@ public class CharmClassTransformer extends MesonClassTransformer
      */
     private static byte[] transformEntityPlayer(byte[] basicClass)
     {
-        if (!ConfigHelper.checkTransformers(CharmLoadingPlugin.config,"EntityPlayer")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.config,"EntityPlayer")) return basicClass;
         log("Transforming EntityPlayer");
 
         MethodSignature getArmorVisibility = new MethodSignature("getArmorVisibility", "func_82243_bO", "cW", "()F");
@@ -334,7 +323,7 @@ public class CharmClassTransformer extends MesonClassTransformer
      */
     private static byte[] transformStructureVillagePiecesVillage(byte[] basicClass)
     {
-        if (!ConfigHelper.checkTransformers(CharmLoadingPlugin.config,"StructureVillagePieces")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.config,"StructureVillagePieces")) return basicClass;
         log("Transforming StructureVillagePieces$Village");
 
         MethodSignature biomeDoor = new MethodSignature("biomeDoor", "func_189925_i", "i", "()Lnet/minecraft/block/BlockDoor;");
@@ -361,7 +350,7 @@ public class CharmClassTransformer extends MesonClassTransformer
      */
     private static byte[] transformStructureStart(byte[] basicClass)
     {
-        if (!ConfigHelper.checkTransformers(CharmLoadingPlugin.config,"StructureStart")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.config,"StructureStart")) return basicClass;
         log("Transforming StructureStart");
 
         byte[] transformClass = basicClass;
