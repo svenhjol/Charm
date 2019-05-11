@@ -39,6 +39,11 @@ public class ItemHelper
         return out;
     }
 
+    public static boolean compareStacks(ItemStack s1, ItemStack s2)
+    {
+        return s1.getItem() == s2.getItem() && (s1.getMetadata() == 32767 || s1.getMetadata() == s2.getMetadata());
+    }
+
     public static String getMatchingItemKey(ArrayList<String> items, ItemStack item)
     {
         String name = getItemStringFromItemStack(item, true);
@@ -74,7 +79,39 @@ public class ItemHelper
         return itemName;
     }
 
+    public static ItemStack getItemStackFromItemString(String name)
+    {
+        return getItemStackFromItemString(name, 0);
+    }
+
+    public static ItemStack getItemStackFromItemString(String name, int defaultMeta)
+    {
+        ItemStack stack = null;
+        String meta = "";
+        if (name.contains("[")) {
+            meta = name.substring(name.indexOf('[') + 1, name.indexOf(']'));
+            name = name.substring(0, name.indexOf('['));
+        }
+
+        // parse meta
+        Item item = Item.getByNameOrId(name);
+        if (item != null) {
+            if (meta.equals("*") || meta.isEmpty()) {
+                stack = new ItemStack(item, 1, defaultMeta);
+            } else {
+                stack = new ItemStack(item, 1, Integer.parseInt(meta));
+            }
+        }
+
+        return stack;
+    }
+
     public static List<ItemStack> getItemStacksFromItemString(String name)
+    {
+        return getItemStacksFromItemString(name, 0);
+    }
+
+    public static List<ItemStack> getItemStacksFromItemString(String name, int defaultMeta)
     {
         ArrayList<ItemStack> stacks = new ArrayList<>();
         String meta = "";
@@ -92,7 +129,7 @@ public class ItemHelper
                     item.getSubItems(CreativeTabs.SEARCH, subItems);
                     stacks.addAll(subItems);
                 } else {
-                    stacks.add(new ItemStack(item, 1, 0));
+                    stacks.add(new ItemStack(item, 1, defaultMeta));
                 }
             } else {
                 stacks.add(new ItemStack(item, 1, Integer.parseInt(meta)));
