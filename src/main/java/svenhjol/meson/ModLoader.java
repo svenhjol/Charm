@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import svenhjol.charm.Charm;
 import svenhjol.meson.helper.ConfigHelper;
 
 import java.io.File;
@@ -35,10 +36,10 @@ public class ModLoader
     public void preInit(FMLPreInitializationEvent event)
     {
         // set up configuration
-        File configFile = event.getSuggestedConfigurationFile();
+        File configFile = new File(event.getModConfigurationDirectory(), Charm.MOD_ID + "-1.1.cfg");
 
 //        configFile.delete();
-        config = new Configuration(configFile, true);
+        config = new Configuration(configFile, Charm.MOD_VERSION, true);
         config.load();
 
         // setup all enabled modules
