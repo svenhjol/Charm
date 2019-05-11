@@ -106,6 +106,7 @@ public class CharmClassTransformer extends MesonClassTransformer
         log("Transforming TileEntityFurnace");
 
         MethodSignature smeltItem = new MethodSignature("smeltItem", "func_145949_j", "o", "()V");
+        MethodSignature isItemValidForSlot = new MethodSignature("isItemValidForSlot", "func_94041_b", "b", "(ILnet/minecraft/item/ItemStack;)Z");
         byte[] transClass = basicClass;
 
         transClass = transform(transClass, Pair.of(smeltItem, combine(
@@ -117,6 +118,22 @@ public class CharmClassTransformer extends MesonClassTransformer
                     newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "changeSmeltingResult", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;", false));
                     newInstructions.add(new VarInsnNode(Opcodes.ASTORE, 2));
                     method.instructions.insert(node, newInstructions);
+                    return true;
+                }
+        )));
+
+        transClass = transform(transClass, Pair.of(isItemValidForSlot, combine(
+                (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ILOAD && ((VarInsnNode)node).var == 1,
+                (MethodNode method, AbstractInsnNode node) -> {
+                    InsnList newInstructions = new InsnList();
+                    newInstructions.add(new VarInsnNode(Opcodes.ILOAD, 1));
+                    LabelNode label = new LabelNode();
+                    newInstructions.add(new JumpInsnNode(Opcodes.IFNE, label));
+                    newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
+                    newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "canSmelt", "(Lnet/minecraft/item/ItemStack;)Z", false));
+                    newInstructions.add(new InsnNode(Opcodes.IRETURN));
+                    newInstructions.add(label);
+                    method.instructions.insertBefore(node, newInstructions);
                     return true;
                 }
         )));
