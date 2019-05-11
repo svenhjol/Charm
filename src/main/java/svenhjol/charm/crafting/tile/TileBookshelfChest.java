@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.ItemStackHandler;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBookshelfChest;
+import svenhjol.charm.crafting.feature.BookshelfChest;
 import svenhjol.meson.MesonTileInventory;
 import vazkii.quark.api.IDropoffManager;
 
@@ -64,7 +65,7 @@ public class TileBookshelfChest extends MesonTileInventory implements IDropoffMa
 
     protected void updateBlock()
     {
-        if (world.getBlockState(pos).getBlock() instanceof BlockBookshelfChest) {
+        if (world.getBlockState(pos).getBlock() == BookshelfChest.bookshelfChest) {
             int slots = getNumberOfFilledSlots();
             IBlockState state = world.getBlockState(pos).withProperty(BlockBookshelfChest.SLOTS, slots);
             world.setBlockState(pos, state, 2);
@@ -105,8 +106,15 @@ public class TileBookshelfChest extends MesonTileInventory implements IDropoffMa
     }
 
     @Override
+    public int getComparatorOutput()
+    {
+        return getNumberOfFilledSlots();
+    }
+
+    @Override
     public String getDefaultName()
     {
+        //noinspection deprecation
         return I18n.translateToLocal("tile.charm:bookshelf_chest.name");
     }
 }
