@@ -11,7 +11,7 @@ public class CharmSmithing extends Module
         features.add(new ExtendTotemOfReturning());
         features.add(new ExtractBookXP());
         features.add(new ExtractEnchantments());
-        features.add(new RecycleWithFlint());
+        features.add(new FurnacesRecycleMore());
         features.add(new TallowIncreasesDurability());
     }
 }
