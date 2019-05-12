@@ -112,10 +112,10 @@
 
 ### Beta 2
 
-* Composter gives more items than config [https://github.com/svenhjol/Charm/issues/42]()
-* Effective tool for pistons with Redstone++ [https://github.com/svenhjol/Charm/issues/41]()
-* Infinite diamonds, remove RecycleWithFlint [https://github.com/svenhjol/Charm/issues/40]()
-* Bookshelf Chests don't give correct comparator output [https://github.com/svenhjol/Charm/issues/43]()
+* Composter gives more items than config #42
+* Effective tool for pistons with Redstone++ #41
+* Infinite diamonds, remove RecycleWithFlint #40
+* Bookshelf Chests don't give correct comparator output #43
 * Add FurnacesRecycleMore
 * Add RestrictFurnaceItems
 * Config category names change to camelcase rather than lowercase
@@ -125,5 +125,6 @@
 
 ### Beta 3
 
-* Endermite powder to find End Cities
+* Add Endermite powder, drops from Endermites. Use it to find End Cities
 * Correct creative tab distribution #44
+* If Quark is loaded, chance for anvil to have a tool on it
