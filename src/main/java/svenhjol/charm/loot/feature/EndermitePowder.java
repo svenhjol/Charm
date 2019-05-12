@@ -23,6 +23,13 @@ public class EndermitePowder extends Feature
     public static double lootingBoost;
 
     @Override
+    public String getDescription()
+    {
+        return "Endermite Powder has a chance of being dropped from an Endermite.\n" +
+            "Use it in the End to help locate an End City.";
+    }
+
+    @Override
     public void setupConfig()
     {
         dropChance = propDouble(
