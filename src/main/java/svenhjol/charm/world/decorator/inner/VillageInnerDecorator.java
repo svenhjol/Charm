@@ -5,6 +5,8 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -17,11 +19,14 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmDecoratorItems;
 import svenhjol.charm.crafting.block.BlockBookshelfChest;
 import svenhjol.charm.crafting.feature.BookshelfChest;
+import svenhjol.charm.world.compat.QuarkDecoratorItems;
 import svenhjol.charm.world.decorator.theme.*;
 import svenhjol.charm.world.feature.MoreVillageBiomes;
 import svenhjol.charm.world.feature.VillageDecorations;
+import svenhjol.meson.Meson;
 import svenhjol.meson.decorator.MesonDecoratorTheme;
 import svenhjol.meson.decorator.MesonInnerDecorator;
+import svenhjol.meson.helper.ConfigHelper;
 import svenhjol.meson.helper.LootHelper;
 import svenhjol.meson.helper.ObfuscationHelper;
 import svenhjol.meson.helper.WorldHelper;
@@ -37,6 +42,7 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
     public BlockPos pos;
     public Random villageRand;
     public Biome biome;
+    public QuarkDecoratorItems quarkItems;
 
     // change in subclass constructors
     public int floor = 1;
@@ -49,6 +55,14 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
         this.biome = getBiome();
         this.villageRand = getVillageRand();
         this.items = new CharmDecoratorItems(this);
+
+        try {
+            if (ConfigHelper.checkMods("quark")) {
+                quarkItems = QuarkDecoratorItems.class.getConstructor(MesonInnerDecorator.class).newInstance(this);
+            }
+        } catch (Exception e) {
+            Meson.runtimeException("Error loading QuarkDecoratorItems");
+        }
     }
 
     @Override
@@ -328,9 +342,18 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
      */
     public static class House2 extends VillageInnerDecorator
     {
+        List<ItemStack> anvilItems;
+
         public House2(StructureVillagePieces.Village structure, World world, StructureBoundingBox box)
         {
             super(structure, world, box);
+            anvilItems = new ArrayList<ItemStack>()
+            {{
+                add(new ItemStack(Items.IRON_SWORD));
+                add(new ItemStack(Items.IRON_AXE));
+                add(new ItemStack(Items.IRON_SHOVEL));
+                add(new ItemStack(Items.IRON_PICKAXE));
+            }};
         }
 
         @Override
@@ -345,6 +368,11 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
             if (VillageDecorations.functionalBlocks) {
                 // change the double slabs to an actual anvil
                 items.addAnvil(8, floor, 1, chance(0.5f) ? 1 : 0, EnumFacing.EAST);
+
+                // it quark is loaded add an anvil item
+                if (quarkItems != null && common()) {
+                    quarkItems.addGlassFramedItem(8, floor + 1, 1, EnumFacing.UP, anvilItems.get(rand.nextInt(anvilItems.size())));
+                }
             }
 
             if (VillageDecorations.decorativeBlocks) {
