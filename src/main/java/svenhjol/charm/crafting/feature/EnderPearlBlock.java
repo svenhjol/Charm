@@ -42,7 +42,7 @@ public class EnderPearlBlock extends Feature
         endermiteChance = propDouble(
                 "Silverfish burrowing",
                 "Chance (out of 1.0) of a silverfish burrowing into an Ender Pearl Block, creating an Endermite.",
-                0.5D
+                0.8D
         );
 
         teleportStabilize = propBoolean(

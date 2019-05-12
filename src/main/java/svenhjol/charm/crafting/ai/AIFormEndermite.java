@@ -19,7 +19,7 @@ public class AIFormEndermite extends EntityAIWander
 
     public AIFormEndermite(EntitySilverfish silverfish)
     {
-        super(silverfish, 1.0D, 10);
+        super(silverfish, 1.0D, 20);
         this.silverfish = silverfish;
         this.setMutexBits(1);
     }
