@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmEntityIDs;
 import svenhjol.charm.base.CharmLootTables;
 import svenhjol.charm.world.client.render.RenderChargedEmerald;
 import svenhjol.charm.world.entity.EntityChargedEmerald;
@@ -64,8 +65,8 @@ public class ChargedEmeralds extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         emerald = new ItemChargedEmerald();
-        String entityName = Charm.MOD_ID + ":charged_emerald";
-        EntityRegistry.registerModEntity(new ResourceLocation(entityName), EntityChargedEmerald.class, entityName, 255, Charm.instance, 64, 10, true);
+        String name = Charm.MOD_ID + ":charged_emerald";
+        EntityRegistry.registerModEntity(new ResourceLocation(name), EntityChargedEmerald.class, name, CharmEntityIDs.CHARGED_EMERALD, Charm.instance, 64, 10, true);
     }
 
     @Override

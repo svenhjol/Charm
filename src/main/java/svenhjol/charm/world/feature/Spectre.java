@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmEntityIDs;
 import svenhjol.charm.world.client.render.RenderSpectre;
 import svenhjol.charm.world.entity.EntitySpectre;
 import svenhjol.meson.Feature;
@@ -70,9 +71,8 @@ public class Spectre extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        String spectreName = Charm.MOD_ID + ":spectre";
-
-        EntityRegistry.registerModEntity(new ResourceLocation(spectreName), EntitySpectre.class, spectreName, 0, Charm.instance, trackingRange, 3, true, eggColor1, eggColor2);
+        String name = Charm.MOD_ID + ":spectre";
+        EntityRegistry.registerModEntity(new ResourceLocation(name), EntitySpectre.class, name, CharmEntityIDs.SPECTRE, Charm.instance, trackingRange, 3, true, eggColor1, eggColor2);
         LootTableList.register(EntitySpectre.LOOT_TABLE);
     }
 
