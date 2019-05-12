@@ -8,6 +8,7 @@ public class CharmLoot extends Module
     public CharmLoot()
     {
         features.add(new AbandonedCrates());
+        features.add(new EndermitePowder());
         features.add(new TotemOfReturning());
         features.add(new TotemOfShielding());
         features.add(new UnearthItems());

@@ -17,6 +17,7 @@ tile.charm:rotten_flesh_block.name=Rotten Flesh Block
 item.charm:bat_bucket.name=Bat in a Bucket
 item.charm:bound_compass.name=Bound Compass
 item.charm:charged_emerald.name=Charged Emerald
+item.charm:endermite_powder.name=Endermite Powder
 item.charm:totem_of_returning.name=Totem of Returning
 item.charm:totem_of_shielding.name=Totem of Shielding
 item.charm:suspicious_soup.name=Suspicious Soup
