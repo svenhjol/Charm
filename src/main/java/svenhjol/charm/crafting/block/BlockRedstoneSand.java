@@ -18,7 +18,7 @@ public class BlockRedstoneSand extends BlockFalling implements IMesonBlock
         register("redstone_sand");
         setSoundType(SoundType.SAND);
         setHardness(RedstoneSand.hardness);
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setCreativeTab(CreativeTabs.REDSTONE);
     }
 
     @Override

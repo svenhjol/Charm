@@ -5,6 +5,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,11 +42,12 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
 
     public BlockFlavoredCake(String name)
     {
-        this.register("cake_" + name);
-        this.material = Material.CAKE;
-        this.flavor = Potion.getPotionFromResourceLocation(name);
-        this.setSoundType(SoundType.CLOTH);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(BITES, 0));
+        register("cake_" + name);
+        setCreativeTab(CreativeTabs.BREWING);
+        setSoundType(SoundType.CLOTH);
+        setDefaultState(blockState.getBaseState().withProperty(BITES, 0));
+        material = Material.CAKE;
+        flavor = Potion.getPotionFromResourceLocation(name);
     }
 
     @Override

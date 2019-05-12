@@ -37,7 +37,7 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
         super(Material.WOOD, "barrel");
         this.setHardness(Barrel.hardness);
         this.setSoundType(SoundType.WOOD);
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setCreativeTab(CreativeTabs.DECORATIONS);
         setDefaultState(getBlockState().getBaseState().withProperty(FACING, EnumFacing.UP));
     }
 

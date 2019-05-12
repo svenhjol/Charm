@@ -46,7 +46,7 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock, 
         setHardness(1f);
         setResistance(10f);
         setSoundType(SoundType.WOOD);
-        setCreativeTab(CreativeTabs.MISC);
+        setCreativeTab(CreativeTabs.DECORATIONS);
 
         this.type = type;
     }
