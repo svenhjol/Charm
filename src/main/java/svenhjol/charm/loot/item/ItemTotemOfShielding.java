@@ -14,7 +14,7 @@ public class ItemTotemOfShielding extends Item implements IMesonItem
         register("totem_of_shielding");
         setMaxStackSize(1);
         setMaxDamage(TotemOfShielding.maxHealth);
-        setCreativeTab(CreativeTabs.MISC);
+        setCreativeTab(CreativeTabs.COMBAT);
     }
 
     @Override

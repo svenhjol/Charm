@@ -32,7 +32,7 @@ public class ItemTotemOfReturning extends Item implements IMesonItem
     public ItemTotemOfReturning()
     {
         register("totem_of_returning");
-        setCreativeTab(CreativeTabs.MISC);
+        setCreativeTab(CreativeTabs.TRANSPORTATION);
         setMaxStackSize(1);
     }
 

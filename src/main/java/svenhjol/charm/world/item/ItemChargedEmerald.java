@@ -18,7 +18,7 @@ public class ItemChargedEmerald extends Item implements IMesonItem
     {
         register("charged_emerald");
         setMaxStackSize(16);
-        setCreativeTab(CreativeTabs.COMBAT);
+        setCreativeTab(CreativeTabs.MISC);
     }
 
     @Override

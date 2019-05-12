@@ -2,6 +2,7 @@ package svenhjol.charm.world.item;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItemFrame;
@@ -37,16 +38,11 @@ public class ItemBoundCompass extends MesonItem
     public ItemBoundCompass()
     {
         super("bound_compass");
+        setMaxStackSize(1);
+        setCreativeTab(CreativeTabs.MISC);
 
         addPropertyOverride(new ResourceLocation("angle"), new IItemPropertyGetter()
         {
-//            @SideOnly(Side.CLIENT)
-//            private double rotation;
-//            @SideOnly(Side.CLIENT)
-//            private double rota;
-//            @SideOnly(Side.CLIENT)
-//            private long lastUpdateTick;
-
             @Override
             public float apply(ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entityIn)
             {
@@ -90,7 +86,7 @@ public class ItemBoundCompass extends MesonItem
 
                 return MathHelper.positiveModulo((float) angle, 1.0F);
             }
-//
+
             @SideOnly(Side.CLIENT)
             private double wobble(World worldIn, ItemStack stack, double angle)
             {
