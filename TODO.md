@@ -126,3 +126,4 @@
 ### Beta 3
 
 * Endermite powder to find End Cities
+* Correct creative tab distribution #44
