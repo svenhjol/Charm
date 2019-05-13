@@ -59,6 +59,8 @@ public class ModLoader
         setupConfig();
 
         modules.forEach(module -> module.preInit(event));
+
+        ConfigHelper.saveIfChanged(config);
     }
 
     public void init(FMLInitializationEvent event)
@@ -74,8 +76,6 @@ public class ModLoader
     public void finalInit(FMLPostInitializationEvent event)
     {
         modules.forEach(module -> module.finalInit(event));
-
-        ConfigHelper.saveIfChanged(config);
     }
 
     public void serverStarting(FMLServerStartingEvent event)
