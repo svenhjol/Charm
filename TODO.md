@@ -128,3 +128,4 @@
 * Add Endermite powder, drops from Endermites. Use it to find End Cities
 * Correct creative tab distribution #44
 * If Quark is loaded, chance for anvil to have a tool on it
+* Bookshelf chest now uses different inventory drop check #4
