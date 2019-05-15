@@ -1,21 +1,59 @@
 {
     "forge_marker": 1,
     "defaults": {
-        "model": "minecraft:cube_all",
+        "model": "charm:barrel_oak",
         "transform": "forge:default-block"
     },
     "variants": {
-        "normal": {
-            "model": "charm:barrel"
-        },
-        "inventory": {
-            "model": "charm:barrel"
-        },
-        "facing=down": { "model": "charm:barrel", "x": 180 },
-        "facing=up": { "model": "charm:barrel" },
-        "facing=north": { "model": "charm:barrel","x": 90 },
-        "facing=south": { "model": "charm:barrel", "x": 90, "y": 180 },
-        "facing=west": { "model": "charm:barrel", "x": 90, "y": 270 },
-        "facing=east": { "model": "charm:barrel", "x": 90, "y": 90 }
+        "normal": { "model": "charm:barrel_oak" },
+
+        "inventory,variant=oak": { "model": "charm:barrel_oak" },
+        "inventory,variant=spruce": { "model": "charm:barrel_spruce" },
+        "inventory,variant=birch": { "model": "charm:barrel_birch" },
+        "inventory,variant=jungle": { "model": "charm:barrel_jungle" },
+        "inventory,variant=acacia": { "model": "charm:barrel_acacia" },
+        "inventory,variant=dark_oak": { "model": "charm:barrel_dark_oak" },
+
+        "facing=down,variant=oak": { "model": "charm:barrel_oak", "x": 180 },
+        "facing=up,variant=oak": { "model": "charm:barrel_oak" },
+        "facing=north,variant=oak": { "model": "charm:barrel_oak", "x": 90 },
+        "facing=south,variant=oak": { "model": "charm:barrel_oak", "x": 90, "y": 180 },
+        "facing=west,variant=oak": { "model": "charm:barrel_oak", "x": 90, "y": 270 },
+        "facing=east,variant=oak": { "model": "charm:barrel_oak", "x": 90, "y": 90 },
+
+        "facing=down,variant=spruce": { "model": "charm:barrel_spruce", "x": 180 },
+        "facing=up,variant=spruce": { "model": "charm:barrel_spruce" },
+        "facing=north,variant=spruce": { "model": "charm:barrel_spruce", "x": 90 },
+        "facing=south,variant=spruce": { "model": "charm:barrel_spruce", "x": 90, "y": 180 },
+        "facing=west,variant=spruce": { "model": "charm:barrel_spruce", "x": 90, "y": 270 },
+        "facing=east,variant=spruce": { "model": "charm:barrel_spruce", "x": 90, "y": 90 },
+
+        "facing=down,variant=birch": { "model": "charm:barrel_birch", "x": 180 },
+        "facing=up,variant=birch": { "model": "charm:barrel_birch" },
+        "facing=north,variant=birch": { "model": "charm:barrel_birch", "x": 90 },
+        "facing=south,variant=birch": { "model": "charm:barrel_birch", "x": 90, "y": 180 },
+        "facing=west,variant=birch": { "model": "charm:barrel_birch", "x": 90, "y": 270 },
+        "facing=east,variant=birch": { "model": "charm:barrel_birch", "x": 90, "y": 90 },
+
+        "facing=down,variant=jungle": { "model": "charm:barrel_jungle", "x": 180 },
+        "facing=up,variant=jungle": { "model": "charm:barrel_jungle" },
+        "facing=north,variant=jungle": { "model": "charm:barrel_jungle", "x": 90 },
+        "facing=south,variant=jungle": { "model": "charm:barrel_jungle", "x": 90, "y": 180 },
+        "facing=west,variant=jungle": { "model": "charm:barrel_jungle", "x": 90, "y": 270 },
+        "facing=east,variant=jungle": { "model": "charm:barrel_jungle", "x": 90, "y": 90 },
+
+        "facing=down,variant=acacia": { "model": "charm:barrel_acacia", "x": 180 },
+        "facing=up,variant=acacia": { "model": "charm:barrel_acacia" },
+        "facing=north,variant=acacia": { "model": "charm:barrel_acacia", "x": 90 },
+        "facing=south,variant=acacia": { "model": "charm:barrel_acacia", "x": 90, "y": 180 },
+        "facing=west,variant=acacia": { "model": "charm:barrel_acacia", "x": 90, "y": 270 },
+        "facing=east,variant=acacia": { "model": "charm:barrel_acacia", "x": 90, "y": 90 },
+
+        "facing=down,variant=dark_oak": { "model": "charm:barrel_dark_oak", "x": 180 },
+        "facing=up,variant=dark_oak": { "model": "charm:barrel_dark_oak" },
+        "facing=north,variant=dark_oak": { "model": "charm:barrel_dark_oak", "x": 90 },
+        "facing=south,variant=dark_oak": { "model": "charm:barrel_dark_oak", "x": 90, "y": 180 },
+        "facing=west,variant=dark_oak": { "model": "charm:barrel_dark_oak", "x": 90, "y": 270 },
+        "facing=east,variant=dark_oak": { "model": "charm:barrel_dark_oak", "x": 90, "y": 90 }
     }
 }
