@@ -1,5 +1,11 @@
 # Blocks
 tile.charm:barrel.name=Barrel
+tile.charm:barrel_oak.name=Oak Barrel
+tile.charm:barrel_spruce.name=Spruce Barrel
+tile.charm:barrel_birch.name=Birch Barrel
+tile.charm:barrel_jungle.name=Jungle Barrel
+tile.charm:barrel_acacia.name=Acacia Barrel
+tile.charm:barrel_dark_oak.name=Dark Oak Barrel
 tile.charm:bookshelf_chest.name=Bookshelf Chest
 tile.charm:bookshelf_container.name=Bookshelf Chest
 tile.charm:composter.name=Composter
