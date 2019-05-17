@@ -5,22 +5,13 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.event.AnvilUpdateEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.smithing.feature.TallowIncreasesDurability;
-import svenhjol.meson.Feature;
-import svenhjol.meson.FeatureCompat;
 import vazkii.quark.decoration.item.ItemTallow;
 
 import java.util.Random;
 
-public class CompatTallowIncreasesDurability extends FeatureCompat
+public class QuarkTallow
 {
-    public CompatTallowIncreasesDurability(Feature feature)
-    {
-        super(feature);
-    }
-
-    @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent event)
     {
         ItemStack in = event.getLeft();
@@ -32,8 +23,8 @@ public class CompatTallowIncreasesDurability extends FeatureCompat
         Item c = combine.getItem();
 
         boolean repairable = i instanceof ItemTool
-                || i instanceof ItemArmor
-                || TallowIncreasesDurability.repairable.contains(i.getClass());
+            || i instanceof ItemArmor
+            || TallowIncreasesDurability.repairable.contains(i.getClass());
 
         if (repairable && c instanceof ItemTallow) {
 
@@ -55,11 +46,5 @@ public class CompatTallowIncreasesDurability extends FeatureCompat
             event.setCost(TallowIncreasesDurability.xpCost);
             event.setMaterialCost(1);
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }
