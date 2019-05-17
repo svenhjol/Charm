@@ -7,9 +7,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import svenhjol.charm.base.CharmClassTransformer;
-import svenhjol.charm.base.CharmLoadingPlugin;
 import svenhjol.meson.helper.ConfigHelper;
+import svenhjol.meson.iface.IFMLEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +18,14 @@ public abstract class Module implements IFMLEvents
     public List<Feature> features = new ArrayList<>();
     public boolean enabled;
     public boolean enabledByDefault = true;
-    private ModLoader modLoader;
+    public ModLoader modLoader;
+    public Configuration config;
 
-    public void setup(ModLoader modLoader)
+    public void setup(ModLoader modLoader, Configuration config)
     {
         Meson.log("Adding module " + getName());
         this.modLoader = modLoader;
+        this.config = config;
 
         modLoader.enabledModules.add(this.getClass());
 
@@ -32,7 +33,7 @@ public abstract class Module implements IFMLEvents
         List<Feature> enabled = new ArrayList<>();
 
         features.forEach(feature -> {
-            feature.enabled = ConfigHelper.propBoolean(getConfig(), feature.getName(), this.getName(), feature.getDescription(), feature.enabledByDefault);
+            feature.enabled = ConfigHelper.propBoolean(config, feature.getName(), this.getName(), feature.getDescription(), feature.enabledByDefault);
 
             // only enable feature if these mods are present
             if (feature.enabled && feature.getRequiredMods().length > 0) {
@@ -41,10 +42,6 @@ public abstract class Module implements IFMLEvents
             // disable the feature if these mods exist
             if (feature.enabled && feature.getDisableMods().length > 0) {
                 feature.enabled = !ConfigHelper.checkMods(feature.getDisableMods());
-            }
-            // disable feature if ASM transformers are disabled
-            if (feature.enabled && feature.getTransformers().length > 0) {
-                feature.enabled = CharmClassTransformer.checkTransformers(CharmLoadingPlugin.config, feature.getTransformers());
             }
 
             if (feature.enabled) {
@@ -66,18 +63,6 @@ public abstract class Module implements IFMLEvents
         return "";
     }
 
-    public ModLoader getModLoader()
-    {
-        if (modLoader == null) Meson.runtimeException("Invalid ModLoader");
-        return modLoader;
-    }
-
-    public Configuration getConfig()
-    {
-        if (modLoader == null) Meson.runtimeException("Invalid ModLoader");
-        return modLoader.getConfig();
-    }
-
     public void preInit(FMLPreInitializationEvent event)
     {
         features.forEach(feature -> feature.preInit(event));
@@ -91,11 +76,6 @@ public abstract class Module implements IFMLEvents
     public void postInit(FMLPostInitializationEvent event)
     {
         features.forEach(feature -> feature.postInit(event));
-    }
-
-    public void finalInit(FMLPostInitializationEvent event)
-    {
-        features.forEach(feature -> feature.finalInit(event));
     }
 
     public void serverStarting(FMLServerStartingEvent event)
