@@ -1,5 +1,6 @@
 package svenhjol.charm.crafting.feature;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -7,7 +8,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBarrel;
 import svenhjol.meson.Feature;
 import svenhjol.meson.ProxyRegistry;
-import svenhjol.meson.RecipeHandler;
+import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.LootHelper;
 
 import java.util.*;
@@ -81,12 +82,14 @@ public class Barrel extends Feature
             types.put(rarity, barrels);
         }
 
-        // add barrel recipe
-        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(barrel, 1),
-            "PSP", "P P", "PSP",
-            'P', "plankWood",
-            'S', "slabWood"
-        );
+        // create recipes for all block barrel wood types
+        for (int i = 0; i < BlockBarrel.WoodVariant.values().length; i++) {
+            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(barrel, 1, i),
+                "WSW", "W W", "WSW",
+                'W', ProxyRegistry.newStack(Blocks.PLANKS, 1, i),
+                'S', ProxyRegistry.newStack(Blocks.WOODEN_SLAB, 1, i)
+            );
+        }
     }
 
     /**
