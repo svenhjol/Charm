@@ -56,7 +56,7 @@ public abstract class MesonBlockTE<TE extends TileEntity> extends MesonBlock
      * 
      * @see BlockFlowerPot (the FORGE START and FORGE END show the necessary overrides)
      */
-    public void dropsSelfWithInventory(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos)
+    public void dropsIntactInventory(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos)
     {
         TileEntity tile = getTileEntity(world, pos);
 
