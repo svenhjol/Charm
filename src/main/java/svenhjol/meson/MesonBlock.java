@@ -2,6 +2,8 @@ package svenhjol.meson;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.iface.IMesonEnum;
 
 public abstract class MesonBlock extends Block implements IMesonBlock
 {
@@ -11,5 +13,38 @@ public abstract class MesonBlock extends Block implements IMesonBlock
     {
         super(material);
         this.register(name);
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public enum WoodVariant implements IMesonEnum
+    {
+        OAK,
+        SPRUCE,
+        BIRCH,
+        JUNGLE,
+        ACACIA,
+        DARK_OAK;
+
+        private static final WoodVariant[] METADATA_LOOKUP = new WoodVariant[values().length];
+
+        static {
+            WoodVariant[] values = values();
+            for (WoodVariant v : values) {
+                METADATA_LOOKUP[v.ordinal()] = v;
+            }
+        }
+
+        public static WoodVariant byMetadata(int meta)
+        {
+            if (meta < 0 || meta >= METADATA_LOOKUP.length) {
+                meta = 0;
+            }
+            return METADATA_LOOKUP[meta];
+        }
     }
 }
