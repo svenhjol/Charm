@@ -17,9 +17,9 @@ import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.brewing.client.EnderSightSound;
 import svenhjol.charm.brewing.message.MessageSetStructure;
 import svenhjol.charm.brewing.potion.EnderSightPotion;
-import svenhjol.meson.ClientHandler;
+import svenhjol.meson.handler.ClientHandler;
 import svenhjol.meson.Feature;
-import svenhjol.meson.NetworkHandler;
+import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.EntityHelper;
 import svenhjol.meson.helper.PlayerHelper;
 

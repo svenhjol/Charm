@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import svenhjol.meson.ClientHandler;
+import svenhjol.meson.handler.ClientHandler;
 import svenhjol.meson.MesonMessage;
 
 public class MessageSetStructure extends MesonMessage
