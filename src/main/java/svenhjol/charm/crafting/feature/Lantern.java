@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.crafting.block.BlockLantern;
 import svenhjol.meson.Feature;
 import svenhjol.meson.ProxyRegistry;
-import svenhjol.meson.RecipeHandler;
+import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.ConfigHelper;
 
 public class Lantern extends Feature

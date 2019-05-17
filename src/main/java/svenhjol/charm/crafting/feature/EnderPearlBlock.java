@@ -17,7 +17,7 @@ import svenhjol.charm.crafting.ai.AIFormEndermite;
 import svenhjol.charm.crafting.block.BlockEnderPearl;
 import svenhjol.meson.Feature;
 import svenhjol.meson.ProxyRegistry;
-import svenhjol.meson.RecipeHandler;
+import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.WorldHelper;
 
 public class EnderPearlBlock extends Feature

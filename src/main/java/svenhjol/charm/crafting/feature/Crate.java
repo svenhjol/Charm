@@ -25,7 +25,7 @@ import svenhjol.charm.crafting.client.RenderTileCrate;
 import svenhjol.charm.crafting.tile.TileCrate;
 import svenhjol.meson.Feature;
 import svenhjol.meson.ProxyRegistry;
-import svenhjol.meson.RecipeHandler;
+import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.LootHelper;
 
 import java.util.*;

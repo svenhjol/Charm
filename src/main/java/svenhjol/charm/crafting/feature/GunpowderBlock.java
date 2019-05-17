@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.crafting.block.BlockGunpowder;
 import svenhjol.meson.Feature;
 import svenhjol.meson.ProxyRegistry;
-import svenhjol.meson.RecipeHandler;
+import svenhjol.meson.handler.RecipeHandler;
 
 public class GunpowderBlock extends Feature
 {

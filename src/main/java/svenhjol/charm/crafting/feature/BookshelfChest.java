@@ -7,7 +7,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBookshelfChest;
 import svenhjol.meson.Feature;
 import svenhjol.meson.ProxyRegistry;
-import svenhjol.meson.RecipeHandler;
+import svenhjol.meson.handler.RecipeHandler;
 
 public class BookshelfChest extends Feature
 {

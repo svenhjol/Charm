@@ -14,9 +14,9 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockComposter;
 import svenhjol.charm.crafting.message.MessageComposterAddLevel;
 import svenhjol.meson.Feature;
-import svenhjol.meson.NetworkHandler;
+import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.ProxyRegistry;
-import svenhjol.meson.RecipeHandler;
+import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.SoundHelper;
 
 import java.util.*;
