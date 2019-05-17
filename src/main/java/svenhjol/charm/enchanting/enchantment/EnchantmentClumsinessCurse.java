@@ -11,7 +11,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import svenhjol.charm.Charm;
 import svenhjol.charm.enchanting.feature.ExtraCurses;
-import svenhjol.meson.IMesonEnchantment.ICurse;
+import svenhjol.meson.iface.IMesonEnchantment.ICurse;
 import svenhjol.meson.MesonEnchantment;
 import svenhjol.meson.helper.SoundHelper;
 

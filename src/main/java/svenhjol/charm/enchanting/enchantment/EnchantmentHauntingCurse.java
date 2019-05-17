@@ -8,7 +8,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import svenhjol.charm.Charm;
-import svenhjol.meson.IMesonEnchantment.*;
+import svenhjol.meson.iface.IMesonEnchantment.*;
 import svenhjol.meson.MesonEnchantment;
 import svenhjol.meson.helper.EntityHelper;
 import svenhjol.charm.enchanting.feature.ExtraCurses;
