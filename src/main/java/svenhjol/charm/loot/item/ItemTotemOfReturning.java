@@ -14,7 +14,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.loot.feature.TotemOfReturning;
-import svenhjol.meson.IMesonItem;
+import svenhjol.meson.iface.IMesonItem;
 import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.helper.SoundHelper;

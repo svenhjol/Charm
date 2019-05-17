@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.loot.feature.TotemOfShielding;
-import svenhjol.meson.IMesonItem;
+import svenhjol.meson.iface.IMesonItem;
 
 public class ItemTotemOfShielding extends Item implements IMesonItem
 {
