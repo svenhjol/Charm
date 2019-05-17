@@ -1,4 +1,4 @@
-package svenhjol.meson;
+package svenhjol.meson.handler;
 
 import net.minecraft.util.math.BlockPos;
 

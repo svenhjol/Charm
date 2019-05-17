@@ -1,4 +1,4 @@
-package svenhjol.meson;
+package svenhjol.meson.handler;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -13,6 +13,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreIngredient;
+import svenhjol.meson.Meson;
+import svenhjol.meson.ProxyRegistry;
 
 import java.util.*;
 
