@@ -1,13 +1,15 @@
 package svenhjol.charm.loot.feature;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import svenhjol.charm.loot.compat.CompatWitchHatProtection;
+import svenhjol.charm.loot.compat.QuarkWitchHat;
 import svenhjol.charm.world.event.SpectreAttackEvent;
 import svenhjol.meson.Feature;
-import svenhjol.meson.FeatureCompat;
+import svenhjol.meson.Meson;
 
 public class WitchHatProtection extends Feature
 {
+    private QuarkWitchHat quarkWitchHat;
+
     @Override
     public String getDescription()
     {
@@ -15,11 +17,20 @@ public class WitchHatProtection extends Feature
                 "NOTE: Quark must be installed for this feature to be enabled.";
     }
 
+    @Override
+    public void setupConfig()
+    {
+        try {
+            quarkWitchHat = QuarkWitchHat.class.newInstance();
+        } catch (Exception e) {
+            Meson.runtimeException("Error loading QuarkWitchHat");
+        }
+    }
+
     @SubscribeEvent
     public void onSpectreAttack(SpectreAttackEvent event)
     {
-        CompatWitchHatProtection compat = (CompatWitchHatProtection) getCompat();
-        if (compat != null && compat.isWearingWitchHat(event.getAttacked())) {
+        if (quarkWitchHat != null && quarkWitchHat.isWearingWitchHat(event.getAttacked())) {
             event.setCanceled(true);
         }
     }
@@ -28,12 +39,6 @@ public class WitchHatProtection extends Feature
     public String[] getRequiredMods()
     {
         return new String[] { "quark" };
-    }
-
-    @Override
-    public Class<? extends FeatureCompat> getCompatClass()
-    {
-        return CompatWitchHatProtection.class;
     }
 
     @Override
