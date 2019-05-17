@@ -10,9 +10,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.feature.SuspiciousSoup;
-import svenhjol.meson.IMesonItem;
+import svenhjol.meson.iface.IMesonItem;
+import svenhjol.meson.iface.IMesonItem.IItemCustomModel;
 
-public class ItemSuspiciousSoup extends ItemFood implements IMesonItem, IMesonItem.IItemCustomModelRegister
+public class ItemSuspiciousSoup extends ItemFood implements IMesonItem, IItemCustomModel
 {
     public ItemSuspiciousSoup()
     {
@@ -30,7 +31,7 @@ public class ItemSuspiciousSoup extends ItemFood implements IMesonItem, IMesonIt
     }
 
     @Override
-    public void registerItemModels(Item item)
+    public void registerModels(Item item)
     {
         for (int i = 0; i < SuspiciousSoup.maxTypes; i++) {
             if (item != null && item.getRegistryName() != null) {
