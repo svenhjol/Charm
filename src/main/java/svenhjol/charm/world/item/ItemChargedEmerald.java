@@ -9,7 +9,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.meson.IMesonItem;
+import svenhjol.meson.iface.IMesonItem;
 import svenhjol.charm.world.entity.EntityChargedEmerald;
 
 public class ItemChargedEmerald extends Item implements IMesonItem

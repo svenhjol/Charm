@@ -23,7 +23,7 @@ import svenhjol.charm.base.CharmLootTables;
 import svenhjol.charm.world.item.ItemBatBucket;
 import svenhjol.charm.world.message.MessageGlowing;
 import svenhjol.meson.Feature;
-import svenhjol.meson.NetworkHandler;
+import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.LootHelper;
 import svenhjol.meson.helper.PlayerHelper;
 

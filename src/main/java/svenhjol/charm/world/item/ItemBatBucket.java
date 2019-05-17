@@ -18,8 +18,8 @@ import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.world.feature.BatBucket;
 import svenhjol.charm.world.message.MessageGlowing;
-import svenhjol.meson.IMesonItem;
-import svenhjol.meson.NetworkHandler;
+import svenhjol.meson.iface.IMesonItem;
+import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.EntityHelper;
 import svenhjol.meson.helper.SoundHelper;
 
