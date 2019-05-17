@@ -11,16 +11,25 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.feature.GunpowderBlock;
-import svenhjol.meson.IMesonBlock;
+import svenhjol.meson.iface.IMesonBlock;
 
 public class BlockGunpowder extends BlockFalling implements IMesonBlock
 {
+    protected String name;
+
     public BlockGunpowder()
     {
-        register("gunpowder_block");
+        this.name = "gunpowder_block";
+        register(name);
         setSoundType(SoundType.SAND);
         setHardness(GunpowderBlock.hardness);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+    }
+
+    @Override
+    public String getName()
+    {
+        return name;
     }
 
     @Override

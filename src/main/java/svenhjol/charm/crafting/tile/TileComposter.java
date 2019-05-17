@@ -15,7 +15,7 @@ import svenhjol.charm.crafting.block.BlockComposter;
 import svenhjol.charm.crafting.feature.Composter;
 import svenhjol.charm.crafting.message.MessageComposterAddLevel;
 import svenhjol.meson.MesonTile;
-import svenhjol.meson.NetworkHandler;
+import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.EntityHelper;
 import svenhjol.meson.helper.ItemHelper;
 

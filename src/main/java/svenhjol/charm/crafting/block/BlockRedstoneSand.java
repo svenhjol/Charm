@@ -9,13 +9,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.feature.RedstoneSand;
-import svenhjol.meson.IMesonBlock;
+import svenhjol.meson.iface.IMesonBlock;
 
 public class BlockRedstoneSand extends BlockFalling implements IMesonBlock
 {
+    protected String name;
+
     public BlockRedstoneSand()
     {
-        register("redstone_sand");
+        name = "redstone_sand";
+        register(name);
         setSoundType(SoundType.SAND);
         setHardness(RedstoneSand.hardness);
         setCreativeTab(CreativeTabs.REDSTONE);
@@ -25,6 +28,12 @@ public class BlockRedstoneSand extends BlockFalling implements IMesonBlock
     public String getModId()
     {
         return Charm.MOD_ID;
+    }
+
+    @Override
+    public String getName()
+    {
+        return name;
     }
 
     @Override

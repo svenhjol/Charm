@@ -22,16 +22,15 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.GuiHandler;
 import svenhjol.charm.crafting.tile.TileCrate;
-import svenhjol.meson.IMesonBlock;
-import svenhjol.meson.IMesonBlock.*;
-import svenhjol.meson.IMesonEnum;
+import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.iface.IMesonEnum;
 import svenhjol.meson.MesonBlockTE;
 import svenhjol.meson.helper.EntityHelper;
 import svenhjol.meson.helper.SoundHelper;
 
 import javax.annotation.Nullable;
 
-public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock, IBlockDropsInventory
+public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
 {
     public enum Type implements IMesonEnum
     {
@@ -67,7 +66,7 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock, 
         }
 
         if (!isSealedCrate()) {
-            dropsSelfWithInventory(drops, world, pos);
+            dropsIntactInventory(drops, world, pos);
         }
     }
 
@@ -78,24 +77,23 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock, 
     @Override
     public void doItemSpawn(ItemStack stack, World world, BlockPos pos)
     {
-        // if entity (like spawn egg), hatch it!
         if (EntityHelper.itemHasEntityTag(stack)) {
-            EntityHelper.spawnEntityFromItem(stack, world, pos);
-            return;
-        }
 
-        // if TNT, prime it!
-        if (Block.getBlockFromItem(stack.getItem()) instanceof BlockTNT) {
+            // if entity (like spawn egg), hatch it!
+            EntityHelper.spawnEntityFromItem(stack, world, pos);
+
+        } else if (Block.getBlockFromItem(stack.getItem()) instanceof BlockTNT) {
+
             @SuppressWarnings("ConstantConditions") // igniter of null seems to be valid when fetched via EntityTNTPrimed::getTntPlacedBy
             EntityTNTPrimed tnt = new EntityTNTPrimed(world, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), null);
 
             if (world.spawnEntity(tnt)) {
                 SoundHelper.playSoundAtPos(world, tnt.getPosition(), SoundEvents.ENTITY_TNT_PRIMED, 1.0f, 1.0f);
             }
-            return;
-        }
 
-        super.doItemSpawn(stack, world, pos);
+        } else {
+            super.doItemSpawn(stack, world, pos);
+        }
     }
 
     @Override
@@ -138,11 +136,6 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock, 
         
             super.onBlockPlacedBy(world, pos, state, placer, stack);
         }
-    }
-
-    @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        super.onBlockAdded(worldIn, pos, state);
     }
 
     /**

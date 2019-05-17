@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.tile.TileComposter;
-import svenhjol.meson.IMesonBlock;
+import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.MesonBlockTE;
 import svenhjol.meson.helper.SoundHelper;
 
