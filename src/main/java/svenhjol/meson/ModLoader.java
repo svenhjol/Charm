@@ -7,19 +7,17 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import svenhjol.charm.Charm;
 import svenhjol.meson.helper.ConfigHelper;
 
-import java.io.File;
 import java.util.*;
 
-public class ModLoader
+public abstract class ModLoader
 {
     public List<Module> modules = new ArrayList<>();
     public List<Class<? extends Feature>> enabledFeatures = new ArrayList<>();
     public List<Class<? extends Module>> enabledModules = new ArrayList<>();
     public static Map<String, ModLoader> instances = new HashMap<>();
-    private Configuration config;
+    public Configuration config;
 
     public ModLoader registerModLoader(String id)
     {
@@ -35,12 +33,8 @@ public class ModLoader
 
     public void preInit(FMLPreInitializationEvent event)
     {
-        // set up configuration
-        File configFile = new File(event.getModConfigurationDirectory(), Charm.MOD_ID + "-1.1.cfg");
-
-//        configFile.delete();
-        config = new Configuration(configFile, Charm.MOD_VERSION, true);
-        config.load();
+        // set up this mod's config
+        config = setupConfig(event);
 
         // setup all enabled modules
         List<Module> enabled = new ArrayList<>();
@@ -49,14 +43,12 @@ public class ModLoader
             module.enabled = ConfigHelper.propBoolean(config, module.getName(), ConfigHelper.MODULES, module.getDescription(), module.enabledByDefault);
 
             if (module.enabled) {
-                module.setup(this);
+                module.setup(this, config);
                 enabled.add(module);
             }
         });
 
         modules = enabled;
-
-        setupConfig();
 
         modules.forEach(module -> module.preInit(event));
 
@@ -71,11 +63,6 @@ public class ModLoader
     public void postInit(FMLPostInitializationEvent event)
     {
         modules.forEach(module -> module.postInit(event));
-    }
-
-    public void finalInit(FMLPostInitializationEvent event)
-    {
-        modules.forEach(module -> module.finalInit(event));
     }
 
     public void serverStarting(FMLServerStartingEvent event)
@@ -101,14 +88,5 @@ public class ModLoader
         modules.forEach(module -> module.postInitClient(event));
     }
 
-    public Configuration getConfig()
-    {
-        if (config == null) Meson.runtimeException("Invalid ModLoader");
-        return config;
-    }
-
-    protected void setupConfig()
-    {
-        // book for custom loaders to do interesting things after config is loaded and before modules init
-    }
+    protected abstract Configuration setupConfig(FMLPreInitializationEvent event);
 }
