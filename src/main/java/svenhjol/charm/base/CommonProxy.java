@@ -28,11 +28,6 @@ public class CommonProxy
         CharmModLoader.INSTANCE.postInit(event);
     }
 
-    public void finalInit(FMLPostInitializationEvent event)
-    {
-        CharmModLoader.INSTANCE.finalInit(event);
-    }
-
     public void serverStarting(FMLServerStartingEvent event)
     {
         CharmModLoader.INSTANCE.serverStarting(event);
