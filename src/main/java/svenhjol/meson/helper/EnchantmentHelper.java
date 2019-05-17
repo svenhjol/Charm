@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
-import svenhjol.meson.IMesonEnchantment.ICurse;
+import svenhjol.meson.iface.IMesonEnchantment.ICurse;
 import svenhjol.meson.Meson;
 
 import java.util.*;
