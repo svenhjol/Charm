@@ -1,4 +1,4 @@
-package svenhjol.meson;
+package svenhjol.meson.iface;
 
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -21,11 +21,6 @@ public interface IFMLEvents
     }
 
     default void postInit(FMLPostInitializationEvent event)
-    {
-        // no op
-    }
-
-    default void finalInit(FMLPostInitializationEvent event)
     {
         // no op
     }
