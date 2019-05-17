@@ -1,9 +1,12 @@
 package svenhjol.charm.smithing.feature;
 
 import net.minecraft.item.*;
-import svenhjol.charm.smithing.compat.CompatTallowIncreasesDurability;
+import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import svenhjol.charm.smithing.compat.QuarkTallow;
 import svenhjol.meson.Feature;
-import svenhjol.meson.FeatureCompat;
+import svenhjol.meson.Meson;
+import svenhjol.meson.helper.ConfigHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +18,7 @@ public class TallowIncreasesDurability extends Feature
     public static double amount;
     public static double chance;
     public static int xpCost;
+    private QuarkTallow quarkTallow;
 
     @Override
     public String getDescription()
@@ -51,6 +55,14 @@ public class TallowIncreasesDurability extends Feature
             ItemShield.class,
             ItemArmor.class
         );
+
+        try {
+            if (ConfigHelper.checkMods("quark")) {
+                quarkTallow = QuarkTallow.class.newInstance();
+            }
+        } catch (Exception e) {
+            Meson.runtimeException("Error loading QuarkTallow");
+        }
     }
 
     @Override
@@ -59,9 +71,17 @@ public class TallowIncreasesDurability extends Feature
         return new String[] { "quark" };
     }
 
-    @Override
-    public Class<? extends FeatureCompat> getCompatClass()
+    @SubscribeEvent
+    public void onAnvilUpdate(AnvilUpdateEvent event)
     {
-        return CompatTallowIncreasesDurability.class;
+        if (quarkTallow != null) {
+            quarkTallow.onAnvilUpdate(event);
+        }
+    }
+
+    @Override
+    public boolean hasSubscriptions()
+    {
+        return true;
     }
 }
