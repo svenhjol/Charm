@@ -16,10 +16,4 @@ public class RestrictFurnaceInput extends Feature
     {
         return FurnaceRecipes.instance().getSmeltingResult(stack) != ItemStack.EMPTY;
     }
-
-    @Override
-    public String[] getTransformers()
-    {
-        return new String[] { "TileEntityFurnace", "ContainerFurnace" };
-    }
 }
