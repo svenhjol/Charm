@@ -1,4 +1,4 @@
-package svenhjol.meson;
+package svenhjol.meson.iface;
 
 import net.minecraft.util.IStringSerializable;
 
