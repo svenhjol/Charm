@@ -1,38 +1,45 @@
-package svenhjol.meson;
+package svenhjol.meson.iface;
 
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import svenhjol.meson.ProxyRegistry;
 
 import java.util.List;
 
 public interface IMesonItem
 {
-    String getModId();
-
     default void register(String name)
     {
-        // set the name of the item
         Item item = (Item)this;
-        item.setTranslationKey(getModId() + ":" + name);
-        item.setRegistryName(getModId() + ":" + name);
 
-        ProxyRegistry.items.add(item); // so we can register models
+        // set the name of the item
+        ResourceLocation res = new ResourceLocation(getModId() + ":" + name);
+        item.setTranslationKey(res.toString());
+        item.setRegistryName(res);
+
+        // register the item
         ProxyRegistry.register(item);
+
+        // for model handler etc
+        ProxyRegistry.items.add(item);
     }
 
-    interface IItemCustomModelRegister
+    String getModId();
+
+    interface IItemCustomModel
     {
-        void registerItemModels(Item item);
+        void registerModels(Item item);
     }
 
-    interface IVariants
+    interface IItemVariants
     {
         List<ResourceLocation> getVariants();
     }
 
+    @SuppressWarnings("unused")
     interface IItemColorHandler
     {
         @SideOnly(Side.CLIENT)
