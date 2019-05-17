@@ -21,9 +21,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
 import svenhjol.charm.brewing.feature.FlavoredCake;
-import svenhjol.meson.IMesonBlock;
-import svenhjol.meson.IMesonBlock.IHasCustomInventoryItemModel;
-import svenhjol.meson.IMesonBlock.IHasCustomStateMapper;
+import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.iface.IMesonBlock.IHasCustomInventoryItemModel;
+import svenhjol.meson.iface.IMesonBlock.IHasCustomStateMapper;
 
 /**
  * Block-flavored Cake.  Mmmmm
@@ -31,8 +31,22 @@ import svenhjol.meson.IMesonBlock.IHasCustomStateMapper;
 public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCustomInventoryItemModel, IHasCustomStateMapper
 {
     public Potion flavor;
+    public String name;
     private static ModelResourceLocation MODEL_INVENTORY = new ModelResourceLocation(new ResourceLocation("minecraft", "cake"), "inventory");
     protected Material material;
+
+
+    public BlockFlavoredCake(String name)
+    {
+        this.name = "cake_" + name;
+
+        register(this.name);
+        setCreativeTab(CreativeTabs.BREWING);
+        setSoundType(SoundType.CLOTH);
+        setDefaultState(blockState.getBaseState().withProperty(BITES, 0));
+        material = Material.CAKE;
+        flavor = Potion.getPotionFromResourceLocation(name);
+    }
 
     @Override
     public String getModId()
@@ -40,14 +54,10 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
         return Charm.MOD_ID;
     }
 
-    public BlockFlavoredCake(String name)
+    @Override
+    public String getName()
     {
-        register("cake_" + name);
-        setCreativeTab(CreativeTabs.BREWING);
-        setSoundType(SoundType.CLOTH);
-        setDefaultState(blockState.getBaseState().withProperty(BITES, 0));
-        material = Material.CAKE;
-        flavor = Potion.getPotionFromResourceLocation(name);
+        return name;
     }
 
     @Override
