@@ -10,6 +10,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import svenhjol.meson.iface.IMesonEnchantment;
 
 public abstract class MesonEnchantment extends Enchantment implements IMesonEnchantment
 {
