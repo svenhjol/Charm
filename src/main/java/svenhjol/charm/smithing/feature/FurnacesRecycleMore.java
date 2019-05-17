@@ -192,10 +192,4 @@ public class FurnacesRecycleMore extends Feature
 
         return output;
     }
-
-    @Override
-    public String[] getTransformers()
-    {
-        return new String[] { "TileEntityFurnace" };
-    }
 }
