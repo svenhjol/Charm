@@ -7,6 +7,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import svenhjol.meson.iface.IMesonTile;
 
 import javax.annotation.Nullable;
 
