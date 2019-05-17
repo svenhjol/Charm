@@ -1,15 +1,14 @@
-package svenhjol.meson;
+package svenhjol.meson.iface;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.helper.EnchantmentHelper;
 
 public interface IMesonEnchantment
 {
-    String getModId();
-
     default void register(String name)
     {
         Enchantment self = (Enchantment)this;
@@ -28,6 +27,8 @@ public interface IMesonEnchantment
         return (isHeldItemEnchanted(player, enchantment, EnumHand.MAIN_HAND)
             || isHeldItemEnchanted(player, enchantment, EnumHand.OFF_HAND));
     }
+
+    String getModId();
 
     interface ICurse
     {
