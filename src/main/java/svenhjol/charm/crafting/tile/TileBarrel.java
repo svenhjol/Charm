@@ -1,6 +1,8 @@
 package svenhjol.charm.crafting.tile;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.items.ItemStackHandler;
 import svenhjol.charm.Charm;
@@ -12,6 +14,7 @@ import net.minecraftforge.fml.common.Optional;
 public class TileBarrel extends MesonTileInventory implements IDropoffManager
 {
     public static final int SIZE = 27;
+    public int facing;
 
     public ItemStackHandler inventory = new ItemStackHandler(getInventorySize())
     {
@@ -21,6 +24,20 @@ public class TileBarrel extends MesonTileInventory implements IDropoffManager
             TileBarrel.this.markDirty();
         }
     };
+
+    @Override
+    public void readTag(NBTTagCompound tag)
+    {
+        facing = tag.getInteger("facing");
+        super.readTag(tag);
+    }
+
+    @Override
+    public void writeTag(NBTTagCompound tag)
+    {
+        tag.setInteger("facing", facing);
+        super.writeTag(tag);
+    }
 
     @Override
     public String getModId()
@@ -50,5 +67,16 @@ public class TileBarrel extends MesonTileInventory implements IDropoffManager
     public String getDefaultName()
     {
         return I18n.translateToLocal("tile.charm:barrel.name");
+    }
+
+    public void setFacing(EnumFacing facing)
+    {
+        this.facing = facing.getIndex();
+        this.markDirty();
+    }
+
+    public EnumFacing getFacing()
+    {
+        return EnumFacing.byIndex(this.facing);
     }
 }

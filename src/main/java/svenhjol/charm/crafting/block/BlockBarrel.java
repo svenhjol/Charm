@@ -4,6 +4,7 @@ import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
@@ -21,16 +23,19 @@ import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.GuiHandler;
 import svenhjol.charm.crafting.feature.Barrel;
 import svenhjol.charm.crafting.tile.TileBarrel;
-import svenhjol.meson.IMesonBlock;
 import svenhjol.meson.MesonBlockTE;
+import svenhjol.meson.iface.IMesonBlock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
 {
     public static final PropertyDirection FACING = BlockDirectional.FACING;
+    public static PropertyEnum<WoodVariant> VARIANT = PropertyEnum.create("variant", WoodVariant.class);
 
     public BlockBarrel()
     {
@@ -45,6 +50,28 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
     public String getModId()
     {
         return Charm.MOD_ID;
+    }
+
+    @Override
+    public String[] getVariants()
+    {
+        List<String> variants = new ArrayList<>();
+        for (WoodVariant variant : WoodVariant.values()) {
+            variants.add(variant.toString().toLowerCase());
+        }
+
+        return variants.toArray(new String[0]);
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    {
+        TileBarrel barrel = getTileEntity(worldIn, pos);
+        if (validTileEntity(barrel)) {
+            EnumFacing facing = state.getValue(FACING);
+            barrel.setFacing(facing);
+        }
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 
     @Override
@@ -77,7 +104,7 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
             dropsInventory(barrel, TileBarrel.SIZE, (World)world, pos);
         }
         // drop the barrel after dropping the barrel's inventory
-        drops.add(new ItemStack(this));
+        drops.add(new ItemStack(this, 1, getMetaFromState(state)));
     }
 
     @Override
@@ -116,7 +143,17 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return getDefaultState().withProperty(FACING, facing);
+//        IBlockState state = getDefaultState().withProperty(VARIANT, WoodVariant.byMetadata(meta));
+//
+//        TileBarrel barrel = (TileBarrel)worldIn.getTileEntity(pos);
+//        if (barrel != null && validTileEntity(barrel)) {
+//            barrel.setFacing(facing);
+//        }
+//
+//        return state;
+        return getDefaultState()
+            .withProperty(VARIANT, WoodVariant.byMetadata(meta))
+            .withProperty(FACING, facing);
     }
 
     @SuppressWarnings("deprecation")
@@ -136,27 +173,55 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
     @Override
     public int getMetaFromState(IBlockState state)
     {
-        return state.getValue(FACING).getIndex();
+//        return state.getValue(FACING).ordinal();
+        return state.getValue(VARIANT).ordinal();
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        EnumFacing enumfacing = EnumFacing.byIndex(meta);
+//        EnumFacing enumfacing = EnumFacing.byIndex(meta);
+//
+//        return this.getDefaultState()
+//            .withProperty(FACING, enumfacing);
 
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
-        {
-            enumfacing = EnumFacing.UP;
+        return this.getDefaultState()
+            .withProperty(VARIANT, WoodVariant.byMetadata(meta));
+    }
+
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    {
+        TileBarrel barrel = (TileBarrel)worldIn.getTileEntity(pos);
+        if (barrel != null && validTileEntity(barrel)) {
+            EnumFacing facing = barrel.getFacing();
+
+            if (facing.getAxis() == EnumFacing.Axis.Y) {
+                facing = EnumFacing.UP;
+            }
+
+            state = state.withProperty(FACING, facing);
         }
-
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return state;
     }
 
     @Override
     @Nonnull
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, FACING);
+        return new BlockStateContainer(this, FACING, VARIANT);
+    }
+
+    @Override
+    public int damageDropped(IBlockState state)
+    {
+        return getMetaFromState(state);
+    }
+
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+    {
+        return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
     }
 }
