@@ -2,8 +2,8 @@ package svenhjol.meson;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.ResourceLocation;
 import svenhjol.meson.helper.ItemHelper;
+import svenhjol.meson.iface.IMesonPotion;
 
 import java.util.List;
 
@@ -14,13 +14,8 @@ public abstract class MesonPotion extends Potion implements IMesonPotion
     public MesonPotion(String name, boolean badEffect, int color)
     {
         super(badEffect, color);
-
-        setPotionName(name);
-        setRegistryName(new ResourceLocation(getModId(), name));
-
+        this.register(name);
         this.name = name;
-
-        ProxyRegistry.register(this);
     }
 
     @Override
