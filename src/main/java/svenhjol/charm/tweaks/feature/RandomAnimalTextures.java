@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.meson.Feature;
 import svenhjol.charm.tweaks.render.RenderOcelotTextures;
 import svenhjol.charm.tweaks.render.RenderWolfTextures;
-import svenhjol.meson.IMesonEnum;
+import svenhjol.meson.iface.IMesonEnum;
 
 import java.util.HashMap;
 import java.util.Map;

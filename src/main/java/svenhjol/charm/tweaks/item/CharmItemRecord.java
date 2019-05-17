@@ -4,7 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.util.SoundEvent;
 import svenhjol.charm.Charm;
-import svenhjol.meson.IMesonItem;
+import svenhjol.meson.iface.IMesonItem;
 
 public class CharmItemRecord extends ItemRecord implements IMesonItem
 {
