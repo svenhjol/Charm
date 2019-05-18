@@ -1,15 +1,25 @@
 {
     "forge_marker": 1,
     "defaults": {
-		"model": "minecraft:cube_all",
+		"model": "charm:crate_sealed_oak",
 		"transform": "forge:default-block"
 	},
 	"variants": {
-		"normal": {
-			"model": "charm:crate_sealed"
-		},
-		"inventory": {
-			"model": "charm:crate_sealed"
-		}
+		"normal": { "model": "charm:crate_sealed_oak" },
+		"inventory": { "model": "charm:crate_sealed_oak" },
+
+		"inventory,variant=oak": { "model": "charm:crate_sealed_oak" },
+		"inventory,variant=spruce": { "model": "charm:crate_sealed_spruce" },
+		"inventory,variant=birch": { "model": "charm:crate_sealed_birch" },
+		"inventory,variant=jungle": { "model": "charm:crate_sealed_jungle" },
+		"inventory,variant=acacia": { "model": "charm:crate_sealed_acacia" },
+		"inventory,variant=dark_oak": { "model": "charm:crate_sealed_dark_oak" },
+
+		"variant=oak": { "model": "charm:crate_sealed_oak" },
+		"variant=spruce": { "model": "charm:crate_sealed_spruce" },
+		"variant=birch": { "model": "charm:crate_sealed_birch" },
+		"variant=jungle": { "model": "charm:crate_sealed_jungle" },
+		"variant=acacia": { "model": "charm:crate_sealed_acacia" },
+		"variant=dark_oak": { "model": "charm:crate_sealed_dark_oak" }
 	}
 }
