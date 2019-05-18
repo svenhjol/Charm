@@ -143,14 +143,6 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-//        IBlockState state = getDefaultState().withProperty(VARIANT, WoodVariant.byMetadata(meta));
-//
-//        TileBarrel barrel = (TileBarrel)worldIn.getTileEntity(pos);
-//        if (barrel != null && validTileEntity(barrel)) {
-//            barrel.setFacing(facing);
-//        }
-//
-//        return state;
         return getDefaultState()
             .withProperty(VARIANT, WoodVariant.byMetadata(meta))
             .withProperty(FACING, facing);
@@ -173,7 +165,6 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
     @Override
     public int getMetaFromState(IBlockState state)
     {
-//        return state.getValue(FACING).ordinal();
         return state.getValue(VARIANT).ordinal();
     }
 
@@ -181,15 +172,10 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-//        EnumFacing enumfacing = EnumFacing.byIndex(meta);
-//
-//        return this.getDefaultState()
-//            .withProperty(FACING, enumfacing);
-
-        return this.getDefaultState()
-            .withProperty(VARIANT, WoodVariant.byMetadata(meta));
+        return this.getDefaultState().withProperty(VARIANT, WoodVariant.byMetadata(meta));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
