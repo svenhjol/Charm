@@ -6,6 +6,7 @@
     },
     "variants": {
         "normal": { "model": "charm:barrel_oak" },
+        "inventory": { "model": "charm:barrel_oak" },
 
         "inventory,variant=oak": { "model": "charm:barrel_oak" },
         "inventory,variant=spruce": { "model": "charm:barrel_spruce" },
@@ -13,6 +14,13 @@
         "inventory,variant=jungle": { "model": "charm:barrel_jungle" },
         "inventory,variant=acacia": { "model": "charm:barrel_acacia" },
         "inventory,variant=dark_oak": { "model": "charm:barrel_dark_oak" },
+
+        "facing=down": { "model": "charm:barrel_oak", "x": 180 },
+        "facing=up": { "model": "charm:barrel_oak" },
+        "facing=north": { "model": "charm:barrel_oak", "x": 90 },
+        "facing=south": { "model": "charm:barrel_oak", "x": 90, "y": 180 },
+        "facing=west": { "model": "charm:barrel_oak", "x": 90, "y": 270 },
+        "facing=east": { "model": "charm:barrel_oak", "x": 90, "y": 90 },
 
         "facing=down,variant=oak": { "model": "charm:barrel_oak", "x": 180 },
         "facing=up,variant=oak": { "model": "charm:barrel_oak" },
