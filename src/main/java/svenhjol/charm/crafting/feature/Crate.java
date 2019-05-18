@@ -2,6 +2,7 @@ package svenhjol.charm.crafting.feature;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,6 +25,7 @@ import svenhjol.charm.crafting.block.BlockCrate;
 import svenhjol.charm.crafting.client.RenderTileCrate;
 import svenhjol.charm.crafting.tile.TileCrate;
 import svenhjol.meson.Feature;
+import svenhjol.meson.MesonBlock;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.LootHelper;
@@ -34,6 +36,7 @@ public class Crate extends Feature
 {
     public static BlockCrate crate;
     public static BlockCrate crateSealed;
+    public static float hardness;
     public static boolean showCrateNames;
     public static int xpCost;
 
@@ -88,6 +91,9 @@ public class Crate extends Feature
                 "Amount of XP (levels) required to use a name tag to seal a crate.",
                 0
         );
+
+        // internal
+        hardness = 1.0f;
     }
 
     @Override
@@ -123,17 +129,19 @@ public class Crate extends Feature
         types.get(RARITY.VALUABLE).add(new CrateType("dangerous", CharmLootTables.TREASURE_DANGEROUS));
         types.get(RARITY.RARE).add(new CrateType("explosive", CharmLootTables.TREASURE_EXPLOSIVE));
 
-        // add crate recipe
-        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(crate, 1),
-            "IWI", "W W", "IWI",
-            'W', "plankWood",
-            'I', "ingotIron"
-        );
+        // create recipes for all crate wood types
+        for (int i = 0; i < BlockCrate.WoodVariant.values().length; i++) {
+            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(crate, 1),
+                "IWI", "W W", "IWI",
+                'W', ProxyRegistry.newStack(Blocks.PLANKS, 1, i),
+                'I', "ingotIron"
+            );
+        }
     }
 
     public static ItemStack getSealedCrateItem(ItemStack in, String name)
     {
-        ItemStack out = new ItemStack(Crate.crateSealed);
+        ItemStack out = new ItemStack(Crate.crateSealed, 1, new Random().nextInt(MesonBlock.WoodVariant.values().length));
 
         if (name == null || name.isEmpty()) {
             name = in.getDisplayName();
