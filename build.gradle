@@ -69,7 +69,7 @@ repositories {
 dependencies {
     compile "vazkii.autoreglib:AutoRegLib:${arl_version}"
     compile "vazkii.quark:Quark:${quark_version}"
-    deobfCompile "vazkii.quark:Quark:${quark_version}:api"
+    deobfProvided "vazkii.quark:Quark:${quark_version}:api"
     deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
     runtime "mcp.mobius.waila:Hwyla:${waila_version}_${mc_version}"
     runtime "mezz.jei:jei_${mc_version}:${jei_version}"
