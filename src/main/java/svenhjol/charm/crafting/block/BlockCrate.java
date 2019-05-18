@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,17 +23,22 @@ import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.GuiHandler;
+import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.charm.crafting.tile.TileCrate;
-import svenhjol.meson.iface.IMesonBlock;
-import svenhjol.meson.iface.IMesonEnum;
 import svenhjol.meson.MesonBlockTE;
 import svenhjol.meson.helper.EntityHelper;
 import svenhjol.meson.helper.SoundHelper;
+import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.iface.IMesonEnum;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
 {
+    public static PropertyEnum<WoodVariant> VARIANT = PropertyEnum.create("variant", WoodVariant.class);
+
     public enum Type implements IMesonEnum
     {
         CRATE,
@@ -42,7 +49,7 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
     public BlockCrate(Type type)
     {
         super(Material.WOOD, type.getName());
-        setHardness(1f);
+        setHardness(Crate.hardness);
         setResistance(10f);
         setSoundType(SoundType.WOOD);
         setCreativeTab(CreativeTabs.DECORATIONS);
@@ -54,6 +61,17 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
     public String getModId()
     {
         return Charm.MOD_ID;
+    }
+
+    @Override
+    public String[] getVariants()
+    {
+        List<String> variants = new ArrayList<>();
+        for (WoodVariant variant : WoodVariant.values()) {
+            variants.add(variant.toString().toLowerCase());
+        }
+
+        return variants.toArray(new String[0]);
     }
 
     @Override
@@ -208,6 +226,25 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
     public EnumBlockRenderType getRenderType(IBlockState state)
     {
         return EnumBlockRenderType.MODEL;
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState()
+    {
+        return new BlockStateContainer(this, VARIANT);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state)
+    {
+        return state.getValue(VARIANT).ordinal();
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public IBlockState getStateFromMeta(int meta)
+    {
+        return this.getDefaultState().withProperty(VARIANT, WoodVariant.byMetadata(meta));
     }
 
     public boolean isSealedCrate()
