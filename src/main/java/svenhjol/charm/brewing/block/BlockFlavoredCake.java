@@ -22,13 +22,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
 import svenhjol.charm.brewing.feature.FlavoredCake;
 import svenhjol.meson.iface.IMesonBlock;
-import svenhjol.meson.iface.IMesonBlock.IHasCustomInventoryItemModel;
+import svenhjol.meson.iface.IMesonBlock.*;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomStateMapper;
 
 /**
  * Block-flavored Cake.  Mmmmm
  */
-public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCustomInventoryItemModel, IHasCustomStateMapper
+public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCustomItemBlockModel, IHasCustomStateMapper
 {
     public Potion flavor;
     public String name;
