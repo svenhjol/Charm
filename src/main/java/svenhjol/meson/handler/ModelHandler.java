@@ -10,7 +10,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.iface.IMesonBlock;
-import svenhjol.meson.iface.IMesonBlock.IHasCustomInventoryItemModel;
+import svenhjol.meson.iface.IMesonBlock.IHasCustomItemBlockModel;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomStateMapper;
 import svenhjol.meson.iface.IMesonItem.IItemCustomModel;
 import svenhjol.meson.iface.IMesonItem.IItemVariants;
@@ -74,8 +74,8 @@ public final class ModelHandler
                 ((IHasCustomStateMapper) block).setStateMapper();
             }
 
-            if (block instanceof IHasCustomInventoryItemModel) {
-                ((IHasCustomInventoryItemModel) block).setInventoryItemModel();
+            if (block instanceof IHasCustomItemBlockModel) {
+                ((IHasCustomItemBlockModel) block).setInventoryItemModel();
             } else {
                 ModelResourceLocation loc = new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), "inventory");
                 ModelLoader.setCustomModelResourceLocation(item, 0, loc);
@@ -89,8 +89,8 @@ public final class ModelHandler
             ((IHasCustomStateMapper) block).setStateMapper();
         }
 
-        if (block instanceof IHasCustomInventoryItemModel) {
-            ((IHasCustomInventoryItemModel) block).setInventoryItemModel();
+        if (block instanceof IHasCustomItemBlockModel) {
+            ((IHasCustomItemBlockModel) block).setInventoryItemModel();
         } else {
 //            int numVariants = 0;
             Item item = Item.getItemFromBlock(block);

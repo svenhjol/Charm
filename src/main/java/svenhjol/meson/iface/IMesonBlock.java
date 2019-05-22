@@ -71,7 +71,7 @@ public interface IMesonBlock
         void setStateMapper();
     }
 
-    interface IHasCustomInventoryItemModel
+    interface IHasCustomItemBlockModel
     {
         void setInventoryItemModel();
     }
