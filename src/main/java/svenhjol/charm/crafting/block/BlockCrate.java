@@ -18,6 +18,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
@@ -245,6 +246,18 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
     public IBlockState getStateFromMeta(int meta)
     {
         return this.getDefaultState().withProperty(VARIANT, WoodVariant.byMetadata(meta));
+    }
+
+    @Override
+    public int damageDropped(IBlockState state)
+    {
+        return getMetaFromState(state);
+    }
+
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+    {
+        return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
     }
 
     public boolean isSealedCrate()

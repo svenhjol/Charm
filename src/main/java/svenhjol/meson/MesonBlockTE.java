@@ -64,7 +64,7 @@ public abstract class MesonBlockTE<TE extends TileEntity> extends MesonBlock
             NBTTagCompound tag = new NBTTagCompound();
 
             tile.writeToNBT(tag);
-            ItemStack stack = new ItemStack(Item.getItemFromBlock(this));
+            ItemStack stack = new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
             stack.setTagInfo("BlockEntityTag", tag);
             stack.setStackDisplayName(tag.getString("name"));
 
