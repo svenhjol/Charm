@@ -131,7 +131,7 @@ public class Crate extends Feature
 
         // create recipes for all crate wood types
         for (int i = 0; i < BlockCrate.WoodVariant.values().length; i++) {
-            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(crate, 1),
+            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(crate, 1, i),
                 "IWI", "W W", "IWI",
                 'W', ProxyRegistry.newStack(Blocks.PLANKS, 1, i),
                 'I', "ingotIron"
