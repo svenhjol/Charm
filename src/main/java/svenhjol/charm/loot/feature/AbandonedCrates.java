@@ -1,27 +1,15 @@
 package svenhjol.charm.loot.feature;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.World;
-import net.minecraftforge.event.terraingen.PopulateChunkEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import svenhjol.charm.Charm;
-import svenhjol.charm.crafting.block.BlockCrate;
-import svenhjol.charm.crafting.feature.Crate;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import svenhjol.charm.loot.generator.AbandonedCrateGenerator;
 import svenhjol.meson.Feature;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonBlock;
-
-import java.util.Random;
 
 public class AbandonedCrates extends Feature
 {
     public static int maxTries;
-    public static int maxDepth;
-    public static int cutoffLevel;
-    public static int startDepth;
+    public static int lowerLimit;
+    public static int upperLimit;
     public static double generateChance;
     public static float rareChance;
     public static float valuableChance;
@@ -39,104 +27,32 @@ public class AbandonedCrates extends Feature
         generateChance = propDouble(
             "Generate crate chance",
             "Chance (out of 1.0) of a crate generating in a chunk, if it is possible to do so.",
-            0.4D
+            0.3D
         );
 
-        startDepth = propInt(
-                "Start depth",
-                "Crate will spawn lower than this number of blocks below the surface.",
-                16
+        upperLimit = propInt(
+                "Upper limit",
+                "Crates will spawn lower than this Y value.",
+                48
         );
 
-        maxDepth = propInt(
-                "Maximum depth",
-                "Number of blocks below the start depth where a crate may spawn.\n" +
-                        "For Cubic Chunks you may want to set this value quite high.",
-                32
-        );
-
-        cutoffLevel = propInt(
-                "Cut-off level",
-                "Crates cannot spawn below this Y-level.\n" +
-                        "For Cubic Chunks you may want to set a negative value.  Otherwise, set above zero.",
-                5
+        lowerLimit = propInt(
+                "Lower limit",
+                "Crates will spawn higher than this Y value.\n" +
+                        "For Cubic Chunks you should set this value very low.",
+                28
         );
 
         // internal
-        maxTries = 2;
+        maxTries = 50;
         rareChance = 0.005f;
-        valuableChance = 0.07f;
-        uncommonChance = 0.20f;
-    }
-
-    @SubscribeEvent
-    public void onPopulate(PopulateChunkEvent.Populate event)
-    {
-        if (!Charm.hasFeature(Crate.class)) return;
-
-        if (event != null
-            && !event.getWorld().isRemote
-            && event.getWorld().provider.getDimension() == 0
-            && event.getRand().nextFloat() <= generateChance
-        ) {
-            Random rand = event.getRand();
-            generateCrate(event.getWorld(), new ChunkPos(event.getChunkX(), event.getChunkZ()), event.getRand(), startDepth + rand.nextInt(20), maxDepth);
-        }
-    }
-
-    public static void generateCrate(World world, ChunkPos chunkPos, Random rand, int start, int max)
-    {
-        int tries = 0;
-        boolean valid = false;
-        BlockPos cratePos;
-
-        do {
-            if (tries > maxTries) return;
-
-            int xx = rand.nextInt(16) + 8;
-            int zz = rand.nextInt(16) + 8;
-            BlockPos pos = new BlockPos((chunkPos.x << 4) + xx, 255, (chunkPos.z << 4) + zz);
-
-            cratePos = world.getTopSolidOrLiquidBlock(pos).add(0, -start, 0);
-            for (int d = 0; d < max; d++) {
-                cratePos.add(0, -2, 0);
-                if (cratePos.getY() < cutoffLevel) break; // don't try and spawn lower than cutoff
-                IBlockState state = world.getBlockState(cratePos);
-                if (state.getMaterial() == Material.AIR) {
-                    Material below = world.getBlockState(cratePos.down()).getMaterial();
-                    if (below == Material.ROCK || below == Material.WOOD) {
-                        valid = true;
-                        break;
-                    }
-                }
-            }
-            tries++;
-        } while (!valid);
-
-        float f = world.rand.nextFloat();
-        Crate.RARITY rarity = Crate.RARITY.COMMON;
-        if (f <= rareChance) {
-            rarity = Crate.RARITY.RARE;
-        } else if (f <= valuableChance) {
-            rarity = Crate.RARITY.VALUABLE;
-        } else if (f <= uncommonChance) {
-            rarity = Crate.RARITY.RARE;
-        }
-
-        IBlockState state = Crate.crateSealed.getDefaultState().withProperty(BlockCrate.VARIANT, MesonBlock.WoodVariant.random());
-        Crate.generateCrate(world, cratePos, Crate.getRandomCrateType(rarity), state);
-        Meson.debug("Abandoned Crates: generated crate", cratePos);
+        valuableChance = 0.06f;
+        uncommonChance = 0.2f;
     }
 
     @Override
-    public boolean hasSubscriptions()
+    public void preInit(FMLPreInitializationEvent event)
     {
-        return true;
-    }
-
-    @Override
-    public boolean hasTerrainSubscriptions()
-    {
-        return true;
+        GameRegistry.registerWorldGenerator(new AbandonedCrateGenerator(), 1000);
     }
 }
