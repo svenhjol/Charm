@@ -22,6 +22,7 @@ public final class CharmModLoader extends ModLoader
         config.load();
 
         CharmSounds.registerSounds();
+        CharmLootTables.registerLootTables();
 
         return config;
     }
