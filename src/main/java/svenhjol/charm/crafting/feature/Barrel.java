@@ -2,6 +2,7 @@ package svenhjol.charm.crafting.feature;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -91,7 +92,11 @@ public class Barrel extends Feature
                 'S', ProxyRegistry.newStack(Blocks.WOODEN_SLAB, 1, i)
             );
         }
+    }
 
+    @Override
+    public void postInit(FMLPostInitializationEvent event)
+    {
         OreDictionary.registerOre("barrel", ProxyRegistry.newStack(barrel, 1, OreDictionary.WILDCARD_VALUE));
     }
 
