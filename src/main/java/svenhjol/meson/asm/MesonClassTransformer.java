@@ -181,7 +181,7 @@ public abstract class MesonClassTransformer implements IClassTransformer
         config.setCategoryComment(TRANSFORMERS,
                 "This section contains core class patches.\n" +
                         "You may disable these patches in case of compatibility problems.\n" +
-                        "Any features that depend on a manually disabled patch will not be enabled."
+                        "Any features that depend on a manually disabled patch will not work properly."
         );
 
         if (config.hasChanged()) config.save();
