@@ -8,9 +8,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.Charm;
+import svenhjol.charm.crafting.block.BlockCrate;
 import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
+import svenhjol.meson.MesonBlock;
 
 import java.util.Random;
 
@@ -37,7 +39,7 @@ public class AbandonedCrates extends Feature
         generateChance = propDouble(
             "Generate crate chance",
             "Chance (out of 1.0) of a crate generating in a chunk, if it is possible to do so.",
-            0.28D
+            0.4D
         );
 
         startDepth = propInt(
@@ -61,7 +63,7 @@ public class AbandonedCrates extends Feature
         );
 
         // internal
-        maxTries = 1;
+        maxTries = 2;
         rareChance = 0.005f;
         valuableChance = 0.07f;
         uncommonChance = 0.20f;
@@ -96,8 +98,8 @@ public class AbandonedCrates extends Feature
             BlockPos pos = new BlockPos((chunkPos.x << 4) + xx, 255, (chunkPos.z << 4) + zz);
 
             cratePos = world.getTopSolidOrLiquidBlock(pos).add(0, -start, 0);
-            for (int d = 0; d < max; d += 3) {
-                cratePos.add(0, -1, 0);
+            for (int d = 0; d < max; d++) {
+                cratePos.add(0, -2, 0);
                 if (cratePos.getY() < cutoffLevel) break; // don't try and spawn lower than cutoff
                 IBlockState state = world.getBlockState(cratePos);
                 if (state.getMaterial() == Material.AIR) {
@@ -121,7 +123,8 @@ public class AbandonedCrates extends Feature
             rarity = Crate.RARITY.RARE;
         }
 
-        Crate.generateCrate(world, cratePos, Crate.getRandomCrateType(rarity), true);
+        IBlockState state = Crate.crateSealed.getDefaultState().withProperty(BlockCrate.VARIANT, MesonBlock.WoodVariant.random());
+        Crate.generateCrate(world, cratePos, Crate.getRandomCrateType(rarity), state);
         Meson.debug("Abandoned Crates: generated crate", cratePos);
     }
 
