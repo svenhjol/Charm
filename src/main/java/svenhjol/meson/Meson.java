@@ -20,7 +20,7 @@ public class Meson
     {
         if (!Meson.DEBUG) return;
         for (Object obj : out) {
-            LogManager.getLogger("Meson DEBUG").debug(obj);
+            LogManager.getLogger("Meson DEBUG").info(obj);
         }
     }
 
