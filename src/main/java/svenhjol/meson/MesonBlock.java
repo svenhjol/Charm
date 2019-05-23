@@ -5,6 +5,8 @@ import net.minecraft.block.material.Material;
 import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.iface.IMesonEnum;
 
+import java.util.Random;
+
 public abstract class MesonBlock extends Block implements IMesonBlock
 {
     protected String name;
@@ -45,6 +47,11 @@ public abstract class MesonBlock extends Block implements IMesonBlock
                 meta = 0;
             }
             return METADATA_LOOKUP[meta];
+        }
+
+        public static WoodVariant random()
+        {
+            return byMetadata(new Random().nextInt(values().length));
         }
     }
 }
