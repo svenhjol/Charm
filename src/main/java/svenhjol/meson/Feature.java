@@ -74,22 +74,22 @@ public abstract class Feature implements IFMLEvents
 
     public int propInt(String name, String description, int def)
     {
-        return ConfigHelper.propInt(config, name, getConfigCategoryName(), description, def);
+        return ConfigHelper.propInt(config, name, getConfigCategoryName(), description + " (default " + def + ")", def);
     }
 
     public double propDouble(String name, String description, double def)
     {
-        return ConfigHelper.propDouble(config, name, getConfigCategoryName(), description, def);
+        return ConfigHelper.propDouble(config, name, getConfigCategoryName(), description + " (default " + def + ")", def);
     }
 
     public boolean propBoolean(String name, String description, boolean def)
     {
-        return ConfigHelper.propBoolean(config, name, getConfigCategoryName(), description, def);
+        return ConfigHelper.propBoolean(config, name, getConfigCategoryName(), description + " (default " + def + ")", def);
     }
 
     public String propString(String name, String description, String def)
     {
-        return ConfigHelper.propString(config, name, getConfigCategoryName(), description, def);
+        return ConfigHelper.propString(config, name, getConfigCategoryName(), description + " (default " + def + ")", def);
     }
 
     public String[] propStringList(String name, String description, String[] def)
