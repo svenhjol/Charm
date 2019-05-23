@@ -9,6 +9,7 @@ public class CharmTweaks extends Module
     {
         features.add(new CactusWater());
         features.add(new CauldronWaterSource());
+        features.add(new DispensersUseAnyBow());
         features.add(new ExtraRecords());
         features.add(new LeatherArmorInvisibility());
         features.add(new PickaxesBreakPistons());
