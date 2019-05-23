@@ -12,7 +12,9 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreIngredient;
+import net.minecraftforge.registries.ForgeRegistry;
 import svenhjol.meson.Meson;
 import svenhjol.meson.ProxyRegistry;
 
@@ -100,6 +102,28 @@ public class RecipeHandler
         recipe.setRegistryName(res);
         ProxyRegistry.register(recipe);
         usedNames.add(res);
+    }
+
+    public static void removeRecipeByOutput(ItemStack stack)
+    {
+        ForgeRegistry<IRecipe> registry = (ForgeRegistry<IRecipe>) ForgeRegistries.RECIPES;
+        ArrayList<IRecipe> recipes = Lists.newArrayList(registry.getValues());
+        for (IRecipe recipe : recipes) {
+            if (recipe.getRecipeOutput() == stack) {
+                registry.remove(recipe.getRegistryName());
+            }
+        }
+    }
+
+    public static void removeRecipeByRegistryName(ResourceLocation name)
+    {
+        ForgeRegistry<IRecipe> registry = (ForgeRegistry<IRecipe>) ForgeRegistries.RECIPES;
+        ArrayList<IRecipe> recipes = Lists.newArrayList(registry.getValues());
+        for (IRecipe recipe : recipes) {
+            if (Objects.requireNonNull(recipe.getRegistryName()).equals(name)) {
+                registry.remove(name);
+            }
+        }
     }
 
     public static Ingredient asIngredient(Object object)
