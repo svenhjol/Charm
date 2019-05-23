@@ -1,6 +1,8 @@
 package svenhjol.charm.base;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
+import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -13,6 +15,7 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import svenhjol.charm.Charm;
+import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.charm.crafting.feature.EnderPearlBlock;
 import svenhjol.charm.smithing.feature.FurnacesRecycleMore;
 import svenhjol.charm.smithing.feature.RestrictFurnaceInput;
@@ -84,5 +87,17 @@ public final class ASMHooks
             return RestrictFurnaceInput.canSmelt(stack);
         }
         return true;
+    }
+
+    public static boolean canInsertItemIntoShulkerBox(ItemStack stack)
+    {
+        boolean result;
+        if (Charm.hasFeature(Crate.class)) {
+            result = Crate.canInsertItem(stack);
+        } else {
+            // default behaviour
+            result = !(Block.getBlockFromItem(stack.getItem()) instanceof BlockShulkerBox);
+        }
+        return result;
     }
 }

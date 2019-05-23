@@ -1,18 +1,17 @@
 package svenhjol.charm.crafting.tile;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.ItemStackHandler;
 import svenhjol.charm.Charm;
-import svenhjol.charm.crafting.block.BlockCrate;
+import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.meson.MesonTileInventory;
 import vazkii.quark.api.IDropoffManager;
-import net.minecraftforge.fml.common.Optional;
 
 @Optional.Interface(iface = "vazkii.quark.api.IDropoffManager", modid = "quark")
 public class TileCrate extends MesonTileInventory implements IDropoffManager
@@ -25,14 +24,7 @@ public class TileCrate extends MesonTileInventory implements IDropoffManager
         @Override
         protected int getStackLimit(int slot, ItemStack stack)
         {
-            int num = 64;
-
-            // don't allow crate recursion
-            if (Block.getBlockFromItem(stack.getItem()) instanceof BlockCrate) {
-                num = 0;
-            }
-
-            return num;
+            return Crate.canInsertItem(stack) ? 0 : 64;
         }
 
         @Override

@@ -1,6 +1,7 @@
 package svenhjol.charm.crafting.feature;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -47,6 +48,7 @@ public class Crate extends Feature
         RARE
     }
 
+    public static List<Class<? extends Block>> blacklist = new ArrayList<>();
     public static Map<RARITY, List<CrateType>> types = new HashMap<>();
 
     public class CrateType
@@ -103,6 +105,10 @@ public class Crate extends Feature
         crate = new BlockCrate(BlockCrate.Type.CRATE);
         crateSealed = new BlockCrate(BlockCrate.Type.CRATE_SEALED);
         GameRegistry.registerTileEntity(crate.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":crate"));
+
+        // blacklist
+        blacklist.add(BlockCrate.class);
+        blacklist.add(BlockShulkerBox.class);
 
         //  get all loot tables for each rarity type
         Map<RARITY, List<ResourceLocation>> map = new HashMap<RARITY, List<ResourceLocation>>() {{
@@ -163,10 +169,8 @@ public class Crate extends Feature
         return out;
     }
 
-    public static void generateCrate(World world, BlockPos pos, CrateType crateType, boolean sealed)
+    public static void generateCrate(World world, BlockPos pos, CrateType crateType, IBlockState state)
     {
-        IBlockState state = sealed ? crateSealed.getDefaultState() : crate.getDefaultState();
-
         world.setBlockState(pos, state, 2);
         TileEntity tile = world.getTileEntity(pos);
 
@@ -225,6 +229,11 @@ public class Crate extends Feature
                 event.setOutput(out);
             }
         }
+    }
+
+    public static boolean canInsertItem(ItemStack stack)
+    {
+        return !Crate.blacklist.contains(Block.getBlockFromItem(stack.getItem()).getClass());
     }
 
     protected NBTTagCompound getBlockEntityTag(ItemStack stack)

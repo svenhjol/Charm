@@ -1,6 +1,7 @@
 package svenhjol.charm.base;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 import svenhjol.meson.asm.ClassNameMap;
@@ -12,40 +13,43 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     static {
         CLASS_MAPPINGS = new ClassNameMap(
-                "net/minecraft/init/Blocks", "aox",
-                "net/minecraft/entity/Entity", "vg",
-                "net/minecraft/entity/player/EntityPlayerMP", "oq",
-                "net/minecraft/entity/player/EntityPlayer$SleepResult", "aed$a",
-                "net/minecraft/entity/player/EntityPlayer", "aed",
-                "net/minecraft/world/gen/structure/StructureStart", "bby",
-                "net/minecraft/world/gen/structure/StructureVillagePieces$Village", "bcb$n",
-                "net/minecraft/world/gen/structure/StructureVillagePieces$Start", "bcb$k",
-                "net/minecraft/client/renderer/entity/layers/LayerArmorBase", "cbp",
-                "net/minecraft/world/gen/structure/MapGenVillage$Start", "bca$a",
-                "net/minecraft/inventory/ContainerRepair$2", "afs$2",
-                "net/minecraft/entity/EntityLivingBase", "vp",
-                "net/minecraft/inventory/EntityEquipmentSlot", "vl",
-                "net/minecraft/util/math/BlockPos", "et",
-                "net/minecraft/block/BlockDoor", "aqa",
-                "net/minecraft/world/World", "amu",
-                "net/minecraft/world/gen/structure/StructureBoundingBox", "bbg",
-                "net/minecraft/world/gen/structure/StructureComponent", "bbx",
-                "net/minecraft/item/ItemStack", "aip",
-                "net/minecraft/inventory/ContainerBrewingStand", "afu",
-                "net/minecraft/inventory/ContainerBrewingStand$Potion", "afu$c",
-                "net/minecraft/inventory/ContainerFurnace", "agd",
-                "net/minecraft/tileentity/TileEntityBeacon", "avh",
-                "net/minecraft/potion/Potion", "uz",
-                "net/minecraft/util/math/AxisAlignedBB", "bhb",
-                "net/minecraft/item/ItemChorusFruit", "ahk",
-                "net/minecraft/tileentity/TileEntityFurnace", "avu",
-                "net/minecraft/inventory/IInventory", "tv",
-                "net/minecraft/entity/player/InventoryPlayer", "aec"
+            "net/minecraft/block/BlockDoor", "aqa",
+            "net/minecraft/client/renderer/entity/layers/LayerArmorBase", "cbp",
+            "net/minecraft/entity/Entity", "vg",
+            "net/minecraft/entity/EntityLivingBase", "vp",
+            "net/minecraft/entity/player/EntityPlayer", "aed",
+            "net/minecraft/entity/player/EntityPlayer$SleepResult", "aed$a",
+            "net/minecraft/entity/player/EntityPlayerMP", "oq",
+            "net/minecraft/entity/player/InventoryPlayer", "aec",
+            "net/minecraft/init/Blocks", "aox",
+            "net/minecraft/inventory/ContainerBrewingStand", "afu",
+            "net/minecraft/inventory/ContainerBrewingStand$Potion", "afu$c",
+            "net/minecraft/inventory/ContainerFurnace", "agd",
+            "net/minecraft/inventory/ContainerRepair$2", "afs$2",
+            "net/minecraft/inventory/EntityEquipmentSlot", "vl",
+            "net/minecraft/inventory/IInventory", "tv",
+            "net/minecraft/inventory/SlotShulkerBox", "agq",
+            "net/minecraft/item/ItemChorusFruit", "ahk",
+            "net/minecraft/item/ItemStack", "aip",
+            "net/minecraft/potion/Potion", "uz",
+            "net/minecraft/tileentity/TileEntityBeacon", "avh",
+            "net/minecraft/tileentity/TileEntityFurnace", "avu",
+            "net/minecraft/tileentity/TileEntityShulkerBox", "awb",
+            "net/minecraft/util/math/AxisAlignedBB", "bhb",
+            "net/minecraft/util/math/BlockPos", "et",
+            "net/minecraft/world/gen/structure/MapGenVillage$Start", "bca$a",
+            "net/minecraft/world/gen/structure/StructureBoundingBox", "bbg",
+            "net/minecraft/world/gen/structure/StructureComponent", "bbx",
+            "net/minecraft/world/gen/structure/StructureStart", "bby",
+            "net/minecraft/world/gen/structure/StructureVillagePieces$Start", "bcb$k",
+            "net/minecraft/world/gen/structure/StructureVillagePieces$Village", "bcb$n",
+            "net/minecraft/world/World", "amu"
         );
 
         transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry", CharmClassTransformer::transformBrewingRecipeRegistry);
         transformers.put("net.minecraft.inventory.ContainerFurnace", CharmClassTransformer::transformContainerFurnace);
         transformers.put("net.minecraft.inventory.ContainerRepair$2", CharmClassTransformer::transformContainerRepair);
+        transformers.put("net.minecraft.inventory.SlotShulkerBox", CharmClassTransformer::transformSlotShulkerBox);
         transformers.put("net.minecraft.entity.player.EntityPlayer", CharmClassTransformer::transformEntityPlayer);
         transformers.put("net.minecraft.item.ItemChorusFruit", CharmClassTransformer::transformItemChorusFruit);
         transformers.put("net.minecraft.client.renderer.entity.layers.LayerArmorBase", CharmClassTransformer::transformLayerArmorBase);
@@ -53,6 +57,7 @@ public class CharmClassTransformer extends MesonClassTransformer
         transformers.put("net.minecraft.world.gen.structure.StructureVillagePieces$Village", CharmClassTransformer::transformStructureVillagePiecesVillage);
         transformers.put("net.minecraft.tileentity.TileEntityBeacon", CharmClassTransformer::transformTileEntityBeacon);
         transformers.put("net.minecraft.tileentity.TileEntityFurnace", CharmClassTransformer::transformTileEntityFurnace);
+        transformers.put("net.minecraft.tileentity.TileEntityShulkerBox", CharmClassTransformer::transformTileEntityShulkerBox);
     }
 
     private static byte[] transformContainerFurnace(byte[] basicClass)
@@ -184,6 +189,63 @@ public class CharmClassTransformer extends MesonClassTransformer
                     return true;
                 }
         )));
+
+        return transClass;
+    }
+
+    private static byte[] transformTileEntityShulkerBox(byte[] basicClass)
+    {
+        if (!checkTransformers(CharmLoadingPlugin.config,"TileEntityShulkerBox")) return basicClass;
+        log("Transforming TileEntityShulkerBox");
+
+        MethodSignature canInsertItem = new MethodSignature("canInsertItem", "func_180462_a", "a", "(ILnet/minecraft/item/ItemStack;Lnet/minecraft/util/EnumFacing;)Z");
+
+        byte[] transClass = basicClass;
+
+        transClass = transform(transClass, Pair.of(canInsertItem, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ALOAD && ((VarInsnNode)node).var == 2,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList newInstructions = new InsnList();
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "canInsertItemIntoShulkerBox", "(Lnet/minecraft/item/ItemStack;)Z", false));
+                newInstructions.add(new InsnNode(Opcodes.IRETURN));
+                method.instructions = newInstructions;
+                return true;
+            }
+        )));
+
+        return transClass;
+    }
+
+    private static byte[] transformSlotShulkerBox(byte[] basicClass)
+    {
+        if (!checkTransformers(CharmLoadingPlugin.config,"SlotShulkerBox")) return basicClass;
+        log("Transforming SlotShulkerBox");
+
+        MethodSignature isItemValid = new MethodSignature("isItemValid", "func_180462_a", "a", "(Lnet/minecraft/item/ItemStack;)Z");
+
+        byte[] transClass = basicClass;
+
+        transClass = transform(transClass, Pair.of(isItemValid, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ALOAD && ((VarInsnNode)node).var == 1,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList newInstructions = new InsnList();
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "canInsertItemIntoShulkerBox", "(Lnet/minecraft/item/ItemStack;)Z", false));
+                newInstructions.add(new InsnNode(Opcodes.IRETURN));
+                method.instructions = newInstructions;
+                return true;
+            }
+        )));
+
+//        LINENUMBER 21 L0
+//        ALOAD 1
+//        INVOKEVIRTUAL net/minecraft/item/ItemStack.getItem ()Lnet/minecraft/item/Item;
+//        INVOKESTATIC net/minecraft/block/Block.getBlockFromItem (Lnet/minecraft/item/Item;)Lnet/minecraft/block/Block;
+//        INSTANCEOF net/minecraft/block/BlockShulkerBox
+//        IFNE L1
+//        ICONST_1
+//        GOTO L2
 
         return transClass;
     }
@@ -374,5 +436,10 @@ public class CharmClassTransformer extends MesonClassTransformer
                 }
         )));
         return transformClass;
+    }
+
+    public static void log(String string)
+    {
+        LogManager.getLogger("Charm ASM").info(string);
     }
 }
