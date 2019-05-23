@@ -3,6 +3,7 @@ package svenhjol.meson.asm;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -167,7 +168,7 @@ public abstract class MesonClassTransformer implements IClassTransformer
 
     public static void log(String string)
     {
-        System.out.println(String.format("[Meson ASM] %s", string));
+        LogManager.getLogger("Meson ASM").info(string);
     }
 
     public static boolean checkTransformers(Configuration config, String ...transformers)
