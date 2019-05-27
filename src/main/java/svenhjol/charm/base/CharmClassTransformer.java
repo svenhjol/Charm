@@ -25,6 +25,7 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/inventory/ContainerBrewingStand", "afu",
             "net/minecraft/inventory/ContainerBrewingStand$Potion", "afu$c",
             "net/minecraft/inventory/ContainerFurnace", "agd",
+            "net/minecraft/inventory/ContainerRepair", "afs",
             "net/minecraft/inventory/ContainerRepair$2", "afs$2",
             "net/minecraft/inventory/EntityEquipmentSlot", "vl",
             "net/minecraft/inventory/IInventory", "tv",
@@ -46,9 +47,15 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/world/World", "amu"
         );
 
+//        LINENUMBER 188 L15
+//        ALOAD 0
+//        ICONST_0
+//        PUTFIELD net/minecraft/inventory/ContainerRepair.materialCost : I
+
         transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry", CharmClassTransformer::transformBrewingRecipeRegistry);
         transformers.put("net.minecraft.inventory.ContainerFurnace", CharmClassTransformer::transformContainerFurnace);
-        transformers.put("net.minecraft.inventory.ContainerRepair$2", CharmClassTransformer::transformContainerRepair);
+        transformers.put("net.minecraft.inventory.ContainerRepair", CharmClassTransformer::transformContainerRepair);
+        transformers.put("net.minecraft.inventory.ContainerRepair$2", CharmClassTransformer::transformContainerRepair2);
         transformers.put("net.minecraft.inventory.SlotShulkerBox", CharmClassTransformer::transformSlotShulkerBox);
         transformers.put("net.minecraft.entity.player.EntityPlayer", CharmClassTransformer::transformEntityPlayer);
         transformers.put("net.minecraft.item.ItemChorusFruit", CharmClassTransformer::transformItemChorusFruit);
@@ -273,9 +280,11 @@ public class CharmClassTransformer extends MesonClassTransformer
         return transClass;
     }
 
+    private static int countTransformContainerRepair;
+
     /**
      * ContainerRepair: Class transformer
-     * - allow for zero XP cost
+     * - allow for >1 material cost by default
      *
      * @param basicClass Class to transform
      * @return Transformed class
@@ -285,18 +294,50 @@ public class CharmClassTransformer extends MesonClassTransformer
         if (!checkTransformers(CharmLoadingPlugin.config,"ContainerRepair")) return basicClass;
         log("Transforming ContainerRepair");
 
+        MethodSignature updateRepairOutput = new MethodSignature("updateRepairOutput", "func_82848_d", "e", "()V");
+        byte[] transClass = basicClass;
+
+        transClass = transform(transClass, Pair.of(updateRepairOutput, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ICONST_0
+                && node.getPrevious().getOpcode() == Opcodes.ALOAD
+                && ((VarInsnNode)node.getPrevious()).var == 0
+                && ++countTransformContainerRepair == 2,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList newInstructions = new InsnList();
+                newInstructions.add(new InsnNode(Opcodes.ICONST_1));
+                method.instructions.insert(node, newInstructions);
+                method.instructions.remove(node);
+                return true;
+            }
+        )));
+
+        return transClass;
+    }
+
+    /**
+     * ContainerRepair$2: Class transformer
+     * - allow for zero XP cost
+     *
+     * @param basicClass Class to transform
+     * @return Transformed class
+     */
+    private static byte[] transformContainerRepair2(byte[] basicClass)
+    {
+        if (!checkTransformers(CharmLoadingPlugin.config,"ContainerRepair2")) return basicClass;
+        log("Transforming ContainerRepair2");
+
         MethodSignature canTakeStack = new MethodSignature("canTakeStack", "func_82869_a", "a", "(Lnet/minecraft/entity/player/EntityPlayer;)Z");
         byte[] transClass = basicClass;
 
         transClass = transform(transClass, Pair.of(canTakeStack, combine(
-                (AbstractInsnNode node) -> node.getOpcode() == Opcodes.IFLE,
-                (MethodNode method, AbstractInsnNode node) -> {
-                    InsnList newInstructions = new InsnList();
-                    newInstructions.add(new JumpInsnNode(Opcodes.IFLT, ((JumpInsnNode)node).label));
-                    method.instructions.insertBefore(node, newInstructions);
-                    method.instructions.remove(node);
-                    return true;
-                }
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.IFLE,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList newInstructions = new InsnList();
+                newInstructions.add(new JumpInsnNode(Opcodes.IFLT, ((JumpInsnNode)node).label));
+                method.instructions.insertBefore(node, newInstructions);
+                method.instructions.remove(node);
+                return true;
+            }
         )));
 
         return transClass;
