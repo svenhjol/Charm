@@ -43,7 +43,7 @@ public class ExtractBookXP extends Feature
         ItemStack combine = event.getRight();
 
         if (!in.isEmpty() && !combine.isEmpty()) {
-            if (in.getItem() == Items.ENCHANTED_BOOK && combine.getItem() == Items.GLASS_BOTTLE) {
+            if (in.getItem() == Items.ENCHANTED_BOOK && combine.getItem() == Items.GLASS_BOTTLE && in.getCount() == 1) {
                 int emptyBottles = combine.getCount();
                 int xpBottles = minXpBottles;
 
