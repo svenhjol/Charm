@@ -1,5 +1,6 @@
 package svenhjol.charm.crafting.feature;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -38,7 +39,7 @@ public class BookshelfChest extends Feature
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(bookshelfChest, 1),
             "WWW", "WBW", "WWW",
             'W', "plankWood",
-            'B', "bookshelf"
+            'B', ProxyRegistry.newStack(Blocks.BOOKSHELF, 1)
         );
     }
 }
