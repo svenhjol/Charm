@@ -60,11 +60,11 @@ public final class ModelHandler
             IMesonBlock block = (IMesonBlock)((ItemBlock)item).getBlock();
 
             String[] variants = block.getVariants();
+            String name = block.getModId() + ":" + block.getName();
 
             if (variants.length > 0) {
                 for (int i = 0; i < variants.length; i++) {
                     String variant = variants[i];
-                    String name = block.getModId() + ":" + block.getName();
                     ModelResourceLocation inv = new ModelResourceLocation(name, "inventory,variant=" + variant);
                     ModelLoader.setCustomModelResourceLocation(item, i, inv);
                 }
@@ -78,7 +78,7 @@ public final class ModelHandler
                 ((IHasCustomItemBlockModel) block).setInventoryItemModel();
             } else {
                 ModelResourceLocation loc = new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), "inventory");
-                ModelLoader.setCustomModelResourceLocation(item, 0, loc);
+                ModelLoader.setCustomModelResourceLocation(item, meta, loc);
             }
         }
     }
