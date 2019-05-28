@@ -1,10 +1,13 @@
 package svenhjol.charm.brewing.feature;
 
+import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.brewing.block.BlockFlavoredCake;
 import svenhjol.charm.crafting.feature.Composter;
 import svenhjol.meson.Feature;
+import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.handler.RecipeHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +39,9 @@ public class FlavoredCake extends Feature
             "Cake effect potion types",
             "List of Long Potions that can be used to make a cake.",
             new String[] {
-                "speed",
+                "swiftness",
                 "strength",
-                "jump_boost",
+                "leaping",
                 "regeneration",
                 "fire_resistance",
                 "water_breathing",
@@ -62,6 +65,11 @@ public class FlavoredCake extends Feature
                 // add flavored cakes to the composter inputs
                 Composter.inputs.put(Objects.requireNonNull(cake.getRegistryName()).toString(), 1.0f);
             }
+
+            RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(cake, 1),
+                ProxyRegistry.newStack(Blocks.CAKE, 1),
+                cake.potionItem
+            );
         }
     }
 }
