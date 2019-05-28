@@ -1,7 +1,6 @@
 package svenhjol.charm.base;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.LogManager;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 import svenhjol.meson.asm.ClassNameMap;
@@ -477,10 +476,5 @@ public class CharmClassTransformer extends MesonClassTransformer
                 }
         )));
         return transformClass;
-    }
-
-    public static void log(String string)
-    {
-        LogManager.getLogger("Charm ASM").info(string);
     }
 }
