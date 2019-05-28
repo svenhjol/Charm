@@ -54,7 +54,7 @@ public interface IMesonBlock
 
     default String[] getVariants()
     {
-        return new String[] {};
+        return new String[] { getName() };
     }
 
     default int getMaxStackSize()

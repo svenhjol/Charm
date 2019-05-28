@@ -49,10 +49,10 @@ public class MesonItemBlock extends ItemBlock implements IMesonItemBlock
         String[] variants = block.getVariants();
         String name;
 
-        if (meta >= variants.length) {
-            name = block.getName();
-        } else {
+        if (variants.length > 1) {
             name = block.getName() + "_" + variants[meta];
+        } else {
+            name = block.getName();
         }
 
         return "tile." + block.getModId() + ":" + name;

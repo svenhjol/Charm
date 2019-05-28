@@ -21,8 +21,8 @@ import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.GuiHandler;
 import svenhjol.charm.crafting.feature.BookshelfChest;
 import svenhjol.charm.crafting.tile.TileBookshelfChest;
-import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.MesonBlockTE;
+import svenhjol.meson.iface.IMesonBlock;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -37,7 +37,7 @@ public class BlockBookshelfChest extends MesonBlockTE<TileBookshelfChest> implem
         setHardness(BookshelfChest.hardness);
         setSoundType(SoundType.WOOD);
         setCreativeTab(CreativeTabs.DECORATIONS);
-        setDefaultState(this.blockState.getBaseState().withProperty(SLOTS, 0));
+        setDefaultState(getBlockState().getBaseState().withProperty(SLOTS, 0));
     }
 
     @Override
