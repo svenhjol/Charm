@@ -23,17 +23,17 @@ public interface IMesonBlock
         ProxyRegistry.blocks.add(self);
 
         // create an ItemBlock for this block
-        registerItemBlock(self, res);
+        registerItemBlock(self, name);
     }
 
-    default void registerItemBlock(Block block, ResourceLocation name)
+    default void registerItemBlock(Block block, String name)
     {
         MesonItemBlock itemBlock = null;
 
         // create a new itemblock instance for this block
         try {
             itemBlock = getItemBlockClass()
-                .getConstructor(Block.class, ResourceLocation.class)
+                .getConstructor(Block.class, String.class)
                 .newInstance(block, name);
 
         } catch (Exception e) {
