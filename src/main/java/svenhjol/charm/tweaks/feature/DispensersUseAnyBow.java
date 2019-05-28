@@ -14,8 +14,9 @@ public class DispensersUseAnyBow extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        RecipeHandler.removeRecipeByRegistryName(new ResourceLocation("minecraft:dispenser"));
-        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(Blocks.DISPENSER, 1),
+        ResourceLocation res = new ResourceLocation("minecraft:dispenser");
+        RecipeHandler.removeRecipeByRegistryName(res);
+        RecipeHandler.addShapedRecipe(res, ProxyRegistry.newStack(Blocks.DISPENSER, 1),
             "CCC", "CBC", "CRC",
             'C', ProxyRegistry.newStack(Blocks.COBBLESTONE, 1),
             'B', ProxyRegistry.newStack(Items.BOW, 1, OreDictionary.WILDCARD_VALUE),
