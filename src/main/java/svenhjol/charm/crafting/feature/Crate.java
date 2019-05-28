@@ -233,7 +233,8 @@ public class Crate extends Feature
 
     public static boolean canInsertItem(ItemStack stack)
     {
-        return !Crate.blacklist.contains(Block.getBlockFromItem(stack.getItem()).getClass());
+        Class<? extends Block> clazz = Block.getBlockFromItem(stack.getItem()).getClass();
+        return !Crate.blacklist.contains(clazz);
     }
 
     protected NBTTagCompound getBlockEntityTag(ItemStack stack)

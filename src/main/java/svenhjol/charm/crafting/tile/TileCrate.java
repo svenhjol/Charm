@@ -16,15 +16,15 @@ import vazkii.quark.api.IDropoffManager;
 @Optional.Interface(iface = "vazkii.quark.api.IDropoffManager", modid = "quark")
 public class TileCrate extends MesonTileInventory implements IDropoffManager
 {
+    public static final int SIZE = 9;
     protected boolean showName;
 
-    public static final int SIZE = 9;
     public ItemStackHandler inventory = new ItemStackHandler(getInventorySize())
     {
         @Override
         protected int getStackLimit(int slot, ItemStack stack)
         {
-            return Crate.canInsertItem(stack) ? 0 : 64;
+            return Crate.canInsertItem(stack) ? 64 : 0;
         }
 
         @Override
