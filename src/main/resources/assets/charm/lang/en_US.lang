@@ -78,9 +78,9 @@ subtitle.charm.spectre.hit=A spectre hit you!
 subtitle.charm.whispers=You hear whispering sounds around you
 
 # Cakes
-tile.charm:cake_speed.name=Cake of Speed
+tile.charm:cake_swiftness.name=Cake of Swiftness
 tile.charm:cake_strength.name=Cake of Strength
-tile.charm:cake_jump_boost.name=Cake of Jump Boost
+tile.charm:cake_leaping.name=Cake of Leaping
 tile.charm:cake_regeneration.name=Cake of Regeneration
 tile.charm:cake_fire_resistance.name=Cake of Fire Resistance
 tile.charm:cake_water_breathing.name=Cake of Water Breathing
