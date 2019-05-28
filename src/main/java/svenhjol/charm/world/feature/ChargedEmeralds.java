@@ -67,6 +67,16 @@ public class ChargedEmeralds extends Feature
         emerald = new ItemChargedEmerald();
         String name = Charm.MOD_ID + ":charged_emerald";
         EntityRegistry.registerModEntity(new ResourceLocation(name), EntityChargedEmerald.class, name, CharmEntityIDs.CHARGED_EMERALD, Charm.instance, 64, 10, true);
+
+        // fun times with dispensers!
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(emerald, new BehaviorProjectileDispense()
+        {
+            @Override
+            protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn)
+            {
+            return new EntityChargedEmerald(worldIn, position.getX(), position.getY(), position.getZ());
+            }
+        });
     }
 
     @Override
@@ -75,16 +85,6 @@ public class ChargedEmeralds extends Feature
     {
         //noinspection unchecked,unchecked
         RenderingRegistry.registerEntityRenderingHandler(EntityChargedEmerald.class, RenderChargedEmerald.FACTORY);
-
-        // fun times with dispensers!
-        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(emerald, new BehaviorProjectileDispense()
-        {
-            @Override
-            protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn)
-            {
-                return new EntityChargedEmerald(worldIn, position.getX(), position.getY(), position.getZ());
-            }
-        });
     }
 
     @SubscribeEvent
