@@ -1,6 +1,6 @@
 # Charm
 
-A Vanilla+ Minecraft mod inspired by Quark.  For Minecraft 1.12.2, recommended Forge version 14.23.5.2836.
+A Vanilla+ Minecraft mod inspired by Quark.  For Minecraft 1.12.2, recommended Forge version 14.23.5.2838.
 
 For a full feature breakdown, please visit [https://charm.arcticfulmar.com](https://charm.arcticfulmar.com).
 
