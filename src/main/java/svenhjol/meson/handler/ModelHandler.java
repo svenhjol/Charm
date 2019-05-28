@@ -78,7 +78,6 @@ public final class ModelHandler
             }
                 ModelResourceLocation loc = new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), "inventory");
                 ModelLoader.setCustomModelResourceLocation(item, meta, loc);
-
         }
     }
 
@@ -91,17 +90,10 @@ public final class ModelHandler
         if (block instanceof IHasCustomItemBlockModel) {
             ((IHasCustomItemBlockModel) block).setInventoryItemModel();
         } else {
-//            int numVariants = 0;
+            int meta = 0;
             Item item = Item.getItemFromBlock(block);
             ModelResourceLocation loc = new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), "inventory");
-
-//            if (block instanceof IMesonBlock) {
-//                numVariants = ((IMesonBlock) block).getVariants().length;
-//            }
-
-//            for (int i = 0; i < numVariants; i++) {
-                ModelLoader.setCustomModelResourceLocation(item, 0, loc);
-//            }
+            ModelLoader.setCustomModelResourceLocation(item, meta, loc);
         }
     }
 }
