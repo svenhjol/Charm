@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import svenhjol.charm.Charm;
+import svenhjol.charm.brewing.block.BlockFlavoredCake;
 import svenhjol.charm.brewing.feature.FlavoredCake;
 import svenhjol.charm.crafting.block.BlockLantern;
 import svenhjol.charm.crafting.feature.Lantern;
@@ -25,7 +26,8 @@ public class CharmDecoratorItems extends MesonDecoratorItems
         BlockCake cakeType;
 
         if (Charm.hasFeature(FlavoredCake.class)) {
-            cakeType = FlavoredCake.cakes.get(generator.getRand().nextInt(FlavoredCake.cakes.size()));
+            Object[] values = FlavoredCake.cakes.values().toArray();
+            cakeType = (BlockFlavoredCake) values[generator.getRand().nextInt(values.length)];
         } else {
             cakeType = (BlockCake) Blocks.CAKE;
         }
