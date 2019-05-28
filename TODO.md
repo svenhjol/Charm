@@ -136,3 +136,13 @@
 * Prevent adding shulkerboxes to crates and vice versa #47
 * Abandoned crates generation config changes
 * Dispenser recipe allows damaged and enchanted bows
+
+### Beta 5
+
+* Flavored cake recipes removed, right click cake with long potion to imbue
+* Cake of speed changed to cake of swiftness, jump boost to leaping
+* Only allow single enchanted book when extracting XP  #54
+* Fixed recipe register for bookshelf chest #53
+* Blocks without variants not appearing in creative tabs #50
+* Crate nesting in shulker boxes issue, broke hopper inserting #49
+* Anvils no longer consume entire book stack in middle slot #48
