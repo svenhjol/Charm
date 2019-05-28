@@ -5,6 +5,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
 
@@ -34,8 +35,13 @@ public class ItemHelper
 
     public static ItemStack getFilledWaterBottle(int amount)
     {
+        return getPotionBottle(amount, PotionTypes.WATER);
+    }
+
+    public static ItemStack getPotionBottle(int amount, PotionType type)
+    {
         ItemStack out = new ItemStack(Items.POTIONITEM, amount);
-        PotionUtils.addPotionToItemStack(out, PotionTypes.WATER);
+        PotionUtils.addPotionToItemStack(out, type);
         return out;
     }
 
