@@ -1,5 +1,6 @@
 package svenhjol.charm.brewing.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -8,9 +9,9 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -22,7 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
 import svenhjol.charm.brewing.feature.FlavoredCake;
-import svenhjol.meson.helper.ItemHelper;
+import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomItemBlockModel;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomStateMapper;
@@ -34,11 +35,12 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
 {
     public ItemStack potionItem;
     public String name;
+    public int duration;
     private static ModelResourceLocation MODEL_INVENTORY = new ModelResourceLocation(new ResourceLocation("minecraft", "cake"), "inventory");
     protected Material material;
 
 
-    public BlockFlavoredCake(String name)
+    public BlockFlavoredCake(String name, ItemStack potionItem, int duration)
     {
         this.name = "cake_" + name;
 
@@ -46,8 +48,18 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
         setCreativeTab(CreativeTabs.BREWING);
         setSoundType(SoundType.CLOTH);
         setDefaultState(blockState.getBaseState().withProperty(BITES, 0));
-        material = Material.CAKE;
-        potionItem = ItemHelper.getPotionBottle(1, PotionType.getPotionTypeForName(name));
+        this.material = Material.CAKE;
+        this.duration = duration;
+        this.potionItem = potionItem;
+    }
+
+    @Override
+    public void registerItemBlock(Block block, String name)
+    {
+        ProxyRegistry.register( new ItemBlock(this)
+            .setMaxStackSize(getMaxStackSize())
+            .setRegistryName(new ResourceLocation(getModId() + ":" + name))
+        );
     }
 
     @Override
@@ -77,7 +89,7 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
             eaten = super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
             if (eaten) {
                 for (PotionEffect effect : PotionUtils.getEffectsFromStack(potionItem)) {
-                    playerIn.addPotionEffect(new PotionEffect(effect.getPotion(), FlavoredCake.duration * 20, FlavoredCake.amplifier));
+                    playerIn.addPotionEffect(new PotionEffect(effect.getPotion(), this.duration, FlavoredCake.amplifier));
                 }
             }
         }
