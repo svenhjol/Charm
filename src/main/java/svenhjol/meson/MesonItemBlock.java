@@ -18,7 +18,7 @@ public class MesonItemBlock extends ItemBlock implements IMesonItemBlock
     public IMesonBlock block;
     public List<ResourceLocation> variants = new ArrayList<>();
 
-    public MesonItemBlock(Block block, ResourceLocation name)
+    public MesonItemBlock(Block block, String name)
     {
         super(block);
 
@@ -27,7 +27,7 @@ public class MesonItemBlock extends ItemBlock implements IMesonItemBlock
         if (this.block.getVariants().length > 0) {
             setHasSubtypes(true);
         }
-        setRegistryName(name);
+        setRegistryName(getModId() + ":" + name);
     }
 
     @Override
