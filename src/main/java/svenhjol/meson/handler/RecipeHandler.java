@@ -30,9 +30,8 @@ public class RecipeHandler
 {
     private static final List<ResourceLocation> usedNames = new ArrayList<>();
 
-    public static void addShapedRecipe(ItemStack output, Object... inputs)
+    public static void addShapedRecipe(ResourceLocation res, ItemStack output, Object... inputs)
     {
-        String namespace = getNamespace();
         ArrayList<String> pattern = Lists.newArrayList();
         Map<String, Ingredient> key = Maps.newHashMap();
         Iterator iterator = Arrays.asList(inputs).iterator();
@@ -68,7 +67,7 @@ public class RecipeHandler
 
             String group = Objects.requireNonNull(output.getItem().getRegistryName()).toString();
             ShapedRecipes recipe = new ShapedRecipes(group, width, height, ingredients, output);
-            addRecipe(getUnusedResourceLocation(namespace, output), recipe);
+            addRecipe(res, recipe);
         }
         catch (Throwable e)
         {
@@ -76,9 +75,15 @@ public class RecipeHandler
         }
     }
 
-    public static void addShapelessRecipe(ItemStack output, Object... inputs)
+    public static void addShapedRecipe(ItemStack output, Object... inputs)
     {
         String namespace = getNamespace();
+        ResourceLocation res = getUnusedResourceLocation(namespace, output);
+        addShapedRecipe(res, output, inputs);
+    }
+
+    public static void addShapelessRecipe(ResourceLocation res, ItemStack output, Object... inputs)
+    {
         NonNullList<Ingredient> ingredients = NonNullList.create();
 
         for (Object input : inputs) {
@@ -93,7 +98,14 @@ public class RecipeHandler
 
         String group = Objects.requireNonNull(output.getItem().getRegistryName()).toString();
         ShapelessRecipes recipe = new ShapelessRecipes(group, output, ingredients);
-        addRecipe(getUnusedResourceLocation(namespace, output), recipe);
+        addRecipe(res, recipe);
+    }
+
+    public static void addShapelessRecipe(ItemStack output, Object... inputs)
+    {
+        String namespace = getNamespace();
+        ResourceLocation res = getUnusedResourceLocation(namespace, output);
+        addShapelessRecipe(res, output, inputs);
     }
 
     public static void addRecipe(ResourceLocation res, IRecipe recipe)
