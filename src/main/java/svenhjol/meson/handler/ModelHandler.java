@@ -24,7 +24,7 @@ public final class ModelHandler
     public static void onRegister(ModelRegistryEvent event)
     {
         ProxyRegistry.items.forEach(ModelHandler::registerModels);
-//        ProxyRegistry.blocks.forEach(ModelHandler::registerBlockModels);
+        ProxyRegistry.blocks.forEach(ModelHandler::registerBlockModels);
     }
 
 //    @SubscribeEvent
@@ -62,24 +62,23 @@ public final class ModelHandler
             String[] variants = block.getVariants();
             String name = block.getModId() + ":" + block.getName();
 
-            if (variants.length > 0) {
+            if (variants.length > 1) {
                 for (int i = 0; i < variants.length; i++) {
                     String variant = variants[i];
                     ModelResourceLocation inv = new ModelResourceLocation(name, "inventory,variant=" + variant);
                     ModelLoader.setCustomModelResourceLocation(item, i, inv);
                 }
+            } else {
+                ModelResourceLocation loc = new ModelResourceLocation(name, "inventory");
+                ModelLoader.setCustomModelResourceLocation(item, meta, loc);
             }
 
             if (block instanceof IHasCustomStateMapper) {
                 ((IHasCustomStateMapper) block).setStateMapper();
             }
-
-            if (block instanceof IHasCustomItemBlockModel) {
-                ((IHasCustomItemBlockModel) block).setInventoryItemModel();
-            } else {
                 ModelResourceLocation loc = new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), "inventory");
                 ModelLoader.setCustomModelResourceLocation(item, meta, loc);
-            }
+
         }
     }
 

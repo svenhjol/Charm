@@ -20,6 +20,8 @@ public interface IMesonBlock
         // register the block
         ProxyRegistry.register(self);
 
+        ProxyRegistry.blocks.add(self);
+
         // create an ItemBlock for this block
         registerItemBlock(self, res);
     }
