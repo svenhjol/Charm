@@ -12,6 +12,12 @@ import svenhjol.meson.handler.RecipeHandler;
 public class DispensersUseAnyBow extends Feature
 {
     @Override
+    public String getDescription()
+    {
+        return "Changes the default dispenser recipe to allow damaged or enchanted bows.";
+    }
+
+    @Override
     public void preInit(FMLPreInitializationEvent event)
     {
         ResourceLocation res = new ResourceLocation("minecraft:dispenser");
