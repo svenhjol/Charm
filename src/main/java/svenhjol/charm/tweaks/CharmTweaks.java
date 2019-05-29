@@ -15,7 +15,6 @@ public class CharmTweaks extends Module
         features.add(new PickaxesBreakPistons());
         features.add(new RandomAnimalTextures());
         features.add(new RecordsStopBackgroundMusic());
-        features.add(new ShearedFlowers());
         features.add(new ShearedMelons());
         features.add(new SpongesReduceFallDamage());
         features.add(new StackableEnchantedBooks());
