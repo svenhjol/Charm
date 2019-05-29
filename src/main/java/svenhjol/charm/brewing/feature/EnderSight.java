@@ -43,9 +43,7 @@ public class EnderSight extends Feature
     public String getDescription()
     {
         return "Brew an Eye of Ender with a Night Vision potion to make a Potion of Ender Sight.\n" +
-                "Enderman are attracted to your location and you might hear a ringing sound coming from the direction of a stronghold.\n"+
-                "In the End, the Potion of Ender Sight helps you find an End City."
-                ;
+                "Enderman are attracted to your location and you might hear a ringing sound coming from the direction of a stronghold.\n";
     }
 
     @Override
