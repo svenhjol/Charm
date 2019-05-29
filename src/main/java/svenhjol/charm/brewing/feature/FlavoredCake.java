@@ -40,7 +40,6 @@ public class FlavoredCake extends Feature
     public static Map<PotionType, BlockFlavoredCake> cakes = new HashMap<>();
     public static String[] validPotions; // potions that can be made into cakes
     public static double multiplier; // in seconds
-    public static int amplifier;
 
     @Override
     public String getDescription()
@@ -70,9 +69,6 @@ public class FlavoredCake extends Feature
                 "night_vision"
             }
         );
-
-        // internal
-        amplifier = 1;
     }
 
     @Override

@@ -22,7 +22,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
-import svenhjol.charm.brewing.feature.FlavoredCake;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomItemBlockModel;
@@ -89,7 +88,7 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
             eaten = super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
             if (eaten) {
                 for (PotionEffect effect : PotionUtils.getEffectsFromStack(potionItem)) {
-                    playerIn.addPotionEffect(new PotionEffect(effect.getPotion(), this.duration, FlavoredCake.amplifier));
+                    playerIn.addPotionEffect(new PotionEffect(effect.getPotion(), this.duration, effect.getAmplifier()));
                 }
             }
         }
