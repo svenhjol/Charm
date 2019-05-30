@@ -1,4 +1,4 @@
-package svenhjol.charm.world.feature;
+package svenhjol.charm.tweaks.feature;
 
 import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.state.IBlockState;
@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import svenhjol.charm.world.item.ItemBoundCompass;
+import svenhjol.charm.tweaks.item.ItemBoundCompass;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.PlayerHelper;
 

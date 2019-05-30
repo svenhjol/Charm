@@ -16,8 +16,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loot.feature.TotemOfReturning;
-import svenhjol.charm.loot.feature.TotemOfShielding;
 import svenhjol.meson.Feature;
 
 import java.util.List;

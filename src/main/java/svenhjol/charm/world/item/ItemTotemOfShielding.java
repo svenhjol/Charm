@@ -1,10 +1,10 @@
-package svenhjol.charm.loot.item;
+package svenhjol.charm.world.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loot.feature.TotemOfShielding;
+import svenhjol.charm.world.feature.TotemOfShielding;
 import svenhjol.meson.iface.IMesonItem;
 
 public class ItemTotemOfShielding extends Item implements IMesonItem

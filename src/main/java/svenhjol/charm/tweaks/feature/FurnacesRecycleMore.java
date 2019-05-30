@@ -1,4 +1,4 @@
-package svenhjol.charm.smithing.feature;
+package svenhjol.charm.tweaks.feature;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;

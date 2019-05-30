@@ -1,10 +1,10 @@
-package svenhjol.charm.smithing.inventory;
+package svenhjol.charm.tweaks.inventory;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm.smithing.feature.RestrictFurnaceInput;
+import svenhjol.charm.tweaks.feature.RestrictFurnaceInput;
 
 @SuppressWarnings("unused")
 public class SlotFurnaceInput extends Slot

@@ -11,7 +11,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmDecoratorTheme;
 import svenhjol.charm.base.CharmLootTables;
 import svenhjol.charm.crafting.feature.BookshelfChest;
-import svenhjol.charm.loot.feature.TotemOfReturning;
+import svenhjol.charm.world.feature.TotemOfReturning;
 import svenhjol.meson.decorator.MesonInnerDecorator;
 
 import java.util.ArrayList;

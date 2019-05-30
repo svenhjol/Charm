@@ -1,4 +1,4 @@
-package svenhjol.charm.loot.compat;
+package svenhjol.charm.tweaks.compat;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;

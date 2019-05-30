@@ -8,12 +8,12 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import svenhjol.charm.automation.CharmAutomation;
 import svenhjol.charm.base.CharmModLoader;
 import svenhjol.charm.base.CommonProxy;
 import svenhjol.charm.brewing.CharmBrewing;
 import svenhjol.charm.crafting.CharmCrafting;
 import svenhjol.charm.enchanting.CharmEnchanting;
-import svenhjol.charm.loot.CharmLoot;
 import svenhjol.charm.smithing.CharmSmithing;
 import svenhjol.charm.tweaks.CharmTweaks;
 import svenhjol.charm.world.CharmWorld;
@@ -46,10 +46,10 @@ public class Charm
 
         // add modules to the Charm mod loader
         CharmModLoader.INSTANCE.registerModLoader(Charm.MOD_ID).add(
+            new CharmAutomation(),
             new CharmBrewing(),
             new CharmCrafting(),
             new CharmEnchanting(),
-            new CharmLoot(),
             new CharmSmithing(),
             new CharmTweaks(),
             new CharmWorld()

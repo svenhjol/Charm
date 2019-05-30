@@ -1,4 +1,4 @@
-package svenhjol.charm.loot.generator;
+package svenhjol.charm.world.generator;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -9,7 +9,7 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import svenhjol.charm.crafting.block.BlockCrate;
 import svenhjol.charm.crafting.feature.Crate;
-import svenhjol.charm.loot.feature.AbandonedCrates;
+import svenhjol.charm.world.feature.AbandonedCrates;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonBlock;
 

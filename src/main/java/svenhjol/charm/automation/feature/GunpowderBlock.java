@@ -1,8 +1,8 @@
-package svenhjol.charm.crafting.feature;
+package svenhjol.charm.automation.feature;
 
 import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import svenhjol.charm.crafting.block.BlockGunpowder;
+import svenhjol.charm.automation.block.BlockGunpowder;
 import svenhjol.meson.Feature;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;

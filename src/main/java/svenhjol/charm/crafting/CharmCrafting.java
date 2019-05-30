@@ -1,5 +1,6 @@
 package svenhjol.charm.crafting;
 
+import svenhjol.charm.automation.feature.RedstoneSand;
 import svenhjol.charm.crafting.feature.*;
 import svenhjol.meson.Module;
 
@@ -12,9 +13,7 @@ public class CharmCrafting extends Module
         features.add(new Composter());
         features.add(new Crate());
         features.add(new EnderPearlBlock());
-        features.add(new GunpowderBlock());
         features.add(new Lantern());
-        features.add(new RedstoneSand());
         features.add(new RottenFleshBlock());
         features.add(new SuspiciousSoup());
     }

@@ -4,8 +4,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loot.feature.TotemOfReturning;
-import svenhjol.charm.loot.item.ItemTotemOfReturning;
+import svenhjol.charm.world.feature.TotemOfReturning;
+import svenhjol.charm.world.item.ItemTotemOfReturning;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.ItemHelper;
 

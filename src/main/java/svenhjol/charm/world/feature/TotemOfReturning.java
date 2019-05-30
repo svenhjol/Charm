@@ -1,4 +1,4 @@
-package svenhjol.charm.loot.feature;
+package svenhjol.charm.world.feature;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,7 +9,7 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.base.CharmLootTables;
-import svenhjol.charm.loot.item.ItemTotemOfReturning;
+import svenhjol.charm.world.item.ItemTotemOfReturning;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.LootHelper;

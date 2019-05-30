@@ -15,7 +15,7 @@ public final class CharmModLoader extends ModLoader
     protected Configuration setupConfig(FMLPreInitializationEvent event)
     {
         // set up configuration
-        File configFile = new File(event.getModConfigurationDirectory(), Charm.MOD_ID + "-1.1.cfg");
+        File configFile = new File(event.getModConfigurationDirectory(), Charm.MOD_ID + ".cfg");
 
 //        configFile.delete();
         config = new Configuration(configFile, Charm.MOD_VERSION, true);

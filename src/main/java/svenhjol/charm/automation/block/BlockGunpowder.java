@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.block;
+package svenhjol.charm.automation.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -10,7 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.crafting.feature.GunpowderBlock;
+import svenhjol.charm.automation.feature.GunpowderBlock;
 import svenhjol.meson.iface.IMesonBlock;
 
 public class BlockGunpowder extends BlockFalling implements IMesonBlock

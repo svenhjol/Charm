@@ -1,4 +1,4 @@
-package svenhjol.charm.loot.item;
+package svenhjol.charm.world.item;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loot.feature.TotemOfReturning;
+import svenhjol.charm.world.feature.TotemOfReturning;
 import svenhjol.meson.iface.IMesonItem;
 import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.helper.PlayerHelper;

@@ -1,4 +1,4 @@
-package svenhjol.charm.loot.feature;
+package svenhjol.charm.world.feature;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,7 +14,7 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.base.CharmLootTables;
-import svenhjol.charm.loot.item.ItemTotemOfShielding;
+import svenhjol.charm.world.item.ItemTotemOfShielding;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.LootHelper;

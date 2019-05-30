@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.block;
+package svenhjol.charm.automation.block;
 
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
@@ -8,7 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import svenhjol.charm.Charm;
-import svenhjol.charm.crafting.feature.RedstoneSand;
+import svenhjol.charm.automation.feature.RedstoneSand;
 import svenhjol.meson.iface.IMesonBlock;
 
 public class BlockRedstoneSand extends BlockFalling implements IMesonBlock

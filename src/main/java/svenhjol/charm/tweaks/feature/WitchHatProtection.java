@@ -1,7 +1,7 @@
-package svenhjol.charm.loot.feature;
+package svenhjol.charm.tweaks.feature;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import svenhjol.charm.loot.compat.QuarkWitchHat;
+import svenhjol.charm.tweaks.compat.QuarkWitchHat;
 import svenhjol.charm.world.event.SpectreAttackEvent;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;

@@ -1,4 +1,4 @@
-package svenhjol.charm.world.item;
+package svenhjol.charm.tweaks.item;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
-import svenhjol.charm.world.feature.CompassBinding;
+import svenhjol.charm.tweaks.feature.CompassBinding;
 import svenhjol.meson.MesonItem;
 import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.helper.TextHelper;

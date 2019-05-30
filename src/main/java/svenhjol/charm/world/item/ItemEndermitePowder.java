@@ -1,4 +1,4 @@
-package svenhjol.charm.loot.item;
+package svenhjol.charm.world.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmSounds;
-import svenhjol.charm.loot.entity.EntityEndermitePowder;
+import svenhjol.charm.world.entity.EntityEndermitePowder;
 import svenhjol.meson.MesonItem;
 import svenhjol.meson.helper.WorldHelper;
 

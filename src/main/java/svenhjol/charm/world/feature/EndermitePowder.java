@@ -1,4 +1,4 @@
-package svenhjol.charm.loot.feature;
+package svenhjol.charm.world.feature;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -12,8 +12,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmEntityIDs;
-import svenhjol.charm.loot.entity.EntityEndermitePowder;
-import svenhjol.charm.loot.item.ItemEndermitePowder;
+import svenhjol.charm.world.entity.EntityEndermitePowder;
+import svenhjol.charm.world.item.ItemEndermitePowder;
 import svenhjol.meson.Feature;
 
 public class EndermitePowder extends Feature

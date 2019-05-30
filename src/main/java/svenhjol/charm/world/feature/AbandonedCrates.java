@@ -1,8 +1,8 @@
-package svenhjol.charm.loot.feature;
+package svenhjol.charm.world.feature;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import svenhjol.charm.loot.generator.AbandonedCrateGenerator;
+import svenhjol.charm.world.generator.AbandonedCrateGenerator;
 import svenhjol.meson.Feature;
 
 public class AbandonedCrates extends Feature

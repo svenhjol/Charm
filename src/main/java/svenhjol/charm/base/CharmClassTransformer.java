@@ -79,7 +79,7 @@ public class CharmClassTransformer extends MesonClassTransformer
                 (AbstractInsnNode node) -> node.getOpcode() == Opcodes.NEW,
                 (MethodNode method, AbstractInsnNode node) -> {
                     InsnList newInstructions = new InsnList();
-                    newInstructions.add(new TypeInsnNode(Opcodes.NEW, "svenhjol/charm/smithing/inventory/SlotFurnaceInput"));
+                    newInstructions.add(new TypeInsnNode(Opcodes.NEW, "svenhjol/charm/tweaks/inventory/SlotFurnaceInput"));
                     method.instructions.insert(node, newInstructions);
                     method.instructions.remove(node);
                     return true;
@@ -90,7 +90,7 @@ public class CharmClassTransformer extends MesonClassTransformer
                 (AbstractInsnNode node) -> node.getOpcode() == Opcodes.INVOKESPECIAL && node.getNext().getOpcode() == Opcodes.INVOKEVIRTUAL,
                 (MethodNode method, AbstractInsnNode node) -> {
                     InsnList newInstructions = new InsnList();
-                    newInstructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "svenhjol/charm/smithing/inventory/SlotFurnaceInput", "<init>", "(Lnet/minecraft/inventory/IInventory;III)V", false));
+                    newInstructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "svenhjol/charm/tweaks/inventory/SlotFurnaceInput", "<init>", "(Lnet/minecraft/inventory/IInventory;III)V", false));
                     method.instructions.insert(node, newInstructions);
                     method.instructions.remove(node);
                     return true;

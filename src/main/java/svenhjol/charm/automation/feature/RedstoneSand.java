@@ -1,9 +1,9 @@
-package svenhjol.charm.crafting.feature;
+package svenhjol.charm.automation.feature;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import svenhjol.charm.crafting.block.BlockRedstoneSand;
+import svenhjol.charm.automation.block.BlockRedstoneSand;
 import svenhjol.meson.Feature;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
