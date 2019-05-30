@@ -149,7 +149,10 @@
 
 ### RC 1
 
+* Old configs will be backed up
 * Use correct effect amplifier for flavored cakes #56
 * Removed ShearedFlowers feature, vanilla makes this redundant
 * Removed RecycleWithFlint feature in favor of FurnacesRecycleMore
 * Recategorise modules and features. Breaks config - backup charm.cfg!
+* Buffed salvage enchant, compatible with mending now
+* Reduced default spawn chance of Illusioners
