@@ -6,6 +6,8 @@ For a full feature breakdown, please visit [https://charm.arcticfulmar.com](http
 
 Please report any issues in the tracker here.
 
+**Warning: upgrading from version 1.0.1 to 1.1.0 will screw up `charm.cfg`. Please backup and delete this config file before upgrading.**
+
 ## Credits
 
 * Includes **BetterWithMods** `canMobsSpawnHere()` method.  [Link to code](https://github.com/DaedalusGame/BetterWithMods/blob/bf630aa1fade156ce8fae0d769ad745a4161b0ba/src/main/java/betterwithmods/event/PotionEventHandler.java)
