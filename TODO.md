@@ -146,3 +146,10 @@
 * Blocks without variants not appearing in creative tabs #50
 * Crate nesting in shulker boxes issue, broke hopper inserting #49
 * Anvils no longer consume entire book stack in middle slot #48
+
+### RC 1
+
+* Use correct effect amplifier for flavored cakes #56
+* Removed ShearedFlowers feature, vanilla makes this redundant
+* Removed RecycleWithFlint feature in favor of FurnacesRecycleMore
+* Recategorise modules and features. Breaks config - backup charm.cfg!
