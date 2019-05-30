@@ -38,7 +38,7 @@ public class IllusionersInRoofedForest extends Feature
         weight = propInt(
             "Spawn weight",
             "The higher this value, the more illusioners will spawn.",
-            50
+            30
         );
 
         dropChance = propDouble(
