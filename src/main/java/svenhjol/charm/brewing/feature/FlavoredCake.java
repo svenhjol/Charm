@@ -2,6 +2,7 @@ package svenhjol.charm.brewing.feature;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.init.Blocks;
@@ -116,7 +117,10 @@ public class FlavoredCake extends Feature
     public void onUse(PlayerInteractEvent.RightClickBlock event)
     {
         ItemStack held = event.getEntityPlayer().getHeldItem(event.getHand());
-        imbue(event.getWorld(), event.getPos(), held);
+        boolean result = imbue(event.getWorld(), event.getPos(), held);
+        if (result) {
+            event.setCanceled(true);
+        }
     }
 
     private boolean imbue(World world, BlockPos pos, ItemStack item)
@@ -142,8 +146,9 @@ public class FlavoredCake extends Feature
     }
 
     @SideOnly(Side.CLIENT)
-    public static void cakeImbued(World world, BlockPos pos)
+    public static void cakeImbued(BlockPos pos)
     {
+        World world = Minecraft.getMinecraft().world;
         SoundHelper.playSoundAtPos(world, pos, SoundEvents.ITEM_BOTTLE_EMPTY, 0.5f, 1.1f);
         for (int i = 0; i < 8; ++i) {
             double d0 = world.rand.nextGaussian() * 0.02D;

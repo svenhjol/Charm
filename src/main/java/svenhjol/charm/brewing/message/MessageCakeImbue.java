@@ -38,7 +38,7 @@ public class MessageCakeImbue extends MesonMessage
     public IMessage handle(MessageContext context)
     {
         Minecraft.getMinecraft().addScheduledTask(() -> {
-            FlavoredCake.cakeImbued(Minecraft.getMinecraft().world, pos);
+            FlavoredCake.cakeImbued(pos);
         });
 
         return null;
