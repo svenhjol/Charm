@@ -53,7 +53,7 @@ public class FlavoredCake extends Feature
         multiplier = propDouble(
             "Effect duration multiplier",
             "Duration multiplier of the potion effect when eating a single slice of cake.",
-            1.2
+            0.5
         );
         validPotions = propStringList(
             "Effect potion types",
