@@ -22,7 +22,7 @@ public class Salvage extends Feature
     public void setupConfig()
     {
         // internal
-        minEnchantability = 10;
+        minEnchantability = 5;
     }
 
     @Override

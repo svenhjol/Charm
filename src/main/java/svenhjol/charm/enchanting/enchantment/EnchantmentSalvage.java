@@ -1,17 +1,15 @@
 package svenhjol.charm.enchanting.enchantment;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentMending;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import svenhjol.charm.Charm;
+import svenhjol.charm.enchanting.feature.Salvage;
 import svenhjol.meson.MesonEnchantment;
 import svenhjol.meson.helper.EnchantmentHelper;
 import svenhjol.meson.helper.SoundHelper;
-import svenhjol.charm.enchanting.feature.Salvage;
 
 public class EnchantmentSalvage extends MesonEnchantment
 {
@@ -51,11 +49,5 @@ public class EnchantmentSalvage extends MesonEnchantment
     public int getMaxLevel()
     {
         return 1;
-    }
-
-    @Override
-    protected boolean canApplyTogether(Enchantment ench)
-    {
-        return !(ench instanceof EnchantmentMending) && super.canApplyTogether(ench);
     }
 }
