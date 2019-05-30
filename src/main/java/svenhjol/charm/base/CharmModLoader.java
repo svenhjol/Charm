@@ -4,6 +4,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.Charm;
 import svenhjol.meson.ModLoader;
+import svenhjol.meson.helper.FileHelper;
 
 import java.io.File;
 
@@ -17,7 +18,9 @@ public final class CharmModLoader extends ModLoader
         // set up configuration
         File configFile = new File(event.getModConfigurationDirectory(), Charm.MOD_ID + ".cfg");
 
-//        configFile.delete();
+        // attempt backup if required
+        FileHelper.backupConfigFile(configFile);
+
         config = new Configuration(configFile, Charm.MOD_VERSION, true);
         config.load();
 
