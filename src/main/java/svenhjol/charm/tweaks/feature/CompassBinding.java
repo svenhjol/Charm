@@ -16,6 +16,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -154,9 +155,20 @@ public class CompassBinding extends Feature
         }
     }
 
-    @Override
-    public void preInitClient(FMLPreInitializationEvent event)
+    @SubscribeEvent
+    public void onAnvilUpdate(AnvilUpdateEvent event)
     {
+        int xpCost = 0;
+        ItemStack in = event.getLeft();
+        ItemStack combine = event.getRight();
+        if (in.isEmpty() && combine.isEmpty()) return;
+
+        if (in.getItem() == boundCompass && combine.getItem() == Items.IRON_INGOT) {
+            ItemStack out = new ItemStack(Items.COMPASS);
+            event.setCost(xpCost);
+            event.setMaterialCost(1);
+            event.setOutput(out);
+        }
     }
 
     @Override
