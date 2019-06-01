@@ -79,7 +79,7 @@ public class SuspiciousSoup extends Feature
         // internal
         SuspiciousEffects.init();
         maxTypes = effects.size(); // should match the number of suspicious effects
-        maxStackSize = 16;
+        maxStackSize = 1;
         amplifier = 1;
         saturation = 0.2D;
     }
