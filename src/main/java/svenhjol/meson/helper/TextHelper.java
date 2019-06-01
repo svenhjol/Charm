@@ -10,7 +10,7 @@ public class TextHelper
     public static Map<Integer, Integer> dyeTextMap = new HashMap<>();
 
     static {
-        dyeTextMap.put(0, 0); // black
+        dyeTextMap.put(0, 15); // black -> white
         dyeTextMap.put(1, 12); // red
         dyeTextMap.put(2, 2); // green -> dak_green
         dyeTextMap.put(3, 4); // brown -> dark_red
