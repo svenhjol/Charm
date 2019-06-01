@@ -86,32 +86,21 @@
 * Inspirations integration (lantern connects to chain/rope, disable Charm's Decay)
     
     
-## 1.1
-
-### Alpha 1
+## 1.1.0
 
 * Add Rotten flesh block
 * Dirt conversion should happen when water is above and below as well as any side
 * Add Beacon compass
 * Add Gunpower block
 * Add composter
-    
-### Alpha 2
-
 * Composter shouldn't consume items from hand when in creative
 * JEI tab for composter materials
 * Extend ToR material and number of increases
 * Tooltip on ToR to show how many uses remain
- 
-### Beta 1
- 
 * Inspirations integration for composter
 * Reduce weight of enchanted books in villages
 * Stop Abandoned Crates void checks
 * Replace wood open sounds from 1.14
-
-### Beta 2
-
 * Composter gives more items than config #42
 * Effective tool for pistons with Redstone++ #41
 * Infinite diamonds, remove RecycleWithFlint #40
@@ -122,23 +111,14 @@
 * Separate charm_asm.cfg for enabling/disabling core patches
 * Fix issue with village well not being decorated (introduced by #32)
 * Rotten flesh now converts grass path to podzol
-
-### Beta 3
-
 * Add Endermite powder, drops from Endermites. Use it to find End Cities
 * Correct creative tab distribution #44
 * If Quark is loaded, chance for anvil to have a tool on it
 * Bookshelf chest now uses different inventory drop check #4
-
-### Beta 4
-
 * Barrel and Crate wood variants
 * Prevent adding shulkerboxes to crates and vice versa #47
 * Abandoned crates generation config changes
 * Dispenser recipe allows damaged and enchanted bows
-
-### Beta 5
-
 * Flavored cake recipes removed, right click cake with long potion to imbue
 * Cake of speed changed to cake of swiftness, jump boost to leaping
 * Only allow single enchanted book when extracting XP  #54
@@ -146,9 +126,6 @@
 * Blocks without variants not appearing in creative tabs #50
 * Crate nesting in shulker boxes issue, broke hopper inserting #49
 * Anvils no longer consume entire book stack in middle slot #48
-
-### RC 1
-
 * Old configs will be backed up
 * Use correct effect amplifier for flavored cakes #56
 * Removed ShearedFlowers feature, vanilla makes this redundant
@@ -156,3 +133,13 @@
 * Recategorise modules and features. Breaks config - backup charm.cfg!
 * Buffed salvage enchant, compatible with mending now
 * Reduced default spawn chance of Illusioners
+
+## 1.1.1
+
+* Bound compass can now be reset to vanilla compass on anvil with iron ingot. Fix #61
+* Suspicious soup no longer stacks. Fix #64
+* Incorrect language string for record6. Fix #65
+* Changed black hover text to white text for bound compass. Fix #60
+* Sealed crate anvil recipe fixes. Fix #59
+* Empty bowl now returned after eating suspicious soup. Fix #63
+* Abandoned crates now checks for crate enabled again. Fix #57
