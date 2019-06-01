@@ -2,7 +2,9 @@ package svenhjol.charm.crafting.item;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -48,5 +50,12 @@ public class ItemSuspiciousSoup extends ItemFood implements IMesonItem, IItemCus
             int meta = stack.getMetadata();
             SuspiciousSoup.effects.get(meta).performEffect(player, SuspiciousSoup.duration * 20, SuspiciousSoup.amplifier);
         }
+    }
+
+    @Override
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
+    {
+        super.onItemUseFinish(stack, worldIn, entityLiving);
+        return new ItemStack(Items.BOWL);
     }
 }
