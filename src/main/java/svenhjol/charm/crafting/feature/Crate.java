@@ -26,7 +26,6 @@ import svenhjol.charm.crafting.block.BlockCrate;
 import svenhjol.charm.crafting.client.RenderTileCrate;
 import svenhjol.charm.crafting.tile.TileCrate;
 import svenhjol.meson.Feature;
-import svenhjol.meson.MesonBlock;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.LootHelper;
@@ -147,7 +146,7 @@ public class Crate extends Feature
 
     public static ItemStack getSealedCrateItem(ItemStack in, String name)
     {
-        ItemStack out = new ItemStack(Crate.crateSealed, 1, new Random().nextInt(MesonBlock.WoodVariant.values().length));
+        ItemStack out = new ItemStack(Crate.crateSealed, 1, in.getItemDamage());
 
         if (name == null || name.isEmpty()) {
             name = in.getDisplayName();
@@ -209,23 +208,30 @@ public class Crate extends Feature
         if (in.isEmpty() && combine.isEmpty()) return;
 
         if (isItemCrate(in)) {
-            ItemStack out = in.copy();
+            ItemStack out = null;
+            int cost = 0;
 
             // name tag adds the label renderer
             if (combine.getItem() == Items.NAME_TAG) {
+                out = in.copy();
+                cost = in.getCount();
+
                 NBTTagCompound be = getBlockEntityTag(out);
                 be.setBoolean("showname", true);
                 be.setString("name", out.getDisplayName());
             }
 
             // iron seals the crate
-            if (combine.getItem() == Items.IRON_INGOT) {
+            if (!isSealedCrate(in) && combine.getItem() == Items.IRON_INGOT) {
+                cost = Math.min(in.getCount(), combine.getCount());
                 String name = in.getDisplayName();
                 out = getSealedCrateItem(in, name);
             }
 
             if (out != null) {
+                out.setCount(cost);
                 event.setCost(xpCost);
+                event.setMaterialCost(cost);
                 event.setOutput(out);
             }
         }
@@ -250,6 +256,11 @@ public class Crate extends Feature
     protected boolean isItemCrate(ItemStack stack)
     {
         return Block.getBlockFromItem(stack.getItem()) instanceof BlockCrate;
+    }
+
+    protected boolean isSealedCrate(ItemStack stack)
+    {
+        return isItemCrate(stack) && ((BlockCrate)Block.getBlockFromItem(stack.getItem())).isSealedCrate();
     }
 
     /**
