@@ -2,6 +2,8 @@ package svenhjol.charm.world.feature;
 
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import svenhjol.charm.Charm;
+import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.charm.world.generator.AbandonedCrateGenerator;
 import svenhjol.meson.Feature;
 
@@ -53,6 +55,8 @@ public class AbandonedCrates extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        GameRegistry.registerWorldGenerator(new AbandonedCrateGenerator(), 1000);
+        if (Charm.hasFeature(Crate.class)) {
+            GameRegistry.registerWorldGenerator(new AbandonedCrateGenerator(), 1000);
+        }
     }
 }
