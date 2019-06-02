@@ -1,0 +1,6 @@
+{
+    "parent": "charm:block/end_portal_frame_runes",
+    "textures": {
+        "rune": "charm:blocks/endframe_rune_silver"
+    }
+}
