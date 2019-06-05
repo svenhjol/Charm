@@ -1,5 +1,5 @@
 {
-    "parent": "charm:block/end_portal_frame_runes",
+    "parent": "charm:block/rune_portal_frame",
     "textures": {
         "rune": "charm:blocks/endframe_rune_red"
     }
