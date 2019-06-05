@@ -1,0 +1,108 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "charm:rune_portal_frame",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": { "model": "charm:rune_portal_frame" },
+    "inventory": { "model": "charm:rune_portal_frame" },
+
+    "inventory,variant=white": { "model": "charm:rune_portal_frame_white" },
+    "facing=south,variant=white": { "model": "charm:rune_portal_frame_white" },
+    "facing=west,variant=white": { "model": "charm:rune_portal_frame_white", "y": 90 },
+    "facing=north,variant=white": { "model": "charm:rune_portal_frame_white", "y": 180},
+    "facing=east,variant=white": { "model": "charm:rune_portal_frame_white", "y": 270 },
+
+    "inventory,variant=orange": { "model": "charm:rune_portal_frame_orange" },
+    "facing=south,variant=orange": { "model": "charm:rune_portal_frame_orange" },
+    "facing=west,variant=orange": { "model": "charm:rune_portal_frame_orange", "y": 90 },
+    "facing=north,variant=orange": { "model": "charm:rune_portal_frame_orange", "y": 180},
+    "facing=east,variant=orange": { "model": "charm:rune_portal_frame_orange", "y": 270 },
+
+    "inventory,variant=magenta": { "model": "charm:rune_portal_frame_magenta" },
+    "facing=south,variant=magenta": { "model": "charm:rune_portal_frame_magenta" },
+    "facing=west,variant=magenta": { "model": "charm:rune_portal_frame_magenta", "y": 90 },
+    "facing=north,variant=magenta": { "model": "charm:rune_portal_frame_magenta", "y": 180},
+    "facing=east,variant=magenta": { "model": "charm:rune_portal_frame_magenta", "y": 270 },
+
+    "inventory,variant=light_blue": { "model": "charm:rune_portal_frame_light_blue" },
+    "facing=south,variant=light_blue": { "model": "charm:rune_portal_frame_light_blue" },
+    "facing=west,variant=light_blue": { "model": "charm:rune_portal_frame_light_blue", "y": 90 },
+    "facing=north,variant=light_blue": { "model": "charm:rune_portal_frame_light_blue", "y": 180},
+    "facing=east,variant=light_blue": { "model": "charm:rune_portal_frame_light_blue", "y": 270 },
+
+    "inventory,variant=yellow": { "model": "charm:rune_portal_frame_yellow" },
+    "facing=south,variant=yellow": { "model": "charm:rune_portal_frame_yellow" },
+    "facing=west,variant=yellow": { "model": "charm:rune_portal_frame_yellow", "y": 90 },
+    "facing=north,variant=yellow": { "model": "charm:rune_portal_frame_yellow", "y": 180},
+    "facing=east,variant=yellow": { "model": "charm:rune_portal_frame_yellow", "y": 270 },
+
+    "inventory,variant=lime": { "model": "charm:rune_portal_frame_lime" },
+    "facing=south,variant=lime": { "model": "charm:rune_portal_frame_lime" },
+    "facing=west,variant=lime": { "model": "charm:rune_portal_frame_lime", "y": 90 },
+    "facing=north,variant=lime": { "model": "charm:rune_portal_frame_lime", "y": 180},
+    "facing=east,variant=lime": { "model": "charm:rune_portal_frame_lime", "y": 270 },
+
+    "inventory,variant=pink": { "model": "charm:rune_portal_frame_pink" },
+    "facing=south,variant=pink": { "model": "charm:rune_portal_frame_pink" },
+    "facing=west,variant=pink": { "model": "charm:rune_portal_frame_pink", "y": 90 },
+    "facing=north,variant=pink": { "model": "charm:rune_portal_frame_pink", "y": 180},
+    "facing=east,variant=pink": { "model": "charm:rune_portal_frame_pink", "y": 270 },
+
+    "inventory,variant=gray": { "model": "charm:rune_portal_frame_gray" },
+    "facing=south,variant=gray": { "model": "charm:rune_portal_frame_gray" },
+    "facing=west,variant=gray": { "model": "charm:rune_portal_frame_gray", "y": 90 },
+    "facing=north,variant=gray": { "model": "charm:rune_portal_frame_gray", "y": 180},
+    "facing=east,variant=gray": { "model": "charm:rune_portal_frame_gray", "y": 270 },
+
+    "inventory,variant=silver": { "model": "charm:rune_portal_frame_silver" },
+    "facing=south,variant=silver": { "model": "charm:rune_portal_frame_silver" },
+    "facing=west,variant=silver": { "model": "charm:rune_portal_frame_silver", "y": 90 },
+    "facing=north,variant=silver": { "model": "charm:rune_portal_frame_silver", "y": 180},
+    "facing=east,variant=silver": { "model": "charm:rune_portal_frame_silver", "y": 270 },
+
+    "inventory,variant=cyan": { "model": "charm:rune_portal_frame_cyan" },
+    "facing=south,variant=cyan": { "model": "charm:rune_portal_frame_cyan" },
+    "facing=west,variant=cyan": { "model": "charm:rune_portal_frame_cyan", "y": 90 },
+    "facing=north,variant=cyan": { "model": "charm:rune_portal_frame_cyan", "y": 180},
+    "facing=east,variant=cyan": { "model": "charm:rune_portal_frame_cyan", "y": 270 },
+
+    "inventory,variant=purple": { "model": "charm:rune_portal_frame_purple" },
+    "facing=south,variant=purple": { "model": "charm:rune_portal_frame_purple" },
+    "facing=west,variant=purple": { "model": "charm:rune_portal_frame_purple", "y": 90 },
+    "facing=north,variant=purple": { "model": "charm:rune_portal_frame_purple", "y": 180},
+    "facing=east,variant=purple": { "model": "charm:rune_portal_frame_purple", "y": 270 },
+
+    "inventory,variant=blue": { "model": "charm:rune_portal_frame_blue" },
+    "facing=south,variant=blue": { "model": "charm:rune_portal_frame_blue" },
+    "facing=west,variant=blue": { "model": "charm:rune_portal_frame_blue", "y": 90 },
+    "facing=north,variant=blue": { "model": "charm:rune_portal_frame_blue", "y": 180},
+    "facing=east,variant=blue": { "model": "charm:rune_portal_frame_blue", "y": 270 },
+
+    "inventory,variant=brown": { "model": "charm:rune_portal_frame_brown" },
+    "facing=south,variant=brown": { "model": "charm:rune_portal_frame_brown" },
+    "facing=west,variant=brown": { "model": "charm:rune_portal_frame_brown", "y": 90 },
+    "facing=north,variant=brown": { "model": "charm:rune_portal_frame_brown", "y": 180},
+    "facing=east,variant=brown": { "model": "charm:rune_portal_frame_brown", "y": 270 },
+
+    "inventory,variant=green": { "model": "charm:rune_portal_frame_green" },
+    "facing=south,variant=green": { "model": "charm:rune_portal_frame_green" },
+    "facing=west,variant=green": { "model": "charm:rune_portal_frame_green", "y": 90 },
+    "facing=north,variant=green": { "model": "charm:rune_portal_frame_green", "y": 180},
+    "facing=east,variant=green": { "model": "charm:rune_portal_frame_green", "y": 270 },
+
+    "inventory,variant=red": { "model": "charm:rune_portal_frame_red" },
+    "facing=south,variant=red": { "model": "charm:rune_portal_frame_red" },
+    "facing=west,variant=red": { "model": "charm:rune_portal_frame_red", "y": 90 },
+    "facing=north,variant=red": { "model": "charm:rune_portal_frame_red", "y": 180},
+    "facing=east,variant=red": { "model": "charm:rune_portal_frame_red", "y": 270 },
+
+    "inventory,variant=black": { "model": "charm:rune_portal_frame_black" },
+    "facing=south,variant=black": { "model": "charm:rune_portal_frame_black" },
+    "facing=west,variant=black": { "model": "charm:rune_portal_frame_black", "y": 90 },
+    "facing=north,variant=black": { "model": "charm:rune_portal_frame_black", "y": 180},
+    "facing=east,variant=black": { "model": "charm:rune_portal_frame_black", "y": 270 }
+
+  }
+}
