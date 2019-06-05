@@ -143,3 +143,7 @@
 * Sealed crate anvil recipe fixes. Fix #59
 * Empty bowl now returned after eating suspicious soup. Fix #63
 * Abandoned crates now checks for crate enabled again. Fix #57
+
+## 1.1.2
+
+* Added End Portal Runes
