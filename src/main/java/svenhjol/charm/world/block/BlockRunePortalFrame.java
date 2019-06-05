@@ -6,44 +6,51 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.BlockWorldState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
+import net.minecraft.block.state.pattern.FactoryBlockPattern;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.world.tile.TileEndPortalRunes;
+import svenhjol.charm.world.feature.EndPortalRunes;
+import svenhjol.charm.world.tile.TileRunePortalFrame;
 import svenhjol.meson.MesonBlockTE;
 import svenhjol.meson.iface.IMesonBlock;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
-public class BlockEndPortalFrameRunes extends MesonBlockTE<TileEndPortalRunes> implements IMesonBlock
+public class BlockRunePortalFrame extends MesonBlockTE<TileRunePortalFrame> implements IMesonBlock
 {
     public static final PropertyDirection FACING;
-    public static final PropertyEnum<ColorVariant> COLOR;
+    public static final PropertyEnum<ColorVariant> VARIANT;
     protected static final AxisAlignedBB AABB_BLOCK;
     protected static final AxisAlignedBB AABB_RUNE;
     private static BlockPattern portalShape;
 
-    public BlockEndPortalFrameRunes()
+    public BlockRunePortalFrame()
     {
-        super(Material.ROCK, "end_portal_frame_runes");
+        super(Material.ROCK, "rune_portal_frame");
         setCreativeTab(CreativeTabs.DECORATIONS);
         setDefaultState(this.blockState.getBaseState()
             .withProperty(FACING, EnumFacing.NORTH)
-            .withProperty(COLOR, ColorVariant.WHITE)
+            .withProperty(VARIANT, ColorVariant.WHITE)
         );
     }
 
@@ -67,17 +74,26 @@ public class BlockEndPortalFrameRunes extends MesonBlockTE<TileEndPortalRunes> i
     }
 
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        TileEndPortalRunes portalFrame = getTileEntity(worldIn, pos);
-        if (validTileEntity(portalFrame)) {
-            EnumFacing facing = state.getValue(FACING);
-            portalFrame.setFacing(facing);
-        }
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        super.breakBlock(worldIn, pos, state);
+        EndPortalRunes.deactivate(worldIn, pos);
     }
 
-    // TODO this should be generic
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+
+        TileRunePortalFrame portalFrame = getTileEntity(worldIn, pos);
+        if (validTileEntity(portalFrame)) {
+            portalFrame.setFacing(placer.getHorizontalFacing().getOpposite());
+        }
+
+        // it's possible to put down a valid portal in creative mode
+        EndPortalRunes.activate(worldIn, pos);
+    }
+
     @Override
     public String[] getVariants()
     {
@@ -92,68 +108,50 @@ public class BlockEndPortalFrameRunes extends MesonBlockTE<TileEndPortalRunes> i
     @SuppressWarnings("deprecation")
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState()
-            .withProperty(FACING, facing)
-            .withProperty(COLOR, ColorVariant.WHITE);
+        return this.getDefaultState().withProperty(VARIANT, ColorVariant.byMetadata(meta));
     }
-//
-//    @Override
-//    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-//    {
-//        ItemStack rune = EndPortalRunes.removeRune(worldIn, pos);
-//        if (rune != null) {
-//            PlayerHelper.addOrDropStack(playerIn, rune);
-//            return true;
-//        }
-//
-//        return false;
-//    }
 
-    //    public static BlockPattern getOrCreatePortalShape()
-//    {
-//        if (portalShape == null) {
-//            portalShape = FactoryBlockPattern.start().aisle(new String[]{"?vvv?", ">???<", ">???<", ">???<", "?^^^?"})
-//                .where('?', BlockWorldState.hasState(BlockStateMatcher.ANY))
-//                .where('^', BlockWorldState.hasState(BlockStateMatcher.forBlock(EndPortalRunes.portalFrame)
-//                    .where(COLOR, Predicates.equalTo(this.getBlockState().getBaseState().getValue(COLOR)))
-//                    .where(FACING, Predicates.equalTo(EnumFacing.SOUTH))
-//                ))
-//                .where('>', BlockWorldState.hasState(BlockStateMatcher.forBlock(EndPortalRunes.portalFrame)
-//                    .where(COLOR, Predicates.equalTo(this.getBlockState().getBaseState().getValue(COLOR)))
-//                    .where(FACING, Predicates.equalTo(EnumFacing.WEST))
-//                ))
-//                .where('v', BlockWorldState.hasState(BlockStateMatcher.forBlock(EndPortalRunes.portalFrame)
-//                    .where(COLOR, Predicates.equalTo(this.getBlockState().getBaseState().getValue(COLOR)))
-//                    .where(FACING, Predicates.equalTo(EnumFacing.NORTH))
-//                ))
-//                .where('<', BlockWorldState.hasState(BlockStateMatcher.forBlock(EndPortalRunes.portalFrame)
-//                    .where(COLOR, Predicates.equalTo(this.getBlockState().getBaseState().getValue(COLOR)))
-//                    .where(FACING, Predicates.equalTo(EnumFacing.EAST))
-//                ))
-//                .build();
-//        }
-//
-//        return portalShape;
-//    }
+    public static BlockPattern getOrCreatePortalShape()
+    {
+        if (portalShape == null) {
+            portalShape = FactoryBlockPattern.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?")
+                .where('?', BlockWorldState.hasState(BlockStateMatcher.ANY))
+                .where('^', BlockWorldState.hasState(BlockStateMatcher.forBlock(EndPortalRunes.frame)
+                    .where(FACING, enumFacing -> Objects.equals(enumFacing, EnumFacing.SOUTH))
+                ))
+                .where('>', BlockWorldState.hasState(BlockStateMatcher.forBlock(EndPortalRunes.frame)
+                    .where(FACING, enumFacing -> Objects.equals(enumFacing, EnumFacing.WEST))
+                ))
+                .where('v', BlockWorldState.hasState(BlockStateMatcher.forBlock(EndPortalRunes.frame)
+                    .where(FACING, enumFacing -> Objects.equals(enumFacing, EnumFacing.NORTH))
+                ))
+                .where('<', BlockWorldState.hasState(BlockStateMatcher.forBlock(EndPortalRunes.frame)
+                    .where(FACING, enumFacing -> Objects.equals(enumFacing, EnumFacing.EAST))
+                ))
+                .build();
+        }
+
+        return portalShape;
+    }
 
     @Override
     public int getMetaFromState(IBlockState state)
     {
-        return state.getValue(COLOR).ordinal();
+        return state.getValue(VARIANT).ordinal();
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(COLOR, ColorVariant.byMetadata(meta));
+        return this.getDefaultState().withProperty(VARIANT, ColorVariant.byMetadata(meta));
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
-        TileEndPortalRunes portal = (TileEndPortalRunes)worldIn.getTileEntity(pos);
+        TileRunePortalFrame portal = (TileRunePortalFrame)worldIn.getTileEntity(pos);
         if (portal != null && validTileEntity(portal)) {
             EnumFacing facing = portal.getFacing();
             state = state.withProperty(FACING, facing);
@@ -164,19 +162,19 @@ public class BlockEndPortalFrameRunes extends MesonBlockTE<TileEndPortalRunes> i
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, FACING, COLOR );
+        return new BlockStateContainer(this, FACING, VARIANT);
     }
 
     @Override
-    public TileEndPortalRunes createTileEntity(World world, IBlockState state)
+    public TileRunePortalFrame createTileEntity(World world, IBlockState state)
     {
-        return new TileEndPortalRunes();
+        return new TileRunePortalFrame();
     }
 
     @Override
-    public Class<TileEndPortalRunes> getTileEntityClass()
+    public Class<TileRunePortalFrame> getTileEntityClass()
     {
-        return TileEndPortalRunes.class;
+        return TileRunePortalFrame.class;
     }
 
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
@@ -196,9 +194,22 @@ public class BlockEndPortalFrameRunes extends MesonBlockTE<TileEndPortalRunes> i
         return false;
     }
 
+
+    @Override
+    public int damageDropped(IBlockState state)
+    {
+        return getMetaFromState(state);
+    }
+
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+    {
+        return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
+    }
+
     static {
         FACING = BlockHorizontal.FACING;
-        COLOR = PropertyEnum.create("color", ColorVariant.class);
+        VARIANT = PropertyEnum.create("variant", ColorVariant.class);
         AABB_BLOCK = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.8125D, 1.0D);
         AABB_RUNE = new AxisAlignedBB(0.3125D, 0.8125D, 0.3125D, 0.6875D, 1.0D, 0.6875D);
     }

@@ -4,11 +4,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import svenhjol.charm.Charm;
-import svenhjol.charm.world.block.BlockEndPortalFrameRunes;
+import svenhjol.charm.world.block.BlockRunePortalFrame;
 import svenhjol.charm.world.feature.EndPortalRunes;
 import svenhjol.meson.MesonTile;
 
-public class TileEndPortalRunes extends MesonTile
+public class TileRunePortalFrame extends MesonTile
 {
     public int facing;
 
@@ -38,21 +38,22 @@ public class TileEndPortalRunes extends MesonTile
         this.markDirty();
     }
 
-    public void updateBlock()
-    {
-        IBlockState current = world.getBlockState(pos);
-        if (current.getBlock() == EndPortalRunes.portalFrame) {
-
-            IBlockState state = current
-                .withProperty(BlockEndPortalFrameRunes.FACING, current.getValue(BlockEndPortalFrameRunes.FACING))
-                .withProperty(BlockEndPortalFrameRunes.COLOR, current.getValue(BlockEndPortalFrameRunes.COLOR))
-                ;
-            world.setBlockState(pos, state, 2);
-        }
-    }
-
     public EnumFacing getFacing()
     {
-        return EnumFacing.byIndex(this.facing);
+        EnumFacing facing = EnumFacing.byIndex(this.facing);
+        if (facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
+            facing = EnumFacing.WEST;
+        }
+        return facing;
+    }
+
+    @Override
+    public void onLoad()
+    {
+        if (world.getBlockState(pos).getBlock() == EndPortalRunes.frame) {
+            IBlockState state = world.getBlockState(pos)
+                .withProperty(BlockRunePortalFrame.FACING, getFacing());
+            world.setBlockState(pos, state, 3);
+        }
     }
 }

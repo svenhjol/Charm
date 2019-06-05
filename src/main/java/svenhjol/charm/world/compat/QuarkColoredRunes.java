@@ -3,11 +3,17 @@ package svenhjol.charm.world.compat;
 import net.minecraft.item.ItemStack;
 import svenhjol.charm.world.feature.EndPortalRunes;
 import svenhjol.meson.MesonBlock;
+import vazkii.quark.base.module.ModuleLoader;
 import vazkii.quark.misc.feature.ColorRunes;
 import vazkii.quark.misc.item.ItemRune;
 
 public class QuarkColoredRunes
 {
+    public boolean hasColorRuneFeature()
+    {
+        return ModuleLoader.isFeatureEnabled(ColorRunes.class);
+    }
+
     public boolean isRune(ItemStack stack)
     {
         return stack.getItem() instanceof ItemRune;
