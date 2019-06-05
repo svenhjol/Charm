@@ -67,6 +67,11 @@ public abstract class Feature implements IFMLEvents
 
     public String[] getDisableMods() { return new String[] {}; }
 
+    public boolean checkSelf()
+    {
+        return true;
+    }
+
     public String getConfigCategoryName()
     {
         return module.getName() + "." + this.getName();

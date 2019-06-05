@@ -44,6 +44,11 @@ public abstract class Module implements IFMLEvents
                 feature.enabled = !ConfigHelper.checkMods(feature.getDisableMods());
             }
 
+            // allow feature to perform other checks to enable/disable itself
+            if (feature.enabled) {
+                feature.enabled = feature.checkSelf();
+            }
+
             if (feature.enabled) {
                 feature.setup(this);
                 enabled.add(feature);
