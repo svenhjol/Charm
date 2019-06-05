@@ -30,6 +30,23 @@ tile.charm:iron_lantern.name=Lantern
 tile.charm:nether_gold_deposit.name=Nether Gold Deposit
 tile.charm:redstone_sand.name=Redstone Sand
 tile.charm:rotten_flesh_block.name=Rotten Flesh Block
+tile.charm:rune_portal.name=Portal
+tile.charm:rune_portal_frame_white.name=End Portal White Rune
+tile.charm:rune_portal_frame_orange.name=End Portal Orange Rune
+tile.charm:rune_portal_frame_magenta.name=End Portal Magenta Rune
+tile.charm:rune_portal_frame_light_blue.name=End Portal Light Blue Rune
+tile.charm:rune_portal_frame_yellow.name=End Portal Yellow Rune
+tile.charm:rune_portal_frame_lime.name=End Portal Lime Rune
+tile.charm:rune_portal_frame_pink.name=End Portal Pink Rune
+tile.charm:rune_portal_frame_gray.name=End Portal Gray Rune
+tile.charm:rune_portal_frame_silver.name=End Portal Light Gray Rune
+tile.charm:rune_portal_frame_cyan.name=End Portal Cyan Rune
+tile.charm:rune_portal_frame_purple.name=End Portal Purple Rune
+tile.charm:rune_portal_frame_blue.name=End Portal Blue Rune
+tile.charm:rune_portal_frame_brown.name=End Portal Brown Rune
+tile.charm:rune_portal_frame_green.name=End Portal Green Rune
+tile.charm:rune_portal_frame_red.name=End Portal Red Rune
+tile.charm:rune_portal_frame_black.name=End Portal Black Rune
 
 # Items
 item.charm:bat_bucket.name=Bat in a Bucket
