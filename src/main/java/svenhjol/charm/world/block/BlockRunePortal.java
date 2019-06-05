@@ -84,7 +84,12 @@ public class BlockRunePortal extends BlockEndPortal implements IMesonBlock
     @Override
     public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
-        if (!worldIn.isRemote && !entityIn.isRiding() && !entityIn.isBeingRidden() && entityIn.isNonBoss() && entityIn.getEntityBoundingBox().intersects(state.getBoundingBox(worldIn, pos).offset(pos))) {
+        if (!worldIn.isRemote
+            && !entityIn.isRiding()
+            && !entityIn.isBeingRidden()
+            && entityIn.isNonBoss()
+            && entityIn.getEntityBoundingBox().intersects(state.getBoundingBox(worldIn, pos).offset(pos))
+        ) {
             BlockPos thisPortal = getPortal(worldIn, pos);
 
             if (thisPortal != null) {

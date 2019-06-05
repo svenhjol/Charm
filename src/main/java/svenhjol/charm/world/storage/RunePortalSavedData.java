@@ -14,7 +14,7 @@ public class RunePortalSavedData extends WorldSavedData
     private static final String PORTALS = "portals";
     private static final String LINKS = "links";
 
-    public Map<BlockPos, String> portals = new HashMap<>();
+    public Map<BlockPos, int[]> portals = new HashMap<>();
     public Map<BlockPos, BlockPos> links = new HashMap<>();
 
     public RunePortalSavedData(String id)
@@ -33,7 +33,7 @@ public class RunePortalSavedData extends WorldSavedData
 
         // get portals
         for (String key : getTagPortals(tag).getKeySet()) {
-            String portalOrder = getTagPortals(tag).getString(key);
+            int[] portalOrder = getTagPortals(tag).getIntArray(key);
             portals.put(BlockPos.fromLong(Long.valueOf(key)), portalOrder);
         }
     }
@@ -49,8 +49,7 @@ public class RunePortalSavedData extends WorldSavedData
 
         // set portals
         for (BlockPos pos : portals.keySet()) {
-            String portalOrder = portals.get(pos);
-            getTagPortals(tag).setString(Long.toString(pos.toLong()), portalOrder);
+            getTagPortals(tag).setIntArray(Long.toString(pos.toLong()), portals.get(pos));
         }
 
         return tag;

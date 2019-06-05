@@ -33,13 +33,13 @@ import svenhjol.charm.world.storage.RunePortalSavedData;
 import svenhjol.charm.world.tile.TileRunePortalFrame;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
-import svenhjol.meson.MesonBlock;
 import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.helper.WorldHelper;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class EndPortalRunes extends Feature
 {
@@ -47,6 +47,9 @@ public class EndPortalRunes extends Feature
     public static BlockRunePortal portal;
     public static QuarkColoredRunes quarkRunes;
     public static boolean allowEnderEyeRemoval;
+    public static long clientTravelTicks;
+    public static long clientUnlinkedTicks;
+    public static long clientLinkedTicks;
 
     @Override
     public void setupConfig()
@@ -86,7 +89,6 @@ public class EndPortalRunes extends Feature
 
         GameRegistry.registerTileEntity(portal.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":rune_portal"));
         GameRegistry.registerTileEntity(frame.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":rune_portal_frame"));
-
         NetworkHandler.register(MessagePortalInteract.class, Side.CLIENT);
     }
 
@@ -107,62 +109,54 @@ public class EndPortalRunes extends Feature
         if (isVanillaFrame || isModdedFrame) {
             World world = event.getWorld();
             BlockPos pos = event.getPos();
-            EntityPlayer player = event.getEntityPlayer();
             ItemStack held = event.getEntityPlayer().getHeldItem(event.getHand());
+            ItemStack drop = null;
+            EntityPlayer player = event.getEntityPlayer();
+            IBlockState changed = null;
 
-            boolean holdingRune = EndPortalRunes.quarkRunes.isRune(held);
-            boolean holdingEnderEye = held.getItem() == Items.ENDER_EYE;
-
-            if (holdingRune && !player.isSneaking()) {
+            if (EndPortalRunes.quarkRunes.isRune(held) && !player.isSneaking()) {
 
                 if (isVanillaFrame && current.getValue(BlockEndPortalFrame.EYE) && allowEnderEyeRemoval) {
-                    // if there's an eye then pop it
-                    PlayerHelper.addOrDropStack(player, new ItemStack(Items.ENDER_EYE, 1));
-                    EnumFacing frameFacing = current.getValue(BlockRunePortalFrame.FACING);
-                    world.setBlockState(pos, Blocks.END_PORTAL_FRAME.getDefaultState()
-                        .withProperty(BlockEndPortalFrame.FACING, frameFacing));
+                    drop = new ItemStack(Items.ENDER_EYE, 1);
+                    changed = Blocks.END_PORTAL_FRAME.getDefaultState()
+                        .withProperty(BlockEndPortalFrame.FACING, current.getValue(BlockRunePortalFrame.FACING));
                     deactivate(world, pos);
                 }
 
                 if (isModdedFrame) {
-                    // if there's a rune then pop it
-                    MesonBlock.ColorVariant frameColor = current.getValue(BlockRunePortalFrame.VARIANT);
-                    PlayerHelper.addOrDropStack(player, EndPortalRunes.quarkRunes.getRuneFromMeta(frameColor.ordinal()));
+                    drop = EndPortalRunes.quarkRunes.getRuneFromMeta(current.getValue(BlockRunePortalFrame.VARIANT).ordinal());
                 }
 
                 // add the rune to the portal frame
                 addRune(world, pos, held);
                 activate(world, pos);
 
-            } else if (!holdingEnderEye && player.isSneaking()) {
-
-                IBlockState changed = null;
+            } else if (player.isSneaking()) {
 
                 if (isVanillaFrame && !world.isRemote && current.getValue(BlockEndPortalFrame.EYE) && allowEnderEyeRemoval) {
-                    // if there 's an eye then pop it
-                    PlayerHelper.addOrDropStack(player, new ItemStack(Items.ENDER_EYE, 1));
-                    changed = Blocks.END_PORTAL_FRAME.getDefaultState()
-                        .withProperty(BlockEndPortalFrame.FACING, current.getValue(BlockEndPortalFrame.FACING));
+                    drop = new ItemStack(Items.ENDER_EYE, 1);
                 }
 
                 if (isModdedFrame) {
-                    // if there's a rune then pop it
-                    MesonBlock.ColorVariant frameColor = current.getValue(BlockRunePortalFrame.VARIANT);
-                    PlayerHelper.addOrDropStack(player, EndPortalRunes.quarkRunes.getRuneFromMeta(frameColor.ordinal()));
-
-                    EnumFacing frameFacing = current.getValue(BlockRunePortalFrame.FACING);
-                    changed = Blocks.END_PORTAL_FRAME.getDefaultState()
-                        .withProperty(BlockEndPortalFrame.FACING, frameFacing);
+                    drop = EndPortalRunes.quarkRunes.getRuneFromMeta(current.getValue(BlockRunePortalFrame.VARIANT).ordinal());
                 }
 
-                if (changed != null) {
-                    world.setBlockState(pos, changed, 3);
+                if (drop != null) {
+                    EnumFacing frameFacing = current.getValue(BlockEndPortalFrame.FACING);
+                    changed = Blocks.END_PORTAL_FRAME.getDefaultState().withProperty(BlockEndPortalFrame.FACING, frameFacing);
                 }
 
                 deactivate(world, pos);
-                event.setCanceled(true);
+                event.setCanceled(true); // don't allow click-through
             }
 
+            if (changed != null) {
+                world.setBlockState(pos, changed, 3);
+            }
+
+            if (drop != null) {
+                PlayerHelper.addOrDropStack(player, drop);
+            }
         }
     }
 
@@ -201,7 +195,7 @@ public class EndPortalRunes extends Feature
 
     public static void activate(World world, BlockPos pos)
     {
-        Map<Integer, List<String>> orderMap = new HashMap<>();
+        Map<Integer, List<Integer>> orderMap = new HashMap<>();
         BlockPos thisPortal;
         BlockPattern.PatternHelper pattern = BlockRunePortalFrame.getOrCreatePortalShape().match(world, pos);
 
@@ -215,7 +209,7 @@ public class EndPortalRunes extends Feature
                     if (state.getBlock() == frame) {
                         int face = state.getValue(BlockRunePortalFrame.FACING).getIndex();
                         if (!orderMap.containsKey(face)) orderMap.put(face, new ArrayList<>());
-                        orderMap.get(face).add(Integer.toString(frame.getMetaFromState(state)));
+                        orderMap.get(face).add(frame.getMetaFromState(state));
                     }
                 }
             }
@@ -226,20 +220,16 @@ public class EndPortalRunes extends Feature
             RunePortalSavedData data = RunePortalSavedData.get(world);
 
             if (data != null) {
-                List<String> order = new ArrayList<>();
+                List<Integer> order = new ArrayList<>();
 
                 for (int i : new int[] {2, 4, 3, 5}) {
-                    List<String> row = orderMap.get(i);
-//                    if (Integer.valueOf(row.get(2)) < Integer.valueOf(row.get(0))) {
-//                        Collections.reverse(row);
-//                    }
+                    List<Integer> row = orderMap.get(i);
                     Collections.sort(row);
                     order.addAll(row);
                 }
 
-                data.portals.put(thisPortal, String.join(" ", order));
+                data.portals.put(thisPortal, order.stream().mapToInt(i -> i).toArray());
                 removeCachedPortal(world, thisPortal);
-                data.markDirty();
             }
 
             if (findPortal(world, thisPortal) != null && !world.isRemote) {
@@ -282,7 +272,6 @@ public class EndPortalRunes extends Feature
                 if (data != null) {
                     data.portals.remove(thisPortal);
                     removeCachedPortal(world, thisPortal);
-                    data.markDirty();
                 }
 
                 if (!world.isRemote) {
@@ -311,28 +300,23 @@ public class EndPortalRunes extends Feature
                     data.links.remove(thisPortal);
                 }
             }
-//            {2=[1, 1, 14], 3=[1, 1, 1], 4=[9, 1, 1], 5=[1, 1, 1]}
-            //{2=[1, 1, 1], 3=[9, 1, 1], 4=[14, 1, 1], 5=[1, 1, 1]}
-
-            String order = data.portals.get(thisPortal);
+            List<Integer> o1 = Arrays.stream(data.portals.get(thisPortal)).boxed().collect(Collectors.toList());
 
             for (BlockPos portalPos : data.portals.keySet()) {
                 if (portalPos.toLong() == thisPortal.toLong()) continue;
 
-                String[] portalOrder = data.portals.get(portalPos).split(" ");
-                String[] newOrder = new String[portalOrder.length];
+                List<Integer> o2 = Arrays.stream(data.portals.get(portalPos)).boxed().collect(Collectors.toList());
                 boolean matched;
                 int w = 0;
 
-                // shift
-                do {
-                    Collections.rotate(Arrays.asList(portalOrder), 1);
-                    String n = String.join(" ", portalOrder);
-                    matched = order.equals(n);
-//                    Meson.log("trying " + order + " against " + n);
+                do { // shift array until found
+                    Collections.rotate(o2, 1);
+                    matched = o1.equals(o2);
                 } while (!matched && ++w < 12);
 
-                if (matched) matching.add(portalPos);
+                if (matched) {
+                    matching.add(portalPos);
+                }
             }
         }
 
@@ -362,7 +346,6 @@ public class EndPortalRunes extends Feature
         RunePortalSavedData data = RunePortalSavedData.get(world);
 
         if (data != null) {
-
             // find any cached portal linked to this
             BlockPos cachedPortal = data.links.get(portal);
             if (cachedPortal != null) {
@@ -378,67 +361,78 @@ public class EndPortalRunes extends Feature
     public static void effectPortalLinked(BlockPos pos)
     {
         World world = Minecraft.getMinecraft().world;
-        BlockPos current = pos.add(-3, 0, -3);
-        for (int j = 0; j < 3; j++) {
-            for (int k = 0; k < 3; k++) {
-                BlockPos p = current.add(j, 0, k);
-                for (int i = 0; i < 12; ++i) {
-                    double d0 = world.rand.nextGaussian() * 0.1D;
-                    double d1 = world.rand.nextGaussian() * 0.1D;
-                    double d2 = world.rand.nextGaussian() * 0.1D;
-                    double dx = (float) p.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
-                    double dy = (float) p.getY() + 1.1f;
-                    double dz = (float) p.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
-                    world.spawnParticle(EnumParticleTypes.PORTAL, dx, dy, dz, d0, d1, d2);
+        long time = world.getWorldTime();
+        if (clientLinkedTicks == 0 || time - clientLinkedTicks > 20) {
+            BlockPos current = pos.add(-3, 0, -3);
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    BlockPos p = current.add(j, 0, k);
+                    for (int i = 0; i < 12; ++i) {
+                        double d0 = world.rand.nextGaussian() * 0.1D;
+                        double d1 = world.rand.nextGaussian() * 0.1D;
+                        double d2 = world.rand.nextGaussian() * 0.1D;
+                        double dx = (float) p.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        double dy = (float) p.getY() + 1.1f;
+                        double dz = (float) p.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        world.spawnParticle(EnumParticleTypes.PORTAL, dx, dy, dz, d0, d1, d2);
+                    }
                 }
             }
+            SoundHelper.playSoundAtPos(world, pos, SoundEvents.BLOCK_PORTAL_TRIGGER, 0.8F, 1.45F);
+            clientLinkedTicks = time;
         }
-        SoundHelper.playSoundAtPos(world, pos, SoundEvents.BLOCK_PORTAL_TRIGGER,0.8F, 1.45F);
     }
 
     @SideOnly(Side.CLIENT)
     public static void effectPortalUnlinked(BlockPos pos)
     {
         World world = Minecraft.getMinecraft().world;
-        BlockPos current = pos.add(-3, 0, -3);
-        for (int j = 0; j < 3; j++) {
-            for (int k = 0; k < 3; k++) {
-                BlockPos p = current.add(j, 0, k);
-                for (int i = 0; i < 16; ++i) {
-                    double d0 = world.rand.nextGaussian() * 0.02D;
-                    double d1 = world.rand.nextGaussian() * 0.02D;
-                    double d2 = world.rand.nextGaussian() * 0.02D;
-                    double dx = (float)p.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
-                    double dy = (float)p.getY() + 0.5f;
-                    double dz = (float)p.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
-                    world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, dx, dy, dz, d0, d1, d2);
+        long time = world.getWorldTime();
+        if (clientUnlinkedTicks == 0 || time - clientUnlinkedTicks > 20) {
+            BlockPos current = pos.add(-3, 0, -3);
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    BlockPos p = current.add(j, 0, k);
+                    for (int i = 0; i < 16; ++i) {
+                        double d0 = world.rand.nextGaussian() * 0.02D;
+                        double d1 = world.rand.nextGaussian() * 0.02D;
+                        double d2 = world.rand.nextGaussian() * 0.02D;
+                        double dx = (float) p.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        double dy = (float) p.getY() + 0.5f;
+                        double dz = (float) p.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, dx, dy, dz, d0, d1, d2);
+                    }
                 }
             }
+            SoundHelper.playSoundAtPos(world, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 0.75F, 0.7F);
+            clientUnlinkedTicks = time;
         }
-
-        SoundHelper.playSoundAtPos(world, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE,0.75F, 0.7F);
     }
 
+    @SideOnly(Side.CLIENT)
     public static void effectPortalTravelled(BlockPos pos)
     {
         World world = Minecraft.getMinecraft().world;
-        BlockPos current = pos.add(-3, 0, -3);
-        for (int j = 0; j < 3; j++) {
-            for (int k = 0; k < 3; k++) {
-                BlockPos p = current.add(j, 0, k);
-                for (int i = 0; i < 6; ++i) {
-                    double d0 = world.rand.nextGaussian() * 0.1D;
-                    double d1 = world.rand.nextGaussian() * 0.1D;
-                    double d2 = world.rand.nextGaussian() * 0.1D;
-                    double dx = (float) p.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
-                    double dy = (float) p.getY() + 0.8f;
-                    double dz = (float) p.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
-                    world.spawnParticle(EnumParticleTypes.CLOUD, dx, dy, dz, d0, d1, d2);
+        long time = world.getWorldTime();
+        if (clientTravelTicks == 0 || time - clientTravelTicks > 20) {
+            BlockPos current = pos.add(-3, 0, -3);
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    BlockPos p = current.add(j, 0, k);
+                    for (int i = 0; i < 6; ++i) {
+                        double d0 = world.rand.nextGaussian() * 0.1D;
+                        double d1 = world.rand.nextGaussian() * 0.1D;
+                        double d2 = world.rand.nextGaussian() * 0.1D;
+                        double dx = (float) p.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        double dy = (float) p.getY() + 0.8f;
+                        double dz = (float) p.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        world.spawnParticle(EnumParticleTypes.CLOUD, dx, dy, dz, d0, d1, d2);
+                    }
                 }
             }
+            SoundHelper.playSoundAtPos(world, pos, SoundEvents.BLOCK_PORTAL_TRAVEL,0.75F, 1.0F);
+            clientTravelTicks = time;
         }
-
-        SoundHelper.playSoundAtPos(world, pos, SoundEvents.BLOCK_PORTAL_TRAVEL,0.75F, 1.0F);
     }
 
     @Override

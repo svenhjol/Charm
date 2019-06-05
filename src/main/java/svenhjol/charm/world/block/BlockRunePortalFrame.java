@@ -87,7 +87,11 @@ public class BlockRunePortalFrame extends MesonBlockTE<TileRunePortalFrame> impl
 
         TileRunePortalFrame portalFrame = getTileEntity(worldIn, pos);
         if (validTileEntity(portalFrame)) {
-            portalFrame.setFacing(placer.getHorizontalFacing().getOpposite());
+            EnumFacing facing = placer.getHorizontalFacing().getOpposite();
+            portalFrame.setFacing(facing);
+
+            IBlockState changed = state.withProperty(BlockRunePortalFrame.FACING, facing);
+            worldIn.setBlockState(pos, changed, 2);
         }
 
         // it's possible to put down a valid portal in creative mode
