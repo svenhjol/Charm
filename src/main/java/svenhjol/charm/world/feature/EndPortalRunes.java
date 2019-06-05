@@ -52,9 +52,19 @@ public class EndPortalRunes extends Feature
     public static long clientLinkedTicks;
 
     @Override
+    public String getDescription()
+    {
+        return "Add Colored Runes in Stronghold End Portal frames. Two portals with the same runes will be linked together.";
+    }
+
+    @Override
     public void setupConfig()
     {
-        allowEnderEyeRemoval = true;
+        allowEnderEyeRemoval = propBoolean("Allow Eyes of Ender removal",
+            "Eyes of Ender can be removed from End Portal frames by right-clicking when sneaking.\n" +
+                "If false, right-clicking with a rune replaces the Eye of Ender without returning it to the player.",
+            true
+        );
     }
 
     @Override
