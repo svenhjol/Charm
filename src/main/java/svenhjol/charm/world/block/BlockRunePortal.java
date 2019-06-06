@@ -31,7 +31,9 @@ public class BlockRunePortal extends BlockEndPortal implements IMesonBlock
     public BlockRunePortal()
     {
         super(Material.PORTAL);
-        this.register(getName());
+        setResistance(6000000f);
+        setHardness(-1.0f);
+        register(getName());
     }
 
     @Override

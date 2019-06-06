@@ -1,6 +1,7 @@
 package svenhjol.charm.world.block;
 
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -47,6 +48,9 @@ public class BlockRunePortalFrame extends MesonBlockTE<TileRunePortalFrame> impl
     public BlockRunePortalFrame()
     {
         super(Material.ROCK, "rune_portal_frame");
+        setHardness(-1.0f);
+        setResistance(6000000f);
+        setSoundType(SoundType.GLASS);
         setCreativeTab(CreativeTabs.DECORATIONS);
         setDefaultState(this.blockState.getBaseState()
             .withProperty(FACING, EnumFacing.NORTH)
