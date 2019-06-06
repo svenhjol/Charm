@@ -147,3 +147,8 @@
 ## 1.1.2
 
 * Added End Portal Runes
+
+## 1.1.3
+
+* Rune portal frames and blocks no longer breakable in survival mode. Fix #68
+* Barrel sounds no longer play when sneaking. Fix #67
