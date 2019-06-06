@@ -89,7 +89,7 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
 
             playerIn.openGui(Charm.instance, GuiHandler.BARREL, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
-        if (worldIn.isRemote) {
+        if (worldIn.isRemote && !playerIn.isSneaking()) {
             playerIn.playSound(CharmSounds.WOOD_OPEN, 1.0f, 1.0f);
         }
 
