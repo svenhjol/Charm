@@ -13,11 +13,9 @@ import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -26,6 +24,7 @@ import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.GuiHandler;
 import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.charm.crafting.tile.TileCrate;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonBlockTE;
 import svenhjol.meson.helper.EntityHelper;
 import svenhjol.meson.helper.SoundHelper;
@@ -168,6 +167,12 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
             return false;
         }
 
+        // debug mode testing loot tables
+        if (Meson.DEBUG && player.isCreative() && player.getHeldItem(hand) == ItemStack.EMPTY) {
+            setCreativeLootTable(world, pos);
+            world.notifyBlockUpdate(pos, state, state, 2);
+        }
+
         if (crate.hasLootTable()) {
             crate.generateLoot(player);
         }
@@ -263,5 +268,39 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
     public boolean isSealedCrate()
     {
         return this.type == Type.CRATE_SEALED;
+    }
+
+    // debug mode for testing loot tables
+    public void setCreativeLootTable(World world, BlockPos pos)
+    {
+        if (!world.isRemote) {
+
+            float f = world.rand.nextFloat();
+            Crate.RARITY rarity = Crate.RARITY.COMMON;
+            if (f <= 0.25) {
+                rarity = Crate.RARITY.RARE;
+            } else if (f <= 0.5) {
+                rarity = Crate.RARITY.VALUABLE;
+            } else if (f <= 0.75) {
+                rarity = Crate.RARITY.UNCOMMON;
+            }
+            TileCrate tile = getTileEntity(world, pos);
+            List<Crate.CrateType> types = Crate.types.get(rarity);
+            Crate.CrateType type = types.get(world.rand.nextInt(types.size()));
+            tile.setLootTable(type.pool);
+            tile.setName(type.pool.toString());
+            tile.setShowName(true);
+
+        } else {
+            for (int i = 0; i < 8; ++i) {
+                double d0 = world.rand.nextGaussian() * 0.02D;
+                double d1 = world.rand.nextGaussian() * 0.02D;
+                double d2 = world.rand.nextGaussian() * 0.02D;
+                double dx = (float)pos.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                double dy = (float)pos.getY() + 1.35f;
+                double dz = (float)pos.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, dx, dy, dz, d0, d1, d2);
+            }
+        }
     }
 }

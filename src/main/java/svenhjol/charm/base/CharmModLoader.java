@@ -3,6 +3,7 @@ package svenhjol.charm.base;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.Charm;
+import svenhjol.meson.Meson;
 import svenhjol.meson.ModLoader;
 import svenhjol.meson.helper.FileHelper;
 
@@ -17,6 +18,10 @@ public final class CharmModLoader extends ModLoader
     {
         // set up configuration
         File configFile = new File(event.getModConfigurationDirectory(), Charm.MOD_ID + ".cfg");
+
+        // debug mode
+        File debugFile = new File(event.getModConfigurationDirectory(), Charm.MOD_ID + ".debug.cfg");
+        Meson.DEBUG = debugFile.exists();
 
         // attempt backup if required
         FileHelper.backupConfigFile(configFile);
