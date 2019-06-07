@@ -28,37 +28,7 @@ public class LootHelper
         POTION
     }
 
-    // set up some initial loot table rarity using vanilla tables
-    private static Map<RARITY, HashMap<TYPE, List<ResourceLocation>>> lootTables = new HashMap<RARITY, HashMap<TYPE, List<ResourceLocation>>>() {{
-        put(RARITY.COMMON, new HashMap<TYPE, List<ResourceLocation>>() {{
-            put(TYPE.MISC, new ArrayList<ResourceLocation>() {{
-                add(LootTableList.CHESTS_VILLAGE_BLACKSMITH);
-                add(LootTableList.CHESTS_IGLOO_CHEST);
-            }});
-        }});
-        put(RARITY.UNCOMMON, new HashMap<TYPE, List<ResourceLocation>>() {{
-            put(TYPE.MISC, new ArrayList<ResourceLocation>() {{
-                add(LootTableList.CHESTS_SIMPLE_DUNGEON);
-                add(LootTableList.CHESTS_JUNGLE_TEMPLE);
-                add(LootTableList.CHESTS_WOODLAND_MANSION);
-                add(LootTableList.CHESTS_DESERT_PYRAMID);
-                add(LootTableList.CHESTS_ABANDONED_MINESHAFT);
-            }});
-        }});
-        put(RARITY.VALUABLE, new HashMap<TYPE, List<ResourceLocation>>() {{
-            put(TYPE.MISC, new ArrayList<ResourceLocation>() {{
-                add(LootTableList.CHESTS_STRONGHOLD_LIBRARY);
-                add(LootTableList.CHESTS_STRONGHOLD_CROSSING);
-                add(LootTableList.CHESTS_STRONGHOLD_CORRIDOR);
-                add(LootTableList.CHESTS_NETHER_BRIDGE);
-            }});
-        }});
-        put(RARITY.RARE, new HashMap<TYPE, List<ResourceLocation>>() {{
-            put(TYPE.MISC, new ArrayList<ResourceLocation>() {{
-                add(LootTableList.CHESTS_END_CITY_TREASURE);
-            }});
-        }});
-    }};
+    private static Map<RARITY, HashMap<TYPE, List<ResourceLocation>>> lootTables = new HashMap<>();
 
     public static ResourceLocation addLootLocation(RARITY rarity, TYPE type, ResourceLocation location)
     {
@@ -121,5 +91,37 @@ public class LootHelper
         if (!lootTables.get(rarity).containsKey(type)) {
             lootTables.get(rarity).put(type, new ArrayList<>());
         }
+    }
+
+    // set up some initial loot table rarity using vanilla tables
+    static {
+       lootTables.put(RARITY.COMMON, new HashMap<TYPE, List<ResourceLocation>>() {{
+            put(TYPE.MISC, new ArrayList<ResourceLocation>() {{
+                add(LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+                add(LootTableList.CHESTS_IGLOO_CHEST);
+            }});
+        }});
+       lootTables.put(RARITY.UNCOMMON, new HashMap<TYPE, List<ResourceLocation>>() {{
+            put(TYPE.MISC, new ArrayList<ResourceLocation>() {{
+                add(LootTableList.CHESTS_SIMPLE_DUNGEON);
+                add(LootTableList.CHESTS_JUNGLE_TEMPLE);
+                add(LootTableList.CHESTS_WOODLAND_MANSION);
+                add(LootTableList.CHESTS_DESERT_PYRAMID);
+                add(LootTableList.CHESTS_ABANDONED_MINESHAFT);
+            }});
+        }});
+       lootTables.put(RARITY.VALUABLE, new HashMap<TYPE, List<ResourceLocation>>() {{
+            put(TYPE.MISC, new ArrayList<ResourceLocation>() {{
+                add(LootTableList.CHESTS_STRONGHOLD_LIBRARY);
+                add(LootTableList.CHESTS_STRONGHOLD_CROSSING);
+                add(LootTableList.CHESTS_STRONGHOLD_CORRIDOR);
+                add(LootTableList.CHESTS_NETHER_BRIDGE);
+            }});
+        }});
+       lootTables.put(RARITY.RARE, new HashMap<TYPE, List<ResourceLocation>>() {{
+            put(TYPE.MISC, new ArrayList<ResourceLocation>() {{
+                add(LootTableList.CHESTS_END_CITY_TREASURE);
+            }});
+        }});
     }
 }
