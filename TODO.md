@@ -152,3 +152,9 @@
 
 * Rune portal frames and blocks no longer breakable in survival mode. Fix #68
 * Barrel sounds no longer play when sneaking. Fix #67
+
+## 1.1.4
+
+* Issue with treasure/junk loot table. Related to #69
+* Debug mode now enabled when a file called "charm.debug.cfg" exists in config dir
+* Added sealed crate loot table debug in creative mode
