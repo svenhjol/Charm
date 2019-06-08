@@ -5,6 +5,7 @@ import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -18,9 +19,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.charm.crafting.feature.EnderPearlBlock;
 import svenhjol.charm.tweaks.feature.FurnacesRecycleMore;
-import svenhjol.charm.tweaks.feature.RestrictFurnaceInput;
 import svenhjol.charm.tweaks.feature.LeatherArmorInvisibility;
+import svenhjol.charm.tweaks.feature.RestrictFurnaceInput;
 import svenhjol.charm.tweaks.feature.TamedAnimalsHealing;
+import svenhjol.charm.world.event.WitherDestroyBlockEvent;
 import svenhjol.charm.world.feature.MoreVillageBiomes;
 import svenhjol.meson.event.StructureEventBase.AddComponentPartsEvent;
 
@@ -99,5 +101,13 @@ public final class ASMHooks
             result = !(Block.getBlockFromItem(stack.getItem()) instanceof BlockShulkerBox);
         }
         return result;
+    }
+
+    public static Block canWitherDestroyBlock(Block block)
+    {
+        WitherDestroyBlockEvent event = new WitherDestroyBlockEvent(block);
+        MinecraftForge.EVENT_BUS.post(event);
+
+        return event.getResult() == Event.Result.DENY ? Blocks.BEDROCK : block;
     }
 }

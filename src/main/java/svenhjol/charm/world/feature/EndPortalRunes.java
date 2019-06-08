@@ -1,5 +1,6 @@
 package svenhjol.charm.world.feature;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockEndPortal;
 import net.minecraft.block.BlockEndPortalFrame;
 import net.minecraft.block.state.IBlockState;
@@ -20,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -28,6 +30,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.world.block.BlockRunePortal;
 import svenhjol.charm.world.block.BlockRunePortalFrame;
 import svenhjol.charm.world.compat.QuarkColoredRunes;
+import svenhjol.charm.world.event.WitherDestroyBlockEvent;
 import svenhjol.charm.world.message.MessagePortalInteract;
 import svenhjol.charm.world.storage.RunePortalSavedData;
 import svenhjol.charm.world.tile.TileRunePortalFrame;
@@ -107,6 +110,15 @@ public class EndPortalRunes extends Feature
     {
         World world = event.getWorld();
         RunePortalSavedData.get(world);
+    }
+
+    @SubscribeEvent
+    public void onWitherDestroyBlock(WitherDestroyBlockEvent event)
+    {
+        Block block = event.getBlock();
+        if (block == portal || block == frame) {
+            event.setResult(Event.Result.DENY);
+        }
     }
 
     @SubscribeEvent
