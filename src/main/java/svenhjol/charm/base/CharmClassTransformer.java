@@ -16,6 +16,7 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/client/renderer/entity/layers/LayerArmorBase", "cbp",
             "net/minecraft/entity/Entity", "vg",
             "net/minecraft/entity/EntityLivingBase", "vp",
+            "net/minecraft/entity/boss/EntityWither", "abx",
             "net/minecraft/entity/player/EntityPlayer", "aed",
             "net/minecraft/entity/player/EntityPlayer$SleepResult", "aed$a",
             "net/minecraft/entity/player/EntityPlayerMP", "oq",
@@ -46,16 +47,12 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/world/World", "amu"
         );
 
-//        LINENUMBER 188 L15
-//        ALOAD 0
-//        ICONST_0
-//        PUTFIELD net/minecraft/inventory/ContainerRepair.materialCost : I
-
         transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry", CharmClassTransformer::transformBrewingRecipeRegistry);
         transformers.put("net.minecraft.inventory.ContainerFurnace", CharmClassTransformer::transformContainerFurnace);
         transformers.put("net.minecraft.inventory.ContainerRepair", CharmClassTransformer::transformContainerRepair);
         transformers.put("net.minecraft.inventory.ContainerRepair$2", CharmClassTransformer::transformContainerRepair2);
         transformers.put("net.minecraft.inventory.SlotShulkerBox", CharmClassTransformer::transformSlotShulkerBox);
+        transformers.put("net.minecraft.entity.boss.EntityWither", CharmClassTransformer::transformEntityWither);
         transformers.put("net.minecraft.entity.player.EntityPlayer", CharmClassTransformer::transformEntityPlayer);
         transformers.put("net.minecraft.item.ItemChorusFruit", CharmClassTransformer::transformItemChorusFruit);
         transformers.put("net.minecraft.client.renderer.entity.layers.LayerArmorBase", CharmClassTransformer::transformLayerArmorBase);
@@ -244,15 +241,6 @@ public class CharmClassTransformer extends MesonClassTransformer
             }
         )));
 
-//        LINENUMBER 21 L0
-//        ALOAD 1
-//        INVOKEVIRTUAL net/minecraft/item/ItemStack.getItem ()Lnet/minecraft/item/Item;
-//        INVOKESTATIC net/minecraft/block/Block.getBlockFromItem (Lnet/minecraft/item/Item;)Lnet/minecraft/block/Block;
-//        INSTANCEOF net/minecraft/block/BlockShulkerBox
-//        IFNE L1
-//        ICONST_1
-//        GOTO L2
-
         return transClass;
     }
 
@@ -409,6 +397,29 @@ public class CharmClassTransformer extends MesonClassTransformer
 
                 method.instructions.insertBefore(node, newInstructions);
                 method.instructions.remove(node);
+                return true;
+            }
+        )));
+
+        return transClass;
+    }
+
+    private static byte[] transformEntityWither(byte[] basicClass)
+    {
+        if (!checkTransformers(CharmLoadingPlugin.config,"EntityWither")) return basicClass;
+        log("Transforming EntityWither");
+
+        MethodSignature canDestroyBlock = new MethodSignature("canDestroyBlock", "func_181033_a", "a", "(Lnet/minecraft/block/Block;)Z");
+        byte[] transClass = basicClass;
+
+        transClass = transform(transClass, Pair.of(canDestroyBlock, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ALOAD && ((VarInsnNode)node).var == 0,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList newInstructions = new InsnList();
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "canWitherDestroyBlock", "(Lnet/minecraft/block/Block;)Lnet/minecraft/block/Block;", false));
+                newInstructions.add(new VarInsnNode(Opcodes.ASTORE, 0));
+                method.instructions.insertBefore(node, newInstructions);
                 return true;
             }
         )));
