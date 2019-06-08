@@ -162,3 +162,4 @@
 ## 1.1.5
 
 * Wither no longer able to destroy End Portal Rune blocks and portal. Fix #75
+* No longer performs config backup

@@ -5,7 +5,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.Charm;
 import svenhjol.meson.Meson;
 import svenhjol.meson.ModLoader;
-import svenhjol.meson.helper.FileHelper;
 
 import java.io.File;
 
@@ -24,7 +23,7 @@ public final class CharmModLoader extends ModLoader
         Meson.DEBUG = debugFile.exists();
 
         // attempt backup if required
-        FileHelper.backupConfigFile(configFile);
+//        FileHelper.backupConfigFile(configFile);
 
         config = new Configuration(configFile, Charm.MOD_VERSION, true);
         config.load();
