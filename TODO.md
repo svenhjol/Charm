@@ -158,3 +158,7 @@
 * Issue with treasure/junk loot table. Related to #69
 * Debug mode now enabled when a file called "charm.debug.cfg" exists in config dir
 * Added sealed crate loot table debug in creative mode
+
+## 1.1.5
+
+* Wither no longer able to destroy End Portal Rune blocks and portal. Fix #75
