@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,6 +34,7 @@ public class BlockRunePortal extends BlockEndPortal implements IMesonBlock
         super(Material.PORTAL);
         setResistance(6000000f);
         setHardness(-1.0f);
+        setBlockUnbreakable();
         register(getName());
     }
 
@@ -81,6 +83,12 @@ public class BlockRunePortal extends BlockEndPortal implements IMesonBlock
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileRunePortal();
+    }
+
+    @Override
+    public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity)
+    {
+        return false;
     }
 
     @Override

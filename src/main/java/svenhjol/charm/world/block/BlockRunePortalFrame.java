@@ -49,7 +49,9 @@ public class BlockRunePortalFrame extends MesonBlockTE<TileRunePortalFrame> impl
     {
         super(Material.ROCK, "rune_portal_frame");
         setHardness(-1.0f);
+        setBlockUnbreakable();
         setResistance(6000000f);
+        setLightLevel(0.125f);
         setSoundType(SoundType.GLASS);
         setCreativeTab(CreativeTabs.DECORATIONS);
         setDefaultState(this.blockState.getBaseState()
@@ -111,6 +113,12 @@ public class BlockRunePortalFrame extends MesonBlockTE<TileRunePortalFrame> impl
         }
 
         return variants.toArray(new String[0]);
+    }
+
+    @Override
+    public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity)
+    {
+        return false;
     }
 
     @SuppressWarnings("deprecation")
