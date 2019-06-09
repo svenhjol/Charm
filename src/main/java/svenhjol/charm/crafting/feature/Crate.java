@@ -3,17 +3,28 @@ package svenhjol.charm.crafting.feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -26,8 +37,10 @@ import svenhjol.charm.crafting.block.BlockCrate;
 import svenhjol.charm.crafting.client.RenderTileCrate;
 import svenhjol.charm.crafting.tile.TileCrate;
 import svenhjol.meson.Feature;
+import svenhjol.meson.MesonItemBlock;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
+import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.helper.LootHelper;
 
 import java.util.*;
@@ -39,6 +52,9 @@ public class Crate extends Feature
     public static float hardness;
     public static boolean showCrateNames;
     public static int xpCost;
+    public static boolean crateTooltip;
+    public static boolean requireShift;
+    public static ResourceLocation WIDGET_RESOURCE;
 
     public enum RARITY {
         COMMON,
@@ -59,8 +75,7 @@ public class Crate extends Feature
         public CrateType(String id, ResourceLocation pool)
         {
             this.id = id;
-            //noinspection deprecation
-            this.name = I18n.translateToLocal(id) + " " + I18n.translateToLocal("crate"); // deprecated, but what's the alternative?
+            this.name = I18n.format(id) + " " + I18n.format("crate");
             this.pool = pool;
         }
     }
@@ -92,6 +107,16 @@ public class Crate extends Feature
                 "Amount of XP (levels) required to use a name tag to seal a crate.",
                 0
         );
+        crateTooltip = propBoolean(
+                "Crate tooltip",
+                "Shows tooltip containing crate contents when hovering over the crate in the inventory.",
+                true
+        );
+        requireShift = propBoolean(
+                "Tooltip shift key",
+                "Crate tooltip needs the shift key held down to be visible",
+                false
+        );
 
         // internal
         hardness = 1.0f;
@@ -109,7 +134,7 @@ public class Crate extends Feature
         blacklist.add(BlockCrate.class);
         blacklist.add(BlockShulkerBox.class);
 
-        //  get all loot tables for each rarity type
+        // get all loot tables for each rarity type
         Map<RARITY, List<ResourceLocation>> map = new HashMap<RARITY, List<ResourceLocation>>() {{
             put(RARITY.COMMON, LootHelper.getLootTables(LootHelper.RARITY.COMMON, LootHelper.TYPE.MISC));
             put(RARITY.UNCOMMON, LootHelper.getLootTables(LootHelper.RARITY.UNCOMMON, LootHelper.TYPE.MISC));
@@ -237,6 +262,106 @@ public class Crate extends Feature
         }
     }
 
+    // some of this is copypasta from Quark ShulkerBoxTooltip
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void makeTooltip(ItemTooltipEvent event)
+    {
+        if (!event.getItemStack().isEmpty()
+            && event.getItemStack().getItem() instanceof MesonItemBlock
+            && ((MesonItemBlock) event.getItemStack().getItem()).getBlock() instanceof BlockCrate
+            && event.getItemStack().hasTagCompound()
+        ) {
+            NBTTagCompound tag = ItemNBTHelper.getCompound(event.getItemStack(), "BlockEntityTag");
+            if (!tag.isEmpty()) {
+                List<String> tooltip = event.getToolTip();
+                List<String> tooltipCopy = new ArrayList<>(tooltip);
+
+                for (int i = 1; i < tooltipCopy.size(); i++) {
+                    String s = tooltipCopy.get(i);
+                    if(!s.startsWith("\u00a7") || s.startsWith("\u00a7o")) {
+                        tooltip.remove(s);
+                    }
+                }
+
+                if (requireShift && !GuiScreen.isShiftKeyDown()) {
+                    tooltip.add(1, I18n.format("charm.crate_tooltip_shift"));
+                }
+            }
+        }
+    }
+
+    // some of this is copypasta from Quark ShulkerBoxTooltip
+    @SubscribeEvent
+    public void renderTooltip(RenderTooltipEvent.PostText event)
+    {
+        if (!event.getStack().isEmpty()
+            && event.getStack().getItem() instanceof MesonItemBlock
+            && ((MesonItemBlock) event.getStack().getItem()).getBlock() instanceof BlockCrate
+            && event.getStack().hasTagCompound()
+            && (!requireShift || GuiScreen.isShiftKeyDown())
+        ) {
+            NBTTagCompound tag = ItemNBTHelper.getCompound(event.getStack(), "BlockEntityTag");
+            if (!tag.isEmpty() && tag.hasKey("inventory")) {
+                Minecraft mc = Minecraft.getMinecraft();
+                ScaledResolution res = new ScaledResolution(mc);
+
+                // only show sealed crates in creative mode
+                if (((BlockCrate) ((MesonItemBlock) event.getStack().getItem()).getBlock()).isSealedCrate()
+                    && !mc.player.isCreative()) return;
+
+                int x = event.getX() - 5;
+                int y = event.getY() - 35;
+                int w = 172;
+                int h = 64;
+                int right = x + w;
+
+                if (y < 0) {
+                    y = event.getY() + event.getLines().size() * 10 + 5;
+                }
+
+                if (right > res.getScaledWidth()) {
+                    x -= (right - res.getScaledWidth());
+                }
+
+                GlStateManager.pushMatrix();
+                RenderHelper.enableStandardItemLighting();
+                GlStateManager.enableRescaleNormal();
+                GlStateManager.color(1f, 1f, 1f);
+                GlStateManager.translate(0, 0, 700);
+
+                mc.getTextureManager().bindTexture(WIDGET_RESOURCE);
+
+                RenderHelper.disableStandardItemLighting();
+                Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, 256, 256);
+                GlStateManager.color(1f, 1f, 1f);
+                NonNullList<ItemStack> items = NonNullList.withSize(TileCrate.SIZE, ItemStack.EMPTY);
+                ItemStackHelper.loadAllItems(tag.getCompoundTag("inventory"), items);
+
+                RenderItem render = mc.getRenderItem();
+                RenderHelper.enableGUIStandardItemLighting();
+                GlStateManager.enableDepth();
+
+                int i = 0;
+                for (ItemStack item : items) {
+                    int xp = x + 6 + (i % 9) * 18;
+                    int yp = y + 6 + (i / 9) * 18;
+
+                    if (!item.isEmpty()) {
+                        render.renderItemAndEffectIntoGUI(item, xp, yp);
+                        render.renderItemOverlays(mc.fontRenderer, item, xp, yp);
+                    }
+
+                    i++;
+                }
+
+                GlStateManager.disableDepth();
+                GlStateManager.disableRescaleNormal();
+                GlStateManager.popMatrix();
+            }
+        }
+    }
+
     public static boolean canInsertItem(ItemStack stack)
     {
         Class<? extends Block> clazz = Block.getBlockFromItem(stack.getItem()).getClass();
@@ -282,5 +407,10 @@ public class Crate extends Feature
     public boolean hasSubscriptions()
     {
         return true;
+    }
+
+    static
+    {
+        WIDGET_RESOURCE = new ResourceLocation(Charm.MOD_ID, "textures/misc/crate_widget.png");
     }
 }
