@@ -21,6 +21,12 @@ public class ShearedMelons extends Feature
     }
 
     @Override
+    public String[] getDisableMods()
+    {
+        return new String[] { "inspirations" };
+    }
+
+    @Override
     public void setupConfig()
     {
         // internal
