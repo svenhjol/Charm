@@ -75,7 +75,8 @@ public class Crate extends Feature
         public CrateType(String id, ResourceLocation pool)
         {
             this.id = id;
-            this.name = I18n.format(id) + " " + I18n.format("crate");
+            //noinspection deprecation
+            this.name = net.minecraft.util.text.translation.I18n.translateToLocal(id) + " " + net.minecraft.util.text.translation.I18n.translateToLocal("crate");
             this.pool = pool;
         }
     }
@@ -292,6 +293,7 @@ public class Crate extends Feature
     }
 
     // some of this is copypasta from Quark ShulkerBoxTooltip
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void renderTooltip(RenderTooltipEvent.PostText event)
     {
