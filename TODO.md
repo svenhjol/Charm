@@ -164,8 +164,9 @@
 * Wither no longer able to destroy End Portal Rune blocks and portal. Fix #75
 * No longer performs config backup
 
-## 1.1.6
+## 1.1.7
 
 * Wither now can't destroy End Portal Rune blocks. For real this time. Fix #76
 * Crates have hover tooltip when in the inventory. Fix #74
 * Rune portal frame lighting fix to match End portal frame
+* Extra records have volume explicitly set to 1.0 (max) now. Fix #77
