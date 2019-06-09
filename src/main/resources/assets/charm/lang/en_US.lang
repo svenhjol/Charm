@@ -164,6 +164,7 @@ crate_sealed=Sealed Crate
 compass=Compass
 dimension=Dimension
 number_of_uses=Number of uses
+charm.crate_tooltip_shift=Hold Shift to see contents
 
 # Loot location classifications
 common=Common
