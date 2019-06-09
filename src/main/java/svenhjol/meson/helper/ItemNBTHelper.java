@@ -45,6 +45,11 @@ public class ItemNBTHelper
         getNBT(stack).setLong(tag, l);
     }
 
+    public static NBTTagCompound getCompound(ItemStack stack, String tag)
+    {
+        return tagExists(stack, tag) ? getNBT(stack).getCompoundTag(tag) : new NBTTagCompound();
+    }
+
     public static NBTTagCompound getNBT(ItemStack stack)
     {
         if (!stack.hasTagCompound()) {
