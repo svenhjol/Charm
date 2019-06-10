@@ -15,6 +15,7 @@ public class Lantern extends Feature
     public static float hardness;
     public static float resistance;
     public static float lightLevel;
+    public static int numberOfLanterns;
     public static boolean falling;
     public static boolean playSound;
     public static boolean useCharmLanterns;
@@ -46,6 +47,12 @@ public class Lantern extends Feature
             false
         );
 
+        numberOfLanterns = propInt(
+            "Number of lanterns crafted",
+            "Number of lanterns output when crafting a lantern.",
+            1
+        );
+
         // internal
         hardness = 2.0f;
         resistance = 4.0f;
@@ -58,7 +65,7 @@ public class Lantern extends Feature
         if (useCharmLanterns || !ConfigHelper.checkMods("minecraftfuture")) {
             // register iron lantern if not overridden by other mods
             ironLantern = new BlockLantern("iron");
-            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, 2),
+            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, numberOfLanterns),
                 "III", "ITI", "III",
                 'I', Items.IRON_NUGGET,
                 'T', Blocks.TORCH
@@ -66,7 +73,7 @@ public class Lantern extends Feature
         }
 
         goldLantern = new BlockLantern("gold");
-        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(goldLantern, 2),
+        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(goldLantern, numberOfLanterns),
             "GGG", "GTG", "GGG",
             'G', Items.GOLD_NUGGET,
             'T', Blocks.TORCH
