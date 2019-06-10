@@ -39,7 +39,7 @@ import java.util.Objects;
 
 public class FlavoredCake extends Feature
 {
-    public static Map<String, BlockFlavoredCake> cakes2 = new HashMap<>();
+    public static Map<String, BlockFlavoredCake> cakes = new HashMap<>();
     public static Map<PotionType, BlockFlavoredCake> cakeTypes = new HashMap<>();
     public static String[] validPotions; // potions that can be made into cakes
     public static double multiplier; // in seconds
@@ -91,7 +91,7 @@ public class FlavoredCake extends Feature
             }
 
             BlockFlavoredCake cake = new BlockFlavoredCake(baseName);
-            cakes2.put(name, cake);
+            cakes.put(name, cake);
 
             // add flavored cakes to the composter inputs
             if (Charm.hasFeature(Composter.class)) {
@@ -108,11 +108,11 @@ public class FlavoredCake extends Feature
     @Override
     public void init(FMLInitializationEvent event)
     {
-        for (String name : cakes2.keySet()) {
+        for (String name : cakes.keySet()) {
             String longName;
             String strongName;
             PotionType type = null;
-            BlockFlavoredCake cake = cakes2.get(name);
+            BlockFlavoredCake cake = cakes.get(name);
             int duration = 0;
 
             if (name.contains(":")) {
