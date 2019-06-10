@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.meson.iface.IMesonBlock;
 
 public class ItemFlavoredCake extends ItemBlock
@@ -13,6 +15,7 @@ public class ItemFlavoredCake extends ItemBlock
         super(block);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public String getItemStackDisplayName(ItemStack stack)
     {
