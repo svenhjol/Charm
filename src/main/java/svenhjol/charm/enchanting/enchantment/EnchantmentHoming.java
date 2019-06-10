@@ -16,6 +16,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.enchanting.feature.Homing;
 import svenhjol.meson.MesonEnchantment;
+import svenhjol.meson.helper.EnchantmentHelper;
 import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.helper.WorldHelper;
 
@@ -64,7 +65,9 @@ public class EnchantmentHoming extends MesonEnchantment
     {
         ItemStack held = event.getEntityPlayer().getHeldItem(event.getHand());
 
-        if (held.getItem() instanceof ItemHoe) {
+        if (held.getItem() instanceof ItemHoe
+            && EnchantmentHelper.hasEnchantment(this, held)
+        ) {
             World world = event.getWorld();
             EntityPlayer player = event.getEntityPlayer();
 
