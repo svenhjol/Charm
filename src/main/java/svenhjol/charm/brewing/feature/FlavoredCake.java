@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,7 +39,8 @@ import java.util.Objects;
 
 public class FlavoredCake extends Feature
 {
-    public static Map<PotionType, BlockFlavoredCake> cakes = new HashMap<>();
+    public static Map<String, BlockFlavoredCake> cakes2 = new HashMap<>();
+    public static Map<PotionType, BlockFlavoredCake> cakeTypes = new HashMap<>();
     public static String[] validPotions; // potions that can be made into cakes
     public static double multiplier; // in seconds
 
@@ -67,7 +69,10 @@ public class FlavoredCake extends Feature
                 "fire_resistance",
                 "water_breathing",
                 "invisibility",
-                "night_vision"
+                "night_vision",
+                "quark:danger_sight",
+                "quark:haste",
+                "quark:resistance"
             }
         );
     }
@@ -76,30 +81,17 @@ public class FlavoredCake extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         for (String name : validPotions) {
+            String baseName;
 
-            // try for long potion, on failure try normal
-            PotionType type = PotionType.getPotionTypeForName("long_" + name);
-            if (type == null) {
-                type = PotionType.getPotionTypeForName(name);
-                if (type == null) {
-                    Meson.runtimeException("Could not load potion " + name + " when registering cake");
-                }
+            if (name.contains(":")) {
+                String[] split = name.split(":");
+                baseName = split[1];
+            } else {
+                baseName = name;
             }
 
-            ItemStack potionItem = ItemHelper.getPotionBottle(1, type);
-
-            // get duration from potion to be applied
-            List<PotionEffect> effects = PotionUtils.getEffectsFromStack(potionItem);
-            int duration = 0;
-            for (PotionEffect effect : effects) {
-                duration = Math.max(duration, effect.getDuration());
-            }
-            if (duration == 0) {
-                duration = 10;
-            }
-
-            BlockFlavoredCake cake = new BlockFlavoredCake(name, potionItem, (int)(duration * multiplier));
-            cakes.put(type, cake);
+            BlockFlavoredCake cake = new BlockFlavoredCake(baseName);
+            cakes2.put(name, cake);
 
             // add flavored cakes to the composter inputs
             if (Charm.hasFeature(Composter.class)) {
@@ -111,6 +103,51 @@ public class FlavoredCake extends Feature
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.POTIONITEM, new DispenseHandlerImbue());
 
         NetworkHandler.register(MessageCakeImbue.class, Side.CLIENT);
+    }
+
+    @Override
+    public void init(FMLInitializationEvent event)
+    {
+        for (String name : cakes2.keySet()) {
+            String longName;
+            String strongName;
+            PotionType type = null;
+            BlockFlavoredCake cake = cakes2.get(name);
+            int duration = 0;
+
+            if (name.contains(":")) {
+                String[] split = name.split(":");
+                String modName = split[0];
+                longName = modName + ":long_" + split[1];
+                strongName = modName + ":strong_" + split[1];
+            } else {
+                longName = "long_" + name;
+                strongName = "strong_" + name;
+            }
+
+            String[] names = new String[] {longName, strongName, name};
+            for (String n : names) {
+                type = PotionType.getPotionTypeForName(n);
+                if (type == null || type.getEffects().isEmpty()) continue;
+                break;
+            }
+
+            if (type == null || type.getEffects().isEmpty()) {
+                Meson.log("Cannot find PotionType for " + name + ", skipping");
+                continue;
+            }
+
+            ItemStack potionItem = ItemHelper.getPotionBottle(1, type);
+            List<PotionEffect> effects = PotionUtils.getEffectsFromStack(potionItem);
+
+            for (PotionEffect effect : effects) {
+                duration = Math.max(duration, effect.getDuration());
+            }
+            if (duration == 0) duration = 10;
+
+            cake.setPotionItem(potionItem, duration);
+            cakeTypes.put(type, cake);
+        }
     }
 
     @SubscribeEvent
@@ -128,9 +165,9 @@ public class FlavoredCake extends Feature
         if (world.getBlockState(pos).getBlock() == Blocks.CAKE) {
             PotionType potionItem = PotionUtils.getPotionFromItem(item);
 
-            if (FlavoredCake.cakes.containsKey(potionItem)) {
+            if (FlavoredCake.cakeTypes.containsKey(potionItem)) {
                 IBlockState current = world.getBlockState(pos);
-                IBlockState imbued = FlavoredCake.cakes.get(potionItem).getDefaultState().withProperty(BlockFlavoredCake.BITES, current.getValue(BlockFlavoredCake.BITES));
+                IBlockState imbued = FlavoredCake.cakeTypes.get(potionItem).getDefaultState().withProperty(BlockFlavoredCake.BITES, current.getValue(BlockFlavoredCake.BITES));
                 world.setBlockState(pos, imbued, 2);
                 item.shrink(1);
 
