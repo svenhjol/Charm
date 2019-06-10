@@ -170,3 +170,24 @@
 * Crates have hover tooltip when in the inventory. Fix #74
 * Rune portal frame lighting fix to match End portal frame
 * Extra records have volume explicitly set to 1.0 (max) now. Fix #77
+
+## 1.1.8
+
+* Flavored Cakes now supports quark potions.  Fix #72.
+* New configs add them automatically, but you can add quark's to your existing config like so:
+```
+    S:"Effect potion types" <
+        swiftness
+        strength
+        leaping
+        regeneration
+        fire_resistance
+        water_breathing
+        invisibility
+        night_vision
+        quark:danger_sight
+        quark:haste
+        quark:resistance
+     >
+```
+* Now checking for homing enchantment on hoe.  Fix #79
