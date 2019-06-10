@@ -3,6 +3,7 @@ package svenhjol.charm.crafting.block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -13,6 +14,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,6 +37,8 @@ public class BlockComposter extends MesonBlockTE<TileComposter> implements IMeso
         setCreativeTab(CreativeTabs.DECORATIONS);
         setDefaultState(blockState.getBaseState().withProperty(LEVEL, 0));
         setTickRandomly(true);
+
+        this.useNeighborBrightness = true;
     }
 
     @Override
@@ -118,5 +122,19 @@ public class BlockComposter extends MesonBlockTE<TileComposter> implements IMeso
     public void playAddItemSound(World world, BlockPos pos)
     {
         SoundHelper.playSoundAtPos(world, pos, SoundEvents.BLOCK_CLOTH_BREAK, 1.0f, 1.0f);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
+    {
+        return face == EnumFacing.UP ? BlockFaceShape.BOWL : BlockFaceShape.SOLID;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean isOpaqueCube(IBlockState state)
+    {
+        return false;
     }
 }
