@@ -304,7 +304,10 @@ public class Crate extends Feature
             && (!requireShift || GuiScreen.isShiftKeyDown())
         ) {
             NBTTagCompound tag = ItemNBTHelper.getCompound(event.getStack(), "BlockEntityTag");
-            if (!tag.isEmpty() && tag.hasKey("inventory")) {
+            if (!tag.isEmpty() && tag.hasKey("inventory") && !tag.getCompoundTag("inventory").getTagList("Items", 10).isEmpty()) {
+                NonNullList<ItemStack> items = NonNullList.withSize(TileCrate.SIZE, ItemStack.EMPTY);
+                ItemStackHelper.loadAllItems(tag.getCompoundTag("inventory"), items);
+
                 Minecraft mc = Minecraft.getMinecraft();
                 ScaledResolution res = new ScaledResolution(mc);
 
@@ -337,8 +340,6 @@ public class Crate extends Feature
                 RenderHelper.disableStandardItemLighting();
                 Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, 256, 256);
                 GlStateManager.color(1f, 1f, 1f);
-                NonNullList<ItemStack> items = NonNullList.withSize(TileCrate.SIZE, ItemStack.EMPTY);
-                ItemStackHelper.loadAllItems(tag.getCompoundTag("inventory"), items);
 
                 RenderItem render = mc.getRenderItem();
                 RenderHelper.enableGUIStandardItemLighting();
