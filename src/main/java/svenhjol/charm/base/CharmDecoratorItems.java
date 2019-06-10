@@ -26,7 +26,7 @@ public class CharmDecoratorItems extends MesonDecoratorItems
         BlockCake cakeType;
 
         if (Charm.hasFeature(FlavoredCake.class)) {
-            Object[] values = FlavoredCake.cakes.values().toArray();
+            Object[] values = FlavoredCake.cakeTypes.values().toArray();
             cakeType = (BlockFlavoredCake) values[generator.getRand().nextInt(values.length)];
         } else {
             cakeType = (BlockCake) Blocks.CAKE;
