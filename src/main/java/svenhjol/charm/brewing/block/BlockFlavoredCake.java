@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
@@ -22,6 +21,8 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
+import svenhjol.charm.brewing.feature.FlavoredCake;
+import svenhjol.charm.brewing.item.ItemFlavoredCake;
 import svenhjol.meson.ProxyRegistry;
 import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomItemBlockModel;
@@ -38,24 +39,27 @@ public class BlockFlavoredCake extends BlockCake implements IMesonBlock, IHasCus
     private static ModelResourceLocation MODEL_INVENTORY = new ModelResourceLocation(new ResourceLocation("minecraft", "cake"), "inventory");
     protected Material material;
 
-
-    public BlockFlavoredCake(String name, ItemStack potionItem, int duration)
+    public BlockFlavoredCake(String name)
     {
         this.name = "cake_" + name;
-
         register(this.name);
         setCreativeTab(CreativeTabs.BREWING);
         setSoundType(SoundType.CLOTH);
         setDefaultState(blockState.getBaseState().withProperty(BITES, 0));
+
         this.material = Material.CAKE;
-        this.duration = duration;
+    }
+
+    public void setPotionItem(ItemStack potionItem, int duration)
+    {
         this.potionItem = potionItem;
+        this.duration = (int)(duration * FlavoredCake.multiplier);
     }
 
     @Override
     public void registerItemBlock(Block block, String name)
     {
-        ProxyRegistry.register( new ItemBlock(this)
+        ProxyRegistry.register( new ItemFlavoredCake(this)
             .setMaxStackSize(getMaxStackSize())
             .setRegistryName(new ResourceLocation(getModId() + ":" + name))
         );
