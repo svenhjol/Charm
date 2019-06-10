@@ -17,6 +17,7 @@ public class Lantern extends Feature
     public static float lightLevel;
     public static boolean falling;
     public static boolean playSound;
+    public static boolean useCharmLanterns;
 
     @Override
     public String getDescription()
@@ -39,6 +40,12 @@ public class Lantern extends Feature
             true
         );
 
+        useCharmLanterns = propBoolean(
+            "Use Charm lanterns",
+            "Charm's lanterns will be enabled even if lanterns from other mods are present.",
+            false
+        );
+
         // internal
         hardness = 2.0f;
         resistance = 4.0f;
@@ -48,7 +55,7 @@ public class Lantern extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        if (!ConfigHelper.checkMods("minecraftfuture")) {
+        if (useCharmLanterns || !ConfigHelper.checkMods("minecraftfuture")) {
             // register iron lantern if not overridden by other mods
             ironLantern = new BlockLantern("iron");
             RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, 2),
