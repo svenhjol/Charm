@@ -94,16 +94,6 @@ subtitle.charm.spectre.walk=Spooky spectre noise
 subtitle.charm.spectre.hit=A spectre hit you!
 subtitle.charm.whispers=You hear whispering sounds around you
 
-# Cakes
-tile.charm:cake_swiftness.name=Cake of Swiftness
-tile.charm:cake_strength.name=Cake of Strength
-tile.charm:cake_leaping.name=Cake of Leaping
-tile.charm:cake_regeneration.name=Cake of Regeneration
-tile.charm:cake_fire_resistance.name=Cake of Fire Resistance
-tile.charm:cake_water_breathing.name=Cake of Water Breathing
-tile.charm:cake_invisibility.name=Cake of Invisibility
-tile.charm:cake_night_vision.name=Cake of Night Vision
-
 # Records
 item.charm:record_creative1.name=Creative Music Disc
 item.charm:record_creative2.name=Creative Music Disc
@@ -159,6 +149,7 @@ item.record.charm:menu3.desc=C418 - Beginning 2
 item.record.charm:menu4.desc=C418 - Floating Trees
 
 # Misc strings
+charm.cake_of=Cake of
 crate=Crate
 crate_sealed=Sealed Crate
 compass=Compass
