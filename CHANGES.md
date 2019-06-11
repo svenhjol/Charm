@@ -199,3 +199,7 @@
 * Crates with no items no longer show hover. Fix #80
 * Composter no longer opaque cube to fix light level. Fix #51
 * Handle crates being added to shulkers via Quark's drop off. TEST #82
+
+## 1.1.10
+
+* Added Magentic enchantment.
