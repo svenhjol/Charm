@@ -25,6 +25,11 @@ public class ItemNBTHelper
         return tagExists(stack, tag) ? getNBT(stack).getLong(tag) : defaultExpected;
     }
 
+    public static String getString(ItemStack stack, String tag, String defaultExpected)
+    {
+        return tagExists(stack, tag) ? getNBT(stack).getString(tag) : defaultExpected;
+    }
+
     public static void setInt(ItemStack stack, String tag, int i)
     {
         getNBT(stack).setInteger(tag, i);
@@ -43,6 +48,11 @@ public class ItemNBTHelper
     public static void setLong(ItemStack stack, String tag, long l)
     {
         getNBT(stack).setLong(tag, l);
+    }
+
+    public static void setString(ItemStack stack, String tag, String s)
+    {
+        getNBT(stack).setString(tag, s);
     }
 
     public static NBTTagCompound getCompound(ItemStack stack, String tag)
