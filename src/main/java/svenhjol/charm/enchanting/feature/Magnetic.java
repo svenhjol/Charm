@@ -19,7 +19,7 @@ public class Magnetic extends Feature
     @Override
     public void setupConfig()
     {
-        minEnchantability = 10;
+        minEnchantability = 15;
     }
 
     @Override
