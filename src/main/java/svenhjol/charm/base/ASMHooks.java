@@ -8,6 +8,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityShulkerBox;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
@@ -15,7 +17,10 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import svenhjol.charm.Charm;
+import svenhjol.charm.crafting.block.BlockCrate;
 import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.charm.crafting.feature.EnderPearlBlock;
 import svenhjol.charm.tweaks.feature.FurnacesRecycleMore;
@@ -24,6 +29,7 @@ import svenhjol.charm.tweaks.feature.RestrictFurnaceInput;
 import svenhjol.charm.tweaks.feature.TamedAnimalsHealing;
 import svenhjol.charm.world.event.WitherDestroyBlockEvent;
 import svenhjol.charm.world.feature.MoreVillageBiomes;
+import svenhjol.meson.MesonItemBlock;
 import svenhjol.meson.event.StructureEventBase.AddComponentPartsEvent;
 
 import java.util.ArrayList;
@@ -89,6 +95,13 @@ public final class ASMHooks
             return RestrictFurnaceInput.canSmelt(stack);
         }
         return true;
+    }
+
+    public static boolean canInsertItemIntoShulkerBox(IItemHandler handler, ItemStack stack)
+    {
+        TileEntity tile = (TileEntityShulkerBox)((InvWrapper) handler).getInv();
+        boolean result = (tile != null && stack.getItem() instanceof MesonItemBlock && ((MesonItemBlock)stack.getItem()).getBlock() instanceof BlockCrate);
+        return !result;
     }
 
     public static boolean canInsertItemIntoShulkerBox(ItemStack stack)

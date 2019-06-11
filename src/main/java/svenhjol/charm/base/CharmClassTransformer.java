@@ -47,6 +47,7 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/world/World", "amu"
         );
 
+        transformers.put("net.minecraftforge.items.ItemHandlerHelper", CharmClassTransformer::transformItemHandlerHelper);
         transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry", CharmClassTransformer::transformBrewingRecipeRegistry);
         transformers.put("net.minecraft.inventory.ContainerFurnace", CharmClassTransformer::transformContainerFurnace);
         transformers.put("net.minecraft.inventory.ContainerRepair", CharmClassTransformer::transformContainerRepair);
@@ -244,16 +245,44 @@ public class CharmClassTransformer extends MesonClassTransformer
         return transClass;
     }
 
+    private static byte[] transformItemHandlerHelper(byte[] basicClass)
+    {
+        if (!checkTransformers(CharmLoadingPlugin.config,"ItemHandlerHelper")) return basicClass;
+        log("Transforming ItemHandlerHelper");
+
+        MethodSignature insertItem = new MethodSignature("insertItem", "insertItem", "", "(Lnet/minecraftforge/items/IItemHandler;Lnet/minecraft/item/ItemStack;Z)Lnet/minecraft/item/ItemStack;");
+        byte[] transClass = basicClass;
+
+        transClass = transform(transClass, Pair.of(insertItem, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ALOAD && ((VarInsnNode)node).var == 0,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList newInstructions = new InsnList();
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "canInsertItemIntoShulkerBox", "(Lnet/minecraftforge/items/IItemHandler;Lnet/minecraft/item/ItemStack;)Z", false));
+                LabelNode label = new LabelNode();
+                newInstructions.add(new JumpInsnNode(Opcodes.IFNE, label));
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+                newInstructions.add(new InsnNode(Opcodes.ARETURN));
+                newInstructions.add(label);
+                method.instructions.insertBefore(node, newInstructions);
+                return true;
+            }
+        )));
+
+        return transClass;
+    }
+
     private static byte[] transformBrewingRecipeRegistry(byte[] basicClass)
     {
         if (!checkTransformers(CharmLoadingPlugin.config,"BrewingRecipeRegistry")) return basicClass;
         log("Transforming BrewingRecipeRegistry");
 
-        MethodSignature getSlotStackLimit = new MethodSignature("isValidInput", "isValidInput", "", "(Lnet/minecraft/item/ItemStack;)Z");
+        MethodSignature isValidInput = new MethodSignature("isValidInput", "isValidInput", "", "(Lnet/minecraft/item/ItemStack;)Z");
 
         byte[] transClass = basicClass;
 
-        transClass = transform(transClass, Pair.of(getSlotStackLimit, combine(
+        transClass = transform(transClass, Pair.of(isValidInput, combine(
                 (AbstractInsnNode node) -> node.getOpcode() == Opcodes.IF_ICMPEQ,
                 (MethodNode method, AbstractInsnNode node) -> {
                     InsnList newInstructions = new InsnList();
