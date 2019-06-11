@@ -28,7 +28,7 @@ public class EnchantmentMagnetic extends MesonEnchantment
     @Override
     public boolean isTreasureEnchantment()
     {
-        return true;
+        return false;
     }
 
     @Override
