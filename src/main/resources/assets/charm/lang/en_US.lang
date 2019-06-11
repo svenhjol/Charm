@@ -86,6 +86,7 @@ charm.enchantment.rusting_curse=Curse of Rusting
 charm.enchantment.curse_break=Curse Break
 charm.enchantment.salvage=Salvage
 charm.enchantment.homing=Homing
+charm.enchantment.magnetic=Magnetic
 
 # Sound Subtitles
 subtitle.charm.spectre.disappear=Spectre vanished
