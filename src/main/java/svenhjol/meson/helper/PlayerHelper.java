@@ -64,10 +64,17 @@ public class PlayerHelper
         }
     }
 
-    public static void addOrDropStack(EntityPlayer player, ItemStack item)
+    public static void addOrDropStack(EntityPlayer player, ItemStack stack)
     {
-        if (!player.inventory.addItemStackToInventory(item)) {
-            player.dropItem(item, false);
+        if (!player.inventory.addItemStackToInventory(stack)) {
+            player.dropItem(stack, false);
+        }
+    }
+
+    public static void addOrDropStacks(EntityPlayer player, List<ItemStack> stacks)
+    {
+        for (ItemStack stack : stacks) {
+            addOrDropStack(player, stack);
         }
     }
 
