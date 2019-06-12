@@ -203,3 +203,8 @@
 ## 1.1.10
 
 * Added Magentic enchantment.
+
+## 1.1.11
+
+* Check casting of handler. Fix #84, Fix #86.
+* Armor duping issue. Fix #83
