@@ -11,6 +11,8 @@ import svenhjol.meson.MesonEnchantment;
 import svenhjol.meson.helper.EnchantmentHelper;
 import svenhjol.meson.helper.SoundHelper;
 
+import java.util.UUID;
+
 public class EnchantmentSalvage extends MesonEnchantment
 {
     public EnchantmentSalvage()
@@ -29,12 +31,24 @@ public class EnchantmentSalvage extends MesonEnchantment
         if (!event.getEntityPlayer().world.isRemote
             && EnchantmentHelper.hasEnchantment(this, event.getOriginal())
         ) {
+            UUID playerId = event.getEntityPlayer().getUniqueID();
             ItemStack original = event.getOriginal();
-            ItemStack out = event.getOriginal();
+            ItemStack out = original.copy();
 
             out.setItemDamage(original.getMaxDamage());
-            event.getEntityPlayer().dropItem(out, false);
 
+            if (Salvage.ignoreDrops.containsKey(playerId)) {
+                // don't drop, just remove the ignore
+                ItemStack ignored = Salvage.ignoreDrops.get(playerId);
+                Salvage.ignoreDrops.remove(playerId);
+
+                if (ItemStack.areItemStacksEqual(ignored, original)) {
+                    return;
+                }
+            }
+
+            // drop item
+            event.getEntityPlayer().dropItem(out, false);
             SoundHelper.playerSound(event.getEntityPlayer(), SoundEvents.BLOCK_ANVIL_LAND, 0.5f, 1.5f, 0.15f, null);
         }
     }

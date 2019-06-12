@@ -1,15 +1,24 @@
 package svenhjol.charm.enchanting.feature;
 
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import svenhjol.meson.Feature;
 import svenhjol.charm.enchanting.enchantment.EnchantmentSalvage;
+import svenhjol.meson.Feature;
+import svenhjol.meson.helper.EnchantmentHelper;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class Salvage extends Feature
 {
     public static EnchantmentSalvage enchantment;
     public static int minEnchantability;
+    public static Map<UUID, ItemStack> ignoreDrops = new HashMap<>();
 
     @Override
     public String getDescription()
@@ -29,6 +38,18 @@ public class Salvage extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         enchantment = new EnchantmentSalvage();
+    }
+
+    @SubscribeEvent
+    public void onItemRightClick(PlayerInteractEvent.RightClickItem event)
+    {
+        if (!event.getWorld().isRemote
+            && event.getEntityPlayer() != null
+            && event.getItemStack().getItem() instanceof ItemArmor // might need to expand this to other equippable things
+            && EnchantmentHelper.hasEnchantment(enchantment, event.getItemStack())
+        ) {
+            ignoreDrops.put(event.getEntityPlayer().getUniqueID(), event.getItemStack().copy());
+        }
     }
 
     @SubscribeEvent
