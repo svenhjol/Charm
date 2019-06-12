@@ -8,7 +8,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityShulkerBox;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -99,9 +98,9 @@ public final class ASMHooks
 
     public static boolean canInsertItemIntoShulkerBox(IItemHandler handler, ItemStack stack)
     {
-        TileEntity tile = (TileEntityShulkerBox)((InvWrapper) handler).getInv();
-        boolean result = (tile != null && stack.getItem() instanceof MesonItemBlock && ((MesonItemBlock)stack.getItem()).getBlock() instanceof BlockCrate);
-        return !result;
+        InvWrapper h = (InvWrapper) handler;
+        if (h == null || !(h.getInv() instanceof TileEntityShulkerBox)) return true;
+        return !(stack.getItem() instanceof MesonItemBlock && ((MesonItemBlock)stack.getItem()).getBlock() instanceof BlockCrate);
     }
 
     public static boolean canInsertItemIntoShulkerBox(ItemStack stack)
