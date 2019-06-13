@@ -52,7 +52,7 @@ public class VillageDecorations extends Feature
     public static float valuable = 0.05f;
     public static float rare = 0.005f;
 
-    public static Map<ChunkPos, Long> villageChunks = new HashMap<>();
+    public static Map<Integer, Map<ChunkPos, Long>> villageChunks = new HashMap<>();
     public static List<ChunkPos> villageInfested = new ArrayList<>();
 
     @Override
@@ -217,7 +217,11 @@ public class VillageDecorations extends Feature
             World world = event.getWorld();
             ChunkPos chunk = new ChunkPos(event.getChunkX(), event.getChunkZ());
 
-            if (villageChunks.isEmpty() || villageChunks.get(chunk) == null) {
+            // check and init dimension first
+            int dim = world.provider.getDimension();
+            if (!villageChunks.containsKey(dim)) villageChunks.put(dim, new HashMap<>());
+
+            if (villageChunks.isEmpty() || villageChunks.get(dim).isEmpty() || villageChunks.get(dim).get(chunk) == null) {
 
                 // get the nearest village to the pos
                 long seed = WorldHelper.getNearestVillageSeed(world, new BlockPos(chunk.x << 4, 0, chunk.z << 4));
@@ -225,7 +229,7 @@ public class VillageDecorations extends Feature
                     Meson.debug("Failed to get the seed for the nearest village...");
                     return;
                 }
-                villageChunks.put(chunk, seed);
+                villageChunks.get(dim).put(chunk, seed);
             }
         }
     }
@@ -233,18 +237,24 @@ public class VillageDecorations extends Feature
     @SubscribeEvent
     public void onDecorate(DecorateBiomeEvent.Decorate event)
     {
-        if (villageChunks.get(event.getChunkPos()) != null && event.getType().equals(DecorateBiomeEvent.Decorate.EventType.FLOWERS)) {
+        int dim = event.getWorld().provider.getDimension();
+
+        if (villageChunks.containsKey(dim)
+            && villageChunks.get(dim).get(event.getChunkPos()) != null
+            && event.getType().equals(DecorateBiomeEvent.Decorate.EventType.FLOWERS)
+        ) {
             World world = event.getWorld();
             ChunkPos chunk = event.getChunkPos();
             BlockPos pos = new BlockPos(chunk.x << 4, 0, chunk.z << 4);
             Random eventRand = event.getRand();
             Random rand = new Random();
-            long villageSeed = villageChunks.get(chunk);
+            long villageSeed = villageChunks.get(dim).get(chunk);
             rand.setSeed(villageSeed);
 
+            // prepare list of village chunks to pass to the decorators
             List<ChunkPos> chunks = new ArrayList<>();
-            for (ChunkPos c : villageChunks.keySet()) {
-                if (villageChunks.get(c) == villageSeed) chunks.add(c);
+            for (ChunkPos c : villageChunks.get(dim).keySet()) {
+                if (villageChunks.get(dim).get(c) == villageSeed) chunks.add(c);
             }
 
             // use the rand for deterministic decoration types, eventRand for more random scattering
@@ -264,7 +274,7 @@ public class VillageDecorations extends Feature
 
             decorators.forEach(MesonOuterDecorator::generate);
 
-            villageChunks.remove(chunk);
+            villageChunks.get(dim).remove(chunk);
         }
     }
 
