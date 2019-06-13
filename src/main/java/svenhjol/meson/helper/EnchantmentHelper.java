@@ -69,7 +69,6 @@ public class EnchantmentHelper extends net.minecraft.enchantment.EnchantmentHelp
 
     public static void applyRandomCurse(EntityPlayer player)
     {
-        NonNullList<ItemStack> inventoryToUse = null;
 
         List<Enchantment> curses = new ArrayList<>();
         curses.add(Enchantments.VANISHING_CURSE);
@@ -79,40 +78,45 @@ public class EnchantmentHelper extends net.minecraft.enchantment.EnchantmentHelp
 
         List<ItemStack> curseableItems = new ArrayList<>();
         ItemStack itemToCurse = null;
+        NonNullList<ItemStack> armorInventory = player.inventory.armorInventory;
+        NonNullList<ItemStack> mainInventory = player.inventory.mainInventory;
+        NonNullList<ItemStack> useInventory = null;
 
         if (curse != null && curse.type != null) {
             switch (curse.type) {
                 case ARMOR:
                 case WEARABLE:
-                    inventoryToUse = player.inventory.armorInventory;
+                    useInventory = armorInventory;
                     break;
 
                 case WEAPON:
                 case DIGGER:
-                    inventoryToUse = player.inventory.mainInventory;
+                    useInventory = mainInventory;
                     break;
 
                 case ALL:
                 default:
                     if (new Random().nextInt(2) == 0) {
-                        inventoryToUse = player.inventory.mainInventory;
+                        useInventory = mainInventory;
                     } else {
-                        inventoryToUse = player.inventory.armorInventory;
+                        boolean hasArmor = false;
+                        for (ItemStack stack : armorInventory) {
+                            if (stack.isEmpty()) continue;
+                            hasArmor = true;
+                            break;
+                        }
+                        useInventory = hasArmor ? armorInventory : mainInventory;
                     }
                     break;
             }
         }
 
 
-        if (inventoryToUse != null) {
-            if (inventoryToUse.isEmpty()) {
-                inventoryToUse = player.inventory.mainInventory;
-            }
-
-            for (ItemStack item : inventoryToUse) {
+        if (useInventory != null) {
+            for (ItemStack item : useInventory) {
                 if (!item.isEmpty()
-                        && !EnchantmentHelper.isItemCursed(item)
-                        && (item.getItem() instanceof ItemEnchantedBook || item.isItemEnchanted() || item.isItemEnchantable())
+                    && !EnchantmentHelper.isItemCursed(item)
+                    && (item.getItem() instanceof ItemEnchantedBook || item.isItemEnchanted() || item.isItemEnchantable())
                 ) {
                     if (item.getItem() instanceof ItemEnchantedBook && EnchantmentHelper.getEnchantments(item).size() > 2) continue;
                     curseableItems.add(item);
@@ -124,7 +128,7 @@ public class EnchantmentHelper extends net.minecraft.enchantment.EnchantmentHelp
             itemToCurse = curseableItems.get(new Random().nextInt(curseableItems.size()));
         }
 
-        if (itemToCurse != null) {
+        if (itemToCurse != null && curse.canApplyAtEnchantingTable(itemToCurse)) {
             setEnchantments(new HashMap<Enchantment, Integer>() {{ put(curse, 1); }}, itemToCurse);
         } else {
             Meson.debug("No item to curse!");

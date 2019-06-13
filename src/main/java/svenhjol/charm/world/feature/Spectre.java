@@ -7,12 +7,15 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmEntityIDs;
 import svenhjol.charm.world.client.render.RenderSpectre;
 import svenhjol.charm.world.entity.EntitySpectre;
 import svenhjol.meson.Feature;
+import svenhjol.meson.Meson;
 import svenhjol.meson.helper.EntityHelper;
 
 public class Spectre extends Feature
@@ -86,6 +89,19 @@ public class Spectre extends Feature
     public void preInitClient(FMLPreInitializationEvent event)
     {
         RenderingRegistry.registerEntityRenderingHandler(EntitySpectre.class, RenderSpectre.FACTORY);
+    }
+
+    @SubscribeEvent
+    public void onTick(TickEvent.PlayerTickEvent event)
+    {
+        if (event.phase == TickEvent.Phase.END
+            && event.side.isServer()
+            && event.player.world.rand.nextFloat() < 0.04f
+            && event.player.world.getLightBrightness(event.player.getPosition()) < 0.25f
+        ) {
+            Meson.log("Spawn ");
+            EntityHelper.spawnEntityNearPlayer(event.player, 14,10, new ResourceLocation(Charm.MOD_ID, "spectre"));
+        }
     }
 
     @Override

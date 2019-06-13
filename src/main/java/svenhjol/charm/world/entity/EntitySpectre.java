@@ -15,6 +15,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.world.event.SpectreAttackEvent;
 import svenhjol.charm.world.feature.Spectre;
+import svenhjol.meson.Meson;
 import svenhjol.meson.helper.EnchantmentHelper;
 
 import javax.annotation.Nonnull;
@@ -78,11 +79,15 @@ public class EntitySpectre extends EntityZombie
         boolean despawn;
         BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
 
+        if (ticksExisted > 160) {
+            despawn();
+        }
+
         if (this.world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
             despawn = true;
         } else {
             int i = this.world.getLightFromNeighbors(blockpos);
-            despawn = (i > Spectre.despawnLight);
+            despawn = (i > 4);
         }
 
         if (despawn) {
@@ -126,8 +131,13 @@ public class EntitySpectre extends EntityZombie
 
     public void despawn()
     {
-        /* @todo check this visual effect */
-        getEntityWorld().spawnParticle(EnumParticleTypes.SPELL_MOB, posX, posY + 1, posZ, 0, 0, 0);
+        if (world.rand.nextFloat() < 0.25f) {
+            world.playSound(null, this.posX, this.posY, this.posZ, CharmSounds.SPECTRE_DEATH, SoundCategory.HOSTILE, 0.15f, 1.25f - (world.rand.nextFloat() / 4.0f));
+        }
+        if (world.isRemote) {
+            world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX, posY + 1, posZ, 0, 0, 0);
+        }
+        Meson.log("despawn");
         this.setDead();
     }
 

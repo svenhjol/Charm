@@ -17,9 +17,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class EntityHelper
 {
@@ -92,7 +90,12 @@ public class EntityHelper
         world.spawnEntity(item);
     }
 
-    public static void spawnEntityNearPlayer(EntityPlayer player, int distance, ResourceLocation entityName)
+    public static void spawnEntityNearPlayer(EntityPlayer player, int range, ResourceLocation entityName)
+    {
+        spawnEntityNearPlayer(player, 0, range, entityName);
+    }
+
+    public static void spawnEntityNearPlayer(EntityPlayer player, int minDistance, int range, ResourceLocation entityName)
     {
         World world = player.world;
         Entity entity = EntityList.createEntityByIDFromName(entityName, world);
@@ -100,13 +103,13 @@ public class EntityHelper
         if (entity instanceof EntityLiving) {
             ArrayList<BlockPos> shuffled = new ArrayList<>();
 
-            Iterable<BlockPos> positions = BlockPos.getAllInBox(player.getPosition().add(-distance, -distance, -distance), player.getPosition().add(distance, distance, distance));
+            Iterable<BlockPos> positions = BlockPos.getAllInBox(player.getPosition().add(-range, -range, -range), player.getPosition().add(range, range, range));
             positions.forEach(shuffled::add);
 
             Collections.shuffle(shuffled);
 
             for (BlockPos p : shuffled) {
-                if (canMobsSpawnInPos(world, p)) {
+                if (WorldHelper.getDistanceSq(player.getPosition(), p) > minDistance && canMobsSpawnInPos(world, p)) {
                     spawnEntity(entity, world, new BlockPos(p.getX() + 0.5f, p.getY(), p.getZ() + 0.5f));
                     break;
                 }
