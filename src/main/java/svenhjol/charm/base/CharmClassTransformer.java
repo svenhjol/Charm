@@ -12,6 +12,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     static {
         CLASS_MAPPINGS = new ClassNameMap(
+            "net/minecraft/util/NonNullList", "fi",
             "net/minecraft/block/BlockDoor", "aqa",
             "net/minecraft/client/renderer/entity/layers/LayerArmorBase", "cbp",
             "net/minecraft/entity/Entity", "vg",
@@ -31,7 +32,6 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/inventory/IInventory", "tv",
             "net/minecraft/inventory/SlotShulkerBox", "agq",
             "net/minecraft/item/ItemChorusFruit", "ahk",
-            "net/minecraft/item/ItemStack", "aip",
             "net/minecraft/potion/Potion", "uz",
             "net/minecraft/tileentity/TileEntityBeacon", "avh",
             "net/minecraft/tileentity/TileEntityFurnace", "avu",
@@ -44,9 +44,12 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/world/gen/structure/StructureStart", "bby",
             "net/minecraft/world/gen/structure/StructureVillagePieces$Start", "bcb$k",
             "net/minecraft/world/gen/structure/StructureVillagePieces$Village", "bcb$n",
-            "net/minecraft/world/World", "amu"
+            "net/minecraft/world/World", "amu",
+            "net/minecraft/util/DamageSource", "ur",
+            "net/minecraft/item/ItemStack", "aip"
         );
 
+        transformers.put("net.minecraftforge.common.ISpecialArmor$ArmorProperties", CharmClassTransformer::transformISpecialArmor);
         transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry", CharmClassTransformer::transformBrewingRecipeRegistry);
         transformers.put("net.minecraft.inventory.ContainerFurnace", CharmClassTransformer::transformContainerFurnace);
         transformers.put("net.minecraft.inventory.ContainerRepair", CharmClassTransformer::transformContainerRepair);
@@ -264,6 +267,37 @@ public class CharmClassTransformer extends MesonClassTransformer
                 newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
                 newInstructions.add(new InsnNode(Opcodes.ARETURN));
                 newInstructions.add(label);
+                method.instructions.insertBefore(node, newInstructions);
+                return true;
+            }
+        )));
+
+        return transClass;
+    }
+
+    private static int countTransformISpecialArmor;
+
+    private static byte[] transformISpecialArmor(byte[] basicClass)
+    {
+        if (!checkTransformers(CharmLoadingPlugin.config,"ISpecialArmor")) return basicClass;
+        log("Transforming ISpecialArmor");
+
+        MethodSignature applyArmor = new MethodSignature("applyArmor", "applyArmor", "", "(Lnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/util/NonNullList;Lnet/minecraft/util/DamageSource;D)F");
+
+        byte[] transClass = basicClass;
+
+        transClass = transform(transClass, Pair.of(applyArmor, combine(
+            (AbstractInsnNode node) -> (node.getOpcode() == Opcodes.ALOAD && ((VarInsnNode)node).var == 1)
+                && (node.getNext().getOpcode() == Opcodes.ILOAD && ((VarInsnNode)node.getNext()).var == 12)
+                && ++countTransformISpecialArmor == 2,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList newInstructions = new InsnList();
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+                newInstructions.add(new VarInsnNode(Opcodes.ILOAD, 12));
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/util/NonNullList", "get", "(I)Ljava/lang/Object;", false));
+                newInstructions.add(new TypeInsnNode(Opcodes.CHECKCAST, "net/minecraft/item/ItemStack"));
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "canArmorBeSalvaged", "(Lnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/item/ItemStack;)V", false));
                 method.instructions.insertBefore(node, newInstructions);
                 return true;
             }
