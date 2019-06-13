@@ -1,8 +1,8 @@
 package svenhjol.meson.asm;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
-public class ClassNameMap extends HashMap<String, String>
+public class ClassNameMap extends TreeMap<String, String>
 {
     public ClassNameMap(String... s)
     {
@@ -11,7 +11,7 @@ public class ClassNameMap extends HashMap<String, String>
             put(s[i * 2], s[i * 2 + 1]);
         }
     }
-    
+
     @Override
     public String put(String key, String value)
     {
