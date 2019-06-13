@@ -33,6 +33,7 @@ import svenhjol.charm.world.event.WitherDestroyBlockEvent;
 import svenhjol.charm.world.feature.MoreVillageBiomes;
 import svenhjol.meson.MesonItemBlock;
 import svenhjol.meson.event.StructureEventBase.AddComponentPartsEvent;
+import svenhjol.meson.helper.EnchantmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +127,7 @@ public final class ASMHooks
         if (!item.isEmpty()
             && item.getItem() instanceof ItemArmor
             && item.getItemDamage() == item.getMaxDamage()
+            && EnchantmentHelper.hasEnchantment(Salvage.enchantment, item)
             && entity instanceof EntityPlayer
         ) {
             Salvage.dropItem((EntityPlayer)entity, item.copy());
