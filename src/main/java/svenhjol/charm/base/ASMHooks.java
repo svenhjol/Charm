@@ -102,9 +102,8 @@ public final class ASMHooks
 
     public static boolean canInsertItemIntoShulkerBox(IItemHandler handler, ItemStack stack)
     {
-        InvWrapper h = (InvWrapper) handler;
-        if (h == null) return true;
-        if (!(h.getInv() instanceof TileEntityShulkerBox)) return true;
+        if (!(handler instanceof InvWrapper)) return true;
+        if (!(((InvWrapper)handler).getInv() instanceof TileEntityShulkerBox)) return true;
         return !(stack.getItem() instanceof MesonItemBlock && ((MesonItemBlock)stack.getItem()).getBlock() instanceof BlockCrate);
     }
 

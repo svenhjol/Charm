@@ -49,6 +49,7 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/item/ItemStack", "aip"
         );
 
+        transformers.put("net.minecraftforge.items.ItemHandlerHelper", CharmClassTransformer::transformItemHandlerHelper);
         transformers.put("net.minecraftforge.common.ISpecialArmor$ArmorProperties", CharmClassTransformer::transformISpecialArmor);
         transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry", CharmClassTransformer::transformBrewingRecipeRegistry);
         transformers.put("net.minecraft.inventory.ContainerFurnace", CharmClassTransformer::transformContainerFurnace);
