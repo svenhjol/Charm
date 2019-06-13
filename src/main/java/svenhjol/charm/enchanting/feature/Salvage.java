@@ -1,5 +1,7 @@
 package svenhjol.charm.enchanting.feature;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
@@ -9,6 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.enchanting.enchantment.EnchantmentSalvage;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.EnchantmentHelper;
+import svenhjol.meson.helper.SoundHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +21,7 @@ public class Salvage extends Feature
 {
     public static EnchantmentSalvage enchantment;
     public static int minEnchantability;
-    public static Map<UUID, ItemStack> ignoreDrops = new HashMap<>();
+    public static Map<UUID, ItemStack> ignoreEquipped = new HashMap<>();
 
     @Override
     public String getDescription()
@@ -40,6 +43,7 @@ public class Salvage extends Feature
         enchantment = new EnchantmentSalvage();
     }
 
+    // prevents armor equipping from dropping a duplicate
     @SubscribeEvent
     public void onItemRightClick(PlayerInteractEvent.RightClickItem event)
     {
@@ -48,14 +52,37 @@ public class Salvage extends Feature
             && event.getItemStack().getItem() instanceof ItemArmor // might need to expand this to other equippable things
             && EnchantmentHelper.hasEnchantment(enchantment, event.getItemStack())
         ) {
-            ignoreDrops.put(event.getEntityPlayer().getUniqueID(), event.getItemStack().copy());
+            ignoreEquipped.put(event.getEntityPlayer().getUniqueID(), event.getItemStack().copy());
         }
     }
 
+    // allows tool to drop if it reaches zero durability
     @SubscribeEvent
     public void onDestroy(PlayerDestroyItemEvent event)
     {
-        enchantment.onDestroy(event);
+        if (!event.getEntityPlayer().world.isRemote
+            && EnchantmentHelper.hasEnchantment(enchantment, event.getOriginal())
+        ) {
+            EntityPlayer player = event.getEntityPlayer();
+            UUID playerId = player.getUniqueID();
+            ItemStack item = event.getOriginal();
+
+            if (ignoreEquipped.containsKey(playerId)) {
+                // don't drop, just remove the ignore
+                ItemStack ignored = ignoreEquipped.get(playerId);
+                ignoreEquipped.remove(playerId);
+                if (ItemStack.areItemStacksEqual(ignored, item)) return;
+            }
+
+            dropItem(player, item);
+        }
+    }
+
+    public static void dropItem(EntityPlayer player, ItemStack stack)
+    {
+        stack.setItemDamage(stack.getMaxDamage());
+        player.dropItem(stack, false);
+        SoundHelper.playerSound(player, SoundEvents.BLOCK_ANVIL_LAND, 0.5f, 1.5f, 0.15f, null);
     }
 
     @Override
