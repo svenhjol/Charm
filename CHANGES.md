@@ -212,3 +212,7 @@
 ## 1.1.12
 
 * Removed ItemHandler transformer ASM, too many problems
+
+## 1.1.13
+
+* ASM to check armor is salvagable. Fix #88
