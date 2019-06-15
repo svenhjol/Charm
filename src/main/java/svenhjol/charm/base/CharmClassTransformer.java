@@ -33,6 +33,7 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/inventory/SlotShulkerBox", "agq",
             "net/minecraft/item/ItemChorusFruit", "ahk",
             "net/minecraft/potion/Potion", "uz",
+            "net/minecraft/server/management/PlayerInteractionManager", "or",
             "net/minecraft/tileentity/TileEntityBeacon", "avh",
             "net/minecraft/tileentity/TileEntityFurnace", "avu",
             "net/minecraft/tileentity/TileEntityShulkerBox", "awb",
@@ -59,6 +60,7 @@ public class CharmClassTransformer extends MesonClassTransformer
         transformers.put("net.minecraft.entity.boss.EntityWither", CharmClassTransformer::transformEntityWither);
         transformers.put("net.minecraft.entity.player.EntityPlayer", CharmClassTransformer::transformEntityPlayer);
         transformers.put("net.minecraft.item.ItemChorusFruit", CharmClassTransformer::transformItemChorusFruit);
+        transformers.put("net.minecraft.server.management.PlayerInteractionManager", CharmClassTransformer::transformPlayerInteractionManager);
         transformers.put("net.minecraft.client.renderer.entity.layers.LayerArmorBase", CharmClassTransformer::transformLayerArmorBase);
         transformers.put("net.minecraft.world.gen.structure.StructureStart", CharmClassTransformer::transformStructureStart);
         transformers.put("net.minecraft.world.gen.structure.StructureVillagePieces$Village", CharmClassTransformer::transformStructureVillagePiecesVillage);
@@ -67,13 +69,34 @@ public class CharmClassTransformer extends MesonClassTransformer
         transformers.put("net.minecraft.tileentity.TileEntityShulkerBox", CharmClassTransformer::transformTileEntityShulkerBox);
     }
 
+
+    private static byte[] transformPlayerInteractionManager(byte[] basicClass)
+    {
+        if (!checkTransformers(CharmLoadingPlugin.config, "PlayerInteractionManager")) return basicClass;
+        log("Transforming PlayerInteractionManager");
+
+        MethodSignature tryHarvestBlock = new MethodSignature("tryHarvestBlock", "func_145949_j", "b", "(Lnet/minecraft/util/math/BlockPos;)Z");
+        byte[] transClass = basicClass;
+
+        transClass = transform(transClass, Pair.of(tryHarvestBlock, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ALOAD && ((VarInsnNode)node).var == 0,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList newInstructions = new InsnList();
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "startCollectingDrops", "(Lnet/minecraft/server/management/PlayerInteractionManager;)V", false));
+                method.instructions.insertBefore(node, newInstructions);
+                return true;
+            }
+        )));
+
+        return transClass;
+    }
+
     private static byte[] transformContainerFurnace(byte[] basicClass)
     {
         if (!checkTransformers(CharmLoadingPlugin.config, "ContainerFurnace")) return basicClass;
         log("Transforming ContainerFurnace");
 
         MethodSignature init = new MethodSignature("<init>", "<init>", "", "(Lnet/minecraft/entity/player/InventoryPlayer;Lnet/minecraft/inventory/IInventory;)V");
-
         byte[] transClass = basicClass;
 
         transClass = transform(transClass, Pair.of(init, combine(
