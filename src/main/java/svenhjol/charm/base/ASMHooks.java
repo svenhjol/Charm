@@ -10,6 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraft.server.management.PlayerInteractionManager;
 import net.minecraft.tileentity.TileEntityShulkerBox;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -24,6 +25,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockCrate;
 import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.charm.crafting.feature.EnderPearlBlock;
+import svenhjol.charm.enchanting.feature.Magnetic;
 import svenhjol.charm.enchanting.feature.Salvage;
 import svenhjol.charm.tweaks.feature.FurnacesRecycleMore;
 import svenhjol.charm.tweaks.feature.LeatherArmorInvisibility;
@@ -102,9 +104,8 @@ public final class ASMHooks
 
     public static boolean canInsertItemIntoShulkerBox(IItemHandler handler, ItemStack stack)
     {
-        InvWrapper h = (InvWrapper) handler;
-        if (h == null) return true;
-        if (!(h.getInv() instanceof TileEntityShulkerBox)) return true;
+        if (!(handler instanceof InvWrapper)) return true;
+        if (!(((InvWrapper)handler).getInv() instanceof TileEntityShulkerBox)) return true;
         return !(stack.getItem() instanceof MesonItemBlock && ((MesonItemBlock)stack.getItem()).getBlock() instanceof BlockCrate);
     }
 
@@ -140,5 +141,19 @@ public final class ASMHooks
         MinecraftForge.EVENT_BUS.post(event);
 
         return event.getResult() == Event.Result.DENY ? Blocks.BEDROCK : block;
+    }
+
+    public static void startCollectingDrops(PlayerInteractionManager manager)
+    {
+        if (Charm.hasFeature(Magnetic.class)) {
+            Magnetic.startCollectingDrops(manager);
+        }
+    }
+
+    public static void stopCollectingDrops()
+    {
+        if (Charm.hasFeature(Magnetic.class)) {
+            Magnetic.stopCollectingDrops();
+        }
     }
 }

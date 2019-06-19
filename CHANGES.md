@@ -216,3 +216,9 @@
 ## 1.1.13
 
 * ASM to check armor is salvagable. Fix #88
+* Magnetic drop improvements. Fix #85
+* Added curse check for items. Fix #91
+* Moved extended state check. Ref #93
+* Village chunk decoration dimension dependant now. Ref #92
+* Restored ASM for shulker box.
+* Magnetic may now be added to shears via anvil.

@@ -119,6 +119,7 @@ public class EnchantmentHelper extends net.minecraft.enchantment.EnchantmentHelp
                     && (item.getItem() instanceof ItemEnchantedBook || item.isItemEnchanted() || item.isItemEnchantable())
                 ) {
                     if (item.getItem() instanceof ItemEnchantedBook && EnchantmentHelper.getEnchantments(item).size() > 2) continue;
+                    if (!curse.canApplyAtEnchantingTable(item)) continue; // don't allow items that are explicitly not allowed to be cursed
                     curseableItems.add(item);
                 }
             }
