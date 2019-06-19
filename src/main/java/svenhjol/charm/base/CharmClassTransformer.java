@@ -69,6 +69,7 @@ public class CharmClassTransformer extends MesonClassTransformer
         transformers.put("net.minecraft.tileentity.TileEntityShulkerBox", CharmClassTransformer::transformTileEntityShulkerBox);
     }
 
+    private static int countTransformPlayerInteractionManager;
 
     private static byte[] transformPlayerInteractionManager(byte[] basicClass)
     {
@@ -79,11 +80,31 @@ public class CharmClassTransformer extends MesonClassTransformer
         byte[] transClass = basicClass;
 
         transClass = transform(transClass, Pair.of(tryHarvestBlock, combine(
-            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ALOAD && ((VarInsnNode)node).var == 0,
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ALOAD
+                && ((VarInsnNode)node).var == 0
+                && ++countTransformPlayerInteractionManager == 4,
             (MethodNode method, AbstractInsnNode node) -> {
                 InsnList newInstructions = new InsnList();
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
                 newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "startCollectingDrops", "(Lnet/minecraft/server/management/PlayerInteractionManager;)V", false));
                 method.instructions.insertBefore(node, newInstructions);
+                return true;
+            }
+        )));
+
+        transClass = transform(transClass, Pair.of(tryHarvestBlock, combine(
+            (AbstractInsnNode node) -> true,
+            (MethodNode method, AbstractInsnNode node) -> {
+                for (int i = 0; i < method.instructions.size(); i++) {
+                    AbstractInsnNode currentNode = method.instructions.get(i);
+                    if (currentNode.getOpcode() == Opcodes.IRETURN) {
+                        InsnList newInstructions = new InsnList();
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "stopCollectingDrops", "(Lnet/minecraft/server/management/PlayerInteractionManager;)V", false));
+                        method.instructions.insertBefore(currentNode.getPrevious().getPrevious(), newInstructions);
+                        i += 2;
+                    }
+                }
                 return true;
             }
         )));

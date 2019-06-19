@@ -5,9 +5,7 @@ import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -20,7 +18,6 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -39,13 +36,10 @@ import svenhjol.charm.world.feature.MoreVillageBiomes;
 import svenhjol.meson.MesonItemBlock;
 import svenhjol.meson.event.StructureEventBase.AddComponentPartsEvent;
 import svenhjol.meson.helper.EnchantmentHelper;
-import svenhjol.meson.helper.PlayerHelper;
-import svenhjol.meson.helper.WorldHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 @SuppressWarnings("unused")
 public final class ASMHooks
@@ -151,37 +145,15 @@ public final class ASMHooks
 
     public static void startCollectingDrops(PlayerInteractionManager manager)
     {
-        if (!Charm.hasFeature(Magnetic.class)) return;
-
-        EntityPlayerMP player = manager.player;
-        UUID uid = player.getUniqueID();
-        ItemStack tool = player.getHeldItemMainhand();
-
-        if (!Magnetic.harvesting.contains(uid)
-            && EnchantmentHelper.hasEnchantment(Magnetic.enchantment, tool)
-        ) {
-            Magnetic.harvesting.add(uid);
+        if (Charm.hasFeature(Magnetic.class)) {
+            Magnetic.startCollectingDrops(manager.player);
         }
     }
 
     public static void stopCollectingDrops(PlayerInteractionManager manager)
     {
-        if (!Charm.hasFeature(Magnetic.class)) return;
-
-        EntityPlayerMP player = manager.player;
-        UUID uid = player.getUniqueID();
-
-        if (Magnetic.harvesting.contains(uid)) {
-            for (EntityItem drop : Magnetic.drops) {
-                if (WorldHelper.getDistanceSq(player.getPosition(), drop.getPosition()) < 20) {
-                    EntityItem fake = new EntityItem(player.world, player.posX, player.posY, player.posZ);
-                    fake.setItem(drop.getItem());
-                    if (!MinecraftForge.EVENT_BUS.post(new EntityItemPickupEvent(player, fake))) {
-                        PlayerHelper.addOrDropStack(player, drop.getItem());
-                    }
-                }
-            }
-            Magnetic.harvesting.remove(uid);
+        if (Charm.hasFeature(Magnetic.class)) {
+            Magnetic.stopCollectingDrops(manager.player);
         }
     }
 }
