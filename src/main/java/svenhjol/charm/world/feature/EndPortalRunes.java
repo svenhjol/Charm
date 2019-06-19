@@ -124,7 +124,7 @@ public class EndPortalRunes extends Feature
     @SubscribeEvent
     public void onRightClick(PlayerInteractEvent.RightClickBlock event)
     {
-        IBlockState current = event.getWorld().getBlockState(event.getPos()).getActualState(event.getWorld(), event.getPos());
+        IBlockState current = event.getWorld().getBlockState(event.getPos());
         boolean isVanillaFrame = current.getBlock() == Blocks.END_PORTAL_FRAME;
         boolean isModdedFrame = current.getBlock() == frame;
 
@@ -135,6 +135,7 @@ public class EndPortalRunes extends Feature
             ItemStack drop = null;
             EntityPlayer player = event.getEntityPlayer();
             IBlockState changed = null;
+            current = current.getActualState(event.getWorld(), event.getPos());
 
             if (EndPortalRunes.quarkRunes.isRune(held) && !player.isSneaking()) {
 
@@ -169,7 +170,10 @@ public class EndPortalRunes extends Feature
                 }
 
                 deactivate(world, pos);
-                event.setCanceled(true); // don't allow click-through
+
+                if (drop != null) {
+                    event.setCanceled(true); // don't allow click-through
+                }
             }
 
             if (changed != null) {
