@@ -99,10 +99,9 @@ public class CharmClassTransformer extends MesonClassTransformer
                     AbstractInsnNode currentNode = method.instructions.get(i);
                     if (currentNode.getOpcode() == Opcodes.IRETURN) {
                         InsnList newInstructions = new InsnList();
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "stopCollectingDrops", "(Lnet/minecraft/server/management/PlayerInteractionManager;)V", false));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "stopCollectingDrops", "()V", false));
                         method.instructions.insertBefore(currentNode.getPrevious().getPrevious(), newInstructions);
-                        i += 2;
+                        i += 1;
                     }
                 }
                 return true;

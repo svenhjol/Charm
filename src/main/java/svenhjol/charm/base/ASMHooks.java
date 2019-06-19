@@ -146,14 +146,14 @@ public final class ASMHooks
     public static void startCollectingDrops(PlayerInteractionManager manager)
     {
         if (Charm.hasFeature(Magnetic.class)) {
-            Magnetic.startCollectingDrops(manager.player);
+            Magnetic.startCollectingDrops(manager);
         }
     }
 
-    public static void stopCollectingDrops(PlayerInteractionManager manager)
+    public static void stopCollectingDrops()
     {
         if (Charm.hasFeature(Magnetic.class)) {
-            Magnetic.stopCollectingDrops(manager.player);
+            Magnetic.stopCollectingDrops();
         }
     }
 }
