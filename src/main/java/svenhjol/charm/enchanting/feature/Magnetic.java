@@ -1,14 +1,11 @@
 package svenhjol.charm.enchanting.feature;
 
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.management.PlayerInteractionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.enchanting.enchantment.EnchantmentMagnetic;
@@ -27,6 +24,12 @@ public class Magnetic extends Feature
     public static List<EntityItem> drops = new ArrayList<>();
 
     @Override
+    public String getDescription()
+    {
+        return "Tools with the Magnetic enchantment automatically add dropped items to your inventory.";
+    }
+
+    @Override
     public void setupConfig()
     {
         minEnchantability = 15;
@@ -36,20 +39,6 @@ public class Magnetic extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         enchantment = new EnchantmentMagnetic();
-    }
-
-    @SubscribeEvent
-    public void onHarvest(BlockEvent.HarvestDropsEvent event)
-    {
-        EntityPlayer player = event.getHarvester();
-
-        if (player != null && player.world != null && !player.world.isRemote) {
-            ItemStack held = player.getHeldItemMainhand();
-            if (EnchantmentHelper.hasEnchantment(enchantment, held)) {
-                PlayerHelper.addOrDropStacks(player, event.getDrops());
-                event.setDropChance(0);
-            }
-        }
     }
 
     @SubscribeEvent
@@ -75,20 +64,22 @@ public class Magnetic extends Feature
 
     public static void stopCollectingDrops()
     {
-        if (manager != null) {
-            if (!drops.isEmpty()) {
-                EntityPlayerMP player = manager.player;
-                for (EntityItem drop : drops) {
-                    EntityItem fake = new EntityItem(player.world, player.posX, player.posY, player.posZ);
-                    fake.setItem(drop.getItem());
-                    if (!MinecraftForge.EVENT_BUS.post(new EntityItemPickupEvent(player, fake))) {
-                        PlayerHelper.addOrDropStack(player, drop.getItem());
-                    }
+        if (manager != null && !drops.isEmpty()) {
+
+            ArrayList<EntityItem> copy = new ArrayList<>(drops);
+            drops.clear();
+
+            EntityPlayerMP player = manager.player;
+            for (EntityItem drop : copy) {
+                EntityItem fake = new EntityItem(player.world, player.posX, player.posY, player.posZ);
+                fake.setItem(drop.getItem());
+                if (!MinecraftForge.EVENT_BUS.post(new EntityItemPickupEvent(player, fake))) {
+                    PlayerHelper.addOrDropStack(player, drop.getItem());
                 }
             }
+
             manager = null;
         }
-        drops.clear();
     }
 
     @Override

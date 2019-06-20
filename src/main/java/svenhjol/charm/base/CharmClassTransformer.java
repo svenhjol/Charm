@@ -69,11 +69,9 @@ public class CharmClassTransformer extends MesonClassTransformer
         transformers.put("net.minecraft.tileentity.TileEntityShulkerBox", CharmClassTransformer::transformTileEntityShulkerBox);
     }
 
-    private static int countTransformPlayerInteractionManager;
-
     private static byte[] transformPlayerInteractionManager(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config, "PlayerInteractionManager")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm, "PlayerInteractionManager")) return basicClass;
         log("Transforming PlayerInteractionManager");
 
         MethodSignature tryHarvestBlock = new MethodSignature("tryHarvestBlock", "func_145949_j", "b", "(Lnet/minecraft/util/math/BlockPos;)Z");
@@ -82,7 +80,7 @@ public class CharmClassTransformer extends MesonClassTransformer
         transClass = transform(transClass, Pair.of(tryHarvestBlock, combine(
             (AbstractInsnNode node) -> node.getOpcode() == Opcodes.ALOAD
                 && ((VarInsnNode)node).var == 0
-                && ++countTransformPlayerInteractionManager == 4,
+                && node.getNext().getOpcode() == Opcodes.GETFIELD,
             (MethodNode method, AbstractInsnNode node) -> {
                 InsnList newInstructions = new InsnList();
                 newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
@@ -113,7 +111,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformContainerFurnace(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config, "ContainerFurnace")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm, "ContainerFurnace")) return basicClass;
         log("Transforming ContainerFurnace");
 
         MethodSignature init = new MethodSignature("<init>", "<init>", "", "(Lnet/minecraft/entity/player/InventoryPlayer;Lnet/minecraft/inventory/IInventory;)V");
@@ -146,7 +144,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformTileEntityFurnace(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"TileEntityFurnace")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"TileEntityFurnace")) return basicClass;
         log("Transforming TileEntityFurnace");
 
         MethodSignature smeltItem = new MethodSignature("smeltItem", "func_145949_j", "o", "()V");
@@ -187,7 +185,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformItemChorusFruit(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"ItemChorusFruit")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"ItemChorusFruit")) return basicClass;
         log("Transforming ItemChorusFruit");
 
         MethodSignature onItemUseFinish = new MethodSignature("onItemUseFinish", "func_77654_b", "a", "(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/EntityLivingBase;)Lnet/minecraft/item/ItemStack;");
@@ -214,7 +212,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformTileEntityBeacon(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"TileEntityBeacon")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"TileEntityBeacon")) return basicClass;
         log("Transforming TileEntityBeacon");
 
         MethodSignature addEffectsToPlayers = new MethodSignature("addEffectsToPlayers", "func_146000_x", "E", "()V");
@@ -245,7 +243,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformTileEntityShulkerBox(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"TileEntityShulkerBox")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"TileEntityShulkerBox")) return basicClass;
         log("Transforming TileEntityShulkerBox");
 
         MethodSignature canInsertItem = new MethodSignature("canInsertItem", "func_180462_a", "a", "(ILnet/minecraft/item/ItemStack;Lnet/minecraft/util/EnumFacing;)Z");
@@ -269,7 +267,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformSlotShulkerBox(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"SlotShulkerBox")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"SlotShulkerBox")) return basicClass;
         log("Transforming SlotShulkerBox");
 
         MethodSignature isItemValid = new MethodSignature("isItemValid", "func_180462_a", "a", "(Lnet/minecraft/item/ItemStack;)Z");
@@ -293,7 +291,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformItemHandlerHelper(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"ItemHandlerHelper")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"ItemHandlerHelper")) return basicClass;
         log("Transforming ItemHandlerHelper");
 
         MethodSignature insertItem = new MethodSignature("insertItem", "insertItem", "", "(Lnet/minecraftforge/items/IItemHandler;Lnet/minecraft/item/ItemStack;Z)Lnet/minecraft/item/ItemStack;");
@@ -323,11 +321,10 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformISpecialArmor(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"ISpecialArmor")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"ISpecialArmor")) return basicClass;
         log("Transforming ISpecialArmor");
 
         MethodSignature applyArmor = new MethodSignature("applyArmor", "applyArmor", "", "(Lnet/minecraft/entity/EntityLivingBase;Lnet/minecraft/util/NonNullList;Lnet/minecraft/util/DamageSource;D)F");
-
         byte[] transClass = basicClass;
 
         transClass = transform(transClass, Pair.of(applyArmor, combine(
@@ -352,7 +349,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformBrewingRecipeRegistry(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"BrewingRecipeRegistry")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"BrewingRecipeRegistry")) return basicClass;
         log("Transforming BrewingRecipeRegistry");
 
         MethodSignature isValidInput = new MethodSignature("isValidInput", "isValidInput", "", "(Lnet/minecraft/item/ItemStack;)Z");
@@ -375,16 +372,9 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static int countTransformContainerRepair;
 
-    /**
-     * ContainerRepair: Class transformer
-     * - allow for >1 material cost by default
-     *
-     * @param basicClass Class to transform
-     * @return Transformed class
-     */
     private static byte[] transformContainerRepair(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"ContainerRepair")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"ContainerRepair")) return basicClass;
         log("Transforming ContainerRepair");
 
         MethodSignature updateRepairOutput = new MethodSignature("updateRepairOutput", "func_82848_d", "e", "()V");
@@ -407,16 +397,9 @@ public class CharmClassTransformer extends MesonClassTransformer
         return transClass;
     }
 
-    /**
-     * ContainerRepair$2: Class transformer
-     * - allow for zero XP cost
-     *
-     * @param basicClass Class to transform
-     * @return Transformed class
-     */
     private static byte[] transformContainerRepair2(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"ContainerRepair2")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"ContainerRepair2")) return basicClass;
         log("Transforming ContainerRepair2");
 
         MethodSignature canTakeStack = new MethodSignature("canTakeStack", "func_82869_a", "a", "(Lnet/minecraft/entity/player/EntityPlayer;)Z");
@@ -436,16 +419,9 @@ public class CharmClassTransformer extends MesonClassTransformer
         return transClass;
     }
 
-    /**
-     * LayerArmorBase: Class transformer
-     * - check if the armour is leather and the player is invisible, prevents renderArmorLayer from rendering the armour if true.
-     *
-     * @param basicClass Class to transform
-     * @return Transformed class
-     */
     private static byte[] transformLayerArmorBase(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"LayerArmorBase")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"LayerArmorBase")) return basicClass;
         log("Transforming LayerArmorBase");
 
         MethodSignature renderArmorLayer = new MethodSignature("renderArmorLayer", "func_188361_a", "a", "(Lnet/minecraft/entity/EntityLivingBase;FFFFFFFLnet/minecraft/inventory/EntityEquipmentSlot;)V");
@@ -472,16 +448,9 @@ public class CharmClassTransformer extends MesonClassTransformer
         return transClass;
     }
 
-    /**
-     * EntityPlayer: Class transformer
-     * - prevents detection of player if they are invisible and wearing leather armour
-     *
-     * @param basicClass Class to transform
-     * @return Transformed class
-     */
     private static byte[] transformEntityPlayer(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"EntityPlayer")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"EntityPlayer")) return basicClass;
         log("Transforming EntityPlayer");
 
         MethodSignature getArmorVisibility = new MethodSignature("getArmorVisibility", "func_82243_bO", "cW", "()F");
@@ -512,7 +481,7 @@ public class CharmClassTransformer extends MesonClassTransformer
 
     private static byte[] transformEntityWither(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"EntityWither")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"EntityWither")) return basicClass;
         log("Transforming EntityWither");
 
         MethodSignature canDestroyBlock = new MethodSignature("canDestroyBlock", "func_181033_a", "a", "(Lnet/minecraft/block/Block;)Z");
@@ -533,16 +502,9 @@ public class CharmClassTransformer extends MesonClassTransformer
         return transClass;
     }
 
-    /**
-     * StructureVillagePieces$Village: Class transformer
-     * - adds a GetVillageBlockID event fire to the `biomeDoor` method so that the correct door wood can be used when building villages.
-     *
-     * @param basicClass Class to transform
-     * @return Transformed class
-     */
     private static byte[] transformStructureVillagePiecesVillage(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"StructureVillagePieces")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"StructureVillagePieces")) return basicClass;
         log("Transforming StructureVillagePieces$Village");
 
         MethodSignature biomeDoor = new MethodSignature("biomeDoor", "func_189925_i", "i", "()Lnet/minecraft/block/BlockDoor;");
@@ -560,25 +522,14 @@ public class CharmClassTransformer extends MesonClassTransformer
         )));
     }
 
-    /**
-     * StructureStart: Class transformer
-     * - change the addComponentParts method so we can hook into it while rendering is happening.
-     *
-     * @param basicClass Class to transform
-     * @return Transformed class
-     */
     private static byte[] transformStructureStart(byte[] basicClass)
     {
-        if (!checkTransformers(CharmLoadingPlugin.config,"StructureStart")) return basicClass;
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"StructureStart")) return basicClass;
         log("Transforming StructureStart");
 
         byte[] transformClass = basicClass;
-        MethodSignature generateStructure = new MethodSignature(
-                "generateStructure",
-                "func_75068_a",
-                "a",
-                "(Lnet/minecraft/world/World;Ljava/util/Random;Lnet/minecraft/world/gen/structure/StructureBoundingBox;)V"
-        );
+        MethodSignature generateStructure = new MethodSignature("generateStructure", "func_75068_a", "a", "(Lnet/minecraft/world/World;Ljava/util/Random;Lnet/minecraft/world/gen/structure/StructureBoundingBox;)V");
+
         // replace the addComponentParts() call with custom version so we can call the items after generating a structure
         transformClass = transform(transformClass, Pair.of(generateStructure, combine(
                 (AbstractInsnNode node) -> node.getOpcode() == Opcodes.INVOKEVIRTUAL
