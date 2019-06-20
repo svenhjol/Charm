@@ -13,6 +13,7 @@ public class CharmTweaks extends Module
         features.add(new DispensersUseAnyBow());
         features.add(new ExtraRecords());
         features.add(new FurnacesRecycleMore());
+        features.add(new GoldToolImprovements());
         features.add(new LeatherArmorInvisibility());
         features.add(new PickaxesBreakPistons());
         features.add(new RandomAnimalTextures());

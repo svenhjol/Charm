@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -27,10 +28,7 @@ import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.charm.crafting.feature.EnderPearlBlock;
 import svenhjol.charm.enchanting.feature.Magnetic;
 import svenhjol.charm.enchanting.feature.Salvage;
-import svenhjol.charm.tweaks.feature.FurnacesRecycleMore;
-import svenhjol.charm.tweaks.feature.LeatherArmorInvisibility;
-import svenhjol.charm.tweaks.feature.RestrictFurnaceInput;
-import svenhjol.charm.tweaks.feature.TamedAnimalsHealing;
+import svenhjol.charm.tweaks.feature.*;
 import svenhjol.charm.world.event.WitherDestroyBlockEvent;
 import svenhjol.charm.world.feature.MoreVillageBiomes;
 import svenhjol.meson.MesonItemBlock;
@@ -155,5 +153,35 @@ public final class ASMHooks
         if (Charm.hasFeature(Magnetic.class)) {
             Magnetic.stopCollectingDrops();
         }
+    }
+
+    public static int getToolMaterialMaxUses(Item.ToolMaterial material, int itemDefault)
+    {
+        if (material.name().equals(GoldToolImprovements.MATERIAL_NAME)) return GoldToolImprovements.getMaxUses(itemDefault);
+        return itemDefault;
+    }
+
+    public static float getToolMaterialEfficiency(Item.ToolMaterial material, float itemDefault)
+    {
+        if (material.name().equals(GoldToolImprovements.MATERIAL_NAME)) return (float)GoldToolImprovements.getEfficiency(itemDefault);
+        return itemDefault;
+    }
+
+    public static float getToolMaterialAttackDamage(Item.ToolMaterial material, float itemDefault)
+    {
+        if (material.name().equals(GoldToolImprovements.MATERIAL_NAME)) return (float)GoldToolImprovements.getAttackDamage(itemDefault);
+        return itemDefault;
+    }
+
+    public static int getToolMaterialHarvestLevel(Item.ToolMaterial material, int itemDefault)
+    {
+        if (material.name().equals(GoldToolImprovements.MATERIAL_NAME)) return GoldToolImprovements.getHarvestLevel(itemDefault);
+        return itemDefault;
+    }
+
+    public static int getToolMaterialEnchantability(Item.ToolMaterial material, int itemDefault)
+    {
+        if (material.name().equals(GoldToolImprovements.MATERIAL_NAME)) return GoldToolImprovements.getEnchantability(itemDefault);
+        return itemDefault;
     }
 }

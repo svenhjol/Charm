@@ -31,6 +31,7 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/inventory/EntityEquipmentSlot", "vl",
             "net/minecraft/inventory/IInventory", "tv",
             "net/minecraft/inventory/SlotShulkerBox", "agq",
+            "net/minecraft/item/Item$ToolMaterial", "ain$a",
             "net/minecraft/item/ItemChorusFruit", "ahk",
             "net/minecraft/potion/Potion", "uz",
             "net/minecraft/server/management/PlayerInteractionManager", "or",
@@ -50,6 +51,7 @@ public class CharmClassTransformer extends MesonClassTransformer
             "net/minecraft/item/ItemStack", "aip"
         );
 
+        transformers.put("net.minecraft.item.Item$ToolMaterial", CharmClassTransformer::transformItemToolMaterial);
         transformers.put("net.minecraftforge.items.ItemHandlerHelper", CharmClassTransformer::transformItemHandlerHelper);
         transformers.put("net.minecraftforge.common.ISpecialArmor$ArmorProperties", CharmClassTransformer::transformISpecialArmor);
         transformers.put("net.minecraftforge.common.brewing.BrewingRecipeRegistry", CharmClassTransformer::transformBrewingRecipeRegistry);
@@ -203,6 +205,97 @@ public class CharmClassTransformer extends MesonClassTransformer
                     method.instructions.insert(node, newInstructions);
                     return true;
                 }
+        )));
+
+        return transClass;
+    }
+
+    private static byte[] transformItemToolMaterial(byte[] basicClass)
+    {
+        if (!checkTransformers(CharmLoadingPlugin.configAsm,"ItemToolMaterial")) return basicClass;
+        log("Transforming ItemToolMaterial");
+
+        MethodSignature getMaxUses = new MethodSignature("getMaxUses", "func_77997_a", "a", "()I");
+        MethodSignature getEfficiency = new MethodSignature("getEfficiency", "func_77998_b", "b", "()F");
+        MethodSignature getAttackDamage = new MethodSignature("getAttackDamage", "func_78000_c", "c", "()F");
+        MethodSignature getHarvestLevel = new MethodSignature("getHarvestLevel", "func_77996_d", "d", "()I");
+        MethodSignature getEnchantability = new MethodSignature("getEnchantability", "func_77995_e", "e", "()I");
+
+        byte[] transClass = basicClass;
+
+        transClass = transform(transClass, Pair.of(getMaxUses, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.GETFIELD,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList before = new InsnList();
+                InsnList after = new InsnList();
+
+                before.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                method.instructions.insertBefore(node, before);
+
+                after.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "getToolMaterialMaxUses", "(Lnet/minecraft/item/Item$ToolMaterial;I)I", false));
+                method.instructions.insert(node, after);
+                return true;
+            }
+        )));
+
+        transClass = transform(transClass, Pair.of(getEfficiency, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.GETFIELD,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList before = new InsnList();
+                InsnList after = new InsnList();
+
+                before.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                method.instructions.insertBefore(node, before);
+
+                after.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "getToolMaterialEfficiency", "(Lnet/minecraft/item/Item$ToolMaterial;F)F", false));
+                method.instructions.insert(node, after);
+                return true;
+            }
+        )));
+
+        transClass = transform(transClass, Pair.of(getAttackDamage, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.GETFIELD,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList before = new InsnList();
+                InsnList after = new InsnList();
+
+                before.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                method.instructions.insertBefore(node, before);
+
+                after.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "getToolMaterialAttackDamage", "(Lnet/minecraft/item/Item$ToolMaterial;F)F", false));
+                method.instructions.insert(node, after);
+                return true;
+            }
+        )));
+
+        transClass = transform(transClass, Pair.of(getHarvestLevel, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.GETFIELD,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList before = new InsnList();
+                InsnList after = new InsnList();
+
+                before.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                method.instructions.insertBefore(node, before);
+
+                after.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "getToolMaterialHarvestLevel", "(Lnet/minecraft/item/Item$ToolMaterial;I)I", false));
+                method.instructions.insert(node, after);
+                return true;
+            }
+        )));
+
+        transClass = transform(transClass, Pair.of(getEnchantability, combine(
+            (AbstractInsnNode node) -> node.getOpcode() == Opcodes.GETFIELD,
+            (MethodNode method, AbstractInsnNode node) -> {
+                InsnList before = new InsnList();
+                InsnList after = new InsnList();
+
+                before.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                method.instructions.insertBefore(node, before);
+
+                after.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "getToolMaterialEnchantability", "(Lnet/minecraft/item/Item$ToolMaterial;I)I", false));
+                method.instructions.insert(node, after);
+                return true;
+            }
         )));
 
         return transClass;
