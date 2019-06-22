@@ -95,6 +95,14 @@ subtitle.charm.spectre.walk=Spooky spectre noise
 subtitle.charm.spectre.hit=A spectre hit you!
 subtitle.charm.whispers=You hear whispering sounds around you
 
+# Maps
+charm.map.village=Village Map
+charm.map.mineshaft=Mineshaft Map
+charm.map.swamp_hut=Swamp Hut Map
+charm.map.jungle_pyramid=Jungle Temple Map
+charm.map.desert_pyramid=Desert Pyramid Map
+charm.map.igloo=Igloo Map
+
 # Records
 item.charm:record_creative1.name=Creative Music Disc
 item.charm:record_creative2.name=Creative Music Disc
