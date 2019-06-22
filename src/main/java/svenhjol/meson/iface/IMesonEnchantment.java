@@ -4,7 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.helper.EnchantmentHelper;
 
 public interface IMesonEnchantment

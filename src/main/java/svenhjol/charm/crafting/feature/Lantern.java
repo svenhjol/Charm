@@ -5,7 +5,7 @@ import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.crafting.block.BlockLantern;
 import svenhjol.meson.Feature;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.ConfigHelper;
 

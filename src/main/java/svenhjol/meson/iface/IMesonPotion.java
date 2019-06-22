@@ -2,7 +2,7 @@ package svenhjol.meson.iface;
 
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 
 public interface IMesonPotion
 {

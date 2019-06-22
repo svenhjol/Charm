@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonItemBlock;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 
 public interface IMesonBlock
 {

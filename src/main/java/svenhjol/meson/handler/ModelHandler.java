@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomItemBlockModel;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomStateMapper;

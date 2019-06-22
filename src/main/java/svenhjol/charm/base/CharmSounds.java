@@ -3,7 +3,7 @@ package svenhjol.charm.base;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import svenhjol.charm.Charm;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 
 public class CharmSounds
 {

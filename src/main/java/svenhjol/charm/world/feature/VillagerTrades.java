@@ -2,26 +2,25 @@ package svenhjol.charm.world.feature;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.IMerchant;
-import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.passive.EntityVillager.ITradeList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerCareer;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
 import svenhjol.charm.Charm;
-import svenhjol.meson.helper.EnchantmentHelper;
-import svenhjol.meson.Feature;
 import svenhjol.charm.crafting.feature.Lantern;
 import svenhjol.charm.crafting.feature.SuspiciousSoup;
 import svenhjol.charm.enchanting.feature.CurseBreak;
 import svenhjol.charm.enchanting.feature.Salvage;
+import svenhjol.meson.Feature;
+import svenhjol.meson.helper.EnchantmentHelper;
+import svenhjol.meson.registry.VillagerRegistry;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -40,70 +39,30 @@ public class VillagerTrades extends Feature
     @SubscribeEvent
     public void onRegisterVillagers(RegistryEvent.Register<VillagerProfession> event)
     {
-        VillagerProfession farmerProf, librarianProf, priestProf, smithProf, butcherProf, nitwitProf;
-        VillagerCareer farmer, fisherman, shepherd, fletcher, librarian, cartographer, cleric, smith, weapon, tool, butcher, leatherWorker, nitwit;
-
-        butcherProf = event.getRegistry().getValue(new ResourceLocation("minecraft:butcher"));
-        farmerProf = event.getRegistry().getValue(new ResourceLocation("minecraft:farmer"));
-        priestProf = event.getRegistry().getValue(new ResourceLocation("minecraft:priest"));
-        smithProf = event.getRegistry().getValue(new ResourceLocation("minecraft:smith"));
-        librarianProf = event.getRegistry().getValue(new ResourceLocation("minecraft:librarian"));
-//        nitwitProf = event.getRegistry().getValue(new ResourceLocation("minecraft:nitwit"));
-
-        // assign careers from professions
-
-        if (farmerProf != null) {
-            farmer = farmerProf.getCareer(0);
-            fisherman = farmerProf.getCareer(1);
-//            shepherd = farmerProf.getCareer(2);
-//            fletcher = farmerProf.getCareer(3);
-
-            if (Charm.hasFeature(SuspiciousSoup.class)) {
-                farmer.addTrade(2, new SuspiciousSoupTrade());
-                fisherman.addTrade(2, new SuspiciousSoupTrade());
-            }
+        if (Charm.hasFeature(SuspiciousSoup.class)) {
+            VillagerRegistry.farmer.addTrade(2, new SuspiciousSoupTrade());
+            VillagerRegistry.fisherman.addTrade(2, new SuspiciousSoupTrade());
         }
 
-        if (librarianProf != null) {
-            librarian = librarianProf.getCareer(0);
-//            cartographer = librarianProf.getCareer(1);
+        VillagerRegistry.librarian.addTrade(1, new EnchantedBookTrade());
+        VillagerRegistry.cleric.addTrade(3, new CurseBreakTrade());
 
-            librarian.addTrade(1, new EnchantedBookTrade());
-        }
+        VillagerRegistry.butcher.addTrade(1, new ZombieFlesh(Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.MUTTON));
+        VillagerRegistry.leatherWorker.addTrade(1, new ZombieFlesh(Items.LEATHER));
 
-        if (priestProf != null) {
-            cleric = priestProf.getCareer(0);
-
-            cleric.addTrade(3, new CurseBreakTrade());
-        }
-
-        if (butcherProf != null) {
-            butcher = butcherProf.getCareer(0);
-            leatherWorker = butcherProf.getCareer(1);
-
-            butcher.addTrade(1, new ZombieFlesh(Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.MUTTON));
-            leatherWorker.addTrade(1, new ZombieFlesh(Items.LEATHER));
-        }
-
-        if (smithProf != null) {
-            smith = smithProf.getCareer(0);
-            weapon = smithProf.getCareer(1);
-            tool = smithProf.getCareer(2);
-
-            smith.addTrade(1, new DamagedAnvilsTrade());
-            smith.addTrade(2, new LanternsTrade());
-            smith.addTrade(3, new SalvageTrade());
-            weapon.addTrade(1, new DamagedAnvilsTrade());
-            weapon.addTrade(2, new LanternsTrade());
-            weapon.addTrade(3, new SalvageTrade());
-            tool.addTrade(1, new DamagedAnvilsTrade());
-            tool.addTrade(2, new LanternsTrade());
-            tool.addTrade(3, new SalvageTrade());
-            tool.addTrade(4, new FortuneShovelTrade());
-        }
+        VillagerRegistry.smith.addTrade(1, new DamagedAnvilsTrade());
+        VillagerRegistry.smith.addTrade(2, new LanternsTrade());
+        VillagerRegistry.smith.addTrade(3, new SalvageTrade());
+        VillagerRegistry.weapon.addTrade(1, new DamagedAnvilsTrade());
+        VillagerRegistry.weapon.addTrade(2, new LanternsTrade());
+        VillagerRegistry.weapon.addTrade(3, new SalvageTrade());
+        VillagerRegistry.tool.addTrade(1, new DamagedAnvilsTrade());
+        VillagerRegistry.tool.addTrade(2, new LanternsTrade());
+        VillagerRegistry.tool.addTrade(3, new SalvageTrade());
+        VillagerRegistry.tool.addTrade(4, new FortuneShovelTrade());
     }
 
-    public static class SuspiciousSoupTrade implements EntityVillager.ITradeList
+    public static class SuspiciousSoupTrade implements ITradeList
     {
         @Override
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
@@ -114,7 +73,7 @@ public class VillagerTrades extends Feature
         }
     }
 
-    public static class LanternsTrade implements EntityVillager.ITradeList
+    public static class LanternsTrade implements ITradeList
     {
         @Override
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
@@ -126,7 +85,7 @@ public class VillagerTrades extends Feature
         }
     }
 
-    public static class FortuneShovelTrade implements EntityVillager.ITradeList
+    public static class FortuneShovelTrade implements ITradeList
     {
         @Override
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
@@ -140,7 +99,7 @@ public class VillagerTrades extends Feature
         }
     }
 
-    public static class DamagedAnvilsTrade implements EntityVillager.ITradeList
+    public static class DamagedAnvilsTrade implements ITradeList
     {
         @Override
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
@@ -150,7 +109,7 @@ public class VillagerTrades extends Feature
         }
     }
 
-    public static class ZombieFlesh implements EntityVillager.ITradeList
+    public static class ZombieFlesh implements ITradeList
     {
         public final Item[] forWhat;
 
@@ -173,7 +132,7 @@ public class VillagerTrades extends Feature
         }
     }
 
-    public static class SalvageTrade implements EntityVillager.ITradeList
+    public static class SalvageTrade implements ITradeList
     {
         @Override
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
@@ -185,7 +144,7 @@ public class VillagerTrades extends Feature
         }
     }
 
-    public static class CurseBreakTrade implements EntityVillager.ITradeList
+    public static class CurseBreakTrade implements ITradeList
     {
         @Override
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
@@ -197,7 +156,7 @@ public class VillagerTrades extends Feature
         }
     }
 
-    public static class EnchantedBookTrade implements EntityVillager.ITradeList
+    public static class EnchantedBookTrade implements ITradeList
     {
         @Override
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)

@@ -96,11 +96,12 @@ public class Spectre extends Feature
     {
         if (event.phase == TickEvent.Phase.END
             && event.side.isServer()
-            && event.player.world.rand.nextFloat() < 0.04f
+            && event.player.world.getTotalWorldTime() % 15 == 0
+            && event.player.world.rand.nextFloat() < 0.1f
             && event.player.world.getLightBrightness(event.player.getPosition()) < 0.25f
         ) {
             Meson.log("Spawn ");
-            EntityHelper.spawnEntityNearPlayer(event.player, 14,10, new ResourceLocation(Charm.MOD_ID, "spectre"));
+            EntityHelper.spawnEntityNearPlayer(event.player, 15,6, new ResourceLocation(Charm.MOD_ID, "spectre"));
         }
     }
 

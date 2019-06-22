@@ -30,6 +30,19 @@ public class ItemNBTHelper
         return tagExists(stack, tag) ? getNBT(stack).getString(tag) : defaultExpected;
     }
 
+    public static NBTTagCompound getCompound(ItemStack stack, String tag)
+    {
+        return tagExists(stack, tag) ? getNBT(stack).getCompoundTag(tag) : new NBTTagCompound();
+    }
+
+    public static NBTTagCompound getNBT(ItemStack stack)
+    {
+        if (!stack.hasTagCompound()) {
+            stack.setTagCompound(new NBTTagCompound());
+        }
+        return stack.getTagCompound();
+    }
+
     public static void setInt(ItemStack stack, String tag, int i)
     {
         getNBT(stack).setInteger(tag, i);
@@ -38,6 +51,11 @@ public class ItemNBTHelper
     public static void setBoolean(ItemStack stack, String tag, boolean b)
     {
         getNBT(stack).setBoolean(tag, b);
+    }
+
+    public static void setCompound(ItemStack stack, String tag, NBTTagCompound cmp)
+    {
+        getNBT(stack).setTag(tag, cmp);
     }
 
     public static void setDouble(ItemStack stack, String tag, double d)
@@ -53,19 +71,6 @@ public class ItemNBTHelper
     public static void setString(ItemStack stack, String tag, String s)
     {
         getNBT(stack).setString(tag, s);
-    }
-
-    public static NBTTagCompound getCompound(ItemStack stack, String tag)
-    {
-        return tagExists(stack, tag) ? getNBT(stack).getCompoundTag(tag) : new NBTTagCompound();
-    }
-
-    public static NBTTagCompound getNBT(ItemStack stack)
-    {
-        if (!stack.hasTagCompound()) {
-            stack.setTagCompound(new NBTTagCompound());
-        }
-        return stack.getTagCompound();
     }
 
     public static boolean tagExists(ItemStack stack, String tag)

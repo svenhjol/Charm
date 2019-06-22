@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmPotion;
 import svenhjol.charm.brewing.feature.Decay;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,7 +9,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBarrel;
 import svenhjol.meson.Feature;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.LootHelper;
 

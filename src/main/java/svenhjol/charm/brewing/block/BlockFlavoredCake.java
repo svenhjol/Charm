@@ -23,7 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
 import svenhjol.charm.brewing.feature.FlavoredCake;
 import svenhjol.charm.brewing.item.ItemFlavoredCake;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomItemBlockModel;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomStateMapper;

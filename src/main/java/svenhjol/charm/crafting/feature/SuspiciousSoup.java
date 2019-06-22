@@ -18,7 +18,7 @@ import svenhjol.charm.base.CharmLootTables;
 import svenhjol.charm.crafting.item.ItemSuspiciousSoup;
 import svenhjol.charm.crafting.potion.SuspiciousEffects;
 import svenhjol.meson.Feature;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.LootHelper;
 

@@ -2,6 +2,8 @@ package svenhjol.meson;
 
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
+import svenhjol.meson.registry.ProxyRegistry;
+import svenhjol.meson.registry.VillagerRegistry;
 
 public class Meson
 {
@@ -40,6 +42,7 @@ public class Meson
     {
         if (!hasInit) {
             MinecraftForge.EVENT_BUS.register(ProxyRegistry.class);
+            MinecraftForge.EVENT_BUS.register(VillagerRegistry.class);
             hasInit = true;
         }
     }

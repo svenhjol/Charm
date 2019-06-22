@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.crafting.ai.AIFormEndermite;
 import svenhjol.charm.crafting.block.BlockEnderPearl;
 import svenhjol.meson.Feature;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.WorldHelper;
 

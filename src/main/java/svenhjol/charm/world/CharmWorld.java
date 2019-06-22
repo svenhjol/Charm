@@ -16,6 +16,7 @@ public class CharmWorld extends Module
         features.add(new MoreVillageBiomes());
         features.add(new NetherGoldDeposits());
         features.add(new Spectre());
+        features.add(new StructureMaps());
         features.add(new SwampHutDecorations());
         features.add(new TotemOfReturning());
         features.add(new TotemOfShielding());

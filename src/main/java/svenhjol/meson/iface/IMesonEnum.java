@@ -13,4 +13,10 @@ public interface IMesonEnum extends IStringSerializable
     {
         return ((Enum)this).name().toLowerCase(Locale.ENGLISH);
     }
+
+    default String getCapitalizedName()
+    {
+        String name = getName();
+        return name.substring(0, 1).toUpperCase() + name.substring(1);
+    }
 }

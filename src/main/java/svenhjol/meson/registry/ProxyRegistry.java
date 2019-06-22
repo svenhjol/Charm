@@ -1,4 +1,4 @@
-package svenhjol.meson;
+package svenhjol.meson.registry;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
@@ -56,14 +56,14 @@ public class ProxyRegistry
     @SuppressWarnings("unchecked")
     public static void onRegister(RegistryEvent.Register event)
     {
-       Class<?> type = event.getRegistry().getRegistrySuperType();
+        Class<?> type = event.getRegistry().getRegistrySuperType();
 
-       if (entries.containsKey(type)) {
-           Collection<IForgeRegistryEntry<?>> ourEntries = entries.get(type);
-           for (IForgeRegistryEntry<?> entry : ourEntries) {
-               event.getRegistry().register(entry);
-           }
-       }
+        if (entries.containsKey(type)) {
+            Collection<IForgeRegistryEntry<?>> ourEntries = entries.get(type);
+            for (IForgeRegistryEntry<?> entry : ourEntries) {
+                event.getRegistry().register(entry);
+            }
+        }
     }
 
     public static Item getItemMapping(Block block)

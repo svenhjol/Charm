@@ -15,7 +15,7 @@ import svenhjol.charm.crafting.block.BlockComposter;
 import svenhjol.charm.crafting.message.MessageComposterAddLevel;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.NetworkHandler;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.SoundHelper;
 

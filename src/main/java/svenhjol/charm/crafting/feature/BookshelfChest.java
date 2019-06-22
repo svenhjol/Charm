@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBookshelfChest;
 import svenhjol.meson.Feature;
-import svenhjol.meson.ProxyRegistry;
+import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 
 public class BookshelfChest extends Feature
