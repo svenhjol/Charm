@@ -10,10 +10,15 @@ import svenhjol.meson.Feature;
 import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class BookshelfChest extends Feature
 {
     public static BlockBookshelfChest bookshelfChest;
     public static float hardness;
+    public static List<String> validItems = new ArrayList<>();
 
     @Override
     public String getDescription()
@@ -25,6 +30,25 @@ public class BookshelfChest extends Feature
     @Override
     public void setupConfig()
     {
+        validItems = Arrays.asList(
+            propStringList("Valid bookshelf items",
+                "List of items that are allowed to be added to bookshelf chest.",
+                new String[] {
+                    "minecraft:book",
+                    "minecraft:enchanted_book",
+                    "minecraft:written_book",
+                    "minecraft:writable_book",
+                    "minecraft:knowledge_book",
+                    "quark:ancient_tome",
+                    "inspirations:books[*]",
+                    "forestry:catalogue",
+                    "forestry:book_forester",
+                    "immersiveengineering:tool[3]",
+                    "tconstruct:book"
+                }
+            )
+        );
+
         // internal
         hardness = 1.0f;
     }
