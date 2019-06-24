@@ -224,3 +224,4 @@
 * Magnetic may now be added to shears via anvil.
 * Compatibility fix for EigenCraft.
 * Updated recommended config for furnace recycling. Ref #98
+* Check for empty loot list when unearthing treasure. Fix #99
