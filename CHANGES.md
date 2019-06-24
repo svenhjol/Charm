@@ -223,3 +223,7 @@
 * Restored ASM for shulker box.
 * Magnetic may now be added to shears via anvil.
 * Compatibility fix for EigenCraft.
+* Tame animal entity checking issue. Ref #97
+* Updated recommended config for furnace recycling. Ref #98
+* Check for empty loot list when unearthing treasure. Fix #99
+* Bookshelf chest now drops self as well as inventory. Fix #100

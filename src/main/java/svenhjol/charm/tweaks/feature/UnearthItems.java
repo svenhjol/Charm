@@ -18,6 +18,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.base.CharmLootTables;
 import svenhjol.meson.Feature;
+import svenhjol.meson.Meson;
 import svenhjol.meson.helper.EnchantmentHelper;
 import svenhjol.meson.helper.LootHelper;
 import svenhjol.meson.helper.SoundHelper;
@@ -50,7 +51,7 @@ public class UnearthItems extends Feature
         damage = propInt(
                 "Unearthing item damage",
                 "Maximum durability cost to the shovel when a treasure item is unearthed.",
-                8
+                16
         );
 
         String[] validBlockNames = propStringList(
@@ -95,14 +96,19 @@ public class UnearthItems extends Feature
                 LootContext context = builder.build();
                 List<ItemStack> list = table.generateLootForPools(world.rand, context);
 
-                EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), list.get(world.rand.nextInt(list.size())));
+                if (list.size() > 0) {
+                    ItemStack stack = list.get(world.rand.nextInt(list.size()));
+                    EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
 
-                if (world.isRemote) {
-                    SoundHelper.playerSound(player, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.1f, SoundCategory.AMBIENT);
+                    if (world.isRemote) {
+                        SoundHelper.playerSound(player, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 1.1f, SoundCategory.AMBIENT);
+                    }
+
+                    world.spawnEntity(item);
+                    held.damageItem(world.rand.nextInt(damage), player);
+                } else {
+                    Meson.debug("Empty loot table list: ", source);
                 }
-
-                world.spawnEntity(item);
-                held.damageItem(world.rand.nextInt(damage), player);
             }
         }
     }
