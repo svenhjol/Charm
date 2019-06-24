@@ -8,6 +8,7 @@
 * Moved extended state check. Ref #93
 * Village chunk decoration dimension dependant now. Ref #92
 * Restored ASM for shulker box.
+* Handle crates being added to shulkers via Quark's drop off. Fix #82
 * Magnetic may now be added to shears via anvil.
 * Compatibility fix for EigenCraft.
 * Tame animal entity checking issue. Ref #97
@@ -43,7 +44,6 @@
 * Config to force enable lanterns. Other force config will be added as needed. Fix #70
 * Crates with no items no longer show hover. Fix #80
 * Composter no longer opaque cube to fix light level. Fix #51
-* *Handle crates being added to shulkers via Quark's drop off. TEST #82*
 
 ## 1.1.8
 
