@@ -14,6 +14,7 @@
 * Tame animal entity checking issue. Ref #97
 * Check for empty loot list when unearthing treasure. Fix #99
 * Bookshelf chest now drops self as well as inventory. Fix #100
+* Config to specify what is allowed in bookshelf chest.
 * Updated recommended config for furnace recycling. Ref #98:
 
 ```
