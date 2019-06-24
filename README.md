@@ -22,6 +22,7 @@ Please report any issues in the tracker here.
 ## Compatibility
 
 * Quark r1.5-150 and higher
+* AutoRegLib 1.3-30 and higher
 * Redstone++ ver1.3 BETA-2
 * Traverse 1.6.0-69
 * Dynamic Surroundings (3.5.4.3), HUDs (3.5.4), OreLib (3.5.2.2)
