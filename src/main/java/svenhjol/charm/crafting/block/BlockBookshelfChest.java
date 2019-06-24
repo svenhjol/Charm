@@ -53,6 +53,8 @@ public class BlockBookshelfChest extends MesonBlockTE<TileBookshelfChest> implem
         if (validTileEntity(chest)) {
             dropsInventory(chest, TileBookshelfChest.SIZE, (World)world, pos);
         }
+        // drop the chest after dropping the inventory
+        drops.add(new ItemStack(this, 1, 0));
     }
 
     @Override
