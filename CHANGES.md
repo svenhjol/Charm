@@ -225,3 +225,4 @@
 * Compatibility fix for EigenCraft.
 * Updated recommended config for furnace recycling. Ref #98
 * Check for empty loot list when unearthing treasure. Fix #99
+* Bookshelf chest now drops self as well as inventory. Fix #100
