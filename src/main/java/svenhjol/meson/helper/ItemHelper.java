@@ -50,7 +50,7 @@ public class ItemHelper
         return s1.getItem() == s2.getItem() && (s1.getMetadata() == 32767 || s1.getMetadata() == s2.getMetadata());
     }
 
-    public static String getMatchingItemKey(ArrayList<String> items, ItemStack item)
+    public static String getMatchingItemKey(List<String> items, ItemStack item)
     {
         String name = getItemStringFromItemStack(item, true);
 

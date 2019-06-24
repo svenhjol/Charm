@@ -2,8 +2,6 @@ package svenhjol.charm.crafting.tile;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Optional;
@@ -12,6 +10,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBookshelfChest;
 import svenhjol.charm.crafting.feature.BookshelfChest;
 import svenhjol.meson.MesonTileInventory;
+import svenhjol.meson.helper.ItemHelper;
 import vazkii.quark.api.IDropoffManager;
 
 import javax.annotation.Nonnull;
@@ -26,15 +25,7 @@ public class TileBookshelfChest extends MesonTileInventory implements IDropoffMa
         @Override
         protected int getStackLimit(int slot, @Nonnull ItemStack stack)
         {
-            Item item = stack.getItem();
-
-            boolean allowed = item == Items.ENCHANTED_BOOK
-                || item == Items.BOOK
-                || item == Items.WRITABLE_BOOK
-                || item == Items.WRITTEN_BOOK
-                || item == Items.KNOWLEDGE_BOOK
-            ;
-
+            boolean allowed = !ItemHelper.getMatchingItemKey(BookshelfChest.validItems, stack).isEmpty();
             return allowed ? 64 : 0;
         }
 
