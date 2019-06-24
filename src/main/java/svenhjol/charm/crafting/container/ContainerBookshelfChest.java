@@ -4,22 +4,19 @@ import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import svenhjol.charm.base.CharmSounds;
-import svenhjol.meson.MesonContainer;
 import svenhjol.charm.crafting.tile.TileBookshelfChest;
+import svenhjol.meson.MesonContainer;
 
 @ChestContainer
 public class ContainerBookshelfChest extends MesonContainer
 {
-    protected TileEntity tile;
-
     public ContainerBookshelfChest(InventoryPlayer inv, TileBookshelfChest chest)
     {
-        this.tile = chest;
+        super(inv, chest);
         IItemHandler inventory = chest.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
         if (inventory == null) return;
 

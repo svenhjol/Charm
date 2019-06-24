@@ -6,6 +6,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -49,12 +50,25 @@ public class BlockBookshelfChest extends MesonBlockTE<TileBookshelfChest> implem
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
     {
+        ItemStack thisChest = new ItemStack(this, 1, 0);
+
         TileBookshelfChest chest = getTileEntity(world, pos);
         if (validTileEntity(chest)) {
             dropsInventory(chest, TileBookshelfChest.SIZE, (World)world, pos);
+            thisChest.setStackDisplayName(chest.getName());
         }
         // drop the chest after dropping the inventory
-        drops.add(new ItemStack(this, 1, 0));
+        drops.add(thisChest);
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    {
+        TileBookshelfChest chest = getTileEntity(worldIn, pos);
+        if (validTileEntity(chest)) {
+            chest.setName(stack.getDisplayName());
+        }
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 
     @Override

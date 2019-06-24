@@ -6,6 +6,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.Charm;
+import svenhjol.meson.MesonContainer;
 import svenhjol.meson.MesonGuiContainer;
 import vazkii.quark.api.IChestButtonCallback;
 import vazkii.quark.api.IItemSearchBar;
@@ -19,7 +20,7 @@ public class GuiContainerBarrel extends MesonGuiContainer implements IChestButto
 {
     public GuiContainerBarrel(Container container, InventoryPlayer playerInv)
     {
-        super("tile.charm:barrel.name", container, playerInv, new ResourceLocation(Charm.MOD_ID, "textures/gui/generic27.png"));
+        super("tile.charm:barrel.name", (MesonContainer)container, playerInv, new ResourceLocation(Charm.MOD_ID, "textures/gui/generic27.png"));
     }
 
     @Override

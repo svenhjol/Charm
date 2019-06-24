@@ -4,7 +4,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 public abstract class MesonGuiContainer extends GuiContainer
@@ -13,11 +12,18 @@ public abstract class MesonGuiContainer extends GuiContainer
     private String displayName;
     private ResourceLocation BG_TEXTURE;
 
-    public MesonGuiContainer(String displayName, Container container, InventoryPlayer playerInv, ResourceLocation texture)
+    public MesonGuiContainer(String displayName, MesonContainer container, InventoryPlayer playerInv, ResourceLocation texture)
     {
         super(container);
-        this.playerInv = playerInv;
+
         this.displayName = I18n.format(displayName);
+
+        MesonTileInventory tile = container.getTile();
+        if (tile != null && tile.hasCustomName()) {
+            this.displayName = tile.getName();
+        }
+
+        this.playerInv = playerInv;
         BG_TEXTURE = texture;
     }
 

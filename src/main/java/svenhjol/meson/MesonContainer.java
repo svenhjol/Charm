@@ -1,6 +1,7 @@
 package svenhjol.meson;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -8,6 +9,15 @@ import net.minecraft.item.ItemStack;
 @SuppressWarnings("NullableProblems")
 public abstract class MesonContainer extends Container
 {
+	protected MesonTileInventory tile;
+	protected InventoryPlayer playerInv;
+
+	public MesonContainer(InventoryPlayer playerInv, MesonTileInventory tile)
+	{
+		this.playerInv = playerInv;
+		this.tile = tile;
+	}
+
     /**
      * Thank you ShadowFacts.  You've saved me days of work.
 	 * From Shadowfacts ContainerBase::transferStackInSlot
@@ -46,5 +56,15 @@ public abstract class MesonContainer extends Container
 		}
 	
 		return itemstack;
+	}
+
+	public void setTile(MesonTileInventory tile)
+	{
+		this.tile = tile;
+	}
+
+	public MesonTileInventory getTile()
+	{
+		return tile;
 	}
 }

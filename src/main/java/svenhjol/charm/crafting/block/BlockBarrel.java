@@ -70,6 +70,7 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
         if (validTileEntity(barrel)) {
             EnumFacing facing = state.getValue(FACING);
             barrel.setFacing(facing);
+            barrel.setName(stack.getDisplayName());
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
@@ -99,12 +100,15 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
     {
+        ItemStack thisBarrel = new ItemStack(this, 1, getMetaFromState(state));
+
         TileBarrel barrel = getTileEntity(world, pos);
         if (validTileEntity(barrel)) {
             dropsInventory(barrel, TileBarrel.SIZE, (World)world, pos);
+            thisBarrel.setStackDisplayName(barrel.getName());
         }
         // drop the barrel after dropping the barrel's inventory
-        drops.add(new ItemStack(this, 1, getMetaFromState(state)));
+        drops.add(thisBarrel);
     }
 
     @Override
