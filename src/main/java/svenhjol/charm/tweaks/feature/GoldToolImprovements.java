@@ -23,7 +23,7 @@ public class GoldToolImprovements extends Feature
     public static final String CONFIG_ENCHANTABILITY = "Gold tool enchantability";
 
     public static final int CUSTOM_DURABILITY = 512;
-    public static final float CUSTOM_EFFICIENCY = 15.0f;
+    public static final float CUSTOM_EFFICIENCY = 17.0f;
     public static final float CUSTOM_ATTACK_DAMAGE = 0.0f;
     public static final int CUSTOM_HARVEST_LEVEL = 0;
     public static final int CUSTOM_ENCHANTABILITY = 22;
