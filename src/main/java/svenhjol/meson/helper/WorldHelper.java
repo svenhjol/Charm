@@ -1,12 +1,12 @@
 package svenhjol.meson.helper;
 
 import net.minecraft.init.Biomes;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
+import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IMesonEnum;
 
 import java.util.ArrayList;
@@ -51,39 +51,57 @@ public class WorldHelper
 
     public static BlockPos getNearestStructure(World world, BlockPos chunk, StructureType type)
     {
+        int offset = 1000;
+
+        if (world.isRemote) return null;
+
         if (temples.contains(type)) {
             Biome biome;
-            BlockPos temple = null;
-            boolean found = false;
+            BlockPos templePos, tryPos;
+            boolean found;
+            int xx, zz;
 
-            for (int dist = 0; dist < 10; dist++) {
-                for (int face = 2; face < 6; face++) {
-                    temple = getNearestStructure(world, chunk.offset(EnumFacing.byIndex(face), dist * 200), "Temple");
-                    if (temple == null) continue;
+            for (int dist = 0; dist < 50; dist++) {
 
-                    biome = world.getBiome(temple);
-                    switch (type) {
-                        case SWAMP_HUT:
-                            found = (biome == Biomes.SWAMPLAND);
-                            break;
-                        case IGLOO:
-                            found = (biome == Biomes.ICE_PLAINS || biome == Biomes.COLD_TAIGA);
-                            break;
-                        case DESERT_PYRAMID:
-                            found = (biome == Biomes.DESERT || biome == Biomes.DESERT_HILLS);
-                            break;
-                        case JUNGLE_PYRAMID:
-                            found = (biome == Biomes.JUNGLE || biome == Biomes.JUNGLE_HILLS);
-                            break;
-                        default:
-                            found = true;
-                            break;
+                for (int x = -1; x <= 1; x++) {
+                    for (int z = -1; z <= 1; z++) {
+
+                        xx = x * offset + (x * dist * offset);
+                        zz = z * offset + (z * dist * offset);
+                        tryPos = chunk.add(xx, 0, zz);
+
+                        templePos = getNearestStructure(world, tryPos, "Temple");
+                        if (templePos == null) continue;
+
+                        // because "Temple" can mean different things, check the biome they spawn in
+                        biome = world.getBiome(templePos);
+                        switch (type) {
+                            case SWAMP_HUT:
+                                found = (biome == Biomes.SWAMPLAND);
+                                break;
+                            case IGLOO:
+                                found = (biome == Biomes.ICE_PLAINS || biome == Biomes.COLD_TAIGA);
+                                break;
+                            case DESERT_PYRAMID:
+                                found = (biome == Biomes.DESERT || biome == Biomes.DESERT_HILLS);
+                                break;
+                            case JUNGLE_PYRAMID:
+                                found = (biome == Biomes.JUNGLE || biome == Biomes.JUNGLE_HILLS);
+                                break;
+                            default:
+                                found = true;
+                                break;
+                        }
+
+                        if (found) {
+                            Meson.debug("WorldHelper: Found structure " + type + " at " + tryPos);
+                            return templePos;
+                        }
                     }
-
-                    if (found) break;
                 }
             }
-            return found ? temple : null;
+            Meson.debug("WorldHelper: Failed to find structure " + type);
+            return null;
         } else {
             return getNearestStructure(world, chunk, type.getCapitalizedName());
         }
