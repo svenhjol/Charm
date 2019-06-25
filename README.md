@@ -15,6 +15,7 @@ Please report any issues in the tracker here.
 * Includes **Shadowfacts** `transferStackInSlot()`.  [Link to code](https://github.com/shadowfacts/ShadowMC/blob/1.11/src/main/java/net/shadowfacts/shadowmc/inventory/ContainerBase.java)
 * Includes **AutoRegLib** `ProxyRegistry` and `RecipeHandler`.  [Link to code](https://github.com/Vazkii/AutoRegLib/blob/master/src/main/java/vazkii/arl/util/ProxyRegistry.java)
 * "Spectre" texture modelled on "Wraith" texture from **Quark**.
+* "Magnetic" enchantment uses the same principles as **RandomThings** ItemCatcher.  [Link to code](https://github.com/lumien231/Random-Things/blob/master/src/main/java/lumien/randomthings/handler/ItemCatcher.java)
 * Crates and other inventory code heavily inspired by [Shadowfacts' 1.12 Forge tutorials](https://shadowfacts.net/tutorials/forge-modding-112/).
 * All sound samples from [https://freesound.org](https://freesound.org).
 * Translations: Fuzss, ChingTing2586, thedarkcolour.
