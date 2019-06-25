@@ -91,12 +91,12 @@ public class StructureMaps extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        if (generalStructures.contains("Mineshaft")) structures.add(new Structure(StructureType.MINESHAFT, 0x774400));
-        if (generalStructures.contains("Village")) structures.add(new Structure(StructureType.VILLAGE, 0xCC2000));
-        if (biomeStructures.contains("Igloo")) structures.add(new Structure(StructureType.IGLOO, 0xA0C0FF));
-        if (biomeStructures.contains("DesertPyramid")) structures.add(new Structure(StructureType.DESERT_PYRAMID, 0x866600));
-        if (biomeStructures.contains("JunglePyramid")) structures.add(new Structure(StructureType.JUNGLE_PYRAMID, 0x20B020));
-        if (biomeStructures.contains("SwampHut")) structures.add(new Structure(StructureType.SWAMP_HUT, 0x107000));
+        if (generalStructures.contains(StructureType.MINESHAFT.getName())) structures.add(new Structure(StructureType.MINESHAFT, 0x774400));
+        if (generalStructures.contains(StructureType.VILLAGE.getName())) structures.add(new Structure(StructureType.VILLAGE, 0xCC2000));
+        if (biomeStructures.contains(StructureType.IGLOO.getName())) structures.add(new Structure(StructureType.IGLOO, 0xA0C0FF));
+        if (biomeStructures.contains(StructureType.DESERT_PYRAMID.getName())) structures.add(new Structure(StructureType.DESERT_PYRAMID, 0x866600));
+        if (biomeStructures.contains(StructureType.JUNGLE_PYRAMID.getName())) structures.add(new Structure(StructureType.JUNGLE_PYRAMID, 0x20B020));
+        if (biomeStructures.contains(StructureType.SWAMP_HUT.getName())) structures.add(new Structure(StructureType.SWAMP_HUT, 0x107000));
     }
 
     @SubscribeEvent
@@ -166,6 +166,8 @@ public class StructureMaps extends Feature
         @Override
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
         {
+            if (structures.isEmpty()) return;
+
             Structure structure = structures.get(random.nextInt(structures.size()));
             ItemStack map = createMap(merchant.getWorld(), merchant.getPos(), structure);
 
