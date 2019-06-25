@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+
+* Gold Tool improvements
+* Structure Maps
+* Crates, Bookshelf Chests and Barrels keep their custom naames and show in GUI. Fix #101
+
 ## 1.1.13
 
 * ASM to check armor is salvagable. Fix #88
