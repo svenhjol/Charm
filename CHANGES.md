@@ -2,9 +2,9 @@
 
 ## 1.2.0
 
-* Gold Tool improvements
+* Gold Tool improvements, bump efficiency to 17
 * Structure Maps
-* Crates, Bookshelf Chests and Barrels keep their custom naames and show in GUI. Fix #101
+* Crates, Bookshelf Chests and Barrels keep their custom names and show in GUI. Fix #101
 
 ## 1.1.13
 
