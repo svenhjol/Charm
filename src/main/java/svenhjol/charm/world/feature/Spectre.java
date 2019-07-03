@@ -3,6 +3,9 @@ package svenhjol.charm.world.feature;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -17,6 +20,7 @@ import svenhjol.charm.world.entity.EntitySpectre;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
 import svenhjol.meson.helper.EntityHelper;
+import svenhjol.meson.helper.WorldHelper;
 
 public class Spectre extends Feature
 {
@@ -43,11 +47,11 @@ public class Spectre extends Feature
     public void setupConfig()
     {
         // configurable
-        despawnLight = propInt(
+        despawnLight = MathHelper.clamp(propInt(
                 "Despawn light level",
                 "Light level at which a Spectre disappears.",
                 8
-        );
+        ), 1, 16);
         spawnDepth = propInt(
                 "Spawn depth",
                 "Maximum depth at which Spectres can spawn.",
@@ -69,6 +73,7 @@ public class Spectre extends Feature
         min = 4;
         max = 8;
         trackingRange = 100;
+        if (despawnLight == 0) despawnLight = 1;
     }
 
     @Override
@@ -96,12 +101,19 @@ public class Spectre extends Feature
     {
         if (event.phase == TickEvent.Phase.END
             && event.side.isServer()
-            && event.player.world.getTotalWorldTime() % 15 == 0
+            && event.player.world.getTotalWorldTime() % 30 == 0
             && event.player.world.rand.nextFloat() < 0.1f
-            && event.player.world.getLightBrightness(event.player.getPosition()) < 0.25f
+            && event.player.world.getLightBrightness(event.player.getPosition()) < ((float)despawnLight)/16.0
+            && event.player.getPosition().getY() <= spawnDepth
         ) {
-            Meson.log("Spawn ");
+            Meson.debug("Spectre spawned ", event.player.getPosition());
             EntityHelper.spawnEntityNearPlayer(event.player, 15,6, new ResourceLocation(Charm.MOD_ID, "spectre"));
+
+            // check mineshaft
+//            BlockPos mineshaft = WorldHelper.getNearestStructure(event.player.world, event.player.getPosition(), WorldHelper.StructureType.MINESHAFT);
+//            if (mineshaft != null && WorldHelper.getDistanceSq(event.player.getPosition(), mineshaft) < 1000) {
+//
+//            }
         }
     }
 

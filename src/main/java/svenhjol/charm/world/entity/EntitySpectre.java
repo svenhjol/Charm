@@ -79,7 +79,7 @@ public class EntitySpectre extends EntityZombie
         boolean despawn;
         BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
 
-        if (ticksExisted > 160) {
+        if (ticksExisted > 240) {
             despawn();
         }
 
@@ -87,7 +87,7 @@ public class EntitySpectre extends EntityZombie
             despawn = true;
         } else {
             int i = this.world.getLightFromNeighbors(blockpos);
-            despawn = (i > 4);
+            despawn = (i > Spectre.despawnLight);
         }
 
         if (despawn) {
@@ -137,7 +137,7 @@ public class EntitySpectre extends EntityZombie
         if (world.isRemote) {
             world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX, posY + 1, posZ, 0, 0, 0);
         }
-        Meson.log("despawn");
+        Meson.debug("Spectre despawned " + this.posX + " " + this.posY + " " + this.posZ);
         this.setDead();
     }
 
