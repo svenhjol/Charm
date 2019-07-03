@@ -8,6 +8,11 @@ import svenhjol.meson.registry.ProxyRegistry;
 
 public interface IMesonBlock
 {
+    default void register()
+    {
+        register(getName());
+    }
+
     default void register(String name)
     {
         Block self = (Block)this;
