@@ -47,6 +47,7 @@ tile.charm:rune_portal_frame_brown.name=End Portal Brown Rune
 tile.charm:rune_portal_frame_green.name=End Portal Green Rune
 tile.charm:rune_portal_frame_red.name=End Portal Red Rune
 tile.charm:rune_portal_frame_black.name=End Portal Black Rune
+tile.charm:variable_redstone_lamp.name=Variable Redstone Lamp
 
 # Items
 item.charm:bat_bucket.name=Bat in a Bucket
