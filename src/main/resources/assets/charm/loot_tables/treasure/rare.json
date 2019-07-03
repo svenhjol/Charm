@@ -18,7 +18,7 @@
           "functions": [
             {
               "function": "enchant_with_levels",
-              "treasure": true,
+              "treasure": false,
               "levels": {
                 "min": 20,
                 "max": 40
@@ -33,7 +33,7 @@
           "functions": [
             {
               "function": "enchant_with_levels",
-              "treasure": true,
+              "treasure": false,
               "levels": {
                 "min": 20,
                 "max": 40
@@ -48,7 +48,7 @@
           "functions": [
             {
               "function": "enchant_with_levels",
-              "treasure": true,
+              "treasure": false,
               "levels": {
                 "min": 20,
                 "max": 40
@@ -63,7 +63,7 @@
           "functions": [
             {
               "function": "enchant_with_levels",
-              "treasure": true,
+              "treasure": false,
               "levels": {
                 "min": 20,
                 "max": 40
