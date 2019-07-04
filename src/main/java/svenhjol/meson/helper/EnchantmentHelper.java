@@ -126,7 +126,9 @@ public class EnchantmentHelper extends net.minecraft.enchantment.EnchantmentHelp
         }
 
         if (itemToCurse != null) {
-            setEnchantments(new HashMap<Enchantment, Integer>() {{ put(curse, 1); }}, itemToCurse);
+            Map<Enchantment, Integer> existing = getEnchantments(itemToCurse);
+            existing.put(curse, 1);
+            setEnchantments(existing, itemToCurse);
         } else {
             Meson.debug("No item to curse!");
         }
