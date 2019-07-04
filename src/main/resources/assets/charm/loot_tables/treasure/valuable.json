@@ -23,8 +23,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 2,
-                "max": 6
+                "min": 1,
+                "max": 4
               }
             }
           ]
@@ -32,16 +32,7 @@
         {
           "type": "item",
           "name": "minecraft:emerald_block",
-          "weight": 8,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
+          "weight": 8
         },
         {
           "type": "item",
@@ -51,8 +42,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 2,
-                "max": 8
+                "min": 1,
+                "max": 4
               }
             }
           ]
@@ -83,8 +74,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 4,
-                "max": 16
+                "min": 1,
+                "max": 8
               }
             }
           ]
@@ -115,8 +106,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 8,
-                "max": 16
+                "min": 1,
+                "max": 8
               }
             }
           ]

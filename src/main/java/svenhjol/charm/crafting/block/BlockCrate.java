@@ -168,9 +168,10 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
         }
 
         // debug mode testing loot tables
-        if (Meson.DEBUG && player.isCreative() && player.getHeldItem(hand) == ItemStack.EMPTY) {
+        if (Meson.DEBUG && player.isCreative() && player.isSneaking() && player.getHeldItem(hand) == ItemStack.EMPTY) {
             setCreativeLootTable(world, pos);
             world.notifyBlockUpdate(pos, state, state, 2);
+            return false;
         }
 
         if (crate.hasLootTable()) {
@@ -287,6 +288,12 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
             TileCrate tile = getTileEntity(world, pos);
             List<Crate.CrateType> types = Crate.types.get(rarity);
             Crate.CrateType type = types.get(world.rand.nextInt(types.size()));
+
+            int slots = tile.getInventory().getSlots();
+            for (int i = 0; i < slots; i++) {
+                tile.getInventory().getStackInSlot(i).setCount(0);
+            }
+
             tile.setLootTable(type.pool);
             tile.setName(type.pool.toString());
             tile.setShowName(true);
