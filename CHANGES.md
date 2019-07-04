@@ -2,9 +2,10 @@
 
 ## 1.1.14
 
-* Preserve existing enchants when a curse is added. Fix #108
+* Spectres no longer remove enchantments when cursing. Fix #108
 * Don't use treasure enchants on items in custom loot tables. Fix #106
 * Nerfed loot. Fix #102
+* Updated Chinese locale provided by [ChingTing2568](https://github.com/ChingTing2586)
 
 ## 1.1.13
 
