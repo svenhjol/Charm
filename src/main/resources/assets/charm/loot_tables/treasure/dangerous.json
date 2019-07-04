@@ -27,16 +27,7 @@
         {
           "type": "item",
           "name": "minecraft:diamond_block",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
+          "weight": 3
         }
       ]
     },
@@ -54,16 +45,7 @@
         {
           "type": "item",
           "name": "minecraft:shulker_shell",
-          "weight": 8,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
+          "weight": 4
         }
       ]
     },
