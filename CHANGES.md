@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.14
+
+* Preserve existing enchants when a curse is added. Fix #108
+* Don't use treasure enchants on items in custom loot tables. Fix #106
+* Nerfed loot. Fix #102
+
 ## 1.1.13
 
 * ASM to check armor is salvagable. Fix #88
