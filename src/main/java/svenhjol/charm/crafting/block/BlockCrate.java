@@ -168,9 +168,10 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
         }
 
         // debug mode testing loot tables
-        if (Meson.DEBUG && player.isCreative() && player.getHeldItem(hand) == ItemStack.EMPTY) {
+        if (Meson.DEBUG && player.isCreative() && player.isSneaking() && player.getHeldItem(hand) == ItemStack.EMPTY) {
             setCreativeLootTable(world, pos);
             world.notifyBlockUpdate(pos, state, state, 2);
+            return false;
         }
 
         if (crate.hasLootTable()) {
