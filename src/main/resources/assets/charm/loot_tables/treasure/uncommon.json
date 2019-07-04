@@ -116,7 +116,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 10,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -128,7 +128,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 10,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -140,7 +140,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 10,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -152,7 +152,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 10,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -164,7 +164,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 10,
-              "treasure": true
+              "treasure": false
             }
           ]
         },

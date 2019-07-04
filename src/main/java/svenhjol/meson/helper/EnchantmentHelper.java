@@ -129,8 +129,10 @@ public class EnchantmentHelper extends net.minecraft.enchantment.EnchantmentHelp
             itemToCurse = curseableItems.get(new Random().nextInt(curseableItems.size()));
         }
 
-        if (itemToCurse != null && curse.canApplyAtEnchantingTable(itemToCurse)) {
-            setEnchantments(new HashMap<Enchantment, Integer>() {{ put(curse, 1); }}, itemToCurse);
+        if (itemToCurse != null) {
+            Map<Enchantment, Integer> existing = getEnchantments(itemToCurse);
+            existing.put(curse, 1);
+            setEnchantments(existing, itemToCurse);
         } else {
             Meson.debug("No item to curse!");
         }

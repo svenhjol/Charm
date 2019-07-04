@@ -13,26 +13,12 @@
       "entries": [
         {
           "type": "item",
-          "name": "minecraft:diamond_block",
-          "weight": 8,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
           "name": "minecraft:diamond_helmet",
           "weight": 8,
           "functions": [
             {
               "function": "enchant_with_levels",
-              "treasure": true,
+              "treasure": false,
               "levels": {
                 "min": 20,
                 "max": 40
@@ -47,7 +33,7 @@
           "functions": [
             {
               "function": "enchant_with_levels",
-              "treasure": true,
+              "treasure": false,
               "levels": {
                 "min": 20,
                 "max": 40
@@ -62,7 +48,7 @@
           "functions": [
             {
               "function": "enchant_with_levels",
-              "treasure": true,
+              "treasure": false,
               "levels": {
                 "min": 20,
                 "max": 40
@@ -77,7 +63,7 @@
           "functions": [
             {
               "function": "enchant_with_levels",
-              "treasure": true,
+              "treasure": false,
               "levels": {
                 "min": 20,
                 "max": 40
@@ -105,29 +91,8 @@
         },
         {
           "type": "item",
-          "name": "minecraft:skull",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "set_data",
-              "data": 1
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:beacon",
-          "weight": 3
-        },
-        {
-          "type": "item",
           "name": "minecraft:totem_of_undying",
           "weight": 3
-        },
-        {
-          "type": "item",
-          "name": "minecraft:elytra",
-          "weight": 1
         }
       ]
     },
@@ -144,17 +109,6 @@
       "entries": [
         {
           "type": "item",
-          "name": "minecraft:skull",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "set_data",
-              "data": 4
-            }
-          ]
-        },
-        {
-          "type": "item",
           "name": "minecraft:emerald_block",
           "weight": 8,
           "functions": [
@@ -166,25 +120,6 @@
               }
             }
           ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:end_crystal",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 2,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:purple_shulker_box",
-          "weight": 4
         },
         {
           "type": "item",
