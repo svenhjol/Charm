@@ -288,6 +288,12 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
             TileCrate tile = getTileEntity(world, pos);
             List<Crate.CrateType> types = Crate.types.get(rarity);
             Crate.CrateType type = types.get(world.rand.nextInt(types.size()));
+
+            int slots = tile.getInventory().getSlots();
+            for (int i = 0; i < slots; i++) {
+                tile.getInventory().getStackInSlot(i).setCount(0);
+            }
+
             tile.setLootTable(type.pool);
             tile.setName(type.pool.toString());
             tile.setShowName(true);
