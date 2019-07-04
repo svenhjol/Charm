@@ -23,22 +23,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 2,
-                "max": 6
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_block",
-          "weight": 8,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
                 "min": 1,
-                "max": 3
+                "max": 4
               }
             }
           ]
@@ -46,16 +32,7 @@
         {
           "type": "item",
           "name": "minecraft:emerald_block",
-          "weight": 8,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
+          "weight": 8
         },
         {
           "type": "item",
@@ -65,8 +42,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 2,
-                "max": 8
+                "min": 1,
+                "max": 4
               }
             }
           ]
@@ -97,8 +74,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 4,
-                "max": 16
+                "min": 1,
+                "max": 8
               }
             }
           ]
@@ -129,8 +106,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 8,
-                "max": 16
+                "min": 1,
+                "max": 8
               }
             }
           ]
@@ -148,7 +125,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 20,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -160,7 +137,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 20,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -172,7 +149,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 20,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -184,7 +161,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 20,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -196,7 +173,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 20,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -217,17 +194,6 @@
                 "min": 1,
                 "max": 2
               }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:skull",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "set_data",
-              "data": 1
             }
           ]
         }

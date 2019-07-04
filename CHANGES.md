@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.14
+
+* Spectres no longer remove enchantments when cursing. Fix #108
+* Don't use treasure enchants on items in custom loot tables. Fix #106
+* Nerfed loot. Fix #102
+* Updated Chinese locale provided by [ChingTing2568](https://github.com/ChingTing2586)
+
 ## 1.1.13
 
 * ASM to check armor is salvagable. Fix #88

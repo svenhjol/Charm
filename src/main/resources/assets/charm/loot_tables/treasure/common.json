@@ -61,8 +61,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 2,
-                "max": 6
+                "min": 1,
+                "max": 4
               }
             }
           ]
@@ -75,8 +75,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 2,
-                "max": 6
+                "min": 1,
+                "max": 4
               }
             }
           ]
@@ -164,8 +164,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 2,
-                "max": 6
+                "min": 1,
+                "max": 4
               }
             }
           ]
@@ -178,8 +178,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 2,
-                "max": 6
+                "min": 1,
+                "max": 4
               }
             }
           ]
@@ -192,8 +192,8 @@
             {
               "function": "set_count",
               "count": {
-                "min": 2,
-                "max": 6
+                "min": 1,
+                "max": 4
               }
             }
           ]
@@ -219,7 +219,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 15,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -231,7 +231,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 15,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -243,7 +243,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 15,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -255,7 +255,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 15,
-              "treasure": true
+              "treasure": false
             }
           ]
         },
@@ -267,7 +267,7 @@
             {
               "function": "enchant_with_levels",
               "levels": 15,
-              "treasure": true
+              "treasure": false
             }
           ]
         }
