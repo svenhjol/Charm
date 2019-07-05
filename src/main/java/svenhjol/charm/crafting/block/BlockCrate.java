@@ -88,6 +88,12 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
         }
     }
 
+    @Override
+    public int getMaxStackSize()
+    {
+        return 1;
+    }
+
     /**
      * Sealed crates drop their contents.
      * Override the MesonBlockTE default drops so we can handle different kinds of item.
