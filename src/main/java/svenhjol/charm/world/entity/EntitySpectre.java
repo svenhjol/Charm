@@ -15,6 +15,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.world.event.SpectreAttackEvent;
 import svenhjol.charm.world.feature.Spectre;
+import svenhjol.charm.world.feature.SpectreHaunting;
 import svenhjol.meson.Meson;
 import svenhjol.meson.helper.EnchantmentHelper;
 
@@ -79,15 +80,15 @@ public class EntitySpectre extends EntityZombie
         boolean despawn;
         BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
 
-        if (ticksExisted > 240) {
-            despawn();
-        }
-
         if (this.world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
             despawn = true;
         } else {
             int i = this.world.getLightFromNeighbors(blockpos);
             despawn = (i > Spectre.despawnLight);
+        }
+
+        if (Charm.hasFeature(SpectreHaunting.class) && ticksExisted > 240) {
+            despawn = true;
         }
 
         if (despawn) {
@@ -148,7 +149,6 @@ public class EntitySpectre extends EntityZombie
     }
 
     @Override
-    @Nonnull
     protected SoundEvent getStepSound()
     {
         return CharmSounds.SPECTRE_MOVE;
