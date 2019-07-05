@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.15
+
+* Crates max stack size 1. Fix #109
+* No longer possible to add water bottles to cauldron if stack size greater than 1. Fix #110
+
 ## 1.1.14
 
 * Spectres no longer remove enchantments when cursing. Fix #108
