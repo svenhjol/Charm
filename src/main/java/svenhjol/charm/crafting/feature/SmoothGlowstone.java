@@ -30,7 +30,7 @@ public class SmoothGlowstone extends Feature
     {
         FurnaceRecipes instance = FurnaceRecipes.instance();
 
-        float xp = 1.0f;
+        float xp = 1.0f; // should be double
         ItemStack input = new ItemStack(Blocks.GLOWSTONE);
         ItemStack output = new ItemStack(block);
 
