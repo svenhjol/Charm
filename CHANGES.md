@@ -7,6 +7,7 @@
 * Crates, Bookshelf Chests and Barrels keep their custom names and show in GUI. Fix #101
 * Smooth Glowstone
 * Variable redstone lamps
+* Spectres "haunt" strongholds and convert sand to glowstone on death
 
 ## 1.1.15
 
