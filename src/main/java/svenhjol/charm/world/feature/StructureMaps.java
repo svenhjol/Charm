@@ -97,6 +97,8 @@ public class StructureMaps extends Feature
         if (biomeStructures.contains(StructureType.DESERT_PYRAMID.getName())) structures.add(new Structure(StructureType.DESERT_PYRAMID, 0x866600));
         if (biomeStructures.contains(StructureType.JUNGLE_PYRAMID.getName())) structures.add(new Structure(StructureType.JUNGLE_PYRAMID, 0x20B020));
         if (biomeStructures.contains(StructureType.SWAMP_HUT.getName())) structures.add(new Structure(StructureType.SWAMP_HUT, 0x107000));
+        if (biomeStructures.contains(StructureType.STRONGHOLD.getName())) structures.add(new Structure(StructureType.STRONGHOLD, 0x505050));
+        if (biomeStructures.contains(StructureType.MANSION.getName())) structures.add(new Structure(StructureType.MANSION, 0x774400));
     }
 
     @SubscribeEvent
