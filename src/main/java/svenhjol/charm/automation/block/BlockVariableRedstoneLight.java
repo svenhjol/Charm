@@ -7,7 +7,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
@@ -17,12 +16,13 @@ import java.util.Random;
 
 public class BlockVariableRedstoneLight extends BlockRedstoneLight implements IMesonBlock
 {
-    public static PropertyInteger LIGHT = PropertyInteger.create("light", 0, 15);
+    public static PropertyInteger LEVEL = PropertyInteger.create("level", 0, 15);
 
     public BlockVariableRedstoneLight()
     {
         super(false);
         register();
+        setLightLevel(1.0f);
     }
 
     @Override
@@ -40,16 +40,7 @@ public class BlockVariableRedstoneLight extends BlockRedstoneLight implements IM
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        int power = worldIn.getRedstonePowerFromNeighbors(pos);
-        updateLight(worldIn, pos, state, power);
-    }
-
-    @Override
-    public void observedNeighborChange(IBlockState observerState, World world, BlockPos observerPos, Block changedBlock, BlockPos changedBlockPos)
-    {
-//        int power = world.getRedstonePowerFromNeighbors(changedBlockPos);
-//        world.setLightFor(EnumSkyBlock.BLOCK, observerPos, power);
-//        world.checkLight(observerPos);
+        worldIn.scheduleUpdate(pos, this, 4);
     }
 
     @Override
@@ -64,40 +55,42 @@ public class BlockVariableRedstoneLight extends BlockRedstoneLight implements IM
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
     {
-        return state.getValue(LIGHT);
+        return state.getValue(LEVEL);
     }
 
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (!worldIn.isRemote && !worldIn.isBlockPowered(pos)) {
-            updateLight(worldIn, pos, state, 0);
+        int power;
+
+        if (!worldIn.isRemote) {
+            power = worldIn.isBlockPowered(pos) ? worldIn.getRedstonePowerFromNeighbors(pos) : 0;
+            updateLight(worldIn, pos, state, power);
         }
     }
 
     private void updateLight(World world, BlockPos pos, IBlockState state, int power)
     {
-        world.setLightFor(EnumSkyBlock.BLOCK, pos, power);
-        world.setBlockState(pos, state.withProperty(LIGHT, power), 3);
+        world.setBlockState(pos, state.withProperty(LEVEL, power), 3);
         world.checkLight(pos);
     }
 
     @Override
     public int getMetaFromState(IBlockState state)
     {
-        return state.getValue(LIGHT);
+        return state.getValue(LEVEL);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta)
     {
-        return getDefaultState().withProperty(LIGHT, meta);
+        return getDefaultState().withProperty(LEVEL, meta);
     }
 
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, LIGHT);
+        return new BlockStateContainer(this, LEVEL);
     }
 
     @Override
