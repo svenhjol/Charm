@@ -9,6 +9,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBarrel;
 import svenhjol.meson.Feature;
+import svenhjol.meson.helper.ConfigHelper;
 import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.LootHelper;
@@ -19,6 +20,7 @@ public class Barrel extends Feature
 {
     public static BlockBarrel barrel;
     public static float hardness;
+    public static boolean useCharmBarrels;
 
     public enum RARITY {
         COMMON,
@@ -53,8 +55,24 @@ public class Barrel extends Feature
     }
 
     @Override
+    public boolean checkSelf()
+    {
+        if (ConfigHelper.checkMods("minecraftfuture")) {
+            return useCharmBarrels;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
     public void setupConfig()
     {
+        useCharmBarrels = propBoolean(
+            "Use Charm barrels",
+            "Charm's barrels will be enabled even if barrels from other mods are present.",
+            false
+        );
+
         // internal
         hardness = 1.5f;
     }
