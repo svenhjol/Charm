@@ -5,6 +5,8 @@
 * Gold Tool improvements, bump efficiency to 17
 * Structure Maps
 * Crates, Bookshelf Chests and Barrels keep their custom names and show in GUI. Fix #101
+* Smooth Glowstone
+* Variable redstone lamps
 
 ## 1.1.15
 
