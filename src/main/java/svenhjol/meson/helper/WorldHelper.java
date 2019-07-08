@@ -21,7 +21,9 @@ public class WorldHelper
         SWAMP_HUT,
         DESERT_PYRAMID,
         JUNGLE_PYRAMID,
-        IGLOO
+        IGLOO,
+        STRONGHOLD,
+        MANSION
     }
 
     public static List<StructureType> temples = new ArrayList<>();
