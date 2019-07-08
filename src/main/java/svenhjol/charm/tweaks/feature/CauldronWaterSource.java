@@ -5,15 +5,16 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import svenhjol.meson.Feature;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.PlayerHelper;
-import svenhjol.meson.Feature;
 
 public class CauldronWaterSource extends Feature
 {
@@ -44,26 +45,34 @@ public class CauldronWaterSource extends Feature
     @SubscribeEvent
     public void onCauldronUse(PlayerInteractEvent.RightClickBlock event)
     {
-        if (!event.getWorld().isRemote
-            && event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.CAULDRON
-            && event.getEntityPlayer() != null
-            && event.getEntityPlayer().isSneaking()
-        ) {
+        if (event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.CAULDRON && event.getEntityPlayer() != null) {
             EntityPlayer player = event.getEntityPlayer();
+            ItemStack held = player.getHeldItem(event.getHand());
             IBlockState state = event.getWorld().getBlockState(event.getPos());
-            Item item = player.getHeldItem(event.getHand()).getItem();
 
-            if (isFilledCauldron(state)) {
-                ItemStack itemToSet = null;
-                if (item == Items.GLASS_BOTTLE) {
-                    itemToSet = ItemHelper.getFilledWaterBottle();
-                } else if (item == Items.BUCKET) {
-                    itemToSet = new ItemStack(Items.WATER_BUCKET);
+            if (event.getEntityPlayer().isSneaking()) {
+
+                if (isFilledCauldron(state)) {
+                    ItemStack itemToSet = null;
+                    if (held.getItem() == Items.GLASS_BOTTLE) {
+                        itemToSet = ItemHelper.getFilledWaterBottle();
+                    } else if (held.getItem() == Items.BUCKET) {
+                        itemToSet = new ItemStack(Items.WATER_BUCKET);
+                    }
+
+                    if (itemToSet != null) {
+                        event.setResult(Event.Result.DENY);
+                        PlayerHelper.setHeldItem(player, event.getHand(), itemToSet);
+                    }
                 }
+            } else {
 
-                if (itemToSet != null) {
+                if (held.getItem() == Items.POTIONITEM
+                    && PotionUtils.getPotionFromItem(held) == PotionTypes.WATER
+                    && held.getCount() > 1
+                ) {
                     event.setResult(Event.Result.DENY);
-                    PlayerHelper.setHeldItem(player, event.getHand(), itemToSet);
+                    event.setCanceled(true);
                 }
             }
         }
