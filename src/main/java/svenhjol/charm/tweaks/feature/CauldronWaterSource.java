@@ -6,18 +6,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import svenhjol.meson.Meson;
+import svenhjol.meson.Feature;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.PlayerHelper;
-import svenhjol.meson.Feature;
 
 public class CauldronWaterSource extends Feature
 {
