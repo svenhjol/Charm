@@ -5,8 +5,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,10 +18,11 @@ import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.world.event.SpectreAttackEvent;
 import svenhjol.charm.world.feature.Spectre;
 import svenhjol.charm.world.feature.SpectreHaunting;
+import svenhjol.charm.world.message.MessageSpectreDespawn;
 import svenhjol.meson.Meson;
+import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.EnchantmentHelper;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class EntitySpectre extends EntityZombie
@@ -73,27 +76,31 @@ public class EntitySpectre extends EntityZombie
     }
 
     @Override
+    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
+    {
+        // NO OP
+    }
+
+    @Override
     public void onUpdate()
     {
         super.onUpdate();
 
         boolean despawn;
-        BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+        BlockPos blockpos = new BlockPos(this.posX, getEntityBoundingBox().minY, this.posZ);
 
-        if (this.world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
+        if (world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
             despawn = true;
         } else {
-            int i = this.world.getLightFromNeighbors(blockpos);
-            despawn = (i > Spectre.despawnLight);
+            int i = world.getLightFromNeighbors(blockpos);
+            despawn = (i >= Spectre.despawnLight);
         }
 
-        if (Charm.hasFeature(SpectreHaunting.class) && ticksExisted > 240) {
+        if (Charm.hasFeature(SpectreHaunting.class) && ticksExisted > SpectreHaunting.ticksLiving) {
             despawn = true;
         }
 
-        if (despawn) {
-            this.despawn();
-        }
+        if (despawn) despawn();
     }
 
     @Override
@@ -132,14 +139,12 @@ public class EntitySpectre extends EntityZombie
 
     public void despawn()
     {
-        if (world.rand.nextFloat() < 0.25f) {
-            world.playSound(null, this.posX, this.posY, this.posZ, CharmSounds.SPECTRE_DEATH, SoundCategory.HOSTILE, 0.15f, 1.25f - (world.rand.nextFloat() / 4.0f));
-        }
-        if (world.isRemote) {
-            world.spawnParticle(EnumParticleTypes.SPELL_MOB, posX, posY + 1, posZ, 0, 0, 0);
-        }
+        NetworkHandler.INSTANCE.sendToAll(new MessageSpectreDespawn(getPosition()));
         Meson.debug("Spectre despawned " + this.posX + " " + this.posY + " " + this.posZ);
-        this.setDead();
+        if (world.getBlockState(getPosition().down()).getBlock() == Blocks.SAND) {
+            world.setBlockState(getPosition().down(), Blocks.SOUL_SAND.getDefaultState(), 2);
+        }
+        setDead();
     }
 
     @Override
