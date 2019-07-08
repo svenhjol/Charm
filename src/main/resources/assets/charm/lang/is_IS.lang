@@ -48,6 +48,7 @@ tile.charm:rune_portal_frame_green.name=Endagáttar græn rún
 tile.charm:rune_portal_frame_red.name=Endagáttar rauð rún
 tile.charm:rune_portal_frame_black.name=Endagáttar svört rún
 tile.charm:variable_redstone_lamp.name=Breytilegur Rauðsteinslampi
+tile.charm:smooth_glowstone.name=Sléttur Glósteinn
 
 # Items
 item.charm:bat_bucket.name=Leðurblaka í fötu
