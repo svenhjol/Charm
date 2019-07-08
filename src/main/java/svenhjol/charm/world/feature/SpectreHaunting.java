@@ -18,6 +18,7 @@ public class SpectreHaunting extends Feature
     public static int checkInterval;
     public static int spawnMinDistance;
     public static int spawnRange;
+    public static int ticksLiving;
     public static float spawnChance;
 
     @Override
@@ -36,9 +37,10 @@ public class SpectreHaunting extends Feature
     public void setupConfig()
     {
         checkInterval = 30;
-        distance = 5000;
+        distance = 7500;
+        ticksLiving = 240;
         spawnChance = 0.25f;
-        spawnMinDistance = 15;
+        spawnMinDistance = 20;
         spawnRange = 6;
         structure = StructureType.STRONGHOLD;
     }

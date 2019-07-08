@@ -1,26 +1,30 @@
 package svenhjol.charm.world.feature;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmEntityIDs;
+import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.world.client.render.RenderSpectre;
 import svenhjol.charm.world.entity.EntitySpectre;
+import svenhjol.charm.world.message.MessageSpectreDespawn;
 import svenhjol.meson.Feature;
-import svenhjol.meson.Meson;
+import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.EntityHelper;
-import svenhjol.meson.helper.WorldHelper;
+import svenhjol.meson.helper.SoundHelper;
 
 public class Spectre extends Feature
 {
@@ -63,13 +67,18 @@ public class Spectre extends Feature
                 100
         );
 
+        applyCurse = propBoolean(
+            "Apply curse",
+            "Spectres curse player items when touching them. If false, spectres are passive.",
+            true
+        );
+
         // internal
-        applyCurse = true;
         eggColor1 = 0xececec;
         eggColor2 = 0xffed7d;
         maxHealth = 0.5f;
         attackDamage = 0.01f;
-        movementSpeed = 0.2f;
+        movementSpeed = 0.19f;
         min = 4;
         max = 8;
         trackingRange = 100;
@@ -82,18 +91,38 @@ public class Spectre extends Feature
         String name = Charm.MOD_ID + ":spectre";
         EntityRegistry.registerModEntity(new ResourceLocation(name), EntitySpectre.class, name, CharmEntityIDs.SPECTRE, Charm.instance, trackingRange, 3, true, eggColor1, eggColor2);
         LootTableList.register(EntitySpectre.LOOT_TABLE);
+        NetworkHandler.register(MessageSpectreDespawn.class, Side.CLIENT);
     }
 
     @Override
     public void init(FMLInitializationEvent event)
     {
-        EntityRegistry.addSpawn(EntitySpectre.class, weight, min, max, EnumCreatureType.MONSTER, EntityHelper.getBiomesWithMob(EntityZombie.class));
+        EnumCreatureType type = applyCurse ? EnumCreatureType.MONSTER : EnumCreatureType.CREATURE;
+        EntityRegistry.addSpawn(EntitySpectre.class, weight, min, max, type, EntityHelper.getBiomesWithMob(EntityZombie.class));
     }
 
     @Override
     public void preInitClient(FMLPreInitializationEvent event)
     {
         RenderingRegistry.registerEntityRenderingHandler(EntitySpectre.class, RenderSpectre.FACTORY);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void effectDespawn(BlockPos pos)
+    {
+        World world = Minecraft.getMinecraft().world;
+
+        for (int i = 0; i < 8; ++i) {
+            double d0 = world.rand.nextGaussian() * 0.02D;
+            double d1 = world.rand.nextGaussian() * 0.02D;
+            double d2 = world.rand.nextGaussian() * 0.02D;
+            double dx = (float) pos.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+            double dy = (float) pos.getY() + 0.65f + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 1f);
+            double dz = (float) pos.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+            world.spawnParticle(EnumParticleTypes.CLOUD, dx, dy, dz, d0, d1, d2);
+        }
+
+        SoundHelper.playSoundAtPos(world, pos, CharmSounds.SPECTRE_HIT, 0.2f - (world.rand.nextFloat() / 4.0f), 1.25f - (world.rand.nextFloat() / 4.0f));
     }
 
     @Override
