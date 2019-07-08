@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": {
+      "model": "charm:smooth_glowstone"
+    },
+    "inventory": {
+      "model": "charm:smooth_glowstone"
+    }
+  }
+}
