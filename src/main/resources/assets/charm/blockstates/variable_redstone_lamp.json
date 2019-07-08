@@ -11,22 +11,21 @@
         "inventory": {
             "model": "charm:variable_redstone_lamp_off"
         },
-        "light=0": { "model": "charm:variable_redstone_lamp_off" },
-        "light=1": { "model": "charm:variable_redstone_lamp_on" },
-        "light=2": { "model": "charm:variable_redstone_lamp_on" },
-        "light=3": { "model": "charm:variable_redstone_lamp_on" },
-        "light=4": { "model": "charm:variable_redstone_lamp_on" },
-        "light=5": { "model": "charm:variable_redstone_lamp_on" },
-        "light=6": { "model": "charm:variable_redstone_lamp_on" },
-        "light=7": { "model": "charm:variable_redstone_lamp_on" },
-        "light=8": { "model": "charm:variable_redstone_lamp_on" },
-        "light=9": { "model": "charm:variable_redstone_lamp_on" },
-        "light=10": { "model": "charm:variable_redstone_lamp_on" },
-        "light=11": { "model": "charm:variable_redstone_lamp_on" },
-        "light=12": { "model": "charm:variable_redstone_lamp_on" },
-        "light=13": { "model": "charm:variable_redstone_lamp_on" },
-        "light=14": { "model": "charm:variable_redstone_lamp_on" },
-        "light=15": { "model": "charm:variable_redstone_lamp_on" },
-        "light=16": { "model": "charm:variable_redstone_lamp_on" }
+        "level=0": { "model": "charm:variable_redstone_lamp_off" },
+        "level=1": { "model": "charm:variable_redstone_lamp_on" },
+        "level=2": { "model": "charm:variable_redstone_lamp_on" },
+        "level=3": { "model": "charm:variable_redstone_lamp_on" },
+        "level=4": { "model": "charm:variable_redstone_lamp_on" },
+        "level=5": { "model": "charm:variable_redstone_lamp_on" },
+        "level=6": { "model": "charm:variable_redstone_lamp_on" },
+        "level=7": { "model": "charm:variable_redstone_lamp_on" },
+        "level=8": { "model": "charm:variable_redstone_lamp_on" },
+        "level=9": { "model": "charm:variable_redstone_lamp_on" },
+        "level=10": { "model": "charm:variable_redstone_lamp_on" },
+        "level=11": { "model": "charm:variable_redstone_lamp_on" },
+        "level=12": { "model": "charm:variable_redstone_lamp_on" },
+        "level=13": { "model": "charm:variable_redstone_lamp_on" },
+        "level=14": { "model": "charm:variable_redstone_lamp_on" },
+        "level=15": { "model": "charm:variable_redstone_lamp_on" }
     }
 }
