@@ -5,9 +5,10 @@
 * Gold Tool improvements, bump efficiency to 17
 * Structure Maps
 * Crates, Bookshelf Chests and Barrels keep their custom names and show in GUI. Fix #101
-* Smooth Glowstone
+* Smooth Glowstone by smelting glowstone in furnace
 * Variable redstone lamps
 * Spectres "haunt" strongholds and convert sand to soulsand on death
+* Improved rotten flesh texture. Fix #113
 
 ## 1.1.15
 
