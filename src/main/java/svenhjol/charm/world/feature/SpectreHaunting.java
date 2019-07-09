@@ -48,7 +48,7 @@ public class SpectreHaunting extends Feature
             "How long a spectre should live for, in seconds.\n" +
                 "If set high (long life) and Spawn chance is set high (lots of spawns) then server performance may be impacted.\n" +
                 "This affects all spectres, not just those spawned in the haunt.",
-            12
+            15
         );
 
         String hauntStructure = propString(
@@ -60,8 +60,8 @@ public class SpectreHaunting extends Feature
         checkInterval = 40; // in ticks
         distance = 7500;
         ticksLiving = secondsLiving * 20;
-        spawnMinDistance = 20;
-        spawnRange = 6;
+        spawnMinDistance = 18;
+        spawnRange = 5;
         structure = StructureType.valueOf(hauntStructure.toUpperCase());
     }
 
