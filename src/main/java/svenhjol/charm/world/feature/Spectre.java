@@ -35,7 +35,6 @@ public class Spectre extends Feature
     public static float maxHealth; // max health of the spectre
     public static float attackDamage; // how much damage the spectre does when touching the player
     public static float movementSpeed; // how fast the spectre moves
-    public static boolean applyCurse; // true to apply random curse to player on touch
 
     public static int eggColor1, eggColor2;
 
@@ -44,7 +43,7 @@ public class Spectre extends Feature
     {
         return "Spectres spawn in the darkness at quite a low depth, and are almost invisible to see.\n" +
                 "When they touch the player they curse a weapon, tool or armor item and disappear.\n" +
-                "They can be defeated by light - or by the lightest of hits.";
+                "They can be defeated by light and convert sand to soul sand on death.";
     }
 
     @Override
@@ -65,12 +64,6 @@ public class Spectre extends Feature
                 "Spawn weight",
                 "The higher this value, the more Spectres will spawn.",
                 100
-        );
-
-        applyCurse = propBoolean(
-            "Apply curse",
-            "Spectres curse player items when touching them. If false, spectres are passive.",
-            true
         );
 
         // internal
@@ -97,8 +90,7 @@ public class Spectre extends Feature
     @Override
     public void init(FMLInitializationEvent event)
     {
-        EnumCreatureType type = applyCurse ? EnumCreatureType.MONSTER : EnumCreatureType.CREATURE;
-        EntityRegistry.addSpawn(EntitySpectre.class, weight, min, max, type, EntityHelper.getBiomesWithMob(EntityZombie.class));
+        EntityRegistry.addSpawn(EntitySpectre.class, weight, min, max, EnumCreatureType.MONSTER, EntityHelper.getBiomesWithMob(EntityZombie.class));
     }
 
     @Override

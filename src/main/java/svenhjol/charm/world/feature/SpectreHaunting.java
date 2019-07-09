@@ -36,13 +36,33 @@ public class SpectreHaunting extends Feature
     @Override
     public void setupConfig()
     {
-        checkInterval = 30;
+        spawnChance = (float)propDouble(
+            "Spawn chance during haunt",
+            "Chance (out of 1.0) of a spectre spawning every two seconds during a haunt.\n" +
+                "If set high (lots of spawns) and Spectre lifetime is set high (long life) then server performance may be impacted.",
+            0.25D
+        );
+
+        int secondsLiving = propInt(
+            "Spectre lifetime",
+            "How long a spectre should live for, in seconds.\n" +
+                "If set high (long life) and Spawn chance is set high (lots of spawns) then server performance may be impacted.\n" +
+                "This affects all spectres, not just those spawned in the haunt.",
+            12
+        );
+
+        String hauntStructure = propString(
+            "Structure to haunt",
+            "Name of structure that spectres will haunt.",
+            StructureType.STRONGHOLD.getCapitalizedName()
+        );
+
+        checkInterval = 40; // in ticks
         distance = 7500;
-        ticksLiving = 240;
-        spawnChance = 0.25f;
+        ticksLiving = secondsLiving * 20;
         spawnMinDistance = 20;
         spawnRange = 6;
-        structure = StructureType.STRONGHOLD;
+        structure = StructureType.valueOf(hauntStructure.toUpperCase());
     }
 
     @SubscribeEvent
