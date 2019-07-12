@@ -1,16 +1,60 @@
 # Blocks
 tile.charm:barrel.name=Fass
+tile.charm:barrel_oak.name=Eichenholzfass
+tile.charm:barrel_spruce.name=Fichtenholzfass
+tile.charm:barrel_birch.name=Birkeholzfass
+tile.charm:barrel_jungle.name=Tropenholzfass
+tile.charm:barrel_acacia.name=Akazienholzfass
+tile.charm:barrel_dark_oak.name=Schwarzeichenholzfass
 tile.charm:bookshelf_chest.name=Bücherregaltruhe
 tile.charm:bookshelf_container.name=Bücherregaltruhe
+tile.charm:composter.name=Komposter
 tile.charm:crate.name=Kiste
+tile.charm:crate_oak.name=Eichenholzkiste
+tile.charm:crate_spruce.name=Fichtenholzkiste
+tile.charm:crate_birch.name=Birkenholzkiste
+tile.charm:crate_jungle.name=Tropenholzkiste
+tile.charm:crate_acacia.name=Akazienholzkiste
+tile.charm:crate_dark_oak.name=Schwarzeichenholzkiste
 tile.charm:crate_sealed.name=Verschlossene Kiste
+tile.charm:crate_sealed_oak.name=Verschlossene Eichenholzkiste
+tile.charm:crate_sealed_spruce.name=Verschlossene Fichtenholzkiste
+tile.charm:crate_sealed_birch.name=Verschlossene Birkenholzkiste
+tile.charm:crate_sealed_jungle.name=Verschlossene Tropenholzkiste
+tile.charm:crate_sealed_acacia.name=Verschlossene Akazienholzkiste
+tile.charm:crate_sealed_dark_oak.name=Verschlossene Schwarzeichenholzkiste
+tile.charm:ender_pearl_block.name=Enderperlenblock
 tile.charm:gold_lantern.name=Goldene Laterne
+tile.charm:gunpowder_block.name=Schwarzpulverblock
 tile.charm:iron_lantern.name=Laterne
 tile.charm:nether_gold_deposit.name=Nethergoldvorkommen
+tile.charm:redstone_sand.name=Redstone-Sand
+tile.charm:rotten_flesh_block.name=Verrotteter Fleischblock
+tile.charm:rune_portal.name=Portal
+tile.charm:rune_portal_frame_white.name=Endportal Weiße Rune
+tile.charm:rune_portal_frame_orange.name=Endportal Orange Rune
+tile.charm:rune_portal_frame_magenta.name=Endportal Magenta Rune
+tile.charm:rune_portal_frame_light_blue.name=Endportal Hellblaue Rune
+tile.charm:rune_portal_frame_yellow.name=Endportal Gelbe Rune
+tile.charm:rune_portal_frame_lime.name=Endportal Hellgrüne Rune
+tile.charm:rune_portal_frame_pink.name=Endportal Rosa Rune
+tile.charm:rune_portal_frame_gray.name=Endportal Graue Rune
+tile.charm:rune_portal_frame_silver.name=Endportal Hellgraue Rune
+tile.charm:rune_portal_frame_cyan.name=Endportal Türkise Rune
+tile.charm:rune_portal_frame_purple.name=Endportal Violette Rune
+tile.charm:rune_portal_frame_blue.name=Endportal Blaue Rune
+tile.charm:rune_portal_frame_brown.name=Endportal Braune Rune
+tile.charm:rune_portal_frame_green.name=Endportal Grüne Rune
+tile.charm:rune_portal_frame_red.name=Endportal Rote Rune
+tile.charm:rune_portal_frame_black.name=Endportal Schwarze Rune
+tile.charm:variable_redstone_lamp.name=Variable Redstone-Lampe
+tile.charm:smooth_glowstone.name=Weicher Glowstone
 
 # Items
 item.charm:bat_bucket.name=Fledermaus im Eimer
+item.charm:bound_compass.name=Gebundener Kompass
 item.charm:charged_emerald.name=Geladener Smaragd
+item.charm:endermite_powder.name=Endermitenpulver
 item.charm:totem_of_returning.name=Totem der Wiederkehr
 item.charm:totem_of_shielding.name=Totem des Schutzes
 item.charm:suspicious_soup.name=Seltsame Suppe
@@ -44,6 +88,7 @@ charm.enchantment.rusting_curse=Fluch des Rostens
 charm.enchantment.curse_break=Fluchbrecher
 charm.enchantment.salvage=Bergung
 charm.enchantment.homing=Zielsuche
+charm.enchantment.magnetic=Magnet
 
 # Sound Subtitles
 subtitle.charm.spectre.disappear=Gespenst verschwindet
@@ -52,15 +97,13 @@ subtitle.charm.spectre.walk=Unheimlicher Gespensterlaut
 subtitle.charm.spectre.hit=Ein Gespenst hat dich geschlagen!
 subtitle.charm.whispers=Du hörst ein Flüstern um dich herum
 
-# Cakes
-tile.charm:cake_speed.name=Kuchen der Schnelligkeit
-tile.charm:cake_strength.name=Kuchen der Stärke
-tile.charm:cake_jump_boost.name=Kuchen der Sprungkraft
-tile.charm:cake_regeneration.name=Kuchen der Regeneration
-tile.charm:cake_fire_resistance.name=Kuchen der Feuerresistenz
-tile.charm:cake_water_breathing.name=Kuchen der Unterwasseratmung
-tile.charm:cake_invisibility.name=Kuchen der Unsichtbarkeit
-tile.charm:cake_night_vision.name=Kuchen der Nachtsicht
+# Maps
+charm.map.village=Dorfkarte
+charm.map.mineshaft=Minenkarte
+charm.map.swamp_hut=Sumpfhüttenkarte
+charm.map.jungle_pyramid=Dschungeltempelkarte
+charm.map.desert_pyramid=Wüstentempelkarte
+charm.map.igloo=Iglukarte
 
 # Records
 item.charm:record_creative1.name=Kreativschallplatte
@@ -117,21 +160,27 @@ item.record.charm:menu3.desc=C418 - Beginning 2
 item.record.charm:menu4.desc=C418 - Floating Trees
 
 # Misc strings
+charm.cake_of=Kuchen für
 crate=Kiste
 crate_sealed=Verschlossene Kiste
+compass=Kompass
+dimension=Dimension
+number_of_uses=Anzahl der Verwendungen
+charm.crate_tooltip_shift=Halte Shift um Inhalte zu sehen
 
 # Loot location classifications
 common=Gewöhnlich
 common_books=Gewöhnlich
 common_potions=Zaubertränke
 junk=Langweilig
-smith=Dorf
-librarian=Dorf
-priest=Dorf
-butcher=Dorf
-farmer=Dorf
-shepherd=Dorf
-fisherman=Dorf
+smith=Schmied
+librarian=Bibliothekar
+priest=Priester
+butcher=Metzger
+farmer=Bauer
+shepherd=Schäfer
+fisherman=Fischer
+carpenter=Zimmermann
 uncommon=Ungewöhnlich
 uncommon_books=Ungewöhnlich
 valuable=Wertvoll
