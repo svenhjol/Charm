@@ -40,24 +40,29 @@ public class BlockVariableRedstoneLight extends BlockRedstoneLight implements IM
     }
 
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-        worldIn.scheduleUpdate(pos, this, 4);
-    }
-
-    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!worldIn.isRemote && worldIn.isBlockPowered(pos)) {
-            int power = worldIn.getRedstonePowerFromNeighbors(pos);
-            updateLight(worldIn, pos, state, power);
+        if (!worldIn.isRemote) {
+            if (state.getValue(LEVEL) > 0 && !worldIn.isBlockPowered(pos)) {
+                updateState(worldIn, pos, state, 0);
+            } else if (state.getValue(LEVEL) == 0 && worldIn.isBlockPowered(pos)) {
+                int power = worldIn.getRedstonePowerFromNeighbors(pos);
+                updateState(worldIn, pos, state, power);
+            }
         }
     }
 
     @Override
-    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        return state.getValue(LEVEL);
+        if (!worldIn.isRemote) {
+            if (state.getValue(LEVEL) > 0 && !worldIn.isBlockPowered(pos)) {
+                worldIn.scheduleUpdate(pos, this, 4);
+            } else if (state.getValue(LEVEL) == 0 && worldIn.isBlockPowered(pos)) {
+                int power = worldIn.isBlockPowered(pos) ? worldIn.getRedstonePowerFromNeighbors(pos) : 0;
+                updateState(worldIn, pos, state, power);
+            }
+        }
     }
 
     @Override
@@ -65,16 +70,16 @@ public class BlockVariableRedstoneLight extends BlockRedstoneLight implements IM
     {
         int power;
 
-        if (!worldIn.isRemote) {
+        if (!worldIn.isRemote && state.getValue(LEVEL) > 0) {
             power = worldIn.isBlockPowered(pos) ? worldIn.getRedstonePowerFromNeighbors(pos) : 0;
-            updateLight(worldIn, pos, state, power);
+            updateState(worldIn, pos, state, power);
         }
     }
 
-    private void updateLight(World world, BlockPos pos, IBlockState state, int power)
+    @Override
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
     {
-        world.setBlockState(pos, state.withProperty(LEVEL, power), 3);
-        world.checkLight(pos);
+        return state.getValue(LEVEL);
     }
 
     @Override
@@ -105,5 +110,11 @@ public class BlockVariableRedstoneLight extends BlockRedstoneLight implements IM
     protected ItemStack getSilkTouchDrop(IBlockState state)
     {
         return new ItemStack(this);
+    }
+
+    private void updateState(World world, BlockPos pos, IBlockState state, int power)
+    {
+        world.setBlockState(pos, state.withProperty(LEVEL, power), 2);
+        world.checkLight(pos);
     }
 }
