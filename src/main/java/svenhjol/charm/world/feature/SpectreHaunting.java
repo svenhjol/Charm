@@ -1,7 +1,9 @@
 package svenhjol.charm.world.feature;
 
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import svenhjol.charm.Charm;
@@ -19,6 +21,7 @@ public class SpectreHaunting extends Feature
     public static int spawnMinDistance;
     public static int spawnRange;
     public static int ticksLiving;
+    public static int mobcap;
     public static float spawnChance;
 
     @Override
@@ -38,17 +41,22 @@ public class SpectreHaunting extends Feature
     {
         spawnChance = (float)propDouble(
             "Spawn chance during haunt",
-            "Chance (out of 1.0) of a spectre spawning every two seconds during a haunt.\n" +
-                "If set high (lots of spawns) and Spectre lifetime is set high (long life) then server performance may be impacted.",
+            "Chance (out of 1.0) of a spectre spawning every two seconds during a haunt.\n",
             0.25D
         );
 
         int secondsLiving = propInt(
             "Spectre lifetime",
             "How long a spectre should live for, in seconds.\n" +
-                "If set high (long life) and Spawn chance is set high (lots of spawns) then server performance may be impacted.\n" +
                 "This affects all spectres, not just those spawned in the haunt.",
-            15
+            20
+        );
+
+        mobcap = propInt(
+            "Check mobcap",
+            "Only spawns a spectre for haunting if number of monster entities is lower than this number.\n" +
+                "Vanilla minecraft is around 75.",
+            80
         );
 
         String hauntStructure = propString(
@@ -74,11 +82,21 @@ public class SpectreHaunting extends Feature
             && event.player.world.rand.nextFloat() < spawnChance
             && event.player.world.getLightBrightness(event.player.getPosition()) < ((float)Spectre.despawnLight)/16.0
         ) {
-            // check structure
-            BlockPos nearest = getNearestStructure(event.player.world, event.player.getPosition(), structure);
-            if (nearest != null && getDistanceSq(event.player.getPosition(), nearest) < distance) {
-                Meson.debug("Spectre haunting ", event.player.getPosition());
-                EntityHelper.spawnEntityNearPlayer(event.player, spawnMinDistance, spawnRange, new ResourceLocation(Charm.MOD_ID, "spectre"));
+            // check spawn count
+            WorldServer world = (WorldServer)event.player.world;
+            EnumCreatureType monster = EnumCreatureType.MONSTER;
+
+            int count = world.countEntities(monster, true);
+
+            if (count <= mobcap) {
+                // check structure
+                BlockPos nearest = getNearestStructure(event.player.world, event.player.getPosition(), structure);
+                if (nearest != null && getDistanceSq(event.player.getPosition(), nearest) < distance) {
+                    Meson.debug("Spectre haunting ", event.player.getPosition());
+                    EntityHelper.spawnEntityNearPlayer(event.player, spawnMinDistance, spawnRange, new ResourceLocation(Charm.MOD_ID, "spectre"));
+                }
+            } else {
+                Meson.debug("Mobcap reached, not spawning spectre");
             }
         }
     }

@@ -86,17 +86,23 @@ public class EntitySpectre extends EntityZombie
     {
         super.onUpdate();
 
-        boolean despawn;
+        boolean despawn = false;
         BlockPos blockpos = new BlockPos(this.posX, getEntityBoundingBox().minY, this.posZ);
 
-        if (world.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32)) {
+        int lightFor = world.getLightFor(EnumSkyBlock.SKY, blockpos);
+        if (lightFor > Spectre.despawnLight) {
+//            Meson.debug("Spectre skylight, going to despawn");
             despawn = true;
         } else {
             int i = world.getLightFromNeighbors(blockpos);
-            despawn = (i >= Spectre.despawnLight);
+            if (i >= Spectre.despawnLight) {
+//                Meson.debug("Spectre neighbour light, going to despawn");
+                despawn = true;
+            }
         }
 
         if (Charm.hasFeature(SpectreHaunting.class) && ticksExisted > SpectreHaunting.ticksLiving) {
+//            Meson.log("Spectre end of life, going to despawn");
             despawn = true;
         }
 
