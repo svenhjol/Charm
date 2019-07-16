@@ -14,6 +14,12 @@ public class SmoothGlowstone extends Feature
     public static float hardness;
 
     @Override
+    public String getDescription()
+    {
+        return "Smelt glowstone in a furnace to get smooth glowstone.";
+    }
+
+    @Override
     public void setupConfig()
     {
         hardness = 0.3f;
@@ -30,7 +36,7 @@ public class SmoothGlowstone extends Feature
     {
         FurnaceRecipes instance = FurnaceRecipes.instance();
 
-        float xp = 0.2f; // should be double
+        float xp = 0.2f;
         ItemStack output = new ItemStack(block);
 
         instance.addSmeltingRecipeForBlock(Blocks.GLOWSTONE, output, xp);
