@@ -13,6 +13,12 @@ public class VariableRedstoneLamp extends Feature
     public BlockVariableRedstoneLight block;
 
     @Override
+    public String getDescription()
+    {
+        return "Block that emits light according to the strength of the input redstone signal.";
+    }
+
+    @Override
     public void preInit(FMLPreInitializationEvent event)
     {
         block = new BlockVariableRedstoneLight();
