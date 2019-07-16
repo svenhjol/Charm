@@ -58,7 +58,7 @@ public class BlockVariableRedstoneLight extends BlockRedstoneLight implements IM
         if (!worldIn.isRemote) {
             if (state.getValue(LEVEL) > 0 && !worldIn.isBlockPowered(pos)) {
                 worldIn.scheduleUpdate(pos, this, 4);
-            } else if (state.getValue(LEVEL) == 0 && worldIn.isBlockPowered(pos)) {
+            } else if (worldIn.isBlockPowered(pos)) {
                 int power = worldIn.isBlockPowered(pos) ? worldIn.getRedstonePowerFromNeighbors(pos) : 0;
                 updateState(worldIn, pos, state, power);
             }
