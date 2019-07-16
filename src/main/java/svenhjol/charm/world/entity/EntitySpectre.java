@@ -6,7 +6,12 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumSkyBlock;
@@ -19,7 +24,6 @@ import svenhjol.charm.world.event.SpectreAttackEvent;
 import svenhjol.charm.world.feature.Spectre;
 import svenhjol.charm.world.feature.SpectreHaunting;
 import svenhjol.charm.world.message.MessageSpectreDespawn;
-import svenhjol.meson.Meson;
 import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.EnchantmentHelper;
 
@@ -64,7 +68,11 @@ public class EntitySpectre extends EntityZombie
 
             if (attacked) {
                 if (entity instanceof EntityPlayer) {
-                    EnchantmentHelper.applyRandomCurse((EntityPlayer) entity);
+                    if (Spectre.applyCurse) {
+                        EnchantmentHelper.applyRandomCurse((EntityPlayer) entity);
+                    } else {
+                        ((EntityPlayer) entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, Spectre.weaknessDuration * 20, Spectre.weaknessAmplifier));
+                    }
                     entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, CharmSounds.SPECTRE_HIT, SoundCategory.HOSTILE, 1.0f, 1.4f - (entity.world.rand.nextFloat() / 2));
                 }
             }
@@ -146,7 +154,7 @@ public class EntitySpectre extends EntityZombie
     public void despawn()
     {
         NetworkHandler.INSTANCE.sendToAll(new MessageSpectreDespawn(getPosition()));
-        Meson.debug("Spectre despawned " + this.posX + " " + this.posY + " " + this.posZ);
+//        Meson.debug("Spectre despawned " + this.posX + " " + this.posY + " " + this.posZ);
         if (world.getBlockState(getPosition().down()).getBlock() == Blocks.SAND) {
             world.setBlockState(getPosition().down(), Blocks.SOUL_SAND.getDefaultState(), 2);
         }

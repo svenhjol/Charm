@@ -69,7 +69,6 @@ public class EnchantmentHelper extends net.minecraft.enchantment.EnchantmentHelp
 
     public static void applyRandomCurse(EntityPlayer player)
     {
-
         List<Enchantment> curses = new ArrayList<>();
         curses.add(Enchantments.VANISHING_CURSE);
         curses.add(Enchantments.BINDING_CURSE);

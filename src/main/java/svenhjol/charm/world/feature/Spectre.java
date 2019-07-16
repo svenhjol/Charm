@@ -32,9 +32,12 @@ public class Spectre extends Feature
     public static int despawnLight; // light level at which spectres will despawn
     public static int trackingRange; // how far away spectres will start to path find
     public static int spawnDepth; // spectres spawn at this Y-level and deeper
+    public static int weaknessDuration; // if spectres don't curse then this is how long their weakness effect lasts
+    public static int weaknessAmplifier; // if spectres don't curse then this is how strong their weakness effect is
     public static float maxHealth; // max health of the spectre
     public static float attackDamage; // how much damage the spectre does when touching the player
     public static float movementSpeed; // how fast the spectre moves
+    public static boolean applyCurse; // true for spectres to curse, false to apply weakness
 
     public static int eggColor1, eggColor2;
 
@@ -65,6 +68,12 @@ public class Spectre extends Feature
                 "The higher this value, the more Spectres will spawn.",
                 100
         );
+        applyCurse = propBoolean(
+            "Apply curse",
+            "If true, spectres will curse armor or items belonging to the player.\n" +
+                "If false, spectres will apply a weakness effect.",
+            true
+        );
 
         // internal
         eggColor1 = 0xececec;
@@ -75,6 +84,8 @@ public class Spectre extends Feature
         min = 4;
         max = 8;
         trackingRange = 100;
+        weaknessDuration = 2;
+        weaknessAmplifier = 1;
         if (despawnLight == 0) despawnLight = 1;
     }
 
