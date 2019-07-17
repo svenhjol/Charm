@@ -2,18 +2,21 @@ package svenhjol.meson.handler;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomItemBlockModel;
 import svenhjol.meson.iface.IMesonBlock.IHasCustomStateMapper;
+import svenhjol.meson.iface.IMesonItem.IItemColorHandler;
 import svenhjol.meson.iface.IMesonItem.IItemCustomModel;
 import svenhjol.meson.iface.IMesonItem.IItemVariants;
+import svenhjol.meson.registry.ProxyRegistry;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,14 +30,15 @@ public final class ModelHandler
         ProxyRegistry.blocks.forEach(ModelHandler::registerBlockModels);
     }
 
-//    @SubscribeEvent
-//    public static void onItemColorRegister(ColorHandlerEvent.Item event)
-//    {
-//        for (Item item : ProxyRegistry.items) {
-//            if (!(item instanceof IMesonItem.IItemColorHandler)) continue;
-//            event.getItemColors().registerItemColorHandler(((IMesonItem.IItemColorHandler)item).getItemColor(), item);
-//        }
-//    }
+    @SubscribeEvent
+    public static void onItemColorRegister(ColorHandlerEvent.Item event)
+    {
+        for (Item item : ProxyRegistry.items) {
+            if (!(item instanceof IItemColorHandler)) continue;
+            IItemColor col = ((IItemColorHandler) item).getItemColor();
+            event.getItemColors().registerItemColorHandler(col, item);
+        }
+    }
 
     public static void registerModels(Item item)
     {
