@@ -53,7 +53,11 @@ public class TallowIncreasesDurability extends Feature
             ItemSword.class,
             ItemHoe.class,
             ItemShield.class,
-            ItemArmor.class
+            ItemArmor.class,
+            ItemElytra.class,
+            ItemShears.class,
+            ItemFlintAndSteel.class,
+            ItemFishingRod.class
         );
 
         try {
