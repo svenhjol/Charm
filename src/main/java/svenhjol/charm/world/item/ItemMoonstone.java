@@ -35,14 +35,13 @@ import java.util.Objects;
 @Optional.Interface(iface = "vazkii.quark.api.ICustomEnchantColor", modid = "quark")
 public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IItemColorHandler, IItemCustomModel
 {
-    private static final String SX = "sX";
-    private static final String SY = "sY";
-    private static final String SZ = "sZ";
-    private static final String SD = "sD";
-    private static final String GLOW = "glow";
-    private static final String TICK = "tick";
-    private static final String ALIGNEDX = "alignedx";
-    private static final String ALIGNEDZ = "alignedz";
+    private static final String SX = "charmPosX";
+    private static final String SY = "charmPosY";
+    private static final String SZ = "charmPosZ";
+    private static final String SD = "charmDim";
+    private static final String GLOW = "charmGlow";
+    private static final String TICK = "charmTick";
+    private static final String ORIGIN = "charmOrigin";
 
     public ItemMoonstone()
     {
@@ -89,8 +88,7 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
 
                 boolean alignedx = sx == ex;
                 boolean alignedz = sz == ez;
-                ItemNBTHelper.setBoolean(stack, ALIGNEDX, alignedx);
-                ItemNBTHelper.setBoolean(stack, ALIGNEDZ, alignedz);
+                ItemNBTHelper.setBoolean(stack, ORIGIN, alignedx && alignedz);
 
                 return glow(world, stack, alignedx || alignedz);
             }
@@ -128,8 +126,7 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
     public boolean hasEffect(ItemStack stack)
     {
         return Moonstone.glowOnOrigin
-            && ItemNBTHelper.getBoolean(stack, ALIGNEDX, false)
-            && ItemNBTHelper.getBoolean(stack, ALIGNEDZ, false);
+            && ItemNBTHelper.getBoolean(stack, ORIGIN, false);
     }
 
     @Override
@@ -137,7 +134,6 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
     {
         return (stack, tintIndex) -> {
             int meta = stack.getMetadata();
-            if (meta == 0) return -1;
             return EnumDyeColor.byDyeDamage(15-meta).getColorValue();
         };
     }
@@ -170,16 +166,11 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
     {
         int col = 0xffffff;
 
-        boolean x = ItemNBTHelper.getBoolean(stack, ALIGNEDX, false);
-        boolean z = ItemNBTHelper.getBoolean(stack, ALIGNEDZ, false);
-
-        if (x && z) {
-            if (stack.getMetadata() > 0) {
-                col = EnumDyeColor.byDyeDamage(stack.getMetadata()).getColorValue();
-            }
+        if (ItemNBTHelper.getBoolean(stack, ORIGIN, false)) {
+            col = EnumDyeColor.byDyeDamage(15-stack.getMetadata()).getColorValue();
         }
 
-        return col - 0x101010;
+        return col - 0x050505;
     }
 
     public static BlockPos getStonePos(ItemStack stack)
@@ -215,16 +206,6 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
         return stack;
     }
 
-    public static boolean isAlignedX(ItemStack stack)
-    {
-        return ItemNBTHelper.getBoolean(stack, ALIGNEDX, false);
-    }
-
-    public static boolean isAlignedZ(ItemStack stack)
-    {
-        return ItemNBTHelper.getBoolean(stack, ALIGNEDZ, false);
-    }
-
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
@@ -232,27 +213,14 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
 
         int dim = getStoneDim(stack);
         BlockPos pos = getStonePos(stack);
-        TextFormatting color = TextHelper.getTextFormattingByDyeDamage(EnumDyeColor.byDyeDamage(stack.getMetadata()).getDyeDamage());
+        TextFormatting color = TextHelper.getTextFormattingByDyeDamage(15-EnumDyeColor.byDyeDamage(stack.getMetadata()).getDyeDamage());
 
         if (pos != null) {
             String x = String.valueOf(pos.getX());
             String y = String.valueOf(pos.getY());
             String z = String.valueOf(pos.getZ());
 
-            boolean ax = isAlignedX(stack);
-            boolean az = isAlignedZ(stack);
-
-            String aligned = "";
-
-            if (ax && az) {
-                aligned = ". " + I18n.format("aligned_xz");
-            } else if (ax) {
-                aligned = ". " + I18n.format("aligned_x");
-            } else if (az) {
-                aligned = ". " + I18n.format("aligned_z");
-            }
-
-            tooltip.add(color + x + " " + y + " " + z + ". " + I18n.format("dimension") + " " + dim + aligned);
+            tooltip.add(color + x + " " + y + " " + z + ". " + I18n.format("dimension") + " " + dim);
         }
     }
 }

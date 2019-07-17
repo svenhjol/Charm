@@ -99,6 +99,7 @@ public class Moonstone extends Feature
                 // when sneaking, bind to coordinates
                 ItemMoonstone.setStonePos(item, pos);
                 ItemMoonstone.setStoneDim(item, world.provider.getDimension());
+                item.setStackDisplayName(held.getDisplayName());
 
                 player.swingArm(hand);
                 PlayerHelper.setHeldItem(player, hand, item);
@@ -107,8 +108,8 @@ public class Moonstone extends Feature
                 world.getBlockState(pos).getProperties().forEach((p1, p2) -> {
                     if (p1.getValueClass() != EnumDyeColor.class) return;
                     String color = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, p2.toString());
-                    int meta = EnumDyeColor.valueOf(color).getDyeDamage();
-                    held.setItemDamage(15-meta);
+                    int meta = 15-EnumDyeColor.valueOf(color).getDyeDamage();
+                    held.setItemDamage(meta);
                 });
             }
         }
