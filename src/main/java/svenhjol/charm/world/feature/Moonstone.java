@@ -108,7 +108,7 @@ public class Moonstone extends Feature
                     if (p1.getValueClass() != EnumDyeColor.class) return;
                     String color = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, p2.toString());
                     int meta = EnumDyeColor.valueOf(color).getDyeDamage();
-                    held.setItemDamage(meta);
+                    held.setItemDamage(15-meta);
                 });
             }
         }
