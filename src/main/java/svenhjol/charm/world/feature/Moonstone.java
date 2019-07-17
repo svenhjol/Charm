@@ -1,5 +1,6 @@
 package svenhjol.charm.world.feature;
 
+import com.google.common.base.CaseFormat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
@@ -10,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import svenhjol.charm.world.item.ItemMoonstone;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RecipeHandler;
@@ -53,17 +55,18 @@ public class Moonstone extends Feature
             'G', Items.GLOWSTONE_DUST
         );
 
+        OreDictionary.registerOre("moonstone", new ItemStack(moonstone, 1, OreDictionary.WILDCARD_VALUE));
+
         for (EnumDyeColor value : EnumDyeColor.values()) {
             int meta = value.getDyeDamage();
             if (meta == 0) continue;
             RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(moonstone, 1, meta),
-                ProxyRegistry.newStack(moonstone),
+                ProxyRegistry.newStack(moonstone, 1, OreDictionary.WILDCARD_VALUE),
                 ProxyRegistry.newStack(Items.DYE, 1, meta)
             );
-            RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(moonstone, 1, 0),
-                ProxyRegistry.newStack(moonstone, 1, meta));
         }
-
+//        RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(moonstone, 1, 0),
+//            ProxyRegistry.newStack(moonstone, 1, OreDictionary.WILDCARD_VALUE));
     }
 
     @SubscribeEvent
@@ -91,7 +94,8 @@ public class Moonstone extends Feature
                 // when the block has dye color then try and set the stone to the same
                 world.getBlockState(pos).getProperties().forEach((p1, p2) -> {
                     if (p1.getValueClass() != EnumDyeColor.class) return;
-                    int meta = EnumDyeColor.valueOf(p2.toString().toUpperCase()).getDyeDamage();
+                    String color = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, p2.toString());
+                    int meta = EnumDyeColor.valueOf(color).getDyeDamage();
                     held.setItemDamage(meta);
                 });
             }
