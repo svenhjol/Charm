@@ -71,14 +71,6 @@ public abstract class MesonDecoratorTheme
         if (common()) legs.add(Items.LEATHER_LEGGINGS);
         if (common()) feet.add(Items.LEATHER_BOOTS);
 
-        if (common()) offhand.add(Items.SHIELD);
-
-        mainhand.add(Items.STONE_SWORD);
-        mainhand.add(Items.STONE_AXE);
-        mainhand.add(Items.STONE_SHOVEL);
-        mainhand.add(Items.STONE_PICKAXE);
-        mainhand.add(Items.STONE_HOE);
-
         Map<EntityEquipmentSlot, ItemStack> map = new HashMap<>();
         putWearableInSlot(map, head, EntityEquipmentSlot.HEAD);
         putWearableInSlot(map, chest, EntityEquipmentSlot.CHEST);

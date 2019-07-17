@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.base.CharmDecoratorTheme;
 import svenhjol.charm.base.CharmLootTables;
+import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonInnerDecorator;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class VillageFishermanTheme extends CharmDecoratorTheme
         items.add(Items.COOKED_FISH);
         items.add(Items.STRING);
         items.add(Items.LEATHER_BOOTS);
-        if (common()) items.add(Items.FISHING_ROD);
+        if (common() && VillageDecorations.vanillaTools) items.add(Items.FISHING_ROD);
 
         return new ItemStack(items.get(getRand().nextInt(items.size())));
     }
