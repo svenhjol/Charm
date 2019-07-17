@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.GuiHandler;
@@ -25,6 +26,7 @@ import svenhjol.charm.crafting.feature.Barrel;
 import svenhjol.charm.crafting.tile.TileBarrel;
 import svenhjol.meson.MesonBlockTE;
 import svenhjol.meson.iface.IMesonBlock;
+import vazkii.quark.api.IRotationLockHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,7 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
+@Optional.Interface(iface = "vazkii.quark.api.IRotationLockHandler", modid = "quark")
+public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock, IRotationLockHandler
 {
     public static final PropertyDirection FACING = BlockDirectional.FACING;
     public static PropertyEnum<WoodVariant> VARIANT = PropertyEnum.create("variant", WoodVariant.class);
@@ -79,7 +82,6 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         if (!worldIn.isRemote) {
-
             TileBarrel barrel = getTileEntity(worldIn, pos);
             if (!validTileEntity(barrel)) return false;
             if (playerIn.isSneaking()) return false;
@@ -90,11 +92,32 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
 
             playerIn.openGui(Charm.instance, GuiHandler.BARREL, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
+
         if (worldIn.isRemote && !playerIn.isSneaking()) {
             playerIn.playSound(CharmSounds.WOOD_OPEN, 1.0f, 1.0f);
         }
 
         return true;
+    }
+
+    /**
+     * Return the state that should be placed in the world for the rotation lock
+     * currently enabled.
+     * @param facing The face currently locked
+     * @param hasHalf true if the rotation lock specifies a block half, false otherwise
+     * @param topHalf true if the rotation lock applies to the upper half of the block, false otherwise
+     */
+    @Override
+    public IBlockState setRotation(World world, BlockPos pos, IBlockState state, EnumFacing facing, boolean hasHalf, boolean topHalf)
+    {
+        TileBarrel barrel = getTileEntity(world, pos);
+        if (validTileEntity(barrel)) {
+            barrel.setFacing(facing);
+        }
+
+        state = state.withProperty(FACING, facing);
+        world.setBlockState(pos, state, 2);
+        return state;
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.base.CharmDecoratorTheme;
 import svenhjol.charm.base.CharmLootTables;
+import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonInnerDecorator;
 
 import java.util.ArrayList;
@@ -65,12 +66,12 @@ public class VillageCarpenterTheme extends CharmDecoratorTheme
     {
         List<Item> items = new ArrayList<>();
 
-        if (common()) items.add(Items.IRON_AXE);
-        if (common()) items.add(Items.IRON_SHOVEL);
-        items.add(Items.STONE_AXE);
-        items.add(Items.STONE_SHOVEL);
-        items.add(Items.WOODEN_SHOVEL);
-        items.add(Items.WOODEN_AXE);
+        if (common() && VillageDecorations.vanillaTools) items.add(Items.IRON_AXE);
+        if (common() && VillageDecorations.vanillaTools) items.add(Items.IRON_SHOVEL);
+        if (VillageDecorations.vanillaTools) items.add(Items.STONE_AXE);
+        if (VillageDecorations.vanillaTools) items.add(Items.STONE_SHOVEL);
+        if (VillageDecorations.vanillaTools) items.add(Items.WOODEN_SHOVEL);
+        if (VillageDecorations.vanillaTools) items.add(Items.WOODEN_AXE);
 
         return new ItemStack(items.get(getRand().nextInt(items.size())));
     }

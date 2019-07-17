@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.base.CharmDecoratorTheme;
 import svenhjol.charm.base.CharmLootTables;
+import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonInnerDecorator;
 
 import java.util.ArrayList;
@@ -53,8 +54,8 @@ public class VillageButcherTheme extends CharmDecoratorTheme
 
         if (valuable()) items.add(Items.SADDLE);
         if (valuable()) items.add(Items.RABBIT_FOOT);
-        if (uncommon()) items.add(Items.IRON_AXE);
-        if (uncommon()) items.add(Items.IRON_SWORD);
+        if (uncommon() && VillageDecorations.vanillaTools) items.add(Items.IRON_AXE);
+        if (uncommon() && VillageDecorations.vanillaTools) items.add(Items.IRON_SWORD);
         if (common()) items.add(Items.LEATHER_HELMET);
         if (common()) items.add(Items.LEATHER_CHESTPLATE);
         if (common()) items.add(Items.LEATHER_LEGGINGS);

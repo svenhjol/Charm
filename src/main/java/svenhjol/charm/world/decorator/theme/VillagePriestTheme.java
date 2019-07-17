@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import svenhjol.charm.base.CharmDecoratorTheme;
 import svenhjol.charm.base.CharmLootTables;
+import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonInnerDecorator;
 
 import java.util.ArrayList;
@@ -79,8 +80,8 @@ public class VillagePriestTheme extends CharmDecoratorTheme
         if (uncommon()) items.add(Items.BLAZE_POWDER);
         if (common()) items.add(Items.GOLD_INGOT);
 
-        items.add(Items.GOLDEN_AXE);
-        items.add(Items.GOLDEN_SHOVEL);
+        if (VillageDecorations.vanillaTools) items.add(Items.GOLDEN_AXE);
+        if (VillageDecorations.vanillaTools) items.add(Items.GOLDEN_SHOVEL);
         items.add(Items.GLASS_BOTTLE);
         items.add(Items.CLOCK);
 

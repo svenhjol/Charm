@@ -40,6 +40,7 @@ public class VillageDecorations extends Feature
 
     public static boolean treesHaveVines;
     public static boolean zombieVillageErosion;
+    public static boolean vanillaTools;
 
     public static double golemsWeight;
     public static double barrelsWeight;
@@ -207,6 +208,12 @@ public class VillageDecorations extends Feature
                 "Zombie village erosion damage",
                 "Number of passes that the generator will erode structures in a zombie village chunk.",
                 512
+        );
+        vanillaTools = propBoolean(
+            "Vanilla tools in frames and stands",
+            "If true, vanilla tools can spawn in item frames and armor stands.\n" +
+                "This is only valid if the 'Item frames' and 'Armor stands' config option allows it.",
+            true
         );
     }
 

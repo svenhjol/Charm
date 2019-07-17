@@ -90,6 +90,14 @@ charm.enchantment.curse_break=Curse Break
 charm.enchantment.salvage=Salvage
 charm.enchantment.homing=Homing
 charm.enchantment.magnetic=Magnetic
+enchantment.charm.clumsiness_curse.desc=Weapons and tools sometimes miss when used.
+enchantment.charm.harming_curse.desc=Weapons and tools sometimes hurt you when used.
+enchantment.charm.haunting_curse.desc=Weapons and tools sometimes spawn monsters nearby.
+enchantment.charm.rusting_curse.desc=Armor, weapons and tools take more damage than normal.
+enchantment.charm.curse_break.desc=Removes a curse from an item.
+enchantment.charm.salvage.desc=Armor, weapons and tools drop themselves instead of expiring.
+enchantment.charm.homing.desc=Hoes are attracted to the ore that the hoe head is made from.
+enchantment.charm.magnetic.desc=Tools automatically pick up drops.
 
 # Sound Subtitles
 subtitle.charm.spectre.disappear=Spectre vanished

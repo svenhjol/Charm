@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import svenhjol.charm.base.CharmDecoratorTheme;
 import svenhjol.charm.base.CharmLootTables;
+import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonInnerDecorator;
 
 import java.util.ArrayList;
@@ -70,12 +71,12 @@ public class VillageSmithTheme extends CharmDecoratorTheme
         if (uncommon()) items.add(Items.CHAINMAIL_LEGGINGS);
         if (uncommon()) items.add(Items.CHAINMAIL_HELMET);
 
-        items.add(Items.IRON_SWORD);
+        if (VillageDecorations.vanillaTools) items.add(Items.IRON_SWORD);
+        if (VillageDecorations.vanillaTools) items.add(Items.IRON_AXE);
         items.add(Items.IRON_HELMET);
         items.add(Items.IRON_CHESTPLATE);
         items.add(Items.IRON_LEGGINGS);
         items.add(Items.IRON_BOOTS);
-        items.add(Items.IRON_AXE);
         items.add(Items.CLOCK);
 
         return new ItemStack(items.get(getRand().nextInt(items.size())));
@@ -106,12 +107,12 @@ public class VillageSmithTheme extends CharmDecoratorTheme
         if (common()) legs.add(Items.IRON_LEGGINGS);
         if (common()) feet.add(Items.IRON_BOOTS);
 
-        if (common()) offhand.add(Items.SHIELD);
+        if (common() && VillageDecorations.vanillaTools) offhand.add(Items.SHIELD);
 
-        mainhand.add(Items.STONE_SWORD);
-        mainhand.add(Items.STONE_AXE);
-        mainhand.add(Items.IRON_SWORD);
-        mainhand.add(Items.IRON_AXE);
+        if (VillageDecorations.vanillaTools) mainhand.add(Items.STONE_SWORD);
+        if (VillageDecorations.vanillaTools) mainhand.add(Items.STONE_AXE);
+        if (VillageDecorations.vanillaTools) mainhand.add(Items.IRON_SWORD);
+        if (VillageDecorations.vanillaTools) mainhand.add(Items.IRON_AXE);
 
         Map<EntityEquipmentSlot, ItemStack> map = new HashMap<>();
         putWearableInSlot(map, head, EntityEquipmentSlot.HEAD);

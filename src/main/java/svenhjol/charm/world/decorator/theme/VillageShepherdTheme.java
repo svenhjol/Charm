@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.base.CharmDecoratorTheme;
 import svenhjol.charm.base.CharmLootTables;
+import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonInnerDecorator;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class VillageShepherdTheme extends CharmDecoratorTheme
         items.add(Items.STRING);
         items.add(Items.MUTTON);
         items.add(Items.COOKED_MUTTON);
-        if (common()) items.add(Items.SHEARS);
+        if (common() && VillageDecorations.vanillaTools) items.add(Items.SHEARS);
 
         return new ItemStack(items.get(getRand().nextInt(items.size())));
     }
