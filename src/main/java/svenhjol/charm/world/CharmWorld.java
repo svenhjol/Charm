@@ -13,6 +13,7 @@ public class CharmWorld extends Module
         features.add(new EndermitePowder());
         features.add(new EndPortalRunes());
         features.add(new IllusionersInRoofedForest());
+        features.add(new Moonstone());
         features.add(new MoreVillageBiomes());
         features.add(new NetherGoldDeposits());
         features.add(new Spectre());
