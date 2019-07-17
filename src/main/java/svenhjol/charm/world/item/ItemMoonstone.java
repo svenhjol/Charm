@@ -11,6 +11,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -68,9 +69,7 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
 
                 BlockPos sPos = getStonePos(stack);
                 if (sPos == null) return 0;
-
-                BlockPos ePos = hasEntity ? entity.getPosition() : null;
-//                if (ePos == null) return 0;
+                if (entity == null) return 0;
 
                 int sDim = getStoneDim(stack);
                 int eDim = world.provider.getDimension();
@@ -144,6 +143,18 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
     }
 
     @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
+    {
+        if (isInCreativeTab(tab)) {
+            EnumDyeColor[] values = EnumDyeColor.values();
+
+            for (int i = 0; i < values.length; i++) {
+                items.add(new ItemStack(this, 1, EnumDyeColor.byDyeDamage(i).getMetadata()));
+            }
+        }
+    }
+
+    @Override
     public void registerModels(Item item)
     {
         for (int i = 0; i < 16; i++) {
@@ -204,6 +215,16 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
         return stack;
     }
 
+    public static boolean isAlignedX(ItemStack stack)
+    {
+        return ItemNBTHelper.getBoolean(stack, ALIGNEDX, false);
+    }
+
+    public static boolean isAlignedZ(ItemStack stack)
+    {
+        return ItemNBTHelper.getBoolean(stack, ALIGNEDZ, false);
+    }
+
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
@@ -217,7 +238,21 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
             String x = String.valueOf(pos.getX());
             String y = String.valueOf(pos.getY());
             String z = String.valueOf(pos.getZ());
-            tooltip.add(color + x + " " + y + " " + z + ", " + I18n.format("dimension") + " " + dim);
+
+            boolean ax = isAlignedX(stack);
+            boolean az = isAlignedZ(stack);
+
+            String aligned = "";
+
+            if (ax && az) {
+                aligned = ". " + I18n.format("aligned_xz");
+            } else if (ax) {
+                aligned = ". " + I18n.format("aligned_x");
+            } else if (az) {
+                aligned = ". " + I18n.format("aligned_z");
+            }
+
+            tooltip.add(color + x + " " + y + " " + z + ". " + I18n.format("dimension") + " " + dim + aligned);
         }
     }
 }

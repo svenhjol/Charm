@@ -175,6 +175,9 @@ crate_sealed=Sealed Crate
 compass=Compass
 dimension=Dimension
 number_of_uses=Number of uses
+aligned_xz=At origin
+aligned_x=Aligned to X axis
+aligned_z=Aligned to Z axis
 charm.crate_tooltip_shift=Hold Shift to see contents
 
 # Loot location classifications

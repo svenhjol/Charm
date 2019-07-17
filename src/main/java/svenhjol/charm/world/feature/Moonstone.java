@@ -15,6 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import svenhjol.charm.world.item.ItemMoonstone;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RecipeHandler;
+import svenhjol.meson.helper.DyeHelper;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.registry.ProxyRegistry;
 
@@ -49,24 +50,28 @@ public class Moonstone extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         moonstone = new ItemMoonstone();
+
+        // crafting recipe
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(moonstone, 1),
             " G ", "GQG", " G ",
             'Q', Items.QUARTZ,
             'G', Items.GLOWSTONE_DUST
         );
 
+        // register with oredict
         OreDictionary.registerOre("moonstone", new ItemStack(moonstone, 1, OreDictionary.WILDCARD_VALUE));
 
+        // register color variant recipes using dyes
         for (EnumDyeColor value : EnumDyeColor.values()) {
             int meta = value.getDyeDamage();
-            if (meta == 0) continue;
             RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(moonstone, 1, meta),
-                ProxyRegistry.newStack(moonstone, 1, OreDictionary.WILDCARD_VALUE),
-                ProxyRegistry.newStack(Items.DYE, 1, meta)
+                "moonstone",
+                DyeHelper.oredicts[15-meta]
             );
         }
-//        RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(moonstone, 1, 0),
-//            ProxyRegistry.newStack(moonstone, 1, OreDictionary.WILDCARD_VALUE));
+
+        // allow conversion back to meta 0
+        RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(moonstone, 1, 0), "moonstone");
     }
 
     @SubscribeEvent
