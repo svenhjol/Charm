@@ -25,11 +25,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import svenhjol.charm.Charm;
 import svenhjol.charm.world.feature.EndPortalRunes;
 import svenhjol.charm.world.tile.TileRunePortalFrame;
 import svenhjol.meson.MesonBlockTE;
 import svenhjol.meson.iface.IMesonBlock;
+import vazkii.quark.api.IRotationLockHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -37,7 +39,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class BlockRunePortalFrame extends MesonBlockTE<TileRunePortalFrame> implements IMesonBlock
+@Optional.Interface(iface = "vazkii.quark.api.IRotationLockHandler", modid = "quark")
+public class BlockRunePortalFrame extends MesonBlockTE<TileRunePortalFrame> implements IMesonBlock, IRotationLockHandler
 {
     public static final PropertyDirection FACING;
     public static final PropertyEnum<ColorVariant> VARIANT;
@@ -102,6 +105,26 @@ public class BlockRunePortalFrame extends MesonBlockTE<TileRunePortalFrame> impl
 
         // it's possible to put down a valid portal in creative mode
         EndPortalRunes.activate(worldIn, pos);
+    }
+
+    /**
+     * Return the state that should be placed in the world for the rotation lock
+     * currently enabled.
+     * @param facing The face currently locked
+     * @param hasHalf true if the rotation lock specifies a block half, false otherwise
+     * @param topHalf true if the rotation lock applies to the upper half of the block, false otherwise
+     */
+    @Override
+    public IBlockState setRotation(World world, BlockPos pos, IBlockState state, EnumFacing facing, boolean hasHalf, boolean topHalf)
+    {
+        TileRunePortalFrame portalFrame = getTileEntity(world, pos);
+        if (validTileEntity(portalFrame)) {
+            portalFrame.setFacing(facing);
+        }
+
+        state = state.withProperty(FACING, facing);
+        world.setBlockState(pos, state, 2);
+        return state;
     }
 
     @Override
