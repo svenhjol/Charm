@@ -82,7 +82,6 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         if (!worldIn.isRemote) {
-
             TileBarrel barrel = getTileEntity(worldIn, pos);
             if (!validTileEntity(barrel)) return false;
             if (playerIn.isSneaking()) return false;
@@ -93,6 +92,7 @@ public class BlockBarrel extends MesonBlockTE<TileBarrel> implements IMesonBlock
 
             playerIn.openGui(Charm.instance, GuiHandler.BARREL, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
+
         if (worldIn.isRemote && !playerIn.isSneaking()) {
             playerIn.playSound(CharmSounds.WOOD_OPEN, 1.0f, 1.0f);
         }
