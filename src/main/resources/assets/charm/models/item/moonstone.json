@@ -1,0 +1,15 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "charm:items/moonstone"
+    },
+    "overrides": [
+        { "predicate": { "align": 0 }, "model": "charm:item/moonstone_dark" },
+        { "predicate": { "align": 1 }, "model": "charm:item/moonstone_01" },
+        { "predicate": { "align": 2 }, "model": "charm:item/moonstone_02" },
+        { "predicate": { "align": 3 }, "model": "charm:item/moonstone_03" },
+        { "predicate": { "align": 4 }, "model": "charm:item/moonstone_04" },
+        { "predicate": { "align": 5 }, "model": "charm:item/moonstone_05" },
+        { "predicate": { "align": 6 }, "model": "charm:item/moonstone_06" }
+    ]
+}
