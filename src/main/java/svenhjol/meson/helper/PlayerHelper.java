@@ -64,11 +64,19 @@ public class PlayerHelper
         }
     }
 
-    public static void addOrDropStack(EntityPlayer player, ItemStack stack)
+    /**
+     * Tries to add item stack to player, drops if not possible.
+     * @param player The player
+     * @param stack The stack to add/drop
+     * @return True if able to add to player inv, false if dropped
+     */
+    public static boolean addOrDropStack(EntityPlayer player, ItemStack stack)
     {
         if (!player.inventory.addItemStackToInventory(stack)) {
             player.dropItem(stack, false);
+            return false;
         }
+        return true;
     }
 
     public static void addOrDropStacks(EntityPlayer player, List<ItemStack> stacks)
