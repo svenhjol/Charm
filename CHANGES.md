@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.2
+
+* Fixed wrong colors when right-clicking with moonstone on a dyed block.
+* Moonstone can now be renamed on anvil and name is preserved on stone rebind.
+
 ## 1.2.1
 
 * Added [Moonstone](https://charm.arcticfulmar.com/?feature=Moonstone) to help position alignment across dimensions.
