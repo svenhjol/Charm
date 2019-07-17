@@ -138,7 +138,7 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
         return (stack, tintIndex) -> {
             int meta = stack.getMetadata();
             if (meta == 0) return -1;
-            return EnumDyeColor.byDyeDamage(meta).getColorValue();
+            return EnumDyeColor.byDyeDamage(15-meta).getColorValue();
         };
     }
 
@@ -149,7 +149,7 @@ public class ItemMoonstone extends MesonItem implements ICustomEnchantColor, IIt
             EnumDyeColor[] values = EnumDyeColor.values();
 
             for (int i = 0; i < values.length; i++) {
-                items.add(new ItemStack(this, 1, EnumDyeColor.byDyeDamage(i).getMetadata()));
+                items.add(new ItemStack(this, 1, i));
             }
         }
     }
