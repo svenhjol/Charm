@@ -1,6 +1,8 @@
 package svenhjol.meson.handler;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -9,6 +11,11 @@ import java.util.Map;
 public class ClientHandler
 {
     private static Map<String, BlockPos> structures = new HashMap<>();
+
+    public static World getWorldClient()
+    {
+        return Minecraft.getMinecraft().world;
+    }
 
     @SuppressWarnings("unused")
     public static void setNearestStronghold(@Nullable BlockPos structure)
