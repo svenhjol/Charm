@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.1
+
+* Added [Moonstone](https://charm.arcticfulmar.com/?feature=Moonstone) to help position alignment across dimensions.
+* Magnetic enchantment plays item pickup sound when harvested item added to inventory. Fix #123
+* Tallow repair now works on elytra, flint and steel, fishing rods and shears. Fix #122
+* Barrels and Rune Frames respect Quark's rotation lock. Fix #121
+* Config option to prevent spawning of vanilla items in village item frames and armor stands. Fix #94
+* Added enchantment descriptions support. Fix #90
+
 ## 1.2.0
 
 * Gold Tool improvements, bump efficiency to 17
