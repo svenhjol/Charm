@@ -30,6 +30,7 @@ minecraft {
     mappings channel: 'snapshot', version: "${mcp_mappings}"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
+
     runs {
         client = {
             // recommended logging data for a userdev environment
@@ -38,6 +39,8 @@ minecraft {
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run').canonicalPath
             source sourceSets.main
+            replace '@MOD_VERSION@', version
+            replaceIn 'Charm.java'
         }
         server = {
             // recommended logging data for a userdev environment
@@ -46,6 +49,8 @@ minecraft {
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run').canonicalPath
             source sourceSets.main
+            replace '@MOD_VERSION@', version
+            replaceIn 'Charm.java'
         }
     }
 }
