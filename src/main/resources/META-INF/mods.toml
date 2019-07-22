@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[28,)" # Forge version
+issueTrackerURL="http://github.com/svenhjol/Charm"
+displayURL="http://github.com/svenhjol/Charm"
+#logoFile="examplemod.png"
+#credits="Credits"
+authors="svenhjol,warlordwossman"
+[[mods]]
+modId="charm"
+version="${file.jarVersion}" #mandatory
+displayName="Charm"
+description='''
+Smaller things.
+'''
+[[dependencies.charm]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[28,)" #mandatory
+    ordering="NONE" # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    side="BOTH" # Side this dependency is applied on - BOTH, CLIENT or SERVER
