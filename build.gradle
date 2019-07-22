@@ -1,105 +1,81 @@
+// For those who want the bleeding edge
 buildscript {
     repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
+
+
+ext.configFile = file('gradle.properties')
+ext.config = parseConfig(configFile)
+
+group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = modname
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 version = "${mc_version}-${version}.${build_number}"
 if (release_type != "") {
     version += "-${release_type}"
 }
 
-ext.configFile = file('gradle.properties')
-ext.config = parseConfig(configFile)
-
-group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = mod_name
-
 minecraft {
-    version = "${mc_version}-${forge_version}"
-    runDir = "run"
+    mappings channel: 'snapshot', version: "${mcp_mappings}"
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
-    coreMod = "svenhjol.charm.base.CharmLoadingPlugin"
-
-    mappings = mc_mappings
-    replace 'GRADLE:VERSION', version
-    replace 'scala.actors.threadpool.Arrays', 'java.util.Arrays' // Vazkii did this so I am too
-    replace '@MOD_VERSION@', project.version
-    replaceIn 'Charm.java'
-
-//    useDepAts = true
-    makeObfSourceJar = false
-}
-
-jar {
-    exclude "**/*.bat"
-    exclude "**/*.psd"
-    exclude "**/*.exe"
-    exclude "**/unused"
-
-    manifest {
-        attributes("FMLCorePluginContainsFMLMod": "true", "FMLCorePlugin": "svenhjol.charm.base.CharmLoadingPlugin")
+    runs {
+        client = {
+            // recommended logging data for a userdev environment
+            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
+            // recommended logging level for the console
+            properties 'forge.logging.console.level': 'debug'
+            workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
+        }
+        server = {
+            // recommended logging data for a userdev environment
+            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
+            // recommended logging level for the console
+            properties 'forge.logging.console.level': 'debug'
+            workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
+        }
     }
 }
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+//    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}:api"
+//    runtime "mcp.mobius.waila:Hwyla:${waila_version}_${mc_version}"
+//    runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+}
+
 
 repositories {
-    maven { // for AutoRegLib and Quark
-        name "blamejared"
-        url "http://maven.blamejared.com/"
+    maven { // The repo from which to get waila
+        name "Mobius Repo"
+        url "https://tehnut.info/maven"
     }
-    maven { // JEI & Tinkers
-        name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven'
+
+    maven { // for JEI
+        url "http://dvs1.progwml6.com/files/maven"
     }
+
     maven { // for HWYLA
         name 'Mobius'
         url "https://tehnut.info/maven"
     }
 }
-
-dependencies {
-    compile "vazkii.autoreglib:AutoRegLib:${arl_version}"
-    compile "vazkii.quark:Quark:${quark_version}"
-    deobfProvided "vazkii.quark:Quark:${quark_version}:api"
-    deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
-    runtime "mcp.mobius.waila:Hwyla:${waila_version}_${mc_version}"
-    runtime "mezz.jei:jei_${mc_version}:${jei_version}"
-}
-
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        expand 'version': project.version, 'mcversion': mc_version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info', '**/psd/**'
-    }
-}
-
-task deObfJar(type: Jar) {
-    from(sourceSets.main.output)
-    archiveName = "${baseName}-${version}-deobf.${extension}"
-}
-
-/**
- * Increments the buildnumber in your config file, and saves it
- */
-task incrementBuildNumber {
-    doFirst {
-        config.build_number = (build_number.toString().toInteger()) + 1
-        configFile.withWriter {
-            config.toProperties().store(it, "")
-        }
+jar {
+    manifest {
+        attributes 'FMLAT': 'accesstransformer.cfg'
     }
 }
 
@@ -111,4 +87,117 @@ static def parseConfig(File config) {
     }
 }
 
-defaultTasks 'clean', 'build', 'incrementBuildNumber'
+//buildscript {
+//    repositories {
+//        jcenter()
+//        maven {
+//            name = "forge"
+//            url = "http://files.minecraftforge.net/maven"
+//        }
+//    }
+//    dependencies {
+//        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+//    }
+//}
+//
+//apply plugin: 'net.minecraftforge.gradle.forge'
+//
+//version = "${mc_version}-${version}.${build_number}"
+//if (release_type != "") {
+//    version += "-${release_type}"
+//}
+//
+//ext.configFile = file('gradle.properties')
+//ext.config = parseConfig(configFile)
+//
+//group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+//archivesBaseName = mod_name
+//
+//minecraft {
+//    version = "${mc_version}-${forge_version}"
+//    runDir = "run"
+//
+//    coreMod = "svenhjol.charm.base.CharmLoadingPlugin"
+//
+//    mappings = mc_mappings
+//    replace 'GRADLE:VERSION', version
+//    replace 'scala.actors.threadpool.Arrays', 'java.util.Arrays' // Vazkii did this so I am too
+//    replace '@MOD_VERSION@', project.version
+//    replaceIn 'Charm.java'
+//
+////    useDepAts = true
+//    makeObfSourceJar = false
+//}
+//
+//jar {
+//    exclude "**/*.bat"
+//    exclude "**/*.psd"
+//    exclude "**/*.exe"
+//    exclude "**/unused"
+//
+//    manifest {
+//        attributes("FMLCorePluginContainsFMLMod": "true", "FMLCorePlugin": "svenhjol.charm.base.CharmLoadingPlugin")
+//    }
+//}
+//
+//repositories {
+//    maven { // for AutoRegLib and Quark
+//        name "blamejared"
+//        url "http://maven.blamejared.com/"
+//    }
+//    maven { // JEI & Tinkers
+//        name 'DVS1 Maven FS'
+//        url 'http://dvs1.progwml6.com/files/maven'
+//    }
+//    maven { // for HWYLA
+//        name 'Mobius'
+//        url "https://tehnut.info/maven"
+//    }
+//}
+//
+//dependencies {
+//    compile "vazkii.autoreglib:AutoRegLib:${arl_version}"
+//    compile "vazkii.quark:Quark:${quark_version}"
+//    deobfProvided "vazkii.quark:Quark:${quark_version}:api"
+//    deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
+//    runtime "mcp.mobius.waila:Hwyla:${waila_version}_${mc_version}"
+//    runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+//}
+//
+//processResources {
+//    from(sourceSets.main.resources.srcDirs) {
+//        include 'mcmod.info'
+//        expand 'version': project.version, 'mcversion': mc_version
+//    }
+//
+//    from(sourceSets.main.resources.srcDirs) {
+//        exclude 'mcmod.info', '**/psd/**'
+//    }
+//}
+//
+//task deObfJar(type: Jar) {
+//    from(sourceSets.main.output)
+//    archiveName = "${baseName}-${version}-deobf.${extension}"
+//}
+//
+///**
+// * Increments the buildnumber in your config file, and saves it
+// */
+//task incrementBuildNumber {
+//    doFirst {
+//        config.build_number = (build_number.toString().toInteger()) + 1
+//        configFile.withWriter {
+//            config.toProperties().store(it, "")
+//        }
+//    }
+//}
+//
+//static def parseConfig(File config) {
+//    config.withReader {
+//        def prop = new Properties()
+//        prop.load(it)
+//        return (new ConfigSlurper().parse(prop))
+//    }
+//}
+//
+//defaultTasks 'clean', 'build', 'incrementBuildNumber'

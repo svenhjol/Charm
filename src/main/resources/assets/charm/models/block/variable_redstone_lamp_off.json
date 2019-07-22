@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "charm:blocks/variable_redstone_lamp_off"
-    }
-}

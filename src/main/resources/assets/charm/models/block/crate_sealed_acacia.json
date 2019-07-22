@@ -1,8 +1,0 @@
-{
-    "parent": "block/cube_bottom_top",
-    "textures": {
-        "top": "charm:blocks/crate_sealed_top_acacia",
-        "side": "charm:blocks/crate_sealed_side_acacia",
-        "bottom": "charm:blocks/crate_top_acacia"
-    }
-}
