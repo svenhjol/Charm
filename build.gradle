@@ -55,7 +55,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 //    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}:api"
 //    runtime "mcp.mobius.waila:Hwyla:${waila_version}_${mc_version}"
-//    runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+//    runtime "mezz.jei:${jei_version}"
 }
 
 

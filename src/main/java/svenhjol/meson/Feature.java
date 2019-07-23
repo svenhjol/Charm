@@ -1,13 +1,50 @@
 package svenhjol.meson;
 
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.MinecraftForge;
 
 public abstract class Feature
 {
-    public boolean enabled;
+    public Module module;
+    public ModLoader modLoader;
+    public ForgeConfigSpec.Builder builder;
+    public ForgeConfigSpec.BooleanValue enabled;
 
-    public void init(FMLCommonSetupEvent event)
+    public void setup(Module module)
     {
+        this.module = module;
+        modLoader = module.modLoader;
+        builder = module.builder;
 
+        Meson.log("Configuring feature " + getName());
+
+        configure();
+    }
+
+    public void configure()
+    {
+        // allow the feature to define its own configuration items
+    }
+
+    public void init()
+    {
+        if (hasSubscriptions()) {
+            MinecraftForge.EVENT_BUS.register(this);
+        }
+    }
+
+    public boolean isEnabled()
+    {
+        return enabled.get();
+    }
+
+    public boolean hasSubscriptions()
+    {
+        return false;
+    }
+
+    public String getName()
+    {
+        return this.getClass().getSimpleName();
     }
 }
