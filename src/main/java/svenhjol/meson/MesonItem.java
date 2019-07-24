@@ -8,9 +8,9 @@ public abstract class MesonItem extends Item implements IMesonItem
 {
     protected String baseName;
 
-    public MesonItem(String baseName, Item.Properties properties)
+    public MesonItem(String baseName, Item.Properties props)
     {
-        super(properties);
+        super(props);
         this.baseName = baseName;
         RegistrationHandler.addItem(this);
     }
