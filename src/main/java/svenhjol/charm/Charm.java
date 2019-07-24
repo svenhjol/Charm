@@ -2,7 +2,6 @@ package svenhjol.charm;
 
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import svenhjol.charm.base.CharmModLoader;
 import svenhjol.charm.base.ClientProxy;
 import svenhjol.charm.base.ServerProxy;
@@ -24,12 +23,12 @@ public class Charm
     {
         Meson.init();
 
-        CharmModLoader.INSTANCE.registerModLoader(MOD_ID).add(
+        CharmModLoader.INSTANCE.registerModLoader(MOD_ID).setup(
             new CharmTools(),
             new CharmTweaks()
         );
 
         // add the Charm modloader to event bus
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(CharmModLoader.INSTANCE::setup);
+//        FMLJavaModLoadingContext.get().getModEventBus().addListener();
     }
 }
