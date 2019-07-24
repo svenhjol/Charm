@@ -1,0 +1,13 @@
+{
+  "result": {
+    "item": "charm:gold_lantern"
+  },
+  "pattern": [
+    "GGG", "GTG", "GGG"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": {"tag": "forge:nuggets/gold"},
+    "T": {"item": "minecraft:torch"}
+  }
+}

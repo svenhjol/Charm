@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.Mod;
 import svenhjol.charm.base.CharmModLoader;
 import svenhjol.charm.base.ClientProxy;
 import svenhjol.charm.base.ServerProxy;
+import svenhjol.charm.crafting.CharmCrafting;
 import svenhjol.charm.tweaks.CharmTweaks;
 import svenhjol.charm.world.CharmWorld;
 import svenhjol.meson.Meson;
@@ -24,6 +25,7 @@ public class Charm
         Meson.init();
 
         CharmModLoader.INSTANCE.registerModLoader(MOD_ID).setup(
+            new CharmCrafting(),
             new CharmTweaks(),
             new CharmWorld()
         );
