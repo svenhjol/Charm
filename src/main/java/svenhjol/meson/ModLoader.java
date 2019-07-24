@@ -26,7 +26,7 @@ public abstract class ModLoader
         ModLoader instance = this;
         this.id = id;
 
-        // TODO log this instance
+        /* @todo Store this instance */
 
         return instance;
     }
