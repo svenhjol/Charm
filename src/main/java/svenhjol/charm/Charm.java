@@ -5,8 +5,8 @@ import net.minecraftforge.fml.common.Mod;
 import svenhjol.charm.base.CharmModLoader;
 import svenhjol.charm.base.ClientProxy;
 import svenhjol.charm.base.ServerProxy;
-import svenhjol.charm.world.CharmWorld;
 import svenhjol.charm.tweaks.CharmTweaks;
+import svenhjol.charm.world.CharmWorld;
 import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IProxy;
 
