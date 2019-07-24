@@ -26,6 +26,7 @@ Thumbs.db
 
 ## Private Stuffs
 /private.properties
+/gradle/gradle.properties
 
 ## Testing things
 /src/main/java/svenhjol/charm/test/*
