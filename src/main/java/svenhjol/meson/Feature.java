@@ -47,4 +47,9 @@ public abstract class Feature
     {
         return this.getClass().getSimpleName();
     }
+
+    public String getDescription()
+    {
+        return getName();
+    }
 }

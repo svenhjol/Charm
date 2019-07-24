@@ -1,7 +1,6 @@
 package svenhjol.meson;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ForgeI18n;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +24,7 @@ public abstract class Module
     {
         // setup config schema for each feature
         features.forEach(feature -> {
-            String pattern = ForgeI18n.getPattern("feature." + feature.getName() + ".desc");
-            builder.push(feature.getName()).comment(pattern);
+            builder.push(feature.getName()).comment(feature.getDescription());
             feature.enabled = builder.define(feature.getName() + " feature enabled", true);
             feature.setup(this);
             builder.pop();
