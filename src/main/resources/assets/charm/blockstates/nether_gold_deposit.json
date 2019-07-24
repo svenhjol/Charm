@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "charm:block/nether_gold_deposit" }
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "charm:block/nether_gold_deposit"
+  }
+}
