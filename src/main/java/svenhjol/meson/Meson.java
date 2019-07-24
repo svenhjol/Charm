@@ -2,7 +2,7 @@ package svenhjol.meson;
 
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
-import svenhjol.meson.registry.ProxyRegistry;
+import svenhjol.meson.handler.RegistrationHandler;
 
 public class Meson
 {
@@ -19,7 +19,7 @@ public class Meson
     public static void init()
     {
         if (!hasInit) {
-            MinecraftForge.EVENT_BUS.register(ProxyRegistry.class);
+            MinecraftForge.EVENT_BUS.register(RegistrationHandler.class);
             hasInit = true;
         }
     }

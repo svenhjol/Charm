@@ -5,7 +5,6 @@ import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.nio.file.Path;
@@ -32,8 +31,10 @@ public abstract class ModLoader
         return instance;
     }
 
-    public void setup(FMLCommonSetupEvent event)
+    public void setup(Module... mods)
     {
+        modules.addAll(Arrays.asList(mods));
+
         // configure each module
         modules.forEach(module -> {
             builder.push(module.getName());
@@ -64,10 +65,5 @@ public abstract class ModLoader
                 module.init();
             }
         });
-    }
-
-    public void add(Module... module)
-    {
-        modules.addAll(Arrays.asList(module));
     }
 }
