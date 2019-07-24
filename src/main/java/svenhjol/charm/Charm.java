@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.Mod;
 import svenhjol.charm.base.CharmModLoader;
 import svenhjol.charm.base.ClientProxy;
 import svenhjol.charm.base.ServerProxy;
-import svenhjol.charm.tools.CharmTools;
+import svenhjol.charm.world.CharmWorld;
 import svenhjol.charm.tweaks.CharmTweaks;
 import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IProxy;
@@ -24,8 +24,8 @@ public class Charm
         Meson.init();
 
         CharmModLoader.INSTANCE.registerModLoader(MOD_ID).setup(
-            new CharmTools(),
-            new CharmTweaks()
+            new CharmTweaks(),
+            new CharmWorld()
         );
 
         // add the Charm modloader to event bus

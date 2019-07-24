@@ -1,7 +1,7 @@
-package svenhjol.charm.tools.feature;
+package svenhjol.charm.world.feature;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import svenhjol.charm.tools.item.TotemOfReturningItem;
+import svenhjol.charm.world.item.TotemOfReturningItem;
 import svenhjol.meson.Feature;
 
 public class TotemOfReturning extends Feature
