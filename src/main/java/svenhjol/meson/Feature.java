@@ -17,7 +17,6 @@ public abstract class Feature
         builder = module.builder;
 
         Meson.log("Configuring feature " + getName());
-
         configure();
     }
 
@@ -36,6 +35,11 @@ public abstract class Feature
     public boolean isEnabled()
     {
         return enabled.get();
+    }
+
+    public boolean isEnabledByDefault()
+    {
+        return true;
     }
 
     public boolean hasSubscriptions()
