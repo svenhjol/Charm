@@ -66,7 +66,7 @@ public class EnderPearlBlock extends Feature
     /**
      * When player eats Chorus Fruit in range of Ender Pearl Block, get the
      * coordinates of the closest portal block and teleport them to it.
-     * @param event Use item event start event
+     * @param event LivingEntityUseItemEvent.Start
      */
     @SubscribeEvent
     public void onItemUseFinish(LivingEntityUseItemEvent.Start event)
@@ -122,6 +122,11 @@ public class EnderPearlBlock extends Feature
         }
     }
 
+    /**
+     * When silversish spawns, add an AI goal to it so that it has the
+     * possibility to form an endermite when close to an Ender Pearl Block.
+     * @param event EntityEvent.EnteringChunk
+     */
     @SubscribeEvent
     public void onEnterChunk(EntityEvent.EnteringChunk event)
     {
