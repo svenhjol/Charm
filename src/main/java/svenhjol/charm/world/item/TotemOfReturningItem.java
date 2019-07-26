@@ -21,6 +21,8 @@ public class TotemOfReturningItem extends MesonItem
     private static final String POS = "pos";
     private static final String DIM = "dim";
 
+    /* @todo Tooltip information */
+
     public TotemOfReturningItem()
     {
         super("totem_of_returning", new Item.Properties()
