@@ -9,6 +9,7 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.registries.ForgeRegistries;
 import svenhjol.charm.world.block.NetherGoldDepositBlock;
 import svenhjol.meson.Feature;
+
 import static net.minecraft.world.gen.feature.Feature.ORE;
 
 public class NetherGoldDeposits extends Feature
