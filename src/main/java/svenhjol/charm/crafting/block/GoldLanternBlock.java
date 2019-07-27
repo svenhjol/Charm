@@ -6,7 +6,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import svenhjol.charm.Charm;
-import svenhjol.meson.handler.RegistrationHandler;
 import svenhjol.meson.iface.IMesonBlock;
 
 public class GoldLanternBlock extends LanternBlock implements IMesonBlock
@@ -18,7 +17,7 @@ public class GoldLanternBlock extends LanternBlock implements IMesonBlock
             .sound(SoundType.LANTERN)
             .lightValue(15));
 
-        RegistrationHandler.addBlock(this);
+        register();
     }
 
     @Override
