@@ -7,7 +7,7 @@ displayURL="http://github.com/svenhjol/Charm"
 authors="svenhjol,warlordwossman"
 [[mods]]
 modId="charm"
-version="${file.jarVersion}" #mandatory
+version="1.2.3" #mandatory
 displayName="Charm"
 description='''
 Smaller things.

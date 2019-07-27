@@ -18,8 +18,8 @@ ext.config = parseConfig(configFile)
 
 group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = modname
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 version = "${mc_version}-${version}.${build_number}"
 if (release_type != "") {
@@ -76,7 +76,15 @@ repositories {
 }
 jar {
     manifest {
-        attributes 'FMLAT': 'accesstransformer.cfg'
+        attributes([
+            "Specification-Title": "Charm",
+            "Specification-Vendor": "svenhjol",
+            "Specification-Version": "1.2.3", // We are version 1 of ourselves
+            "Implementation-Title": "Charm",
+            "Implementation-Version": "1.2.3",
+            "Implementation-Vendor" :"svenhjol",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
 }
 
