@@ -24,12 +24,6 @@ public class UseTotemFromInventory extends Feature
         return "As long as a Totem of Undying is in your inventory, it will be consumed to protect you from death.";
     }
 
-    @Override
-    public void configure()
-    {
-        something = builder.define("Test value", true);
-    }
-
     @SubscribeEvent
     public void onPlayerDeath(LivingDeathEvent event)
     {
