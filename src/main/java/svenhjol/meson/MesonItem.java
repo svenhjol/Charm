@@ -1,7 +1,6 @@
 package svenhjol.meson;
 
 import net.minecraft.item.Item;
-import svenhjol.meson.handler.RegistrationHandler;
 import svenhjol.meson.iface.IMesonItem;
 
 public abstract class MesonItem extends Item implements IMesonItem
@@ -12,7 +11,7 @@ public abstract class MesonItem extends Item implements IMesonItem
     {
         super(props);
         this.baseName = baseName;
-        RegistrationHandler.addItem(this);
+        register();
     }
 
     @Override

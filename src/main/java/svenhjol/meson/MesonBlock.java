@@ -2,7 +2,6 @@ package svenhjol.meson;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
-import svenhjol.meson.handler.RegistrationHandler;
 import svenhjol.meson.iface.IMesonBlock;
 
 public abstract class MesonBlock extends Block implements IMesonBlock
@@ -13,7 +12,7 @@ public abstract class MesonBlock extends Block implements IMesonBlock
     {
         super(props);
         this.baseName = baseName;
-        RegistrationHandler.addBlock(this);
+        register();
     }
 
     @Override
