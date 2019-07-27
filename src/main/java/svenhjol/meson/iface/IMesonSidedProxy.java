@@ -1,6 +1,6 @@
 package svenhjol.meson.iface;
 
-public interface IProxy
+public interface IMesonSidedProxy
 {
 
 }
