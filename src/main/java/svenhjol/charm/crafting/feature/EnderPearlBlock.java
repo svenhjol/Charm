@@ -28,7 +28,6 @@ public class EnderPearlBlock extends Feature
     public static int range;
     public static boolean showParticles;
     public static ForgeConfigSpec.BooleanValue teleportStabilize;
-    public static ForgeConfigSpec.ConfigValue<Double> endermiteChance;
 
     @Override
     public String getDescription()
@@ -41,10 +40,6 @@ public class EnderPearlBlock extends Feature
     public void configure()
     {
         super.configure();
-
-        endermiteChance = builder
-            .comment("Chance (out of 1.0) of a silverfish burrowing into an Ender Pearl Block, creating an Endermite.")
-            .define("Silverfish burrowing", 0.8D);
 
         teleportStabilize = builder
             .comment("If true, eating a Chorus Fruit while in range of an Ender Pearl Block will teleport you to it.")
