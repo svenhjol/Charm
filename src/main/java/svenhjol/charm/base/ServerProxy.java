@@ -1,7 +1,7 @@
 package svenhjol.charm.base;
 
-import svenhjol.meson.iface.IProxy;
+import svenhjol.meson.iface.IMesonSidedProxy;
 
-public class ServerProxy implements IProxy
+public class ServerProxy implements IMesonSidedProxy
 {
 }
