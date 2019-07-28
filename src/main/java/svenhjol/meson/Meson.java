@@ -1,8 +1,9 @@
 package svenhjol.meson;
 
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DeferredWorkQueue;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
-import svenhjol.meson.handler.RegistrationHandler;
 
 public class Meson
 {
@@ -19,8 +20,23 @@ public class Meson
     public static void init()
     {
         if (!hasInit) {
-            MinecraftForge.EVENT_BUS.register(RegistrationHandler.class);
+//            MinecraftForge.EVENT_BUS.register(RegistrationHandler.class);
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(Meson::commonSetup);
             hasInit = true;
         }
+    }
+
+    public static void commonSetup(final FMLCommonSetupEvent event)
+    {
+        DeferredWorkQueue.runLater(() -> {
+            MesonLoader.instances.forEach((id, loader) -> loader.features.forEach(feature -> {
+
+                feature.registerMessages();
+                feature.registerComposterItems();
+
+            }));
+        });
+
+        Meson.log("Common setup done");
     }
 }
