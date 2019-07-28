@@ -6,7 +6,7 @@ import net.minecraftforge.common.MinecraftForge;
 public abstract class Feature
 {
     public Module module;
-    public ModLoader modLoader;
+    public MesonLoader modLoader;
     public ForgeConfigSpec.Builder builder;
     public ForgeConfigSpec.BooleanValue enabled;
 
@@ -30,6 +30,16 @@ public abstract class Feature
         if (hasSubscriptions()) {
             MinecraftForge.EVENT_BUS.register(this);
         }
+    }
+
+    public void registerMessages()
+    {
+        // no op
+    }
+
+    public void registerComposterItems()
+    {
+        // no op
     }
 
     public boolean isEnabled()
