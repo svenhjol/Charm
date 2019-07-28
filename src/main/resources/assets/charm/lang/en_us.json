@@ -1,4 +1,12 @@
 {
+  "block.charm.cake_fire_resistance": "Cake of Fire Resistance",
+  "block.charm.cake_invisibility": "Cake of Invisibility",
+  "block.charm.cake_leaping": "Cake of Leaping",
+  "block.charm.cake_night_vision": "Cake of Night Vision",
+  "block.charm.cake_regeneration": "Cake of Regeneration",
+  "block.charm.cake_strength": "Cake of Strength",
+  "block.charm.cake_swiftness": "Cake of Swiftness",
+  "block.charm.cake_water_breathing": "Cake of Water Breathing",
   "block.charm.ender_pearl_block": "Ender Pearl Block",
   "block.charm.gold_lantern": "Gold Lantern",
   "block.charm.gunpowder_block": "Gunpowder Block",
@@ -6,6 +14,7 @@
   "block.charm.redstone_sand": "Redstone Sand",
   "block.charm.variable_redstone_lamp": "Variable Redstone Lamp",
 
+  "item.charm.bound_compass": "Bound Compass",
   "item.charm.record_creative1": "Creative Music Disc",
   "item.charm.record_creative2": "Creative Music Disc",
   "item.charm.record_creative3": "Creative Music Disc",
@@ -67,5 +76,7 @@
   "item.charm.totem_of_returning": "Totem of Returning",
 
   "item.minecraft.potion.effect.coffee_potion": "Coffee",
-  "effect.charm.coffee_effect": "Coffee"
+  "item.minecraft.potion.effect.decay_effect": "Decay",
+  "effect.charm.coffee_effect": "Coffee",
+  "effect.charm.decay_effect": "Decay"
 }
