@@ -1,6 +1,5 @@
 package svenhjol.meson.iface;
 
-import net.minecraft.item.crafting.Ingredient;
 import svenhjol.meson.handler.RegistrationHandler;
 
 public interface IMesonPotion
@@ -14,7 +13,5 @@ public interface IMesonPotion
         RegistrationHandler.addPotion(this);
     }
 
-    Ingredient getBase();
-
-    Ingredient getReagant();
+    void registerRecipe();
 }

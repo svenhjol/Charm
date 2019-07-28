@@ -1,15 +1,20 @@
 package svenhjol.meson;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtils;
+import net.minecraftforge.common.brewing.BrewingRecipe;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import svenhjol.meson.iface.IMesonPotion;
 
 public abstract class MesonPotion extends Potion implements IMesonPotion
 {
     protected String baseName;
-    protected Ingredient base;
-    protected Ingredient reagant;
+    protected Ingredient potionBase;
+    protected Ingredient potionReagant;
 
     public MesonPotion(String baseName, EffectInstance... effects)
     {
@@ -24,13 +29,21 @@ public abstract class MesonPotion extends Potion implements IMesonPotion
         return baseName;
     }
 
-    public Ingredient getBase()
+    public void setPotionBase(ItemStack base)
     {
-        return base;
+        this.potionBase = Ingredient.fromStacks(base);
     }
 
-    public Ingredient getReagant()
+    public void setPotionReagant(ItemStack reagant)
     {
-        return reagant;
+        this.potionReagant = Ingredient.fromStacks(reagant);
+    }
+
+    public void registerRecipe()
+    {
+        if (potionBase != null && potionReagant != null) {
+            ItemStack out = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), this);
+            BrewingRecipeRegistry.addRecipe(new BrewingRecipe(potionBase, potionReagant, out));
+        }
     }
 }
