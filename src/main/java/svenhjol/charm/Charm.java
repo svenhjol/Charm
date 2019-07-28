@@ -3,7 +3,7 @@ package svenhjol.charm;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import svenhjol.charm.automation.CharmAutomation;
-import svenhjol.charm.base.CharmModLoader;
+import svenhjol.charm.base.CharmLoader;
 import svenhjol.charm.base.ClientProxy;
 import svenhjol.charm.base.ServerProxy;
 import svenhjol.charm.brewing.CharmBrewing;
@@ -27,20 +27,17 @@ public class Charm
     {
         Meson.init();
 
-        CharmModLoader.INSTANCE.registerModLoader(MOD_ID).setup(
+        CharmLoader.INSTANCE.registerModLoader(MOD_ID).setup(
             new CharmAutomation(),
             new CharmBrewing(),
             new CharmCrafting(),
             new CharmTweaks(),
             new CharmWorld()
         );
-
-        // add the Charm modloader to event bus
-//        FMLJavaModLoadingContext.get().getModEventBus().addListener();
     }
 
     public static boolean hasFeature(Class<? extends Feature> feature)
     {
-        return CharmModLoader.INSTANCE.enabledFeatures.contains(feature);
+        return CharmLoader.INSTANCE.enabledFeatures.contains(feature);
     }
 }
