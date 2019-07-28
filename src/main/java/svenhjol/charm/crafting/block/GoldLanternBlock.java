@@ -12,7 +12,8 @@ public class GoldLanternBlock extends LanternBlock implements IMesonBlock
 {
     public GoldLanternBlock()
     {
-        super(Block.Properties.create(Material.IRON)
+        super(Block.Properties
+            .create(Material.IRON)
             .hardnessAndResistance(3.5F)
             .sound(SoundType.LANTERN)
             .lightValue(15));
