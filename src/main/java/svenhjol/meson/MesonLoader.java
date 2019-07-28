@@ -8,26 +8,24 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-public abstract class ModLoader
+public abstract class MesonLoader
 {
+    public static Map<String, MesonLoader> instances = new HashMap<>();
     public List<Module> modules = new ArrayList<>();
+    public List<Feature> features = new ArrayList<>();
     public List<Class<? extends Feature>> enabledFeatures = new ArrayList<>();
     public List<Class<? extends Module>> enabledModules = new ArrayList<>();
     public ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
     public ForgeConfigSpec config;
     public String id;
 
-    public ModLoader registerModLoader(String id)
+    public MesonLoader registerModLoader(String id)
     {
-        ModLoader instance = this;
+        MesonLoader instance = this;
+        instances.put(id, instance);
         this.id = id;
-
-        /* @todo Store this instance */
-
         return instance;
     }
 
