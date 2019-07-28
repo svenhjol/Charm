@@ -14,13 +14,21 @@ public interface IMesonBlock
 
     ItemGroup getItemGroup();
 
+    default int getMaxStackSize()
+    {
+        return 64;
+    }
+
     default BlockItem getBlockItem()
     {
         Item.Properties props = new Item.Properties();
         ItemGroup group = getItemGroup();
         if (group != null) props.group(group);
+        props.maxStackSize(getMaxStackSize());
 
-        return new BlockItem((Block)this, props);
+        BlockItem blockItem = new BlockItem((Block) this, props);
+        blockItem.setRegistryName(((Block) this).getRegistryName());
+        return blockItem;
     }
 
     default void register()
