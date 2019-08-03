@@ -21,10 +21,10 @@ public class ModelSpectre extends ModelBase
         this.arml = new ModelRenderer(this, 32, 16);
         this.arml.mirror = true;
         this.arml.setRotationPoint(5.0F, 2.0F, 0.0F);
-        this.arml.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, 0.0F);
+        this.arml.addBox(-0.5F, -2.0F, -2.0F, 4, 12, 4, 0.0F); // positive makes them move away from the body
         this.armr = new ModelRenderer(this, 32, 16);
         this.armr.setRotationPoint(-5.0F, 2.0F, 0.0F);
-        this.armr.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, 0.0F);
+        this.armr.addBox(-3.5F, -2.0F, -2.0F, 4, 12, 4, 0.0F); // negative makes them move away from the body
     }
 
     @Override
