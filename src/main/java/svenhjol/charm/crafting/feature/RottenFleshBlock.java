@@ -14,6 +14,7 @@ public class RottenFleshBlock extends Feature
     public static int harvestLevel;
     public static boolean showParticles;
     public static boolean transformToPodzol;
+    public static boolean transformToMycelium;
     public static boolean transformToSoil;
 
     public static BlockRottenFlesh block;
@@ -28,16 +29,6 @@ public class RottenFleshBlock extends Feature
     @Override
     public void setupConfig()
     {
-        transformToSoil = propBoolean(
-                "Transform to soil",
-                "If true, this block will turn to dirt over time when surrounded by water on at least one side.",
-                true
-        );
-        transformToPodzol = propBoolean(
-                "Transform soil above to podzol",
-                "If true, a soil block directly above this rotten flesh block will turn to podzol over time.",
-                true
-        );
         showParticles = propBoolean(
                 "Show particles",
                 "Flesh blocks give off random particles like mycelium.",
@@ -48,6 +39,9 @@ public class RottenFleshBlock extends Feature
         hardness = 1.0f;
         resistance = 2.0f;
         harvestLevel = 1;
+        transformToMycelium = true;
+        transformToPodzol = true;
+        transformToSoil = true;
     }
 
     @Override

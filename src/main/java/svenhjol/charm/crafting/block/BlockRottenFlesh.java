@@ -17,6 +17,7 @@ import svenhjol.charm.crafting.feature.RottenFleshBlock;
 import svenhjol.meson.MesonBlock;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -29,6 +30,7 @@ public class BlockRottenFlesh extends MesonBlock
         add(Blocks.GRASS_PATH.getDefaultState());
     }};
     protected static IBlockState podzol = Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
+    protected static IBlockState mycelium = Blocks.MYCELIUM.getDefaultState();
 
     public BlockRottenFlesh()
     {
@@ -57,14 +59,15 @@ public class BlockRottenFlesh extends MesonBlock
             if (!RottenFleshBlock.transformToPodzol && !RottenFleshBlock.transformToSoil) return;
             if (!world.isAreaLoaded(pos, 2)) return; // Forge: prevent loading unloaded chunks
 
-            // transform sides to podzol if dirt above
-            if (RottenFleshBlock.transformToPodzol) {
-                if (world.getBlockState(pos) != podzol) {
+            // transform soil to something else
+            ArrayList<IBlockState> transforms = new ArrayList<>(Arrays.asList(podzol, mycelium));
+            transforms.forEach(blockType -> {
+                if (world.getBlockState(pos) != blockType && world.getBiome(pos).topBlock == blockType) {
                     if (transformables.contains(world.getBlockState(pos.up()))) {
-                        world.setBlockState(pos.up(), podzol, 2);
+                        world.setBlockState(pos.up(), blockType, 2);
                     }
                 }
-            }
+            });
 
             // transform self to dirt if next to water
             if (RottenFleshBlock.transformToSoil) {
