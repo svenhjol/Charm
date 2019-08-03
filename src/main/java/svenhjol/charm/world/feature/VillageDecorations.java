@@ -196,8 +196,9 @@ public class VillageDecorations extends Feature
         treesHaveVines = propBoolean(
                 "Trees can have vines",
                 "If true, trees that spawn within the village boundary can have vines hanging from them.\n" +
-                        "This is only valid if the 'Trees outside' config option allows it.",
-                true
+                        "This is only valid if the 'Trees outside' config option allows it.\n" +
+                        "NOTE: chance for trees to spawn with cocoa beans when vines are enabled.",
+                false
         );
         zombieVillageErosion = propBoolean(
                 "Zombie villages are eroded",
