@@ -12,7 +12,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.block.state.pattern.FactoryBlockPattern;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -56,7 +55,6 @@ public class BlockRunePortalFrame extends MesonBlockTE<TileRunePortalFrame> impl
         setResistance(6000000f);
         setLightLevel(0.125f);
         setSoundType(SoundType.GLASS);
-        setCreativeTab(CreativeTabs.DECORATIONS);
         setDefaultState(this.blockState.getBaseState()
             .withProperty(FACING, EnumFacing.NORTH)
             .withProperty(VARIANT, ColorVariant.WHITE)
