@@ -35,15 +35,7 @@ public class Trees extends MesonOuterDecorator
             int zz = rand.nextInt(16) + 8;
             WorldGenerator gen = generators.get(rand.nextInt(generators.size()));
             if (gen != null) {
-
                 BlockPos atPos = world.getHeight(pos.add(xx, 0, zz));
-
-                // ensure trees can spawn on ground that currently doesn't allow it
-//                List<Block> validBaseBlocks = Arrays.asList(Blocks.SAND, Blocks.SANDSTONE);
-//
-//                if (validBaseBlocks.contains(world.getBlockState(atPos.down()).getBlock())) {
-//                    world.setBlockState(atPos.down(), Blocks.DIRT.getDefaultState());
-//                }
 
                 // generate the tree
                 gen.generate(world, rand, atPos);
