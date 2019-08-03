@@ -1,12 +1,11 @@
 package svenhjol.charm.automation.feature;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.automation.block.BlockRedstoneSand;
 import svenhjol.meson.Feature;
-import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
+import svenhjol.meson.registry.ProxyRegistry;
 
 public class RedstoneSand extends Feature
 {
@@ -34,6 +33,6 @@ public class RedstoneSand extends Feature
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1),
                 "RRR", "RSR", "RRR",
                 'R', Items.REDSTONE,
-                'S', Blocks.SAND);
+                'S', "sand");
     }
 }
