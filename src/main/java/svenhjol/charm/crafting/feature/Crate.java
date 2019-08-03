@@ -187,7 +187,7 @@ public class Crate extends Feature
             outTag = out.getOrCreateSubCompound("BlockEntityTag");
         }
 
-        outTag.getCompoundTag("BlockEntityTag").setString("name", name);
+        outTag.getCompoundTag("BlockEntityTag");
         out.setTagCompound(outTag);
         out.setStackDisplayName(name);
 
@@ -200,11 +200,11 @@ public class Crate extends Feature
         TileEntity tile = world.getTileEntity(pos);
 
         if (tile instanceof TileCrate) {
-            TileCrate tileCrate = (TileCrate)tile;
-            tileCrate.setName(crateType.name);
-            tileCrate.setShowName(true);
-            tileCrate.setLootTable(crateType.pool);
-            tileCrate.markDirty();
+            TileCrate crate = (TileCrate)tile;
+            crate.setName(crateType.name);
+            crate.setShowName(true);
+            crate.setLootTable(crateType.pool);
+            crate.markDirty();
         }
     }
 
@@ -216,14 +216,10 @@ public class Crate extends Feature
     {
         ItemStack in = event.getItemInput();
         ItemStack combine = event.getIngredientInput();
-        ItemStack out = event.getItemResult();
         if (in.isEmpty() || !combine.isEmpty()) return;
         if (!isItemCrate(in)) return;
 
         event.setBreakChance(0f); // can't break the anvil with naming crates
-
-        NBTTagCompound be = getBlockEntityTag(out);
-        be.setString("name", out.getDisplayName());
     }
 
     @SubscribeEvent
@@ -244,7 +240,6 @@ public class Crate extends Feature
 
                 NBTTagCompound be = getBlockEntityTag(out);
                 be.setBoolean("showname", true);
-                be.setString("name", out.getDisplayName());
             }
 
             // iron seals the crate

@@ -82,6 +82,12 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
         // no op
     }
 
+    @Override
+    public int getMaxStackSize()
+    {
+        return 1;
+    }
+
     /**
      * Sealed crates drop their contents.
      * Override the MesonBlockTE default drops so we can handle different kinds of item.
@@ -129,26 +135,18 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
 
             } else {
 
-                // check the inventory size
-                boolean isEmpty = false;
-                int invsize = crate.getInventorySize();
-
-                for (int i = 0; i < invsize; i++) {
-                    isEmpty = crate.getInventory().getStackInSlot(i).isEmpty();
-                    if (!isEmpty) break;
-                }
-
                 ItemStack stack = new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(state));
+                NBTTagCompound tag = new NBTTagCompound();
+                crate.writeToNBT(tag);
+                stack.setTagInfo("BlockEntityTag", tag);
 
-                // only apply nbt if crate has inv
-                if (crate.hasLootTable() || crate.hasCustomName() || !isEmpty) {
-                    NBTTagCompound tag = new NBTTagCompound();
-                    crate.writeToNBT(tag);
-                    stack.setTagInfo("BlockEntityTag", tag);
+                tag.removeTag("x");
+                tag.removeTag("y");
+                tag.removeTag("z");
 
-                    if (tag.hasKey("name") && !tag.getString("name").isEmpty()) {
-                        stack.setStackDisplayName(tag.getString("name"));
-                    }
+                // if custom name
+                if (crate.hasCustomName()) {
+                    stack.setStackDisplayName(crate.getName());
                 }
 
                 spawnAsEntity(world, pos, stack);
@@ -169,14 +167,13 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
             if (stack.getTagCompound() != null) {
                 crate.setLootTable(stack.getTagCompound().getString("lootTable"));
 
-                String name = stack.getTagCompound().hasKey("name") ? stack.getTagCompound().getString("name") : "";
+                String name = stack.getDisplayName();
                 if (!name.isEmpty()) {
                     crate.setName(name);
                 }
                 onBlockAdded(world, pos, state);
             }
         } else {
-        
             super.onBlockPlacedBy(world, pos, state, placer, stack);
         }
     }
