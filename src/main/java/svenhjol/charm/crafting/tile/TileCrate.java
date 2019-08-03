@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.ItemStackHandler;
 import svenhjol.charm.Charm;
@@ -69,12 +68,6 @@ public class TileCrate extends MesonTileInventory implements IDropoffManager
     public void setShowName(boolean show)
     {
         this.showName = show;
-    }
-
-    @Override
-    public String getDefaultName()
-    {
-        return I18n.translateToLocal("tile.charm:crate.name");
     }
 
     @Override

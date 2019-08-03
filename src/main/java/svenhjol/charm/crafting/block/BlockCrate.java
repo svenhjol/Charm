@@ -1,7 +1,6 @@
 package svenhjol.charm.crafting.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -124,27 +123,30 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
 
         if (validTileEntity(crate)) {
             if (isSealedCrate()) {
+
+                // sealed crates always drop their contents rather than themselves
                 dropsInventory(crate, TileCrate.SIZE, world, pos);
+
             } else {
-                /**
-                 * Handles dropping of a TE with its inventory intact.
-                 *
-                 * removedByPlayer() and harvestBlock() must be overridden so that we can fetch
-                 * the TileEntity instance from the world.  If not, the game will remove the tile
-                 * before this method gets called.
-                 *
-                 * Once the tile is fetched we can get its inventory.  Use "BlockEntityTag" as
-                 * the NBT tag name and Minecraft will automatically re-populate the inventory
-                 * once the block is placed.
-                 *
-                 * @see BlockFlowerPot (the FORGE START and FORGE END show the necessary overrides)
-                 */
-                NBTTagCompound tag = new NBTTagCompound();
-                crate.writeToNBT(tag);
+
+                // check the inventory size
+                boolean isEmpty = false;
+                int invsize = crate.getInventorySize();
+
+                for (int i = 0; i < invsize; i++) {
+                    isEmpty = crate.getInventory().getStackInSlot(i).isEmpty();
+                    if (!isEmpty) break;
+                }
 
                 ItemStack stack = new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(state));
-                stack.setTagInfo("BlockEntityTag", tag);
-                stack.setStackDisplayName(tag.getString("name"));
+
+                // only apply nbt if crate has inv
+                if (crate.hasLootTable() || crate.hasCustomName() || !isEmpty) {
+                    NBTTagCompound tag = new NBTTagCompound();
+                    crate.writeToNBT(tag);
+                    stack.setTagInfo("BlockEntityTag", tag);
+                    stack.setStackDisplayName(tag.getString("name"));
+                }
 
                 spawnAsEntity(world, pos, stack);
             }
@@ -160,10 +162,14 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
         if (validTileEntity(crate)) {
             world.setBlockState(pos, state, 2);
 
-            // set the name of the crate so we can see hover
-            crate.setName(stack.getDisplayName());
+            // set crate loot table and name if present
             if (stack.getTagCompound() != null) {
                 crate.setLootTable(stack.getTagCompound().getString("lootTable"));
+
+                String name = stack.getTagCompound().hasKey("name") ? stack.getTagCompound().getString("name") : "";
+                if (!name.isEmpty()) {
+                    crate.setName(name);
+                }
                 onBlockAdded(world, pos, state);
             }
         } else {
