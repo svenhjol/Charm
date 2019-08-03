@@ -82,10 +82,7 @@ public class Moonstone extends Feature
     @Override
     public void init(FMLInitializationEvent event)
     {
-
-        // register with oredict
         OreDictionary.registerOre("moonstone", new ItemStack(moonstone, 1, OreDictionary.WILDCARD_VALUE));
-
     }
 
     @SubscribeEvent
