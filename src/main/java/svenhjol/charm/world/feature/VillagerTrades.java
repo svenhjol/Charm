@@ -137,10 +137,10 @@ public class VillagerTrades extends Feature
         @Override
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
         {
-            int emeraldCount = random.nextInt(3) + 2;
+            int emeraldCount = random.nextInt(15) + 5;
             ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
             EnchantmentHelper.setEnchantments(new HashMap<Enchantment, Integer>() {{ put(Salvage.enchantment, 1); }}, book);
-            recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, emeraldCount), book));
+            recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, emeraldCount), new ItemStack(Items.BOOK), book));
         }
     }
 
@@ -149,10 +149,10 @@ public class VillagerTrades extends Feature
         @Override
         public void addMerchantRecipe(IMerchant merchant, MerchantRecipeList recipeList, Random random)
         {
-            int emeraldCount = random.nextInt(3) + 2;
+            int emeraldCount = 2 * (random.nextInt(15) + 5); // treasure costs 2x
             ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
             EnchantmentHelper.setEnchantments(new HashMap<Enchantment, Integer>() {{ put(CurseBreak.enchantment, 1); }}, book);
-            recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, emeraldCount), book));
+            recipeList.add(new MerchantRecipe(new ItemStack(Items.EMERALD, emeraldCount), new ItemStack(Items.BOOK), book));
         }
     }
 
