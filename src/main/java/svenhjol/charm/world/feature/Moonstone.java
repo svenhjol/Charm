@@ -9,6 +9,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -58,9 +59,6 @@ public class Moonstone extends Feature
     {
         moonstone = new ItemMoonstone();
 
-        // register with oredict
-        OreDictionary.registerOre("moonstone", new ItemStack(moonstone, 1, OreDictionary.WILDCARD_VALUE));
-
         // crafting recipe
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(moonstone, 1, 0),
             " G ", "GQG", " G ",
@@ -79,6 +77,15 @@ public class Moonstone extends Feature
 
         // allow conversion back to meta 0
         RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(moonstone, 1, 0), "moonstone");
+    }
+
+    @Override
+    public void init(FMLInitializationEvent event)
+    {
+
+        // register with oredict
+        OreDictionary.registerOre("moonstone", new ItemStack(moonstone, 1, OreDictionary.WILDCARD_VALUE));
+
     }
 
     @SubscribeEvent
