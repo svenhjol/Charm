@@ -1,16 +1,12 @@
 package svenhjol.meson;
 
-import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -41,35 +37,6 @@ public abstract class MesonBlockTE<TE extends TileEntity> extends MesonBlock
     public boolean validTileEntity(TE tile)
     {
         return tile != null && tile.getClass() == getTileEntityClass();
-    }
-
-    /**
-     * Handles dropping of a TE with its inventory intact.
-     * 
-     * removedByPlayer() and harvestBlock() must be overridden so that we can fetch
-     * the TileEntity instance from the world.  If not, the game will remove the tile
-     * before this method gets called.
-     * 
-     * Once the tile is fetched we can get its inventory.  Use "BlockEntityTag" as 
-     * the NBT tag name and Minecraft will automatically re-populate the inventory
-     * once the block is placed.
-     * 
-     * @see BlockFlowerPot (the FORGE START and FORGE END show the necessary overrides)
-     */
-    public void dropsIntactInventory(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos)
-    {
-        TileEntity tile = getTileEntity(world, pos);
-
-        if (tile != null && tile.getClass() == getTileEntityClass() && tile instanceof MesonTileInventory) {
-            NBTTagCompound tag = new NBTTagCompound();
-
-            tile.writeToNBT(tag);
-            ItemStack stack = new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
-            stack.setTagInfo("BlockEntityTag", tag);
-            stack.setStackDisplayName(tag.getString("name"));
-
-            drops.add(stack);
-        }
     }
 
     /**

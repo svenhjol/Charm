@@ -1,6 +1,7 @@
 package svenhjol.charm.crafting.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -12,7 +13,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -77,15 +80,7 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
     {
-        TileCrate crate = getTileEntity(world, pos);
-        
-        if (!validTileEntity(crate)) {
-            super.getDrops(drops, world, pos, state, fortune);
-        }
-
-        if (!isSealedCrate()) {
-            dropsIntactInventory(drops, world, pos);
-        }
+        // no op
     }
 
     /**
@@ -131,9 +126,30 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
             if (isSealedCrate()) {
                 dropsInventory(crate, TileCrate.SIZE, world, pos);
             } else {
-                super.breakBlock(world, pos, state);
+                /**
+                 * Handles dropping of a TE with its inventory intact.
+                 *
+                 * removedByPlayer() and harvestBlock() must be overridden so that we can fetch
+                 * the TileEntity instance from the world.  If not, the game will remove the tile
+                 * before this method gets called.
+                 *
+                 * Once the tile is fetched we can get its inventory.  Use "BlockEntityTag" as
+                 * the NBT tag name and Minecraft will automatically re-populate the inventory
+                 * once the block is placed.
+                 *
+                 * @see BlockFlowerPot (the FORGE START and FORGE END show the necessary overrides)
+                 */
+                NBTTagCompound tag = new NBTTagCompound();
+                crate.writeToNBT(tag);
+
+                ItemStack stack = new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(state));
+                stack.setTagInfo("BlockEntityTag", tag);
+                stack.setStackDisplayName(tag.getString("name"));
+
+                spawnAsEntity(world, pos, stack);
             }
         }
+        super.breakBlock(world, pos, state);
     }
 
     @Override
