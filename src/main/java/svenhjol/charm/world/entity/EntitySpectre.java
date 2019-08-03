@@ -153,10 +153,13 @@ public class EntitySpectre extends EntityZombie
 
     public void despawn()
     {
-        NetworkHandler.INSTANCE.sendToAll(new MessageSpectreDespawn(getPosition()));
-//        Meson.debug("Spectre despawned " + this.posX + " " + this.posY + " " + this.posZ);
-        if (world.getBlockState(getPosition().down()).getBlock() == Blocks.SAND) {
-            world.setBlockState(getPosition().down(), Blocks.SOUL_SAND.getDefaultState(), 2);
+        BlockPos pos = getPosition();
+
+        if (pos != null) {
+            NetworkHandler.INSTANCE.sendToAll(new MessageSpectreDespawn(pos));
+        }
+        if (world.getBlockState(pos.down()).getBlock() == Blocks.SAND) {
+            world.setBlockState(pos.down(), Blocks.SOUL_SAND.getDefaultState(), 2);
         }
         setDead();
     }
