@@ -145,7 +145,10 @@ public class BlockCrate extends MesonBlockTE<TileCrate> implements IMesonBlock
                     NBTTagCompound tag = new NBTTagCompound();
                     crate.writeToNBT(tag);
                     stack.setTagInfo("BlockEntityTag", tag);
-                    stack.setStackDisplayName(tag.getString("name"));
+
+                    if (tag.hasKey("name") && !tag.getString("name").isEmpty()) {
+                        stack.setStackDisplayName(tag.getString("name"));
+                    }
                 }
 
                 spawnAsEntity(world, pos, stack);
