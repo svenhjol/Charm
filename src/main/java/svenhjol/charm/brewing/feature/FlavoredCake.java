@@ -72,7 +72,8 @@ public class FlavoredCake extends Feature
                 "night_vision",
                 "quark:danger_sight",
                 "quark:haste",
-                "quark:resistance"
+                "quark:resistance",
+                "quark:resilience"
             }
         );
     }
