@@ -53,10 +53,11 @@ public class BoundCompassItem extends MesonItem
                 double angle;
                 boolean validDimension;
                 BlockPos pos = getPos(stack);
+                int dim = getDim(stack);
 
                 if (pos != null) {
                     // check current dimension
-                    validDimension = world.getDimension().getType().getId() == pos.getY();
+                    validDimension = world.getDimension().getType().getId() == dim;
                 } else {
                     // set to spawn point
                     pos = world.getSpawnPoint();
@@ -140,7 +141,7 @@ public class BoundCompassItem extends MesonItem
     public static BlockPos getPos(ItemStack stack)
     {
         if (!stack.hasTag()) return null;
-        long pos = ItemNBTHelper.getLong(stack, COLOR, 0);
+        long pos = ItemNBTHelper.getLong(stack, POS, 0);
         return BlockPos.fromLong(pos);
     }
 
@@ -158,6 +159,4 @@ public class BoundCompassItem extends MesonItem
     {
         ItemNBTHelper.setLong(stack, POS, pos.toLong());
     }
-
-
 }

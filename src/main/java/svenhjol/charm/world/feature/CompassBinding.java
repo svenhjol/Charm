@@ -1,5 +1,6 @@
 package svenhjol.charm.world.feature;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
@@ -16,7 +17,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.world.item.BoundCompassItem;
 import svenhjol.meson.Feature;
-import svenhjol.meson.Meson;
 import svenhjol.meson.helpers.PlayerHelper;
 
 import java.util.ArrayList;
@@ -50,7 +50,6 @@ public class CompassBinding extends Feature
     @SubscribeEvent
     public void onCompassUse(PlayerInteractEvent.RightClickBlock event)
     {
-        Meson.log("WTF");
         if (event.getEntityPlayer() != null
             && event.getEntityPlayer().isSneaking()
             && bindableItems.contains(event.getEntityPlayer().getHeldItem(event.getHand()).getItem())
@@ -58,6 +57,7 @@ public class CompassBinding extends Feature
             PlayerEntity player = event.getEntityPlayer();
             World world = event.getWorld();
             BlockPos pos = event.getPos();
+            BlockState state = world.getBlockState(pos);
             Hand hand = event.getHand();
 
             boolean validCompass = false;
@@ -69,22 +69,24 @@ public class CompassBinding extends Feature
             // handle banners
             if (useBanners.get() && tile instanceof BannerTileEntity) {
                 BannerTileEntity banner = (BannerTileEntity) tile;
-                List<DyeColor> colorList = banner.getColorList();
-                DyeColor c = colorList.iterator().next();
+                DyeColor c = banner.getBaseColor(() -> state);
                 color = c.getMapColor().colorValue;
 
-                name = banner.getDisplayName().toString();
+                if (banner.hasCustomName()) {
+                    name = banner.getDisplayName().toString();
+                }
                 validCompass = true;
             }
 
             if (!validCompass) return;
 
             // set up the new compass details
-            BlockPos compassPos = new BlockPos(pos.getX(), world.getDimension().getType().getId(), pos.getZ());
+            BlockPos compassPos = new BlockPos(pos);
             name = (name.length()) > 0 ? name : "Bound Compass";
 
             compass.setDisplayName(new StringTextComponent(name)); // I18n.translateToLocal is deprecated?
             BoundCompassItem.setPos(compass, compassPos);
+            BoundCompassItem.setDim(compass, world.getDimension().getType().getId());
             BoundCompassItem.setColor(compass, color);
 
             // set the player to hold it or in their inventory
