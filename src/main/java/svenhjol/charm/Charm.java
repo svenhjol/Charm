@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import svenhjol.charm.automation.CharmAutomation;
-import svenhjol.charm.base.CharmModLoader;
+import svenhjol.charm.base.CharmLoader;
 import svenhjol.charm.base.CommonProxy;
 import svenhjol.charm.brewing.CharmBrewing;
 import svenhjol.charm.crafting.CharmCrafting;
@@ -45,7 +45,7 @@ public class Charm
         Meson.init();
 
         // add modules to the Charm mod loader
-        CharmModLoader.INSTANCE.registerModLoader(Charm.MOD_ID).add(
+        CharmLoader.INSTANCE.registerModLoader(Charm.MOD_ID).add(
             new CharmAutomation(),
             new CharmBrewing(),
             new CharmCrafting(),
@@ -78,11 +78,11 @@ public class Charm
 
     public static boolean hasFeature(Class<? extends Feature> feature)
     {
-        return CharmModLoader.INSTANCE.enabledFeatures.contains(feature);
+        return CharmLoader.INSTANCE.enabledFeatures.contains(feature);
     }
 
     public static boolean hasModule(Class<? extends Module> module)
     {
-        return CharmModLoader.INSTANCE.enabledModules.contains(module);
+        return CharmLoader.INSTANCE.enabledModules.contains(module);
     }
 }

@@ -12,7 +12,7 @@ public class ClientProxy extends CommonProxy
     public void preInit(FMLPreInitializationEvent event)
     {
         super.preInit(event);
-        CharmModLoader.INSTANCE.preInitClient(event);
+        CharmLoader.INSTANCE.preInitClient(event);
 
         // this registers all the models for client
 		MinecraftForge.EVENT_BUS.register(ModelHandler.class);
@@ -22,13 +22,13 @@ public class ClientProxy extends CommonProxy
     public void init(FMLInitializationEvent event)
     {
         super.init(event);
-        CharmModLoader.INSTANCE.initClient(event);
+        CharmLoader.INSTANCE.initClient(event);
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
         super.postInit(event);
-        CharmModLoader.INSTANCE.postInitClient(event);
+        CharmLoader.INSTANCE.postInitClient(event);
     }
 }

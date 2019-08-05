@@ -15,21 +15,21 @@ public class CommonProxy
         NetworkRegistry.INSTANCE.registerGuiHandler(Charm.instance, new GuiHandler());
 
         // configure and initialise the mod loader
-        CharmModLoader.INSTANCE.preInit(event);
+        CharmLoader.INSTANCE.preInit(event);
     }
 
     public void init(FMLInitializationEvent event)
     {
-        CharmModLoader.INSTANCE.init(event);
+        CharmLoader.INSTANCE.init(event);
     }
 
     public void postInit(FMLPostInitializationEvent event)
     {
-        CharmModLoader.INSTANCE.postInit(event);
+        CharmLoader.INSTANCE.postInit(event);
     }
 
     public void serverStarting(FMLServerStartingEvent event)
     {
-        CharmModLoader.INSTANCE.serverStarting(event);
+        CharmLoader.INSTANCE.serverStarting(event);
     }
 }

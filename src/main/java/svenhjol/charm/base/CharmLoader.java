@@ -8,9 +8,9 @@ import svenhjol.meson.MesonLoader;
 
 import java.io.File;
 
-public final class CharmModLoader extends MesonLoader
+public final class CharmLoader extends MesonLoader
 {
-    public static final MesonLoader INSTANCE = new CharmModLoader();
+    public static final MesonLoader INSTANCE = new CharmLoader();
 
     @Override
     protected Configuration setupConfig(FMLPreInitializationEvent event)
@@ -21,9 +21,6 @@ public final class CharmModLoader extends MesonLoader
         // debug mode
         File debugFile = new File(event.getModConfigurationDirectory(), Charm.MOD_ID + ".debug.cfg");
         Meson.DEBUG = debugFile.exists();
-
-        // attempt backup if required
-//        FileHelper.backupConfigFile(configFile);
 
         config = new Configuration(configFile, Charm.MOD_VERSION, true);
         config.load();
