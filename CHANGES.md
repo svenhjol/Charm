@@ -6,7 +6,7 @@
 * Fixed: Features now write their config out even if they are disabled by another mod.  Fix #135
 
 ### Automation
-* Changed: Redstone Sand recipe can use any type of sand in its recipe.
+* Changed: Redstone Sand can use any type of sand in its recipe.
 
 ### Brewing
 * Added: Quark's "Resilience" potion added as a cake flavor.
