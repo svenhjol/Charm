@@ -27,7 +27,7 @@ public class Charm
     {
         Meson.init();
 
-        CharmLoader.INSTANCE.registerModLoader(MOD_ID).setup(
+        CharmLoader.INSTANCE.registerLoader(MOD_ID).setup(
             new CharmAutomation(),
             new CharmBrewing(),
             new CharmCrafting(),

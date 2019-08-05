@@ -21,7 +21,7 @@ public abstract class MesonLoader
     public ForgeConfigSpec config;
     public String id;
 
-    public MesonLoader registerModLoader(String id)
+    public MesonLoader registerLoader(String id)
     {
         MesonLoader instance = this;
         instances.put(id, instance);

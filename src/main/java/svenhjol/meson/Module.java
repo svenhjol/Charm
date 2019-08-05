@@ -7,15 +7,15 @@ import java.util.List;
 
 public abstract class Module
 {
-    public MesonLoader modLoader;
+    public MesonLoader loader;
     public List<Feature> features = new ArrayList<>();
     public ForgeConfigSpec.BooleanValue enabled;
     public ForgeConfigSpec.Builder builder;
 
-    public void setup(MesonLoader modLoader)
+    public void setup(MesonLoader loader)
     {
-        this.modLoader = modLoader;
-        builder = modLoader.builder;
+        this.loader = loader;
+        builder = loader.builder;
 
         configure();
     }
@@ -24,7 +24,7 @@ public abstract class Module
     {
         // setup config schema for each feature
         features.forEach(feature -> {
-            modLoader.features.add(feature); // add feature reference to modloader
+            loader.features.add(feature); // add feature reference to loader
             builder.push(feature.getName()).comment(feature.getDescription());
             feature.enabled = builder.define(feature.getName() + " feature enabled", feature.isEnabledByDefault());
             feature.setup(this);
@@ -37,7 +37,7 @@ public abstract class Module
         Meson.log("Starting module " + getName());
         features.forEach(feature -> {
             if (feature.isEnabled()) {
-                modLoader.enabledFeatures.add(feature.getClass());
+                loader.enabledFeatures.add(feature.getClass());
                 Meson.log("Starting feature " + feature.getName());
                 feature.init();
             }

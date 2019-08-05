@@ -6,14 +6,14 @@ import net.minecraftforge.common.MinecraftForge;
 public abstract class Feature
 {
     public Module module;
-    public MesonLoader modLoader;
+    public MesonLoader loader;
     public ForgeConfigSpec.Builder builder;
     public ForgeConfigSpec.BooleanValue enabled;
 
     public void setup(Module module)
     {
         this.module = module;
-        modLoader = module.modLoader;
+        loader = module.loader;
         builder = module.builder;
 
         Meson.log("Configuring feature " + getName());
