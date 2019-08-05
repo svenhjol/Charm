@@ -13,7 +13,7 @@
 
 ### Crafting
 * Changed: Crate stack size limited to 1 due to NBT/tag stacking issues. Fix #109
-* Changed: Rotten flesh block converts dirt above to podzol/mycelium only it's in the applicable biome. 
+* Changed: Rotten flesh block converts dirt above to podzol/mycelium only if it's in the applicable biome. 
 
 ### Enchanting
 * Fixed: Clumsiness now only applies to "weapons", not "anything breakable".
