@@ -10,6 +10,8 @@
 
 ### Brewing
 * Added: Quark's "Resilience" potion added as a cake flavor.
+* Changed: Flavored Cakes potions no longer configurable - this will be made into an API soon(TM) 
+to fix language and texture requirements.
 
 ### Crafting
 * Changed: Crate stack size limited to 1 due to NBT/tag stacking issues. Fix #109
