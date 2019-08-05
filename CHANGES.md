@@ -1,5 +1,37 @@
 # Changelog
 
+## 1.3.0
+
+### General
+* Fixed: Features now write their config out even if they are disabled by another mod.  Fix #135
+
+### Automation
+* Changed: Redstone Sand recipe can use any type of sand in its recipe.
+
+### Brewing
+* Added: Quark's "Resilience" potion added as a cake flavor.
+
+### Crafting
+* Changed: Crate stack size limited to 1 due to NBT/tag stacking issues. Fix #109
+* Changed: Rotten flesh block converts dirt above to podzol/mycelium only it's in the applicable biome. 
+
+### Enchanting
+* Fixed: Clumsiness now only applies to "weapons", not "anything breakable".
+
+### World
+* Changed: Spectre model redone, no longer internally based on EntityZombie. This should also fix
+the chicken spawns and vehicle log spam.
+* Changed: Village decoration config now sets "Trees have vines" to `false` by default, because of an
+issue with cocoa beans generating in vanilla (See #133). Recommend to change this to `false` in your 
+existing charm.cfg
+* Changed: Emeralds are no longer converted to Charged Emeralds on lightning strike due to flaky
+behavior and infinite charged emeralds. Now only found in dungeon loot.
+* Fixed: End Portal Rune Frames no longer show in creative menu. Fix #138
+* Fixed: Moonstone oredict entry now registers at correct time.
+* Fixed: Balance "Salvage" and "Curse Break" villager trades to prevent infinite emeralds exploit. Fix #134
+* Fixed: ASM obfuscation check for beacons to fix placement issue. Fix #107
+* Fixed: Side check when sending a "Spectre despawned" message to the client. Fix #131
+
 ## 1.2.2
 
 * Fixed wrong colors when right-clicking with moonstone on a dyed block.
