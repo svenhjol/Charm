@@ -1,5 +1,6 @@
 package svenhjol.charm.brewing.feature;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
@@ -24,8 +25,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.brewing.block.FlavoredCakeBlock;
 import svenhjol.charm.brewing.message.MessageCakeImbue;
 import svenhjol.meson.Feature;
+import svenhjol.meson.Meson;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helpers.ComposterHelper;
+import svenhjol.meson.helpers.PlayerHelper;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -86,7 +89,6 @@ public class FlavoredCake extends Feature
         cakes.forEach((s, flavoredCakeBlock) -> ComposterHelper.addCompostableItem(new ItemStack(flavoredCakeBlock), 1.0f));
     }
 
-    /* @todo Forge 1.14.4 event is broken */
     @SubscribeEvent
     public void onPotionUse(PlayerInteractEvent.RightClickBlock event)
     {
@@ -94,13 +96,18 @@ public class FlavoredCake extends Feature
         ItemStack held = event.getEntityPlayer().getHeldItem(event.getHand());
         boolean result = FlavoredCake.imbue(event.getWorld(), event.getPos(), held);
         if (result) {
+            if (!event.getWorld().isRemote) {
+                Meson.log("FIRED");
+                PlayerHelper.addOrDropStack(event.getEntityPlayer(), new ItemStack(Items.GLASS_BOTTLE));
+            }
             event.setCanceled(true);
         }
     }
 
     public static boolean imbue(World world, BlockPos pos, ItemStack stack)
     {
-        if (world.getBlockState(pos).getBlock() == Blocks.CAKE) {
+        Block block = world.getBlockState(pos).getBlock();
+        if (block == Blocks.CAKE || cakes.values().contains(block)) {
             Potion potion = PotionUtils.getPotionFromItem(stack);
 
             if (types.containsKey(potion)) {
@@ -134,6 +141,12 @@ public class FlavoredCake extends Feature
             double dz = (float)pos.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
             world.addParticle(ParticleTypes.WITCH, dx, dy, dz, d0, d1, d2);
         }
+    }
+
+    @Override
+    public boolean hasSubscriptions()
+    {
+        return true;
     }
 
     public class DispenseImbueBehavior extends DefaultDispenseItemBehavior
