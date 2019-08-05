@@ -31,12 +31,6 @@ public class RottenFleshBlock extends Feature
     {
         super.configure();
 
-        showParticles = propBoolean(
-                "Show particles",
-                "Flesh blocks give off random particles like mycelium.",
-                true
-        );
-
         // internal
         hardness = 1.0f;
         resistance = 2.0f;
@@ -44,6 +38,7 @@ public class RottenFleshBlock extends Feature
         transformToMycelium = true;
         transformToPodzol = true;
         transformToSoil = true;
+        showParticles = true;
     }
 
     @Override

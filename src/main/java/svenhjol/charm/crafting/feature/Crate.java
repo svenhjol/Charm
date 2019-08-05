@@ -100,11 +100,6 @@ public class Crate extends Feature
     {
         super.configure();
 
-        showCrateNames = propBoolean(
-                "Show crate name",
-                "Enables the display of the crate's name when you look at the crate.",
-                true
-        );
         xpCost = propInt(
                 "XP cost",
                 "Amount of XP (levels) required to use a name tag to seal a crate.",
@@ -123,6 +118,7 @@ public class Crate extends Feature
 
         // internal
         hardness = 1.0f;
+        showCrateNames = true;
     }
 
     @Override

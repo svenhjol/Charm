@@ -37,12 +37,6 @@ public class Lantern extends Feature
             true
         );
 
-        playSound = propBoolean(
-            "Ambient sound",
-            "Lanterns make a gentle fire crackling sound.",
-            true
-        );
-
         useCharmLanterns = propBoolean(
             "Use Charm lanterns",
             "Charm's lanterns will be enabled even if lanterns from other mods are present.",
@@ -59,6 +53,7 @@ public class Lantern extends Feature
         hardness = 2.0f;
         resistance = 4.0f;
         lightLevel = 1.0f;
+        playSound = true;
     }
 
     @Override
