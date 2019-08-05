@@ -18,9 +18,10 @@ import svenhjol.charm.base.CharmLootTables;
 import svenhjol.charm.crafting.item.ItemSuspiciousSoup;
 import svenhjol.charm.crafting.potion.SuspiciousEffects;
 import svenhjol.meson.Feature;
-import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
+import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.LootHelper;
+import svenhjol.meson.registry.ProxyRegistry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,14 +52,16 @@ public class SuspiciousSoup extends Feature
     }
 
     @Override
-    public String[] getDisableMods()
+    public boolean isEnabled()
     {
-        return new String[] { "sm" }; // sm is "Soups and Stews Mod"
+        return !ForgeHelper.areModsLoaded("sm"); // sm is "Soups and Stews Mod"
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // configurable
         duration = propInt(
                 "Suspicious Soup duration",
@@ -87,6 +90,7 @@ public class SuspiciousSoup extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         suspiciousSoup = new ItemSuspiciousSoup();
 
         // dynamic flower recipes

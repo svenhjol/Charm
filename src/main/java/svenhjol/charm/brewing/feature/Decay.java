@@ -3,6 +3,7 @@ package svenhjol.charm.brewing.feature;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.brewing.potion.DecayPotion;
 import svenhjol.meson.Feature;
+import svenhjol.meson.helper.ForgeHelper;
 
 public class Decay extends Feature
 {
@@ -18,8 +19,10 @@ public class Decay extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // configurable
         duration = propInt(
                 "Decay duration",
@@ -34,14 +37,15 @@ public class Decay extends Feature
     }
 
     @Override
-    public String[] getDisableMods()
+    public boolean isEnabled()
     {
-        return new String[] { "inspirations" };
+        return !ForgeHelper.areModsLoaded("inspirations");
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         decay = new DecayPotion();
     }
 

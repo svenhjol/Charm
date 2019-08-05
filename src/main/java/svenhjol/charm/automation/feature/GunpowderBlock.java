@@ -19,15 +19,18 @@ public class GunpowderBlock extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
-        // internal
+        super.configure();
+
+        super.configure();
         hardness = 0.5f;
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         block = new BlockGunpowder();
 
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1),

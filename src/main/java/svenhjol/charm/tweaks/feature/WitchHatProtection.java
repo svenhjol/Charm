@@ -5,6 +5,7 @@ import svenhjol.charm.tweaks.compat.QuarkWitchHat;
 import svenhjol.charm.world.event.SpectreAttackEvent;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
+import svenhjol.meson.helper.ForgeHelper;
 
 public class WitchHatProtection extends Feature
 {
@@ -18,8 +19,10 @@ public class WitchHatProtection extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         try {
             quarkWitchHat = QuarkWitchHat.class.newInstance();
         } catch (Exception e) {
@@ -36,9 +39,9 @@ public class WitchHatProtection extends Feature
     }
 
     @Override
-    public String[] getRequiredMods()
+    public boolean isEnabled()
     {
-        return new String[] { "quark" };
+        return ForgeHelper.areModsLoaded("quark");
     }
 
     @Override

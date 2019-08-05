@@ -31,8 +31,10 @@ public class Salvage extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // internal
         minEnchantability = 5;
     }
@@ -40,6 +42,7 @@ public class Salvage extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         enchantment = new EnchantmentSalvage();
     }
 

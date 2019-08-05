@@ -27,8 +27,10 @@ public class FurnacesRecycleMore extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         String[] configItems = propStringList(
                 "Recyclable items",
                 "A map of items that return nuggets when smelted.\n" +

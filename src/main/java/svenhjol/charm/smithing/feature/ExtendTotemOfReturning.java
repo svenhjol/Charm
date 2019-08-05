@@ -25,8 +25,10 @@ public class ExtendTotemOfReturning extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         xpCost = propInt(
             "XP cost",
             "Amount of XP (levels) required to increase the number of times a Totem of Returning can be used.",

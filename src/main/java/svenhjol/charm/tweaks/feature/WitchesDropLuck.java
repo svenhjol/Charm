@@ -25,8 +25,10 @@ public class WitchesDropLuck extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         dropChance = propDouble(
             "Drop chance",
             "Chance (out of 1.0) of a witch dropping a Potion of Luck when killed by the player.",

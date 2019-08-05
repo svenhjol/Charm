@@ -35,8 +35,10 @@ public class Composter extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         String[] items;
 
         items = propStringList(
@@ -149,6 +151,7 @@ public class Composter extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         composter = new BlockComposter();
         GameRegistry.registerTileEntity(composter.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":composter"));
         NetworkHandler.register(MessageComposterAddLevel.class, Side.CLIENT);

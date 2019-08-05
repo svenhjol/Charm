@@ -47,8 +47,10 @@ public class EnderSight extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // configurable
         duration = propInt(
                 "Ender Sight duration",
@@ -74,6 +76,7 @@ public class EnderSight extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         potion = new EnderSightPotion();
         NetworkHandler.register(MessageSetStructure.class, Side.CLIENT);
     }

@@ -20,6 +20,7 @@ public class DispensersUseAnyBow extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         ResourceLocation res = new ResourceLocation("minecraft:dispenser");
         RecipeHandler.removeRecipeByRegistryName(res);
         RecipeHandler.addShapedRecipe(res, ProxyRegistry.newStack(Blocks.DISPENSER, 1),

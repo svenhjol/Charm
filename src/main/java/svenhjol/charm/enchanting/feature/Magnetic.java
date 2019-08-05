@@ -38,14 +38,17 @@ public class Magnetic extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         minEnchantability = 15;
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         enchantment = new EnchantmentMagnetic();
         NetworkHandler.register(MessageMagneticPickup.class, Side.CLIENT);
     }

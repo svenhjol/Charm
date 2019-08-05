@@ -28,8 +28,10 @@ public class WaterInHotBiomes extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         duration = 5; // in seconds
         validBiomeTypes = Arrays.asList("HOT", "DRY"); // the biome types that this effect works in
     }

@@ -50,8 +50,10 @@ public class Spectre extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // configurable
         despawnLight = MathHelper.clamp(propInt(
                 "Despawn light level",
@@ -92,6 +94,7 @@ public class Spectre extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         String name = Charm.MOD_ID + ":spectre";
         EntityRegistry.registerModEntity(new ResourceLocation(name), EntitySpectre.class, name, CharmEntityIDs.SPECTRE, Charm.instance, trackingRange, 3, true, eggColor1, eggColor2);
         LootTableList.register(EntitySpectre.LOOT_TABLE);

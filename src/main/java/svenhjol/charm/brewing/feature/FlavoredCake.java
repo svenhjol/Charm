@@ -51,8 +51,10 @@ public class FlavoredCake extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         multiplier = propDouble(
             "Effect duration multiplier",
             "Duration multiplier of the potion effect when eating a single slice of cake.",
@@ -81,6 +83,7 @@ public class FlavoredCake extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         for (String name : validPotions) {
             String baseName;
 

@@ -15,8 +15,10 @@ public class StackableEnchantedBooks extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         stackSize = 16;
     }
 

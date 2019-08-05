@@ -26,7 +26,7 @@ import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.Meson;
 import svenhjol.meson.decorator.MesonDecoratorTheme;
 import svenhjol.meson.decorator.MesonInnerDecorator;
-import svenhjol.meson.helper.ConfigHelper;
+import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.LootHelper;
 import svenhjol.meson.helper.ObfuscationHelper;
 import svenhjol.meson.helper.WorldHelper;
@@ -57,7 +57,7 @@ public abstract class VillageInnerDecorator extends MesonInnerDecorator
         this.items = new CharmDecoratorItems(this);
 
         try {
-            if (ConfigHelper.checkMods("quark")) {
+            if (ForgeHelper.areModsLoaded("quark")) {
                 quarkItems = QuarkDecoratorItems.class.getConstructor(MesonInnerDecorator.class).newInstance(this);
             }
         } catch (Exception e) {

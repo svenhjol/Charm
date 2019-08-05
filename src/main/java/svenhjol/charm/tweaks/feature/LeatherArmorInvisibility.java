@@ -22,8 +22,10 @@ public class LeatherArmorInvisibility extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         invisibleItems.add(Items.LEATHER_HELMET);
         invisibleItems.add(Items.LEATHER_CHESTPLATE);
         invisibleItems.add(Items.LEATHER_LEGGINGS);

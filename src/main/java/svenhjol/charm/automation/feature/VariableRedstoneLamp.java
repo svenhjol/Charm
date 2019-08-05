@@ -21,6 +21,7 @@ public class VariableRedstoneLamp extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         block = new BlockVariableRedstoneLight();
 
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1),

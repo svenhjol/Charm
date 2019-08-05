@@ -40,8 +40,10 @@ public class UnearthItems extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         unearthChance = propDouble(
                 "Unearthing item chance",
                 "Chance (out of 1.0) of unearthing a treasure item when digging with an enchanted shovel/spade.",

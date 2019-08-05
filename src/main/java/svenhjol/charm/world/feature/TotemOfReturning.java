@@ -29,8 +29,10 @@ public class TotemOfReturning extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         addToLoot = propBoolean(
             "Add to loot",
             "Add the totem to mansions, mineshafts and nether fortress loot.",
@@ -49,6 +51,7 @@ public class TotemOfReturning extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         totem = new ItemTotemOfReturning();
         ItemHelper.availableTotems.add(new ItemStack(totem));
     }

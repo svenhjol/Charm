@@ -20,14 +20,17 @@ public class SmoothGlowstone extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         hardness = 0.3f;
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         block = new BlockSmoothGlowstone();
     }
 

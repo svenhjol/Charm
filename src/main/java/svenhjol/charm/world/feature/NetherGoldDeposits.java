@@ -3,9 +3,10 @@ package svenhjol.charm.world.feature;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import svenhjol.meson.Feature;
 import svenhjol.charm.world.block.BlockNetherGoldDeposit;
 import svenhjol.charm.world.generator.NetherGoldDepositGenerator;
+import svenhjol.meson.Feature;
+import svenhjol.meson.helper.ForgeHelper;
 
 public class NetherGoldDeposits extends Feature
 {
@@ -24,8 +25,10 @@ public class NetherGoldDeposits extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // internal
         clusterSize = 12;
         clusterCount = 12;
@@ -38,13 +41,14 @@ public class NetherGoldDeposits extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         ore = new BlockNetherGoldDeposit();
         GameRegistry.registerWorldGenerator(new NetherGoldDepositGenerator(), 0);
     }
 
     @Override
-    public String[] getDisableMods()
+    public boolean isEnabled()
     {
-        return new String[] { "nethergoldore" };
+        return !ForgeHelper.areModsLoaded("nethergoldore");
     }
 }

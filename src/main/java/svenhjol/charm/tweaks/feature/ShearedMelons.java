@@ -8,6 +8,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.meson.Feature;
+import svenhjol.meson.helper.ForgeHelper;
 
 public class ShearedMelons extends Feature
 {
@@ -21,14 +22,16 @@ public class ShearedMelons extends Feature
     }
 
     @Override
-    public String[] getDisableMods()
+    public boolean isEnabled()
     {
-        return new String[] { "inspirations" };
+        return !ForgeHelper.areModsLoaded("inspirations");
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // internal
         chance = 0.75f;
         maxPieces = 9;

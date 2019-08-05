@@ -35,8 +35,10 @@ public class Moonstone extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         showInformation = propBoolean(
             "Add coordinates to tooltip",
             "If true, adds co-ordinates and dimension to the moonstone tooltip.",
@@ -57,6 +59,7 @@ public class Moonstone extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         moonstone = new ItemMoonstone();
 
         // crafting recipe

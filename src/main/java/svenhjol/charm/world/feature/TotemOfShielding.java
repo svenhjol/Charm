@@ -34,8 +34,10 @@ public class TotemOfShielding extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         damageMultiplier = propDouble(
             "Damage multiplier",
             "The incoming player damage is multiplied by this amount before being transferred to the totem.",
@@ -61,6 +63,7 @@ public class TotemOfShielding extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         totem = new ItemTotemOfShielding();
         ItemHelper.availableTotems.add(new ItemStack(totem));
     }

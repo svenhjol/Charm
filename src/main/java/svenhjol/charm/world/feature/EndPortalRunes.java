@@ -37,6 +37,7 @@ import svenhjol.charm.world.tile.TileRunePortalFrame;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
 import svenhjol.meson.handler.NetworkHandler;
+import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.helper.WorldHelper;
@@ -61,8 +62,10 @@ public class EndPortalRunes extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         allowEnderEyeRemoval = propBoolean("Allow Eyes of Ender removal",
             "Eyes of Ender can be removed from End Portal frames by right-clicking when sneaking.\n" +
                 "If false, right-clicking with a rune replaces the Eye of Ender without returning it to the player.",
@@ -71,14 +74,10 @@ public class EndPortalRunes extends Feature
     }
 
     @Override
-    public String[] getRequiredMods()
+    public boolean isEnabled()
     {
-        return new String[] { "quark" };
-    }
+        if (!ForgeHelper.areModsLoaded("quark")) return false;
 
-    @Override
-    public boolean checkSelf()
-    {
         try {
             quarkRunes = QuarkColoredRunes.class.getConstructor().newInstance();
         } catch (Exception e) {
@@ -97,6 +96,7 @@ public class EndPortalRunes extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         portal = new BlockRunePortal();
         frame = new BlockRunePortalFrame();
 

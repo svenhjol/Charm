@@ -96,8 +96,10 @@ public class Crate extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         showCrateNames = propBoolean(
                 "Show crate name",
                 "Enables the display of the crate's name when you look at the crate.",
@@ -126,6 +128,7 @@ public class Crate extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         // register the crate and sealed crate blocks
         crate = new BlockCrate(BlockCrate.Type.CRATE);
         crateSealed = new BlockCrate(BlockCrate.Type.CRATE_SEALED);

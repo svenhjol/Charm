@@ -19,8 +19,10 @@ public class RedstoneSand extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // internal
         hardness = 0.5f;
     }
@@ -28,6 +30,7 @@ public class RedstoneSand extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         block = new BlockRedstoneSand();
 
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1),

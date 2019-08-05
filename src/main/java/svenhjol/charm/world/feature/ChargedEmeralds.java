@@ -47,8 +47,10 @@ public class ChargedEmeralds extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         maxChargedInStrike = propInt(
             "Maximum charged emeralds per strike",
             "The maximum number of emeralds that will be converted into Charged Emeralds when a stack of emeralds is held.",
@@ -64,6 +66,7 @@ public class ChargedEmeralds extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         emerald = new ItemChargedEmerald();
         String name = Charm.MOD_ID + ":charged_emerald";
         EntityRegistry.registerModEntity(new ResourceLocation(name), EntityChargedEmerald.class, name, CharmEntityIDs.CHARGED_EMERALD, Charm.instance, 64, 10, true);

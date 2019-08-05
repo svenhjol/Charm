@@ -35,8 +35,10 @@ public class GoldToolImprovements extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         durability = propInt(CONFIG_DURABILITY, "Default durability of gold tools. Vanilla is 32.", CUSTOM_DURABILITY);
         efficiency = propDouble(CONFIG_EFFICIENCY, "Default efficiency of gold tools. Vanilla is 12.0.", CUSTOM_EFFICIENCY);
         attackDamage = propDouble(CONFIG_ATTACK_DAMAGE, "Default attack of gold tools. Vanilla is 0.0.", CUSTOM_ATTACK_DAMAGE);
@@ -44,42 +46,42 @@ public class GoldToolImprovements extends Feature
         enchantability = propInt(CONFIG_ENCHANTABILITY, "Default enchantability of gold tools. Vanilla is 22.", CUSTOM_ENCHANTABILITY);
     }
 
-    public static boolean isEnabled()
+    public static boolean enabled()
     {
         return ConfigHelper.propBoolean(CharmLoadingPlugin.config, CONFIG_FEATURE_NAME, CONFIG_FEATURE_CATEGORY, "", true);
     }
 
     public static int getMaxUses(int itemDefault)
     {
-        if (!isEnabled()) return itemDefault;
+        if (!enabled()) return itemDefault;
         durability = ConfigHelper.propInt(CharmLoadingPlugin.config, CONFIG_DURABILITY, CONFIG_VALUES_CATEGORY, "", CUSTOM_DURABILITY);
         return durability;
     }
 
     public static double getEfficiency(double itemDefault)
     {
-        if (!isEnabled()) return itemDefault;
+        if (!enabled()) return itemDefault;
         efficiency = ConfigHelper.propDouble(CharmLoadingPlugin.config, CONFIG_EFFICIENCY, CONFIG_VALUES_CATEGORY, "", CUSTOM_EFFICIENCY);
         return efficiency;
     }
 
     public static double getAttackDamage(double itemDefault)
     {
-        if (!isEnabled()) return itemDefault;
+        if (!enabled()) return itemDefault;
         attackDamage = ConfigHelper.propDouble(CharmLoadingPlugin.config, CONFIG_ATTACK_DAMAGE, CONFIG_VALUES_CATEGORY, "", CUSTOM_ATTACK_DAMAGE);
         return attackDamage;
     }
 
     public static int getHarvestLevel(int itemDefault)
     {
-        if (!isEnabled()) return itemDefault;
+        if (!enabled()) return itemDefault;
         harvestLevel = ConfigHelper.propInt(CharmLoadingPlugin.config, CONFIG_HARVEST_LEVEL, CONFIG_VALUES_CATEGORY, "", CUSTOM_HARVEST_LEVEL);
         return harvestLevel;
     }
 
     public static int getEnchantability(int itemDefault)
     {
-        if (!isEnabled()) return itemDefault;
+        if (!enabled()) return itemDefault;
         enchantability = ConfigHelper.propInt(CharmLoadingPlugin.config, CONFIG_ENCHANTABILITY, CONFIG_VALUES_CATEGORY, "", CUSTOM_ENCHANTABILITY);
         return enchantability;
     }

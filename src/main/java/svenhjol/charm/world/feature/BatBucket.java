@@ -49,8 +49,10 @@ public class BatBucket extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         maxSeconds = propInt(
             "Maximum time",
             "Maximum time (in seconds) that the glowing effect will last.",
@@ -71,6 +73,7 @@ public class BatBucket extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         batBucket = new ItemBatBucket();
 
         NetworkHandler.register(MessageGlowing.class, Side.CLIENT);

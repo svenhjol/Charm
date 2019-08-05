@@ -24,8 +24,10 @@ public class CactusWater extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         chance = 0.15D;
     }
 

@@ -37,8 +37,10 @@ public class EnderPearlBlock extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         endermiteChance = propDouble(
                 "Silverfish burrowing",
                 "Chance (out of 1.0) of a silverfish burrowing into an Ender Pearl Block, creating an Endermite.",
@@ -60,6 +62,7 @@ public class EnderPearlBlock extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         block = new BlockEnderPearl();
 
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1),

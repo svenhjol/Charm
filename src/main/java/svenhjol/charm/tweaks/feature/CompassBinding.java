@@ -46,8 +46,10 @@ public class CompassBinding extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         showInformation = propBoolean(
                 "Add compass information",
                 "If true, adds co-ordinates and dimension to the bound compass tooltip.",
@@ -74,6 +76,7 @@ public class CompassBinding extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         boundCompass = new ItemBoundCompass();
         validItems.add(Items.COMPASS);
         validItems.add(boundCompass);

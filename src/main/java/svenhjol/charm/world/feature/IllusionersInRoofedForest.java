@@ -33,8 +33,10 @@ public class IllusionersInRoofedForest extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         weight = propInt(
             "Spawn weight",
             "The higher this value, the more illusioners will spawn.",

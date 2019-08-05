@@ -45,8 +45,10 @@ public class RandomAnimalTextures extends Feature
     public static boolean enableWolves;
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         enableCats = propBoolean(
             "Random cat textures",
             "Enable random textures depending on the cat type, borrowed lovingly from Minecraft 1.14.",

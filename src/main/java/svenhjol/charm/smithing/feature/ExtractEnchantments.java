@@ -29,8 +29,10 @@ public class ExtractEnchantments extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         baseCost = propInt(
                 "Base XP cost",
                 "The minimum XP cost before adding XP equivalent to the enchantment level(s) of the item.",

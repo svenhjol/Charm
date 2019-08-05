@@ -34,8 +34,10 @@ public class MoreVillageBiomes extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         coldBiomes = propStringList(
                 "Cold biomes",
                 "Cold biomes where villages are constructed from Taiga wood.",
@@ -66,6 +68,7 @@ public class MoreVillageBiomes extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         biomes.put("cold", makeBiomeList(coldBiomes));
         biomes.put("jungle", makeBiomeList(jungleBiomes));
         biomes.put("savanna", makeBiomeList(savannaBiomes));

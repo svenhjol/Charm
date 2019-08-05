@@ -45,7 +45,7 @@ public class Barrels extends MesonOuterDecorator
 
             if (rand.nextFloat() < 0.5f) {
                 if (Charm.hasFeature(Barrel.class)) {
-                    world.setBlockState(current, Barrel.barrel.getDefaultState());
+                    world.setBlockState(current, Barrel.block.getDefaultState());
                     TileEntity tile = world.getTileEntity(current);
 
                     if (tile instanceof TileBarrel) {

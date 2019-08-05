@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.smithing.compat.QuarkTallow;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
-import svenhjol.meson.helper.ConfigHelper;
+import svenhjol.meson.helper.ForgeHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +29,10 @@ public class TallowIncreasesDurability extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         amount = propDouble(
             "Amount repaired",
             "Percentage (out of 1.0) of the tool or armor repaired by a piece of tallow.",
@@ -61,7 +63,7 @@ public class TallowIncreasesDurability extends Feature
         );
 
         try {
-            if (ConfigHelper.checkMods("quark")) {
+            if (ForgeHelper.areModsLoaded("quark")) {
                 quarkTallow = QuarkTallow.class.newInstance();
             }
         } catch (Exception e) {
@@ -70,9 +72,9 @@ public class TallowIncreasesDurability extends Feature
     }
 
     @Override
-    public String[] getRequiredMods()
+    public boolean isEnabled()
     {
-        return new String[] { "quark" };
+        return ForgeHelper.areModsLoaded("quark");
     }
 
     @SubscribeEvent

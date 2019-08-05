@@ -27,8 +27,10 @@ public class RottenFleshBlock extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         showParticles = propBoolean(
                 "Show particles",
                 "Flesh blocks give off random particles like mycelium.",
@@ -47,6 +49,7 @@ public class RottenFleshBlock extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         block = new BlockRottenFlesh();
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1),
             "RRR", "RRR", "RRR",

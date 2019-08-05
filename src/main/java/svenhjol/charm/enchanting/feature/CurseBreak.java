@@ -18,8 +18,10 @@ public class CurseBreak extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         xpCost = propInt(
                 "XP cost",
                 "Amount of XP (levels) to remove a curse from an item",
@@ -30,6 +32,7 @@ public class CurseBreak extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         enchantment = new EnchantmentCurseBreak();
     }
 

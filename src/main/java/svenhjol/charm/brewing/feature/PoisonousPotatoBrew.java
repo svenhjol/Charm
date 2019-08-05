@@ -23,6 +23,7 @@ public class PoisonousPotatoBrew extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         PotionType normalPotionType = PotionTypes.POISON;
         ItemStack potato = new ItemStack(Items.POISONOUS_POTATO);
         PotionHelper.addMix(PotionTypes.MUNDANE, Ingredient.fromStacks(potato), normalPotionType);

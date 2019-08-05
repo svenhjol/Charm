@@ -23,7 +23,7 @@ public class CharmDecoratorTheme extends MesonDecoratorTheme
     {
         List<IBlockState> states = new ArrayList<>();
         if (Charm.hasFeature(Crate.class)) states.add(Crate.crate.getDefaultState());
-        if (Charm.hasFeature(Barrel.class)) states.add(Barrel.barrel.getDefaultState());
+        if (Charm.hasFeature(Barrel.class)) states.add(Barrel.block.getDefaultState());
         states.add(Blocks.CHEST.getDefaultState());
 
         return states.get(getRand().nextInt(states.size()));

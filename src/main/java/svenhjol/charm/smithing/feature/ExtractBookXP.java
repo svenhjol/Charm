@@ -22,8 +22,10 @@ public class ExtractBookXP extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         minXpBottles = propInt(
                 "Minimum required bottles",
                 "The minimum number of glass bottles needed when converting enchantments.",

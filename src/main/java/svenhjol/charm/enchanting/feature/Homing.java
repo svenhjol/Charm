@@ -21,8 +21,10 @@ public class Homing extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // internal
         minEnchantability = 15;
         damage = 200;
@@ -32,6 +34,7 @@ public class Homing extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         enchantment = new EnchantmentHoming();
     }
 

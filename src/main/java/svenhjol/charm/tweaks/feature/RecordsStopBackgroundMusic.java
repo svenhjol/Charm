@@ -30,8 +30,10 @@ public class RecordsStopBackgroundMusic extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // internal
         stopAfterTicks = 10;
     }

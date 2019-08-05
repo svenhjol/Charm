@@ -16,8 +16,10 @@ public class Coffee extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         duration = propInt(
             "Coffee effect duration",
             "Duration (in seconds) of Coffee effects.",
@@ -28,6 +30,7 @@ public class Coffee extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         coffee = new CoffeePotion();
     }
 }

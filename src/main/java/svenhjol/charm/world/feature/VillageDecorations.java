@@ -65,8 +65,10 @@ public class VillageDecorations extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         common = (float)propDouble(
                 "Common chance",
                 "Chance (out of 1.0) of items and blocks considered 'common' to spawn.",

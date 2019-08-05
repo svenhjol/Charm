@@ -45,7 +45,7 @@ public class Charm
         Meson.init();
 
         // add modules to the Charm mod loader
-        CharmLoader.INSTANCE.registerModLoader(Charm.MOD_ID).setup(
+        CharmLoader.INSTANCE.registerModLoader(Charm.MOD_ID, Charm.MOD_VERSION).setup(
             new CharmAutomation(),
             new CharmBrewing(),
             new CharmCrafting(),

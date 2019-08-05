@@ -41,8 +41,10 @@ public class ExtraCurses extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         rustingDamage = propInt(
                 "Rusting damage",
                 "Maximum amount of durability damage given to an item affected by Rusting when the item is used.",
@@ -83,6 +85,7 @@ public class ExtraCurses extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         activeCurses.add(new EnchantmentRustingCurse());
         activeCurses.add(new EnchantmentClumsinessCurse());
         activeCurses.add(new EnchantmentHauntingCurse());

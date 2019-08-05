@@ -30,8 +30,10 @@ public class EndermitePowder extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         dropChance = propDouble(
             "Drop chance",
             "Chance (out of 1.0) of an endermite dropping Endermite Powder when killed by the player.",
@@ -45,6 +47,7 @@ public class EndermitePowder extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         endermitePowder = new ItemEndermitePowder();
         String name = Charm.MOD_ID + ":endermite_powder";
         EntityRegistry.registerModEntity(new ResourceLocation(name), EntityEndermitePowder.class, name, CharmEntityIDs.ENDERMITE_POWDER, Charm.instance, 80, 10, false);

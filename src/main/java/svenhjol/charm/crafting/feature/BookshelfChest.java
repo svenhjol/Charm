@@ -28,8 +28,10 @@ public class BookshelfChest extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         validItems = Arrays.asList(
             propStringList("Valid bookshelf items",
                 "List of items that are allowed to be added to bookshelf chest.",
@@ -56,6 +58,7 @@ public class BookshelfChest extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         bookshelfChest = new BlockBookshelfChest();
         GameRegistry.registerTileEntity(bookshelfChest.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":bookshelf_chest"));
 

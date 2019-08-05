@@ -19,8 +19,10 @@ public class SpongesReduceFallDamage extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // internal
         amountAbsorbed = 0.5f;
     }

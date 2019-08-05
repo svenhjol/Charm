@@ -24,8 +24,10 @@ public class AbandonedCrates extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         generateChance = propDouble(
             "Generate crate chance",
             "Chance (out of 1.0) of a crate generating in a chunk, if it is possible to do so.",
@@ -55,6 +57,7 @@ public class AbandonedCrates extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         if (Charm.hasFeature(Crate.class)) {
             GameRegistry.registerWorldGenerator(new AbandonedCrateGenerator(), 1000);
         }

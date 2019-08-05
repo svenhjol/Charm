@@ -31,14 +31,16 @@ public class SpectreHaunting extends Feature
     }
 
     @Override
-    public boolean checkSelf()
+    public boolean isEnabled()
     {
         return Charm.hasFeature(Spectre.class);
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         spawnChance = (float)propDouble(
             "Spawn chance during haunt",
             "Chance (out of 1.0) of a spectre spawning every two seconds during a haunt.\n",

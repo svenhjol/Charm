@@ -9,16 +9,16 @@ import net.minecraftforge.oredict.OreDictionary;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBarrel;
 import svenhjol.meson.Feature;
-import svenhjol.meson.helper.ConfigHelper;
-import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
+import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.LootHelper;
+import svenhjol.meson.registry.ProxyRegistry;
 
 import java.util.*;
 
 public class Barrel extends Feature
 {
-    public static BlockBarrel barrel;
+    public static BlockBarrel block;
     public static float hardness;
     public static boolean useCharmBarrels;
 
@@ -49,24 +49,16 @@ public class Barrel extends Feature
     }
 
     @Override
-    public String[] getDisableMods()
+    public boolean isEnabled()
     {
-        return new String[] {"minecraftfuture"};
+        return !ForgeHelper.areModsLoaded("minecraftfuture") || useCharmBarrels;
     }
 
     @Override
-    public boolean checkSelf()
+    public void configure()
     {
-        if (ConfigHelper.checkMods("minecraftfuture")) {
-            return useCharmBarrels;
-        } else {
-            return true;
-        }
-    }
+        super.configure();
 
-    @Override
-    public void setupConfig()
-    {
         useCharmBarrels = propBoolean(
             "Use Charm barrels",
             "Charm's barrels will be enabled even if barrels from other mods are present.",
@@ -80,8 +72,9 @@ public class Barrel extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        barrel = new BlockBarrel();
-        GameRegistry.registerTileEntity(barrel.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":barrel"));
+        super.preInit(event);
+        block = new BlockBarrel();
+        GameRegistry.registerTileEntity(block.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":barrel"));
 
         //  get all loot tables for each rarity type
         Map<RARITY, List<ResourceLocation>> map = new HashMap<RARITY, List<ResourceLocation>>() {{
@@ -104,7 +97,7 @@ public class Barrel extends Feature
 
         // create recipes for all block barrel wood types
         for (int i = 0; i < BlockBarrel.WoodVariant.values().length; i++) {
-            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(barrel, 1, i),
+            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1, i),
                 "WSW", "W W", "WSW",
                 'W', ProxyRegistry.newStack(Blocks.PLANKS, 1, i),
                 'S', ProxyRegistry.newStack(Blocks.WOODEN_SLAB, 1, i)
@@ -115,7 +108,7 @@ public class Barrel extends Feature
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
-        OreDictionary.registerOre("barrel", ProxyRegistry.newStack(barrel, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("barrel", ProxyRegistry.newStack(block, 1, OreDictionary.WILDCARD_VALUE));
     }
 
     /**

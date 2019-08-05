@@ -26,8 +26,10 @@ public class DecreaseRepairCost extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         decreaseCost = propInt(
                 "Decrease repair amount",
                 "Amount that a golden item will decrease another item's repair cost.",
@@ -43,6 +45,7 @@ public class DecreaseRepairCost extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         tools.put(Items.GOLDEN_PICKAXE, ItemPickaxe.class);
         tools.put(Items.GOLDEN_SHOVEL, ItemSpade.class);
         tools.put(Items.GOLDEN_AXE, ItemAxe.class);

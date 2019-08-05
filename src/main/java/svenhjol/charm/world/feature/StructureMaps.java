@@ -47,8 +47,10 @@ public class StructureMaps extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         biomeStructures = Arrays.asList(
             propStringList(
                 "Biome-specific structures",
@@ -91,6 +93,7 @@ public class StructureMaps extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         if (generalStructures.contains(StructureType.MINESHAFT.getName())) structures.add(new Structure(StructureType.MINESHAFT, 0x774400));
         if (generalStructures.contains(StructureType.VILLAGE.getName())) structures.add(new Structure(StructureType.VILLAGE, 0xCC2000));
         if (biomeStructures.contains(StructureType.IGLOO.getName())) structures.add(new Structure(StructureType.IGLOO, 0xA0C0FF));

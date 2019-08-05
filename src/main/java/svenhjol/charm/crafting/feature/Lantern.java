@@ -5,9 +5,9 @@ import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.crafting.block.BlockLantern;
 import svenhjol.meson.Feature;
-import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
-import svenhjol.meson.helper.ConfigHelper;
+import svenhjol.meson.helper.ForgeHelper;
+import svenhjol.meson.registry.ProxyRegistry;
 
 public class Lantern extends Feature
 {
@@ -27,8 +27,10 @@ public class Lantern extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         falling = propBoolean(
             "Lanterns obey gravity",
             "Lantern will fall when the block under it is broken, or when the block above a hanging lantern is broken.",
@@ -62,7 +64,8 @@ public class Lantern extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        if (useCharmLanterns || !ConfigHelper.checkMods("minecraftfuture")) {
+        super.preInit(event);
+        if (useCharmLanterns || !ForgeHelper.areModsLoaded("minecraftfuture")) {
             // register iron lantern if not overridden by other mods
             ironLantern = new BlockLantern("iron");
             RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, numberOfLanterns),

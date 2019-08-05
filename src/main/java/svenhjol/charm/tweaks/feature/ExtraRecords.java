@@ -27,8 +27,10 @@ public class ExtraRecords extends Feature
     }
 
     @Override
-    public void setupConfig()
+    public void configure()
     {
+        super.configure();
+
         // internal
         recordNames = new String[] {
             "calm1",
@@ -63,6 +65,7 @@ public class ExtraRecords extends Feature
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         for (String name : recordNames) {
             SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "record." + name));
             records.add(new CharmItemRecord(Charm.MOD_ID, name, sound));
