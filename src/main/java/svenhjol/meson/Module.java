@@ -17,45 +17,23 @@ public abstract class Module implements IFMLEvents
 {
     public List<Feature> features = new ArrayList<>();
     public boolean enabled;
-    public boolean enabledByDefault = true;
-    public MesonLoader mesonLoader;
+    public MesonLoader loader;
     public Configuration config;
 
-    public void setup(MesonLoader mesonLoader, Configuration config)
+    public void setup(MesonLoader loader, Configuration config)
     {
-        Meson.log("Adding module " + getName());
-        this.mesonLoader = mesonLoader;
+        this.loader = loader;
         this.config = config;
+        configure();
+    }
 
-        mesonLoader.enabledModules.add(this.getClass());
-
-        // collect enabled features here
-        List<Feature> enabled = new ArrayList<>();
-
+    public void configure()
+    {
         features.forEach(feature -> {
+            loader.features.add(feature); // add feature reference to loader
             feature.enabled = ConfigHelper.propBoolean(config, feature.getName(), this.getName(), feature.getDescription(), feature.enabledByDefault);
-
-            // only enable feature if these mods are present
-            if (feature.enabled && feature.getRequiredMods().length > 0) {
-                feature.enabled = ConfigHelper.checkMods(feature.getRequiredMods());
-            }
-            // disable the feature if these mods exist
-            if (feature.enabled && feature.getDisableMods().length > 0) {
-                feature.enabled = !ConfigHelper.checkMods(feature.getDisableMods());
-            }
-
-            // allow feature to perform other checks to enable/disable itself
-            if (feature.enabled) {
-                feature.enabled = feature.checkSelf();
-            }
-
-            if (feature.enabled) {
-                feature.setup(this);
-                enabled.add(feature);
-            }
+            feature.setup(this);
         });
-
-        features = enabled;
     }
 
     public String getName()
@@ -65,44 +43,68 @@ public abstract class Module implements IFMLEvents
 
     public String getDescription()
     {
-        return "";
+        return getName();
+    }
+
+    public boolean isEnabled()
+    {
+        return enabled;
     }
 
     public void preInit(FMLPreInitializationEvent event)
     {
-        features.forEach(feature -> feature.preInit(event));
+        Meson.log("Starting module " + getName());
+        features.stream()
+            .filter(Feature::isEnabled)
+            .forEach(feature -> {
+                loader.enabledFeatures.add(feature.getClass());
+                Meson.log("Starting feature " + feature.getName());
+                feature.preInit(event);
+            });
     }
 
     public void init(FMLInitializationEvent event)
     {
-        features.forEach(feature -> feature.init(event));
+        features.stream()
+            .filter(Feature::isEnabled)
+            .forEach(f -> f.init(event));
     }
 
     public void postInit(FMLPostInitializationEvent event)
     {
-        features.forEach(feature -> feature.postInit(event));
+        features.stream()
+            .filter(Feature::isEnabled)
+            .forEach(f -> f.postInit(event));
     }
 
     public void serverStarting(FMLServerStartingEvent event)
     {
-        features.forEach(feature -> feature.serverStarting(event));
+        features.stream()
+            .filter(Feature::isEnabled)
+            .forEach(f -> f.serverStarting(event));
     }
     
     @SideOnly(Side.CLIENT)
     public void preInitClient(FMLPreInitializationEvent event)
     {
-        features.forEach(feature -> feature.preInitClient(event));
+        features.stream()
+            .filter(Feature::isEnabled)
+            .forEach(f -> f.preInitClient(event));
     }
 
     @SideOnly(Side.CLIENT)
     public void initClient(FMLInitializationEvent event)
     {
-        features.forEach(feature -> feature.initClient(event));
+        features.stream()
+            .filter(Feature::isEnabled)
+            .forEach(f -> f.initClient(event));
     }
 
     @SideOnly(Side.CLIENT)
     public void postInitClient(FMLPostInitializationEvent event)
     {
-        features.forEach(feature -> feature.postInitClient(event));
+        features.stream()
+            .filter(Feature::isEnabled)
+            .forEach(f -> f.postInitClient(event));
     }
 }

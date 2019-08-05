@@ -2,6 +2,7 @@ package svenhjol.meson;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.meson.helper.ConfigHelper;
 import svenhjol.meson.iface.IFMLEvents;
 
@@ -11,19 +12,28 @@ public abstract class Feature implements IFMLEvents
     public boolean enabled;
     public boolean enabledByDefault = true;
     protected Module module;
-    protected MesonLoader mesonLoader;
+    protected MesonLoader loader;
     protected Configuration config;
 
     public void setup(Module module)
     {
         this.module = module;
         this.config = module.config;
-        this.mesonLoader = module.mesonLoader;
+        this.loader = module.loader;
 
-        Meson.log(module.getName() + ": Adding feature " + this.getName());
+        Meson.log("Configuring feature " + getName());
+        configure();
+    }
 
-        // add feature to the ModuleLoader so other things can query if the feature is available
-        mesonLoader.enabledFeatures.add(this.getClass());
+    public void configure()
+    {
+        // allow the feature to define its own configuration
+    }
+
+    @Override
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        // override to initialise the feature
 
         if (this.hasSubscriptions()) {
             MinecraftForge.EVENT_BUS.register(this);
@@ -31,8 +41,6 @@ public abstract class Feature implements IFMLEvents
         if (this.hasTerrainSubscriptions()) {
             MinecraftForge.TERRAIN_GEN_BUS.register(this);
         }
-
-        setupConfig();
     }
 
     public String getName()
@@ -42,14 +50,18 @@ public abstract class Feature implements IFMLEvents
 
     public String getDescription()
     {
-        return "";
+        return getName();
     }
 
-    public void setupConfig()
+    public boolean isEnabled()
     {
-        // no op
+        return enabled;
     }
 
+    public boolean isEnabledByDefault()
+    {
+        return true;
+    }
     public boolean hasSubscriptions()
     {
         return false;
@@ -58,18 +70,6 @@ public abstract class Feature implements IFMLEvents
     public boolean hasTerrainSubscriptions()
     {
         return false;
-    }
-
-    public String[] getRequiredMods()
-    {
-        return new String[] {};
-    }
-
-    public String[] getDisableMods() { return new String[] {}; }
-
-    public boolean checkSelf()
-    {
-        return true;
     }
 
     public String getConfigCategoryName()

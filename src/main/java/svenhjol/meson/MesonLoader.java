@@ -14,79 +14,86 @@ import java.util.*;
 public abstract class MesonLoader
 {
     public List<Module> modules = new ArrayList<>();
+    public List<Feature> features = new ArrayList<>();
     public List<Class<? extends Feature>> enabledFeatures = new ArrayList<>();
     public List<Class<? extends Module>> enabledModules = new ArrayList<>();
     public static Map<String, MesonLoader> instances = new HashMap<>();
     public Configuration config;
+    public String id;
 
     public MesonLoader registerModLoader(String id)
     {
         MesonLoader instance = this;
         instances.put(id, instance);
+        this.id = id;
         return instance;
     }
 
-    public void add(Module... modules)
+    public void setup(Module... mods)
     {
-        this.modules.addAll(Arrays.asList(modules));
-    }
+        modules.addAll(Arrays.asList(mods));
 
-    public void preInit(FMLPreInitializationEvent event)
-    {
-        // set up this mod's config
-        config = setupConfig(event);
-
-        // setup all enabled modules
-        List<Module> enabled = new ArrayList<>();
-
+        // configure each module
         modules.forEach(module -> {
-            module.enabled = ConfigHelper.propBoolean(config, module.getName(), ConfigHelper.MODULES, module.getDescription(), module.enabledByDefault);
-
-            if (module.enabled) {
-                module.setup(this, config);
-                enabled.add(module);
-            }
+            module.enabled = ConfigHelper.propBoolean(config, module.getName(), ConfigHelper.MODULES, module.getDescription(), true);
+            module.setup(this, config);
         });
-
-        modules = enabled;
-
-        modules.forEach(module -> module.preInit(event));
 
         ConfigHelper.saveIfChanged(config);
     }
 
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        modules.stream()
+            .filter(Module::isEnabled)
+            .forEach(module -> {
+                enabledModules.add(module.getClass());
+                module.preInit(event);
+            });
+    }
+
     public void init(FMLInitializationEvent event)
     {
-        modules.forEach(module -> module.init(event));
+        modules.stream()
+            .filter(Module::isEnabled)
+            .forEach(m -> m.init(event));
     }
 
     public void postInit(FMLPostInitializationEvent event)
     {
-        modules.forEach(module -> module.postInit(event));
+        modules.stream()
+            .filter(Module::isEnabled)
+            .forEach(m -> m.postInit(event));
     }
 
     public void serverStarting(FMLServerStartingEvent event)
     {
-        modules.forEach(module -> module.serverStarting(event));
+        modules.stream()
+            .filter(Module::isEnabled)
+            .forEach(m -> m.serverStarting(event));
     }
 
     @SideOnly(Side.CLIENT)
     public void preInitClient(FMLPreInitializationEvent event)
     {
-        modules.forEach(module -> module.preInitClient(event));
+        modules.stream()
+            .filter(Module::isEnabled)
+            .forEach(m -> m.preInitClient(event));
     }
 
     @SideOnly(Side.CLIENT)
     public void initClient(FMLInitializationEvent event)
     {
-        modules.forEach(module -> module.initClient(event));
+        modules.stream()
+            .filter(Module::isEnabled)
+            .forEach(m -> m.initClient(event));
     }
 
     @SideOnly(Side.CLIENT)
     public void postInitClient(FMLPostInitializationEvent event)
     {
-        modules.forEach(module -> module.postInitClient(event));
+        modules.stream()
+            .filter(Module::isEnabled)
+            .forEach(m -> m.postInitClient(event));
     }
-
-    protected abstract Configuration setupConfig(FMLPreInitializationEvent event);
 }
