@@ -48,7 +48,7 @@ public abstract class MesonClassTransformer implements IClassTransformer
 
     public static class MethodSignature
     {
-        String funcName, srgName, obfName, funcDesc, obfDesc;
+        public String funcName, srgName, obfName, funcDesc, obfDesc;
 
         public MethodSignature(String funcName, String srgName, String obfName, String funcDesc)
         {
@@ -128,7 +128,7 @@ public abstract class MesonClassTransformer implements IClassTransformer
     public static boolean findMethodAndTransform(ClassNode node, MethodSignature sig, MethodAction pred)
     {
         String funcName = sig.funcName;
-        if (MesonLoadingPlugin.runtimeDeobfuscationEnabled) {
+        if (MesonLoadingPlugin.obf) {
             funcName = sig.srgName;
         }
 
@@ -187,5 +187,10 @@ public abstract class MesonClassTransformer implements IClassTransformer
         if (config.hasChanged()) config.save();
 
         return loaded;
+    }
+
+    public static boolean obf()
+    {
+        return MesonLoadingPlugin.obf;
     }
 }

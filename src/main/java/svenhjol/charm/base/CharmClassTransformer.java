@@ -309,7 +309,6 @@ public class CharmClassTransformer extends MesonClassTransformer
         log("Transforming TileEntityBeacon");
 
         MethodSignature addEffectsToPlayers = new MethodSignature("addEffectsToPlayers", "func_146000_x", "E", "()V");
-
         byte[] transClass = basicClass;
 
         transClass = transform(transClass, Pair.of(addEffectsToPlayers, combine(
@@ -317,12 +316,12 @@ public class CharmClassTransformer extends MesonClassTransformer
                 (MethodNode method, AbstractInsnNode node) -> {
                     InsnList newInstructions = new InsnList();
                     newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                    newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/TileEntityBeacon", "world", "Lnet/minecraft/world/World;"));
+                    newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/TileEntityBeacon", obf() ? "field_145850_b" : "world", "Lnet/minecraft/world/World;"));
                     newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 8));
                     newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                    newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/TileEntityBeacon", "primaryEffect", "Lnet/minecraft/potion/Potion;"));
+                    newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/TileEntityBeacon", obf() ? "field_146013_m" : "primaryEffect", "Lnet/minecraft/potion/Potion;"));
                     newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                    newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/TileEntityBeacon", "secondaryEffect", "Lnet/minecraft/potion/Potion;"));
+                    newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/TileEntityBeacon", obf() ? "field_146010_n" : "secondaryEffect", "Lnet/minecraft/potion/Potion;"));
                     newInstructions.add(new VarInsnNode(Opcodes.ILOAD, 4));
                     newInstructions.add(new VarInsnNode(Opcodes.ILOAD, 3));
                     newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "addBeaconEffect", "(Lnet/minecraft/world/World;Lnet/minecraft/util/math/AxisAlignedBB;Lnet/minecraft/potion/Potion;Lnet/minecraft/potion/Potion;II)V", false));

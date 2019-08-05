@@ -6,7 +6,7 @@ import java.util.Map;
 
 public abstract class MesonLoadingPlugin implements IFMLLoadingPlugin
 {
-    public static boolean runtimeDeobfuscationEnabled = false;
+    public static boolean obf = false;
 
     @Override
     public String getModContainerClass()
@@ -23,7 +23,7 @@ public abstract class MesonLoadingPlugin implements IFMLLoadingPlugin
     @Override
     public void injectData(Map<String, Object> data)
     {
-        runtimeDeobfuscationEnabled = (Boolean)data.get("runtimeDeobfuscationEnabled");
+        obf = (Boolean)data.get("runtimeDeobfuscationEnabled");
     }
 
     @Override
