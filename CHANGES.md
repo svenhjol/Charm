@@ -18,6 +18,9 @@
 ### Enchanting
 * Fixed: Clumsiness now only applies to "weapons", not "anything breakable".
 
+### Tweaks
+* Removed: Unearth Items. It has no special registrations so will not cause issues with existing worlds.
+
 ### World
 * Changed: Spectre model redone, no longer internally based on EntityZombie. This should also fix
 the chicken spawns and vehicle log spam.
