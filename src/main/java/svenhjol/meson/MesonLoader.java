@@ -11,17 +11,17 @@ import svenhjol.meson.helper.ConfigHelper;
 
 import java.util.*;
 
-public abstract class ModLoader
+public abstract class MesonLoader
 {
     public List<Module> modules = new ArrayList<>();
     public List<Class<? extends Feature>> enabledFeatures = new ArrayList<>();
     public List<Class<? extends Module>> enabledModules = new ArrayList<>();
-    public static Map<String, ModLoader> instances = new HashMap<>();
+    public static Map<String, MesonLoader> instances = new HashMap<>();
     public Configuration config;
 
-    public ModLoader registerModLoader(String id)
+    public MesonLoader registerModLoader(String id)
     {
-        ModLoader instance = this;
+        MesonLoader instance = this;
         instances.put(id, instance);
         return instance;
     }

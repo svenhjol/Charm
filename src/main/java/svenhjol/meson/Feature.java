@@ -11,19 +11,19 @@ public abstract class Feature implements IFMLEvents
     public boolean enabled;
     public boolean enabledByDefault = true;
     protected Module module;
-    protected ModLoader modLoader;
+    protected MesonLoader mesonLoader;
     protected Configuration config;
 
     public void setup(Module module)
     {
         this.module = module;
         this.config = module.config;
-        this.modLoader = module.modLoader;
+        this.mesonLoader = module.mesonLoader;
 
         Meson.log(module.getName() + ": Adding feature " + this.getName());
 
         // add feature to the ModuleLoader so other things can query if the feature is available
-        modLoader.enabledFeatures.add(this.getClass());
+        mesonLoader.enabledFeatures.add(this.getClass());
 
         if (this.hasSubscriptions()) {
             MinecraftForge.EVENT_BUS.register(this);

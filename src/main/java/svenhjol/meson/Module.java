@@ -18,16 +18,16 @@ public abstract class Module implements IFMLEvents
     public List<Feature> features = new ArrayList<>();
     public boolean enabled;
     public boolean enabledByDefault = true;
-    public ModLoader modLoader;
+    public MesonLoader mesonLoader;
     public Configuration config;
 
-    public void setup(ModLoader modLoader, Configuration config)
+    public void setup(MesonLoader mesonLoader, Configuration config)
     {
         Meson.log("Adding module " + getName());
-        this.modLoader = modLoader;
+        this.mesonLoader = mesonLoader;
         this.config = config;
 
-        modLoader.enabledModules.add(this.getClass());
+        mesonLoader.enabledModules.add(this.getClass());
 
         // collect enabled features here
         List<Feature> enabled = new ArrayList<>();
