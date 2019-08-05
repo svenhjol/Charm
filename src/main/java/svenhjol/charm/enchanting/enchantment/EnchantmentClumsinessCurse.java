@@ -11,9 +11,9 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import svenhjol.charm.Charm;
 import svenhjol.charm.enchanting.feature.ExtraCurses;
-import svenhjol.meson.iface.IMesonEnchantment.ICurse;
 import svenhjol.meson.MesonEnchantment;
 import svenhjol.meson.helper.SoundHelper;
+import svenhjol.meson.iface.IMesonEnchantment.ICurse;
 
 public class EnchantmentClumsinessCurse extends MesonEnchantment implements ICurse
 {
@@ -21,7 +21,7 @@ public class EnchantmentClumsinessCurse extends MesonEnchantment implements ICur
 
     public EnchantmentClumsinessCurse()
     {
-        super("clumsiness_curse", Rarity.VERY_RARE, EnumEnchantmentType.BREAKABLE, EntityEquipmentSlot.MAINHAND);
+        super("clumsiness_curse", Rarity.VERY_RARE, EnumEnchantmentType.WEAPON, EntityEquipmentSlot.MAINHAND);
         this.clumsiness = ExtraCurses.clumsinessMissChance;
     }
 
@@ -65,7 +65,12 @@ public class EnchantmentClumsinessCurse extends MesonEnchantment implements ICur
             && player.world.rand.nextFloat() < clumsiness
         ) {
             event.setCanceled(true);
-            SoundHelper.playerSound(player, SoundEvents.ENTITY_ITEM_BREAK, 0.5f, 1.5f, 0.15f, null);
+            playSound(player);
         }
+    }
+
+    private void playSound(EntityPlayer player)
+    {
+        SoundHelper.playerSound(player, SoundEvents.ENTITY_ITEM_BREAK, 0.5f, 1.5f, 0.15f, null);
     }
 }
