@@ -19,7 +19,8 @@
 * Fixed: Clumsiness now only applies to "weapons", not "anything breakable".
 
 ### Tweaks
-* Removed: Unearth Items. It has no special registrations so will not cause issues with existing worlds.
+* Removed: Unearth Items. It has no special registrations so will not cause issues with existing worlds. 
+You can safely remove the relevant entries from your existing charm.cfg
 
 ### World
 * Changed: Spectre model redone, no longer internally based on EntityZombie. This should also fix
