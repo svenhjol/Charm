@@ -3,19 +3,20 @@ package svenhjol.charm.world.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import svenhjol.charm.Charm;
@@ -29,9 +30,9 @@ import svenhjol.meson.helper.EnchantmentHelper;
 
 import javax.annotation.Nullable;
 
-public class EntitySpectre extends EntityZombie
+public class EntitySpectre extends EntityMob
 {
-    public static final ResourceLocation LOOT_TABLE = new ResourceLocation(Charm.MOD_ID + ":entities/spectre");
+    public static final ResourceLocation LOOT_TABLE = new ResourceLocation(Charm.MOD_ID , "entities/spectre");
     public float eyeHeight;
 
     public EntitySpectre(World world)
@@ -39,6 +40,16 @@ public class EntitySpectre extends EntityZombie
         super(world);
         eyeHeight = 1.75f;
         isImmuneToFire = true;
+    }
+
+    @Override
+    protected void initEntityAI()
+    {
+        tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
+        tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
+        tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
+
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
 
     @Override
@@ -50,7 +61,6 @@ public class EntitySpectre extends EntityZombie
         getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Spectre.maxHealth);
         getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(Spectre.trackingRange);
     }
-
     @Override
     public boolean attackEntityAsMob(Entity entity)
     {
@@ -86,7 +96,7 @@ public class EntitySpectre extends EntityZombie
     @Override
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-        // NO OP
+        // no op
     }
 
     @Override
@@ -97,11 +107,7 @@ public class EntitySpectre extends EntityZombie
         boolean despawn = false;
         BlockPos blockpos = new BlockPos(this.posX, getEntityBoundingBox().minY, this.posZ);
 
-        int lightFor = world.getLightFor(EnumSkyBlock.SKY, blockpos);
-        if (lightFor > Spectre.despawnLight) {
-//            Meson.debug("Spectre skylight, going to despawn");
-            despawn = true;
-        } else {
+        if (world.isDaytime() && !world.isRemote) {
             int i = world.getLightFromNeighbors(blockpos);
             if (i >= Spectre.despawnLight) {
 //                Meson.debug("Spectre neighbour light, going to despawn");
@@ -118,11 +124,22 @@ public class EntitySpectre extends EntityZombie
     }
 
     @Override
+    public void onLivingUpdate()
+    {
+        if (world.isRemote) {
+            for(int i = 0; i < 1; ++i) {
+                this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D, new int[0]);
+            }
+        }
+
+        super.onLivingUpdate();
+    }
+
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
         // don't allow fall or suffocation damage
-        if (source == DamageSource.FALL) return false;
-        if (source == DamageSource.IN_WALL) return false;
+        if (source == DamageSource.FALL || source == DamageSource.IN_WALL) return false;
         return super.attackEntityFrom(source, amount);
     }
 
@@ -155,7 +172,7 @@ public class EntitySpectre extends EntityZombie
     {
         BlockPos pos = getPosition();
 
-        if (pos != null) {
+        if (world instanceof WorldServer && pos != null) {
             NetworkHandler.INSTANCE.sendToAll(new MessageSpectreDespawn(pos));
         }
         if (world.getBlockState(pos.down()).getBlock() == Blocks.SAND) {
@@ -168,12 +185,6 @@ public class EntitySpectre extends EntityZombie
     protected SoundEvent getDeathSound()
     {
         return CharmSounds.SPECTRE_DEATH;
-    }
-
-    @Override
-    protected SoundEvent getStepSound()
-    {
-        return CharmSounds.SPECTRE_MOVE;
     }
 
     @Override
