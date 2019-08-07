@@ -1,7 +1,6 @@
 package svenhjol.meson.handler;
 
 import net.minecraft.block.Block;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
@@ -9,12 +8,11 @@ import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
-import svenhjol.charm.Charm;
-import svenhjol.charm.crafting.container.CrateContainer;
 import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.iface.IMesonEffect;
@@ -36,6 +34,7 @@ public class RegistrationHandler
     public static List<IMesonItem> ITEMS = new ArrayList<>();
     public static List<IMesonPotion> POTIONS = new ArrayList<>();
     public static List<IMesonEffect> EFFECTS = new ArrayList<>();
+    public static Map<ResourceLocation, SoundEvent> SOUNDS = new HashMap<>();
     public static Map<ResourceLocation, Supplier<? extends TileEntity>> TILE_ENTITIES = new HashMap<>();
 
     public static void addBlock(IMesonBlock block)
@@ -60,6 +59,11 @@ public class RegistrationHandler
     {
         ((Potion)potion).setRegistryName(new ResourceLocation(potion.getModId(), potion.getBaseName()));
         POTIONS.add(potion);
+    }
+
+    public static void addSound(ResourceLocation res, SoundEvent sound)
+    {
+        SOUNDS.put(res, sound);
     }
 
     public static void addTileEntity(ResourceLocation res, Supplier<? extends TileEntity> tile)
@@ -135,12 +139,13 @@ public class RegistrationHandler
     }
 
     @SubscribeEvent
-    public static void onRegisterContainers(final RegistryEvent.Register<ContainerType<?>> event)
+    public static void onRegisterSounds(final RegistryEvent.Register<SoundEvent> event)
     {
-        ContainerType<CrateContainer> type = new ContainerType<>(CrateContainer::new);
-        type.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate_container"));
-        event.getRegistry().register(type);
+        for (ResourceLocation res : SOUNDS.keySet()) {
+            SoundEvent sound = SOUNDS.get(res);
+            event.getRegistry().register(sound.setRegistryName(res));
+        }
 
-        Meson.log("Container registration done");
+        Meson.log("Sound registration done");
     }
 }
