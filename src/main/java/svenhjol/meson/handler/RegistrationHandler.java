@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +20,7 @@ import svenhjol.meson.iface.IMesonEffect;
 import svenhjol.meson.iface.IMesonItem;
 import svenhjol.meson.iface.IMesonPotion;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,12 +32,17 @@ import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 @Mod.EventBusSubscriber(bus = MOD)
 public class RegistrationHandler
 {
+    // meson registry entries
     public static List<IMesonBlock> BLOCKS = new ArrayList<>();
     public static List<IMesonItem> ITEMS = new ArrayList<>();
     public static List<IMesonPotion> POTIONS = new ArrayList<>();
     public static List<IMesonEffect> EFFECTS = new ArrayList<>();
     public static Map<ResourceLocation, SoundEvent> SOUNDS = new HashMap<>();
     public static Map<ResourceLocation, Supplier<? extends TileEntity>> TILE_ENTITIES = new HashMap<>();
+
+    // keep track of vanilla things to override
+    public static List<Block> BLOCK_OVERRIDES = new ArrayList<>();
+    public static List<Item> ITEM_OVERRIDES = new ArrayList<>();
 
     public static void addBlock(IMesonBlock block)
     {
@@ -71,12 +78,33 @@ public class RegistrationHandler
         TILE_ENTITIES.put(res, tile);
     }
 
+    public static void addBlockOverride(String id, Block block, @Nullable Item blockItem)
+    {
+        BLOCK_OVERRIDES.add(block.setRegistryName(new ResourceLocation(id)));
+
+        if (blockItem != null) {
+            addItemOverride(id, blockItem);
+        }
+    }
+
+    public static void addItemOverride(String id, Item item)
+    {
+        ITEM_OVERRIDES.add(item.setRegistryName(new ResourceLocation(id)));
+    }
+
     @SubscribeEvent
     public static void onRegisterBlocks(final RegistryEvent.Register<Block> event)
     {
-        for (IMesonBlock block : RegistrationHandler.BLOCKS) {
+        for (IMesonBlock block : BLOCKS) {
             event.getRegistry().register((Block)block);
         }
+
+        // register block overrides
+        for (Block block : BLOCK_OVERRIDES) {
+            event.getRegistry().register(block);
+            Registry.register(Registry.BLOCK, block.getRegistryName(), block);
+        }
+
         Meson.log("Block registration done");
     }
 
@@ -86,14 +114,20 @@ public class RegistrationHandler
         final IForgeRegistry<Item> registry = event.getRegistry();
 
         // register items
-        for (IMesonItem item : RegistrationHandler.ITEMS) {
+        for (IMesonItem item : ITEMS) {
             registry.register((Item)item);
         }
 
         // register block items
-        for (IMesonBlock block : RegistrationHandler.BLOCKS) {
+        for (IMesonBlock block : BLOCKS) {
             BlockItem blockItem = block.getBlockItem();
             registry.register(blockItem);
+        }
+
+        // register item overrides
+        for (Item item : ITEM_OVERRIDES) {
+            registry.register(item);
+            Registry.register(Registry.ITEM, item.getRegistryName(), item);
         }
 
         Meson.log("Item registration done");
@@ -102,7 +136,7 @@ public class RegistrationHandler
     @SubscribeEvent
     public static void onRegisterEffects(final RegistryEvent.Register<Effect> event)
     {
-        for (IMesonEffect effect : RegistrationHandler.EFFECTS) {
+        for (IMesonEffect effect : EFFECTS) {
             event.getRegistry().register((Effect)effect);
         }
         Meson.log("Effect registration done");
@@ -112,7 +146,7 @@ public class RegistrationHandler
     public static void onRegisterPotions(final RegistryEvent.Register<Potion> event)
     {
         // register potions
-        for (IMesonPotion p : RegistrationHandler.POTIONS) {
+        for (IMesonPotion p : POTIONS) {
             Potion potion = (Potion)p;
             event.getRegistry().register(potion);
 
