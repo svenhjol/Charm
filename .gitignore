@@ -25,7 +25,6 @@ Thumbs.db
 
 ## Private Stuffs
 /private.properties
-/dobuild.sh
 
 ## Testing things
 /src/main/java/svenhjol/charm/test/*
@@ -61,5 +60,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+dobuild.sh
 runclient.sh
 debugclient.sh
