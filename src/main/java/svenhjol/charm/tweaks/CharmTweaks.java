@@ -1,9 +1,6 @@
 package svenhjol.charm.tweaks;
 
-import svenhjol.charm.tweaks.feature.ExtraRecords;
-import svenhjol.charm.tweaks.feature.PickaxesBreakPistons;
-import svenhjol.charm.tweaks.feature.RemovePotionGlint;
-import svenhjol.charm.tweaks.feature.UseTotemFromInventory;
+import svenhjol.charm.tweaks.feature.*;
 import svenhjol.meson.Module;
 
 public class CharmTweaks extends Module
@@ -13,6 +10,8 @@ public class CharmTweaks extends Module
         features.add(new ExtraRecords());
         features.add(new PickaxesBreakPistons());
         features.add(new RemovePotionGlint());
+        features.add(new StackableEnchantedBooks());
+        features.add(new StackablePotions());
         features.add(new UseTotemFromInventory());
     }
 }
