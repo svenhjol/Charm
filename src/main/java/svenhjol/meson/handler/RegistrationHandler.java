@@ -1,15 +1,20 @@
 package svenhjol.meson.handler;
 
 import net.minecraft.block.Block;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
+import svenhjol.charm.Charm;
+import svenhjol.charm.crafting.container.CrateContainer;
 import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IMesonBlock;
 import svenhjol.meson.iface.IMesonEffect;
@@ -17,7 +22,10 @@ import svenhjol.meson.iface.IMesonItem;
 import svenhjol.meson.iface.IMesonPotion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
@@ -28,6 +36,7 @@ public class RegistrationHandler
     public static List<IMesonItem> ITEMS = new ArrayList<>();
     public static List<IMesonPotion> POTIONS = new ArrayList<>();
     public static List<IMesonEffect> EFFECTS = new ArrayList<>();
+    public static Map<ResourceLocation, Supplier<? extends TileEntity>> TILE_ENTITIES = new HashMap<>();
 
     public static void addBlock(IMesonBlock block)
     {
@@ -53,16 +62,17 @@ public class RegistrationHandler
         POTIONS.add(potion);
     }
 
+    public static void addTileEntity(ResourceLocation res, Supplier<? extends TileEntity> tile)
+    {
+        TILE_ENTITIES.put(res, tile);
+    }
+
     @SubscribeEvent
     public static void onRegisterBlocks(final RegistryEvent.Register<Block> event)
     {
-        final IForgeRegistry<Block> registry = event.getRegistry();
-
-        // register blocks
         for (IMesonBlock block : RegistrationHandler.BLOCKS) {
-            registry.register((Block)block);
+            event.getRegistry().register((Block)block);
         }
-
         Meson.log("Block registration done");
     }
 
@@ -88,30 +98,49 @@ public class RegistrationHandler
     @SubscribeEvent
     public static void onRegisterEffects(final RegistryEvent.Register<Effect> event)
     {
-        final IForgeRegistry<Effect> registry = event.getRegistry();
-
-        // register effects
         for (IMesonEffect effect : RegistrationHandler.EFFECTS) {
-            registry.register((Effect)effect);
+            event.getRegistry().register((Effect)effect);
         }
-
         Meson.log("Effect registration done");
     }
 
     @SubscribeEvent
     public static void onRegisterPotions(final RegistryEvent.Register<Potion> event)
     {
-        final IForgeRegistry<Potion> registry = event.getRegistry();
-
         // register potions
         for (IMesonPotion p : RegistrationHandler.POTIONS) {
             Potion potion = (Potion)p;
-            registry.register(potion);
+            event.getRegistry().register(potion);
 
             // register the recipe
             ((IMesonPotion)potion).registerRecipe();
         }
-
         Meson.log("Potion registration done");
+    }
+
+    @SubscribeEvent
+    public static void onRegisterTileEntities(final RegistryEvent.Register<TileEntityType<?>> event) throws Exception
+    {
+        for (ResourceLocation res : TILE_ENTITIES.keySet()) {
+            TileEntityType<? extends TileEntity> type = TileEntityType.Builder.create(TILE_ENTITIES.get(res)).build(null);
+            event.getRegistry().register(type.setRegistryName(res));
+        }
+
+        // This is how you register things directly, for reference
+        // TileEntityType<CrateTileEntity> type = TileEntityType.Builder.create(CrateTileEntity::new).build(null);
+        // type.setRegistryName(Charm.MOD_ID, "crate");
+        // event.getRegistry().register(type);
+
+        Meson.log("Tile Entity registration done");
+    }
+
+    @SubscribeEvent
+    public static void onRegisterContainers(final RegistryEvent.Register<ContainerType<?>> event)
+    {
+        ContainerType<CrateContainer> type = new ContainerType<>(CrateContainer::new);
+        type.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate_container"));
+        event.getRegistry().register(type);
+
+        Meson.log("Container registration done");
     }
 }
