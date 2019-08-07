@@ -2,6 +2,7 @@ package svenhjol.meson;
 
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
+import svenhjol.meson.asm.MesonLoadingPlugin;
 import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.registry.VillagerRegistry;
 
@@ -20,9 +21,10 @@ public class Meson
 
     public static void debug(Object ...out)
     {
-        if (!Meson.DEBUG) return;
-        for (Object obj : out) {
-            LogManager.getLogger("Meson DEBUG").info(obj);
+        if (Meson.DEBUG || !MesonLoadingPlugin.obf) {
+            for (Object obj : out) {
+                LogManager.getLogger("Meson DEBUG").info(obj);
+            }
         }
     }
 
