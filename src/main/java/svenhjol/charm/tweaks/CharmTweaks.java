@@ -9,6 +9,7 @@ public class CharmTweaks extends Module
     {
         features.add(new ExtraRecords());
         features.add(new PickaxesBreakPistons());
+        features.add(new RecordsStopBackgroundMusic());
         features.add(new RemovePotionGlint());
         features.add(new StackableEnchantedBooks());
         features.add(new StackablePotions());
