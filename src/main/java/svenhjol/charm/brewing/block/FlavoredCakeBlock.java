@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.brewing.feature.FlavoredCake;
 import svenhjol.meson.Meson;
-import svenhjol.meson.helpers.PotionHelper;
+import svenhjol.meson.helper.PotionHelper;
 import svenhjol.meson.iface.IMesonBlock;
 
 import java.util.List;

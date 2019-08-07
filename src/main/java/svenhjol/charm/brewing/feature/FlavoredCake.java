@@ -26,8 +26,8 @@ import svenhjol.charm.brewing.block.FlavoredCakeBlock;
 import svenhjol.charm.brewing.message.MessageCakeImbue;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.PacketHandler;
-import svenhjol.meson.helpers.ComposterHelper;
-import svenhjol.meson.helpers.PlayerHelper;
+import svenhjol.meson.helper.ComposterHelper;
+import svenhjol.meson.helper.PlayerHelper;
 
 import java.util.Arrays;
 import java.util.HashMap;

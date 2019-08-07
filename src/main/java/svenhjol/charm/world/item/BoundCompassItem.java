@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import svenhjol.charm.Charm;
 import svenhjol.meson.MesonItem;
-import svenhjol.meson.helpers.ItemNBTHelper;
+import svenhjol.meson.helper.ItemNBTHelper;
 
 import javax.annotation.Nullable;
 import java.util.Objects;

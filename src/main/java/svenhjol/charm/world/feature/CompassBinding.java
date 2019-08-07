@@ -17,7 +17,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.world.item.BoundCompassItem;
 import svenhjol.meson.Feature;
-import svenhjol.meson.helpers.PlayerHelper;
+import svenhjol.meson.helper.PlayerHelper;
 
 import java.util.ArrayList;
 import java.util.List;

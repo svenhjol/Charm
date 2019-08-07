@@ -13,8 +13,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.meson.MesonItem;
-import svenhjol.meson.helpers.ItemNBTHelper;
-import svenhjol.meson.helpers.PlayerHelper;
+import svenhjol.meson.helper.ItemNBTHelper;
+import svenhjol.meson.helper.PlayerHelper;
 
 public class TotemOfReturningItem extends MesonItem
 {
