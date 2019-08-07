@@ -25,7 +25,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.brewing.block.FlavoredCakeBlock;
 import svenhjol.charm.brewing.message.MessageCakeImbue;
 import svenhjol.meson.Feature;
-import svenhjol.meson.Meson;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helpers.ComposterHelper;
 import svenhjol.meson.helpers.PlayerHelper;
@@ -97,7 +96,6 @@ public class FlavoredCake extends Feature
         boolean result = FlavoredCake.imbue(event.getWorld(), event.getPos(), held);
         if (result) {
             if (!event.getWorld().isRemote) {
-                Meson.log("FIRED");
                 PlayerHelper.addOrDropStack(event.getEntityPlayer(), new ItemStack(Items.GLASS_BOTTLE));
             }
             event.setCanceled(true);
