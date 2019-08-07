@@ -15,6 +15,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,6 +26,7 @@ import svenhjol.charm.world.event.SpectreAttackEvent;
 import svenhjol.charm.world.feature.Spectre;
 import svenhjol.charm.world.feature.SpectreHaunting;
 import svenhjol.charm.world.message.MessageSpectreDespawn;
+import svenhjol.meson.Meson;
 import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.EnchantmentHelper;
 
@@ -48,7 +50,6 @@ public class EntitySpectre extends EntityMob
         tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
         tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
-
         targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
 
@@ -103,21 +104,27 @@ public class EntitySpectre extends EntityMob
     public void onUpdate()
     {
         super.onUpdate();
-
         boolean despawn = false;
-        BlockPos blockpos = new BlockPos(this.posX, getEntityBoundingBox().minY, this.posZ);
+        BlockPos pos = new BlockPos(this.posX, getEntityBoundingBox().minY, this.posZ);
 
-        if (world.isDaytime() && !world.isRemote) {
-            int i = world.getLightFromNeighbors(blockpos);
-            if (i >= Spectre.despawnLight) {
-//                Meson.debug("Spectre neighbour light, going to despawn");
+        if (!world.isRemote) {
+            if (world.getLightFor(EnumSkyBlock.SKY, pos) > Spectre.despawnLight && world.isDaytime()) {
+                // spectre on surface or can see the sky and it's daytime, despawn
                 despawn = true;
+                Meson.debug("Spectre skylight, going to despawn");
+            } else {
+                if (world.getLightFromNeighbors(pos) >= Spectre.despawnLight) {
+                    // light around spectre is too bright, despawn
+                    despawn = true;
+                    Meson.debug("Spectre neighbour light, going to despawn");
+                }
             }
         }
 
         if (Charm.hasFeature(SpectreHaunting.class) && ticksExisted > SpectreHaunting.ticksLiving) {
-//            Meson.log("Spectre end of life, going to despawn");
+            // spectre has reached end of its life, despawn
             despawn = true;
+            Meson.debug("Spectre end of life, going to despawn");
         }
 
         if (despawn) despawn();
@@ -131,7 +138,6 @@ public class EntitySpectre extends EntityMob
                 this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, 0.0D, 0.0D, 0.0D, new int[0]);
             }
         }
-
         super.onLivingUpdate();
     }
 
