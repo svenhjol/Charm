@@ -1,4 +1,4 @@
-package svenhjol.meson.helpers;
+package svenhjol.meson.helper;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

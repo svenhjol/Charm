@@ -1,4 +1,4 @@
-package svenhjol.meson.helpers;
+package svenhjol.meson.helper;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
