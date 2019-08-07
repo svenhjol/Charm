@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.block;
+package svenhjol.charm.decoration.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.LanternBlock;

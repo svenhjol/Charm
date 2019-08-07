@@ -1,6 +1,6 @@
-package svenhjol.charm.crafting.feature;
+package svenhjol.charm.decoration.feature;
 
-import svenhjol.charm.crafting.block.GoldLanternBlock;
+import svenhjol.charm.decoration.block.GoldLanternBlock;
 import svenhjol.meson.Feature;
 
 public class GoldLantern extends Feature

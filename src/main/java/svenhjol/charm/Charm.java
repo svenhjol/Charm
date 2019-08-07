@@ -8,6 +8,7 @@ import svenhjol.charm.base.ClientProxy;
 import svenhjol.charm.base.ServerProxy;
 import svenhjol.charm.brewing.CharmBrewing;
 import svenhjol.charm.crafting.CharmCrafting;
+import svenhjol.charm.decoration.CharmDecoration;
 import svenhjol.charm.tweaks.CharmTweaks;
 import svenhjol.charm.world.CharmWorld;
 import svenhjol.meson.Feature;
@@ -31,6 +32,7 @@ public class Charm
             new CharmAutomation(),
             new CharmBrewing(),
             new CharmCrafting(),
+            new CharmDecoration(),
             new CharmTweaks(),
             new CharmWorld()
         );
