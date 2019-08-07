@@ -1,4 +1,10 @@
 {
+  "wood_smash": {
+    "category": "blocks",
+    "sounds": [
+      "charm:wood_smash"
+    ]
+  },
   "record.calm1": {
     "category": "records",
     "sounds": [{

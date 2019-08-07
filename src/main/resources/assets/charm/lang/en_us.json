@@ -7,6 +7,18 @@
   "block.charm.cake_strength": "Cake of Strength",
   "block.charm.cake_swiftness": "Cake of Swiftness",
   "block.charm.cake_water_breathing": "Cake of Water Breathing",
+  "block.charm.crate_open_acacia": "Acacia Crate",
+  "block.charm.crate_open_birch": "Birch Crate",
+  "block.charm.crate_open_dark_oak": "Dark Oak Crate",
+  "block.charm.crate_open_jungle": "Jungle Crate",
+  "block.charm.crate_open_oak": "Oak Crate",
+  "block.charm.crate_open_spruce": "Spruce Crate",
+  "block.charm.crate_sealed_acacia": "Acacia Sealed Crate",
+  "block.charm.crate_sealed_birch": "Birch Sealed Crate",
+  "block.charm.crate_sealed_dark_oak": "Dark Oak Sealed Crate",
+  "block.charm.crate_sealed_jungle": "Jungle Sealed Crate",
+  "block.charm.crate_sealed_oak": "Oak Sealed Crate",
+  "block.charm.crate_sealed_spruce": "Spruce Sealed Crate",
   "block.charm.ender_pearl_block": "Ender Pearl Block",
   "block.charm.gold_lantern": "Gold Lantern",
   "block.charm.gunpowder_block": "Gunpowder Block",
@@ -78,5 +90,7 @@
   "item.minecraft.potion.effect.coffee_potion": "Coffee",
   "item.minecraft.potion.effect.decay_effect": "Decay",
   "effect.charm.coffee_effect": "Coffee",
-  "effect.charm.decay_effect": "Decay"
+  "effect.charm.decay_effect": "Decay",
+
+  "tile.charm.crate": "Crate"
 }

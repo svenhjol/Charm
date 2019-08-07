@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "top": "charm:block/crate_top_spruce",
+    "side": "charm:block/crate_side_spruce",
+    "bottom": "charm:block/crate_top_spruce"
+  }
+}
