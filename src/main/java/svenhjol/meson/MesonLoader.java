@@ -33,6 +33,12 @@ public abstract class MesonLoader
     {
         modules.addAll(Arrays.asList(mods));
 
+        configure();
+        init();
+    }
+
+    public void configure()
+    {
         // configure each module
         modules.forEach(module -> {
             builder.push(module.getName());
@@ -55,7 +61,10 @@ public abstract class MesonLoader
 
         data.load();
         config.setConfig(data);
+    }
 
+    public void init()
+    {
         // initialize modules
         modules.forEach(module -> {
             if (module.isEnabled()) {
@@ -64,4 +73,5 @@ public abstract class MesonLoader
             }
         });
     }
+
 }
