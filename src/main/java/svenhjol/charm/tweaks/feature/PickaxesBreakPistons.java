@@ -1,30 +1,30 @@
 package svenhjol.charm.tweaks.feature;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.PistonBlock;
-import net.minecraft.block.PistonHeadBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ToolItem;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraft.block.material.Material;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraftforge.common.ToolType;
 import svenhjol.meson.Feature;
+import svenhjol.meson.handler.RegistrationHandler;
 
 public class PickaxesBreakPistons extends Feature
 {
-    @SubscribeEvent
-    public void onBreakSpeed(PlayerEvent.BreakSpeed event)
+    @Override
+    public void init()
     {
-        if (event.getEntityPlayer() != null
-            && (event.getState().getBlock() instanceof PistonBlock
-                || event.getState().getBlock() instanceof PistonHeadBlock)
-        ) {
-            ItemStack held = event.getEntityPlayer().getHeldItemMainhand();
+        super.init();
 
-            if (held.getItem() instanceof PickaxeItem) {
-                ToolItem pickaxe = (PickaxeItem)held.getItem();
-                event.setNewSpeed(pickaxe.getTier().getEfficiency());
-            }
-        }
+        PistonBlock block = new PistonBlock(false, Block.Properties
+            .create(Material.PISTON)
+            .harvestTool(ToolType.PICKAXE)
+            .hardnessAndResistance(0.5F));
+
+        BlockItem item = new BlockItem(block, (new Item.Properties()).group(ItemGroup.REDSTONE));
+
+        RegistrationHandler.addBlockOverride("piston", block, item);
     }
 
     @Override
