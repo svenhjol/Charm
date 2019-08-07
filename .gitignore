@@ -60,6 +60,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-dobuild.sh
+build.sh
 runclient.sh
 debugclient.sh
