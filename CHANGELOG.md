@@ -4,6 +4,8 @@
 
 This is an alpha release of Charm for 1.14.4.  Do not use it with a world you care about; everything is subject to change.
 
+Please note that Charm 1.14.4 is a **Forge mod**.
+
 The following list of features are mostly implemented:
 
 ### Automation
