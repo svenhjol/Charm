@@ -15,7 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.crafting.block.EnderPearlBlockBlock;
 import svenhjol.charm.crafting.goal.FormEndermiteGoal;
 import svenhjol.meson.Feature;
-import svenhjol.meson.helpers.WorldHelper;
+import svenhjol.meson.helper.WorldHelper;
 
 import java.util.Collections;
 import java.util.HashMap;
