@@ -25,8 +25,11 @@ public abstract class Module
         // setup config schema for each feature
         features.forEach(feature -> {
             loader.features.add(feature); // add feature reference to loader
-            builder.push(feature.getName()).comment(feature.getDescription());
+
+            builder.comment(feature.getDescription());
             feature.enabled = builder.define(feature.getName() + " feature enabled", feature.isEnabledByDefault());
+
+            builder.push(feature.getName());
             feature.setup(this);
             builder.pop();
         });

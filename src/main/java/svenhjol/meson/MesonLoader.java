@@ -41,15 +41,16 @@ public abstract class MesonLoader
     {
         // configure each module
         modules.forEach(module -> {
-            builder.push(module.getName());
             module.enabled = builder.define(module.getName() + " module enabled", true);
+
+            builder.push(module.getName());
             module.setup(this);
             builder.pop();
         });
 
         // build config schema
         config = builder.build();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, config);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, config);
 
         // sync config with file
         Path path = FMLPaths.CONFIGDIR.get().resolve(id + ".toml");
