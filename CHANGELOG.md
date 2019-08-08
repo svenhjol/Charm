@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1
+
+### World
+* Fixed: Abandoned Crates loot table setup now happens before modules/features init. Fix #140 #141
+
+
 ## 1.3.0
 
 ### General
