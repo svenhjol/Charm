@@ -10,8 +10,8 @@ public final class CharmLoader extends MesonLoader
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {
-        super.preInit(event);
         CharmSounds.registerSounds();
         CharmLootTables.registerLootTables();
+        super.preInit(event);
     }
 }
