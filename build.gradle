@@ -40,6 +40,10 @@ minecraft {
     makeObfSourceJar = false
 }
 
+runClient {
+    jvmArgs "-Xmx1G"
+}
+
 jar {
     exclude "**/*.bat"
     exclude "**/*.psd"
