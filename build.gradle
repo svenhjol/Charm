@@ -21,7 +21,7 @@ archivesBaseName = modname
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
-version = "${version}.${build_number}"
+version = "${mc_version}-${version}.${build_number}"
 
 minecraft {
     mappings channel: 'snapshot', version: "${mcp_mappings}"
