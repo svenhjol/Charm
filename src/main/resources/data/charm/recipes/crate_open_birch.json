@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IWI", "W W", "IWI"
+  ],
+  "key": {
+    "I": {"tag": "forge:ingots/iron"},
+    "W": {"item": "minecraft:birch_planks"}
+  },
+  "result": {
+    "item": "charm:crate_open_birch"
+  }
+}
