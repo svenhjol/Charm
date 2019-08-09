@@ -5,6 +5,7 @@
 ### General
 * Fixed: Internal version problems.
 * Fixed: Possible client ticking issue.
+* Changes: instead of suffixing everything with -alpha I will just flag the build.
 
 ### Crating
 * Added: Recipes for all crate wood types.
