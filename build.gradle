@@ -12,19 +12,16 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle'
 
-
 ext.configFile = file('gradle.properties')
 ext.config = parseConfig(configFile)
 
 group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+
 archivesBaseName = modname
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
-version = "${mc_version}-${version}.${build_number}"
-if (release_type != "") {
-    version += "-${release_type}"
-}
+version = "${version}.${build_number}"
 
 minecraft {
     mappings channel: 'snapshot', version: "${mcp_mappings}"
@@ -38,6 +35,7 @@ minecraft {
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run').canonicalPath
             source sourceSets.main
+            jvmArgs "-Xmx1G"
         }
         server = {
             // recommended logging data for a userdev environment
@@ -57,7 +55,6 @@ dependencies {
 //    runtime "mezz.jei:${jei_version}"
 }
 
-
 repositories {
     maven { // The repo from which to get waila
         name "Mobius Repo"
@@ -73,14 +70,22 @@ repositories {
         url "https://tehnut.info/maven"
     }
 }
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include 'META-INF/mods.toml'
+        expand 'version': version, 'mc_version': mc_version, 'forge_version': forge_version
+    }
+}
+
 jar {
     manifest {
         attributes([
             "Specification-Title": "Charm",
             "Specification-Vendor": "svenhjol",
-            "Specification-Version": "1.2.3", // We are version 1 of ourselves
+            "Specification-Version": "${version}", // We are version 1 of ourselves
             "Implementation-Title": "Charm",
-            "Implementation-Version": "1.2.3",
+            "Implementation-Version": "${version}",
             "Implementation-Vendor" :"svenhjol",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
