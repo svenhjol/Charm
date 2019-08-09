@@ -1,5 +1,18 @@
 # Changelog for Charm 1.14
 
+## 1.3.1
+
+### General
+* Fixed: Internal version problems.
+* Fixed: Possible client ticking issue.
+
+### Crating
+* Added: Recipes for all crate wood types.
+
+### Tweaks
+* Added: Automatic recipe unlock.
+
+
 ## 1.3.0
 
 This is an alpha release of Charm for 1.14.4.  Do not use it with a world you care about; everything is subject to change.
