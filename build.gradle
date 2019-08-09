@@ -14,9 +14,6 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "${mc_version}-${version}.${build_number}"
-if (release_type != "") {
-    version += "-${release_type}"
-}
 
 ext.configFile = file('gradle.properties')
 ext.config = parseConfig(configFile)
