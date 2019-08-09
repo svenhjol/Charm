@@ -24,7 +24,7 @@ public class ShearedMelons extends Feature
     @Override
     public boolean isEnabled()
     {
-        return !ForgeHelper.areModsLoaded("inspirations");
+        return enabled && !ForgeHelper.areModsLoaded("inspirations");
     }
 
     @Override

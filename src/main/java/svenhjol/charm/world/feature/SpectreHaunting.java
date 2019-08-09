@@ -33,7 +33,7 @@ public class SpectreHaunting extends Feature
     @Override
     public boolean isEnabled()
     {
-        return Charm.hasFeature(Spectre.class);
+        return enabled && Charm.hasFeature(Spectre.class);
     }
 
     @Override

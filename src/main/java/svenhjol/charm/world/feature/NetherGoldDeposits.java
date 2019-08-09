@@ -49,6 +49,6 @@ public class NetherGoldDeposits extends Feature
     @Override
     public boolean isEnabled()
     {
-        return !ForgeHelper.areModsLoaded("nethergoldore");
+        return enabled && !ForgeHelper.areModsLoaded("nethergoldore");
     }
 }

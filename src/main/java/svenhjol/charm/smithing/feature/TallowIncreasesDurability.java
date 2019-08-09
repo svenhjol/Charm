@@ -74,7 +74,7 @@ public class TallowIncreasesDurability extends Feature
     @Override
     public boolean isEnabled()
     {
-        return ForgeHelper.areModsLoaded("quark");
+        return enabled && ForgeHelper.areModsLoaded("quark");
     }
 
     @SubscribeEvent

@@ -90,7 +90,7 @@ public class EndPortalRunes extends Feature
             return false;
         }
 
-        return true;
+        return enabled;
     }
 
     @Override

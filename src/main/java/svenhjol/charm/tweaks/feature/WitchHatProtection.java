@@ -41,7 +41,7 @@ public class WitchHatProtection extends Feature
     @Override
     public boolean isEnabled()
     {
-        return ForgeHelper.areModsLoaded("quark");
+        return enabled && ForgeHelper.areModsLoaded("quark");
     }
 
     @Override

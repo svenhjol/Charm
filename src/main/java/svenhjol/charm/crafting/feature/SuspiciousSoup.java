@@ -54,7 +54,7 @@ public class SuspiciousSoup extends Feature
     @Override
     public boolean isEnabled()
     {
-        return !ForgeHelper.areModsLoaded("sm"); // sm is "Soups and Stews Mod"
+        return enabled && !ForgeHelper.areModsLoaded("sm"); // sm is "Soups and Stews Mod"
     }
 
     @Override
