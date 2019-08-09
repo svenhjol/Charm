@@ -1,10 +1,14 @@
 # Changelog for Charm 1.12
 
+## 1.3.2
+
+### General
+* Fixed: Features that check against other mods now respect being disabled in config. Fix #143
+
 ## 1.3.1
 
 ### World
 * Fixed: Abandoned Crates loot table setup now happens before modules/features init. Fix #140 #141
-
 
 ## 1.3.0
 
