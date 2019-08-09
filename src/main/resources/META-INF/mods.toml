@@ -1,17 +1,19 @@
 modLoader="javafml"
 loaderVersion="[28,)" # Forge version
-issueTrackerURL="http://github.com/svenhjol/Charm"
+issueTrackerURL="http://github.com/svenhjol/Charm/issues"
 displayURL="http://github.com/svenhjol/Charm"
 #logoFile="examplemod.png"
 #credits="Credits"
 authors="svenhjol,warlordwossman"
+
 [[mods]]
-modId="charm"
-version="1.2.3" #mandatory
-displayName="Charm"
-description='''
-Smaller things.
-'''
+    modId="charm"
+    version="${version}" #mandatory
+    displayName="Charm"
+    description='''
+    Smaller things.
+    '''
+
 [[dependencies.charm]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
