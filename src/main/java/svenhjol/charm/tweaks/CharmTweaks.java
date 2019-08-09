@@ -7,6 +7,7 @@ public class CharmTweaks extends Module
 {
     public CharmTweaks()
     {
+        features.add(new AutomaticRecipeUnlock());
         features.add(new ExtraRecords());
         features.add(new PickaxesBreakPistons());
         features.add(new RecordsStopBackgroundMusic());
