@@ -1,7 +1,16 @@
 package svenhjol.meson;
 
+import net.minecraft.block.Block;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.Item;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.Potion;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public abstract class Feature
 {
@@ -42,6 +51,12 @@ public abstract class Feature
         // no op
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public void registerScreens()
+    {
+        // no op
+    }
+
     public boolean isEnabled()
     {
         return enabled.get();
@@ -65,5 +80,34 @@ public abstract class Feature
     public String getDescription()
     {
         return getName();
+    }
+
+    public void onRegisterBlocks(final IForgeRegistry<Block> registry)
+    {
+    }
+
+    public void onRegisterItems(final IForgeRegistry<Item> registry)
+    {
+        // no op
+    }
+
+    public void onRegisterEffects(final IForgeRegistry<Effect> registry)
+    {
+        // no op
+    }
+
+    public void onRegisterPotions(final IForgeRegistry<Potion> registry)
+    {
+        // no op
+    }
+
+    public void onRegisterTileEntities(final IForgeRegistry<TileEntityType<?>> registry)
+    {
+        // no op
+    }
+
+    public void onRegisterContainers(final IForgeRegistry<ContainerType<?>> registry)
+    {
+        // no op
     }
 }
