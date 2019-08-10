@@ -5,6 +5,7 @@ import net.minecraft.block.LanternBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.Charm;
 import svenhjol.meson.iface.IMesonBlock;
 
@@ -18,19 +19,7 @@ public class GoldLanternBlock extends LanternBlock implements IMesonBlock
             .sound(SoundType.LANTERN)
             .lightValue(15));
 
-        register();
-    }
-
-    @Override
-    public String getModId()
-    {
-        return Charm.MOD_ID;
-    }
-
-    @Override
-    public String getBaseName()
-    {
-        return "gold_lantern";
+        setRegistryName(new ResourceLocation(Charm.MOD_ID, "gold_lantern"));
     }
 
     @Override
