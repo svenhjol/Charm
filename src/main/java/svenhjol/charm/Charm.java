@@ -15,7 +15,7 @@ import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IMesonSidedProxy;
 
-@Mod(value = Charm.MOD_ID)
+@Mod(Charm.MOD_ID)
 public class Charm
 {
     public static final String MOD_ID = "charm";
