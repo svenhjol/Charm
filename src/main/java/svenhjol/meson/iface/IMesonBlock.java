@@ -4,14 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import svenhjol.meson.handler.RegistrationHandler;
+import net.minecraft.util.ResourceLocation;
 
 public interface IMesonBlock
 {
-    String getModId();
-
-    String getBaseName();
-
     ItemGroup getItemGroup();
 
     default int getMaxStackSize()
@@ -26,13 +22,15 @@ public interface IMesonBlock
         if (group != null) props.group(group);
         props.maxStackSize(getMaxStackSize());
 
-        BlockItem blockItem = new BlockItem((Block) this, props);
-        blockItem.setRegistryName(((Block) this).getRegistryName());
-        return blockItem;
-    }
+        Block block = (Block) this;
+        BlockItem blockItem = new BlockItem(block, props);
 
-    default void register()
-    {
-        RegistrationHandler.addBlock(this);
+        // set the blockitem name to the same as the block, if possible
+        ResourceLocation blockName = block.getRegistryName();
+        if (blockName != null) {
+            blockItem.setRegistryName(blockName);
+        }
+
+        return blockItem;
     }
 }

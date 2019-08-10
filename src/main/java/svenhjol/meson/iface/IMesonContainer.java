@@ -1,5 +1,5 @@
 package svenhjol.meson.iface;
 
-public interface IMesonEffect
+public interface IMesonContainer
 {
 }
