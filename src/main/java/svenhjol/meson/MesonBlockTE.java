@@ -9,9 +9,9 @@ import javax.annotation.Nullable;
 
 public abstract class MesonBlockTE<TE extends TileEntity> extends MesonBlock
 {
-    public MesonBlockTE(String baseName, Block.Properties props)
+    public MesonBlockTE(Block.Properties props)
     {
-        super(baseName, props);
+        super(props);
     }
 
     @Nullable

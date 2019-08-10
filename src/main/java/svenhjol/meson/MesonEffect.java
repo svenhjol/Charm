@@ -6,19 +6,9 @@ import svenhjol.meson.iface.IMesonEffect;
 
 public abstract class MesonEffect extends Effect implements IMesonEffect
 {
-    protected String baseName;
-
-    public MesonEffect(String baseName, EffectType effectType, int color)
+    public MesonEffect(EffectType effectType, int color)
     {
         super(effectType, color);
-        this.baseName = baseName;
-        register();
-    }
-
-    @Override
-    public String getBaseName()
-    {
-        return baseName;
     }
 
     protected void addEffect(Effect effect)

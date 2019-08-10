@@ -12,21 +12,12 @@ import svenhjol.meson.iface.IMesonPotion;
 
 public abstract class MesonPotion extends Potion implements IMesonPotion
 {
-    protected String baseName;
     protected Ingredient potionBase;
     protected Ingredient potionReagant;
 
-    public MesonPotion(String baseName, EffectInstance... effects)
+    public MesonPotion(EffectInstance... effects)
     {
         super(effects);
-        this.baseName = baseName;
-        register();
-    }
-
-    @Override
-    public String getBaseName()
-    {
-        return baseName;
     }
 
     public void setPotionBase(ItemStack base)
