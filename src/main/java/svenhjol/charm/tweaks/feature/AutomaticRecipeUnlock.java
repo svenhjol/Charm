@@ -6,12 +6,12 @@ import net.minecraft.item.crafting.RecipeManager;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.Feature;
+import svenhjol.meson.helper.ForgeHelper;
 
 import java.util.Collection;
 
 /**
  * @see net.minecraft.item.KnowledgeBookItem
- * @todo add isEnabled() to check for quark, disable if present
  */
 public class AutomaticRecipeUnlock extends Feature
 {
@@ -19,6 +19,12 @@ public class AutomaticRecipeUnlock extends Feature
     public void init()
     {
         super.init();
+    }
+
+    @Override
+    public boolean isEnabled()
+    {
+        return super.isEnabled() && !ForgeHelper.isModLoaded("quark");
     }
 
     @SubscribeEvent
