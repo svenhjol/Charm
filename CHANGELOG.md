@@ -18,6 +18,7 @@
 
 ### World
 * Nether gold deposits now fixed so they actually drop nuggets and XP.
+* Totem of Returning was ported to the Strange mod.
 
 
 ## 1.3.1
