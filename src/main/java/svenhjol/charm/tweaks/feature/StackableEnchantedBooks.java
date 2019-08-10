@@ -3,12 +3,16 @@ package svenhjol.charm.tweaks.feature;
 import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.meson.Feature;
-import svenhjol.meson.handler.RegistrationHandler;
 
 public class StackableEnchantedBooks extends Feature
 {
     public static int size;
+    public static EnchantedBookItem item;
+    public static final ResourceLocation ID = new ResourceLocation("enchanted_book");
 
     @Override
     public void configure()
@@ -21,9 +25,14 @@ public class StackableEnchantedBooks extends Feature
     public void init()
     {
         super.init();
+        item = new EnchantedBookItem((new Item.Properties()).maxStackSize(size).rarity(Rarity.UNCOMMON));
+        item.setRegistryName(ID);
+    }
 
-        EnchantedBookItem item = new EnchantedBookItem((new Item.Properties()).maxStackSize(size).rarity(Rarity.UNCOMMON));
-
-        RegistrationHandler.addItemOverride("enchanted_book", item);
+    @Override
+    public void onRegisterItems(IForgeRegistry<Item> registry)
+    {
+        registry.register(item); // Forge registry
+        Registry.register(Registry.ITEM, ID, item); // Vanilla registry
     }
 }

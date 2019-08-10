@@ -2,10 +2,12 @@ package svenhjol.charm.tweaks.feature;
 
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.tweaks.item.CharmRecordItem;
 import svenhjol.meson.Feature;
@@ -24,7 +26,6 @@ public class ExtraRecords extends Feature
     {
         super.configure();
 
-        // internal
         recordNames = new String[] {
             "calm1",
             "calm2",
@@ -62,10 +63,9 @@ public class ExtraRecords extends Feature
     public void init()
     {
         super.init();
-        for (String recordName : recordNames) {
-            ResourceLocation res = new ResourceLocation(Charm.MOD_ID, "record." + recordName);
-            SoundEvent sound = new SoundEvent(res);
-            records.add(new CharmRecordItem("record_" + recordName, sound, 0));
+        for (String name : recordNames) {
+            SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "record." + name));
+            records.add(new CharmRecordItem("record_" + name, sound, 0));
         }
     }
 
@@ -84,5 +84,11 @@ public class ExtraRecords extends Feature
     public boolean hasSubscriptions()
     {
         return true;
+    }
+
+    @Override
+    public void onRegisterItems(IForgeRegistry<Item> registry)
+    {
+        records.forEach(registry::register);
     }
 }
