@@ -16,7 +16,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonBlockTE;
 import svenhjol.meson.enums.WoodType;
@@ -27,9 +26,9 @@ public abstract class CrateBaseBlock extends MesonBlockTE<CrateTileEntity>
 {
     private WoodType wood;
 
-    public CrateBaseBlock(String baseName, WoodType wood)
+    public CrateBaseBlock(WoodType wood)
     {
-        super(baseName, Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F).sound(SoundType.WOOD));
+        super(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F).sound(SoundType.WOOD));
         this.wood = wood;
     }
 
@@ -38,12 +37,6 @@ public abstract class CrateBaseBlock extends MesonBlockTE<CrateTileEntity>
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
         return new CrateTileEntity();
-    }
-
-    @Override
-    public String getModId()
-    {
-        return Charm.MOD_ID;
     }
 
     @Override

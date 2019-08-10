@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -19,17 +20,12 @@ public class EnderPearlBlockBlock extends MesonBlock
 {
     public EnderPearlBlockBlock()
     {
-        super("ender_pearl_block", Block.Properties
+        super(Block.Properties
             .create(Material.GLASS)
             .sound(SoundType.GLASS)
             .hardnessAndResistance(EnderPearlBlock.hardness)
         );
-    }
-
-    @Override
-    public String getModId()
-    {
-        return Charm.MOD_ID;
+        setRegistryName(new ResourceLocation(Charm.MOD_ID, "ender_pearl_block"));
     }
 
     // copypasta from MyceliumBlock

@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
+import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.charm.crafting.tileentity.CrateTileEntity;
 import svenhjol.meson.enums.WoodType;
@@ -26,7 +27,8 @@ public class CrateOpenBlock extends CrateBaseBlock
 
     public CrateOpenBlock(WoodType wood)
     {
-        super("crate_open_" + wood.getName(), wood);
+        super(wood);
+        setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate_open_" + wood.getName()));
     }
 
     @Override
@@ -42,7 +44,6 @@ public class CrateOpenBlock extends CrateBaseBlock
                 CrateTileEntity crate = (CrateTileEntity)tile;
                 player.openContainer(crate);
                 /* @todo stats, see ShulkerBoxBlock */
-
                 return true;
             }
             return false;
