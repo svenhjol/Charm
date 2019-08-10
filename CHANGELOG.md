@@ -1,5 +1,25 @@
 # Changelog for Charm 1.14
 
+## 1.3.2
+
+### General
+* API methods to add item/block classes to crates to prevent them from being added.
+* All recipes now check that feature is available before trying to add missing item recipes. Note: this is not working for loot tables, because wtf.
+
+### Automation
+* Redstone sand recipe now accepts red sand.
+
+### Crafting
+* Crates now don't allow crates or shulkerboxes to be added. Fix #146
+
+### Tweaks
+* Compasses bind to beacons, and their ability to bind to banners made false by default.
+* Fixed log spam issue when transforming brewing stand stack input, added asm hook.
+
+### World
+* Nether gold deposits now fixed so they actually drop nuggets and XP.
+
+
 ## 1.3.1
 
 ### General
@@ -7,7 +27,7 @@
 * Fixed: Possible client ticking issue.
 * Changes: instead of suffixing everything with -alpha I will just flag the build.
 
-### Crating
+### Crafting
 * Added: Recipes for all crate wood types.
 
 ### Tweaks
