@@ -31,10 +31,12 @@ public class BoundCompassItem extends MesonItem
 
     public BoundCompassItem()
     {
-        super("bound_compass", new Item.Properties()
+        super(new Item.Properties()
             .group(ItemGroup.MISC)
             .maxStackSize(1)
         );
+
+        setRegistryName(new ResourceLocation(Charm.MOD_ID, "bound_compass"));
 
         addPropertyOverride(new ResourceLocation("angle"), new IItemPropertyGetter()
         {
@@ -120,12 +122,6 @@ public class BoundCompassItem extends MesonItem
                 return Math.atan2(pos.getZ() - entity.posZ, pos.getX() - entity.posX);
             }
         });
-    }
-
-    @Override
-    public String getModId()
-    {
-        return Charm.MOD_ID;
     }
 
     public static int getColor(ItemStack stack)

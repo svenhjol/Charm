@@ -5,10 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
@@ -25,17 +22,12 @@ public class TotemOfReturningItem extends MesonItem
 
     public TotemOfReturningItem()
     {
-        super("totem_of_returning", new Item.Properties()
+        super(new Item.Properties()
             .group(ItemGroup.TRANSPORTATION)
             .rarity(Rarity.UNCOMMON)
             .maxStackSize(1)
         );
-    }
-
-    @Override
-    public String getModId()
-    {
-        return Charm.MOD_ID;
+        setRegistryName(new ResourceLocation(Charm.MOD_ID, "totem_of_returning"));
     }
 
     @Override
