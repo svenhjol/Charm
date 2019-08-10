@@ -7,6 +7,12 @@
     "G": {"tag": "forge:nuggets/gold"},
     "T": {"item": "minecraft:torch"}
   },
+  "conditions": [
+    {
+      "type" : "forge:item_exists",
+      "item" : "charm:gold_lantern"
+    }
+  ],
   "result": {
     "item": "charm:gold_lantern"
   }

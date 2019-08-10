@@ -1,16 +1,17 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {"item": "charm:gunpowder_block"}
+    {
+      "item": "charm:bound_compass"
+    }
   ],
   "conditions": [
     {
       "type" : "forge:item_exists",
-      "item" : "charm:gunpowder_block"
+      "item" : "charm:bound_compass"
     }
   ],
   "result": {
-    "item": "minecraft:gunpowder",
-    "count": 9
+    "item": "minecraft:compass"
   }
 }

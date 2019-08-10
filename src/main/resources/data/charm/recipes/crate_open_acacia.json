@@ -7,6 +7,12 @@
     "I": {"tag": "forge:ingots/iron"},
     "W": {"item": "minecraft:acacia_planks"}
   },
+  "conditions": [
+    {
+      "type" : "forge:item_exists",
+      "item" : "charm:crate_open_acacia"
+    }
+  ],
   "result": {
     "item": "charm:crate_open_acacia"
   }

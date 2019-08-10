@@ -5,8 +5,14 @@
   ],
   "key": {
     "R": {"item": "minecraft:redstone"},
-    "S": {"item": "minecraft:sand"}
+    "S": {"tag": "minecraft:blocks/sand"}
   },
+  "conditions": [
+    {
+      "type" : "forge:item_exists",
+      "item" : "charm:redstone_sand"
+    }
+  ],
   "result": {
     "item": "charm:redstone_sand"
   }

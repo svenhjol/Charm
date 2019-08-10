@@ -6,6 +6,12 @@
   "key": {
     "E": {"item": "minecraft:ender_pearl"}
   },
+  "conditions": [
+    {
+      "type" : "forge:item_exists",
+      "item" : "charm:ender_pearl_block"
+    }
+  ],
   "result": {
     "item": "charm:ender_pearl_block"
   }
