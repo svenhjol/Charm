@@ -8,6 +8,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
@@ -22,7 +23,7 @@ public class VariableRedstoneLampBlock extends MesonBlock
 
     public VariableRedstoneLampBlock()
     {
-        super("variable_redstone_lamp", Block.Properties
+        super(Block.Properties
             .create(Material.REDSTONE_LIGHT)
             .sound(SoundType.GLASS)
             .hardnessAndResistance(0.3F)
@@ -30,12 +31,7 @@ public class VariableRedstoneLampBlock extends MesonBlock
         );
 
         setDefaultState(this.getDefaultState().with(LEVEL, 0));
-    }
-
-    @Override
-    public String getModId()
-    {
-        return Charm.MOD_ID;
+        setRegistryName(new ResourceLocation(Charm.MOD_ID, "variable_redstone_lamp"));
     }
 
     @Override

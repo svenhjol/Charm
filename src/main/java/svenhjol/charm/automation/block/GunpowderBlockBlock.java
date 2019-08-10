@@ -7,6 +7,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
@@ -21,20 +22,7 @@ public class GunpowderBlockBlock extends FallingBlock implements IMesonBlock
             .sound(SoundType.SAND)
             .hardnessAndResistance(0.5F)
         );
-
-        register();
-    }
-
-    @Override
-    public String getModId()
-    {
-        return Charm.MOD_ID;
-    }
-
-    @Override
-    public String getBaseName()
-    {
-        return "gunpowder_block";
+        setRegistryName(new ResourceLocation(Charm.MOD_ID, "gunpowder_block"));
     }
 
     @Override
