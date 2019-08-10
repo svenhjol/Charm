@@ -1,6 +1,8 @@
 package svenhjol.meson;
 
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DeferredWorkQueue;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -20,7 +22,6 @@ public class Meson
     public static void init()
     {
         if (!hasInit) {
-//            MinecraftForge.EVENT_BUS.register(RegistrationHandler.class);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(Meson::commonSetup);
             hasInit = true;
         }
@@ -29,12 +30,11 @@ public class Meson
     public static void commonSetup(final FMLCommonSetupEvent event)
     {
         DeferredWorkQueue.runLater(() -> {
-            MesonLoader.instances.forEach((id, loader) -> loader.features.forEach(feature -> {
-
+            MesonLoader.forEachEnabledFeature(feature -> {
                 feature.registerMessages();
                 feature.registerComposterItems();
-
-            }));
+                DistExecutor.runWhenOn(Dist.CLIENT, () -> feature::registerScreens);
+            });
         });
 
         Meson.log("Common setup done");
