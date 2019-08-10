@@ -37,6 +37,6 @@ public class Charm
 
     public static boolean hasFeature(Class<? extends Feature> feature)
     {
-        return CharmLoader.INSTANCE.enabledFeatures.contains(feature);
+        return CharmLoader.INSTANCE.enabledFeatures.containsKey(feature);
     }
 }
