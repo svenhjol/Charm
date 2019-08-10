@@ -7,6 +7,7 @@ import net.minecraft.block.DispenserBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
@@ -22,6 +23,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.charm.brewing.block.FlavoredCakeBlock;
 import svenhjol.charm.brewing.message.MessageCakeImbue;
 import svenhjol.meson.Feature;
@@ -147,7 +149,19 @@ public class FlavoredCake extends Feature
         return true;
     }
 
-    public class DispenseImbueBehavior extends DefaultDispenseItemBehavior
+    @Override
+    public void onRegisterBlocks(IForgeRegistry<Block> registry)
+    {
+        types.forEach((potion, block) -> registry.register(block));
+    }
+
+    @Override
+    public void onRegisterItems(IForgeRegistry<Item> registry)
+    {
+        types.forEach((potion, block) -> registry.register(block.getBlockItem()));
+    }
+
+    public static class DispenseImbueBehavior extends DefaultDispenseItemBehavior
     {
         @Override
         protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)

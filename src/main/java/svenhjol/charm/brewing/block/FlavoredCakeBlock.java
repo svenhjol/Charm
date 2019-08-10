@@ -12,6 +12,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
@@ -76,24 +77,12 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
         if (duration == 0) duration = 10;
         setDuration(duration);
 
-        // register the cake
+        // setup cake name and add to pool
         this.baseName = "cake_" + baseName;
-        register();
+        setRegistryName(new ResourceLocation(Charm.MOD_ID, this.baseName));
 
         FlavoredCake.cakes.put(potionName, this);
         FlavoredCake.types.put(getPotion(), this);
-    }
-
-    @Override
-    public String getBaseName()
-    {
-        return this.baseName;
-    }
-
-    @Override
-    public String getModId()
-    {
-        return Charm.MOD_ID;
     }
 
     @Override

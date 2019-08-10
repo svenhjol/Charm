@@ -1,5 +1,8 @@
 package svenhjol.charm.brewing.feature;
 
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.Potion;
+import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.charm.brewing.effect.CoffeeEffect;
 import svenhjol.charm.brewing.potion.CoffeePotion;
 import svenhjol.meson.Feature;
@@ -25,5 +28,18 @@ public class Coffee extends Feature
         super.init();
         effect = new CoffeeEffect();
         potion = new CoffeePotion();
+    }
+
+    @Override
+    public void onRegisterEffects(IForgeRegistry<Effect> registry)
+    {
+        registry.register(effect);
+    }
+
+    @Override
+    public void onRegisterPotions(IForgeRegistry<Potion> registry)
+    {
+        registry.register(potion);
+        potion.registerRecipe();
     }
 }
