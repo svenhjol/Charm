@@ -1,21 +1,32 @@
 package svenhjol.charm.crafting.feature;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.ShulkerBoxBlock;
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.ObjectHolder;
 import svenhjol.charm.Charm;
+import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.crafting.block.CrateBaseBlock;
 import svenhjol.charm.crafting.block.CrateOpenBlock;
 import svenhjol.charm.crafting.block.CrateSealedBlock;
+import svenhjol.charm.crafting.container.CrateContainer;
+import svenhjol.charm.crafting.inventory.CrateScreen;
 import svenhjol.charm.crafting.tileentity.CrateTileEntity;
 import svenhjol.meson.Feature;
 import svenhjol.meson.enums.WoodType;
-import svenhjol.meson.handler.RegistrationHandler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,26 +34,27 @@ public class Crate extends Feature
 {
     public static Map<WoodType, CrateOpenBlock> openTypes = new HashMap<>();
     public static Map<WoodType, CrateSealedBlock> sealedTypes = new HashMap<>();
+    public static List<Class<? extends Block>> invalidBlocks = new ArrayList<>();
+    public static List<Class<? extends Item>> invalidItems = new ArrayList<>();
 
-    @Override
-    public void configure()
-    {
-        super.configure();
-    }
+    @ObjectHolder("charm:crate")
+    public static ContainerType<CrateContainer> CRATE;
 
     @Override
     public void init()
     {
         super.init();
 
-        // register all the crate types and woods
+        // create all wood types for open and sealed crates
         for (WoodType wood : WoodType.values()) {
             openTypes.put(wood, new CrateOpenBlock(wood));
             sealedTypes.put(wood, new CrateSealedBlock(wood));
         }
 
-        // register tile entity
-        RegistrationHandler.addTileEntity(new ResourceLocation(Charm.MOD_ID, "crate"), CrateTileEntity.factory());
+        // add invalid blocks
+        CharmApi.addInvalidCrateBlock(ShulkerBoxBlock.class);
+        CharmApi.addInvalidCrateBlock(CrateOpenBlock.class);
+        CharmApi.addInvalidCrateBlock(CrateSealedBlock.class);
     }
 
     @SubscribeEvent
@@ -72,8 +84,49 @@ public class Crate extends Feature
     }
 
     @Override
+    public void registerScreens()
+    {
+        ScreenManager.registerFactory(CRATE, CrateScreen::new);
+    }
+
+    public static boolean canInsertItem(ItemStack stack)
+    {
+        Class<? extends Block> blockClass = Block.getBlockFromItem(stack.getItem()).getClass();
+        return !Crate.invalidItems.contains(stack.getItem().getClass())
+            && !Crate.invalidBlocks.contains(blockClass);
+    }
+
+    @Override
     public boolean hasSubscriptions()
     {
         return true;
+    }
+
+    @Override
+    public void onRegisterBlocks(IForgeRegistry<Block> registry)
+    {
+        openTypes.forEach((wood, block) -> registry.register(block));
+        sealedTypes.forEach((wood, block) -> registry.register(block));
+    }
+
+    @Override
+    public void onRegisterItems(IForgeRegistry<Item> registry)
+    {
+        openTypes.forEach((wood, block) -> registry.register(block.getBlockItem()));
+        sealedTypes.forEach((wood, block) -> registry.register(block.getBlockItem()));
+    }
+
+    @Override
+    public void onRegisterTileEntities(IForgeRegistry<TileEntityType<?>> registry)
+    {
+        registry.register(TileEntityType.Builder.create(CrateTileEntity::new).build(null)
+            .setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
+    }
+
+    @Override
+    public void onRegisterContainers(IForgeRegistry<ContainerType<?>> registry)
+    {
+        registry.register(new ContainerType<>(CrateContainer::instance)
+            .setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
     }
 }

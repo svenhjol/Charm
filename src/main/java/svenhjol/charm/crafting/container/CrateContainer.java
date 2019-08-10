@@ -1,35 +1,25 @@
 package svenhjol.charm.crafting.container;
 
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import svenhjol.charm.crafting.feature.Crate;
+import svenhjol.charm.crafting.tileentity.CrateTileEntity;
+import svenhjol.meson.MesonContainer;
 
-public class CrateContainer extends Container
+public class CrateContainer extends MesonContainer
 {
-    private final IInventory inventory;
-
-    public CrateContainer(int id, PlayerInventory player)
+    private CrateContainer(ContainerType<?> type, int id, PlayerInventory player, IInventory inventory)
     {
-        this(id, player, new Inventory(9));
-    }
-
-    public CrateContainer(int id, PlayerInventory player, IInventory inventory)
-    {
-        super(ContainerType.GENERIC_9X1, id);
-        this.inventory = inventory;
-
-        inventory.openInventory(player.player);
+        super(type, id, player, inventory);
 
         int index = 0;
 
         // crate's inventory slots
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(inventory, index++, 8 + (i * 18), 35));
+            this.addSlot(new CrateSlot(inventory, index++, 8 + (i * 18), 18));
         }
 
         index = 9;
@@ -37,54 +27,23 @@ public class CrateContainer extends Container
         // player's main inventory slots
         for (int r = 0; r < 3; ++r) {
             for (int c = 0; c < 9; ++c) {
-                this.addSlot(new Slot(player, index++, 8 + c * 18, 51 + r * 18));
+                this.addSlot(new Slot(player, index++, 8 + c * 18, 50 + r * 18));
             }
         }
 
         // player's hotbar
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(player, i, 8 + (i * 18), 109));
+            this.addSlot(new Slot(player, i, 8 + (i * 18), 108));
         }
     }
 
-    @Override
-    public ItemStack transferStackInSlot(PlayerEntity player, int slotIndex)
+    public static CrateContainer instance(int id, PlayerInventory playerInventory, IInventory inventory)
     {
-        ItemStack stack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(slotIndex);
-
-        if (slot != null && slot.getHasStack()) {
-            ItemStack stackInSlot = slot.getStack();
-            stack = stackInSlot.copy();
-
-            if (slotIndex < this.inventory.getSizeInventory()) {
-                if (!this.mergeItemStack(stackInSlot, this.inventory.getSizeInventory(), this.inventorySlots.size(), true)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (!this.mergeItemStack(stackInSlot, 0, this.inventory.getSizeInventory(), false)) {
-                return ItemStack.EMPTY;
-            }
-
-            if (stackInSlot.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
-            } else {
-                slot.onSlotChanged();
-            }
-        }
-
-        return stack;
+        return new CrateContainer(Crate.CRATE, id, playerInventory, inventory);
     }
 
-    @Override
-    public void onContainerClosed(PlayerEntity player)
+    public static CrateContainer instance(int id, PlayerInventory playerInventory)
     {
-        super.onContainerClosed(player);
-        this.inventory.closeInventory(player);
-    }
-
-    @Override
-    public boolean canInteractWith(PlayerEntity playerIn)
-    {
-        return this.inventory.isUsableByPlayer(playerIn);
+        return instance(id, playerInventory, new Inventory(CrateTileEntity.SIZE));
     }
 }
