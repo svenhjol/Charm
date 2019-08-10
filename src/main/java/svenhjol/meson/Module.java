@@ -40,7 +40,7 @@ public abstract class Module
         Meson.log("Starting module " + getName());
         features.forEach(feature -> {
             if (feature.isEnabled()) {
-                loader.enabledFeatures.add(feature.getClass());
+                loader.enabledFeatures.put(feature.getClass(), feature);
                 Meson.log("Starting feature " + feature.getName());
                 feature.init();
             }
