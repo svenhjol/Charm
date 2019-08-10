@@ -9,14 +9,15 @@ import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Consumer;
 
 public abstract class MesonLoader
 {
     public static Map<String, MesonLoader> instances = new HashMap<>();
     public List<Module> modules = new ArrayList<>();
     public List<Feature> features = new ArrayList<>();
-    public List<Class<? extends Feature>> enabledFeatures = new ArrayList<>();
-    public List<Class<? extends Module>> enabledModules = new ArrayList<>();
+    public Map<Class<? extends Module>, Module> enabledModules = new HashMap<>();
+    public Map<Class<? extends Feature>, Feature> enabledFeatures = new HashMap<>();
     public ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
     public ForgeConfigSpec config;
     public String id;
@@ -69,10 +70,16 @@ public abstract class MesonLoader
         // initialize modules
         modules.forEach(module -> {
             if (module.isEnabled()) {
-                enabledModules.add(module.getClass());
+                enabledModules.put(module.getClass(), module);
                 module.init();
             }
         });
     }
 
+    public static void forEachEnabledFeature(Consumer<Feature> consumer)
+    {
+        instances.forEach((id, instance) -> {
+            instance.enabledFeatures.values().stream().forEach(consumer);
+        });
+    }
 }
