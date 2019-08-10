@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BannerTileEntity;
+import net.minecraft.tileentity.BeaconTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -15,18 +16,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.charm.world.item.BoundCompassItem;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.PlayerHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CompassBinding extends Feature
 {
     public static BoundCompassItem item;
     public static List<Item> bindableItems = new ArrayList<>();
     public static ForgeConfigSpec.BooleanValue useBanners;
+    public static ForgeConfigSpec.BooleanValue useBeacons;
 
     @Override
     public void configure()
@@ -35,7 +39,11 @@ public class CompassBinding extends Feature
 
         useBanners = builder
             .comment("If true, compasses can bind to banners.")
-            .define("Bind to Banners", true);
+            .define("Bind to Banners", false);
+
+        useBeacons = builder
+            .comment("If true, compasses can bind to beacons.")
+            .define("Bind to Beacons", true);
     }
 
     @Override
@@ -78,13 +86,21 @@ public class CompassBinding extends Feature
                 validCompass = true;
             }
 
+            // handle beacons
+            if (useBeacons.get() && tile instanceof BeaconTileEntity) {
+                BeaconTileEntity beacon = (BeaconTileEntity)tile;
+                if (beacon.getLevels() < 1) return; // better way to detect active beacons?
+                name = Objects.requireNonNull(beacon.getDisplayName()).getString();
+                validCompass = true;
+            }
+
             if (!validCompass) return;
 
             // set up the new compass details
             BlockPos compassPos = new BlockPos(pos);
             name = (name.length()) > 0 ? name : "Bound Compass";
 
-            compass.setDisplayName(new StringTextComponent(name)); // I18n.translateToLocal is deprecated?
+            compass.setDisplayName(new StringTextComponent(name));
             BoundCompassItem.setPos(compass, compassPos);
             BoundCompassItem.setDim(compass, world.getDimension().getType().getId());
             BoundCompassItem.setColor(compass, color);
@@ -98,5 +114,11 @@ public class CompassBinding extends Feature
     public boolean hasSubscriptions()
     {
         return true;
+    }
+
+    @Override
+    public void onRegisterItems(IForgeRegistry<Item> registry)
+    {
+        registry.register(item);
     }
 }
