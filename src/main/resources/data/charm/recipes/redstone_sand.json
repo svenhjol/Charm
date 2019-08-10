@@ -5,7 +5,7 @@
   ],
   "key": {
     "R": {"item": "minecraft:redstone"},
-    "S": {"tag": "minecraft:blocks/sand"}
+    "S": {"tag": "minecraft:sand"}
   },
   "conditions": [
     {
