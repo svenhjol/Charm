@@ -1,5 +1,14 @@
 # Changelog for Charm 1.14
 
+## 1.3.3
+
+### Decoration
+* Added all barrel wood types.
+
+### Enchantments
+* Added Magnetic enchantment.
+
+
 ## 1.3.2
 
 ### General
