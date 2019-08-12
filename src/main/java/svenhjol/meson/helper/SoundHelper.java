@@ -18,7 +18,12 @@ public class SoundHelper
 {
     public static void playSoundAtPos(World world, BlockPos pos, SoundEvent sound, float volume, float pitch)
     {
-        world.playSound(pos.getX(), pos.getY(), pos.getZ(), sound, SoundCategory.AMBIENT, volume, pitch, true);
+        playSoundAtPos(world, pos, sound, SoundCategory.AMBIENT, volume, pitch);
+    }
+
+    public static void playSoundAtPos(World world, BlockPos pos, SoundEvent sound, SoundCategory category, float volume, float pitch)
+    {
+        world.playSound(pos.getX(), pos.getY(), pos.getZ(), sound, category, volume, pitch, false);
     }
 
     public static void playerSound(EntityPlayer player, SoundEvent sound, float volume, float pitch)
