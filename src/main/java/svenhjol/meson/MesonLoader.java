@@ -2,9 +2,15 @@ package svenhjol.meson;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.nio.file.Path;
@@ -30,16 +36,10 @@ public abstract class MesonLoader
         return instance;
     }
 
-    public void setup(Module... mods)
+    public void add(Module... mods)
     {
         modules.addAll(Arrays.asList(mods));
 
-        configure();
-        init();
-    }
-
-    public void configure()
-    {
         // configure each module
         modules.forEach(module -> {
             module.enabled = builder.define(module.getName() + " module enabled", true);
@@ -63,23 +63,51 @@ public abstract class MesonLoader
 
         data.load();
         config.setConfig(data);
-    }
 
-    public void init()
-    {
-        // initialize modules
         modules.forEach(module -> {
             if (module.isEnabled()) {
                 enabledModules.put(module.getClass(), module);
-                module.init();
             }
+        });
+
+        // initialize modules
+        MesonLoader.forEachEnabledModule(Module::init);
+    }
+
+    public static void setup(FMLCommonSetupEvent event)
+    {
+        // setup feature registries
+        MesonLoader.forEachEnabledFeature(feature -> {
+            feature.registerMessages();
+            feature.registerComposterItems();
+        });
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void setupClient(FMLClientSetupEvent event)
+    {
+        MesonLoader.forEachEnabledFeature(feature -> {
+            feature.initClient();
+            feature.registerScreens();
+        });
+    }
+
+    public static void forEachEnabledModule(Consumer<Module> consumer)
+    {
+        instances.forEach((id, instance) -> {
+            instance.enabledModules.values().forEach(consumer);
         });
     }
 
     public static void forEachEnabledFeature(Consumer<Feature> consumer)
     {
         instances.forEach((id, instance) -> {
-            instance.enabledFeatures.values().stream().forEach(consumer);
+            instance.enabledFeatures.values().forEach(consumer);
         });
+    }
+
+    public static IEventBus getEventBus()
+    {
+        return FMLJavaModLoadingContext.get().getModEventBus();
     }
 }

@@ -42,18 +42,8 @@ public abstract class Feature
         }
     }
 
-    public void registerMessages()
-    {
-        // no op
-    }
-
-    public void registerComposterItems()
-    {
-        // no op
-    }
-
     @OnlyIn(Dist.CLIENT)
-    public void registerScreens()
+    public void initClient()
     {
         // no op
     }
@@ -83,37 +73,53 @@ public abstract class Feature
         return getName();
     }
 
-    public void onRegisterBlocks(final IForgeRegistry<Block> registry)
+    public void registerBlocks(final IForgeRegistry<Block> registry)
     {
         // no op
     }
 
-    public void onRegisterContainers(final IForgeRegistry<ContainerType<?>> registry)
+    public void registerComposterItems()
     {
         // no op
     }
 
-    public void onRegisterItems(final IForgeRegistry<Item> registry)
+    public void registerContainers(final IForgeRegistry<ContainerType<?>> registry)
     {
         // no op
     }
 
-    public void onRegisterEffects(final IForgeRegistry<Effect> registry)
+    public void registerItems(final IForgeRegistry<Item> registry)
     {
         // no op
     }
 
-    public void onRegisterEnchantments(final IForgeRegistry<Enchantment> registry)
+    public void registerEffects(final IForgeRegistry<Effect> registry)
     {
         // no op
     }
 
-    public void onRegisterPotions(final IForgeRegistry<Potion> registry)
+    public void registerEnchantments(final IForgeRegistry<Enchantment> registry)
     {
         // no op
     }
 
-    public void onRegisterTileEntities(final IForgeRegistry<TileEntityType<?>> registry)
+    public void registerMessages()
+    {
+        // no op
+    }
+
+    public void registerPotions(final IForgeRegistry<Potion> registry)
+    {
+        // no op
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void registerScreens()
+    {
+        // no op
+    }
+
+    public void registerTileEntities(final IForgeRegistry<TileEntityType<?>> registry)
     {
         // no op
     }
