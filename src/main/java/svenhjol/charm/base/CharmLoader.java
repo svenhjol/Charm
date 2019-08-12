@@ -1,16 +1,14 @@
 package svenhjol.charm.base;
 
+import svenhjol.meson.Feature;
 import svenhjol.meson.MesonLoader;
 
 public final class CharmLoader extends MesonLoader
 {
     public static final MesonLoader INSTANCE = new CharmLoader();
 
-    @Override
-    public void init()
+    public static boolean hasFeature(Class<? extends Feature> feature)
     {
-        super.init();
-
-        CharmSounds.init();
+        return CharmLoader.INSTANCE.enabledFeatures.containsKey(feature);
     }
 }
