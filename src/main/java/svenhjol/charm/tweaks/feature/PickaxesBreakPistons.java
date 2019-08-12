@@ -39,13 +39,13 @@ public class PickaxesBreakPistons extends Feature
     }
 
     @Override
-    public void onRegisterBlocks(IForgeRegistry<Block> registry)
+    public void registerBlocks(IForgeRegistry<Block> registry)
     {
         Registry.register(Registry.BLOCK, ID, block); // Vanilla registry
     }
 
     @Override
-    public void onRegisterItems(IForgeRegistry<Item> registry)
+    public void registerItems(IForgeRegistry<Item> registry)
     {
         Registry.register(Registry.ITEM, ID, blockItem); // Vanilla registry
     }

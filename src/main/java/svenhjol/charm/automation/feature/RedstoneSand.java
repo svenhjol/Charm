@@ -22,13 +22,13 @@ public class RedstoneSand extends Feature
     }
 
     @Override
-    public void onRegisterBlocks(IForgeRegistry<Block> registry)
+    public void registerBlocks(IForgeRegistry<Block> registry)
     {
         registry.register(block);
     }
 
     @Override
-    public void onRegisterItems(IForgeRegistry<Item> registry)
+    public void registerItems(IForgeRegistry<Item> registry)
     {
         registry.register(blockItem);
     }

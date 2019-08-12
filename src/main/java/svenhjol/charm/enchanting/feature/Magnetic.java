@@ -114,7 +114,7 @@ public class Magnetic extends Feature
     }
 
     @Override
-    public void onRegisterEnchantments(IForgeRegistry<Enchantment> registry)
+    public void registerEnchantments(IForgeRegistry<Enchantment> registry)
     {
         registry.register(enchantment);
     }

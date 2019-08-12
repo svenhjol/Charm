@@ -38,7 +38,7 @@ public class StackablePotions extends Feature
     }
 
     @Override
-    public void onRegisterItems(IForgeRegistry<Item> registry)
+    public void registerItems(IForgeRegistry<Item> registry)
     {
         registry.registerAll(potion, splash, lingering); // Forge registry
 

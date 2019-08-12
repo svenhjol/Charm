@@ -87,7 +87,7 @@ public class ExtraRecords extends Feature
     }
 
     @Override
-    public void onRegisterItems(IForgeRegistry<Item> registry)
+    public void registerItems(IForgeRegistry<Item> registry)
     {
         records.forEach(registry::register);
     }

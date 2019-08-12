@@ -103,28 +103,28 @@ public class Crate extends Feature
     }
 
     @Override
-    public void onRegisterBlocks(IForgeRegistry<Block> registry)
+    public void registerBlocks(IForgeRegistry<Block> registry)
     {
         openTypes.forEach((wood, block) -> registry.register(block));
         sealedTypes.forEach((wood, block) -> registry.register(block));
     }
 
     @Override
-    public void onRegisterItems(IForgeRegistry<Item> registry)
+    public void registerItems(IForgeRegistry<Item> registry)
     {
         openTypes.forEach((wood, block) -> registry.register(block.getBlockItem()));
         sealedTypes.forEach((wood, block) -> registry.register(block.getBlockItem()));
     }
 
     @Override
-    public void onRegisterTileEntities(IForgeRegistry<TileEntityType<?>> registry)
+    public void registerTileEntities(IForgeRegistry<TileEntityType<?>> registry)
     {
         registry.register(TileEntityType.Builder.create(CrateTileEntity::new).build(null)
             .setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
     }
 
     @Override
-    public void onRegisterContainers(IForgeRegistry<ContainerType<?>> registry)
+    public void registerContainers(IForgeRegistry<ContainerType<?>> registry)
     {
         registry.register(new ContainerType<>(CrateContainer::instance)
             .setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));

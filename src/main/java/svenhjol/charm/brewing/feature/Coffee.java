@@ -31,13 +31,13 @@ public class Coffee extends Feature
     }
 
     @Override
-    public void onRegisterEffects(IForgeRegistry<Effect> registry)
+    public void registerEffects(IForgeRegistry<Effect> registry)
     {
         registry.register(effect);
     }
 
     @Override
-    public void onRegisterPotions(IForgeRegistry<Potion> registry)
+    public void registerPotions(IForgeRegistry<Potion> registry)
     {
         registry.register(potion);
         potion.registerRecipe();

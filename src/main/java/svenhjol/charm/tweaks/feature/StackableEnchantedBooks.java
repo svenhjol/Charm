@@ -30,7 +30,7 @@ public class StackableEnchantedBooks extends Feature
     }
 
     @Override
-    public void onRegisterItems(IForgeRegistry<Item> registry)
+    public void registerItems(IForgeRegistry<Item> registry)
     {
         registry.register(item); // Forge registry
         Registry.register(Registry.ITEM, ID, item); // Vanilla registry

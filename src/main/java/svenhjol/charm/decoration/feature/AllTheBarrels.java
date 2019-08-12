@@ -26,13 +26,13 @@ public class AllTheBarrels extends Feature
     }
 
     @Override
-    public void onRegisterBlocks(IForgeRegistry<Block> registry)
+    public void registerBlocks(IForgeRegistry<Block> registry)
     {
         barrels.forEach(registry::register);
     }
 
     @Override
-    public void onRegisterItems(IForgeRegistry<Item> registry)
+    public void registerItems(IForgeRegistry<Item> registry)
     {
         barrels.forEach(barrel -> registry.register(barrel.getBlockItem()));
     }

@@ -150,13 +150,13 @@ public class FlavoredCake extends Feature
     }
 
     @Override
-    public void onRegisterBlocks(IForgeRegistry<Block> registry)
+    public void registerBlocks(IForgeRegistry<Block> registry)
     {
         types.forEach((potion, block) -> registry.register(block));
     }
 
     @Override
-    public void onRegisterItems(IForgeRegistry<Item> registry)
+    public void registerItems(IForgeRegistry<Item> registry)
     {
         types.forEach((potion, block) -> registry.register(block.getBlockItem()));
     }

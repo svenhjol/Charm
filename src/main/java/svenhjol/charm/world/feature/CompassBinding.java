@@ -117,7 +117,7 @@ public class CompassBinding extends Feature
     }
 
     @Override
-    public void onRegisterItems(IForgeRegistry<Item> registry)
+    public void registerItems(IForgeRegistry<Item> registry)
     {
         registry.register(item);
     }
