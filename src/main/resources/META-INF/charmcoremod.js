@@ -15,13 +15,13 @@ function initializeCoreMod() {
          * so that potion stacks can be added to brewing stand slots.
          */
         'BrewingRecipeRegistry': {
-            'target': {
+            target: {
                 'type': 'METHOD',
                 'class': 'net.minecraftforge.common.brewing.BrewingRecipeRegistry',
                 'methodName': 'isValidInput',
                 'methodDesc': '(Lnet/minecraft/item/ItemStack;)Z'
             },
-            'transformer': function(method) {
+            transformer: function(method) {
                 var arrayLength = method.instructions.size();
                 for (var i = 0; i < arrayLength; ++i) {
                     var instruction = method.instructions.get(i)
@@ -50,16 +50,55 @@ function initializeCoreMod() {
         },
 
         /*
+         * Add hook to BarrelTileEntity to work around class type check.
+         */
+        'BarrelTileEntity': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.tileentity.BarrelTileEntity',
+                'methodName': 'func_213962_h',
+                'methodDesc': '()V'
+            },
+            transformer: function(method)
+            {
+                var arrayLength = method.instructions.size();
+                for (var i = 0; i < arrayLength; ++i) {
+                    var newInstruction;
+                    var instruction = method.instructions.get(i)
+
+                    if (instruction.getOpcode() == Opcodes.GETSTATIC) {
+
+                        // change GETSTATIC to INVOKESTATIC call to Charm ASM
+                        newInstruction = new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "isBarrel", "(Lnet/minecraft/block/Block;)Z", false);
+                        method.instructions.insertBefore(instruction, newInstruction);
+                        method.instructions.remove(instruction);
+
+                        // change IF_ACMPEQ to IFNE in hook result
+                        var instruction1 = method.instructions.get(i+1);
+                        newInstruction = new JumpInsnNode(Opcodes.IFNE, instruction1.label);
+                        method.instructions.insertBefore(instruction1, newInstruction);
+                        method.instructions.remove(instruction1);
+
+                        print("Transformed BarrelTileEntity");
+                        break;
+                    }
+                }
+
+                return method;
+            }
+        },
+
+        /*
          * Add hook to PotionItem so glint can be disabled in config.
          */
         'PotionItem': {
-            'target': {
+            target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.item.PotionItem',
                 'methodName': 'hasEffect',
                 'methodDesc': '(Lnet/minecraft/item/ItemStack;)Z'
             },
-            'transformer': function(method) {
+            transformer: function(method) {
                 var arrayLength = method.instructions.size();
                 for (var i = 0; i < arrayLength; ++i) {
                     var instruction = method.instructions.get(i);
