@@ -12,5 +12,4 @@ public class WorldHelper
         double d3 = d1 - pos2.getZ();
         return d2 * d2 + d3 * d3;
     }
-
 }
