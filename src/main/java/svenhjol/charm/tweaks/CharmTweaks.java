@@ -14,6 +14,7 @@ public class CharmTweaks extends Module
         features.add(new RemovePotionGlint());
         features.add(new StackableEnchantedBooks());
         features.add(new StackablePotions());
+        features.add(new TamedAnimalsNoDamage());
         features.add(new UseTotemFromInventory());
     }
 }
