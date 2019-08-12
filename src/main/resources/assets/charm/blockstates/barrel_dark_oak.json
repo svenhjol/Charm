@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "facing=down,open=false": {
+      "model": "charm:block/barrel_dark_oak",
+      "x": 180
+    },
+    "facing=up,open=false": {
+      "model": "charm:block/barrel_dark_oak"
+    },
+    "facing=north,open=false": {
+      "model": "charm:block/barrel_dark_oak",
+      "x": 90
+    },
+    "facing=south,open=false": {
+      "model": "charm:block/barrel_dark_oak",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west,open=false": {
+      "model": "charm:block/barrel_dark_oak",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east,open=false": {
+      "model": "charm:block/barrel_dark_oak",
+      "x": 90,
+      "y": 90
+    },
+    "facing=down,open=true": {
+      "model": "charm:block/barrel_dark_oak_open",
+      "x": 180
+    },
+    "facing=up,open=true": {
+      "model": "charm:block/barrel_dark_oak_open"
+    },
+    "facing=north,open=true": {
+      "model": "charm:block/barrel_dark_oak_open",
+      "x": 90
+    },
+    "facing=south,open=true": {
+      "model": "charm:block/barrel_dark_oak_open",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west,open=true": {
+      "model": "charm:block/barrel_dark_oak_open",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east,open=true": {
+      "model": "charm:block/barrel_dark_oak_open",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

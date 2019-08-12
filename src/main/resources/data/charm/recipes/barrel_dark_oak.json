@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP", "P P", "PSP"
+  ],
+  "key": {
+    "S": {"item": "minecraft:dark_oak_slab"},
+    "P": {"item": "minecraft:dark_oak_planks"}
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "charm:barrel_dark_oak"
+    }
+  ],
+  "result": {
+    "item": "charm:barrel_dark_oak"
+  }
+}
