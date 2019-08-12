@@ -1,5 +1,11 @@
 # Changelog for Charm 1.12
 
+## 1.3.3
+
+### Enchantments
+* Fixed: rewrote Magnetic logic to fix #147.
+You may safely remove the `PlayerInteractionManager` line from your `charm_asm.cfg` as it is no longer required.
+
 ## 1.3.2
 
 ### General
