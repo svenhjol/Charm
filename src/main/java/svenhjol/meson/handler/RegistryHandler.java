@@ -1,6 +1,7 @@
 package svenhjol.meson.handler;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
@@ -29,6 +30,12 @@ public class RegistryHandler
     }
 
     @SubscribeEvent
+    public static void onRegisterContainers(final RegistryEvent.Register<ContainerType<?>> event)
+    {
+        MesonLoader.forEachEnabledFeature(f -> f.onRegisterContainers(event.getRegistry()));
+    }
+
+    @SubscribeEvent
     public static void onRegisterItems(final RegistryEvent.Register<Item> event)
     {
         MesonLoader.forEachEnabledFeature(f -> f.onRegisterItems(event.getRegistry()));
@@ -41,6 +48,12 @@ public class RegistryHandler
     }
 
     @SubscribeEvent
+    public static void onRegisterEnchantments(final RegistryEvent.Register<Enchantment> event)
+    {
+        MesonLoader.forEachEnabledFeature(f -> f.onRegisterEnchantments(event.getRegistry()));
+    }
+
+    @SubscribeEvent
     public static void onRegisterPotions(final RegistryEvent.Register<Potion> event)
     {
         MesonLoader.forEachEnabledFeature(f -> f.onRegisterPotions(event.getRegistry()));
@@ -50,12 +63,6 @@ public class RegistryHandler
     public static void onRegisterTileEntities(final RegistryEvent.Register<TileEntityType<?>> event)
     {
         MesonLoader.forEachEnabledFeature(f -> f.onRegisterTileEntities(event.getRegistry()));
-    }
-
-    @SubscribeEvent
-    public static void onRegisterContainers(final RegistryEvent.Register<ContainerType<?>> event)
-    {
-        MesonLoader.forEachEnabledFeature(f -> f.onRegisterContainers(event.getRegistry()));
     }
 
     @SubscribeEvent
