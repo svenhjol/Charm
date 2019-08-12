@@ -1,6 +1,7 @@
 package svenhjol.meson;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
@@ -84,6 +85,12 @@ public abstract class Feature
 
     public void onRegisterBlocks(final IForgeRegistry<Block> registry)
     {
+        // no op
+    }
+
+    public void onRegisterContainers(final IForgeRegistry<ContainerType<?>> registry)
+    {
+        // no op
     }
 
     public void onRegisterItems(final IForgeRegistry<Item> registry)
@@ -96,17 +103,17 @@ public abstract class Feature
         // no op
     }
 
+    public void onRegisterEnchantments(final IForgeRegistry<Enchantment> registry)
+    {
+        // no op
+    }
+
     public void onRegisterPotions(final IForgeRegistry<Potion> registry)
     {
         // no op
     }
 
     public void onRegisterTileEntities(final IForgeRegistry<TileEntityType<?>> registry)
-    {
-        // no op
-    }
-
-    public void onRegisterContainers(final IForgeRegistry<ContainerType<?>> registry)
     {
         // no op
     }
