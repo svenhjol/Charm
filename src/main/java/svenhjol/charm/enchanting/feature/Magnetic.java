@@ -20,10 +20,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.enchanting.enchantment.EnchantmentMagnetic;
 import svenhjol.charm.enchanting.message.MessageMagneticPickup;
 import svenhjol.meson.Feature;
-import svenhjol.meson.Meson;
 import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.EnchantmentHelper;
-import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.helper.WorldHelper;
 
@@ -68,7 +66,6 @@ public class Magnetic extends Feature
         } else {
             dropmap.values().remove(event.getPlayer());
         }
-        Meson.log( dropmap.size() );
     }
 
     @SubscribeEvent
@@ -94,36 +91,14 @@ public class Magnetic extends Feature
                 dropmap.remove(got);
 
                 if (!MinecraftForge.EVENT_BUS.post(new EntityItemPickupEvent(player, fake))) {
-                    if (PlayerHelper.addOrDropStack(player, item)) {
+                    if (player.inventory.addItemStackToInventory(item)) {
                         NetworkHandler.INSTANCE.sendTo(new MessageMagneticPickup(player.getPosition()), (EntityPlayerMP)player);
+                        event.setCanceled(true);
                     }
                 }
-
-                event.setCanceled(true);
             }
         }
     }
-
-//    @SubscribeEvent
-//    public void onPlayerTick(PlayerTickEvent event)
-//    {
-//        if (event.phase == Phase.START
-//            && event.side.isServer()
-//            && EnchantmentHelper.hasEnchantment(enchantment, event.player.getHeldItemMainhand())
-//        ) {
-//            double x = event.player.posX;
-//            double y = event.player.posY;
-//            double z = event.player.posZ;
-//
-//            List<EntityItem> items = event.player.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(
-//                x - range, y - range, z - range, x + range, y + range, z + range));
-//
-//            for (EntityItem item : items) {
-//                if (item.getItem().isEmpty() || item.isDead) continue;
-//                item.setPosition(x, y, z);
-//            }
-//        }
-//    }
 
     @Override
     public boolean hasSubscriptions()
@@ -135,6 +110,6 @@ public class Magnetic extends Feature
     public static void effectPickup(BlockPos pos)
     {
         WorldClient world = Minecraft.getMinecraft().world;
-        SoundHelper.playSoundAtPos(world, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS,0.85F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        SoundHelper.playSoundAtPos(world, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.4F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
     }
 }
