@@ -16,11 +16,8 @@ ext.configFile = file('gradle.properties')
 ext.config = parseConfig(configFile)
 
 group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-
 archivesBaseName = modname
-
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-
 version = "${mc_version}-${version}.${build_number}"
 
 minecraft {
@@ -52,7 +49,9 @@ dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 //    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}:api"
 //    runtime "mcp.mobius.waila:Hwyla:${waila_version}_${mc_version}"
-//    runtime "mezz.jei:${jei_version}"
+    compile fg.deobf("mezz.jei:${jei_version}")
+    // compile "vazkii.autoreglib:AutoRegLib:${arl_version}"
+    // compile "vazkii.quark:Quark:${quark_version}"
 }
 
 repositories {
@@ -68,6 +67,11 @@ repositories {
     maven { // for HWYLA
         name 'Mobius'
         url "https://tehnut.info/maven"
+    }
+
+    maven { // for AutoRegLib and Quark
+        name "blamejared"
+        url "http://maven.blamejared.com/"
     }
 }
 
