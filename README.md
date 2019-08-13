@@ -2,7 +2,7 @@
 
 A Vanilla+ Minecraft mod inspired by Quark.  For Minecraft **1.14.4**, recommended Forge version **28.0.45**.
 
-This mod is incomplete and needs your help to playtest it!
+This mod is incomplete and needs your help to playtest it!  You can see the [progress of the port here](https://trello.com/b/gHRK61AF/works-like-a-charm).
 Please report any bugs in the github issues tracker with issue titles beginning `[1.14.4]`. With your issue, include:
 1. Steps to reproduce the problem
 2. A stacktrace / crash report
@@ -36,7 +36,13 @@ Please see [https://charm.arcticfulmar.com](https://charm.arcticfulmar.com) for 
 
 ### Decoration
 
+* All the barrel wood types
 * Gold lanterns
+* Random wolf textures (*more to come*)
+
+### Enchanting
+
+* Magnetic
 
 ### Tweaks
 
@@ -47,13 +53,14 @@ Please see [https://charm.arcticfulmar.com](https://charm.arcticfulmar.com) for 
 * Remove potion glint (*unique to 1.14*)
 * Stackable enchanted books
 * Stackable potions
+* Tamed animals take no damage
 * Use totem from inventory
 
 ### World
 
-* Compass Binding (*partial, banners only*)
+* Compass Binding (*binds to beacons, banners optional*)
 * Nether Gold Deposits
-* Totem of Returning (*will move to Strange<sup>2</sup>*)
+* Totem of Returning (*moved to [Strange](https://github.com/svenhjol/Strange)<sup>2</sup>*)
 
 ## Credits
 
