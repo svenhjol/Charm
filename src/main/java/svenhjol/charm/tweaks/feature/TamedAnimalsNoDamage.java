@@ -4,12 +4,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.meson.Feature;
-import svenhjol.meson.helper.SoundHelper;
 
 public class TamedAnimalsNoDamage extends Feature
 {
@@ -27,16 +24,13 @@ public class TamedAnimalsNoDamage extends Feature
             && (!(event.getEntityLiving() instanceof EntityPlayer))
         ) {
             Entity attacker = event.getSource().getImmediateSource();
+            Entity trueSource = event.getSource().getTrueSource();
 
-            if (attacker instanceof EntityPlayer) {
+            if (attacker instanceof EntityPlayer || trueSource instanceof EntityPlayer) {
                 EntityLivingBase target = event.getEntityLiving();
                 if (target instanceof EntityTameable && ((EntityTameable) target).isTamed()) {
                     event.setCanceled(true);
-                    if (attacker.world.isRemote) {
-                        SoundHelper.playerSound((EntityPlayer) attacker, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 1.0f, 0.8f, SoundCategory.NEUTRAL);
-                    }
                 }
-
             }
         }
     }
