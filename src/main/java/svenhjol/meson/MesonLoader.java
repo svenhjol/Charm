@@ -17,7 +17,7 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class MesonLoader
+public abstract class MesonLoader
 {
     public static Map<String, MesonLoader> instances = new HashMap<>();
     public List<Module> modules = new ArrayList<>();
@@ -28,7 +28,13 @@ public class MesonLoader
     public ForgeConfigSpec config;
     public String id;
 
-    public static final MesonLoader INSTANCE = new MesonLoader();
+    public MesonLoader register(String id)
+    {
+        this.id = id;
+        instances.put(id, this);
+
+        return this;
+    }
 
     public void add(Module... mods)
     {
@@ -88,17 +94,17 @@ public class MesonLoader
 
     public static void forEachEnabledModule(Consumer<Module> consumer)
     {
-        MesonLoader.INSTANCE.enabledModules.values().forEach(consumer);
+        instances.forEach((id, instance) -> instance.enabledModules.values().forEach(consumer));
     }
 
     public static void forEachEnabledFeature(Consumer<Feature> consumer)
     {
-        MesonLoader.INSTANCE.enabledFeatures.values().forEach(consumer);
+        instances.forEach((id, instance) -> instance.enabledFeatures.values().forEach(consumer));
     }
 
-    public static boolean hasFeature(Class<? extends Feature> feature)
+    public static boolean hasFeature(String id, Class<? extends Feature> feature)
     {
-        return MesonLoader.INSTANCE.enabledFeatures.containsKey(feature);
+        return instances.get(id).enabledFeatures.containsKey(feature);
     }
 
     public static IEventBus getEventBus()
