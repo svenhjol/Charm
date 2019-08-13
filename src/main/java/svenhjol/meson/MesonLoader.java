@@ -28,12 +28,12 @@ public abstract class MesonLoader
     public ForgeConfigSpec config;
     public String id;
 
-    public MesonLoader registerLoader(String id)
+    public MesonLoader register(String id)
     {
-        MesonLoader instance = this;
-        instances.put(id, instance);
         this.id = id;
-        return instance;
+        instances.put(id, this);
+
+        return this;
     }
 
     public void add(Module... mods)
@@ -94,16 +94,17 @@ public abstract class MesonLoader
 
     public static void forEachEnabledModule(Consumer<Module> consumer)
     {
-        instances.forEach((id, instance) -> {
-            instance.enabledModules.values().forEach(consumer);
-        });
+        instances.forEach((id, instance) -> instance.enabledModules.values().forEach(consumer));
     }
 
     public static void forEachEnabledFeature(Consumer<Feature> consumer)
     {
-        instances.forEach((id, instance) -> {
-            instance.enabledFeatures.values().forEach(consumer);
-        });
+        instances.forEach((id, instance) -> instance.enabledFeatures.values().forEach(consumer));
+    }
+
+    public static boolean hasFeature(String id, Class<? extends Feature> feature)
+    {
+        return instances.get(id).enabledFeatures.containsKey(feature);
     }
 
     public static IEventBus getEventBus()

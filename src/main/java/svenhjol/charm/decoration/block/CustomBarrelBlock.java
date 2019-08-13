@@ -5,16 +5,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.world.IBlockReader;
 import svenhjol.charm.Charm;
+import svenhjol.charm.decoration.tileentity.CustomBarrelTileEntity;
 import svenhjol.meson.enums.WoodType;
 import svenhjol.meson.iface.IMesonBlock;
 
+import javax.annotation.Nullable;
+
 public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock
 {
-//    public static final DirectionProperty PROPERTY_FACING = BlockStateProperties.FACING;
-//    public static final BooleanProperty PROPERTY_OPEN = BlockStateProperties.OPEN;
-
     public WoodType wood;
 
     public CustomBarrelBlock(WoodType wood)
@@ -33,5 +35,10 @@ public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock
     public ItemGroup getItemGroup()
     {
         return ItemGroup.DECORATIONS;
+    }
+
+    @Nullable
+    public TileEntity createNewTileEntity(IBlockReader worldIn) {
+        return new CustomBarrelTileEntity(this.wood);
     }
 }

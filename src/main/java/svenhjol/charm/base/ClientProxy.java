@@ -8,7 +8,9 @@ public class ClientProxy extends CommonProxy implements IMesonSidedProxy
     public void init()
     {
         super.init();
+
         CharmSounds.init();
+
         CharmLoader.getEventBus().addListener(CharmLoader::setupClient);
     }
 }

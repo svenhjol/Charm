@@ -1,6 +1,5 @@
 package svenhjol.charm.base;
 
-import svenhjol.charm.Charm;
 import svenhjol.charm.automation.CharmAutomation;
 import svenhjol.charm.brewing.CharmBrewing;
 import svenhjol.charm.crafting.CharmCrafting;
@@ -14,7 +13,7 @@ public class CommonProxy implements IMesonSidedProxy
 {
     public void init()
     {
-        CharmLoader.INSTANCE.registerLoader(Charm.MOD_ID).add(
+        CharmLoader.INSTANCE.add(
             new CharmAutomation(),
             new CharmBrewing(),
             new CharmCrafting(),

@@ -10,7 +10,8 @@ import svenhjol.meson.iface.IMesonSidedProxy;
 public class Charm
 {
     public static final String MOD_ID = "charm";
-    public static IMesonSidedProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    public static IMesonSidedProxy proxy = DistExecutor.runForDist(
+        () -> ClientProxy::new, () -> CommonProxy::new);
 
     public Charm()
     {
