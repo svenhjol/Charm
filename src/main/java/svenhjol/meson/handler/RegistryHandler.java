@@ -2,6 +2,7 @@ package svenhjol.meson.handler;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
@@ -60,14 +61,19 @@ public class RegistryHandler
     }
 
     @SubscribeEvent
+    public static void onRegisterSounds(final RegistryEvent.Register<SoundEvent> event)
+    {
+        SOUNDS.forEach(sound -> event.getRegistry().register(sound));
+    }
+
+    @SubscribeEvent
     public static void onRegisterTileEntities(final RegistryEvent.Register<TileEntityType<?>> event)
     {
         MesonLoader.forEachEnabledFeature(f -> f.registerTileEntities(event.getRegistry()));
     }
 
-    @SubscribeEvent
-    public static void onRegisterSounds(final RegistryEvent.Register<SoundEvent> event)
+    public static void onRegisterTrades(final RegistryEvent.Register<VillagerProfession> event)
     {
-        SOUNDS.forEach(sound -> event.getRegistry().register(sound));
+
     }
 }

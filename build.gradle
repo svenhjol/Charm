@@ -47,11 +47,10 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-//    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}:api"
-//    runtime "mcp.mobius.waila:Hwyla:${waila_version}_${mc_version}"
+//    compile fg.deobf("mcp.mobius.waila:Hwyla:${waila_version}")
     compile fg.deobf("mezz.jei:${jei_version}")
-    // compile "vazkii.autoreglib:AutoRegLib:${arl_version}"
-    // compile "vazkii.quark:Quark:${quark_version}"
+    compile fg.deobf("vazkii.arl:AutoRegLib:${arl_version}")
+    compile fg.deobf("vazkii.quark:Quark:${quark_version}")
 }
 
 repositories {
