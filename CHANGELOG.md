@@ -8,6 +8,9 @@
 ### Enchantments
 * Added Magnetic enchantment.
 
+### Tweaks
+* Added Tamed Animals No Damage.
+
 
 ## 1.3.2
 
