@@ -1,6 +1,5 @@
 package svenhjol.charm.base;
 
-import svenhjol.meson.MesonLoader;
 import svenhjol.meson.iface.IMesonSidedProxy;
 
 public class ClientProxy extends CommonProxy implements IMesonSidedProxy
@@ -12,6 +11,6 @@ public class ClientProxy extends CommonProxy implements IMesonSidedProxy
 
         CharmSounds.init();
 
-        MesonLoader.getEventBus().addListener(MesonLoader::setupClient);
+        CharmLoader.getEventBus().addListener(CharmLoader::setupClient);
     }
 }
