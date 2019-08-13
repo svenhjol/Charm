@@ -4,9 +4,13 @@
 
 ### Decoration
 * Added all barrel wood types.
+* Added random wolf textures.
 
 ### Enchantments
 * Added Magnetic enchantment.
+
+### Tweaks
+* Tamed animals no longer take direct damage from players.
 
 
 ## 1.3.2
