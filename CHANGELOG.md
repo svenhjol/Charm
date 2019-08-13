@@ -6,6 +6,9 @@
 * Fixed: rewrote Magnetic logic to fix #147.
 You may safely remove the `PlayerInteractionManager` line from your `charm_asm.cfg` as it is no longer required.
 
+### Tweaks
+* Added: now you can't accidentally shoot your tame animal with a bow.
+
 ## 1.3.2
 
 ### General
