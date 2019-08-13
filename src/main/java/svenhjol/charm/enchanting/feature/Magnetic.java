@@ -110,6 +110,6 @@ public class Magnetic extends Feature
     public static void effectPickup(BlockPos pos)
     {
         WorldClient world = Minecraft.getMinecraft().world;
-        SoundHelper.playSoundAtPos(world, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.4F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        SoundHelper.playSoundAtPos(world, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.25F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
     }
 }
