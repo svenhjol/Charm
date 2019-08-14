@@ -28,7 +28,7 @@ public class CrateOpenBlock extends CrateBaseBlock
     public CrateOpenBlock(WoodType wood)
     {
         super(wood);
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate_open_" + wood.getName()));
+        register(new ResourceLocation(Charm.MOD_ID, "crate_open_" + this.wood.getName()));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class CrateOpenBlock extends CrateBaseBlock
         if (tile instanceof CrateTileEntity) {
             CrateTileEntity crate = (CrateTileEntity)tile;
             if (!world.isRemote && player.isCreative()) {
-                ItemStack stack = new ItemStack(getBlockByWood(getWood()));
+                ItemStack stack = new ItemStack(getBlockByWood(this.wood));
                 CompoundNBT tag = crate.writeToNBT(new CompoundNBT()); /* @todo might need separate save method */
                 if (!tag.isEmpty()) {
                     stack.setTagInfo("BlockEntityTag", tag);

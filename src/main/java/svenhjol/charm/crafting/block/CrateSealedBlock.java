@@ -21,7 +21,7 @@ public class CrateSealedBlock extends CrateBaseBlock
     public CrateSealedBlock(WoodType wood)
     {
         super(wood);
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate_sealed_" + wood.getName()));
+        register(new ResourceLocation(Charm.MOD_ID, "crate_sealed_" + this.wood.getName()));
     }
 
     @Override

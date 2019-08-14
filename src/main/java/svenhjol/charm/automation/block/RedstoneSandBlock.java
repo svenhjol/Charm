@@ -22,7 +22,8 @@ public class RedstoneSandBlock extends FallingBlock implements IMesonBlock
             .sound(SoundType.SAND)
             .hardnessAndResistance(0.5F)
         );
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "redstone_sand"));
+
+        register(new ResourceLocation(Charm.MOD_ID, "redstone_sand"));
     }
 
     @Override

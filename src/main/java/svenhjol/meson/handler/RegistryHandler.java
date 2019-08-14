@@ -2,78 +2,106 @@ package svenhjol.meson.handler;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import svenhjol.meson.MesonLoader;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.iface.IMesonPotion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 @Mod.EventBusSubscriber(bus = MOD)
 public class RegistryHandler
 {
-    public static List<SoundEvent> SOUNDS = new ArrayList<>();
+    public static Map<Class<?>, List<IForgeRegistryEntry<?>>> objects = new HashMap();
 
-    @SubscribeEvent
-    public static void onRegisterBlocks(final RegistryEvent.Register<Block> event)
+    public static void registerBlock(Block block, ResourceLocation res)
     {
-        MesonLoader.forEachEnabledFeature(f -> f.registerBlocks(event.getRegistry()));
+        addRegisterable(block, res);
+
+        // also register the block item
+        if (block instanceof IMesonBlock) {
+            addRegisterable(((IMesonBlock)block).getBlockItem(), res);
+        }
+    }
+
+    public static void registerContainer(ContainerType<?> container)
+    {
+        addRegisterable(container, container.getRegistryName());
+    }
+
+    public static void registerEffect(Effect effect, ResourceLocation res)
+    {
+        addRegisterable(effect, res);
+    }
+
+    public static void registerEnchantment(Enchantment enchantment, ResourceLocation res)
+    {
+        addRegisterable(enchantment, res);
+    }
+
+    public static void registerItem(Item item, ResourceLocation res)
+    {
+        addRegisterable(item, res);
+    }
+
+    public static void registerPotion(Potion potion, ResourceLocation res)
+    {
+        addRegisterable(potion, res);
+
+        if (potion instanceof IMesonPotion) {
+            ((IMesonPotion)potion).registerRecipe();
+        }
+    }
+
+    public static void registerSound(SoundEvent sound)
+    {
+        addRegisterable(sound, sound.getRegistryName());
+    }
+
+    public static void registerTile(TileEntityType<?> tile)
+    {
+        addRegisterable(tile, tile.getRegistryName());
+    }
+
+    private static void addRegisterable(IForgeRegistryEntry<?> obj, ResourceLocation res)
+    {
+        Class<?> type = obj.getRegistryType();
+        if (!objects.containsKey(type)) objects.put(type, new ArrayList<>());
+
+        if (!(objects.containsKey(type) && objects.get(type).contains(obj))) {
+            if (res == null && obj.getRegistryName() == null) return; // can't set it
+
+            if (obj.getRegistryName() == null) {
+                obj.setRegistryName(res);
+            }
+            objects.get(type).add(obj);
+        }
     }
 
     @SubscribeEvent
-    public static void onRegisterContainers(final RegistryEvent.Register<ContainerType<?>> event)
+    public static void onRegister(final RegistryEvent.Register event)
     {
-        MesonLoader.forEachEnabledFeature(f -> f.registerContainers(event.getRegistry()));
-    }
+        IForgeRegistry registry = event.getRegistry();
+        Class<?> type = registry.getRegistrySuperType();
 
-    @SubscribeEvent
-    public static void onRegisterItems(final RegistryEvent.Register<Item> event)
-    {
-        MesonLoader.forEachEnabledFeature(f -> f.registerItems(event.getRegistry()));
-    }
-
-    @SubscribeEvent
-    public static void onRegisterEffects(final RegistryEvent.Register<Effect> event)
-    {
-        MesonLoader.forEachEnabledFeature(f -> f.registerEffects(event.getRegistry()));
-    }
-
-    @SubscribeEvent
-    public static void onRegisterEnchantments(final RegistryEvent.Register<Enchantment> event)
-    {
-        MesonLoader.forEachEnabledFeature(f -> f.registerEnchantments(event.getRegistry()));
-    }
-
-    @SubscribeEvent
-    public static void onRegisterPotions(final RegistryEvent.Register<Potion> event)
-    {
-        MesonLoader.forEachEnabledFeature(f -> f.registerPotions(event.getRegistry()));
-    }
-
-    @SubscribeEvent
-    public static void onRegisterSounds(final RegistryEvent.Register<SoundEvent> event)
-    {
-        SOUNDS.forEach(sound -> event.getRegistry().register(sound));
-    }
-
-    @SubscribeEvent
-    public static void onRegisterTileEntities(final RegistryEvent.Register<TileEntityType<?>> event)
-    {
-        MesonLoader.forEachEnabledFeature(f -> f.registerTileEntities(event.getRegistry()));
-    }
-
-    public static void onRegisterTrades(final RegistryEvent.Register<VillagerProfession> event)
-    {
-
+        if (objects.containsKey(type)) {
+            objects.get(type).forEach(registry::register);
+            objects.remove(type);
+        }
     }
 }

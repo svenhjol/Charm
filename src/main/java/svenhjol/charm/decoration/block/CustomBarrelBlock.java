@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockReader;
 import svenhjol.charm.Charm;
 import svenhjol.charm.decoration.tileentity.CustomBarrelTileEntity;
@@ -27,8 +28,9 @@ public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock
             .sound(SoundType.WOOD));
 
         this.wood = wood;
-        setRegistryName(Charm.MOD_ID, "barrel_" + wood.getName());
         setDefaultState(this.stateContainer.getBaseState().with(PROPERTY_FACING, Direction.NORTH).with(PROPERTY_OPEN, Boolean.valueOf(false)));
+
+        register(new ResourceLocation(Charm.MOD_ID, "barrel_" + wood.getName()));
     }
 
     @Override

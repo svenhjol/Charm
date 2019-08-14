@@ -17,14 +17,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import svenhjol.charm.crafting.tileentity.CrateTileEntity;
-import svenhjol.meson.MesonBlockTE;
+import svenhjol.meson.MesonBlock;
 import svenhjol.meson.enums.WoodType;
 
 import javax.annotation.Nullable;
 
-public abstract class CrateBaseBlock extends MesonBlockTE<CrateTileEntity>
+public abstract class CrateBaseBlock extends MesonBlock
 {
-    private WoodType wood;
+    public WoodType wood;
 
     public CrateBaseBlock(WoodType wood)
     {
@@ -37,6 +37,12 @@ public abstract class CrateBaseBlock extends MesonBlockTE<CrateTileEntity>
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
         return new CrateTileEntity();
+    }
+
+    @Override
+    public boolean hasTileEntity(BlockState state)
+    {
+        return true;
     }
 
     @Override
@@ -114,10 +120,5 @@ public abstract class CrateBaseBlock extends MesonBlockTE<CrateTileEntity>
             stack.setTagInfo("BlockEntityTag", tag);
         }
         return stack;
-    }
-
-    public WoodType getWood()
-    {
-        return this.wood;
     }
 }

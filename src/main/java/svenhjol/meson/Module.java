@@ -37,11 +37,11 @@ public abstract class Module
 
     public void init()
     {
-        Meson.log("Starting module " + getName());
+        Meson.log("[" + loader.id + "] Starting module " + getName());
         features.forEach(feature -> {
             if (feature.isEnabled()) {
                 loader.enabledFeatures.put(feature.getClass(), feature);
-                Meson.log("Starting feature " + feature.getName());
+                Meson.log("[" + loader.id + "] Starting feature " + feature.getName());
                 feature.init();
             }
         });

@@ -3,8 +3,8 @@ package svenhjol.charm.tweaks.feature;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.meson.Feature;
+import svenhjol.meson.handler.RegistryHandler;
 
 public class StackablePotions extends Feature
 {
@@ -35,16 +35,15 @@ public class StackablePotions extends Feature
         potion.setRegistryName(POTION_ID);
         splash.setRegistryName(SPLASH_ID);
         lingering.setRegistryName(LINGERING_ID);
-    }
-
-    @Override
-    public void registerItems(IForgeRegistry<Item> registry)
-    {
-        registry.registerAll(potion, splash, lingering); // Forge registry
 
         // Vanilla registry
         Registry.register(Registry.ITEM, POTION_ID, potion);
         Registry.register(Registry.ITEM, SPLASH_ID, splash);
         Registry.register(Registry.ITEM, LINGERING_ID, lingering);
+
+        // Forge registry
+        RegistryHandler.registerItem(potion, potion.getRegistryName());
+        RegistryHandler.registerItem(splash, splash.getRegistryName());
+        RegistryHandler.registerItem(lingering, lingering.getRegistryName());
     }
 }

@@ -23,7 +23,8 @@ public class NetherGoldDepositBlock extends MesonBlock
             .sound(SoundType.STONE)
             .hardnessAndResistance(NetherGoldDeposits.hardness, NetherGoldDeposits.resistance)
         );
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "nether_gold_deposit"));
+
+        register(new ResourceLocation(Charm.MOD_ID, "nether_gold_deposit"));
     }
 
     @Override

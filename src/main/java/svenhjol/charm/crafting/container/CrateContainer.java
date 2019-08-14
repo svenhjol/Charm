@@ -39,7 +39,7 @@ public class CrateContainer extends MesonContainer
 
     public static CrateContainer instance(int id, PlayerInventory playerInventory, IInventory inventory)
     {
-        return new CrateContainer(Crate.CRATE, id, playerInventory, inventory);
+        return new CrateContainer(Crate.crate, id, playerInventory, inventory);
     }
 
     public static CrateContainer instance(int id, PlayerInventory playerInventory)

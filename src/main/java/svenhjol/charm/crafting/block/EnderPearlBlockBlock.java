@@ -25,7 +25,8 @@ public class EnderPearlBlockBlock extends MesonBlock
             .sound(SoundType.GLASS)
             .hardnessAndResistance(EnderPearlBlock.hardness)
         );
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "ender_pearl_block"));
+
+        register(new ResourceLocation(Charm.MOD_ID, "ender_pearl_block"));
     }
 
     // copypasta from MyceliumBlock

@@ -18,6 +18,7 @@ public class DecayPotion extends MesonPotion
 
         setPotionBase(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD));
         setPotionReagant(new ItemStack(Items.WITHER_ROSE));
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "decay_potion"));
+
+        register(new ResourceLocation(Charm.MOD_ID, "decay_potion"));
     }
 }

@@ -9,8 +9,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.meson.Feature;
+import svenhjol.meson.handler.RegistryHandler;
 
 public class PickaxesBreakPistons extends Feature
 {
@@ -27,26 +27,22 @@ public class PickaxesBreakPistons extends Feature
             .create(Material.PISTON)
             .harvestTool(ToolType.PICKAXE)
             .hardnessAndResistance(0.5F));
-        block.setRegistryName(ID);
 
+        block.setRegistryName(ID);
         blockItem = new BlockItem(block, (new Item.Properties()).group(ItemGroup.REDSTONE)).setRegistryName(ID);
+
+        // Vanilla registry
+        Registry.register(Registry.BLOCK, ID, block);
+        Registry.register(Registry.ITEM, ID, blockItem);
+
+        // Forge registry
+        RegistryHandler.registerBlock(block, block.getRegistryName());
+        RegistryHandler.registerItem(blockItem, block.getRegistryName());
     }
 
     @Override
     public boolean hasSubscriptions()
     {
         return true;
-    }
-
-    @Override
-    public void registerBlocks(IForgeRegistry<Block> registry)
-    {
-        Registry.register(Registry.BLOCK, ID, block); // Vanilla registry
-    }
-
-    @Override
-    public void registerItems(IForgeRegistry<Item> registry)
-    {
-        Registry.register(Registry.ITEM, ID, blockItem); // Vanilla registry
     }
 }
