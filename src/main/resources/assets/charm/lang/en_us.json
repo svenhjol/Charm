@@ -100,5 +100,15 @@
   "effect.charm.coffee_effect": "Coffee",
   "effect.charm.decay_effect": "Decay",
 
+  "map.charm.desert_pyramid": "Desert Pyramid Map",
+  "map.charm.igloo": "Igloo Map",
+  "map.charm.jungle_pyramid": "Jungle Pyramid Map",
+  "map.charm.mineshaft": "Mineshaft Map",
+  "map.charm.ocean_ruin": "Ocean Ruin Map",
+  "map.charm.pillager_outpost": "Pillager Outpost Map",
+  "map.charm.shipwreck": "Shipwreck Map",
+  "map.charm.swamp_hut": "Swamp Hut Map",
+  "map.charm.village": "Village Map",
+
   "tile.charm.crate": "Crate"
 }
