@@ -1,5 +1,11 @@
 # Changelog for Charm 1.14
 
+## 1.3.4
+
+### World
+* Added Structure Maps, sold by cartographers to find nearby overworld structures.
+
+
 ## 1.3.3
 
 ### Decoration
