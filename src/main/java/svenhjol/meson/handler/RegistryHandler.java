@@ -14,8 +14,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import svenhjol.meson.Meson;
-import svenhjol.meson.iface.*;
+import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.iface.IMesonPotion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,14 +83,10 @@ public class RegistryHandler
         Class<?> type = obj.getRegistryType();
         if (!objects.containsKey(type)) objects.put(type, new ArrayList<>());
 
-        if (res == null) {
-            Meson.warn("ResourceLocation must not be null", obj);
-        } else if (objects.containsKey(type) && objects.get(type).contains(obj)) {
-            Meson.warn("Attempted to add an object to the registry that already exists", obj);
-        } else {
-            if (obj.getRegistryName() != null) {
-                Meson.warn("Attempted to set registry name with existing registry name", obj);
-            } else {
+        if (!(objects.containsKey(type) && objects.get(type).contains(obj))) {
+            if (res == null && obj.getRegistryName() == null) return; // can't set it
+
+            if (obj.getRegistryName() == null) {
                 obj.setRegistryName(res);
             }
             objects.get(type).add(obj);
