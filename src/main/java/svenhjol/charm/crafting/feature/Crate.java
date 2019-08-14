@@ -63,8 +63,11 @@ public class Crate extends Feature
         crate = new ContainerType<>(CrateContainer::instance);
         tile = TileEntityType.Builder.create(CrateTileEntity::new).build(null);
 
-        RegistryHandler.registerContainer(crate.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
-        RegistryHandler.registerTile(tile.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
+        crate.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate"));
+        tile.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate"));
+
+        RegistryHandler.registerContainer(crate);
+        RegistryHandler.registerTile(tile);
         RegistryHandler.registerSound(CharmSounds.WOOD_SMASH);
     }
 

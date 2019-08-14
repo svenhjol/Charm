@@ -1,7 +1,9 @@
 package svenhjol.charm.decoration.feature;
 
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ObjectHolder;
+import svenhjol.charm.Charm;
 import svenhjol.charm.decoration.block.CustomBarrelBlock;
 import svenhjol.charm.decoration.tileentity.CustomBarrelTileEntity;
 import svenhjol.meson.Feature;
@@ -29,6 +31,7 @@ public class AllTheBarrels extends Feature
             .forEach(type -> barrels.add(new CustomBarrelBlock(type)));
 
         tile = TileEntityType.Builder.create(CustomBarrelTileEntity::new).build(null);
+        tile.setRegistryName(new ResourceLocation(Charm.MOD_ID, "barrel"));
 
         RegistryHandler.registerTile(tile);
     }
