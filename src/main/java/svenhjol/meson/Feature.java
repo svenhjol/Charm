@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -115,6 +116,11 @@ public abstract class Feature
 
     @OnlyIn(Dist.CLIENT)
     public void registerScreens()
+    {
+        // no op
+    }
+
+    public void registerSounds(final IForgeRegistry<SoundEvent> registry)
     {
         // no op
     }

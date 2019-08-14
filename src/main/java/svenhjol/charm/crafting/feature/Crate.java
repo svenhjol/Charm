@@ -9,12 +9,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.CharmApi;
+import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.crafting.block.CrateBaseBlock;
 import svenhjol.charm.crafting.block.CrateOpenBlock;
 import svenhjol.charm.crafting.block.CrateSealedBlock;
@@ -38,7 +40,10 @@ public class Crate extends Feature
     public static List<Class<? extends Item>> invalidItems = new ArrayList<>();
 
     @ObjectHolder("charm:crate")
-    public static ContainerType<CrateContainer> CRATE;
+    public static ContainerType<CrateContainer> crate;
+
+    @ObjectHolder("charm:crate")
+    public static TileEntityType<CrateTileEntity> tile;
 
     @Override
     public void init()
@@ -55,6 +60,9 @@ public class Crate extends Feature
         CharmApi.addInvalidCrateBlock(ShulkerBoxBlock.class);
         CharmApi.addInvalidCrateBlock(CrateOpenBlock.class);
         CharmApi.addInvalidCrateBlock(CrateSealedBlock.class);
+
+        crate = new ContainerType<>(CrateContainer::instance);
+        tile = TileEntityType.Builder.create(CrateTileEntity::new).build(null);
     }
 
     @SubscribeEvent
@@ -86,7 +94,7 @@ public class Crate extends Feature
     @Override
     public void registerScreens()
     {
-        ScreenManager.registerFactory(CRATE, CrateScreen::new);
+        ScreenManager.registerFactory(crate, CrateScreen::new);
     }
 
     public static boolean canInsertItem(ItemStack stack)
@@ -119,14 +127,18 @@ public class Crate extends Feature
     @Override
     public void registerTileEntities(IForgeRegistry<TileEntityType<?>> registry)
     {
-        registry.register(TileEntityType.Builder.create(CrateTileEntity::new).build(null)
-            .setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
+        registry.register(tile.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
     }
 
     @Override
     public void registerContainers(IForgeRegistry<ContainerType<?>> registry)
     {
-        registry.register(new ContainerType<>(CrateContainer::instance)
-            .setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
+        registry.register(crate.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
+    }
+
+    @Override
+    public void registerSounds(IForgeRegistry<SoundEvent> registry)
+    {
+        registry.registerAll(CharmSounds.WOOD_SMASH);
     }
 }

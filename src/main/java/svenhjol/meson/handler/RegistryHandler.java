@@ -26,48 +26,48 @@ public class RegistryHandler
     @SubscribeEvent
     public static void onRegisterBlocks(final RegistryEvent.Register<Block> event)
     {
-        MesonLoader.forEachEnabledFeature(f -> f.registerBlocks(event.getRegistry()));
+        MesonLoader.allEnabledFeatures(f -> f.registerBlocks(event.getRegistry()));
     }
 
     @SubscribeEvent
     public static void onRegisterContainers(final RegistryEvent.Register<ContainerType<?>> event)
     {
-        MesonLoader.forEachEnabledFeature(f -> f.registerContainers(event.getRegistry()));
+        MesonLoader.allEnabledFeatures(f -> f.registerContainers(event.getRegistry()));
     }
 
     @SubscribeEvent
     public static void onRegisterItems(final RegistryEvent.Register<Item> event)
     {
-        MesonLoader.forEachEnabledFeature(f -> f.registerItems(event.getRegistry()));
+        MesonLoader.allEnabledFeatures(f -> f.registerItems(event.getRegistry()));
     }
 
     @SubscribeEvent
     public static void onRegisterEffects(final RegistryEvent.Register<Effect> event)
     {
-        MesonLoader.forEachEnabledFeature(f -> f.registerEffects(event.getRegistry()));
+        MesonLoader.allEnabledFeatures(f -> f.registerEffects(event.getRegistry()));
     }
 
     @SubscribeEvent
     public static void onRegisterEnchantments(final RegistryEvent.Register<Enchantment> event)
     {
-        MesonLoader.forEachEnabledFeature(f -> f.registerEnchantments(event.getRegistry()));
+        MesonLoader.allEnabledFeatures(f -> f.registerEnchantments(event.getRegistry()));
     }
 
     @SubscribeEvent
     public static void onRegisterPotions(final RegistryEvent.Register<Potion> event)
     {
-        MesonLoader.forEachEnabledFeature(f -> f.registerPotions(event.getRegistry()));
+        MesonLoader.allEnabledFeatures(f -> f.registerPotions(event.getRegistry()));
     }
 
     @SubscribeEvent
     public static void onRegisterTileEntities(final RegistryEvent.Register<TileEntityType<?>> event)
     {
-        MesonLoader.forEachEnabledFeature(f -> f.registerTileEntities(event.getRegistry()));
+        MesonLoader.allEnabledFeatures(f -> f.registerTileEntities(event.getRegistry()));
     }
 
     @SubscribeEvent
     public static void onRegisterSounds(final RegistryEvent.Register<SoundEvent> event)
     {
-        SOUNDS.forEach(sound -> event.getRegistry().register(sound));
+        MesonLoader.allEnabledFeatures(f -> f.registerSounds(event.getRegistry()));
     }
 }

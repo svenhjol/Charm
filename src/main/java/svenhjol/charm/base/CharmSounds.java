@@ -3,7 +3,6 @@ package svenhjol.charm.base;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import svenhjol.charm.Charm;
-import svenhjol.meson.handler.RegistryHandler;
 
 public class CharmSounds
 {
@@ -13,7 +12,6 @@ public class CharmSounds
     {
         ResourceLocation res = new ResourceLocation(Charm.MOD_ID, name);
         SoundEvent sound = new SoundEvent(res).setRegistryName(res);
-        RegistryHandler.SOUNDS.add(sound);
         return sound;
     }
 

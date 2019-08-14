@@ -24,26 +24,24 @@ public abstract class MesonLoader
     public List<Feature> features = new ArrayList<>();
     public Map<Class<? extends Module>, Module> enabledModules = new HashMap<>();
     public Map<Class<? extends Feature>, Feature> enabledFeatures = new HashMap<>();
+    public IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
     public ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
     public ForgeConfigSpec config;
     public String id;
 
-    public MesonLoader register(String id)
+    public MesonLoader(String id)
     {
         this.id = id;
-        instances.put(id, this);
-
-        return this;
+        MesonLoader.instances.put(id, this);
     }
 
     public void add(Module... mods)
     {
         modules.addAll(Arrays.asList(mods));
 
-        // configure each module
+        // run setup on each module
         modules.forEach(module -> {
             module.enabled = builder.define(module.getName() + " module enabled", true);
-
             builder.push(module.getName());
             module.setup(this);
             builder.pop();
@@ -64,51 +62,103 @@ public abstract class MesonLoader
         data.load();
         config.setConfig(data);
 
+        // initialize modules
         modules.forEach(module -> {
             if (module.isEnabled()) {
                 enabledModules.put(module.getClass(), module);
             }
         });
-
-        // initialize modules
-        MesonLoader.forEachEnabledModule(Module::init);
+        enabledModules(Module::init);
     }
 
-    public static void setup(FMLCommonSetupEvent event)
+    public void setup(FMLCommonSetupEvent event)
     {
         // setup feature registries
-        MesonLoader.forEachEnabledFeature(feature -> {
+        enabledFeatures(feature -> {
             feature.registerMessages();
             feature.registerComposterItems();
         });
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void setupClient(FMLClientSetupEvent event)
+    public void setupClient(FMLClientSetupEvent event)
     {
-        MesonLoader.forEachEnabledFeature(feature -> {
+        enabledFeatures(feature -> {
             feature.initClient();
             feature.registerScreens();
         });
     }
 
-    public static void forEachEnabledModule(Consumer<Module> consumer)
+    public void enabledModules(Consumer<Module> consumer)
     {
-        instances.forEach((id, instance) -> instance.enabledModules.values().forEach(consumer));
+        enabledModules.values().forEach(consumer);
     }
 
-    public static void forEachEnabledFeature(Consumer<Feature> consumer)
+    public void enabledFeatures(Consumer<Feature> consumer)
     {
-        instances.forEach((id, instance) -> instance.enabledFeatures.values().forEach(consumer));
+        enabledFeatures.values().forEach(consumer);
     }
 
-    public static boolean hasFeature(String id, Class<? extends Feature> feature)
+    public boolean hasFeature(Class<? extends Feature> feature)
     {
-        return instances.get(id).enabledFeatures.containsKey(feature);
+        return enabledFeatures.containsKey(feature);
     }
 
-    public static IEventBus getEventBus()
+    public static void allEnabledModules(Consumer<Module> consumer)
     {
-        return FMLJavaModLoadingContext.get().getModEventBus();
+        MesonLoader.instances.values().forEach(instance -> instance.enabledModules(consumer));
     }
+
+    public static void allEnabledFeatures(Consumer<Feature> consumer)
+    {
+        MesonLoader.instances.values().forEach(instance -> instance.enabledFeatures(consumer));
+    }
+//
+//    @SubscribeEvent
+//    public void onRegisterBlocks(final RegistryEvent.Register<Block> event)
+//    {
+//        forEachEnabledFeature(f -> f.registerBlocks(event.getRegistry()));
+//    }
+//
+//    @SubscribeEvent
+//    public void onRegisterContainers(final RegistryEvent.Register<ContainerType<?>> event)
+//    {
+//        forEachEnabledFeature(f -> f.registerContainers(event.getRegistry()));
+//    }
+//
+//    @SubscribeEvent
+//    public void onRegisterItems(final RegistryEvent.Register<Item> event)
+//    {
+//        forEachEnabledFeature(f -> f.registerItems(event.getRegistry()));
+//    }
+//
+//    @SubscribeEvent
+//    public void onRegisterEffects(final RegistryEvent.Register<Effect> event)
+//    {
+//        forEachEnabledFeature(f -> f.registerEffects(event.getRegistry()));
+//    }
+//
+//    @SubscribeEvent
+//    public void onRegisterEnchantments(final RegistryEvent.Register<Enchantment> event)
+//    {
+//        forEachEnabledFeature(f -> f.registerEnchantments(event.getRegistry()));
+//    }
+//
+//    @SubscribeEvent
+//    public void onRegisterPotions(final RegistryEvent.Register<Potion> event)
+//    {
+//        forEachEnabledFeature(f -> f.registerPotions(event.getRegistry()));
+//    }
+//
+//    @SubscribeEvent
+//    public void onRegisterTileEntities(final RegistryEvent.Register<TileEntityType<?>> event)
+//    {
+//        forEachEnabledFeature(f -> f.registerTileEntities(event.getRegistry()));
+//    }
+//
+//    @SubscribeEvent
+//    public void onRegisterSounds(final RegistryEvent.Register<SoundEvent> event)
+//    {
+//        forEachEnabledFeature(f -> f.registerSounds(event.getRegistry()));
+//    }
 }
