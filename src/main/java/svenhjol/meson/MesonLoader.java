@@ -13,7 +13,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import svenhjol.meson.handler.VillagerLoader;
+import svenhjol.meson.handler.VillagerTradingManager;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -81,7 +81,7 @@ public abstract class MesonLoader
             feature.registerComposterItems();
         });
 
-        VillagerLoader.setupTrades();
+        VillagerTradingManager.setupTrades();
     }
 
     @OnlyIn(Dist.CLIENT)

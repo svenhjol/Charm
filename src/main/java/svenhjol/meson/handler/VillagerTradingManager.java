@@ -16,7 +16,7 @@ import java.util.List;
  * Uses code adapted from Placebo by Shadows-of-Fire.
  * @link {https://github.com/Shadows-of-Fire/Placebo/blob/1.14/src/main/java/shadows/placebo/trading/VillagerTradingManager.java}
  */
-public class VillagerLoader
+public class VillagerTradingManager
 {
     public static void setupTrades()
     {
