@@ -48,13 +48,14 @@ tile.charm:rune_portal_frame_green.name=Endportal Grüne Rune
 tile.charm:rune_portal_frame_red.name=Endportal Rote Rune
 tile.charm:rune_portal_frame_black.name=Endportal Schwarze Rune
 tile.charm:variable_redstone_lamp.name=Variable Redstone-Lampe
-tile.charm:smooth_glowstone.name=Weicher Glowstone
+tile.charm:smooth_glowstone.name=Glatter Glowstone
 
 # Items
 item.charm:bat_bucket.name=Fledermaus im Eimer
 item.charm:bound_compass.name=Gebundener Kompass
 item.charm:charged_emerald.name=Geladener Smaragd
 item.charm:endermite_powder.name=Endermitenpulver
+item.charm:moonstone.name=Mondgestein
 item.charm:totem_of_returning.name=Totem der Wiederkehr
 item.charm:totem_of_shielding.name=Totem des Schutzes
 item.charm:suspicious_soup.name=Seltsame Suppe
@@ -89,6 +90,14 @@ charm.enchantment.curse_break=Fluchbrecher
 charm.enchantment.salvage=Bergung
 charm.enchantment.homing=Zielsuche
 charm.enchantment.magnetic=Magnet
+enchantment.charm.clumsiness_curse.desc=Waffen und Werkzeuge verfehlen manchmal, wenn sie benutzt werden.
+enchantment.charm.harming_curse.desc=Waffen und Werkzeuge verursachen selten Schaden beim Verwenden.
+enchantment.charm.haunting_curse.desc=Waffen und Werkzeuge lassen beim Benutzen gelegentlich Monster in der Nähe erscheinen.
+enchantment.charm.rusting_curse.desc=Rüstung, Waffen und Werkzeuge verbrauchen mehr Haltbarkeit als gewöhnlich.
+enchantment.charm.curse_break.desc=Entferne einen Fluch von einem Gegenstand.
+enchantment.charm.salvage.desc=Rüstung, Waffen und Werkzeuge werden gedroppt anstatt bei aufgebrauchter Haltbarkeit kaputt zu gehen.
+enchantment.charm.homing.desc=Hacken werden von dem Erz, aus dem sie gefertigt wurden, angezogen.
+enchantment.charm.magnetic.desc=Werkzeuge sammeln automatisch Drops ein.
 
 # Sound Subtitles
 subtitle.charm.spectre.disappear=Gespenst verschwindet
@@ -166,6 +175,9 @@ crate_sealed=Verschlossene Kiste
 compass=Kompass
 dimension=Dimension
 number_of_uses=Anzahl der Verwendungen
+aligned_xz=Am Ursprung
+aligned_x=Ausgerichtet an X-Achse
+aligned_z=Ausgerichtet an Z-Achse
 charm.crate_tooltip_shift=Halte Shift um Inhalte zu sehen
 
 # Loot location classifications
