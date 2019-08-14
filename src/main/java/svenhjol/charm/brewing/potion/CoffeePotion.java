@@ -18,6 +18,7 @@ public class CoffeePotion extends MesonPotion
 
         setPotionBase(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WATER));
         setPotionReagant(new ItemStack(Items.COCOA_BEANS));
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "coffee_potion"));
+
+        register(new ResourceLocation(Charm.MOD_ID, "coffee_potion"));
     }
 }

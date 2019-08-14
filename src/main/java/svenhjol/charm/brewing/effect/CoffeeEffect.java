@@ -17,6 +17,6 @@ public class CoffeeEffect extends MesonEffect
         addEffect(Effects.HASTE);
         addEffect(Effects.SPEED);
 
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "coffee_effect"));
+        register(new ResourceLocation(Charm.MOD_ID, "coffee_effect"));
     }
 }

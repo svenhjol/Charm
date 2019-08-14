@@ -79,7 +79,7 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
 
         // setup cake name and add to pool
         this.baseName = "cake_" + baseName;
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, this.baseName));
+        register(new ResourceLocation(Charm.MOD_ID, this.baseName));
 
         FlavoredCake.cakes.put(potionName, this);
         FlavoredCake.types.put(getPotion(), this);

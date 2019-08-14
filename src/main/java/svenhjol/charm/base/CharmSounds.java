@@ -11,9 +11,6 @@ public class CharmSounds
     public static SoundEvent createSound(String name)
     {
         ResourceLocation res = new ResourceLocation(Charm.MOD_ID, name);
-        SoundEvent sound = new SoundEvent(res).setRegistryName(res);
-        return sound;
+        return new SoundEvent(res).setRegistryName(res);
     }
-
-    public static void init() {}
 }

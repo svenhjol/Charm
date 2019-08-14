@@ -5,8 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.meson.Feature;
+import svenhjol.meson.handler.RegistryHandler;
 
 public class StackableEnchantedBooks extends Feature
 {
@@ -27,12 +27,8 @@ public class StackableEnchantedBooks extends Feature
         super.init();
         item = new EnchantedBookItem((new Item.Properties()).maxStackSize(size).rarity(Rarity.UNCOMMON));
         item.setRegistryName(ID);
-    }
 
-    @Override
-    public void registerItems(IForgeRegistry<Item> registry)
-    {
-        registry.register(item); // Forge registry
         Registry.register(Registry.ITEM, ID, item); // Vanilla registry
+        RegistryHandler.registerItem(item, item.getRegistryName()); // Forge registry
     }
 }

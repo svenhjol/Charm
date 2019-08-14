@@ -12,4 +12,11 @@ public class Meson
             LogManager.getLogger(MOD_ID).info(obj);
         }
     }
+
+    public static void warn(Object... out)
+    {
+        for (Object obj : out) {
+            LogManager.getLogger(MOD_ID).warn(obj);
+        }
+    }
 }

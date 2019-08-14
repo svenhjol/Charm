@@ -2,12 +2,10 @@ package svenhjol.charm.tweaks.feature;
 
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.tweaks.item.CharmRecordItem;
 import svenhjol.meson.Feature;
@@ -84,11 +82,5 @@ public class ExtraRecords extends Feature
     public boolean hasSubscriptions()
     {
         return true;
-    }
-
-    @Override
-    public void registerItems(IForgeRegistry<Item> registry)
-    {
-        records.forEach(registry::register);
     }
 }

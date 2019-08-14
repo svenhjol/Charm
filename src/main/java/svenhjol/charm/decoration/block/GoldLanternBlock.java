@@ -19,7 +19,7 @@ public class GoldLanternBlock extends LanternBlock implements IMesonBlock
             .sound(SoundType.LANTERN)
             .lightValue(15));
 
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "gold_lantern"));
+        register(new ResourceLocation(Charm.MOD_ID, "gold_lantern"));
     }
 
     @Override

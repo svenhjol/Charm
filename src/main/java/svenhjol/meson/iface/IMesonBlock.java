@@ -5,6 +5,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
+import svenhjol.meson.handler.RegistryHandler;
 
 public interface IMesonBlock
 {
@@ -15,6 +16,11 @@ public interface IMesonBlock
         return 64;
     }
 
+    default void register(ResourceLocation res)
+    {
+        RegistryHandler.registerBlock((Block)this, res);
+    }
+
     default BlockItem getBlockItem()
     {
         Item.Properties props = new Item.Properties();
@@ -23,14 +29,6 @@ public interface IMesonBlock
         props.maxStackSize(getMaxStackSize());
 
         Block block = (Block) this;
-        BlockItem blockItem = new BlockItem(block, props);
-
-        // set the blockitem name to the same as the block, if possible
-        ResourceLocation blockName = block.getRegistryName();
-        if (blockName != null) {
-            blockItem.setRegistryName(blockName);
-        }
-
-        return blockItem;
+        return new BlockItem(block, props);
     }
 }

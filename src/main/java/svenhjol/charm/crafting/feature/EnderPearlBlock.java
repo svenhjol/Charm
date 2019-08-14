@@ -1,11 +1,8 @@
 package svenhjol.charm.crafting.feature;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -15,7 +12,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.charm.crafting.block.EnderPearlBlockBlock;
 import svenhjol.charm.crafting.goal.FormEndermiteGoal;
 import svenhjol.meson.Feature;
@@ -28,7 +24,6 @@ import java.util.Map;
 public class EnderPearlBlock extends Feature
 {
     public static EnderPearlBlockBlock block;
-    public static BlockItem blockItem;
     public static int hardness;
     public static int range;
     public static boolean showParticles;
@@ -53,7 +48,6 @@ public class EnderPearlBlock extends Feature
     {
         super.init();
         block = new EnderPearlBlockBlock();
-        blockItem = block.getBlockItem();
     }
 
     /**
@@ -138,17 +132,5 @@ public class EnderPearlBlock extends Feature
     public boolean hasSubscriptions()
     {
         return true;
-    }
-
-    @Override
-    public void registerBlocks(IForgeRegistry<Block> registry)
-    {
-        registry.register(block);
-    }
-
-    @Override
-    public void registerItems(IForgeRegistry<Item> registry)
-    {
-        registry.register(blockItem);
     }
 }

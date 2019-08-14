@@ -22,7 +22,8 @@ public class GunpowderBlockBlock extends FallingBlock implements IMesonBlock
             .sound(SoundType.SAND)
             .hardnessAndResistance(0.5F)
         );
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "gunpowder_block"));
+
+        register(new ResourceLocation(Charm.MOD_ID, "gunpowder_block"));
     }
 
     @Override

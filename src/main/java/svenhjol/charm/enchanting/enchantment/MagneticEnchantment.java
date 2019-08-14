@@ -13,7 +13,8 @@ public class MagneticEnchantment extends MesonEnchantment
     public MagneticEnchantment()
     {
         super(Rarity.UNCOMMON, EnchantmentType.DIGGER, EquipmentSlotType.MAINHAND);
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "magnetic"));
+
+        register(new ResourceLocation(Charm.MOD_ID, "magnetic"));
     }
 
     @Override

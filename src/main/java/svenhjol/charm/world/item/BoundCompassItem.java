@@ -36,8 +36,6 @@ public class BoundCompassItem extends MesonItem
             .maxStackSize(1)
         );
 
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "bound_compass"));
-
         addPropertyOverride(new ResourceLocation("angle"), new IItemPropertyGetter()
         {
             @Override
@@ -122,6 +120,8 @@ public class BoundCompassItem extends MesonItem
                 return Math.atan2(pos.getZ() - entity.posZ, pos.getX() - entity.posX);
             }
         });
+
+        register(new ResourceLocation(Charm.MOD_ID, "bound_compass"));
     }
 
     public static int getColor(ItemStack stack)

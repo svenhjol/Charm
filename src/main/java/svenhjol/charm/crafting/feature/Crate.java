@@ -9,10 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.CharmApi;
@@ -25,6 +23,7 @@ import svenhjol.charm.crafting.inventory.CrateScreen;
 import svenhjol.charm.crafting.tileentity.CrateTileEntity;
 import svenhjol.meson.Feature;
 import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.handler.RegistryHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +62,10 @@ public class Crate extends Feature
 
         crate = new ContainerType<>(CrateContainer::instance);
         tile = TileEntityType.Builder.create(CrateTileEntity::new).build(null);
+
+        RegistryHandler.registerContainer(crate.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
+        RegistryHandler.registerTile(tile.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
+        RegistryHandler.registerSound(CharmSounds.WOOD_SMASH);
     }
 
     @SubscribeEvent
@@ -77,7 +80,7 @@ public class Crate extends Feature
         if (!(block instanceof CrateBaseBlock)) return;
 
         if (right.getItem() == Items.IRON_INGOT && block instanceof CrateOpenBlock) {
-            WoodType wood = ((CrateOpenBlock) block).getWood();
+            WoodType wood = ((CrateOpenBlock) block).wood;
 
             out = new ItemStack(sealedTypes.get(wood));
             out.setTag(left.getTag());
@@ -91,12 +94,6 @@ public class Crate extends Feature
         }
     }
 
-    @Override
-    public void registerScreens()
-    {
-        ScreenManager.registerFactory(crate, CrateScreen::new);
-    }
-
     public static boolean canInsertItem(ItemStack stack)
     {
         Class<? extends Block> blockClass = Block.getBlockFromItem(stack.getItem()).getClass();
@@ -105,40 +102,14 @@ public class Crate extends Feature
     }
 
     @Override
+    public void registerScreens()
+    {
+        ScreenManager.registerFactory(crate, CrateScreen::new);
+    }
+
+    @Override
     public boolean hasSubscriptions()
     {
         return true;
-    }
-
-    @Override
-    public void registerBlocks(IForgeRegistry<Block> registry)
-    {
-        openTypes.forEach((wood, block) -> registry.register(block));
-        sealedTypes.forEach((wood, block) -> registry.register(block));
-    }
-
-    @Override
-    public void registerItems(IForgeRegistry<Item> registry)
-    {
-        openTypes.forEach((wood, block) -> registry.register(block.getBlockItem()));
-        sealedTypes.forEach((wood, block) -> registry.register(block.getBlockItem()));
-    }
-
-    @Override
-    public void registerTileEntities(IForgeRegistry<TileEntityType<?>> registry)
-    {
-        registry.register(tile.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
-    }
-
-    @Override
-    public void registerContainers(IForgeRegistry<ContainerType<?>> registry)
-    {
-        registry.register(crate.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate")));
-    }
-
-    @Override
-    public void registerSounds(IForgeRegistry<SoundEvent> registry)
-    {
-        registry.registerAll(CharmSounds.WOOD_SMASH);
     }
 }

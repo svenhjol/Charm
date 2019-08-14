@@ -7,14 +7,13 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.registries.ObjectHolder;
 import svenhjol.charm.crafting.container.CrateContainer;
+import svenhjol.charm.crafting.feature.Crate;
 import svenhjol.meson.iface.IMesonTileEntity;
 
 public class CrateTileEntity extends LockableLootTileEntity implements IMesonTileEntity
@@ -22,13 +21,10 @@ public class CrateTileEntity extends LockableLootTileEntity implements IMesonTil
     public static int SIZE = 9;
     private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 
-    @ObjectHolder("charm:crate")
-    public static TileEntityType<?> CRATE;
-
     public CrateTileEntity()
     {
-        super(CRATE);
-    }
+        super(Crate.tile);
+    } /* @todo set wood type so we can display name */
 
     @Override
     public void read(CompoundNBT tag)

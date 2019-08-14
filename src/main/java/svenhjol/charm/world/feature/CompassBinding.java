@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 import svenhjol.charm.world.item.BoundCompassItem;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.PlayerHelper;
@@ -114,11 +113,5 @@ public class CompassBinding extends Feature
     public boolean hasSubscriptions()
     {
         return true;
-    }
-
-    @Override
-    public void registerItems(IForgeRegistry<Item> registry)
-    {
-        registry.register(item);
     }
 }

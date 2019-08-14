@@ -31,7 +31,7 @@ public class VariableRedstoneLampBlock extends MesonBlock
         );
 
         setDefaultState(this.getDefaultState().with(LEVEL, 0));
-        setRegistryName(new ResourceLocation(Charm.MOD_ID, "variable_redstone_lamp"));
+        register(new ResourceLocation(Charm.MOD_ID, "variable_redstone_lamp"));
     }
 
     @Override
