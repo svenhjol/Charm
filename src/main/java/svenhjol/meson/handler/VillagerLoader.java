@@ -6,7 +6,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.registries.ForgeRegistries;
 import svenhjol.meson.MesonLoader;
 
@@ -28,34 +27,10 @@ public class VillagerLoader
             for (int i = 1; i < 6; i++) {
                 mutableTrades.computeIfAbsent(i, e -> new ArrayList<>());
             }
-            MesonLoader.allEnabledFeatures(f -> f.registerTrades(mutableTrades, prof));
 
             /* @todo way to fire this properly, maybe as mod lifecycle hook */
-            // MinecraftForge.EVENT_BUS.post(new VillagerTradesEvent(mutableTrades, prof));
-
+            MesonLoader.allEnabledFeatures(f -> f.registerTrades(mutableTrades, prof));
             mutableTrades.int2ObjectEntrySet().forEach(e -> trades.put(e.getIntKey(), e.getValue().toArray(new ITrade[0])));
-        }
-    }
-
-    public static class VillagerTradesEvent extends Event
-    {
-        protected Int2ObjectMap<List<ITrade>> trades;
-        protected VillagerProfession type;
-
-        public VillagerTradesEvent(Int2ObjectMap<List<ITrade>> trades, VillagerProfession type)
-        {
-            this.trades = trades;
-            this.type = type;
-        }
-
-        public Int2ObjectMap<List<ITrade>> getTrades()
-        {
-            return trades;
-        }
-
-        public VillagerProfession getType()
-        {
-            return type;
         }
     }
 }

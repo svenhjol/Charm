@@ -16,9 +16,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.Feature;
-import svenhjol.meson.handler.VillagerLoader.VillagerTradesEvent;
 import svenhjol.meson.helper.ItemNBTHelper;
 
 import javax.annotation.Nullable;
@@ -98,12 +96,6 @@ public class StructureMaps extends Feature
                 if (key.equals(tradeLevel.get())) val.add(trade);
             });
         }
-    }
-
-    @SubscribeEvent
-    public void onTradeEvent(VillagerTradesEvent event)
-    {
-        /* @todo move to event-driven system when the events work */
     }
 
     static class VillagerStructureMapTrade implements VillagerTrades.ITrade {
