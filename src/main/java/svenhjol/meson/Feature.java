@@ -1,7 +1,10 @@
 package svenhjol.meson;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
+import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
@@ -13,6 +16,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.List;
 
 public abstract class Feature
 {
@@ -126,6 +131,11 @@ public abstract class Feature
     }
 
     public void registerTileEntities(final IForgeRegistry<TileEntityType<?>> registry)
+    {
+        // no op
+    }
+
+    public void registerTrades(Int2ObjectMap<List<ITrade>> trades, VillagerProfession profession)
     {
         // no op
     }
