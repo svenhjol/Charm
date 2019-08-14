@@ -29,7 +29,14 @@ public class RandomAnimalTextures extends Feature
     {
         super.configure();
 
-        wolves = Arrays.asList("minecraft:wolf", "charm:brownwolf", "charm:greywolf", "charm:blackwolf", "charm:greybrownwolf");
+        wolves = Arrays.asList(
+            "minecraft:wolf",
+            "charm:brownwolf",
+            "charm:greywolf",
+            "charm:blackwolf",
+            "charm:amotwolf",
+            "charm:jupiter1390"
+        );
     }
 
     @Override
