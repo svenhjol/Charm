@@ -10,8 +10,10 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import svenhjol.meson.handler.VillagerLoader;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -20,11 +22,11 @@ import java.util.function.Consumer;
 public abstract class MesonLoader
 {
     public static Map<String, MesonLoader> instances = new HashMap<>();
+    public IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
     public List<Module> modules = new ArrayList<>();
     public List<Feature> features = new ArrayList<>();
     public Map<Class<? extends Module>, Module> enabledModules = new HashMap<>();
     public Map<Class<? extends Feature>, Feature> enabledFeatures = new HashMap<>();
-    public IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
     public ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
     public ForgeConfigSpec config;
     public String id;
@@ -78,6 +80,8 @@ public abstract class MesonLoader
             feature.registerMessages();
             feature.registerComposterItems();
         });
+
+        VillagerLoader.setupTrades();
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -87,6 +91,11 @@ public abstract class MesonLoader
             feature.initClient();
             feature.registerScreens();
         });
+    }
+
+    public void loadComplete(FMLLoadCompleteEvent event)
+    {
+        // no op
     }
 
     public void enabledModules(Consumer<Module> consumer)
@@ -113,52 +122,4 @@ public abstract class MesonLoader
     {
         MesonLoader.instances.values().forEach(instance -> instance.enabledFeatures(consumer));
     }
-//
-//    @SubscribeEvent
-//    public void onRegisterBlocks(final RegistryEvent.Register<Block> event)
-//    {
-//        forEachEnabledFeature(f -> f.registerBlocks(event.getRegistry()));
-//    }
-//
-//    @SubscribeEvent
-//    public void onRegisterContainers(final RegistryEvent.Register<ContainerType<?>> event)
-//    {
-//        forEachEnabledFeature(f -> f.registerContainers(event.getRegistry()));
-//    }
-//
-//    @SubscribeEvent
-//    public void onRegisterItems(final RegistryEvent.Register<Item> event)
-//    {
-//        forEachEnabledFeature(f -> f.registerItems(event.getRegistry()));
-//    }
-//
-//    @SubscribeEvent
-//    public void onRegisterEffects(final RegistryEvent.Register<Effect> event)
-//    {
-//        forEachEnabledFeature(f -> f.registerEffects(event.getRegistry()));
-//    }
-//
-//    @SubscribeEvent
-//    public void onRegisterEnchantments(final RegistryEvent.Register<Enchantment> event)
-//    {
-//        forEachEnabledFeature(f -> f.registerEnchantments(event.getRegistry()));
-//    }
-//
-//    @SubscribeEvent
-//    public void onRegisterPotions(final RegistryEvent.Register<Potion> event)
-//    {
-//        forEachEnabledFeature(f -> f.registerPotions(event.getRegistry()));
-//    }
-//
-//    @SubscribeEvent
-//    public void onRegisterTileEntities(final RegistryEvent.Register<TileEntityType<?>> event)
-//    {
-//        forEachEnabledFeature(f -> f.registerTileEntities(event.getRegistry()));
-//    }
-//
-//    @SubscribeEvent
-//    public void onRegisterSounds(final RegistryEvent.Register<SoundEvent> event)
-//    {
-//        forEachEnabledFeature(f -> f.registerSounds(event.getRegistry()));
-//    }
 }
