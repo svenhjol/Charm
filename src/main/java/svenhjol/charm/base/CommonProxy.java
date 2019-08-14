@@ -1,6 +1,7 @@
 package svenhjol.charm.base;
 
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.automation.CharmAutomation;
 import svenhjol.charm.brewing.CharmBrewing;
@@ -26,10 +27,16 @@ public class CommonProxy implements IMesonSidedProxy
         );
 
         Charm.loader.bus.addListener(this::setup);
+        Charm.loader.bus.addListener(this::loadComplete);
     }
 
     public void setup(FMLCommonSetupEvent event)
     {
         Charm.loader.setup(event);
+    }
+
+    public void loadComplete(FMLLoadCompleteEvent event)
+    {
+        Charm.loader.loadComplete(event);
     }
 }
