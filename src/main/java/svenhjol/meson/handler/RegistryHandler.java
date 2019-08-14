@@ -9,7 +9,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -78,6 +78,18 @@ public class RegistryHandler
         addRegisterable(tile, tile.getRegistryName());
     }
 
+    @SubscribeEvent
+    public static void onRegister(final Register event)
+    {
+        IForgeRegistry registry = event.getRegistry();
+        Class<?> type = registry.getRegistrySuperType();
+
+        if (objects.containsKey(type)) {
+            objects.get(type).forEach(registry::register);
+            objects.remove(type);
+        }
+    }
+
     private static void addRegisterable(IForgeRegistryEntry<?> obj, ResourceLocation res)
     {
         Class<?> type = obj.getRegistryType();
@@ -90,18 +102,6 @@ public class RegistryHandler
                 obj.setRegistryName(res);
             }
             objects.get(type).add(obj);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onRegister(final RegistryEvent.Register event)
-    {
-        IForgeRegistry registry = event.getRegistry();
-        Class<?> type = registry.getRegistrySuperType();
-
-        if (objects.containsKey(type)) {
-            objects.get(type).forEach(registry::register);
-            objects.remove(type);
         }
     }
 }
