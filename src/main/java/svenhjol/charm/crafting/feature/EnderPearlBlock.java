@@ -26,7 +26,6 @@ public class EnderPearlBlock extends Feature
     public static EnderPearlBlockBlock block;
     public static int hardness;
     public static int range;
-    public static boolean showParticles;
     public static ForgeConfigSpec.BooleanValue teleportStabilize;
 
     @Override
@@ -40,7 +39,6 @@ public class EnderPearlBlock extends Feature
 
         hardness = 2;
         range = 8;
-        showParticles = true;
     }
 
     @Override

@@ -31,9 +31,11 @@ public class EnderPearlBlockBlock extends MesonBlock
 
     // copypasta from MyceliumBlock
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+    public void animateTick(BlockState state, World world, BlockPos pos, Random rand)
+    {
         super.animateTick(state, world, pos, rand);
-        if (EnderPearlBlock.showParticles && rand.nextInt(10) == 0) {
+
+        if (rand.nextInt(10) == 0) {
             world.addParticle(ParticleTypes.PORTAL, (float)pos.getX() + rand.nextFloat(), (float)pos.getY() + 1.1F, (float)pos.getZ() + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
         }
     }
