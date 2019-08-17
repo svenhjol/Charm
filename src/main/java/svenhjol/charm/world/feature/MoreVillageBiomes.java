@@ -3,13 +3,13 @@ package svenhjol.charm.world.feature;
 import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.villager.IVillagerType;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.meson.Feature;
+import svenhjol.meson.helper.WorldHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,8 +50,7 @@ public class MoreVillageBiomes extends Feature
             VillagerData data = villager.getVillagerData();
 
             if (data.getType() == IVillagerType.PLAINS) {
-                BlockPos pos = event.getEntity().getPosition();
-                Biome biome = event.getWorld().getChunkProvider().getChunkGenerator().getBiomeProvider().getBiome(pos);
+                Biome biome = WorldHelper.getBiomeAtPos(event.getWorld(), event.getEntity().getPosition());
 
                 if (biomes.contains(biome)) {
                     villager.setVillagerData(data.withType(IVillagerType.byBiome(biome)));
