@@ -61,20 +61,24 @@ public class FlavoredCake extends Feature
             0.5
         );
 
-        validPotions = new String[] {
-            "swiftness",
-            "strength",
-            "leaping",
-            "regeneration",
-            "fire_resistance",
-            "water_breathing",
-            "invisibility",
-            "night_vision",
-            "quark:danger_sight",
-            "quark:haste",
-            "quark:resistance",
-            "quark:resilience"
-        };
+        validPotions = propStringList(
+            "Effect potion types",
+            "List of Long Potions that can be used to make a cake.",
+            new String[] {
+                "swiftness",
+                "strength",
+                "leaping",
+                "regeneration",
+                "fire_resistance",
+                "water_breathing",
+                "invisibility",
+                "night_vision",
+                "quark:danger_sight",
+                "quark:haste",
+                "quark:resistance",
+                "quark:resilience"
+            }
+        );
     }
 
     @Override
