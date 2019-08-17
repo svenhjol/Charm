@@ -6,6 +6,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -35,6 +36,11 @@ public abstract class MesonLoader
     {
         this.id = id;
         MesonLoader.instances.put(id, this);
+
+        bus.addListener(this::setup);
+        bus.addListener(this::loadComplete);
+
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> bus.addListener(this::setupClient));
     }
 
     public void add(Module... mods)
