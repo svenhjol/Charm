@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FFF", "FFF", "FFF"
+  ],
+  "key": {
+    "F": {"item": "minecraft:rotten_flesh"}
+  },
+  "conditions": [
+    {
+      "type" : "forge:item_exists",
+      "item" : "charm:rotten_flesh_block"
+    }
+  ],
+  "result": {
+    "item": "charm:rotten_flesh_block"
+  }
+}
