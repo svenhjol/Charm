@@ -22,6 +22,7 @@ public class BlockRedstoneSand extends BlockFalling implements IMesonBlock
         setSoundType(SoundType.SAND);
         setHardness(RedstoneSand.hardness);
         setCreativeTab(CreativeTabs.REDSTONE);
+        setHarvestLevel("shovel", 0);
     }
 
     @Override

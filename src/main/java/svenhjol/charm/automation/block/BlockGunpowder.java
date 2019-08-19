@@ -24,6 +24,7 @@ public class BlockGunpowder extends BlockFalling implements IMesonBlock
         setSoundType(SoundType.SAND);
         setHardness(GunpowderBlock.hardness);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setHarvestLevel("shovel", 0);
     }
 
     @Override

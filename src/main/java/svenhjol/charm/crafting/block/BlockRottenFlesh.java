@@ -39,9 +39,10 @@ public class BlockRottenFlesh extends MesonBlock
         setHardness(RottenFleshBlock.hardness);
         setResistance(RottenFleshBlock.resistance);
         setHarvestLevel("sword", RottenFleshBlock.harvestLevel);
-        setSoundType(SoundType.SLIME);
+        setSoundType(SoundType.GROUND);
         setTickRandomly(true);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setHarvestLevel("shovel", 0);
     }
 
     @Override
