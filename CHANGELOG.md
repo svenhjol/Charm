@@ -1,5 +1,19 @@
 # Changelog for Charm 1.12
 
+## 1.3.4
+
+### Automation
+* The effective tool for redstone sand, gunpowder block and rotten flesh block is now shovel. Fix #157
+
+### Brewing
+* Flavored cake potion type recipe config has been restored. Fix #153
+
+### Crafting
+* Ender pearl blocks now break into 9 ender pearls when broken without silk touch. Fix #157
+
+### General
+* Updated German lang file.
+
 ## 1.3.3
 
 ### Enchantments
