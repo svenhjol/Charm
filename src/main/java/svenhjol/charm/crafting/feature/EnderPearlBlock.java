@@ -23,7 +23,7 @@ import svenhjol.meson.helper.WorldHelper;
 public class EnderPearlBlock extends Feature
 {
     public static BlockEnderPearl block;
-    public static int hardness;
+    public static float hardness;
     public static int range;
     public static boolean showParticles;
     public static boolean teleportStabilize;
@@ -54,7 +54,7 @@ public class EnderPearlBlock extends Feature
         );
 
         // internal
-        hardness = 2;
+        hardness = 2.0f;
         range = 8;
         showParticles = true;
     }
