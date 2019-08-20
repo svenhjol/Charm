@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "minecraft:smooth_glowstone"
+              "name": "charm:smooth_glowstone"
             },
             {
               "type": "minecraft:item",

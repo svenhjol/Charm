@@ -10,6 +10,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraftforge.common.ToolType;
 import svenhjol.charm.Charm;
 import svenhjol.meson.iface.IMesonBlock;
 
@@ -21,6 +22,7 @@ public class RedstoneSandBlock extends FallingBlock implements IMesonBlock
             .create(Material.SAND)
             .sound(SoundType.SAND)
             .hardnessAndResistance(0.5F)
+            .harvestTool(ToolType.SHOVEL)
         );
 
         register(new ResourceLocation(Charm.MOD_ID, "redstone_sand"));

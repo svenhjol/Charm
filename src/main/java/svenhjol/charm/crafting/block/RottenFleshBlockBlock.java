@@ -33,9 +33,9 @@ public class RottenFleshBlockBlock extends MesonBlock
     {
         super(Block.Properties
             .create(Material.ORGANIC)
-            .sound(SoundType.SLIME)
+            .sound(SoundType.GROUND)
             .hardnessAndResistance(RottenFleshBlock.hardness, RottenFleshBlock.resistance)
-            .harvestTool(ToolType.get("sword"))
+            .harvestTool(ToolType.SHOVEL)
             .tickRandomly()
         );
 
