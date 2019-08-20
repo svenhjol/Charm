@@ -14,19 +14,16 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.SoundHelper;
+import svenhjol.meson.iface.MesonLoadModule;
 
+@MesonLoadModule(category = CharmCategories.TWEAKS, hasSubscriptions = true)
 public class RecordsStopBackgroundMusic extends Feature
 {
     private int ticks; // delay
     private ISound music = null; // music to stop
-
-    @Override
-    public void init()
-    {
-        super.init();
-    }
 
     @SubscribeEvent
     public void onBlockInteract(RightClickBlock event)
@@ -70,11 +67,5 @@ public class RecordsStopBackgroundMusic extends Feature
             ticks = 0;
             music = null;
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }

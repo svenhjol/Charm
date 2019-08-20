@@ -127,7 +127,7 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
 
     public void setDuration(int duration)
     {
-        this.duration = (int)(duration * FlavoredCake.multiplier.get());
+        this.duration = (int)(duration * FlavoredCake.multiplier);
     }
 
     public void setPotion(Potion potion)

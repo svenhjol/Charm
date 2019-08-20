@@ -3,12 +3,15 @@ package svenhjol.charm.tweaks.feature;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RegistryHandler;
+import svenhjol.meson.iface.MesonLoadModule;
 
+@MesonLoadModule(category = CharmCategories.TWEAKS)
 public class StackablePotions extends Feature
 {
-    public static int size;
+    public static int size = 16;
     public static ResourceLocation POTION_ID = new ResourceLocation("potion");
     public static ResourceLocation SPLASH_ID = new ResourceLocation("splash_potion");
     public static ResourceLocation LINGERING_ID = new ResourceLocation("lingering_potion");
@@ -17,17 +20,8 @@ public class StackablePotions extends Feature
     public static LingeringPotionItem lingering;
 
     @Override
-    public void configure()
-    {
-        super.configure();
-        size = 16;
-    }
-
-    @Override
     public void init()
     {
-        super.init();
-
         potion = new PotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
         splash = new SplashPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
         lingering = new LingeringPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));

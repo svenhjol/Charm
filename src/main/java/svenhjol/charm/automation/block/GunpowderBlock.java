@@ -14,9 +14,9 @@ import net.minecraftforge.common.ToolType;
 import svenhjol.charm.Charm;
 import svenhjol.meson.iface.IMesonBlock;
 
-public class GunpowderBlockBlock extends FallingBlock implements IMesonBlock
+public class GunpowderBlock extends FallingBlock implements IMesonBlock
 {
-    public GunpowderBlockBlock()
+    public GunpowderBlock()
     {
         super(Block.Properties
             .create(Material.SAND)

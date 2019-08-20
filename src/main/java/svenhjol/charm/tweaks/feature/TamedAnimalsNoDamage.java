@@ -6,8 +6,11 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.Feature;
+import svenhjol.meson.iface.MesonLoadModule;
 
+@MesonLoadModule(category = CharmCategories.TWEAKS, hasSubscriptions = true)
 public class TamedAnimalsNoDamage extends Feature
 {
     @SubscribeEvent
@@ -28,11 +31,5 @@ public class TamedAnimalsNoDamage extends Feature
                 }
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }

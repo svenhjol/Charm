@@ -8,43 +8,32 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.crafting.block.EnderPearlBlockBlock;
 import svenhjol.charm.crafting.goal.FormEndermiteGoal;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.WorldHelper;
+import svenhjol.meson.iface.MesonConfig;
+import svenhjol.meson.iface.MesonLoadModule;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+@MesonLoadModule(category = CharmCategories.CRAFTING, hasSubscriptions = true)
 public class EnderPearlBlock extends Feature
 {
     public static EnderPearlBlockBlock block;
-    public static int hardness;
-    public static int range;
-    public static ForgeConfigSpec.BooleanValue teleportStabilize;
-
-    @Override
-    public void configure()
-    {
-        super.configure();
-
-        teleportStabilize = builder
-            .comment("If true, eating a Chorus Fruit while in range of an Ender Pearl Block will teleport you to it.")
-            .define("Teleport stabilization", true);
-
-        hardness = 2;
-        range = 8;
-    }
+    public static float hardness = 2.0F;
+    public static int range = 8;
+    @MesonConfig public static boolean teleportStabilize = true;
 
     @Override
     public void init()
     {
-        super.init();
         block = new EnderPearlBlockBlock();
     }
 
@@ -58,7 +47,7 @@ public class EnderPearlBlock extends Feature
     {
         boolean didTeleport = false;
 
-        if (teleportStabilize.get()
+        if (teleportStabilize
             && event.getEntityLiving() instanceof PlayerEntity
             && event.getItem().getItem() == Items.CHORUS_FRUIT
             && !event.getEntityLiving().getEntityWorld().isRemote
@@ -124,11 +113,5 @@ public class EnderPearlBlock extends Feature
                 silverfish.goalSelector.addGoal(2, new FormEndermiteGoal(silverfish));
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }

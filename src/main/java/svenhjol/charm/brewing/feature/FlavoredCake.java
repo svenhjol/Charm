@@ -19,60 +19,52 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.brewing.block.FlavoredCakeBlock;
 import svenhjol.charm.brewing.message.MessageCakeImbue;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.ComposterHelper;
 import svenhjol.meson.helper.PlayerHelper;
+import svenhjol.meson.iface.MesonConfig;
+import svenhjol.meson.iface.MesonLoadModule;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@MesonLoadModule(category = CharmCategories.BREWING, hasSubscriptions = true)
 public class FlavoredCake extends Feature
 {
-    public static ForgeConfigSpec.ConfigValue<Double> multiplier;
-    public static List<String> validPotions;
+    @MesonConfig public static double multiplier = 0.1D;
+    public static List<String> validPotions = Arrays.asList(
+        "swiftness",
+        "strength",
+        "leaping",
+        "regeneration",
+        "fire_resistance",
+        "water_breathing",
+        "invisibility",
+        "night_vision"
+    );
     public static Map<Potion, FlavoredCakeBlock> types = new HashMap<>();
     public static Map<String, FlavoredCakeBlock> cakes = new HashMap<>();
 
     @Override
-    public void configure()
-    {
-        super.configure();
-
-        multiplier = builder
-            .comment("Duration multiplier of the potion effect when eating a single slice of cake.")
-            .define("Effect duration multiplier", 0.1D);
-
-        validPotions = Arrays.asList(
-            "swiftness",
-            "strength",
-            "leaping",
-            "regeneration",
-            "fire_resistance",
-            "water_breathing",
-            "invisibility",
-            "night_vision"
-        );
-    }
-
-    @Override
     public void init()
     {
-        super.init();
         validPotions.forEach(FlavoredCakeBlock::new);
         DispenserBlock.registerDispenseBehavior(Items.POTION, new DispenseImbueBehavior());
     }
 
     @Override
-    public void registerMessages()
+    public void setup(FMLCommonSetupEvent event)
     {
+        // register messages
         PacketHandler.HANDLER.registerMessage(
             PacketHandler.index++,
             MessageCakeImbue.class,
@@ -80,11 +72,8 @@ public class FlavoredCake extends Feature
             MessageCakeImbue::decode,
             MessageCakeImbue.Handler::handle
         );
-    }
 
-    @Override
-    public void registerComposterItems()
-    {
+        // add cakes to composter
         cakes.forEach((s, flavoredCakeBlock) -> ComposterHelper.addCompostableItem(new ItemStack(flavoredCakeBlock), 1.0f));
     }
 
@@ -139,12 +128,6 @@ public class FlavoredCake extends Feature
             double dz = (float)pos.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
             world.addParticle(ParticleTypes.WITCH, dx, dy, dz, d0, d1, d2);
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 
     public static class DispenseImbueBehavior extends DefaultDispenseItemBehavior

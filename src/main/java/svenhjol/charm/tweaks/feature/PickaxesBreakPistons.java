@@ -9,9 +9,12 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.ToolType;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RegistryHandler;
+import svenhjol.meson.iface.MesonLoadModule;
 
+@MesonLoadModule(category = CharmCategories.TWEAKS, hasSubscriptions = true)
 public class PickaxesBreakPistons extends Feature
 {
     public static Block block;
@@ -21,8 +24,6 @@ public class PickaxesBreakPistons extends Feature
     @Override
     public void init()
     {
-        super.init();
-
         block = new PistonBlock(false, Block.Properties
             .create(Material.PISTON)
             .harvestTool(ToolType.PICKAXE)
@@ -38,11 +39,5 @@ public class PickaxesBreakPistons extends Feature
         // Forge registry
         RegistryHandler.registerBlock(block, block.getRegistryName());
         RegistryHandler.registerItem(blockItem, block.getRegistryName());
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }

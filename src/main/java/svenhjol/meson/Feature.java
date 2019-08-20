@@ -1,138 +1,53 @@
 package svenhjol.meson;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.Potion;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 
 import java.util.List;
 
 public abstract class Feature
 {
-    public Module module;
-    public MesonLoader loader;
-    public ForgeConfigSpec.Builder builder;
-    public ForgeConfigSpec.BooleanValue enabled;
-
-    public void setup(Module module)
-    {
-        this.module = module;
-        loader = module.loader;
-        builder = module.builder;
-
-        Meson.log("Configuring feature " + getName());
-        configure();
-    }
-
-    public void configure()
-    {
-        // allow the feature to define its own configuration items
-    }
+    public boolean enabled = true;
+    public boolean enabledByDefault = true;
+    public boolean hasSubscriptions = false;
+    public String category = "";
+    public String name = "";
 
     public void init()
     {
-        if (hasSubscriptions()) {
-            MinecraftForge.EVENT_BUS.register(this);
-        }
+        // register blocks, TEs, etc
+    }
+
+    public void setup(FMLCommonSetupEvent event)
+    {
+        // register messages, composter items, etc
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void initClient()
+    public void setupClient(FMLClientSetupEvent event)
     {
-        // no op
+        // register screens, etc
+    }
+
+    public void loadComplete(FMLLoadCompleteEvent event)
+    {
+        // do final things
     }
 
     public boolean isEnabled()
     {
-        return enabled.get();
-    }
-
-    public boolean isEnabledByDefault()
-    {
-        return true;
-    }
-
-    public boolean hasSubscriptions()
-    {
-        return false;
+        return enabled;
     }
 
     public String getName()
     {
-        return this.getClass().getSimpleName();
-    }
-
-    public String getDescription()
-    {
-        return getName();
-    }
-
-    public void registerBlocks(final IForgeRegistry<Block> registry)
-    {
-        // no op
-    }
-
-    public void registerComposterItems()
-    {
-        // no op
-    }
-
-    public void registerContainers(final IForgeRegistry<ContainerType<?>> registry)
-    {
-        // no op
-    }
-
-    public void registerItems(final IForgeRegistry<Item> registry)
-    {
-        // no op
-    }
-
-    public void registerEffects(final IForgeRegistry<Effect> registry)
-    {
-        // no op
-    }
-
-    public void registerEnchantments(final IForgeRegistry<Enchantment> registry)
-    {
-        // no op
-    }
-
-    public void registerMessages()
-    {
-        // no op
-    }
-
-    public void registerPotions(final IForgeRegistry<Potion> registry)
-    {
-        // no op
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public void registerScreens()
-    {
-        // no op
-    }
-
-    public void registerSounds(final IForgeRegistry<SoundEvent> registry)
-    {
-        // no op
-    }
-
-    public void registerTileEntities(final IForgeRegistry<TileEntityType<?>> registry)
-    {
-        // no op
+        return this.name.isEmpty() ? this.getClass().getSimpleName() : this.name;
     }
 
     public void registerTrades(Int2ObjectMap<List<ITrade>> trades, VillagerProfession profession)

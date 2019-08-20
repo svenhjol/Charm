@@ -9,21 +9,16 @@ import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.Feature;
+import svenhjol.meson.iface.MesonLoadModule;
 
+@MesonLoadModule(category = CharmCategories.TWEAKS, hasSubscriptions = true,
+    description = "As long as a Totem of Undying is in your inventory, it will be consumed to protect you from death.")
 public class UseTotemFromInventory extends Feature
 {
-    public static ForgeConfigSpec.BooleanValue something;
-
-    @Override
-    public String getDescription()
-    {
-        return "As long as a Totem of Undying is in your inventory, it will be consumed to protect you from death.";
-    }
-
     @SubscribeEvent
     public void onPlayerDeath(LivingDeathEvent event)
     {
@@ -54,11 +49,5 @@ public class UseTotemFromInventory extends Feature
                 event.setCanceled(true);
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }

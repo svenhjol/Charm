@@ -6,18 +6,28 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.decoration.render.CustomWolfRenderer;
 import svenhjol.meson.Feature;
 import svenhjol.meson.iface.IMesonEnum;
+import svenhjol.meson.iface.MesonLoadModule;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+@MesonLoadModule(category = CharmCategories.DECORATION)
 public class RandomAnimalTextures extends Feature
 {
-    public static List<String> wolves = new ArrayList<>();
+    public static List<String> wolves = Arrays.asList(
+        "minecraft:wolf",
+        "charm:brownwolf",
+        "charm:greywolf",
+        "charm:blackwolf",
+        "charm:amotwolf",
+        "charm:jupiter1390"
+    );
 
     public enum MobType implements IMesonEnum
     {
@@ -25,25 +35,10 @@ public class RandomAnimalTextures extends Feature
     }
 
     @Override
-    public void configure()
-    {
-        super.configure();
-
-        wolves = Arrays.asList(
-            "minecraft:wolf",
-            "charm:brownwolf",
-            "charm:greywolf",
-            "charm:blackwolf",
-            "charm:amotwolf",
-            "charm:jupiter1390"
-        );
-    }
-
-    @Override
     @OnlyIn(Dist.CLIENT)
-    public void initClient()
+    public void setupClient(FMLClientSetupEvent event)
     {
-        super.initClient();
+        super.setupClient(event);
 
         //noinspection unchecked
         RenderingRegistry.registerEntityRenderingHandler(WolfEntity.class, CustomWolfRenderer.factory());

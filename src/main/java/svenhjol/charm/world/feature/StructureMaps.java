@@ -15,63 +15,50 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
-import net.minecraftforge.common.ForgeConfigSpec;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.ItemNBTHelper;
+import svenhjol.meson.iface.MesonConfig;
+import svenhjol.meson.iface.MesonLoadModule;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
+@MesonLoadModule(category = CharmCategories.WORLD,
+    hasSubscriptions = true)
 public class StructureMaps extends Feature
 {
-    public static ForgeConfigSpec.ConfigValue<Integer> tradeLevel;
-    public static ForgeConfigSpec.ConfigValue<Integer> tradeXp;
-    public static ForgeConfigSpec.ConfigValue<Integer> maxUses;
-    public static ForgeConfigSpec.ConfigValue<Integer> generalMinCost;
-    public static ForgeConfigSpec.ConfigValue<Integer> generalMaxCost;
-    public static ForgeConfigSpec.ConfigValue<Integer> biomeMinCost;
-    public static ForgeConfigSpec.ConfigValue<Integer> biomeMaxCost;
+    @MesonConfig(name = "Trade Level", description = "The level at which a cartographer will trade structure maps.\n" +
+            "Numbers correspond to villager level, starting at 1 for Novice.")
+    public static int tradeLevel = 3;
+
+    @MesonConfig(name = "Villager experience awarded", description = "The amount of experience awarded to the villager upon selling.")
+    public static int tradeXp = 5;
+
+    @MesonConfig(name = "Maximum Trades", description = "Maximum number the trade can be used before it locks.")
+    public static int maxTrades = 1;
+
+    @MesonConfig(name = "General map minimum cost", description = "Minimum emerald cost of a general structure map.")
+    public static int generalMinCost = 4;
+
+    @MesonConfig(name = "General map maximum cost", description = "Maximum emerald cost of a general structure map.")
+    public static int generalMaxCost = 7;
+
+    @MesonConfig(name = "Biome-specific map minimum cost", description = "Minimum emerald cost of a biome-specific structure map.")
+    public static int biomeMinCost = 16;
+
+    @MesonConfig(name = "Biome-specific map maximum cost", description = "Maximum emerald cost of a biome-specific structure map.")
+    public static int biomeMaxCost = 22;
 
     public static List<StructureTrade> trades = new ArrayList<>();
 
     @Override
-    public void configure()
-    {
-        super.configure();
-
-        tradeLevel = builder
-            .comment("The level at which a cartographer will trade structure maps.\n" +
-            "Numbers correspond to villager level, starting at 1 for Novice.")
-            .define("Trade level", 3);
-        tradeXp = builder
-            .comment("The amount of experience awarded to the villager upon selling.")
-            .define("Villager experience awarded", 5);
-        maxUses = builder
-            .comment("Maximum number the trade can be used before it locks.")
-            .define("Maximum trades", 1);
-        generalMinCost = builder
-            .comment("Minimum emerald cost of a general structure map.")
-            .define("General map minimum cost", 4);
-        generalMaxCost = builder
-            .comment("Maximum emerald cost of a general structure map.")
-            .define("General map maximum cost", 7);
-        biomeMinCost = builder
-            .comment("Minimum emerald cost of a biome-specific structure map.")
-            .define("Biome-specific map minimum cost", 16);
-        biomeMaxCost = builder
-            .comment("Maximum emerald cost of a biome-specific structure map.")
-            .define("Biome-specific map maximum cost", 22);
-    }
-
-    @Override
     public void init()
     {
-        super.init();
-
-        int bmin = biomeMinCost.get();
-        int bmax = biomeMaxCost.get();
-        int gmin = generalMinCost.get();
-        int gmax = generalMaxCost.get();
+        int bmin = biomeMinCost;
+        int bmax = biomeMaxCost;
+        int gmin = generalMinCost;
+        int gmax = generalMaxCost;
 
         /* @todo make structures configurable in config */
         trades.add(new StructureTrade("Desert_Pyramid").setColor(0x866600).setCost(bmin, bmax));
@@ -89,11 +76,11 @@ public class StructureMaps extends Feature
     public void registerTrades(Int2ObjectMap<List<ITrade>> trades, VillagerProfession profession)
     {
         super.registerTrades(trades, profession);
-        VillagerStructureMapTrade trade = new VillagerStructureMapTrade(maxUses.get(), tradeXp.get());
+        VillagerStructureMapTrade trade = new VillagerStructureMapTrade(maxTrades, tradeXp);
 
         if (Objects.requireNonNull(profession.getRegistryName()).toString().equals("minecraft:cartographer")) {
             trades.forEach((key, val) -> {
-                if (key.equals(tradeLevel.get())) val.add(trade);
+                if (key.equals(tradeLevel)) val.add(trade);
             });
         }
     }
@@ -177,11 +164,5 @@ public class StructureMaps extends Feature
             this.color = color;
             return this;
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }

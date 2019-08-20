@@ -5,38 +5,25 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.world.block.NetherGoldDepositBlock;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.ForgeHelper;
+import svenhjol.meson.iface.MesonLoadModule;
 
 import static net.minecraft.world.gen.feature.Feature.ORE;
 
+@MesonLoadModule(category = CharmCategories.WORLD,
+    description = "Gold deposits spawn in the Nether that can be broken to receive gold nuggets.")
 public class NetherGoldDeposits extends Feature
 {
     public static NetherGoldDepositBlock block;
-    public static int veinSize;
-    public static int clusterCount;
-    public static float hardness;
-    public static float resistance;
-
-    @Override
-    public String getDescription()
-    {
-        return "Gold deposits spawn in the Nether that can be broken to receive gold nuggets.";
-    }
-
-    @Override
-    public void configure()
-    {
-        super.configure();
-
-        // internal
-        veinSize = 5;
-        clusterCount = 12;
-        hardness = 3.0f;
-        resistance = 10.0f;
-    }
+    public static int veinSize = 5;
+    public static int clusterCount = 12;
+    public static float hardness = 3.0F;
+    public static float resistance = 10.0F;
 
     @Override
     public boolean isEnabled()
@@ -47,9 +34,12 @@ public class NetherGoldDeposits extends Feature
     @Override
     public void init()
     {
-        super.init();
         block = new NetherGoldDepositBlock();
+    }
 
+    @Override
+    public void setup(FMLCommonSetupEvent event)
+    {
         for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
             if (biome.getCategory() != Biome.Category.NETHER) continue;
 
@@ -62,7 +52,7 @@ public class NetherGoldDeposits extends Feature
                     ),
                     Placement.COUNT_RANGE,
                     new CountRangeConfig(7, 10, 0, 128))
-                );
+            );
         }
     }
 }

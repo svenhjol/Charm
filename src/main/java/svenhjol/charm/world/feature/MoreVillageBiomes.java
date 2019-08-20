@@ -8,32 +8,24 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.WorldHelper;
+import svenhjol.meson.iface.MesonLoadModule;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static net.minecraft.world.gen.feature.Feature.VILLAGE;
 
+@MesonLoadModule(category = CharmCategories.WORLD, hasSubscriptions = true)
 public class MoreVillageBiomes extends Feature
 {
-    public static List<Biome> biomes = new ArrayList<>();
-
-    @Override
-    public void configure()
-    {
-        super.configure();
-
-        biomes.addAll(Arrays.asList(Biomes.JUNGLE, Biomes.SWAMP));
-    }
+    public static List<Biome> biomes = Arrays.asList(Biomes.JUNGLE, Biomes.SWAMP);
 
     @Override
     public void init()
     {
-        super.init();
-
         // there isn't dedicated structure pieces for jungles and swamps so just use plains
         biomes.forEach(biome -> biome.addStructure(VILLAGE, new VillageConfig("village/plains/town_centers", 6)));
     }
@@ -57,11 +49,5 @@ public class MoreVillageBiomes extends Feature
                 }
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }

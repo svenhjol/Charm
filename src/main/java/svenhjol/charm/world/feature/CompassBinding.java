@@ -13,42 +13,32 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.world.item.BoundCompassItem;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.PlayerHelper;
+import svenhjol.meson.iface.MesonConfig;
+import svenhjol.meson.iface.MesonLoadModule;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@MesonLoadModule(category = CharmCategories.WORLD, hasSubscriptions = true)
 public class CompassBinding extends Feature
 {
     public static BoundCompassItem item;
     public static List<Item> bindableItems = new ArrayList<>();
-    public static ForgeConfigSpec.BooleanValue useBanners;
-    public static ForgeConfigSpec.BooleanValue useBeacons;
-
-    @Override
-    public void configure()
-    {
-        super.configure();
-
-        useBanners = builder
-            .comment("If true, compasses can bind to banners.")
-            .define("Bind to Banners", false);
-
-        useBeacons = builder
-            .comment("If true, compasses can bind to beacons.")
-            .define("Bind to Beacons", true);
-    }
+    @MesonConfig(name = "Bind to Banners", description = "If true, compasses can bind to banners.")
+    public static boolean useBanners = false;
+    @MesonConfig(name = "Bind to Beacons", description = "If true, compasses can bind to beacons.")
+    public static boolean useBeacons = true;
 
     @Override
     public void init()
     {
-        super.init();
         item = new BoundCompassItem();
         bindableItems.add(Items.COMPASS);
         bindableItems.add(item);
@@ -74,7 +64,7 @@ public class CompassBinding extends Feature
             TileEntity tile = world.getTileEntity(pos);
 
             // handle banners
-            if (useBanners.get() && tile instanceof BannerTileEntity) {
+            if (useBanners && tile instanceof BannerTileEntity) {
                 BannerTileEntity banner = (BannerTileEntity) tile;
                 DyeColor c = banner.getBaseColor(() -> state);
                 color = c.getMapColor().colorValue;
@@ -86,7 +76,7 @@ public class CompassBinding extends Feature
             }
 
             // handle beacons
-            if (useBeacons.get() && tile instanceof BeaconTileEntity) {
+            if (useBeacons && tile instanceof BeaconTileEntity) {
                 BeaconTileEntity beacon = (BeaconTileEntity)tile;
                 if (beacon.getLevels() < 1) return; // better way to detect active beacons?
                 name = Objects.requireNonNull(beacon.getDisplayName()).getString();
@@ -107,11 +97,5 @@ public class CompassBinding extends Feature
             // set the player to hold it or in their inventory
             PlayerHelper.setHeldItem(player, hand, compass);
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }

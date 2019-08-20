@@ -1,7 +1,6 @@
 package svenhjol.charm.enchanting.feature;
 
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -11,44 +10,40 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.enchanting.enchantment.MagneticEnchantment;
 import svenhjol.charm.enchanting.message.MessageMagneticPickup;
 import svenhjol.meson.Feature;
 import svenhjol.meson.MesonEnchantment;
 import svenhjol.meson.handler.PacketHandler;
-import svenhjol.meson.helper.*;
+import svenhjol.meson.helper.ClientHelper;
+import svenhjol.meson.helper.EnchantmentsHelper;
+import svenhjol.meson.helper.SoundHelper;
+import svenhjol.meson.helper.WorldHelper;
+import svenhjol.meson.iface.MesonConfig;
+import svenhjol.meson.iface.MesonLoadModule;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@MesonLoadModule(category = CharmCategories.ENCHANTING, hasSubscriptions = true)
 public class Magnetic extends Feature
 {
-    public static ForgeConfigSpec.ConfigValue<Integer> range;
+    @MesonConfig(name = "Attraction range", description = "Drops within this range of the player will be picked up.")
+    public static int range = 6;
+
     public static Map<BlockPos, PlayerEntity> dropmap = new HashMap<>();
     public static MesonEnchantment enchantment;
 
     @Override
-    public void configure()
-    {
-        super.configure();
-
-        range =  builder
-            .comment("Drops within this range of the player will be picked up.")
-            .define("Attraction range", 6);
-    }
-
-    @Override
     public void init()
     {
-        super.init();
-
         enchantment = new MagneticEnchantment();
     }
 
@@ -66,7 +61,7 @@ public class Magnetic extends Feature
     public void onEntityCreate(EntityJoinWorldEvent event)
     {
         if (event.getEntity() instanceof ItemEntity && !event.getWorld().isRemote) {
-            int r = range.get();
+            int r = range;
             BlockPos foundPos = null;
 
             for (BlockPos pos : dropmap.keySet()) {
@@ -96,13 +91,7 @@ public class Magnetic extends Feature
     }
 
     @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
-    }
-
-    @Override
-    public void registerMessages()
+    public void setup(FMLCommonSetupEvent event)
     {
         PacketHandler.HANDLER.registerMessage(
             PacketHandler.index++,
@@ -111,12 +100,6 @@ public class Magnetic extends Feature
             MessageMagneticPickup::decode,
             MessageMagneticPickup.Handler::handle
         );
-    }
-
-    @Override
-    public void registerEnchantments(IForgeRegistry<Enchantment> registry)
-    {
-        registry.register(enchantment);
     }
 
     @OnlyIn(Dist.CLIENT)

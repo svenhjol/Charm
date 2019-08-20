@@ -1,112 +1,92 @@
 package svenhjol.meson;
 
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.config.ModConfig.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
+import org.objectweb.asm.Type;
 import svenhjol.meson.handler.VillagerTradingManager;
+import svenhjol.meson.iface.MesonLoadModule;
+import svenhjol.meson.loader.ConfigLoader;
+import svenhjol.meson.loader.ModuleLoader;
 
-import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public abstract class MesonLoader
 {
     public static Map<String, MesonLoader> instances = new HashMap<>();
     public IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-    public List<Module> modules = new ArrayList<>();
     public List<Feature> features = new ArrayList<>();
-    public Map<Class<? extends Module>, Module> enabledModules = new HashMap<>();
+    public Map<String, List<Feature>> categories = new HashMap<>();
     public Map<Class<? extends Feature>, Feature> enabledFeatures = new HashMap<>();
-    public ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-    public ForgeConfigSpec config;
     public String id;
+
+    private ModuleLoader moduleLoader;
+    private ConfigLoader configLoader;
+
+    public static final Type LOAD_MODULE = Type.getType(MesonLoadModule.class);
 
     public MesonLoader(String id)
     {
         this.id = id;
-        MesonLoader.instances.put(id, this);
+        instances.put(id, this);
 
+        // attach listeners
         bus.addListener(this::setup);
+        bus.addListener(this::configChanged);
         bus.addListener(this::loadComplete);
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> bus.addListener(this::setupClient));
-    }
 
-    public void add(Module... mods)
-    {
-        modules.addAll(Arrays.asList(mods));
+        // run loaders
+        this.moduleLoader = new ModuleLoader(this);
+        this.configLoader = new ConfigLoader(this);
 
-        // run setup on each module
-        modules.forEach(module -> {
-            module.enabled = builder.define(module.getName() + " module enabled", true);
-            builder.push(module.getName());
-            module.setup(this);
-            builder.pop();
+        // add category features to the full feature set
+        categories.values().forEach(features -> {
+            this.features.addAll(features);
         });
 
-        // build config schema
-        config = builder.build();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, config);
-
-        // sync config with file
-        Path path = FMLPaths.CONFIGDIR.get().resolve(id + ".toml");
-        final CommentedFileConfig data = CommentedFileConfig.builder(path)
-            .sync()
-            .autosave()
-            .writingMode(WritingMode.REPLACE)
-            .build();
-
-        data.load();
-        config.setConfig(data);
-
-        // initialize modules
-        modules.forEach(module -> {
-            if (module.isEnabled()) {
-                enabledModules.put(module.getClass(), module);
-            }
-        });
-        enabledModules(Module::init);
+        // init all features
+        this.features.forEach(Feature::init);
     }
 
     public void setup(FMLCommonSetupEvent event)
     {
-        // setup feature registries
         enabledFeatures(feature -> {
-            feature.registerMessages();
-            feature.registerComposterItems();
+            if (feature.hasSubscriptions) {
+                MinecraftForge.EVENT_BUS.register(this);
+            }
+            feature.setup(event);
         });
 
         VillagerTradingManager.setupTrades();
     }
 
+    public void configChanged(ModConfigEvent event)
+    {
+        this.configLoader.configure();
+    }
+
     @OnlyIn(Dist.CLIENT)
     public void setupClient(FMLClientSetupEvent event)
     {
-        enabledFeatures(feature -> {
-            feature.initClient();
-            feature.registerScreens();
-        });
+        enabledFeatures(feature -> feature.setupClient(event));
     }
 
     public void loadComplete(FMLLoadCompleteEvent event)
     {
-        // no op
-    }
-
-    public void enabledModules(Consumer<Module> consumer)
-    {
-        enabledModules.values().forEach(consumer);
+        enabledFeatures(feature -> feature.loadComplete(event));
     }
 
     public void enabledFeatures(Consumer<Feature> consumer)
@@ -117,11 +97,6 @@ public abstract class MesonLoader
     public boolean hasFeature(Class<? extends Feature> feature)
     {
         return enabledFeatures.containsKey(feature);
-    }
-
-    public static void allEnabledModules(Consumer<Module> consumer)
-    {
-        MesonLoader.instances.values().forEach(instance -> instance.enabledModules(consumer));
     }
 
     public static void allEnabledFeatures(Consumer<Feature> consumer)

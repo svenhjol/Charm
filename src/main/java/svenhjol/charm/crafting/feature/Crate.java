@@ -11,9 +11,11 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.CharmApi;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.crafting.block.CrateBaseBlock;
 import svenhjol.charm.crafting.block.CrateOpenBlock;
@@ -24,13 +26,14 @@ import svenhjol.charm.crafting.tileentity.CrateTileEntity;
 import svenhjol.meson.Feature;
 import svenhjol.meson.enums.WoodType;
 import svenhjol.meson.handler.RegistryHandler;
+import svenhjol.meson.iface.MesonLoadModule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@MesonLoadModule(category = CharmCategories.CRAFTING, hasSubscriptions = true)
 public class Crate extends Feature
 {
     public static Map<WoodType, CrateOpenBlock> openTypes = new HashMap<>();
@@ -47,8 +50,6 @@ public class Crate extends Feature
     @Override
     public void init()
     {
-        super.init();
-
         // create all wood types for open and sealed crates
         for (WoodType wood : WoodType.values()) {
             openTypes.put(wood, new CrateOpenBlock(wood));
@@ -105,14 +106,8 @@ public class Crate extends Feature
     }
 
     @Override
-    public void registerScreens()
+    public void setupClient(FMLClientSetupEvent event)
     {
         ScreenManager.registerFactory(crate, CrateScreen::new);
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }

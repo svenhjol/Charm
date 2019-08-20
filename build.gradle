@@ -12,11 +12,8 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle'
 
-ext.configFile = file('gradle.properties')
-ext.config = parseConfig(configFile)
-
 group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = modname
+archivesBaseName = mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 version = "${mc_version}-${version}.${build_number}"
 
@@ -92,13 +89,5 @@ jar {
             "Implementation-Vendor" :"svenhjol",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
-    }
-}
-
-static def parseConfig(File config) {
-    config.withReader {
-        def prop = new Properties()
-        prop.load(it)
-        return (new ConfigSlurper().parse(prop))
     }
 }

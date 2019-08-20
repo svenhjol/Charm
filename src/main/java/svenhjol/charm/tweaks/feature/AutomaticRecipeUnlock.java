@@ -5,22 +5,19 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.Feature;
 import svenhjol.meson.helper.ForgeHelper;
+import svenhjol.meson.iface.MesonLoadModule;
 
 import java.util.Collection;
 
 /**
  * @see net.minecraft.item.KnowledgeBookItem
  */
+@MesonLoadModule(category = CharmCategories.TWEAKS, hasSubscriptions = true)
 public class AutomaticRecipeUnlock extends Feature
 {
-    @Override
-    public void init()
-    {
-        super.init();
-    }
-
     @Override
     public boolean isEnabled()
     {
@@ -35,11 +32,5 @@ public class AutomaticRecipeUnlock extends Feature
             Collection<IRecipe<?>> allRecipes = recipeManager.getRecipes();
             event.getPlayer().unlockRecipes(allRecipes);
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions()
-    {
-        return true;
     }
 }
