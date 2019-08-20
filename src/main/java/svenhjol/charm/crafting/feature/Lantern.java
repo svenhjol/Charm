@@ -50,7 +50,7 @@ public class Lantern extends Feature
         );
 
         // internal
-        hardness = 2.0f;
+        hardness = 3.5f;
         resistance = 4.0f;
         lightLevel = 1.0f;
         playSound = true;

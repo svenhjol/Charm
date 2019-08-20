@@ -52,7 +52,7 @@ public class BookshelfChest extends Feature
         );
 
         // internal
-        hardness = 1.0f;
+        hardness = 1.5f;
     }
 
     @Override

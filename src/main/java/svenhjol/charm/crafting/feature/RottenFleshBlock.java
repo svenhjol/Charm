@@ -33,7 +33,7 @@ public class RottenFleshBlock extends Feature
 
         // internal
         hardness = 1.0f;
-        resistance = 2.0f;
+        resistance = 3.0f;
         harvestLevel = 1;
         transformToMycelium = true;
         transformToPodzol = true;

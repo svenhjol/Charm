@@ -66,7 +66,7 @@ public class Barrel extends Feature
         );
 
         // internal
-        hardness = 1.5f;
+        hardness = 2.5f;
     }
 
     @Override

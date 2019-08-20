@@ -117,7 +117,7 @@ public class Crate extends Feature
         );
 
         // internal
-        hardness = 1.0f;
+        hardness = 2.0f;
         showCrateNames = true;
     }
 
