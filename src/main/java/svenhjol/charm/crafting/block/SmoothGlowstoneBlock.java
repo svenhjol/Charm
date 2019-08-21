@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charm.crafting.feature.SmoothGlowstone;
+import svenhjol.charm.crafting.module.SmoothGlowstone;
 import svenhjol.meson.MesonBlock;
 
 public class SmoothGlowstoneBlock extends MesonBlock

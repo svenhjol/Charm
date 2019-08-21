@@ -3,7 +3,7 @@ package svenhjol.charm.crafting.container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import svenhjol.charm.crafting.feature.Crate;
+import svenhjol.charm.crafting.module.Crate;
 
 public class CrateSlot extends Slot
 {

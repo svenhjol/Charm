@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.world.feature.NetherGoldDeposits;
+import svenhjol.charm.world.module.NetherGoldDeposits;
 import svenhjol.meson.MesonBlock;
 
 import java.util.Random;

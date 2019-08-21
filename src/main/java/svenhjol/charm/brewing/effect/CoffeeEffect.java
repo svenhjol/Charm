@@ -4,7 +4,7 @@ import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charm.brewing.feature.Coffee;
+import svenhjol.charm.brewing.module.Coffee;
 import svenhjol.meson.MesonEffect;
 
 public class CoffeeEffect extends MesonEffect

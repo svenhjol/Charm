@@ -3,7 +3,7 @@ package svenhjol.charm.enchanting.message;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent;
-import svenhjol.charm.enchanting.feature.Magnetic;
+import svenhjol.charm.enchanting.module.Magnetic;
 import svenhjol.meson.iface.IMesonMessage;
 
 import java.util.function.Supplier;

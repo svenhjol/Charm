@@ -3,7 +3,7 @@ package svenhjol.meson.loader;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.ModFileScanData;
 import net.minecraftforge.forgespi.language.ModFileScanData.AnnotationData;
-import svenhjol.meson.Feature;
+import svenhjol.meson.MesonModule;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonLoader;
 
@@ -27,29 +27,36 @@ public class ModuleLoader
 
         targets.forEach(target -> {
             try {
-                String featureClass = target.getClassType().getClassName();
-                Feature feature = (Feature) Class.forName(featureClass).newInstance();
+                String moduleClass = target.getClassType().getClassName();
+                MesonModule module = (MesonModule) Class.forName(moduleClass).newInstance();
                 Map<String, Object> data = target.getAnnotationData();
 
                 String category = (String) data.get("category");
-                feature.category = category;
+                module.category = category;
 
                 if (data.containsKey("name")) {
-                    feature.name = (String) data.get("name");
+                    module.name = (String) data.get("name");
+                }
+
+                if (data.containsKey("description")) {
+                    module.description = (String) data.get("description");
                 }
 
                 if (data.containsKey("hasSubscriptions")) {
-                    feature.hasSubscriptions = (Boolean) data.get("hasSubscriptions");
+                    module.hasSubscriptions = (Boolean) data.get("hasSubscriptions");
                 }
 
                 if (data.containsKey("enabledByDefault")) {
-                    feature.enabledByDefault = (Boolean) data.get("enabledByDefault");
+                    module.enabledByDefault = (Boolean) data.get("enabledByDefault");
                 }
 
                 if (!instance.categories.containsKey(category)) {
                     instance.categories.put(category, new ArrayList<>());
                 }
-                instance.categories.get(category).add(feature);
+
+                // add to category and to full module set
+                instance.categories.get(category).add(module);
+                instance.modules.add(module);
 
             } catch (ReflectiveOperationException e) {
                 Meson.warn("Failed to load module " + target.toString());

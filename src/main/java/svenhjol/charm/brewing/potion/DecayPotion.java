@@ -7,7 +7,7 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charm.brewing.feature.Decay;
+import svenhjol.charm.brewing.module.Decay;
 import svenhjol.meson.MesonPotion;
 
 public class DecayPotion extends MesonPotion

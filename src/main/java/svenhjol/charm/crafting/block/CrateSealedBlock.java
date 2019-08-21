@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmSounds;
-import svenhjol.charm.crafting.feature.Crate;
+import svenhjol.charm.crafting.module.Crate;
 import svenhjol.meson.enums.WoodType;
 
 public class CrateSealedBlock extends CrateBaseBlock

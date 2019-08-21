@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
 import svenhjol.charm.Charm;
-import svenhjol.charm.crafting.feature.Crate;
+import svenhjol.charm.crafting.module.Crate;
 import svenhjol.charm.crafting.tileentity.CrateTileEntity;
 import svenhjol.meson.enums.WoodType;
 

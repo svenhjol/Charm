@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.entity.WolfRenderer;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import svenhjol.charm.decoration.feature.RandomAnimalTextures;
+import svenhjol.charm.decoration.module.RandomAnimalTextures;
 
 public class CustomWolfRenderer extends WolfRenderer
 {

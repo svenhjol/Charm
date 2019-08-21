@@ -12,7 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.objectweb.asm.Type;
 import svenhjol.meson.handler.VillagerTradingManager;
-import svenhjol.meson.iface.MesonLoadModule;
+import svenhjol.meson.iface.Module;
 import svenhjol.meson.loader.ConfigLoader;
 import svenhjol.meson.loader.ModuleLoader;
 
@@ -26,15 +26,15 @@ public abstract class MesonLoader
 {
     public static Map<String, MesonLoader> instances = new HashMap<>();
     public IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-    public List<Feature> features = new ArrayList<>();
-    public Map<String, List<Feature>> categories = new HashMap<>();
-    public Map<Class<? extends Feature>, Feature> enabledFeatures = new HashMap<>();
+    public List<MesonModule> modules = new ArrayList<>();
+    public Map<String, List<MesonModule>> categories = new HashMap<>();
+    public Map<Class<? extends MesonModule>, MesonModule> enabledModules = new HashMap<>();
     public String id;
 
     private ModuleLoader moduleLoader;
     private ConfigLoader configLoader;
 
-    public static final Type LOAD_MODULE = Type.getType(MesonLoadModule.class);
+    public static final Type LOAD_MODULE = Type.getType(Module.class);
 
     public MesonLoader(String id)
     {
@@ -52,22 +52,17 @@ public abstract class MesonLoader
         this.moduleLoader = new ModuleLoader(this);
         this.configLoader = new ConfigLoader(this);
 
-        // add category features to the full feature set
-        categories.values().forEach(features -> {
-            this.features.addAll(features);
-        });
-
-        // init all features
-        this.features.forEach(Feature::init);
+        // init every module, this registers blocks
+        this.modules.forEach(MesonModule::init);
     }
 
     public void setup(FMLCommonSetupEvent event)
     {
-        enabledFeatures(feature -> {
-            if (feature.hasSubscriptions) {
+        enabledModules(module -> {
+            if (module.hasSubscriptions) {
                 MinecraftForge.EVENT_BUS.register(this);
             }
-            feature.setup(event);
+            module.setup(event);
         });
 
         VillagerTradingManager.setupTrades();
@@ -81,26 +76,26 @@ public abstract class MesonLoader
     @OnlyIn(Dist.CLIENT)
     public void setupClient(FMLClientSetupEvent event)
     {
-        enabledFeatures(feature -> feature.setupClient(event));
+        enabledModules(module -> module.setupClient(event));
     }
 
     public void loadComplete(FMLLoadCompleteEvent event)
     {
-        enabledFeatures(feature -> feature.loadComplete(event));
+        enabledModules(module -> module.loadComplete(event));
     }
 
-    public void enabledFeatures(Consumer<Feature> consumer)
+    public void enabledModules(Consumer<MesonModule> consumer)
     {
-        enabledFeatures.values().forEach(consumer);
+        enabledModules.values().forEach(consumer);
     }
 
-    public boolean hasFeature(Class<? extends Feature> feature)
+    public boolean hasModule(Class<? extends MesonModule> module)
     {
-        return enabledFeatures.containsKey(feature);
+        return enabledModules.containsKey(module);
     }
 
-    public static void allEnabledFeatures(Consumer<Feature> consumer)
+    public static void allEnabledModules(Consumer<MesonModule> consumer)
     {
-        MesonLoader.instances.values().forEach(instance -> instance.enabledFeatures(consumer));
+        MesonLoader.instances.values().forEach(instance -> instance.enabledModules(consumer));
     }
 }

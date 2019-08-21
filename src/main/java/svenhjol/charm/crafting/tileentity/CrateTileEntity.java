@@ -13,7 +13,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import svenhjol.charm.crafting.container.CrateContainer;
-import svenhjol.charm.crafting.feature.Crate;
+import svenhjol.charm.crafting.module.Crate;
 import svenhjol.meson.iface.IMesonTileEntity;
 
 public class CrateTileEntity extends LockableLootTileEntity implements IMesonTileEntity

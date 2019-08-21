@@ -3,7 +3,7 @@ package svenhjol.charm.brewing.message;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent;
-import svenhjol.charm.brewing.feature.FlavoredCake;
+import svenhjol.charm.brewing.module.FlavoredCake;
 import svenhjol.meson.iface.IMesonMessage;
 
 import java.util.function.Supplier;

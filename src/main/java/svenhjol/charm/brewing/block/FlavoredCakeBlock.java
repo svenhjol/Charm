@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.brewing.feature.FlavoredCake;
+import svenhjol.charm.brewing.module.FlavoredCake;
 import svenhjol.meson.Meson;
 import svenhjol.meson.helper.PotionHelper;
 import svenhjol.meson.iface.IMesonBlock;

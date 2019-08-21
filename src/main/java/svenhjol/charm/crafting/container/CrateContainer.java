@@ -5,7 +5,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
-import svenhjol.charm.crafting.feature.Crate;
+import svenhjol.charm.crafting.module.Crate;
 import svenhjol.charm.crafting.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonContainer;
 

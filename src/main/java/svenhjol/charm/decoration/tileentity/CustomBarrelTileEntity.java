@@ -7,7 +7,7 @@ import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import svenhjol.charm.decoration.feature.AllTheBarrels;
+import svenhjol.charm.decoration.module.AllTheBarrels;
 import svenhjol.meson.enums.WoodType;
 
 public class CustomBarrelTileEntity extends BarrelTileEntity

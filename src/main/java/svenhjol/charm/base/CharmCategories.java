@@ -2,11 +2,11 @@ package svenhjol.charm.base;
 
 public class CharmCategories
 {
-    public static final String AUTOMATION = "automation";
-    public static final String BREWING = "brewing";
-    public static final String CRAFTING = "crafting";
-    public static final String DECORATION = "decoration";
-    public static final String ENCHANTING = "enchanting";
-    public static final String TWEAKS = "tweaks";
-    public static final String WORLD = "world";
+    public static final String AUTOMATION = "Automation";
+    public static final String BREWING = "Brewing";
+    public static final String CRAFTING = "Crafting";
+    public static final String DECORATION = "Decoration";
+    public static final String ENCHANTING = "Enchanting";
+    public static final String TWEAKS = "Tweaks";
+    public static final String WORLD = "World";
 }

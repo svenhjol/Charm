@@ -10,7 +10,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import svenhjol.charm.crafting.feature.EnderPearlBlock;
+import svenhjol.charm.crafting.module.BlockOfEnderPearls;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -45,7 +45,7 @@ public class FormEndermiteGoal extends RandomWalkingGoal
                 BlockPos pos = (new BlockPos(silverfish.posX, silverfish.posY + 0.5D, silverfish.posZ)).offset(facing);
                 BlockState state = silverfish.getEntityWorld().getBlockState(pos);
 
-                if (state.getBlock() == EnderPearlBlock.block) {
+                if (state.getBlock() == BlockOfEnderPearls.block) {
                     doMerge = true;
                     return true;
                 }
@@ -69,7 +69,7 @@ public class FormEndermiteGoal extends RandomWalkingGoal
         BlockPos pos = (new BlockPos(silverfish.posX, silverfish.posY + 0.5D, silverfish.posZ)).offset(facing);
         BlockState state = world.getBlockState(pos);
 
-        if (state.getBlock() == EnderPearlBlock.block) {
+        if (state.getBlock() == BlockOfEnderPearls.block) {
             EndermiteEntity endermite = EntityType.ENDERMITE.create(world);
             if (endermite != null) {
                 world.removeBlock(pos, false);
