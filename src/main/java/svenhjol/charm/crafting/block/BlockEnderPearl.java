@@ -25,6 +25,7 @@ public class BlockEnderPearl extends MesonBlock
         setSoundType(SoundType.GLASS);
         setHardness(EnderPearlBlock.hardness);
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+        setHarvestLevel("pickaxe", 0);
     }
 
     @Override
