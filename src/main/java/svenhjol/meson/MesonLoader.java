@@ -59,9 +59,12 @@ public abstract class MesonLoader
     public void setup(FMLCommonSetupEvent event)
     {
         enabledModules(module -> {
+            // subscribe to forge event bus
             if (module.hasSubscriptions) {
-                MinecraftForge.EVENT_BUS.register(this);
+                MinecraftForge.EVENT_BUS.register(module);
             }
+
+            // run setup only on enabled modules
             module.setup(event);
         });
 

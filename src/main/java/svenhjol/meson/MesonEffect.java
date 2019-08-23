@@ -6,9 +6,13 @@ import svenhjol.meson.iface.IMesonEffect;
 
 public abstract class MesonEffect extends Effect implements IMesonEffect
 {
-    public MesonEffect(EffectType effectType, int color)
+    protected MesonModule module;
+
+    public MesonEffect(MesonModule module, EffectType effectType, int color)
     {
         super(effectType, color);
+        this.module = module;
+        register(module,"coffee_effect");
     }
 
     protected void addEffect(Effect effect)

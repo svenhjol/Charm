@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Module
 {
+    String mod();
     String category();
     String name() default "";
     String description() default "";

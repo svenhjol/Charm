@@ -14,10 +14,13 @@ public abstract class MesonPotion extends Potion implements IMesonPotion
 {
     protected Ingredient potionBase;
     protected Ingredient potionReagant;
+    protected MesonModule module;
 
-    public MesonPotion(EffectInstance... effects)
+    public MesonPotion(MesonModule module, String name, EffectInstance... effects)
     {
         super(effects);
+        this.module = module;
+        register(module, name);
     }
 
     public void setPotionBase(ItemStack base)

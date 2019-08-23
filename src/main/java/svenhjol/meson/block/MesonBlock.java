@@ -1,20 +1,27 @@
-package svenhjol.meson;
+package svenhjol.meson.block;
 
-import net.minecraft.item.Item;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import svenhjol.meson.iface.IMesonItem;
+import svenhjol.meson.MesonModule;
+import svenhjol.meson.iface.IMesonBlock;
 
-public abstract class MesonItem extends Item implements IMesonItem
+public abstract class MesonBlock extends Block implements IMesonBlock
 {
     protected MesonModule module;
 
-    public MesonItem(MesonModule module, String name, Item.Properties props)
+    public MesonBlock(MesonModule module, String name, Block.Properties props)
     {
         super(props);
         this.module = module;
         register(module, name);
+    }
+
+    @Override
+    public ItemGroup getItemGroup()
+    {
+        return ItemGroup.BUILDING_BLOCKS;
     }
 
     @Override

@@ -31,6 +31,9 @@ public class ModuleLoader
                 MesonModule module = (MesonModule) Class.forName(moduleClass).newInstance();
                 Map<String, Object> data = target.getAnnotationData();
 
+                String mod = (String) data.get("mod");
+                module.mod = mod;
+
                 String category = (String) data.get("category");
                 module.category = category;
 
