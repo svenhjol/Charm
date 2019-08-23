@@ -2,9 +2,6 @@
 
 ## 1.3.5
 
-### Tweaks
-* Added feature "Remove Nitwits" that prevents nitwits from spawning as new villagers.
-
 ### General
 * Some hardness and blast resistance changes, [PR #158](https://github.com/svenhjol/Charm/pull/158/commits)
 * Ender Pearl block effective tool changed to pickaxe, hardness remains at 2.0
