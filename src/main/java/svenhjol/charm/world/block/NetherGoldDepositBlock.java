@@ -4,27 +4,24 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import svenhjol.charm.Charm;
 import svenhjol.charm.world.module.NetherGoldDeposits;
-import svenhjol.meson.MesonBlock;
+import svenhjol.meson.MesonModule;
+import svenhjol.meson.block.MesonBlock;
 
 import java.util.Random;
 
 public class NetherGoldDepositBlock extends MesonBlock
 {
-    public NetherGoldDepositBlock()
+    public NetherGoldDepositBlock(MesonModule module)
     {
-        super(Block.Properties
+        super(module, "nether_gold_deposit", Block.Properties
             .create(Material.ROCK)
             .sound(SoundType.STONE)
             .hardnessAndResistance(NetherGoldDeposits.hardness, NetherGoldDeposits.resistance)
         );
-
-        register(new ResourceLocation(Charm.MOD_ID, "nether_gold_deposit"));
     }
 
     @Override

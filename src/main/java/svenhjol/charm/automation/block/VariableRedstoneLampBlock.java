@@ -8,11 +8,10 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.charm.Charm;
-import svenhjol.meson.MesonBlock;
+import svenhjol.meson.MesonModule;
+import svenhjol.meson.block.MesonBlock;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -21,9 +20,9 @@ public class VariableRedstoneLampBlock extends MesonBlock
 {
     public static IntegerProperty LEVEL = IntegerProperty.create("level", 0, 15);
 
-    public VariableRedstoneLampBlock()
+    public VariableRedstoneLampBlock(MesonModule module)
     {
-        super(Block.Properties
+        super(module, "variable_redstone_lamp", Block.Properties
             .create(Material.REDSTONE_LIGHT)
             .sound(SoundType.GLASS)
             .hardnessAndResistance(0.3F)
@@ -31,7 +30,6 @@ public class VariableRedstoneLampBlock extends MesonBlock
         );
 
         setDefaultState(this.getDefaultState().with(LEVEL, 0));
-        register(new ResourceLocation(Charm.MOD_ID, "variable_redstone_lamp"));
     }
 
     @Override
@@ -101,6 +99,5 @@ public class VariableRedstoneLampBlock extends MesonBlock
     protected void updateState(World world, BlockPos pos, BlockState state, int power)
     {
         world.setBlockState(pos, state.with(LEVEL, power), 2);
-//        world.getChunkProvider().getLightManager().checkBlock(pos);
     }
 }

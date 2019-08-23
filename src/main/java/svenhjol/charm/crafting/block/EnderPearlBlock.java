@@ -5,28 +5,25 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.module.BlockOfEnderPearls;
-import svenhjol.meson.MesonBlock;
+import svenhjol.meson.MesonModule;
+import svenhjol.meson.block.MesonBlock;
 
 import java.util.Random;
 
 public class EnderPearlBlock extends MesonBlock
 {
-    public EnderPearlBlock()
+    public EnderPearlBlock(MesonModule module)
     {
-        super(Block.Properties
+        super(module, "ender_pearl_block", Block.Properties
             .create(Material.GLASS)
             .sound(SoundType.GLASS)
             .hardnessAndResistance(BlockOfEnderPearls.hardness)
         );
-
-        register(new ResourceLocation(Charm.MOD_ID, "ender_pearl_block"));
     }
 
     // copypasta from MyceliumBlock

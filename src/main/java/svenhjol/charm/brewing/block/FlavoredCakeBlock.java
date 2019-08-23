@@ -12,13 +12,13 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
-import svenhjol.charm.Charm;
 import svenhjol.charm.brewing.module.FlavoredCake;
 import svenhjol.meson.Meson;
+import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PotionHelper;
 import svenhjol.meson.iface.IMesonBlock;
 
@@ -29,15 +29,17 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
     public String baseName;
     public ItemStack flavor;
     public int duration;
+    private MesonModule module;
 
-    public FlavoredCakeBlock(String potionName)
+    public FlavoredCakeBlock(MesonModule module, String potionName)
     {
-        // set up block properties
+        // init block
         super(Block.Properties
             .create(Material.CAKE)
             .hardnessAndResistance(0.5F)
             .sound(SoundType.CLOTH)
         );
+        this.module = module;
 
         // get the mod and potion name from the fully qualified potion name
         String baseName, modName, longName, shortName;
@@ -77,9 +79,9 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
         if (duration == 0) duration = 10;
         setDuration(duration);
 
-        // setup cake name and add to pool
+        // register cake block, add to pool
         this.baseName = "cake_" + baseName;
-        register(new ResourceLocation(Charm.MOD_ID, this.baseName));
+        register(module, this.baseName);
 
         FlavoredCake.cakes.put(potionName, this);
         FlavoredCake.types.put(getPotion(), this);
@@ -89,6 +91,20 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
     public ItemGroup getItemGroup()
     {
         return ItemGroup.FOOD;
+    }
+
+    @Override
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
+    {
+        if (isEnabled() || group == ItemGroup.SEARCH) {
+            super.fillItemGroup(group, items);
+        }
+    }
+
+    @Override
+    public boolean isEnabled()
+    {
+        return module.isEnabled();
     }
 
     @Override

@@ -1,12 +1,13 @@
 package svenhjol.charm.brewing.module;
 
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.brewing.effect.CoffeeEffect;
 import svenhjol.charm.brewing.potion.CoffeePotion;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(category = CharmCategories.BREWING)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.BREWING)
 public class Coffee extends MesonModule
 {
     public static CoffeeEffect effect;
@@ -17,7 +18,7 @@ public class Coffee extends MesonModule
     @Override
     public void init()
     {
-        effect = new CoffeeEffect();
-        potion = new CoffeePotion();
+        effect = new CoffeeEffect(this);
+        potion = new CoffeePotion(this);
     }
 }

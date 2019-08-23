@@ -8,15 +8,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.module.BlockOfRottenFlesh;
-import svenhjol.meson.MesonBlock;
+import svenhjol.meson.MesonModule;
+import svenhjol.meson.block.MesonBlock;
 import svenhjol.meson.helper.WorldHelper;
 
 import java.util.ArrayList;
@@ -29,17 +28,15 @@ public class RottenFleshBlock extends MesonBlock
     private static List<Block> transformables = new ArrayList<>(Arrays.asList(
         Blocks.DIRT, Blocks.GRASS, Blocks.GRASS_PATH));
 
-    public RottenFleshBlock()
+    public RottenFleshBlock(MesonModule module)
     {
-        super(Block.Properties
+        super(module, "rotten_flesh_block", Block.Properties
             .create(Material.ORGANIC)
             .sound(SoundType.GROUND)
             .hardnessAndResistance(BlockOfRottenFlesh.hardness, BlockOfRottenFlesh.resistance)
             .harvestTool(ToolType.SHOVEL)
             .tickRandomly()
         );
-
-        register(new ResourceLocation(Charm.MOD_ID, "rotten_flesh_block"));
     }
 
     @Override

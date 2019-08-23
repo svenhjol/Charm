@@ -14,9 +14,9 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
-import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.module.Crate;
 import svenhjol.charm.crafting.tileentity.CrateTileEntity;
+import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
 
 import java.util.List;
@@ -25,10 +25,9 @@ public class CrateOpenBlock extends CrateBaseBlock
 {
     public static final ResourceLocation CONTENTS = new ResourceLocation("contents");
 
-    public CrateOpenBlock(WoodType wood)
+    public CrateOpenBlock(MesonModule module, WoodType wood)
     {
-        super(wood);
-        register(new ResourceLocation(Charm.MOD_ID, "crate_open_" + this.wood.getName()));
+        super(module, "crate_open_" + wood.getName(), wood);
     }
 
     @Override

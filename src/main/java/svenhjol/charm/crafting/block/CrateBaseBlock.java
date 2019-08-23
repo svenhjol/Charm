@@ -17,18 +17,24 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import svenhjol.charm.crafting.tileentity.CrateTileEntity;
-import svenhjol.meson.MesonBlock;
+import svenhjol.meson.MesonModule;
+import svenhjol.meson.block.MesonBlock;
 import svenhjol.meson.enums.WoodType;
 
 import javax.annotation.Nullable;
 
 public abstract class CrateBaseBlock extends MesonBlock
 {
-    public WoodType wood;
+    protected WoodType wood;
 
-    public CrateBaseBlock(WoodType wood)
+    public CrateBaseBlock(MesonModule module, String name, WoodType wood)
     {
-        super(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F).sound(SoundType.WOOD));
+        super(module, name, Block.Properties
+            .create(Material.WOOD)
+            .hardnessAndResistance(1.5F)
+            .sound(SoundType.WOOD)
+        );
+
         this.wood = wood;
     }
 
@@ -120,5 +126,10 @@ public abstract class CrateBaseBlock extends MesonBlock
             stack.setTagInfo("BlockEntityTag", tag);
         }
         return stack;
+    }
+
+    public WoodType getWood()
+    {
+        return wood;
     }
 }

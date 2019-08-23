@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(category = CharmCategories.DECORATION)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION)
 public class AllTheBarrels extends MesonModule
 {
     public static List<CustomBarrelBlock> barrels = new ArrayList<>();
@@ -29,7 +29,7 @@ public class AllTheBarrels extends MesonModule
     {
         Arrays.stream(WoodType.values())
             .filter(type -> !type.equals(WoodType.OAK)) // don't include the vanilla barrel
-            .forEach(type -> barrels.add(new CustomBarrelBlock(type)));
+            .forEach(type -> barrels.add(new CustomBarrelBlock(this, type)));
 
         tile = TileEntityType.Builder.create(CustomBarrelTileEntity::new).build(null);
         tile.setRegistryName(new ResourceLocation(Charm.MOD_ID, "barrel"));

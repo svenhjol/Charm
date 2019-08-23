@@ -7,6 +7,7 @@ import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.world.block.NetherGoldDepositBlock;
 import svenhjol.meson.MesonModule;
@@ -15,7 +16,7 @@ import svenhjol.meson.iface.Module;
 
 import static net.minecraft.world.gen.feature.Feature.ORE;
 
-@Module(category = CharmCategories.WORLD,
+@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD,
     description = "Gold deposits spawn in the Nether that can be broken to receive gold nuggets.")
 public class NetherGoldDeposits extends MesonModule
 {
@@ -34,7 +35,7 @@ public class NetherGoldDeposits extends MesonModule
     @Override
     public void init()
     {
-        block = new NetherGoldDepositBlock();
+        block = new NetherGoldDepositBlock(this);
     }
 
     @Override

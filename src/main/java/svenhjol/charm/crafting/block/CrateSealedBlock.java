@@ -9,19 +9,18 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.crafting.module.Crate;
+import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
 
 public class CrateSealedBlock extends CrateBaseBlock
 {
     public static final ResourceLocation CONTENTS = new ResourceLocation("contents");
 
-    public CrateSealedBlock(WoodType wood)
+    public CrateSealedBlock(MesonModule module, WoodType wood)
     {
-        super(wood);
-        register(new ResourceLocation(Charm.MOD_ID, "crate_sealed_" + this.wood.getName()));
+        super(module, "crate_sealed_" + wood.getName(), wood);
     }
 
     @Override

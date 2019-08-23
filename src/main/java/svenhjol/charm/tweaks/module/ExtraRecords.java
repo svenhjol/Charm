@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@Module(category = CharmCategories.TWEAKS, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true)
 public class ExtraRecords extends MesonModule
 {
     public static String[] recordNames = new String[] {
@@ -57,7 +57,7 @@ public class ExtraRecords extends MesonModule
     {
         for (String name : recordNames) {
             SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "record." + name));
-            records.add(new CharmRecordItem("record_" + name, sound, 0));
+            records.add(new CharmRecordItem(this, "record_" + name, sound, 0));
         }
     }
 

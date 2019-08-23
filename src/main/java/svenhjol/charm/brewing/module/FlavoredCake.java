@@ -22,6 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.brewing.block.FlavoredCakeBlock;
 import svenhjol.charm.brewing.message.MessageCakeImbue;
@@ -37,7 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Module(category = CharmCategories.BREWING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.BREWING, hasSubscriptions = true)
 public class FlavoredCake extends MesonModule
 {
     @Config
@@ -58,7 +59,7 @@ public class FlavoredCake extends MesonModule
     @Override
     public void init()
     {
-        validPotions.forEach(FlavoredCakeBlock::new);
+        validPotions.forEach(potion -> new FlavoredCakeBlock(this, potion));
         DispenserBlock.registerDispenseBehavior(Items.POTION, new DispenseImbueBehavior());
     }
 

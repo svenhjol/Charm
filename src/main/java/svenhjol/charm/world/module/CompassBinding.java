@@ -15,6 +15,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.world.item.BoundCompassItem;
 import svenhjol.meson.MesonModule;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Module(category = CharmCategories.WORLD, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true)
 public class CompassBinding extends MesonModule
 {
     public static BoundCompassItem item;
@@ -41,7 +42,7 @@ public class CompassBinding extends MesonModule
     @Override
     public void init()
     {
-        item = new BoundCompassItem();
+        item = new BoundCompassItem(this);
         bindableItems.add(Items.COMPASS);
         bindableItems.add(item);
     }

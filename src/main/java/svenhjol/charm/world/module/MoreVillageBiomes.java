@@ -9,6 +9,7 @@ import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.WorldHelper;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import static net.minecraft.world.gen.feature.Feature.VILLAGE;
 
-@Module(category = CharmCategories.WORLD, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true)
 public class MoreVillageBiomes extends MesonModule
 {
     public static List<Biome> biomes = Arrays.asList(Biomes.JUNGLE, Biomes.SWAMP);

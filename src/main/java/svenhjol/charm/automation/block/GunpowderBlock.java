@@ -2,30 +2,27 @@ package svenhjol.charm.automation.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FallingBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-import svenhjol.charm.Charm;
+import svenhjol.meson.MesonModule;
+import svenhjol.meson.block.MesonFallingBlock;
 import svenhjol.meson.iface.IMesonBlock;
 
-public class GunpowderBlock extends FallingBlock implements IMesonBlock
+public class GunpowderBlock extends MesonFallingBlock implements IMesonBlock
 {
-    public GunpowderBlock()
+    public GunpowderBlock(MesonModule module)
     {
-        super(Block.Properties
+        super(module, "gunpowder_block", Block.Properties
             .create(Material.SAND)
             .sound(SoundType.SAND)
             .hardnessAndResistance(0.5F)
             .harvestTool(ToolType.SHOVEL)
         );
-
-        register(new ResourceLocation(Charm.MOD_ID, "gunpowder_block"));
     }
 
     @Override

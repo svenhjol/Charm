@@ -16,11 +16,12 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.enchanting.enchantment.MagneticEnchantment;
 import svenhjol.charm.enchanting.message.MessageMagneticPickup;
-import svenhjol.meson.MesonModule;
 import svenhjol.meson.MesonEnchantment;
+import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.ClientHelper;
 import svenhjol.meson.helper.EnchantmentsHelper;
@@ -32,7 +33,7 @@ import svenhjol.meson.iface.Module;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(category = CharmCategories.ENCHANTING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true)
 public class Magnetic extends MesonModule
 {
     @Config(name = "Attraction range", description = "Drops within this range of the player will be picked up.")
@@ -44,7 +45,7 @@ public class Magnetic extends MesonModule
     @Override
     public void init()
     {
-        enchantment = new MagneticEnchantment();
+        enchantment = new MagneticEnchantment(this);
     }
 
     @SubscribeEvent

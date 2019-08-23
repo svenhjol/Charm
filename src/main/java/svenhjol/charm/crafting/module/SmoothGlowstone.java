@@ -1,11 +1,12 @@
 package svenhjol.charm.crafting.module;
 
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.crafting.block.SmoothGlowstoneBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(category = CharmCategories.CRAFTING)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.CRAFTING)
 public class SmoothGlowstone extends MesonModule
 {
     public static SmoothGlowstoneBlock block;
@@ -14,6 +15,6 @@ public class SmoothGlowstone extends MesonModule
     @Override
     public void init()
     {
-        block = new SmoothGlowstoneBlock();
+        block = new SmoothGlowstoneBlock(this);
     }
 }

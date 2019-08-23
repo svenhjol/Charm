@@ -11,11 +11,12 @@ import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(category = CharmCategories.TWEAKS, hasSubscriptions = true,
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "As long as a Totem of Undying is in your inventory, it will be consumed to protect you from death.")
 public class UseTotemFromInventory extends MesonModule
 {

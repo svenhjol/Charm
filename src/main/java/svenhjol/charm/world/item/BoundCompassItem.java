@@ -13,8 +13,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import svenhjol.charm.Charm;
 import svenhjol.meson.MesonItem;
+import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemNBTHelper;
 
 import javax.annotation.Nullable;
@@ -29,9 +29,9 @@ public class BoundCompassItem extends MesonItem
     private static final String ROTATION = "rotation";
     private static final String LASTUPDATE = "lastUpdateTick";
 
-    public BoundCompassItem()
+    public BoundCompassItem(MesonModule module)
     {
-        super(new Item.Properties()
+        super(module, "bound_compass", new Item.Properties()
             .group(ItemGroup.MISC)
             .maxStackSize(1)
         );
@@ -120,8 +120,6 @@ public class BoundCompassItem extends MesonItem
                 return Math.atan2(pos.getZ() - entity.posZ, pos.getX() - entity.posX);
             }
         });
-
-        register(new ResourceLocation(Charm.MOD_ID, "bound_compass"));
     }
 
     public static int getColor(ItemStack stack)

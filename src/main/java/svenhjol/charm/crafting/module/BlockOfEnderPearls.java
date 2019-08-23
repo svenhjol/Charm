@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.crafting.block.EnderPearlBlock;
 import svenhjol.charm.crafting.goal.FormEndermiteGoal;
@@ -23,7 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(category = CharmCategories.CRAFTING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.CRAFTING, hasSubscriptions = true)
 public class BlockOfEnderPearls extends MesonModule
 {
     public static EnderPearlBlock block;
@@ -35,7 +36,7 @@ public class BlockOfEnderPearls extends MesonModule
     @Override
     public void init()
     {
-        block = new EnderPearlBlock();
+        block = new EnderPearlBlock(this);
     }
 
     /**

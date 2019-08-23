@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Module(category = CharmCategories.CRAFTING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.CRAFTING, hasSubscriptions = true)
 public class Crate extends MesonModule
 {
     public static Map<WoodType, CrateOpenBlock> openTypes = new HashMap<>();
@@ -52,8 +52,8 @@ public class Crate extends MesonModule
     {
         // create all wood types for open and sealed crates
         for (WoodType wood : WoodType.values()) {
-            openTypes.put(wood, new CrateOpenBlock(wood));
-            sealedTypes.put(wood, new CrateSealedBlock(wood));
+            openTypes.put(wood, new CrateOpenBlock(this, wood));
+            sealedTypes.put(wood, new CrateSealedBlock(this, wood));
         }
 
         // add invalid blocks
@@ -84,7 +84,7 @@ public class Crate extends MesonModule
         if (!(block instanceof CrateBaseBlock)) return;
 
         if (right.getItem() == Items.IRON_INGOT && block instanceof CrateOpenBlock) {
-            WoodType wood = ((CrateOpenBlock) block).wood;
+            WoodType wood = ((CrateOpenBlock) block).getWood();
 
             out = new ItemStack(sealedTypes.get(wood));
             out.setTag(left.getTag());

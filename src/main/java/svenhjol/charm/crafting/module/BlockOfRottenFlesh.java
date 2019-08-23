@@ -1,12 +1,12 @@
 package svenhjol.charm.crafting.module;
 
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.crafting.block.RottenFleshBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-
-@Module(category = CharmCategories.CRAFTING)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.CRAFTING)
 public class BlockOfRottenFlesh extends MesonModule
 {
     public static RottenFleshBlock block;
@@ -16,6 +16,6 @@ public class BlockOfRottenFlesh extends MesonModule
     @Override
     public void init()
     {
-        block = new RottenFleshBlock();
+        block = new RottenFleshBlock(this);
     }
 }

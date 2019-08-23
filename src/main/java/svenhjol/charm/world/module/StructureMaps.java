@@ -15,6 +15,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemNBTHelper;
@@ -24,7 +25,7 @@ import svenhjol.meson.iface.Module;
 import javax.annotation.Nullable;
 import java.util.*;
 
-@Module(category = CharmCategories.WORLD, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true)
 public class StructureMaps extends MesonModule
 {
     @Config(name = "Trade Level", description = "The level at which a cartographer will trade structure maps.\n" +

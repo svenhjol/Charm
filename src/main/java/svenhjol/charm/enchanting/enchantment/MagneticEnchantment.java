@@ -4,16 +4,15 @@ import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
-import net.minecraft.util.ResourceLocation;
-import svenhjol.charm.Charm;
 import svenhjol.meson.MesonEnchantment;
+import svenhjol.meson.MesonModule;
 
 public class MagneticEnchantment extends MesonEnchantment
 {
-    public MagneticEnchantment()
+    public MagneticEnchantment(MesonModule module)
     {
         super(Rarity.UNCOMMON, EnchantmentType.DIGGER, EquipmentSlotType.MAINHAND);
-        register(new ResourceLocation(Charm.MOD_ID, "magnetic"));
+        register(module, "magnetic");
     }
 
     @Override
