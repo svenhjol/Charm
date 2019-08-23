@@ -3,9 +3,15 @@ package svenhjol.charm.base.integration.jei;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
+import svenhjol.charm.Charm;
+import svenhjol.charm.brewing.feature.FlavoredCake;
 import svenhjol.charm.crafting.feature.Composter;
+import svenhjol.charm.crafting.feature.Crate;
+import svenhjol.charm.tweaks.feature.CompassBinding;
+import svenhjol.charm.world.feature.Moonstone;
 import svenhjol.meson.helper.ItemHelper;
 
 import java.util.*;
@@ -62,5 +68,35 @@ public class CharmJeiPlugin implements IModPlugin
                     return new ComposterRecipe(entry.getValue(), outputs, entry.getKey());
                 })
                 .collect(Collectors.toList()), composter.getUid());
+
+        // add JEI descriptions for flavored cake.  Fix #139
+        if (Charm.hasFeature(FlavoredCake.class)) {
+            final List<ItemStack> cakeItems = new ArrayList<>();
+            FlavoredCake.cakes.values().forEach(cake -> cakeItems.add(new ItemStack(cake)));
+            registry.addIngredientInfo(cakeItems, VanillaTypes.ITEM, "charm.jei.flavoredcake.desc");
+        }
+
+        // JEI description for bound compass
+        if (Charm.hasFeature(CompassBinding.class)) {
+            registry.addIngredientInfo(new ItemStack(CompassBinding.boundCompass), VanillaTypes.ITEM, "charm.jei.boundcompass.desc");
+        }
+
+        // JEI description for crates
+        if (Charm.hasFeature(Crate.class)) {
+            List<ItemStack> crates = new ArrayList<>();
+            for (int i = 0; i < 6; i++) {
+                crates.addAll(Arrays.asList(new ItemStack(Crate.crate, 1, i), new ItemStack(Crate.crateSealed, 1, i)));
+            }
+            registry.addIngredientInfo(crates, VanillaTypes.ITEM, "charm.jei.crates.desc");
+        }
+
+        // JEI description for moonstone
+        if (Charm.hasFeature(Moonstone.class)) {
+            List<ItemStack> moonstones = new ArrayList<>();
+            for (int i = 0; i < 16; i++) {
+                moonstones.add(new ItemStack(Moonstone.moonstone, 1, i));
+            }
+            registry.addIngredientInfo(moonstones, VanillaTypes.ITEM, "charm.jei.moonstone.desc");
+        }
     }
 }

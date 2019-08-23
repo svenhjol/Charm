@@ -40,7 +40,6 @@ public class ComposterRecipe implements IRecipeWrapper
         String numItems = max > 1 ? "1-" + max + " items" : "1 item";
         drawStringCentered(minecraft.fontRenderer, TextFormatting.DARK_GRAY + "Compost chance: " + Math.round(chance * 100) + "%", 81, 1);
         drawStringCentered(minecraft.fontRenderer, TextFormatting.DARK_GRAY + "Outputs " + numItems, 81, 87);
-//        y += minecraft.fontRenderer.FONT_HEIGHT + 2;
     }
 
     @SideOnly(Side.CLIENT)
