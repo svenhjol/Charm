@@ -63,3 +63,4 @@ Temporary Items
 build.sh
 runclient.sh
 debugclient.sh
+buildmmc.sh
