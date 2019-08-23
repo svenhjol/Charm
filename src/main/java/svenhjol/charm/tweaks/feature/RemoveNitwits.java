@@ -1,4 +1,4 @@
-package svenhjol.charm.world.feature;
+package svenhjol.charm.tweaks.feature;
 
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.util.ResourceLocation;

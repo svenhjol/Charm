@@ -16,7 +16,6 @@ public class CharmWorld extends Module
         features.add(new Moonstone());
         features.add(new MoreVillageBiomes());
         features.add(new NetherGoldDeposits());
-        features.add(new RemoveNitwits());
         features.add(new Spectre());
         features.add(new SpectreHaunting());
         features.add(new StructureMaps());
