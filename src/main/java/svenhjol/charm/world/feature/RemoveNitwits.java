@@ -28,7 +28,6 @@ public class RemoveNitwits extends Feature
             int i = 0;
             EntityVillager villager = (EntityVillager)event.getEntity();
             ResourceLocation res = villager.getProfessionForge().getRegistryName();
-
             DifficultyInstance difficulty = event.getWorld().getDifficultyForLocation(new BlockPos(villager));
 
             while (res != null && res.toString().equals("minecraft:nitwit")) {
