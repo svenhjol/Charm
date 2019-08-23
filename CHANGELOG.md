@@ -1,5 +1,15 @@
 # Changelog for Charm 1.12
 
+## 1.3.5
+
+### General
+* Some hardness and blast resistance changes, [PR #158](https://github.com/svenhjol/Charm/pull/158/commits)
+* Ender Pearl block effective tool changed to pickaxe, hardness remains at 2.0
+* JEI info tabs for flavored cake, bound compasses, moonstone and crates. Fix #139
+
+### World
+* Added feature "Remove Nitwits" that prevents nitwits from spawning as new villagers.
+
 ## 1.3.4
 
 ### Automation
