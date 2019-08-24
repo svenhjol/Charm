@@ -8,6 +8,7 @@ public class CharmCategories
     public static final String DECORATION = "Decoration";
     public static final String ENCHANTING = "Enchanting";
     public static final String SMITHING = "Smithing";
+    public static final String TOOLS = "Tools";
     public static final String TWEAKS = "Tweaks";
     public static final String WORLD = "World";
 }
