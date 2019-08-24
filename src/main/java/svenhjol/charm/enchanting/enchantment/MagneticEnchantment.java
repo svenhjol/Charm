@@ -11,8 +11,8 @@ public class MagneticEnchantment extends MesonEnchantment
 {
     public MagneticEnchantment(MesonModule module)
     {
-        super(Rarity.UNCOMMON, EnchantmentType.DIGGER, EquipmentSlotType.MAINHAND);
-        register(module, "magnetic");
+        super(module, "magnetic",
+            Rarity.UNCOMMON, EnchantmentType.DIGGER, EquipmentSlotType.MAINHAND);
     }
 
     @Override
