@@ -61,12 +61,12 @@ public abstract class MesonLoader
         modules(module -> {
             if (!module.isEnabled()) return;
 
-            // subscribe to forge event bus
+            // if module enabled, subscribe to forge event bus
             if (module.hasSubscriptions) {
                 MinecraftForge.EVENT_BUS.register(module);
             }
 
-            // run setup only on enabled modules
+            // if module enabled, run its setup
             module.setup(event);
         });
 
