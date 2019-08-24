@@ -5,6 +5,7 @@ import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.config.ModConfig.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
@@ -20,6 +21,16 @@ public abstract class MesonModule
     public String category = "";
     public String name = "";
     public String description = "";
+
+    public boolean isEnabled()
+    {
+        return enabled;
+    }
+
+    public String getName()
+    {
+        return this.name.isEmpty() ? this.getClass().getSimpleName() : this.name;
+    }
 
     public void init()
     {
@@ -37,23 +48,18 @@ public abstract class MesonModule
         // register screens, etc
     }
 
+    public void configChanged(ModConfigEvent event)
+    {
+        // modules can be enabled/disabled when config changes
+    }
+
     public void loadComplete(FMLLoadCompleteEvent event)
     {
         // do final things
     }
 
-    public boolean isEnabled()
-    {
-        return enabled;
-    }
-
-    public String getName()
-    {
-        return this.name.isEmpty() ? this.getClass().getSimpleName() : this.name;
-    }
-
     public void registerTrades(Int2ObjectMap<List<ITrade>> trades, VillagerProfession profession)
     {
-        // no op
+        // register villager trades based on profession
     }
 }
