@@ -23,6 +23,11 @@ public class PlayerHelper
         return true;
     }
 
+    public static void damageHeldItem(PlayerEntity player, Hand hand, ItemStack stack, int damage)
+    {
+        stack.damageItem(damage, player, (p) -> { player.sendBreakAnimation(hand); });
+    }
+
     public static void setHeldItem(PlayerEntity player, Hand hand, ItemStack item)
     {
         ItemStack stack = player.getHeldItem(hand);
