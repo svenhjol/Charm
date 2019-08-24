@@ -7,7 +7,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION)
-public class GoldLantern extends MesonModule
+public class GoldLanterns extends MesonModule
 {
     public static GoldLanternBlock block;
 
