@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP",
+    "P P",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "tag": "minecraft:wooden_slabs"
+    }
+  },
+  "result": {
+    "item": "minecraft:barrel"
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "charm:module_enabled",
+        "module": "all_the_barrels"
+      }
+    }
+  ]
+}

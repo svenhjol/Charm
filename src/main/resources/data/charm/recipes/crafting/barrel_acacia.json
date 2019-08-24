@@ -7,13 +7,13 @@
     "S": {"item": "minecraft:acacia_slab"},
     "P": {"item": "minecraft:acacia_planks"}
   },
-  "conditions": [
-    {
-      "type": "forge:item_exists",
-      "item": "charm:barrel_acacia"
-    }
-  ],
   "result": {
     "item": "charm:barrel_acacia"
-  }
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "all_the_barrels"
+    }
+  ]
 }
