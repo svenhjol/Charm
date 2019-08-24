@@ -39,9 +39,9 @@ public class RegistryHandler
         }
     }
 
-    public static void registerContainer(ContainerType<?> container)
+    public static void registerContainer(ContainerType<?> container, ResourceLocation res)
     {
-        addRegisterable(container, container.getRegistryName());
+        addRegisterable(container, res);
     }
 
     public static void registerEffect(Effect effect, ResourceLocation res)
@@ -73,9 +73,9 @@ public class RegistryHandler
         addRegisterable(sound, sound.getRegistryName());
     }
 
-    public static void registerTile(TileEntityType<?> tile)
+    public static void registerTile(TileEntityType<?> tile, ResourceLocation res)
     {
-        addRegisterable(tile, tile.getRegistryName());
+        addRegisterable(tile, res);
     }
 
     @SubscribeEvent
@@ -96,7 +96,9 @@ public class RegistryHandler
         if (!objects.containsKey(type)) objects.put(type, new ArrayList<>());
 
         if (!(objects.containsKey(type) && objects.get(type).contains(obj))) {
-            if (res == null && obj.getRegistryName() == null) return; // can't set it
+            if (res == null && obj.getRegistryName() == null) {
+                return; // can't set it
+            }
 
             if (obj.getRegistryName() == null) {
                 obj.setRegistryName(res);
