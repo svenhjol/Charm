@@ -1,4 +1,4 @@
-package svenhjol.charm.world.module;
+package svenhjol.charm.tools.module;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +17,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.world.item.BoundCompassItem;
+import svenhjol.charm.tools.item.BoundCompassItem;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.Config;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TOOLS, hasSubscriptions = true)
 public class CompassBinding extends MesonModule
 {
     public static BoundCompassItem item;

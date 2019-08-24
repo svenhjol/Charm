@@ -1,4 +1,4 @@
-package svenhjol.charm.world.item;
+package svenhjol.charm.tools.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
