@@ -42,7 +42,7 @@ public class Crate extends MesonModule
     public static List<Class<? extends Item>> invalidItems = new ArrayList<>();
 
     @ObjectHolder("charm:crate")
-    public static ContainerType<CrateContainer> crate;
+    public static ContainerType<CrateContainer> container;
 
     @ObjectHolder("charm:crate")
     public static TileEntityType<CrateTileEntity> tile;
@@ -61,14 +61,13 @@ public class Crate extends MesonModule
         CharmApi.addInvalidCrateBlock(CrateOpenBlock.class);
         CharmApi.addInvalidCrateBlock(CrateSealedBlock.class);
 
-        crate = new ContainerType<>(CrateContainer::instance);
+        ResourceLocation res = new ResourceLocation(Charm.MOD_ID, "crate");
+
+        container = new ContainerType<>(CrateContainer::instance);
         tile = TileEntityType.Builder.create(CrateTileEntity::new).build(null);
 
-        crate.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate"));
-        tile.setRegistryName(new ResourceLocation(Charm.MOD_ID, "crate"));
-
-        RegistryHandler.registerContainer(crate);
-        RegistryHandler.registerTile(tile);
+        RegistryHandler.registerContainer(container, res);
+        RegistryHandler.registerTile(tile, res);
         RegistryHandler.registerSound(CharmSounds.WOOD_SMASH);
     }
 
@@ -101,13 +100,13 @@ public class Crate extends MesonModule
     public static boolean canInsertItem(ItemStack stack)
     {
         Class<? extends Block> blockClass = Block.getBlockFromItem(stack.getItem()).getClass();
-        return !Crate.invalidItems.contains(stack.getItem().getClass())
-            && !Crate.invalidBlocks.contains(blockClass);
+        return !invalidItems.contains(stack.getItem().getClass())
+            && !invalidBlocks.contains(blockClass);
     }
 
     @Override
     public void setupClient(FMLClientSetupEvent event)
     {
-        ScreenManager.registerFactory(crate, CrateScreen::new);
+        ScreenManager.registerFactory(container, CrateScreen::new);
     }
 }
