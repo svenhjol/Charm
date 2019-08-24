@@ -29,7 +29,7 @@ public class VillagerTradingManager
             }
 
             /* @todo way to fire this properly, maybe as mod lifecycle hook */
-            MesonLoader.allEnabledModules(f -> f.registerTrades(mutableTrades, prof));
+            MesonLoader.allModules(module -> module.registerTrades(mutableTrades, prof));
             mutableTrades.int2ObjectEntrySet().forEach(e -> trades.put(e.getIntKey(), e.getValue().toArray(new ITrade[0])));
         }
     }
