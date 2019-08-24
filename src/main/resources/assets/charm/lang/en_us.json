@@ -41,8 +41,10 @@
   "block.charm.variable_redstone_lamp": "Variable Redstone Lamp",
 
   "enchantment.charm.curse_break": "Curse Break",
+  "enchantment.charn.homing": "Homing",
   "enchantment.charm.magnetic": "Magnetic",
 
+  "item.charm.bat_bucket": "Bat in a Bucket",
   "item.charm.bound_compass": "Bound Compass",
   "item.charm.record_creative1": "Creative Music Disc",
   "item.charm.record_creative2": "Creative Music Disc",
