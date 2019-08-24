@@ -36,8 +36,7 @@ public class EnchantmentsHelper
     public static boolean hasEnchantment(Enchantment enchantment, ItemStack stack)
     {
         if (stack.getItem() instanceof EnchantedBookItem) {
-            /* @todo books must be handled separately */
-            return false;
+            return EnchantmentHelper.getEnchantments(stack).containsKey(enchantment);
         } else {
             return EnchantmentHelper.getEnchantmentLevel(enchantment, stack) > 0;
         }
