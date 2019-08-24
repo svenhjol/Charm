@@ -1,11 +1,8 @@
 package svenhjol.charm.base;
 
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm.decoration.module.AllTheBarrels;
+import svenhjol.charm.tweaks.module.NoAnvilMinimumXp;
 import svenhjol.charm.tweaks.module.RemovePotionGlint;
 import svenhjol.charm.tweaks.module.StackablePotions;
 
@@ -21,9 +18,8 @@ public class CharmAsmHooks
         return Charm.loader.hasModule(StackablePotions.class);
     }
 
-    public static boolean isBarrel(Block block)
+    public static int getMinimumRepairCost()
     {
-        return Charm.loader.hasModule(AllTheBarrels.class)
-            && (block == Blocks.BARREL || block instanceof BarrelBlock);
+        return Charm.loader.hasModule(NoAnvilMinimumXp.class) ? -1 : 0;
     }
 }
