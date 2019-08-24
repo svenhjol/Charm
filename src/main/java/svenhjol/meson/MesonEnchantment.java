@@ -7,8 +7,9 @@ import svenhjol.meson.iface.IMesonEnchantment;
 
 public abstract class MesonEnchantment extends Enchantment implements IMesonEnchantment
 {
-    public MesonEnchantment(Rarity rarity, EnchantmentType type, EquipmentSlotType... slots)
+    public MesonEnchantment(MesonModule module, String name, Rarity rarity, EnchantmentType type, EquipmentSlotType... slots)
     {
         super(rarity, type, slots);
+        register(module, name);
     }
 }
