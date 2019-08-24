@@ -39,6 +39,8 @@ public class ModuleLoader
 
                 if (data.containsKey("name")) {
                     module.name = (String) data.get("name");
+                } else {
+                    module.name = module.getClass().getSimpleName();
                 }
 
                 if (data.containsKey("description")) {

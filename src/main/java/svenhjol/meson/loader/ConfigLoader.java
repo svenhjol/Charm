@@ -1,7 +1,11 @@
 package svenhjol.meson.loader;
 
+import com.google.common.base.CaseFormat;
+import net.minecraft.util.JSONUtils;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import svenhjol.meson.Meson;
@@ -18,21 +22,27 @@ public class ConfigLoader
 {
     private MesonLoader instance;
     private ForgeConfigSpec spec;
-    private List<Runnable> configure = new ArrayList<>();
+    private List<Runnable> refreshConfig = new ArrayList<>();
 
     public ConfigLoader(MesonLoader instance)
     {
         this.instance = instance;
+
+        // register module checks for crafting recipes
+        Meson.log(new ResourceLocation(instance.id, "module"));
+        CraftingHelper.register(new ResourceLocation(instance.id, "module_enabled"), json -> () -> isEnabled(JSONUtils.getString(json, "module")));
 
         // build the config tree
         this.spec = new Builder().configure(this::build).getRight();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, spec);
     }
 
-    public void configure()
+    /**
+     * Called by the Forge config reload event to reset all the module enabled/disabled flags.
+     */
+    public void refreshConfig()
     {
-        // refresh module config
-        configure.forEach(Runnable::run);
+        refreshConfig.forEach(Runnable::run);
     }
 
     private Void build(Builder builder)
@@ -56,7 +66,11 @@ public class ConfigLoader
             Meson.log("Creating config for module " + module.getName());
             if (!module.description.isEmpty()) builder.comment(module.description);
             ForgeConfigSpec.ConfigValue<Boolean> val = builder.define(module.getName() + " enabled", module.enabledByDefault);
-            configure.add(() -> module.enabled = val.get() && module.isEnabled());
+
+            refreshConfig.add(() -> {
+                module.enabled = val.get() && module.isEnabled();
+                instance.enabledModules.put(module.name, module.enabled);
+            });
         });
 
         // for each module create a sublist of module config values
@@ -98,5 +112,13 @@ public class ConfigLoader
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Failed to get config for " + module.getName());
         }
+    }
+
+    private boolean isEnabled(String module)
+    {
+        String name = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, module);
+        Boolean enabled = instance.enabledModules.get(name);
+        boolean result = enabled != null && enabled;
+        return result;
     }
 }
