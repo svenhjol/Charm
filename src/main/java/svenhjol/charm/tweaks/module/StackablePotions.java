@@ -2,11 +2,10 @@ package svenhjol.charm.tweaks.module;
 
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.handler.RegistryHandler;
+import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS)
@@ -31,14 +30,10 @@ public class StackablePotions extends MesonModule
         splash.setRegistryName(SPLASH_ID);
         lingering.setRegistryName(LINGERING_ID);
 
-        // Vanilla registry
-        Registry.register(Registry.ITEM, POTION_ID, potion);
-        Registry.register(Registry.ITEM, SPLASH_ID, splash);
-        Registry.register(Registry.ITEM, LINGERING_ID, lingering);
-
-        // Forge registry
-        RegistryHandler.registerItem(potion, potion.getRegistryName());
-        RegistryHandler.registerItem(splash, splash.getRegistryName());
-        RegistryHandler.registerItem(lingering, lingering.getRegistryName());
+        if (isEnabled()) {
+            OverrideHandler.changeVanillaItem(potion, POTION_ID);
+            OverrideHandler.changeVanillaItem(splash, SPLASH_ID);
+            OverrideHandler.changeVanillaItem(lingering, LINGERING_ID);
+        }
     }
 }
