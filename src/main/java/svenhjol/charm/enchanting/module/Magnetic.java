@@ -27,7 +27,6 @@ import svenhjol.meson.helper.ClientHelper;
 import svenhjol.meson.helper.EnchantmentsHelper;
 import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.helper.WorldHelper;
-import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.HashMap;
@@ -36,9 +35,7 @@ import java.util.Map;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true)
 public class Magnetic extends MesonModule
 {
-    @Config(name = "Attraction range", description = "Drops within this range of the player will be picked up.")
     public static int range = 6;
-
     public static Map<BlockPos, PlayerEntity> dropmap = new HashMap<>();
     public static MesonEnchantment enchantment;
 
