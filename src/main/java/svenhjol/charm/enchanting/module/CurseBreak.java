@@ -18,7 +18,7 @@ public class CurseBreak extends MesonModule
 {
     public static CurseBreakEnchantment enchantment;
 
-    @Config(name = "XP cost", description = "Amount of levels to remove a curse from an item.")
+    @Config(name = "XP cost", description = "Amount of levels required to remove a curse from an item.")
     public static int xpCost = 1;
 
     @Override
