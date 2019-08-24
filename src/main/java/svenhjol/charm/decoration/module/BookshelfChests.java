@@ -26,7 +26,7 @@ import svenhjol.meson.iface.Module;
 import java.util.*;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION)
-public class BookshelfChest extends MesonModule
+public class BookshelfChests extends MesonModule
 {
     public static List<Class<? extends Item>> validItems = new ArrayList<>();
     public static Map<WoodType, IMesonBlock> blocks = new HashMap<>();

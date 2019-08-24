@@ -5,7 +5,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
-import svenhjol.charm.decoration.module.BookshelfChest;
+import svenhjol.charm.decoration.module.BookshelfChests;
 import svenhjol.charm.decoration.tileentity.BookshelfChestTileEntity;
 import svenhjol.meson.MesonContainer;
 
@@ -39,7 +39,7 @@ public class BookshelfChestContainer extends MesonContainer
 
     public static BookshelfChestContainer instance(int id, PlayerInventory playerInventory, IInventory inventory)
     {
-        return new BookshelfChestContainer(BookshelfChest.container, id, playerInventory, inventory);
+        return new BookshelfChestContainer(BookshelfChests.container, id, playerInventory, inventory);
     }
 
     public static BookshelfChestContainer instance(int id, PlayerInventory playerInventory)

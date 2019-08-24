@@ -3,7 +3,7 @@ package svenhjol.charm.decoration.container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import svenhjol.charm.decoration.module.BookshelfChest;
+import svenhjol.charm.decoration.module.BookshelfChests;
 
 public class BookshelfChestSlot extends Slot
 {
@@ -15,7 +15,7 @@ public class BookshelfChestSlot extends Slot
     @Override
     public boolean isItemValid(ItemStack stack)
     {
-        return BookshelfChest.canInsertItem(stack);
+        return BookshelfChests.canInsertItem(stack);
     }
 
     @Override

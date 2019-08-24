@@ -14,7 +14,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.decoration.block.BookshelfChestBlock;
 import svenhjol.charm.decoration.container.BookshelfChestContainer;
-import svenhjol.charm.decoration.module.BookshelfChest;
+import svenhjol.charm.decoration.module.BookshelfChests;
 
 public class BookshelfChestTileEntity extends LockableLootTileEntity
 {
@@ -23,7 +23,7 @@ public class BookshelfChestTileEntity extends LockableLootTileEntity
 
     public BookshelfChestTileEntity()
     {
-        super(BookshelfChest.tile);
+        super(BookshelfChests.tile);
     }
 
     @Override
