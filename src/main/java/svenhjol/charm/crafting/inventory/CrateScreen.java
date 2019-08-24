@@ -13,9 +13,9 @@ public class CrateScreen extends ContainerScreen<CrateContainer> implements IHas
 {
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Charm.MOD_ID, "textures/gui/generic_9.png");
 
-    public CrateScreen(CrateContainer crate, PlayerInventory playerInventory, ITextComponent title)
+    public CrateScreen(CrateContainer container, PlayerInventory playerInventory, ITextComponent title)
     {
-        super(crate, playerInventory, title);
+        super(container, playerInventory, title);
         this.passEvents = true;
         this.xSize = 175;
         this.ySize = 131;
