@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:acacia_planks"
+    },
+    "X": {
+      "item": "minecraft:bookshelf"
+    }
+  },
+  "result": {
+    "item": "charm:bookshelf_chest_acacia"
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "bookshelf_chest"
+    }
+  ]
+}

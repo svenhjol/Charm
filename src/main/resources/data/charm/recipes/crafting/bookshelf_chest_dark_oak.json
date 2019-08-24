@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:dark_oak_planks"
+    },
+    "X": {
+      "item": "minecraft:bookshelf"
+    }
+  },
+  "result": {
+    "item": "charm:bookshelf_chest_dark_oak"
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "bookshelf_chest"
+    }
+  ]
+}

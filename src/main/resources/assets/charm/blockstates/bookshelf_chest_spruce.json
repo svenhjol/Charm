@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "slots=0": { "model": "charm:block/bookshelf_chest_spruce_0" },
+    "slots=1": { "model": "charm:block/bookshelf_chest_spruce_1" },
+    "slots=2": { "model": "charm:block/bookshelf_chest_spruce_2" },
+    "slots=3": { "model": "charm:block/bookshelf_chest_spruce_3" },
+    "slots=4": { "model": "charm:block/bookshelf_chest_spruce_4" },
+    "slots=5": { "model": "charm:block/bookshelf_chest_spruce_5" },
+    "slots=6": { "model": "charm:block/bookshelf_chest_spruce_6" },
+    "slots=7": { "model": "charm:block/bookshelf_chest_spruce_7" },
+    "slots=8": { "model": "charm:block/bookshelf_chest_spruce_8" },
+    "slots=9": { "model": "charm:block/bookshelf_chest_spruce_9" }
+  }
+}

@@ -7,6 +7,8 @@ import svenhjol.charm.Charm;
 public class CharmSounds
 {
     public static final SoundEvent WOOD_SMASH = createSound("wood_smash");
+    public static final SoundEvent BOOKSHELF_OPEN = createSound("bookshelf_open");
+    public static final SoundEvent BOOKSHELF_CLOSE = createSound("bookshelf_close");
 
     public static SoundEvent createSound(String name)
     {
