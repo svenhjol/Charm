@@ -1,6 +1,6 @@
 # Charm
 
-A Vanilla+ Minecraft mod inspired by Quark.  For Minecraft **1.14.4**, recommended Forge version **28.0.45**.
+A Vanilla+ Minecraft mod inspired by Quark.  For Minecraft **1.14.4**, recommended Forge version **28.0.55**.
 
 This mod is incomplete and needs your help to playtest it! 
 You can see the [progress of the port here](https://trello.com/b/gHRK61AF/works-like-a-charm),
