@@ -4,24 +4,24 @@ issueTrackerURL="http://github.com/svenhjol/Charm/issues"
 displayURL="http://github.com/svenhjol/Charm"
 
 [[mods]]
-    modId="charm"
-    version="${version}"
-    displayName="Charm"
-    description='''
-    Smaller things.
-    '''
-    authors="svenhjol, warlordwossman"
+modId="charm"
+version="${version}"
+displayName="Charm"
+description='''
+Smaller things.
+'''
+authors="svenhjol, warlordwossman"
 
 [[dependencies.charm]]
-    modId="forge"
-    mandatory=true
-    versionRange="[28,)"
-    ordering="NONE"
-    side="BOTH"
+modId="forge"
+mandatory=true
+versionRange="[28,)"
+ordering="NONE"
+side="BOTH"
 
 [[dependencies.charm]]
-    modId="quark"
-    mandatory=false
-    versionRange="[beta-2.0-178,)"
-    ordering="AFTER"
-    side="BOTH"
+modId="quark"
+mandatory=false
+versionRange="[beta-2.0-178,)"
+ordering="AFTER"
+side="BOTH"
