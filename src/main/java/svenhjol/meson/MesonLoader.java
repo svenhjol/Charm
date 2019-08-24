@@ -28,7 +28,7 @@ public abstract class MesonLoader
     public IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
     public List<MesonModule> modules = new ArrayList<>();
     public Map<String, List<MesonModule>> categories = new HashMap<>();
-    public Map<Class<? extends MesonModule>, MesonModule> enabledModules = new HashMap<>();
+    public Map<String, Boolean> enabledModules = new HashMap<>();
     public String id;
 
     private ModuleLoader moduleLoader;
@@ -53,12 +53,14 @@ public abstract class MesonLoader
         this.configLoader = new ConfigLoader(this);
 
         // init every module, this registers blocks
-        this.modules.forEach(MesonModule::init);
+        modules(MesonModule::init);
     }
 
     public void setup(FMLCommonSetupEvent event)
     {
-        enabledModules(module -> {
+        modules(module -> {
+            if (!module.isEnabled()) return;
+
             // subscribe to forge event bus
             if (module.hasSubscriptions) {
                 MinecraftForge.EVENT_BUS.register(module);
@@ -73,23 +75,24 @@ public abstract class MesonLoader
 
     public void configChanged(ModConfigEvent event)
     {
-        this.configLoader.configure();
+        this.configLoader.refreshConfig();
+        modules(module -> module.configChanged(event));
     }
 
     @OnlyIn(Dist.CLIENT)
     public void setupClient(FMLClientSetupEvent event)
     {
-        enabledModules(module -> module.setupClient(event));
+        modules(module -> module.setupClient(event));
     }
 
     public void loadComplete(FMLLoadCompleteEvent event)
     {
-        enabledModules(module -> module.loadComplete(event));
+        modules(module -> module.loadComplete(event));
     }
 
-    public void enabledModules(Consumer<MesonModule> consumer)
+    public void modules(Consumer<MesonModule> consumer)
     {
-        enabledModules.values().forEach(consumer);
+        modules.forEach(consumer);
     }
 
     public boolean hasModule(Class<? extends MesonModule> module)
@@ -97,8 +100,8 @@ public abstract class MesonLoader
         return enabledModules.containsKey(module);
     }
 
-    public static void allEnabledModules(Consumer<MesonModule> consumer)
+    public static void allModules(Consumer<MesonModule> consumer)
     {
-        MesonLoader.instances.values().forEach(instance -> instance.enabledModules(consumer));
+        MesonLoader.instances.values().forEach(instance -> instance.modules(consumer));
     }
 }
