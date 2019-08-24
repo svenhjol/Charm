@@ -10,7 +10,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmSounds;
-import svenhjol.charm.decoration.module.Crate;
+import svenhjol.charm.decoration.module.Crates;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
 
@@ -38,6 +38,6 @@ public class CrateSealedBlock extends CrateBaseBlock
 
     public static Block getBlockByWood(WoodType wood)
     {
-        return Crate.sealedTypes.get(wood);
+        return Crates.sealedTypes.get(wood);
     }
 }

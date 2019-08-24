@@ -3,7 +3,7 @@ package svenhjol.charm.decoration.container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import svenhjol.charm.decoration.module.Crate;
+import svenhjol.charm.decoration.module.Crates;
 
 public class CrateSlot extends Slot
 {
@@ -15,6 +15,6 @@ public class CrateSlot extends Slot
     @Override
     public boolean isItemValid(ItemStack stack)
     {
-        return Crate.canInsertItem(stack);
+        return Crates.canInsertItem(stack);
     }
 }

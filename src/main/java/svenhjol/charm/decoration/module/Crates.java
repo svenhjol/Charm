@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION, hasSubscriptions = true)
-public class Crate extends MesonModule
+public class Crates extends MesonModule
 {
     public static Map<WoodType, CrateOpenBlock> openTypes = new HashMap<>();
     public static Map<WoodType, CrateSealedBlock> sealedTypes = new HashMap<>();

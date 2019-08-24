@@ -5,7 +5,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
-import svenhjol.charm.decoration.module.Crate;
+import svenhjol.charm.decoration.module.Crates;
 import svenhjol.charm.decoration.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonContainer;
 
@@ -39,7 +39,7 @@ public class CrateContainer extends MesonContainer
 
     public static CrateContainer instance(int id, PlayerInventory playerInventory, IInventory inventory)
     {
-        return new CrateContainer(Crate.container, id, playerInventory, inventory);
+        return new CrateContainer(Crates.container, id, playerInventory, inventory);
     }
 
     public static CrateContainer instance(int id, PlayerInventory playerInventory)

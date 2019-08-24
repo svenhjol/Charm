@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
-import svenhjol.charm.decoration.module.Crate;
+import svenhjol.charm.decoration.module.Crates;
 import svenhjol.charm.decoration.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
@@ -91,6 +91,6 @@ public class CrateOpenBlock extends CrateBaseBlock
 
     public static Block getBlockByWood(WoodType wood)
     {
-        return Crate.openTypes.get(wood);
+        return Crates.openTypes.get(wood);
     }
 }

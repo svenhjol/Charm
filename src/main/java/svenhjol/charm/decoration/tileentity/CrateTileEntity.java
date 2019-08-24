@@ -13,7 +13,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import svenhjol.charm.decoration.container.CrateContainer;
-import svenhjol.charm.decoration.module.Crate;
+import svenhjol.charm.decoration.module.Crates;
 import svenhjol.meson.iface.IMesonTileEntity;
 
 public class CrateTileEntity extends LockableLootTileEntity implements IMesonTileEntity
@@ -23,7 +23,7 @@ public class CrateTileEntity extends LockableLootTileEntity implements IMesonTil
 
     public CrateTileEntity()
     {
-        super(Crate.tile);
+        super(Crates.tile);
     } /* @todo set wood type so we can display name */
 
     @Override
