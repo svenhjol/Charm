@@ -17,7 +17,7 @@ public class CrateContainer extends MesonContainer
 
         int index = 0;
 
-        // crate's inventory slots
+        // container's inventory slots
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new CrateSlot(inventory, index++, 8 + (i * 18), 18));
         }
@@ -39,7 +39,7 @@ public class CrateContainer extends MesonContainer
 
     public static CrateContainer instance(int id, PlayerInventory playerInventory, IInventory inventory)
     {
-        return new CrateContainer(Crate.crate, id, playerInventory, inventory);
+        return new CrateContainer(Crate.container, id, playerInventory, inventory);
     }
 
     public static CrateContainer instance(int id, PlayerInventory playerInventory)
