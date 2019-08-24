@@ -7,13 +7,13 @@
     "I": {"tag": "forge:ingots/iron"},
     "W": {"item": "minecraft:spruce_planks"}
   },
-  "conditions": [
-    {
-      "type" : "forge:item_exists",
-      "item" : "charm:crate_open_spruce"
-    }
-  ],
   "result": {
     "item": "charm:crate_open_spruce"
-  }
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "crates"
+    }
+  ]
 }

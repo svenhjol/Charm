@@ -7,13 +7,13 @@
     "Q": {"item": "minecraft:quartz"},
     "R": {"item": "minecraft:redstone_lamp"}
   },
-  "conditions": [
-    {
-      "type" : "forge:item_exists",
-      "item" : "charm:variable_redstone_lamp"
-    }
-  ],
   "result": {
     "item": "charm:variable_redstone_lamp"
-  }
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "variable_redstone_lamp"
+    }
+  ]
 }

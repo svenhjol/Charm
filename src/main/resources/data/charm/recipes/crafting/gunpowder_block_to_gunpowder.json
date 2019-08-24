@@ -3,14 +3,14 @@
   "ingredients": [
     {"item": "charm:gunpowder_block"}
   ],
-  "conditions": [
-    {
-      "type" : "forge:item_exists",
-      "item" : "charm:gunpowder_block"
-    }
-  ],
   "result": {
     "item": "minecraft:gunpowder",
     "count": 9
-  }
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "block_of_gunpowder"
+    }
+  ]
 }

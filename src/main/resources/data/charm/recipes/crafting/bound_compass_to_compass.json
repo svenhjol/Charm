@@ -5,13 +5,13 @@
       "item": "charm:bound_compass"
     }
   ],
-  "conditions": [
-    {
-      "type" : "forge:item_exists",
-      "item" : "charm:bound_compass"
-    }
-  ],
   "result": {
     "item": "minecraft:compass"
-  }
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "compass_binding"
+    }
+  ]
 }

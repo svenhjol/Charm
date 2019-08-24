@@ -3,14 +3,14 @@
   "ingredients": [
     {"item": "charm:ender_pearl_block"}
   ],
-  "conditions": [
-    {
-      "type" : "forge:item_exists",
-      "item" : "charm:ender_pearl_block"
-    }
-  ],
   "result": {
     "item": "minecraft:ender_pearl",
     "count": 9
-  }
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "block_of_ender_pearls"
+    }
+  ]
 }

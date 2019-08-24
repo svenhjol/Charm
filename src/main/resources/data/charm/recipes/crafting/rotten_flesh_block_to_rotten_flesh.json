@@ -3,14 +3,14 @@
   "ingredients": [
     {"item": "charm:rotten_flesh_block"}
   ],
-  "conditions": [
-    {
-      "type" : "forge:item_exists",
-      "item" : "charm:rotten_flesh_block"
-    }
-  ],
   "result": {
     "item": "minecraft:rotten_flesh",
     "count": 9
-  }
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "block_of_rotten_flesh"
+    }
+  ]
 }

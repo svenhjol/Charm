@@ -6,13 +6,13 @@
   "key": {
     "F": {"item": "minecraft:rotten_flesh"}
   },
-  "conditions": [
-    {
-      "type" : "forge:item_exists",
-      "item" : "charm:rotten_flesh_block"
-    }
-  ],
   "result": {
     "item": "charm:rotten_flesh_block"
-  }
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "block_of_rotten_flesh"
+    }
+  ]
 }

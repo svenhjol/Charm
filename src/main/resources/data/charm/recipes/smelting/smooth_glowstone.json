@@ -5,5 +5,11 @@
   },
   "result": "charm:smooth_glowstone",
   "experience": 0.2,
-  "cookingtime": 200
+  "cookingtime": 200,
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "smooth_glowstone"
+    }
+  ]
 }
