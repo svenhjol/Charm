@@ -1,10 +1,10 @@
-package svenhjol.charm.crafting.block;
+package svenhjol.charm.building.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
-import svenhjol.charm.crafting.module.SmoothGlowstone;
+import svenhjol.charm.building.module.SmoothGlowstone;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 

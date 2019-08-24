@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.block;
+package svenhjol.charm.decoration.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,7 +20,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import svenhjol.charm.crafting.tileentity.BookshelfChestTileEntity;
+import svenhjol.charm.decoration.tileentity.BookshelfChestTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 import svenhjol.meson.enums.WoodType;

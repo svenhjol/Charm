@@ -2,7 +2,7 @@ package svenhjol.charm.api;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import svenhjol.charm.crafting.module.Crate;
+import svenhjol.charm.decoration.module.Crate;
 
 public class CharmApi
 {

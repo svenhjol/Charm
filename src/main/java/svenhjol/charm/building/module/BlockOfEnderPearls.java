@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.module;
+package svenhjol.charm.building.module;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.monster.SilverfishEntity;
@@ -13,8 +13,8 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.crafting.block.EnderPearlBlock;
-import svenhjol.charm.crafting.goal.FormEndermiteGoal;
+import svenhjol.charm.building.block.EnderPearlBlock;
+import svenhjol.charm.building.goal.FormEndermiteGoal;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.Config;
@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.CRAFTING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING, hasSubscriptions = true)
 public class BlockOfEnderPearls extends MesonModule
 {
     public static EnderPearlBlock block;

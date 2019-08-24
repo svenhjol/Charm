@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.module;
+package svenhjol.charm.decoration.module;
 
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
@@ -12,10 +12,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.crafting.block.BookshelfChestBlock;
-import svenhjol.charm.crafting.container.BookshelfChestContainer;
-import svenhjol.charm.crafting.inventory.BookshelfChestScreen;
-import svenhjol.charm.crafting.tileentity.BookshelfChestTileEntity;
+import svenhjol.charm.decoration.block.BookshelfChestBlock;
+import svenhjol.charm.decoration.container.BookshelfChestContainer;
+import svenhjol.charm.decoration.inventory.BookshelfChestScreen;
+import svenhjol.charm.decoration.tileentity.BookshelfChestTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
 import svenhjol.meson.handler.RegistryHandler;
@@ -25,7 +25,7 @@ import svenhjol.meson.iface.Module;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.CRAFTING)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION)
 public class BookshelfChest extends MesonModule
 {
     public static List<Class<? extends Item>> validItems = new ArrayList<>();

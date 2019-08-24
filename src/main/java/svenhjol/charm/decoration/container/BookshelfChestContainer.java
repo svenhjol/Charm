@@ -1,17 +1,17 @@
-package svenhjol.charm.crafting.container;
+package svenhjol.charm.decoration.container;
 
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
-import svenhjol.charm.crafting.module.Crate;
-import svenhjol.charm.crafting.tileentity.CrateTileEntity;
+import svenhjol.charm.decoration.module.BookshelfChest;
+import svenhjol.charm.decoration.tileentity.BookshelfChestTileEntity;
 import svenhjol.meson.MesonContainer;
 
-public class CrateContainer extends MesonContainer
+public class BookshelfChestContainer extends MesonContainer
 {
-    private CrateContainer(ContainerType<?> type, int id, PlayerInventory player, IInventory inventory)
+    private BookshelfChestContainer(ContainerType<?> type, int id, PlayerInventory player, IInventory inventory)
     {
         super(type, id, player, inventory);
 
@@ -19,7 +19,7 @@ public class CrateContainer extends MesonContainer
 
         // container's inventory slots
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new CrateSlot(inventory, index++, 8 + (i * 18), 18));
+            this.addSlot(new BookshelfChestSlot(inventory, index++, 8 + (i * 18), 18));
         }
 
         index = 9;
@@ -37,13 +37,13 @@ public class CrateContainer extends MesonContainer
         }
     }
 
-    public static CrateContainer instance(int id, PlayerInventory playerInventory, IInventory inventory)
+    public static BookshelfChestContainer instance(int id, PlayerInventory playerInventory, IInventory inventory)
     {
-        return new CrateContainer(Crate.container, id, playerInventory, inventory);
+        return new BookshelfChestContainer(BookshelfChest.container, id, playerInventory, inventory);
     }
 
-    public static CrateContainer instance(int id, PlayerInventory playerInventory)
+    public static BookshelfChestContainer instance(int id, PlayerInventory playerInventory)
     {
-        return instance(id, playerInventory, new Inventory(CrateTileEntity.SIZE));
+        return instance(id, playerInventory, new Inventory(BookshelfChestTileEntity.SIZE));
     }
 }

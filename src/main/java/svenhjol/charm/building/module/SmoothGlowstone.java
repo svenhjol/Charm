@@ -1,12 +1,12 @@
-package svenhjol.charm.crafting.module;
+package svenhjol.charm.building.module;
 
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.crafting.block.SmoothGlowstoneBlock;
+import svenhjol.charm.building.block.SmoothGlowstoneBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.CRAFTING)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING)
 public class SmoothGlowstone extends MesonModule
 {
     public static SmoothGlowstoneBlock block;

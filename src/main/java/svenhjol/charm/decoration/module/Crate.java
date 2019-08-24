@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.module;
+package svenhjol.charm.decoration.module;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ShulkerBoxBlock;
@@ -17,12 +17,12 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.base.CharmSounds;
-import svenhjol.charm.crafting.block.CrateBaseBlock;
-import svenhjol.charm.crafting.block.CrateOpenBlock;
-import svenhjol.charm.crafting.block.CrateSealedBlock;
-import svenhjol.charm.crafting.container.CrateContainer;
-import svenhjol.charm.crafting.inventory.CrateScreen;
-import svenhjol.charm.crafting.tileentity.CrateTileEntity;
+import svenhjol.charm.decoration.block.CrateBaseBlock;
+import svenhjol.charm.decoration.block.CrateOpenBlock;
+import svenhjol.charm.decoration.block.CrateSealedBlock;
+import svenhjol.charm.decoration.container.CrateContainer;
+import svenhjol.charm.decoration.inventory.CrateScreen;
+import svenhjol.charm.decoration.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
 import svenhjol.meson.handler.RegistryHandler;
@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.CRAFTING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION, hasSubscriptions = true)
 public class Crate extends MesonModule
 {
     public static Map<WoodType, CrateOpenBlock> openTypes = new HashMap<>();

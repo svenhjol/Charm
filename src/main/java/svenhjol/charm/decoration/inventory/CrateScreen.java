@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.inventory;
+package svenhjol.charm.decoration.inventory;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.IHasContainer;
@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import svenhjol.charm.Charm;
-import svenhjol.charm.crafting.container.CrateContainer;
+import svenhjol.charm.decoration.container.CrateContainer;
 
 public class CrateScreen extends ContainerScreen<CrateContainer> implements IHasContainer<CrateContainer>
 {

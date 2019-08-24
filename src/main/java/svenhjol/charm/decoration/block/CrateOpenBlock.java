@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.block;
+package svenhjol.charm.decoration.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -14,8 +14,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameters;
-import svenhjol.charm.crafting.module.Crate;
-import svenhjol.charm.crafting.tileentity.CrateTileEntity;
+import svenhjol.charm.decoration.module.Crate;
+import svenhjol.charm.decoration.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
 

@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.goal;
+package svenhjol.charm.building.goal;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
@@ -10,7 +10,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import svenhjol.charm.crafting.module.BlockOfEnderPearls;
+import svenhjol.charm.building.module.BlockOfEnderPearls;
 
 import java.util.EnumSet;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.block;
+package svenhjol.charm.building.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import svenhjol.charm.crafting.module.BlockOfEnderPearls;
+import svenhjol.charm.building.module.BlockOfEnderPearls;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 

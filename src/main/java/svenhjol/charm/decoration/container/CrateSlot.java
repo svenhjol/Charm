@@ -1,9 +1,9 @@
-package svenhjol.charm.crafting.container;
+package svenhjol.charm.decoration.container;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import svenhjol.charm.crafting.module.Crate;
+import svenhjol.charm.decoration.module.Crate;
 
 public class CrateSlot extends Slot
 {

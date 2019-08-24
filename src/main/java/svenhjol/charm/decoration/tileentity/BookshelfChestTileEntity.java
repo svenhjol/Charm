@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.tileentity;
+package svenhjol.charm.decoration.tileentity;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -9,22 +9,22 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import svenhjol.charm.crafting.container.CrateContainer;
-import svenhjol.charm.crafting.module.Crate;
-import svenhjol.meson.iface.IMesonTileEntity;
+import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.decoration.block.BookshelfChestBlock;
+import svenhjol.charm.decoration.container.BookshelfChestContainer;
+import svenhjol.charm.decoration.module.BookshelfChest;
 
-public class CrateTileEntity extends LockableLootTileEntity implements IMesonTileEntity
+public class BookshelfChestTileEntity extends LockableLootTileEntity
 {
     public static int SIZE = 9;
     private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 
-    public CrateTileEntity()
+    public BookshelfChestTileEntity()
     {
-        super(Crate.tile);
-    } /* @todo set wood type so we can display name */
+        super(BookshelfChest.tile);
+    }
 
     @Override
     public void read(CompoundNBT tag)
@@ -59,13 +59,13 @@ public class CrateTileEntity extends LockableLootTileEntity implements IMesonTil
     @Override
     protected Container createMenu(int id, PlayerInventory player)
     {
-        return CrateContainer.instance(id, player, this);
+        return BookshelfChestContainer.instance(id, player, this);
     }
 
     @Override
     protected ITextComponent getDefaultName()
     {
-        return new TranslationTextComponent("tile.charm.crate");
+        return new TranslationTextComponent("tile.charm.bookshelf_chest");
     }
 
     @Override
@@ -96,16 +96,36 @@ public class CrateTileEntity extends LockableLootTileEntity implements IMesonTil
     }
 
     @Override
+    public void setInventorySlotContents(int slot, ItemStack item)
+    {
+        super.setInventorySlotContents(slot, item);
+        updateBlockState();
+    }
+
+    @Override
     public void openInventory(PlayerEntity player)
     {
         if (!player.isSpectator()) {
-            this.world.playSound(null, this.pos, SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.5f, this.world.rand.nextFloat() * 0.1F + 0.9F);
+            this.world.playSound(null, this.pos, CharmSounds.BOOKSHELF_OPEN, SoundCategory.BLOCKS, 0.5f, this.world.rand.nextFloat() * 0.1F + 0.9F);
         }
     }
 
     @Override
     public void closeInventory(PlayerEntity player)
     {
-        this.world.playSound(null, this.pos, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.5f, this.world.rand.nextFloat() * 0.1F + 0.9F);
+        this.world.playSound(null, this.pos, CharmSounds.BOOKSHELF_CLOSE, SoundCategory.BLOCKS, 0.5f, this.world.rand.nextFloat() * 0.1F + 0.9F);
+    }
+
+    public void updateBlockState()
+    {
+        int filled = 0;
+
+        for (int i = 0; i < SIZE; i++) {
+            if (!getStackInSlot(i).isEmpty()) filled++;
+        }
+
+        if (world != null && world.getBlockState(pos).getBlock() instanceof BookshelfChestBlock) {
+            world.setBlockState(pos, world.getBlockState(pos).with(BookshelfChestBlock.SLOTS, filled), 2);
+        }
     }
 }

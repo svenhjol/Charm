@@ -1,4 +1,4 @@
-package svenhjol.charm.crafting.block;
+package svenhjol.charm.decoration.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -10,7 +10,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmSounds;
-import svenhjol.charm.crafting.module.Crate;
+import svenhjol.charm.decoration.module.Crate;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
 
