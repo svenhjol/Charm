@@ -33,7 +33,7 @@ public class MoreVillageBiomes extends MesonModule
     }
 
     @SubscribeEvent
-    public void onSpawn(EntityJoinWorldEvent event)
+    public void onVillagerSpawn(EntityJoinWorldEvent event)
     {
         if (!event.getWorld().isRemote
             && event.getEntity() instanceof VillagerEntity
