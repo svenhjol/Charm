@@ -1,6 +1,7 @@
 package svenhjol.charm.tweaks.module;
 
-import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -18,8 +19,11 @@ import java.util.List;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS)
 public class MobsAffectedByBeacon extends MesonModule
 {
-    @Config(name = "Heal tame animals", description = "Heal tame animals within range. One of the beacon effects must be regeneration.")
-    public static boolean healTamedAnimals = true;
+    @Config(name = "Heal animals", description = "Heal friendly animals within range. One of the beacon effects must be regeneration.")
+    public static boolean healAnimals = true;
+
+    @Config(name = "Weaken monsters", description = "Monsters within range will be weakened. One of the beacon effects must be strength.")
+    public static boolean weakenMonsters = true;
 
     public static void mobsInBeaconRange(World world, int levels, BlockPos pos, Effect primaryEffect, Effect secondaryEffect)
     {
@@ -27,11 +31,13 @@ public class MobsAffectedByBeacon extends MesonModule
             double d0 = levels * 10 + 10;
             AxisAlignedBB bb = (new AxisAlignedBB(pos)).grow(d0).expand(0.0D, world.getHeight(), 0.0D);
 
-            if (healTamedAnimals && (primaryEffect == Effects.REGENERATION || secondaryEffect == Effects.REGENERATION)) {
-                List<TameableEntity> list = world.getEntitiesWithinAABB(TameableEntity.class, bb);
-                list.stream().filter(TameableEntity::isTamed).forEach(animal -> {
-                    animal.addPotionEffect(new EffectInstance(Effects.REGENERATION, 4 * 20, 1));
-                });
+            if (healAnimals && (primaryEffect == Effects.REGENERATION || secondaryEffect == Effects.REGENERATION)) {
+                List<AnimalEntity> list = world.getEntitiesWithinAABB(AnimalEntity.class, bb);
+                list.forEach(animal -> animal.addPotionEffect(new EffectInstance(Effects.REGENERATION, 4 * 20, 1)));
+            }
+            if (weakenMonsters && (primaryEffect == Effects.STRENGTH || secondaryEffect == Effects.STRENGTH)) {
+                List<MonsterEntity> list = world.getEntitiesWithinAABB(MonsterEntity.class, bb);
+                list.forEach(monster -> monster.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 4 * 20, 1)));
             }
         }
     }
