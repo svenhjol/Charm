@@ -97,7 +97,7 @@ function initializeCoreMod() {
         },
 
         /*
-         * Add hook to RepairContainer to be able to set an anvil XP cost of zero
+         * Add hook to RepairContainer to be able to set an anvil XP cost of zero.
          */
         'RepairContainer': {
             target: {
@@ -129,6 +129,48 @@ function initializeCoreMod() {
                     print("Transformed RepairContainer");
                 } else {
                     print("Failed to transform RepairContainer")
+                }
+
+                return method;
+            }
+        },
+
+        /*
+         * Add hook to ArmorLayer to skip rendering of armor if player is invisible.
+         */
+        'ArmorLayer': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.client.renderer.entity.layers.ArmorLayer',
+                'methodName': 'renderArmorLayer',
+                'methodDesc': '(Lnet/minecraft/entity/LivingEntity;FFFFFFFLnet/minecraft/inventory/EquipmentSlotType;)V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.ASTORE) {
+                        var label = new LabelNode();
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 10));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "isArmorInvisible", "(Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)Z", false));
+                        newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                        newInstructions.add(new InsnNode(Opcodes.RETURN));
+                        newInstructions.add(label);
+
+                        method.instructions.insert(instruction, newInstructions);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                if (didThing) {
+                    print("Transformed ArmorLayer");
+                } else {
+                    print("Failed to transform ArmorLayer")
                 }
 
                 return method;
