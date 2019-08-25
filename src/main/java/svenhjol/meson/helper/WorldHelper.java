@@ -6,6 +6,8 @@ import net.minecraft.world.biome.Biome;
 
 public class WorldHelper
 {
+    public static final String END_CITY = "EndCity";
+
     public static double getDistanceSq(BlockPos pos1, BlockPos pos2)
     {
         double d0 = pos1.getX();
