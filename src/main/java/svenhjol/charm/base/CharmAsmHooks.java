@@ -2,19 +2,14 @@ package svenhjol.charm.base;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effect;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.tweaks.module.LeatherArmorInvisibility;
-import svenhjol.charm.tweaks.module.NoAnvilMinimumXp;
-import svenhjol.charm.tweaks.module.RemovePotionGlint;
-import svenhjol.charm.tweaks.module.StackablePotions;
+import svenhjol.charm.tweaks.module.*;
 
 public class CharmAsmHooks
 {
-    public static boolean removePotionGlint()
-    {
-        return Charm.loader.hasModule(RemovePotionGlint.class);
-    }
-
     public static boolean checkBrewingStandStack(ItemStack stack)
     {
         return Charm.loader.hasModule(StackablePotions.class);
@@ -29,5 +24,16 @@ public class CharmAsmHooks
     {
         if (!Charm.loader.hasModule(LeatherArmorInvisibility.class)) return false;
         return LeatherArmorInvisibility.isArmorInvisible(entity, stack);
+    }
+
+    public static void mobsInBeaconRange(World world, int levels, BlockPos pos, Effect primaryEffect, Effect secondaryEffect)
+    {
+        if (!Charm.loader.hasModule(MobsAffectedByBeacon.class)) return;
+        MobsAffectedByBeacon.mobsInBeaconRange(world, levels, pos, primaryEffect, secondaryEffect);
+    }
+
+    public static boolean removePotionGlint()
+    {
+        return Charm.loader.hasModule(RemovePotionGlint.class);
     }
 }

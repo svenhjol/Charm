@@ -5,6 +5,7 @@ function initializeCoreMod() {
     var InsnNode = Java.type('org.objectweb.asm.tree.InsnNode');
     var InsnList = Java.type('org.objectweb.asm.tree.InsnList');
     var VarInsnNode = Java.type('org.objectweb.asm.tree.VarInsnNode');
+    var FieldInsnNode = Java.type('org.objectweb.asm.tree.FieldInsnNode');
     var MethodInsnNode = Java.type('org.objectweb.asm.tree.MethodInsnNode');
     var JumpInsnNode = Java.type('org.objectweb.asm.tree.JumpInsnNode');
     var LabelNode = Java.type('org.objectweb.asm.tree.LabelNode');
@@ -172,6 +173,41 @@ function initializeCoreMod() {
                 } else {
                     print("Failed to transform ArmorLayer")
                 }
+
+                return method;
+            }
+        },
+
+        /*
+         * Add hook to BeaconTileEntity to handle other mobs in area.
+         */
+        'BeaconTileEntity': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.tileentity.BeaconTileEntity',
+                'methodName': 'addEffectsToPlayers',
+                'methodDesc': '()V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+                var instruction = method.instructions.get(0);
+                var newInstructions = new InsnList();
+
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", "world", "Lnet/minecraft/world/World;"));
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", "levels", "I"));
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", "pos", "Lnet/minecraft/util/math/BlockPos;"));
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", "primaryEffect", "Lnet/minecraft/potion/Effect;"));
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", "secondaryEffect", "Lnet/minecraft/potion/Effect;"));
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "mobsInBeaconRange", "(Lnet/minecraft/world/World;ILnet/minecraft/util/math/BlockPos;Lnet/minecraft/potion/Effect;Lnet/minecraft/potion/Effect;)V", false));
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("Transformed BeaconTileEntity");
 
                 return method;
             }
