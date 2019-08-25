@@ -80,7 +80,7 @@ public class MoonstoneItem extends MesonItem
                 boolean origin = alignedx && alignedz;
                 boolean aligned = alignedx || alignedz;
 
-                if (aligned || origin) {
+                if (world.isRemote && aligned || origin) {
                     float pitch = 0.5F + (color.getId() / 16.0F);
 
                     if (aligned && !ItemNBTHelper.getBoolean(stack, MoonstoneItem.ALIGNED, false)) {
