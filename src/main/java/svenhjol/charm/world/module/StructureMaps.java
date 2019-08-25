@@ -75,29 +75,20 @@ public class StructureMaps extends MesonModule
     @Override
     public void registerTrades(Int2ObjectMap<List<ITrade>> trades, VillagerProfession profession)
     {
-        super.registerTrades(trades, profession);
-        VillagerStructureMapTrade trade = new VillagerStructureMapTrade(maxTrades, tradeXp);
+        StructureMapForEmeraldsTrade trade = new StructureMapForEmeraldsTrade();
+        if (profession.getRegistryName() == null) return;
 
-        if (Objects.requireNonNull(profession.getRegistryName()).toString().equals("minecraft:cartographer")) {
-            trades.forEach((key, val) -> {
-                if (key.equals(tradeLevel)) val.add(trade);
-            });
+        if (profession.getRegistryName().getPath().equals("cartographer")) {
+            trades.get(tradeLevel).add(trade);
         }
     }
 
-    static class VillagerStructureMapTrade implements VillagerTrades.ITrade {
-        private final MapDecoration.Type targetType;
-        private final int maxUses;
-        private final int tradeXp;
-        private final float multiplier;
-
-        public VillagerStructureMapTrade(int maxUses, int tradeXp)
-        {
-            this.multiplier = 0.2F;
-            this.targetType = MapDecoration.Type.TARGET_X;
-            this.maxUses = maxUses;
-            this.tradeXp = tradeXp;
-        }
+    static class StructureMapForEmeraldsTrade implements VillagerTrades.ITrade
+    {
+        private final MapDecoration.Type targetType = MapDecoration.Type.TARGET_X;
+        private final int maxUses = StructureMaps.maxTrades;
+        private final int tradeXp = StructureMaps.tradeXp;
+        private final float multiplier = 0.2F;
 
         @Nullable
         public MerchantOffer getOffer(Entity merchant, Random rand)
@@ -138,11 +129,6 @@ public class StructureMaps extends MesonModule
         public StructureTrade(String name)
         {
             this(name, 0, 0);
-        }
-
-        public StructureTrade(String name, int color)
-        {
-            this(name, color, 0);
         }
 
         public StructureTrade(String name, int color, int dimension)
