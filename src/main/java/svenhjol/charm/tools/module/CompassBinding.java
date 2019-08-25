@@ -34,7 +34,7 @@ public class CompassBinding extends MesonModule
     public static List<Item> bindableItems = new ArrayList<>();
 
     @Config(name = "Bind to Banners", description = "If true, compasses can bind to banners.")
-    public static boolean useBanners = false;
+    public static boolean useBanners = true;
 
     @Config(name = "Bind to Beacons", description = "If true, compasses can bind to beacons.")
     public static boolean useBeacons = true;
