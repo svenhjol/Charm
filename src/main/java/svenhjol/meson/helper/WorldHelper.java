@@ -20,4 +20,9 @@ public class WorldHelper
         // world.getBiome() suffers from infinite badness when game loading
         return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getBiome(pos);
     }
+
+    public static int getDimensionId(World world)
+    {
+        return world.dimension.getType().getId();
+    }
 }
