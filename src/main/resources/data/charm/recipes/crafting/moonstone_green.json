@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "charm:moonstones"
+    },
+    {
+      "tag": "forge:dyes/green"
+    }
+  ],
+  "result": {
+    "item": "charm:moonstone_green",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "moonstones"
+    }
+  ]
+}

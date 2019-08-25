@@ -1,0 +1,9 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "charm:item/moonstone_purple"
+  },
+  "overrides": [
+    { "predicate": { "aligned": 0 }, "model": "charm:item/moonstone_purple" }
+  ]
+}
