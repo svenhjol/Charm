@@ -2,6 +2,7 @@ package svenhjol.meson.handler;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
@@ -52,6 +53,11 @@ public class RegistryHandler
     public static void registerEnchantment(Enchantment enchantment, ResourceLocation res)
     {
         addRegisterable(enchantment, res);
+    }
+
+    public static void registerEntity(EntityType<?> entity, ResourceLocation res)
+    {
+        addRegisterable(entity, res);
     }
 
     public static void registerItem(Item item, ResourceLocation res)
