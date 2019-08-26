@@ -21,7 +21,6 @@ public class StackableEnchantedBooks extends MesonModule
     public void init()
     {
         item = new EnchantedBookItem((new Item.Properties()).maxStackSize(size).rarity(Rarity.UNCOMMON));
-        item.setRegistryName(ID);
         if (isEnabled()) OverrideHandler.changeVanillaItem(item, ID);
     }
 }

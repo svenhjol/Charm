@@ -26,10 +26,6 @@ public class StackablePotions extends MesonModule
         splash = new SplashPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
         lingering = new LingeringPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
 
-        potion.setRegistryName(POTION_ID);
-        splash.setRegistryName(SPLASH_ID);
-        lingering.setRegistryName(LINGERING_ID);
-
         if (isEnabled()) {
             OverrideHandler.changeVanillaItem(potion, POTION_ID);
             OverrideHandler.changeVanillaItem(splash, SPLASH_ID);

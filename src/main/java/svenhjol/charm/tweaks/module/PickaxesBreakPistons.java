@@ -23,8 +23,8 @@ public class PickaxesBreakPistons extends MesonModule
     @Override
     public void init()
     {
-        block = new PistonBlock(false, Block.Properties.from(Blocks.PISTON)).setRegistryName(ID);
-        blockItem = new BlockItem(block, (new Item.Properties()).group(ItemGroup.REDSTONE)).setRegistryName(ID);
+        block = new PistonBlock(false, Block.Properties.from(Blocks.PISTON));
+        blockItem = new BlockItem(block, (new Item.Properties()).group(ItemGroup.REDSTONE));
 
         if (isEnabled()) {
             OverrideHandler.changeVanillaBlock(block, ID);
