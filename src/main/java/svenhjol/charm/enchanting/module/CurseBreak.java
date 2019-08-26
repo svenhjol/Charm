@@ -5,6 +5,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.enchanting.enchantment.CurseBreakEnchantment;
@@ -19,15 +20,18 @@ public class CurseBreak extends MesonModule
 {
     public static CurseBreakEnchantment enchantment;
 
-    @Config(name = "XP cost", description = "Amount of levels required to remove a curse from an item.")
+    @Config(name = "XP cost", description = "Number of levels required to remove a curse from an item.")
     public static int xpCost = 1;
 
     @Override
     public void init()
     {
         enchantment = new CurseBreakEnchantment(this);
+    }
 
-        // if the zero XP feature isn't enabled then set it to 1
+    @Override
+    public void setup(FMLCommonSetupEvent event)
+    {
         if (!Charm.loader.hasModule(NoAnvilMinimumXp.class) && xpCost == 0) xpCost = 1;
     }
 
