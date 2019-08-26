@@ -12,13 +12,13 @@ import svenhjol.meson.iface.IMesonMessage;
 public class PacketHandler
 {
     private static final String PROTOCOL_VERSION = Integer.toString(1);
+
     public static final SimpleChannel HANDLER = NetworkRegistry.ChannelBuilder
-        .named(new ResourceLocation("mainchannel"))
+        .named(new ResourceLocation("main"))
         .clientAcceptedVersions(PROTOCOL_VERSION::equals)
         .serverAcceptedVersions(PROTOCOL_VERSION::equals)
         .networkProtocolVersion(() -> PROTOCOL_VERSION)
         .simpleChannel();
-
 
     public static int index = 0;
 
