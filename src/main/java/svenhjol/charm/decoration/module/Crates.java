@@ -14,7 +14,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
 import svenhjol.charm.Charm;
-import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.decoration.block.CrateBaseBlock;
@@ -57,9 +56,9 @@ public class Crates extends MesonModule
         }
 
         // add invalid blocks
-        CharmApi.addInvalidCrateBlock(ShulkerBoxBlock.class);
-        CharmApi.addInvalidCrateBlock(CrateOpenBlock.class);
-        CharmApi.addInvalidCrateBlock(CrateSealedBlock.class);
+        invalidBlocks.add(ShulkerBoxBlock.class);
+        invalidBlocks.add(CrateOpenBlock.class);
+        invalidBlocks.add(CrateSealedBlock.class);
 
         ResourceLocation res = new ResourceLocation(Charm.MOD_ID, "crate");
 
