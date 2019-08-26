@@ -66,7 +66,11 @@ public class FormEndermiteGoal extends RandomWalkingGoal
     public void startExecuting()
     {
         World world = silverfish.getEntityWorld();
-        BlockPos pos = (new BlockPos(silverfish.posX, silverfish.posY + 0.5D, silverfish.posZ)).offset(facing);
+
+        BlockPos silverfishPos = new BlockPos(silverfish.posX, silverfish.posY + 0.5D, silverfish.posZ);
+        if (facing == null) return;
+
+        BlockPos pos = silverfishPos.offset(facing);
         BlockState state = world.getBlockState(pos);
 
         if (state.getBlock() == BlockOfEnderPearls.block) {
