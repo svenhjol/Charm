@@ -13,8 +13,7 @@ function initializeCoreMod() {
     return {
 
         /*
-         * Add hook to BrewingRecipeRegistry::isValidInput
-         * so that potion stacks can be added to brewing stand slots.
+         * BrewingRecipeRegistry: allow potion stacks to be added to brewing stand slots.
          */
         'BrewingRecipeRegistry': {
             target: {
@@ -26,9 +25,9 @@ function initializeCoreMod() {
             transformer: function(method) {
                 var didThing = false;
                 var arrayLength = method.instructions.size();
+                var newInstructions = new InsnList();
                 for (var i = 0; i < arrayLength; ++i) {
                     var instruction = method.instructions.get(i)
-                    var newInstructions = new InsnList();
 
                     if (instruction.getOpcode() == Opcodes.IF_ICMPEQ) {
                         var label = new LabelNode();
@@ -56,7 +55,7 @@ function initializeCoreMod() {
         },
 
         /*
-         * Add hook to PotionItem so glint can be disabled in config.
+         * PotionItem: disable glint
          */
         'PotionItem': {
             target: {
@@ -68,9 +67,9 @@ function initializeCoreMod() {
             transformer: function(method) {
                 var didThing = false;
                 var arrayLength = method.instructions.size();
+                var newInstructions = new InsnList();
                 for (var i = 0; i < arrayLength; ++i) {
                     var instruction = method.instructions.get(i);
-                    var newInstructions = new InsnList();
 
                     if (instruction.getOpcode() == Opcodes.ALOAD) {
                         var label = new LabelNode();
@@ -98,7 +97,7 @@ function initializeCoreMod() {
         },
 
         /*
-         * Add hook to RepairContainer to be able to set an anvil XP cost of zero.
+         * RepairContainer: allow an anvil XP cost of zero.
          */
         'RepairContainer': {
             target: {
@@ -110,9 +109,9 @@ function initializeCoreMod() {
             transformer: function(method) {
                 var didThing = false;
                 var arrayLength = method.instructions.size();
+                var newInstructions = new InsnList();
                 for (var i = 0; i < arrayLength; ++i) {
                     var instruction = method.instructions.get(i);
-                    var newInstructions = new InsnList();
 
                     if (instruction.getOpcode() == Opcodes.IFLE) {
                         var label = instruction.label;
@@ -137,7 +136,7 @@ function initializeCoreMod() {
         },
 
         /*
-         * Add hook to ArmorLayer to skip rendering of armor if player is invisible.
+         * ArmorLayer: skip rendering of armor if player is invisible.
          */
         'ArmorLayer': {
             target: {
@@ -149,9 +148,9 @@ function initializeCoreMod() {
             transformer: function(method) {
                 var didThing = false;
                 var arrayLength = method.instructions.size();
+                var newInstructions = new InsnList();
                 for (var i = 0; i < arrayLength; ++i) {
                     var instruction = method.instructions.get(i);
-                    var newInstructions = new InsnList();
 
                     if (instruction.getOpcode() == Opcodes.ASTORE) {
                         var label = new LabelNode();
@@ -179,7 +178,7 @@ function initializeCoreMod() {
         },
 
         /*
-         * Add hook to BeaconTileEntity to handle other mobs in area.
+         * BeaconTileEntity: handle other mobs in area.
          */
         'BeaconTileEntity': {
             target: {
@@ -208,6 +207,83 @@ function initializeCoreMod() {
 
                 method.instructions.insertBefore(instruction, newInstructions);
                 print("Transformed BeaconTileEntity");
+
+                return method;
+            }
+        },
+
+        /*
+         * ItemStack: check item damage.
+         * Hook directly after this.setDamage(l).
+         */
+        'ItemStack': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.item.ItemStack',
+                'methodName': 'attemptDamageItem',
+                'methodDesc': '(ILjava/util/Random;Lnet/minecraft/entity/player/ServerPlayerEntity;)Z'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.INVOKEVIRTUAL
+                        && instruction.name == "setDamage"
+                    ) {
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                        newInstructions.add(new VarInsnNode(Opcodes.ILOAD, 4));
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "itemDamaged", "(Lnet/minecraft/item/ItemStack;ILnet/minecraft/entity/player/ServerPlayerEntity;)V", false));
+
+                        method.instructions.insert(instruction, newInstructions);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                if (didThing) {
+                    print("Transformed ItemStack");
+                }
+
+                return method;
+            }
+        },
+
+        /*
+         * HuskEntity: don't check skylight for spawning.
+         */
+        'HuskEntity': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.entity.monster.HuskEntity',
+                'methodName': 'func_223334_b',
+                'methodDesc': '(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/IWorld;Lnet/minecraft/entity/SpawnReason;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)Z'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.INVOKEINTERFACE) {
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "isSkyLightMax", "(Lnet/minecraft/world/IWorld;Lnet/minecraft/util/math/BlockPos;)Z", false));
+
+                        method.instructions.insert(instruction, newInstructions);
+                        method.instructions.remove(instruction);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                if (didThing) {
+                    print("Transformed HuskEntity");
+                }
 
                 return method;
             }
