@@ -7,6 +7,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ToolType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
@@ -23,7 +24,7 @@ public class PickaxesBreakPistons extends MesonModule
     @Override
     public void init()
     {
-        block = new PistonBlock(false, Block.Properties.from(Blocks.PISTON));
+        block = new PistonBlock(false, Block.Properties.from(Blocks.PISTON).harvestTool(ToolType.PICKAXE));
         blockItem = new BlockItem(block, (new Item.Properties()).group(ItemGroup.REDSTONE));
 
         if (isEnabled()) {
