@@ -3,10 +3,33 @@ package svenhjol.meson.helper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import svenhjol.meson.iface.IMesonEnum;
 
 public class WorldHelper
 {
-    public static final String END_CITY = "EndCity";
+    public enum Structure implements IMesonEnum
+    {
+        buried_treasure,
+        desert_pyramid,
+        endcity,
+        igloo,
+        jungle_pyramid,
+        mansion,
+        mineshaft,
+        fortress,
+        monument,
+        ocean_ruin,
+        pillager_outpost,
+        shipwreck,
+        stronghold,
+        swamp_hut,
+        village;
+    }
+
+    public static BlockPos findNearestStructure(World world, Structure structure, BlockPos pos, int radius)
+    {
+        return world.findNearestStructure(WorldHelper.Structure.endcity.getName(), pos, radius, true);
+    }
 
     public static double getDistanceSq(BlockPos pos1, BlockPos pos2)
     {
