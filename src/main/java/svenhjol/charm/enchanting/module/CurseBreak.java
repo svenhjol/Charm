@@ -8,6 +8,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.enchanting.enchantment.CurseBreakEnchantment;
+import svenhjol.charm.tweaks.module.NoAnvilMinimumXp;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.EnchantmentsHelper;
 import svenhjol.meson.iface.Config;
@@ -25,6 +26,9 @@ public class CurseBreak extends MesonModule
     public void init()
     {
         enchantment = new CurseBreakEnchantment(this);
+
+        // if the zero XP feature isn't enabled then set it to 1
+        if (!Charm.loader.hasModule(NoAnvilMinimumXp.class) && xpCost == 0) xpCost = 1;
     }
 
     @SubscribeEvent

@@ -6,6 +6,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.smithing.compat.QuarkTallow;
+import svenhjol.charm.tweaks.module.NoAnvilMinimumXp;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.iface.Config;
@@ -47,6 +48,9 @@ public class TallowIncreasesDurability extends MesonModule
         } catch (Exception e) {
             throw new RuntimeException("Error loading QuarkTallow");
         }
+
+        // if the zero XP feature isn't enabled then set it to 1
+        if (!Charm.loader.hasModule(NoAnvilMinimumXp.class) && xpCost == 0) xpCost = 1;
     }
 
     @Override

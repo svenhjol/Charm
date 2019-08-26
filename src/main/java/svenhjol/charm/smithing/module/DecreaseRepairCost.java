@@ -6,6 +6,7 @@ import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
+import svenhjol.charm.tweaks.module.NoAnvilMinimumXp;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
@@ -34,6 +35,9 @@ public class DecreaseRepairCost extends MesonModule
         armor.put(Items.GOLDEN_CHESTPLATE, EquipmentSlotType.CHEST);
         armor.put(Items.GOLDEN_LEGGINGS, EquipmentSlotType.LEGS);
         armor.put(Items.GOLDEN_BOOTS, EquipmentSlotType.FEET);
+
+        // if the zero XP feature isn't enabled then set it to 1
+        if (!Charm.loader.hasModule(NoAnvilMinimumXp.class) && xpCost == 0) xpCost = 1;
     }
 
     @SubscribeEvent
