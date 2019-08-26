@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "charm:gunpowder_block"}
+  ],
+  "result": {
+    "item": "minecraft:gunpowder",
+    "count": 4
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "charm:module_enabled",
+          "module": "block_of_gunpowder"
+        },
+        {
+          "type": "quark:flag",
+          "flag": "gunpowder_sack"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "charm:crate_open_acacia",
+    "charm:crate_open_birch",
+    "charm:crate_open_dark_oak",
+    "charm:crate_open_jungle",
+    "charm:crate_open_oak",
+    "charm:crate_open_spruce",
+    "charm:crate_sealed_acacia",
+    "charm:crate_sealed_birch",
+    "charm:crate_sealed_dark_oak",
+    "charm:crate_sealed_jungle",
+    "charm:crate_sealed_oak",
+    "charm:crate_sealed_spruce"
+  ]
+}

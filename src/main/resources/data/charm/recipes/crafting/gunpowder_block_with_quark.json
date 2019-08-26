@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XXX",
-    "XXX",
-    "XXX"
+    "XX",
+    "XX"
   ],
   "key": {
     "X": {"item": "minecraft:gunpowder"}
@@ -20,11 +19,8 @@
           "module": "block_of_gunpowder"
         },
         {
-          "type": "forge:not",
-          "value": {
-            "type": "quark:flag",
-            "flag": "gunpowder_sack"
-          }
+          "type": "quark:flag",
+          "flag": "gunpowder_sack"
         }
       ]
     }
