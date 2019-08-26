@@ -41,7 +41,7 @@ public class EndermitePowderItem extends MesonItem
 
         // server
         if (!worldIn.isRemote) {
-            BlockPos pos = worldIn.findNearestStructure(WorldHelper.END_CITY, playerIn.getPosition(), 1500, false);
+            BlockPos pos = WorldHelper.findNearestStructure(worldIn, WorldHelper.Structure.endcity, playerIn.getPosition(), 1500);
             if (pos != null) {
                 EndermitePowderEntity entity = new EndermitePowderEntity(worldIn, pos.getX(), pos.getZ());
                 Vec3d look = playerIn.getLookVec();
