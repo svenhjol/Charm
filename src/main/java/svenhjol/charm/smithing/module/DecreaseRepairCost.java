@@ -4,6 +4,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.tweaks.module.NoAnvilMinimumXp;
@@ -20,8 +21,11 @@ public class DecreaseRepairCost extends MesonModule
     public static Map<Item, Class<? extends Item>> tools = new HashMap<>();
     public static Map<Item, EquipmentSlotType> armor = new HashMap<>();
 
-    @Config public static int decreaseAmount = 2;
-    @Config public static int xpCost = 0;
+    @Config(name = "Repair cost decrease", description = "The tool repair cost will be decreased by this number.")
+    public static int decreaseAmount = 2;
+
+    @Config(name = "XP cost", description = "Number of levels required to remove a curse from an item.")
+    public static int xpCost = 0;
 
     @Override
     public void init()
@@ -35,8 +39,11 @@ public class DecreaseRepairCost extends MesonModule
         armor.put(Items.GOLDEN_CHESTPLATE, EquipmentSlotType.CHEST);
         armor.put(Items.GOLDEN_LEGGINGS, EquipmentSlotType.LEGS);
         armor.put(Items.GOLDEN_BOOTS, EquipmentSlotType.FEET);
+    }
 
-        // if the zero XP feature isn't enabled then set it to 1
+    @Override
+    public void setup(FMLCommonSetupEvent event)
+    {
         if (!Charm.loader.hasModule(NoAnvilMinimumXp.class) && xpCost == 0) xpCost = 1;
     }
 
