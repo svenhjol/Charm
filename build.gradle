@@ -72,6 +72,10 @@ repositories {
         name "blamejared"
         url "http://maven.blamejared.com/"
     }
+
+//    flatDir {
+//        dirs "libs"
+//    }
 }
 
 processResources {
