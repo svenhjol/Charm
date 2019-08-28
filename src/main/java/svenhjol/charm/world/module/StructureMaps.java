@@ -25,7 +25,8 @@ import svenhjol.meson.iface.Module;
 import javax.annotation.Nullable;
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
+    description = "Cartographers sell Structure Maps that can be used to find additional overworld structures.")
 public class StructureMaps extends MesonModule
 {
     @Config(name = "Trade Level", description = "The level at which a cartographer will trade structure maps.\n" +

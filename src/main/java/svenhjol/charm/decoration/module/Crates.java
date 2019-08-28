@@ -7,9 +7,11 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
@@ -32,7 +34,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION, hasSubscriptions = true,
+    description = "A smaller storage solution with the benefit of being transportable." +
+        "You can also seal a crate by combining it with an iron ingot on an anvil.  The only way to get things out is to break it.")
 public class Crates extends MesonModule
 {
     public static Map<WoodType, CrateOpenBlock> openTypes = new HashMap<>();
@@ -107,5 +111,11 @@ public class Crates extends MesonModule
     public void setupClient(FMLClientSetupEvent event)
     {
         ScreenManager.registerFactory(container, CrateScreen::new);
+    }
+
+    @SubscribeEvent
+    public void attachCapabilities(AttachCapabilitiesEvent<TileEntity> event)
+    {
+
     }
 }

@@ -6,7 +6,8 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.AUTOMATION)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.AUTOMATION,
+    description = "A block that emits light according to the strength of the input redstone signal.")
 public class VariableRedstoneLamp extends MesonModule
 {
     public static VariableRedstoneLampBlock block;

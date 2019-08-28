@@ -7,7 +7,8 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
+    description = "Husks spawn anywhere within their biomes rather than where the sky is visible.")
 public class HusksIgnoreSkylight extends MesonModule
 {
     public static boolean isSkyLightMax(IWorld world, BlockPos pos)

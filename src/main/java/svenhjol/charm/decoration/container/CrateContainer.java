@@ -1,15 +1,25 @@
 package svenhjol.charm.decoration.container;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
 import svenhjol.charm.decoration.module.Crates;
 import svenhjol.charm.decoration.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonContainer;
+import vazkii.quark.api.ITransferManager;
+import vazkii.quark.api.QuarkCapabilities;
 
-public class CrateContainer extends MesonContainer
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+public class CrateContainer extends MesonContainer implements ITransferManager, ICapabilityProvider
 {
     private CrateContainer(ContainerType<?> type, int id, PlayerInventory player, IInventory inventory)
     {
@@ -45,5 +55,18 @@ public class CrateContainer extends MesonContainer
     public static CrateContainer instance(int id, PlayerInventory playerInventory)
     {
         return instance(id, playerInventory, new Inventory(CrateTileEntity.SIZE));
+    }
+
+    @Override
+    public boolean acceptsTransfer(PlayerEntity playerEntity)
+    {
+        return true;
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
+    {
+        return QuarkCapabilities.TRANSFER.orEmpty(cap, LazyOptional.of(() -> this));
     }
 }

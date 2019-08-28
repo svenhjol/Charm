@@ -6,7 +6,8 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.AUTOMATION)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.AUTOMATION,
+    description = "A block that acts like sand but is powered like a block of redstone.")
 public class RedstoneSand extends MesonModule
 {
     public static RedstoneSandBlock block;

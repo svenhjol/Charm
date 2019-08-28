@@ -6,7 +6,8 @@ import svenhjol.charm.decoration.block.GoldLanternBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION,
+    description = "Gold version of the vanilla lantern.")
 public class GoldLanterns extends MesonModule
 {
     public static GoldLanternBlock block;

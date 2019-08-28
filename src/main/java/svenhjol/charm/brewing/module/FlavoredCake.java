@@ -38,11 +38,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.BREWING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.BREWING, hasSubscriptions = true,
+    description = "Right-click a Long Potion on a cake to make a Flavored Cake that gives the potion effect after eating each slice." +
+        "You can also make a Flavored Cake using a dispenser.")
 public class FlavoredCake extends MesonModule
 {
-    @Config
+    @Config(
+        name = "Effect duration multiplier",
+        description = "Effect duration of a single slice of cake as a multiplier of the original potion duration.")
     public static double multiplier = 0.1D;
+
     public static List<String> validPotions = Arrays.asList(
         "swiftness",
         "strength",

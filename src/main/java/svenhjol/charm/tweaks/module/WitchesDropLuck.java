@@ -15,7 +15,8 @@ import svenhjol.meson.helper.PotionHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+    description = "A witch has a chance to drop a Potion of Luck when killed by a player.")
 public class WitchesDropLuck extends MesonModule
 {
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a witch dropping a Potion of Luck when killed by the player.")

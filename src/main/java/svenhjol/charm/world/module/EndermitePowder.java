@@ -17,7 +17,9 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
+    description = "Endermite Powder has a chance of being dropped from an Endermite.\n" +
+        "Use it in the End to help locate an End City.")
 public class EndermitePowder extends MesonModule
 {
     public static EndermitePowderItem item;

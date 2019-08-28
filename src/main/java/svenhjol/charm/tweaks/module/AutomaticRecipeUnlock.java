@@ -16,7 +16,8 @@ import java.util.Collection;
 /**
  * @see net.minecraft.item.KnowledgeBookItem
  */
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+    description = "Unlocks all vanilla recipes. This will be disabled if Quark is present, because Quark's module is better.")
 public class AutomaticRecipeUnlock extends MesonModule
 {
     @Override

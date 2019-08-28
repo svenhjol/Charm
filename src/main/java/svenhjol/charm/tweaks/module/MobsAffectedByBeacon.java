@@ -16,7 +16,9 @@ import svenhjol.meson.iface.Module;
 
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
+    description = "Animals will heal within range of a beacon with the regeneration effect.\n" +
+        "Monsters will be weakened within range of a beacon with the strength effect.")
 public class MobsAffectedByBeacon extends MesonModule
 {
     @Config(name = "Heal animals", description = "Heal friendly animals within range. One of the beacon effects must be regeneration.")

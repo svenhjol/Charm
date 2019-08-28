@@ -20,7 +20,8 @@ import java.util.List;
 
 import static net.minecraft.world.gen.feature.Feature.VILLAGE;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
+    description = "Villages can spawn in swamps and jungles. Villagers spawning in these villages will use their correct biome texture.")
 public class MoreVillageBiomes extends MesonModule
 {
     public static List<Biome> biomes = Arrays.asList(Biomes.JUNGLE, Biomes.SWAMP);

@@ -25,13 +25,16 @@ import svenhjol.meson.iface.Module;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION,
+    description = "A bookshelf with 9 slots that can store books.\n" +
+        "Provides the same enchanting power as a normal bookshelf as long as there is at least 1 book on the shelf.")
 public class BookshelfChests extends MesonModule
 {
     public static List<Class<? extends Item>> validItems = new ArrayList<>();
     public static Map<WoodType, IMesonBlock> blocks = new HashMap<>();
 
-    @Config public static List<String> configValidItems = Arrays.asList(
+    @Config(name = "Valid books", description = "List of item IDs that may be placed in a bookshelf chest.")
+    public static List<String> configValidItems = Arrays.asList(
         "minecraft:book",
         "minecraft:enchanted_book",
         "minecraft:written_book",

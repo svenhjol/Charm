@@ -15,7 +15,8 @@ import svenhjol.meson.iface.Module;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.SMITHING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.SMITHING, hasSubscriptions = true,
+    description = "Combine an item with its golden version on an anvil to reduce the original item's repair cost.")
 public class DecreaseRepairCost extends MesonModule
 {
     public static Map<Item, Class<? extends Item>> tools = new HashMap<>();

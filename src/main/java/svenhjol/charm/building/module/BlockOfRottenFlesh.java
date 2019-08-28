@@ -6,12 +6,12 @@ import svenhjol.charm.building.block.RottenFleshBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING,
+    description = "A storage block for rotten flesh.  If the rotten flesh block has water on any of its sides, it has a chance to turn into dirt.\n" +
+        "If there is a soil block above the rotten flesh block, it has a chance to turn into podzol.")
 public class BlockOfRottenFlesh extends MesonModule
 {
     public static RottenFleshBlock block;
-    public static float hardness = 1.0F;
-    public static float resistance = 2.0F;
 
     @Override
     public void init()

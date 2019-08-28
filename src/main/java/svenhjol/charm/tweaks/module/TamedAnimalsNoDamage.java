@@ -11,7 +11,9 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+    description = "Tamed animals no longer take direct damage from players.\n" +
+        "They still suffer secondary effects, such as burning from a Fire Aspect sword.")
 public class TamedAnimalsNoDamage extends MesonModule
 {
     @SubscribeEvent

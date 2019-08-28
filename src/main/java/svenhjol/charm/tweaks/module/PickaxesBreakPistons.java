@@ -14,7 +14,8 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
+    description = "Pickaxes become the optimal harvest tool for breaking pistons.")
 public class PickaxesBreakPistons extends MesonModule
 {
     public static Block block;

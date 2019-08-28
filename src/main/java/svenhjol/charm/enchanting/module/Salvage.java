@@ -14,7 +14,9 @@ import svenhjol.meson.iface.Module;
 
 import javax.annotation.Nullable;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING,
+    description = "An item with the Salvage enchantment does not disappear when its durability is depleted, giving you a chance to get it repaired.\n" +
+        "If the item runs out of durability the player will drop it and must be picked up again. Watch out for lava.")
 public class Salvage extends MesonModule
 {
     public static SalvageEnchantment enchantment;

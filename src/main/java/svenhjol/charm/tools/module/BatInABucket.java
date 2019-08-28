@@ -30,7 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TOOLS, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TOOLS, hasSubscriptions = true,
+    description = "Right-click a bat with a bucket to capture it.\n" +
+        "Right-click your Bat in a Bucket to release the bat and help locate entities around you.")
 public class BatInABucket extends MesonModule
 {
     public static BatBucketItem item;

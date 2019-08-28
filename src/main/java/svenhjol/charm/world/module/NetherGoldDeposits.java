@@ -21,7 +21,7 @@ import static net.minecraft.world.gen.feature.Feature.ORE;
 public class NetherGoldDeposits extends MesonModule
 {
     public static NetherGoldDepositBlock block;
-    public static int veinSize = 5;
+    public static int veinSize = 3;
     public static int clusterCount = 12;
     public static float hardness = 3.0F;
     public static float resistance = 10.0F;
@@ -52,7 +52,7 @@ public class NetherGoldDeposits extends MesonModule
                         veinSize
                     ),
                     Placement.COUNT_RANGE,
-                    new CountRangeConfig(7, 10, 0, 128))
+                    new CountRangeConfig(4, 10, 0, 128))
             );
         }
     }

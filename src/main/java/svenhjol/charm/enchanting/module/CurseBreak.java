@@ -15,7 +15,8 @@ import svenhjol.meson.helper.EnchantmentsHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true,
+    description = "Combine the Curse Break enchanted book with a cursed item on an anvil to remove the item's curse.")
 public class CurseBreak extends MesonModule
 {
     public static CurseBreakEnchantment enchantment;

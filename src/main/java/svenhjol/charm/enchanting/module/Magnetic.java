@@ -32,7 +32,8 @@ import svenhjol.meson.iface.Module;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true,
+    description = "Tools with the Magnetic enchantment automatically pick up drops.")
 public class Magnetic extends MesonModule
 {
     public static int range = 6;

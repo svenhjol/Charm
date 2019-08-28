@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION,
+    description = "Barrels are available in all types of vanilla wood.")
 public class AllTheBarrels extends MesonModule
 {
     public static List<CustomBarrelBlock> barrels = new ArrayList<>();

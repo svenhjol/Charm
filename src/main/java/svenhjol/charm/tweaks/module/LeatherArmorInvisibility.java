@@ -14,7 +14,8 @@ import svenhjol.meson.iface.Module;
 import java.util.ArrayList;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
+    description = "Leather armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
 public class LeatherArmorInvisibility extends MesonModule
 {
     public static List<Item> invisibleItems = new ArrayList<>();

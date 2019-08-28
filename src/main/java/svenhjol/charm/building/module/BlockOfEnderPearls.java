@@ -24,13 +24,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING, hasSubscriptions = true,
+    description = "A storage block for ender pearls. Eating a chorus fruit will teleport you to a nearby ender pearl block.\n" +
+        "If a silverfish burrows into an ender pearl block, it will become an endermite.")
 public class BlockOfEnderPearls extends MesonModule
 {
     public static EnderPearlBlock block;
-    public static float hardness = 2.0F;
     public static int range = 8;
-    @Config
+
+    @Config(
+        name = "Teleport stabilization",
+        description = "If true, eating a Chorus Fruit while in range of an Ender Pearl Block will teleport you to it.")
     public static boolean teleportStabilize = true;
 
     @Override

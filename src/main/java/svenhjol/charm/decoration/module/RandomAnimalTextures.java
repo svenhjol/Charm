@@ -18,7 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION,
+    description = "Wolves will spawn with texture variants.")
 public class RandomAnimalTextures extends MesonModule
 {
     public static List<String> wolves = Arrays.asList(

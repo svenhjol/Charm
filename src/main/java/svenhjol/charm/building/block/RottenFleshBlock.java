@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import svenhjol.charm.building.module.BlockOfRottenFlesh;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 import svenhjol.meson.helper.WorldHelper;
@@ -33,7 +32,7 @@ public class RottenFleshBlock extends MesonBlock
         super(module, "rotten_flesh_block", Block.Properties
             .create(Material.ORGANIC)
             .sound(SoundType.GROUND)
-            .hardnessAndResistance(BlockOfRottenFlesh.hardness, BlockOfRottenFlesh.resistance)
+            .hardnessAndResistance(1.0F, 2.0F)
             .harvestTool(ToolType.SHOVEL)
             .tickRandomly()
         );

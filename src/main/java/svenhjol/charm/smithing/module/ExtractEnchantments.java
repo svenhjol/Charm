@@ -17,7 +17,9 @@ import svenhjol.meson.iface.Module;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.SMITHING, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.SMITHING, hasSubscriptions = true,
+    description = "Extract enchantments from any enchanted item into an empty book.\n" +
+        "The enchantments are weakened in the process and the original item is destroyed.")
 public class ExtractEnchantments extends MesonModule
 {
     @Config(name = "Base XP cost", description = "Minimum cost before adding XP equivalent to the enchantment level(s) of the item.")

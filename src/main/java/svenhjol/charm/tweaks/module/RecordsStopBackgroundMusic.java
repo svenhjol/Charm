@@ -20,7 +20,8 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+    description = "Stops the background music when playing a music disc in a jukebox.")
 public class RecordsStopBackgroundMusic extends MesonModule
 {
     private int ticks; // delay

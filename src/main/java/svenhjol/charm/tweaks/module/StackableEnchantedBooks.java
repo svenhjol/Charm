@@ -10,7 +10,8 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
+    description = "Enchanted Books can stack (up to 16).")
 public class StackableEnchantedBooks extends MesonModule
 {
     public static int size = 16;

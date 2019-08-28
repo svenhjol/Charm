@@ -27,7 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TOOLS, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TOOLS, hasSubscriptions = true,
+    description = "Right-click with a compass on a banner or beacon whilst sneaking to bind the compass to the target's location.")
 public class CompassBinding extends MesonModule
 {
     public static BoundCompassItem item;

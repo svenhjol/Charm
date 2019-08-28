@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import svenhjol.charm.building.module.BlockOfEnderPearls;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 
@@ -23,7 +22,7 @@ public class EnderPearlBlock extends MesonBlock
         super(module, "ender_pearl_block", Block.Properties
             .create(Material.GLASS)
             .sound(SoundType.GLASS)
-            .hardnessAndResistance(BlockOfEnderPearls.hardness)
+            .hardnessAndResistance(2.0F)
             .harvestTool(ToolType.PICKAXE)
         );
     }

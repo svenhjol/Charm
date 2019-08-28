@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+    description = "Adds records (music discs) of all Minecraft background music.\n" +
+        "These additional records will be dropped when a zombie is killed by a skeleton.")
 public class ExtraRecords extends MesonModule
 {
     public static String[] recordNames = new String[] {

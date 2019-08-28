@@ -6,11 +6,11 @@ import svenhjol.charm.building.block.SmoothGlowstoneBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING,
+    description = "Smelt glowstone in a furnace to get smooth glowstone.")
 public class SmoothGlowstone extends MesonModule
 {
     public static SmoothGlowstoneBlock block;
-    public static float hardness = 0.3F;
 
     @Override
     public void init()

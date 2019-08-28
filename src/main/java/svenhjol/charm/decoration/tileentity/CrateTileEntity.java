@@ -7,16 +7,23 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import svenhjol.charm.decoration.container.CrateContainer;
 import svenhjol.charm.decoration.module.Crates;
 import svenhjol.meson.iface.IMesonTileEntity;
+import vazkii.quark.api.ITransferManager;
+import vazkii.quark.api.QuarkCapabilities;
 
-public class CrateTileEntity extends LockableLootTileEntity implements IMesonTileEntity
+import javax.annotation.Nullable;
+
+public class CrateTileEntity extends LockableLootTileEntity implements IMesonTileEntity, ITransferManager
 {
     public static int SIZE = 9;
     private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
@@ -42,6 +49,12 @@ public class CrateTileEntity extends LockableLootTileEntity implements IMesonTil
     }
 
     @Override
+    public boolean acceptsTransfer(PlayerEntity playerEntity)
+    {
+        return true;
+    }
+
+    @Override
     public CompoundNBT write(CompoundNBT tag)
     {
         super.write(tag);
@@ -55,6 +68,36 @@ public class CrateTileEntity extends LockableLootTileEntity implements IMesonTil
         }
         return tag;
     }
+
+    @Nullable
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side)
+    {
+        return QuarkCapabilities.TRANSFER.orEmpty(cap, LazyOptional.of(() -> this));
+    }
+
+    //    @Nullable
+//    @Override
+//    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side)
+//    {
+//        LazyOptional<ITransferManager> opt = LazyOptional.of(() -> this);
+//        return QuarkCapabilities.TRANSFER.orEmpty(cap, opt);
+//
+////        if (opt.isPresent()) {
+////            return opt;
+////        }
+////
+////        return super.getCapability(cap, side);
+//
+//
+////       if (cap == QuarkCapabilities.TRANSFER) {
+////           return (LazyOptional<T>)LazyOptional.of(() -> this);
+////       }
+////
+////       return super.getCapability(cap, side);
+//
+////        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)getInventory() : super.getCapability(capability, facing);
+//    }
 
     @Override
     protected Container createMenu(int id, PlayerInventory player)
