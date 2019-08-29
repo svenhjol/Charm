@@ -7,6 +7,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
 
@@ -32,12 +33,14 @@ public class RemoveNitwits extends Feature
 
             while (res != null && res.toString().equals("minecraft:nitwit")) {
                 VillagerRegistry.setRandomProfession(villager, event.getWorld().rand);
-                villager.finalizeMobSpawn(difficulty, null, false);
                 res = villager.getProfessionForge().getRegistryName();
                 if (++i > 20) break; // no infinite loops pls
             }
 
             if (i > 0) {
+                // we have to force the careerLevel back to 0, or it will increase to 2 when running finalizeMobSpawn!
+                ReflectionHelper.setPrivateValue(EntityVillager.class, villager, 0, "careerLevel", "field_175562_bw");
+                villager.finalizeMobSpawn(difficulty, null, false);
                 Meson.debug("Changed nitwit to " + res);
             }
         }
