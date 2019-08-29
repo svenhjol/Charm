@@ -29,6 +29,7 @@ import svenhjol.charm.crafting.feature.Composter;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
 import svenhjol.meson.handler.NetworkHandler;
+import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.SoundHelper;
 
@@ -87,14 +88,16 @@ public class FlavoredCake extends Feature
         super.preInit(event);
 
         for (String name : validPotions) {
-            String baseName;
+            String modName = "";
+            String baseName = name;
 
             if (name.contains(":")) {
                 String[] split = name.split(":");
+                modName = split[0];
                 baseName = split[1];
-            } else {
-                baseName = name;
             }
+
+            if (!modName.isEmpty() && !ForgeHelper.areModsLoaded(modName)) continue;
 
             BlockFlavoredCake cake = new BlockFlavoredCake(baseName);
             cakes.put(name, cake);
