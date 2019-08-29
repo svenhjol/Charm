@@ -38,7 +38,7 @@ public class SpongesReduceFallDamage extends Feature
             Block down = world.getBlockState(event.getEntityLiving().getPosition().down()).getBlock();
 
             if (down instanceof BlockSponge) {
-                event.setAmount(event.getAmount() - (event.getAmount() * 0.75f));
+                event.setAmount(event.getAmount() - (event.getAmount() * amountAbsorbed));
             }
         }
     }
