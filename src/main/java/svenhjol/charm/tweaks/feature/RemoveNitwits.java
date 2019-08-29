@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
+import svenhjol.meson.helper.ObfuscationHelper;
 
 public class RemoveNitwits extends Feature
 {
@@ -39,7 +40,7 @@ public class RemoveNitwits extends Feature
 
             if (i > 0) {
                 // we have to force the careerLevel back to 0, or it will increase to 2 when running finalizeMobSpawn!
-                ReflectionHelper.setPrivateValue(EntityVillager.class, villager, 0, "careerLevel", "field_175562_bw");
+                ReflectionHelper.setPrivateValue(EntityVillager.class, villager, 0, ObfuscationHelper.Fields.CAREER_LEVEL[2], ObfuscationHelper.Fields.CAREER_LEVEL[1]);
                 villager.finalizeMobSpawn(difficulty, null, false);
                 Meson.debug("Changed nitwit to " + res);
             }
