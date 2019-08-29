@@ -41,7 +41,7 @@ public class TallowIncreasesDurability extends Feature
         chance = propDouble(
             "Chance of repair cost increase",
             "Chance (out of 1.0) of tallow increasing the future repair cost of the tool.",
-            0.75D
+            0.05D
         );
         xpCost = propInt(
             "XP cost",
