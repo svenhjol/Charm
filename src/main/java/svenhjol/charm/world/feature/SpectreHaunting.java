@@ -10,6 +10,7 @@ import svenhjol.charm.Charm;
 import svenhjol.meson.Feature;
 import svenhjol.meson.Meson;
 import svenhjol.meson.helper.EntityHelper;
+import svenhjol.meson.helper.WorldHelper;
 
 import static svenhjol.meson.helper.WorldHelper.*;
 
@@ -80,6 +81,9 @@ public class SpectreHaunting extends Feature
     {
         if (event.phase == TickEvent.Phase.END
             && event.side.isServer()
+            && event.player != null
+            && event.player.world != null
+            && WorldHelper.canGenerateStructures(event.player.world)
             && event.player.world.getTotalWorldTime() % checkInterval == 0
             && event.player.world.rand.nextFloat() < spawnChance
             && event.player.world.getLightBrightness(event.player.getPosition()) < ((float)Spectre.despawnLight)/16.0

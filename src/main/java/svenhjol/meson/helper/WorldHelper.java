@@ -35,6 +35,11 @@ public class WorldHelper
         temples.add(StructureType.IGLOO);
     }
 
+    public static boolean canGenerateStructures(World world)
+    {
+        return world.getWorldInfo().isMapFeaturesEnabled();
+    }
+
     @SuppressWarnings("unused")
     public static BlockPos getNearestStronghold(World world, BlockPos chunk)
     {
