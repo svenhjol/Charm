@@ -26,7 +26,6 @@ import svenhjol.charm.world.event.SpectreAttackEvent;
 import svenhjol.charm.world.feature.Spectre;
 import svenhjol.charm.world.feature.SpectreHaunting;
 import svenhjol.charm.world.message.MessageSpectreDespawn;
-import svenhjol.meson.Meson;
 import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.EnchantmentHelper;
 
@@ -111,12 +110,10 @@ public class EntitySpectre extends EntityMob
             if (world.getLightFor(EnumSkyBlock.SKY, pos) > Spectre.despawnLight && world.isDaytime()) {
                 // spectre on surface or can see the sky and it's daytime, despawn
                 despawn = true;
-                Meson.debug("Spectre skylight, going to despawn");
             } else {
                 if (world.getLightFromNeighbors(pos) >= Spectre.despawnLight) {
                     // light around spectre is too bright, despawn
                     despawn = true;
-                    Meson.debug("Spectre neighbour light, going to despawn");
                 }
             }
         }
@@ -124,7 +121,6 @@ public class EntitySpectre extends EntityMob
         if (Charm.hasFeature(SpectreHaunting.class) && ticksExisted > SpectreHaunting.ticksLiving) {
             // spectre has reached end of its life, despawn
             despawn = true;
-            Meson.debug("Spectre end of life, going to despawn");
         }
 
         if (despawn) despawn();
