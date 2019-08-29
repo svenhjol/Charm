@@ -39,8 +39,8 @@ public class QuarkTallow
 
             ItemStack out = in.copy();
 
-            out.setRepairCost(in.getRepairCost() + (new Random().nextFloat() < 0.75f ? 1 : 0));
-            out.setItemDamage(currentDamage - (int)(maxDamage * 0.02f));
+            out.setRepairCost(in.getRepairCost() + (new Random().nextFloat() < TallowIncreasesDurability.chance ? 1 : 0));
+            out.setItemDamage(currentDamage - (int)(maxDamage * TallowIncreasesDurability.amount));
 
             event.setOutput(out);
             event.setCost(TallowIncreasesDurability.xpCost);
