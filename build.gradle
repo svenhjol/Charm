@@ -68,6 +68,7 @@ repositories {
 }
 
 dependencies {
+    // set to "compileOnly" to test without quark
     compile "vazkii.autoreglib:AutoRegLib:${arl_version}"
     compile "vazkii.quark:Quark:${quark_version}"
     deobfProvided "vazkii.quark:Quark:${quark_version}:api"
