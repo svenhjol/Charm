@@ -1,5 +1,25 @@
 # Changelog for Charm 1.12
 
+## 1.3.6
+
+### Automation
+* Variable redstone lamp drops, sound and hardness fixes. Fix #166
+
+### Brewing
+* Flavored Cakes no longer register modded cakes if the mod isn't present. Fix #161
+
+### Smithing
+* Tallow durability increase no longer increases repair cost.
+For existing `charm.cfg`, set the repair cost chance from `0.75D` to `0.0D`.
+New configurations will do this automatically.
+
+### World
+* Spectre haunting now disabled when structures are not enabled. Fix #165
+* Added "Remove Nitwits" feature that will automatically select a new career for a nitwit
+whenever it would be added to the world (via breeding or spawn eggs). Existing nitwits
+will also gain a career when loaded.  You can disable this in `charm.cfg` by setting
+`Remove nitwits` to `false`.
+
 ## 1.3.5
 
 ### General
