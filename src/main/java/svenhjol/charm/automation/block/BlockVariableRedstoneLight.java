@@ -2,15 +2,18 @@ package svenhjol.charm.automation.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneLight;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
+import svenhjol.charm.automation.feature.VariableRedstoneLamp;
 import svenhjol.meson.iface.IMesonBlock;
 
 import java.util.Random;
@@ -24,7 +27,9 @@ public class BlockVariableRedstoneLight extends BlockRedstoneLight implements IM
         super(false);
         register();
         setCreativeTab(CreativeTabs.REDSTONE);
-        setLightLevel(1.0f);
+        setSoundType(SoundType.GLASS);
+        setHardness(0.3F);
+        setLightLevel(1.0F);
     }
 
     @Override
@@ -104,6 +109,11 @@ public class BlockVariableRedstoneLight extends BlockRedstoneLight implements IM
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
         return new ItemStack(this);
+    }
+
+    public Item getItemDropped(IBlockState state, Random rand, int fortune)
+    {
+        return Item.getItemFromBlock(VariableRedstoneLamp.block);
     }
 
     @Override

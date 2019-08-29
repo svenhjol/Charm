@@ -10,7 +10,7 @@ import svenhjol.meson.registry.ProxyRegistry;
 
 public class VariableRedstoneLamp extends Feature
 {
-    public BlockVariableRedstoneLight block;
+    public static BlockVariableRedstoneLight block;
 
     @Override
     public String getDescription()
