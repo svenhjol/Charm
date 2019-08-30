@@ -7,9 +7,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import svenhjol.charm.Charm;
@@ -17,11 +20,12 @@ import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.brewing.client.EnderSightSound;
 import svenhjol.charm.brewing.message.MessageSetStructure;
 import svenhjol.charm.brewing.potion.EnderSightPotion;
-import svenhjol.meson.handler.ClientHandler;
 import svenhjol.meson.Feature;
+import svenhjol.meson.handler.ClientHandler;
 import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.helper.EntityHelper;
 import svenhjol.meson.helper.PlayerHelper;
+import svenhjol.meson.helper.WorldHelper;
 
 public class EnderSight extends Feature
 {
@@ -81,15 +85,12 @@ public class EnderSight extends Feature
         NetworkHandler.register(MessageSetStructure.class, Side.CLIENT);
     }
 
-    /**
-     * @param event Ticks on client
-     */
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onClientTick(TickEvent.ClientTickEvent event)
     {
         Minecraft mc = Minecraft.getMinecraft();
-        if (event.phase == TickEvent.Phase.START && mc.player != null && !mc.isGamePaused()) {
+        if (event.phase == Phase.START && mc.player != null && !mc.isGamePaused()) {
             EntityPlayer player = mc.player;
             World world = player.world;
 
@@ -99,13 +100,9 @@ public class EnderSight extends Feature
                 hasEnderSight = true;
                 mc.getSoundHandler().playSound(new EnderSightSound(CharmSounds.ENDER_WHISPERS, player, 0.25f, 0.8f));
                 if (doShaderEffects) mc.entityRenderer.loadShader(new ResourceLocation(Charm.MOD_ID, "shaders/ender_sight.json"));
-            } else if (hasEnderSight && player.getActivePotionEffect(potion) != null) {
-
-                if (world.provider.getDimension() == 0) {
-                    nearestStructure = ClientHandler.getNearestStronghold();
-                } else if (world.provider.getDimension() == 1) {
-                    nearestStructure = ClientHandler.getNearestEndCity();
-                }
+            } else if (hasEnderSight && player.getActivePotionEffect(potion) != null && world.provider.getDimension() == 0
+            ) {
+                nearestStructure = ClientHandler.getNearestStronghold();
 
                 if (nearestStructure != null) {
                     // distance to nearest stronghold
@@ -148,28 +145,21 @@ public class EnderSight extends Feature
         }
     }
 
-
-    /**
-     * @param event Ticks on server
-     */
     @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event)
+    public void onPlayerTick(PlayerTickEvent event)
     {
-        if (event.phase == TickEvent.Phase.END && event.side.isServer() && event.player.getActivePotionEffect(potion) != null) {
-            if (nearestStructure == null) {
-                int dimension = event.player.world.provider.getDimension();
-                String structureType = "";
-
-                if (dimension == 0) {
-                    structureType = "Stronghold";
-                } else if (dimension == 1) {
-                    structureType = "EndCity";
-                }
-                if (!structureType.isEmpty()) {
-                    nearestStructure = event.player.getEntityWorld().findNearestStructure(structureType, event.player.getPosition(), false);
-                    if (nearestStructure != null) { // can be null if structures turned off for this world
-                        NetworkHandler.INSTANCE.sendTo(new MessageSetStructure(structureType, nearestStructure), (EntityPlayerMP) event.player);
-                    }
+        if (event.phase == Phase.END
+            && event.side.isServer()
+            && event.player.getActivePotionEffect(potion) != null
+        ) {
+            if (WorldHelper.canGenerateStructures(event.player.world)
+                && WorldHelper.canGenerateStructure(event.player.world, WorldHelper.StructureType.STRONGHOLD)
+                && event.player.world.provider.getDimension() == 0
+                && nearestStructure == null
+            ) {
+                nearestStructure = event.player.getEntityWorld().findNearestStructure("Stronghold", event.player.getPosition(), false);
+                if (nearestStructure != null) { // can be null if structures turned off for this world
+                    NetworkHandler.INSTANCE.sendTo(new MessageSetStructure("Stronghold", nearestStructure), (EntityPlayerMP) event.player);
                 }
             }
 
@@ -178,6 +168,12 @@ public class EnderSight extends Feature
                 ticks = 0;
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onLoad(WorldEvent.Load event)
+    {
+        WorldHelper.populateWorldSettings(event.getWorld());
     }
 
     @Override

@@ -6,6 +6,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.ChunkGeneratorSettings;
 import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IMesonEnum;
 
@@ -14,6 +15,9 @@ import java.util.List;
 
 public class WorldHelper
 {
+    public static ChunkGeneratorSettings chunkGeneratorSettings = null; // populateWorldSettings
+    public static long lastSeed;
+
     public enum StructureType implements IMesonEnum
     {
         VILLAGE,
@@ -38,6 +42,34 @@ public class WorldHelper
     public static boolean canGenerateStructures(World world)
     {
         return world.getWorldInfo().isMapFeaturesEnabled();
+    }
+
+    public static boolean canGenerateStructure(World world, StructureType structure)
+    {
+        if (chunkGeneratorSettings == null) return false;
+
+        switch (structure) {
+            case STRONGHOLD:
+                return chunkGeneratorSettings.useStrongholds;
+
+            case MINESHAFT:
+                return chunkGeneratorSettings.useMineShafts;
+
+            case MANSION:
+                return chunkGeneratorSettings.useMansions;
+
+            case VILLAGE:
+                return chunkGeneratorSettings.useVillages;
+
+            case JUNGLE_PYRAMID:
+            case DESERT_PYRAMID:
+            case SWAMP_HUT:
+            case IGLOO:
+                return chunkGeneratorSettings.useTemples;
+
+            default:
+                return true;
+        }
     }
 
     @SuppressWarnings("unused")
@@ -138,5 +170,18 @@ public class WorldHelper
     public static ChunkPos getChunkPos(BlockPos pos)
     {
         return new ChunkPos(pos.getX() >> 4, pos.getZ() >> 4);
+    }
+
+    public static void populateWorldSettings(World world)
+    {
+        if (!world.isRemote) {
+            long seed = world.getWorldInfo().getSeed();
+            if (lastSeed == seed) return;
+            lastSeed = seed;
+
+            String generatorOptions = world.getWorldInfo().getGeneratorOptions();
+            chunkGeneratorSettings = ChunkGeneratorSettings.Factory.jsonToFactory(generatorOptions).build();
+            Meson.log(chunkGeneratorSettings.useStrongholds);
+        }
     }
 }

@@ -4,6 +4,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import svenhjol.charm.Charm;
@@ -77,6 +78,12 @@ public class SpectreHaunting extends Feature
     }
 
     @SubscribeEvent
+    public void onLoad(WorldEvent.Load event)
+    {
+        WorldHelper.populateWorldSettings(event.getWorld());
+    }
+
+    @SubscribeEvent
     public void onTick(TickEvent.PlayerTickEvent event)
     {
         if (event.phase == TickEvent.Phase.END
@@ -84,6 +91,7 @@ public class SpectreHaunting extends Feature
             && event.player != null
             && event.player.world != null
             && WorldHelper.canGenerateStructures(event.player.world)
+            && WorldHelper.canGenerateStructure(event.player.world, structure)
             && event.player.world.getTotalWorldTime() % checkInterval == 0
             && event.player.world.rand.nextFloat() < spawnChance
             && event.player.world.getLightBrightness(event.player.getPosition()) < ((float)Spectre.despawnLight)/16.0
