@@ -56,6 +56,12 @@ public class Magnetic extends MesonModule
         }
     }
 
+    @Override
+    public void setup(FMLCommonSetupEvent event)
+    {
+        PacketHandler.HANDLER.registerMessage(PacketHandler.index++, MessageMagneticPickup.class, MessageMagneticPickup::encode, MessageMagneticPickup::decode, MessageMagneticPickup.Handler::handle);
+    }
+
     @SubscribeEvent
     public void onEntityCreate(EntityJoinWorldEvent event)
     {
@@ -87,18 +93,6 @@ public class Magnetic extends MesonModule
 
             }
         }
-    }
-
-    @Override
-    public void setup(FMLCommonSetupEvent event)
-    {
-        PacketHandler.HANDLER.registerMessage(
-            PacketHandler.index++,
-            MessageMagneticPickup.class,
-            MessageMagneticPickup::encode,
-            MessageMagneticPickup::decode,
-            MessageMagneticPickup.Handler::handle
-        );
     }
 
     @OnlyIn(Dist.CLIENT)
