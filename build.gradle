@@ -44,7 +44,7 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-    compile fg.deobf("mcp.mobius.waila:Hwyla:${waila_version}")
+//    compile fg.deobf("mcp.mobius.waila:Hwyla:${waila_version}")
 
     compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
