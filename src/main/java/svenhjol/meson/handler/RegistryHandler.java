@@ -3,6 +3,7 @@ package svenhjol.meson.handler;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
@@ -82,6 +83,11 @@ public class RegistryHandler
     public static void registerTile(TileEntityType<?> tile, ResourceLocation res)
     {
         addRegisterable(tile, res);
+    }
+
+    public static void registerVillager(VillagerProfession profession, ResourceLocation res)
+    {
+        addRegisterable(profession, res);
     }
 
     @SubscribeEvent
