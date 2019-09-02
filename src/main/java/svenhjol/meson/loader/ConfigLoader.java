@@ -1,7 +1,5 @@
 package svenhjol.meson.loader;
 
-import com.google.common.base.CaseFormat;
-import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
@@ -12,6 +10,7 @@ import svenhjol.meson.Meson;
 import svenhjol.meson.MesonLoader;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
+import svenhjol.meson.loader.condition.ModuleEnabledCondition;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -30,7 +29,8 @@ public class ConfigLoader
 
         // register module checks for crafting recipes
         Meson.log(new ResourceLocation(instance.id, "module"));
-        CraftingHelper.register(new ResourceLocation(instance.id, "module_enabled"), json -> () -> isEnabled(JSONUtils.getString(json, "module")));
+//        CraftingHelper.register(new ResourceLocation(instance.id, "module_enabled"), json -> () -> isEnabled(JSONUtils.getString(json, "module")));
+        CraftingHelper.register(ModuleEnabledCondition.Serializer.INSTANCE);
 
         // build the config tree
         this.spec = new Builder().configure(this::build).getRight();
@@ -112,13 +112,5 @@ public class ConfigLoader
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Failed to get config for " + module.getName());
         }
-    }
-
-    private boolean isEnabled(String module)
-    {
-        String name = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, module);
-        Boolean enabled = instance.enabledModules.get(name);
-        boolean result = enabled != null && enabled;
-        return result;
     }
 }
