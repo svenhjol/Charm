@@ -30,8 +30,9 @@ public class CrateTileEntity extends LockableLootTileEntity implements IMesonTil
 
     public CrateTileEntity()
     {
+        // TODO set wood type so we can display name
         super(Crates.tile);
-    } /* @todo set wood type so we can display name */
+    }
 
     @Override
     public void read(CompoundNBT tag)
