@@ -15,6 +15,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
+import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
@@ -23,7 +25,10 @@ import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
     description = "Cartographers sell Structure Maps that can be used to find additional overworld structures.")
@@ -73,9 +78,11 @@ public class StructureMaps extends MesonModule
         trades.add(new StructureTrade("Village").setColor(0xCC2200).setCost(gmin, gmax));
     }
 
-    @Override
-    public void registerTrades(Int2ObjectMap<List<ITrade>> trades, VillagerProfession profession)
+    @SubscribeEvent
+    public void onVillagerTrades(VillagerTradesEvent event)
     {
+        Int2ObjectMap<List<ITrade>> trades = event.getTrades();
+        VillagerProfession profession = event.getType();
         StructureMapForEmeraldsTrade trade = new StructureMapForEmeraldsTrade();
         if (profession.getRegistryName() == null) return;
 

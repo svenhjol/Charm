@@ -11,7 +11,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.objectweb.asm.Type;
-import svenhjol.meson.handler.VillagerTradingManager;
 import svenhjol.meson.iface.Module;
 import svenhjol.meson.loader.ConfigLoader;
 import svenhjol.meson.loader.ModuleLoader;
@@ -69,8 +68,6 @@ public abstract class MesonLoader
             // if module enabled, run its setup
             module.setup(event);
         });
-
-        VillagerTradingManager.setupTrades();
     }
 
     public void configChanged(ModConfigEvent event)

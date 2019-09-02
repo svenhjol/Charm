@@ -10,6 +10,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
+import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.enchanting.module.CurseBreak;
@@ -21,16 +23,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD,
+@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
     description = "Adds additional trades to village professions.\n" +
         "Librarians buy back any enchanted books and sell curse break books," +
         "butchers and leatherworkers will trade zombie flesh for meat and leather," +
         "toolsmiths will repair anvils for an iron ingot cost.")
 public class MoreVillagerTrades extends MesonModule
 {
-    @Override
-    public void registerTrades(Int2ObjectMap<List<VillagerTrades.ITrade>> trades, VillagerProfession profession)
+    @SubscribeEvent
+    public void onVillagerTrades(VillagerTradesEvent event)
     {
+        Int2ObjectMap<List<VillagerTrades.ITrade>> trades = event.getTrades();
+        VillagerProfession profession = event.getType();
+
         if (profession.getRegistryName() == null) return;
         switch (profession.getRegistryName().getPath()) {
             case "librarian":
