@@ -125,6 +125,12 @@
 
   "item.minecraft.potion.effect.coffee_potion": "Coffee",
   "item.minecraft.potion.effect.decay_effect": "Decay",
+  "item.minecraft.splash_potion.effect.coffee_potion": "Splatte",
+  "item.minecraft.splash_potion.effect.decay_potion": "Splash Potion of Decay",
+  "item.minecraft.tipped_arrow.effect.coffee_potion": "Arromatic Blend",
+  "item.minecraft.tipped_arrow.effect.decay_potion": "Arrow of Decay",
+  "item.minecraft.lingering_potion.effect.coffee_potion": "Long Black",
+  "item.minecraft.lingering_potion.effect.decay_potion": "Lingering Potion of Decay",
 
   "effect.charm.coffee_effect": "Coffee",
   "effect.charm.decay_effect": "Decay",
