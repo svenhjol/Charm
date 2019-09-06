@@ -20,6 +20,7 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.tools.item.BoundCompassItem;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PlayerHelper;
+import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
@@ -95,7 +96,7 @@ public class CompassBinding extends MesonModule
 
             compass.setDisplayName(new StringTextComponent(name));
             BoundCompassItem.setPos(compass, compassPos);
-            BoundCompassItem.setDim(compass, world.getDimension().getType().getId());
+            BoundCompassItem.setDim(compass, WorldHelper.getDimensionId(world));
             BoundCompassItem.setColor(compass, color);
 
             // set the player to hold it or in their inventory
