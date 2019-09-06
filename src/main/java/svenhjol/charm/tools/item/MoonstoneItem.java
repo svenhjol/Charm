@@ -1,5 +1,7 @@
 package svenhjol.charm.tools.item;
 
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
@@ -8,6 +10,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.meson.MesonItem;
@@ -16,6 +20,7 @@ import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.helper.SoundHelper;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Objects;
 
 public class MoonstoneItem extends MesonItem
@@ -137,5 +142,20 @@ public class MoonstoneItem extends MesonItem
     {
         ItemNBTHelper.setInt(stack, DIM, dim);
         return stack;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> textComponents, ITooltipFlag flag)
+    {
+        int dim = getStoneDim(stack);
+        BlockPos pos = getStonePos(stack);
+
+        if (pos != null) {
+            String x = String.valueOf(pos.getX());
+            String y = String.valueOf(pos.getY());
+            String z = String.valueOf(pos.getZ());
+
+            textComponents.add(new StringTextComponent(x + " " + y + " " + z + ". " + I18n.format("charm.dimension") + " " + dim));
+        }
     }
 }
