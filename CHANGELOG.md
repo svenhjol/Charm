@@ -1,5 +1,74 @@
 # Changelog for Charm 1.14
 
+## 1.3.5
+
+The following finalized list of modules are now developed for 1.14:
+
+### Automation
+* Block of Gunpowder
+* Redstone Sand
+* Variable Redstone Lamp
+
+### Brewing
+* Coffee
+* Decay
+* Flavored Cake
+
+### Building
+* Block of Ender Pearls
+* Block of Rotten Flesh
+* Smooth Glowstone
+
+### Decoration
+* All the Barrels
+* Bookshelf Chests
+* Crates
+* Gold Lanterns
+* Random animal textures
+
+### Enchanting
+* Curse Break
+* Homing
+* Magnetic
+* Salvage
+
+### Smithing
+* Decrease repair cost
+* Extract enchantments
+* Tallow increases durability
+
+### Tools
+* Bat in a bucket
+* Compass binding
+* Moonstones
+
+### Tweaks
+* Automatic recipe unlock
+* Cauldron water source
+* Extra records
+* Husks ignore skylight
+* Leather armor invisibility
+* Mobs affected by beacon
+* No anvil minimum XP
+* Pickaxes break pistons
+* Records stop background music
+* Remove nitwits
+* Remove potion glint
+* Sponges reduce fall damage
+* Stackable enchanted books
+* Stackable potions
+* Tamed animals take no damage
+* Use totem from inventory
+* Witches drop luck
+
+### World
+* Additional mobs in structures
+* Endermite powder
+* More village biomes
+* More villager trades
+* Nether gold deposits
+* Structure maps
+
 ## 1.3.4
 
 ### World
