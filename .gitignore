@@ -63,5 +63,6 @@ Temporary Items
 
 runclient.sh
 debugclient.sh
+buildcopy.sh
 runClient.launch
 runServer.launch
