@@ -107,7 +107,7 @@ public class AdditionalMobsInStructures extends MesonModule
 
     // woodland mansions
     @Config(name = "Woodland mansion additional spawns")
-    public static List<String> woodlandMansionAdded = new ArrayList<String>() {{ add("vindicator=100"); add("illusioner=50"); }};
+    public static List<String> woodlandMansionAdded = new ArrayList<String>() {{ add("vindicator=100"); }};
     @Config(name = "Woodland mansions allow normal mob spawns")
     public static boolean woodlandMansionNormal = true;
 
