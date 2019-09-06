@@ -23,6 +23,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
+import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.decoration.block.CrateBaseBlock;
 import svenhjol.charm.decoration.block.CrateOpenBlock;
 import svenhjol.charm.decoration.block.CrateSealedBlock;
@@ -91,8 +92,15 @@ public class Crates extends MesonModule
         ClientWorld world = ClientHelper.getClientWorld();
         PlayerEntity player = ClientHelper.getClientPlayer();
         if (!player.isSpectator()) {
-            SoundEvent sound = type == 0 ? SoundEvents.BLOCK_BARREL_OPEN : SoundEvents.BLOCK_BARREL_CLOSE;
-            world.playSound(player, pos, sound, SoundCategory.BLOCKS, 0.5f, world.rand.nextFloat() * 0.1F + 0.9F);
+            SoundEvent sound = null;
+            switch (type) {
+                case 0: sound = SoundEvents.BLOCK_BARREL_OPEN; break;
+                case 1: sound = SoundEvents.BLOCK_BARREL_CLOSE; break;
+                case 2: sound = CharmSounds.WOOD_SMASH; break;
+            }
+            if (sound != null) {
+                world.playSound(player, pos, sound, SoundCategory.BLOCKS, 0.5f, world.rand.nextFloat() * 0.1F + 0.9F);
+            }
         }
     }
 
