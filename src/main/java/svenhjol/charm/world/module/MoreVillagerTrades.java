@@ -71,7 +71,7 @@ public class MoreVillagerTrades extends MesonModule
             ItemStack in1 = new ItemStack(rand.nextFloat() > 0.5F ? Items.DAMAGED_ANVIL : Items.CHIPPED_ANVIL);
             ItemStack in2 = new ItemStack(Items.IRON_INGOT, 4 + rand.nextInt(4));
             ItemStack out = new ItemStack(Items.ANVIL);
-            return new MerchantOffer(in1, in2, out, 2, 2, 0.2F);
+            return new MerchantOffer(in1, in2, out, 10, 10, 0.2F);
         }
     }
 
@@ -96,7 +96,7 @@ public class MoreVillagerTrades extends MesonModule
 
             ItemStack in1 = new ItemStack(Items.ROTTEN_FLESH, count * 4);
             ItemStack out = new ItemStack(trade, count);
-            return new MerchantOffer(in1, out, 2, 2, 0.2F);
+            return new MerchantOffer(in1, out, 10, 5, 0.2F);
         }
     }
 
@@ -109,7 +109,7 @@ public class MoreVillagerTrades extends MesonModule
             int emeraldCount = rand.nextInt(1) + 2;
             ItemStack in1 = new ItemStack(Items.ENCHANTED_BOOK); // any book
             ItemStack out = new ItemStack(Items.EMERALD, emeraldCount);
-            return new MerchantOffer(in1, out, 4, 2, 0.2F);
+            return new MerchantOffer(in1, out, 10, 5, 0.2F);
         }
     }
 
