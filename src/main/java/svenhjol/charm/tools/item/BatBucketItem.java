@@ -29,15 +29,10 @@ public class BatBucketItem extends MesonItem
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context)
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand)
     {
-        if (context.getPlayer() == null) return ActionResultType.FAIL;
-
-        PlayerEntity player = context.getPlayer();
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
-        Direction facing = context.getFace();
-        Hand hand = context.getHand();
+        BlockPos pos = player.getPosition();
+        Direction facing = player.getHorizontalFacing();
         ItemStack held = player.getHeldItem(hand);
 
         double x = pos.getX() + 0.5 + facing.getXOffset();
@@ -47,24 +42,29 @@ public class BatBucketItem extends MesonItem
         if (world.isRemote) {
             SoundHelper.playSoundAtPos(player, SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.NEUTRAL, 1.0F, 1.0F);
         } else {
-            // spawn the bat
-            BatEntity bat = new BatEntity(EntityType.BAT, world);
-            CompoundNBT data = ItemNBTHelper.getCompound(held, BAT_SIGNAL);
-            if (!data.isEmpty()) {
-                bat.read(data);
-            }
+            if (!player.isCreative()) {
+                // spawn the bat
+                BatEntity bat = new BatEntity(EntityType.BAT, world);
+                CompoundNBT data = ItemNBTHelper.getCompound(held, BAT_SIGNAL);
+                if (!data.isEmpty()) {
+                    bat.read(data);
+                }
 
-            bat.setPosition(x, y, z);
-            world.addEntity(bat);
+                bat.setPosition(x, y, z);
+                world.addEntity(bat);
+            }
             player.swingArm(hand);
 
             // send client message to start glowing
             PacketHandler.sendTo(new MessageGlowing(BatInABucket.range, BatInABucket.time * 20), (ServerPlayerEntity)player);
         }
 
-        /* @todo Item use stat */
+        if (!player.isCreative()) {
+            player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+        }
 
-        player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-        return ActionResultType.SUCCESS;
+        /* @todo Use stats */
+
+        return new ActionResult<>(ActionResultType.SUCCESS, held);
     }
 }
