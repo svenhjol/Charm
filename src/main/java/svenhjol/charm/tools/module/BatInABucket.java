@@ -59,18 +59,17 @@ public class BatInABucket extends MesonModule
             && event.getTarget() instanceof BatEntity
             && ((BatEntity)event.getTarget()).getHealth() > 0
         ) {
-            PlayerEntity player = event.getEntityPlayer();
+            PlayerEntity player = event.getPlayer();
             Hand hand = event.getHand();
             BatEntity bat = (BatEntity)event.getTarget();
             ItemStack held = player.getHeldItem(hand);
 
             if (held.isEmpty() || held.getItem() != Items.BUCKET) return;
             ItemStack batBucket = new ItemStack(item);
-
-            player.setHeldItem(hand, batBucket);
             CompoundNBT tag = bat.serializeNBT();
             ItemNBTHelper.setCompound(batBucket, BatBucketItem.BAT_SIGNAL, tag);
 
+            player.setHeldItem(hand, batBucket);
             player.swingArm(hand);
             event.getTarget().remove();
         }

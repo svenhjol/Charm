@@ -29,10 +29,15 @@ public class BatBucketItem extends MesonItem
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand)
+    public ActionResultType onItemUse(ItemUseContext context)
     {
-        BlockPos pos = player.getPosition();
-        Direction facing = player.getHorizontalFacing();
+        if (context.getPlayer() == null) return ActionResultType.FAIL;
+
+        PlayerEntity player = context.getPlayer();
+        World world = context.getWorld();
+        BlockPos pos = context.getPos();
+        Direction facing = context.getFace();
+        Hand hand = context.getHand();
         ItemStack held = player.getHeldItem(hand);
 
         double x = pos.getX() + 0.5 + facing.getXOffset();
@@ -59,12 +64,11 @@ public class BatBucketItem extends MesonItem
             PacketHandler.sendTo(new MessageGlowing(BatInABucket.range, BatInABucket.time * 20), (ServerPlayerEntity)player);
         }
 
+        /* @todo Item use stat */
+
         if (!player.isCreative()) {
             player.setHeldItem(hand, new ItemStack(Items.BUCKET));
         }
-
-        /* @todo Use stats */
-
-        return new ActionResult<>(ActionResultType.SUCCESS, held);
+        return ActionResultType.SUCCESS;
     }
 }
