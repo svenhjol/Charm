@@ -49,14 +49,14 @@ public class FlavoredCake extends MesonModule
     public static double multiplier = 0.1D;
 
     public static List<String> validPotions = Arrays.asList(
-        "swiftness",
-        "strength",
-        "leaping",
-        "regeneration",
         "fire_resistance",
-        "water_breathing",
         "invisibility",
-        "night_vision"
+        "leaping",
+        "night_vision",
+        "regeneration",
+        "strength",
+        "swiftness",
+        "water_breathing"
     );
     public static Map<Potion, FlavoredCakeBlock> types = new HashMap<>();
     public static Map<String, FlavoredCakeBlock> cakes = new HashMap<>();
