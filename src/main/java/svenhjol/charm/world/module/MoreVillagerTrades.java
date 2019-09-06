@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Random;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
-    description = "Adds additional trades to village professions.\n" +
-        "Librarians buy back any enchanted books and sell curse break books," +
-        "butchers and leatherworkers will trade zombie flesh for meat and leather," +
+    description = "Adds additional trades to village professions. \n" +
+        "Librarians buy back any enchanted books and sell curse break books, \n" +
+        "butchers and leatherworkers will trade zombie flesh for meat and leather, \n" +
         "toolsmiths will repair anvils for an iron ingot cost.")
 public class MoreVillagerTrades extends MesonModule
 {
