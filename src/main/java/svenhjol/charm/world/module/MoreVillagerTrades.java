@@ -121,7 +121,7 @@ public class MoreVillagerTrades extends MesonModule
         {
             int emeraldCount = 2 * rand.nextInt(15) + 5;
             ItemStack in1 = new ItemStack(Items.EMERALD, emeraldCount);
-            ItemStack out = new ItemStack(Items.ENCHANTED_BOOK); // any book
+            ItemStack out = new ItemStack(Items.ENCHANTED_BOOK);
             EnchantmentHelper.setEnchantments(new HashMap<Enchantment, Integer>() {{ put(CurseBreak.enchantment, 1); }}, out);
             return new MerchantOffer(in1, out, 1, 5, 0.2F);
         }
