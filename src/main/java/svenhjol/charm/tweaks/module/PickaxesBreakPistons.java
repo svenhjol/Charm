@@ -18,19 +18,29 @@ import svenhjol.meson.iface.Module;
     description = "Pickaxes become the optimal harvest tool for breaking pistons.")
 public class PickaxesBreakPistons extends MesonModule
 {
-    public static Block block;
-    public static Item blockItem;
-    public static final ResourceLocation ID = new ResourceLocation("piston");
+    public static Block piston;
+    public static Item pistonItem;
+
+    public static Block stickyPiston;
+    public static Item stickyPistonItem;
+
+    public static final ResourceLocation PISTON_ID = new ResourceLocation("piston");
+    public static final ResourceLocation STICKY_PISTON_ID = new ResourceLocation("sticky_piston");
 
     @Override
     public void init()
     {
-        block = new PistonBlock(false, Block.Properties.from(Blocks.PISTON).harvestTool(ToolType.PICKAXE));
-        blockItem = new BlockItem(block, (new Item.Properties()).group(ItemGroup.REDSTONE));
+        piston = new PistonBlock(false, Block.Properties.from(Blocks.PISTON).harvestTool(ToolType.PICKAXE));
+        pistonItem = new BlockItem(piston, (new Item.Properties()).group(ItemGroup.REDSTONE));
+
+        stickyPiston = new PistonBlock(false, Block.Properties.from(Blocks.STICKY_PISTON).harvestTool(ToolType.PICKAXE));
+        stickyPistonItem = new BlockItem(stickyPiston, (new Item.Properties()).group(ItemGroup.REDSTONE));
 
         if (isEnabled()) {
-            OverrideHandler.changeVanillaBlock(block, ID);
-            OverrideHandler.changeVanillaItem(blockItem, ID);
+            OverrideHandler.changeVanillaBlock(piston, PISTON_ID);
+            OverrideHandler.changeVanillaItem(pistonItem, PISTON_ID);
+            OverrideHandler.changeVanillaBlock(stickyPiston, STICKY_PISTON_ID);
+            OverrideHandler.changeVanillaItem(stickyPistonItem, STICKY_PISTON_ID);
         }
     }
 }
