@@ -1,5 +1,7 @@
 package svenhjol.charm.tools.item;
 
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemFrameEntity;
@@ -10,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -18,6 +22,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemNBTHelper;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Objects;
 
 public class BoundCompassItem extends MesonItem
@@ -152,5 +157,19 @@ public class BoundCompassItem extends MesonItem
     public static void setPos(ItemStack stack, BlockPos pos)
     {
         ItemNBTHelper.setLong(stack, POS, pos.toLong());
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> textComponents, ITooltipFlag flag)
+    {
+        BlockPos pos = getPos(stack);
+
+        if (pos != null) {
+            String x = String.valueOf(pos.getX());
+            String z = String.valueOf(pos.getZ());
+            int dim = getDim(stack);
+
+            textComponents.add(new StringTextComponent(x + " " + z + ". " + I18n.format("charm.dimension") + " " + dim));
+        }
     }
 }
