@@ -22,8 +22,8 @@
         {
           "type": "forge:not",
           "value": {
-            "type": "quark:flag",
-            "flag": "gunpowder_sack"
+            "type": "forge:mod_loaded",
+            "modid": "quark"
           }
         }
       ]

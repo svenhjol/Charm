@@ -1,57 +1,61 @@
 package svenhjol.meson.loader.condition;
 
+import com.google.common.base.CaseFormat;
 import com.google.gson.JsonObject;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
-import svenhjol.charm.Charm;
 import svenhjol.meson.MesonLoader;
 
 public class ModuleEnabledCondition implements ICondition
 {
-    private static final ResourceLocation NAME = new ResourceLocation(Charm.MOD_ID, "module_enabled");
-    private final String module;
-    private final MesonLoader instance;
+    private MesonLoader instance;
+    private final String moduleName;
 
-    public ModuleEnabledCondition(String module)
+    public ModuleEnabledCondition(MesonLoader instance, String moduleName)
     {
-        this.module = module;
-        this.instance = MesonLoader.instances.get(module);
+        this.instance = instance;
+        this.moduleName = moduleName;
     }
 
     @Override
     public ResourceLocation getID()
     {
-        return NAME;
+        return new ResourceLocation(instance.id, "module_enabled");
     }
 
     @Override
     public boolean test()
     {
-        return instance.enabledModules.containsKey(module);
+        return instance.enabledModules.containsKey(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, moduleName));
     }
 
     public static class Serializer implements IConditionSerializer<ModuleEnabledCondition>
     {
-        public static final ModuleEnabledCondition.Serializer INSTANCE = new ModuleEnabledCondition.Serializer();
+        private MesonLoader instance;
+
+        public Serializer(MesonLoader instance)
+        {
+            this.instance = instance;
+        }
 
         @Override
         public void write(JsonObject json, ModuleEnabledCondition value)
         {
-            json.addProperty("module_enabled", value.module);
+            json.addProperty("module", value.moduleName);
         }
 
         @Override
         public ModuleEnabledCondition read(JsonObject json)
         {
-            return new ModuleEnabledCondition(JSONUtils.getString(json, "module_enabled"));
+            return new ModuleEnabledCondition(instance, JSONUtils.getString(json, "module"));
         }
 
         @Override
         public ResourceLocation getID()
         {
-            return ModuleEnabledCondition.NAME;
+            return new ResourceLocation(instance.id, "module_enabled");
         }
     }
 }
