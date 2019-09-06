@@ -15,11 +15,10 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
+import svenhjol.charm.base.message.MessageMagneticPickup;
 import svenhjol.charm.enchanting.enchantment.MagneticEnchantment;
-import svenhjol.charm.enchanting.message.MessageMagneticPickup;
 import svenhjol.meson.MesonEnchantment;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.PacketHandler;
@@ -54,12 +53,6 @@ public class Magnetic extends MesonModule
         } else {
             dropmap.values().remove(event.getPlayer());
         }
-    }
-
-    @Override
-    public void setup(FMLCommonSetupEvent event)
-    {
-        PacketHandler.HANDLER.registerMessage(PacketHandler.index++, MessageMagneticPickup.class, MessageMagneticPickup::encode, MessageMagneticPickup::decode, MessageMagneticPickup.Handler::handle);
     }
 
     @SubscribeEvent

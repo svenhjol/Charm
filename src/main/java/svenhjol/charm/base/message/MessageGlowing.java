@@ -1,4 +1,4 @@
-package svenhjol.charm.tools.message;
+package svenhjol.charm.base.message;
 
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;

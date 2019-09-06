@@ -19,13 +19,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.brewing.block.FlavoredCakeBlock;
-import svenhjol.charm.brewing.message.MessageCakeImbue;
+import svenhjol.charm.base.message.MessageCakeImbue;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.ComposterHelper;
@@ -65,27 +65,20 @@ public class FlavoredCake extends MesonModule
     public void init()
     {
         validPotions.forEach(potion -> new FlavoredCakeBlock(this, potion));
-        DispenserBlock.registerDispenseBehavior(Items.POTION, new DispenseImbueBehavior());
     }
 
     @Override
     public void setup(FMLCommonSetupEvent event)
     {
-        // register messages
-        PacketHandler.HANDLER.registerMessage(
-            PacketHandler.index++,
-            MessageCakeImbue.class,
-            MessageCakeImbue::encode,
-            MessageCakeImbue::decode,
-            MessageCakeImbue.Handler::handle
-        );
+        // add dispenser behavior for potions so that they can be used to imbue cakes
+        DispenserBlock.registerDispenseBehavior(Items.POTION, new DispenseImbueBehavior());
 
         // add cakes to composter
         cakes.forEach((s, flavoredCakeBlock) -> ComposterHelper.addCompostableItem(new ItemStack(flavoredCakeBlock), 1.0f));
     }
 
     @SubscribeEvent
-    public void onPotionUse(PlayerInteractEvent.RightClickBlock event)
+    public void onPotionUse(RightClickBlock event)
     {
         // check held potion, imbue and return
         ItemStack held = event.getEntityPlayer().getHeldItem(event.getHand());

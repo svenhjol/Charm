@@ -3,21 +3,26 @@ package svenhjol.charm.decoration.module;
 import net.minecraft.block.Block;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.AnvilUpdateEvent;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.decoration.block.CrateBaseBlock;
 import svenhjol.charm.decoration.block.CrateOpenBlock;
 import svenhjol.charm.decoration.block.CrateSealedBlock;
@@ -27,6 +32,7 @@ import svenhjol.charm.decoration.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
 import svenhjol.meson.handler.RegistryHandler;
+import svenhjol.meson.helper.ClientHelper;
 import svenhjol.meson.iface.Module;
 
 import java.util.ArrayList;
@@ -71,7 +77,30 @@ public class Crates extends MesonModule
 
         RegistryHandler.registerContainer(container, res);
         RegistryHandler.registerTile(tile, res);
-        RegistryHandler.registerSound(CharmSounds.WOOD_SMASH);
+    }
+
+    @Override
+    public void setupClient(FMLClientSetupEvent event)
+    {
+        ScreenManager.registerFactory(container, CrateScreen::new);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void effectInteract(BlockPos pos, int type)
+    {
+        ClientWorld world = ClientHelper.getClientWorld();
+        PlayerEntity player = ClientHelper.getClientPlayer();
+        if (!player.isSpectator()) {
+            SoundEvent sound = type == 0 ? SoundEvents.BLOCK_BARREL_OPEN : SoundEvents.BLOCK_BARREL_CLOSE;
+            world.playSound(player, pos, sound, SoundCategory.BLOCKS, 0.5f, world.rand.nextFloat() * 0.1F + 0.9F);
+        }
+    }
+
+    public static boolean canInsertItem(ItemStack stack)
+    {
+        Class<? extends Block> blockClass = Block.getBlockFromItem(stack.getItem()).getClass();
+        return !invalidItems.contains(stack.getItem().getClass())
+            && !invalidBlocks.contains(blockClass);
     }
 
     @SubscribeEvent
@@ -98,24 +127,5 @@ public class Crates extends MesonModule
             event.setCost(1);
             event.setMaterialCost(1);
         }
-    }
-
-    public static boolean canInsertItem(ItemStack stack)
-    {
-        Class<? extends Block> blockClass = Block.getBlockFromItem(stack.getItem()).getClass();
-        return !invalidItems.contains(stack.getItem().getClass())
-            && !invalidBlocks.contains(blockClass);
-    }
-
-    @Override
-    public void setupClient(FMLClientSetupEvent event)
-    {
-        ScreenManager.registerFactory(container, CrateScreen::new);
-    }
-
-    @SubscribeEvent
-    public void attachCapabilities(AttachCapabilitiesEvent<TileEntity> event)
-    {
-
     }
 }

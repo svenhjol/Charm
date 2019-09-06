@@ -1,4 +1,4 @@
-package svenhjol.charm.brewing.message;
+package svenhjol.charm.base.message;
 
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;

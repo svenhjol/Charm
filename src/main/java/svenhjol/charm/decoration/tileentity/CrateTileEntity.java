@@ -2,6 +2,7 @@ package svenhjol.charm.decoration.tileentity;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
@@ -9,14 +10,14 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import svenhjol.charm.decoration.container.CrateContainer;
+import svenhjol.charm.base.message.MessageCrateInteract;
 import svenhjol.charm.decoration.module.Crates;
+import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.iface.IMesonTileEntity;
 import vazkii.quark.api.ITransferManager;
 import vazkii.quark.api.QuarkCapabilities;
@@ -142,14 +143,12 @@ public class CrateTileEntity extends LockableLootTileEntity implements IMesonTil
     @Override
     public void openInventory(PlayerEntity player)
     {
-        if (!player.isSpectator()) {
-            this.world.playSound(null, this.pos, SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.5f, this.world.rand.nextFloat() * 0.1F + 0.9F);
-        }
+        PacketHandler.sendTo(new MessageCrateInteract(this.pos, 0), (ServerPlayerEntity)player);
     }
 
     @Override
     public void closeInventory(PlayerEntity player)
     {
-        this.world.playSound(null, this.pos, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.5f, this.world.rand.nextFloat() * 0.1F + 0.9F);
+        PacketHandler.sendTo(new MessageCrateInteract(this.pos, 1), (ServerPlayerEntity)player);
     }
 }

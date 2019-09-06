@@ -14,13 +14,10 @@ import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.tools.item.BatBucketItem;
-import svenhjol.charm.tools.message.MessageGlowing;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.ClientHelper;
 import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.iface.Config;
@@ -52,19 +49,6 @@ public class BatInABucket extends MesonModule
     public void init()
     {
         item = new BatBucketItem(this);
-    }
-
-    @Override
-    public void setup(FMLCommonSetupEvent event)
-    {
-        // register messages
-        PacketHandler.HANDLER.registerMessage(
-            PacketHandler.index++,
-            MessageGlowing.class,
-            MessageGlowing::encode,
-            MessageGlowing::decode,
-            MessageGlowing.Handler::handle
-        );
     }
 
     @SubscribeEvent
