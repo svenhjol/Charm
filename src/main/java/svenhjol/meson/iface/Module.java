@@ -16,4 +16,6 @@ public @interface Module
 
     boolean hasSubscriptions() default false;
     boolean enabledByDefault() default true;
+    boolean client() default true;
+    boolean server() default true;
 }

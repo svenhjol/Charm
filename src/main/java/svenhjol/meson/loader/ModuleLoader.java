@@ -1,6 +1,8 @@
 package svenhjol.meson.loader;
 
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.forgespi.language.ModFileScanData;
 import net.minecraftforge.forgespi.language.ModFileScanData.AnnotationData;
 import svenhjol.meson.MesonModule;
@@ -16,11 +18,20 @@ import static svenhjol.meson.MesonLoader.LOAD_MODULE;
 
 public class ModuleLoader
 {
+    // should match the properties of the annotation
+    public static final String MOD = "mod";
+    public static final String CATEGORY = "category";
+    public static final String NAME = "name";
+    public static final String DESCRIPTION = "description";
+    public static final String HAS_SUBSCRIPTIONS = "hasSubscriptions";
+    public static final String ENABLED_BY_DEFAULT = "enabledByDefault";
+    public static final String CLIENT = "client";
+    public static final String SERVER = "server";
+
     public ModuleLoader(MesonLoader instance)
     {
         // instantiate and gather all modules into categories
         ModFileScanData result = ModList.get().getModFileById(instance.id).getFile().getScanResult();
-
         List<AnnotationData> targets = result.getAnnotations().stream()
             .filter(annotationData -> LOAD_MODULE.equals(annotationData.getAnnotationType()))
             .collect(Collectors.toList());
@@ -28,31 +39,35 @@ public class ModuleLoader
         targets.forEach(target -> {
             try {
                 String moduleClass = target.getClassType().getClassName();
-                MesonModule module = (MesonModule) Class.forName(moduleClass).newInstance();
                 Map<String, Object> data = target.getAnnotationData();
 
-                String mod = (String) data.get("mod");
+                if (data.containsKey(CLIENT) && !(boolean)data.get(CLIENT) && FMLEnvironment.dist == Dist.CLIENT) return;
+                if (data.containsKey(SERVER) && !(boolean)data.get(SERVER) && FMLEnvironment.dist == Dist.DEDICATED_SERVER) return;
+
+                MesonModule module = (MesonModule) Class.forName(moduleClass).newInstance();
+
+                String mod = (String) data.get(MOD);
                 module.mod = mod;
 
-                String category = (String) data.get("category");
+                String category = (String) data.get(CATEGORY);
                 module.category = category;
 
-                if (data.containsKey("name")) {
-                    module.name = (String) data.get("name");
+                if (data.containsKey(NAME)) {
+                    module.name = (String) data.get(NAME);
                 } else {
                     module.name = module.getClass().getSimpleName();
                 }
 
-                if (data.containsKey("description")) {
-                    module.description = (String) data.get("description");
+                if (data.containsKey(DESCRIPTION)) {
+                    module.description = (String) data.get(DESCRIPTION);
                 }
 
-                if (data.containsKey("hasSubscriptions")) {
-                    module.hasSubscriptions = (Boolean) data.get("hasSubscriptions");
+                if (data.containsKey(HAS_SUBSCRIPTIONS)) {
+                    module.hasSubscriptions = (Boolean) data.get(HAS_SUBSCRIPTIONS);
                 }
 
-                if (data.containsKey("enabledByDefault")) {
-                    module.enabledByDefault = (Boolean) data.get("enabledByDefault");
+                if (data.containsKey(ENABLED_BY_DEFAULT)) {
+                    module.enabledByDefault = (Boolean) data.get(ENABLED_BY_DEFAULT);
                 }
 
                 if (!instance.categories.containsKey(category)) {
