@@ -1,19 +1,14 @@
 {
-    "textures": {
-        "particle": "minecraft:block/cake_side",
-        "bottom": "minecraft:block/cake_bottom",
-        "top": "minecraft:block/cake_top",
-        "side": "minecraft:block/cake_side"
-    },
+    "parent": "charm:block/cake_swiftness",
     "elements": [
-        {   "from": [ 1, 0, 1 ],
+        {   "from": [ 5, 0, 1 ],
             "to": [ 15, 8, 15 ],
             "faces": {
                 "down":  { "texture": "#bottom", "cullface": "down" },
                 "up":    { "texture": "#top" },
                 "north": { "texture": "#side" },
                 "south": { "texture": "#side" },
-                "west":  { "texture": "#side" },
+                "west":  { "texture": "#inside" },
                 "east":  { "texture": "#side" }
             }
         }

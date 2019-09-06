@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "item/cake"
+    "layer0": "charm:item/cake_leaping"
   }
 }

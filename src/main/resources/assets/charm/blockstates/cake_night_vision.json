@@ -1,11 +1,11 @@
 {
   "variants": {
-    "bites=0": { "model": "charm:block/cake" },
-    "bites=1": { "model": "charm:block/cake_slice1" },
-    "bites=2": { "model": "charm:block/cake_slice2" },
-    "bites=3": { "model": "charm:block/cake_slice3" },
-    "bites=4": { "model": "charm:block/cake_slice4" },
-    "bites=5": { "model": "charm:block/cake_slice5" },
-    "bites=6": { "model": "charm:block/cake_slice6" }
+    "bites=0": { "model": "charm:block/cake_night_vision" },
+    "bites=1": { "model": "charm:block/cake_night_vision_slice1" },
+    "bites=2": { "model": "charm:block/cake_night_vision_slice2" },
+    "bites=3": { "model": "charm:block/cake_night_vision_slice3" },
+    "bites=4": { "model": "charm:block/cake_night_vision_slice4" },
+    "bites=5": { "model": "charm:block/cake_night_vision_slice5" },
+    "bites=6": { "model": "charm:block/cake_night_vision_slice6" }
   }
 }
