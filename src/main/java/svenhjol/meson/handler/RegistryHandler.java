@@ -26,6 +26,7 @@ import java.util.Map;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = MOD)
 public class RegistryHandler
 {
@@ -108,9 +109,7 @@ public class RegistryHandler
         if (!objects.containsKey(type)) objects.put(type, new ArrayList<>());
 
         if (!(objects.containsKey(type) && objects.get(type).contains(obj))) {
-            if (res == null && obj.getRegistryName() == null) {
-                return; // can't set it
-            }
+            if (res == null && obj.getRegistryName() == null) return; // can't set it
 
             if (obj.getRegistryName() == null) {
                 obj.setRegistryName(res);

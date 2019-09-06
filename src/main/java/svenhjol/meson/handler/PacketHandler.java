@@ -9,6 +9,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import svenhjol.meson.iface.IMesonMessage;
 
+@SuppressWarnings("unused")
 public class PacketHandler
 {
     private static final String PROTOCOL_VERSION = Integer.toString(1);
