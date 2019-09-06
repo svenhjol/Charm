@@ -76,9 +76,9 @@ public class DecreaseRepairCost extends MesonModule
         out = left.copy();
 
         // get the current repair cost of the item and apply it to the item if there is already a repair cost
-        if (left.getTag() != null && !left.getTag().isEmpty()) {
+        if (left.getRepairCost() > 0) {
             int cost;
-            cost = left.getTag().getInt("RepairCost");
+            cost = left.getRepairCost();
             out.setRepairCost(Math.max(0, cost - decreaseAmount));
         }
 
