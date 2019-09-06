@@ -37,7 +37,10 @@ public class Salvage extends MesonModule
         ) {
             copy.setDamage(stack.getMaxDamage());
             player.dropItem(copy, false);
-            SoundHelper.playSoundAtPos(player, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.5F, 1.5F);
+
+            if (player.world.isRemote) {
+                SoundHelper.playSoundAtPos(player, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.5F, 1.5F);
+            }
         }
     }
 }
