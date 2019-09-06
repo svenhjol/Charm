@@ -124,6 +124,8 @@
   "item.charm.record_shuniji.desc": "C418 - Shuniji",
 
   "item.minecraft.potion.effect.coffee_potion": "Coffee",
+  "item.minecraft.potion.effect.coffee_effect": "Coffee",
+  "item.minecraft.potion.effect.decay_potion": "Decay",
   "item.minecraft.potion.effect.decay_effect": "Decay",
   "item.minecraft.splash_potion.effect.coffee_potion": "Splatte",
   "item.minecraft.splash_potion.effect.decay_potion": "Splash Potion of Decay",
@@ -146,5 +148,7 @@
   "map.charm.village": "Village Map",
 
   "tile.charm.bookshelf_chest": "Bookshelf Chest",
-  "tile.charm.crate": "Crate"
+  "tile.charm.crate": "Crate",
+
+  "charm.dimension": "Dimension"
 }
