@@ -41,7 +41,7 @@ public class Homing extends MesonModule
     public static int range = 8;
 
     @Config(name = "Damage on detect", description = "Percentage (where 1.0 is 100%) of damage given to the tool every time it detects a block.")
-    public static double damage = 0.025D;
+    public static double damage = 0.015D;
 
     @Override
     public void init()
@@ -106,7 +106,7 @@ public class Homing extends MesonModule
 
                 if (world.isRemote) {
                     double vol = 1 - (Math.min(distance.get(), 100) / 100);
-                    double pitch = 1 - (Math.min(distance.get(), 100) / 100);
+                    double pitch = Math.max(0.5D, 1 - (Math.min(distance.get(), 100) / 100));
                     player.swingArm(event.getHand());
                     SoundHelper.playSoundAtPos(player, CharmSounds.HOMING, SoundCategory.BLOCKS, (float)vol, (float)pitch);
                 }
