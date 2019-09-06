@@ -24,10 +24,10 @@ public class NetherGoldDeposits extends MesonModule
     public static NetherGoldDepositBlock block;
 
     @Config(name = "Vein size")
-    public static int veinSize = 3;
+    public static int veinSize = 4;
 
     @Config(name = "Cluster count")
-    public static int clusterCount = 6;
+    public static int clusterCount = 10;
 
     @Override
     public boolean isEnabled()
