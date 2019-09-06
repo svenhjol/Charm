@@ -2,12 +2,10 @@ package svenhjol.charm.world.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import svenhjol.charm.world.module.NetherGoldDeposits;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 
@@ -17,11 +15,7 @@ public class NetherGoldDepositBlock extends MesonBlock
 {
     public NetherGoldDepositBlock(MesonModule module)
     {
-        super(module, "nether_gold_deposit", Block.Properties
-            .create(Material.ROCK)
-            .sound(SoundType.STONE)
-            .hardnessAndResistance(NetherGoldDeposits.hardness, NetherGoldDeposits.resistance)
-        );
+        super(module, "nether_gold_deposit", Block.Properties.from(Blocks.NETHER_QUARTZ_ORE));
     }
 
     @Override

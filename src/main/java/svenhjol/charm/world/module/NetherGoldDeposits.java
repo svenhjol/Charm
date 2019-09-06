@@ -12,6 +12,7 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.world.block.NetherGoldDepositBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ForgeHelper;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import static net.minecraft.world.gen.feature.Feature.ORE;
@@ -21,10 +22,12 @@ import static net.minecraft.world.gen.feature.Feature.ORE;
 public class NetherGoldDeposits extends MesonModule
 {
     public static NetherGoldDepositBlock block;
+
+    @Config(name = "Vein size")
     public static int veinSize = 3;
-    public static int clusterCount = 12;
-    public static float hardness = 3.0F;
-    public static float resistance = 10.0F;
+
+    @Config(name = "Cluster count")
+    public static int clusterCount = 6;
 
     @Override
     public boolean isEnabled()
@@ -52,7 +55,7 @@ public class NetherGoldDeposits extends MesonModule
                         veinSize
                     ),
                     Placement.COUNT_RANGE,
-                    new CountRangeConfig(4, 10, 0, 128))
+                    new CountRangeConfig(clusterCount, 10, 0, 128))
             );
         }
     }
