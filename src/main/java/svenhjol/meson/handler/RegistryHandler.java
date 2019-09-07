@@ -8,6 +8,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionBrewing;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -17,7 +18,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.iface.IMesonBlock;
-import svenhjol.meson.iface.IMesonPotion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,10 +70,11 @@ public class RegistryHandler
     public static void registerPotion(Potion potion, ResourceLocation res)
     {
         addRegisterable(potion, res);
+    }
 
-        if (potion instanceof IMesonPotion) {
-            ((IMesonPotion)potion).registerRecipe();
-        }
+    public static void registerBrewingRecipe(Potion input, Item reagant, Potion output)
+    {
+        PotionBrewing.addMix(input, reagant, output);
     }
 
     public static void registerSound(SoundEvent sound)

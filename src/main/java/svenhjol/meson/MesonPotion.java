@@ -1,43 +1,26 @@
 package svenhjol.meson;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.Item;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionUtils;
-import net.minecraftforge.common.brewing.BrewingRecipe;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.iface.IMesonPotion;
 
 public abstract class MesonPotion extends Potion implements IMesonPotion
 {
-    protected Ingredient potionBase;
-    protected Ingredient potionReagant;
     protected MesonModule module;
 
     public MesonPotion(MesonModule module, String name, EffectInstance... effects)
     {
         super(effects);
+
         this.module = module;
         register(module, name);
     }
 
-    public void setPotionBase(ItemStack base)
+    @Override
+    public void registerRecipe(Potion input, Item reagant)
     {
-        this.potionBase = Ingredient.fromStacks(base);
-    }
-
-    public void setPotionReagant(ItemStack reagant)
-    {
-        this.potionReagant = Ingredient.fromStacks(reagant);
-    }
-
-    public void registerRecipe()
-    {
-        if (potionBase != null && potionReagant != null) {
-            ItemStack out = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), this);
-            BrewingRecipeRegistry.addRecipe(new BrewingRecipe(potionBase, potionReagant, out));
-        }
+        RegistryHandler.registerBrewingRecipe(input, reagant, this);
     }
 }
