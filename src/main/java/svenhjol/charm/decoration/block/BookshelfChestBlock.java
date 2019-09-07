@@ -78,6 +78,18 @@ public class BookshelfChestBlock extends MesonBlock
         }
     }
 
+    @Override
+    public boolean hasComparatorInputOverride(BlockState state)
+    {
+        return true;
+    }
+
+    @Override
+    public int getComparatorInputOverride(BlockState state, World world, BlockPos pos)
+    {
+        return state.get(SLOTS);
+    }
+
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
