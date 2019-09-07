@@ -44,13 +44,15 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-//    compile fg.deobf("mcp.mobius.waila:Hwyla:${waila_version}")
 
     compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
 
-//    compile fg.deobf("vazkii.arl:AutoRegLib:${arl_version}")
-//    compile fg.deobf("vazkii.quark:Quark:${quark_version}")
+    compile fg.deobf("vazkii.arl:AutoRegLib:${arl_version}")
+    compile fg.deobf("vazkii.quark:Quark:${quark_version}")
+
+    // locals
+    runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${waila_version}")
 }
 
 repositories {
@@ -73,9 +75,10 @@ repositories {
         url "http://maven.blamejared.com/"
     }
 
-//    flatDir {
-//        dirs "libs"
-//    }
+    // local mods
+    flatDir {
+        dirs "libs"
+    }
 }
 
 processResources {
