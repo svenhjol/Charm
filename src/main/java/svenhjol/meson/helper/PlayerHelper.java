@@ -1,11 +1,16 @@
 package svenhjol.meson.helper;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.server.ServerWorld;
 
+@SuppressWarnings("unused")
 public class PlayerHelper
 {
     /**
@@ -49,8 +54,10 @@ public class PlayerHelper
      */
     public static void teleportPlayer(PlayerEntity player, BlockPos pos, int dim)
     {
+        World world = player.world;
+
         if (player.dimension.getId() != dim) {
-            if (!player.world.isRemote && !player.isPassenger() && !player.isBeingRidden() && player.isNonBoss()) {
+            if (!world.isRemote && !player.isPassenger() && !player.isBeingRidden() && player.isNonBoss()) {
                 DimensionType dimension = DimensionType.getById(dim);
                 if (dimension != null) {
                     player.changeDimension(dimension);
@@ -58,6 +65,8 @@ public class PlayerHelper
             }
         }
 
-        player.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+        ((ServerPlayerEntity)player).teleport((ServerWorld)world, pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
+        BlockPos updateDest = world.getHeight(Heightmap.Type.MOTION_BLOCKING, pos);
+        player.setPositionAndUpdate(updateDest.getX(), updateDest.getY() + 1, updateDest.getZ()); // TODO check landing block
     }
 }
