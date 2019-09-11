@@ -12,6 +12,8 @@ import net.minecraft.potion.PotionBrewing;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +21,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.iface.IMesonBlock;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +29,7 @@ import java.util.Map;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "deprecation"})
 @Mod.EventBusSubscriber(bus = MOD)
 public class RegistryHandler
 {
@@ -82,6 +85,13 @@ public class RegistryHandler
         addRegisterable(sound, sound.getRegistryName());
     }
 
+    public static void registerStructure(Structure structure, ResourceLocation res, @Nullable String displayName)
+    {
+        if (displayName == null) displayName = res.getPath();
+        Registry.register(Registry.FEATURE, displayName, structure);
+        addRegisterable(structure, res);
+    }
+
     public static void registerTile(TileEntityType<?> tile, ResourceLocation res)
     {
         addRegisterable(tile, res);
@@ -104,7 +114,7 @@ public class RegistryHandler
         }
     }
 
-    private static void addRegisterable(IForgeRegistryEntry<?> obj, ResourceLocation res)
+    public static void addRegisterable(IForgeRegistryEntry<?> obj, ResourceLocation res)
     {
         Class<?> type = obj.getRegistryType();
         if (!objects.containsKey(type)) objects.put(type, new ArrayList<>());
