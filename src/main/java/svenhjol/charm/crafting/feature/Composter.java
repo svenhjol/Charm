@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -192,6 +191,9 @@ public class Composter extends Feature
     }
 
     public static boolean hasInput(ItemStack inputStack) {
+        if (inputStack.isEmpty())
+            return false;
+
         String itemName = ItemHelper.getItemStringFromItemStack(inputStack, true);
         if ( //Check the input list for either the itemname or the itemname without meta
                 Composter.inputs.containsKey(itemName)
@@ -200,24 +202,19 @@ public class Composter extends Feature
             return true;
         }
 
-        for (String input : inputs.keySet()) {
-            //Oredict entries start with `$`
-            if (input.startsWith("$")) {
-                if (
-                        OreDictionary.containsMatch(
-                                false,
-                                NonNullList.from(inputStack),
-                                (ItemStack[]) OreDictionary.getOres(input.substring(1)).toArray()
-                        )
-                ) {
-                    return true;
-                }
+        //Check for oredict entry
+        for (int id : OreDictionary.getOreIDs(inputStack)) {
+            if (Composter.inputs.containsKey("ore:"+OreDictionary.getOreName(id))) {
+                return true;
             }
         }
         return false;
     }
 
     public static float getItemChance(ItemStack inputStack) {
+        if (inputStack.isEmpty())
+            return 0.0f;
+
         String itemName = ItemHelper.getItemStringFromItemStack(inputStack, true);
         if (Composter.inputs.containsKey(itemName))
             return Composter.inputs.get(itemName);
@@ -227,17 +224,10 @@ public class Composter extends Feature
         if (Composter.inputs.containsKey(itemName))
             return Composter.inputs.get(itemName);
 
-        for (String input : inputs.keySet()) {
-            if (input.startsWith("$")) {
-                if (
-                        OreDictionary.containsMatch(
-                                false,
-                                NonNullList.from(inputStack),
-                                (ItemStack[]) OreDictionary.getOres(input.substring(1)).toArray()
-                        )
-                ) {
-                    return Composter.inputs.get(input);
-                }
+        //Check oredict
+        for (int id : OreDictionary.getOreIDs(inputStack)) {
+            if (Composter.inputs.containsKey("ore:"+OreDictionary.getOreName(id))) {
+                return Composter.inputs.get("ore:"+OreDictionary.getOreName(id));
             }
         }
         return 0.0f;
