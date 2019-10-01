@@ -3,6 +3,8 @@ package svenhjol.charm.crafting.feature;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -10,11 +12,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockComposter;
 import svenhjol.charm.crafting.message.MessageComposterAddLevel;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.NetworkHandler;
+import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.SoundHelper;
@@ -157,7 +161,7 @@ public class Composter extends Feature
         NetworkHandler.register(MessageComposterAddLevel.class, Side.CLIENT);
 
         RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(composter),
-            "F F", "F F", "PPP",
+                "F F", "F F", "PPP",
                 'F', "fenceWood",
                 'P', "plankWood"
         );
@@ -185,5 +189,57 @@ public class Composter extends Feature
         }
 
         return inputsByChance;
+    }
+
+    public static boolean hasInput(ItemStack inputStack) {
+        String itemName = ItemHelper.getItemStringFromItemStack(inputStack, true);
+        if ( //Check the input list for either the itemname or the itemname without meta
+                Composter.inputs.containsKey(itemName)
+                || Composter.inputs.containsKey(itemName.substring(0, itemName.indexOf('[')))
+        ) {
+            return true;
+        }
+
+        for (String input : inputs.keySet()) {
+            //Oredict entries start with `$`
+            if (input.startsWith("$")) {
+                if (
+                        OreDictionary.containsMatch(
+                                false,
+                                NonNullList.from(inputStack),
+                                (ItemStack[]) OreDictionary.getOres(input.substring(1)).toArray()
+                        )
+                ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static float getItemChance(ItemStack inputStack) {
+        String itemName = ItemHelper.getItemStringFromItemStack(inputStack, true);
+        if (Composter.inputs.containsKey(itemName))
+            return Composter.inputs.get(itemName);
+
+        //Check without meta
+        itemName = itemName.substring(0, itemName.indexOf('['));
+        if (Composter.inputs.containsKey(itemName))
+            return Composter.inputs.get(itemName);
+
+        for (String input : inputs.keySet()) {
+            if (input.startsWith("$")) {
+                if (
+                        OreDictionary.containsMatch(
+                                false,
+                                NonNullList.from(inputStack),
+                                (ItemStack[]) OreDictionary.getOres(input.substring(1)).toArray()
+                        )
+                ) {
+                    return Composter.inputs.get(input);
+                }
+            }
+        }
+        return 0.0f;
     }
 }
