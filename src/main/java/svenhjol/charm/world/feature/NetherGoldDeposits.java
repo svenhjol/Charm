@@ -39,16 +39,6 @@ public class NetherGoldDeposits extends Feature
                 "Amount of clusters per chunk",
                 12
         );
-        hardness = (float) propDouble(
-                "Deposit hardness",
-                "Hardness of deposit block",
-                3.0
-        );
-        resistance = (float) propDouble(
-                "Deposit resistance",
-                "Resistance of deposit block",
-                10.0f
-        );
         minNuggets = propInt(
                 "Nugget minimum",
                 "Minimum amount of nuggets dropped from deposit",
@@ -58,7 +48,9 @@ public class NetherGoldDeposits extends Feature
                 "Nugget maximum",
                 "Maximum amount of nuggets dropped from deposit",
                 5
-        );;
+        );
+        hardness = 3.0f;
+        resistance = 10f;
     }
 
     @Override
