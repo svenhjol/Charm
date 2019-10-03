@@ -29,13 +29,36 @@ public class NetherGoldDeposits extends Feature
     {
         super.configure();
 
-        // internal
-        clusterSize = 12;
-        clusterCount = 12;
-        hardness = 3.0f;
-        resistance = 10.0f;
-        minNuggets = 2;
-        maxNuggets = 5;
+        clusterSize = propInt(
+                "Cluster Size",
+                "Size of gold deposit clusters",
+                12
+        );
+        clusterCount = propInt(
+                "Cluster count",
+                "Amount of clusters per chunk",
+                12
+        );
+        hardness = (float) propDouble(
+                "Deposit hardness",
+                "Hardness of deposit block",
+                3.0
+        );
+        resistance = (float) propDouble(
+                "Deposit resistance",
+                "Resistance of deposit block",
+                10.0f
+        );
+        minNuggets = propInt(
+                "Nugget minimum",
+                "Minimum amount of nuggets dropped from deposit",
+                2
+        );
+        maxNuggets = propInt(
+                "Nugget maximum",
+                "Maximum amount of nuggets dropped from deposit",
+                5
+        );;
     }
 
     @Override
