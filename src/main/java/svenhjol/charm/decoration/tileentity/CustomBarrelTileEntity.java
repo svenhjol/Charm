@@ -29,14 +29,14 @@ public class CustomBarrelTileEntity extends BarrelTileEntity
      * We need to override this method to work around the strict block check.
      */
     @Override
-    public void func_213962_h()
+    public void barrelTick()
     {
         int i = this.pos.getX();
         int j = this.pos.getY();
         int k = this.pos.getZ();
-        this.field_213967_b = ChestTileEntity.func_213976_a(this.world, this, i, j, k);
-        if (this.field_213967_b > 0) {
-            this.func_213964_r();
+        this.numPlayersUsing = ChestTileEntity.calculatePlayersUsing(this.world, this, i, j, k);
+        if (this.numPlayersUsing > 0) {
+            this.scheduleTick();
         } else {
             BlockState blockstate = this.getBlockState();
             if (!(blockstate.getBlock() instanceof BarrelBlock)) {
@@ -46,8 +46,8 @@ public class CustomBarrelTileEntity extends BarrelTileEntity
 
             boolean flag = blockstate.get(BarrelBlock.PROPERTY_OPEN);
             if (flag) {
-                this.func_213965_a(blockstate, SoundEvents.BLOCK_BARREL_CLOSE);
-                this.func_213963_a(blockstate, false);
+                this.playSound(blockstate, SoundEvents.BLOCK_BARREL_CLOSE);
+                this.setOpenProperty(blockstate, false);
             }
         }
     }
