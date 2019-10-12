@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,7 +22,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.iface.IMesonBlock;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,11 +85,15 @@ public class RegistryHandler
         addRegisterable(sound, sound.getRegistryName());
     }
 
-    public static void registerStructure(Structure structure, ResourceLocation res, @Nullable String displayName)
+    public static void registerStructure(Structure<?> structure, ResourceLocation res)
     {
-        if (displayName == null) displayName = res.getPath();
-        Registry.register(Registry.FEATURE, displayName, structure);
+        Registry.register(Registry.FEATURE, res, structure);
         addRegisterable(structure, res);
+    }
+
+    public static void registerStructurePiece(IStructurePieceType piece, ResourceLocation res)
+    {
+        Registry.register(Registry.STRUCTURE_PIECE, res, piece);
     }
 
     public static void registerTile(TileEntityType<?> tile, ResourceLocation res)
