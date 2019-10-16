@@ -47,12 +47,15 @@ tile.charm:rune_portal_frame_brown.name=Rune marron de portail de l'Ender
 tile.charm:rune_portal_frame_green.name=Rune verte de portail de l'Ender
 tile.charm:rune_portal_frame_red.name=Rune rouge de portail de l'Ender
 tile.charm:rune_portal_frame_black.name=Rune noire de portail de l'Ender
+tile.charm:variable_redstone_lamp.name=Lampe à redstone variable
+tile.charm:smooth_glowstone.name=Pierre lumineuse lisse
 
 # Items
 item.charm:bat_bucket.name=Chauve-souris dans un seau
 item.charm:bound_compass.name=Boussoule de liaison
 item.charm:charged_emerald.name=Émeraude chargée
 item.charm:endermite_powder.name=Poudre d'Endermite
+item.charm:moonstone.name=Pierre lunaire
 item.charm:totem_of_returning.name=Totem de retour
 item.charm:totem_of_shielding.name=Totem de blindage
 item.charm:suspicious_soup.name=Soupe suspecte
@@ -87,6 +90,14 @@ charm.enchantment.curse_break=Malédiction
 charm.enchantment.salvage=Sauvetage
 charm.enchantment.homing=Tête chercheuse
 charm.enchantment.magnetic=Magnétique
+enchantment.charm.clumsiness_curse.desc=Les armes et outils échouent parfois leur coup lorsqu'utilisés.
+enchantment.charm.harming_curse.desc=Les armes et outils vous blessent parfois lorsqu'utilisés.
+enchantment.charm.haunting_curse.desc=Les armes et outils font parfois appaître des monstres autour de vous.
+enchantment.charm.rusting_curse.desc=Les armures, armes et outils prennent plus de dégâts que la normale.
+enchantment.charm.curse_break.desc=Retire la malédection d'un objet.
+enchantment.charm.salvage.desc=Les armures, armes et outils sont lâchés au lieu de se détruire.
+enchantment.charm.homing.desc=Les houes sont attirées par le minerai en quoi elles sont faites.
+enchantment.charm.magnetic.desc=Les outils récupèrent automatiquement les objets au sol.
 
 # Sound Subtitles
 subtitle.charm.spectre.disappear=Disparition de spectre
@@ -156,6 +167,9 @@ crate_sealed=Caisse scellée
 compass=Compas
 dimension=Dimension
 number_of_uses=Nombre d'utilisations
+aligned_xz=À l'origine
+aligned_x=Aligné sur l'axe X
+aligned_z=Aligné sur l'axe Z
 charm.crate_tooltip_shift=Maintenir Shift pour voir les contenus
 
 # Loot location classifications
@@ -163,6 +177,7 @@ common=Commun
 common_books=Commun
 common_potions=Potions
 junk=Ennuyeux
+
 smith=Forgeron
 librarian=Libraire
 priest=Prêtre
@@ -189,3 +204,9 @@ desert_pyramid=Peu commun
 jungle_temple=Peu commun
 igloo_chest=Commun
 woodland_mansion=Peu commun
+
+# JEI descriptions
+charm.jei.flavoredcake.desc=Les gâteaux parfumés sont fabriquées en faisant un clic-droit sur un gâteau avec une potion de 8 minutes du type correspondant.\n\nLes distributeurs fonctionnent eux aussi.
+charm.jei.boundcompass.desc=Faire un clic-droit sur une balise active avec une boussole dans la main en étant accroupi, pour la lier avec la position de la balise.\n\nUne boussole liée à une balise peut être combinée à un lingot de fer dans une enclume pour supprimer le lien.
+charm.jei.crates.desc=Les caisses peuvent être verrouillées en les combinant avec un lingot de fer dans une enclume, la seule manière de libérer le contenu d'une caisse scellée est de la casser, elle ne sera pas récupérable et son inventaire sera inaccessible.
+charm.jei.moonstone.desc=La pierre lunaire vous aide à trouver les coordonnées d'un bloc précis ou son axe.\n\nFaire un clic-droit en étant accroupi pour assigner une pierre lunaire à un bloc. Vous aligner avec le bloc allumera légèrement la pierre lunaire, et se tenir sur le bloc fera scintiller la pierre lunaire.\n\nElles fonctionnent à travers les dimensions et respectent la compression/expansion spatiale du Nether, vous aidant à aligner précisément les portails entre le monde et le Nether.
