@@ -92,6 +92,7 @@ public class MoonstoneItem extends MesonItem
                         SoundHelper.playSoundAtPos(entity.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, 0.55F, pitch);
                     }
                     if (origin && !ItemNBTHelper.getBoolean(stack, MoonstoneItem.ORIGIN, false)) {
+                        // TODO show "at origin" message
                         SoundHelper.playSoundAtPos(entity.getPosition(), SoundEvents.BLOCK_NOTE_BLOCK_CHIME, SoundCategory.BLOCKS, 1.0F, pitch);
                         SoundHelper.playSoundAtPos(entity.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, 0.55F, pitch);
                     }
