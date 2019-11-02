@@ -27,6 +27,8 @@ public class CharmLoader extends MesonLoader
 
         RegistryHandler.registerSound(CharmSounds.BOOKSHELF_CLOSE);
         RegistryHandler.registerSound(CharmSounds.BOOKSHELF_OPEN);
+        RegistryHandler.registerSound(CharmSounds.FUMEROLE_BUBBLING);
+        RegistryHandler.registerSound(CharmSounds.FUMEROLE_ERUPT);
         RegistryHandler.registerSound(CharmSounds.HOMING);
         RegistryHandler.registerSound(CharmSounds.WOOD_SMASH);
     }

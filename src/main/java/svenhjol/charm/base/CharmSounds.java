@@ -10,6 +10,8 @@ public class CharmSounds
     public static final SoundEvent BOOKSHELF_CLOSE = createSound("bookshelf_close");
     public static final SoundEvent HOMING = createSound("homing");
     public static final SoundEvent WOOD_SMASH = createSound("wood_smash");
+    public static final SoundEvent FUMEROLE_BUBBLING = createSound("fumerole_bubbling");
+    public static final SoundEvent FUMEROLE_ERUPT = createSound("fumerole_erupt");
 
     public static SoundEvent createSound(String name)
     {

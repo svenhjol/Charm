@@ -14,6 +14,18 @@
       "charm:bookshelf_close2"
     ]
   },
+  "fumerole_bubbling": {
+    "category": "blocks",
+    "sounds": [
+      "charm:fumerole_bubbling"
+    ]
+  },
+  "fumerole_erupt": {
+    "category": "blocks",
+    "sounds": [
+      "charm:fumerole_erupt"
+    ]
+  },
   "homing": {
     "category": "blocks",
     "sounds": [
