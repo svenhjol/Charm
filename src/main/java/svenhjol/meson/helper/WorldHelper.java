@@ -26,11 +26,6 @@ public class WorldHelper
         village;
     }
 
-    public static BlockPos findNearestStructure(World world, Structure structure, BlockPos pos, int radius)
-    {
-        return world.findNearestStructure(WorldHelper.Structure.endcity.getName(), pos, radius, true);
-    }
-
     public static double getDistanceSq(BlockPos pos1, BlockPos pos2)
     {
         double d0 = pos1.getX();
@@ -49,5 +44,23 @@ public class WorldHelper
     public static int getDimensionId(World world)
     {
         return world.dimension.getType().getId();
+    }
+
+    public static void clearWeather(World world)
+    {
+        world.getWorldInfo().setClearWeatherTime(6000);
+        world.getWorldInfo().setRainTime(0);
+        world.getWorldInfo().setThunderTime(0);
+        world.getWorldInfo().setThundering(false);
+        world.getWorldInfo().setRaining(false);
+    }
+
+    public static void stormyWeather(World world)
+    {
+        world.getWorldInfo().setClearWeatherTime(0);
+        world.getWorldInfo().setRainTime(6000);
+        world.getWorldInfo().setRaining(true);
+        world.getWorldInfo().setThunderTime(300);
+        world.getWorldInfo().setThundering(true);
     }
 }
