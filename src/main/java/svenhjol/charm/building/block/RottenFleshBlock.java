@@ -50,7 +50,7 @@ public class RottenFleshBlock extends MesonBlock
         super.tick(state, worldIn, pos, random);
 
         if (!worldIn.isRemote) {
-            if (!worldIn.isAreaLoaded(pos, 2)) return;;
+            if (!worldIn.isAreaLoaded(pos, 2)) return;
 
             // transform soil to something else
             ArrayList<Block> transforms = new ArrayList<>(Arrays.asList(Blocks.PODZOL, Blocks.MYCELIUM));
