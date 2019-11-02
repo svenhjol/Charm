@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.event.RegistryEvent.Register;
@@ -45,6 +46,11 @@ public class RegistryHandler
         }
     }
 
+    public static void registerBrewingRecipe(Potion input, Item reagant, Potion output)
+    {
+        PotionBrewing.addMix(input, reagant, output);
+    }
+
     public static void registerContainer(ContainerType<?> container, ResourceLocation res)
     {
         addRegisterable(container, res);
@@ -75,11 +81,6 @@ public class RegistryHandler
         addRegisterable(potion, res);
     }
 
-    public static void registerBrewingRecipe(Potion input, Item reagant, Potion output)
-    {
-        PotionBrewing.addMix(input, reagant, output);
-    }
-
     public static void registerSound(SoundEvent sound)
     {
         addRegisterable(sound, sound.getRegistryName());
@@ -104,6 +105,13 @@ public class RegistryHandler
     public static void registerVillager(VillagerProfession profession, ResourceLocation res)
     {
         addRegisterable(profession, res);
+    }
+
+    public static void registerVillagerPointOfInterest(PointOfInterestType type, ResourceLocation res)
+    {
+        Registry.POINT_OF_INTEREST_TYPE.register(res, type);
+        RegistryHandler.addRegisterable(type, res);
+        PointOfInterestType.func_221052_a(type); // TODO method to add to list of interest types likely to change in MCP
     }
 
     @SubscribeEvent
