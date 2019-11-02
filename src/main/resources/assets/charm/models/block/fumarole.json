@@ -1,7 +1,7 @@
 {
     "parent": "block/cube_bottom_top",
     "textures": {
-        "top": "charm:block/fumerole_top",
+        "top": "charm:block/fumarole_top",
         "side": "block/netherrack",
         "bottom": "block/netherrack"
     }

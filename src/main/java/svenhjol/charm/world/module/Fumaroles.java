@@ -13,29 +13,29 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.world.block.FumeroleBlock;
-import svenhjol.charm.world.gen.feature.FumeroleFeature;
-import svenhjol.charm.world.gen.placement.FumerolePlacement;
+import svenhjol.charm.world.block.FumaroleBlock;
+import svenhjol.charm.world.gen.feature.FumaroleFeature;
+import svenhjol.charm.world.gen.placement.FumarolePlacement;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD)
-public class Fumeroles extends MesonModule
+public class Fumaroles extends MesonModule
 {
-    public static FumeroleBlock block;
+    public static FumaroleBlock block;
     public static Feature<NoFeatureConfig> feature = null;
     public static Placement<FrequencyConfig> placement = null;
 
     @Override
     public void init()
     {
-        block = new FumeroleBlock(this);
-        feature = new FumeroleFeature(NoFeatureConfig::deserialize);
-        placement = new FumerolePlacement(FrequencyConfig::deserialize);
+        block = new FumaroleBlock(this);
+        feature = new FumaroleFeature(NoFeatureConfig::deserialize);
+        placement = new FumarolePlacement(FrequencyConfig::deserialize);
 
         // TODO sort out registry
-        ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "fumerole");
+        ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "fumarole");
         RegistryHandler.addRegisterable(feature, ID);
         Registry.register(Registry.FEATURE, ID.toString(), feature);
         RegistryHandler.addRegisterable(placement, ID);

@@ -11,9 +11,9 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class FumerolePlacement extends SimplePlacement<FrequencyConfig>
+public class FumarolePlacement extends SimplePlacement<FrequencyConfig>
 {
-    public FumerolePlacement(Function<Dynamic<?>, ? extends FrequencyConfig> config)
+    public FumarolePlacement(Function<Dynamic<?>, ? extends FrequencyConfig> config)
     {
         super(config);
     }

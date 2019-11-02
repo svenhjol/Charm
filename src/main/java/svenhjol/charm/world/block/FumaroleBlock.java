@@ -26,11 +26,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class FumeroleBlock extends MesonBlock
+public class FumaroleBlock extends MesonBlock
 {
-    public FumeroleBlock(MesonModule module)
+    public FumaroleBlock(MesonModule module)
     {
-        super(module, "fumerole", Block.Properties
+        super(module, "fumarole", Block.Properties
             .create(Material.ROCK, MaterialColor.NETHERRACK)
             .hardnessAndResistance(0.4F)
             .tickRandomly()
@@ -87,7 +87,7 @@ public class FumeroleBlock extends MesonBlock
             double pz = pos.getZ() + 0.5D + (rand.nextFloat() - 0.5D) * spread;
             ((ServerWorld)world).spawnParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, px, py, pz, 60,-0.2D, 0D, 0D, 0.11D);
             ((ServerWorld)world).spawnParticle(ParticleTypes.LARGE_SMOKE, px, py, pz, 60,-0.2D, 0D, 0D, 0.04D);
-            world.playSound(null, pos, CharmSounds.FUMEROLE_ERUPT, SoundCategory.BLOCKS, 0.44F, 0.85F + (world.rand.nextFloat()) * 0.25F);
+            world.playSound(null, pos, CharmSounds.FUMAROLE_ERUPT, SoundCategory.BLOCKS, 0.44F, 0.85F + (world.rand.nextFloat()) * 0.25F);
         }
 
         AxisAlignedBB bb = new AxisAlignedBB(pos);
@@ -115,7 +115,7 @@ public class FumeroleBlock extends MesonBlock
         super.animateTick(state, world, pos, rand);
 
         if (rand.nextFloat() < 0.1F) {
-            world.playSound(pos.getX(), pos.getY(), pos.getZ(), CharmSounds.FUMEROLE_BUBBLING, SoundCategory.BLOCKS, 0.13F, 0.9F + (world.rand.nextFloat()) * 0.2F, false);
+            world.playSound(pos.getX(), pos.getY(), pos.getZ(), CharmSounds.FUMAROLE_BUBBLING, SoundCategory.BLOCKS, 0.13F, 0.9F + (world.rand.nextFloat()) * 0.2F, false);
         }
 
         if (rand.nextInt(3) == 0) {
