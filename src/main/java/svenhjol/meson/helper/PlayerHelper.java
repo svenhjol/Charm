@@ -1,10 +1,17 @@
 package svenhjol.meson.helper;
 
+import com.google.common.collect.ImmutableList;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -13,6 +20,10 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.server.TicketType;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
@@ -20,8 +31,9 @@ public class PlayerHelper
 {
     /**
      * Tries to add item stack to player, drops if not possible.
+     *
      * @param player The player
-     * @param stack The stack to add/drop
+     * @param stack  The stack to add/drop
      * @return True if able to add to player inv, false if dropped
      */
     public static boolean addOrDropStack(PlayerEntity player, ItemStack stack)
@@ -35,7 +47,27 @@ public class PlayerHelper
 
     public static void damageHeldItem(PlayerEntity player, Hand hand, ItemStack stack, int damage)
     {
-        stack.damageItem(damage, player, (p) -> { player.sendBreakAnimation(hand); });
+        stack.damageItem(damage, player, (p) -> {
+            player.sendBreakAnimation(hand);
+        });
+    }
+
+    public static ImmutableList<NonNullList<ItemStack>> getInventories(PlayerEntity player)
+    {
+        PlayerInventory inventory = player.inventory;
+        return ImmutableList.of(inventory.mainInventory, inventory.armorInventory, inventory.offHandInventory);
+    }
+
+    public static void doLightningNearPlayer(PlayerEntity player)
+    {
+        int dist = 24;
+        World world = player.world;
+        Random rand = world.rand;
+
+        if (!world.isSkyLightMax(player.getPosition())) return;
+
+        BlockPos pos = player.getPosition().add(-(dist/2) + rand.nextInt(dist), 0, -(dist/2) + rand.nextInt(dist));
+        ((ServerWorld) world).addLightningBolt(new LightningBoltEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, false));
     }
 
     public static void setHeldItem(PlayerEntity player, Hand hand, ItemStack item)
@@ -51,6 +83,38 @@ public class PlayerHelper
                 addOrDropStack(player, item);
             }
         }
+    }
+
+    public static boolean spawnEntityNearPlayer(PlayerEntity player, MobEntity mob, BiConsumer<MobEntity, BlockPos> onSpawn)
+    {
+        boolean spawned = false;
+        int range = 8;
+        int tries = 8;
+        BlockPos playerPos = player.getPosition();
+        World world = player.world;
+        Random rand = world.rand;
+        List<BlockPos> valid = new ArrayList<>();
+
+        for (int y = range*2; y > -range*2; y--) {
+            for (int i = range; i > 1; i--) {
+                for (int c = 1; c < tries; c++) {
+                    BlockPos p = playerPos.add(rand.nextInt(i), y, rand.nextInt(i));
+                    BlockState floor = world.getBlockState(p.down());
+                    if (floor.isSolid() && world.isAirBlock(p) && world.isAirBlock(p.up())) {
+                        valid.add(p);
+                    }
+                }
+            }
+        }
+
+        if (valid.isEmpty()) return false;
+
+        BlockPos spawnPos = valid.get(rand.nextInt(valid.size()));
+        mob.moveToBlockPosAndAngles(spawnPos, 0.0F, 0.0F);
+        mob.onInitialSpawn(world, world.getDifficultyForLocation(spawnPos), SpawnReason.TRIGGERED, null, null);
+        world.addEntity(mob);
+        onSpawn.accept(mob, spawnPos);
+        return true;
     }
 
     /**
