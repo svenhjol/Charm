@@ -118,6 +118,8 @@ public class FumaroleBlock extends MesonBlock
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), CharmSounds.FUMAROLE_BUBBLING, SoundCategory.BLOCKS, 0.13F, 0.9F + (world.rand.nextFloat()) * 0.2F, false);
         }
 
+        if (!world.isAirBlock(pos.up())) return;
+
         if (rand.nextInt(3) == 0) {
             float spread = 0.5F;
             int amount = rand.nextInt(4) + 1;
