@@ -9,6 +9,8 @@ import net.minecraftforge.fml.config.ModConfig.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.objectweb.asm.Type;
 import svenhjol.meson.handler.PlayerQueueHandler;
@@ -25,7 +27,6 @@ import java.util.function.Consumer;
 public abstract class MesonLoader
 {
     public static Map<String, MesonLoader> instances = new HashMap<>();
-    public IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
     public List<MesonModule> modules = new ArrayList<>();
     public Map<String, List<MesonModule>> categories = new HashMap<>();
     public Map<String, Boolean> enabledModules = new HashMap<>();
@@ -42,11 +43,16 @@ public abstract class MesonLoader
         instances.put(id, this);
 
         // attach listeners
-        bus.addListener(this::setup);
-        bus.addListener(this::configChanged);
-        bus.addListener(this::loadComplete);
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.addListener(this::setup);
+        modEventBus.addListener(this::configChanged);
+        modEventBus.addListener(this::loadComplete);
 
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> bus.addListener(this::setupClient));
+        IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
+        forgeEventBus.addListener(this::serverStarting);
+        forgeEventBus.addListener(this::serverStarted);
+
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(this::setupClient));
 
         // run loaders
         this.moduleLoader = new ModuleLoader(this);
@@ -72,6 +78,16 @@ public abstract class MesonLoader
             // basic queue for player tick events
             MinecraftForge.EVENT_BUS.register(new PlayerQueueHandler());
         });
+    }
+
+    public void serverStarting(FMLServerStartingEvent event)
+    {
+        modules(module -> module.serverStarting(event));
+    }
+
+    public void serverStarted(FMLServerStartedEvent event)
+    {
+        modules(module -> module.serverStarted(event));
     }
 
     public void configChanged(ModConfigEvent event)
