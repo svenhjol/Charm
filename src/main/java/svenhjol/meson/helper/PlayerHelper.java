@@ -2,7 +2,6 @@ package svenhjol.meson.helper;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.effect.LightningBoltEntity;
@@ -154,19 +153,17 @@ public class PlayerHelper
         ChunkPos chunkpos = new ChunkPos(new BlockPos(pos.getX(), pos.getY(), pos.getZ()));
         ((ServerWorld)world).getChunkProvider().func_217228_a(TicketType.POST_TELEPORT, chunkpos, 1, player.getEntityId());
 
-        Minecraft.getInstance().deferTask(() -> {
-            teleport(player, pos, dim, (p) -> {
-                for (int y = world.getHeight(); y > 0; y--) {
-                    BlockPos pp = new BlockPos(p.getX(), y, p.getZ());
-                    if (world.getBlockState(pp).isAir()
-                        && !world.getBlockState(pp.down()).isAir()
-                    ) {
-                        player.setPositionAndUpdate(pp.getX(), y, pp.getZ());
-                        onTeleport.accept(player.getPosition());
-                        break;
-                    }
+        teleport(player, pos, dim, (p) -> {
+            for (int y = world.getHeight(); y > 0; y--) {
+                BlockPos pp = new BlockPos(p.getX(), y, p.getZ());
+                if (world.getBlockState(pp).isAir()
+                    && !world.getBlockState(pp.down()).isAir()
+                ) {
+                    player.setPositionAndUpdate(pp.getX(), y, pp.getZ());
+                    onTeleport.accept(player.getPosition());
+                    break;
                 }
-            });
+            }
         });
     }
 
