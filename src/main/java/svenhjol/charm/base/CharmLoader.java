@@ -19,11 +19,11 @@ public class CharmLoader extends MesonLoader
     {
         super.setup(event);
 
-        PacketHandler.HANDLER.registerMessage(PacketHandler.index++, MessageBookshelfInteract.class, MessageBookshelfInteract::encode, MessageBookshelfInteract::decode, MessageBookshelfInteract.Handler::handle);
-        PacketHandler.HANDLER.registerMessage(PacketHandler.index++, MessageCakeImbue.class, MessageCakeImbue::encode, MessageCakeImbue::decode, MessageCakeImbue.Handler::handle);
-        PacketHandler.HANDLER.registerMessage(PacketHandler.index++, MessageCrateInteract.class, MessageCrateInteract::encode, MessageCrateInteract::decode, MessageCrateInteract.Handler::handle);
-        PacketHandler.HANDLER.registerMessage(PacketHandler.index++, MessageGlowing.class, MessageGlowing::encode, MessageGlowing::decode, MessageGlowing.Handler::handle);
-        PacketHandler.HANDLER.registerMessage(PacketHandler.index++, MessageMagneticPickup.class, MessageMagneticPickup::encode, MessageMagneticPickup::decode, MessageMagneticPickup.Handler::handle);
+        PacketHandler.HANDLER.registerMessage(0, MessageBookshelfInteract.class, MessageBookshelfInteract::encode, MessageBookshelfInteract::decode, MessageBookshelfInteract.Handler::handle);
+        PacketHandler.HANDLER.registerMessage(1, MessageCakeImbue.class, MessageCakeImbue::encode, MessageCakeImbue::decode, MessageCakeImbue.Handler::handle);
+        PacketHandler.HANDLER.registerMessage(2, MessageCrateInteract.class, MessageCrateInteract::encode, MessageCrateInteract::decode, MessageCrateInteract.Handler::handle);
+        PacketHandler.HANDLER.registerMessage(3, MessageGlowing.class, MessageGlowing::encode, MessageGlowing::decode, MessageGlowing.Handler::handle);
+        PacketHandler.HANDLER.registerMessage(4, MessageMagneticPickup.class, MessageMagneticPickup::encode, MessageMagneticPickup::decode, MessageMagneticPickup.Handler::handle);
 
         RegistryHandler.registerSound(CharmSounds.BOOKSHELF_CLOSE);
         RegistryHandler.registerSound(CharmSounds.BOOKSHELF_OPEN);
