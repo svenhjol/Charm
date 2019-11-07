@@ -14,8 +14,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.village.PointOfInterestType;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -70,6 +72,19 @@ public class RegistryHandler
     public static void registerEntity(EntityType<?> entity, ResourceLocation res)
     {
         addRegisterable(entity, res);
+    }
+
+    public static void registerFeature(Feature<?> feature, ResourceLocation res)
+    {
+        RegistryHandler.addRegisterable(feature, res);
+        Registry.register(Registry.FEATURE, res.toString(), feature);
+    }
+
+    public static void registerFeature(Feature<?> feature, Placement<?> placement, ResourceLocation res)
+    {
+        registerFeature(feature, res);
+        RegistryHandler.addRegisterable(placement, res);
+        Registry.register(Registry.DECORATOR, res.toString(), placement);
     }
 
     public static void registerItem(Item item, ResourceLocation res)
