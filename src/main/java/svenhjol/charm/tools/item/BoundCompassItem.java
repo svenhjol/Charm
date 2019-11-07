@@ -1,6 +1,5 @@
 package svenhjol.charm.tools.item;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -13,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -169,7 +168,7 @@ public class BoundCompassItem extends MesonItem
             String z = String.valueOf(pos.getZ());
             int dim = getDim(stack);
 
-            textComponents.add(new StringTextComponent(x + " " + z + ". " + I18n.format("charm.dimension") + " " + dim));
+            textComponents.add(new TranslationTextComponent("gui.charm.bound_compass_location", x, z, dim));
         }
     }
 }
