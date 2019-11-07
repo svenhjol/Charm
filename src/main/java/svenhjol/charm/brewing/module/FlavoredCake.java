@@ -17,7 +17,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.base.message.ClientCakeAction;
+import svenhjol.charm.brewing.message.ClientCakeAction;
 import svenhjol.charm.brewing.block.FlavoredCakeBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.PacketHandler;

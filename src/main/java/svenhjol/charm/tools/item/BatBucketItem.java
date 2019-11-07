@@ -9,7 +9,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.charm.base.message.ClientGlowingAction;
+import svenhjol.charm.tools.message.ClientGlowingAction;
 import svenhjol.charm.tools.module.BatInABucket;
 import svenhjol.meson.MesonItem;
 import svenhjol.meson.MesonModule;
