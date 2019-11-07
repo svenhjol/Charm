@@ -81,13 +81,14 @@ public class FumaroleBlock extends MesonBlock
         Random rand = world.rand;
 
         if (!world.isRemote) {
+            ServerWorld serverWorld = (ServerWorld)world;
             float spread = 0.05F;
             double px = pos.getX() + 0.5D + (rand.nextFloat() - 0.5D) * spread;
             double py = pos.getY() + 0.5D + (rand.nextFloat() - 0.5D) * spread;
             double pz = pos.getZ() + 0.5D + (rand.nextFloat() - 0.5D) * spread;
-            ((ServerWorld)world).spawnParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, px, py, pz, 60,-0.2D, 0D, 0D, 0.11D);
-            ((ServerWorld)world).spawnParticle(ParticleTypes.LARGE_SMOKE, px, py, pz, 60,-0.2D, 0D, 0D, 0.04D);
-            world.playSound(null, pos, CharmSounds.FUMAROLE_ERUPT, SoundCategory.BLOCKS, 0.44F, 0.85F + (world.rand.nextFloat()) * 0.25F);
+            serverWorld.spawnParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, px, py, pz, 60,-0.2D, 0D, 0D, 0.11D);
+            serverWorld.spawnParticle(ParticleTypes.LARGE_SMOKE, px, py, pz, 60,-0.2D, 0D, 0D, 0.04D);
+            serverWorld.playSound(null, pos, CharmSounds.FUMAROLE_ERUPT, SoundCategory.BLOCKS, 0.44F, 0.85F + (world.rand.nextFloat()) * 0.25F);
         }
 
         AxisAlignedBB bb = new AxisAlignedBB(pos);
