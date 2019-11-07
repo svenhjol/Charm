@@ -15,7 +15,6 @@ import svenhjol.meson.MesonItem;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.ItemNBTHelper;
-import svenhjol.meson.helper.SoundHelper;
 
 public class BatBucketItem extends MesonItem
 {
@@ -44,25 +43,23 @@ public class BatBucketItem extends MesonItem
         double y = pos.getY() + 0.5 + facing.getYOffset();
         double z = pos.getZ() + 0.5 + facing.getZOffset();
 
-        if (world.isRemote) {
-            SoundHelper.playSoundAtPos(player, SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-        } else {
-            if (!player.isCreative()) {
-                // spawn the bat
-                BatEntity bat = new BatEntity(EntityType.BAT, world);
-                CompoundNBT data = ItemNBTHelper.getCompound(held, BAT_SIGNAL);
-                if (!data.isEmpty()) {
-                    bat.read(data);
-                }
+        world.playSound(null, player.getPosition(), SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 
-                bat.setPosition(x, y, z);
-                world.addEntity(bat);
+        if (!player.isCreative()) {
+            // spawn the bat
+            BatEntity bat = new BatEntity(EntityType.BAT, world);
+            CompoundNBT data = ItemNBTHelper.getCompound(held, BAT_SIGNAL);
+            if (!data.isEmpty()) {
+                bat.read(data);
             }
-            player.swingArm(hand);
 
-            // send client message to start glowing
-            PacketHandler.sendTo(new ClientGlowingAction(BatInABucket.range, BatInABucket.time * 20), (ServerPlayerEntity)player);
+            bat.setPosition(x, y, z);
+            world.addEntity(bat);
         }
+        player.swingArm(hand);
+
+        // send client message to start glowing
+        PacketHandler.sendTo(new ClientGlowingAction(BatInABucket.range, BatInABucket.time * 20), (ServerPlayerEntity)player);
 
         /* @todo Item use stat */
 

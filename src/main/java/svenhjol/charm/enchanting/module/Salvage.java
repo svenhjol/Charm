@@ -9,7 +9,6 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.enchanting.enchantment.SalvageEnchantment;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.EnchantmentsHelper;
-import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.iface.Module;
 
 import javax.annotation.Nullable;
@@ -39,7 +38,7 @@ public class Salvage extends MesonModule
             player.dropItem(copy, false);
 
             if (player.world.isRemote) {
-                SoundHelper.playSoundAtPos(player, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.5F, 1.5F);
+                player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.5F, 1.5F);
             }
         }
     }

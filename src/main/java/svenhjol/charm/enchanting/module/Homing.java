@@ -20,12 +20,14 @@ import svenhjol.charm.enchanting.enchantment.HomingEnchantment;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.EnchantmentsHelper;
 import svenhjol.meson.helper.PlayerHelper;
-import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
@@ -108,7 +110,7 @@ public class Homing extends MesonModule
                     double vol = 1 - (Math.min(distance.get(), 100) / 100);
                     double pitch = Math.max(0.5D, 1 - (Math.min(distance.get(), 100) / 100));
                     player.swingArm(event.getHand());
-                    SoundHelper.playSoundAtPos(player, CharmSounds.HOMING, SoundCategory.BLOCKS, (float)vol, (float)pitch);
+                    world.playSound(null, player.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, (float)vol, (float)pitch);
                 }
             }
         }
