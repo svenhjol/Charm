@@ -23,7 +23,6 @@ import svenhjol.meson.helper.SoundHelper;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class MoonstoneItem extends MesonItem
 {
@@ -115,7 +114,6 @@ public class MoonstoneItem extends MesonItem
 
         PlayerEntity player = context.getPlayer();
         World world = context.getWorld();
-        Random rand = world.rand;
         BlockPos pos = player.getPosition();
         Hand hand = context.getHand();
         ItemStack item = player.getHeldItem(hand);
@@ -133,7 +131,8 @@ public class MoonstoneItem extends MesonItem
             if (i == 0) {
                 effectAtOrigin(world, stonePos);
             } else {
-                player.sendStatusMessage(new TranslationTextComponent("gui.charm.moonstone_distance", i), true);
+                String key = i > 1 ? "gui.charm.moonstone_distance" : "gui.charm.moonstone_distance_1";
+                player.sendStatusMessage(new TranslationTextComponent(key, i), true);
             }
 
         }
