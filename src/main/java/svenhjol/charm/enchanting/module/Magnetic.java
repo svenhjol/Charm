@@ -1,15 +1,11 @@
 package svenhjol.charm.enchanting.module;
 
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -17,14 +13,10 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.base.message.MessageMagneticPickup;
 import svenhjol.charm.enchanting.enchantment.MagneticEnchantment;
 import svenhjol.meson.MesonEnchantment;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.handler.PacketHandler;
-import svenhjol.meson.helper.ClientHelper;
 import svenhjol.meson.helper.EnchantmentsHelper;
-import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.Module;
 
@@ -79,19 +71,12 @@ public class Magnetic extends MesonModule
 
                 if (!MinecraftForge.EVENT_BUS.post(new EntityItemPickupEvent(player, fake))) {
                     if (player.inventory.addItemStackToInventory(item)) {
-                        PacketHandler.sendTo(new MessageMagneticPickup(player.getPosition()), (ServerPlayerEntity)player);
+                        player.world.playSound(null, foundPos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS,0.5F, ((player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                         event.setCanceled(true);
                     }
                 }
 
             }
         }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void effectPickup(BlockPos pos)
-    {
-        ClientWorld world = ClientHelper.getClientWorld();
-        SoundHelper.playSoundAtPos(pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS,0.5F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
     }
 }
