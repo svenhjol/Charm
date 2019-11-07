@@ -35,6 +35,22 @@
   "block.charm.fumarole": "Fumarole",
   "block.charm.gold_lantern": "Gold Lantern",
   "block.charm.gunpowder_block": "Gunpowder Block",
+  "block.charm.moonstone_block_white": "White Moonstone Block",
+  "block.charm.moonstone_block_orange": "Orange Moonstone Block",
+  "block.charm.moonstone_block_magenta": "Magenta Moonstone Block",
+  "block.charm.moonstone_block_light_blue": "Light Blue Moonstone Block",
+  "block.charm.moonstone_block_yellow": "Yellow Moonstone Block",
+  "block.charm.moonstone_block_lime": "Lime Moonstone Block",
+  "block.charm.moonstone_block_pink": "Pink Moonstone Block",
+  "block.charm.moonstone_block_gray": "Gray Moonstone Block",
+  "block.charm.moonstone_block_light_gray": "Light Gray Moonstone Block",
+  "block.charm.moonstone_block_cyan": "Cyan Moonstone Block",
+  "block.charm.moonstone_block_purple": "Purple Moonstone Block",
+  "block.charm.moonstone_block_blue": "Blue Moonstone Block",
+  "block.charm.moonstone_block_brown": "Brown Moonstone Block",
+  "block.charm.moonstone_block_green": "Green Moonstone Block",
+  "block.charm.moonstone_block_red": "Red Moonstone Block",
+  "block.charm.moonstone_block_black": "Black Moonstone Block",
   "block.charm.nether_gold_deposit": "Nether Gold Deposit",
   "block.charm.redstone_sand": "Redstone Sand",
   "block.charm.rotten_flesh_block": "Rotten Flesh Block",
@@ -138,6 +154,9 @@
   "effect.charm.coffee_effect": "Coffee",
   "effect.charm.decay_effect": "Decay",
 
+  "gui.charm.moonstone_distance": "Distance of §l%s blocks",
+  "gui.charm.moonstone_location": "§3X §b%s, §3Y §b%s, §3Z §b%s, Dimension %s",
+
   "map.charm.desert_pyramid": "Desert Pyramid Map",
   "map.charm.igloo": "Igloo Map",
   "map.charm.jungle_pyramid": "Jungle Pyramid Map",
@@ -149,7 +168,5 @@
   "map.charm.village": "Village Map",
 
   "tile.charm.bookshelf_chest": "Bookshelf Chest",
-  "tile.charm.crate": "Crate",
-
-  "charm.dimension": "Dimension"
+  "tile.charm.crate": "Crate"
 }

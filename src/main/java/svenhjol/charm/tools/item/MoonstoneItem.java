@@ -1,18 +1,19 @@
 package svenhjol.charm.tools.item;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.meson.MesonItem;
 import svenhjol.meson.MesonModule;
@@ -22,6 +23,7 @@ import svenhjol.meson.helper.SoundHelper;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class MoonstoneItem extends MesonItem
 {
@@ -92,7 +94,7 @@ public class MoonstoneItem extends MesonItem
                         SoundHelper.playSoundAtPos(entity.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, 0.55F, pitch);
                     }
                     if (origin && !ItemNBTHelper.getBoolean(stack, MoonstoneItem.ORIGIN, false)) {
-                        // TODO show "at origin" message
+                        effectAtOrigin(world, stonePos);
                         SoundHelper.playSoundAtPos(entity.getPosition(), SoundEvents.BLOCK_NOTE_BLOCK_CHIME, SoundCategory.BLOCKS, 1.0F, pitch);
                         SoundHelper.playSoundAtPos(entity.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, 0.55F, pitch);
                     }
@@ -107,11 +109,45 @@ public class MoonstoneItem extends MesonItem
     }
 
     @Override
+    public ActionResultType onItemUse(ItemUseContext context)
+    {
+        if (context.getPlayer() == null) return ActionResultType.FAIL;
+
+        PlayerEntity player = context.getPlayer();
+        World world = context.getWorld();
+        Random rand = world.rand;
+        BlockPos pos = player.getPosition();
+        Hand hand = context.getHand();
+        ItemStack item = player.getHeldItem(hand);
+        BlockPos stonePos = getStonePos(item);
+        int stoneDim = getStoneDim(item);
+
+        if (world.isRemote
+            && player.dimension.getId() == stoneDim
+            && stonePos != null
+        ) {
+            int x = stonePos.getX() - pos.getX();
+            int z = stonePos.getZ() - pos.getZ();
+            int i = MathHelper.floor(MathHelper.sqrt((float) (x * x + z * z)));
+
+            if (i == 0) {
+                effectAtOrigin(world, stonePos);
+            } else {
+                player.sendStatusMessage(new TranslationTextComponent("gui.charm.moonstone_distance", i), true);
+            }
+
+        }
+
+        return ActionResultType.PASS;
+    }
+
+    @Override
     public boolean hasEffect(ItemStack stack)
     {
         return ItemNBTHelper.getBoolean(stack, ALIGNED, false) || ItemNBTHelper.getBoolean(stack, ORIGIN, false);
     }
 
+    @Nullable
     public static BlockPos getStonePos(ItemStack stack)
     {
         if (stack.hasTag()) {
@@ -156,7 +192,15 @@ public class MoonstoneItem extends MesonItem
             String y = String.valueOf(pos.getY());
             String z = String.valueOf(pos.getZ());
 
-            textComponents.add(new StringTextComponent(x + " " + y + " " + z + ". " + I18n.format("charm.dimension") + " " + dim));
+            textComponents.add(new TranslationTextComponent("gui.charm.moonstone_location", x, y, z, dim));
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private void effectAtOrigin(World world, BlockPos pos)
+    {
+        for (int ii = 0; ii < 10; ii++) {
+            world.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + world.rand.nextFloat(), pos.getY() + 1.75D, pos.getZ() + world.rand.nextFloat(), 0.0D, 0.1D, 0.0D);
         }
     }
 }

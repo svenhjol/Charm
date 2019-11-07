@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "charm:moonstone_block_purple"
+    }
+  ],
+  "result": {
+    "item": "charm:moonstone_purple",
+    "count": 4
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "moonstones"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "charm:block/moonstone_block_blue" }
+  }
+}

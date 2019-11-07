@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX", "XX"
+  ],
+  "key": {
+    "X": {"item": "charm:moonstone_light_blue"}
+  },
+  "result": {
+    "item": "charm:moonstone_block_light_blue"
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "moonstones"
+    }
+  ]
+}
