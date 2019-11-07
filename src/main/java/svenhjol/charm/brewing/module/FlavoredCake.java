@@ -4,14 +4,21 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
+import net.minecraft.client.Minecraft;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -105,6 +112,22 @@ public class FlavoredCake extends MesonModule
         }
 
         return false;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void effectImbue(BlockPos pos)
+    {
+        World world = Minecraft.getInstance().world;
+        world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 0.5F, 1.1F);
+        for (int i = 0; i < 8; ++i) {
+            double d0 = world.rand.nextGaussian() * 0.02D;
+            double d1 = world.rand.nextGaussian() * 0.02D;
+            double d2 = world.rand.nextGaussian() * 0.02D;
+            double dx = (float)pos.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+            double dy = (float)pos.getY() + 0.65f;
+            double dz = (float)pos.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+            world.addParticle(ParticleTypes.WITCH, dx, dy, dz, d0, d1, d2);
+        }
     }
 
     public static class DispenseImbueBehavior extends DefaultDispenseItemBehavior
