@@ -21,6 +21,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IMesonBlock;
 
 import java.util.ArrayList;
@@ -132,7 +133,10 @@ public class RegistryHandler
         if (!objects.containsKey(type)) objects.put(type, new ArrayList<>());
 
         if (!(objects.containsKey(type) && objects.get(type).contains(obj))) {
-            if (res == null && obj.getRegistryName() == null) return; // can't set it
+            if (res == null && obj.getRegistryName() == null) {
+                Meson.debug("Not registring object because registry name is empty", obj);
+                return; // can't set it
+            }
 
             if (obj.getRegistryName() == null) {
                 obj.setRegistryName(res);
