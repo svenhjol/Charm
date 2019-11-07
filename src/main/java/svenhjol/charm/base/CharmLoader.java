@@ -1,7 +1,8 @@
 package svenhjol.charm.base;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.base.message.*;
+import svenhjol.charm.brewing.message.ClientCakeAction;
+import svenhjol.charm.tools.message.ClientGlowingAction;
 import svenhjol.meson.MesonLoader;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.handler.RegistryHandler;
@@ -19,12 +20,8 @@ public class CharmLoader extends MesonLoader
         super.earlyInit();
 
         int index = 0;
-
-//        PacketHandler.HANDLER.registerMessage(index++, MessageBookshelfInteract.class, MessageBookshelfInteract::encode, MessageBookshelfInteract::decode, MessageBookshelfInteract.Handler::handle);
         PacketHandler.HANDLER.registerMessage(index++, ClientCakeAction.class, ClientCakeAction::encode, ClientCakeAction::decode, ClientCakeAction.Handler::handle);
-//        PacketHandler.HANDLER.registerMessage(index++, MessageCrateInteract.class, MessageCrateInteract::encode, MessageCrateInteract::decode, MessageCrateInteract.Handler::handle);
         PacketHandler.HANDLER.registerMessage(index++, ClientGlowingAction.class, ClientGlowingAction::encode, ClientGlowingAction::decode, ClientGlowingAction.Handler::handle);
-//        PacketHandler.HANDLER.registerMessage(index++, MessageMagneticPickup.class, MessageMagneticPickup::encode, MessageMagneticPickup::decode, MessageMagneticPickup.Handler::handle);
 
         RegistryHandler.registerSound(CharmSounds.BOOKSHELF_CLOSE);
         RegistryHandler.registerSound(CharmSounds.BOOKSHELF_OPEN);
