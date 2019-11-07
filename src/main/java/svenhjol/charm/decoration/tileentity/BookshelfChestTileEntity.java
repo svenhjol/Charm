@@ -2,20 +2,19 @@ package svenhjol.charm.decoration.tileentity;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.decoration.block.BookshelfChestBlock;
 import svenhjol.charm.decoration.container.BookshelfChestContainer;
-import svenhjol.charm.base.message.MessageBookshelfInteract;
 import svenhjol.charm.decoration.module.BookshelfChests;
-import svenhjol.meson.handler.PacketHandler;
 
 public class BookshelfChestTileEntity extends LockableLootTileEntity
 {
@@ -106,13 +105,13 @@ public class BookshelfChestTileEntity extends LockableLootTileEntity
     @Override
     public void openInventory(PlayerEntity player)
     {
-        PacketHandler.sendTo(new MessageBookshelfInteract(this.pos, 0), (ServerPlayerEntity)player);
+        player.world.playSound(null, pos, CharmSounds.BOOKSHELF_OPEN, SoundCategory.BLOCKS, 0.5f, player.world.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     @Override
     public void closeInventory(PlayerEntity player)
     {
-        PacketHandler.sendTo(new MessageBookshelfInteract(this.pos, 1), (ServerPlayerEntity)player);
+        player.world.playSound(null, pos, CharmSounds.BOOKSHELF_CLOSE, SoundCategory.BLOCKS, 0.5f, player.world.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     public void updateBlockState()
