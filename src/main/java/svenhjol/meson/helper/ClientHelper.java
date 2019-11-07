@@ -14,6 +14,7 @@ public class ClientHelper
         return Minecraft.getInstance().world;
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static PlayerEntity getClientPlayer()
     {
         return Minecraft.getInstance().player;
