@@ -1,7 +1,6 @@
 package svenhjol.charm.world.module;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStage.Decoration;
@@ -20,7 +19,9 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD,
+    description = "Fumaroles are small columns of hot steam rising from the nether floor.\n" +
+        "Sometimes they erupt, sending entities that are placed on them high into the air.")
 public class Fumaroles extends MesonModule
 {
     public static FumaroleBlock block;
@@ -34,12 +35,8 @@ public class Fumaroles extends MesonModule
         feature = new FumaroleFeature(NoFeatureConfig::deserialize);
         placement = new FumarolePlacement(FrequencyConfig::deserialize);
 
-        // TODO sort out registry
         ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "fumarole");
-        RegistryHandler.addRegisterable(feature, ID);
-        Registry.register(Registry.FEATURE, ID.toString(), feature);
-        RegistryHandler.addRegisterable(placement, ID);
-        Registry.register(Registry.DECORATOR, ID.toString(), placement);
+        RegistryHandler.registerFeature(feature, placement, ID);
     }
 
     @Override
