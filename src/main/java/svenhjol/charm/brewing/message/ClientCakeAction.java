@@ -1,4 +1,4 @@
-package svenhjol.charm.base.message;
+package svenhjol.charm.brewing.message;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
