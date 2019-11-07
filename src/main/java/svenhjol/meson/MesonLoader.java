@@ -42,6 +42,12 @@ public abstract class MesonLoader
         this.id = id;
         instances.put(id, this);
 
+        // run loaders
+        this.moduleLoader = new ModuleLoader(this);
+        this.configLoader = new ConfigLoader(this);
+
+        earlyInit();
+
         // attach listeners
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::setup);
@@ -54,12 +60,13 @@ public abstract class MesonLoader
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(this::setupClient));
 
-        // run loaders
-        this.moduleLoader = new ModuleLoader(this);
-        this.configLoader = new ConfigLoader(this);
-
         // init every module, this registers blocks
         modules(MesonModule::init);
+    }
+
+    public void earlyInit()
+    {
+        // no op
     }
 
     public void setup(FMLCommonSetupEvent event)
