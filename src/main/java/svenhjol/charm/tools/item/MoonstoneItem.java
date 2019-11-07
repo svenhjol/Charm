@@ -114,7 +114,7 @@ public class MoonstoneItem extends MesonItem
 
         PlayerEntity player = context.getPlayer();
         World world = context.getWorld();
-        BlockPos pos = player.getPosition();
+        BlockPos pos = context.getPos();
         Hand hand = context.getHand();
         ItemStack item = player.getHeldItem(hand);
         BlockPos stonePos = getStonePos(item);
