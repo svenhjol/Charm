@@ -1,6 +1,5 @@
 package svenhjol.charm.base;
 
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.message.*;
 import svenhjol.meson.MesonLoader;
@@ -15,15 +14,17 @@ public class CharmLoader extends MesonLoader
     }
 
     @Override
-    public void setup(FMLCommonSetupEvent event)
+    public void earlyInit()
     {
-        super.setup(event);
+        super.earlyInit();
 
-        PacketHandler.HANDLER.registerMessage(0, MessageBookshelfInteract.class, MessageBookshelfInteract::encode, MessageBookshelfInteract::decode, MessageBookshelfInteract.Handler::handle);
-        PacketHandler.HANDLER.registerMessage(1, MessageCakeImbue.class, MessageCakeImbue::encode, MessageCakeImbue::decode, MessageCakeImbue.Handler::handle);
-        PacketHandler.HANDLER.registerMessage(2, MessageCrateInteract.class, MessageCrateInteract::encode, MessageCrateInteract::decode, MessageCrateInteract.Handler::handle);
-        PacketHandler.HANDLER.registerMessage(3, MessageGlowing.class, MessageGlowing::encode, MessageGlowing::decode, MessageGlowing.Handler::handle);
-        PacketHandler.HANDLER.registerMessage(4, MessageMagneticPickup.class, MessageMagneticPickup::encode, MessageMagneticPickup::decode, MessageMagneticPickup.Handler::handle);
+        int index = 0;
+
+//        PacketHandler.HANDLER.registerMessage(index++, MessageBookshelfInteract.class, MessageBookshelfInteract::encode, MessageBookshelfInteract::decode, MessageBookshelfInteract.Handler::handle);
+        PacketHandler.HANDLER.registerMessage(index++, ClientCakeAction.class, ClientCakeAction::encode, ClientCakeAction::decode, ClientCakeAction.Handler::handle);
+//        PacketHandler.HANDLER.registerMessage(index++, MessageCrateInteract.class, MessageCrateInteract::encode, MessageCrateInteract::decode, MessageCrateInteract.Handler::handle);
+        PacketHandler.HANDLER.registerMessage(index++, ClientGlowingAction.class, ClientGlowingAction::encode, ClientGlowingAction::decode, ClientGlowingAction.Handler::handle);
+//        PacketHandler.HANDLER.registerMessage(index++, MessageMagneticPickup.class, MessageMagneticPickup::encode, MessageMagneticPickup::decode, MessageMagneticPickup.Handler::handle);
 
         RegistryHandler.registerSound(CharmSounds.BOOKSHELF_CLOSE);
         RegistryHandler.registerSound(CharmSounds.BOOKSHELF_OPEN);
