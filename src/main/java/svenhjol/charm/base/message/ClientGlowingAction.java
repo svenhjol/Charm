@@ -7,31 +7,31 @@ import svenhjol.meson.iface.IMesonMessage;
 
 import java.util.function.Supplier;
 
-public class MessageGlowing implements IMesonMessage
+public class ClientGlowingAction implements IMesonMessage
 {
     private double range;
     private int ticks;
 
-    public MessageGlowing(double range, int ticks)
+    public ClientGlowingAction(double range, int ticks)
     {
         this.range = range;
         this.ticks = ticks;
     }
 
-    public static void encode(MessageGlowing msg, PacketBuffer buf)
+    public static void encode(ClientGlowingAction msg, PacketBuffer buf)
     {
         buf.writeDouble(msg.range);
         buf.writeInt(msg.ticks);
     }
 
-    public static MessageGlowing decode(PacketBuffer buf)
+    public static ClientGlowingAction decode(PacketBuffer buf)
     {
-        return new MessageGlowing(buf.readDouble(), buf.readInt());
+        return new ClientGlowingAction(buf.readDouble(), buf.readInt());
     }
 
     public static class Handler
     {
-        public static void handle(final MessageGlowing msg, Supplier<NetworkEvent.Context> ctx)
+        public static void handle(final ClientGlowingAction msg, Supplier<NetworkEvent.Context> ctx)
         {
             ctx.get().enqueueWork(() -> {
                 BatInABucket.clientRange = msg.range;

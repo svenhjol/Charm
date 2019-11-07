@@ -9,7 +9,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.charm.base.message.MessageGlowing;
+import svenhjol.charm.base.message.ClientGlowingAction;
 import svenhjol.charm.tools.module.BatInABucket;
 import svenhjol.meson.MesonItem;
 import svenhjol.meson.MesonModule;
@@ -61,7 +61,7 @@ public class BatBucketItem extends MesonItem
             player.swingArm(hand);
 
             // send client message to start glowing
-            PacketHandler.sendTo(new MessageGlowing(BatInABucket.range, BatInABucket.time * 20), (ServerPlayerEntity)player);
+            PacketHandler.sendTo(new ClientGlowingAction(BatInABucket.range, BatInABucket.time * 20), (ServerPlayerEntity)player);
         }
 
         /* @todo Item use stat */
