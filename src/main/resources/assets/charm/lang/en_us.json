@@ -154,10 +154,11 @@
   "effect.charm.coffee_effect": "Coffee",
   "effect.charm.decay_effect": "Decay",
 
-  "gui.charm.bound_compass_location": "§7X §8%s, §7Y §8%s, §7Z §8%s, §fDimension %s",
+  "gui.charm.bound_compass_location": "§7X §8%s, §7Z §8%s, §fDimension %s",
   "gui.charm.moonstone_distance": "Distance of §l%s blocks",
   "gui.charm.moonstone_distance_1": "Distance of §l%s block",
-  "gui.charm.moonstone_location": "§7X §8%s, §7Z §8%s, §fDimension %s",
+  "gui.charm.moonstone_distance_0": "This is the original position",
+  "gui.charm.moonstone_location": "§7X §8%s, §7Y §8%s, §7Z §8%s, §fDimension %s",
 
   "map.charm.desert_pyramid": "Desert Pyramid Map",
   "map.charm.igloo": "Igloo Map",
