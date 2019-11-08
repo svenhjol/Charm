@@ -1,9 +1,13 @@
 package svenhjol.charm.building.module;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.building.block.RottenFleshBlock;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.ComposterHelper;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING,
@@ -13,9 +17,18 @@ public class BlockOfRottenFlesh extends MesonModule
 {
     public static RottenFleshBlock block;
 
+    @Config(name = "Compostable", description = "If true, a block of rotten flesh can be composted.")
+    public static boolean compostable = true;
+
     @Override
     public void init()
     {
         block = new RottenFleshBlock(this);
+    }
+
+    @Override
+    public void setup(FMLCommonSetupEvent event)
+    {
+        if (compostable) ComposterHelper.addInputItem(new ItemStack(block).getItem(), 1.0F);
     }
 }

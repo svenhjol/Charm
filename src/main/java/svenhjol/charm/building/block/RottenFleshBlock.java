@@ -1,9 +1,6 @@
 package svenhjol.charm.building.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.particles.ParticleTypes;
@@ -12,10 +9,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.ToolType;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
-import svenhjol.meson.helper.WorldHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,20 +49,22 @@ public class RottenFleshBlock extends MesonBlock
         if (!worldIn.isRemote) {
             if (!worldIn.isAreaLoaded(pos, 2)) return;
 
-            // transform soil to something else
-            ArrayList<Block> transforms = new ArrayList<>(Arrays.asList(Blocks.PODZOL, Blocks.MYCELIUM));
-            transforms.forEach(blockType -> {
-                if (worldIn.getBlockState(pos).getBlock() != blockType && WorldHelper.getBiomeAtPos(worldIn, pos).getSurfaceBuilder().config.getTop().getBlock() == blockType) {
-                    if (transformables.contains(worldIn.getBlockState(pos.up()).getBlock())) {
-                        worldIn.setBlockState(pos.up(), blockType.getDefaultState(), 2);
-                    }
-                }
-            });
-
             // transform self to dirt if next to water
             for (Direction facing : Direction.values()) {
                 if (worldIn.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
                     worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState(), 2);
+                }
+            }
+
+            BlockState aboveState = worldIn.getBlockState(pos.up(1));
+            BlockState plantState = worldIn.getBlockState(pos.up(2));
+            if (plantState.getBlock() instanceof IPlantable && aboveState.canSustainPlant(worldIn, pos.up(1), Direction.UP, (IPlantable)plantState.getBlock())) {
+                if (plantState.getBlock() instanceof IGrowable) {
+                    IGrowable growable = (IGrowable)plantState.getBlock();
+                    if (growable.canGrow(worldIn, pos.up(2), plantState, worldIn.isRemote)) {
+                        growable.grow(worldIn, worldIn.rand, pos.up(2), plantState);
+                        worldIn.playEvent(2005, pos.up(2), 0);
+                    }
                 }
             }
         }
