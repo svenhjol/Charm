@@ -38,7 +38,7 @@ public class MoonstoneItem extends MesonItem
     {
         super(module, "moonstone_" + color.getName(), new Item.Properties()
             .group(ItemGroup.TOOLS)
-            .maxStackSize(1)
+            .maxStackSize(16)
         );
 
         this.color = color;
@@ -62,39 +62,30 @@ public class MoonstoneItem extends MesonItem
                 BlockPos stonePos = getStonePos(stack);
                 if (stonePos == null) return 0;
                 if (entity == null) return 0;
+                BlockPos entityPos = entity.getPosition();
 
                 int stoneDim = getStoneDim(stack);
                 int entityDim = world.getDimension().getType().getId();
 
-                int stoneX = stonePos.getX();
-                int stoneZ = stonePos.getZ();
-                int entityX = MathHelper.floor(entity.posX);
-                int entityZ = MathHelper.floor(entity.posZ);
+                BlockPos adjusted = getAdjusted(stonePos, stoneDim, entityDim);
 
-                if (stoneDim == -1 && entityDim != -1) {
-                    stoneX *= 8.0f;
-                    stoneZ *= 8.0f;
-                } else if (entityDim == -1 && stoneDim != -1) {
-                    stoneX /= 8.0f;
-                    stoneZ /= 8.0f;
-                }
-
-                boolean alignedx = stoneX == entityX;
-                boolean alignedz = stoneZ == entityZ;
+                boolean alignedx = adjusted.getX() == entityPos.getX();
+                boolean alignedz = adjusted.getZ() == entityPos.getZ();
 
                 boolean origin = alignedx && alignedz;
                 boolean aligned = alignedx || alignedz;
 
-                if (world.isRemote && aligned || origin) {
+                if ((world.isRemote && aligned || origin) && entity instanceof PlayerEntity) {
                     float pitch = 0.5F + (color.getId() / 16.0F);
+                    PlayerEntity player = (PlayerEntity)entity;
 
                     if (aligned && !ItemNBTHelper.getBoolean(stack, MoonstoneItem.ALIGNED, false)) {
-                        world.playSound(null, entity.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, 0.55F, pitch);
+                        world.playSound(player, entity.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, 0.55F, pitch);
                     }
                     if (origin && !ItemNBTHelper.getBoolean(stack, MoonstoneItem.ORIGIN, false)) {
                         effectAtOrigin(world, stonePos);
-                        world.playSound(null, entity.getPosition(), SoundEvents.BLOCK_NOTE_BLOCK_CHIME, SoundCategory.BLOCKS, 1.0F, pitch);
-                        world.playSound(null, entity.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, 0.55F, pitch);
+                        world.playSound(player, entity.getPosition(), SoundEvents.BLOCK_NOTE_BLOCK_CHIME, SoundCategory.BLOCKS, 1.0F, pitch);
+                        world.playSound(player, entity.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, 0.55F, pitch);
                     }
                 }
 
@@ -104,6 +95,22 @@ public class MoonstoneItem extends MesonItem
                 return 0;
             }
         });
+    }
+
+    private BlockPos getAdjusted(BlockPos stone, int stoneDim, int entityDim)
+    {
+        int stoneX = stone.getX();
+        int stoneZ = stone.getZ();
+
+        if (stoneDim == -1 && entityDim != -1) {
+            stoneX *= 8.0f;
+            stoneZ *= 8.0f;
+        } else if (entityDim == -1 && stoneDim != -1) {
+            stoneX /= 8.0f;
+            stoneZ /= 8.0f;
+        }
+
+        return new BlockPos(stoneX, 0, stoneZ);
     }
 
     @Override
@@ -119,21 +126,23 @@ public class MoonstoneItem extends MesonItem
         BlockPos stonePos = getStonePos(item);
         int stoneDim = getStoneDim(item);
 
-        if (world.isRemote
-            && player.dimension.getId() == stoneDim
-            && stonePos != null
-        ) {
-            int x = stonePos.getX() - pos.getX();
-            int z = stonePos.getZ() - pos.getZ();
+        if (player.isSneaking() || stonePos == null) return ActionResultType.FAIL;
+
+        BlockPos adjusted = getAdjusted(stonePos, stoneDim, player.dimension.getId());
+
+        if (world.isRemote) {
+            int x = adjusted.getX() - pos.getX();
+            int z = adjusted.getZ() - pos.getZ();
             int i = MathHelper.floor(MathHelper.sqrt((float) (x * x + z * z)));
 
+            String key;
             if (i == 0) {
-                effectAtOrigin(world, stonePos);
+                key = "gui.charm.moonstone_distance_0";
+                effectAtOrigin(world, adjusted.add(0, stonePos.getY(), 0));
             } else {
-                String key = i > 1 ? "gui.charm.moonstone_distance" : "gui.charm.moonstone_distance_1";
-                player.sendStatusMessage(new TranslationTextComponent(key, i), true);
+                key = i > 1 ? "gui.charm.moonstone_distance" : "gui.charm.moonstone_distance_1";
             }
-
+            player.sendStatusMessage(new TranslationTextComponent(key, i), true);
         }
 
         return ActionResultType.PASS;
@@ -198,7 +207,7 @@ public class MoonstoneItem extends MesonItem
     private void effectAtOrigin(World world, BlockPos pos)
     {
         for (int ii = 0; ii < 10; ii++) {
-            world.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + world.rand.nextFloat(), pos.getY() + 1.75D, pos.getZ() + world.rand.nextFloat(), 0.0D, 0.1D, 0.0D);
+            world.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + world.rand.nextFloat(), pos.getY() + 1.5D, pos.getZ() + world.rand.nextFloat(), 0.0D, 0.2D, 0.0D);
         }
     }
 }

@@ -12,7 +12,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.tools.item.MoonstoneItem;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.Module;
 
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class Moonstones extends MesonModule
 
             if (player.isSneaking()) {
                 MoonstoneItem.setStonePos(held, pos);
-                MoonstoneItem.setStoneDim(held, WorldHelper.getDimensionId(world));
+                MoonstoneItem.setStoneDim(held, player.dimension.getId());
                 player.swingArm(hand);
             }
         }

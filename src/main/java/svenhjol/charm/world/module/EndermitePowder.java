@@ -48,7 +48,7 @@ public class EndermitePowder extends MesonModule
         if (!event.getEntityLiving().world.isRemote
             && event.getEntityLiving() instanceof EndermiteEntity
             && event.getSource().getTrueSource() instanceof PlayerEntity
-            && event.getEntityLiving().world.rand.nextFloat() <= 0.5D + (0.1D * event.getLootingLevel())
+            && event.getEntityLiving().world.rand.nextFloat() <= 0.5F + (0.1F * event.getLootingLevel())
         ) {
             EndermiteEntity endermite = (EndermiteEntity)event.getEntityLiving();
             ItemStack stack = new ItemStack(item);

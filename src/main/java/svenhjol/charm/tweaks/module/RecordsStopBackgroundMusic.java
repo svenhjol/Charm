@@ -16,6 +16,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBloc
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.iface.Module;
@@ -53,6 +54,7 @@ public class RecordsStopBackgroundMusic extends MesonModule
             SoundHelper.getPlayingSounds().forEach((category, sound) -> {
                 if (category == SoundCategory.RECORDS) {
                     music = triggered;
+                    Meson.debug("Triggered background music while record playing");
                 }
             });
         }

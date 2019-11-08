@@ -3,10 +3,7 @@ package svenhjol.charm.enchanting.module;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -32,25 +29,25 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true,
-    description = "A hoe with the Homing enchantment is attracted to ore/wood/stone of the same type that make up the head of the hoe.\n" +
+    description = "A tool with the Homing enchantment is attracted to ore/wood/stone of the same type that make up the head of the tool.\n" +
         "Right click underground and if you hear a sound, you can follow it to the source.")
 public class Homing extends MesonModule
 {
     public static HomingEnchantment enchantment;
-    public static HashMap<Item, List<Block>> matches = new HashMap<>();
+    public static HashMap<IItemTier, List<Block>> matches = new HashMap<>();
 
     @Config(name = "Detection range", description = "Range (in blocks) that the enchanted tool will detect ore/wood/stone.")
     public static int range = 8;
 
-    @Config(name = "Damage on detect", description = "Percentage (where 1.0 is 100%) of damage given to the tool every time it detects a block.")
-    public static double damage = 0.015D;
+    @Config(name = "Damage multiplier", description = "Percentage (where 1.0 is 100%) of damage given to the tool every time it detects a block.")
+    public static double damageMultiplier = 0.015D;
 
     @Override
     public void init()
     {
         enchantment = new HomingEnchantment(this);
 
-        addHomingBlock(Items.WOODEN_HOE,
+        addHomingBlock(ItemTier.WOOD,
             Blocks.ACACIA_PLANKS,
             Blocks.BIRCH_PLANKS,
             Blocks.DARK_OAK_PLANKS,
@@ -58,39 +55,37 @@ public class Homing extends MesonModule
             Blocks.OAK_PLANKS,
             Blocks.SPRUCE_PLANKS);
 
-        addHomingBlock(Items.STONE_HOE,
+        addHomingBlock(ItemTier.STONE,
             Blocks.COBBLESTONE);
 
-        addHomingBlock(Items.IRON_HOE,
+        addHomingBlock(ItemTier.IRON,
             Blocks.IRON_ORE);
 
-        addHomingBlock(Items.GOLDEN_HOE,
+        addHomingBlock(ItemTier.GOLD,
             Blocks.GOLD_ORE);
 
-        addHomingBlock(Items.DIAMOND_HOE,
+        addHomingBlock(ItemTier.DIAMOND,
             Blocks.DIAMOND_ORE);
     }
 
-    public static void addHomingBlock(Item item, Block... blocks)
+    public static void addHomingBlock(ItemTier tier, Block... blocks)
     {
-        if (!matches.containsKey(item)) matches.put(item, new ArrayList<>());
-        matches.get(item).addAll(Arrays.asList(blocks));
+        if (!matches.containsKey(tier)) matches.put(tier, new ArrayList<>());
+        matches.get(tier).addAll(Arrays.asList(blocks));
     }
 
     @SubscribeEvent
     public void onBlockInteract(RightClickBlock event)
     {
-        ItemStack held = event.getEntityPlayer().getHeldItem(event.getHand());
+        ItemStack held = event.getPlayer().getHeldItem(event.getHand());
 
-        if (held.getItem() instanceof HoeItem
-            && EnchantmentsHelper.hasEnchantment(enchantment, held)
-        ) {
+        if (held.getItem() instanceof TieredItem && EnchantmentsHelper.hasEnchantment(enchantment, held)) {
             World world = event.getWorld();
-            PlayerEntity player = event.getEntityPlayer();
+            PlayerEntity player = event.getPlayer();
             Hand hand = event.getHand();
             BlockPos pos = event.getPos();
-            List<Block> blocks = matches.get(held.getItem());
-
+            TieredItem item = (TieredItem)held.getItem();
+            List<Block> blocks = matches.get(item.getTier());
             if (blocks.isEmpty()) return;
 
             AtomicReference<Double> distance = new AtomicReference<>((double) 0);
@@ -104,13 +99,16 @@ public class Homing extends MesonModule
             });
 
             if (distance.get() != 0) {
-                PlayerHelper.damageHeldItem(player, hand, held, (int)(held.getMaxDamage() * damage));
+                if (!world.isRemote) {
+                    double damage = held.getMaxDamage() * damageMultiplier;
+                    PlayerHelper.damageHeldItem(player, hand, held, (int)Math.ceil(damage));
+                }
 
                 if (world.isRemote) {
                     double vol = 1 - (Math.min(distance.get(), 100) / 100);
                     double pitch = Math.max(0.5D, 1 - (Math.min(distance.get(), 100) / 100));
                     player.swingArm(event.getHand());
-                    world.playSound(null, player.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, (float)vol, (float)pitch);
+                    world.playSound(player, player.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, (float)vol, (float)pitch);
                 }
             }
         }

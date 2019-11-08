@@ -28,6 +28,9 @@ public class ExtractEnchantments extends MesonModule
     @Config(name = "Enchantment levels lost", description = "Number of levels that enchantments are weakened when converting.")
     public static int levelsLost = 1;
 
+    @Config(name = "Allow Level 1 enchantments", description = "Enchantments with a single level or at level 1 will be extracted.")
+    public static boolean allowLevelOneEnchants = true;
+
     @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent event)
     {
@@ -55,6 +58,9 @@ public class ExtractEnchantments extends MesonModule
 
             int level = entry.getValue();
             int newLevel = level - levelsLost;
+
+            if (allowLevelOneEnchants) newLevel = Math.max(1, newLevel);
+
             if (newLevel > 0) {
                 outEnchants.put(ench, newLevel);
                 cost += newLevel;

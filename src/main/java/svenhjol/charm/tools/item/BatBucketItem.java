@@ -58,8 +58,10 @@ public class BatBucketItem extends MesonItem
         }
         player.swingArm(hand);
 
-        // send client message to start glowing
-        PacketHandler.sendTo(new ClientGlowingAction(BatInABucket.range, BatInABucket.time * 20), (ServerPlayerEntity)player);
+        if (!world.isRemote) {
+            // send client message to start glowing
+            PacketHandler.sendTo(new ClientGlowingAction(BatInABucket.range, BatInABucket.time * 20), (ServerPlayerEntity) player);
+        }
 
         /* @todo Item use stat */
 

@@ -38,7 +38,10 @@ public class StructureMaps extends MesonModule
             "Numbers correspond to villager level, starting at 1 for Novice.")
     public static int tradeLevel = 3;
 
-    @Config(name = "Villager experience awarded", description = "The amount of experience awarded to the villager upon selling.")
+    @Config(name = "Maximum Maps", description = "Maximum number of structure map types a cartographer may sell.")
+    public static int maxMaps = 3;
+
+    @Config(name = "Villager experience awarded", description = "The amount of experience awarded to the cartographer upon selling.")
     public static int tradeXp = 5;
 
     @Config(name = "Maximum Trades", description = "Maximum number the trade can be used before it locks.")
@@ -66,7 +69,6 @@ public class StructureMaps extends MesonModule
         int gmin = generalMinCost;
         int gmax = generalMaxCost;
 
-        /* @todo make structures configurable in config */
         trades.add(new StructureTrade("Desert_Pyramid").setColor(0x866600).setCost(bmin, bmax));
         trades.add(new StructureTrade("Igloo").setColor(0xA0C0FF).setCost(bmin, bmax));
         trades.add(new StructureTrade("Jungle_Pyramid").setColor(0x20B020).setCost(bmin, bmax));
@@ -83,11 +85,12 @@ public class StructureMaps extends MesonModule
     {
         Int2ObjectMap<List<ITrade>> trades = event.getTrades();
         VillagerProfession profession = event.getType();
-        StructureMapForEmeraldsTrade trade = new StructureMapForEmeraldsTrade();
         if (profession.getRegistryName() == null) return;
 
-        if (profession.getRegistryName().getPath().equals("cartographer")) {
-            trades.get(tradeLevel).add(trade);
+        if (profession.getRegistryName().getPath().equals(VillagerProfession.CARTOGRAPHER.getRegistryName().getPath())) {
+            for (int i = 0; i < maxMaps; i++) {
+                trades.get(tradeLevel).add(new StructureMapForEmeraldsTrade());
+            }
         }
     }
 
@@ -96,12 +99,12 @@ public class StructureMaps extends MesonModule
         private final MapDecoration.Type targetType = MapDecoration.Type.TARGET_X;
         private final int maxUses = StructureMaps.maxTrades;
         private final int tradeXp = StructureMaps.tradeXp;
-        private final float multiplier = 0.2F;
+        private StructureTrade structure;
 
         @Nullable
         public MerchantOffer getOffer(Entity merchant, Random rand)
         {
-            StructureTrade structure = trades.get(rand.nextInt(trades.size()));
+            structure = trades.get(rand.nextInt(trades.size()));
             World world = merchant.world;
             BlockPos pos = world.findNearestStructure(structure.name, new BlockPos(merchant), 100, true);
             if (pos != null) {
@@ -119,6 +122,7 @@ public class StructureMaps extends MesonModule
 
                 ItemStack in1 = new ItemStack(Items.EMERALD, rand.nextInt(structure.max - structure.min) + structure.min);
                 ItemStack in2 = new ItemStack(Items.COMPASS);
+                float multiplier = 0.2F;
                 return new MerchantOffer(in1, in2, stack, maxUses, tradeXp, multiplier);
             } else {
                 return null;
@@ -126,7 +130,7 @@ public class StructureMaps extends MesonModule
         }
     }
 
-    public class StructureTrade
+    public static class StructureTrade
     {
         public String name;
         public int dimension;

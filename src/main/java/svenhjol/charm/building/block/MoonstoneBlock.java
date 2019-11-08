@@ -2,7 +2,6 @@ package svenhjol.charm.building.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemGroup;
@@ -12,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+import svenhjol.charm.building.module.BlockOfMoonstone;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 
@@ -26,7 +26,6 @@ public class MoonstoneBlock extends MesonBlock
         super(module, "moonstone_block_" + color.getName(), Block.Properties
             .create(Material.ROCK)
             .hardnessAndResistance(0.8F)
-            .sound(SoundType.GLASS)
             .harvestTool(ToolType.PICKAXE)
             .lightValue(0)
             .tickRandomly()
@@ -39,6 +38,14 @@ public class MoonstoneBlock extends MesonBlock
     public ItemGroup getItemGroup()
     {
         return ItemGroup.BUILDING_BLOCKS;
+    }
+
+    @Override
+    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving)
+    {
+        if (!world.isRemote) {
+            updateState(world, pos, state);
+        }
     }
 
     @Override
@@ -63,7 +70,14 @@ public class MoonstoneBlock extends MesonBlock
     @Override
     public void tick(BlockState state, World worldIn, BlockPos pos, Random random)
     {
-        int level = (int)(worldIn.getCurrentMoonPhaseFactor() * 15.0);
-        worldIn.setBlockState(pos, state.with(LEVEL, level));
+        updateState(worldIn, pos, state);
+    }
+
+    protected void updateState(World world, BlockPos pos, BlockState state)
+    {
+        if (BlockOfMoonstone.moonglow) {
+            int level = (int) (world.getCurrentMoonPhaseFactor() * 15.0);
+            world.setBlockState(pos, state.with(LEVEL, level), 2);
+        }
     }
 }

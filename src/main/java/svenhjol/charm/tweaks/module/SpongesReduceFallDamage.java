@@ -2,7 +2,9 @@ package svenhjol.charm.tweaks.module;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SpongeBlock;
+import net.minecraft.block.WetSpongeBlock;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,9 +29,10 @@ public class SpongesReduceFallDamage extends MesonModule
             && event.getSource() == DamageSource.FALL
         ) {
             World world = event.getEntityLiving().getEntityWorld();
-            Block down = world.getBlockState(event.getEntityLiving().getPosition().down()).getBlock();
+            BlockPos pos = event.getEntityLiving().getPosition();
+            Block down = world.getBlockState(pos.down()).getBlock();
 
-            if (down instanceof SpongeBlock) {
+            if (down instanceof SpongeBlock || down instanceof WetSpongeBlock) {
                 event.setAmount(event.getAmount() - (float)(event.getAmount() * percentageAbsorbed));
             }
         }

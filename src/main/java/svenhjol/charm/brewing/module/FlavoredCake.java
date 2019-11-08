@@ -105,6 +105,7 @@ public class FlavoredCake extends MesonModule
 
                 // let clients know the cake has been imbued
                 if (!world.isRemote) {
+                    world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 0.5F, 1.1F);
                     PacketHandler.sendToAll(new ClientCakeAction(pos));
                 }
                 return true;
@@ -118,7 +119,6 @@ public class FlavoredCake extends MesonModule
     public static void effectImbue(BlockPos pos)
     {
         World world = Minecraft.getInstance().world;
-        world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 0.5F, 1.1F);
         for (int i = 0; i < 8; ++i) {
             double d0 = world.rand.nextGaussian() * 0.02D;
             double d1 = world.rand.nextGaussian() * 0.02D;

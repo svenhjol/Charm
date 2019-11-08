@@ -30,7 +30,7 @@ public class TallowIncreasesDurability extends MesonModule
     public static int xpCost = 0;
 
     @Config(name = "Chance of repair cost increase", description = "Chance (out of 1.0) of the item's repair cost increasing when tallow is applied.")
-    public static double chanceOfCost = 0.75D;
+    public static double chanceOfCost = 0.1D;
 
     @Config(name = "Amount repaired", description = "Percentage (where 1.0 = 100%) durability repaired when using tallow.")
     public static double amountRepaired = 0.02D;
