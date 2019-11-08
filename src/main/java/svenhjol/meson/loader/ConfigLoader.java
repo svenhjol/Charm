@@ -95,6 +95,8 @@ public class ConfigLoader
 
     private void pushConfig(Builder builder, MesonModule module, Field field, Config config)
     {
+        field.setAccessible(true);
+
         // get the config name, fallback to the field name
         String name = config.name();
         if (name.isEmpty()) name = field.getName();
@@ -107,8 +109,21 @@ public class ConfigLoader
         Class<?> type = field.getType();
 
         try {
-            Object value = field.get(null);
-            builder.define(name, value);
+            ForgeConfigSpec.ConfigValue<?> value;
+            Object defaultValue = field.get(null);
+
+            if (defaultValue instanceof List) {
+                value = builder.defineList(name, (List<?>) defaultValue, o -> true);
+            } else {
+                value = builder.define(name, defaultValue);
+            }
+            refreshConfig.add(() -> {
+                try {
+                    field.set(null, value.get());
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Failed to get config for " + module.getName());
         }
