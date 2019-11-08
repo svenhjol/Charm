@@ -52,7 +52,7 @@ dependencies {
     compile fg.deobf("vazkii.quark:Quark:${quark_version}")
 
     // locals
-//    runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${waila_version}")
+    runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${waila_version}")
 }
 
 repositories {
