@@ -74,7 +74,7 @@ public class FlavoredCake extends MesonModule
         DispenserBlock.registerDispenseBehavior(Items.POTION, new DispenseImbueBehavior());
 
         // add cakes to composter
-        cakes.forEach((s, flavoredCakeBlock) -> ComposterHelper.addCompostableItem(new ItemStack(flavoredCakeBlock), 1.0f));
+        cakes.forEach((s, flavoredCakeBlock) -> ComposterHelper.addInputItem(new ItemStack(flavoredCakeBlock).getItem(), 1.0f));
     }
 
     @SubscribeEvent
