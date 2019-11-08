@@ -54,8 +54,8 @@ public class CharmAsmHooks
 
     public static boolean isSkyLightMax(IWorld world, BlockPos pos)
     {
-        if (!Charm.loader.hasModule(HusksIgnoreSkylight.class)) return world.isSkyLightMax(pos);
-        return HusksIgnoreSkylight.isSkyLightMax(world, pos);
+        if (!Charm.loader.hasModule(HuskImprovements.class) || !HuskImprovements.spawnAnywhere) return world.isSkyLightMax(pos);
+        return HuskImprovements.isSkyLightMax(world, pos);
     }
 
     public static void composterOutput(World world, BlockPos pos, PlayerEntity player)
