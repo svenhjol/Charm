@@ -1,7 +1,10 @@
 package svenhjol.charm.enchanting.module;
 
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import svenhjol.charm.Charm;
@@ -9,13 +12,14 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.enchanting.enchantment.SalvageEnchantment;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.EnchantmentsHelper;
+import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.Module;
 
 import javax.annotation.Nullable;
+import java.util.Map;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING,
-    description = "An item with the Salvage enchantment does not disappear when its durability is depleted, giving you a chance to get it repaired.\n" +
-        "If the item runs out of durability the player will drop it and must be picked up again. Watch out for lava.")
+    description = "An item with the Salvage enchantment drops its enchantments to a book before being destroyed.\n")
 public class Salvage extends MesonModule
 {
     public static SalvageEnchantment enchantment;
@@ -28,16 +32,23 @@ public class Salvage extends MesonModule
 
     public static void itemDamaged(ItemStack stack, int amount, @Nullable ServerPlayerEntity player)
     {
-        ItemStack copy = stack.copy();
-
-        if (copy.getDamage() >= copy.getMaxDamage()
-            && EnchantmentsHelper.hasEnchantment(enchantment, copy)
+        if (stack.getDamage() >= stack.getMaxDamage()
+            && EnchantmentsHelper.hasEnchantment(enchantment, stack)
             && player != null
         ) {
-            copy.setDamage(stack.getMaxDamage());
-            player.dropItem(copy, false);
+            if (EnchantmentHelper.getEnchantments(stack).size() > 1) {
+                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
 
-            if (player.world.isRemote) {
+                for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+                    if (entry.getKey().equals(Salvage.enchantment)) continue; // don't add salvage to the book
+                    book.addEnchantment(entry.getKey(), entry.getValue());
+                }
+
+                PlayerHelper.addOrDropStack(player, book);
+            }
+
+            if (!player.world.isRemote) {
                 player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.5F, 1.5F);
             }
         }
