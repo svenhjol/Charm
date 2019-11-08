@@ -287,6 +287,50 @@ function initializeCoreMod() {
 
                 return method;
             }
+        },
+
+        /*
+         * Composter: allow alternative output handling
+         */
+        'ComposterBlock': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.block.ComposterBlock',
+                'methodName': 'func_215687_a',
+                'methodDesc': '(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/BlockRayTraceResult;)Z'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.INVOKEVIRTUAL) {
+                        var inst1 = method.instructions.get(i-1);
+                        var inst2 = method.instructions.get(i-2);
+                        if (inst1.getOpcode() == Opcodes.ALOAD && inst1.var == 16
+                            && inst2.getOpcode() == Opcodes.ALOAD && inst2.var == 2
+                        ) {
+                            newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
+                            newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
+                            newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 4));
+                            newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "composterOutput", "(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;)V", false));
+
+                            method.instructions.insert(instruction, newInstructions);
+                            didThing = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (didThing) {
+                    print("Transformed ComposterBlock");
+                }
+
+                return method;
+            }
         }
     }
 }

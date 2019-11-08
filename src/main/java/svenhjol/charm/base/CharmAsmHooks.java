@@ -1,15 +1,18 @@
 package svenhjol.charm.base;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import svenhjol.charm.Charm;
 import svenhjol.charm.enchanting.module.Salvage;
 import svenhjol.charm.tweaks.module.*;
+import svenhjol.meson.event.ComposterEvent;
 
 import javax.annotation.Nullable;
 
@@ -53,5 +56,10 @@ public class CharmAsmHooks
     {
         if (!Charm.loader.hasModule(HusksIgnoreSkylight.class)) return world.isSkyLightMax(pos);
         return HusksIgnoreSkylight.isSkyLightMax(world, pos);
+    }
+
+    public static void composterOutput(World world, BlockPos pos, PlayerEntity player)
+    {
+        MinecraftForge.EVENT_BUS.post(new ComposterEvent.Output(world, pos, player));
     }
 }
