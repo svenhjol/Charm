@@ -19,6 +19,8 @@
 /docs
 /heap
 /libs
+/web/node_modules
+/web/vendor
 
 ## Windows
 Thumbs.db
