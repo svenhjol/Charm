@@ -46,10 +46,10 @@ public class Salvage extends MesonModule
                 }
 
                 PlayerHelper.addOrDropStack(player, book);
-            }
 
-            if (!player.world.isRemote) {
-                player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.5F, 1.5F);
+                if (!player.world.isRemote) {
+                    player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, 0.5F, 1.2F);
+                }
             }
         }
     }
