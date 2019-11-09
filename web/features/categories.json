@@ -1,0 +1,38 @@
+{
+    "automation": {
+        "name": "Automation",
+        "description": "Magical behaviors"
+    },
+    "brewing": {
+        "name": "Brewing",
+        "description": "There's trouble brewing"
+    },
+    "building": {
+        "name": "Building",
+        "description": "Very crafty"
+    },
+    "decoration": {
+        "name": "Decoration",
+        "description": "Functionally pleasing"
+    },
+    "enchanting": {
+        "name": "Enchanting",
+        "description": "Helpful and mostly curse-free"
+    },
+    "smithing": {
+        "name": "Smithing",
+        "description": "Hit stuff on an anvil"
+    },
+    "tools": {
+        "name": "Tools",
+        "description": "I'm a tool"
+    },
+    "tweaks": {
+        "name": "Tweaks",
+        "description": "Tiny changes to the vanilla experience"
+    },
+    "world": {
+        "name": "World",
+        "description": "Take over the world"
+    }
+}
