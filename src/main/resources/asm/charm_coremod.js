@@ -61,7 +61,7 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.item.PotionItem',
-                'methodName': 'hasEffect',
+                'methodName': 'func_77636_d', // hasEffect
                 'methodDesc': '(Lnet/minecraft/item/ItemStack;)Z'
             },
             transformer: function(method) {
@@ -103,7 +103,7 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.inventory.container.RepairContainer$2',
-                'methodName': 'canTakeStack',
+                'methodName': 'func_82869_a', // canTakeStack
                 'methodDesc': '(Lnet/minecraft/entity/player/PlayerEntity;)Z'
             },
             transformer: function(method) {
@@ -142,7 +142,7 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.client.renderer.entity.layers.ArmorLayer',
-                'methodName': 'renderArmorLayer',
+                'methodName': 'func_188361_a', // renderArmorLayer
                 'methodDesc': '(Lnet/minecraft/entity/LivingEntity;FFFFFFFLnet/minecraft/inventory/EquipmentSlotType;)V'
             },
             transformer: function(method) {
@@ -184,7 +184,7 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.tileentity.BeaconTileEntity',
-                'methodName': 'addEffectsToPlayers',
+                'methodName': 'func_146000_x', // addEffectsToPlayers
                 'methodDesc': '()V'
             },
             transformer: function(method) {
@@ -220,7 +220,7 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.item.ItemStack',
-                'methodName': 'attemptDamageItem',
+                'methodName': 'func_96631_a', // attemptDamageItem
                 'methodDesc': '(ILjava/util/Random;Lnet/minecraft/entity/player/ServerPlayerEntity;)Z'
             },
             transformer: function(method) {
@@ -232,7 +232,7 @@ function initializeCoreMod() {
                     var newInstructions = new InsnList();
 
                     if (instruction.getOpcode() == Opcodes.INVOKEVIRTUAL
-                        && instruction.name == "setDamage"
+                        && (instruction.name == "func_196085_b" || instruction.name == "setDamage")
                     ) {
                         newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
                         newInstructions.add(new VarInsnNode(Opcodes.ILOAD, 4));
@@ -247,6 +247,8 @@ function initializeCoreMod() {
 
                 if (didThing) {
                     print("Transformed ItemStack");
+                } else {
+                    print("Failed to transform ItemStack");
                 }
 
                 return method;
@@ -283,6 +285,8 @@ function initializeCoreMod() {
 
                 if (didThing) {
                     print("Transformed HuskEntity");
+                } else {
+                    print("Failed to transform HuskEntity");
                 }
 
                 return method;
@@ -296,7 +300,7 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.block.ComposterBlock',
-                'methodName': 'func_215687_a',
+                'methodName': 'func_220051_a', // onBlockActivated
                 'methodDesc': '(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/BlockRayTraceResult;)Z'
             },
             transformer: function(method) {
@@ -307,26 +311,24 @@ function initializeCoreMod() {
                     var instruction = method.instructions.get(i);
                     var newInstructions = new InsnList();
 
-                    if (instruction.getOpcode() == Opcodes.INVOKEVIRTUAL) {
-                        var inst1 = method.instructions.get(i-1);
-                        var inst2 = method.instructions.get(i-2);
-                        if (inst1.getOpcode() == Opcodes.ALOAD && inst1.var == 16
-                            && inst2.getOpcode() == Opcodes.ALOAD && inst2.var == 2
-                        ) {
-                            newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
-                            newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
-                            newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 4));
-                            newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "composterOutput", "(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;)V", false));
+                    if (instruction.getOpcode() == Opcodes.INVOKEVIRTUAL
+                        && (instruction.name == "func_184133_a" || instruction.name == "playSound")
+                    ) {
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 2));
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 4));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "composterOutput", "(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;)V", false));
 
-                            method.instructions.insert(instruction, newInstructions);
-                            didThing = true;
-                            break;
-                        }
+                        method.instructions.insert(instruction, newInstructions);
+                        didThing = true;
+                        break;
                     }
                 }
 
                 if (didThing) {
                     print("Transformed ComposterBlock");
+                } else {
+                    print("Failed to transform ComposterBlock");
                 }
 
                 return method;
