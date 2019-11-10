@@ -8,5 +8,8 @@ Cartographer villagers sell maps to the following structures close to them.
 * Igloos
 * Villages
 * Mineshafts
+* Pillager Outposts
+* Shipwrecks
+* Ocean Ruins
 
 o_O
