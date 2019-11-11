@@ -39,9 +39,9 @@ public class BatBucketItem extends MesonItem
         Hand hand = context.getHand();
         ItemStack held = player.getHeldItem(hand);
 
-        double x = pos.getX() + 0.5 + facing.getXOffset();
-        double y = pos.getY() + 0.5 + facing.getYOffset();
-        double z = pos.getZ() + 0.5 + facing.getZOffset();
+        double x = pos.getX() + 0.5F + facing.getXOffset();
+        double y = pos.getY() + 0.25F + (world.rand.nextFloat() / 2.0F) + facing.getYOffset();
+        double z = pos.getZ() + 0.5F + facing.getZOffset();
 
         world.playSound(null, player.getPosition(), SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 
@@ -55,6 +55,8 @@ public class BatBucketItem extends MesonItem
 
             bat.setPosition(x, y, z);
             world.addEntity(bat);
+
+            bat.setHealth(bat.getHealth() - 1.0F);
         }
         player.swingArm(hand);
 
