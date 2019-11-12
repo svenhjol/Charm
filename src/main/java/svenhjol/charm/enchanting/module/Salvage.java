@@ -1,8 +1,10 @@
 package svenhjol.charm.enchanting.module;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.SoundCategory;
@@ -42,7 +44,7 @@ public class Salvage extends MesonModule
 
                 for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
                     if (entry.getKey().equals(Salvage.enchantment)) continue; // don't add salvage to the book
-                    book.addEnchantment(entry.getKey(), entry.getValue());
+                    EnchantedBookItem.addEnchantment(book, new EnchantmentData(entry.getKey(), entry.getValue()));
                 }
 
                 PlayerHelper.addOrDropStack(player, book);
