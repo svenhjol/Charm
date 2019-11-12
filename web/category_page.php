@@ -1,14 +1,5 @@
 <?php if (!defined('LAUNCHED')) die(); ?>
 
-<div class="jumbotron jumbotron-fluid text-center charm-header">
-    <div class="container">
-        <h1 class="display-4"><span class="thin">Charm</span> <?php echo $category->getName(); ?></h1>
-        <p class="lead"><?php echo $category->getDescription(); ?></p>
-        <a class="btn btn-info" href="/"><span class="fa fa-home"></span> Back Home</a>
-        <a class="btn btn-success" href="/download"><span class="fa fa-download"></span> Download Charm</a>
-    </div>
-</div>
-
 <div class="container charm-category charm-category-<?php echo $category->getId(); ?>">
 
 <?php

@@ -17,36 +17,36 @@ $downloadMessage = $messages[mt_rand(0, count($messages)-1)];
 
 ?>
 
-<div class="jumbotron jumbotron-fluid text-center charm-header">
-    <div class="container">
-        <h1 class="display-4"><span class="thin">Charm</span> Download</h1>
-        <a class="btn btn-secondary" href="/"><span class="fa fa-home"></span> Back Home</a>
-    </div>
-</div>
+<div class="container front-page">
 
-<div class="container">
-
-<div class="row mt-5 mb-5">
-    <div class="col-12 text-center">
-    <a class="btn btn-success" href="/download"><span class="fa fa-download"></span> <?php echo $downloadMessage; ?></a>
+<div class="row">
+    <div class="col-12">
+    <h2>Welcome to Charm!</h2>
+    <p>
+        Charm is a <strong>Forge Mod</strong> for <strong>Minecraft 1.14.4</strong>, inspired by <a href="">Quark</a>, that adds to the vanilla
+        experience of Minecraft without drastically changing its gameplay.  Charm does not require <strong>Quark</strong> to be installed but is
+        designed to play nicely with it and extend some of its features.
+    </p>
+    <p>
+        It's a <em>modular</em> mod in that you can turn on or off any of the mod features via the config file.
+    </p>
+    <p>
+    <span class="fa fa-question-circle"></span>&nbsp;&nbsp;Looking for Charm for <strong>Minecraft 1.12</strong>?  <a href="/old">Follow this link</a> to the old website.
+    </p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-12">
-    <h2>Requirements</h2>
+    <h3>Requirements</h3>
     <p>
         Charm is a <strong>Forge Mod</strong> for <strong>Minecraft 1.14.4</strong>.  You need to install the <strong>Java Edition</strong>
         of Minecraft and then the <a href="">latest version of Forge</a>.  Once you have done this, drop the <a href="">Charm file</a> in
         your <strong>mods</strong> folder and start the game.
     </p>
     <p>
-        Charm does not require <strong>Quark</strong> to be installed but is designed to play nicely with it and extend some of its features.
-        I cannot recommend Quark highly enough - it overhauls the vanilla experience of Minecraft in subtle and amazing ways.  <a href="">Download Quark now!</a>
-    </p>
-    <p>
         After the game starts for the first time, you can edit the <strong>charm-common.toml</strong> file (in the config folder) to change things about Charm.
-        Every single module can be enabled or disabled and most modules allow you to tweak some of the finer settings to fit your playstyle.
+        Each of Charm's features can be disabled or tweaked to fit your playstyle.
     </p>
     </div>
 </div>

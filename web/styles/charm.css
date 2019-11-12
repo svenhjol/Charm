@@ -1,22 +1,47 @@
+.charm-banner {
+  background-image: url("../images/splash.jpg");
+  background-origin: padding-box;
+  background-position: 50% 60%;
+  background-repeat: no-repeat;
+  margin-bottom: 0;
+  height: 350px; }
+  .charm-banner .btn {
+    margin-right: 5px;
+    margin-bottom: 10px; }
+  .charm-banner .fa {
+    padding-right: 5px; }
+  .charm-banner h1 {
+    color: white;
+    font-size: 5.8em;
+    font-family: sans;
+    font-weight: 500; }
+    .charm-banner h1 .thin {
+      font-weight: 50; }
+
+.subtitle {
+  font-size: 4em; }
+
+.charm-footer {
+  margin: 100px 0 50px 0;
+  font-size: 0.9em; }
+
 .card.charm-feature {
   margin-bottom: 16px;
   box-shadow: 0px 4px 0px #181818; }
 
-.jumbotron.charm-header .btn {
-  margin-right: 5px; }
+.front-page .row {
+  margin-top: 100px;
+  margin-bottom: 20px; }
 
-.jumbotron.charm-header .fa {
-  padding-right: 5px; }
-
-.jumbotron.charm-header h1 {
-  font-size: 5em;
-  font-family: sans;
-  font-weight: 500; }
-  .jumbotron.charm-header h1 .thin {
-    font-weight: 20; }
-
-footer.charm-footer {
-  margin: 100px 0 100px 0; }
+.nav-pills {
+  background-color: #303030;
+  padding: 10px 0px; }
+  .nav-pills .nav-link {
+    font-size: 1.1em;
+    padding-left: 15px;
+    padding-right: 15px; }
+    .nav-pills .nav-link.active {
+      background-color: #444; }
 
 p {
   font-size: 1.2em; }

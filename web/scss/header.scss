@@ -1,17 +1,33 @@
-.jumbotron.charm-header {
+.charm-banner {
+    background-image: url('../images/splash.jpg');
+    background-origin: padding-box;
+    background-position: 50% 60%;
+    background-repeat: no-repeat;
+    margin-bottom: 0;
+
+    height: 350px;
+
     .btn {
         margin-right: 5px;
+        margin-bottom: 10px;
     }
+
     .fa {
         padding-right: 5px;
     }
+
     h1 {
-        font-size: 5em;
+        color: white;
+        font-size: 5.8em;
         font-family: sans;
         font-weight: 500;
 
         .thin {
-            font-weight: 20;
+            font-weight: 50;
         }
     }
+}
+
+.subtitle {
+    font-size: 4em;
 }

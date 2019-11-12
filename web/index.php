@@ -40,12 +40,14 @@ if (!empty($pathinfo)) {
 
     <?php 
     
+    $bannerTitle = "Charm";
+    $bannerSubtitle = "A vanilla+ mod for Minecraft 1.14";
+    
+    require_once("banner.php");
+    require_once("nav.php");
+
     if (is_null($category)) {
-        require_once("home.php"); 
-    } else if ($category == 404) {
-        require_once("404.php");
-    } else if ($category == "download") {
-        require_once("download.php");
+        require_once("front_page.php");
     } else {
         require_once("category_page.php");
     }
