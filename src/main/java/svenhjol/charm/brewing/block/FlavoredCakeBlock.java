@@ -16,22 +16,22 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
-import svenhjol.charm.brewing.module.FlavoredCake;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PotionHelper;
 import svenhjol.meson.iface.IMesonBlock;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
 {
     public String baseName;
-    public ItemStack flavor;
-    public int duration;
+    public String modName;
+    public String potionName;
     private MesonModule module;
 
-    public FlavoredCakeBlock(MesonModule module, String potionName)
+    public FlavoredCakeBlock(MesonModule module, String modName, String potionName)
     {
         // init block
         super(Block.Properties
@@ -40,51 +40,12 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
             .sound(SoundType.CLOTH)
         );
         this.module = module;
-
-        // get the mod and potion name from the fully qualified potion name
-        String baseName, modName, longName, shortName;
-        if (potionName.contains(":")) {
-            String[] split = potionName.split(":");
-            modName = split[0];
-            baseName = split[1];
-        } else {
-            modName = "minecraft";
-            baseName = potionName;
-        }
-
-        // set the potion type, return if fails
-        Potion type = null;
-        longName = modName + ":long_" + baseName;
-        shortName = modName + ":short_" + baseName;
-
-        String[] names = new String[] { longName, shortName, potionName };
-        for (String name : names) {
-            type = Potion.getPotionTypeForName(name);
-            if (type != null && !type.getEffects().isEmpty()) break;
-        }
-        if (type == null || type.getEffects().isEmpty()) {
-            Meson.log("Cannot find Potion for " + potionName + ", skipping");
-            return;
-        }
-        setPotion(type);
-
-        // set effect duration
-        ItemStack potionItem = PotionHelper.getPotionItemStack(type, 1);
-        List<EffectInstance> effects = PotionUtils.getEffectsFromStack(potionItem);
-
-        int duration = 0;
-        for (EffectInstance effect : effects) {
-            duration = Math.max(duration, effect.getDuration());
-        }
-        if (duration == 0) duration = 10;
-        setDuration(duration);
+        this.modName = modName;
+        this.potionName = potionName;
 
         // register cake block, add to pool
-        this.baseName = "cake_" + baseName;
+        this.baseName = "cake_" + potionName;
         register(module, this.baseName);
-
-        FlavoredCake.cakes.put(potionName, this);
-        FlavoredCake.types.put(getPotion(), this);
     }
 
     @Override
@@ -116,38 +77,53 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
     @Override
     public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult block)
     {
-        boolean eaten = false;
-
         if (!world.isRemote) {
-            eaten = super.onBlockActivated(state, world, pos, player, hand, block);
-            if (eaten) {
-                PotionUtils.getEffectsFromStack(flavor).forEach(effectInstance -> {
-                    EffectInstance effect = new EffectInstance(effectInstance.getPotion(), getDuration());
-                    player.addPotionEffect(effect);
-                });
+            if (super.onBlockActivated(state, world, pos, player, hand, block)) {
+                this.onEaten(player);
+                return true;
             }
         }
 
-        return eaten;
+        return false;
     }
 
-    public int getDuration()
+    public void onEaten(PlayerEntity player)
     {
-        return this.duration;
+        // get the potion
+        Potion potion = getPotion();
+        ItemStack potionItem = PotionHelper.getPotionItemStack(potion, 1);
+
+        // get effect duration
+        List<EffectInstance> effects = PotionUtils.getEffectsFromStack(potionItem);
+
+        int duration = 0;
+        for (EffectInstance effect : effects) {
+            duration = Math.max(duration, effect.getDuration());
+        }
+        if (duration == 0) duration = 10;
+
+        for (EffectInstance effectInstance : PotionUtils.getEffectsFromStack(potionItem)) {
+            EffectInstance effect = new EffectInstance(effectInstance.getPotion(), duration);
+            player.addPotionEffect(effect);
+        }
     }
 
+    @Nullable
     public Potion getPotion()
     {
-        return PotionUtils.getPotionFromItem(this.flavor);
-    }
+        Potion potion = null;
+        String longName = modName + ":long_" + potionName;
+        String shortName = modName + ":short_" + potionName;
 
-    public void setDuration(int duration)
-    {
-        this.duration = (int)(duration * FlavoredCake.multiplier);
-    }
-
-    public void setPotion(Potion potion)
-    {
-        this.flavor = PotionHelper.getPotionItemStack(potion, 1);;
+        String[] names = new String[] { longName, shortName, potionName };
+        for (String name : names) {
+            potion = Potion.getPotionTypeForName(name);
+            if (!potion.getEffects().isEmpty()) break;
+        }
+        if (potion.getEffects().isEmpty()) {
+            Meson.debug("No potion registered for ", potionName);
+            return null; // don't apply an effect
+        }
+        return potion;
     }
 }

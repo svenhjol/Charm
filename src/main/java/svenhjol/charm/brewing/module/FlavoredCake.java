@@ -12,6 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -24,8 +25,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.brewing.message.ClientCakeAction;
 import svenhjol.charm.brewing.block.FlavoredCakeBlock;
+import svenhjol.charm.brewing.message.ClientCakeAction;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.ComposterHelper;
@@ -56,15 +57,35 @@ public class FlavoredCake extends MesonModule
         "regeneration",
         "strength",
         "swiftness",
-        "water_breathing"
+        "water_breathing",
+        "quark:danger_sight",
+        "quark:fortitude",
+        "quark:resilience"
     );
-    public static Map<Potion, FlavoredCakeBlock> types = new HashMap<>();
+
     public static Map<String, FlavoredCakeBlock> cakes = new HashMap<>();
 
     @Override
     public void init()
     {
-        validPotions.forEach(potion -> new FlavoredCakeBlock(this, potion));
+        validPotions.forEach(potionName -> {
+
+            // get the mod and potion name from the fully qualified potion name
+            String baseName, modName, longName, shortName;
+            if (potionName.contains(":")) {
+                String[] split = potionName.split(":");
+                modName = split[0];
+                baseName = split[1];
+            } else {
+                modName = "minecraft";
+                baseName = potionName;
+            }
+
+            FlavoredCakeBlock cake = new FlavoredCakeBlock(this, modName, baseName);
+            FlavoredCake.cakes.put(potionName, cake);
+        });
+
+//        validPotions.forEach(potion -> new FlavoredCakeBlock(this, potion));
     }
 
     @Override
@@ -81,11 +102,11 @@ public class FlavoredCake extends MesonModule
     public void onPotionUse(RightClickBlock event)
     {
         // check held potion, imbue and return
-        ItemStack held = event.getEntityPlayer().getHeldItem(event.getHand());
+        ItemStack held = event.getPlayer().getHeldItem(event.getHand());
         boolean result = FlavoredCake.imbue(event.getWorld(), event.getPos(), held);
         if (result) {
             if (!event.getWorld().isRemote) {
-                PlayerHelper.addOrDropStack(event.getEntityPlayer(), new ItemStack(Items.GLASS_BOTTLE));
+                PlayerHelper.addOrDropStack(event.getPlayer(), new ItemStack(Items.GLASS_BOTTLE));
             }
             event.setCanceled(true);
         }
@@ -96,10 +117,15 @@ public class FlavoredCake extends MesonModule
         Block block = world.getBlockState(pos).getBlock();
         if (block == Blocks.CAKE || cakes.values().contains(block)) {
             Potion potion = PotionUtils.getPotionFromItem(stack);
+            ResourceLocation potionRes = potion.getRegistryName();
+            if (potionRes == null) return false;
 
-            if (types.containsKey(potion)) {
+            String potionName = potionRes.toString();
+
+            if (cakes.containsKey(potionName)) {
                 BlockState current = world.getBlockState(pos);
-                BlockState imbued = types.get(potion).getDefaultState().with(FlavoredCakeBlock.BITES, current.get(FlavoredCakeBlock.BITES));
+
+                BlockState imbued = cakes.get(potionName).getDefaultState().with(FlavoredCakeBlock.BITES, current.get(FlavoredCakeBlock.BITES));
                 world.setBlockState(pos, imbued, 2);
                 stack.shrink(1);
 
