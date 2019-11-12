@@ -59,8 +59,8 @@ public class FlavoredCake extends MesonModule
         "swiftness",
         "water_breathing",
         "quark:danger_sight",
-        "quark:fortitude",
-        "quark:resilience"
+        "quark:resilience",
+        "quark:resistance"
     );
 
     public static Map<String, FlavoredCakeBlock> cakes = new HashMap<>();
@@ -82,10 +82,8 @@ public class FlavoredCake extends MesonModule
             }
 
             FlavoredCakeBlock cake = new FlavoredCakeBlock(this, modName, baseName);
-            FlavoredCake.cakes.put(potionName, cake);
+            FlavoredCake.cakes.put(modName + ":" + potionName, cake);
         });
-
-//        validPotions.forEach(potion -> new FlavoredCakeBlock(this, potion));
     }
 
     @Override
@@ -115,12 +113,13 @@ public class FlavoredCake extends MesonModule
     public static boolean imbue(World world, BlockPos pos, ItemStack stack)
     {
         Block block = world.getBlockState(pos).getBlock();
-        if (block == Blocks.CAKE || cakes.values().contains(block)) {
+        if (block == Blocks.CAKE || cakes.containsValue(block)) {
             Potion potion = PotionUtils.getPotionFromItem(stack);
             ResourceLocation potionRes = potion.getRegistryName();
             if (potionRes == null) return false;
 
-            String potionName = potionRes.toString();
+            String potionName = potionRes.toString()
+                .replace("long_", "");
 
             if (cakes.containsKey(potionName)) {
                 BlockState current = world.getBlockState(pos);

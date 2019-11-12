@@ -16,6 +16,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import svenhjol.charm.brewing.module.FlavoredCake;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PotionHelper;
@@ -103,7 +104,7 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
         if (duration == 0) duration = 10;
 
         for (EffectInstance effectInstance : PotionUtils.getEffectsFromStack(potionItem)) {
-            EffectInstance effect = new EffectInstance(effectInstance.getPotion(), duration);
+            EffectInstance effect = new EffectInstance(effectInstance.getPotion(), (int)(duration * FlavoredCake.multiplier));
             player.addPotionEffect(effect);
         }
     }
