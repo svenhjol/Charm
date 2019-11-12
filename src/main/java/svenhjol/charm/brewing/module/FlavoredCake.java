@@ -84,7 +84,7 @@ public class FlavoredCake extends MesonModule
             }
 
             FlavoredCakeBlock cake = new FlavoredCakeBlock(this, modName, baseName);
-            FlavoredCake.cakes.put(modName + ":" + potionName, cake);
+            FlavoredCake.cakes.put(modName + ":" + baseName, cake);
         });
     }
 
