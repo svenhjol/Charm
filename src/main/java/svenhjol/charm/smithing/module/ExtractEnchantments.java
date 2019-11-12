@@ -1,7 +1,9 @@
 package svenhjol.charm.smithing.module;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.ListNBT;
@@ -79,7 +81,9 @@ public class ExtractEnchantments extends MesonModule
 
         // apply enchantments to the book
         out = new ItemStack(Items.ENCHANTED_BOOK);
-        EnchantmentHelper.setEnchantments(outEnchants, out);
+        outEnchants.forEach((e, level) -> {
+            EnchantedBookItem.addEnchantment(out, new EnchantmentData(e, level));
+        });
 
         // set the display name on the returned item
         String name = event.getName();
