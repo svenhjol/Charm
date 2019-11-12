@@ -12,4 +12,7 @@ The following extended potions are supported:
 * Invisibility
 * Night vision
 
-**Quark**'s potions will be supported in a future release of Charm.
+If Quark is present, the following extended potions will be included:
+* Presence
+* Fortitude
+* Stability

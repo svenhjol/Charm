@@ -30,6 +30,7 @@ import svenhjol.charm.brewing.message.ClientCakeAction;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.ComposterHelper;
+import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
@@ -76,6 +77,7 @@ public class FlavoredCake extends MesonModule
                 String[] split = potionName.split(":");
                 modName = split[0];
                 baseName = split[1];
+                if (!ForgeHelper.isModLoaded(modName)) return;
             } else {
                 modName = "minecraft";
                 baseName = potionName;
