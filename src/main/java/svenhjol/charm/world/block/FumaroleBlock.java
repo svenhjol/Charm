@@ -76,7 +76,7 @@ public class FumaroleBlock extends MesonBlock
 
     protected void erupt(World world, BlockPos pos)
     {
-        if (!world.isAirBlock(pos.up())) return;
+        if (!world.isAirBlock(pos.up()) || world.isAirBlock(pos.down())) return;
 
         Random rand = world.rand;
         if (rand.nextFloat() < 0.33F) return;
