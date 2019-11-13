@@ -97,15 +97,14 @@ public class RunePortalFrameBlock extends MesonBlock
         return new ItemStack(this, 1);
     }
 
-    // TODO must be a rune frame not an end portal frame
     public static BlockPattern getOrCreatePortalShape() {
         if (portalShape == null) {
             portalShape = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?")
                 .where('?', CachedBlockInfo.hasState(BlockStateMatcher.ANY))
-                .where('^', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(EndPortalRunes.block).where(FACING, Predicates.equalTo(Direction.SOUTH))))
-                .where('>', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(EndPortalRunes.block).where(FACING, Predicates.equalTo(Direction.WEST))))
-                .where('v', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(EndPortalRunes.block).where(FACING, Predicates.equalTo(Direction.NORTH))))
-                .where('<', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(EndPortalRunes.block).where(FACING, Predicates.equalTo(Direction.EAST))))
+                .where('^', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(EndPortalRunes.frame).where(FACING, Predicates.equalTo(Direction.SOUTH))))
+                .where('>', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(EndPortalRunes.frame).where(FACING, Predicates.equalTo(Direction.WEST))))
+                .where('v', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(EndPortalRunes.frame).where(FACING, Predicates.equalTo(Direction.NORTH))))
+                .where('<', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(EndPortalRunes.frame).where(FACING, Predicates.equalTo(Direction.EAST))))
                 .build();
         }
 

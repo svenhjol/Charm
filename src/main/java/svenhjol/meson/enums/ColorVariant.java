@@ -14,7 +14,7 @@ public enum ColorVariant implements IMesonEnum
     LIME,
     PINK,
     GRAY,
-    SILVER,
+    LIGHT_GRAY,
     CYAN,
     PURPLE,
     BLUE,
@@ -32,7 +32,7 @@ public enum ColorVariant implements IMesonEnum
         }
     }
 
-    public static ColorVariant byMeta(int meta)
+    public static ColorVariant byIndex(int meta)
     {
         if (meta < 0 || meta >= METADATA_LOOKUP.length) {
             meta = 0;
@@ -40,8 +40,13 @@ public enum ColorVariant implements IMesonEnum
         return METADATA_LOOKUP[meta];
     }
 
+    public static int byColor(ColorVariant variant)
+    {
+        return variant.ordinal();
+    }
+
     public static ColorVariant random()
     {
-        return byMeta(new Random().nextInt(values().length));
+        return byIndex(new Random().nextInt(values().length));
     }
 }
