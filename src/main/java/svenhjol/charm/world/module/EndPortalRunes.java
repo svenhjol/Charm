@@ -33,6 +33,7 @@ import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.Module;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -102,7 +103,6 @@ public class EndPortalRunes extends MesonModule
             ItemStack held = player.getHeldItem(hand);
 
             if (quarkRunes.isRune(held) && !player.isSneaking()) {
-                ColorVariant heldRuneColor = quarkRunes.getColor(held);
 
                 // if end portal frame, drop eye of ender
                 if (isVanilla && state.get(EndPortalFrameBlock.EYE)) {
@@ -112,7 +112,7 @@ public class EndPortalRunes extends MesonModule
                     changed = Blocks.END_PORTAL_FRAME.getDefaultState()
                         .with(EndPortalFrameBlock.FACING, state.get(RunePortalFrameBlock.FACING));
 
-                    serverWorld.setBlockState(pos, changed, 2);
+//                    serverWorld.setBlockState(pos, changed, 2);
                 }
 
                 // if a rune frame, drop the rune that is currently in it
@@ -120,7 +120,7 @@ public class EndPortalRunes extends MesonModule
                     toDrop = quarkRunes.getRune(state.get(RunePortalFrameBlock.RUNE));
                 }
 
-                addRune(serverWorld, pos, held);
+                addRune(serverWorld, pos, held, player);
                 activate(serverWorld, pos);
 
             } else if (player.isSneaking()) {
@@ -158,7 +158,7 @@ public class EndPortalRunes extends MesonModule
         }
     }
 
-    public static void addRune(ServerWorld world, BlockPos pos, ItemStack rune)
+    public static void addRune(ServerWorld world, BlockPos pos, ItemStack rune, @Nullable PlayerEntity player)
     {
         BlockState state = world.getBlockState(pos);
         Direction facing = null;
@@ -188,7 +188,9 @@ public class EndPortalRunes extends MesonModule
             world.playSound(null, pos, SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
 
-        rune.shrink(1);
+        if (player != null && !player.isCreative()) {
+            rune.shrink(1);
+        }
     }
 
     public static void activate(ServerWorld world, BlockPos pos)
@@ -221,9 +223,11 @@ public class EndPortalRunes extends MesonModule
                 order.addAll(row);
             }
 
-            data.portals.put(thisPortal, order.stream().mapToInt(i -> i).toArray());
+            int[] colors = order.stream().mapToInt(i -> i).toArray();
+            data.portals.put(thisPortal, colors);
+            data.markDirty();
 
-            // TODO remove cached portal
+            removeCachedPortal(world, thisPortal);
 
 
             if (findPortal(world, thisPortal) != null) {
@@ -265,14 +269,30 @@ public class EndPortalRunes extends MesonModule
             if (thisPortal[0] != null) {
                 RunePortalSavedData data = RunePortalSavedData.get(world);
                 data.portals.remove(thisPortal[0]);
+                data.markDirty();
 
-                // TODO cache
+                removeCachedPortal(world, thisPortal[0]);
 
                 if (!world.isRemote) {
                     // TODO message
                 }
             }
         }
+    }
+
+    public static void removeCachedPortal(ServerWorld world, BlockPos portal)
+    {
+        RunePortalSavedData data = RunePortalSavedData.get(world);
+
+        // find any cached portal linked to this
+        BlockPos cachedPortal = data.links.get(portal);
+        if (cachedPortal != null) {
+            data.links.remove(cachedPortal);
+            Meson.debug("EndPortalRunes: [CACHE] clearing cached link", cachedPortal);
+        }
+
+        data.links.clear();
+        data.markDirty();
     }
 
     public static BlockPos findPortal(ServerWorld world, BlockPos thisPortal)
@@ -293,6 +313,7 @@ public class EndPortalRunes extends MesonModule
                     Meson.debug("EndPortalRunes: [CACHE] cleaning unlinked portal", linkedPortal);
                     data.links.remove(thisPortal);
                 }
+                data.markDirty();
             }
             List<Integer> o1 = Arrays.stream(data.portals.get(thisPortal)).boxed().collect(Collectors.toList());
 
@@ -331,6 +352,7 @@ public class EndPortalRunes extends MesonModule
         // cache portal both ways
         data.links.put(thisPortal, foundPortal);
         data.links.put(foundPortal, thisPortal);
+        data.markDirty();
 
         return foundPortal;
     }

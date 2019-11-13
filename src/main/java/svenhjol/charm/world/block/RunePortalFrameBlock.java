@@ -22,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import svenhjol.charm.world.module.EndPortalRunes;
 import svenhjol.meson.MesonModule;
@@ -34,7 +35,10 @@ public class RunePortalFrameBlock extends MesonBlock
 {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     public static final EnumProperty<ColorVariant> RUNE = EnumProperty.create("rune", ColorVariant.class);
-    public static final VoxelShape SHAPE = Block.makeCuboidShape(4.0D, 13.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+    protected static final VoxelShape BASE_SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 13.0D, 16.0D);
+    protected static final VoxelShape RUNE_SHAPE = Block.makeCuboidShape(4.0D, 13.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+    protected static final VoxelShape BASE_WITH_RUNE_SHAPE = VoxelShapes.or(BASE_SHAPE, RUNE_SHAPE);
+
     private static BlockPattern portalShape;
 
     public RunePortalFrameBlock(MesonModule module)
@@ -55,7 +59,7 @@ public class RunePortalFrameBlock extends MesonBlock
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
     {
-        return SHAPE;
+        return BASE_WITH_RUNE_SHAPE;
     }
 
     @Nullable

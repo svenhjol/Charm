@@ -159,8 +159,8 @@ public class PlayerHelper
         teleport(player, pos, dim, (p) -> {
             for (int y = world.getHeight(); y > 0; y--) {
                 BlockPos pp = new BlockPos(p.getX(), y, p.getZ());
-                if (world.getBlockState(pp).isAir()
-                    && !world.getBlockState(pp.down()).isAir()
+                if (world.isAirBlock(pp)
+                    && !world.isAirBlock(pp.down())
                 ) {
                     player.setPositionAndUpdate(pp.getX(), y, pp.getZ());
                     onTeleport.accept(player.getPosition());
@@ -176,6 +176,7 @@ public class PlayerHelper
         ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
         DimensionType destination = DimensionType.getById(dim);
         if (destination == null) return;
+        if (destination.getId() == player.dimension.getId()) return;
 
         if (!net.minecraftforge.common.ForgeHooks.onTravelToDimension(player, destination)) return;
 

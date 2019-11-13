@@ -6,17 +6,25 @@ import net.minecraft.block.EndPortalBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import svenhjol.charm.world.module.EndPortalRunes;
 import svenhjol.charm.world.tileentity.RunePortalTileEntity;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.IMesonBlock;
 
 import javax.annotation.Nullable;
@@ -63,26 +71,49 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn)
+    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity)
     {
-        // TODO teleport
+        if (!world.isRemote
+            && !entity.isPassenger()
+            && !entity.isBeingRidden()
+            && entity.isNonBoss()
+            && VoxelShapes.compare(VoxelShapes.create(entity.getBoundingBox().offset((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()))), state.getShape(world, pos), IBooleanFunction.AND)
+        ) {
+            BlockPos thisPortal = getPortal(world, pos);
+
+            if (thisPortal != null) {
+                BlockPos foundPortal = EndPortalRunes.findPortal((ServerWorld) world, thisPortal);
+
+                if (entity instanceof PlayerEntity) {
+//                    MessagePortalInteract message;
+                    PlayerEntity player = (PlayerEntity) entity;
+                    BlockPos teleportTo = foundPortal == null ? thisPortal : foundPortal;
+                    PlayerHelper.teleport(player, teleportTo.add(-2, 1, 0), 0);
+
+                    if (foundPortal != null) {
+//                        message = new MessagePortalInteract(foundPortal, 2);
+                    } else {
+                        player.addPotionEffect(new EffectInstance(Effects.NAUSEA, 120, 4));
+//                        message = new MessagePortalInteract(thisPortal, 0);
+                    }
+
+//                    NetworkHandler.INSTANCE.sendTo(message, (PlayerEntityMP)player);
+                }
+            }
+        }
     }
 
     @Override
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand)
+    public void animateTick(BlockState stateIn, World world, BlockPos pos, Random rand)
     {
-        BasicParticleType particle;
-        float f = rand.nextFloat();
-        if (f < 0.5f) {
-            particle = ParticleTypes.ENCHANT;
-        } else {
-            particle = ParticleTypes.SMOKE;
-        }
+        if (rand.nextFloat() < 0.5F) return;
 
-        double d0 = (float)pos.getX() + rand.nextFloat();
-        double d1 = (float)pos.getY() + 1.0F;
-        double d2 = (float)pos.getZ() + rand.nextFloat();
-        worldIn.addParticle(particle, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        BasicParticleType particle = ParticleTypes.ENCHANT;
+
+        double d0 = (float) pos.getX() + rand.nextFloat();
+        double d1 = (float) pos.getY() + 1.0F;
+        double d2 = (float) pos.getZ() + rand.nextFloat();
+        world.addParticle(ParticleTypes.ENCHANT, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
     @Override
@@ -96,7 +127,7 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
     {
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof RunePortalTileEntity) {
-            return (RunePortalTileEntity)tile;
+            return (RunePortalTileEntity) tile;
         }
         return null;
     }
