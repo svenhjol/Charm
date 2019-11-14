@@ -77,7 +77,7 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
             GlStateManager.translatef(17.0F / f2, (2.0F + f2 / 1.5F) * ((float)(Util.milliTime() % 200000L) / 200000.0F), 0.0F);
             GlStateManager.rotatef((f2 * f2 * 4321.0F + f2 * 9.0F) * 2.0F, 0.0F, 0.0F, 1.0F);
 
-            GlStateManager.scalef(4.5F - f2 / 4.0F, 4.3F - f2 / 4.0F, 1.0F);
+            GlStateManager.scalef(4.9F - f2 / 4.0F, 4.5F - f2 / 4.0F, 1.0F);
 
             GlStateManager.multMatrix(PROJECTION);
             GlStateManager.multMatrix(MODELVIEW);
