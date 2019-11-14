@@ -137,7 +137,7 @@ public class PlayerHelper
         changeDimension(player, dim);
 
        // ((ServerPlayerEntity)player).teleport((ServerWorld)world, pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
-        player.setPositionAndUpdate(pos.getX(), pos.getY() + 1, pos.getZ()); // TODO check landing block
+        player.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D); // TODO check landing block
 
         onTeleport.accept(player.getPosition());
     }
@@ -159,8 +159,8 @@ public class PlayerHelper
         teleport(player, pos, dim, (p) -> {
             for (int y = world.getHeight(); y > 0; y--) {
                 BlockPos pp = new BlockPos(p.getX(), y, p.getZ());
-                if (world.getBlockState(pp).isAir()
-                    && !world.getBlockState(pp.down()).isAir()
+                if (world.isAirBlock(pp)
+                    && !world.isAirBlock(pp.down())
                 ) {
                     player.setPositionAndUpdate(pp.getX(), y, pp.getZ());
                     onTeleport.accept(player.getPosition());
@@ -176,6 +176,7 @@ public class PlayerHelper
         ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
         DimensionType destination = DimensionType.getById(dim);
         if (destination == null) return;
+        if (destination.getId() == player.dimension.getId()) return;
 
         if (!net.minecraftforge.common.ForgeHooks.onTravelToDimension(player, destination)) return;
 
