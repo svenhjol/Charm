@@ -21,17 +21,15 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
 {
     private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
     private static final ResourceLocation RUNE_PORTAL_TEXTURE = new ResourceLocation(Charm.MOD_ID, "textures/entity/rune_portal.png");
-    private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation("textures/entity/end_portal.png");
     private static final Random RANDOM = new Random(31100L);
     private static final FloatBuffer MODELVIEW = GLAllocation.createDirectFloatBuffer(16);
     private static final FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
     private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
 
-
     public void render(RunePortalTileEntity tile, double x, double y, double z, float partialTicks, int destroyStage) {
         GlStateManager.disableLighting();
 
-        RANDOM.setSeed(10L); // 501 508 601=
+        RANDOM.setSeed(10L);
         GlStateManager.getMatrix(2982, MODELVIEW);
         GlStateManager.getMatrix(2983, PROJECTION);
         int i = 13;
@@ -51,12 +49,7 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
             }
 
             if (j >= 1) {
-//                if (j >= 6) {
-                    this.bindTexture(RUNE_PORTAL_TEXTURE);
-//                } else {
-//                    this.bindTexture(END_PORTAL_TEXTURE);
-//                }
-                flag = true;
+                this.bindTexture(RUNE_PORTAL_TEXTURE);
                 gamerenderer.setupFogColor(true);
             }
 
@@ -127,10 +120,7 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
         GlStateManager.disableTexGen(GlStateManager.TexGen.T);
         GlStateManager.disableTexGen(GlStateManager.TexGen.R);
         GlStateManager.enableLighting();
-        if (flag) {
-            gamerenderer.setupFogColor(false);
-        }
-
+        gamerenderer.setupFogColor(false);
     }
 
     protected float getOffset() {
