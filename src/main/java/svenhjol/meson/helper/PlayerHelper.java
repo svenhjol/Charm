@@ -137,7 +137,7 @@ public class PlayerHelper
         changeDimension(player, dim);
 
        // ((ServerPlayerEntity)player).teleport((ServerWorld)world, pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
-        player.setPositionAndUpdate(pos.getX(), pos.getY() + 1, pos.getZ()); // TODO check landing block
+        player.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D); // TODO check landing block
 
         onTeleport.accept(player.getPosition());
     }

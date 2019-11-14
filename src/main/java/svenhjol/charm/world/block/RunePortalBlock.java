@@ -8,8 +8,6 @@ import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntity;
@@ -21,14 +19,17 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import svenhjol.charm.world.message.ClientRunePortalAction;
 import svenhjol.charm.world.module.EndPortalRunes;
 import svenhjol.charm.world.tileentity.RunePortalTileEntity;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.IMesonBlock;
 
 import javax.annotation.Nullable;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
 {
@@ -85,35 +86,19 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
                 BlockPos foundPortal = EndPortalRunes.findPortal((ServerWorld) world, thisPortal);
 
                 if (entity instanceof PlayerEntity) {
-//                    MessagePortalInteract message;
                     PlayerEntity player = (PlayerEntity) entity;
                     BlockPos teleportTo = foundPortal == null ? thisPortal : foundPortal;
                     PlayerHelper.teleport(player, teleportTo.add(-2, 1, 0), 0);
 
                     if (foundPortal != null) {
-//                        message = new MessagePortalInteract(foundPortal, 2);
+                        PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.TRAVELLED, foundPortal));
                     } else {
                         player.addPotionEffect(new EffectInstance(Effects.NAUSEA, 120, 4));
-//                        message = new MessagePortalInteract(thisPortal, 0);
+                        PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.UNLINKED, thisPortal));
                     }
-
-//                    NetworkHandler.INSTANCE.sendTo(message, (PlayerEntityMP)player);
                 }
             }
         }
-    }
-
-    @Override
-    public void animateTick(BlockState stateIn, World world, BlockPos pos, Random rand)
-    {
-        if (rand.nextFloat() < 0.5F) return;
-
-        BasicParticleType particle = ParticleTypes.ENCHANT;
-
-        double d0 = (float) pos.getX() + rand.nextFloat();
-        double d1 = (float) pos.getY() + 1.0F;
-        double d2 = (float) pos.getZ() + rand.nextFloat();
-        world.addParticle(ParticleTypes.ENCHANT, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
     @Override
@@ -140,11 +125,24 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
         return tile.portal;
     }
 
-    public void setPortal(World world, BlockPos pos, BlockPos portal)
+    @Nullable
+    public List<Integer> getColors(World world, BlockPos pos)
+    {
+        RunePortalTileEntity tile = getTileEntity(world, pos);
+        if (tile == null) return null;
+        return tile.colors;
+    }
+
+    public void setPortal(World world, BlockPos pos, BlockPos portal, @Nullable List<Integer> colors)
     {
         RunePortalTileEntity tile = getTileEntity(world, pos);
         if (tile != null) {
             tile.portal = portal;
+            tile.colors = colors == null ? new ArrayList<>() : colors;
+            tile.markDirty();
+
+            BlockState state = world.getBlockState(pos);
+            world.notifyBlockUpdate(pos, state, state, 3);
         }
     }
 }

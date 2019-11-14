@@ -5,11 +5,15 @@ import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,15 +26,19 @@ import svenhjol.charm.world.block.RunePortalBlock;
 import svenhjol.charm.world.block.RunePortalFrameBlock;
 import svenhjol.charm.world.client.renderer.RunePortalTileEntityRenderer;
 import svenhjol.charm.world.compat.QuarkRunes;
+import svenhjol.charm.world.message.ClientRunePortalAction;
 import svenhjol.charm.world.storage.RunePortalSavedData;
 import svenhjol.charm.world.tileentity.RunePortalTileEntity;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.ColorVariant;
+import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.handler.RegistryHandler;
+import svenhjol.meson.helper.ClientHelper;
 import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.helper.WorldHelper;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import javax.annotation.Nullable;
@@ -49,6 +57,18 @@ public class EndPortalRunes extends MesonModule
     public static TileEntityType<RunePortalTileEntity> tile;
 
     private static QuarkRunes quarkRunes;
+
+    @Config(name = "Allow Eye of Ender removal", description = "If true, sneak-clicking with an empty hand or colored rune removes an eye of ender from its frame.")
+    public static boolean allowEnderEyeRemoval = true;
+
+    @OnlyIn(Dist.CLIENT)
+    public static long clientTravelTicks;
+
+    @OnlyIn(Dist.CLIENT)
+    public static long clientUnlinkedTicks;
+
+    @OnlyIn(Dist.CLIENT)
+    public static long clientLinkedTicks;
 
     @Override
     public void init()
@@ -70,6 +90,7 @@ public class EndPortalRunes extends MesonModule
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void setupClient(FMLClientSetupEvent event)
     {
@@ -106,7 +127,9 @@ public class EndPortalRunes extends MesonModule
 
                 // if end portal frame, drop eye of ender
                 if (isVanilla && state.get(EndPortalFrameBlock.EYE)) {
-                    toDrop = new ItemStack(Items.ENDER_EYE);
+                    if (allowEnderEyeRemoval) {
+                        toDrop = new ItemStack(Items.ENDER_EYE);
+                    }
 
                     // set the end portal frame to an empty frame, facing the correct direction
                     changed = Blocks.END_PORTAL_FRAME.getDefaultState()
@@ -125,7 +148,7 @@ public class EndPortalRunes extends MesonModule
 
             } else if (player.isSneaking()) {
 
-                if (isVanilla && state.get(EndPortalFrameBlock.EYE)) {
+                if (isVanilla && allowEnderEyeRemoval && state.get(EndPortalFrameBlock.EYE)) {
                     toDrop = new ItemStack(Items.ENDER_EYE);
                 }
 
@@ -229,9 +252,8 @@ public class EndPortalRunes extends MesonModule
 
             removeCachedPortal(world, thisPortal);
 
-
             if (findPortal(world, thisPortal) != null) {
-                // TODO network message
+                PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.LINKED, thisPortal));
             }
 
             BlockPos start = thisPortal.add(-3, 0, -3);
@@ -239,7 +261,7 @@ public class EndPortalRunes extends MesonModule
                 for (int k = 0; k < 3; k++) {
                     BlockPos p = start.add(j, 0, k);
                     world.setBlockState(p, portal.getDefaultState(), 2);
-                    portal.setPortal(world, p, thisPortal);
+                    portal.setPortal(world, p, thisPortal, order);
                 }
             }
         }
@@ -274,7 +296,7 @@ public class EndPortalRunes extends MesonModule
                 removeCachedPortal(world, thisPortal[0]);
 
                 if (!world.isRemote) {
-                    // TODO message
+                    PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.UNLINKED, thisPortal[0]));
                 }
             }
         }
@@ -362,6 +384,87 @@ public class EndPortalRunes extends MesonModule
     {
         if (event.getWorld() instanceof ServerWorld) {
             RunePortalSavedData.get((ServerWorld)event.getWorld());
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void effectPortalLinked(BlockPos pos)
+    {
+        World world = ClientHelper.getClientWorld();
+        PlayerEntity player = ClientHelper.getClientPlayer();
+        long time = world.getGameTime();
+        if (clientLinkedTicks == 0 || time - clientLinkedTicks > 20) {
+            BlockPos current = pos.add(-3, 0, -3);
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    BlockPos p = current.add(j, 0, k);
+                    for (int i = 0; i < 12; ++i) {
+                        double d0 = world.rand.nextGaussian() * 0.1D;
+                        double d1 = world.rand.nextGaussian() * 0.1D;
+                        double d2 = world.rand.nextGaussian() * 0.1D;
+                        double dx = (float) p.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        double dy = (float) p.getY() + 1.1f;
+                        double dz = (float) p.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        world.addParticle(ParticleTypes.PORTAL, dx, dy, dz, d0, d1, d2);
+                    }
+                }
+            }
+            world.playSound(player, pos, SoundEvents.BLOCK_PORTAL_TRIGGER, SoundCategory.PLAYERS, 0.8F, 1.45F);
+            clientLinkedTicks = time;
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void effectPortalUnlinked(BlockPos pos)
+    {
+        World world = ClientHelper.getClientWorld();
+        PlayerEntity player = ClientHelper.getClientPlayer();
+        long time = world.getGameTime();
+        if (clientUnlinkedTicks == 0 || time - clientUnlinkedTicks > 20) {
+            BlockPos current = pos.add(-3, 0, -3);
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    BlockPos p = current.add(j, 0, k);
+                    for (int i = 0; i < 16; ++i) {
+                        double d0 = world.rand.nextGaussian() * 0.02D;
+                        double d1 = world.rand.nextGaussian() * 0.02D;
+                        double d2 = world.rand.nextGaussian() * 0.02D;
+                        double dx = (float) p.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        double dy = (float) p.getY() + 0.5f;
+                        double dz = (float) p.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        world.addParticle(ParticleTypes.LARGE_SMOKE, dx, dy, dz, d0, d1, d2);
+                    }
+                }
+            }
+            world.playSound(player, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.PLAYERS, 0.75F, 0.7F);
+            clientUnlinkedTicks = time;
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void effectPortalTravelled(BlockPos pos)
+    {
+        World world = ClientHelper.getClientWorld();
+        PlayerEntity player = ClientHelper.getClientPlayer();
+        long time = world.getGameTime();
+        if (clientTravelTicks == 0 || time - clientTravelTicks > 20) {
+            BlockPos current = pos.add(-3, 0, -3);
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    BlockPos p = current.add(j, 0, k);
+                    for (int i = 0; i < 6; ++i) {
+                        double d0 = world.rand.nextGaussian() * 0.1D;
+                        double d1 = world.rand.nextGaussian() * 0.1D;
+                        double d2 = world.rand.nextGaussian() * 0.1D;
+                        double dx = (float) p.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        double dy = (float) p.getY() + 0.8f;
+                        double dz = (float) p.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+                        world.addParticle(ParticleTypes.CLOUD, dx, dy, dz, d0, d1, d2);
+                    }
+                }
+            }
+            world.playSound(player, pos, SoundEvents.BLOCK_PORTAL_TRAVEL, SoundCategory.PLAYERS,0.75F, 1.0F);
+            clientTravelTicks = time;
         }
     }
 }

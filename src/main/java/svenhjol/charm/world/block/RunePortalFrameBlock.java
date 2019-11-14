@@ -1,14 +1,19 @@
 package svenhjol.charm.world.block;
 
 import com.google.common.base.Predicates;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.BlockStateMatcher;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.DirectionProperty;
@@ -24,6 +29,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import svenhjol.charm.world.module.EndPortalRunes;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
@@ -101,6 +108,34 @@ public class RunePortalFrameBlock extends MesonBlock
         return new ItemStack(this, 1);
     }
 
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
+    {
+        super.onBlockPlacedBy(world, pos, state, placer, stack);
+
+        Direction facing;
+
+        if (placer != null) {
+            facing = placer.getHorizontalFacing().getOpposite();
+            state = state.with(RunePortalFrameBlock.FACING, facing);
+            world.setBlockState(pos, state, 2);
+        }
+
+        if (world instanceof ServerWorld) {
+            EndPortalRunes.activate((ServerWorld)world, pos);
+        }
+    }
+
+    @Override
+    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player)
+    {
+        super.onBlockHarvested(world, pos, state, player);
+
+        if (world instanceof ServerWorld) {
+            EndPortalRunes.deactivate((ServerWorld)world, pos);
+        }
+    }
+
     public static BlockPattern getOrCreatePortalShape() {
         if (portalShape == null) {
             portalShape = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?")
@@ -113,5 +148,11 @@ public class RunePortalFrameBlock extends MesonBlock
         }
 
         return portalShape;
+    }
+
+    @Override
+    public ItemGroup getItemGroup()
+    {
+        return ItemGroup.SEARCH;
     }
 }

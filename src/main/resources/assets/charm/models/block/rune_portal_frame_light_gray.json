@@ -1,6 +1,6 @@
 {
     "parent": "charm:block/rune_portal_frame",
     "textures": {
-        "rune": "charm:block/rune_portal_frame_silver"
+        "rune": "charm:block/rune_portal_frame_light_gray"
     }
 }

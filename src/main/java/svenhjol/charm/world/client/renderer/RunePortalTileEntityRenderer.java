@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import svenhjol.charm.Charm;
@@ -26,13 +27,14 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
     private static final FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
     private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
 
+
     public void render(RunePortalTileEntity tile, double x, double y, double z, float partialTicks, int destroyStage) {
         GlStateManager.disableLighting();
-        RANDOM.setSeed(501L); // 501 508
+
+        RANDOM.setSeed(10L); // 501 508 601=
         GlStateManager.getMatrix(2982, MODELVIEW);
         GlStateManager.getMatrix(2983, PROJECTION);
-        double d0 = x * x + y * y + z * z;
-        int i = this.getPasses(d0);
+        int i = 13;
         float f = this.getOffset();
         boolean flag = false;
         GameRenderer gamerenderer = Minecraft.getInstance().gameRenderer;
@@ -49,7 +51,7 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
             }
 
             if (j >= 1) {
-//                if (j % 2 == 1) {
+//                if (j >= 6) {
                     this.bindTexture(RUNE_PORTAL_TEXTURE);
 //                } else {
 //                    this.bindTexture(END_PORTAL_TEXTURE);
@@ -78,28 +80,41 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
             GlStateManager.loadIdentity();
             GlStateManager.translatef(0.25F, 0.25F, 0.0F);
             GlStateManager.scalef(0.4F, 0.4F, 1.0F);
-            float f2 = (float)(j + 1);
-
-            GlStateManager.translatef(170.0F / f2, (2.0F + f2 / 1.5F) * ((float)(Util.milliTime() % 400000L) / 400000.0F), 4.0F);
-
+            float f2 = (float)((j + 6) * 0.75F);
+            GlStateManager.translatef(17.0F / f2, (2.0F + f2 / 1.5F) * ((float)(Util.milliTime() % 200000L) / 200000.0F), 0.0F);
             GlStateManager.rotatef((f2 * f2 * 4321.0F + f2 * 9.0F) * 2.0F, 0.0F, 0.0F, 1.0F);
-            GlStateManager.scalef(5.0F - f2 / 4.0F, 4.5F - f2 / 4.0F, 1.0F);
+
+            GlStateManager.scalef(4.5F - f2 / 4.0F, 4.3F - f2 / 4.0F, 1.0F);
+
             GlStateManager.multMatrix(PROJECTION);
             GlStateManager.multMatrix(MODELVIEW);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
 
+            float r = 1.0F;
+            float g = 1.0F;
+            float b = 1.0F;
 
-            float f3 = (RANDOM.nextFloat() * 1.7F * f1);
-            float f4 = (RANDOM.nextFloat() * 1.7F * f1);
-            float f5 = (RANDOM.nextFloat() * 1.7F * f1);
+            int k = j-1;
+            if (k >= 0 && tile.colors != null && k < tile.colors.size()) {
+                int colorIndex = tile.colors.get(k);
+                DyeColor dyeColor = DyeColor.byId(colorIndex);
+                float[] comps = dyeColor.getColorComponentValues();
+                r = comps[0];
+                g = comps[1];
+                b = comps[2];
+            }
+
+            r *= 1.7F * f1;
+            g *= 1.7F * f1;
+            b *= 1.7F * f1;
 
             // only render facing up
-            bufferbuilder.pos(x, y + (double)f, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-            bufferbuilder.pos(x + 1.0D, y + (double)f, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-            bufferbuilder.pos(x + 1.0D, y + (double)f, z).color(f3, f4, f5, 1.0F).endVertex();
-            bufferbuilder.pos(x, y + (double)f, z).color(f3, f4, f5, 1.0F).endVertex();
+            bufferbuilder.pos(x, y + (double)f, z + 1.0D).color(r, g, b, 1.0F).endVertex();
+            bufferbuilder.pos(x + 1.0D, y + (double)f, z + 1.0D).color(r, g, b, 1.0F).endVertex();
+            bufferbuilder.pos(x + 1.0D, y + (double)f, z).color(r, g, b, 1.0F).endVertex();
+            bufferbuilder.pos(x, y + (double)f, z).color(r, g, b, 1.0F).endVertex();
 
             tessellator.draw();
             GlStateManager.popMatrix();
@@ -116,31 +131,6 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
             gamerenderer.setupFogColor(false);
         }
 
-    }
-
-    protected int getPasses(double n) {
-        int i;
-        if (n > 36864.0D) {
-            i = 1;
-        } else if (n > 25600.0D) {
-            i = 3;
-        } else if (n > 16384.0D) {
-            i = 5;
-        } else if (n > 9216.0D) {
-            i = 7;
-        } else if (n > 4096.0D) {
-            i = 9;
-        } else if (n > 1024.0D) {
-            i = 11;
-        } else if (n > 576.0D) {
-            i = 13;
-        } else if (n > 256.0D) {
-            i = 14;
-        } else {
-            i = 15;
-        }
-
-        return i;
     }
 
     protected float getOffset() {
