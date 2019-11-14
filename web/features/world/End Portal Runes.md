@@ -1,6 +1,8 @@
 # End Portal Runes
 
-If the **Quark** mod is available and **Colored Runes** are enabled, you can use them in an End Portal.  Set the same runes in two portals to connect them to each other, allowing for immediate travel between Strongholds.  Sneak right-click while holding a rune to remove a rune from its frame.  To change a rune in its frame, simply right-click it with another colored rune.
+If the **Quark** mod is available and **Colored Runes** are enabled, you can use them in an End Portal.  Set the same runes in two portals to connect them to each other, allowing for immediate travel between Strongholds.
+
+Sneak right-click while holding a rune to remove a rune from its frame.  To change a rune in its frame, simply right-click it with another colored rune.
 
 Eyes of Ender present in the End Portal will be removed when right-clicking with a rune (configurable).
 
