@@ -1,10 +1,12 @@
 .charm-banner {
   background-image: url("../images/splash.jpg");
-  background-origin: padding-box;
   background-position: 50% 45%;
   background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-color: black;
+  background-size: cover;
   margin-bottom: 0;
-  height: 350px; }
+  height: 10%; }
   .charm-banner .btn {
     margin-right: 5px;
     margin-bottom: 10px; }
