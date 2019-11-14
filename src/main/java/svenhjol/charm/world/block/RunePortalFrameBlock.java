@@ -127,9 +127,9 @@ public class RunePortalFrameBlock extends MesonBlock
     }
 
     @Override
-    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player)
+    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving)
     {
-        super.onBlockHarvested(world, pos, state, player);
+        super.onReplaced(state, world, pos, newState, isMoving);
 
         if (world instanceof ServerWorld) {
             EndPortalRunes.deactivate((ServerWorld)world, pos);
