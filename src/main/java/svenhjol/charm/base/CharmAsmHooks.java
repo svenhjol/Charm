@@ -1,5 +1,7 @@
 package svenhjol.charm.base;
 
+import net.minecraft.client.audio.ISound;
+import net.minecraft.client.audio.MusicTicker.MusicType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -61,5 +63,23 @@ public class CharmAsmHooks
     public static void composterOutput(World world, BlockPos pos, PlayerEntity player)
     {
         MinecraftForge.EVENT_BUS.post(new ComposterEvent.Output(world, pos, player));
+    }
+
+    public static boolean handleMusicTick(ISound currentMusic)
+    {
+        if (!Charm.loader.hasModule(AmbientMusicImprovements.class)) return false;
+        return AmbientMusicImprovements.handleTick(currentMusic);
+    }
+
+    public static boolean handleMusicStop()
+    {
+        if (!Charm.loader.hasModule(AmbientMusicImprovements.class)) return false;
+        return AmbientMusicImprovements.handleStop();
+    }
+
+    public static boolean handleMusicPlaying(MusicType type)
+    {
+        if (!Charm.loader.hasModule(AmbientMusicImprovements.class)) return false;
+        return AmbientMusicImprovements.handlePlaying(type);
     }
 }
