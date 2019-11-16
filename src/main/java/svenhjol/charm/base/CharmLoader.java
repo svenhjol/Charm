@@ -25,11 +25,6 @@ public class CharmLoader extends MesonLoader
         PacketHandler.HANDLER.registerMessage(index++, ClientGlowingAction.class, ClientGlowingAction::encode, ClientGlowingAction::decode, ClientGlowingAction.Handler::handle);
         PacketHandler.HANDLER.registerMessage(index++, ClientRunePortalAction.class, ClientRunePortalAction::encode, ClientRunePortalAction::decode, ClientRunePortalAction.Handler::handle);
 
-        RegistryHandler.registerSound(CharmSounds.BOOKSHELF_CLOSE);
-        RegistryHandler.registerSound(CharmSounds.BOOKSHELF_OPEN);
-        RegistryHandler.registerSound(CharmSounds.FUMAROLE_BUBBLING);
-        RegistryHandler.registerSound(CharmSounds.FUMAROLE_ERUPT);
-        RegistryHandler.registerSound(CharmSounds.HOMING);
-        RegistryHandler.registerSound(CharmSounds.WOOD_SMASH);
+        CharmSounds.soundsToRegister.forEach(RegistryHandler::registerSound);
     }
 }
