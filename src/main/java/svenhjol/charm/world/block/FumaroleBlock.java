@@ -79,7 +79,7 @@ public class FumaroleBlock extends MesonBlock
         if (!world.isAirBlock(pos.up()) || world.isAirBlock(pos.down())) return;
 
         Random rand = world.rand;
-        if (rand.nextFloat() < 0.33F) return;
+        if (rand.nextFloat() < 0.5F) return;
 
         if (!world.isRemote) {
             ServerWorld serverWorld = (ServerWorld)world;
