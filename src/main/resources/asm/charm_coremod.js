@@ -1,6 +1,7 @@
 function initializeCoreMod() {
 
     var ASM_HOOKS = "svenhjol/charm/base/CharmAsmHooks";
+    var ASM = Java.type('net.minecraftforge.coremod.api.ASMAPI');
     var Opcodes = Java.type('org.objectweb.asm.Opcodes');
     var InsnNode = Java.type('org.objectweb.asm.tree.InsnNode');
     var InsnList = Java.type('org.objectweb.asm.tree.InsnList');
@@ -194,15 +195,15 @@ function initializeCoreMod() {
                 var newInstructions = new InsnList();
 
                 newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", "world", "Lnet/minecraft/world/World;"));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", ASM.mapField("field_145850_b"), "Lnet/minecraft/world/World;")); // world
                 newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", "levels", "I"));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", ASM.mapField("field_146012_l"), "I")); // levels
                 newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", "pos", "Lnet/minecraft/util/math/BlockPos;"));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", ASM.mapField("field_174879_c"), "Lnet/minecraft/util/math/BlockPos;")); // pos
                 newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", "primaryEffect", "Lnet/minecraft/potion/Effect;"));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", ASM.mapField("field_146013_m"), "Lnet/minecraft/potion/Effect;")); // primaryEffect
                 newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", "secondaryEffect", "Lnet/minecraft/potion/Effect;"));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/tileentity/BeaconTileEntity", ASM.mapField("field_146010_n"), "Lnet/minecraft/potion/Effect;"));
                 newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "mobsInBeaconRange", "(Lnet/minecraft/world/World;ILnet/minecraft/util/math/BlockPos;Lnet/minecraft/potion/Effect;Lnet/minecraft/potion/Effect;)V", false));
 
                 method.instructions.insertBefore(instruction, newInstructions);
@@ -330,6 +331,95 @@ function initializeCoreMod() {
                 } else {
                     print("Failed to transform ComposterBlock");
                 }
+
+                return method;
+            }
+        },
+
+
+        /*
+         * MusicTicker: override music ticker tick
+         */
+        'MusicTickerTick': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.client.audio.MusicTicker',
+                'methodName': 'func_73660_a', // tick
+                'methodDesc': '()V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var instruction = method.instructions.get(0);
+                var newInstructions = new InsnList();
+
+                var label = new LabelNode();
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                newInstructions.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/audio/MusicTicker", ASM.mapField("field_147678_c"), "Lnet/minecraft/client/audio/ISound;")); // currentMusic
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "handleMusicTick", "(Lnet/minecraft/client/audio/ISound;)Z", false));
+                newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                newInstructions.add(new InsnNode(Opcodes.RETURN));
+                newInstructions.add(label);
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("Transformed MusicTicker tick");
+
+                return method;
+            }
+        },
+
+        /*
+         * MusicTicker: override music ticker stop
+         */
+        'MusicTickerStop': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.client.audio.MusicTicker',
+                'methodName': 'func_209200_a', // stop
+                'methodDesc': '()V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var instruction = method.instructions.get(0);
+                var newInstructions = new InsnList();
+
+                var label = new LabelNode();
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "handleMusicStop", "()Z", false));
+                newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                newInstructions.add(new InsnNode(Opcodes.RETURN));
+                newInstructions.add(label);
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("Transformed MusicTicker stop");
+
+                return method;
+            }
+        },
+
+        /*
+         * MusicTicker: override music ticker isPlaying
+         */
+        'MusicTickerPlaying': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.client.audio.MusicTicker',
+                'methodName': 'func_209100_b', // isPlaying
+                'methodDesc': '(Lnet/minecraft/client/audio/MusicTicker$MusicType;)Z'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var instruction = method.instructions.get(0);
+                var newInstructions = new InsnList();
+
+                var label = new LabelNode();
+                newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+                newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "handleMusicPlaying", "(Lnet/minecraft/client/audio/MusicTicker$MusicType;)Z", false));
+                newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                newInstructions.add(new InsnNode(Opcodes.ICONST_1));
+                newInstructions.add(new InsnNode(Opcodes.IRETURN));
+                newInstructions.add(label);
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("Transformed MusicTicker isPlaying");
 
                 return method;
             }
