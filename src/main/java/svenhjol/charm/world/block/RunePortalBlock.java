@@ -75,6 +75,7 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity)
     {
         if (!world.isRemote
+            && entity instanceof PlayerEntity
             && !entity.isPassenger()
             && !entity.isBeingRidden()
             && entity.isNonBoss()
@@ -84,18 +85,15 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
 
             if (thisPortal != null) {
                 BlockPos foundPortal = EndPortalRunes.findPortal((ServerWorld) world, thisPortal);
+                PlayerEntity player = (PlayerEntity) entity;
+                BlockPos teleportTo = foundPortal == null ? thisPortal : foundPortal;
+                PlayerHelper.teleport(player, teleportTo.add(-2, 1, 0), 0);
 
-                if (entity instanceof PlayerEntity) {
-                    PlayerEntity player = (PlayerEntity) entity;
-                    BlockPos teleportTo = foundPortal == null ? thisPortal : foundPortal;
-                    PlayerHelper.teleport(player, teleportTo.add(-2, 1, 0), 0);
-
-                    if (foundPortal != null) {
-                        PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.TRAVELLED, foundPortal));
-                    } else {
-                        player.addPotionEffect(new EffectInstance(Effects.NAUSEA, 120, 4));
-                        PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.UNLINKED, thisPortal));
-                    }
+                if (foundPortal != null) {
+                    PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.TRAVELLED, foundPortal));
+                } else {
+                    player.addPotionEffect(new EffectInstance(Effects.NAUSEA, 120, 4));
+                    PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.UNLINKED, thisPortal));
                 }
             }
         }
