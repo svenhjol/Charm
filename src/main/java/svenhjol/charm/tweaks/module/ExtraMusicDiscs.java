@@ -68,7 +68,7 @@ public class ExtraMusicDiscs extends MesonModule
     public void init()
     {
         for (String name : discNames) {
-            SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "music_disc_" + name));
+            SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "music_disc." + name));
             discs.add(new CharmMusicDiscItem(this, "music_disc_" + name, sound, 0));
         }
 
