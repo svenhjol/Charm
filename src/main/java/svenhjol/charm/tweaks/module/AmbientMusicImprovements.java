@@ -64,6 +64,7 @@ public class AmbientMusicImprovements extends MesonModule
     {
         if (playCharmMusic) {
             conditions.add(new AmbientMusicCondition(CharmSounds.MUSIC_COLD, 1200, 3600, mc -> mc.player != null
+                && (!mc.player.isCreative() || !mc.player.isSpectator())
                 && mc.player.world.getBiome(new BlockPos(mc.player)).getCategory() == Category.ICY
                 && random.nextFloat() < 0.33F
             ));
@@ -71,8 +72,9 @@ public class AmbientMusicImprovements extends MesonModule
 
         if (playCreativeMusic) {
             conditions.add(new AmbientMusicCondition(SoundEvents.MUSIC_CREATIVE, 1200, 3600, mc -> mc.player != null
+                && (!mc.player.isCreative() || !mc.player.isSpectator())
                 && mc.player.world.dimension instanceof OverworldDimension
-                && random.nextFloat() < 0.33F
+                && random.nextFloat() < 0.25F
             ));
         }
     }
