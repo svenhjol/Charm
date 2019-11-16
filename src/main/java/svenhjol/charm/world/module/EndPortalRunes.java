@@ -134,8 +134,6 @@ public class EndPortalRunes extends MesonModule
                     // set the end portal frame to an empty frame, facing the correct direction
                     changed = Blocks.END_PORTAL_FRAME.getDefaultState()
                         .with(EndPortalFrameBlock.FACING, state.get(RunePortalFrameBlock.FACING));
-
-//                    serverWorld.setBlockState(pos, changed, 2);
                 }
 
                 // if a rune frame, drop the rune that is currently in it
