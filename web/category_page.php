@@ -12,8 +12,8 @@ foreach ($features as $id => $feature) {
 
 <div class="card charm-feature">
     <div class="row no-gutters">
-        <div class="col-sm-3"><img src="images/features/card_<?php echo $feature->getId(); ?>.png" class="card-img" alt="Image for <?php echo $feature->getTitle(); ?>"></div>
-        <div class="col-sm-9">
+        <div class="col-md-4 col-sm-5"><img src="images/features/card_<?php echo $feature->getId(); ?>.png" class="card-img" alt="Image for <?php echo $feature->getTitle(); ?>"></div>
+        <div class="col-md-8 col-sm-7">
             <div class="card-body m-4">
                 <h3 class="card-title"><?php echo $feature->getTitle(); ?></h5>
                 <p class="card-text"><?php echo $feature->getTeaser(); ?></p>
