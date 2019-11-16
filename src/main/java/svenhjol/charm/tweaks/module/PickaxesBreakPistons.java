@@ -33,7 +33,7 @@ public class PickaxesBreakPistons extends MesonModule
         piston = new PistonBlock(false, Block.Properties.from(Blocks.PISTON).harvestTool(ToolType.PICKAXE));
         pistonItem = new BlockItem(piston, (new Item.Properties()).group(ItemGroup.REDSTONE));
 
-        stickyPiston = new PistonBlock(false, Block.Properties.from(Blocks.STICKY_PISTON).harvestTool(ToolType.PICKAXE));
+        stickyPiston = new PistonBlock(true, Block.Properties.from(Blocks.STICKY_PISTON).harvestTool(ToolType.PICKAXE));
         stickyPistonItem = new BlockItem(stickyPiston, (new Item.Properties()).group(ItemGroup.REDSTONE));
 
         if (isEnabled()) {
