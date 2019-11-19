@@ -23,6 +23,8 @@ public class TamedAnimalsNoDamage extends MesonModule
         if (!event.isCanceled()
             && event.getTarget() instanceof TameableEntity
             && event.getEntity() instanceof PlayerEntity
+            && ((TameableEntity) event.getTarget()).isTamed()
+            && !((PlayerEntity) event.getEntity()).isCreative()
         ) {
             event.setCanceled(true);
         }
