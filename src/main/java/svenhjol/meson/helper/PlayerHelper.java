@@ -104,7 +104,8 @@ public class PlayerHelper
                 for (int c = 1; c < tries; c++) {
                     BlockPos p = playerPos.add(rand.nextInt(i), y, rand.nextInt(i));
                     BlockState floor = world.getBlockState(p.down());
-                    boolean areaIsValid = floor.isSolid() && (world.isAirBlock(p) || world.getBlockState(p).getMaterial() == Material.WATER)
+                    boolean areaIsValid = (floor.isSolid() || floor.getMaterial() == Material.WATER)
+                        && (world.isAirBlock(p) || world.getBlockState(p).getMaterial() == Material.WATER)
                         && (world.isAirBlock(p.up()) || world.getBlockState(p.up()).getMaterial() == Material.WATER);
                     if (areaIsValid) valid.add(p);
                 }
