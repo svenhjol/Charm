@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import svenhjol.charm.Charm;
 import svenhjol.charm.enchanting.module.Salvage;
+import svenhjol.charm.tweaks.client.AmbientMusicClient;
 import svenhjol.charm.tweaks.module.*;
 import svenhjol.meson.event.ComposterEvent;
 
@@ -68,18 +69,18 @@ public class CharmAsmHooks
     public static boolean handleMusicTick(ISound currentMusic)
     {
         if (!Charm.loader.hasModule(AmbientMusicImprovements.class)) return false;
-        return AmbientMusicImprovements.handleTick(currentMusic);
+        return AmbientMusicClient.handleTick(currentMusic);
     }
 
     public static boolean handleMusicStop()
     {
         if (!Charm.loader.hasModule(AmbientMusicImprovements.class)) return false;
-        return AmbientMusicImprovements.handleStop();
+        return AmbientMusicClient.handleStop();
     }
 
     public static boolean handleMusicPlaying(MusicType type)
     {
         if (!Charm.loader.hasModule(AmbientMusicImprovements.class)) return false;
-        return AmbientMusicImprovements.handlePlaying(type);
+        return AmbientMusicClient.handlePlaying(type);
     }
 }
