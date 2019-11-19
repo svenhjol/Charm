@@ -121,7 +121,7 @@ public abstract class MesonLoader
 
     public boolean hasModule(Class<? extends MesonModule> module)
     {
-        return enabledModules.containsKey(module.getSimpleName());
+        return enabledModules.containsKey(module.getSimpleName()) && enabledModules.get(module.getSimpleName());
     }
 
     public static void allModules(Consumer<MesonModule> consumer)
