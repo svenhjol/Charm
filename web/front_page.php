@@ -28,8 +28,8 @@ if (!defined('LAUNCHED')) die();
     <h3>Requirements</h3>
     <p>
         Charm is a <strong>Forge Mod</strong> for <strong>Minecraft 1.14.4</strong>.  You need to install the <strong>Java Edition</strong>
-        of Minecraft and then the <a href="https://files.minecraftforge.net/">latest version of Forge</a>.  Once you have done this, drop the <a href="https://www.curseforge.com/minecraft/mc-mods/charm/files/2827085">Charm file</a> in
-        your <strong>mods</strong> folder and start the game.
+        of Minecraft and then the <a href="https://files.minecraftforge.net/">latest version of Forge</a>.  Once you have done this, drop the <strong>Charm jar file</strong> in
+        your <strong>mods</strong> folder and start the game.  You can get the jar file by clicking the "Download Charm" button above.
     </p>
     <p>
         After the game starts for the first time, you can edit the <strong>charm-common.toml</strong> file (in the config folder) to change things about Charm.
