@@ -16,12 +16,10 @@ import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.server.TicketType;
 import net.minecraft.world.storage.WorldInfo;
 
 import java.util.ArrayList;
@@ -139,7 +137,19 @@ public class PlayerHelper
         changeDimension(player, dim);
 
        // ((ServerPlayerEntity)player).teleport((ServerWorld)world, pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
-        player.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D); // TODO check landing block
+        player.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
+
+        BlockPos playerPos = player.getPosition();
+
+        while (world.isAirBlock(playerPos.down()) && playerPos.getY() > 0) {
+            playerPos = playerPos.down();
+        }
+
+        while (world.getBlockState(playerPos).isSolid() || world.getBlockState(playerPos.up()).isSolid() && playerPos.getY() < 256) {
+            playerPos = playerPos.up();
+        }
+
+        player.setPositionAndUpdate(playerPos.getX(), playerPos.getY(), playerPos.getZ());
 
         onTeleport.accept(player.getPosition());
     }
@@ -153,10 +163,6 @@ public class PlayerHelper
     {
         World world = player.world;
         if (world.isRemote) return;
-
-        // TODO check this actually does anything - it's supposed to preload the chunk
-        ChunkPos chunkpos = new ChunkPos(new BlockPos(pos.getX(), pos.getY(), pos.getZ()));
-        ((ServerWorld)world).getChunkProvider().func_217228_a(TicketType.POST_TELEPORT, chunkpos, 1, player.getEntityId());
 
         teleport(player, pos, dim, (p) -> {
             for (int y = world.getHeight(); y > 0; y--) {
