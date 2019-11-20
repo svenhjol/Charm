@@ -21,15 +21,13 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IMesonBlock;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
@@ -76,15 +74,15 @@ public class RegistryHandler
 
     public static void registerFeature(Feature<?> feature, ResourceLocation res)
     {
-        RegistryHandler.addRegisterable(feature, res);
-        Registry.register(Registry.FEATURE, res.toString(), feature);
+        addRegisterable(feature, res);
+//        Registry.register(Registry.FEATURE, res.toString(), feature);
     }
 
     public static void registerFeature(Feature<?> feature, Placement<?> placement, ResourceLocation res)
     {
         registerFeature(feature, res);
-        RegistryHandler.addRegisterable(placement, res);
-        Registry.register(Registry.DECORATOR, res.toString(), placement);
+        addRegisterable(placement, res);
+//        Registry.register(Registry.DECORATOR, res.toString(), placement);
     }
 
     public static void registerItem(Item item, ResourceLocation res)
@@ -104,13 +102,15 @@ public class RegistryHandler
 
     public static void registerStructure(Structure<?> structure, ResourceLocation res)
     {
-        Registry.register(Registry.FEATURE, res, structure);
+//        Registry.register(Registry.FEATURE, res, structure);
+        GameData.getStructureMap().put(res.getPath().toLowerCase(Locale.ROOT), structure);
         addRegisterable(structure, res);
     }
 
     public static void registerStructurePiece(IStructurePieceType piece, ResourceLocation res)
     {
         Registry.register(Registry.STRUCTURE_PIECE, res, piece);
+//        addRegisterable(piece, res);
     }
 
     public static void registerTile(TileEntityType<?> tile, ResourceLocation res)
@@ -125,7 +125,7 @@ public class RegistryHandler
 
     public static void registerVillagerPointOfInterest(PointOfInterestType type, ResourceLocation res)
     {
-        Registry.POINT_OF_INTEREST_TYPE.register(res, type);
+//        Registry.POINT_OF_INTEREST_TYPE.register(res, type);
         RegistryHandler.addRegisterable(type, res);
         PointOfInterestType.func_221052_a(type); // TODO method to add to list of interest types likely to change in MCP
     }
