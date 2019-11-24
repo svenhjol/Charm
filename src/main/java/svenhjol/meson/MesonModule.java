@@ -34,6 +34,12 @@ public abstract class MesonModule
         // register blocks, TEs, etc
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public void initClient()
+    {
+        // register particles and other client side things
+    }
+
     public void setup(FMLCommonSetupEvent event)
     {
         // register messages, composter items, etc

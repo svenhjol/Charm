@@ -35,6 +35,9 @@ public abstract class MesonLoader
     private ModuleLoader moduleLoader;
     private ConfigLoader configLoader;
 
+    protected IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    protected IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
+
     public static final Type LOAD_MODULE = Type.getType(Module.class);
 
     public MesonLoader(String id)
@@ -49,12 +52,9 @@ public abstract class MesonLoader
         earlyInit();
 
         // attach listeners
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::configChanged);
         modEventBus.addListener(this::loadComplete);
-
-        IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
         forgeEventBus.addListener(this::serverStarting);
         forgeEventBus.addListener(this::serverStarted);
 
@@ -62,6 +62,8 @@ public abstract class MesonLoader
 
         // init every module, this registers blocks
         modules(MesonModule::init);
+
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> modules(MesonModule::initClient));
     }
 
     public void earlyInit()
