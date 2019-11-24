@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionBrewing;
@@ -90,6 +91,11 @@ public class RegistryHandler
         addRegisterable(item, res);
     }
 
+    public static void registerParticleType(ParticleType<?> type, ResourceLocation res)
+    {
+        addRegisterable(type, res);
+    }
+
     public static void registerPotion(Potion potion, ResourceLocation res)
     {
         addRegisterable(potion, res);
@@ -157,6 +163,10 @@ public class RegistryHandler
                 obj.setRegistryName(res);
             }
             objects.get(type).add(obj);
+            Meson.debug("Registered object " + obj.getRegistryName() + " with type " + type);
+
+        } else {
+            Meson.debug("Object already registered", obj);
         }
     }
 }
