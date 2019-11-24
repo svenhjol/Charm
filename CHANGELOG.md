@@ -1,5 +1,11 @@
 # Changelog for Charm 1.14
 
+## 1.4.2
+* Fixed Loader ignoring state of disabled modules in config
+* Fixed wolves and Quark foxhounds being invulnerable when untamed
+* Added Emerald blocks open villager trades feature
+* Creative mode players can now kill tamed animals
+
 ## 1.4.1
 * Fixed sticky piston not being sticky
 * Fixed Beacons not giving buff/debuffs
