@@ -38,8 +38,12 @@ public class TamedAnimalsNoDamage extends MesonModule
         ) {
             Entity attacker = event.getSource().getImmediateSource();
             Entity source = event.getSource().getTrueSource();
+            PlayerEntity player = null;
 
-            if (source instanceof PlayerEntity || attacker instanceof PlayerEntity) {
+            if (source instanceof PlayerEntity) player = (PlayerEntity)source;
+            if (attacker instanceof PlayerEntity) player = (PlayerEntity)attacker;
+
+            if (player != null && !player.isCreative()) {
                 LivingEntity target = event.getEntityLiving();
                 if (target instanceof TameableEntity
                     && ((TameableEntity)target).isTamed()
