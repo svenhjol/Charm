@@ -9,6 +9,6 @@
         <?php } else { ?>    
         <a class="btn btn-info" href="/"><span class="fa fa-home"></span> Home</a>
         <?php } ?>
-        <a class="btn btn-success" href="https://www.curseforge.com/minecraft/mc-mods/charm/files/2828290"><span class="fa fa-download"></span> Download Charm</a>
+        <a class="btn btn-success" href="https://www.curseforge.com/minecraft/mc-mods/charm/files/2831913"><span class="fa fa-download"></span> Download Charm</a>
     </div>
 </div>
