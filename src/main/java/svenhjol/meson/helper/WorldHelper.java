@@ -1,6 +1,10 @@
 package svenhjol.meson.helper;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import svenhjol.meson.iface.IMesonEnum;
@@ -24,6 +28,18 @@ public class WorldHelper
         stronghold,
         swamp_hut,
         village;
+    }
+
+    public static BlockRayTraceResult getBlockLookedAt(PlayerEntity player)
+    {
+        return getBlockLookedAt(player, 10);
+    }
+
+    public static BlockRayTraceResult getBlockLookedAt(PlayerEntity player, int distance)
+    {
+        Vec3d vec3d = player.getEyePosition(1.0F);
+        Vec3d vec3d1 = player.getLook(1.0F);
+        return player.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
     }
 
     public static double getDistanceSq(BlockPos pos1, BlockPos pos2)
