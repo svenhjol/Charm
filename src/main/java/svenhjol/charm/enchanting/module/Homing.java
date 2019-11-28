@@ -2,11 +2,16 @@ package svenhjol.charm.enchanting.module;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.IItemTier;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
+import net.minecraft.item.TieredItem;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true,
@@ -85,28 +90,35 @@ public class Homing extends MesonModule
             Hand hand = event.getHand();
             BlockPos pos = event.getPos();
             TieredItem item = (TieredItem)held.getItem();
-            List<Block> blocks = matches.get(item.getTier());
-            if (blocks.isEmpty()) return;
+            List<Block> matchedBlocks = matches.get(item.getTier());
+            if (matchedBlocks.isEmpty()) return;
 
-            AtomicReference<Double> distance = new AtomicReference<>((double) 0);
+            double distance = 128.0D;
             Stream<BlockPos> inRange = BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range));
+            List<BlockPos> positions = inRange.map(BlockPos::toImmutable).collect(Collectors.toList());
 
-            inRange.forEach(p -> {
-                if (blocks.contains(world.getBlockState(p).getBlock())) {
-                    double d = WorldHelper.getDistanceSq(pos, p);
-                    if (distance.get() == 0 || d < distance.get()) distance.set(d);
+            BlockPos foundPos = null;
+
+            for (BlockPos blockPos : positions) {
+                if (!matchedBlocks.contains(world.getBlockState(blockPos).getBlock())) continue;
+                double d = WorldHelper.getDistanceSq(pos, blockPos);
+                if (d < distance) {
+                    distance = d;
+                    foundPos = blockPos;
                 }
-            });
+            }
 
-            if (distance.get() != 0) {
+            if (foundPos != null) {
+                player.lookAt(EntityAnchorArgument.Type.EYES, new Vec3d(foundPos).add(0.5F, 0.5F, 0.5F));
+
                 if (!world.isRemote) {
                     double damage = held.getMaxDamage() * damageMultiplier;
                     PlayerHelper.damageHeldItem(player, hand, held, (int)Math.ceil(damage));
                 }
 
                 if (world.isRemote) {
-                    double vol = 1 - (Math.min(distance.get(), 100) / 100);
-                    double pitch = Math.max(0.5D, 1 - (Math.min(distance.get(), 100) / 100));
+                    double vol = 1 - (Math.min(distance, 100) / 100);
+                    double pitch = Math.max(0.5D, 1 - (Math.min(distance, 100) / 100));
                     player.swingArm(event.getHand());
                     world.playSound(player, player.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, (float)vol, (float)pitch);
                 }
