@@ -9,6 +9,7 @@ import net.minecraftforge.fml.config.ModConfig.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -55,6 +56,7 @@ public abstract class MesonLoader
         modEventBus.addListener(this::setup);
         modEventBus.addListener(this::configChanged);
         modEventBus.addListener(this::loadComplete);
+        forgeEventBus.addListener(this::serverAboutToStart);
         forgeEventBus.addListener(this::serverStarting);
         forgeEventBus.addListener(this::serverStarted);
 
@@ -87,6 +89,11 @@ public abstract class MesonLoader
             // basic queue for player tick events
             MinecraftForge.EVENT_BUS.register(new PlayerQueueHandler());
         });
+    }
+
+    public void serverAboutToStart(FMLServerAboutToStartEvent event)
+    {
+        modules(module -> module.serverAboutToStart(event));
     }
 
     public void serverStarting(FMLServerStartingEvent event)
