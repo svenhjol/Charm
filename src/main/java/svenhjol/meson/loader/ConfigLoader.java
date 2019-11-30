@@ -63,6 +63,8 @@ public class ConfigLoader
     {
         // for each module create a config to enable/disable it
         modules.forEach(module -> {
+            if (!module.configureEnabled) return;
+
             Meson.log("Creating config for module " + module.getName());
             if (!module.description.isEmpty()) builder.comment(module.description);
             ForgeConfigSpec.ConfigValue<Boolean> val = builder.define(module.getName() + " enabled", module.enabledByDefault);

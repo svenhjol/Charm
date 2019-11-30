@@ -6,6 +6,7 @@ import net.minecraftforge.fml.config.ModConfig.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
@@ -13,6 +14,7 @@ public abstract class MesonModule
 {
     public boolean enabled = true;
     public boolean enabledByDefault = true;
+    public boolean configureEnabled = true;
     public boolean hasSubscriptions = false;
     public String mod = "";
     public String category = "";
@@ -54,6 +56,11 @@ public abstract class MesonModule
     public void configChanged(ModConfigEvent event)
     {
         // modules can be enabled/disabled when config changes
+    }
+
+    public void serverAboutToStart(FMLServerAboutToStartEvent event)
+    {
+        // server-side event, just after play selected world clicked
     }
 
     public void serverStarting(FMLServerStartingEvent event)
