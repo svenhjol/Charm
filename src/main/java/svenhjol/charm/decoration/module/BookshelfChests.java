@@ -40,6 +40,9 @@ public class BookshelfChests extends MesonModule
         "minecraft:written_book",
         "minecraft:writable_book",
         "minecraft:knowledge_book",
+        "minecraft:paper",
+        "minecraft:map",
+        "minecraft:filled_map",
         "quark:ancient_tome"
     );
 
