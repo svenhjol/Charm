@@ -129,7 +129,7 @@ public class PlayerHelper
         teleport(player, pos, dim, p -> {});
     }
 
-    public static void teleport(PlayerEntity player, BlockPos pos, int dim, Consumer<BlockPos> onTeleport)
+    public static void teleport(PlayerEntity player, BlockPos pos, int dim, Consumer<PlayerEntity> onTeleport)
     {
         World world = player.world;
         if (world.isRemote) return;
@@ -151,7 +151,7 @@ public class PlayerHelper
 
         player.setPositionAndUpdate(playerPos.getX(), playerPos.getY(), playerPos.getZ());
 
-        onTeleport.accept(player.getPosition());
+        onTeleport.accept(player);
     }
 
     public static void teleportSurface(PlayerEntity player, BlockPos pos, int dim)
@@ -159,19 +159,19 @@ public class PlayerHelper
         teleportSurface(player, pos, dim, p -> {});
     }
 
-    public static void teleportSurface(PlayerEntity player, BlockPos pos, int dim, Consumer<BlockPos> onTeleport)
+    public static void teleportSurface(PlayerEntity player, BlockPos pos, int dim, Consumer<PlayerEntity> onTeleport)
     {
         World world = player.world;
         if (world.isRemote) return;
 
         teleport(player, pos, dim, (p) -> {
-            for (int y = world.getHeight(); y > 0; y--) {
-                BlockPos pp = new BlockPos(p.getX(), y, p.getZ());
-                if (world.isAirBlock(pp)
-                    && !world.isAirBlock(pp.down())
+            for (int y = p.world.getHeight(); y > 0; y--) {
+                BlockPos pp = new BlockPos(p.getPosition().getX(), y, p.getPosition().getZ());
+                if (p.world.isAirBlock(pp)
+                    && !p.world.isAirBlock(pp.down())
                 ) {
-                    player.setPositionAndUpdate(pp.getX(), y, pp.getZ());
-                    onTeleport.accept(player.getPosition());
+                    p.setPositionAndUpdate(pp.getX(), y, pp.getZ());
+                    onTeleport.accept(p);
                     break;
                 }
             }
