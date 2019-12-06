@@ -62,7 +62,7 @@ public class TallowIncreasesDurability extends MesonModule
     @Override
     public void setup(FMLCommonSetupEvent event)
     {
-        if (!Charm.loader.hasModule(NoAnvilMinimumXp.class) && xpCost == 0) xpCost = 1;
+        if (!Charm.hasModule(NoAnvilMinimumXp.class) && xpCost == 0) xpCost = 1;
     }
 
     @Override
