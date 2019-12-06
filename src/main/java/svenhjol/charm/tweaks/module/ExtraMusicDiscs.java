@@ -58,7 +58,9 @@ public class ExtraMusicDiscs extends MesonModule
         "menu4",
         "axolotl",
         "dragon_fish",
-        "shuniji"
+        "shuniji",
+        "dragon",
+        "end"
     };
     public static List<CharmMusicDiscItem> discs = new ArrayList<>();
 

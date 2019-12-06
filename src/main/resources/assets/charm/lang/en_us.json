@@ -112,6 +112,8 @@
   "item.charm.music_disc_menu2": "Menu Music Disc",
   "item.charm.music_disc_menu3": "Menu Music Disc",
   "item.charm.music_disc_menu4": "Menu Music Disc",
+  "item.charm.music_disc_dragon": "End Music Disc",
+  "item.charm.music_disc_end": "End Music Disc",
   "item.charm.music_disc_axolotl": "Underwater Music Disc",
   "item.charm.music_disc_dragon_fish": "Underwater Music Disc",
   "item.charm.music_disc_shuniji": "Underwater Music Disc",
@@ -144,6 +146,8 @@
   "item.charm.music_disc_axolotl.desc": "C418 - Axolotl",
   "item.charm.music_disc_dragon_fish.desc": "C418 - Dragon Fish",
   "item.charm.music_disc_shuniji.desc": "C418 - Shuniji",
+  "item.charm.music_disc_dragon.desc": "C418 - Boss",
+  "item.charm.music_disc_end.desc": "C418 - The End",
 
   "item.charm.music_disc_charm_cold": "Charm Music Disc",
   "item.charm.music_disc_charm_cold.desc": "svenhjol - Cold Times",

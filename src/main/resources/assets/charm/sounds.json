@@ -40,244 +40,196 @@
     ]
   },
   "music_disc.calm1": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/calm1",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.calm2": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/calm2",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.calm3": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/calm3",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.hal1": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/hal1",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.hal2": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/hal2",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.hal3": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/hal3",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.hal4": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/hal4",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.nuance1": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/nuance1",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.nuance2": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/nuance2",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.piano1": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/piano1",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.piano2": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/piano2",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.piano3": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/piano3",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.creative1": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/creative/creative1",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.creative2": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/creative/creative2",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.creative3": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/creative/creative3",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.creative4": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/creative/creative4",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.creative5": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/creative/creative5",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.creative6": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/creative/creative6",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.nether1": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/nether/nether1",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.nether2": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/nether/nether2",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.nether3": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/nether/nether3",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.nether4": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/nether/nether4",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.menu1": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/menu/menu1",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.menu2": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/menu/menu2",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.menu3": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/menu/menu3",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.menu4": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/menu/menu4",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.axolotl": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/water/axolotl",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.shuniji": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/water/shuniji",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
     }]
   },
   "music_disc.dragon_fish": {
-    "category": "records",
     "sounds": [{
       "name": "minecraft:music/game/water/dragon_fish",
-      "stream": true,
-      "volume": 1.0
+      "stream": true
+    }]
+  },
+  "music_disc.dragon": {
+    "sounds": [{
+      "name": "minecraft:music/game/end/boss",
+      "stream": true
+    }]
+  },
+  "music_disc.end": {
+    "sounds": [{
+      "name": "minecraft:music/game/end/end",
+      "stream": true
     }]
   },
   "music_disc.charm_cold": {
-    "category": "records",
     "sounds": [
       {
         "name": "charm:music/mus",
-        "stream": true,
-        "volume": 1.0
+        "stream": true
       }
     ]
   },
