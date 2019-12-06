@@ -1,9 +1,6 @@
 package svenhjol.charm.brewing.module;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
@@ -114,8 +111,10 @@ public class FlavoredCake extends MesonModule
 
     public static boolean imbue(World world, BlockPos pos, ItemStack stack)
     {
-        Block block = world.getBlockState(pos).getBlock();
+        BlockState state = world.getBlockState(pos);
+        Block block = state.getBlock();
         if (block == Blocks.CAKE || cakes.containsValue(block)) {
+            if (state.get(CakeBlock.BITES) > 0) return false; // don't allow imbuing of non-full cakes
             Potion potion = PotionUtils.getPotionFromItem(stack);
             ResourceLocation potionRes = potion.getRegistryName();
             if (potionRes == null) return false;
@@ -124,9 +123,8 @@ public class FlavoredCake extends MesonModule
                 .replace("long_", "");
 
             if (cakes.containsKey(potionName)) {
-                BlockState current = world.getBlockState(pos);
-
-                BlockState imbued = cakes.get(potionName).getDefaultState().with(FlavoredCakeBlock.BITES, current.get(FlavoredCakeBlock.BITES));
+                if (state == cakes.get(potionName).getDefaultState()) return false; // don't allow imbuing with the same potion
+                BlockState imbued = cakes.get(potionName).getDefaultState().with(FlavoredCakeBlock.BITES, state.get(FlavoredCakeBlock.BITES));
                 world.setBlockState(pos, imbued, 2);
                 stack.shrink(1);
 
