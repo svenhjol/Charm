@@ -40,10 +40,10 @@ public class RandomAnimalTextures extends MesonModule
     @OnlyIn(Dist.CLIENT)
     public void setupClient(FMLClientSetupEvent event)
     {
-        super.setupClient(event);
-
-        //noinspection unchecked
-        RenderingRegistry.registerEntityRenderingHandler(WolfEntity.class, CustomWolfRenderer.factory());
+        if (isEnabled()) {
+            //noinspection unchecked
+            RenderingRegistry.registerEntityRenderingHandler(WolfEntity.class, CustomWolfRenderer.factory());
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
