@@ -1,5 +1,15 @@
 # Changelog for Charm 1.14
 
+## 1.4.3
+* Fixed Config ignoring state of disabled modules.  This is a bit of a hack, let me know if it stops working again
+* Random animal textures and Stackable items now respect config enabled/disabled
+* Fixed Charm crash if another mod has some loading problem
+* Fixed dispensers not firing splash potions properly if Stackable potions is enabled
+* Flavored cakes don't allow yout to add the same potion
+* Flavored cakes don't let you add potions if they've been nommed
+* When using the Homing enchant, the player will now face the ore through the world
+* Added two music discs for the end: "Boss" and "The End"
+
 ## 1.4.2
 * Fixed Loader ignoring state of disabled modules in config
 * Fixed wolves and Quark foxhounds being invulnerable when untamed
