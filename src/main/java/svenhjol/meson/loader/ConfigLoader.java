@@ -3,8 +3,10 @@ package svenhjol.meson.loader;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.loading.FMLPaths;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonLoader;
 import svenhjol.meson.MesonModule;
@@ -12,6 +14,9 @@ import svenhjol.meson.iface.Config;
 import svenhjol.meson.loader.condition.ModuleEnabledCondition;
 
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +25,7 @@ public class ConfigLoader
 {
     private MesonLoader instance;
     private ForgeConfigSpec spec;
+    private ModConfig config;
     private List<Runnable> refreshConfig = new ArrayList<>();
     private ModuleEnabledCondition.Serializer modEnabledCondition;
 
@@ -34,7 +40,57 @@ public class ConfigLoader
 
         // build the config tree
         this.spec = new Builder().configure(this::build).getRight();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, spec);
+
+        // register config
+        ModContainer container = ModLoadingContext.get().getActiveContainer();
+        this.config = new ModConfig(ModConfig.Type.COMMON, spec, container);
+        container.addConfig(this.config);
+
+        // actual config is loaded too late to do vanilla overrides, so parse it here
+        this.earlyConfigHack();
+    }
+
+    public void earlyConfigHack()
+    {
+        List<String> lines;
+
+        Path path = FMLPaths.CONFIGDIR.get();
+        if (path == null) {
+            Meson.debug("Could not fetch config dir path");
+            return;
+        }
+
+        String name = this.config.getFileName();
+        if (name == null) {
+            Meson.debug("Could not fetch mod config filename");
+            return;
+        }
+
+        Path configPath = Paths.get(path.toString() + "/" + name);
+        if (!Files.exists(path)) {
+            Meson.debug("Config file does not exist", path);
+            return;
+        }
+
+        try {
+            lines = Files.readAllLines(configPath);
+            for (String line : lines) {
+                if (!line.contains("enabled")) continue;
+                for (MesonModule mod : this.instance.modules) {
+                    if (line.contains(mod.name)) {
+                        if (line.contains("false")) {
+                            mod.enabled = false;
+                        } else if (line.contains("true")) {
+                            mod.enabled = true;
+                        }
+                        break;
+                    }
+                }
+            }
+            Meson.debug("Finished early loading config");
+        } catch (Exception e) {
+            Meson.debug("Exception while trying to read config", e);
+        }
     }
 
     /**
@@ -70,7 +126,8 @@ public class ConfigLoader
             ForgeConfigSpec.ConfigValue<Boolean> val = builder.define(module.getName() + " enabled", module.enabledByDefault);
 
             refreshConfig.add(() -> {
-                module.enabled = val.get() && module.isEnabled();
+                Boolean configEnabled = val.get();
+                module.enabled = configEnabled && module.isEnabled();
                 instance.enabledModules.put(module.name, module.enabled);
             });
         });

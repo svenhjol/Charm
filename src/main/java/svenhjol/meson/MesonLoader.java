@@ -62,6 +62,8 @@ public abstract class MesonLoader
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(this::setupClient));
 
+//        this.configLoader.refreshConfig();
+
         // init every module, this registers blocks
         modules(MesonModule::init);
 
@@ -75,6 +77,8 @@ public abstract class MesonLoader
 
     public void setup(FMLCommonSetupEvent event)
     {
+        this.configLoader.refreshConfig();
+
         modules(module -> {
             if (!module.isEnabled()) return;
 

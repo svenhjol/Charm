@@ -1,5 +1,7 @@
 package svenhjol.charm.tweaks.module;
 
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.dispenser.IDispenseItemBehavior;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import svenhjol.charm.Charm;
@@ -23,11 +25,15 @@ public class StackablePotions extends MesonModule
     @Override
     public void init()
     {
-        potion = new PotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
-        splash = new SplashPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
-        lingering = new LingeringPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
-
         if (isEnabled()) {
+            potion = new PotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
+            splash = new SplashPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
+            lingering = new LingeringPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
+
+            // re-register dispenser splash behavior
+            IDispenseItemBehavior splashBehavior = DispenserBlock.DISPENSE_BEHAVIOR_REGISTRY.get(Items.SPLASH_POTION); // via AT
+            DispenserBlock.registerDispenseBehavior(splash, splashBehavior);
+
             OverrideHandler.changeVanillaItem(potion, POTION_ID);
             OverrideHandler.changeVanillaItem(splash, SPLASH_ID);
             OverrideHandler.changeVanillaItem(lingering, LINGERING_ID);
