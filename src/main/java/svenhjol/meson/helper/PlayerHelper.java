@@ -97,7 +97,7 @@ public class PlayerHelper
         Random rand = world.rand;
         List<BlockPos> valid = new ArrayList<>();
 
-        for (int y = range*2; y > -range*2; y--) {
+        for (int y = range*2; y > 0; y--) {
             for (int i = range; i > 1; i--) {
                 for (int c = 1; c < tries; c++) {
                     BlockPos p = playerPos.add(rand.nextInt(i), y, rand.nextInt(i));
