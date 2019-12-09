@@ -13,6 +13,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.loader.condition.ModuleEnabledCondition;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -66,7 +67,7 @@ public class ConfigLoader
             return;
         }
 
-        Path configPath = Paths.get(path.toString() + "/" + name);
+        Path configPath = Paths.get(path.toString() + File.separator + name);
         if (!Files.exists(path)) {
             Meson.debug("Config file does not exist", path);
             return;
