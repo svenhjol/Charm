@@ -28,7 +28,7 @@ public abstract class MesonFallingBlock extends FallingBlock implements IMesonBl
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
     {
-        if (isEnabled() || group == ItemGroup.SEARCH) {
+        if (isEnabled()) {
             super.fillItemGroup(group, items);
         }
     }

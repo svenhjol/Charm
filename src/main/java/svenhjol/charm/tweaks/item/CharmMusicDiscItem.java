@@ -3,7 +3,6 @@ package svenhjol.charm.tweaks.item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
-import net.minecraft.item.Rarity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundEvent;
 import svenhjol.meson.MesonModule;
@@ -14,9 +13,9 @@ public class CharmMusicDiscItem extends MusicDiscItem implements IMesonItem
     protected String name;
     protected MesonModule module;
 
-    public CharmMusicDiscItem(MesonModule module, String name, SoundEvent sound, int comparatorValue)
+    public CharmMusicDiscItem(MesonModule module, String name, SoundEvent sound, Properties props, int comparatorValue)
     {
-        super(comparatorValue, sound, new Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
+        super(comparatorValue, sound, props);
 
         this.name = name;
         this.module = module;
@@ -26,7 +25,7 @@ public class CharmMusicDiscItem extends MusicDiscItem implements IMesonItem
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
     {
-        if (isEnabled() || group == ItemGroup.SEARCH) {
+        if (group == ItemGroup.SEARCH) {
             super.fillItemGroup(group, items);
         }
     }

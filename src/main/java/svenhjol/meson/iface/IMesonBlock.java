@@ -27,9 +27,12 @@ public interface IMesonBlock
     default BlockItem getBlockItem()
     {
         Item.Properties props = new Item.Properties();
-        ItemGroup group = getItemGroup();
-        if (group != null) props.group(group);
-        props.maxStackSize(getMaxStackSize());
+
+        if (isEnabled()) {
+            ItemGroup group = getItemGroup();
+            if (group != null) props.group(group);
+            props.maxStackSize(getMaxStackSize());
+        }
 
         Block block = (Block) this;
         return new BlockItem(block, props);

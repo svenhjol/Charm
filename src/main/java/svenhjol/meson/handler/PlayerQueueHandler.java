@@ -21,6 +21,7 @@ public class PlayerQueueHandler
     {
         if (!event.player.world.isRemote) {
             long time = event.player.world.getGameTime();
+            if (time % 5 != 0) return;
             Iterator<Long> i = queue.keySet().iterator();
 
             while (i.hasNext()) {

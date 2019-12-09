@@ -58,7 +58,7 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
     {
-        if (isEnabled() || group == ItemGroup.SEARCH) {
+        if (isEnabled() && group == ItemGroup.SEARCH) {
             super.fillItemGroup(group, items);
         }
     }

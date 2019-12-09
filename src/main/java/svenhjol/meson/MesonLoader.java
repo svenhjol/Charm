@@ -62,8 +62,6 @@ public abstract class MesonLoader
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(this::setupClient));
 
-//        this.configLoader.refreshConfig();
-
         // init every module, this registers blocks
         modules(MesonModule::init);
 
@@ -79,9 +77,10 @@ public abstract class MesonLoader
     {
         this.configLoader.refreshConfig();
 
-        modules(module -> {
-            if (!module.isEnabled()) return;
+        // basic queue for player tick events
+        MinecraftForge.EVENT_BUS.register(new PlayerQueueHandler());
 
+        enabledModules(module -> {
             // if module enabled, subscribe to forge event bus
             if (module.hasSubscriptions) {
                 MinecraftForge.EVENT_BUS.register(module);
@@ -89,47 +88,52 @@ public abstract class MesonLoader
 
             // if module enabled, run its setup
             module.setup(event);
-
-            // basic queue for player tick events
-            MinecraftForge.EVENT_BUS.register(new PlayerQueueHandler());
         });
     }
 
     public void serverAboutToStart(FMLServerAboutToStartEvent event)
     {
-        modules(module -> module.serverAboutToStart(event));
+        enabledModules(module -> module.serverAboutToStart(event));
     }
 
     public void serverStarting(FMLServerStartingEvent event)
     {
-        modules(module -> module.serverStarting(event));
+        enabledModules(module -> module.serverStarting(event));
     }
 
     public void serverStarted(FMLServerStartedEvent event)
     {
-        modules(module -> module.serverStarted(event));
+        enabledModules(module -> module.serverStarted(event));
     }
 
     public void configChanged(ModConfigEvent event)
     {
         this.configLoader.refreshConfig();
-        modules(module -> module.configChanged(event));
+        enabledModules(module -> module.configChanged(event));
     }
 
     @OnlyIn(Dist.CLIENT)
     public void setupClient(FMLClientSetupEvent event)
     {
-        modules(module -> module.setupClient(event));
+        enabledModules(module -> module.setupClient(event));
     }
 
     public void loadComplete(FMLLoadCompleteEvent event)
     {
-        modules(module -> module.loadComplete(event));
+        enabledModules(module -> module.loadComplete(event));
     }
 
     public void modules(Consumer<MesonModule> consumer)
     {
         modules.forEach(consumer);
+    }
+
+    public void enabledModules(Consumer<MesonModule> consumer)
+    {
+        modules.forEach(module -> {
+            if (!module.isEnabled()) return;
+            consumer.accept(module);
+        });
     }
 
     public boolean hasModule(Class<? extends MesonModule> module)

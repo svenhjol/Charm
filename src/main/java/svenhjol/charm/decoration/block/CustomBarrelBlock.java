@@ -49,7 +49,7 @@ public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
     {
-        if (isEnabled() || group == ItemGroup.SEARCH) {
+        if (group == ItemGroup.SEARCH) {
             super.fillItemGroup(group, items);
         }
     }

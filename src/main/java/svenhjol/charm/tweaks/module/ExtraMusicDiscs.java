@@ -3,8 +3,7 @@ package svenhjol.charm.tweaks.module;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.FoxEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.NameTagItem;
+import net.minecraft.item.*;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -69,12 +68,18 @@ public class ExtraMusicDiscs extends MesonModule
     @Override
     public void init()
     {
-        for (String name : discNames) {
-            SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "music_disc." + name));
-            discs.add(new CharmMusicDiscItem(this, "music_disc_" + name, sound, 0));
+        Item.Properties props = new Item.Properties().maxStackSize(1).rarity(Rarity.RARE);
+
+        if (isEnabled()) {
+            props.group(ItemGroup.MISC);
         }
 
-        cold = new CharmMusicDiscItem(this, "music_disc_charm_cold", CharmSounds.MUSIC_COLD, 0);
+        for (String name : discNames) {
+            SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "music_disc." + name));
+            discs.add(new CharmMusicDiscItem(this, "music_disc_" + name, sound, props,0));
+        }
+
+        cold = new CharmMusicDiscItem(this, "music_disc_charm_cold", CharmSounds.MUSIC_COLD, props,0);
     }
 
     @SubscribeEvent
