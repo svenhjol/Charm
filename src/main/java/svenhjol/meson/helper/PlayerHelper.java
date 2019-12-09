@@ -91,16 +91,16 @@ public class PlayerHelper
     {
         boolean spawned = false;
         int range = 8;
-        int tries = 8;
-        BlockPos playerPos = player.getPosition();
+        int tries = 4;
+        BlockPos pp = player.getPosition();
         World world = player.world;
         Random rand = world.rand;
         List<BlockPos> valid = new ArrayList<>();
 
-        for (int y = range*2; y > 0; y--) {
+        for (int y = pp.getY() + range*2; y > 0; y--) {
             for (int i = range; i > 1; i--) {
                 for (int c = 1; c < tries; c++) {
-                    BlockPos p = playerPos.add(rand.nextInt(i), y, rand.nextInt(i));
+                    BlockPos p = new BlockPos(pp.getX() + rand.nextInt(i), y, pp.getZ() + rand.nextInt(i));
                     BlockState floor = world.getBlockState(p.down());
                     boolean areaIsValid = (floor.isSolid() || floor.getMaterial() == Material.WATER)
                         && (world.isAirBlock(p) || world.getBlockState(p).getMaterial() == Material.WATER)
