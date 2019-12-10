@@ -97,7 +97,7 @@ public class PlayerHelper
         Random rand = world.rand;
         List<BlockPos> valid = new ArrayList<>();
 
-        for (int y = pp.getY() + range*2; y > 0; y--) {
+        for (int y = pp.getY() + range*2; y > 0 ; y--) {
             for (int i = range; i > 1; i--) {
                 for (int c = 1; c < tries; c++) {
                     BlockPos p = new BlockPos(pp.getX() + rand.nextInt(i), y, pp.getZ() + rand.nextInt(i));
@@ -106,6 +106,7 @@ public class PlayerHelper
                         && (world.isAirBlock(p) || world.getBlockState(p).getMaterial() == Material.WATER)
                         && (world.isAirBlock(p.up()) || world.getBlockState(p.up()).getMaterial() == Material.WATER);
                     if (areaIsValid) valid.add(p);
+                    if (valid.size() > 2) break;
                 }
             }
         }
