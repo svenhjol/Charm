@@ -76,7 +76,7 @@ public class WorldHelper
         world.getWorldInfo().setClearWeatherTime(0);
         world.getWorldInfo().setRainTime(6000);
         world.getWorldInfo().setRaining(true);
-        world.getWorldInfo().setThunderTime(300);
+        world.getWorldInfo().setThunderTime(3000);
         world.getWorldInfo().setThundering(true);
     }
 }
