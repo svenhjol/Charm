@@ -59,6 +59,7 @@ public class BookshelfChestBlock extends MesonBlock
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof BookshelfChestTileEntity) {
             BookshelfChestTileEntity bookshelfChest = (BookshelfChestTileEntity)tile;
+            bookshelfChest.fillWithLoot(player);
             player.openContainer(bookshelfChest);
             /* @todo stats, see ShulkerBoxBlock */
             return true;

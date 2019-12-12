@@ -30,13 +30,8 @@ public class BookshelfChestTileEntity extends LockableLootTileEntity
     public void read(CompoundNBT tag)
     {
         super.read(tag);
-        loadFromNBT(tag);
-    }
-
-    public void loadFromNBT(CompoundNBT tag)
-    {
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-        if (!this.checkLootAndRead(tag) && tag.contains("Items")) {
+        if (!this.checkLootAndRead(tag)) {
             ItemStackHelper.loadAllItems(tag, this.items);
         }
     }
@@ -45,13 +40,8 @@ public class BookshelfChestTileEntity extends LockableLootTileEntity
     public CompoundNBT write(CompoundNBT tag)
     {
         super.write(tag);
-        return writeToNBT(tag);
-    }
-
-    public CompoundNBT writeToNBT(CompoundNBT tag)
-    {
-        if (!this.checkLootAndRead(tag)) {
-            ItemStackHelper.saveAllItems(tag, this.items, false);
+        if (!this.checkLootAndWrite(tag)) {
+            ItemStackHelper.saveAllItems(tag, this.items);
         }
         return tag;
     }

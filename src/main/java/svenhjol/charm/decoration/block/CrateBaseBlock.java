@@ -121,7 +121,7 @@ public abstract class CrateBaseBlock extends MesonBlock
     {
         ItemStack stack = super.getItem(world, pos, state);
         CrateTileEntity crate = (CrateTileEntity)world.getTileEntity(pos);
-        CompoundNBT tag = crate.writeToNBT(new CompoundNBT());
+        CompoundNBT tag = crate.write(new CompoundNBT());
         if (!tag.isEmpty()) {
             stack.setTagInfo("BlockEntityTag", tag);
         }

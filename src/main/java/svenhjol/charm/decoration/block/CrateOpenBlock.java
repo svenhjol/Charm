@@ -41,6 +41,7 @@ public class CrateOpenBlock extends CrateBaseBlock
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof CrateTileEntity) {
                 CrateTileEntity crate = (CrateTileEntity)tile;
+                crate.fillWithLoot(player);
                 player.openContainer(crate);
                 /* @todo stats, see ShulkerBoxBlock */
                 return true;
@@ -57,7 +58,7 @@ public class CrateOpenBlock extends CrateBaseBlock
             CrateTileEntity crate = (CrateTileEntity)tile;
             if (!world.isRemote && player.isCreative()) {
                 ItemStack stack = new ItemStack(getBlockByWood(this.wood));
-                CompoundNBT tag = crate.writeToNBT(new CompoundNBT()); /* @todo might need separate save method */
+                CompoundNBT tag = crate.write(new CompoundNBT());
                 if (!tag.isEmpty()) {
                     stack.setTagInfo("BlockEntityTag", tag);
                 }
