@@ -143,7 +143,10 @@ public class RegistryHandler
         Class<?> type = registry.getRegistrySuperType();
 
         if (objects.containsKey(type)) {
-            objects.get(type).forEach(registry::register);
+            objects.get(type).forEach(e -> {
+                Meson.debug("Registering entry " + e.getRegistryName());
+                registry.register(e);
+            });
             objects.remove(type);
         }
     }
