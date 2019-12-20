@@ -132,8 +132,8 @@ public class RegistryHandler
     public static void registerVillagerPointOfInterest(PointOfInterestType type, ResourceLocation res)
     {
 //        Registry.POINT_OF_INTEREST_TYPE.register(res, type);
-        RegistryHandler.addRegisterable(type, res);
-        PointOfInterestType.func_221052_a(type); // TODO method to add to list of interest types likely to change in MCP
+        addRegisterable(type, res);
+//        PointOfInterestType.func_221052_a(type); // TODO method to add to list of interest types likely to change in MCP
     }
 
     @SubscribeEvent
