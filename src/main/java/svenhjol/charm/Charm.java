@@ -16,9 +16,14 @@ public class Charm
         loader = new CharmLoader();
     }
 
+    public static boolean hasModule(String module)
+    {
+        return loader != null && loader.hasModule(module);
+    }
+
+
     public static boolean hasModule(Class<? extends MesonModule> module)
     {
-        if (!(loader instanceof CharmLoader)) return false;
-        return loader.hasModule(module);
+        return loader != null && loader.hasModule(module);
     }
 }
