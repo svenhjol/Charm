@@ -1,5 +1,6 @@
 package svenhjol.meson;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -136,6 +137,11 @@ public abstract class MesonLoader
         });
     }
 
+    public boolean hasModule(String module)
+    {
+        return enabledModules.containsKey(module) && enabledModules.get(module);
+    }
+
     public boolean hasModule(Class<? extends MesonModule> module)
     {
         return enabledModules.containsKey(module.getSimpleName()) && enabledModules.get(module.getSimpleName());
@@ -144,5 +150,17 @@ public abstract class MesonLoader
     public static void allModules(Consumer<MesonModule> consumer)
     {
         MesonLoader.instances.values().forEach(instance -> instance.modules(consumer));
+    }
+
+    public static boolean hasModule(ResourceLocation res)
+    {
+        String mod = res.getNamespace();
+
+        if (instances.containsKey(mod)) {
+            MesonLoader loader = instances.get(mod);
+            return loader.hasModule(res.getPath());
+        }
+
+        return false;
     }
 }
