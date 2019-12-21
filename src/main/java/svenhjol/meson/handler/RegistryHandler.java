@@ -133,7 +133,7 @@ public class RegistryHandler
     {
 //        Registry.POINT_OF_INTEREST_TYPE.register(res, type);
         addRegisterable(type, res);
-//        PointOfInterestType.func_221052_a(type); // TODO method to add to list of interest types likely to change in MCP
+        PointOfInterestType.func_221052_a(type); // TODO method to add to list of interest types likely to change in MCP
     }
 
     @SubscribeEvent
