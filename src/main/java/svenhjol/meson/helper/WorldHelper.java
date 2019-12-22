@@ -1,5 +1,7 @@
 package svenhjol.meson.helper;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -76,7 +78,40 @@ public class WorldHelper
         world.getWorldInfo().setClearWeatherTime(0);
         world.getWorldInfo().setRainTime(6000);
         world.getWorldInfo().setRaining(true);
-        world.getWorldInfo().setThunderTime(3000);
+        world.getWorldInfo().setThunderTime(6000);
         world.getWorldInfo().setThundering(true);
+    }
+
+    public static boolean isSolidBlock(World world, BlockPos pos)
+    {
+        BlockState state = world.getBlockState(pos);
+
+        return state.isSolid()
+            && !world.isAirBlock(pos)
+            && !state.getMaterial().isLiquid();
+    }
+
+    public static boolean isSolidishBlock(World world, BlockPos pos)
+    {
+        BlockState state = world.getBlockState(pos);
+
+        return isSolidBlock(world, pos)
+            || state.getMaterial() == Material.LEAVES
+            || state.getMaterial() == Material.SNOW
+            || state.getMaterial() == Material.ORGANIC
+            || state.getMaterial() == Material.PLANTS;
+    }
+
+    public static boolean isAirBlock(World world, BlockPos pos)
+    {
+        BlockState state = world.getBlockState(pos);
+
+        return !state.isSolid()
+            || state.getMaterial() == Material.WATER
+            || state.getMaterial() == Material.SNOW
+            || state.getMaterial() == Material.WATER
+            || state.getMaterial() == Material.PLANTS
+            || state.getMaterial() == Material.LEAVES
+            || state.getMaterial() == Material.ORGANIC;
     }
 }
