@@ -1,8 +1,6 @@
 package svenhjol.meson.helper;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.effect.LightningBoltEntity;
@@ -91,7 +89,7 @@ public class PlayerHelper
     {
         boolean spawned = false;
         int range = 8;
-        int tries = 4;
+        int tries = 8;
         BlockPos pp = player.getPosition();
         World world = player.world;
         Random rand = world.rand;
@@ -101,10 +99,13 @@ public class PlayerHelper
             for (int i = range; i > 1; i--) {
                 for (int c = 1; c < tries; c++) {
                     BlockPos p = new BlockPos(pp.getX() + rand.nextInt(i), y, pp.getZ() + rand.nextInt(i));
-                    BlockState floor = world.getBlockState(p.down());
-                    boolean areaIsValid = (floor.isSolid() || floor.getMaterial() == Material.WATER)
-                        && (world.isAirBlock(p) || world.getBlockState(p).getMaterial() == Material.WATER)
-                        && (world.isAirBlock(p.up()) || world.getBlockState(p.up()).getMaterial() == Material.WATER);
+                    BlockPos floor = p.down();
+                    BlockPos above = p.up();
+
+                    boolean areaIsValid = (WorldHelper.isSolidishBlock(world, floor))
+                        && (WorldHelper.isAirBlock(world, p))
+                        && (WorldHelper.isAirBlock(world, p));
+
                     if (areaIsValid) valid.add(p);
                     if (valid.size() > 2) break;
                 }
