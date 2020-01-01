@@ -158,10 +158,12 @@ public class AmbientMusicClient
     {
         AmbientMusicCondition condition = null;
 
-        for (AmbientMusicCondition c : conditions) {
-            if (c.handle()) {
-                condition = c;
-                break;
+        if (conditions != null) {
+            for (AmbientMusicCondition c : conditions) {
+                if (c.handle()) {
+                    condition = c;
+                    break;
+                }
             }
         }
 
