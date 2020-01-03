@@ -19,9 +19,6 @@ public class AmbientMusicImprovements extends MesonModule
     @Config(name = "Play Creative music", description = "If true, the six Creative music tracks may play in survival mode.")
     public static boolean playCreativeMusic = true;
 
-    @Config(name = "Play Charm music", description = "If true, has a chance of playing Charm music.")
-    public static boolean playCharmMusic = true;
-
     public static AmbientMusicClient client;
 
     @Override

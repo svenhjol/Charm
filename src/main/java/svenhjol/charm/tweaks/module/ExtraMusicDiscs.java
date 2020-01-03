@@ -2,17 +2,15 @@ package svenhjol.charm.tweaks.module;
 
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.passive.FoxEntity;
-import net.minecraft.item.*;
-import net.minecraft.util.Hand;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.tweaks.item.CharmMusicDiscItem;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
@@ -26,8 +24,6 @@ import java.util.Random;
         "These additional discs will be dropped when a zombie is killed by a skeleton.")
 public class ExtraMusicDiscs extends MesonModule
 {
-    private static final String NAME = "svenhjol";
-
     public static String[] discNames = new String[] {
         "calm1",
         "calm2",
@@ -63,8 +59,6 @@ public class ExtraMusicDiscs extends MesonModule
     };
     public static List<CharmMusicDiscItem> discs = new ArrayList<>();
 
-    private static CharmMusicDiscItem cold;
-
     @Override
     public void init()
     {
@@ -78,8 +72,6 @@ public class ExtraMusicDiscs extends MesonModule
             SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "music_disc." + name));
             discs.add(new CharmMusicDiscItem(this, "music_disc_" + name, sound, props,0));
         }
-
-        cold = new CharmMusicDiscItem(this, "music_disc_charm_cold", CharmSounds.MUSIC_COLD, props,0);
     }
 
     @SubscribeEvent
@@ -90,25 +82,6 @@ public class ExtraMusicDiscs extends MesonModule
         ) {
             CharmMusicDiscItem item = discs.get(new Random().nextInt(discs.size()));
             event.getEntityLiving().entityDropItem(item, 1);
-        }
-    }
-
-    @SubscribeEvent
-    public void onName(PlayerInteractEvent.EntityInteract event)
-    {
-        if (event.getTarget() instanceof FoxEntity
-            && event.getPlayer() != null
-            && ((FoxEntity)event.getTarget()).getVariantType() == FoxEntity.Type.SNOW
-        ) {
-            FoxEntity fox = (FoxEntity)event.getTarget();
-            ItemStack held = event.getPlayer().getHeldItem(event.getHand());
-            if (!(held.getItem() instanceof NameTagItem)) return;
-            if (fox.getDisplayName().getUnformattedComponentText().equals(NAME)) return;
-
-            String name = held.getDisplayName().getUnformattedComponentText();
-            if (name.equals(NAME)) {
-                fox.setHeldItem(Hand.MAIN_HAND, new ItemStack(cold));
-            }
         }
     }
 }

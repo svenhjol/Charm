@@ -17,7 +17,6 @@ public class CharmSounds
     public static final SoundEvent WOOD_SMASH = createSound("wood_smash");
     public static final SoundEvent FUMAROLE_BUBBLING = createSound("fumarole_bubbling");
     public static final SoundEvent FUMAROLE_ERUPT = createSound("fumarole_erupt");
-    public static final SoundEvent MUSIC_COLD = createSound("music.charm_cold");
 
     public static SoundEvent createSound(String name)
     {

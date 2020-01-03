@@ -11,16 +11,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.OverworldDimension;
 import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.tweaks.module.AmbientMusicImprovements;
 import svenhjol.meson.Meson;
 import svenhjol.meson.helper.SoundHelper;
@@ -43,14 +40,6 @@ public class AmbientMusicClient
 
     public void setupClient(FMLClientSetupEvent event)
     {
-        if (AmbientMusicImprovements.playCharmMusic) {
-            conditions.add(new AmbientMusicCondition(CharmSounds.MUSIC_COLD, 1200, 3600, mc -> mc.player != null
-                && (!mc.player.isCreative() || !mc.player.isSpectator())
-                && mc.player.world.getBiome(new BlockPos(mc.player)).getCategory() == Biome.Category.ICY
-                && random.nextFloat() < 0.33F
-            ));
-        }
-
         if (AmbientMusicImprovements.playCreativeMusic) {
             conditions.add(new AmbientMusicCondition(SoundEvents.MUSIC_CREATIVE, 1200, 3600, mc -> mc.player != null
                 && (!mc.player.isCreative() || !mc.player.isSpectator())
