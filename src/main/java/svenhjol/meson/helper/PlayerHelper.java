@@ -106,7 +106,7 @@ public class PlayerHelper
                         && (WorldHelper.isAirBlock(world, p))
                         && (WorldHelper.isAirBlock(world, p));
 
-                    if (areaIsValid) valid.add(p);
+                    if (areaIsValid) valid.add(above);
                     if (valid.size() > 2) break;
                 }
             }
