@@ -36,6 +36,6 @@
         { "predicate": { "angle": 0.890625 }, "model": "minecraft:item/compass_13" },
         { "predicate": { "angle": 0.921875 }, "model": "minecraft:item/compass_14" },
         { "predicate": { "angle": 0.953125 }, "model": "minecraft:item/compass_15" },
-        { "predicate": { "angle": 0.984375 }, "model": "minecraft:item/compass" }
+        { "predicate": { "angle": 0.984375 }, "model": "minecraft:item/compass_16" }
     ]
 }
