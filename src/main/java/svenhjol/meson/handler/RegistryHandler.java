@@ -109,7 +109,7 @@ public class RegistryHandler
     public static void registerStructure(Structure<?> structure, ResourceLocation res)
     {
 //        Registry.register(Registry.FEATURE, res, structure);
-        GameData.getStructureMap().put(res.getPath().toLowerCase(Locale.ROOT), structure);
+//        GameData.getStructureMap().put(res.getPath().toLowerCase(Locale.ROOT), structure);
         addRegisterable(structure, res);
     }
 
@@ -162,8 +162,8 @@ public class RegistryHandler
                 return; // can't set it
             }
 
-            if (obj.getRegistryName() == null) {
-                obj.setRegistryName(res);
+            if (obj.getRegistryName() == null && res != null) {
+                obj.setRegistryName(GameData.checkPrefix(res.toString(), false));
             }
             objects.get(type).add(obj);
             Meson.debug("Registered object " + obj.getRegistryName() + " with type " + type);
