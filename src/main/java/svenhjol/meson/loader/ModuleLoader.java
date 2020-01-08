@@ -25,6 +25,7 @@ public class ModuleLoader
     public static final String DESCRIPTION = "description";
     public static final String HAS_SUBSCRIPTIONS = "hasSubscriptions";
     public static final String ENABLED_BY_DEFAULT = "enabledByDefault";
+    public static final String CONFIGURE_ENABLED = "configureEnabled";
     public static final String CLIENT = "client";
     public static final String SERVER = "server";
 
@@ -68,6 +69,10 @@ public class ModuleLoader
 
                 if (data.containsKey(ENABLED_BY_DEFAULT)) {
                     module.enabledByDefault = (Boolean) data.get(ENABLED_BY_DEFAULT);
+                }
+
+                if (data.containsKey(CONFIGURE_ENABLED)) {
+                    module.configureEnabled = (Boolean) data.get(CONFIGURE_ENABLED);
                 }
 
                 if (!instance.categories.containsKey(category)) {

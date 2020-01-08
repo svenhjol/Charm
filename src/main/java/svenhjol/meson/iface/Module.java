@@ -15,6 +15,7 @@ public @interface Module
     String description() default "";
 
     boolean hasSubscriptions() default false;
+    boolean configureEnabled() default true;
     boolean enabledByDefault() default true;
     boolean client() default true;
     boolean server() default true;
