@@ -1,5 +1,6 @@
 package svenhjol.meson.loader.condition;
 
+import com.google.common.base.CaseFormat;
 import com.google.gson.JsonObject;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
@@ -27,7 +28,7 @@ public class ModuleEnabledCondition implements ICondition
     @Override
     public boolean test()
     {
-        return instance.enabledModules.containsKey(moduleName);
+        return instance.enabledModules.containsKey(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, moduleName).toLowerCase());
     }
 
     public static class Serializer implements IConditionSerializer<ModuleEnabledCondition>
