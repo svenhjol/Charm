@@ -28,7 +28,9 @@ public class ModuleEnabledCondition implements ICondition
     @Override
     public boolean test()
     {
-        return instance.enabledModules.containsKey(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, moduleName).toLowerCase());
+        String key = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, moduleName).toLowerCase();
+        boolean contains = instance.enabledModules.containsKey(key);
+        return contains;
     }
 
     public static class Serializer implements IConditionSerializer<ModuleEnabledCondition>
