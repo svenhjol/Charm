@@ -20,10 +20,7 @@ import svenhjol.meson.iface.Module;
 import svenhjol.meson.loader.ConfigLoader;
 import svenhjol.meson.loader.ModuleLoader;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 public abstract class MesonLoader
@@ -31,7 +28,7 @@ public abstract class MesonLoader
     public static Map<String, MesonLoader> instances = new HashMap<>();
     public List<MesonModule> modules = new ArrayList<>();
     public Map<String, List<MesonModule>> categories = new HashMap<>();
-    public Map<String, Boolean> enabledModules = new HashMap<>();
+    public Map<String, Boolean> enabledModules = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     public String id;
 
     private ModuleLoader moduleLoader;

@@ -49,6 +49,7 @@ public class ConfigLoader
 
         // actual config is loaded too late to do vanilla overrides, so parse it here
         this.earlyConfigHack();
+        this.refreshConfig();
     }
 
     public void earlyConfigHack()
