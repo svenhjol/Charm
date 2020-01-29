@@ -206,7 +206,7 @@ igloo_chest=Commun
 woodland_mansion=Peu commun
 
 # JEI descriptions
-charm.jei.flavoredcake.desc=Les gâteaux parfumés sont fabriquées en faisant un clic-droit sur un gâteau avec une potion de 8 minutes du type correspondant.\n\nLes distributeurs fonctionnent eux aussi.
+charm.jei.flavoredcake.desc=Les gâteaux parfumés sont fabriqués en faisant un clic-droit sur un gâteau avec une potion de 8 minutes du type correspondant.\n\nLes distributeurs fonctionnent eux aussi.
 charm.jei.boundcompass.desc=Faire un clic-droit sur une balise active avec une boussole dans la main en étant accroupi, pour la lier avec la position de la balise.\n\nUne boussole liée à une balise peut être combinée à un lingot de fer dans une enclume pour supprimer le lien.
 charm.jei.crates.desc=Les caisses peuvent être verrouillées en les combinant avec un lingot de fer dans une enclume, la seule manière de libérer le contenu d'une caisse scellée est de la casser, elle ne sera pas récupérable et son inventaire sera inaccessible.
 charm.jei.moonstone.desc=La pierre lunaire vous aide à trouver les coordonnées d'un bloc précis ou son axe.\n\nFaire un clic-droit en étant accroupi pour assigner une pierre lunaire à un bloc. Vous aligner avec le bloc allumera légèrement la pierre lunaire, et se tenir sur le bloc fera scintiller la pierre lunaire.\n\nElles fonctionnent à travers les dimensions et respectent la compression/expansion spatiale du Nether, vous aidant à aligner précisément les portails entre le monde et le Nether.
