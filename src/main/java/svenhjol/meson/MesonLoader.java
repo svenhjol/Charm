@@ -1,5 +1,6 @@
 package svenhjol.meson;
 
+import com.google.common.base.CaseFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -15,7 +16,9 @@ import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.objectweb.asm.Type;
+import svenhjol.meson.compat.QuarkModules;
 import svenhjol.meson.handler.PlayerQueueHandler;
+import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.iface.Module;
 import svenhjol.meson.loader.ConfigLoader;
 import svenhjol.meson.loader.ModuleLoader;
@@ -33,6 +36,7 @@ public abstract class MesonLoader
 
     private ModuleLoader moduleLoader;
     private ConfigLoader configLoader;
+    private static QuarkModules quarkModules;
 
     protected IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     protected IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
@@ -74,6 +78,15 @@ public abstract class MesonLoader
     public void setup(FMLCommonSetupEvent event)
     {
         this.configLoader.refreshConfig();
+
+        // compatibility for checking Quark modules are loaded
+        try {
+            if (quarkModules == null && ForgeHelper.isModLoaded("quark")) {
+                quarkModules = QuarkModules.class.newInstance();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error loading QuarkModules");
+        }
 
         // basic queue for player tick events
         MinecraftForge.EVENT_BUS.register(new PlayerQueueHandler());
@@ -151,11 +164,19 @@ public abstract class MesonLoader
 
     public static boolean hasModule(ResourceLocation res)
     {
-        String mod = res.getNamespace();
+        String inst = res.getNamespace();
+        String mod = res.getPath();
 
-        if (instances.containsKey(mod)) {
-            MesonLoader loader = instances.get(mod);
-            return loader.hasModule(res.getPath());
+        if (inst.equals("quark") && quarkModules != null) {
+            return quarkModules.hasModule(mod);
+        }
+
+        if (instances.containsKey(inst)) {
+            MesonLoader loader = instances.get(inst);
+            if (mod.contains("_"))
+                mod = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, mod);
+
+            return loader.hasModule(mod);
         }
 
         return false;
