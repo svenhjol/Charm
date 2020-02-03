@@ -12,8 +12,8 @@
   },
   "conditions": [
     {
-      "type": "charm:module_enabled",
-      "module": "all_the_barrels"
+      "type": "meson:module_enabled",
+      "module": "charm:all_the_barrels"
     }
   ]
 }

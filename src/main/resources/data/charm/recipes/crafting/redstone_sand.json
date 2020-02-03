@@ -12,8 +12,8 @@
   },
   "conditions": [
     {
-      "type": "charm:module_enabled",
-      "module": "redstone_sand"
+      "type": "meson:module_enabled",
+      "module": "charm:redstone_sand"
     }
   ]
 }

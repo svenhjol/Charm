@@ -10,8 +10,8 @@
   },
   "conditions": [
     {
-      "type": "charm:module_enabled",
-      "module": "compass_binding"
+      "type": "meson:module_enabled",
+      "module": "charm:compass_binding"
     }
   ]
 }

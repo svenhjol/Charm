@@ -18,8 +18,8 @@
   },
   "conditions": [
     {
-      "type": "charm:module_enabled",
-      "module": "bookshelf_chests"
+      "type": "meson:module_enabled",
+      "module": "charm:bookshelf_chests"
     }
   ]
 }

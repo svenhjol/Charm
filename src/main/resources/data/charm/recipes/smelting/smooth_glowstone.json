@@ -8,8 +8,8 @@
   "cookingtime": 200,
   "conditions": [
     {
-      "type": "charm:module_enabled",
-      "module": "smooth_glowstone"
+      "type": "meson:module_enabled",
+      "module": "charm:smooth_glowstone"
     }
   ]
 }

@@ -12,8 +12,8 @@
   },
   "conditions": [
     {
-      "type": "charm:module_enabled",
-      "module": "variable_redstone_lamp"
+      "type": "meson:module_enabled",
+      "module": "charm:variable_redstone_lamp"
     }
   ]
 }

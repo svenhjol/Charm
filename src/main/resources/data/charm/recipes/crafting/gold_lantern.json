@@ -12,8 +12,8 @@
   },
   "conditions": [
     {
-      "type": "charm:module_enabled",
-      "module": "gold_lanterns"
+      "type": "meson:module_enabled",
+      "module": "charm:gold_lanterns"
     }
   ]
 }

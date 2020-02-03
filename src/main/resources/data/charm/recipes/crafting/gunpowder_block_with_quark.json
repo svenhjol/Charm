@@ -15,8 +15,8 @@
       "type": "forge:and",
       "values": [
         {
-          "type": "charm:module_enabled",
-          "module": "block_of_gunpowder"
+          "type": "meson:module_enabled",
+          "module": "charm:block_of_gunpowder"
         },
         {
           "type": "forge:mod_loaded",
