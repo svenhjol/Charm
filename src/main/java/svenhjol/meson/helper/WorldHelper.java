@@ -66,7 +66,7 @@ public class WorldHelper
 
     public static void clearWeather(World world)
     {
-        world.getWorldInfo().setClearWeatherTime(6000);
+        world.getWorldInfo().setClearWeatherTime(world.rand.nextInt(12000) + 3600);
         world.getWorldInfo().setRainTime(0);
         world.getWorldInfo().setThunderTime(0);
         world.getWorldInfo().setThundering(false);
@@ -76,9 +76,9 @@ public class WorldHelper
     public static void stormyWeather(World world)
     {
         world.getWorldInfo().setClearWeatherTime(0);
-        world.getWorldInfo().setRainTime(6000);
+        world.getWorldInfo().setRainTime(world.rand.nextInt(12000) + 3600);
         world.getWorldInfo().setRaining(true);
-        world.getWorldInfo().setThunderTime(6000);
+        world.getWorldInfo().setThunderTime(world.rand.nextInt(12000) + 7200);
         world.getWorldInfo().setThundering(true);
     }
 
