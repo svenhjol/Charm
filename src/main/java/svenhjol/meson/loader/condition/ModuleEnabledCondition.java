@@ -6,39 +6,36 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonLoader;
 
 public class ModuleEnabledCondition implements ICondition
 {
-    private MesonLoader instance;
     private final String moduleName;
 
-    public ModuleEnabledCondition(MesonLoader instance, String moduleName)
+    public ModuleEnabledCondition(String moduleName)
     {
-        this.instance = instance;
         this.moduleName = moduleName;
     }
 
     @Override
     public ResourceLocation getID()
     {
-        return new ResourceLocation(instance.id, "module_enabled");
+        return new ResourceLocation(Meson.MOD_ID.toLowerCase(), "module_enabled");
     }
 
     @Override
     public boolean test()
     {
         String key = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, moduleName).toLowerCase();
-        return instance.enabledModules.containsKey(key);
+        return MesonLoader.hasModule(new ResourceLocation(key));
     }
 
     public static class Serializer implements IConditionSerializer<ModuleEnabledCondition>
     {
-        private MesonLoader instance;
-
-        public Serializer(MesonLoader instance)
+        public Serializer()
         {
-            this.instance = instance;
+
         }
 
         @Override
@@ -50,13 +47,13 @@ public class ModuleEnabledCondition implements ICondition
         @Override
         public ModuleEnabledCondition read(JsonObject json)
         {
-            return new ModuleEnabledCondition(instance, JSONUtils.getString(json, "module"));
+            return new ModuleEnabledCondition(JSONUtils.getString(json, "module"));
         }
 
         @Override
         public ResourceLocation getID()
         {
-            return new ResourceLocation(instance.id, "module_enabled");
+            return new ResourceLocation(Meson.MOD_ID.toLowerCase(), "module_enabled");
         }
     }
 }

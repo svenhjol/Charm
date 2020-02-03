@@ -2,7 +2,6 @@ package svenhjol.meson.loader;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
@@ -11,7 +10,6 @@ import svenhjol.meson.Meson;
 import svenhjol.meson.MesonLoader;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
-import svenhjol.meson.loader.condition.ModuleEnabledCondition;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -28,16 +26,10 @@ public class ConfigLoader
     private ForgeConfigSpec spec;
     private ModConfig config;
     private List<Runnable> refreshConfig = new ArrayList<>();
-    private ModuleEnabledCondition.Serializer modEnabledCondition;
 
     public ConfigLoader(MesonLoader instance)
     {
         this.instance = instance;
-
-        // register crafting recipe conditions
-        modEnabledCondition = new ModuleEnabledCondition.Serializer(instance);
-        CraftingHelper.register(modEnabledCondition);
-//        CraftingHelper.register(new ResourceLocation(instance.id, "module_enabled"), json -> () -> isEnabled(JSONUtils.getString(json, "module")));
 
         // build the config tree
         this.spec = new Builder().configure(this::build).getRight();
