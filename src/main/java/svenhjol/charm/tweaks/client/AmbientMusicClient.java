@@ -94,6 +94,7 @@ public class AmbientMusicClient
 
     public static boolean handleTick(@Nullable ISound current)
     {
+        if (mc.world == null) return false;
         AmbientMusicCondition ambient = getAmbientMusicType();
 
         if (currentMusic != null) {
