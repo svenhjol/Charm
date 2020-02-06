@@ -21,16 +21,20 @@ import java.util.List;
 import static net.minecraft.world.gen.feature.Feature.VILLAGE;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
-    description = "Villages can spawn in swamps and jungles. Villagers spawning in these villages will use their correct biome texture.")
+    description = "Villages can spawn in swamps, jungles and bedrock-edition biomes.\n" +
+        "Villagers spawning in these villages will use their correct biome texture.")
 public class MoreVillageBiomes extends MesonModule
 {
-    public static List<Biome> biomes = Arrays.asList(Biomes.JUNGLE, Biomes.SWAMP);
+    public static List<Biome> plainsBiomes = Arrays.asList(Biomes.JUNGLE, Biomes.SWAMP, Biomes.SUNFLOWER_PLAINS);
+    public static List<Biome> taigaBiomes = Arrays.asList(Biomes.TAIGA_HILLS, Biomes.SNOWY_TAIGA, Biomes.SNOWY_TAIGA_HILLS);
 
     @Override
     public void setup(FMLCommonSetupEvent event)
     {
+        taigaBiomes.forEach(biome -> biome.addStructure(VILLAGE, new VillageConfig("village/taiga/town_centers", 6)));
+
         // there isn't dedicated structure pieces for jungles and swamps so just use plains
-        biomes.forEach(biome -> biome.addStructure(VILLAGE, new VillageConfig("village/plains/town_centers", 6)));
+        plainsBiomes.forEach(biome -> biome.addStructure(VILLAGE, new VillageConfig("village/plains/town_centers", 6)));
     }
 
     @SubscribeEvent
@@ -47,7 +51,7 @@ public class MoreVillageBiomes extends MesonModule
             if (data.getType() == IVillagerType.PLAINS) {
                 Biome biome = WorldHelper.getBiomeAtPos(event.getWorld(), event.getEntity().getPosition());
 
-                if (biomes.contains(biome)) {
+                if (plainsBiomes.contains(biome)) {
                     villager.setVillagerData(data.withType(IVillagerType.byBiome(biome)));
                 }
             }
