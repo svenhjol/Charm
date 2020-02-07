@@ -29,7 +29,7 @@ minecraft {
             properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run').canonicalPath
             source sourceSets.main
-            jvmArgs "-Xmx1G"
+            jvmArgs "-Xmx1500M"
         }
         server = {
             // recommended logging data for a userdev environment
