@@ -1,4 +1,9 @@
-# Changelog for Charm 1.14
+# Changelog for Charm
+
+## 1.5.0
+* Foundation changes for Strange.
+* Moonstones and custom music disc have been moved to Strange.  **May cause unregistered item warnings** if upgrading from older beta.
+* More Villages feature now adds bedrock-edition village biomes.
 
 ## 1.4.3
 * Fixed Config ignoring state of disabled modules.  This is a bit of a hack, let me know if it stops working again
