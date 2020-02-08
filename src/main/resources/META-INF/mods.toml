@@ -23,5 +23,5 @@ authors="svenhjol, warlordwossman"
     modId="quark"
     mandatory=false
     versionRange="[r2.0-199,)"
-    ordering="BEFORE"
+    ordering="AFTER"
     side="BOTH"
