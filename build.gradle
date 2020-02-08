@@ -15,7 +15,7 @@ apply plugin: 'net.minecraftforge.gradle'
 group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-version = "${mc_version}-${version}.${build_number}"
+version = "mc${mc_version}-v${version}.${build_number}"
 
 minecraft {
     mappings channel: 'snapshot', version: "${mcp_mappings}"

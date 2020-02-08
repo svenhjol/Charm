@@ -15,7 +15,7 @@ authors="svenhjol, warlordwossman"
 [[dependencies.charm]]
     modId="forge"
     mandatory=true
-    versionRange="[28,)"
+    versionRange="[28.1.118,)"
     ordering="NONE"
     side="BOTH"
 
