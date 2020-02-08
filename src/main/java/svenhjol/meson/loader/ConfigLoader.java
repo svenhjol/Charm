@@ -158,7 +158,7 @@ public class ConfigLoader
         String description = config.description();
         if (!description.isEmpty()) builder.comment(description);
 
-        // get config field type - TODO need to cast, probably
+        // get config field type
         Class<?> type = field.getType();
 
         try {

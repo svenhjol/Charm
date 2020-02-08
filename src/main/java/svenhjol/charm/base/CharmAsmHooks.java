@@ -19,7 +19,6 @@ import svenhjol.meson.event.ComposterEvent;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("unused")
 public class CharmAsmHooks
 {
     public static boolean checkBrewingStandStack(ItemStack stack)

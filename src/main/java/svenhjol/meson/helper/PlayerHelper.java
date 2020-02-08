@@ -191,9 +191,9 @@ public class PlayerHelper
         if (!net.minecraftforge.common.ForgeHooks.onTravelToDimension(player, destination)) return;
 
         DimensionType dimensiontype = serverPlayer.dimension;
-        ServerWorld serverworld = serverPlayer.server.getWorld(dimensiontype);
+        ServerWorld serverworld = serverPlayer.server.func_71218_a(dimensiontype);
         serverPlayer.dimension = destination;
-        ServerWorld serverworld1 = serverPlayer.server.getWorld(destination);
+        ServerWorld serverworld1 = serverPlayer.server.func_71218_a(destination);
         WorldInfo worldinfo = serverPlayer.world.getWorldInfo();
         net.minecraftforge.fml.network.NetworkHooks.sendDimensionDataPacket(serverPlayer.connection.netManager, serverPlayer);
 
@@ -232,9 +232,9 @@ public class PlayerHelper
         serverPlayer.setWorld(serverworld1);
         serverworld1.func_217447_b(serverPlayer);
         serverPlayer.connection.setPlayerLocation(serverPlayer.posX, serverPlayer.posY, serverPlayer.posZ, f1, f);
-        serverPlayer.interactionManager.setWorld(serverworld1);
+        serverPlayer.interactionManager.func_73080_a(serverworld1);
         serverPlayer.connection.sendPacket(new SPlayerAbilitiesPacket(serverPlayer.abilities));
-        playerlist.sendWorldInfo(serverPlayer, serverworld1);
+        playerlist.func_72354_b(serverPlayer, serverworld1);
         playerlist.sendInventory(serverPlayer);
 
         for(EffectInstance effectinstance : serverPlayer.getActivePotionEffects()) {

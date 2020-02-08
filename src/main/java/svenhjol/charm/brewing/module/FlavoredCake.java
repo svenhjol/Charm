@@ -69,7 +69,7 @@ public class FlavoredCake extends MesonModule
         validPotions.forEach(potionName -> {
 
             // get the mod and potion name from the fully qualified potion name
-            String baseName, modName, longName, shortName;
+            String baseName, modName;
             if (potionName.contains(":")) {
                 String[] split = potionName.split(":");
                 modName = split[0];

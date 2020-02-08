@@ -32,7 +32,6 @@ import java.util.*;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
-@SuppressWarnings({"unused", "deprecation"})
 @Mod.EventBusSubscriber(bus = MOD)
 public class RegistryHandler
 {
@@ -131,9 +130,8 @@ public class RegistryHandler
 
     public static void registerVillagerPointOfInterest(PointOfInterestType type, ResourceLocation res)
     {
-//        Registry.POINT_OF_INTEREST_TYPE.register(res, type);
         addRegisterable(type, res);
-        PointOfInterestType.func_221052_a(type); // TODO method to add to list of interest types likely to change in MCP
+        PointOfInterestType.func_221052_a(type);
     }
 
     @SubscribeEvent

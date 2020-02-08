@@ -14,17 +14,11 @@ import net.minecraftforge.common.ToolType;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class RottenFleshBlock extends MesonBlock
 {
-    private static List<Block> transformables = new ArrayList<>(Arrays.asList(
-        Blocks.DIRT, Blocks.GRASS, Blocks.GRASS_PATH));
-
-    public RottenFleshBlock(MesonModule module)
+    public RottenFleshBlock(final MesonModule module)
     {
         super(module, "rotten_flesh_block", Block.Properties
             .create(Material.ORGANIC)
@@ -42,7 +36,7 @@ public class RottenFleshBlock extends MesonBlock
     }
 
     @Override
-    public void tick(BlockState state, World worldIn, BlockPos pos, Random random)
+    public void tick(final BlockState state, final World worldIn, final BlockPos pos, final Random random)
     {
         super.tick(state, worldIn, pos, random);
 
@@ -50,17 +44,17 @@ public class RottenFleshBlock extends MesonBlock
             if (!worldIn.isAreaLoaded(pos, 2)) return;
 
             // transform self to dirt if next to water
-            for (Direction facing : Direction.values()) {
+            for (final Direction facing : Direction.values()) {
                 if (worldIn.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
                     worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState(), 2);
                 }
             }
 
-            BlockState aboveState = worldIn.getBlockState(pos.up(1));
-            BlockState plantState = worldIn.getBlockState(pos.up(2));
+            final BlockState aboveState = worldIn.getBlockState(pos.up(1));
+            final BlockState plantState = worldIn.getBlockState(pos.up(2));
             if (plantState.getBlock() instanceof IPlantable && aboveState.canSustainPlant(worldIn, pos.up(1), Direction.UP, (IPlantable)plantState.getBlock())) {
                 if (plantState.getBlock() instanceof IGrowable) {
-                    IGrowable growable = (IGrowable)plantState.getBlock();
+                    final IGrowable growable = (IGrowable)plantState.getBlock();
                     if (growable.canGrow(worldIn, pos.up(2), plantState, worldIn.isRemote)) {
                         growable.grow(worldIn, worldIn.rand, pos.up(2), plantState);
                         worldIn.playEvent(2005, pos.up(2), 0);
@@ -72,7 +66,7 @@ public class RottenFleshBlock extends MesonBlock
 
     // copypasta from MyceliumBlock
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(BlockState state, World world, BlockPos pos, Random rand)
+    public void animateTick(final BlockState state, final World world, final BlockPos pos, final Random rand)
     {
         super.animateTick(state, world, pos, rand);
         if (rand.nextInt(10) == 0) {
