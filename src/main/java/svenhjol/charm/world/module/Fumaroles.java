@@ -17,6 +17,7 @@ import svenhjol.charm.world.gen.feature.FumaroleFeature;
 import svenhjol.charm.world.gen.placement.FumarolePlacement;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.handler.RegistryHandler;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD,
@@ -27,6 +28,9 @@ public class Fumaroles extends MesonModule
     public static FumaroleBlock block;
     public static Feature<NoFeatureConfig> feature = null;
     public static Placement<FrequencyConfig> placement = null;
+
+    @Config(name = "Eruption volume", description = "Volume of the eruption. 1.0 is full volume, 0.0 silent.")
+    public static double eruptionVolume = 0.25D;
 
     @Override
     public void init()

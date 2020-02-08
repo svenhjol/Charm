@@ -19,6 +19,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.world.module.Fumaroles;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 
@@ -89,7 +90,7 @@ public class FumaroleBlock extends MesonBlock
             double pz = pos.getZ() + 0.5D + (rand.nextFloat() - 0.5D) * spread;
             serverWorld.spawnParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, px, py, pz, 60,-0.2D, 0D, 0D, 0.11D);
             serverWorld.spawnParticle(ParticleTypes.LARGE_SMOKE, px, py, pz, 60,-0.2D, 0D, 0D, 0.04D);
-            serverWorld.playSound(null, pos, CharmSounds.FUMAROLE_ERUPT, SoundCategory.BLOCKS, 0.44F, 0.85F + (world.rand.nextFloat()) * 0.25F);
+            serverWorld.playSound(null, pos, CharmSounds.FUMAROLE_ERUPT, SoundCategory.BLOCKS, (float)Fumaroles.eruptionVolume, 0.85F + (world.rand.nextFloat()) * 0.25F);
         }
 
         AxisAlignedBB bb = new AxisAlignedBB(pos);
