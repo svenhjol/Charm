@@ -34,7 +34,6 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
         GlStateManager.getMatrix(2983, PROJECTION);
         int i = 13;
         float f = this.getOffset();
-        boolean flag = false;
         GameRenderer gamerenderer = Minecraft.getInstance().gameRenderer;
 
         for(int j = 0; j < i; ++j) {
