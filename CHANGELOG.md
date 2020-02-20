@@ -1,5 +1,8 @@
 # Changelog for Charm
 
+## 1.5.1
+* Fixed issue with Quark runes not working in end portal frame
+
 ## 1.5.0
 * Foundation changes for Strange.
 * Moonstones and custom music disc have been moved to Strange.  **May cause unregistered item warnings** if upgrading from older beta.
@@ -11,7 +14,7 @@
 * Random animal textures and Stackable items now respect config enabled/disabled
 * Fixed Charm crash if another mod has some loading problem
 * Fixed dispensers not firing splash potions properly if Stackable potions is enabled
-* Flavored cakes don't allow yout to add the same potion
+* Flavored cakes don't allow you to add the same potion
 * Flavored cakes don't let you add potions if they've been nommed
 * When using the Homing enchant, the player will now face the ore through the world
 * Added two music discs for the end: "Boss" and "The End"

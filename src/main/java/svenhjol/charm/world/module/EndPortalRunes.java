@@ -100,12 +100,14 @@ public class EndPortalRunes extends MesonModule
     @Override
     public boolean isEnabled()
     {
-        return super.isEnabled() && quarkRunes != null;
+        return super.isEnabled();
     }
 
     @SubscribeEvent
     public void onRightClick(RightClickBlock event)
     {
+        if (quarkRunes == null) return;
+
         World world = event.getWorld();
         BlockPos pos = event.getPos();
         BlockState state = world.getBlockState(pos);
