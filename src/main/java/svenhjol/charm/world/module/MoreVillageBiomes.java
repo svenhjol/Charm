@@ -29,7 +29,7 @@ public class MoreVillageBiomes extends MesonModule
     public static List<Biome> taigaBiomes = Arrays.asList(Biomes.TAIGA_HILLS, Biomes.SNOWY_TAIGA, Biomes.SNOWY_TAIGA_HILLS);
 
     @Override
-    public void setup(FMLCommonSetupEvent event)
+    public void onCommonSetup(FMLCommonSetupEvent event)
     {
         taigaBiomes.forEach(biome -> biome.addStructure(VILLAGE, new VillageConfig("village/taiga/town_centers", 6)));
 

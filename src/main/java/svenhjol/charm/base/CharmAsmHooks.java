@@ -11,10 +11,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import svenhjol.charm.Charm;
 import svenhjol.charm.enchanting.module.Salvage;
 import svenhjol.charm.tweaks.client.AmbientMusicClient;
 import svenhjol.charm.tweaks.module.*;
+import svenhjol.meson.Meson;
 import svenhjol.meson.event.ComposterEvent;
 
 import javax.annotation.Nullable;
@@ -23,40 +23,40 @@ public class CharmAsmHooks
 {
     public static boolean checkBrewingStandStack(ItemStack stack)
     {
-        return Charm.hasModule(StackablePotions.class);
+        return Meson.isModuleEnabled("charm:stackable_potions");
     }
 
     public static int getMinimumRepairCost()
     {
-        return Charm.hasModule(NoAnvilMinimumXp.class) ? -1 : 0;
+        return Meson.isModuleEnabled("charm:no_anvil_minimum_xp") ? -1 : 0;
     }
 
     public static boolean isArmorInvisible(Entity entity, ItemStack stack)
     {
-        if (!Charm.hasModule(LeatherArmorInvisibility.class)) return false;
+        if (!Meson.isModuleEnabled("charm:leather_armor_invisibility")) return false;
         return LeatherArmorInvisibility.isArmorInvisible(entity, stack);
     }
 
     public static void mobsInBeaconRange(World world, int levels, BlockPos pos, Effect primaryEffect, Effect secondaryEffect)
     {
-        if (!Charm.hasModule(MobsAffectedByBeacon.class)) return;
+        if (!Meson.isModuleEnabled("charm:mobs_affected_by_beacon")) return;
         MobsAffectedByBeacon.mobsInBeaconRange(world, levels, pos, primaryEffect, secondaryEffect);
     }
 
     public static boolean removePotionGlint()
     {
-        return Charm.hasModule(RemovePotionGlint.class);
+        return Meson.isModuleEnabled("charm:remove_potion_glint");
     }
 
     public static void itemDamaged(ItemStack stack, int amount, @Nullable ServerPlayerEntity player)
     {
-        if (!Charm.hasModule(Salvage.class)) return;
+        if (!Meson.isModuleEnabled("charm:salvage")) return;
         Salvage.itemDamaged(stack, amount, player);
     }
 
     public static boolean isSkyLightMax(IWorld world, BlockPos pos)
     {
-        if (!Charm.hasModule(HuskImprovements.class) || !HuskImprovements.spawnAnywhere) return world.isSkyLightMax(pos);
+        if (!Meson.isModuleEnabled("charm:husk_improvements") || !HuskImprovements.spawnAnywhere) return world.isSkyLightMax(pos);
         return HuskImprovements.isSkyLightMax(world, pos);
     }
 
@@ -67,19 +67,19 @@ public class CharmAsmHooks
 
     public static boolean handleMusicTick(ISound currentMusic)
     {
-        if (!Charm.hasModule(AmbientMusicImprovements.class)) return false;
+        if (!Meson.isModuleEnabled("charm:ambient_music_improvements")) return false;
         return AmbientMusicClient.handleTick(currentMusic);
     }
 
     public static boolean handleMusicStop()
     {
-        if (!Charm.hasModule(AmbientMusicImprovements.class)) return false;
+        if (!Meson.isModuleEnabled("charm:ambient_music_improvements")) return false;
         return AmbientMusicClient.handleStop();
     }
 
     public static boolean handleMusicPlaying(MusicType type)
     {
-        if (!Charm.hasModule(AmbientMusicImprovements.class)) return false;
+        if (!Meson.isModuleEnabled("charm:ambient_music_improvements")) return false;
         return AmbientMusicClient.handlePlaying(type);
     }
 }

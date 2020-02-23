@@ -1,13 +1,10 @@
 package svenhjol.meson.loader.condition;
 
-import com.google.common.base.CaseFormat;
 import com.google.gson.JsonObject;
-import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 import svenhjol.meson.Meson;
-import svenhjol.meson.MesonLoader;
 
 public class ModuleEnabledCondition implements ICondition
 {
@@ -27,16 +24,12 @@ public class ModuleEnabledCondition implements ICondition
     @Override
     public boolean test()
     {
-        String key = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, moduleName).toLowerCase();
-        return MesonLoader.hasModule(new ResourceLocation(key));
+        return Meson.isModuleEnabled(new ResourceLocation(moduleName));
     }
 
     public static class Serializer implements IConditionSerializer<ModuleEnabledCondition>
     {
-        public Serializer()
-        {
-
-        }
+        public Serializer() { }
 
         @Override
         public void write(JsonObject json, ModuleEnabledCondition value)
@@ -47,7 +40,7 @@ public class ModuleEnabledCondition implements ICondition
         @Override
         public ModuleEnabledCondition read(JsonObject json)
         {
-            return new ModuleEnabledCondition(JSONUtils.getString(json, "module"));
+            return new ModuleEnabledCondition(json.getAsJsonPrimitive("module").getAsString());
         }
 
         @Override

@@ -122,7 +122,7 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
             if (!potion.getEffects().isEmpty()) break;
         }
         if (potion.getEffects().isEmpty()) {
-            Meson.debug("No potion registered for ", potionName);
+            Meson.debug("No potion registered for " + potionName);
             return null; // don't apply an effect
         }
         return potion;

@@ -42,38 +42,38 @@ public abstract class MesonModule
         // register particles and other client side things
     }
 
-    public void setup(FMLCommonSetupEvent event)
+    public void onCommonSetup(FMLCommonSetupEvent event)
     {
         // register messages, composter items, etc
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void setupClient(FMLClientSetupEvent event)
+    public void onClientSetup(FMLClientSetupEvent event)
     {
         // register screens, etc
     }
 
-    public void configChanged(ModConfigEvent event)
+    public void onModConfig(ModConfigEvent event)
     {
         // modules can be enabled/disabled when config changes
     }
 
-    public void serverAboutToStart(FMLServerAboutToStartEvent event)
+    public void onServerAboutToStart(FMLServerAboutToStartEvent event)
     {
         // server-side event, just after play selected world clicked
     }
 
-    public void serverStarting(FMLServerStartingEvent event)
+    public void onServerStarting(FMLServerStartingEvent event)
     {
         // server-side event, access to resource manager etc
     }
 
-    public void serverStarted(FMLServerStartedEvent event)
+    public void onServerStarted(FMLServerStartedEvent event)
     {
         // server-side event, access to resource manager etc
     }
 
-    public void loadComplete(FMLLoadCompleteEvent event)
+    public void onLoadComplete(FMLLoadCompleteEvent event)
     {
         // do final things
     }

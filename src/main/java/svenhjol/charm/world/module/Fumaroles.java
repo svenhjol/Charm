@@ -44,7 +44,7 @@ public class Fumaroles extends MesonModule
     }
 
     @Override
-    public void setup(FMLCommonSetupEvent event)
+    public void onCommonSetup(FMLCommonSetupEvent event)
     {
         Biomes.NETHER.addFeature(Decoration.UNDERGROUND_DECORATION,
             Biome.createDecoratedFeature(feature,

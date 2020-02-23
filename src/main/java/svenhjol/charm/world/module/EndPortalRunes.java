@@ -25,7 +25,6 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.world.block.RunePortalBlock;
 import svenhjol.charm.world.block.RunePortalFrameBlock;
 import svenhjol.charm.world.client.renderer.RunePortalTileEntityRenderer;
-import svenhjol.charm.world.compat.QuarkRunes;
 import svenhjol.charm.world.message.ClientRunePortalAction;
 import svenhjol.charm.world.storage.RunePortalSavedData;
 import svenhjol.charm.world.tileentity.RunePortalTileEntity;
@@ -35,7 +34,6 @@ import svenhjol.meson.enums.ColorVariant;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.helper.ClientHelper;
-import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.helper.WorldHelper;
 import svenhjol.meson.iface.Config;
@@ -55,8 +53,6 @@ public class EndPortalRunes extends MesonModule
 
     @ObjectHolder("charm:rune_portal")
     public static TileEntityType<RunePortalTileEntity> tile;
-
-    private static QuarkRunes quarkRunes;
 
     @Config(name = "Allow Eye of Ender removal", description = "If true, sneak-clicking with an empty hand or colored rune removes an eye of ender from its frame.")
     public static boolean allowEnderEyeRemoval = true;
@@ -80,19 +76,11 @@ public class EndPortalRunes extends MesonModule
         ResourceLocation res = new ResourceLocation(Charm.MOD_ID, "rune_portal");
         tile = TileEntityType.Builder.create(RunePortalTileEntity::new, portal).build(null);
         RegistryHandler.registerTile(tile, res);
-
-        try {
-            if (ForgeHelper.isModLoaded("quark")) {
-                quarkRunes = QuarkRunes.class.newInstance();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error loading QuarkRunes");
-        }
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void setupClient(FMLClientSetupEvent event)
+    public void onClientSetup(FMLClientSetupEvent event)
     {
         ClientRegistry.bindTileEntitySpecialRenderer(RunePortalTileEntity.class, new RunePortalTileEntityRenderer());
     }
@@ -106,7 +94,8 @@ public class EndPortalRunes extends MesonModule
     @SubscribeEvent
     public void onRightClick(RightClickBlock event)
     {
-        if (quarkRunes == null) return;
+        if (Charm.quarkCompat == null || !Charm.quarkCompat.hasColorRuneModule())
+            return;
 
         World world = event.getWorld();
         BlockPos pos = event.getPos();
@@ -125,7 +114,7 @@ public class EndPortalRunes extends MesonModule
             ItemStack toDrop = null;
             ItemStack held = player.getHeldItem(hand);
 
-            if (quarkRunes.isRune(held) && !player.isSneaking()) {
+            if (Charm.quarkCompat.isRune(held) && !player.isSneaking()) {
 
                 // if end portal frame, drop eye of ender
                 if (isVanilla && state.get(EndPortalFrameBlock.EYE)) {
@@ -140,7 +129,7 @@ public class EndPortalRunes extends MesonModule
 
                 // if a rune frame, drop the rune that is currently in it
                 if (isModded) {
-                    toDrop = quarkRunes.getRune(state.get(RunePortalFrameBlock.RUNE));
+                    toDrop = Charm.quarkCompat.getRune(state.get(RunePortalFrameBlock.RUNE));
                 }
 
                 addRune(serverWorld, pos, held, player);
@@ -153,7 +142,7 @@ public class EndPortalRunes extends MesonModule
                 }
 
                 if (isModded) {
-                    toDrop = quarkRunes.getRune(state.get(RunePortalFrameBlock.RUNE));
+                    toDrop = Charm.quarkCompat.getRune(state.get(RunePortalFrameBlock.RUNE));
                 }
 
                 if (toDrop != null) {
@@ -191,11 +180,11 @@ public class EndPortalRunes extends MesonModule
         } else if (state.getBlock() == frame) {
             facing = state.get(RunePortalFrameBlock.FACING);
         } else {
-            Meson.debug("Not a frame block!", state);
+            Meson.debug("Not a frame block: " + state);
             return;
         }
 
-        ColorVariant color = quarkRunes.getColor(rune);
+        ColorVariant color = Charm.quarkCompat.getRuneColor(rune);
         if (color == null) {
             Meson.debug("Failed to add rune");
             return;
@@ -310,7 +299,7 @@ public class EndPortalRunes extends MesonModule
         BlockPos cachedPortal = data.links.get(portal);
         if (cachedPortal != null) {
             data.links.remove(cachedPortal);
-            Meson.debug("EndPortalRunes: [CACHE] clearing cached link", cachedPortal);
+            Meson.debug("EndPortalRunes: [CACHE] clearing cached link: " + cachedPortal);
         }
 
         data.links.clear();
@@ -329,10 +318,10 @@ public class EndPortalRunes extends MesonModule
             BlockPos linkedPortal = data.links.get(thisPortal);
             if (linkedPortal != null) {
                 if (data.portals.containsKey(linkedPortal)) {
-                    Meson.debug("EndPortalRunes: [CACHE] found portal", linkedPortal);
+                    Meson.debug("EndPortalRunes: [CACHE] found portal: " + linkedPortal);
                     return linkedPortal;
                 } else {
-                    Meson.debug("EndPortalRunes: [CACHE] cleaning unlinked portal", linkedPortal);
+                    Meson.debug("EndPortalRunes: [CACHE] cleaning unlinked portal: " + linkedPortal);
                     data.links.remove(thisPortal);
                 }
                 data.markDirty();
@@ -369,7 +358,7 @@ public class EndPortalRunes extends MesonModule
             }
         }
 
-        Meson.debug("EndPortalRunes: found matching portal, caching it", foundPortal);
+        Meson.debug("EndPortalRunes: found matching portal, caching it: " + foundPortal);
 
         // cache portal both ways
         data.links.put(thisPortal, foundPortal);

@@ -71,7 +71,7 @@ public class Crates extends MesonModule
     }
 
     @Override
-    public void setupClient(FMLClientSetupEvent event)
+    public void onClientSetup(FMLClientSetupEvent event)
     {
         ScreenManager.registerFactory(container, CrateScreen::new);
     }

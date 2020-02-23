@@ -74,7 +74,7 @@ public class BookshelfChests extends MesonModule
     }
 
     @Override
-    public void setup(FMLCommonSetupEvent event)
+    public void onCommonSetup(FMLCommonSetupEvent event)
     {
         configValidItems.forEach(string -> {
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(string));
@@ -85,7 +85,7 @@ public class BookshelfChests extends MesonModule
     }
 
     @Override
-    public void setupClient(FMLClientSetupEvent event)
+    public void onClientSetup(FMLClientSetupEvent event)
     {
         ScreenManager.registerFactory(container, BookshelfChestScreen::new);
     }

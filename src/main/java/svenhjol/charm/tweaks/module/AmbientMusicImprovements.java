@@ -22,7 +22,7 @@ public class AmbientMusicImprovements extends MesonModule
     public static AmbientMusicClient client;
 
     @Override
-    public void setupClient(FMLClientSetupEvent event)
+    public void onClientSetup(FMLClientSetupEvent event)
     {
         client = new AmbientMusicClient();
         client.setupClient(event);

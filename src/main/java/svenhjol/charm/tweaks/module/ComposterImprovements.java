@@ -35,7 +35,7 @@ public class ComposterImprovements extends MesonModule
     public static int maxOutput = 3;
 
     @Override
-    public void setup(FMLCommonSetupEvent event)
+    public void onCommonSetup(FMLCommonSetupEvent event)
     {
         for (String input : inputItems) {
             String[] split = input.split("=");

@@ -7,7 +7,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
-import svenhjol.charm.tweaks.module.NoAnvilMinimumXp;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
@@ -43,9 +43,10 @@ public class DecreaseRepairCost extends MesonModule
     }
 
     @Override
-    public void setup(FMLCommonSetupEvent event)
+    public void onCommonSetup(FMLCommonSetupEvent event)
     {
-        if (!Charm.hasModule(NoAnvilMinimumXp.class) && xpCost == 0) xpCost = 1;
+        if (!Meson.isModuleEnabled("charm:no_anvil_minimum_xp") && xpCost == 0)
+            xpCost = 1;
     }
 
     @SubscribeEvent

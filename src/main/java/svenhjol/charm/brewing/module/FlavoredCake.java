@@ -86,7 +86,7 @@ public class FlavoredCake extends MesonModule
     }
 
     @Override
-    public void setup(FMLCommonSetupEvent event)
+    public void onCommonSetup(FMLCommonSetupEvent event)
     {
         // add dispenser behavior for potions so that they can be used to imbue cakes
         DispenserBlock.registerDispenseBehavior(Items.POTION, new DispenseImbueBehavior());

@@ -31,7 +31,7 @@ public class PlayerQueueHandler
                         PlayerEntity player = entry.getKey();
                         Consumer<PlayerEntity> run = entry.getValue();
                         run.accept(player);
-                        Meson.debug("Queue: flushed", run);
+                        Meson.debug("Queue flushed: " + run);
                     }
                     i.remove();
                 }
@@ -45,6 +45,6 @@ public class PlayerQueueHandler
             queue.put(time, new HashMap<>());
         }
         queue.get(time).put(player, event);
-        Meson.debug("Queue: added", event);
+        Meson.debug("Queue added: " + event);
     }
 }

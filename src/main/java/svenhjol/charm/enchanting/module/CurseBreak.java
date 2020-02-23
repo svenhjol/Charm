@@ -9,7 +9,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.enchanting.enchantment.CurseBreakEnchantment;
-import svenhjol.charm.tweaks.module.NoAnvilMinimumXp;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.EnchantmentsHelper;
 import svenhjol.meson.iface.Config;
@@ -31,9 +31,10 @@ public class CurseBreak extends MesonModule
     }
 
     @Override
-    public void setup(FMLCommonSetupEvent event)
+    public void onCommonSetup(FMLCommonSetupEvent event)
     {
-        if (!Charm.hasModule(NoAnvilMinimumXp.class) && xpCost == 0) xpCost = 1;
+        if (!Meson.isModuleEnabled("charm:no_anvil_minimum_xp") && xpCost == 0)
+            xpCost = 1;
     }
 
     @SubscribeEvent

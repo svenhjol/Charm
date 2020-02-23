@@ -25,6 +25,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IMesonBlock;
 
@@ -32,10 +34,12 @@ import java.util.*;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = MOD)
 public class RegistryHandler
 {
-    public static Map<Class<?>, List<IForgeRegistryEntry<?>>> objects = new HashMap();
+    public static Map<Class<?>, List<IForgeRegistryEntry<?>>> objects = new HashMap<>();
+    public static final Marker REGISTRY = MarkerManager.getMarker("REGISTRY").addParents(Meson.INTERNAL);
 
     public static void registerBlock(Block block, ResourceLocation res)
     {
@@ -134,6 +138,7 @@ public class RegistryHandler
         PointOfInterestType.func_221052_a(type);
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @SubscribeEvent
     public static void onRegister(final Register event)
     {
@@ -142,7 +147,7 @@ public class RegistryHandler
 
         if (objects.containsKey(type)) {
             objects.get(type).forEach(e -> {
-                Meson.debug("Registering entry " + e.getRegistryName());
+                Meson.LOG.debug(REGISTRY, "Registering to " + registry.getRegistryName() + " - " + e.getRegistryName());
                 registry.register(e);
             });
             objects.remove(type);
@@ -156,7 +161,7 @@ public class RegistryHandler
 
         if (!(objects.containsKey(type) && objects.get(type).contains(obj))) {
             if (res == null && obj.getRegistryName() == null) {
-                Meson.debug("Not registring object because registry name is empty", obj);
+                Meson.LOG.error(REGISTRY, "Object has empty name: " + obj);
                 return; // can't set it
             }
 
@@ -164,10 +169,10 @@ public class RegistryHandler
                 obj.setRegistryName(GameData.checkPrefix(res.toString(), false));
             }
             objects.get(type).add(obj);
-            Meson.debug("Registered object " + obj.getRegistryName() + " with type " + type);
+            Meson.LOG.debug(REGISTRY, "Queueing " + obj.getRegistryName());
 
         } else {
-            Meson.debug("Object already registered", obj);
+            Meson.LOG.warn(REGISTRY, "Object already queued: " + obj);
         }
     }
 }

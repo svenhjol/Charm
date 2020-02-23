@@ -38,7 +38,7 @@ public class RandomAnimalTextures extends MesonModule
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void setupClient(FMLClientSetupEvent event)
+    public void onClientSetup(FMLClientSetupEvent event)
     {
         if (isEnabled()) {
             //noinspection unchecked

@@ -27,7 +27,7 @@ public class BlockOfRottenFlesh extends MesonModule
     }
 
     @Override
-    public void setup(FMLCommonSetupEvent event)
+    public void onCommonSetup(FMLCommonSetupEvent event)
     {
         if (compostable) ComposterHelper.addInputItem(new ItemStack(block).getItem(), 1.0F);
     }
