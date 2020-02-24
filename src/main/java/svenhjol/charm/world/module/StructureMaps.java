@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
 import net.minecraftforge.event.village.VillagerTradesEvent;
@@ -106,27 +107,31 @@ public class StructureMaps extends MesonModule
         {
             structure = trades.get(rand.nextInt(trades.size()));
             World world = merchant.world;
-            BlockPos pos = world.findNearestStructure(structure.name, new BlockPos(merchant), 100, true);
-            if (pos != null) {
 
-                // generate the map
-                ItemStack stack = FilledMapItem.setupNewMap(world, pos.getX(), pos.getZ(), (byte)2, true, true);
-                FilledMapItem.renderBiomePreviewMap(world, stack);
-                MapData.addTargetDecoration(stack, pos, "+", this.targetType);
-                stack.setDisplayName(new TranslationTextComponent("map.charm." + structure.name.toLowerCase(Locale.ENGLISH)));
+            if (!world.isRemote) {
+                ServerWorld serverWorld = (ServerWorld)world;
+                BlockPos pos = serverWorld.findNearestStructure(structure.name, new BlockPos(merchant), 500, true);
+                if (pos != null) {
 
-                // set map color based on structure
-                CompoundNBT tag = ItemNBTHelper.getCompound(stack, "display");
-                tag.putInt("MapColor", structure.color);
-                ItemNBTHelper.setCompound(stack, "display", tag);
+                    // generate the map
+                    ItemStack stack = FilledMapItem.setupNewMap(world, pos.getX(), pos.getZ(), (byte) 2, true, true);
+                    FilledMapItem.renderBiomePreviewMap(world, stack);
+                    MapData.addTargetDecoration(stack, pos, "+", this.targetType);
+                    stack.setDisplayName(new TranslationTextComponent("map.charm." + structure.name.toLowerCase(Locale.ENGLISH)));
 
-                ItemStack in1 = new ItemStack(Items.EMERALD, rand.nextInt(structure.max - structure.min) + structure.min);
-                ItemStack in2 = new ItemStack(Items.COMPASS);
-                float multiplier = 0.2F;
-                return new MerchantOffer(in1, in2, stack, maxUses, tradeXp, multiplier);
-            } else {
-                return null;
+                    // set map color based on structure
+                    CompoundNBT tag = ItemNBTHelper.getCompound(stack, "display");
+                    tag.putInt("MapColor", structure.color);
+                    ItemNBTHelper.setCompound(stack, "display", tag);
+
+                    ItemStack in1 = new ItemStack(Items.EMERALD, rand.nextInt(structure.max - structure.min) + structure.min);
+                    ItemStack in2 = new ItemStack(Items.COMPASS);
+                    float multiplier = 0.2F;
+                    return new MerchantOffer(in1, in2, stack, maxUses, tradeXp, multiplier);
+                }
             }
+
+            return null;
         }
     }
 

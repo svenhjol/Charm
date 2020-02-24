@@ -7,6 +7,7 @@ import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
@@ -52,7 +53,8 @@ public class EndermitePowder extends MesonModule
         ) {
             EndermiteEntity endermite = (EndermiteEntity)event.getEntityLiving();
             ItemStack stack = new ItemStack(item);
-            event.getDrops().add(new ItemEntity(endermite.getEntityWorld(), endermite.posX, endermite.posY, endermite.posZ, stack));
+            BlockPos endermitePos = endermite.getPosition();
+            event.getDrops().add(new ItemEntity(endermite.getEntityWorld(), endermitePos.getX(), endermitePos.getY(), endermitePos.getZ(), stack));
         }
     }
 }

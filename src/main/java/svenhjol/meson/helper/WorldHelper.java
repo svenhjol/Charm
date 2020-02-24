@@ -7,12 +7,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import svenhjol.meson.iface.IMesonEnum;
 
 public class WorldHelper
 {
+    public static final String END_CITY = "EndCity";
+
     public enum Structure implements IMesonEnum
     {
         buried_treasure,
@@ -44,6 +47,12 @@ public class WorldHelper
         return player.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
     }
 
+    public static boolean canSeeSky(IWorld world, BlockPos pos)
+    {
+        return world.isSkyLightMax(pos); // [1.14]
+        // return world.canSeeSky(pos); // [1.15]
+    }
+
     public static double getDistanceSq(BlockPos pos1, BlockPos pos2)
     {
         double d0 = pos1.getX();
@@ -56,7 +65,8 @@ public class WorldHelper
     public static Biome getBiomeAtPos(World world, BlockPos pos)
     {
         // world.getBiome() suffers from infinite badness when game loading
-        return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getBiome(pos);
+        return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getBiome(pos); // [1.14]
+        // return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getNoiseBiome(pos.getX(), pos.getY(), pos.getZ()); // [1.15]
     }
 
     public static int getDimensionId(World world)

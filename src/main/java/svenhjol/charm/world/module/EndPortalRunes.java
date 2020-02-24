@@ -114,7 +114,7 @@ public class EndPortalRunes extends MesonModule
             ItemStack toDrop = null;
             ItemStack held = player.getHeldItem(hand);
 
-            if (Charm.quarkCompat.isRune(held) && !player.isSneaking()) {
+            if (Charm.quarkCompat.isRune(held) && !PlayerHelper.isCrouching(player)) {
 
                 // if end portal frame, drop eye of ender
                 if (isVanilla && state.get(EndPortalFrameBlock.EYE)) {
@@ -135,7 +135,7 @@ public class EndPortalRunes extends MesonModule
                 addRune(serverWorld, pos, held, player);
                 activate(serverWorld, pos);
 
-            } else if (player.isSneaking()) {
+            } else if (PlayerHelper.isCrouching(player)) {
 
                 if (isVanilla && allowEnderEyeRemoval && state.get(EndPortalFrameBlock.EYE)) {
                     toDrop = new ItemStack(Items.ENDER_EYE);

@@ -41,13 +41,17 @@ public class EndermitePowderItem extends MesonItem
 
         // server
         if (!worldIn.isRemote) {
-            BlockPos pos = worldIn.findNearestStructure("EndCity", playerIn.getPosition(), 1500, true);
+            BlockPos pos = worldIn.findNearestStructure(WorldHelper.END_CITY, playerIn.getPosition(), 1500, true);
             if (pos != null) {
                 EndermitePowderEntity entity = new EndermitePowderEntity(worldIn, pos.getX(), pos.getZ());
                 Vec3d look = playerIn.getLookVec();
-                entity.setPosition(playerIn.posX + look.x * 2, playerIn.posY + 0.5, playerIn.posZ + look.z * 2);
+                int x = playerIn.getPosition().getX();
+                int y = playerIn.getPosition().getY();
+                int z = playerIn.getPosition().getZ();
+
+                entity.setPosition(x + look.x * 2, y + 0.5, z + look.z * 2);
                 worldIn.addEntity(entity);
-                worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                worldIn.playSound(null, x, y, z, SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.PLAYERS, 1.0F, 1.0F);
             }
         }
 

@@ -59,7 +59,7 @@ public class CompassBinding extends MesonModule
     public void onCompassUse(PlayerInteractEvent.RightClickBlock event)
     {
         if (event.getPlayer() != null
-            && event.getPlayer().isSneaking()
+            && PlayerHelper.isCrouching(event.getPlayer())
             && bindableItems.contains(event.getPlayer().getHeldItem(event.getHand()).getItem())
         ) {
             PlayerEntity player = event.getPlayer();

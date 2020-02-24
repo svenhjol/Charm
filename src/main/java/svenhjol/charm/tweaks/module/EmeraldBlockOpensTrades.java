@@ -11,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
@@ -22,7 +23,7 @@ public class EmeraldBlockOpensTrades extends MesonModule
     {
         if (event.getPlayer() != null
             && event.getTarget() instanceof VillagerEntity
-            && event.getPlayer().isSneaking()
+            && PlayerHelper.isCrouching(event.getPlayer())
             && event.getPlayer().getHeldItem(event.getHand()).getItem() == Items.EMERALD_BLOCK
         ) {
             PlayerEntity player = event.getPlayer();

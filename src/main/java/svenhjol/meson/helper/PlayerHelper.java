@@ -70,6 +70,12 @@ public class PlayerHelper
         ((ServerWorld) world).addLightningBolt(new LightningBoltEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, false));
     }
 
+    public static boolean isCrouching(PlayerEntity player)
+    {
+        return player.isSneaking(); // [1.14]
+        // return player.isCrouching(); // [1.15]
+    }
+
     public static void setHeldItem(PlayerEntity player, Hand hand, ItemStack item)
     {
         ItemStack stack = player.getHeldItem(hand);
@@ -205,9 +211,11 @@ public class PlayerHelper
         serverworld.removeEntity(serverPlayer, true); //Forge: the player entity is moved to the new world, NOT cloned. So keep the data alive with no matching invalidate call.
         serverPlayer.revive();
 
-        double d0 = serverPlayer.posX;
-        double d1 = serverPlayer.posY;
-        double d2 = serverPlayer.posZ;
+        BlockPos playerPos = serverPlayer.getPosition();
+
+        double d0 = playerPos.getX();
+        double d1 = playerPos.getY();
+        double d2 = playerPos.getZ();
         float f = serverPlayer.rotationPitch;
         float f1 = serverPlayer.rotationYaw;
         float f2 = f1;
@@ -231,7 +239,7 @@ public class PlayerHelper
 
         serverPlayer.setWorld(serverworld1);
         serverworld1.func_217447_b(serverPlayer);
-        serverPlayer.connection.setPlayerLocation(serverPlayer.posX, serverPlayer.posY, serverPlayer.posZ, f1, f);
+        serverPlayer.connection.setPlayerLocation(playerPos.getX(), playerPos.getY(), playerPos.getZ(), f1, f);
         serverPlayer.interactionManager.setWorld(serverworld1);
         serverPlayer.connection.sendPacket(new SPlayerAbilitiesPacket(serverPlayer.abilities));
         playerlist.sendWorldInfo(serverPlayer, serverworld1);

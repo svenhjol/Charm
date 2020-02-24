@@ -6,6 +6,7 @@ import net.minecraft.entity.monster.WitchEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potions;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
@@ -33,8 +34,9 @@ public class WitchesDropLuck extends MesonModule
             && event.getEntityLiving().world.rand.nextFloat() <= (chance + lootingBoost * event.getLootingLevel())
         ) {
             Entity entity = event.getEntity();
+            BlockPos entityPos = entity.getPosition();
             ItemStack potion = PotionHelper.getPotionItemStack(Potions.LUCK, 1);
-            event.getDrops().add( new ItemEntity(entity.getEntityWorld(), entity.posX, entity.posY, entity.posZ, potion) );
+            event.getDrops().add( new ItemEntity(entity.getEntityWorld(), entityPos.getX(), entityPos.getY(), entityPos.getZ(), potion) );
         }
     }
 }

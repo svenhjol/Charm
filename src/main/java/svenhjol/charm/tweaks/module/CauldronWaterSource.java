@@ -33,7 +33,7 @@ public class CauldronWaterSource extends MesonModule
     {
         if (event.getEntityLiving() != null
             && event.getEntityLiving() instanceof PlayerEntity
-            && event.getEntityLiving().isSneaking()
+            && PlayerHelper.isCrouching((PlayerEntity)event.getEntityLiving())
         ) {
             PlayerEntity player = (PlayerEntity)event.getEntityLiving();
 
@@ -55,7 +55,7 @@ public class CauldronWaterSource extends MesonModule
             ItemStack held = player.getHeldItem(event.getHand());
             BlockState state = event.getWorld().getBlockState(event.getPos());
 
-            if (player.isSneaking()) {
+            if (PlayerHelper.isCrouching(player)) {
                 ItemStack item = null;
                 SoundEvent sound = null;
 

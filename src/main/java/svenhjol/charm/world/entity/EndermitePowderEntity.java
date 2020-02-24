@@ -72,13 +72,16 @@ public class EndermitePowderEntity extends Entity
         double rise = 0.03;
         int maxLiveTime = 1000;
         int particles = 18;
+        int x = getPosition().getX();
+        int y = getPosition().getY();
+        int z = getPosition().getZ();
 
-        Vec3d vec = new Vec3d((double) dataManager.get(TARGET_X), posY, (double) dataManager.get(TARGET_Z))
-            .subtract(posX, posY, posZ).normalize().scale(scale);
+        Vec3d vec = new Vec3d((double) dataManager.get(TARGET_X), y, (double) dataManager.get(TARGET_Z))
+            .subtract(x, y, z).normalize().scale(scale);
 
-        double bpx = posX + vec.x * ticks;
-        double bpy = posY + vec.y * ticks + ticks * rise;
-        double bpz = posZ + vec.z * ticks;
+        double bpx = x + vec.x * ticks;
+        double bpy = y + vec.y * ticks + ticks * rise;
+        double bpz = z + vec.z * ticks;
 
         for (int i = 0; i < particles; i++) {
             double px = bpx + (Math.random() - 0.5) * posSpread;

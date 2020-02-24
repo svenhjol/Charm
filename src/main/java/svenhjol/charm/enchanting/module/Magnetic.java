@@ -64,7 +64,8 @@ public class Magnetic extends MesonModule
 
             if (foundPos != null) {
                 PlayerEntity player = dropmap.get(foundPos);
-                ItemEntity fake = new ItemEntity(player.world, player.posX, player.posY, player.posZ);
+                BlockPos playerPos = player.getPosition();
+                ItemEntity fake = new ItemEntity(player.world, playerPos.getX(), playerPos.getY(), playerPos.getZ());
                 ItemStack item = ((ItemEntity) event.getEntity()).getItem();
                 fake.setItem(item);
                 dropmap.remove(foundPos);

@@ -20,7 +20,7 @@ public class CustomWolfRenderer extends WolfRenderer
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(WolfEntity entity)
+    public ResourceLocation getEntityTexture(WolfEntity entity)
     {
         return RandomAnimalTextures.getWolfTexture(entity);
     }

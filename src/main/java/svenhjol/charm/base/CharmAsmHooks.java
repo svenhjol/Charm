@@ -16,6 +16,7 @@ import svenhjol.charm.tweaks.client.AmbientMusicClient;
 import svenhjol.charm.tweaks.module.*;
 import svenhjol.meson.Meson;
 import svenhjol.meson.event.ComposterEvent;
+import svenhjol.meson.helper.WorldHelper;
 
 import javax.annotation.Nullable;
 
@@ -56,8 +57,10 @@ public class CharmAsmHooks
 
     public static boolean isSkyLightMax(IWorld world, BlockPos pos)
     {
-        if (!Meson.isModuleEnabled("charm:husk_improvements") || !HuskImprovements.spawnAnywhere) return world.isSkyLightMax(pos);
-        return HuskImprovements.isSkyLightMax(world, pos);
+        if (!Meson.isModuleEnabled("charm:husk_improvements") || !HuskImprovements.spawnAnywhere)
+            return WorldHelper.canSeeSky(world, pos);
+
+        return HuskImprovements.canSeeSky(world, pos);
     }
 
     public static void composterOutput(World world, BlockPos pos, PlayerEntity player)
