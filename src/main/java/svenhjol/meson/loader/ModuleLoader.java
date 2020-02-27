@@ -171,7 +171,13 @@ public class ModuleLoader
     {
         // for each module create a config to enable/disable it
         modules.forEach(module -> {
-            if (!module.configureEnabled) return;
+            if (!module.configureEnabled) {
+                refreshConfig.add(() -> {
+                    module.enabled = module.isEnabled();
+                    addEnabledModule(module);
+                });
+                return;
+            }
 
             instance.log.info("Creating config for module " + module.getName());
             if (!module.description.isEmpty()) builder.comment(module.description);

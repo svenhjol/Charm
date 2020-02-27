@@ -31,7 +31,6 @@ public class Meson
     public static final Marker INTERNAL = MarkerManager.getMarker("INTERNAL");
 
     public static boolean DEBUG = true;
-    public static boolean hasInit = false;
     public static Map<String, MesonInstance> instances = new HashMap<>();
 
     private IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -39,27 +38,17 @@ public class Meson
 
     private static QuarkCompat quarkCompat;
 
-    private Meson() { }
-
-    private void init()
-    {
+    private Meson() {
         // register crafting recipe conditions
         ModuleEnabledCondition.Serializer modEnabledCondition = new ModuleEnabledCondition.Serializer();
         CraftingHelper.register(modEnabledCondition);
-        LOG.debug("Finished registering modEnabledCondition");
 
         // basic queue for player tick events
         forgeEventBus.register(new PlayerQueueHandler());
-        LOG.debug("Finished subscribing player queue handler");
-
-        hasInit = true;
     }
 
     public void register(MesonInstance instance)
     {
-        if (!hasInit)
-            init();
-
         instances.put(instance.getId(), instance);
 
         modEventBus.addListener(this::onCommonSetup);
