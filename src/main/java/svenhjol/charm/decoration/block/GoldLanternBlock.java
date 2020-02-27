@@ -43,6 +43,6 @@ public class GoldLanternBlock extends LanternBlock implements IMesonBlock
     @Override
     public boolean isEnabled()
     {
-        return module.isEnabled();
+        return module.enabled;
     }
 }

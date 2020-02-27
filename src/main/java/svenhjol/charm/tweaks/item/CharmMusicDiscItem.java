@@ -33,6 +33,6 @@ public class CharmMusicDiscItem extends MusicDiscItem implements IMesonItem
     @Override
     public boolean isEnabled()
     {
-        return module.isEnabled();
+        return module.enabled;
     }
 }

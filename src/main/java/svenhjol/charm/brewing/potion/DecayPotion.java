@@ -13,8 +13,7 @@ public class DecayPotion extends MesonPotion
     {
         super(module, "decay_potion", new EffectInstance(Decay.effect, Decay.duration * 20));
 
-        if (module.isEnabled()) {
+        if (module.enabled)
             registerRecipe(Potions.AWKWARD, Items.WITHER_ROSE);
-        }
     }
 }

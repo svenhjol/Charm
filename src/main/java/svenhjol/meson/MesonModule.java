@@ -21,9 +21,9 @@ public abstract class MesonModule
     public String name = "";
     public String description = "";
 
-    public boolean isEnabled()
+    public boolean shouldBeEnabled()
     {
-        return enabled;
+        return true;
     }
 
     public String getName()

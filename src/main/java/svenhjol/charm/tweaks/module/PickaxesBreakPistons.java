@@ -36,7 +36,7 @@ public class PickaxesBreakPistons extends MesonModule
         stickyPiston = new PistonBlock(true, Block.Properties.from(Blocks.STICKY_PISTON).harvestTool(ToolType.PICKAXE));
         stickyPistonItem = new BlockItem(stickyPiston, (new Item.Properties()).group(ItemGroup.REDSTONE));
 
-        if (isEnabled()) {
+        if (enabled) {
             OverrideHandler.changeVanillaBlock(piston, PISTON_ID);
             OverrideHandler.changeVanillaItem(pistonItem, PISTON_ID);
             OverrideHandler.changeVanillaBlock(stickyPiston, STICKY_PISTON_ID);

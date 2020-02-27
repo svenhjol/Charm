@@ -45,6 +45,7 @@ public class AllTheBarrels extends MesonModule
     public void onModConfig(ModConfigEvent event)
     {
         // change the name of the vanilla barrel from "Barrel" to "Oak Barrel"
-        if (isEnabled()) OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.barrel_oak");
+        if (enabled)
+            OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.barrel_oak");
     }
 }

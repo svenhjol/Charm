@@ -13,7 +13,7 @@ public class CoffeePotion extends MesonPotion
     {
         super(module, "coffee_potion", new EffectInstance(Coffee.effect, Coffee.duration * 20));
 
-        if (module.isEnabled()) {
+        if (module.enabled) {
             registerRecipe(Potions.WATER, Items.COCOA_BEANS);
         }
     }

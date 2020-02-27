@@ -85,12 +85,6 @@ public class EndPortalRunes extends MesonModule
         ClientRegistry.bindTileEntitySpecialRenderer(RunePortalTileEntity.class, new RunePortalTileEntityRenderer());
     }
 
-    @Override
-    public boolean isEnabled()
-    {
-        return super.isEnabled();
-    }
-
     @SubscribeEvent
     public void onRightClick(RightClickBlock event)
     {

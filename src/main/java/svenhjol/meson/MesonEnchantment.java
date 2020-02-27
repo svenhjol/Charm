@@ -20,18 +20,18 @@ public abstract class MesonEnchantment extends Enchantment implements IMesonEnch
     @Override
     public boolean canApply(ItemStack stack)
     {
-        return this.module.isEnabled() && super.canApply(stack);
+        return module.enabled && super.canApply(stack);
     }
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack)
     {
-        return this.module.isEnabled() && super.canApplyAtEnchantingTable(stack);
+        return module.enabled && super.canApplyAtEnchantingTable(stack);
     }
 
     @Override
     public boolean isAllowedOnBooks()
     {
-        return this.module.isEnabled() && super.isAllowedOnBooks();
+        return module.enabled && super.isAllowedOnBooks();
     }
 }

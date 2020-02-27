@@ -36,6 +36,6 @@ public abstract class MesonFallingBlock extends FallingBlock implements IMesonBl
     @Override
     public boolean isEnabled()
     {
-        return module.isEnabled();
+        return module.enabled;
     }
 }

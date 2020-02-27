@@ -25,7 +25,7 @@ public class StackablePotions extends MesonModule
     @Override
     public void init()
     {
-        if (isEnabled()) {
+        if (enabled) {
             potion = new PotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
             splash = new SplashPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
             lingering = new LingeringPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));

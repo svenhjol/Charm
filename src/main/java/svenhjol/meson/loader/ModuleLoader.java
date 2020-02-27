@@ -173,7 +173,7 @@ public class ModuleLoader
         modules.forEach(module -> {
             if (!module.configureEnabled) {
                 refreshConfig.add(() -> {
-                    module.enabled = module.isEnabled();
+                    module.enabled = module.shouldBeEnabled();
                     addEnabledModule(module);
                 });
                 return;
@@ -185,7 +185,7 @@ public class ModuleLoader
 
             refreshConfig.add(() -> {
                 Boolean configEnabled = val.get();
-                module.enabled = configEnabled && module.isEnabled();
+                module.enabled = configEnabled && module.shouldBeEnabled();
                 addEnabledModule(module);
             });
         });

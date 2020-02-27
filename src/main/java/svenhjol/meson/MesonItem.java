@@ -28,6 +28,6 @@ public abstract class MesonItem extends Item implements IMesonItem
     @Override
     public boolean isEnabled()
     {
-        return module.isEnabled();
+        return module.enabled;
     }
 }

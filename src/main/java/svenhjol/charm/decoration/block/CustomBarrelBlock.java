@@ -57,6 +57,6 @@ public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock
     @Override
     public boolean isEnabled()
     {
-        return module.isEnabled();
+        return module.enabled;
     }
 }

@@ -64,9 +64,8 @@ public class ExtraMusicDiscs extends MesonModule
     {
         Item.Properties props = new Item.Properties().maxStackSize(1).rarity(Rarity.RARE);
 
-        if (isEnabled()) {
+        if (enabled)
             props.group(ItemGroup.MISC);
-        }
 
         for (String name : discNames) {
             SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "music_disc." + name));
