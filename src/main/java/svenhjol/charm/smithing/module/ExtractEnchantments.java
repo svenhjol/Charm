@@ -63,7 +63,7 @@ public class ExtractEnchantments extends MesonModule
 
             if (allowLevelOneEnchants) newLevel = Math.max(1, newLevel);
 
-            if (newLevel > 0) {
+            if (newLevel > 0 && ench.isAllowedOnBooks()) {
                 outEnchants.put(ench, newLevel);
                 cost += newLevel;
             }
