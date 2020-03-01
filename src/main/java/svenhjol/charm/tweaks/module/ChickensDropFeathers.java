@@ -2,24 +2,18 @@ package svenhjol.charm.tweaks.module;
 
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.item.Items;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "Chickens randomly drop feathers.")
 public class ChickensDropFeathers extends MesonModule
 {
-    @Config(name = "Interval", description = "Number of seconds before a chicken has a chance to drop a feather.")
-    public static int interval = 60;
-
-    @Config(name = "Chance", description = "Chance of a chicken dropping a feather after the configured interval.")
-    public static double chance = 0.25D;
-
     @SubscribeEvent
     public void onTick(LivingEvent.LivingUpdateEvent event)
     {
@@ -30,10 +24,12 @@ public class ChickensDropFeathers extends MesonModule
             && !((ChickenEntity) event.getEntityLiving()).isChickenJockey()
         ) {
             ChickenEntity chicken = (ChickenEntity)event.getEntityLiving();
-            if (chicken.ticksExisted % interval * 20 == 0
-                && chicken.world.rand.nextFloat() < (float)chance
-            ) {
-                chicken.entityDropItem(Items.FEATHER);
+            if (chicken.timeUntilNextEgg <= 1) {
+                if (chicken.world.rand.nextFloat() < 0.2F) {
+                    chicken.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (chicken.world.rand.nextFloat() - chicken.world.rand.nextFloat()) * 0.2F + 1.0F);
+                    chicken.entityDropItem(Items.FEATHER);
+                    chicken.timeUntilNextEgg = chicken.world.rand.nextInt(3000) + 3000;
+                }
             }
         }
     }
