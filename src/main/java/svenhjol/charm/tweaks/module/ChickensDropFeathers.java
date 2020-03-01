@@ -15,7 +15,7 @@ import svenhjol.meson.iface.Module;
 public class ChickensDropFeathers extends MesonModule
 {
     @Config(name = "Interval", description = "Number of seconds before a chicken has a chance to drop a feather.")
-    public static int interval = 20;
+    public static int interval = 60;
 
     @Config(name = "Chance", description = "Chance of a chicken dropping a feather after the configured interval.")
     public static double chance = 0.25D;
@@ -30,7 +30,7 @@ public class ChickensDropFeathers extends MesonModule
             && !((ChickenEntity) event.getEntityLiving()).isChickenJockey()
         ) {
             ChickenEntity chicken = (ChickenEntity)event.getEntityLiving();
-            if (chicken.ticksExisted % interval == 0
+            if (chicken.ticksExisted % interval * 20 == 0
                 && chicken.world.rand.nextFloat() < (float)chance
             ) {
                 chicken.entityDropItem(Items.FEATHER);
