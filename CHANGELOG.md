@@ -6,6 +6,7 @@
 * Logging fixes for better debugging and formatting log text to make it more similar to Quark
 * Bump search range for structure maps from 100 to 500 blocks
 * Don't allow enchantments to be extracted that are not allowed on books
+* Chickens randomly drop feathers
 
 ## 1.5.1
 * Fixed issue with Quark runes not working in end portal frame
