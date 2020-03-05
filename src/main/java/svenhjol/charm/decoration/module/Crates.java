@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION, hasSubscriptions = true,
-    description = "A smaller storage solution with the benefit of being transportable." +
+    description = "A smaller storage solution with the benefit of being transportable.\n" +
         "You can also seal a crate by combining it with an iron ingot on an anvil.  The only way to get things out is to break it.")
 public class Crates extends MesonModule
 {
