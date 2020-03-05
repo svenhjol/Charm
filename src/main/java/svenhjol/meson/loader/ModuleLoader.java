@@ -34,7 +34,7 @@ public class ModuleLoader
     private static final String DESCRIPTION = "description";
     private static final String HAS_SUBSCRIPTIONS = "hasSubscriptions";
     private static final String ENABLED_BY_DEFAULT = "enabledByDefault";
-    private static final String CONFIGURE_ENABLED = "configureEnabled";
+    private static final String CHILD_OF = "childOf";
     private static final String CLIENT = "client";
     private static final String SERVER = "server";
 
@@ -80,7 +80,7 @@ public class ModuleLoader
                 module.description = data.containsKey(DESCRIPTION) ? (String) data.get(DESCRIPTION) : "";
                 module.hasSubscriptions = data.containsKey(HAS_SUBSCRIPTIONS) ? (Boolean) data.get(HAS_SUBSCRIPTIONS) : false;
                 module.enabledByDefault = data.containsKey(ENABLED_BY_DEFAULT) ? (Boolean) data.get(ENABLED_BY_DEFAULT) : true;
-                module.configureEnabled = data.containsKey(CONFIGURE_ENABLED) ? (Boolean) data.get(CONFIGURE_ENABLED) : true;
+                module.childOf = data.containsKey(CHILD_OF) ? (String) data.get(CHILD_OF) : null;
 
                 if (!categories.containsKey(module.category)) {
                     categories.put(module.category, new ArrayList<>());
@@ -171,15 +171,17 @@ public class ModuleLoader
     {
         // for each module create a config to enable/disable it
         modules.forEach(module -> {
-            if (!module.configureEnabled) {
+            instance.log.info("Creating config for module " + module.getName());
+
+            if (module.childOf != null && !module.childOf.isEmpty()) {
                 refreshConfig.add(() -> {
-                    module.enabled = module.shouldBeEnabled();
+                    MesonModule parentModule = getModule(module.childOf);
+                    module.enabled = parentModule != null && parentModule.enabled;
                     addEnabledModule(module);
                 });
                 return;
             }
 
-            instance.log.info("Creating config for module " + module.getName());
             if (!module.description.isEmpty()) builder.comment(module.description);
             ForgeConfigSpec.ConfigValue<Boolean> val = builder.define(module.getName() + " enabled", module.enabledByDefault);
 
@@ -273,6 +275,11 @@ public class ModuleLoader
     public boolean isModuleEnabled(String module)
     {
         return enabledModulesByIndex.containsKey(module);
+    }
+
+    public MesonModule getModule(String module)
+    {
+        return enabledModulesByIndex.get(module);
     }
 
     private void addEnabledModule(MesonModule module)

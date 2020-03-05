@@ -14,8 +14,8 @@ public abstract class MesonModule
 {
     public boolean enabled = true;
     public boolean enabledByDefault = true;
-    public boolean configureEnabled = true;
     public boolean hasSubscriptions = false;
+    public String childOf = null;
     public String mod = "";
     public String category = "";
     public String name = "";

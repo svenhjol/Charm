@@ -13,9 +13,9 @@ public @interface Module
     String category();
     String name() default "";
     String description() default "";
+    String childOf() default "";
 
     boolean hasSubscriptions() default false;
-    boolean configureEnabled() default true;
     boolean enabledByDefault() default true;
     boolean client() default true;
     boolean server() default true;

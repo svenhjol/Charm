@@ -35,6 +35,7 @@ public class MesonInstance
         try
         {
             forEachModule(MesonModule::init);
+            moduleLoader.refreshConfig();
         }
         catch (Exception e)
         {
