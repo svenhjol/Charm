@@ -2,6 +2,7 @@
 
 ## 1.5.2
 * Rewrite loader to tackle concurrency issues and inconsistent loading
+* Rewrite network handler to tackle problems when loaded with other Charm-based mods
 * Internal changes to ease transition to 1.15+
 * Logging fixes for better debugging and formatting log text to make it more similar to Quark
 * Bump search range for structure maps from 100 to 500 blocks
