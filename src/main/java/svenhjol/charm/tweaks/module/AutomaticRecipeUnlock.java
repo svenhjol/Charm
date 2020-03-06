@@ -21,7 +21,7 @@ import java.util.Collection;
 public class AutomaticRecipeUnlock extends MesonModule
 {
     @Override
-    public boolean shouldBeEnabled()
+    public boolean shouldRunSetup()
     {
         return !ForgeHelper.isModLoaded("quark");
     }

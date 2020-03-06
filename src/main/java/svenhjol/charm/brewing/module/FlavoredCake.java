@@ -24,8 +24,8 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.brewing.block.FlavoredCakeBlock;
 import svenhjol.charm.brewing.message.ClientCakeAction;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.ComposterHelper;
 import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.PlayerHelper;
@@ -131,7 +131,7 @@ public class FlavoredCake extends MesonModule
                 // let clients know the cake has been imbued
                 if (!world.isRemote) {
                     world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 0.5F, 1.1F);
-                    PacketHandler.sendToAll(new ClientCakeAction(pos));
+                    Meson.getInstance(Charm.MOD_ID).getPacketHandler().sendToAll(new ClientCakeAction(pos));
                 }
                 return true;
             }

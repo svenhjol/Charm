@@ -30,7 +30,7 @@ public class NetherGoldDeposits extends MesonModule
     public static int clusterCount = 10;
 
     @Override
-    public boolean shouldBeEnabled()
+    public boolean shouldRunSetup()
     {
         return !ForgeHelper.isModLoaded("nethergoldore");
     }

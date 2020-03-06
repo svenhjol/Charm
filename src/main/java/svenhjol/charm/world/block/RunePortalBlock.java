@@ -21,11 +21,12 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import svenhjol.charm.Charm;
 import svenhjol.charm.world.message.ClientRunePortalAction;
 import svenhjol.charm.world.module.EndPortalRunes;
 import svenhjol.charm.world.tileentity.RunePortalTileEntity;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.IMesonBlock;
 
@@ -98,10 +99,10 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
                 PlayerHelper.teleport(player, teleportTo.add(-2, 1, 0), 0);
 
                 if (foundPortal != null) {
-                    PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.TRAVELLED, foundPortal));
+                    Meson.getInstance(Charm.MOD_ID).getPacketHandler().sendToAll(new ClientRunePortalAction(ClientRunePortalAction.TRAVELLED, foundPortal));
                 } else {
                     player.addPotionEffect(new EffectInstance(Effects.NAUSEA, 120, 4));
-                    PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.UNLINKED, thisPortal));
+                    Meson.getInstance(Charm.MOD_ID).getPacketHandler().sendToAll(new ClientRunePortalAction(ClientRunePortalAction.UNLINKED, thisPortal));
                 }
             }
         }

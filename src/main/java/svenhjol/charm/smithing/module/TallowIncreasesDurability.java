@@ -57,7 +57,7 @@ public class TallowIncreasesDurability extends MesonModule
     }
 
     @Override
-    public boolean shouldBeEnabled()
+    public boolean shouldRunSetup()
     {
         return ForgeHelper.isModLoaded("quark");
     }

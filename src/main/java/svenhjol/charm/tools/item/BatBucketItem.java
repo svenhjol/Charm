@@ -9,11 +9,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import svenhjol.charm.Charm;
 import svenhjol.charm.tools.message.ClientGlowingAction;
 import svenhjol.charm.tools.module.BatInABucket;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonItem;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.helper.ItemNBTHelper;
 
 public class BatBucketItem extends MesonItem
@@ -62,7 +63,7 @@ public class BatBucketItem extends MesonItem
 
         if (!world.isRemote) {
             // send client message to start glowing
-            PacketHandler.sendTo(new ClientGlowingAction(BatInABucket.range, BatInABucket.time * 20), (ServerPlayerEntity) player);
+            Meson.getInstance(Charm.MOD_ID).getPacketHandler().sendTo(new ClientGlowingAction(BatInABucket.range, BatInABucket.time * 20), (ServerPlayerEntity) player);
         }
 
         /* @todo Item use stat */

@@ -31,7 +31,6 @@ import svenhjol.charm.world.tileentity.RunePortalTileEntity;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.ColorVariant;
-import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.helper.ClientHelper;
 import svenhjol.meson.helper.PlayerHelper;
@@ -236,7 +235,7 @@ public class EndPortalRunes extends MesonModule
             removeCachedPortal(world, thisPortal);
 
             if (findPortal(world, thisPortal) != null) {
-                PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.LINKED, thisPortal));
+                Meson.getInstance(Charm.MOD_ID).getPacketHandler().sendToAll(new ClientRunePortalAction(ClientRunePortalAction.LINKED, thisPortal));
             }
 
             BlockPos start = thisPortal.add(-3, 0, -3);
@@ -279,7 +278,7 @@ public class EndPortalRunes extends MesonModule
                 removeCachedPortal(world, thisPortal[0]);
 
                 if (!world.isRemote) {
-                    PacketHandler.sendToAll(new ClientRunePortalAction(ClientRunePortalAction.UNLINKED, thisPortal[0]));
+                    Meson.getInstance(Charm.MOD_ID).getPacketHandler().sendToAll(new ClientRunePortalAction(ClientRunePortalAction.UNLINKED, thisPortal[0]));
                 }
             }
         }
