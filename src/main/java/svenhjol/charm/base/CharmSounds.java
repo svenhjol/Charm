@@ -3,6 +3,8 @@ package svenhjol.charm.base;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import svenhjol.charm.Charm;
+import svenhjol.meson.MesonInstance;
+import svenhjol.meson.handler.RegistryHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,5 +26,11 @@ public class CharmSounds
         SoundEvent sound = new SoundEvent(res).setRegistryName(res);
         soundsToRegister.add(sound);
         return sound;
+    }
+
+    public static void init(MesonInstance instance)
+    {
+        soundsToRegister.forEach(RegistryHandler::registerSound);
+        instance.log.debug("Registered sounds");
     }
 }
