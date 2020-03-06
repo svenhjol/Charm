@@ -13,10 +13,10 @@ public @interface Module
     String category();
     String name() default "";
     String description() default "";
-    String childOf() default "";
 
     boolean hasSubscriptions() default false;
     boolean enabledByDefault() default true;
+    boolean alwaysEnabled() default false;
     boolean client() default true;
     boolean server() default true;
 }

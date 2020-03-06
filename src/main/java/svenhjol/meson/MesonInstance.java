@@ -11,6 +11,7 @@ import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import svenhjol.meson.handler.LogHandler;
+import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.loader.ModuleLoader;
 
 import java.util.List;
@@ -22,12 +23,14 @@ public class MesonInstance
 
     private String id;
     private ModuleLoader moduleLoader;
+    private PacketHandler packetHandler;
 
     public MesonInstance(String id, LogHandler log)
     {
         this.id = id;
         this.log = log;
         this.moduleLoader = new ModuleLoader(this);
+        this.packetHandler = new PacketHandler(this);
 
         Meson.INSTANCE.register(this);
 
@@ -47,14 +50,35 @@ public class MesonInstance
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> forEachModule(MesonModule::initClient));
     }
 
+    public static ModuleLoader getModuleLoader(String modId)
+    {
+        return Meson.INSTANCE.getInstance(modId).getModuleLoader();
+    }
+
+    public static PacketHandler getPacketHandler(String modId)
+    {
+        return Meson.INSTANCE.getInstance(modId).getPacketHandler();
+    }
+
     public String getId()
     {
         return id;
     }
 
+    public PacketHandler getPacketHandler()
+    {
+        return packetHandler;
+    }
+
+    public ModuleLoader getModuleLoader()
+    {
+        return moduleLoader;
+    }
+
     public void onCommonSetup(FMLCommonSetupEvent event)
     {
         moduleLoader.refreshConfig();
+        moduleLoader.refreshShouldRunSetup();
 
         forEachEnabledModule(module -> {
             log.info("Loading module " + module.getName());
@@ -82,7 +106,8 @@ public class MesonInstance
 
     public void onModConfig(ModConfig.ModConfigEvent event)
     {
-        moduleLoader.refreshConfig();
+        moduleLoader.refreshShouldRunSetup();
+
         forEachEnabledModule(module -> module.onModConfig(event));
     }
 

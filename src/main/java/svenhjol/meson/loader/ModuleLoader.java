@@ -34,7 +34,7 @@ public class ModuleLoader
     private static final String DESCRIPTION = "description";
     private static final String HAS_SUBSCRIPTIONS = "hasSubscriptions";
     private static final String ENABLED_BY_DEFAULT = "enabledByDefault";
-    private static final String CHILD_OF = "childOf";
+    private static final String ALWAYS_ENABLED = "alwaysEnabled";
     private static final String CLIENT = "client";
     private static final String SERVER = "server";
 
@@ -44,6 +44,7 @@ public class ModuleLoader
     private ModConfig config;
     private List<MesonModule> modules = new ArrayList<>();
     private List<Runnable> refreshConfig = new ArrayList<>();
+    private List<Runnable> refreshShouldRunSetup = new ArrayList<>();
     private List<MesonModule> enabledModules = new ArrayList<>();
     private Map<String, MesonModule> enabledModulesByIndex = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, List<MesonModule>> categories = new HashMap<>();
@@ -80,11 +81,10 @@ public class ModuleLoader
                 module.description = data.containsKey(DESCRIPTION) ? (String) data.get(DESCRIPTION) : "";
                 module.hasSubscriptions = data.containsKey(HAS_SUBSCRIPTIONS) ? (Boolean) data.get(HAS_SUBSCRIPTIONS) : false;
                 module.enabledByDefault = data.containsKey(ENABLED_BY_DEFAULT) ? (Boolean) data.get(ENABLED_BY_DEFAULT) : true;
-                module.childOf = data.containsKey(CHILD_OF) ? (String) data.get(CHILD_OF) : null;
+                module.alwaysEnabled = data.containsKey(ALWAYS_ENABLED) ? (Boolean) data.get(ALWAYS_ENABLED) : false;
 
-                if (!categories.containsKey(module.category)) {
+                if (!categories.containsKey(module.category))
                     categories.put(module.category, new ArrayList<>());
-                }
 
                 // add to category and to full module set
                 categories.get(module.category).add(module);
@@ -173,21 +173,20 @@ public class ModuleLoader
         modules.forEach(module -> {
             instance.log.info("Creating config for module " + module.getName());
 
-            if (module.childOf != null && !module.childOf.isEmpty()) {
+            if (module.alwaysEnabled) {
+                module.enabled = true;
+                addEnabledModule(module);
+            } else {
+                if (!module.description.isEmpty()) builder.comment(module.description);
+                ForgeConfigSpec.ConfigValue<Boolean> val = builder.define(module.getName() + " enabled", module.enabledByDefault);
                 refreshConfig.add(() -> {
-                    MesonModule parentModule = getModule(module.childOf);
-                    module.enabled = parentModule != null && parentModule.enabled;
+                    module.enabled = val.get();
                     addEnabledModule(module);
                 });
-                return;
             }
 
-            if (!module.description.isEmpty()) builder.comment(module.description);
-            ForgeConfigSpec.ConfigValue<Boolean> val = builder.define(module.getName() + " enabled", module.enabledByDefault);
-
-            refreshConfig.add(() -> {
-                Boolean configEnabled = val.get();
-                module.enabled = configEnabled && module.shouldBeEnabled();
+            refreshShouldRunSetup.add(() -> {
+                module.enabled = module.enabled && module.shouldRunSetup();
                 addEnabledModule(module);
             });
         });
@@ -255,6 +254,14 @@ public class ModuleLoader
     public void refreshConfig()
     {
         refreshConfig.forEach(Runnable::run);
+    }
+
+    /**
+     * Called by Meson before running common/client setups
+     */
+    public void refreshShouldRunSetup()
+    {
+        refreshShouldRunSetup.forEach(Runnable::run);
     }
 
     public Map<String, List<MesonModule>> getCategories()

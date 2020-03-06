@@ -146,9 +146,17 @@ public class RegistryHandler
         Class<?> type = registry.getRegistrySuperType();
 
         if (objects.containsKey(type)) {
-            objects.get(type).forEach(e -> {
-                Meson.LOG.debug(REGISTRY, "Registering to " + registry.getRegistryName() + " - " + e.getRegistryName());
-                registry.register(e);
+            objects.get(type).forEach(o -> {
+                if (o == null) {
+                    Meson.LOG.error(REGISTRY, "OBJECT IS NULL, THIS IS BAD");
+                    return;
+                }
+                try {
+                    Meson.LOG.debug(REGISTRY, "Registering to " + registry.getRegistryName() + " - " + o.getRegistryName());
+                    registry.register(o);
+                } catch (Exception e) {
+                    Meson.LOG.error(REGISTRY, "FAILED TO REGISTER OBJECT " + o + ": " + e.getMessage());
+                }
             });
             objects.remove(type);
         }

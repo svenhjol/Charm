@@ -79,6 +79,15 @@ public class Meson
         }
     }
 
+    public static MesonInstance getInstance(String modId)
+    {
+        if (instances.containsKey(modId)) {
+            return instances.get(modId);
+        } else {
+            throw new RuntimeException("No such instance " + modId);
+        }
+    }
+
     public static boolean isModuleEnabled(String res)
     {
         return isModuleEnabled(new ResourceLocation(res));
