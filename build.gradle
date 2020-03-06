@@ -52,7 +52,7 @@ dependencies {
     compile fg.deobf("vazkii.quark:Quark:${quark_version}")
 
     // locals
-    runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${waila_version}")
+//    runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${waila_version}")
 }
 
 repositories {
@@ -67,17 +67,12 @@ repositories {
 
     maven { // for HWYLA
         name 'Mobius'
-        url "https://tehnut.info/maven"
+        url "https://tehnut.info/maven/mcp/mobius/waila/Hwyla/1.14.2-1.9.17-66/"
     }
 
     maven { // for AutoRegLib and Quark
         name "blamejared"
         url "http://maven.blamejared.com/"
-    }
-
-    // local mods
-    flatDir {
-        dirs "libs"
     }
 }
 
