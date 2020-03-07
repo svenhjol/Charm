@@ -8,11 +8,11 @@ public abstract class MesonEffect extends Effect implements IMesonEffect
 {
     protected MesonModule module;
 
-    public MesonEffect(MesonModule module, EffectType effectType, int color)
+    public MesonEffect(MesonModule module, EffectType effectType, String name, int color)
     {
         super(effectType, color);
         this.module = module;
-        register(module,"coffee_effect");
+        register(module, name);
     }
 
     protected void addEffect(Effect effect)
