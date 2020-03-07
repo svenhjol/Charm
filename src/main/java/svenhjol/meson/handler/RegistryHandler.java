@@ -1,5 +1,6 @@
 package svenhjol.meson.handler;
 
+import com.google.common.collect.ArrayListMultimap;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
@@ -30,17 +31,15 @@ import org.apache.logging.log4j.MarkerManager;
 import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IMesonBlock;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
+import java.util.function.Supplier;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = MOD)
 public class RegistryHandler {
-    public static Map<Class<?>, List<IForgeRegistryEntry<?>>> objects = new HashMap<>();
+    public static ArrayListMultimap<Class<?>, Supplier<IForgeRegistryEntry<?>>> queued = ArrayListMultimap.create();
     public static final Marker REGISTRY = MarkerManager.getMarker("REGISTRY").addParents(Meson.INTERNAL);
 
     public static void registerBlock(Block block, ResourceLocation res) {
@@ -124,41 +123,37 @@ public class RegistryHandler {
         IForgeRegistry registry = event.getRegistry();
         Class<?> type = registry.getRegistrySuperType();
 
-        if (objects.containsKey(type)) {
-            objects.get(type).forEach(o -> {
-                if (o == null) {
+        if (queued.containsKey(type)) {
+            Collection<Supplier<IForgeRegistryEntry<?>>> objects = queued.get(type);
+            for(Supplier<IForgeRegistryEntry<?>> supplier : objects) {
+                IForgeRegistryEntry<?> obj = supplier.get();
+                if (obj == null) {
                     Meson.LOG.error(REGISTRY, "Trying to register null object");
                     return;
                 }
                 try {
-                    Meson.LOG.debug(REGISTRY, "Registering to " + registry.getRegistryName() + " - " + o.getRegistryName());
-                    registry.register(o);
+                    Meson.LOG.debug(REGISTRY, "Registering to " + registry.getRegistryName() + " - " + obj.getRegistryName());
+                    registry.register(obj);
                 } catch (Exception e) {
-                    Meson.LOG.error(REGISTRY, "Failed to register object " + o + ": " + e.getMessage());
+                    Meson.LOG.error(REGISTRY, "Failed to register object " + obj + ": " + e.getMessage());
                 }
-            });
-            objects.remove(type);
+            }
+            queued.removeAll(type);
         }
     }
 
     public static void addRegisterable(IForgeRegistryEntry<?> obj, ResourceLocation res) {
         Class<?> type = obj.getRegistryType();
-        if (!objects.containsKey(type)) objects.put(type, new ArrayList<>());
 
-        if (!(objects.containsKey(type) && objects.get(type).contains(obj))) {
-            if (res == null && obj.getRegistryName() == null) {
-                Meson.LOG.error(REGISTRY, "Object has empty name: " + obj);
-                return; // can't set it
-            }
-
-            if (obj.getRegistryName() == null && res != null) {
-                obj.setRegistryName(GameData.checkPrefix(res.toString(), false));
-            }
-            objects.get(type).add(obj);
-            Meson.LOG.debug(REGISTRY, "Queueing " + obj.getRegistryName());
-
-        } else {
-            Meson.LOG.warn(REGISTRY, "Object already queued: " + obj);
+        if (res == null && obj.getRegistryName() == null) {
+            Meson.LOG.error(REGISTRY, "Object has empty name: " + obj);
+            return; // can't set it
         }
+
+        if (obj.getRegistryName() == null && res != null) {
+            obj.setRegistryName(GameData.checkPrefix(res.toString(), false));
+        }
+        queued.put(type, () -> obj);
+        Meson.LOG.debug(REGISTRY, "Queueing " + obj.getRegistryName());
     }
 }
