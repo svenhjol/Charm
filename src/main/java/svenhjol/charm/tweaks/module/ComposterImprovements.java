@@ -17,12 +17,14 @@ import svenhjol.meson.iface.Module;
 
 import java.util.*;
 
-@SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true)
 public class ComposterImprovements extends MesonModule {
     @Config(name = "Input items", description = "List of extra items that may be composted.\n" +
         "Specify the compost level chance (out of 1.0) after the item name.")
-    public static List<String> inputItems = Arrays.asList("minecraft:rotten_flesh=0.3");
+    public static List<String> inputItems = Arrays.asList(
+        "minecraft:rotten_flesh=0.3",
+        "minecraft:spider_eye=0.2"
+    );
 
     @Config(name = "Output items", description = "List of extra items that can be returned from the composter.")
     public static List<String> outputItems = Arrays.asList(
