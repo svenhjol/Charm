@@ -10,7 +10,7 @@ public class CoffeeEffect extends MesonEffect
 {
     public CoffeeEffect(MesonModule module)
     {
-        super(module, EffectType.BENEFICIAL, Coffee.color);
+        super(module, EffectType.BENEFICIAL, "coffee_effect", Coffee.color);
 
         addEffect(Effects.STRENGTH);
         addEffect(Effects.HASTE);

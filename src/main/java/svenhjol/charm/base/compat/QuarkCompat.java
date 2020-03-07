@@ -40,7 +40,7 @@ public class QuarkCompat
         if (!repairable) return;
 
         int currentDamage = l.getDamage(left);
-        int maxDamage = l.getMaxDamage();
+        int maxDamage = left.getMaxDamage();
 
         if (currentDamage == 0) return;
 
@@ -70,11 +70,15 @@ public class QuarkCompat
 
         if (isRune(stack)) {
             RuneItem item = (RuneItem)stack.getItem();
-            String colorName = item.getRegistryName().getPath().replace("_rune", "").toUpperCase();
+            ResourceLocation itemRegName = item.getRegistryName();
+            if (itemRegName == null)
+                return null;
+
+            String colorName = itemRegName.getPath().replace("_rune", "").toUpperCase();
             try {
                 color = ColorVariant.valueOf(colorName);
             } catch (Exception e) {
-                Meson.debug("Failed to get color of rune" + stack.getItem());
+                Meson.LOG.debug("Failed to get color of rune" + stack.getItem());
                 return null;
             }
         }

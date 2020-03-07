@@ -66,6 +66,7 @@ public class EndPortalRunes extends MesonModule
     public static long clientLinkedTicks;
 
     @Override
+    @SuppressWarnings({"ConstantConditions"})
     public void init()
     {
         portal = new RunePortalBlock(this);
@@ -166,20 +167,20 @@ public class EndPortalRunes extends MesonModule
     public static void addRune(ServerWorld world, BlockPos pos, ItemStack rune, @Nullable PlayerEntity player)
     {
         BlockState state = world.getBlockState(pos);
-        Direction facing = null;
+        Direction facing;
 
         if (state.getBlock() == Blocks.END_PORTAL_FRAME) {
             facing = state.get(EndPortalFrameBlock.FACING);
         } else if (state.getBlock() == frame) {
             facing = state.get(RunePortalFrameBlock.FACING);
         } else {
-            Meson.debug("Not a frame block: " + state);
+            Meson.LOG.debug("Not a frame block: " + state);
             return;
         }
 
         ColorVariant color = Charm.quarkCompat.getRuneColor(rune);
         if (color == null) {
-            Meson.debug("Failed to add rune");
+            Meson.LOG.debug("Failed to add rune");
             return;
         }
 
@@ -292,7 +293,7 @@ public class EndPortalRunes extends MesonModule
         BlockPos cachedPortal = data.links.get(portal);
         if (cachedPortal != null) {
             data.links.remove(cachedPortal);
-            Meson.debug("EndPortalRunes: [CACHE] clearing cached link: " + cachedPortal);
+            Meson.LOG.debug("EndPortalRunes: [CACHE] clearing cached link: " + cachedPortal);
         }
 
         data.links.clear();
@@ -311,10 +312,10 @@ public class EndPortalRunes extends MesonModule
             BlockPos linkedPortal = data.links.get(thisPortal);
             if (linkedPortal != null) {
                 if (data.portals.containsKey(linkedPortal)) {
-                    Meson.debug("EndPortalRunes: [CACHE] found portal: " + linkedPortal);
+                    Meson.LOG.debug("EndPortalRunes: [CACHE] found portal: " + linkedPortal);
                     return linkedPortal;
                 } else {
-                    Meson.debug("EndPortalRunes: [CACHE] cleaning unlinked portal: " + linkedPortal);
+                    Meson.LOG.debug("EndPortalRunes: [CACHE] cleaning unlinked portal: " + linkedPortal);
                     data.links.remove(thisPortal);
                 }
                 data.markDirty();
@@ -351,7 +352,7 @@ public class EndPortalRunes extends MesonModule
             }
         }
 
-        Meson.debug("EndPortalRunes: found matching portal, caching it: " + foundPortal);
+        Meson.LOG.debug("EndPortalRunes: found matching portal, caching it: " + foundPortal);
 
         // cache portal both ways
         data.links.put(thisPortal, foundPortal);

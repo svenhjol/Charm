@@ -73,7 +73,7 @@ public class AmbientMusicClient
             SoundHelper.getPlayingSounds().forEach((category, sound) -> {
                 if (category == SoundCategory.RECORDS) {
                     musicToStop = triggered;
-                    Meson.debug("Triggered background music while record playing");
+                    Meson.LOG.debug("Triggered background music while record playing");
                 }
             });
         }

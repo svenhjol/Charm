@@ -12,7 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.WorldHelper;
+import svenhjol.meson.helper.BiomeHelper;
 import svenhjol.meson.iface.Module;
 
 import java.util.Arrays;
@@ -49,7 +49,7 @@ public class MoreVillageBiomes extends MesonModule
             VillagerData data = villager.getVillagerData();
 
             if (data.getType() == IVillagerType.PLAINS) {
-                Biome biome = WorldHelper.getBiomeAtPos(event.getWorld(), event.getEntity().getPosition());
+                Biome biome = BiomeHelper.getBiomeAtPos(event.getWorld(), event.getEntity().getPosition());
 
                 if (plainsBiomes.contains(biome)) {
                     villager.setVillagerData(data.withType(IVillagerType.byBiome(biome)));

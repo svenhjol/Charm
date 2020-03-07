@@ -22,6 +22,5 @@ public class BookshelfChestSlot extends Slot
     public void onSlotChanged()
     {
         super.onSlotChanged();
-//        Meson.log("Something happened");
     }
 }

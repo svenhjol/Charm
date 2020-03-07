@@ -27,7 +27,7 @@ public class RemoveNitwits extends MesonModule
 
             if (data.getProfession() == VillagerProfession.NITWIT) {
                 villager.setVillagerData(data.withProfession(VillagerProfession.NONE));
-                Meson.debug("Changed nitwit's profession to NONE");
+                Meson.LOG.debug("Changed nitwit's profession to NONE");
             }
         }
     }
