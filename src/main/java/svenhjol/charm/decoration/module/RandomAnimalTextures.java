@@ -20,8 +20,7 @@ import java.util.UUID;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION,
     description = "Wolves will spawn with texture variants.")
-public class RandomAnimalTextures extends MesonModule
-{
+public class RandomAnimalTextures extends MesonModule {
     public static List<String> wolves = Arrays.asList(
         "minecraft:wolf",
         "charm:brownwolf",
@@ -31,23 +30,20 @@ public class RandomAnimalTextures extends MesonModule
         "charm:jupiter1390"
     );
 
-    public enum MobType implements IMesonEnum
-    {
+    public enum MobType implements IMesonEnum {
         WOLF
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onClientSetup(FMLClientSetupEvent event)
-    {
+    public void onClientSetup(FMLClientSetupEvent event) {
         if (enabled)
             //noinspection unchecked
             RenderingRegistry.registerEntityRenderingHandler(WolfEntity.class, CustomWolfRenderer.factory());
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static ResourceLocation getWolfTexture(WolfEntity entity)
-    {
+    public static ResourceLocation getWolfTexture(WolfEntity entity) {
         String texture = getRandomTexture(entity, wolves);
         if (entity.isTamed()) {
             texture += "_tame";
@@ -58,15 +54,13 @@ public class RandomAnimalTextures extends MesonModule
         return getTextureFromString(MobType.WOLF, texture);
     }
 
-    public static String getRandomTexture(Entity entity, List<String> set)
-    {
+    public static String getRandomTexture(Entity entity, List<String> set) {
         UUID id = entity.getUniqueID();
-        int choice = Math.abs( (int)(id.getMostSignificantBits() % set.size()) );
+        int choice = Math.abs((int) (id.getMostSignificantBits() % set.size()));
         return set.get(choice);
     }
 
-    public static ResourceLocation getTextureFromString(MobType type, String texture)
-    {
+    public static ResourceLocation getTextureFromString(MobType type, String texture) {
         String prefix = "textures/entity/" + type.getName() + "/";
         String[] a = texture.split(":");
         return new ResourceLocation(a[0], prefix + a[1] + ".png");

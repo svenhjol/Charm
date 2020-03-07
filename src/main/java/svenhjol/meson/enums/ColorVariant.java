@@ -4,8 +4,7 @@ import svenhjol.meson.iface.IMesonEnum;
 
 import java.util.Random;
 
-public enum ColorVariant implements IMesonEnum
-{
+public enum ColorVariant implements IMesonEnum {
     WHITE,
     ORANGE,
     MAGENTA,
@@ -32,21 +31,18 @@ public enum ColorVariant implements IMesonEnum
         }
     }
 
-    public static ColorVariant byIndex(int meta)
-    {
+    public static ColorVariant byIndex(int meta) {
         if (meta < 0 || meta >= METADATA_LOOKUP.length) {
             meta = 0;
         }
         return METADATA_LOOKUP[meta];
     }
 
-    public static int byColor(ColorVariant variant)
-    {
+    public static int byColor(ColorVariant variant) {
         return variant.ordinal();
     }
 
-    public static ColorVariant random()
-    {
+    public static ColorVariant random() {
         return byIndex(new Random().nextInt(values().length));
     }
 }

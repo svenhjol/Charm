@@ -21,18 +21,16 @@ import svenhjol.meson.enums.WoodType;
 
 import java.util.List;
 
-public class CrateOpenBlock extends CrateBaseBlock
-{
+@SuppressWarnings("deprecation")
+public class CrateOpenBlock extends CrateBaseBlock {
     public static final ResourceLocation CONTENTS = new ResourceLocation("contents");
 
-    public CrateOpenBlock(MesonModule module, WoodType wood)
-    {
+    public CrateOpenBlock(MesonModule module, WoodType wood) {
         super(module, "crate_open_" + wood.getName(), wood);
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
-    {
+    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (world.isRemote) {
             return true;
         } else if (player.isSpectator()) {
@@ -40,7 +38,7 @@ public class CrateOpenBlock extends CrateBaseBlock
         } else {
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof CrateTileEntity) {
-                CrateTileEntity crate = (CrateTileEntity)tile;
+                CrateTileEntity crate = (CrateTileEntity) tile;
                 crate.fillWithLoot(player);
                 player.openContainer(crate);
                 /* @todo stats, see ShulkerBoxBlock */
@@ -51,11 +49,10 @@ public class CrateOpenBlock extends CrateBaseBlock
     }
 
     @Override
-    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player)
-    {
+    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof CrateTileEntity) {
-            CrateTileEntity crate = (CrateTileEntity)tile;
+            CrateTileEntity crate = (CrateTileEntity) tile;
             if (!world.isRemote && player.isCreative()) {
                 ItemStack stack = new ItemStack(getBlockByWood(this.wood));
                 CompoundNBT tag = crate.write(new CompoundNBT());
@@ -76,8 +73,7 @@ public class CrateOpenBlock extends CrateBaseBlock
     }
 
     @Override
-    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder)
-    {
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         TileEntity tile = builder.get(LootParameters.BLOCK_ENTITY);
         if (tile instanceof CrateTileEntity) {
             CrateTileEntity crate = (CrateTileEntity) tile;
@@ -90,8 +86,7 @@ public class CrateOpenBlock extends CrateBaseBlock
         return super.getDrops(state, builder);
     }
 
-    public static Block getBlockByWood(WoodType wood)
-    {
+    public static Block getBlockByWood(WoodType wood) {
         return Crates.openTypes.get(wood);
     }
 }

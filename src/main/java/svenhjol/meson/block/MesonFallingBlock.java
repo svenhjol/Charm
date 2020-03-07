@@ -8,33 +8,28 @@ import net.minecraft.util.NonNullList;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.IMesonBlock;
 
-public abstract class MesonFallingBlock extends FallingBlock implements IMesonBlock
-{
+public abstract class MesonFallingBlock extends FallingBlock implements IMesonBlock {
     protected MesonModule module;
 
-    public MesonFallingBlock(MesonModule module, String name, Block.Properties props)
-    {
+    public MesonFallingBlock(MesonModule module, String name, Block.Properties props) {
         super(props);
         this.module = module;
         register(module, name);
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.BUILDING_BLOCKS;
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
-    {
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         if (isEnabled())
             super.fillItemGroup(group, items);
     }
 
     @Override
-    public boolean isEnabled()
-    {
+    public boolean isEnabled() {
         return module.enabled;
     }
 }

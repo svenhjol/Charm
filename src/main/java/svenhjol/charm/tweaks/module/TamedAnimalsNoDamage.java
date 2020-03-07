@@ -15,11 +15,9 @@ import svenhjol.meson.iface.Module;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "Tamed animals no longer take direct damage from players.\n" +
         "They still suffer secondary effects, such as burning.")
-public class TamedAnimalsNoDamage extends MesonModule
-{
+public class TamedAnimalsNoDamage extends MesonModule {
     @SubscribeEvent
-    public void onPlayerAttack(AttackEntityEvent event)
-    {
+    public void onPlayerAttack(AttackEntityEvent event) {
         if (!event.isCanceled()
             && event.getTarget() instanceof TameableEntity
             && event.getEntity() instanceof PlayerEntity
@@ -31,8 +29,7 @@ public class TamedAnimalsNoDamage extends MesonModule
     }
 
     @SubscribeEvent
-    public void onDamage(LivingHurtEvent event)
-    {
+    public void onDamage(LivingHurtEvent event) {
         if (!event.isCanceled()
             && (!(event.getEntityLiving() instanceof PlayerEntity))
         ) {
@@ -40,13 +37,13 @@ public class TamedAnimalsNoDamage extends MesonModule
             Entity source = event.getSource().getTrueSource();
             PlayerEntity player = null;
 
-            if (source instanceof PlayerEntity) player = (PlayerEntity)source;
-            if (attacker instanceof PlayerEntity) player = (PlayerEntity)attacker;
+            if (source instanceof PlayerEntity) player = (PlayerEntity) source;
+            if (attacker instanceof PlayerEntity) player = (PlayerEntity) attacker;
 
             if (player != null && !player.isCreative()) {
                 LivingEntity target = event.getEntityLiving();
                 if (target instanceof TameableEntity
-                    && ((TameableEntity)target).isTamed()
+                    && ((TameableEntity) target).isTamed()
                 ) {
                     event.setCanceled(true);
                 }

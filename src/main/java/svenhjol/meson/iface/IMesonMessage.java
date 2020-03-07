@@ -1,6 +1,5 @@
 package svenhjol.meson.iface;
 
-public interface IMesonMessage
-{
+public interface IMesonMessage {
 
 }

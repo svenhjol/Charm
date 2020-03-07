@@ -25,15 +25,13 @@ import svenhjol.meson.iface.IMesonBlock;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
-{
+public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock {
     public String baseName;
     public String modName;
     public String potionName;
     private MesonModule module;
 
-    public FlavoredCakeBlock(MesonModule module, String modName, String potionName)
-    {
+    public FlavoredCakeBlock(MesonModule module, String modName, String potionName) {
         // init block
         super(Block.Properties
             .create(Material.CAKE)
@@ -50,34 +48,29 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.FOOD;
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
-    {
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         if (isEnabled() && group == ItemGroup.SEARCH) {
             super.fillItemGroup(group, items);
         }
     }
 
     @Override
-    public boolean isEnabled()
-    {
+    public boolean isEnabled() {
         return module.enabled;
     }
 
     @Override
-    public int getMaxStackSize()
-    {
+    public int getMaxStackSize() {
         return 1;
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult block)
-    {
+    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult block) {
         if (!world.isRemote) {
             if (super.onBlockActivated(state, world, pos, player, hand, block)) {
                 this.onEaten(player);
@@ -88,8 +81,7 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
         return false;
     }
 
-    public void onEaten(PlayerEntity player)
-    {
+    public void onEaten(PlayerEntity player) {
         // get the potion
         Potion potion = getPotion();
         ItemStack potionItem = PotionHelper.getPotionItemStack(potion, 1);
@@ -104,19 +96,18 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock
         if (duration == 0) duration = 10;
 
         for (EffectInstance effectInstance : PotionUtils.getEffectsFromStack(potionItem)) {
-            EffectInstance effect = new EffectInstance(effectInstance.getPotion(), (int)(duration * FlavoredCake.multiplier));
+            EffectInstance effect = new EffectInstance(effectInstance.getPotion(), (int) (duration * FlavoredCake.multiplier));
             player.addPotionEffect(effect);
         }
     }
 
     @Nullable
-    public Potion getPotion()
-    {
+    public Potion getPotion() {
         Potion potion = null;
         String longName = modName + ":long_" + potionName;
         String shortName = modName + ":short_" + potionName;
 
-        String[] names = new String[] { longName, shortName, potionName };
+        String[] names = new String[]{longName, shortName, potionName};
         for (String name : names) {
             potion = Potion.getPotionTypeForName(name);
             if (!potion.getEffects().isEmpty()) break;

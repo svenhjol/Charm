@@ -22,18 +22,15 @@ import java.util.Map;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING,
     description = "An item with the Salvage enchantment drops its enchantments to a book before being destroyed.\n")
-public class Salvage extends MesonModule
-{
+public class Salvage extends MesonModule {
     public static SalvageEnchantment enchantment;
 
     @Override
-    public void init()
-    {
+    public void init() {
         enchantment = new SalvageEnchantment(this);
     }
 
-    public static void itemDamaged(ItemStack stack, int amount, @Nullable ServerPlayerEntity player)
-    {
+    public static void itemDamaged(ItemStack stack, int amount, @Nullable ServerPlayerEntity player) {
         if (stack.getDamage() >= stack.getMaxDamage()
             && EnchantmentsHelper.hasEnchantment(enchantment, stack)
             && player != null

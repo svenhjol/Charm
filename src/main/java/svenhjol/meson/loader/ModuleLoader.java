@@ -25,8 +25,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public class ModuleLoader
-{
+public class ModuleLoader {
     // Module file annotation magic strings
     private static final String MOD = "mod";
     private static final String CATEGORY = "category";
@@ -49,16 +48,14 @@ public class ModuleLoader
     private Map<String, MesonModule> enabledModulesByIndex = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, List<MesonModule>> categories = new HashMap<>();
 
-    public ModuleLoader(MesonInstance instance)
-    {
+    public ModuleLoader(MesonInstance instance) {
         this.instance = instance;
 
         setupModules();
         setupConfig();
     }
 
-    private void setupModules()
-    {
+    private void setupModules() {
         // instantiate and gather all modules into categories
         ModFileScanData result = ModList.get().getModFileById(instance.getId()).getFile().getScanResult();
 
@@ -71,8 +68,10 @@ public class ModuleLoader
                 String moduleClass = target.getClassType().getClassName();
                 Map<String, Object> data = target.getAnnotationData();
 
-                if (data.containsKey(CLIENT) && !(boolean)data.get(CLIENT) && FMLEnvironment.dist == Dist.CLIENT) return;
-                if (data.containsKey(SERVER) && !(boolean)data.get(SERVER) && FMLEnvironment.dist == Dist.DEDICATED_SERVER) return;
+                if (data.containsKey(CLIENT) && !(boolean) data.get(CLIENT) && FMLEnvironment.dist == Dist.CLIENT)
+                    return;
+                if (data.containsKey(SERVER) && !(boolean) data.get(SERVER) && FMLEnvironment.dist == Dist.DEDICATED_SERVER)
+                    return;
 
                 MesonModule module = (MesonModule) Class.forName(moduleClass).newInstance();
                 module.mod = (String) data.get(MOD);
@@ -98,8 +97,7 @@ public class ModuleLoader
         });
     }
 
-    private void setupConfig()
-    {
+    private void setupConfig() {
         // build the config tree
         ForgeConfigSpec spec = new ForgeConfigSpec.Builder().configure(this::build).getRight();
 
@@ -113,8 +111,7 @@ public class ModuleLoader
         this.refreshConfig();
     }
 
-    private void earlyConfigHack()
-    {
+    private void earlyConfigHack() {
         List<String> lines;
 
         Path path = FMLPaths.CONFIGDIR.get();
@@ -156,8 +153,7 @@ public class ModuleLoader
         }
     }
 
-    private Void build(ForgeConfigSpec.Builder builder)
-    {
+    private Void build(ForgeConfigSpec.Builder builder) {
         getCategories().forEach((category, modules) -> {
             builder.push(category);
             buildCategory(builder, modules);
@@ -167,8 +163,7 @@ public class ModuleLoader
         return null;
     }
 
-    private void buildCategory(ForgeConfigSpec.Builder builder, List<MesonModule> modules)
-    {
+    private void buildCategory(ForgeConfigSpec.Builder builder, List<MesonModule> modules) {
         // for each module create a config to enable/disable it
         modules.forEach(module -> {
             instance.log.info("Creating config for module " + module.getName());
@@ -201,8 +196,7 @@ public class ModuleLoader
         });
     }
 
-    private void buildModule(ForgeConfigSpec.Builder builder, MesonModule module)
-    {
+    private void buildModule(ForgeConfigSpec.Builder builder, MesonModule module) {
         // get the annotated fields
         List<Field> fields = new ArrayList<>(Arrays.asList(module.getClass().getDeclaredFields()));
         fields.forEach(field -> {
@@ -213,8 +207,7 @@ public class ModuleLoader
         });
     }
 
-    private void pushConfig(ForgeConfigSpec.Builder builder, MesonModule module, Field field, Config config)
-    {
+    private void pushConfig(ForgeConfigSpec.Builder builder, MesonModule module, Field field, Config config) {
         field.setAccessible(true);
 
         // get the config name, fallback to the field name
@@ -253,46 +246,38 @@ public class ModuleLoader
     /**
      * Called by the Forge config reload event to reset all the module enabled/disabled flags.
      */
-    public void refreshConfig()
-    {
+    public void refreshConfig() {
         refreshConfig.forEach(Runnable::run);
     }
 
     /**
      * Called by Meson before running common/client setups
      */
-    public void refreshShouldRunSetup()
-    {
+    public void refreshShouldRunSetup() {
         refreshShouldRunSetup.forEach(Runnable::run);
     }
 
-    public Map<String, List<MesonModule>> getCategories()
-    {
+    public Map<String, List<MesonModule>> getCategories() {
         return categories;
     }
 
-    public List<MesonModule> getModules()
-    {
+    public List<MesonModule> getModules() {
         return modules;
     }
 
-    public List<MesonModule> getEnabledModules()
-    {
+    public List<MesonModule> getEnabledModules() {
         return enabledModules;
     }
 
-    public boolean isModuleEnabled(String module)
-    {
+    public boolean isModuleEnabled(String module) {
         return enabledModulesByIndex.containsKey(module);
     }
 
-    public MesonModule getModule(String module)
-    {
+    public MesonModule getModule(String module) {
         return enabledModulesByIndex.get(module);
     }
 
-    private void addEnabledModule(MesonModule module)
-    {
+    private void addEnabledModule(MesonModule module) {
         if (module.enabled && !enabledModules.contains(module)) {
             enabledModules.add(module);
             enabledModulesByIndex.put(module.getName(), module);

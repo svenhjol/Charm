@@ -8,13 +8,11 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION,
     description = "Gold version of the vanilla lantern.")
-public class GoldLanterns extends MesonModule
-{
+public class GoldLanterns extends MesonModule {
     public static GoldLanternBlock block;
 
     @Override
-    public void init()
-    {
+    public void init() {
         block = new GoldLanternBlock(this);
     }
 }

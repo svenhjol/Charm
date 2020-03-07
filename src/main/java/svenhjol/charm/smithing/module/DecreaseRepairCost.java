@@ -17,8 +17,7 @@ import java.util.Map;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.SMITHING, hasSubscriptions = true,
     description = "Combine an item with its golden version on an anvil to reduce the original item's repair cost.")
-public class DecreaseRepairCost extends MesonModule
-{
+public class DecreaseRepairCost extends MesonModule {
     public static Map<Item, Class<? extends Item>> tools = new HashMap<>();
     public static Map<Item, EquipmentSlotType> armor = new HashMap<>();
 
@@ -29,8 +28,7 @@ public class DecreaseRepairCost extends MesonModule
     public static int xpCost = 0;
 
     @Override
-    public void init()
-    {
+    public void init() {
         tools.put(Items.GOLDEN_PICKAXE, PickaxeItem.class);
         tools.put(Items.GOLDEN_SHOVEL, ShovelItem.class);
         tools.put(Items.GOLDEN_AXE, AxeItem.class);
@@ -43,15 +41,13 @@ public class DecreaseRepairCost extends MesonModule
     }
 
     @Override
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         if (!Meson.isModuleEnabled("charm:no_anvil_minimum_xp") && xpCost == 0)
             xpCost = 1;
     }
 
     @SubscribeEvent
-    public void onAnvilUpdate(AnvilUpdateEvent event)
-    {
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
         ItemStack left = event.getLeft();
         ItemStack right = event.getRight();
         ItemStack out;
@@ -68,7 +64,7 @@ public class DecreaseRepairCost extends MesonModule
         boolean decrease;
 
         if (l instanceof ArmorItem) {
-            decrease = ((ArmorItem)l).getEquipmentSlot() == armor.get(r);
+            decrease = ((ArmorItem) l).getEquipmentSlot() == armor.get(r);
         } else {
             decrease = l.getClass() == tools.get(r);
         }

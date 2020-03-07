@@ -13,38 +13,32 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RunePortalTileEntity extends TileEntity
-{
+public class RunePortalTileEntity extends TileEntity {
     public BlockPos portal;
     public List<Integer> colors = new ArrayList<>();
 
-    public RunePortalTileEntity()
-    {
+    public RunePortalTileEntity() {
         super(EndPortalRunes.tile);
     }
 
     @Override
-    public void read(CompoundNBT tag)
-    {
+    public void read(CompoundNBT tag) {
         super.read(tag);
         loadFromNBT(tag);
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT tag)
-    {
+    public CompoundNBT write(CompoundNBT tag) {
         CompoundNBT nbt = super.write(tag);
         return writeToNBT(nbt);
     }
 
-    protected void loadFromNBT(CompoundNBT tag)
-    {
+    protected void loadFromNBT(CompoundNBT tag) {
         this.portal = BlockPos.fromLong(tag.getLong("portal"));
         this.colors = Arrays.stream(tag.getIntArray("colors")).boxed().collect(Collectors.toList());
     }
 
-    protected CompoundNBT writeToNBT(CompoundNBT tag)
-    {
+    protected CompoundNBT writeToNBT(CompoundNBT tag) {
         if (portal != null) {
             tag.putLong("portal", portal.toLong());
         }
@@ -56,20 +50,17 @@ public class RunePortalTileEntity extends TileEntity
 
     @Nullable
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket()
-    {
+    public SUpdateTileEntityPacket getUpdatePacket() {
         return new SUpdateTileEntityPacket(this.pos, 3, this.getUpdateTag());
     }
 
     @Override
-    public CompoundNBT getUpdateTag()
-    {
+    public CompoundNBT getUpdateTag() {
         return this.write(new CompoundNBT());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt)
-    {
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
         super.onDataPacket(net, pkt);
         handleUpdateTag(pkt.getNbtCompound());
     }

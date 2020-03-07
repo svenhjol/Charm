@@ -16,10 +16,8 @@ import svenhjol.meson.block.MesonBlock;
 
 import java.util.Random;
 
-public class RottenFleshBlock extends MesonBlock
-{
-    public RottenFleshBlock(final MesonModule module)
-    {
+public class RottenFleshBlock extends MesonBlock {
+    public RottenFleshBlock(final MesonModule module) {
         super(module, "rotten_flesh_block", Block.Properties
             .create(Material.ORGANIC)
             .sound(SoundType.GROUND)
@@ -30,14 +28,13 @@ public class RottenFleshBlock extends MesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.BUILDING_BLOCKS;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void tick(final BlockState state, final World worldIn, final BlockPos pos, final Random random)
-    {
+    public void tick(final BlockState state, final World worldIn, final BlockPos pos, final Random random) {
         super.tick(state, worldIn, pos, random);
 
         if (!worldIn.isRemote) {
@@ -52,9 +49,9 @@ public class RottenFleshBlock extends MesonBlock
 
             final BlockState aboveState = worldIn.getBlockState(pos.up(1));
             final BlockState plantState = worldIn.getBlockState(pos.up(2));
-            if (plantState.getBlock() instanceof IPlantable && aboveState.canSustainPlant(worldIn, pos.up(1), Direction.UP, (IPlantable)plantState.getBlock())) {
+            if (plantState.getBlock() instanceof IPlantable && aboveState.canSustainPlant(worldIn, pos.up(1), Direction.UP, (IPlantable) plantState.getBlock())) {
                 if (plantState.getBlock() instanceof IGrowable) {
-                    final IGrowable growable = (IGrowable)plantState.getBlock();
+                    final IGrowable growable = (IGrowable) plantState.getBlock();
                     if (growable.canGrow(worldIn, pos.up(2), plantState, worldIn.isRemote)) {
                         growable.grow(worldIn, worldIn.rand, pos.up(2), plantState);
                         worldIn.playEvent(2005, pos.up(2), 0);
@@ -66,11 +63,10 @@ public class RottenFleshBlock extends MesonBlock
 
     // copypasta from MyceliumBlock
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(final BlockState state, final World world, final BlockPos pos, final Random rand)
-    {
+    public void animateTick(final BlockState state, final World world, final BlockPos pos, final Random rand) {
         super.animateTick(state, world, pos, rand);
         if (rand.nextInt(10) == 0) {
-            world.addParticle(ParticleTypes.MYCELIUM, (float)pos.getX() + rand.nextFloat(), (float)pos.getY() + 1.1F, (float)pos.getZ() + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
+            world.addParticle(ParticleTypes.MYCELIUM, (float) pos.getX() + rand.nextFloat(), (float) pos.getY() + 1.1F, (float) pos.getZ() + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
         }
     }
 }

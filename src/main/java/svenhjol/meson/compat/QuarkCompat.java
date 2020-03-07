@@ -11,14 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings({"unused", "unchecked"})
-public class QuarkCompat
-{
+public class QuarkCompat {
     public Map<Class<? extends Module>, Module> foundModules;
     public Map<String, Boolean> modules = new HashMap<>();
     public Map<String, Module> nameMap = new HashMap<>();
 
-    public QuarkCompat()
-    {
+    public QuarkCompat() {
         // TODO this is not a great way to get Quark modules but events aren't firing
         Object found = ObfuscationReflectionHelper.getPrivateValue(ModuleLoader.class, ModuleLoader.INSTANCE, "foundModules");
         if (found == null) {
@@ -26,32 +24,28 @@ public class QuarkCompat
             return;
         }
 
-        foundModules = (Map<Class<? extends Module>, Module>)found;
+        foundModules = (Map<Class<? extends Module>, Module>) found;
         for (Module mod : foundModules.values()) {
             nameMap.put(mod.lowercaseName, mod);
         }
     }
 
     // TODO doesn't get fired when event fires
-    public void onModuleLoaded(final ModuleLoadedEvent event)
-    {
+    public void onModuleLoaded(final ModuleLoadedEvent event) {
         modules.put(event.eventName, false);
     }
 
     // TODO doesn't get fired when event fires
-    public void onModuleStateChanged(final ModuleStateChangedEvent event)
-    {
+    public void onModuleStateChanged(final ModuleStateChangedEvent event) {
         modules.put(event.eventName, event.enabled);
     }
 
-    public boolean isModuleEnabled(String name)
-    {
+    public boolean isModuleEnabled(String name) {
         return nameMap.containsKey(name) && nameMap.get(name).enabled;
         // return modules.containsKey(name) && modules.get(name); // TODO events not firing
     }
 
-    public boolean isModulePresent(String name)
-    {
+    public boolean isModulePresent(String name) {
         return nameMap.containsKey(name);
         // return modules.containsKey(name); // TODO events not firing
     }

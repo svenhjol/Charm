@@ -17,19 +17,16 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public class PacketHandler
-{
+public class PacketHandler {
     private int index = 0;
     private final MesonInstance instance;
     private final SimpleChannel channel;
 
-    public PacketHandler(MesonInstance instance)
-    {
+    public PacketHandler(MesonInstance instance) {
         this(instance, "main", 1);
     }
 
-    public PacketHandler(MesonInstance instance, String channelName, int protocol)
-    {
+    public PacketHandler(MesonInstance instance, String channelName, int protocol) {
         this.instance = instance;
         String s = String.valueOf(protocol);
 
@@ -41,22 +38,19 @@ public class PacketHandler
             .simpleChannel();
     }
 
-    public <MSG> void register(Class<MSG> clazz, BiConsumer<MSG, PacketBuffer> encoder, Function<PacketBuffer, MSG> decoder, BiConsumer<MSG, Supplier<NetworkEvent.Context>> messageConsumer)
-    {
+    public <MSG> void register(Class<MSG> clazz, BiConsumer<MSG, PacketBuffer> encoder, Function<PacketBuffer, MSG> decoder, BiConsumer<MSG, Supplier<NetworkEvent.Context>> messageConsumer) {
         instance.log.debug("Registering message " + clazz + ", index " + index);
         channel.registerMessage(index, clazz, encoder, decoder, messageConsumer);
         index++;
     }
 
-    public void sendToAll(IMesonMessage msg)
-    {
+    public void sendToAll(IMesonMessage msg) {
         for (ServerPlayerEntity player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
             sendTo(msg, player);
         }
     }
 
-    public void sendNonLocal(IMesonMessage msg, ServerPlayerEntity player)
-    {
+    public void sendNonLocal(IMesonMessage msg, ServerPlayerEntity player) {
         if (player.server.isDedicatedServer()
             || !player.getGameProfile().getName().equals(player.server.getServerOwner())
         ) {
@@ -66,20 +60,20 @@ public class PacketHandler
 
     /**
      * Send from client to server. Must be called client-side.
+     *
      * @param msg Message to send
      */
-    public void sendToServer(IMesonMessage msg)
-    {
+    public void sendToServer(IMesonMessage msg) {
         this.channel.sendToServer(msg);
     }
 
     /**
      * Send to specific player. Must be called server-side.
-     * @param msg Message to send
+     *
+     * @param msg    Message to send
      * @param player Player to send to
      */
-    public void sendTo(IMesonMessage msg, ServerPlayerEntity player)
-    {
+    public void sendTo(IMesonMessage msg, ServerPlayerEntity player) {
         if (!(player instanceof FakePlayer))
             this.channel.sendTo(msg, player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
     }

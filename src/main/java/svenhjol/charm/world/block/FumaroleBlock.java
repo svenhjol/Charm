@@ -1,6 +1,9 @@
 package svenhjol.charm.world.block;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.IBucketPickupHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
@@ -27,10 +30,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class FumaroleBlock extends MesonBlock
-{
-    public FumaroleBlock(MesonModule module)
-    {
+@SuppressWarnings("deprecation")
+public class FumaroleBlock extends MesonBlock {
+    public FumaroleBlock(MesonModule module) {
         super(module, "fumarole", Block.Properties
             .create(Material.ROCK, MaterialColor.NETHERRACK)
             .hardnessAndResistance(0.4F)
@@ -39,21 +41,18 @@ public class FumaroleBlock extends MesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.BUILDING_BLOCKS;
     }
 
     @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving)
-    {
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (tryAbsorb(worldIn, pos)) {
             erupt(worldIn, pos);
         }
     }
 
-    protected boolean tryAbsorb(World world, BlockPos pos)
-    {
+    protected boolean tryAbsorb(World world, BlockPos pos) {
         boolean absorbed = false;
 
         for (Direction direction : Direction.values()) {
@@ -63,7 +62,7 @@ public class FumaroleBlock extends MesonBlock
 
             if (fluid.isTagged(FluidTags.LAVA)) {
                 if (state.getBlock() instanceof IBucketPickupHandler
-                    && ((IBucketPickupHandler)state.getBlock()).pickupFluid(world, next, state) != Fluids.EMPTY
+                    && ((IBucketPickupHandler) state.getBlock()).pickupFluid(world, next, state) != Fluids.EMPTY
                 ) {
                     absorbed = true;
                 } else if (state.getBlock() == Blocks.LAVA) {
@@ -75,22 +74,21 @@ public class FumaroleBlock extends MesonBlock
         return absorbed;
     }
 
-    protected void erupt(World world, BlockPos pos)
-    {
+    protected void erupt(World world, BlockPos pos) {
         if (!world.isAirBlock(pos.up()) || world.isAirBlock(pos.down())) return;
 
         Random rand = world.rand;
         if (rand.nextFloat() < 0.5F) return;
 
         if (!world.isRemote) {
-            ServerWorld serverWorld = (ServerWorld)world;
+            ServerWorld serverWorld = (ServerWorld) world;
             float spread = 0.05F;
             double px = pos.getX() + 0.5D + (rand.nextFloat() - 0.5D) * spread;
             double py = pos.getY() + 0.5D + (rand.nextFloat() - 0.5D) * spread;
             double pz = pos.getZ() + 0.5D + (rand.nextFloat() - 0.5D) * spread;
-            serverWorld.spawnParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, px, py, pz, 60,-0.2D, 0D, 0D, 0.11D);
-            serverWorld.spawnParticle(ParticleTypes.LARGE_SMOKE, px, py, pz, 60,-0.2D, 0D, 0D, 0.04D);
-            serverWorld.playSound(null, pos, CharmSounds.FUMAROLE_ERUPT, SoundCategory.BLOCKS, (float)Fumaroles.eruptionVolume, 0.85F + (world.rand.nextFloat()) * 0.25F);
+            serverWorld.spawnParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, px, py, pz, 60, -0.2D, 0D, 0D, 0.11D);
+            serverWorld.spawnParticle(ParticleTypes.LARGE_SMOKE, px, py, pz, 60, -0.2D, 0D, 0D, 0.04D);
+            serverWorld.playSound(null, pos, CharmSounds.FUMAROLE_ERUPT, SoundCategory.BLOCKS, (float) Fumaroles.eruptionVolume, 0.85F + (world.rand.nextFloat()) * 0.25F);
         }
 
         AxisAlignedBB bb = new AxisAlignedBB(pos);
@@ -106,15 +104,13 @@ public class FumaroleBlock extends MesonBlock
     }
 
     @Override
-    public void tick(BlockState state, World world, BlockPos pos, Random rand)
-    {
+    public void tick(BlockState state, World world, BlockPos pos, Random rand) {
         super.tick(state, world, pos, rand);
         erupt(world, pos);
     }
 
     @Override
-    public void animateTick(BlockState state, World world, BlockPos pos, Random rand)
-    {
+    public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
         super.animateTick(state, world, pos, rand);
 
         if (rand.nextFloat() < 0.1F) {

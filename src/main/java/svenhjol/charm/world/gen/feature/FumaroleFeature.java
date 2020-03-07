@@ -13,16 +13,13 @@ import svenhjol.charm.world.module.Fumaroles;
 import java.util.Random;
 import java.util.function.Function;
 
-public class FumaroleFeature extends Feature<NoFeatureConfig>
-{
-    public FumaroleFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> config)
-    {
+public class FumaroleFeature extends Feature<NoFeatureConfig> {
+    public FumaroleFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> config) {
         super(config);
     }
 
     @Override
-    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config)
-    {
+    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
         for (int i = 0; i < 64; ++i) {
             BlockPos p = pos.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
             if (worldIn.isAirBlock(p) && worldIn.getBlockState(p.down()).getBlock() == Blocks.NETHERRACK) {

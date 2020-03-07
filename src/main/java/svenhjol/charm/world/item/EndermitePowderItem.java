@@ -13,17 +13,14 @@ import svenhjol.meson.MesonItem;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.WorldHelper;
 
-public class EndermitePowderItem extends MesonItem
-{
-    public EndermitePowderItem(MesonModule module)
-    {
+public class EndermitePowderItem extends MesonItem {
+    public EndermitePowderItem(MesonModule module) {
         super(module, "endermite_powder", new Item.Properties()
             .group(ItemGroup.MISC));
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
-    {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         if (WorldHelper.getDimensionId(worldIn) != 1) {

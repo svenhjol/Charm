@@ -18,14 +18,11 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "As long as a Totem of Undying is in your inventory, it will be consumed to protect you from death.")
-public class UseTotemFromInventory extends MesonModule
-{
+public class UseTotemFromInventory extends MesonModule {
     @SubscribeEvent
-    public void onPlayerDeath(LivingDeathEvent event)
-    {
-        if (!event.isCanceled() && event.getEntityLiving() instanceof PlayerEntity)
-        {
-            PlayerEntity player = (PlayerEntity)event.getEntityLiving();
+    public void onPlayerDeath(LivingDeathEvent event) {
+        if (!event.isCanceled() && event.getEntityLiving() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             PlayerInventory inv = player.inventory;
             ItemStack totem = new ItemStack(Items.TOTEM_OF_UNDYING);
 
@@ -35,7 +32,7 @@ public class UseTotemFromInventory extends MesonModule
 
                 // do the achievement stuff
                 if (player instanceof ServerPlayerEntity) {
-                    ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)player;
+                    ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) player;
                     serverplayerentity.addStat(Stats.ITEM_USED.get(Items.TOTEM_OF_UNDYING));
                     CriteriaTriggers.USED_TOTEM.trigger(serverplayerentity, totem);
                 }
@@ -44,7 +41,7 @@ public class UseTotemFromInventory extends MesonModule
                 player.clearActivePotions();
                 player.addPotionEffect(new EffectInstance(Effects.REGENERATION, 900, 1));
                 player.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 100, 1));
-                player.world.setEntityState(player, (byte)35);
+                player.world.setEntityState(player, (byte) 35);
 
                 // don't actually die
                 event.setCanceled(true);

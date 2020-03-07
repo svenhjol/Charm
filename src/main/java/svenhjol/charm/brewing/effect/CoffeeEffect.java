@@ -6,10 +6,8 @@ import svenhjol.charm.brewing.module.Coffee;
 import svenhjol.meson.MesonEffect;
 import svenhjol.meson.MesonModule;
 
-public class CoffeeEffect extends MesonEffect
-{
-    public CoffeeEffect(MesonModule module)
-    {
+public class CoffeeEffect extends MesonEffect {
+    public CoffeeEffect(MesonModule module) {
         super(module, EffectType.BENEFICIAL, "coffee_effect", Coffee.color);
 
         addEffect(Effects.STRENGTH);

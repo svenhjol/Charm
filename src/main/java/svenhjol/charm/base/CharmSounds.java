@@ -9,8 +9,7 @@ import svenhjol.meson.handler.RegistryHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharmSounds
-{
+public class CharmSounds {
     public static List<SoundEvent> soundsToRegister = new ArrayList<>();
 
     public static final SoundEvent BOOKSHELF_OPEN = createSound("bookshelf_open");
@@ -20,16 +19,14 @@ public class CharmSounds
     public static final SoundEvent FUMAROLE_BUBBLING = createSound("fumarole_bubbling");
     public static final SoundEvent FUMAROLE_ERUPT = createSound("fumarole_erupt");
 
-    public static SoundEvent createSound(String name)
-    {
+    public static SoundEvent createSound(String name) {
         ResourceLocation res = new ResourceLocation(Charm.MOD_ID, name);
         SoundEvent sound = new SoundEvent(res).setRegistryName(res);
         soundsToRegister.add(sound);
         return sound;
     }
 
-    public static void init(MesonInstance instance)
-    {
+    public static void init(MesonInstance instance) {
         soundsToRegister.forEach(RegistryHandler::registerSound);
         instance.log.debug("Registered sounds");
     }

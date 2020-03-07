@@ -8,13 +8,11 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.AUTOMATION,
     description = "A block that emits light according to the strength of the input redstone signal.")
-public class VariableRedstoneLamp extends MesonModule
-{
+public class VariableRedstoneLamp extends MesonModule {
     public static VariableRedstoneLampBlock block;
 
     @Override
-    public void init()
-    {
+    public void init() {
         block = new VariableRedstoneLampBlock(this);
     }
 }

@@ -23,8 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class Meson
-{
+public class Meson {
     public static final String MOD_ID = "Meson";
     public static final Meson INSTANCE = new Meson();
     public static final LogHandler LOG = new LogHandler(MOD_ID);
@@ -47,8 +46,7 @@ public class Meson
         forgeEventBus.register(new PlayerQueueHandler());
     }
 
-    public void register(MesonInstance instance)
-    {
+    public void register(MesonInstance instance) {
         instances.put(instance.getId(), instance);
 
         modEventBus.addListener(this::onCommonSetup);
@@ -62,8 +60,7 @@ public class Meson
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(instance::onClientSetup));
     }
 
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         try {
             if (quarkCompat == null && ForgeHelper.isModLoaded("quark")) {
                 quarkCompat = QuarkCompat.class.newInstance();
@@ -76,8 +73,7 @@ public class Meson
         }
     }
 
-    public static MesonInstance getInstance(String modId)
-    {
+    public static MesonInstance getInstance(String modId) {
         if (instances.containsKey(modId)) {
             return instances.get(modId);
         } else {
@@ -85,13 +81,11 @@ public class Meson
         }
     }
 
-    public static boolean isModuleEnabled(String res)
-    {
+    public static boolean isModuleEnabled(String res) {
         return isModuleEnabled(new ResourceLocation(res));
     }
 
-    public static boolean isModuleEnabled(ResourceLocation res)
-    {
+    public static boolean isModuleEnabled(ResourceLocation res) {
         String inst = res.getNamespace();
         String mod = res.getPath();
 
@@ -114,57 +108,48 @@ public class Meson
 
 
     @Deprecated
-    public static void debug(String msg)
-    {
+    public static void debug(String msg) {
         debug(INTERNAL, msg);
     }
 
     @Deprecated
-    public static void debug(Marker marker, String msg)
-    {
+    public static void debug(Marker marker, String msg) {
         if (DEBUG)
             getLogger().debug(marker, msg);
     }
 
     @Deprecated
-    public static void log(String msg)
-    {
+    public static void log(String msg) {
         log(INTERNAL, msg);
     }
 
     @Deprecated
-    public static void log(Marker marker, String msg)
-    {
+    public static void log(Marker marker, String msg) {
         getLogger().info(marker, msg);
     }
 
     @Deprecated
-    public static void warn(String msg)
-    {
+    public static void warn(String msg) {
         warn(INTERNAL, msg);
     }
 
     @Deprecated
-    public static void warn(Marker marker, String msg)
-    {
+    public static void warn(Marker marker, String msg) {
         getLogger().warn(marker, msg);
     }
 
     @Deprecated
-    public static void error(String msg)
-    {
+    public static void error(String msg) {
         error(INTERNAL, msg);
     }
 
     @Deprecated
-    public static void error(Marker marker, String msg)
-    {
+    public static void error(Marker marker, String msg) {
         getLogger().error(marker, msg);
     }
 
     @Deprecated
-    public static Logger getLogger()
-    {
+    public static Logger getLogger() {
         return LogManager.getLogger("meson");
     }
 }

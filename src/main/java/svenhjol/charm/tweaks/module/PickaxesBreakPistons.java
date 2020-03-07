@@ -16,8 +16,7 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
     description = "Pickaxes become the optimal harvest tool for breaking pistons.")
-public class PickaxesBreakPistons extends MesonModule
-{
+public class PickaxesBreakPistons extends MesonModule {
     public static Block piston;
     public static Item pistonItem;
 
@@ -28,8 +27,7 @@ public class PickaxesBreakPistons extends MesonModule
     public static final ResourceLocation STICKY_PISTON_ID = new ResourceLocation("sticky_piston");
 
     @Override
-    public void init()
-    {
+    public void init() {
         piston = new PistonBlock(false, Block.Properties.from(Blocks.PISTON).harvestTool(ToolType.PICKAXE));
         pistonItem = new BlockItem(piston, (new Item.Properties()).group(ItemGroup.REDSTONE));
 

@@ -16,12 +16,11 @@ import svenhjol.meson.block.MesonBlock;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class VariableRedstoneLampBlock extends MesonBlock
-{
+@SuppressWarnings("deprecation")
+public class VariableRedstoneLampBlock extends MesonBlock {
     public static IntegerProperty LEVEL = IntegerProperty.create("level", 0, 15);
 
-    public VariableRedstoneLampBlock(MesonModule module)
-    {
+    public VariableRedstoneLampBlock(MesonModule module) {
         super(module, "variable_redstone_lamp", Block.Properties
             .create(Material.REDSTONE_LIGHT)
             .sound(SoundType.GLASS)
@@ -33,14 +32,12 @@ public class VariableRedstoneLampBlock extends MesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.REDSTONE;
     }
 
     @Override
-    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving)
-    {
+    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (!world.isRemote) {
             if (state.get(LEVEL) > 0 && !world.isBlockPowered(pos)) {
                 updateState(world, pos, state, 0);
@@ -52,8 +49,7 @@ public class VariableRedstoneLampBlock extends MesonBlock
     }
 
     @Override
-    public void neighborChanged(BlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving)
-    {
+    public void neighborChanged(BlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (!world.isRemote) {
             if (state.get(LEVEL) > 0 && !world.isBlockPowered(pos)) {
                 world.getPendingBlockTicks().scheduleTick(pos, this, 4);
@@ -65,8 +61,7 @@ public class VariableRedstoneLampBlock extends MesonBlock
     }
 
     @Override
-    public void tick(BlockState state, World world, BlockPos pos, Random rand)
-    {
+    public void tick(BlockState state, World world, BlockPos pos, Random rand) {
         int power;
 
         if (!world.isRemote && state.get(LEVEL) > 0) {
@@ -77,27 +72,23 @@ public class VariableRedstoneLampBlock extends MesonBlock
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context)
-    {
-        int power = context.getWorld().isBlockPowered(context.getPos()) ? context.getWorld().getRedstonePowerFromNeighbors(context.getPos()): 0;
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        int power = context.getWorld().isBlockPowered(context.getPos()) ? context.getWorld().getRedstonePowerFromNeighbors(context.getPos()) : 0;
         return this.getDefaultState().with(LEVEL, power);
     }
 
     @Override
-    public int getLightValue(BlockState state)
-    {
+    public int getLightValue(BlockState state) {
         return state.get(LEVEL);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
-    {
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
         builder.add(LEVEL);
     }
 
-    protected void updateState(World world, BlockPos pos, BlockState state, int power)
-    {
+    protected void updateState(World world, BlockPos pos, BlockState state, int power) {
         world.setBlockState(pos, state.with(LEVEL, power), 2);
     }
 }

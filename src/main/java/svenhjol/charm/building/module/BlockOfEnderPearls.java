@@ -27,8 +27,7 @@ import java.util.Map;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING, hasSubscriptions = true,
     description = "A storage block for ender pearls. Eating a chorus fruit will teleport you to a nearby ender pearl block.\n" +
         "If a silverfish burrows into an ender pearl block, it will become an endermite.")
-public class BlockOfEnderPearls extends MesonModule
-{
+public class BlockOfEnderPearls extends MesonModule {
     public static EnderPearlBlock block;
     public static int range = 8;
 
@@ -38,19 +37,18 @@ public class BlockOfEnderPearls extends MesonModule
     public static boolean teleportStabilize = true;
 
     @Override
-    public void init()
-    {
+    public void init() {
         block = new EnderPearlBlock(this);
     }
 
     /**
      * When player eats Chorus Fruit in range of Ender Pearl Block, get the
      * coordinates of the closest portal block and teleport them to it.
+     *
      * @param event LivingEntityUseItemEvent.Start
      */
     @SubscribeEvent
-    public void onItemUseFinish(LivingEntityUseItemEvent.Start event)
-    {
+    public void onItemUseFinish(LivingEntityUseItemEvent.Start event) {
         boolean didTeleport = false;
 
         if (teleportStabilize
@@ -59,7 +57,7 @@ public class BlockOfEnderPearls extends MesonModule
             && !event.getEntityLiving().getEntityWorld().isRemote
         ) {
             World world = event.getEntityLiving().world;
-            PlayerEntity player = (PlayerEntity)event.getEntityLiving();
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             Map<Double, BlockPos> positions = new HashMap<>();
             BlockPos playerPos = player.getPosition();
             BlockPos targetPos = null;
@@ -69,8 +67,7 @@ public class BlockOfEnderPearls extends MesonModule
                 if (world.getBlockState(pos).getBlock() == block && !pos.up(1).equals(playerPos)) {
 
                     // should be able to stand on it
-                    if (world.getBlockState(pos.up(1)).getMaterial() == Material.AIR && world.getBlockState(pos.up(2)).getMaterial() == Material.AIR)
-                    {
+                    if (world.getBlockState(pos.up(1)).getMaterial() == Material.AIR && world.getBlockState(pos.up(2)).getMaterial() == Material.AIR) {
                         positions.put(WorldHelper.getDistanceSq(playerPos, pos.up(1)), pos.up(1));
                     }
                 }
@@ -105,13 +102,13 @@ public class BlockOfEnderPearls extends MesonModule
     /**
      * When silversish spawns, add an AI goal to it so that it has the
      * possibility to form an endermite when close to an Ender Pearl Block.
+     *
      * @param event EntityEvent.EnteringChunk
      */
     @SubscribeEvent
-    public void onEnterChunk(EntityEvent.EnteringChunk event)
-    {
+    public void onEnterChunk(EntityEvent.EnteringChunk event) {
         if (event.getEntity() instanceof SilverfishEntity) {
-            SilverfishEntity silverfish = (SilverfishEntity)event.getEntity();
+            SilverfishEntity silverfish = (SilverfishEntity) event.getEntity();
 
             boolean hasGoal = silverfish.goalSelector.getRunningGoals().anyMatch(g -> g.getGoal() instanceof FormEndermiteGoal);
 

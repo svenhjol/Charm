@@ -36,8 +36,7 @@ import java.util.Objects;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TOOLS, hasSubscriptions = true,
     description = "Right-click with a compass on a banner or beacon whilst sneaking to bind the compass to the target's location.")
-public class CompassBinding extends MesonModule
-{
+public class CompassBinding extends MesonModule {
     public static BoundCompassItem item;
     public static List<Item> bindableItems = new ArrayList<>();
 
@@ -48,16 +47,14 @@ public class CompassBinding extends MesonModule
     public static boolean useBeacons = true;
 
     @Override
-    public void init()
-    {
+    public void init() {
         item = new BoundCompassItem(this);
         bindableItems.add(Items.COMPASS);
         bindableItems.add(item);
     }
 
     @SubscribeEvent
-    public void onCompassUse(PlayerInteractEvent.RightClickBlock event)
-    {
+    public void onCompassUse(PlayerInteractEvent.RightClickBlock event) {
         if (event.getPlayer() != null
             && PlayerHelper.isCrouching(event.getPlayer())
             && bindableItems.contains(event.getPlayer().getHeldItem(event.getHand()).getItem())
@@ -87,12 +84,12 @@ public class CompassBinding extends MesonModule
 
             // handle beacons
             if (useBeacons && tile instanceof BeaconTileEntity) {
-                BeaconTileEntity beacon = (BeaconTileEntity)tile;
+                BeaconTileEntity beacon = (BeaconTileEntity) tile;
 //                if (beacon.getLevels() < 1) return; // better way to detect active beacons?
                 for (int i = 1; i < 255; i++) {
                     BlockState stateUp = world.getBlockState(pos.offset(Direction.UP, i));
                     if (stateUp.getBlock() instanceof StainedGlassBlock) {
-                        color = ((StainedGlassBlock)stateUp.getBlock()).getColor();
+                        color = ((StainedGlassBlock) stateUp.getBlock()).getColor();
                         break;
                     }
                 }

@@ -13,28 +13,24 @@ import svenhjol.charm.decoration.module.Crates;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
 
-public class CrateSealedBlock extends CrateBaseBlock
-{
-    public CrateSealedBlock(MesonModule module, WoodType wood)
-    {
+public class CrateSealedBlock extends CrateBaseBlock {
+    public CrateSealedBlock(MesonModule module, WoodType wood) {
         super(module, "crate_sealed_" + wood.getName(), wood);
     }
 
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving)
-    {
+    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof IInventory) {
-                InventoryHelper.dropInventoryItems(world, pos, (IInventory)tile);
+                InventoryHelper.dropInventoryItems(world, pos, (IInventory) tile);
                 world.updateComparatorOutputLevel(pos, this);
                 world.playSound(null, pos, CharmSounds.WOOD_SMASH, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
             }
         }
     }
 
-    public static Block getBlockByWood(WoodType wood)
-    {
+    public static Block getBlockByWood(WoodType wood) {
         return Crates.sealedTypes.get(wood);
     }
 }

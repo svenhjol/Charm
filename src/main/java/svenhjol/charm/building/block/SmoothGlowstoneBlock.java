@@ -7,10 +7,8 @@ import net.minecraft.item.ItemGroup;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 
-public class SmoothGlowstoneBlock extends MesonBlock
-{
-    public SmoothGlowstoneBlock(MesonModule module)
-    {
+public class SmoothGlowstoneBlock extends MesonBlock {
+    public SmoothGlowstoneBlock(MesonModule module) {
         super(module, "smooth_glowstone", Block.Properties
             .create(Material.GLASS)
             .lightValue(15)
@@ -20,8 +18,7 @@ public class SmoothGlowstoneBlock extends MesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.BUILDING_BLOCKS;
     }
 }

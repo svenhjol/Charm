@@ -25,21 +25,18 @@ import java.util.Map;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true,
     description = "Tools with the Magnetic enchantment automatically pick up drops.")
-public class Magnetic extends MesonModule
-{
+public class Magnetic extends MesonModule {
     public static int range = 6;
     public static Map<BlockPos, PlayerEntity> dropmap = new HashMap<>();
     public static MesonEnchantment enchantment;
 
     @Override
-    public void init()
-    {
+    public void init() {
         enchantment = new MagneticEnchantment(this);
     }
 
     @SubscribeEvent
-    public void onBreak(BlockEvent.BreakEvent event)
-    {
+    public void onBreak(BlockEvent.BreakEvent event) {
         if (EnchantmentsHelper.hasEnchantment(Magnetic.enchantment, event.getPlayer().getHeldItemMainhand())) {
             dropmap.put(event.getPos(), event.getPlayer());
         } else {
@@ -48,8 +45,7 @@ public class Magnetic extends MesonModule
     }
 
     @SubscribeEvent
-    public void onEntityCreate(EntityJoinWorldEvent event)
-    {
+    public void onEntityCreate(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof ItemEntity && !event.getWorld().isRemote) {
             int r = range;
             BlockPos foundPos = null;
@@ -72,7 +68,7 @@ public class Magnetic extends MesonModule
 
                 if (!MinecraftForge.EVENT_BUS.post(new EntityItemPickupEvent(player, fake))) {
                     if (player.inventory.addItemStackToInventory(item)) {
-                        player.world.playSound(null, foundPos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS,0.5F, ((player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                        player.world.playSound(null, foundPos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.5F, ((player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                         event.setCanceled(true);
                     }
                 }

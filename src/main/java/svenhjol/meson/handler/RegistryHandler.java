@@ -30,113 +30,97 @@ import org.apache.logging.log4j.MarkerManager;
 import svenhjol.meson.Meson;
 import svenhjol.meson.iface.IMesonBlock;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = MOD)
-public class RegistryHandler
-{
+public class RegistryHandler {
     public static Map<Class<?>, List<IForgeRegistryEntry<?>>> objects = new HashMap<>();
     public static final Marker REGISTRY = MarkerManager.getMarker("REGISTRY").addParents(Meson.INTERNAL);
 
-    public static void registerBlock(Block block, ResourceLocation res)
-    {
+    public static void registerBlock(Block block, ResourceLocation res) {
         addRegisterable(block, res);
 
         // also register the block item
         if (block instanceof IMesonBlock) {
-            addRegisterable(((IMesonBlock)block).getBlockItem(), res);
+            addRegisterable(((IMesonBlock) block).getBlockItem(), res);
         }
     }
 
-    public static void registerBrewingRecipe(Potion input, Item reagant, Potion output)
-    {
+    public static void registerBrewingRecipe(Potion input, Item reagant, Potion output) {
         PotionBrewing.addMix(input, reagant, output);
     }
 
-    public static void registerContainer(ContainerType<?> container, ResourceLocation res)
-    {
+    public static void registerContainer(ContainerType<?> container, ResourceLocation res) {
         addRegisterable(container, res);
     }
 
-    public static void registerEffect(Effect effect, ResourceLocation res)
-    {
+    public static void registerEffect(Effect effect, ResourceLocation res) {
         addRegisterable(effect, res);
     }
 
-    public static void registerEnchantment(Enchantment enchantment, ResourceLocation res)
-    {
+    public static void registerEnchantment(Enchantment enchantment, ResourceLocation res) {
         addRegisterable(enchantment, res);
     }
 
-    public static void registerEntity(EntityType<?> entity, ResourceLocation res)
-    {
+    public static void registerEntity(EntityType<?> entity, ResourceLocation res) {
         addRegisterable(entity, res);
     }
 
-    public static void registerFeature(Feature<?> feature, ResourceLocation res)
-    {
+    public static void registerFeature(Feature<?> feature, ResourceLocation res) {
         addRegisterable(feature, res);
     }
 
-    public static void registerFeature(Feature<?> feature, Placement<?> placement, ResourceLocation res)
-    {
+    public static void registerFeature(Feature<?> feature, Placement<?> placement, ResourceLocation res) {
         registerFeature(feature, res);
         addRegisterable(placement, res);
     }
 
-    public static void registerItem(Item item, ResourceLocation res)
-    {
+    public static void registerItem(Item item, ResourceLocation res) {
         addRegisterable(item, res);
     }
 
-    public static void registerParticleType(ParticleType<?> type, ResourceLocation res)
-    {
+    public static void registerParticleType(ParticleType<?> type, ResourceLocation res) {
         addRegisterable(type, res);
     }
 
-    public static void registerPotion(Potion potion, ResourceLocation res)
-    {
+    public static void registerPotion(Potion potion, ResourceLocation res) {
         addRegisterable(potion, res);
     }
 
-    public static void registerSound(SoundEvent sound)
-    {
+    public static void registerSound(SoundEvent sound) {
         addRegisterable(sound, sound.getRegistryName());
     }
 
-    public static void registerStructure(Structure<?> structure, ResourceLocation res)
-    {
+    public static void registerStructure(Structure<?> structure, ResourceLocation res) {
         addRegisterable(structure, res);
     }
 
-    public static void registerStructurePiece(IStructurePieceType piece, ResourceLocation res)
-    {
+    public static void registerStructurePiece(IStructurePieceType piece, ResourceLocation res) {
         Registry.register(Registry.STRUCTURE_PIECE, res, piece);
     }
 
-    public static void registerTile(TileEntityType<?> tile, ResourceLocation res)
-    {
+    public static void registerTile(TileEntityType<?> tile, ResourceLocation res) {
         addRegisterable(tile, res);
     }
 
-    public static void registerVillager(VillagerProfession profession, ResourceLocation res)
-    {
+    public static void registerVillager(VillagerProfession profession, ResourceLocation res) {
         addRegisterable(profession, res);
     }
 
-    public static void registerVillagerPointOfInterest(PointOfInterestType type, ResourceLocation res)
-    {
+    public static void registerVillagerPointOfInterest(PointOfInterestType type, ResourceLocation res) {
         addRegisterable(type, res);
         PointOfInterestType.func_221052_a(type);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     @SubscribeEvent
-    public static void onRegister(final Register event)
-    {
+    public static void onRegister(final Register event) {
         IForgeRegistry registry = event.getRegistry();
         Class<?> type = registry.getRegistrySuperType();
 
@@ -157,8 +141,7 @@ public class RegistryHandler
         }
     }
 
-    public static void addRegisterable(IForgeRegistryEntry<?> obj, ResourceLocation res)
-    {
+    public static void addRegisterable(IForgeRegistryEntry<?> obj, ResourceLocation res) {
         Class<?> type = obj.getRegistryType();
         if (!objects.containsKey(type)) objects.put(type, new ArrayList<>());
 

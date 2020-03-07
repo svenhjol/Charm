@@ -10,17 +10,14 @@ import net.minecraft.util.text.TranslationTextComponent;
 import svenhjol.charm.decoration.module.AllTheBarrels;
 import svenhjol.meson.enums.WoodType;
 
-public class CustomBarrelTileEntity extends BarrelTileEntity
-{
+public class CustomBarrelTileEntity extends BarrelTileEntity {
     public WoodType wood;
 
-    public CustomBarrelTileEntity()
-    {
+    public CustomBarrelTileEntity() {
         this(WoodType.OAK);
     }
 
-    public CustomBarrelTileEntity(WoodType wood)
-    {
+    public CustomBarrelTileEntity(WoodType wood) {
         super(AllTheBarrels.tile);
         this.wood = wood;
     }
@@ -29,11 +26,13 @@ public class CustomBarrelTileEntity extends BarrelTileEntity
      * We need to override this method to work around the strict block check.
      */
     @Override
-    public void barrelTick()
-    {
+    public void barrelTick() {
         int i = this.pos.getX();
         int j = this.pos.getY();
         int k = this.pos.getZ();
+        if (this.world == null)
+            return;
+
         this.numPlayersUsing = ChestTileEntity.calculatePlayersUsing(this.world, this, i, j, k);
         if (this.numPlayersUsing > 0) {
             this.scheduleTick();
@@ -53,8 +52,7 @@ public class CustomBarrelTileEntity extends BarrelTileEntity
     }
 
     @Override
-    protected ITextComponent getDefaultName()
-    {
+    protected ITextComponent getDefaultName() {
         return new TranslationTextComponent("block.charm.barrel_" + this.wood.getName());
     }
 }

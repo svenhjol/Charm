@@ -10,15 +10,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class PlayerQueueHandler
-{
+public class PlayerQueueHandler {
     public static final int FLUSH_AFTER = 10;
 
     public static Map<Long, Map<PlayerEntity, Consumer<PlayerEntity>>> queue = new HashMap<>();
 
     @SubscribeEvent
-    public void flush(PlayerTickEvent event)
-    {
+    public void flush(PlayerTickEvent event) {
         if (!event.player.world.isRemote) {
             long time = event.player.world.getGameTime();
             if (time % 5 != 0) return;
@@ -39,8 +37,7 @@ public class PlayerQueueHandler
         }
     }
 
-    public static void add(long time, PlayerEntity player, Consumer<PlayerEntity> event)
-    {
+    public static void add(long time, PlayerEntity player, Consumer<PlayerEntity> event) {
         if (!queue.containsKey(time)) {
             queue.put(time, new HashMap<>());
         }

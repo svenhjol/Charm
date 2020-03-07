@@ -36,8 +36,7 @@ import java.util.stream.Stream;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true,
     description = "A tool with the Homing enchantment is attracted to ore/wood/stone of the same type that make up the head of the tool.\n" +
         "Right click underground and if you hear a sound, you can follow it to the source.")
-public class Homing extends MesonModule
-{
+public class Homing extends MesonModule {
     public static HomingEnchantment enchantment;
     public static HashMap<IItemTier, List<Block>> matches = new HashMap<>();
 
@@ -48,8 +47,7 @@ public class Homing extends MesonModule
     public static double damageMultiplier = 0.015D;
 
     @Override
-    public void init()
-    {
+    public void init() {
         enchantment = new HomingEnchantment(this);
 
         addHomingBlock(ItemTier.WOOD,
@@ -73,15 +71,13 @@ public class Homing extends MesonModule
             Blocks.DIAMOND_ORE);
     }
 
-    public static void addHomingBlock(ItemTier tier, Block... blocks)
-    {
+    public static void addHomingBlock(ItemTier tier, Block... blocks) {
         if (!matches.containsKey(tier)) matches.put(tier, new ArrayList<>());
         matches.get(tier).addAll(Arrays.asList(blocks));
     }
 
     @SubscribeEvent
-    public void onBlockInteract(RightClickBlock event)
-    {
+    public void onBlockInteract(RightClickBlock event) {
         ItemStack held = event.getPlayer().getHeldItem(event.getHand());
 
         if (held.getItem() instanceof TieredItem && EnchantmentsHelper.hasEnchantment(enchantment, held)) {
@@ -89,7 +85,7 @@ public class Homing extends MesonModule
             PlayerEntity player = event.getPlayer();
             Hand hand = event.getHand();
             BlockPos pos = event.getPos();
-            TieredItem item = (TieredItem)held.getItem();
+            TieredItem item = (TieredItem) held.getItem();
             List<Block> matchedBlocks = matches.get(item.getTier());
             if (matchedBlocks.isEmpty()) return;
 
@@ -113,14 +109,14 @@ public class Homing extends MesonModule
 
                 if (!world.isRemote) {
                     double damage = held.getMaxDamage() * damageMultiplier;
-                    PlayerHelper.damageHeldItem(player, hand, held, (int)Math.ceil(damage));
+                    PlayerHelper.damageHeldItem(player, hand, held, (int) Math.ceil(damage));
                 }
 
                 if (world.isRemote) {
                     double vol = 1 - (Math.min(distance, 100) / 100);
                     double pitch = Math.max(0.5D, 1 - (Math.min(distance, 100) / 100));
                     player.swingArm(event.getHand());
-                    world.playSound(player, player.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, (float)vol, (float)pitch);
+                    world.playSound(player, player.getPosition(), CharmSounds.HOMING, SoundCategory.BLOCKS, (float) vol, (float) pitch);
                 }
             }
         }

@@ -28,8 +28,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class AmbientMusicClient
-{
+public class AmbientMusicClient {
     public static List<AmbientMusicCondition> conditions = new ArrayList<>();
     public static ISound currentMusic;
     public static int timeUntilNextMusic = 100;
@@ -38,8 +37,7 @@ public class AmbientMusicClient
     private int ticksBeforeStop;
     private ISound musicToStop = null;
 
-    public void setupClient(FMLClientSetupEvent event)
-    {
+    public void setupClient(FMLClientSetupEvent event) {
         if (AmbientMusicImprovements.playCreativeMusic) {
             conditions.add(new AmbientMusicCondition(SoundEvents.MUSIC_CREATIVE, 1200, 3600, mc -> mc.player != null
                 && (!mc.player.isCreative() || !mc.player.isSpectator())
@@ -50,8 +48,7 @@ public class AmbientMusicClient
     }
 
     @SubscribeEvent
-    public void onBlockInteract(PlayerInteractEvent.RightClickBlock event)
-    {
+    public void onBlockInteract(PlayerInteractEvent.RightClickBlock event) {
         if (event.getWorld().isRemote) {
             BlockState state = event.getWorld().getBlockState(event.getPos());
             if (event.getEntity() instanceof PlayerEntity
@@ -65,8 +62,7 @@ public class AmbientMusicClient
     }
 
     @SubscribeEvent
-    public void onSoundPlay(SoundEvent.SoundSourceEvent event)
-    {
+    public void onSoundPlay(SoundEvent.SoundSourceEvent event) {
         ISound triggered = event.getSound();
         if (triggered.getCategory() == SoundCategory.MUSIC) {
             // check if there are any records playing
@@ -80,8 +76,7 @@ public class AmbientMusicClient
     }
 
     @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event)
-    {
+    public void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END
             && musicToStop != null
             && ++ticksBeforeStop % 10 == 0
@@ -92,8 +87,7 @@ public class AmbientMusicClient
         }
     }
 
-    public static boolean handleTick(@Nullable ISound current)
-    {
+    public static boolean handleTick(@Nullable ISound current) {
         if (mc.world == null) return false;
         AmbientMusicCondition ambient = getAmbientMusicType();
 
@@ -122,8 +116,7 @@ public class AmbientMusicClient
         return true;
     }
 
-    public static boolean handleStop()
-    {
+    public static boolean handleStop() {
         if (currentMusic != null) {
             mc.getSoundHandler().stop(currentMusic);
             currentMusic = null;
@@ -132,20 +125,17 @@ public class AmbientMusicClient
         return true;
     }
 
-    public static boolean handlePlaying(MusicTicker.MusicType type)
-    {
+    public static boolean handlePlaying(MusicTicker.MusicType type) {
         return currentMusic != null && type.getSound().getName().equals(currentMusic.getSoundLocation());
     }
 
-    public static void forceStop()
-    {
+    public static void forceStop() {
         mc.getSoundHandler().stop(currentMusic);
         currentMusic = null;
         timeUntilNextMusic = 3600;
     }
 
-    public static AmbientMusicCondition getAmbientMusicType()
-    {
+    public static AmbientMusicCondition getAmbientMusicType() {
         AmbientMusicCondition condition = null;
 
         if (conditions != null) {
@@ -164,58 +154,49 @@ public class AmbientMusicClient
         return condition;
     }
 
-    public static class AmbientMusicCondition
-    {
+    public static class AmbientMusicCondition {
         private net.minecraft.util.SoundEvent sound;
         private int minDelay;
         private int maxDelay;
         private Predicate<Minecraft> condition;
         private static final Minecraft mc;
 
-        public AmbientMusicCondition(net.minecraft.util.SoundEvent sound, int minDelay, int maxDelay, Predicate<Minecraft> condition)
-        {
+        public AmbientMusicCondition(net.minecraft.util.SoundEvent sound, int minDelay, int maxDelay, Predicate<Minecraft> condition) {
             this.sound = sound;
             this.minDelay = minDelay;
             this.maxDelay = maxDelay;
             this.condition = condition;
         }
 
-        public AmbientMusicCondition(MusicTicker.MusicType type)
-        {
+        public AmbientMusicCondition(MusicTicker.MusicType type) {
             this.sound = type.getSound();
             this.minDelay = type.getMinDelay();
             this.maxDelay = type.getMaxDelay();
         }
 
-        public boolean handle()
-        {
+        public boolean handle() {
             if (condition == null) return false;
             return condition.test(mc);
         }
 
-        public net.minecraft.util.SoundEvent getSound()
-        {
+        public net.minecraft.util.SoundEvent getSound() {
             return sound;
         }
 
-        public int getMaxDelay()
-        {
+        public int getMaxDelay() {
             return maxDelay;
         }
 
-        public int getMinDelay()
-        {
+        public int getMinDelay() {
             return minDelay;
         }
 
-        static
-        {
+        static {
             mc = Minecraft.getInstance();
         }
     }
 
-    static
-    {
+    static {
         random = new Random();
         mc = Minecraft.getInstance();
     }

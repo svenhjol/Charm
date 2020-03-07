@@ -22,9 +22,8 @@ import java.util.Random;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "Adds music discs of all Minecraft ambient music.\n" +
         "These additional discs will be dropped when a zombie is killed by a skeleton.")
-public class ExtraMusicDiscs extends MesonModule
-{
-    public static String[] discNames = new String[] {
+public class ExtraMusicDiscs extends MesonModule {
+    public static String[] discNames = new String[]{
         "calm1",
         "calm2",
         "calm3",
@@ -60,8 +59,7 @@ public class ExtraMusicDiscs extends MesonModule
     public static List<CharmMusicDiscItem> discs = new ArrayList<>();
 
     @Override
-    public void init()
-    {
+    public void init() {
         Item.Properties props = new Item.Properties().maxStackSize(1).rarity(Rarity.RARE);
 
         if (enabled)
@@ -69,13 +67,12 @@ public class ExtraMusicDiscs extends MesonModule
 
         for (String name : discNames) {
             SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "music_disc." + name));
-            discs.add(new CharmMusicDiscItem(this, "music_disc_" + name, sound, props,0));
+            discs.add(new CharmMusicDiscItem(this, "music_disc_" + name, sound, props, 0));
         }
     }
 
     @SubscribeEvent
-    public void onDeath(LivingDeathEvent event)
-    {
+    public void onDeath(LivingDeathEvent event) {
         if (event.getEntityLiving() instanceof ZombieEntity
             && event.getSource().getTrueSource() instanceof SkeletonEntity
         ) {

@@ -6,10 +6,8 @@ import svenhjol.charm.world.message.ClientRunePortalAction;
 import svenhjol.meson.MesonInstance;
 import svenhjol.meson.handler.PacketHandler;
 
-public class CharmMessages
-{
-    public static void init(MesonInstance instance)
-    {
+public class CharmMessages {
+    public static void init(MesonInstance instance) {
         PacketHandler handler = instance.getPacketHandler();
 
         handler.register(ClientCakeAction.class, ClientCakeAction::encode, ClientCakeAction::decode, ClientCakeAction.Handler::handle);

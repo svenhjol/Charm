@@ -17,13 +17,11 @@ import svenhjol.meson.iface.IMesonBlock;
 
 import javax.annotation.Nullable;
 
-public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock
-{
+public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock {
     public WoodType wood;
     protected MesonModule module;
 
-    public CustomBarrelBlock(MesonModule module, WoodType wood)
-    {
+    public CustomBarrelBlock(MesonModule module, WoodType wood) {
         super(Block.Properties
             .create(Material.WOOD)
             .hardnessAndResistance(2.5F)
@@ -32,12 +30,11 @@ public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock
         this.module = module;
         this.wood = wood;
         register(module, "barrel_" + wood.getName());
-        setDefaultState(getStateContainer().getBaseState().with(PROPERTY_FACING, Direction.NORTH).with(PROPERTY_OPEN, Boolean.valueOf(false)));
+        setDefaultState(getStateContainer().getBaseState().with(PROPERTY_FACING, Direction.NORTH).with(PROPERTY_OPEN, false));
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.DECORATIONS;
     }
 
@@ -47,16 +44,14 @@ public class CustomBarrelBlock extends BarrelBlock implements IMesonBlock
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
-    {
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         if (isEnabled() && group == ItemGroup.SEARCH) {
             super.fillItemGroup(group, items);
         }
     }
 
     @Override
-    public boolean isEnabled()
-    {
+    public boolean isEnabled() {
         return module.enabled;
     }
 }

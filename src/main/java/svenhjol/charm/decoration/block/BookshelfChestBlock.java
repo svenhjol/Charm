@@ -27,14 +27,13 @@ import svenhjol.meson.enums.WoodType;
 
 import javax.annotation.Nullable;
 
-public class BookshelfChestBlock extends MesonBlock
-{
+@SuppressWarnings("deprecation")
+public class BookshelfChestBlock extends MesonBlock {
     public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, 9);
 
     protected WoodType wood;
 
-    public BookshelfChestBlock(MesonModule module, WoodType wood)
-    {
+    public BookshelfChestBlock(MesonModule module, WoodType wood) {
         super(module, "bookshelf_chest_" + wood.getName(), Block.Properties
             .create(Material.WOOD)
             .sound(SoundType.WOOD)
@@ -46,19 +45,17 @@ public class BookshelfChestBlock extends MesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.DECORATIONS;
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
-    {
+    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (world.isRemote || player.isSpectator()) return true;
 
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof BookshelfChestTileEntity) {
-            BookshelfChestTileEntity bookshelfChest = (BookshelfChestTileEntity)tile;
+            BookshelfChestTileEntity bookshelfChest = (BookshelfChestTileEntity) tile;
             bookshelfChest.fillWithLoot(player);
             player.openContainer(bookshelfChest);
             /* @todo stats, see ShulkerBoxBlock */
@@ -68,76 +65,65 @@ public class BookshelfChestBlock extends MesonBlock
     }
 
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving)
-    {
+    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof IInventory) {
-                InventoryHelper.dropInventoryItems(world, pos, (IInventory)tile);
+                InventoryHelper.dropInventoryItems(world, pos, (IInventory) tile);
                 world.updateComparatorOutputLevel(pos, this);
             }
         }
     }
 
     @Override
-    public boolean hasComparatorInputOverride(BlockState state)
-    {
+    public boolean hasComparatorInputOverride(BlockState state) {
         return true;
     }
 
     @Override
-    public int getComparatorInputOverride(BlockState state, World world, BlockPos pos)
-    {
+    public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
         return state.get(SLOTS);
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
-    {
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new BookshelfChestTileEntity();
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state)
-    {
+    public boolean hasTileEntity(BlockState state) {
         return true;
     }
 
     @Override
-    public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face)
-    {
+    public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
         return 50;
     }
 
     @Override
-    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face)
-    {
+    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
         return true;
     }
 
     @Override
-    public float getEnchantPowerBonus(BlockState state, IWorldReader world, BlockPos pos)
-    {
+    public float getEnchantPowerBonus(BlockState state, IWorldReader world, BlockPos pos) {
         return 1;
     }
 
     @Override
-    public int getMaxStackSize()
-    {
+    public int getMaxStackSize() {
         return 1;
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
-    {
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
         builder.add(SLOTS);
     }
 
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack)
-    {
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
         if (stack.hasDisplayName()) {
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof BookshelfChestTileEntity) {

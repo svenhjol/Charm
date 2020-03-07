@@ -8,13 +8,11 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING,
     description = "Smelt glowstone in a furnace to get smooth glowstone.")
-public class SmoothGlowstone extends MesonModule
-{
+public class SmoothGlowstone extends MesonModule {
     public static SmoothGlowstoneBlock block;
 
     @Override
-    public void init()
-    {
+    public void init() {
         block = new SmoothGlowstoneBlock(this);
     }
 }

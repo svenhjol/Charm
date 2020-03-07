@@ -17,8 +17,7 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "Husks spawn anywhere within their biome and drop sand, making them easier to farm.")
-public class HuskImprovements extends MesonModule
-{
+public class HuskImprovements extends MesonModule {
     @Config(name = "Spawn anywhere in biome", description = "If true, husks can spawn anywhere within their biome rather than just the surface.")
     public static boolean spawnAnywhere = true;
 
@@ -30,14 +29,12 @@ public class HuskImprovements extends MesonModule
 
     public static double lootingBoost = 0.1D;
 
-    public static boolean canSeeSky(IWorld world, BlockPos pos)
-    {
+    public static boolean canSeeSky(IWorld world, BlockPos pos) {
         return true; // don't care about skylight check for spawning husks
     }
 
     @SubscribeEvent
-    public void onHuskDrops(LivingDropsEvent event)
-    {
+    public void onHuskDrops(LivingDropsEvent event) {
         if (!event.getEntityLiving().world.isRemote
             && dropSand
             && event.getEntityLiving() instanceof HuskEntity
@@ -46,7 +43,7 @@ public class HuskImprovements extends MesonModule
             Entity entity = event.getEntity();
             BlockPos entityPos = entity.getPosition();
             ItemStack sand = new ItemStack(Items.SAND);
-            event.getDrops().add( new ItemEntity(entity.getEntityWorld(), entityPos.getX(), entityPos.getY(), entityPos.getZ(), sand) );
+            event.getDrops().add(new ItemEntity(entity.getEntityWorld(), entityPos.getX(), entityPos.getY(), entityPos.getZ(), sand));
         }
     }
 }

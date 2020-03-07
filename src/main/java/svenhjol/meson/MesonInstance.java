@@ -23,16 +23,14 @@ import java.util.function.Consumer;
  * You can override the forge startup methods if needed.
  * Put all init/earlyinit stuff in the constructor.
  */
-public class MesonInstance
-{
+public class MesonInstance {
     public LogHandler log;
 
     private String id;
     private ModuleLoader moduleLoader;
     private PacketHandler packetHandler;
 
-    public MesonInstance(String id, LogHandler log)
-    {
+    public MesonInstance(String id, LogHandler log) {
         this.id = id;
         this.log = log;
         this.moduleLoader = new ModuleLoader(this);
@@ -41,13 +39,10 @@ public class MesonInstance
         Meson.INSTANCE.register(this);
 
         // run on both sides
-        try
-        {
+        try {
             forEachModule(MesonModule::init);
             moduleLoader.refreshConfig();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error(e.getMessage());
             throw new RuntimeException("Failed to initialize modules: " + e.getMessage());
         }
@@ -56,33 +51,27 @@ public class MesonInstance
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> forEachModule(MesonModule::initClient));
     }
 
-    public static ModuleLoader getModuleLoader(String modId)
-    {
+    public static ModuleLoader getModuleLoader(String modId) {
         return Meson.getInstance(modId).getModuleLoader();
     }
 
-    public static PacketHandler getPacketHandler(String modId)
-    {
+    public static PacketHandler getPacketHandler(String modId) {
         return Meson.getInstance(modId).getPacketHandler();
     }
 
-    public String getId()
-    {
+    public String getId() {
         return id;
     }
 
-    public PacketHandler getPacketHandler()
-    {
+    public PacketHandler getPacketHandler() {
         return packetHandler;
     }
 
-    public ModuleLoader getModuleLoader()
-    {
+    public ModuleLoader getModuleLoader() {
         return moduleLoader;
     }
 
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         moduleLoader.refreshConfig();
         moduleLoader.refreshShouldRunSetup();
 
@@ -95,52 +84,43 @@ public class MesonInstance
         });
     }
 
-    public void onServerAboutToStart(FMLServerAboutToStartEvent event)
-    {
+    public void onServerAboutToStart(FMLServerAboutToStartEvent event) {
         forEachEnabledModule(module -> module.onServerAboutToStart(event));
     }
 
-    public void onServerStarting(FMLServerStartingEvent event)
-    {
+    public void onServerStarting(FMLServerStartingEvent event) {
         forEachEnabledModule(module -> module.onServerStarting(event));
     }
 
-    public void onServerStarted(FMLServerStartedEvent event)
-    {
+    public void onServerStarted(FMLServerStartedEvent event) {
         forEachEnabledModule(module -> module.onServerStarted(event));
     }
 
-    public void onModConfig(ModConfig.ModConfigEvent event)
-    {
+    public void onModConfig(ModConfig.ModConfigEvent event) {
         moduleLoader.refreshShouldRunSetup();
 
         forEachEnabledModule(module -> module.onModConfig(event));
     }
 
-    public void onClientSetup(FMLClientSetupEvent event)
-    {
+    public void onClientSetup(FMLClientSetupEvent event) {
         forEachEnabledModule(module -> module.onClientSetup(event));
     }
 
-    public void onLoadComplete(FMLLoadCompleteEvent event)
-    {
+    public void onLoadComplete(FMLLoadCompleteEvent event) {
         forEachEnabledModule(module -> module.onLoadComplete(event));
     }
 
-    public void forEachModule(Consumer<MesonModule> consumer)
-    {
+    public void forEachModule(Consumer<MesonModule> consumer) {
         List<MesonModule> modules = moduleLoader.getModules();
         modules.forEach(consumer);
     }
 
-    public void forEachEnabledModule(Consumer<MesonModule> consumer)
-    {
+    public void forEachEnabledModule(Consumer<MesonModule> consumer) {
         List<MesonModule> enabledModules = moduleLoader.getEnabledModules();
         enabledModules.forEach(consumer);
     }
 
-    public boolean isModuleEnabled(String module)
-    {
+    public boolean isModuleEnabled(String module) {
         return moduleLoader.isModuleEnabled(module);
     }
 }

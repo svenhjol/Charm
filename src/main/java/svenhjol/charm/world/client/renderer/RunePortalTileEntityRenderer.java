@@ -17,8 +17,7 @@ import svenhjol.charm.world.tileentity.RunePortalTileEntity;
 import java.nio.FloatBuffer;
 import java.util.Random;
 
-public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalTileEntity>
-{
+public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalTileEntity> {
     private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
     private static final ResourceLocation RUNE_PORTAL_TEXTURE = new ResourceLocation(Charm.MOD_ID, "textures/entity/rune_portal.png");
     private static final Random RANDOM = new Random(31100L);
@@ -36,9 +35,9 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
         float f = this.getOffset();
         GameRenderer gamerenderer = Minecraft.getInstance().gameRenderer;
 
-        for(int j = 0; j < i; ++j) {
+        for (int j = 0; j < i; ++j) {
             GlStateManager.pushMatrix();
-            float f1 = 8.0F / (float)(30 - j);
+            float f1 = 8.0F / (float) (30 - j);
 
             if (j == 0) {
                 this.bindTexture(END_SKY_TEXTURE);
@@ -72,8 +71,8 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
             GlStateManager.loadIdentity();
             GlStateManager.translatef(0.25F, 0.25F, 0.0F);
             GlStateManager.scalef(0.4F, 0.4F, 1.0F);
-            float f2 = (float)((j + 6) * 0.75F);
-            GlStateManager.translatef(17.0F / f2, (2.0F + f2 / 1.5F) * ((float)(Util.milliTime() % 200000L) / 200000.0F), 0.0F);
+            float f2 = (j + 6) * 0.75F;
+            GlStateManager.translatef(17.0F / f2, (2.0F + f2 / 1.5F) * ((float) (Util.milliTime() % 200000L) / 200000.0F), 0.0F);
             GlStateManager.rotatef((f2 * f2 * 4321.0F + f2 * 9.0F) * 2.0F, 0.0F, 0.0F, 1.0F);
 
             GlStateManager.scalef(5.6F - f2 / 4.0F, 5.1F - f2 / 4.0F, 1.0F);
@@ -88,7 +87,7 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
             float g = 1.0F;
             float b = 1.0F;
 
-            int k = j-1;
+            int k = j - 1;
             if (k >= 0 && tile.colors != null && k < tile.colors.size()) {
                 int colorIndex = tile.colors.get(k);
                 DyeColor dyeColor = DyeColor.byId(colorIndex);
@@ -103,10 +102,10 @@ public class RunePortalTileEntityRenderer extends TileEntityRenderer<RunePortalT
             b *= 1.7F * f1;
 
             // only render facing up
-            bufferbuilder.pos(x, y + (double)f, z + 1.0D).color(r, g, b, 1.0F).endVertex();
-            bufferbuilder.pos(x + 1.0D, y + (double)f, z + 1.0D).color(r, g, b, 1.0F).endVertex();
-            bufferbuilder.pos(x + 1.0D, y + (double)f, z).color(r, g, b, 1.0F).endVertex();
-            bufferbuilder.pos(x, y + (double)f, z).color(r, g, b, 1.0F).endVertex();
+            bufferbuilder.pos(x, y + (double) f, z + 1.0D).color(r, g, b, 1.0F).endVertex();
+            bufferbuilder.pos(x + 1.0D, y + (double) f, z + 1.0D).color(r, g, b, 1.0F).endVertex();
+            bufferbuilder.pos(x + 1.0D, y + (double) f, z).color(r, g, b, 1.0F).endVertex();
+            bufferbuilder.pos(x, y + (double) f, z).color(r, g, b, 1.0F).endVertex();
 
             tessellator.draw();
             GlStateManager.popMatrix();

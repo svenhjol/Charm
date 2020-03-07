@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -33,10 +34,9 @@ import java.util.Random;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
     description = "Cartographers sell Structure Maps that can be used to find additional overworld structures.")
-public class StructureMaps extends MesonModule
-{
+public class StructureMaps extends MesonModule {
     @Config(name = "Trade Level", description = "The level at which a cartographer will trade structure maps.\n" +
-            "Numbers correspond to villager level, starting at 1 for Novice.")
+        "Numbers correspond to villager level, starting at 1 for Novice.")
     public static int tradeLevel = 3;
 
     @Config(name = "Maximum Maps", description = "Maximum number of structure map types a cartographer may sell.")
@@ -63,8 +63,7 @@ public class StructureMaps extends MesonModule
     public static List<StructureTrade> trades = new ArrayList<>();
 
     @Override
-    public void init()
-    {
+    public void init() {
         int bmin = biomeMinCost;
         int bmax = biomeMaxCost;
         int gmin = generalMinCost;
@@ -82,34 +81,36 @@ public class StructureMaps extends MesonModule
     }
 
     @SubscribeEvent
-    public void onVillagerTrades(VillagerTradesEvent event)
-    {
+    public void onVillagerTrades(VillagerTradesEvent event) {
         Int2ObjectMap<List<ITrade>> trades = event.getTrades();
         VillagerProfession profession = event.getType();
-        if (profession.getRegistryName() == null) return;
 
-        if (profession.getRegistryName().getPath().equals(VillagerProfession.CARTOGRAPHER.getRegistryName().getPath())) {
+        if (profession.getRegistryName() == null)
+            return;
+
+        ResourceLocation cartographerReg = VillagerProfession.CARTOGRAPHER.getRegistryName();
+        if (cartographerReg == null)
+            return;
+
+        if (profession.getRegistryName().getPath().equals(cartographerReg.getPath())) {
             for (int i = 0; i < maxMaps; i++) {
                 trades.get(tradeLevel).add(new StructureMapForEmeraldsTrade());
             }
         }
     }
 
-    static class StructureMapForEmeraldsTrade implements VillagerTrades.ITrade
-    {
+    static class StructureMapForEmeraldsTrade implements VillagerTrades.ITrade {
         private final MapDecoration.Type targetType = MapDecoration.Type.TARGET_X;
         private final int maxUses = StructureMaps.maxTrades;
         private final int tradeXp = StructureMaps.tradeXp;
-        private StructureTrade structure;
 
         @Nullable
-        public MerchantOffer getOffer(Entity merchant, Random rand)
-        {
-            structure = trades.get(rand.nextInt(trades.size()));
+        public MerchantOffer getOffer(Entity merchant, Random rand) {
+            StructureTrade structure = trades.get(rand.nextInt(trades.size()));
             World world = merchant.world;
 
             if (!world.isRemote) {
-                ServerWorld serverWorld = (ServerWorld)world;
+                ServerWorld serverWorld = (ServerWorld) world;
                 BlockPos pos = serverWorld.findNearestStructure(structure.name, new BlockPos(merchant), 500, true);
                 if (pos != null) {
 
@@ -135,35 +136,30 @@ public class StructureMaps extends MesonModule
         }
     }
 
-    public static class StructureTrade
-    {
+    public static class StructureTrade {
         public String name;
         public int dimension;
         public int color;
         public int min;
         public int max;
 
-        public StructureTrade(String name)
-        {
+        public StructureTrade(String name) {
             this(name, 0, 0);
         }
 
-        public StructureTrade(String name, int color, int dimension)
-        {
+        public StructureTrade(String name, int color, int dimension) {
             this.dimension = dimension;
             this.name = name;
             this.color = color;
         }
 
-        public StructureTrade setCost(int min, int max)
-        {
+        public StructureTrade setCost(int min, int max) {
             this.min = min;
             this.max = max;
             return this;
         }
 
-        public StructureTrade setColor(int color)
-        {
+        public StructureTrade setColor(int color) {
             this.color = color;
             return this;
         }

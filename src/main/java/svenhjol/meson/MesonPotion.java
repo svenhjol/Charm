@@ -6,12 +6,10 @@ import net.minecraft.potion.Potion;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.iface.IMesonPotion;
 
-public abstract class MesonPotion extends Potion implements IMesonPotion
-{
+public abstract class MesonPotion extends Potion implements IMesonPotion {
     protected MesonModule module;
 
-    public MesonPotion(MesonModule module, String name, EffectInstance... effects)
-    {
+    public MesonPotion(MesonModule module, String name, EffectInstance... effects) {
         super(effects);
 
         this.module = module;
@@ -19,8 +17,7 @@ public abstract class MesonPotion extends Potion implements IMesonPotion
     }
 
     @Override
-    public void registerRecipe(Potion input, Item reagant)
-    {
+    public void registerRecipe(Potion input, Item reagant) {
         RegistryHandler.registerBrewingRecipe(input, reagant, this);
     }
 }

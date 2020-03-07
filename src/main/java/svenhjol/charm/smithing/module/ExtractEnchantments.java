@@ -22,8 +22,7 @@ import java.util.Map;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.SMITHING, hasSubscriptions = true,
     description = "Extract enchantments from any enchanted item into an empty book.\n" +
         "The enchantments are weakened in the process and the original item is destroyed.")
-public class ExtractEnchantments extends MesonModule
-{
+public class ExtractEnchantments extends MesonModule {
     @Config(name = "Base XP cost", description = "Minimum cost before adding XP equivalent to the enchantment level(s) of the item.")
     public static int baseCost = 1;
 
@@ -34,8 +33,7 @@ public class ExtractEnchantments extends MesonModule
     public static boolean allowLevelOneEnchants = true;
 
     @SubscribeEvent
-    public void onAnvilUpdate(AnvilUpdateEvent event)
-    {
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
         ItemStack left = event.getLeft();
         ItemStack right = event.getRight();
         ItemStack out;
@@ -81,9 +79,7 @@ public class ExtractEnchantments extends MesonModule
 
         // apply enchantments to the book
         out = new ItemStack(Items.ENCHANTED_BOOK);
-        outEnchants.forEach((e, level) -> {
-            EnchantedBookItem.addEnchantment(out, new EnchantmentData(e, level));
-        });
+        outEnchants.forEach((e, level) -> EnchantedBookItem.addEnchantment(out, new EnchantmentData(e, level)));
 
         // set the display name on the returned item
         String name = event.getName();

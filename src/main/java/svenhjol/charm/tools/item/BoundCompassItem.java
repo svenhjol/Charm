@@ -24,8 +24,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class BoundCompassItem extends MesonItem
-{
+public class BoundCompassItem extends MesonItem {
     private static final String POS = "pos";
     private static final String DIM = "dim";
     private static final String COLOR = "color";
@@ -33,18 +32,15 @@ public class BoundCompassItem extends MesonItem
     private static final String ROTATION = "rotation";
     private static final String LASTUPDATE = "lastUpdateTick";
 
-    public BoundCompassItem(MesonModule module)
-    {
+    public BoundCompassItem(MesonModule module) {
         super(module, "bound_compass", new Item.Properties()
             .group(ItemGroup.MISC)
             .maxStackSize(1)
         );
 
-        addPropertyOverride(new ResourceLocation("angle"), new IItemPropertyGetter()
-        {
+        addPropertyOverride(new ResourceLocation("angle"), new IItemPropertyGetter() {
             @Override
-            public float call(ItemStack stack, @Nullable World world, @Nullable LivingEntity entityIn)
-            {
+            public float call(ItemStack stack, @Nullable World world, @Nullable LivingEntity entityIn) {
                 if (entityIn == null && !stack.isOnItemFrame()) return 0;
 
                 boolean hasEntity = entityIn != null;
@@ -81,12 +77,11 @@ public class BoundCompassItem extends MesonItem
                     angle = wobble(world, stack, angle);
                 }
 
-                return MathHelper.positiveModulo((float)angle, 1.0F);
+                return MathHelper.positiveModulo((float) angle, 1.0F);
             }
 
             @OnlyIn(Dist.CLIENT)
-            private double wobble(World worldIn, ItemStack stack, double angle)
-            {
+            private double wobble(World worldIn, ItemStack stack, double angle) {
                 if (!stack.hasTag()) {
                     return 0.0f;
                 }
@@ -95,8 +90,7 @@ public class BoundCompassItem extends MesonItem
                 double rota = ItemNBTHelper.getDouble(stack, ROTA, 0);
                 long lastUpdateTick = ItemNBTHelper.getLong(stack, LASTUPDATE, 0);
 
-                if (worldIn.getGameTime() != lastUpdateTick)
-                {
+                if (worldIn.getGameTime() != lastUpdateTick) {
                     lastUpdateTick = worldIn.getGameTime();
                     double d0 = angle - rotation;
                     d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
@@ -113,55 +107,46 @@ public class BoundCompassItem extends MesonItem
             }
 
             @OnlyIn(Dist.CLIENT)
-            private double getFrameRotation(ItemFrameEntity frame)
-            {
+            private double getFrameRotation(ItemFrameEntity frame) {
                 return MathHelper.wrapDegrees(180 + Objects.requireNonNull(frame.getHorizontalFacing()).getHorizontalIndex() * 90);
             }
 
             @OnlyIn(Dist.CLIENT)
-            private double getPosToAngle(Entity entity, BlockPos pos)
-            {
+            private double getPosToAngle(Entity entity, BlockPos pos) {
                 BlockPos entityPos = entity.getPosition();
                 return Math.atan2(pos.getZ() - entityPos.getZ(), pos.getX() - entityPos.getX());
             }
         });
     }
 
-    public static int getColor(ItemStack stack)
-    {
+    public static int getColor(ItemStack stack) {
         return ItemNBTHelper.getInt(stack, COLOR, 0);
     }
 
-    public static int getDim(ItemStack stack)
-    {
+    public static int getDim(ItemStack stack) {
         return ItemNBTHelper.getInt(stack, DIM, 0);
     }
 
-    public static BlockPos getPos(ItemStack stack)
-    {
+    public static BlockPos getPos(ItemStack stack) {
         if (!stack.hasTag()) return null;
         long pos = ItemNBTHelper.getLong(stack, POS, 0);
         return BlockPos.fromLong(pos);
     }
 
-    public static void setColor(ItemStack stack, int color)
-    {
+    public static void setColor(ItemStack stack, int color) {
         ItemNBTHelper.setInt(stack, COLOR, color);
     }
 
-    public static void setDim(ItemStack stack, int dim)
-    {
+    public static void setDim(ItemStack stack, int dim) {
         ItemNBTHelper.setInt(stack, DIM, dim);
     }
 
-    public static void setPos(ItemStack stack, BlockPos pos)
-    {
+    public static void setPos(ItemStack stack, BlockPos pos) {
         ItemNBTHelper.setLong(stack, POS, pos.toLong());
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> textComponents, ITooltipFlag flag)
-    {
+    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> textComponents, ITooltipFlag flag) {
         BlockPos pos = getPos(stack);
 
         if (pos != null) {

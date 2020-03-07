@@ -13,10 +13,9 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonFallingBlock;
 import svenhjol.meson.iface.IMesonBlock;
 
-public class RedstoneSandBlock extends MesonFallingBlock implements IMesonBlock
-{
-    public RedstoneSandBlock(MesonModule module)
-    {
+@SuppressWarnings("deprecation")
+public class RedstoneSandBlock extends MesonFallingBlock implements IMesonBlock {
+    public RedstoneSandBlock(MesonModule module) {
         super(module, "redstone_sand", Block.Properties
             .create(Material.SAND)
             .sound(SoundType.SAND)
@@ -26,20 +25,17 @@ public class RedstoneSandBlock extends MesonFallingBlock implements IMesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.REDSTONE;
     }
 
     @Override
-    public boolean canProvidePower(BlockState state)
-    {
+    public boolean canProvidePower(BlockState state) {
         return true;
     }
 
     @Override
-    public int getWeakPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side)
-    {
+    public int getWeakPower(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
         return 15;
     }
 }

@@ -13,10 +13,8 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonFallingBlock;
 import svenhjol.meson.iface.IMesonBlock;
 
-public class GunpowderBlock extends MesonFallingBlock implements IMesonBlock
-{
-    public GunpowderBlock(MesonModule module)
-    {
+public class GunpowderBlock extends MesonFallingBlock implements IMesonBlock {
+    public GunpowderBlock(MesonModule module) {
         super(module, "gunpowder_block", Block.Properties
             .create(Material.SAND)
             .sound(SoundType.SAND)
@@ -26,29 +24,27 @@ public class GunpowderBlock extends MesonFallingBlock implements IMesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.BUILDING_BLOCKS;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving)
-    {
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (!tryTouchLava(worldIn, pos, state)) {
             super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
         }
     }
 
     @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving)
-    {
+    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (!tryTouchLava(worldIn, pos, state)) {
             super.onBlockAdded(state, worldIn, pos, oldState, isMoving);
         }
     }
 
-    protected boolean tryTouchLava(World world, BlockPos pos, BlockState state)
-    {
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    protected boolean tryTouchLava(World world, BlockPos pos, BlockState state) {
         boolean lavaBelow = false;
 
         for (Direction facing : Direction.values()) {

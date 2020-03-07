@@ -7,10 +7,8 @@ import svenhjol.charm.brewing.module.Coffee;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.MesonPotion;
 
-public class CoffeePotion extends MesonPotion
-{
-    public CoffeePotion(MesonModule module)
-    {
+public class CoffeePotion extends MesonPotion {
+    public CoffeePotion(MesonModule module) {
         super(module, "coffee_potion", new EffectInstance(Coffee.effect, Coffee.duration * 20));
 
         if (module.enabled) {

@@ -7,11 +7,13 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Module
-{
+public @interface Module {
     String mod();
+
     String category();
+
     String name() default "";
+
     String description() default "";
 
     @SuppressWarnings("unused")

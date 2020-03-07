@@ -10,12 +10,10 @@ import net.minecraft.util.NonNullList;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.IMesonBlock;
 
-public class GoldLanternBlock extends LanternBlock implements IMesonBlock
-{
+public class GoldLanternBlock extends LanternBlock implements IMesonBlock {
     protected MesonModule module;
 
-    public GoldLanternBlock(MesonModule module)
-    {
+    public GoldLanternBlock(MesonModule module) {
         super(Block.Properties
             .create(Material.IRON)
             .hardnessAndResistance(3.5F)
@@ -27,22 +25,19 @@ public class GoldLanternBlock extends LanternBlock implements IMesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.DECORATIONS;
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
-    {
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         if (isEnabled() && group == ItemGroup.SEARCH) {
             super.fillItemGroup(group, items);
         }
     }
 
     @Override
-    public boolean isEnabled()
-    {
+    public boolean isEnabled() {
         return module.enabled;
     }
 }

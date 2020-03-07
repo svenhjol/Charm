@@ -18,10 +18,8 @@ import vazkii.quark.vanity.module.ColorRunesModule;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class QuarkCompat
-{
-    public void onTallowAnvilUpdate(AnvilUpdateEvent event)
-    {
+public class QuarkCompat {
+    public void onTallowAnvilUpdate(AnvilUpdateEvent event) {
         ItemStack left = event.getLeft();
         ItemStack right = event.getRight();
         ItemStack out;
@@ -46,30 +44,27 @@ public class QuarkCompat
 
         out = left.copy();
         out.setRepairCost(left.getRepairCost() + (new Random().nextDouble() < TallowIncreasesDurability.chanceOfCost ? 1 : 0));
-        out.setDamage(currentDamage - (int)(maxDamage * TallowIncreasesDurability.amountRepaired));
+        out.setDamage(currentDamage - (int) (maxDamage * TallowIncreasesDurability.amountRepaired));
 
         event.setOutput(out);
         event.setCost(TallowIncreasesDurability.xpCost);
         event.setMaterialCost(1);
     }
 
-    public boolean hasColorRuneModule()
-    {
+    public boolean hasColorRuneModule() {
         return ModuleLoader.INSTANCE.isModuleEnabled(ColorRunesModule.class);
     }
 
-    public boolean isRune(ItemStack stack)
-    {
+    public boolean isRune(ItemStack stack) {
         return stack.getItem() instanceof RuneItem;
     }
 
     @Nullable
-    public ColorVariant getRuneColor(ItemStack stack)
-    {
+    public ColorVariant getRuneColor(ItemStack stack) {
         ColorVariant color = ColorVariant.WHITE;
 
         if (isRune(stack)) {
-            RuneItem item = (RuneItem)stack.getItem();
+            RuneItem item = (RuneItem) stack.getItem();
             ResourceLocation itemRegName = item.getRegistryName();
             if (itemRegName == null)
                 return null;
@@ -86,8 +81,7 @@ public class QuarkCompat
         return color;
     }
 
-    public ItemStack getRune(ColorVariant color)
-    {
+    public ItemStack getRune(ColorVariant color) {
         ResourceLocation res = new ResourceLocation(Quark.MOD_ID, color.getName() + "_rune");
         Item runeItem = ForgeRegistries.ITEMS.getValue(res);
         return runeItem == null ? ItemStack.EMPTY : new ItemStack(runeItem);

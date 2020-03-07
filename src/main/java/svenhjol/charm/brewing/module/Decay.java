@@ -11,8 +11,7 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.BREWING,
     description = "A potion that gives Wither to living things.")
-public class Decay extends MesonModule
-{
+public class Decay extends MesonModule {
     public static DecayPotion potion;
     public static Effect effect;
 
@@ -20,8 +19,7 @@ public class Decay extends MesonModule
     public static int duration = 10;
 
     @Override
-    public void init()
-    {
+    public void init() {
         effect = Effects.WITHER;
         potion = new DecayPotion(this);
     }

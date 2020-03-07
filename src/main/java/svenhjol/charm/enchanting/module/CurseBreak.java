@@ -17,29 +17,25 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.ENCHANTING, hasSubscriptions = true,
     description = "Combine the Curse Break enchanted book with a cursed item on an anvil to remove the item's curse.")
-public class CurseBreak extends MesonModule
-{
+public class CurseBreak extends MesonModule {
     public static CurseBreakEnchantment enchantment;
 
     @Config(name = "XP cost", description = "Number of levels required to remove a curse from an item.")
     public static int xpCost = 1;
 
     @Override
-    public void init()
-    {
+    public void init() {
         enchantment = new CurseBreakEnchantment(this);
     }
 
     @Override
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         if (!Meson.isModuleEnabled("charm:no_anvil_minimum_xp") && xpCost == 0)
             xpCost = 1;
     }
 
     @SubscribeEvent
-    public void onAnvilUpdate(AnvilUpdateEvent event)
-    {
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
         ItemStack left = event.getLeft();
         ItemStack right = event.getRight();
         ItemStack out;

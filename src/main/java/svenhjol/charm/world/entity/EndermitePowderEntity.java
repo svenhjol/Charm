@@ -14,8 +14,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import svenhjol.charm.world.module.EndermitePowder;
 
-public class EndermitePowderEntity extends Entity
-{
+public class EndermitePowderEntity extends Entity {
     public int ticks = 0;
 
     private static final DataParameter<Integer> TARGET_X = EntityDataManager.createKey(EndermitePowderEntity.class, DataSerializers.VARINT);
@@ -23,48 +22,41 @@ public class EndermitePowderEntity extends Entity
     private static final String TAG_TARGET_X = "targetX";
     private static final String TAG_TARGET_Z = "targetZ";
 
-    public EndermitePowderEntity(EntityType<? extends Entity> type, World world)
-    {
+    public EndermitePowderEntity(EntityType<? extends Entity> type, World world) {
         super(type, world);
     }
 
-    public EndermitePowderEntity(World world, int x, int z)
-    {
+    public EndermitePowderEntity(World world, int x, int z) {
         this(EndermitePowder.entity, world);
         dataManager.set(TARGET_X, x);
         dataManager.set(TARGET_Z, z);
     }
 
     @Override
-    protected void registerData()
-    {
+    protected void registerData() {
         dataManager.register(TARGET_X, 0);
         dataManager.register(TARGET_Z, 0);
     }
 
     @Override
-    protected void readAdditional(CompoundNBT tag)
-    {
+    protected void readAdditional(CompoundNBT tag) {
         dataManager.set(TARGET_X, tag.getInt(TAG_TARGET_X));
         dataManager.set(TARGET_Z, tag.getInt(TAG_TARGET_Z));
     }
 
     @Override
-    protected void writeAdditional(CompoundNBT tag)
-    {
+    protected void writeAdditional(CompoundNBT tag) {
         tag.putInt(TAG_TARGET_X, dataManager.get(TARGET_X));
         tag.putInt(TAG_TARGET_Z, dataManager.get(TARGET_Z));
     }
 
     @Override
-    public IPacket<?> createSpawnPacket()
-    {
+    public IPacket<?> createSpawnPacket() {
         return new SSpawnObjectPacket(this);
     }
 
     @Override
-    public void tick()
-    {
+    public void tick() {
         super.tick();
 
         double posSpread = 0.5;
@@ -87,7 +79,7 @@ public class EndermitePowderEntity extends Entity
             double px = bpx + (Math.random() - 0.5) * posSpread;
             double py = bpy + (Math.random() - 0.5) * posSpread;
             double pz = bpz + (Math.random() - 0.5) * posSpread;
-            ((ServerWorld)world).spawnParticle(ParticleTypes.PORTAL, px, py, pz, 1,0.2D, 0.12D, 0.1D, 0.06D);
+            ((ServerWorld) world).spawnParticle(ParticleTypes.PORTAL, px, py, pz, 1, 0.2D, 0.12D, 0.1D, 0.06D);
         }
 
         if (ticks++ > maxLiveTime) {

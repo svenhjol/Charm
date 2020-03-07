@@ -38,8 +38,8 @@ import svenhjol.meson.enums.ColorVariant;
 
 import javax.annotation.Nullable;
 
-public class RunePortalFrameBlock extends MesonBlock
-{
+@SuppressWarnings("deprecation")
+public class RunePortalFrameBlock extends MesonBlock {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     public static final EnumProperty<ColorVariant> RUNE = EnumProperty.create("rune", ColorVariant.class);
     protected static final VoxelShape BASE_SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 13.0D, 16.0D);
@@ -48,8 +48,7 @@ public class RunePortalFrameBlock extends MesonBlock
 
     private static BlockPattern portalShape;
 
-    public RunePortalFrameBlock(MesonModule module)
-    {
+    public RunePortalFrameBlock(MesonModule module) {
         super(module, "rune_portal_frame", Block.Properties
             .create(Material.ROCK, MaterialColor.GREEN)
             .sound(SoundType.GLASS)
@@ -64,53 +63,45 @@ public class RunePortalFrameBlock extends MesonBlock
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
-    {
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return BASE_WITH_RUNE_SHAPE;
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context)
-    {
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.getDefaultState()
             .with(FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
 
     @Override
-    public BlockState rotate(BlockState state, Rotation rot)
-    {
+    public BlockState rotate(BlockState state, Rotation rot) {
         return state.with(FACING, rot.rotate(state.get(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, Mirror mirrorIn)
-    {
+    public BlockState mirror(BlockState state, Mirror mirrorIn) {
         return state.rotate(mirrorIn.toRotation(state.get(FACING)));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
-    {
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING, RUNE);
     }
 
     @Override
-    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type)
-    {
+    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
         return false;
     }
 
     // TODO unlikely to work, needs to get state somehow
     @Override
-    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player)
-    {
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
         return new ItemStack(this, 1);
     }
 
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
-    {
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.onBlockPlacedBy(world, pos, state, placer, stack);
 
         Direction facing;
@@ -122,20 +113,20 @@ public class RunePortalFrameBlock extends MesonBlock
         }
 
         if (world instanceof ServerWorld) {
-            EndPortalRunes.activate((ServerWorld)world, pos);
+            EndPortalRunes.activate((ServerWorld) world, pos);
         }
     }
 
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving)
-    {
+    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
         super.onReplaced(state, world, pos, newState, isMoving);
 
         if (world instanceof ServerWorld) {
-            EndPortalRunes.deactivate((ServerWorld)world, pos);
+            EndPortalRunes.deactivate((ServerWorld) world, pos);
         }
     }
 
+    @SuppressWarnings("Guava")
     public static BlockPattern getOrCreatePortalShape() {
         if (portalShape == null) {
             portalShape = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?")
@@ -151,8 +142,7 @@ public class RunePortalFrameBlock extends MesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.SEARCH;
     }
 }

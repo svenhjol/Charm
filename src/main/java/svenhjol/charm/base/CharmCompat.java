@@ -5,10 +5,8 @@ import svenhjol.charm.base.compat.QuarkCompat;
 import svenhjol.meson.MesonInstance;
 import svenhjol.meson.helper.ForgeHelper;
 
-public class CharmCompat
-{
-    public static void init(MesonInstance instance)
-    {
+public class CharmCompat {
+    public static void init(MesonInstance instance) {
         try {
             if (ForgeHelper.isModLoaded("quark")) {
                 Charm.quarkCompat = QuarkCompat.class.newInstance();

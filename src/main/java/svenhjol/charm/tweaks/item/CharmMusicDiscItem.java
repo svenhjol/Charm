@@ -8,13 +8,11 @@ import net.minecraft.util.SoundEvent;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.IMesonItem;
 
-public class CharmMusicDiscItem extends MusicDiscItem implements IMesonItem
-{
+public class CharmMusicDiscItem extends MusicDiscItem implements IMesonItem {
     protected String name;
     protected MesonModule module;
 
-    public CharmMusicDiscItem(MesonModule module, String name, SoundEvent sound, Properties props, int comparatorValue)
-    {
+    public CharmMusicDiscItem(MesonModule module, String name, SoundEvent sound, Properties props, int comparatorValue) {
         super(comparatorValue, sound, props);
 
         this.name = name;
@@ -23,16 +21,14 @@ public class CharmMusicDiscItem extends MusicDiscItem implements IMesonItem
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
-    {
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         if (isEnabled() && group == ItemGroup.SEARCH) {
             super.fillItemGroup(group, items);
         }
     }
 
     @Override
-    public boolean isEnabled()
-    {
+    public boolean isEnabled() {
         return module.enabled;
     }
 }

@@ -12,8 +12,7 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
     description = "Potions can stack (up to 16).")
-public class StackablePotions extends MesonModule
-{
+public class StackablePotions extends MesonModule {
     public static int size = 16;
     public static ResourceLocation POTION_ID = new ResourceLocation("potion");
     public static ResourceLocation SPLASH_ID = new ResourceLocation("splash_potion");
@@ -23,8 +22,7 @@ public class StackablePotions extends MesonModule
     public static LingeringPotionItem lingering;
 
     @Override
-    public void init()
-    {
+    public void init() {
         if (enabled) {
             potion = new PotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));
             splash = new SplashPotionItem((new Item.Properties()).maxStackSize(size).group(ItemGroup.BREWING));

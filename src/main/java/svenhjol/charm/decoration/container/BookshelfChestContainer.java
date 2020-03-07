@@ -9,10 +9,8 @@ import svenhjol.charm.decoration.module.BookshelfChests;
 import svenhjol.charm.decoration.tileentity.BookshelfChestTileEntity;
 import svenhjol.meson.MesonContainer;
 
-public class BookshelfChestContainer extends MesonContainer
-{
-    private BookshelfChestContainer(ContainerType<?> type, int id, PlayerInventory player, IInventory inventory)
-    {
+public class BookshelfChestContainer extends MesonContainer {
+    private BookshelfChestContainer(ContainerType<?> type, int id, PlayerInventory player, IInventory inventory) {
         super(type, id, player, inventory);
 
         int index = 0;
@@ -37,13 +35,11 @@ public class BookshelfChestContainer extends MesonContainer
         }
     }
 
-    public static BookshelfChestContainer instance(int id, PlayerInventory playerInventory, IInventory inventory)
-    {
+    public static BookshelfChestContainer instance(int id, PlayerInventory playerInventory, IInventory inventory) {
         return new BookshelfChestContainer(BookshelfChests.container, id, playerInventory, inventory);
     }
 
-    public static BookshelfChestContainer instance(int id, PlayerInventory playerInventory)
-    {
+    public static BookshelfChestContainer instance(int id, PlayerInventory playerInventory) {
         return instance(id, playerInventory, new Inventory(BookshelfChestTileEntity.SIZE));
     }
 }

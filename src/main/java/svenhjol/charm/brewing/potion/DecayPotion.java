@@ -7,10 +7,8 @@ import svenhjol.charm.brewing.module.Decay;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.MesonPotion;
 
-public class DecayPotion extends MesonPotion
-{
-    public DecayPotion(MesonModule module)
-    {
+public class DecayPotion extends MesonPotion {
+    public DecayPotion(MesonModule module) {
         super(module, "decay_potion", new EffectInstance(Decay.effect, Decay.duration * 20));
 
         if (module.enabled)

@@ -17,20 +17,17 @@ import svenhjol.meson.MesonItem;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemNBTHelper;
 
-public class BatBucketItem extends MesonItem
-{
+public class BatBucketItem extends MesonItem {
     public static final String BAT_SIGNAL = "stored_bat";
 
-    public BatBucketItem(MesonModule module)
-    {
+    public BatBucketItem(MesonModule module) {
         super(module, "bat_bucket", new Item.Properties()
             .group(ItemGroup.MISC)
             .maxStackSize(1));
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context)
-    {
+    public ActionResultType onItemUse(ItemUseContext context) {
         if (context.getPlayer() == null) return ActionResultType.FAIL;
 
         PlayerEntity player = context.getPlayer();

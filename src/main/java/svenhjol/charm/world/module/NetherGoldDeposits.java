@@ -19,8 +19,7 @@ import static net.minecraft.world.gen.feature.Feature.ORE;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD,
     description = "Gold deposits spawn in the Nether that can be broken to receive gold nuggets.")
-public class NetherGoldDeposits extends MesonModule
-{
+public class NetherGoldDeposits extends MesonModule {
     public static NetherGoldDepositBlock block;
 
     @Config(name = "Vein size")
@@ -30,20 +29,17 @@ public class NetherGoldDeposits extends MesonModule
     public static int clusterCount = 10;
 
     @Override
-    public boolean shouldRunSetup()
-    {
+    public boolean shouldRunSetup() {
         return !ForgeHelper.isModLoaded("nethergoldore");
     }
 
     @Override
-    public void init()
-    {
+    public void init() {
         block = new NetherGoldDepositBlock(this);
     }
 
     @Override
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
             if (biome.getCategory() != Biome.Category.NETHER) continue;
 

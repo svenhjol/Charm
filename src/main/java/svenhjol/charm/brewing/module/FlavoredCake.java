@@ -40,8 +40,7 @@ import java.util.Map;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.BREWING, hasSubscriptions = true,
     description = "Right-click a Long Potion on a cake to make a Flavored Cake that gives the potion effect after eating each slice." +
         "You can also make a Flavored Cake using a dispenser.")
-public class FlavoredCake extends MesonModule
-{
+public class FlavoredCake extends MesonModule {
     @Config(
         name = "Effect duration multiplier",
         description = "Effect duration of a single slice of cake as a multiplier of the original potion duration.")
@@ -64,8 +63,7 @@ public class FlavoredCake extends MesonModule
     public static Map<String, FlavoredCakeBlock> cakes = new HashMap<>();
 
     @Override
-    public void init()
-    {
+    public void init() {
         validPotions.forEach(potionName -> {
 
             // get the mod and potion name from the fully qualified potion name
@@ -86,8 +84,7 @@ public class FlavoredCake extends MesonModule
     }
 
     @Override
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         // add dispenser behavior for potions so that they can be used to imbue cakes
         DispenserBlock.registerDispenseBehavior(Items.POTION, new DispenseImbueBehavior());
 
@@ -96,8 +93,7 @@ public class FlavoredCake extends MesonModule
     }
 
     @SubscribeEvent
-    public void onPotionUse(RightClickBlock event)
-    {
+    public void onPotionUse(RightClickBlock event) {
         // check held potion, imbue and return
         ItemStack held = event.getPlayer().getHeldItem(event.getHand());
         boolean result = FlavoredCake.imbue(event.getWorld(), event.getPos(), held);
@@ -109,11 +105,10 @@ public class FlavoredCake extends MesonModule
         }
     }
 
-    public static boolean imbue(World world, BlockPos pos, ItemStack stack)
-    {
+    public static boolean imbue(World world, BlockPos pos, ItemStack stack) {
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
-        if (block == Blocks.CAKE || cakes.containsValue(block)) {
+        if (block == Blocks.CAKE || (block instanceof FlavoredCakeBlock && cakes.containsValue(block))) {
             if (state.get(CakeBlock.BITES) > 0) return false; // don't allow imbuing of non-full cakes
             Potion potion = PotionUtils.getPotionFromItem(stack);
             ResourceLocation potionRes = potion.getRegistryName();
@@ -123,7 +118,8 @@ public class FlavoredCake extends MesonModule
                 .replace("long_", "");
 
             if (cakes.containsKey(potionName)) {
-                if (state == cakes.get(potionName).getDefaultState()) return false; // don't allow imbuing with the same potion
+                if (state == cakes.get(potionName).getDefaultState())
+                    return false; // don't allow imbuing with the same potion
                 BlockState imbued = cakes.get(potionName).getDefaultState().with(FlavoredCakeBlock.BITES, state.get(FlavoredCakeBlock.BITES));
                 world.setBlockState(pos, imbued, 2);
                 stack.shrink(1);
@@ -141,25 +137,22 @@ public class FlavoredCake extends MesonModule
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void effectImbue(BlockPos pos)
-    {
+    public static void effectImbue(BlockPos pos) {
         World world = Minecraft.getInstance().world;
         for (int i = 0; i < 8; ++i) {
             double d0 = world.rand.nextGaussian() * 0.02D;
             double d1 = world.rand.nextGaussian() * 0.02D;
             double d2 = world.rand.nextGaussian() * 0.02D;
-            double dx = (float)pos.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
-            double dy = (float)pos.getY() + 0.65f;
-            double dz = (float)pos.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+            double dx = (float) pos.getX() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
+            double dy = (float) pos.getY() + 0.65f;
+            double dz = (float) pos.getZ() + MathHelper.clamp(world.rand.nextFloat(), 0.25f, 0.75f);
             world.addParticle(ParticleTypes.WITCH, dx, dy, dz, d0, d1, d2);
         }
     }
 
-    public static class DispenseImbueBehavior extends DefaultDispenseItemBehavior
-    {
+    public static class DispenseImbueBehavior extends DefaultDispenseItemBehavior {
         @Override
-        protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
-        {
+        protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
             World world = source.getWorld();
             BlockPos pos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
             boolean result = imbue(world, pos, stack);

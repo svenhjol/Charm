@@ -7,8 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class StringHelper
-{
+public class StringHelper {
     public static Map<Integer, Integer> dyeTextMap = new HashMap<>();
 
     static {
@@ -30,15 +29,13 @@ public class StringHelper
         dyeTextMap.put(0, 15);
     }
 
-    public static String formatBlockPos(BlockPos pos)
-    {
+    public static String formatBlockPos(BlockPos pos) {
         if (pos == null) return "";
         return pos.getX() + " " + pos.getY() + " " + pos.getZ();
     }
 
 
-    public static TextFormatting getTextFormattingByDyeDamage(int dyeDamage)
-    {
+    public static TextFormatting getTextFormattingByDyeDamage(int dyeDamage) {
         return TextFormatting.fromColorIndex(dyeTextMap.get(dyeDamage));
     }
 }

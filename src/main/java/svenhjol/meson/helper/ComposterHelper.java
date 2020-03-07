@@ -10,20 +10,16 @@ import net.minecraft.world.World;
 import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressWarnings("unused")
-public class ComposterHelper
-{
-    public static void addInputItem(Item item, float chance)
-    {
+public class ComposterHelper {
+    public static void addInputItem(Item item, float chance) {
         ComposterBlock.CHANCES.put(item, chance);
     }
 
-    public static void removeInputItem(Item item)
-    {
+    public static void removeInputItem(Item item) {
         ComposterBlock.CHANCES.removeFloat(item);
     }
 
-    public static float getChance(Item item)
-    {
+    public static float getChance(Item item) {
         AtomicReference<Float> out = new AtomicReference<>(0F);
         ComposterBlock.CHANCES.forEach((i, c) -> {
             if (item.equals(i)) {
@@ -33,8 +29,7 @@ public class ComposterHelper
         return out.get();
     }
 
-    public static void spawnOutput(World world, BlockPos pos, ItemStack stack)
-    {
+    public static void spawnOutput(World world, BlockPos pos, ItemStack stack) {
         if (!world.isRemote) {
             double d0 = (double) (world.rand.nextFloat() * 0.7F) + (double) 0.15F;
             double d1 = (double) (world.rand.nextFloat() * 0.7F) + (double) 0.060000002F + 0.6D;

@@ -19,16 +19,14 @@ import java.util.List;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
     description = "Animals will heal within range of a beacon with the regeneration effect.\n" +
         "Monsters will be weakened within range of a beacon with the strength effect.")
-public class MobsAffectedByBeacon extends MesonModule
-{
+public class MobsAffectedByBeacon extends MesonModule {
     @Config(name = "Heal animals", description = "Heal friendly animals within range. One of the beacon effects must be regeneration.")
     public static boolean healAnimals = true;
 
     @Config(name = "Weaken monsters", description = "Monsters within range will be weakened. One of the beacon effects must be strength.")
     public static boolean weakenMonsters = true;
 
-    public static void mobsInBeaconRange(World world, int levels, BlockPos pos, Effect primaryEffect, Effect secondaryEffect)
-    {
+    public static void mobsInBeaconRange(World world, int levels, BlockPos pos, Effect primaryEffect, Effect secondaryEffect) {
         if (!world.isRemote) {
             double d0 = levels * 10 + 10;
             AxisAlignedBB bb = (new AxisAlignedBB(pos)).grow(d0).expand(0.0D, world.getHeight(), 0.0D);

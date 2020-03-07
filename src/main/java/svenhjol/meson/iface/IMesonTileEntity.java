@@ -1,5 +1,4 @@
 package svenhjol.meson.iface;
 
-public interface IMesonTileEntity
-{
+public interface IMesonTileEntity {
 }

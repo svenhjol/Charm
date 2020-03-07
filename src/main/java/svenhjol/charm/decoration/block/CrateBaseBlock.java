@@ -23,12 +23,11 @@ import svenhjol.meson.enums.WoodType;
 
 import javax.annotation.Nullable;
 
-public abstract class CrateBaseBlock extends MesonBlock
-{
+@SuppressWarnings("deprecation")
+public abstract class CrateBaseBlock extends MesonBlock {
     protected WoodType wood;
 
-    public CrateBaseBlock(MesonModule module, String name, WoodType wood)
-    {
+    public CrateBaseBlock(MesonModule module, String name, WoodType wood) {
         super(module, name, Block.Properties
             .create(Material.WOOD)
             .hardnessAndResistance(1.5F)
@@ -40,62 +39,52 @@ public abstract class CrateBaseBlock extends MesonBlock
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
-    {
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new CrateTileEntity();
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state)
-    {
+    public boolean hasTileEntity(BlockState state) {
         return true;
     }
 
     @Override
-    public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face)
-    {
+    public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
         return 50;
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.DECORATIONS;
     }
 
     @Override
-    public int getMaxStackSize()
-    {
+    public int getMaxStackSize() {
         return 1;
     }
 
     @Override
-    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face)
-    {
+    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
         return true;
     }
 
     @Override
-    public PushReaction getPushReaction(BlockState state)
-    {
+    public PushReaction getPushReaction(BlockState state) {
         return PushReaction.NORMAL;
     }
 
     @Override
-    public boolean hasComparatorInputOverride(BlockState state)
-    {
+    public boolean hasComparatorInputOverride(BlockState state) {
         return true;
     }
 
     @Override
-    public int getComparatorInputOverride(BlockState state, World world, BlockPos pos)
-    {
-        return Container.calcRedstoneFromInventory((IInventory)world.getTileEntity(pos));
+    public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
+        return Container.calcRedstoneFromInventory((IInventory) world.getTileEntity(pos));
     }
 
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack)
-    {
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
         if (stack.hasDisplayName()) {
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof CrateTileEntity) {
@@ -105,8 +94,7 @@ public abstract class CrateBaseBlock extends MesonBlock
     }
 
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving)
-    {
+    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof CrateTileEntity) {
@@ -117,10 +105,12 @@ public abstract class CrateBaseBlock extends MesonBlock
     }
 
     @Override
-    public ItemStack getItem(IBlockReader world, BlockPos pos, BlockState state)
-    {
+    public ItemStack getItem(IBlockReader world, BlockPos pos, BlockState state) {
         ItemStack stack = super.getItem(world, pos, state);
-        CrateTileEntity crate = (CrateTileEntity)world.getTileEntity(pos);
+        CrateTileEntity crate = (CrateTileEntity) world.getTileEntity(pos);
+        if (crate == null)
+            return ItemStack.EMPTY;
+
         CompoundNBT tag = crate.write(new CompoundNBT());
         if (!tag.isEmpty()) {
             stack.setTagInfo("BlockEntityTag", tag);
@@ -128,8 +118,7 @@ public abstract class CrateBaseBlock extends MesonBlock
         return stack;
     }
 
-    public WoodType getWood()
-    {
+    public WoodType getWood() {
         return wood;
     }
 }

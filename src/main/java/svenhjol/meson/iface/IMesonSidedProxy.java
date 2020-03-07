@@ -1,6 +1,5 @@
 package svenhjol.meson.iface;
 
-public interface IMesonSidedProxy
-{
+public interface IMesonSidedProxy {
     void init();
 }

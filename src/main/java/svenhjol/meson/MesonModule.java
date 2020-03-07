@@ -14,8 +14,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
  * Base class for each module/feature of a Meson mod.
  */
 @SuppressWarnings("unused")
-public abstract class MesonModule
-{
+public abstract class MesonModule {
     public boolean enabled = true; // if false, won't run setup but will still register items/blocks
     public boolean enabledByDefault = true; // if false, won't be added first time config loads
     public boolean hasSubscriptions = false; // if true, adds this module to the forge event bus
@@ -27,62 +26,52 @@ public abstract class MesonModule
 
     /**
      * Put conditions here that allow the module to setup (register events, client setup).
+     *
      * @return true if module is allowed to run setup
      */
-    public boolean shouldRunSetup()
-    {
+    public boolean shouldRunSetup() {
         return true;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return this.name.isEmpty() ? this.getClass().getSimpleName() : this.name;
     }
 
-    public void init()
-    {
+    public void init() {
         // register blocks, TEs, etc.
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void initClient()
-    {
+    public void initClient() {
         // register particles and other client side things
     }
 
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         // register events, etc.
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void onClientSetup(FMLClientSetupEvent event)
-    {
+    public void onClientSetup(FMLClientSetupEvent event) {
         // register screens, etc.
     }
 
-    public void onModConfig(ModConfigEvent event)
-    {
+    public void onModConfig(ModConfigEvent event) {
         // modules can be enabled/disabled when config changes
     }
 
-    public void onServerAboutToStart(FMLServerAboutToStartEvent event)
-    {
+    public void onServerAboutToStart(FMLServerAboutToStartEvent event) {
         // server-side event, just after play selected world clicked
     }
 
-    public void onServerStarting(FMLServerStartingEvent event)
-    {
+    public void onServerStarting(FMLServerStartingEvent event) {
         // server-side event, access to resource manager etc.
     }
 
-    public void onServerStarted(FMLServerStartedEvent event)
-    {
+    public void onServerStarted(FMLServerStartedEvent event) {
         // server-side event, access to resource manager etc.
     }
 
-    public void onLoadComplete(FMLLoadCompleteEvent event)
-    {
+    public void onLoadComplete(FMLLoadCompleteEvent event) {
         // do final things
     }
 }

@@ -17,9 +17,9 @@ import svenhjol.meson.iface.Module;
 
 import java.util.*;
 
+@SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true)
-public class ComposterImprovements extends MesonModule
-{
+public class ComposterImprovements extends MesonModule {
     @Config(name = "Input items", description = "List of extra items that may be composted.\n" +
         "Specify the compost level chance (out of 1.0) after the item name.")
     public static List<String> inputItems = Arrays.asList("minecraft:rotten_flesh=0.3");
@@ -35,22 +35,20 @@ public class ComposterImprovements extends MesonModule
     public static int maxOutput = 3;
 
     @Override
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         for (String input : inputItems) {
             String[] split = input.split("=");
             float chance = Float.parseFloat(split[1]);
             String itemStr = split[0];
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemStr));
             if (item != null && ComposterHelper.getChance(item) == 0F) {
-                ComposterHelper.addInputItem(item, (float)Math.max(1.0, chance));
+                ComposterHelper.addInputItem(item, (float) Math.max(1.0, chance));
             }
         }
     }
 
     @SubscribeEvent
-    public void onComposterOutput(ComposterEvent.Output event)
-    {
+    public void onComposterOutput(ComposterEvent.Output event) {
         if (!event.getWorld().isRemote) {
             World world = event.getWorld();
             Random rand = world.rand;

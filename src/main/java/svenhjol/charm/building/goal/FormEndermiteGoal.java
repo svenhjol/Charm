@@ -15,22 +15,19 @@ import svenhjol.charm.building.module.BlockOfEnderPearls;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class FormEndermiteGoal extends RandomWalkingGoal
-{
+public class FormEndermiteGoal extends RandomWalkingGoal {
     private final SilverfishEntity silverfish;
     private Direction facing;
     private boolean doMerge;
 
-    public FormEndermiteGoal(SilverfishEntity silverfish)
-    {
+    public FormEndermiteGoal(SilverfishEntity silverfish) {
         super(silverfish, 0.6D);
         this.silverfish = silverfish;
         setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
     @Override
-    public boolean shouldExecute()
-    {
+    public boolean shouldExecute() {
         if (!silverfish.getEntityWorld().getGameRules().getBoolean(GameRules.MOB_GRIEFING))
             return false;
         else if (silverfish.getAttackTarget() != null)
@@ -57,14 +54,12 @@ public class FormEndermiteGoal extends RandomWalkingGoal
     }
 
     @Override
-    public boolean shouldContinueExecuting()
-    {
+    public boolean shouldContinueExecuting() {
         return !doMerge && super.shouldContinueExecuting();
     }
 
     @Override
-    public void startExecuting()
-    {
+    public void startExecuting() {
         World world = silverfish.getEntityWorld();
 
         BlockPos silverfishPos = getSilverfishPosition(silverfish);
@@ -86,8 +81,7 @@ public class FormEndermiteGoal extends RandomWalkingGoal
         }
     }
 
-    private BlockPos getSilverfishPosition(SilverfishEntity silverfishEntity)
-    {
+    private BlockPos getSilverfishPosition(SilverfishEntity silverfishEntity) {
         BlockPos entityPos = silverfishEntity.getPosition();
         return new BlockPos(entityPos.getX(), entityPos.getY() + 0.5D, entityPos.getZ());
     }

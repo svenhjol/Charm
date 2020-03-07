@@ -12,12 +12,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public class LootHelper
-{
+public class LootHelper {
     public static List<ResourceLocation> customTables = new ArrayList<>();
 
-    public static void addTableEntry(LootTable table, LootEntry entry)
-    {
+    public static void addTableEntry(LootTable table, LootEntry entry) {
         List<LootPool> pools = ObfuscationReflectionHelper.getPrivateValue(LootTable.class, table, "field_186466_c");
         if (pools == null) return;
         LootPool pool = pools.get(0);
@@ -27,8 +25,7 @@ public class LootHelper
         entries.add(entry);
     }
 
-    public static List<ResourceLocation> getLootTables()
-    {
+    public static List<ResourceLocation> getLootTables() {
         List<ResourceLocation> tables = new ArrayList<>();
 
         List<ResourceLocation> vanillaChests = LootTables.func_215796_a().stream()

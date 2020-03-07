@@ -16,19 +16,16 @@ import svenhjol.charm.decoration.block.BookshelfChestBlock;
 import svenhjol.charm.decoration.container.BookshelfChestContainer;
 import svenhjol.charm.decoration.module.BookshelfChests;
 
-public class BookshelfChestTileEntity extends LockableLootTileEntity
-{
+public class BookshelfChestTileEntity extends LockableLootTileEntity {
     public static int SIZE = 9;
     private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 
-    public BookshelfChestTileEntity()
-    {
+    public BookshelfChestTileEntity() {
         super(BookshelfChests.tile);
     }
 
     @Override
-    public void read(CompoundNBT tag)
-    {
+    public void read(CompoundNBT tag) {
         super.read(tag);
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         if (!this.checkLootAndRead(tag)) {
@@ -37,8 +34,7 @@ public class BookshelfChestTileEntity extends LockableLootTileEntity
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT tag)
-    {
+    public CompoundNBT write(CompoundNBT tag) {
         super.write(tag);
         if (!this.checkLootAndWrite(tag)) {
             ItemStackHelper.saveAllItems(tag, this.items);
@@ -47,32 +43,27 @@ public class BookshelfChestTileEntity extends LockableLootTileEntity
     }
 
     @Override
-    protected Container createMenu(int id, PlayerInventory player)
-    {
+    protected Container createMenu(int id, PlayerInventory player) {
         return BookshelfChestContainer.instance(id, player, this);
     }
 
     @Override
-    protected ITextComponent getDefaultName()
-    {
+    protected ITextComponent getDefaultName() {
         return new TranslationTextComponent("tile.charm.bookshelf_chest");
     }
 
     @Override
-    public NonNullList<ItemStack> getItems()
-    {
+    public NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
     @Override
-    public int getSizeInventory()
-    {
+    public int getSizeInventory() {
         return this.items.size();
     }
 
     @Override
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         for (ItemStack stack : this.items) {
             if (!stack.isEmpty()) return false;
         }
@@ -80,32 +71,27 @@ public class BookshelfChestTileEntity extends LockableLootTileEntity
     }
 
     @Override
-    public void setItems(NonNullList<ItemStack> items)
-    {
+    public void setItems(NonNullList<ItemStack> items) {
         this.items = items;
     }
 
     @Override
-    public void setInventorySlotContents(int slot, ItemStack item)
-    {
+    public void setInventorySlotContents(int slot, ItemStack item) {
         super.setInventorySlotContents(slot, item);
         updateBlockState();
     }
 
     @Override
-    public void openInventory(PlayerEntity player)
-    {
+    public void openInventory(PlayerEntity player) {
         player.world.playSound(null, pos, CharmSounds.BOOKSHELF_OPEN, SoundCategory.BLOCKS, 0.5f, player.world.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     @Override
-    public void closeInventory(PlayerEntity player)
-    {
+    public void closeInventory(PlayerEntity player) {
         player.world.playSound(null, pos, CharmSounds.BOOKSHELF_CLOSE, SoundCategory.BLOCKS, 0.5f, player.world.rand.nextFloat() * 0.1F + 0.9F);
     }
 
-    public void updateBlockState()
-    {
+    public void updateBlockState() {
         int filled = 0;
 
         for (int i = 0; i < SIZE; i++) {

@@ -21,14 +21,12 @@ import svenhjol.meson.iface.Module;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
     description = "Endermite Powder has a chance of being dropped from an Endermite.\n" +
         "Use it in the End to help locate an End City.")
-public class EndermitePowder extends MesonModule
-{
+public class EndermitePowder extends MesonModule {
     public static EndermitePowderItem item;
     public static EntityType<?> entity;
 
     @Override
-    public void init()
-    {
+    public void init() {
         item = new EndermitePowderItem(this);
         ResourceLocation res = new ResourceLocation(Charm.MOD_ID, "endermite_powder");
 
@@ -44,14 +42,13 @@ public class EndermitePowder extends MesonModule
     }
 
     @SubscribeEvent
-    public void onEndermiteDrops(LivingDropsEvent event)
-    {
+    public void onEndermiteDrops(LivingDropsEvent event) {
         if (!event.getEntityLiving().world.isRemote
             && event.getEntityLiving() instanceof EndermiteEntity
             && event.getSource().getTrueSource() instanceof PlayerEntity
             && event.getEntityLiving().world.rand.nextFloat() <= 0.5F + (0.1F * event.getLootingLevel())
         ) {
-            EndermiteEntity endermite = (EndermiteEntity)event.getEntityLiving();
+            EndermiteEntity endermite = (EndermiteEntity) event.getEntityLiving();
             ItemStack stack = new ItemStack(item);
             BlockPos endermitePos = endermite.getPosition();
             event.getDrops().add(new ItemEntity(endermite.getEntityWorld(), endermitePos.getX(), endermitePos.getY(), endermitePos.getZ(), stack));

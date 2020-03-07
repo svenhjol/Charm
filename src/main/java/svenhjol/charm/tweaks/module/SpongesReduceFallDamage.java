@@ -16,14 +16,12 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "Landing on sponge absorbs some of the player's fall damage.")
-public class SpongesReduceFallDamage extends MesonModule
-{
+public class SpongesReduceFallDamage extends MesonModule {
     @Config(name = "Damage absorbed", description = "Percentage (where 1.0 = 100%) of damage absorbed by sponge blocks.")
     public static double percentageAbsorbed = 0.75D;
 
     @SubscribeEvent
-    public void onLanding(LivingHurtEvent event)
-    {
+    public void onLanding(LivingHurtEvent event) {
         if (!event.isCanceled()
             && !event.getEntityLiving().world.isRemote
             && event.getSource() == DamageSource.FALL
@@ -33,7 +31,7 @@ public class SpongesReduceFallDamage extends MesonModule
             Block down = world.getBlockState(pos.down()).getBlock();
 
             if (down instanceof SpongeBlock || down instanceof WetSpongeBlock) {
-                event.setAmount(event.getAmount() - (float)(event.getAmount() * percentageAbsorbed));
+                event.setAmount(event.getAmount() - (float) (event.getAmount() * percentageAbsorbed));
             }
         }
     }

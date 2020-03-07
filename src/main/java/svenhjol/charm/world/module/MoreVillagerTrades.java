@@ -28,11 +28,9 @@ import java.util.Random;
         "Librarians buy back any enchanted books and sell curse break books, \n" +
         "butchers and leatherworkers will trade zombie flesh for meat and leather, \n" +
         "toolsmiths will repair anvils for an iron ingot cost.")
-public class MoreVillagerTrades extends MesonModule
-{
+public class MoreVillagerTrades extends MesonModule {
     @SubscribeEvent
-    public void onVillagerTrades(VillagerTradesEvent event)
-    {
+    public void onVillagerTrades(VillagerTradesEvent event) {
         Int2ObjectMap<List<VillagerTrades.ITrade>> trades = event.getTrades();
         VillagerProfession profession = event.getType();
 
@@ -62,12 +60,10 @@ public class MoreVillagerTrades extends MesonModule
         }
     }
 
-    static class RepairedAnvilForDamagedAnvilTrade implements VillagerTrades.ITrade
-    {
+    static class RepairedAnvilForDamagedAnvilTrade implements VillagerTrades.ITrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity merchant, Random rand)
-        {
+        public MerchantOffer getOffer(Entity merchant, Random rand) {
             ItemStack in1 = new ItemStack(rand.nextFloat() > 0.5F ? Items.DAMAGED_ANVIL : Items.CHIPPED_ANVIL);
             ItemStack in2 = new ItemStack(Items.IRON_INGOT, 4 + rand.nextInt(4));
             ItemStack out = new ItemStack(Items.ANVIL);
@@ -75,14 +71,12 @@ public class MoreVillagerTrades extends MesonModule
         }
     }
 
-    static class ItemForZombieFleshTrade implements VillagerTrades.ITrade
-    {
+    static class ItemForZombieFleshTrade implements VillagerTrades.ITrade {
         private final Item trade;
         private final int min;
         private final int max;
 
-        public ItemForZombieFleshTrade(Item trade, int min, int max)
-        {
+        public ItemForZombieFleshTrade(Item trade, int min, int max) {
             this.trade = trade;
             this.min = min;
             this.max = max;
@@ -90,8 +84,7 @@ public class MoreVillagerTrades extends MesonModule
 
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity merchant, Random rand)
-        {
+        public MerchantOffer getOffer(Entity merchant, Random rand) {
             int count = rand.nextInt(max - min) + min;
 
             ItemStack in1 = new ItemStack(Items.ROTTEN_FLESH, count * 4);
@@ -100,12 +93,10 @@ public class MoreVillagerTrades extends MesonModule
         }
     }
 
-    static class EmeraldsForAnyEnchantedBookTrade implements VillagerTrades.ITrade
-    {
+    static class EmeraldsForAnyEnchantedBookTrade implements VillagerTrades.ITrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity merchant, Random rand)
-        {
+        public MerchantOffer getOffer(Entity merchant, Random rand) {
             int emeraldCount = rand.nextInt(1) + 2;
             ItemStack in1 = new ItemStack(Items.ENCHANTED_BOOK); // any book
             ItemStack out = new ItemStack(Items.EMERALD, emeraldCount);
@@ -113,16 +104,16 @@ public class MoreVillagerTrades extends MesonModule
         }
     }
 
-    static class CurseBreakForEmeraldsTrade implements VillagerTrades.ITrade
-    {
+    static class CurseBreakForEmeraldsTrade implements VillagerTrades.ITrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity merchant, Random rand)
-        {
+        public MerchantOffer getOffer(Entity merchant, Random rand) {
             int emeraldCount = 2 * rand.nextInt(15) + 5;
             ItemStack in1 = new ItemStack(Items.EMERALD, emeraldCount);
             ItemStack out = new ItemStack(Items.ENCHANTED_BOOK);
-            EnchantmentHelper.setEnchantments(new HashMap<Enchantment, Integer>() {{ put(CurseBreak.enchantment, 1); }}, out);
+            EnchantmentHelper.setEnchantments(new HashMap<Enchantment, Integer>() {{
+                put(CurseBreak.enchantment, 1);
+            }}, out);
             return new MerchantOffer(in1, out, 1, 5, 0.2F);
         }
     }

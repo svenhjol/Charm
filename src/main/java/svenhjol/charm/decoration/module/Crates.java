@@ -34,8 +34,7 @@ import java.util.Map;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION, hasSubscriptions = true,
     description = "A smaller storage solution with the benefit of being transportable.\n" +
         "You can also seal a crate by combining it with an iron ingot on an anvil.  The only way to get things out is to break it.")
-public class Crates extends MesonModule
-{
+public class Crates extends MesonModule {
     public static Map<WoodType, CrateOpenBlock> openTypes = new HashMap<>();
     public static Map<WoodType, CrateSealedBlock> sealedTypes = new HashMap<>();
     public static List<Class<? extends Block>> invalidBlocks = new ArrayList<>();
@@ -47,9 +46,9 @@ public class Crates extends MesonModule
     @ObjectHolder("charm:crate")
     public static TileEntityType<CrateTileEntity> tile;
 
+    @SuppressWarnings("ConstantConditions")
     @Override
-    public void init()
-    {
+    public void init() {
         // create all wood types for open and sealed crates
         for (WoodType wood : WoodType.values()) {
             openTypes.put(wood, new CrateOpenBlock(this, wood));
@@ -71,21 +70,18 @@ public class Crates extends MesonModule
     }
 
     @Override
-    public void onClientSetup(FMLClientSetupEvent event)
-    {
+    public void onClientSetup(FMLClientSetupEvent event) {
         ScreenManager.registerFactory(container, CrateScreen::new);
     }
 
-    public static boolean canInsertItem(ItemStack stack)
-    {
+    public static boolean canInsertItem(ItemStack stack) {
         Class<? extends Block> blockClass = Block.getBlockFromItem(stack.getItem()).getClass();
         return !invalidItems.contains(stack.getItem().getClass())
             && !invalidBlocks.contains(blockClass);
     }
 
     @SubscribeEvent
-    public void onAnvilUpdate(AnvilUpdateEvent event)
-    {
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
         ItemStack left = event.getLeft();
         ItemStack right = event.getRight();
         ItemStack out = event.getOutput();

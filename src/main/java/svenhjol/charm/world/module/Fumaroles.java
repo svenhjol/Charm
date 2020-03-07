@@ -23,8 +23,7 @@ import svenhjol.meson.iface.Module;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD,
     description = "Fumaroles are small columns of hot steam rising from the nether floor.\n" +
         "Sometimes they erupt, sending entities that are placed on them high into the air.")
-public class Fumaroles extends MesonModule
-{
+public class Fumaroles extends MesonModule {
     public static FumaroleBlock block;
     public static Feature<NoFeatureConfig> feature = null;
     public static Placement<FrequencyConfig> placement = null;
@@ -33,8 +32,7 @@ public class Fumaroles extends MesonModule
     public static double eruptionVolume = 0.25D;
 
     @Override
-    public void init()
-    {
+    public void init() {
         block = new FumaroleBlock(this);
         feature = new FumaroleFeature(NoFeatureConfig::deserialize);
         placement = new FumarolePlacement(FrequencyConfig::deserialize);
@@ -44,8 +42,7 @@ public class Fumaroles extends MesonModule
     }
 
     @Override
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         Biomes.NETHER.addFeature(Decoration.UNDERGROUND_DECORATION,
             Biome.createDecoratedFeature(feature,
                 IFeatureConfig.NO_FEATURE_CONFIG,

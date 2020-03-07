@@ -12,12 +12,10 @@ import net.minecraft.world.World;
 import svenhjol.meson.iface.IMesonEnum;
 
 @SuppressWarnings("unused")
-public class WorldHelper
-{
+public class WorldHelper {
     public static final String END_CITY = "EndCity";
 
-    public enum Structure implements IMesonEnum
-    {
+    public enum Structure implements IMesonEnum {
         buried_treasure,
         desert_pyramid,
         endcity,
@@ -35,26 +33,22 @@ public class WorldHelper
         village
     }
 
-    public static BlockRayTraceResult getBlockLookedAt(PlayerEntity player)
-    {
+    public static BlockRayTraceResult getBlockLookedAt(PlayerEntity player) {
         return getBlockLookedAt(player, 10);
     }
 
-    public static BlockRayTraceResult getBlockLookedAt(PlayerEntity player, int distance)
-    {
+    public static BlockRayTraceResult getBlockLookedAt(PlayerEntity player, int distance) {
         Vec3d vec3d = player.getEyePosition(1.0F);
         Vec3d vec3d1 = player.getLook(1.0F);
         return player.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
     }
 
-    public static boolean canSeeSky(IWorld world, BlockPos pos)
-    {
+    public static boolean canSeeSky(IWorld world, BlockPos pos) {
         return world.isSkyLightMax(pos); // [1.14]
         // return world.canSeeSky(pos); // [1.15]
     }
 
-    public static double getDistanceSq(BlockPos pos1, BlockPos pos2)
-    {
+    public static double getDistanceSq(BlockPos pos1, BlockPos pos2) {
         double d0 = pos1.getX();
         double d1 = pos1.getZ();
         double d2 = d0 - pos2.getX();
@@ -62,13 +56,11 @@ public class WorldHelper
         return d2 * d2 + d3 * d3;
     }
 
-    public static int getDimensionId(World world)
-    {
+    public static int getDimensionId(World world) {
         return world.dimension.getType().getId();
     }
 
-    public static void clearWeather(World world)
-    {
+    public static void clearWeather(World world) {
         world.getWorldInfo().setClearWeatherTime(world.rand.nextInt(12000) + 3600);
         world.getWorldInfo().setRainTime(0);
         world.getWorldInfo().setThunderTime(0);
@@ -76,8 +68,7 @@ public class WorldHelper
         world.getWorldInfo().setRaining(false);
     }
 
-    public static void stormyWeather(World world)
-    {
+    public static void stormyWeather(World world) {
         world.getWorldInfo().setClearWeatherTime(0);
         world.getWorldInfo().setRainTime(world.rand.nextInt(12000) + 3600);
         world.getWorldInfo().setRaining(true);
@@ -85,8 +76,7 @@ public class WorldHelper
         world.getWorldInfo().setThundering(true);
     }
 
-    public static boolean isSolidBlock(World world, BlockPos pos)
-    {
+    public static boolean isSolidBlock(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
 
         return state.isSolid()
@@ -94,8 +84,7 @@ public class WorldHelper
             && !state.getMaterial().isLiquid();
     }
 
-    public static boolean isSolidishBlock(World world, BlockPos pos)
-    {
+    public static boolean isSolidishBlock(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
 
         return isSolidBlock(world, pos)
@@ -105,8 +94,7 @@ public class WorldHelper
             || state.getMaterial() == Material.PLANTS;
     }
 
-    public static boolean isAirBlock(World world, BlockPos pos)
-    {
+    public static boolean isAirBlock(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
 
         return !state.isSolid()

@@ -26,19 +26,17 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "Cauldrons can be used as a permanent water source when sneaking.")
-public class CauldronWaterSource extends MesonModule
-{
+public class CauldronWaterSource extends MesonModule {
     @SubscribeEvent
-    public void onBucketUse(FillBucketEvent event)
-    {
+    public void onBucketUse(FillBucketEvent event) {
         if (event.getEntityLiving() != null
             && event.getEntityLiving() instanceof PlayerEntity
-            && PlayerHelper.isCrouching((PlayerEntity)event.getEntityLiving())
+            && PlayerHelper.isCrouching((PlayerEntity) event.getEntityLiving())
         ) {
-            PlayerEntity player = (PlayerEntity)event.getEntityLiving();
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 
             if (event.getTarget() != null) {
-                BlockState state = player.getEntityWorld().getBlockState( new BlockPos(event.getTarget().getHitVec()) );
+                BlockState state = player.getEntityWorld().getBlockState(new BlockPos(event.getTarget().getHitVec()));
                 if (isFull(state)) {
                     event.setCanceled(true);
                 }
@@ -47,8 +45,7 @@ public class CauldronWaterSource extends MesonModule
     }
 
     @SubscribeEvent
-    public void onCauldronUse(PlayerInteractEvent.RightClickBlock event)
-    {
+    public void onCauldronUse(PlayerInteractEvent.RightClickBlock event) {
         if (event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.CAULDRON && event.getPlayer() != null) {
             PlayerEntity player = event.getPlayer();
             World world = player.world;
@@ -89,13 +86,11 @@ public class CauldronWaterSource extends MesonModule
         }
     }
 
-    private boolean isFull(BlockState state)
-    {
+    private boolean isFull(BlockState state) {
         return state.getProperties().contains(CauldronBlock.LEVEL) && state.get(CauldronBlock.LEVEL) == 3;
     }
 
-    private boolean hasWater(BlockState state)
-    {
+    private boolean hasWater(BlockState state) {
         return state.getProperties().contains(CauldronBlock.LEVEL) && state.get(CauldronBlock.LEVEL) > 0;
     }
 }

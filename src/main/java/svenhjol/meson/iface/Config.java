@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Config
-{
+public @interface Config {
     String name() default "";
+
     String description() default "";
 }

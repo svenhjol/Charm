@@ -10,8 +10,7 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.BREWING,
     description = "Brew cocoa beans in water to make Coffee which gives you strength, haste and speed.")
-public class Coffee extends MesonModule
-{
+public class Coffee extends MesonModule {
     public static CoffeeEffect effect;
     public static CoffeePotion potion;
     public static int color = 0x602000;
@@ -20,8 +19,7 @@ public class Coffee extends MesonModule
     public static int duration = 20;
 
     @Override
-    public void init()
-    {
+    public void init() {
         effect = new CoffeeEffect(this);
         potion = new CoffeePotion(this);
     }

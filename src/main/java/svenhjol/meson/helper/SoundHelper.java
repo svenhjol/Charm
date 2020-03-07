@@ -9,16 +9,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @SuppressWarnings("unused")
-public class SoundHelper
-{
-    public static SoundHandler getSoundHandler()
-    {
+public class SoundHelper {
+    public static SoundHandler getSoundHandler() {
         return Minecraft.getInstance().getSoundHandler();
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static Multimap<SoundCategory, ISound> getPlayingSounds()
-    {
+    public static Multimap<SoundCategory, ISound> getPlayingSounds() {
         return getSoundHandler().sndManager.field_217943_n;
     }
 }

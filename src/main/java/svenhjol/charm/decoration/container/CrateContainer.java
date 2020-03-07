@@ -19,10 +19,8 @@ import vazkii.quark.api.QuarkCapabilities;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CrateContainer extends MesonContainer implements ITransferManager, ICapabilityProvider
-{
-    private CrateContainer(ContainerType<?> type, int id, PlayerInventory player, IInventory inventory)
-    {
+public class CrateContainer extends MesonContainer implements ITransferManager, ICapabilityProvider {
+    private CrateContainer(ContainerType<?> type, int id, PlayerInventory player, IInventory inventory) {
         super(type, id, player, inventory);
 
         int index = 0;
@@ -47,26 +45,22 @@ public class CrateContainer extends MesonContainer implements ITransferManager, 
         }
     }
 
-    public static CrateContainer instance(int id, PlayerInventory playerInventory, IInventory inventory)
-    {
+    public static CrateContainer instance(int id, PlayerInventory playerInventory, IInventory inventory) {
         return new CrateContainer(Crates.container, id, playerInventory, inventory);
     }
 
-    public static CrateContainer instance(int id, PlayerInventory playerInventory)
-    {
+    public static CrateContainer instance(int id, PlayerInventory playerInventory) {
         return instance(id, playerInventory, new Inventory(CrateTileEntity.SIZE));
     }
 
     @Override
-    public boolean acceptsTransfer(PlayerEntity playerEntity)
-    {
+    public boolean acceptsTransfer(PlayerEntity playerEntity) {
         return true;
     }
 
-    @Nonnull
+    @SuppressWarnings("ALL") // what
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
-    {
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         return QuarkCapabilities.TRANSFER.orEmpty(cap, LazyOptional.of(() -> this));
     }
 }

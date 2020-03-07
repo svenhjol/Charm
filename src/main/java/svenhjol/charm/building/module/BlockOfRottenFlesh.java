@@ -13,22 +13,19 @@ import svenhjol.meson.iface.Module;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.BUILDING,
     description = "A storage block for rotten flesh.  If the rotten flesh block has water on any of its sides, it has a chance to turn into dirt.\n" +
         "If there is a soil block above the rotten flesh block, it has a chance to turn into podzol.")
-public class BlockOfRottenFlesh extends MesonModule
-{
+public class BlockOfRottenFlesh extends MesonModule {
     public static RottenFleshBlock block;
 
     @Config(name = "Compostable", description = "If true, a block of rotten flesh can be composted.")
     public static boolean compostable = true;
 
     @Override
-    public void init()
-    {
+    public void init() {
         block = new RottenFleshBlock(this);
     }
 
     @Override
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         if (compostable) ComposterHelper.addInputItem(new ItemStack(block).getItem(), 1.0F);
     }
 }

@@ -9,14 +9,12 @@ import svenhjol.meson.MesonInstance;
 import svenhjol.meson.handler.LogHandler;
 
 @Mod(Charm.MOD_ID)
-public class Charm extends MesonInstance
-{
+public class Charm extends MesonInstance {
     public static final String MOD_ID = "charm";
     public static LogHandler LOG = new LogHandler(Charm.MOD_ID);
     public static QuarkCompat quarkCompat;
 
-    public Charm()
-    {
+    public Charm() {
         super(Charm.MOD_ID, LOG);
 
         CharmMessages.init(this);

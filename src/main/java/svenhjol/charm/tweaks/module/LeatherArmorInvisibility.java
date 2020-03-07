@@ -16,28 +16,24 @@ import java.util.List;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
     description = "Leather armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
-public class LeatherArmorInvisibility extends MesonModule
-{
+public class LeatherArmorInvisibility extends MesonModule {
     public static List<Item> invisibleItems = new ArrayList<>();
 
     @Override
-    public void init()
-    {
+    public void init() {
         addInvisibleItem(Items.LEATHER_HELMET);
         addInvisibleItem(Items.LEATHER_CHESTPLATE);
         addInvisibleItem(Items.LEATHER_LEGGINGS);
         addInvisibleItem(Items.LEATHER_BOOTS);
     }
 
-    public static void addInvisibleItem(Item item)
-    {
+    public static void addInvisibleItem(Item item) {
         invisibleItems.add(item);
     }
 
-    public static boolean isArmorInvisible(Entity entity, ItemStack stack)
-    {
+    public static boolean isArmorInvisible(Entity entity, ItemStack stack) {
         if (entity instanceof LivingEntity) {
-            LivingEntity e = (LivingEntity)entity;
+            LivingEntity e = (LivingEntity) entity;
             if (e.getActivePotionEffect(Effects.INVISIBILITY) != null) {
                 return invisibleItems.contains(stack.getItem());
             }

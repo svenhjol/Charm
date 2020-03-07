@@ -27,8 +27,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public class PlayerHelper
-{
+public class PlayerHelper {
     /**
      * Tries to add item stack to player, drops if not possible.
      *
@@ -36,8 +35,7 @@ public class PlayerHelper
      * @param stack  The stack to add/drop
      * @return True if able to add to player inv, false if dropped
      */
-    public static boolean addOrDropStack(PlayerEntity player, ItemStack stack)
-    {
+    public static boolean addOrDropStack(PlayerEntity player, ItemStack stack) {
         if (!player.inventory.addItemStackToInventory(stack)) {
             player.dropItem(stack, false);
             return false;
@@ -45,37 +43,32 @@ public class PlayerHelper
         return true;
     }
 
-    public static void damageHeldItem(PlayerEntity player, Hand hand, ItemStack stack, int damage)
-    {
+    public static void damageHeldItem(PlayerEntity player, Hand hand, ItemStack stack, int damage) {
         stack.damageItem(damage, player, (p) -> player.sendBreakAnimation(hand));
     }
 
-    public static ImmutableList<NonNullList<ItemStack>> getInventories(PlayerEntity player)
-    {
+    public static ImmutableList<NonNullList<ItemStack>> getInventories(PlayerEntity player) {
         PlayerInventory inventory = player.inventory;
         return ImmutableList.of(inventory.mainInventory, inventory.armorInventory, inventory.offHandInventory);
     }
 
-    public static void doLightningNearPlayer(PlayerEntity player)
-    {
+    public static void doLightningNearPlayer(PlayerEntity player) {
         int dist = 24;
         World world = player.world;
         Random rand = world.rand;
 
         if (!world.isSkyLightMax(player.getPosition())) return;
 
-        BlockPos pos = player.getPosition().add(-(dist/2) + rand.nextInt(dist), 0, -(dist/2) + rand.nextInt(dist));
+        BlockPos pos = player.getPosition().add(-(dist / 2) + rand.nextInt(dist), 0, -(dist / 2) + rand.nextInt(dist));
         ((ServerWorld) world).addLightningBolt(new LightningBoltEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, false));
     }
 
-    public static boolean isCrouching(PlayerEntity player)
-    {
+    public static boolean isCrouching(PlayerEntity player) {
         return player.isSneaking(); // [1.14]
         // return player.isCrouching(); // [1.15]
     }
 
-    public static void setHeldItem(PlayerEntity player, Hand hand, ItemStack item)
-    {
+    public static void setHeldItem(PlayerEntity player, Hand hand, ItemStack item) {
         ItemStack stack = player.getHeldItem(hand);
         if (stack.getCount() == 1) {
             player.setHeldItem(hand, item);
@@ -89,8 +82,7 @@ public class PlayerHelper
         }
     }
 
-    public static boolean spawnEntityNearPlayer(PlayerEntity player, MobEntity mob, BiConsumer<MobEntity, BlockPos> onSpawn)
-    {
+    public static boolean spawnEntityNearPlayer(PlayerEntity player, MobEntity mob, BiConsumer<MobEntity, BlockPos> onSpawn) {
         boolean spawned = false;
         int range = 8;
         int tries = 8;
@@ -99,7 +91,7 @@ public class PlayerHelper
         Random rand = world.rand;
         List<BlockPos> valid = new ArrayList<>();
 
-        for (int y = pp.getY() + range*2; y > 0 ; y--) {
+        for (int y = pp.getY() + range * 2; y > 0; y--) {
             for (int i = range; i > 1; i--) {
                 for (int c = 1; c < tries; c++) {
                     BlockPos p = new BlockPos(pp.getX() + rand.nextInt(i), y, pp.getZ() + rand.nextInt(i));
@@ -130,19 +122,18 @@ public class PlayerHelper
      * Basic way to teleport a player to co-ordinate in a dimension.
      * If the player is not in the specified dimension they will be transferred first.
      */
-    public static void teleport(PlayerEntity player, BlockPos pos, int dim)
-    {
-        teleport(player, pos, dim, p -> {});
+    public static void teleport(PlayerEntity player, BlockPos pos, int dim) {
+        teleport(player, pos, dim, p -> {
+        });
     }
 
-    public static void teleport(PlayerEntity player, BlockPos pos, int dim, Consumer<PlayerEntity> onTeleport)
-    {
+    public static void teleport(PlayerEntity player, BlockPos pos, int dim, Consumer<PlayerEntity> onTeleport) {
         World world = player.world;
         if (world.isRemote) return;
 
         changeDimension(player, dim);
 
-       // ((ServerPlayerEntity)player).teleport((ServerWorld)world, pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
+        // ((ServerPlayerEntity)player).teleport((ServerWorld)world, pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
         player.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D);
 
         BlockPos playerPos = player.getPosition();
@@ -160,13 +151,12 @@ public class PlayerHelper
         onTeleport.accept(player);
     }
 
-    public static void teleportSurface(PlayerEntity player, BlockPos pos, int dim)
-    {
-        teleportSurface(player, pos, dim, p -> {});
+    public static void teleportSurface(PlayerEntity player, BlockPos pos, int dim) {
+        teleportSurface(player, pos, dim, p -> {
+        });
     }
 
-    public static void teleportSurface(PlayerEntity player, BlockPos pos, int dim, Consumer<PlayerEntity> onTeleport)
-    {
+    public static void teleportSurface(PlayerEntity player, BlockPos pos, int dim, Consumer<PlayerEntity> onTeleport) {
         World world = player.world;
         if (world.isRemote) return;
 
@@ -184,10 +174,9 @@ public class PlayerHelper
         });
     }
 
-    public static void changeDimension(PlayerEntity player, int dim)
-    {
+    public static void changeDimension(PlayerEntity player, int dim) {
         if (player.world.isRemote) return;
-        ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
+        ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
         DimensionType destination = DimensionType.getById(dim);
         if (destination == null) return;
         if (destination.getId() == player.dimension.getId()) return;
@@ -242,7 +231,7 @@ public class PlayerHelper
         playerlist.sendWorldInfo(serverPlayer, serverworld1);
         playerlist.sendInventory(serverPlayer);
 
-        for(EffectInstance effectinstance : serverPlayer.getActivePotionEffects()) {
+        for (EffectInstance effectinstance : serverPlayer.getActivePotionEffects()) {
             serverPlayer.connection.sendPacket(new SPlayEntityEffectPacket(serverPlayer.getEntityId(), effectinstance));
         }
 

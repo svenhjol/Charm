@@ -25,20 +25,16 @@ import vazkii.quark.api.QuarkCapabilities;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CrateTileEntity extends LockableLootTileEntity implements ICapabilityProvider, IMesonTileEntity, ITransferManager
-{
+public class CrateTileEntity extends LockableLootTileEntity implements ICapabilityProvider, IMesonTileEntity, ITransferManager {
     public static int SIZE = 9;
     private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 
-    public CrateTileEntity()
-    {
-        // TODO set wood type so we can display name
-        super(Crates.tile);
+    public CrateTileEntity() {
+        super(Crates.tile); // TODO set wood type so we can display name
     }
 
     @Override
-    public void read(CompoundNBT tag)
-    {
+    public void read(CompoundNBT tag) {
         super.read(tag);
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         if (!this.checkLootAndRead(tag)) {
@@ -47,14 +43,12 @@ public class CrateTileEntity extends LockableLootTileEntity implements ICapabili
     }
 
     @Override
-    public boolean acceptsTransfer(PlayerEntity playerEntity)
-    {
+    public boolean acceptsTransfer(PlayerEntity playerEntity) {
         return true;
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT tag)
-    {
+    public CompoundNBT write(CompoundNBT tag) {
         super.write(tag);
         if (!this.checkLootAndWrite(tag)) {
             ItemStackHelper.saveAllItems(tag, this.items);
@@ -62,47 +56,40 @@ public class CrateTileEntity extends LockableLootTileEntity implements ICapabili
         return tag;
     }
 
-    @Nonnull
+    @SuppressWarnings("ALL") // what
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap)
-    {
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
         return QuarkCapabilities.TRANSFER.orEmpty(cap, LazyOptional.of(() -> this));
     }
 
-    @Nullable
+    @SuppressWarnings("ALL") // what
     @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side)
-    {
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
         return QuarkCapabilities.TRANSFER.orEmpty(cap, LazyOptional.of(() -> this));
     }
 
     @Override
-    protected Container createMenu(int id, PlayerInventory player)
-    {
+    protected Container createMenu(int id, PlayerInventory player) {
         return CrateContainer.instance(id, player, this);
     }
 
     @Override
-    protected ITextComponent getDefaultName()
-    {
+    protected ITextComponent getDefaultName() {
         return new TranslationTextComponent("tile.charm.crate");
     }
 
     @Override
-    public NonNullList<ItemStack> getItems()
-    {
+    public NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
     @Override
-    public int getSizeInventory()
-    {
+    public int getSizeInventory() {
         return this.items.size();
     }
 
     @Override
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         for (ItemStack stack : this.items) {
             if (!stack.isEmpty()) return false;
         }
@@ -110,22 +97,17 @@ public class CrateTileEntity extends LockableLootTileEntity implements ICapabili
     }
 
     @Override
-    public void setItems(NonNullList<ItemStack> items)
-    {
+    public void setItems(NonNullList<ItemStack> items) {
         this.items = items;
     }
 
     @Override
-    public void openInventory(PlayerEntity player)
-    {
+    public void openInventory(PlayerEntity player) {
         player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.5F, player.world.rand.nextFloat() * 0.1F + 0.9F);
-//        PacketHandler.sendTo(new MessageCrateInteract(this.pos, 0), (ServerPlayerEntity)player);
     }
 
     @Override
-    public void closeInventory(PlayerEntity player)
-    {
+    public void closeInventory(PlayerEntity player) {
         player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.5F, player.world.rand.nextFloat() * 0.1F + 0.9F);
-//        PacketHandler.sendTo(new MessageCrateInteract(this.pos, 1), (ServerPlayerEntity)player);
     }
 }

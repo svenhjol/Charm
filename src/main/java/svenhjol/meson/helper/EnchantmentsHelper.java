@@ -11,10 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class EnchantmentsHelper
-{
-    public static List<Enchantment> getItemCurses(ItemStack item)
-    {
+public class EnchantmentsHelper {
+    public static List<Enchantment> getItemCurses(ItemStack item) {
         ListNBT tags = item.getEnchantmentTagList();
         List<Enchantment> curses = new ArrayList<>();
 
@@ -33,8 +31,7 @@ public class EnchantmentsHelper
         return curses;
     }
 
-    public static boolean hasEnchantment(Enchantment enchantment, ItemStack stack)
-    {
+    public static boolean hasEnchantment(Enchantment enchantment, ItemStack stack) {
         if (stack.getItem() instanceof EnchantedBookItem) {
             return EnchantmentHelper.getEnchantments(stack).containsKey(enchantment);
         } else {
@@ -42,8 +39,7 @@ public class EnchantmentsHelper
         }
     }
 
-    public static void removeEnchantment(Enchantment enchantment, ItemStack stack)
-    {
+    public static void removeEnchantment(Enchantment enchantment, ItemStack stack) {
         if (hasEnchantment(enchantment, stack)) {
             Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(stack);
             enchants.remove(enchantment);
@@ -51,8 +47,7 @@ public class EnchantmentsHelper
         }
     }
 
-    public static void removeRandomCurse(ItemStack stack)
-    {
+    public static void removeRandomCurse(ItemStack stack) {
         List<Enchantment> curses = getItemCurses(stack);
         if (curses.size() > 0) {
             Enchantment curseToRemove = curses.get(new Random().nextInt(curses.size()));

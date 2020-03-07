@@ -28,8 +28,7 @@ import java.util.*;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION,
     description = "A bookshelf with 9 slots that can store books.\n" +
         "Provides the same enchanting power as a normal bookshelf as long as there is at least 1 book on the shelf.")
-public class BookshelfChests extends MesonModule
-{
+public class BookshelfChests extends MesonModule {
     public static List<Class<? extends Item>> validItems = new ArrayList<>();
     public static Map<WoodType, IMesonBlock> blocks = new HashMap<>();
 
@@ -52,9 +51,9 @@ public class BookshelfChests extends MesonModule
     @ObjectHolder("charm:bookshelf_chest")
     public static TileEntityType<BookshelfChestTileEntity> tile;
 
+    @SuppressWarnings("ConstantConditions")
     @Override
-    public void init()
-    {
+    public void init() {
         // create all wood types for bookshelves
         for (WoodType wood : WoodType.values()) {
             blocks.put(wood, new BookshelfChestBlock(this, wood));
@@ -68,14 +67,12 @@ public class BookshelfChests extends MesonModule
         RegistryHandler.registerContainer(container, res);
     }
 
-    public static boolean canInsertItem(ItemStack stack)
-    {
+    public static boolean canInsertItem(ItemStack stack) {
         return validItems.contains(stack.getItem().getClass());
     }
 
     @Override
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         configValidItems.forEach(string -> {
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(string));
             if (item != null) {
@@ -85,8 +82,7 @@ public class BookshelfChests extends MesonModule
     }
 
     @Override
-    public void onClientSetup(FMLClientSetupEvent event)
-    {
+    public void onClientSetup(FMLClientSetupEvent event) {
         ScreenManager.registerFactory(container, BookshelfChestScreen::new);
     }
 }

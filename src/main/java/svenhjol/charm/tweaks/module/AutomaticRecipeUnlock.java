@@ -18,17 +18,14 @@ import java.util.Collection;
  */
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "Unlocks all vanilla recipes. This will be disabled if Quark is present, because Quark's module is better.")
-public class AutomaticRecipeUnlock extends MesonModule
-{
+public class AutomaticRecipeUnlock extends MesonModule {
     @Override
-    public boolean shouldRunSetup()
-    {
+    public boolean shouldRunSetup() {
         return !ForgeHelper.isModLoaded("quark");
     }
 
     @SubscribeEvent
-    public void onPlayerLoggedIn(PlayerLoggedInEvent event)
-    {
+    public void onPlayerLoggedIn(PlayerLoggedInEvent event) {
         if (event.getPlayer() instanceof ServerPlayerEntity) {
             RecipeManager recipeManager = event.getPlayer().world.getRecipeManager();
             Collection<IRecipe<?>> allRecipes = recipeManager.getRecipes();

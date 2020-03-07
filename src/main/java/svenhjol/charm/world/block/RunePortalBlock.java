@@ -34,12 +34,11 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
-{
+@SuppressWarnings("unused")
+public class RunePortalBlock extends EndPortalBlock implements IMesonBlock {
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D);
 
-    public RunePortalBlock(MesonModule module)
-    {
+    public RunePortalBlock(MesonModule module) {
         super(Block.Properties
             .create(Material.PORTAL, MaterialColor.BLACK)
             .doesNotBlockMovement()
@@ -51,44 +50,38 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
     }
 
     @Override
-    public ItemGroup getItemGroup()
-    {
+    public ItemGroup getItemGroup() {
         return ItemGroup.SEARCH;
     }
 
     @Override
-    public boolean isEnabled()
-    {
+    public boolean isEnabled() {
         return true;
     }
 
     @Override
-    public TileEntity createNewTileEntity(IBlockReader worldIn)
-    {
+    public TileEntity createNewTileEntity(IBlockReader worldIn) {
         return new RunePortalTileEntity();
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
-    {
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPE;
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
-    {
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         // no op
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity)
-    {
+    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (!world.isRemote
             && entity instanceof PlayerEntity
             && !entity.isPassenger()
             && !entity.isBeingRidden()
             && entity.isNonBoss()
-            && VoxelShapes.compare(VoxelShapes.create(entity.getBoundingBox().offset((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()))), state.getShape(world, pos), IBooleanFunction.AND)
+            && VoxelShapes.compare(VoxelShapes.create(entity.getBoundingBox().offset(-pos.getX(), -pos.getY(), -pos.getZ())), state.getShape(world, pos), IBooleanFunction.AND)
         ) {
             BlockPos thisPortal = getPortal(world, pos);
 
@@ -109,14 +102,12 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
     }
 
     @Override
-    public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity)
-    {
+    public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity) {
         return false;
     }
 
     @Nullable
-    public RunePortalTileEntity getTileEntity(World world, BlockPos pos)
-    {
+    public RunePortalTileEntity getTileEntity(World world, BlockPos pos) {
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof RunePortalTileEntity) {
             return (RunePortalTileEntity) tile;
@@ -125,23 +116,20 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock
     }
 
     @Nullable
-    public BlockPos getPortal(World world, BlockPos pos)
-    {
+    public BlockPos getPortal(World world, BlockPos pos) {
         RunePortalTileEntity tile = getTileEntity(world, pos);
         if (tile == null) return null;
         return tile.portal;
     }
 
     @Nullable
-    public List<Integer> getColors(World world, BlockPos pos)
-    {
+    public List<Integer> getColors(World world, BlockPos pos) {
         RunePortalTileEntity tile = getTileEntity(world, pos);
         if (tile == null) return null;
         return tile.colors;
     }
 
-    public void setPortal(World world, BlockPos pos, BlockPos portal, @Nullable List<Integer> colors)
-    {
+    public void setPortal(World world, BlockPos pos, BlockPos portal, @Nullable List<Integer> colors) {
         RunePortalTileEntity tile = getTileEntity(world, pos);
         if (tile != null) {
             tile.portal = portal;

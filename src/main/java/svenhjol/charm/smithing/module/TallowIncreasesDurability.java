@@ -20,8 +20,7 @@ import java.util.List;
     description = "Tallow can be combined on an anvil with a tool or armor to give a small durability boost.\n" +
         "Repairing using tallow has a chance to increase future repair costs of the tool or armor.\n" +
         "Quark must be installed for this feature to work.")
-public class TallowIncreasesDurability extends MesonModule
-{
+public class TallowIncreasesDurability extends MesonModule {
     public static List<Class<? extends Item>> repairable = new ArrayList<>();
 
     @Config(name = "XP cost", description = "Number of levels required to apply tallow.")
@@ -34,8 +33,7 @@ public class TallowIncreasesDurability extends MesonModule
     public static double amountRepaired = 0.02D;
 
     @Override
-    public void init()
-    {
+    public void init() {
         repairable = Arrays.asList(
             ToolItem.class,
             SwordItem.class,
@@ -50,21 +48,18 @@ public class TallowIncreasesDurability extends MesonModule
     }
 
     @Override
-    public void onCommonSetup(FMLCommonSetupEvent event)
-    {
+    public void onCommonSetup(FMLCommonSetupEvent event) {
         if (!Meson.isModuleEnabled("charm:no_anvil_minimum_xp") && xpCost == 0)
             xpCost = 1;
     }
 
     @Override
-    public boolean shouldRunSetup()
-    {
+    public boolean shouldRunSetup() {
         return ForgeHelper.isModLoaded("quark");
     }
 
     @SubscribeEvent
-    public void onAnvilUpdate(AnvilUpdateEvent event)
-    {
+    public void onAnvilUpdate(AnvilUpdateEvent event) {
         if (Charm.quarkCompat != null)
             Charm.quarkCompat.onTallowAnvilUpdate(event);
     }

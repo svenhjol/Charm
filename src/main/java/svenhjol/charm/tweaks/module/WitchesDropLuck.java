@@ -18,16 +18,14 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "A witch has a chance to drop a Potion of Luck when killed by a player.")
-public class WitchesDropLuck extends MesonModule
-{
+public class WitchesDropLuck extends MesonModule {
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a witch dropping a Potion of Luck when killed by the player.")
     public static double chance = 0.05D;
 
     public static double lootingBoost = 0.025D;
 
     @SubscribeEvent
-    public void onWitchDrops(LivingDropsEvent event)
-    {
+    public void onWitchDrops(LivingDropsEvent event) {
         if (!event.getEntityLiving().world.isRemote
             && event.getEntityLiving() instanceof WitchEntity
             && event.getSource().getTrueSource() instanceof PlayerEntity
@@ -36,7 +34,7 @@ public class WitchesDropLuck extends MesonModule
             Entity entity = event.getEntity();
             BlockPos entityPos = entity.getPosition();
             ItemStack potion = PotionHelper.getPotionItemStack(Potions.LUCK, 1);
-            event.getDrops().add( new ItemEntity(entity.getEntityWorld(), entityPos.getX(), entityPos.getY(), entityPos.getZ(), potion) );
+            event.getDrops().add(new ItemEntity(entity.getEntityWorld(), entityPos.getX(), entityPos.getY(), entityPos.getZ(), potion));
         }
     }
 }

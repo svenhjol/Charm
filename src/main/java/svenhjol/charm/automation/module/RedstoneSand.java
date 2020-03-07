@@ -8,13 +8,11 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.AUTOMATION,
     description = "A block that acts like sand but is powered like a block of redstone.")
-public class RedstoneSand extends MesonModule
-{
+public class RedstoneSand extends MesonModule {
     public static RedstoneSandBlock block;
 
     @Override
-    public void init()
-    {
+    public void init() {
         block = new RedstoneSandBlock(this);
     }
 }

@@ -45,8 +45,7 @@ import java.util.stream.Stream;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
     description = "Add colored runes in stronghold End Portal frames. Two portals with the same runes will be linked together.")
-public class EndPortalRunes extends MesonModule
-{
+public class EndPortalRunes extends MesonModule {
     public static RunePortalBlock portal;
     public static RunePortalFrameBlock frame;
 
@@ -67,8 +66,7 @@ public class EndPortalRunes extends MesonModule
 
     @Override
     @SuppressWarnings({"ConstantConditions"})
-    public void init()
-    {
+    public void init() {
         portal = new RunePortalBlock(this);
         frame = new RunePortalFrameBlock(this);
 
@@ -80,14 +78,12 @@ public class EndPortalRunes extends MesonModule
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void onClientSetup(FMLClientSetupEvent event)
-    {
+    public void onClientSetup(FMLClientSetupEvent event) {
         ClientRegistry.bindTileEntitySpecialRenderer(RunePortalTileEntity.class, new RunePortalTileEntityRenderer());
     }
 
     @SubscribeEvent
-    public void onRightClick(RightClickBlock event)
-    {
+    public void onRightClick(RightClickBlock event) {
         if (Charm.quarkCompat == null || !Charm.quarkCompat.hasColorRuneModule())
             return;
 
@@ -98,7 +94,7 @@ public class EndPortalRunes extends MesonModule
         Hand hand = event.getHand();
 
         if (world.isRemote) return;
-        ServerWorld serverWorld = (ServerWorld)world;
+        ServerWorld serverWorld = (ServerWorld) world;
 
         boolean isVanilla = state.getBlock() == Blocks.END_PORTAL_FRAME;
         boolean isModded = state.getBlock() == frame;
@@ -164,8 +160,7 @@ public class EndPortalRunes extends MesonModule
         }
     }
 
-    public static void addRune(ServerWorld world, BlockPos pos, ItemStack rune, @Nullable PlayerEntity player)
-    {
+    public static void addRune(ServerWorld world, BlockPos pos, ItemStack rune, @Nullable PlayerEntity player) {
         BlockState state = world.getBlockState(pos);
         Direction facing;
 
@@ -199,8 +194,7 @@ public class EndPortalRunes extends MesonModule
         }
     }
 
-    public static void activate(ServerWorld world, BlockPos pos)
-    {
+    public static void activate(ServerWorld world, BlockPos pos) {
         Map<Integer, List<Integer>> orderMap = new HashMap<>();
         BlockPos thisPortal;
         BlockPattern.PatternHelper pattern = RunePortalFrameBlock.getOrCreatePortalShape().match(world, pos);
@@ -223,7 +217,7 @@ public class EndPortalRunes extends MesonModule
             thisPortal = pattern.getFrontTopLeft();
             RunePortalSavedData data = RunePortalSavedData.get(world);
             List<Integer> order = new ArrayList<>();
-            for (int i : new int[] {2, 4, 3, 5}) {
+            for (int i : new int[]{2, 4, 3, 5}) {
                 List<Integer> row = orderMap.get(i);
                 Collections.sort(row);
                 order.addAll(row);
@@ -250,8 +244,7 @@ public class EndPortalRunes extends MesonModule
         }
     }
 
-    public static void deactivate(ServerWorld world, BlockPos pos)
-    {
+    public static void deactivate(ServerWorld world, BlockPos pos) {
         final BlockPos[] thisPortal = {null};
         BlockPattern.PatternHelper pattern = RunePortalFrameBlock.getOrCreatePortalShape().match(world, pos);
 
@@ -285,8 +278,7 @@ public class EndPortalRunes extends MesonModule
         }
     }
 
-    public static void removeCachedPortal(ServerWorld world, BlockPos portal)
-    {
+    public static void removeCachedPortal(ServerWorld world, BlockPos portal) {
         RunePortalSavedData data = RunePortalSavedData.get(world);
 
         // find any cached portal linked to this
@@ -300,8 +292,7 @@ public class EndPortalRunes extends MesonModule
         data.markDirty();
     }
 
-    public static BlockPos findPortal(ServerWorld world, BlockPos thisPortal)
-    {
+    public static BlockPos findPortal(ServerWorld world, BlockPos thisPortal) {
         RunePortalSavedData data = RunePortalSavedData.get(world);
         BlockPos foundPortal = null;
         List<BlockPos> matching = new ArrayList<>();
@@ -363,16 +354,14 @@ public class EndPortalRunes extends MesonModule
     }
 
     @SubscribeEvent
-    public void onWorldLoad(WorldEvent.Load event)
-    {
+    public void onWorldLoad(WorldEvent.Load event) {
         if (event.getWorld() instanceof ServerWorld) {
-            RunePortalSavedData.get((ServerWorld)event.getWorld());
+            RunePortalSavedData.get((ServerWorld) event.getWorld());
         }
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void effectPortalLinked(BlockPos pos)
-    {
+    public static void effectPortalLinked(BlockPos pos) {
         World world = ClientHelper.getClientWorld();
         PlayerEntity player = ClientHelper.getClientPlayer();
         long time = world.getGameTime();
@@ -398,8 +387,7 @@ public class EndPortalRunes extends MesonModule
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void effectPortalUnlinked(BlockPos pos)
-    {
+    public static void effectPortalUnlinked(BlockPos pos) {
         World world = ClientHelper.getClientWorld();
         PlayerEntity player = ClientHelper.getClientPlayer();
         long time = world.getGameTime();
@@ -425,8 +413,7 @@ public class EndPortalRunes extends MesonModule
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void effectPortalTravelled(BlockPos pos)
-    {
+    public static void effectPortalTravelled(BlockPos pos) {
         World world = ClientHelper.getClientWorld();
         PlayerEntity player = ClientHelper.getClientPlayer();
         long time = world.getGameTime();
@@ -446,7 +433,7 @@ public class EndPortalRunes extends MesonModule
                     }
                 }
             }
-            world.playSound(player, pos, SoundEvents.BLOCK_PORTAL_TRAVEL, SoundCategory.PLAYERS,0.75F, 1.0F);
+            world.playSound(player, pos, SoundEvents.BLOCK_PORTAL_TRAVEL, SoundCategory.PLAYERS, 0.75F, 1.0F);
             clientTravelTicks = time;
         }
     }

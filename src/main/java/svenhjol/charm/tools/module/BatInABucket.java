@@ -30,8 +30,7 @@ import java.util.function.Predicate;
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TOOLS, hasSubscriptions = true,
     description = "Right-click a bat with a bucket to capture it.\n" +
         "Right-click your Bat in a Bucket to release the bat and help locate entities around you.")
-public class BatInABucket extends MesonModule
-{
+public class BatInABucket extends MesonModule {
     public static BatBucketItem item;
 
     @Config(name = "Glowing time", description = "Number of seconds that entities will receive the glowing effect.")
@@ -46,22 +45,20 @@ public class BatInABucket extends MesonModule
     public static List<Entity> clientEntities = new ArrayList<>();
 
     @Override
-    public void init()
-    {
+    public void init() {
         item = new BatBucketItem(this);
     }
 
     @SubscribeEvent
-    public void onInteractWithBat(EntityInteract event)
-    {
+    public void onInteractWithBat(EntityInteract event) {
         if (!event.isCanceled()
             && !event.getWorld().isRemote
             && event.getTarget() instanceof BatEntity
-            && ((BatEntity)event.getTarget()).getHealth() > 0
+            && ((BatEntity) event.getTarget()).getHealth() > 0
         ) {
             PlayerEntity player = event.getPlayer();
             Hand hand = event.getHand();
-            BatEntity bat = (BatEntity)event.getTarget();
+            BatEntity bat = (BatEntity) event.getTarget();
             ItemStack held = player.getHeldItem(hand);
 
             if (held.isEmpty() || held.getItem() != Items.BUCKET) return;
@@ -77,8 +74,7 @@ public class BatInABucket extends MesonModule
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public void onClientTick(ClientTickEvent event)
-    {
+    public void onClientTick(ClientTickEvent event) {
         if (clientTicks > 0 && clientRange > 0 && event.phase == Phase.START && ClientHelper.getClientPlayer() != null) {
             PlayerEntity player = ClientHelper.getClientPlayer();
 
@@ -94,17 +90,15 @@ public class BatInABucket extends MesonModule
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void setNearbyEntities(PlayerEntity player)
-    {
+    private void setNearbyEntities(PlayerEntity player) {
         clientEntities.clear();
-        AxisAlignedBB area = player.getBoundingBox().grow(clientRange, clientRange/2.0, clientRange);
+        AxisAlignedBB area = player.getBoundingBox().grow(clientRange, clientRange / 2.0, clientRange);
         Predicate<Entity> selector = entity -> true;
-        clientEntities = player.world.getEntitiesWithinAABB(Entity.class, area, selector::test);
+        clientEntities = player.world.getEntitiesWithinAABB(Entity.class, area, selector);
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void setGlowing(boolean glowing)
-    {
+    private void setGlowing(boolean glowing) {
         for (Entity entity : clientEntities) {
             entity.setGlowing(glowing);
         }

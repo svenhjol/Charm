@@ -12,18 +12,16 @@ import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
     description = "Chickens randomly drop feathers.")
-public class ChickensDropFeathers extends MesonModule
-{
+public class ChickensDropFeathers extends MesonModule {
     @SubscribeEvent
-    public void onTick(LivingEvent.LivingUpdateEvent event)
-    {
+    public void onTick(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof ChickenEntity
             && !event.getEntityLiving().world.isRemote
             && event.getEntityLiving().isAlive()
             && !event.getEntityLiving().isChild()
             && !((ChickenEntity) event.getEntityLiving()).isChickenJockey()
         ) {
-            ChickenEntity chicken = (ChickenEntity)event.getEntityLiving();
+            ChickenEntity chicken = (ChickenEntity) event.getEntityLiving();
             if (chicken.timeUntilNextEgg <= 1) {
                 if (chicken.world.rand.nextFloat() < 0.2F) {
                     chicken.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (chicken.world.rand.nextFloat() - chicken.world.rand.nextFloat()) * 0.2F + 1.0F);
