@@ -9,8 +9,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import svenhjol.meson.compat.QuarkCompat;
@@ -101,55 +99,5 @@ public class Meson {
         }
 
         return false;
-    }
-
-
-    // --- SORT THIS OUT ---
-
-
-    @Deprecated
-    public static void debug(String msg) {
-        debug(INTERNAL, msg);
-    }
-
-    @Deprecated
-    public static void debug(Marker marker, String msg) {
-        if (DEBUG)
-            getLogger().debug(marker, msg);
-    }
-
-    @Deprecated
-    public static void log(String msg) {
-        log(INTERNAL, msg);
-    }
-
-    @Deprecated
-    public static void log(Marker marker, String msg) {
-        getLogger().info(marker, msg);
-    }
-
-    @Deprecated
-    public static void warn(String msg) {
-        warn(INTERNAL, msg);
-    }
-
-    @Deprecated
-    public static void warn(Marker marker, String msg) {
-        getLogger().warn(marker, msg);
-    }
-
-    @Deprecated
-    public static void error(String msg) {
-        error(INTERNAL, msg);
-    }
-
-    @Deprecated
-    public static void error(Marker marker, String msg) {
-        getLogger().error(marker, msg);
-    }
-
-    @Deprecated
-    public static Logger getLogger() {
-        return LogManager.getLogger("meson");
     }
 }
