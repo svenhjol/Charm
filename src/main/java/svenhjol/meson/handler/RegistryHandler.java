@@ -22,6 +22,7 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -39,7 +40,6 @@ import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus = MOD)
 public class RegistryHandler {
-    public static ArrayListMultimap<Class<?>, Supplier<IForgeRegistryEntry<?>>> queued = ArrayListMultimap.create();
     public static final Marker REGISTRY = MarkerManager.getMarker("REGISTRY").addParents(Meson.INTERNAL);
 
     public static void registerBlock(Block block, ResourceLocation res) {
@@ -119,30 +119,34 @@ public class RegistryHandler {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     @SubscribeEvent
-    public static void onRegister(final Register event) {
+    public static void onRegister(Register event) {
         IForgeRegistry registry = event.getRegistry();
         Class<?> type = registry.getRegistrySuperType();
 
-        if (queued.containsKey(type)) {
-            Collection<Supplier<IForgeRegistryEntry<?>>> objects = queued.get(type);
-            for(Supplier<IForgeRegistryEntry<?>> supplier : objects) {
-                IForgeRegistryEntry<?> obj = supplier.get();
-                if (obj == null) {
-                    Meson.LOG.error(REGISTRY, "Trying to register null object");
-                    return;
+        Meson.instances.forEach((ns, instance) -> {
+            final ArrayListMultimap<Class<?>, Supplier<IForgeRegistryEntry<?>>> queued = instance.registerQueue;
+            if (queued.containsKey(type)) {
+                Collection<Supplier<IForgeRegistryEntry<?>>> objects = queued.get(type);
+                for (Supplier<IForgeRegistryEntry<?>> supplier : objects) {
+                    IForgeRegistryEntry<?> obj = supplier.get();
+                    if (obj == null) {
+                        Meson.LOG.error(REGISTRY, "Trying to register null object");
+                        return;
+                    }
+                    try {
+                        Meson.LOG.info(REGISTRY, "Registering to " + registry.getRegistryName() + " - " + obj.getRegistryName());
+                        registry.register(obj);
+                    } catch (Exception e) {
+                        Meson.LOG.error(REGISTRY, "Failed to register object " + obj + ": " + e.getMessage());
+                    }
                 }
-                try {
-                    Meson.LOG.debug(REGISTRY, "Registering to " + registry.getRegistryName() + " - " + obj.getRegistryName());
-                    registry.register(obj);
-                } catch (Exception e) {
-                    Meson.LOG.error(REGISTRY, "Failed to register object " + obj + ": " + e.getMessage());
-                }
+                queued.removeAll(type);
             }
-            queued.removeAll(type);
-        }
+        });
     }
 
     public static void addRegisterable(IForgeRegistryEntry<?> obj, ResourceLocation res) {
+        String ns = ModLoadingContext.get().getActiveNamespace();
         Class<?> type = obj.getRegistryType();
 
         if (res == null && obj.getRegistryName() == null) {
@@ -153,7 +157,19 @@ public class RegistryHandler {
         if (obj.getRegistryName() == null && res != null) {
             obj.setRegistryName(GameData.checkPrefix(res.toString(), false));
         }
-        queued.put(type, () -> obj);
-        Meson.LOG.debug(REGISTRY, "Queueing " + obj.getRegistryName());
+
+        try {
+//            Meson.instances.forEach((s, i) -> {
+//                Meson.LOG.info("Meson has instance: " + s);
+//            });
+//            Meson.LOG.info("Meson instances count: " + Meson.instances.size());
+//            Meson.LOG.info("Namespace needed: " + ns);
+//            Meson.LOG.info("Has namespace: " + Meson.instances.containsKey(ns));
+            Meson.getInstance(ns).registerQueue.put(type, () -> obj);
+            Meson.LOG.info(REGISTRY, "Queueing " + obj.getRegistryName());
+        } catch (Exception e) {
+            Meson.LOG.error("Failed to queue object " + obj.getRegistryName() + " " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

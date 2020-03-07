@@ -89,10 +89,9 @@ public class ModuleLoader {
                 categories.get(module.category).add(module);
                 modules.add(module);
 
+                instance.log.debug("Instantiated module: " + module.getName());
             } catch (ReflectiveOperationException e) {
-
-                Meson.LOG.error("Failed to load module " + target.toString());
-
+                Meson.LOG.error("Failed to load module: " + target.toString());
             }
         });
     }

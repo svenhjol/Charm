@@ -1,5 +1,6 @@
 package svenhjol.meson;
 
+import com.google.common.collect.ArrayListMultimap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
@@ -10,12 +11,14 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.PacketHandler;
 import svenhjol.meson.loader.ModuleLoader;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Meson modules (Charm, Strange, etc.) should extend this.
@@ -29,14 +32,16 @@ public class MesonInstance {
     private String id;
     private ModuleLoader moduleLoader;
     private PacketHandler packetHandler;
+    public ArrayListMultimap<Class<?>, Supplier<IForgeRegistryEntry<?>>> registerQueue = ArrayListMultimap.create();
 
     public MesonInstance(String id, LogHandler log) {
         this.id = id;
         this.log = log;
-        this.moduleLoader = new ModuleLoader(this);
-        this.packetHandler = new PacketHandler(this);
 
         Meson.INSTANCE.register(this);
+
+        this.moduleLoader = new ModuleLoader(this);
+        this.packetHandler = new PacketHandler(this);
 
         // run on both sides
         try {

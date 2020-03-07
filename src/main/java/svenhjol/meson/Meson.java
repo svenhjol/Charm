@@ -17,8 +17,8 @@ import svenhjol.meson.handler.PlayerQueueHandler;
 import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.loader.condition.ModuleEnabledCondition;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
 public class Meson {
@@ -28,7 +28,7 @@ public class Meson {
     public static final Marker INTERNAL = MarkerManager.getMarker("INTERNAL");
 
     public static boolean DEBUG = true;
-    public static Map<String, MesonInstance> instances = new HashMap<>();
+    public static Map<String, MesonInstance> instances = new ConcurrentHashMap<>();
 
     private IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     private IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
@@ -46,6 +46,7 @@ public class Meson {
 
     public void register(MesonInstance instance) {
         instances.put(instance.getId(), instance);
+        LOG.info("Added " + instance.getId() + " to Meson");
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(instance::onCommonSetup);
