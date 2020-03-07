@@ -159,12 +159,6 @@ public class RegistryHandler {
         }
 
         try {
-//            Meson.instances.forEach((s, i) -> {
-//                Meson.LOG.info("Meson has instance: " + s);
-//            });
-//            Meson.LOG.info("Meson instances count: " + Meson.instances.size());
-//            Meson.LOG.info("Namespace needed: " + ns);
-//            Meson.LOG.info("Has namespace: " + Meson.instances.containsKey(ns));
             Meson.getInstance(ns).registerQueue.put(type, () -> obj);
             Meson.LOG.info(REGISTRY, "Queueing " + obj.getRegistryName());
         } catch (Exception e) {
