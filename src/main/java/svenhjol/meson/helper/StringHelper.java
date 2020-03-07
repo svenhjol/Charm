@@ -6,6 +6,7 @@ import net.minecraft.util.text.TextFormatting;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class StringHelper
 {
     public static Map<Integer, Integer> dyeTextMap = new HashMap<>();

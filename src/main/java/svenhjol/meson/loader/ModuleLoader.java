@@ -24,7 +24,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings("unused")
 public class ModuleLoader
 {
     // Module file annotation magic strings
@@ -92,7 +92,7 @@ public class ModuleLoader
 
             } catch (ReflectiveOperationException e) {
 
-                Meson.error("Failed to load module " + target.toString());
+                Meson.LOG.error("Failed to load module " + target.toString());
 
             }
         });
@@ -241,12 +241,12 @@ public class ModuleLoader
                 try {
                     field.set(null, value.get());
                 } catch (IllegalAccessException e) {
-                    Meson.error("Could not set config value for " + module.getName());
+                    Meson.LOG.error("Could not set config value for " + module.getName());
                     throw new RuntimeException(e);
                 }
             });
         } catch (ReflectiveOperationException e) {
-            Meson.error("Failed to get config for " + module.getName());
+            Meson.LOG.error("Failed to get config for " + module.getName());
         }
     }
 

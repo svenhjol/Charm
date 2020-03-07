@@ -9,9 +9,9 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import svenhjol.meson.iface.IMesonEnum;
 
+@SuppressWarnings("unused")
 public class WorldHelper
 {
     public static final String END_CITY = "EndCity";
@@ -32,7 +32,7 @@ public class WorldHelper
         shipwreck,
         stronghold,
         swamp_hut,
-        village;
+        village
     }
 
     public static BlockRayTraceResult getBlockLookedAt(PlayerEntity player)
@@ -60,13 +60,6 @@ public class WorldHelper
         double d2 = d0 - pos2.getX();
         double d3 = d1 - pos2.getZ();
         return d2 * d2 + d3 * d3;
-    }
-
-    public static Biome getBiomeAtPos(World world, BlockPos pos)
-    {
-        // world.getBiome() suffers from infinite badness when game loading
-        return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getBiome(pos); // [1.14]
-        // return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getNoiseBiome(pos.getX(), pos.getY(), pos.getZ()); // [1.15]
     }
 
     public static int getDimensionId(World world)

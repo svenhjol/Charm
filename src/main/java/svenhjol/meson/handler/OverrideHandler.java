@@ -15,6 +15,7 @@ import java.util.Map;
  *
  * @link {ItemOverrideHandler.java}
  */
+@SuppressWarnings("unused")
 public class OverrideHandler
 {
     private static Map<Item, String> defaultItemKeys = new HashMap<>();
@@ -48,12 +49,14 @@ public class OverrideHandler
         block.translationKey = newKey;
     }
 
+    @SuppressWarnings("deprecation")
     public static void changeVanillaBlock(Block block, ResourceLocation newRes)
     {
         Registry.register(Registry.BLOCK, newRes, block);
         RegistryHandler.registerBlock(block, newRes);
     }
 
+    @SuppressWarnings("deprecation")
     public static void changeVanillaItem(Item item, ResourceLocation newRes)
     {
         Registry.register(Registry.ITEM, newRes, item);

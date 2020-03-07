@@ -79,14 +79,12 @@ public class RegistryHandler
     public static void registerFeature(Feature<?> feature, ResourceLocation res)
     {
         addRegisterable(feature, res);
-        // Registry.register(Registry.FEATURE, res.toString(), feature); // TODO probably not needed
     }
 
     public static void registerFeature(Feature<?> feature, Placement<?> placement, ResourceLocation res)
     {
         registerFeature(feature, res);
         addRegisterable(placement, res);
-        // Registry.register(Registry.DECORATOR, res.toString(), placement); // TODO probably not needed
     }
 
     public static void registerItem(Item item, ResourceLocation res)
@@ -111,15 +109,12 @@ public class RegistryHandler
 
     public static void registerStructure(Structure<?> structure, ResourceLocation res)
     {
-        // Registry.register(Registry.FEATURE, res, structure); TODO probably not needed
-        // GameData.getStructureMap().put(res.getPath().toLowerCase(Locale.ROOT), structure); // TODO probably not needed
         addRegisterable(structure, res);
     }
 
     public static void registerStructurePiece(IStructurePieceType piece, ResourceLocation res)
     {
         Registry.register(Registry.STRUCTURE_PIECE, res, piece);
-        // addRegisterable(piece, res); // TODO probably not needed
     }
 
     public static void registerTile(TileEntityType<?> tile, ResourceLocation res)

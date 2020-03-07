@@ -14,9 +14,18 @@ public @interface Module
     String name() default "";
     String description() default "";
 
+    @SuppressWarnings("unused")
     boolean hasSubscriptions() default false;
+
+    @SuppressWarnings("unused")
     boolean enabledByDefault() default true;
+
+    @SuppressWarnings("unused")
     boolean alwaysEnabled() default false;
+
+    @SuppressWarnings("unused")
     boolean client() default true;
+
+    @SuppressWarnings("unused")
     boolean server() default true;
 }

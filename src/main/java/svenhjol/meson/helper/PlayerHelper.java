@@ -47,9 +47,7 @@ public class PlayerHelper
 
     public static void damageHeldItem(PlayerEntity player, Hand hand, ItemStack stack, int damage)
     {
-        stack.damageItem(damage, player, (p) -> {
-            player.sendBreakAnimation(hand);
-        });
+        stack.damageItem(damage, player, (p) -> player.sendBreakAnimation(hand));
     }
 
     public static ImmutableList<NonNullList<ItemStack>> getInventories(PlayerEntity player)
@@ -218,7 +216,6 @@ public class PlayerHelper
         double d2 = playerPos.getZ();
         float f = serverPlayer.rotationPitch;
         float f1 = serverPlayer.rotationYaw;
-        float f2 = f1;
 
         serverworld.getProfiler().startSection("moving");
         double moveFactor = serverworld.getDimension().getMovementFactor() / serverworld1.getDimension().getMovementFactor();

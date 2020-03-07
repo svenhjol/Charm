@@ -17,6 +17,12 @@ import svenhjol.meson.loader.ModuleLoader;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Meson modules (Charm, Strange, etc.) should extend this.
+ * The constructor creates a module-specific loader and packethander.
+ * You can override the forge startup methods if needed.
+ * Put all init/earlyinit stuff in the constructor.
+ */
 public class MesonInstance
 {
     public LogHandler log;
@@ -43,21 +49,21 @@ public class MesonInstance
         catch (Exception e)
         {
             log.error(e.getMessage());
-            throw new RuntimeException("Failed to initialize modules");
+            throw new RuntimeException("Failed to initialize modules: " + e.getMessage());
         }
 
-        // run on client only
+        // run on client side only
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> forEachModule(MesonModule::initClient));
     }
 
     public static ModuleLoader getModuleLoader(String modId)
     {
-        return Meson.INSTANCE.getInstance(modId).getModuleLoader();
+        return Meson.getInstance(modId).getModuleLoader();
     }
 
     public static PacketHandler getPacketHandler(String modId)
     {
-        return Meson.INSTANCE.getInstance(modId).getPacketHandler();
+        return Meson.getInstance(modId).getPacketHandler();
     }
 
     public String getId()

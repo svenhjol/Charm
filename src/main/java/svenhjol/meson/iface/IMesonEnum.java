@@ -2,9 +2,11 @@ package svenhjol.meson.iface;
 
 import net.minecraft.util.IStringSerializable;
 
+@SuppressWarnings("unused")
 public interface IMesonEnum extends IStringSerializable
 {
     @Override
+    @SuppressWarnings("rawtypes")
     default String getName()
     {
         return ((Enum)this).name().toLowerCase();

@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+@SuppressWarnings("unused")
 public class ComposterHelper
 {
     public static void addInputItem(Item item, float chance)

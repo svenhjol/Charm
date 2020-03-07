@@ -64,17 +64,14 @@ public class Meson
 
     public void onCommonSetup(FMLCommonSetupEvent event)
     {
-        try
-        {
+        try {
             if (quarkCompat == null && ForgeHelper.isModLoaded("quark")) {
                 quarkCompat = QuarkCompat.class.newInstance();
                 forgeEventBus.addListener(quarkCompat::onModuleLoaded);
                 forgeEventBus.addListener(quarkCompat::onModuleStateChanged);
                 LOG.debug("Finished Quark compatibility");
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             LOG.error("Error loading QuarkModules");
         }
     }

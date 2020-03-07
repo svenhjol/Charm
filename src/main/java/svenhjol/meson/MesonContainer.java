@@ -9,33 +9,28 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import svenhjol.meson.iface.IMesonContainer;
 
-public abstract class MesonContainer extends Container implements IMesonContainer
-{
+public abstract class MesonContainer extends Container implements IMesonContainer {
     protected final IInventory inventory;
 
-    protected MesonContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, IInventory inventory)
-    {
+    protected MesonContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, IInventory inventory) {
         super(type, id);
         this.inventory = inventory;
         inventory.openInventory(playerInventory.player);
     }
 
     @Override
-    public void onContainerClosed(PlayerEntity player)
-    {
+    public void onContainerClosed(PlayerEntity player) {
         super.onContainerClosed(player);
         this.inventory.closeInventory(player);
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn)
-    {
+    public boolean canInteractWith(PlayerEntity playerIn) {
         return this.inventory.isUsableByPlayer(playerIn);
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity player, int index)
-    {
+    public ItemStack transferStackInSlot(PlayerEntity player, int index) {
         ItemStack stack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
 
@@ -44,9 +39,9 @@ public abstract class MesonContainer extends Container implements IMesonContaine
             stack = stackInSlot.copy();
 
             if (index < this.inventory.getSizeInventory()) {
-                if (!this.mergeItemStack(stackInSlot, this.inventory.getSizeInventory(), this.inventorySlots.size(), true)) {
+                if (!this.mergeItemStack(stackInSlot, this.inventory.getSizeInventory(), this.inventorySlots.size(), true))
                     return ItemStack.EMPTY;
-                }
+
             } else if (!this.mergeItemStack(stackInSlot, 0, this.inventory.getSizeInventory(), false)) {
                 return ItemStack.EMPTY;
             }

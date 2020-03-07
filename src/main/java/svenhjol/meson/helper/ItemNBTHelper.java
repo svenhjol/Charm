@@ -3,6 +3,7 @@ package svenhjol.meson.helper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 
+@SuppressWarnings("unused")
 public class ItemNBTHelper
 {
     public static int getInt(ItemStack stack, String tag, int defaultExpected)

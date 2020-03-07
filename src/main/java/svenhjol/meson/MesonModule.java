@@ -10,17 +10,25 @@ import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
+/**
+ * Base class for each module/feature of a Meson mod.
+ */
+@SuppressWarnings("unused")
 public abstract class MesonModule
 {
-    public boolean enabled = true;
-    public boolean enabledByDefault = true;
-    public boolean hasSubscriptions = false;
-    public boolean alwaysEnabled = false;
+    public boolean enabled = true; // if false, won't run setup but will still register items/blocks
+    public boolean enabledByDefault = true; // if false, won't be added first time config loads
+    public boolean hasSubscriptions = false; // if true, adds this module to the forge event bus
+    public boolean alwaysEnabled = false; // if true, cannot be enabled/disabled from config file
     public String mod = "";
     public String category = "";
     public String name = "";
     public String description = "";
 
+    /**
+     * Put conditions here that allow the module to setup (register events, client setup).
+     * @return true if module is allowed to run setup
+     */
     public boolean shouldRunSetup()
     {
         return true;
@@ -33,7 +41,7 @@ public abstract class MesonModule
 
     public void init()
     {
-        // register blocks, TEs, etc
+        // register blocks, TEs, etc.
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -44,13 +52,13 @@ public abstract class MesonModule
 
     public void onCommonSetup(FMLCommonSetupEvent event)
     {
-        // register messages, composter items, etc
+        // register events, etc.
     }
 
     @OnlyIn(Dist.CLIENT)
     public void onClientSetup(FMLClientSetupEvent event)
     {
-        // register screens, etc
+        // register screens, etc.
     }
 
     public void onModConfig(ModConfigEvent event)
@@ -65,12 +73,12 @@ public abstract class MesonModule
 
     public void onServerStarting(FMLServerStartingEvent event)
     {
-        // server-side event, access to resource manager etc
+        // server-side event, access to resource manager etc.
     }
 
     public void onServerStarted(FMLServerStartedEvent event)
     {
-        // server-side event, access to resource manager etc
+        // server-side event, access to resource manager etc.
     }
 
     public void onLoadComplete(FMLLoadCompleteEvent event)

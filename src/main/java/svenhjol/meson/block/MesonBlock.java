@@ -27,9 +27,8 @@ public abstract class MesonBlock extends Block implements IMesonBlock
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items)
     {
-        if (isEnabled()) {
+        if (isEnabled())
             super.fillItemGroup(group, items);
-        }
     }
 
     @Override
