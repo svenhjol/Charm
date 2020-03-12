@@ -1,5 +1,8 @@
 # Changelog for Charm
 
+## 1.5.3
+* Minor logging changes
+
 ## 1.5.2
 * Rewrite loader to tackle concurrency issues and inconsistent loading
 * Rewrite network handler to tackle problems when loaded with other Charm-based mods

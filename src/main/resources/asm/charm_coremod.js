@@ -46,9 +46,9 @@ function initializeCoreMod() {
                 }
 
                 if (didThing) {
-                    print("Transformed BrewingRecipeRegistry");
+                    print("[Charm ASM] Transformed BrewingRecipeRegistry");
                 } else {
-                    print("Failed to transform BrewingRecipeRegistry")
+                    print("[Charm ASM] Failed to transform BrewingRecipeRegistry")
                 }
 
                 return method;
@@ -88,9 +88,9 @@ function initializeCoreMod() {
 
 
                 if (didThing) {
-                    print("Transformed PotionItem");
+                    print("[Charm ASM] Transformed PotionItem");
                 } else {
-                    print("Failed to transform PotionItem")
+                    print("[Charm ASM] Failed to transform PotionItem")
                 }
 
                 return method;
@@ -127,9 +127,9 @@ function initializeCoreMod() {
                 }
 
                 if (didThing) {
-                    print("Transformed RepairContainer");
+                    print("[Charm ASM] Transformed RepairContainer");
                 } else {
-                    print("Failed to transform RepairContainer")
+                    print("[Charm ASM] Failed to transform RepairContainer")
                 }
 
                 return method;
@@ -169,9 +169,9 @@ function initializeCoreMod() {
                 }
 
                 if (didThing) {
-                    print("Transformed ArmorLayer");
+                    print("[Charm ASM] Transformed ArmorLayer");
                 } else {
-                    print("Failed to transform ArmorLayer")
+                    print("[Charm ASM] Failed to transform ArmorLayer")
                 }
 
                 return method;
@@ -207,7 +207,7 @@ function initializeCoreMod() {
                 newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "mobsInBeaconRange", "(Lnet/minecraft/world/World;ILnet/minecraft/util/math/BlockPos;Lnet/minecraft/potion/Effect;Lnet/minecraft/potion/Effect;)V", false));
 
                 method.instructions.insertBefore(instruction, newInstructions);
-                print("Transformed BeaconTileEntity");
+                print("[Charm ASM] Transformed BeaconTileEntity");
 
                 return method;
             }
@@ -247,9 +247,9 @@ function initializeCoreMod() {
                 }
 
                 if (didThing) {
-                    print("Transformed ItemStack");
+                    print("[Charm ASM] Transformed ItemStack");
                 } else {
-                    print("Failed to transform ItemStack");
+                    print("[Charm ASM] Failed to transform ItemStack");
                 }
 
                 return method;
@@ -285,9 +285,9 @@ function initializeCoreMod() {
                 }
 
                 if (didThing) {
-                    print("Transformed HuskEntity");
+                    print("[Charm ASM] Transformed HuskEntity");
                 } else {
-                    print("Failed to transform HuskEntity");
+                    print("[Charm ASM] Failed to transform HuskEntity");
                 }
 
                 return method;
@@ -327,9 +327,9 @@ function initializeCoreMod() {
                 }
 
                 if (didThing) {
-                    print("Transformed ComposterBlock");
+                    print("[Charm ASM] Transformed ComposterBlock");
                 } else {
-                    print("Failed to transform ComposterBlock");
+                    print("[Charm ASM] Failed to transform ComposterBlock");
                 }
 
                 return method;
@@ -361,7 +361,7 @@ function initializeCoreMod() {
                 newInstructions.add(label);
 
                 method.instructions.insertBefore(instruction, newInstructions);
-                print("Transformed MusicTicker tick");
+                print("[Charm ASM] Transformed MusicTicker tick");
 
                 return method;
             }
@@ -389,7 +389,7 @@ function initializeCoreMod() {
                 newInstructions.add(label);
 
                 method.instructions.insertBefore(instruction, newInstructions);
-                print("Transformed MusicTicker stop");
+                print("[Charm ASM] Transformed MusicTicker stop");
 
                 return method;
             }
@@ -419,7 +419,7 @@ function initializeCoreMod() {
                 newInstructions.add(label);
 
                 method.instructions.insertBefore(instruction, newInstructions);
-                print("Transformed MusicTicker isPlaying");
+                print("[Charm ASM] Transformed MusicTicker isPlaying");
 
                 return method;
             }
