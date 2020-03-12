@@ -7,6 +7,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
@@ -34,7 +35,7 @@ public class RottenFleshBlock extends MesonBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void tick(final BlockState state, final World worldIn, final BlockPos pos, final Random random) {
+    public void tick(final BlockState state, final ServerWorld worldIn, final BlockPos pos, final Random random) {
         super.tick(state, worldIn, pos, random);
 
         if (!worldIn.isRemote) {

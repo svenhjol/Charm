@@ -44,8 +44,8 @@ public class WorldHelper {
     }
 
     public static boolean canSeeSky(IWorld world, BlockPos pos) {
-        return world.isSkyLightMax(pos); // [1.14]
-        // return world.canSeeSky(pos); // [1.15]
+//        return world.isSkyLightMax(pos); // [1.14]
+         return world.canSeeSky(pos); // [1.15]
     }
 
     public static double getDistanceSq(BlockPos pos1, BlockPos pos2) {

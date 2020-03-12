@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -70,15 +71,15 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock {
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult block) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult block) {
         if (!world.isRemote) {
-            if (super.onBlockActivated(state, world, pos, player, hand, block)) {
+            if (super.onBlockActivated(state, world, pos, player, hand, block).equals(ActionResultType.SUCCESS)) {
                 this.onEaten(player);
-                return true;
+                return ActionResultType.SUCCESS;
             }
         }
 
-        return false;
+        return ActionResultType.FAIL;
     }
 
     public void onEaten(PlayerEntity player) {

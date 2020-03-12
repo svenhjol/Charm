@@ -17,14 +17,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.world.block.RunePortalBlock;
 import svenhjol.charm.world.block.RunePortalFrameBlock;
-import svenhjol.charm.world.client.renderer.RunePortalTileEntityRenderer;
 import svenhjol.charm.world.message.ClientRunePortalAction;
 import svenhjol.charm.world.storage.RunePortalSavedData;
 import svenhjol.charm.world.tileentity.RunePortalTileEntity;
@@ -79,7 +77,7 @@ public class EndPortalRunes extends MesonModule {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void onClientSetup(FMLClientSetupEvent event) {
-        ClientRegistry.bindTileEntitySpecialRenderer(RunePortalTileEntity.class, new RunePortalTileEntityRenderer());
+//        ClientRegistry.bindTileEntitySpecialRenderer(RunePortalTileEntity.class, new RunePortalTileEntityRenderer());
     }
 
     @SubscribeEvent

@@ -11,10 +11,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import svenhjol.meson.compat.QuarkCompat;
+import svenhjol.meson.compat.IQuarkCompat;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.PlayerQueueHandler;
-import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.loader.condition.ModuleEnabledCondition;
 
 import java.util.Map;
@@ -33,7 +32,7 @@ public class Meson {
     private IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     private IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
-    private static QuarkCompat quarkCompat;
+    private static IQuarkCompat quarkCompat = null;
 
     private Meson() {
         // register crafting recipe conditions
@@ -60,16 +59,16 @@ public class Meson {
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
-        try {
-            if (quarkCompat == null && ForgeHelper.isModLoaded("quark")) {
-                quarkCompat = QuarkCompat.class.newInstance();
-                forgeEventBus.addListener(quarkCompat::onModuleLoaded);
-                forgeEventBus.addListener(quarkCompat::onModuleStateChanged);
-                LOG.debug("Finished Quark compatibility");
-            }
-        } catch (Exception e) {
-            LOG.error("Error loading QuarkModules");
-        }
+        // TODO quark 1.15
+//        try {
+//            if (quarkCompat == null && ForgeHelper.isModLoaded("quark")) {
+//                quarkCompat = QuarkCompat.class.newInstance();
+//                quarkCompat.onCommonSetup(event, forgeEventBus);
+//                LOG.debug("Finished Quark compatibility");
+//            }
+//        } catch (Exception e) {
+//            LOG.error("Error loading QuarkModules");
+//        }
     }
 
     public static MesonInstance getInstance(String modId) {

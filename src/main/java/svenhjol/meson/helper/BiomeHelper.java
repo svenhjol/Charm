@@ -1,8 +1,8 @@
 package svenhjol.meson.helper;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.Objects;
 
@@ -12,9 +12,9 @@ public class BiomeHelper {
         return Objects.requireNonNull(biome.getRegistryName()).getPath();
     }
 
-    public static Biome getBiomeAtPos(World world, BlockPos pos) {
+    public static Biome getBiomeAtPos(ServerWorld world, BlockPos pos) {
         // world.getBiome() suffers from infinite badness when game loading
-        return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getBiome(pos); // [1.14]
-        // return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getNoiseBiome(pos.getX(), pos.getY(), pos.getZ()); // [1.15]
+//        return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getBiome(pos); // [1.14]
+         return world.getChunkProvider().getChunkGenerator().getBiomeProvider().getNoiseBiome(pos.getX(), pos.getY(), pos.getZ()); // [1.15]
     }
 }

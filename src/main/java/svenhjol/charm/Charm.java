@@ -4,7 +4,7 @@ import net.minecraftforge.fml.common.Mod;
 import svenhjol.charm.base.CharmCompat;
 import svenhjol.charm.base.CharmMessages;
 import svenhjol.charm.base.CharmSounds;
-import svenhjol.charm.base.compat.QuarkCompat;
+import svenhjol.charm.base.compat.IQuarkCompat;
 import svenhjol.meson.MesonInstance;
 import svenhjol.meson.handler.LogHandler;
 
@@ -12,7 +12,7 @@ import svenhjol.meson.handler.LogHandler;
 public class Charm extends MesonInstance {
     public static final String MOD_ID = "charm";
     public static LogHandler LOG = new LogHandler(Charm.MOD_ID);
-    public static QuarkCompat quarkCompat;
+    public static IQuarkCompat quarkCompat;
 
     public Charm() {
         super(Charm.MOD_ID, LOG);
