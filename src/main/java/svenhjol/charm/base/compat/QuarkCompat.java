@@ -18,7 +18,7 @@ import vazkii.quark.vanity.module.ColorRunesModule;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class QuarkCompat {
+public class QuarkCompat implements IQuarkCompat {
     public void onTallowAnvilUpdate(AnvilUpdateEvent event) {
         ItemStack left = event.getLeft();
         ItemStack right = event.getRight();

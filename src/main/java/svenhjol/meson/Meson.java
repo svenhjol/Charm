@@ -11,6 +11,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import svenhjol.meson.compat.IQuarkCompat;
 import svenhjol.meson.compat.QuarkCompat;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.PlayerQueueHandler;
@@ -33,7 +34,7 @@ public class Meson {
     private IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     private IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
-    private static QuarkCompat quarkCompat;
+    private static IQuarkCompat quarkCompat;
 
     private Meson() {
         // register crafting recipe conditions
@@ -63,8 +64,7 @@ public class Meson {
         try {
             if (quarkCompat == null && ForgeHelper.isModLoaded("quark")) {
                 quarkCompat = QuarkCompat.class.newInstance();
-                forgeEventBus.addListener(quarkCompat::onModuleLoaded);
-                forgeEventBus.addListener(quarkCompat::onModuleStateChanged);
+                quarkCompat.onCommonSetup(event, forgeEventBus);
                 LOG.debug("Finished Quark compatibility");
             }
         } catch (Exception e) {

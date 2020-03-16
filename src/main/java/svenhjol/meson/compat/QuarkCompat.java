@@ -1,6 +1,8 @@
 package svenhjol.meson.compat;
 
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import svenhjol.meson.Meson;
 import vazkii.quark.api.event.ModuleLoadedEvent;
 import vazkii.quark.api.event.ModuleStateChangedEvent;
@@ -11,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings({"unused", "unchecked"})
-public class QuarkCompat {
+public class QuarkCompat implements IQuarkCompat {
     public Map<Class<? extends Module>, Module> foundModules;
     public Map<String, Boolean> modules = new HashMap<>();
     public Map<String, Module> nameMap = new HashMap<>();
@@ -30,21 +32,29 @@ public class QuarkCompat {
         }
     }
 
+    @Override
+    public void onCommonSetup(FMLCommonSetupEvent event, IEventBus forgeEventBus) {
+        forgeEventBus.addListener(this::onModuleLoaded);
+        forgeEventBus.addListener(this::onModuleStateChanged);
+    }
+
     // TODO doesn't get fired when event fires
-    public void onModuleLoaded(final ModuleLoadedEvent event) {
+    private void onModuleLoaded(final ModuleLoadedEvent event) {
         modules.put(event.eventName, false);
     }
 
     // TODO doesn't get fired when event fires
-    public void onModuleStateChanged(final ModuleStateChangedEvent event) {
+    private void onModuleStateChanged(final ModuleStateChangedEvent event) {
         modules.put(event.eventName, event.enabled);
     }
 
+    @Override
     public boolean isModuleEnabled(String name) {
         return nameMap.containsKey(name) && nameMap.get(name).enabled;
         // return modules.containsKey(name) && modules.get(name); // TODO events not firing
     }
 
+    @Override
     public boolean isModulePresent(String name) {
         return nameMap.containsKey(name);
         // return modules.containsKey(name); // TODO events not firing
