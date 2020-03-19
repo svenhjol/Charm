@@ -2,6 +2,7 @@
 
 ## 1.5.3
 * Minor logging changes
+* Some internal interface changes to prepare for 1.15+
 
 ## 1.5.2
 * Rewrite loader to tackle concurrency issues and inconsistent loading
