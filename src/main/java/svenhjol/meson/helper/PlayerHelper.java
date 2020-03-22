@@ -225,7 +225,7 @@ public class PlayerHelper {
         serverworld.getProfiler().endSection();
 
         serverPlayer.setWorld(serverworld1);
-        serverworld1.addDuringPortalTeleport(serverPlayer);
+        serverworld1.addRespawnedPlayer(serverPlayer);
         serverPlayer.connection.setPlayerLocation(playerPos.getX(), playerPos.getY(), playerPos.getZ(), f1, f);
         serverPlayer.interactionManager.setWorld(serverworld1);
         serverPlayer.connection.sendPacket(new SPlayerAbilitiesPacket(serverPlayer.abilities));
