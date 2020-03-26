@@ -423,6 +423,44 @@ function initializeCoreMod() {
 
                 return method;
             }
+        },
+
+        /*
+         * PlayerEntity: override music ticker isPlaying
+         */
+        'PlayerEntity': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.entity.player.PlayerEntity',
+                'methodName': 'func_192030_dh', // spawnShoulderEntities
+                'methodDesc': '()V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.IFGE) {
+                        var label = new LabelNode();
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "stayOnShoulder", "()Z", false));
+                        newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                        newInstructions.add(new InsnNode(Opcodes.RETURN));
+                        newInstructions.add(label);
+
+                        method.instructions.insert(instruction, newInstructions);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("[Charm ASM] Transformed PlayerEntity spawnShoulderEntities");
+
+                return method;
+            }
         }
     }
 }

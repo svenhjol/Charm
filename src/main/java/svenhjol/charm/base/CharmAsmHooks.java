@@ -75,4 +75,8 @@ public class CharmAsmHooks {
         if (!Meson.isModuleEnabled("charm:ambient_music_improvements")) return false;
         return AmbientMusicClient.handlePlaying(type);
     }
+
+    public static boolean stayOnShoulder() {
+        return Meson.isModuleEnabled("charm:parrots_stay_on_shoulder");
+    }
 }
