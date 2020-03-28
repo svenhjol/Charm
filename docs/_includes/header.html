@@ -1,0 +1,14 @@
+<header>
+    <div class="container">
+        <h1><a href="{{ site.baseurl }}/">{{ site.title | default: site.github.repository_name }}</a></h1>
+        <p class="author">A mod for Minecraft by Sven Hjól</p>
+        <h2>{{ site.description | default: site.github.project_tagline }}</h2>
+        <section id="downloads">
+            <a href="https://www.curseforge.com/minecraft/mc-mods/charm" class="btn btn-github">Download from Curseforge!</a>
+        </section>
+        <nav class="navbar">
+            <a href="{{ site.baseurl }}/">Go to the Home Page</a>
+            {{ site.parent }}
+        </nav>
+    </div>
+</header>
