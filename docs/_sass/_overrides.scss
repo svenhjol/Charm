@@ -1,10 +1,39 @@
-$green: #b5e853;
-$blue: #53d8c5;
-$link-color: darken($blue, 15);
-$header-color: lighten($blue, 10);
+@import 'variables';
+@import 'mixins';
+
+h1, h2, h3, h4, h5, h6 {
+    color: $header-color;
+
+    a, a:focus, a:visited {
+        color: $header-color;
+    }
+}
+
+h2 {
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+ul li {
+    list-style-image: none;
+}
+
+a, a:link, a:visited {
+    color: $link-color;
+    text-shadow: none;
+    text-decoration: none;
+}
+
+a:hover {
+    color: lighten($link-color, 12);
+    text-decoration: none;
+    @include trans(color, 0.5s, linear);
+}
 
 header {
-    border-bottom-color: $blue;
+    border: 0;
+    padding-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
 
     p.author {
         font-size: 0.9em;
@@ -14,7 +43,8 @@ header {
 
     h1 {
         margin: 0;
-        font-size: 2.7em;
+        font-size: 3.0em;
+        font-weight: normal;
 
         &:before {
             display: none;
@@ -24,58 +54,38 @@ header {
     h2 {
         margin-top: 20px;
     }
-}
 
-.home {
-    .download-link {
-        text-align: center;
-    }
-
-    #main_content h1 {
-        font-size: 3em;
-        text-align: center;
-    }
-
-    h2 {
-        margin-top: 70px;
-        text-align: center;
-    }
-}
-
-h1, h2, h3, h4, h5, h6 {
-    color: $header-color;
-}
-
-ul li {
-    list-style-image: none;
-}
-
-a, a:link, a:visited {
-    color: $link-color;
-}
-
-a:hover {
-    color: darken($color: $link-color, $amount: 12)
-}
-
-header {
-    a {
+    a, a:hover, a:focus {
         text-decoration: none;
     }
 
-    .navbar {
-        padding-bottom: 15px;
+    .title {
+        padding: 20px;
+    }
 
-        .home-layout & {
-            display: none;
+    &.splash {
+        padding: 0;
+
+        img {
+            width: 100%;
         }
+    }
+
+    .download {
+        float: right;
+        margin-top: -60px;
+        margin-right: -10px;
     }
 }
 
 footer {
-    background-color: black;
-    padding: 50px 0;
-    margin-top: 50px;
+    border-top: 1px dashed $border-color;
+    background-color: rgba(0, 0, 0, 0.3);
+    clear: both;
+    padding: 30px 0;
+    margin-top: 100px;
+    text-align: left;
+
     h2 {
         color: white;
         font-size: 1.7em;
@@ -84,6 +94,7 @@ footer {
         text-decoration: none;
         color: white;
     }
+    
     color: white;
 }
 
@@ -93,9 +104,9 @@ footer {
     padding: 10px 0;
 }
 
-#downloads {
-    .page-layout & {
-        float: right;
-        margin-top: -10px;
+.download {
+    text-align: center;
+    a:hover {
+        color: white;
     }
 }

@@ -2,4 +2,6 @@
 ---
 
 @import "{{ site.theme }}";
+@import 'categories';
+@import 'layouts';
 @import 'overrides';
