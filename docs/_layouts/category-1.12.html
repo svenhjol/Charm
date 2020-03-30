@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
-  {% include meta.html %}
-  {% seo %}
+    {% include meta.html %}
+    {% seo %}
   </head>
 
-  <body>
+  <body class="minecraft112">
+    {% include header-1.12.html %}
+    {% include categories-1.12.html %}
 
-    {% include splash.html %}
-    {% include categories.html %}
-
-    <div class="home-content container">
+    <div class="category-content container">
       <section id="main_content">
         {{ content }}
       </section>

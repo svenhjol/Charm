@@ -32,12 +32,14 @@ a:hover {
 
 header {
     border: 0;
+    margin: 0;
     padding-bottom: 0;
     background-color: rgba(0, 0, 0, 0.3);
 
     p.author {
         font-size: 0.9em;
         padding: 0;
+        padding-bottom: 20px;
         margin: 0;
     }
 
@@ -66,9 +68,11 @@ header {
     &.splash {
         padding: 0;
 
-        img {
-            width: 100%;
-        }
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: url("https://i.postimg.cc/Y0HJx13t/splash.jpg");
+        height: 400px;
     }
 
     .download {
