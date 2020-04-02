@@ -4,11 +4,13 @@ title: Enchanting
 ---
 
 ## Curse Break
+![Curse Break](https://i.postimg.cc/G2n3wGb3/cursebreak.jpg)
 Combine the **Curse Break** enchanted book with any cursed item on an anvil to remove the curse.
 
 This enchanted book is not available via the enchantment table but can be found as a treasure enchantment or be obtained by trading with a librarian villager.
 
 ## Extra Curses
+![Extra Curses](https://i.postimg.cc/0j2sPCFv/extracurses.jpg)
 Adds more potenial item enchantment curses to ruin your day.
 
 These extra curses may occur naturally on treasure items or get added to an item if the **Spectre** feature is enabled and a player gets into close contact with at least one of them.
@@ -23,6 +25,7 @@ Beyond the default Minecraft curses, this feature adds the following:
 Curses may be removed by using the **Curse Break** enchanted book, if enabled.
 
 ## Homing
+![Homing](https://i.postimg.cc/W1JPNzWd/homing.jpg)
 Combine the **Homing** enchanted book with a hoe on an anvil to enable the hoe to help you locate ore. The hoe will be attracted to ore of the same ingots/gems that make up the head of the hoe.
 
 By right-clicking on a block, you will hear a sound that rises in pitch as you get closer to the ore. Doing so will decrease the durability of the hoe.
@@ -30,9 +33,11 @@ By right-clicking on a block, you will hear a sound that rises in pitch as you g
 This enchanted book is not available via the enchantment table and can only be found as a treasure enchantment.  Currently, only hoes made of iron, gold or diamond may be enchanted with the Homing enchantment.
 
 ## Magnetic
+![Magnetic](https://i.postimg.cc/d30zzVZt/magnetic.jpg)
 A tool with the **Magnetic** enchantment adds block drops straight to your inventory.  This enchantment may also be added to shears.
 
 ## Salvage
+![Salvage](https://i.postimg.cc/wTyrJPhP/salvage.jpg)
 An item with the **Salvage** enchantment does not disappear when its durability is depleted, giving you a chance to get it repaired.
 
 If the item runs out of durability the player will drop it and it must be picked up again. Watch out for lava.

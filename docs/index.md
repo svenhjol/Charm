@@ -14,7 +14,7 @@ It's a *modular* mod in that you can turn on or off any of the mod features via 
 
 
 ## Minecraft 1.12
-Minecraft 1.12 is not actively developed.  Bug fixes will be prioritised.  1.14 features will be backported, time permitting.  [Read the 1.12 documentation here.]({{site.baseurl}}/features-1.12/index)
+Charm for Minecraft 1.12 is no longer being actively maintained due to lack of time.  Serious bugs will be worked on when time permits.  [Read the 1.12 documentation here.]({{site.baseurl}}/features-1.12/index)
 
 
 ## Installation

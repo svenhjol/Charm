@@ -12,6 +12,9 @@ It's a *modular* mod in that you can turn on or off any of the mod features via 
     <a href="https://www.curseforge.com/minecraft/mc-mods/charm" class="btn btn-github">Download from Curseforge!</a>
 </div>
 
+## Important
+Charm for Minecraft 1.12 is no longer being actively maintained due to lack of time.  Serious bugs will be worked on when time permits.  Charm is being developed for Minecraft 1.14+ and you can find [the documentation here]({{site.baseurl}}/).
+
 
 ## Installation
 You need to install the **Java Edition** of Minecraft and then the [correct version of Forge](https://files.minecraftforge.net/) for the version of Minecraft you want to play.  Once you have done this, drop the **Charm jar file** in your **mods** folder and start the game.
