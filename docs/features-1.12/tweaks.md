@@ -58,6 +58,9 @@ Wolves and cats may spawn with different textures. Wolves may be brown, grey or 
 ## Records stop background music
 When a record is played in a jukebox, the in-game background music will be stopped and prevented from playing. 
 
+## Remove nitwits
+Prevents nitwits from spawning as new villagers.  This doesn't remove existing nitwits from the game and only affects baby and cured villagers.
+
 ## Restrict furnace input
 Vanilla furnaces allow any item in its input slot, regardless of whether it can be smelted.  This feature limits the input slot to allow only items that have a smelting recipe.
 
