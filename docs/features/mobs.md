@@ -8,6 +8,7 @@ title: Mobs
 Adds configurable spawn weights for vanilla structures.  By default, **Husks** will exclusively spawn within Desert Temples and **Vindicators** will respawn inside Mansions.
 
 ## Chickens drop feathers
+![Chickens drop feathers](https://i.postimg.cc/NMDVKF01/Chickens_drop_feathers.png)
 Sometimes chickens drop a feather instead of laying an egg.  After dropping a feather, the amount of time until another egg or feather drop is reduced by half.
 
 *Vegan friendly!* 
