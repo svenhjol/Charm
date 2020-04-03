@@ -1,5 +1,12 @@
 # Changelog for Charm
 
+## 1.5.4
+* Added parrots staying on player shoulder when jumping.
+* Added Nether pig iron ore.
+* Nether pig iron nuggets are now used to repair any item instead of tallow.
+* Nether gold deposits can now smelt to gold ingots.
+* Website for 1.14+ and 1.12 migrated to Jekyll.
+
 ## 1.5.3
 * Minor logging changes
 * Some internal interface changes to prepare for 1.15+
