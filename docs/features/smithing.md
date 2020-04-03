@@ -15,6 +15,7 @@ No more "Too expensive"!
 Extract enchantments from any enchanted item into an empty book on an anvil. Enchantments at level 1 will be preserved, but enchantments higher than level 1 will be weakened by one level. The enchanted item will be destroyed in the process.
 
 ## Pig Iron increases durability
+![Pig iron increases durability](https://i.postimg.cc/50nXnhgw/Pig-iron-increases-durability.png)
 Pig iron nuggets can be combined on an anvil with a tool, weapon or armor to give a small durability boost regardless of the material the item is made from.  Repairing tools with pig iron does not add to their repair cost.
 
 The **Nether Pig Iron** module must be enabled for this to work.
