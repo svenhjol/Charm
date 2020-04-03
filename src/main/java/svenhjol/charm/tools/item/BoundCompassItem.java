@@ -127,6 +127,7 @@ public class BoundCompassItem extends MesonItem {
         return ItemNBTHelper.getInt(stack, DIM, 0);
     }
 
+    @Nullable
     public static BlockPos getPos(ItemStack stack) {
         if (!stack.hasTag()) return null;
         long pos = ItemNBTHelper.getLong(stack, POS, 0);
@@ -156,5 +157,10 @@ public class BoundCompassItem extends MesonItem {
 
             textComponents.add(new TranslationTextComponent("gui.charm.bound_compass_location", x, z, dim));
         }
+    }
+
+    @Override
+    public boolean hasEffect(ItemStack stack) {
+        return getPos(stack) != null;
     }
 }
