@@ -1,8 +1,6 @@
 package svenhjol.charm.world.module;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
 import net.minecraft.item.FilledMapItem;
@@ -10,14 +8,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.storage.MapDecoration;
-import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
@@ -33,19 +30,15 @@ import java.util.Locale;
 import java.util.Random;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.WORLD, hasSubscriptions = true,
-    description = "Cartographers sell Structure Maps that can be used to find additional overworld structures.")
+    description = "Wandering Traders sell Structure Maps that can be used to find additional overworld structures.")
 public class StructureMaps extends MesonModule {
-    @Config(name = "Trade Level", description = "The level at which a cartographer will trade structure maps.\n" +
-        "Numbers correspond to villager level, starting at 1 for Novice.")
-    public static int tradeLevel = 3;
-
-    @Config(name = "Maximum Maps", description = "Maximum number of structure map types a cartographer may sell.")
+    @Config(name = "Maximum Maps", description = "Maximum number of structure map types a trader may sell.")
     public static int maxMaps = 3;
 
-    @Config(name = "Villager experience awarded", description = "The amount of experience awarded to the cartographer upon selling.")
+    @Config(name = "Villager experience awarded", description = "The amount of experience awarded to the trader upon selling.")
     public static int tradeXp = 5;
 
-    @Config(name = "Maximum Trades", description = "Maximum number the trade can be used before it locks.")
+    @Config(name = "Maximum Trades", description = "Maximum number of times the trade can be used before it locks.")
     public static int maxTrades = 1;
 
     @Config(name = "General map minimum cost", description = "Minimum emerald cost of a general structure map.")
@@ -81,21 +74,11 @@ public class StructureMaps extends MesonModule {
     }
 
     @SubscribeEvent
-    public void onVillagerTrades(VillagerTradesEvent event) {
-        Int2ObjectMap<List<ITrade>> trades = event.getTrades();
-        VillagerProfession profession = event.getType();
+    public void onWandererTrades(WandererTradesEvent event) {
+        List<ITrade> trades = event.getRareTrades();
 
-        if (profession.getRegistryName() == null)
-            return;
-
-        ResourceLocation cartographerReg = VillagerProfession.CARTOGRAPHER.getRegistryName();
-        if (cartographerReg == null)
-            return;
-
-        if (profession.getRegistryName().getPath().equals(cartographerReg.getPath())) {
-            for (int i = 0; i < maxMaps; i++) {
-                trades.get(tradeLevel).add(new StructureMapForEmeraldsTrade());
-            }
+        for (int i = 0; i < maxMaps; i++) {
+            trades.add(new StructureMapForEmeraldsTrade());
         }
     }
 

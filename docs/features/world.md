@@ -48,7 +48,7 @@ Using a silk touch pick, you can smelt the ore in a furnace or blast furnace to 
 
 ## Structure maps
 ![Structure maps](https://i.postimg.cc/J4DkXvn3/Structure-maps.png)
-Cartographer villagers sell maps to the following structures close to them.
+Wandering traders sell maps to the following structures:
 
 * Witch huts
 * Desert pyramids
