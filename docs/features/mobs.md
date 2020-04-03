@@ -28,6 +28,9 @@ Husks can now spawn underground in their biomes and also have a chance to drop s
 ![Mobs affected by beacon](https://i.postimg.cc/j2jyBjtB/Mobs-affected-by-beacon.png)
 A beacon with the secondary effect of **Regeneration** will heal all tamed, friendly and neutral mobs in the area around it.  With the secondary effect of **Strength**, all nearby monsters will receive **Weakness**.
 
+## Parrots stay on shoulder
+Parrots now stay on the player's shoulder when jumping or falling. To remove a parrot, just crouch.
+
 ## Remove Nitwits
 ![Remove Nitwits](https://i.postimg.cc/k5dKqs7Q/Remove-nitwits.png)
 Prevents nitwits from spawning as new villagers.  It also converts any nitwits in freshly loaded chunks to unemployed villagers.
