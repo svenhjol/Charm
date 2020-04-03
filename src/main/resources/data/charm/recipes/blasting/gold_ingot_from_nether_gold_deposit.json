@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "charm:nether_gold_deposit"
+  },
+  "result": "minecraft:gold_ingot",
+  "experience": 0.7,
+  "cookingtime": 100
+}

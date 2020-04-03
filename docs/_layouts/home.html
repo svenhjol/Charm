@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+  {% include meta.html %}
+  {% seo %}
+  </head>
+
+  <body>
+
+    {% include splash.html %}
+    {% include categories.html %}
+
+    <div class="home-content container">
+      <section id="main_content">
+        {{ content }}
+      </section>
+    </div>
+
+    {% include footer.html %}
+
+  </body>
+</html>

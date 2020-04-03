@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "charm:pig_iron_ore"
+  },
+  "result": "minecraft:iron_ingot",
+  "experience": 0.2,
+  "cookingtime": 200,
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:nether_pig_iron"
+    }
+  ]
+}
