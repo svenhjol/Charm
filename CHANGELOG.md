@@ -5,6 +5,7 @@
 * Added Nether pig iron ore.
 * Nether pig iron nuggets are now used to repair any item instead of tallow.
 * Nether gold deposits can now smelt to gold ingots.
+* Structure maps are now sold by Wandering Traders instead of Cartographers.
 * Website for 1.14+ and 1.12 migrated to Jekyll.
 
 ## 1.5.3
