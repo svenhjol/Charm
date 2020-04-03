@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "charm:block/pig_iron_ore" }
+    }
+}

@@ -37,6 +37,11 @@ o_O
 ## Nether gold deposits
 ![Nether gold deposits](https://i.postimg.cc/52zLhTW9/Nether-gold-deposits.png)
 Gold deposits appear in clusters in the Nether. They can be broken to obtain gold nuggets.
+Using a silk touch pick, you can smelt the ore in a furnace or blast furnace to get gold ingots.
+
+## Nether pig iron
+Pig iron ore appears throughout the Nether.  You can mine it for pig iron nuggets that are used to repair any tool, weapon or armor without incurring a repair cost.
+Using a silk touch pick, you can smelt the ore in a furnace or blast furnace to get iron ingots. 
 
 ## Structure maps
 ![Structure maps](https://i.postimg.cc/J4DkXvn3/Structure-maps.png)
