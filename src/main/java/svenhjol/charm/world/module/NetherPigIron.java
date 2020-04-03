@@ -24,7 +24,7 @@ public class NetherPigIron extends MesonModule {
     public static PigIronNuggetItem item;
 
     @Config(name = "Vein size")
-    public static int veinSize = 4;
+    public static int veinSize = 6;
 
     @Config(name = "Cluster count")
     public static int clusterCount = 12;

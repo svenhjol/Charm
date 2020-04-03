@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "charm:nether_gold_deposit"
   },
-  "result": "minecraft:gold_ore",
+  "result": "minecraft:gold_ingot",
   "experience": 0.2,
   "cookingtime": 200,
   "conditions": [

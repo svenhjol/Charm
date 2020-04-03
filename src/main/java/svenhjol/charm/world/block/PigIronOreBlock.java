@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class PigIronOreBlock extends MesonBlock {
     public PigIronOreBlock(MesonModule module) {
-        super(module, "pig_iron", Properties.from(Blocks.NETHER_QUARTZ_ORE));
+        super(module, "pig_iron_ore", Properties.from(Blocks.NETHER_QUARTZ_ORE));
     }
 
     @Override
