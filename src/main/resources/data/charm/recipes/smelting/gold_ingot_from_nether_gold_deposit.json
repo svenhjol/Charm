@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "charm:nether_gold_deposit"
+  },
+  "result": "minecraft:gold_ore",
+  "experience": 0.2,
+  "cookingtime": 200,
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:nether_gold_deposits"
+    }
+  ]
+}
