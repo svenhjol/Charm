@@ -30,6 +30,7 @@ Husks can now spawn underground in their biomes and also have a chance to drop s
 A beacon with the secondary effect of **Regeneration** will heal all tamed, friendly and neutral mobs in the area around it.  With the secondary effect of **Strength**, all nearby monsters will receive **Weakness**.
 
 ## Parrots stay on shoulder
+![Parrots stay on shoulder](https://i.postimg.cc/zGRntG98/Parrots-stay-on-shoulder.png)
 Parrots now stay on the player's shoulder when jumping or falling. To remove a parrot, just crouch.
 
 ## Remove Nitwits
