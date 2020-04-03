@@ -27,7 +27,7 @@ public class NetherPigIron extends MesonModule {
     public static int veinSize = 6;
 
     @Config(name = "Cluster count")
-    public static int clusterCount = 12;
+    public static int clusterCount = 30;
 
     @Override
     public void init() {
