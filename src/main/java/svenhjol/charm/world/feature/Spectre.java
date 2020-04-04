@@ -74,7 +74,7 @@ public class Spectre extends Feature
             "Apply curse",
             "If true, spectres will curse armor or items belonging to the player.\n" +
                 "If false, spectres will apply a weakness effect.",
-            true
+            false
         );
 
         // internal
