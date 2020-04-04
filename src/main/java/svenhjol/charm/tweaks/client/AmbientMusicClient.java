@@ -36,8 +36,11 @@ public class AmbientMusicClient {
     private final static Minecraft mc;
     private int ticksBeforeStop;
     private ISound musicToStop = null;
+    public static boolean isEnabled = true;
 
     public void setupClient(FMLClientSetupEvent event) {
+        isEnabled = Meson.isModuleEnabled("charm:ambient_music_improvements");
+
         if (AmbientMusicImprovements.playCreativeMusic) {
             conditions.add(new AmbientMusicCondition(SoundEvents.MUSIC_CREATIVE, 1200, 3600, mc -> mc.player != null
                 && (!mc.player.isCreative() || !mc.player.isSpectator())
