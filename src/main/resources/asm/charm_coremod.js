@@ -6,6 +6,7 @@ function initializeCoreMod() {
     var InsnNode = Java.type('org.objectweb.asm.tree.InsnNode');
     var InsnList = Java.type('org.objectweb.asm.tree.InsnList');
     var VarInsnNode = Java.type('org.objectweb.asm.tree.VarInsnNode');
+    var IincInsnNode = Java.type('org.objectweb.asm.tree.IincInsnNode');
     var FieldInsnNode = Java.type('org.objectweb.asm.tree.FieldInsnNode');
     var MethodInsnNode = Java.type('org.objectweb.asm.tree.MethodInsnNode');
     var JumpInsnNode = Java.type('org.objectweb.asm.tree.JumpInsnNode');
@@ -172,6 +173,48 @@ function initializeCoreMod() {
                     print("[Charm ASM] Transformed ArmorLayer");
                 } else {
                     print("[Charm ASM] Failed to transform ArmorLayer")
+                }
+
+                return method;
+            }
+        },
+
+        /*
+         * LivingEntity: skip adding armor visibility if leather item
+         */
+        'LivingEntity': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.entity.LivingEntity',
+                'methodName': 'func_213343_cS', // func_213343_cS
+                'methodDesc': '()F'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+                var newInstructions = new InsnList();
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+
+                    if (instruction.getOpcode() == Opcodes.IINC) {
+                        var label = new LabelNode();
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 5));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "isArmorInvisible", "(Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)Z", false));
+                        newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                        newInstructions.add(new IincInsnNode(3, -1));
+                        newInstructions.add(label);
+
+                        method.instructions.insert(instruction, newInstructions);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                if (didThing) {
+                    print("[Charm ASM] Transformed LivingEntity");
+                } else {
+                    print("[Charm ASM] Failed to transform LivingEntity")
                 }
 
                 return method;

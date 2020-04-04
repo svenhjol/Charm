@@ -62,18 +62,15 @@ public class CharmAsmHooks {
     }
 
     public static boolean handleMusicTick(ISound currentMusic) {
-        if (!Meson.isModuleEnabled("charm:ambient_music_improvements")) return false;
-        return AmbientMusicClient.handleTick(currentMusic);
+        return AmbientMusicClient.isEnabled && AmbientMusicClient.handleTick(currentMusic);
     }
 
     public static boolean handleMusicStop() {
-        if (!Meson.isModuleEnabled("charm:ambient_music_improvements")) return false;
-        return AmbientMusicClient.handleStop();
+        return AmbientMusicClient.isEnabled && AmbientMusicClient.handleStop();
     }
 
     public static boolean handleMusicPlaying(MusicType type) {
-        if (!Meson.isModuleEnabled("charm:ambient_music_improvements")) return false;
-        return AmbientMusicClient.handlePlaying(type);
+        return AmbientMusicClient.isEnabled && AmbientMusicClient.handlePlaying(type);
     }
 
     public static boolean stayOnShoulder() {

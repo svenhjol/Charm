@@ -1,62 +1,62 @@
 {
-  "type": "minecraft:block",
-  "pools": [
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate":
-                  {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch",
-                        "levels":
-                        {
-                          "min": 1
-                        }
-                      }
-                    ]
-                  }
-                }
-              ],
-              "name": "charm:nether_gold_deposit"
-            },
-            {
-              "type": "minecraft:item",
-              "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "count":
-                  {
-                    "min": 5.0,
-                    "max": 9.0,
-                    "type": "minecraft:uniform"
-                  }
-                },
-                {
-                  "function": "minecraft:apply_bonus",
-                  "enchantment": "minecraft:fortune",
-                  "formula": "minecraft:uniform_bonus_count",
-                  "parameters": {
-                    "bonusMultiplier": 2
-                  }
-                },
-                {
-                  "function": "minecraft:explosion_decay"
-                }
-              ],
-              "name": "minecraft:gold_nugget"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:match_tool",
+									"predicate":
+									{
+										"enchantments": [
+											{
+												"enchantment": "minecraft:silk_touch",
+												"levels":
+												{
+													"min": 1
+												}
+											}
+										]
+									}
+								}
+							],
+							"name": "charm:nether_gold_deposit"
+						},
+						{
+							"type": "minecraft:item",
+							"functions": [
+								{
+									"function": "minecraft:set_count",
+									"count":
+									{
+										"min": 5.0,
+										"max": 9.0,
+										"type": "minecraft:uniform"
+									}
+								},
+								{
+									"function": "minecraft:apply_bonus",
+									"enchantment": "minecraft:fortune",
+									"formula": "minecraft:uniform_bonus_count",
+									"parameters": {
+										"bonusMultiplier": 2
+									}
+								},
+								{
+									"function": "minecraft:explosion_decay"
+								}
+							],
+							"name": "minecraft:gold_nugget"
+						}
+					]
+				}
+			]
+		}
+	]
 }
