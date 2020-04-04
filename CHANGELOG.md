@@ -3,7 +3,7 @@
 ## 1.5.5
 * Fixed bucket stack being consumed when catching a bat. Fix #218
 * Leather armor now properly hides you from monsters. Fix #226
-* Improve drop change of gold nuggets.
+* Improve drop chance of gold nuggets.
 * Added missing redstone sand loot table.
 
 ## 1.5.4
