@@ -132,7 +132,7 @@ public class VillageDecorations extends Feature
         cropsChance = propDouble(
                 "Crops outside",
                 "Chance (out of 1.0) of a village having tilled soil, crops and water wells within its boundary.",
-                0.8
+                0.1
         );
         flowersChance = propDouble(
                 "Flowers outside",
