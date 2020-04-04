@@ -1,5 +1,8 @@
 # Changelog for Charm
 
+## 1.5.5
+* Removed rune portal frames from wither and dragon immune tags, stops console errors.
+
 ## 1.5.4
 * Added parrots staying on player shoulder when jumping.
 * Added Nether pig iron ore.
