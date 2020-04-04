@@ -1,10 +1,10 @@
 ---
-layout: home
-permalink: /
+layout: home-1.12
+permalink: /features-1.12/index
 ---
 
-# Charm
-Charm is a **Forge Mod** for **Minecraft 1.14+**, inspired by [Quark](https://quark.vazkii.us/), that adds to the vanilla experience of Minecraft without drastically changing its gameplay.  Charm does not require **Quark** to be installed but is designed to play nicely with it and extend some of its features.
+# Charm 1.12
+Charm is a **Forge Mod** for **Minecraft 1.12**, inspired by [Quark](https://quark.vazkii.us/), that adds to the vanilla experience of Minecraft without drastically changing its gameplay.  Charm does not require **Quark** to be installed but is designed to play nicely with it and extend some of its features.
 
 It's a *modular* mod in that you can turn on or off any of the mod features via the config file.
 
@@ -12,9 +12,8 @@ It's a *modular* mod in that you can turn on or off any of the mod features via 
     <a href="https://www.curseforge.com/minecraft/mc-mods/charm" class="btn btn-github">Download from Curseforge!</a>
 </div>
 
-
-## Minecraft 1.12
-Charm for Minecraft 1.12 is no longer being actively maintained due to lack of time.  Serious bugs will be worked on when time permits.  [Read the 1.12 documentation here.]({{site.baseurl}}/features-1.12/index)
+## Important
+Charm for Minecraft 1.12 is no longer being actively maintained due to lack of time.  Serious bugs will be worked on when time permits.  Charm is being developed for Minecraft 1.14+ and you can find [the documentation here]({{site.baseurl}}/).
 
 
 ## Installation
