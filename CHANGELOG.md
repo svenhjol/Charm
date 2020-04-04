@@ -6,6 +6,7 @@
 * Leather armor now properly hides you from monsters. Fix #226
 * Improve drop chance of gold nuggets.
 * Added missing redstone sand loot table.
+* Testing different way of checking music tick.
 
 ## 1.5.4
 * Added parrots staying on player shoulder when jumping.
