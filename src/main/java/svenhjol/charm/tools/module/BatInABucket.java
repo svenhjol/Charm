@@ -20,6 +20,7 @@ import svenhjol.charm.tools.item.BatBucketItem;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ClientHelper;
 import svenhjol.meson.helper.ItemNBTHelper;
+import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
@@ -66,7 +67,12 @@ public class BatInABucket extends MesonModule {
             CompoundNBT tag = bat.serializeNBT();
             ItemNBTHelper.setCompound(batBucket, BatBucketItem.BAT_SIGNAL, tag);
 
-            player.setHeldItem(hand, batBucket);
+            if (held.getCount() == 1) {
+                player.setHeldItem(hand, batBucket);
+            } else {
+                held.shrink(1);
+                PlayerHelper.addOrDropStack(player, batBucket);
+            }
             player.swingArm(hand);
             event.getTarget().remove();
         }
