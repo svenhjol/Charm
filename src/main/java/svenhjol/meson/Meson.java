@@ -21,12 +21,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
 public class Meson {
+    public static boolean DEBUG = false;
     public static final String MOD_ID = "Meson";
     public static final Meson INSTANCE = new Meson();
     public static final LogHandler LOG = new LogHandler(MOD_ID);
     public static final Marker INTERNAL = MarkerManager.getMarker("INTERNAL");
-
-    public static boolean DEBUG = true;
     public static Map<String, MesonInstance> instances = new ConcurrentHashMap<>();
 
     private IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
