@@ -49,6 +49,13 @@ public class Meson {
         instances.put(instance.getId(), instance);
         LOG.info("Added " + instance.getId() + " to Meson");
 
+        if (DEBUG) {
+            LOG.warn("=== MESON RUNNING IN DEBUG MODE ===");
+            LOG.warn("This build of " + instance.getId() + " is designed for testing purposes.");
+            LOG.warn("Expect a lot of console output, some of which may be scary.");
+            LOG.warn("===================================\n");
+        }
+
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(instance::onCommonSetup);
         modEventBus.addListener(instance::onModConfig);

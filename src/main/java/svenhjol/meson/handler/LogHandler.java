@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import svenhjol.charm.Charm;
+import svenhjol.meson.Meson;
 
 public class LogHandler {
     public String name;
@@ -19,7 +19,7 @@ public class LogHandler {
     }
 
     public void debug(Marker marker, String msg) {
-        if (Charm.DEBUG) {
+        if (Meson.DEBUG) {
             info(marker, msg);
         } else {
             getLogger().debug(marker, msg);
