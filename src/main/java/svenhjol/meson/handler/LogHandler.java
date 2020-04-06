@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import svenhjol.charm.Charm;
 
 public class LogHandler {
     public String name;
@@ -13,15 +14,16 @@ public class LogHandler {
         this.name = name;
     }
 
-    public boolean DEBUG = true;
-
     public void debug(String msg) {
         debug(marker, msg);
     }
 
     public void debug(Marker marker, String msg) {
-        if (DEBUG)
+        if (Charm.DEBUG) {
+            info(marker, msg);
+        } else {
             getLogger().debug(marker, msg);
+        }
     }
 
     public void info(String msg) {

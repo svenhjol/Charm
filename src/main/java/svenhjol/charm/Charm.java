@@ -11,6 +11,7 @@ import svenhjol.meson.handler.LogHandler;
 @Mod(Charm.MOD_ID)
 public class Charm extends MesonInstance {
     public static final String MOD_ID = "charm";
+    public static final boolean DEBUG = false;
     public static LogHandler LOG = new LogHandler(Charm.MOD_ID);
     public static QuarkCompat quarkCompat;
 
