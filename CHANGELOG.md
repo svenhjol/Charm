@@ -1,11 +1,12 @@
 # Changelog for Charm
 
 ## 1.5.5
+* Fixed music tick checking again. Fix #228
 * Fixed bucket stack being consumed when catching a bat. Fix #218
 * Leather armor now properly hides you from monsters. Fix #226
+* [1.15] Restore Quark compatibility layer.
 * Improve drop chance of gold nuggets.
 * Added missing redstone sand loot table.
-* Testing different way of checking music tick.
 
 ## 1.5.4
 * Added parrots staying on player shoulder when jumping.
