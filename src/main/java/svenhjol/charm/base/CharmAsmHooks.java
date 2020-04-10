@@ -3,6 +3,7 @@ package svenhjol.charm.base;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MusicTicker.MusicType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import svenhjol.charm.enchanting.module.Salvage;
+import svenhjol.charm.mobs.module.ParrotsOnEndRods;
 import svenhjol.charm.tweaks.client.AmbientMusicClient;
 import svenhjol.charm.tweaks.module.HuskImprovements;
 import svenhjol.charm.tweaks.module.LeatherArmorInvisibility;
@@ -75,5 +77,9 @@ public class CharmAsmHooks {
 
     public static boolean stayOnShoulder() {
         return Meson.isModuleEnabled("charm:parrots_stay_on_shoulder");
+    }
+
+    public static void addParrotGoals(ParrotEntity parrot) {
+        ParrotsOnEndRods.addGoals(parrot);
     }
 }

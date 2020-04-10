@@ -29,6 +29,10 @@ Husks can now spawn underground in their biomes and also have a chance to drop s
 ![Mobs affected by beacon](https://i.postimg.cc/j2jyBjtB/Mobs-affected-by-beacon.png)
 A beacon with the secondary effect of **Regeneration** will heal all tamed, friendly and neutral mobs in the area around it.  With the secondary effect of **Strength**, all nearby monsters will receive **Weakness**.
 
+## Parrots perch on End Rods
+![Parrots perch on End Rods](https://i.postimg.cc/qv3K0SSv/Parrots-perch-on-End-Rods.png)
+Parrots will perch on End Rods if there are is a horizontal facing rod nearby.  Works nicely with the "Parrots stay on shoulder" module when dismounting a parrot using crouch.
+
 ## Parrots stay on shoulder
 ![Parrots stay on shoulder](https://i.postimg.cc/zGRntG98/Parrots-stay-on-shoulder.png)
 Parrots now stay on the player's shoulder when jumping or falling. To remove a parrot, just crouch.
