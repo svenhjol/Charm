@@ -504,6 +504,41 @@ function initializeCoreMod() {
 
                 return method;
             }
+        },
+
+        /*
+         * ParrotEntity: add extra goals
+         */
+        'ParrotEntity': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.entity.passive.ParrotEntity',
+                'methodName': 'func_184651_r', // registerGoals
+                'methodDesc': '()V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.RETURN) {
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "addParrotGoals", "(Lnet/minecraft/entity/passive/ParrotEntity;)V", false));
+
+                        method.instructions.insertBefore(instruction, newInstructions);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("[Charm ASM] Transformed ParrotEntity registerGoals");
+
+                return method;
+            }
         }
     }
 }
