@@ -11,7 +11,8 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
+    description = "Parrots stay on your shoulder when jumping and falling. Crouch to make them dismount.")
 public class ParrotsStayOnShoulder extends MesonModule {
     @SubscribeEvent
     public void onCrouch(PlayerTickEvent event) {
