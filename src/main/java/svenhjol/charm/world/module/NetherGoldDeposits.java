@@ -9,6 +9,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
+import svenhjol.charm.base.compat.NetherModCompat;
 import svenhjol.charm.world.block.NetherGoldDepositBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ForgeHelper;
@@ -46,7 +47,7 @@ public class NetherGoldDeposits extends MesonModule {
             biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
                 Biome.createDecoratedFeature(ORE,
                     new OreFeatureConfig(
-                        OreFeatureConfig.FillerBlockType.NETHERRACK,
+                        NetherModCompat.getNetherrackTaggedFillerBlockType(),
                         block.getDefaultState(),
                         veinSize
                     ),
