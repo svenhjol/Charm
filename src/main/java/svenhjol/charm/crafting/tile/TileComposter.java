@@ -108,20 +108,14 @@ public class TileComposter extends MesonTile
         } else {
 
             // check item and increase level based on item chance
-            String itemName = ItemHelper.getItemStringFromItemStack(inputStack, true);
-
-            if (!Composter.inputs.containsKey(itemName)) {
-                itemName = itemName.substring(0, itemName.indexOf('['));
-            }
-
-            // try again after stripping metadata bit
-            if (!Composter.inputs.containsKey(itemName)) return false;
+            if (!Composter.hasInput(inputStack))
+                return false;
 
             if (!world.isRemote) {
                 if (!keepInput) {
                     inputStack.shrink(1);
                 }
-                if (world.rand.nextFloat() < Composter.inputs.get(itemName)) {
+                if (world.rand.nextFloat() < Composter.getItemChance(inputStack)) {
                     newLevel++;
 
                     // let clients know the level has increased
