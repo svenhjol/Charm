@@ -1,5 +1,8 @@
 # Changelog for Charm
 
+## 1.5.6
+* Added parrots perching on nearby end rods.
+
 ## 1.5.5
 * Fixed music tick checking again. Fix #228
 * Fixed bucket stack being consumed when catching a bat. Fix #218
