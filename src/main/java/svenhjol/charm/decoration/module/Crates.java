@@ -107,7 +107,7 @@ public class Crates extends MesonModule {
         if (tag != null) {
             if (!tag.contains("id", Constants.NBT.TAG_STRING)) {
                 tag = tag.copy();
-                tag.putString("id", Objects.requireNonNull(stack.getItem().getRegistryName()).toString());
+                tag.putString("id", "charm:crate");
             }
             TileEntity tile = TileEntity.create(tag);
             if (tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()) {
@@ -138,13 +138,12 @@ public class Crates extends MesonModule {
         if (tag != null) {
             if (!tag.contains("id", Constants.NBT.TAG_STRING)) {
                 tag = tag.copy();
-                tag.putString("id", Objects.requireNonNull(stack.getItem().getRegistryName()).toString());
+                tag.putString("id", "charm:crate");
             }
             TileEntity tile = TileEntity.create(tag);
             if (tile != null) {
                 final LazyOptional<IItemHandler> handler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
                 handler.ifPresent(cap -> {
-                    final ItemStack crate = event.getStack();
                     int size = cap.getSlots();
 
                     int x = event.getX() - 5;
