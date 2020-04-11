@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -44,7 +45,10 @@ import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.helper.VersionHelper;
 import svenhjol.meson.iface.Module;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION, hasSubscriptions = true,
     description = "A smaller storage solution with the benefit of being transportable.\n" +
@@ -61,7 +65,7 @@ public class Crates extends MesonModule {
     @ObjectHolder("charm:crate")
     public static TileEntityType<CrateTileEntity> tile;
 
-    public static final ResourceLocation WIDGET_RESOURCE = new ResourceLocation(Charm.MOD_ID, "textures/gui/crate_overlay.png");
+    public static final ResourceLocation WIDGET_RESOURCE = new ResourceLocation(Charm.MOD_ID, "textures/gui/crate_widget.png");
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -149,7 +153,7 @@ public class Crates extends MesonModule {
                     int x = event.getX() - 5;
                     int y = event.getY() - 35;
                     int w = 172;
-                    int h = 64;
+                    int h = 27;
                     int right = x + w;
 
                     if (right > VersionHelper.getMainWindow(mc).getScaledWidth())
@@ -168,7 +172,8 @@ public class Crates extends MesonModule {
 
                     RenderHelper.disableStandardItemLighting();
 
-                    drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, 256, 256);
+//                    drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, 256, 256);
+                    renderTooltipBackground(mc, x, y, 9, 1, -1);
                     RenderSystem.color3f(1f, 1f, 1f);
 
                     ItemRenderer render = mc.getItemRenderer();
@@ -242,5 +247,58 @@ public class Crates extends MesonModule {
         bufferbuilder.pos((x + width), y, 0.0D).tex(((u + (float)width) * f), (v * f1)).endVertex();
         bufferbuilder.pos(x, y, 0.0D).tex((u * f), (v * f1)).endVertex();
         tessellator.draw();
+    }
+
+    private static final int CORNER = 5;
+    private static final int BUFFER = 1;
+    private static final int EDGE = 18;
+
+    // copypasta from Quark ShulkerBoxTooltips#renderTooltipBackground()
+    // also copied shulker_widget.png to resources/assets/textures/gui/misc/crate_widget.png
+    // When using the default 1.14 method, the background draws poorly. This method is much better.
+    public static void renderTooltipBackground(Minecraft mc, int x, int y, int width, int height, int color) {
+        mc.getTextureManager().bindTexture(WIDGET_RESOURCE);
+        RenderSystem.color3f(((color & 0xFF0000) >> 16) / 255f,
+            ((color & 0x00FF00) >> 8) / 255f,
+            (color & 0x0000FF) / 255f);
+
+        RenderHelper.disableStandardItemLighting();
+
+        AbstractGui.blit(x, y,
+            0, 0,
+            CORNER, CORNER, 256, 256);
+        AbstractGui.blit(x + CORNER + EDGE * width, y + CORNER + EDGE * height,
+            CORNER + BUFFER + EDGE + BUFFER, CORNER + BUFFER + EDGE + BUFFER,
+            CORNER, CORNER, 256, 256);
+        AbstractGui.blit(x + CORNER + EDGE * width, y,
+            CORNER + BUFFER + EDGE + BUFFER, 0,
+            CORNER, CORNER, 256, 256);
+        AbstractGui.blit(x, y + CORNER + EDGE * height,
+            0, CORNER + BUFFER + EDGE + BUFFER,
+            CORNER, CORNER, 256, 256);
+        for (int row = 0; row < height; row++) {
+            AbstractGui.blit(x, y + CORNER + EDGE * row,
+                0, CORNER + BUFFER,
+                CORNER, EDGE, 256, 256);
+            AbstractGui.blit(x + CORNER + EDGE * width, y + CORNER + EDGE * row,
+                CORNER + BUFFER + EDGE + BUFFER, CORNER + BUFFER,
+                CORNER, EDGE, 256, 256);
+            for (int col = 0; col < width; col++) {
+                if (row == 0) {
+                    AbstractGui.blit(x + CORNER + EDGE * col, y,
+                        CORNER + BUFFER, 0,
+                        EDGE, CORNER, 256, 256);
+                    AbstractGui.blit(x + CORNER + EDGE * col, y + CORNER + EDGE * height,
+                        CORNER + BUFFER, CORNER + BUFFER + EDGE + BUFFER,
+                        EDGE, CORNER, 256, 256);
+                }
+
+                AbstractGui.blit(x + CORNER + EDGE * col, y + CORNER + EDGE * row,
+                    CORNER + BUFFER, CORNER + BUFFER,
+                    EDGE, EDGE, 256, 256);
+            }
+        }
+
+        RenderSystem.color3f(1F, 1F, 1F);
     }
 }
