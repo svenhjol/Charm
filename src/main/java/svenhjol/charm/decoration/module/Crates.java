@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -42,6 +41,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.WoodType;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.helper.ItemNBTHelper;
+import svenhjol.meson.helper.VersionHelper;
 import svenhjol.meson.iface.Module;
 
 import java.util.*;
@@ -153,8 +153,8 @@ public class Crates extends MesonModule {
                     int h = 64;
                     int right = x + w;
 
-                    if (right > mc.mainWindow.getScaledWidth())
-                        x -= (right - mc.mainWindow.getScaledWidth());
+                    if (right > VersionHelper.getMainWindow(mc).getScaledWidth())
+                        x -= (right - VersionHelper.getMainWindow(mc).getScaledWidth());
 
                     if (y < 0) {
                         y = event.getY() + event.getLines().size() * 10 + 5;
@@ -249,50 +249,4 @@ public class Crates extends MesonModule {
     private static final int BUFFER = 1;
     private static final int EDGE = 18;
 
-    // copypasta from Quark
-    public static void renderTooltipBackground(Minecraft mc, int x, int y, int width, int height, int color) {
-        mc.getTextureManager().bindTexture(WIDGET_RESOURCE);
-        GlStateManager.color3f(((color & 0xFF0000) >> 16) / 255f,
-            ((color & 0x00FF00) >> 8) / 255f,
-            (color & 0x0000FF) / 255f);
-
-        RenderHelper.disableStandardItemLighting();
-
-        AbstractGui.blit(x, y,
-            0, 0,
-            CORNER, CORNER, 256, 256);
-        AbstractGui.blit(x + CORNER + EDGE * width, y + CORNER + EDGE * height,
-            CORNER + BUFFER + EDGE + BUFFER, CORNER + BUFFER + EDGE + BUFFER,
-            CORNER, CORNER, 256, 256);
-        AbstractGui.blit(x + CORNER + EDGE * width, y,
-            CORNER + BUFFER + EDGE + BUFFER, 0,
-            CORNER, CORNER, 256, 256);
-        AbstractGui.blit(x, y + CORNER + EDGE * height,
-            0, CORNER + BUFFER + EDGE + BUFFER,
-            CORNER, CORNER, 256, 256);
-        for (int row = 0; row < height; row++) {
-            AbstractGui.blit(x, y + CORNER + EDGE * row,
-                0, CORNER + BUFFER,
-                CORNER, EDGE, 256, 256);
-            AbstractGui.blit(x + CORNER + EDGE * width, y + CORNER + EDGE * row,
-                CORNER + BUFFER + EDGE + BUFFER, CORNER + BUFFER,
-                CORNER, EDGE, 256, 256);
-            for (int col = 0; col < width; col++) {
-                if (row == 0) {
-                    AbstractGui.blit(x + CORNER + EDGE * col, y,
-                        CORNER + BUFFER, 0,
-                        EDGE, CORNER, 256, 256);
-                    AbstractGui.blit(x + CORNER + EDGE * col, y + CORNER + EDGE * height,
-                        CORNER + BUFFER, CORNER + BUFFER + EDGE + BUFFER,
-                        EDGE, CORNER, 256, 256);
-                }
-
-                AbstractGui.blit(x + CORNER + EDGE * col, y + CORNER + EDGE * row,
-                    CORNER + BUFFER, CORNER + BUFFER,
-                    EDGE, EDGE, 256, 256);
-            }
-        }
-
-        GlStateManager.color3f(1F, 1F, 1F);
-    }
 }
