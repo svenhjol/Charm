@@ -1,6 +1,6 @@
 package svenhjol.charm.decoration.module;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.client.Minecraft;
@@ -160,21 +160,21 @@ public class Crates extends MesonModule {
                         y = event.getY() + event.getLines().size() * 10 + 5;
                     }
 
-                    GlStateManager.pushMatrix();
+                    RenderSystem.pushMatrix();
                     RenderHelper.enableStandardItemLighting();
-                    GlStateManager.enableRescaleNormal();
-                    GlStateManager.color3f(1f, 1f, 1f);
-                    GlStateManager.translatef(0, 0, 700);
+                    RenderSystem.enableRescaleNormal();
+                    RenderSystem.color3f(1f, 1f, 1f);
+                    RenderSystem.translatef(0, 0, 700);
                     mc.getTextureManager().bindTexture(WIDGET_RESOURCE);
 
                     RenderHelper.disableStandardItemLighting();
 
                     drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, 256, 256);
-                    GlStateManager.color3f(1f, 1f, 1f);
+                    RenderSystem.color3f(1f, 1f, 1f);
 
                     ItemRenderer render = mc.getItemRenderer();
-                    RenderHelper.enableGUIStandardItemLighting();
-                    GlStateManager.enableDepthTest();
+                    RenderHelper.enableStandardItemLighting();
+                    RenderSystem.enableDepthTest();
 
                     for (int i = 0; i < size; i++) {
                         ItemStack itemstack = cap.getStackInSlot(i);
@@ -187,9 +187,9 @@ public class Crates extends MesonModule {
                         }
                     }
 
-                    GlStateManager.disableDepthTest();
-                    GlStateManager.disableRescaleNormal();
-                    GlStateManager.popMatrix();
+                    RenderSystem.disableDepthTest();
+                    RenderSystem.disableRescaleNormal();
+                    RenderSystem.popMatrix();
                 });
             }
         }
