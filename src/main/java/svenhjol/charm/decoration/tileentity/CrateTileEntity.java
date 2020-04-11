@@ -7,23 +7,16 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
 import svenhjol.charm.decoration.container.CrateContainer;
 import svenhjol.charm.decoration.module.Crates;
 import svenhjol.meson.iface.IMesonTileEntity;
 import vazkii.quark.api.ITransferManager;
-import vazkii.quark.api.QuarkCapabilities;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class CrateTileEntity extends LockableLootTileEntity implements ICapabilityProvider, IMesonTileEntity, ITransferManager {
     public static int SIZE = 9;
@@ -54,18 +47,6 @@ public class CrateTileEntity extends LockableLootTileEntity implements ICapabili
             ItemStackHelper.saveAllItems(tag, this.items);
         }
         return tag;
-    }
-
-    @SuppressWarnings("ALL") // what
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        return QuarkCapabilities.TRANSFER.orEmpty(cap, LazyOptional.of(() -> this));
-    }
-
-    @SuppressWarnings("ALL") // what
-    @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-        return QuarkCapabilities.TRANSFER.orEmpty(cap, LazyOptional.of(() -> this));
     }
 
     @Override

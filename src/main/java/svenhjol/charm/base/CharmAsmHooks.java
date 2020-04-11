@@ -6,12 +6,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import svenhjol.charm.decoration.container.BookshelfChestContainer;
+import svenhjol.charm.decoration.container.CrateContainer;
 import svenhjol.charm.enchanting.module.Salvage;
 import svenhjol.charm.mobs.module.ParrotsOnEndRods;
 import svenhjol.charm.tweaks.client.AmbientMusicClient;
@@ -81,5 +84,10 @@ public class CharmAsmHooks {
 
     public static void addParrotGoals(ParrotEntity parrot) {
         ParrotsOnEndRods.addGoals(parrot);
+    }
+
+    public static boolean containersAcceptTransfer(Container container) {
+        return container instanceof CrateContainer
+            || container instanceof BookshelfChestContainer;
     }
 }

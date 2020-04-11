@@ -26,7 +26,11 @@ public class ItemNBTHelper {
     }
 
     public static CompoundNBT getCompound(ItemStack stack, String tag) {
-        return tagExists(stack, tag) ? getNBT(stack).getCompound(tag) : new CompoundNBT();
+        return getCompound(stack, tag, false);
+    }
+
+    public static CompoundNBT getCompound(ItemStack stack, String tag, boolean nullify) {
+        return tagExists(stack, tag) ? getNBT(stack).getCompound(tag) : (nullify ? null : new CompoundNBT());
     }
 
     public static void setInt(ItemStack stack, String tag, int i) {
