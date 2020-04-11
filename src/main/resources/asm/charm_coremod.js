@@ -539,6 +539,50 @@ function initializeCoreMod() {
 
                 return method;
             }
+        },
+
+        /*
+         * InventoryTransferHandler: horrible hack to allow crates and bookshelf chests to get Quark's transfer. I'm really sorry.
+         */
+        'InventoryTransferHandler': {
+            target: {
+                'type': 'METHOD',
+                'class': 'vazkii.quark.base.handler.InventoryTransferHandler',
+                'methodName': 'accepts', // accepts
+                'methodDesc': '(Lnet/minecraft/inventory/container/Container;Lnet/minecraft/entity/player/PlayerEntity;)Z'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+
+                var j = 0;
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.ALOAD
+                        && instruction.var == 0
+                        && ++j == 3
+                    ) {
+                        var label = new LabelNode();
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "containersAcceptTransfer", "(Lnet/minecraft/inventory/container/Container;)Z", false));
+                        newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                        newInstructions.add(new InsnNode(Opcodes.ICONST_1));
+                        newInstructions.add(new InsnNode(Opcodes.IRETURN));
+                        newInstructions.add(label);
+
+                        method.instructions.insertBefore(instruction, newInstructions);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("[Charm ASM] Transformed InventoryTransferHandler accepts");
+
+                return method;
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
-@Module(mod = Charm.MOD_ID, category = CharmCategories.MOBS, hasSubscriptions = true)
+@Module(mod = Charm.MOD_ID, category = CharmCategories.MOBS)
 public class ParrotsOnEndRods extends MesonModule {
     public static void addGoals(ParrotEntity parrot) {
         if (Meson.isModuleEnabled("charm:parrots_on_end_rods"))
