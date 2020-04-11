@@ -244,9 +244,4 @@ public class Crates extends MesonModule {
         bufferbuilder.pos(x, y, 0.0D).tex((u * f), (v * f1)).endVertex();
         tessellator.draw();
     }
-
-    private static final int CORNER = 5;
-    private static final int BUFFER = 1;
-    private static final int EDGE = 18;
-
 }
