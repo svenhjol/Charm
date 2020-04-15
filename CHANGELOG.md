@@ -4,6 +4,7 @@
 * Added parrots perching on nearby end rods.
 * Crates now show contents when hovering over the item icon.
 * Crates and Bookshelf chests now support Quark's item transfer, sorting and search.
+* [1.15] Composter now outputs extra items correctly. Fixes #243
 
 ## 1.5.5
 * Fixed music tick checking again. Fix #228
