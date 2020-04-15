@@ -344,8 +344,8 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.block.ComposterBlock',
-                'methodName': 'func_220051_a', // onBlockActivated
-                'methodDesc': '(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/BlockRayTraceResult;)Z'
+                'methodName': 'func_225533_a_', // onBlockActivated
+                'methodDesc': '(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/BlockRayTraceResult;)Lnet/minecraft/util/ActionResultType;'
             },
             transformer: function(method) {
                 var didThing = false;
