@@ -8,4 +8,5 @@ public interface IQuarkCompat {
     boolean isRune(ItemStack stack);
     ColorVariant getRuneColor(ItemStack stack);
     ItemStack getRune(ColorVariant color);
+    ItemStack getQuiltedWool(ColorVariant color);
 }

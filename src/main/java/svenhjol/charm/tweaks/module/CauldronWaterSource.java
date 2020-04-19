@@ -2,7 +2,6 @@ package svenhjol.charm.tweaks.module;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.CauldronBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -20,6 +19,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.CauldronHelper;
 import svenhjol.meson.helper.PlayerHelper;
 import svenhjol.meson.helper.PotionHelper;
 import svenhjol.meson.iface.Module;
@@ -37,7 +37,7 @@ public class CauldronWaterSource extends MesonModule {
 
             if (event.getTarget() != null) {
                 BlockState state = player.getEntityWorld().getBlockState(new BlockPos(event.getTarget().getHitVec()));
-                if (isFull(state)) {
+                if (CauldronHelper.isFull(state)) {
                     event.setCanceled(true);
                 }
             }
@@ -56,10 +56,10 @@ public class CauldronWaterSource extends MesonModule {
                 ItemStack item = null;
                 SoundEvent sound = null;
 
-                if (hasWater(state) && held.getItem() == Items.GLASS_BOTTLE) {
+                if (CauldronHelper.hasWater(state) && held.getItem() == Items.GLASS_BOTTLE) {
                     item = PotionHelper.getFilledWaterBottle();
                     sound = SoundEvents.ITEM_BOTTLE_FILL;
-                } else if (isFull(state) && held.getItem() == Items.BUCKET) {
+                } else if (CauldronHelper.isFull(state) && held.getItem() == Items.BUCKET) {
                     item = new ItemStack(Items.WATER_BUCKET);
                     sound = SoundEvents.ITEM_BUCKET_FILL;
                 }
@@ -84,13 +84,5 @@ public class CauldronWaterSource extends MesonModule {
                 }
             }
         }
-    }
-
-    private boolean isFull(BlockState state) {
-        return state.getProperties().contains(CauldronBlock.LEVEL) && state.get(CauldronBlock.LEVEL) == 3;
-    }
-
-    private boolean hasWater(BlockState state) {
-        return state.getProperties().contains(CauldronBlock.LEVEL) && state.get(CauldronBlock.LEVEL) > 0;
     }
 }

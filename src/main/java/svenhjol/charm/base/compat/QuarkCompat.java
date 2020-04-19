@@ -49,4 +49,14 @@ public class QuarkCompat implements IQuarkCompat {
         Item runeItem = ForgeRegistries.ITEMS.getValue(res);
         return runeItem == null ? ItemStack.EMPTY : new ItemStack(runeItem);
     }
+
+    public ItemStack getQuiltedWool(ColorVariant color) {
+        if (Meson.isModuleEnabled(new ResourceLocation("quark:quilted_wool"))) {
+            final Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("quark:" + color.getName() + "_quilted_wool"));
+            if (item != null) {
+                return new ItemStack(item);
+            }
+        }
+        return ItemStack.EMPTY;
+    }
 }
