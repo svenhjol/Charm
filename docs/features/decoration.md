@@ -13,7 +13,7 @@ This is a bookshelf that has 9 inventory slots for storing books.  It provides t
 
 The texture will change as books are added or removed.
 
-The **Bookshelf Chest** does not currently make use of **Quark**'s drop-off and sort functionality.
+If the **Quark** mod is enabled, the **Bookshelf Chest** uses Quark's drop-off and sort functionality.
 
 Contents can be measured using a comparator, outputting a signal based on the number of filled slots rather than the quantity of items.
 
@@ -22,6 +22,8 @@ Contents can be measured using a comparator, outputting a signal based on the nu
 Crates offer a smaller storage solution than a chest or barrel with the benefit of being transportable making it an early game alternative to shulkerboxes.  Crates are also available in all vanilla wood variants.
 
 The contents can be measured using a comparator, like a vanilla chest.
+
+If the **Quark** mod is enabled, **Crates** use Quark's drop-off and sort functionality.
             
 ### Sealed crates
 You may seal a crate with an iron ingot on an anvil - the only way to release items from a sealed crate is to break it open.  A sealed crate does not let you access its inventory and is not transportable even with silk touch.
