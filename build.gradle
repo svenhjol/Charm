@@ -52,7 +52,7 @@ dependencies {
     compile fg.deobf("vazkii.quark:Quark:${quark_version}")
 
     // locals
-//    runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${waila_version}")
+//    compileOnly fg.deobf("srg.net.optifine:OptiFine:OptiFine")
 }
 
 repositories {
@@ -73,6 +73,10 @@ repositories {
     maven { // for AutoRegLib and Quark
         name "blamejared"
         url "http://maven.blamejared.com/"
+    }
+
+    flatDir {
+        dirs "libs"
     }
 }
 
