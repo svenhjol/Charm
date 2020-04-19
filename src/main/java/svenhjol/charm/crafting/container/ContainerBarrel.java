@@ -14,9 +14,12 @@ import svenhjol.meson.MesonContainer;
 @ChestContainer
 public class ContainerBarrel extends MesonContainer
 {
+    protected final TileBarrel barrel;
+
     public ContainerBarrel(InventoryPlayer inv, TileBarrel barrel)
     {
         super(inv, barrel);
+        this.barrel = barrel;
         IItemHandler inventory = barrel.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
         if (inventory == null) return;
 
@@ -64,6 +67,6 @@ public class ContainerBarrel extends MesonContainer
     @Override
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return true;
+        return !barrel.isInvalid();
     }
 }

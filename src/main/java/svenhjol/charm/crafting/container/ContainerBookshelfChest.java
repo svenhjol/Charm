@@ -14,9 +14,12 @@ import svenhjol.meson.MesonContainer;
 @ChestContainer
 public class ContainerBookshelfChest extends MesonContainer
 {
+    protected final TileBookshelfChest chest;
+
     public ContainerBookshelfChest(InventoryPlayer inv, TileBookshelfChest chest)
     {
         super(inv, chest);
+        this.chest = chest;
         IItemHandler inventory = chest.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
         if (inventory == null) return;
 
@@ -60,6 +63,6 @@ public class ContainerBookshelfChest extends MesonContainer
     @Override
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return true;
+        return !chest.isInvalid();
     }
 }

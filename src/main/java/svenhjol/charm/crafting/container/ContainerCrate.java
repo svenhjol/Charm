@@ -14,10 +14,13 @@ import svenhjol.meson.MesonContainer;
 @ChestContainer
 public class ContainerCrate extends MesonContainer
 {
+    protected final TileCrate crate;
+
     public ContainerCrate(InventoryPlayer playerInv, TileCrate crate)
     {
         super(playerInv, crate);
 
+        this.crate = crate;
         IItemHandler inventory = crate.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
         if (inventory == null) return;
 
@@ -60,6 +63,6 @@ public class ContainerCrate extends MesonContainer
     @Override
     public boolean canInteractWith(EntityPlayer player)
     {
-        return true;
+        return !crate.isInvalid();
     }
 }
