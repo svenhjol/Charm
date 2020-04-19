@@ -509,7 +509,7 @@ function initializeCoreMod() {
         /*
          * ParrotEntity: add extra goals
          */
-        'ParrotEntity': {
+        'ParrotEntityRegisterGoals': {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.entity.passive.ParrotEntity',
@@ -536,6 +536,42 @@ function initializeCoreMod() {
 
                 method.instructions.insertBefore(instruction, newInstructions);
                 print("[Charm ASM] Transformed ParrotEntity registerGoals");
+
+                return method;
+            }
+        },
+
+
+        /*
+         * ParrotEntity: configurable mimic sound delay
+         */
+        'ParrotEntityPlayMimicSound': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraft.entity.passive.ParrotEntity',
+                'methodName': 'func_192006_b', // playMimicSound
+                'methodDesc': '(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;)Z'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.BIPUSH) {
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "parrotMimicDelayChance", "()I", false));
+
+                        method.instructions.insert(instruction, newInstructions);
+                        method.instructions.remove(instruction);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("[Charm ASM] Transformed ParrotEntity playMimicSound");
 
                 return method;
             }
