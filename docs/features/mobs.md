@@ -37,6 +37,10 @@ Parrots will perch on End Rods if there are is a horizontal facing rod nearby.  
 ![Parrots stay on shoulder](https://i.postimg.cc/zGRntG98/Parrots-stay-on-shoulder.png)
 Parrots now stay on the player's shoulder when jumping or falling. To remove a parrot, just crouch.
 
+## Parrots have configurable mimic delay
+![Parrots configurable mimic delay](https://i.postimg.cc/cCZ9VYrv/Parrots_mimic_sound_delay.jpg)
+You can now configure the chance a parrot will mimic a nearby mob. By default, this is 4x less likely.
+
 ## Remove Nitwits
 ![Remove Nitwits](https://i.postimg.cc/k5dKqs7Q/Remove-nitwits.png)
 Prevents nitwits from spawning as new villagers.  It also converts any nitwits in freshly loaded chunks to unemployed villagers.

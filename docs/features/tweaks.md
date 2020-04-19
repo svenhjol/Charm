@@ -5,13 +5,18 @@ title: Tweaks
 
 ## Ambient music improvements
 ![Ambient music improvements](https://i.postimg.cc/Kc9PBt5b/Records-stop-background-music.png)
-"Creative" music may now play in survival mode. When a music disc is played in a jukebox, in-game ambient music will be stopped and prevented from playing so that you don't get two tracks playing at the same time.
+"Creative" music may now play in survival mode. When a music disc plays in a jukebox, in-game ambient music will be stopped and prevented from playing so that you don't get two tracks playing at the same time.
 
 In addition, the delay between ambient music tracks has been shortened.
 
 ## Automatic recipe unlock
 ![Automatic recipe unlock](https://i.postimg.cc/cLk2zKZG/Automatic-recipe-unlock.png)
 All recipes will be available on login.  This was the first feature written for 1.14 before **Quark** was developed as I couldn't live without it.  Quark's implementation is better, so this feature will automatically disable itself if Quark is present. 
+
+## Cauldrons clean things
+![Cauldrons clean things](https://i.postimg.cc/nzqSRTc8/Cauldrons_clean_things.jpg)
+You can clean sticky pistons, colored wool and colored carpet from a filled Cauldron.
+If Quark is enabled, you can clean quilted wool too. 
 
 ## Cauldron water source
 ![Cauldron water source](https://i.postimg.cc/j50gVPFm/Cauldron-water-source.png)
@@ -31,7 +36,7 @@ Leather armor is now completely invisible and does not increase mob awareness wh
 
 ## No anvil minimum XP
 ![No anvil minimum XP](https://i.postimg.cc/Bbw23Gvb/No-anvil-minimum-xp.png)
-This small change to vanilla code allows anvil recipes to not require at least 1 level of XP. It fits better for certain actions, such as tallow increasing durability.
+This small change to vanilla code allows anvil recipes to not require at least 1 level of XP. It fits better for certain actions, such as pig iron increasing durability.
 
 ## Pickaxes break pistons
 ![Pickaxes break pistons](https://i.postimg.cc/DzdsZGzt/Pickaxes-break-pistons.png)
@@ -39,7 +44,7 @@ Pickaxes are now the effective tool for breaking pistons and sticky pistons, rat
 
 ## Remove potion glint
 ![Remove potion glint](https://i.postimg.cc/c153r0s4/Remove-potion-glint.png)
-Removes the enchanted glowing effect from potions so you can actually see their true color.
+Removes the enchanted glowing effect from potions, so you can actually see their true color.
 
 ## Sponges reduce fall damage
 ![Sponges reduce fall damage](https://i.postimg.cc/bJwGwFWt/Sponges-reduce-fall-damage.png)
