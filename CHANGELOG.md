@@ -1,5 +1,8 @@
 # Changelog for Charm
 
+## 1.5.7
+* Added configurable parrot mimic chance. Fixes #245
+
 ## 1.5.6
 * Added parrots perching on nearby end rods.
 * Crates now show contents when hovering over the item icon.

@@ -16,6 +16,7 @@ import net.minecraftforge.common.MinecraftForge;
 import svenhjol.charm.decoration.container.BookshelfChestContainer;
 import svenhjol.charm.decoration.container.CrateContainer;
 import svenhjol.charm.enchanting.module.Salvage;
+import svenhjol.charm.mobs.module.ParrotMimicDelay;
 import svenhjol.charm.mobs.module.ParrotsOnEndRods;
 import svenhjol.charm.tweaks.client.AmbientMusicClient;
 import svenhjol.charm.tweaks.module.HuskImprovements;
@@ -84,6 +85,10 @@ public class CharmAsmHooks {
 
     public static void addParrotGoals(ParrotEntity parrot) {
         ParrotsOnEndRods.addGoals(parrot);
+    }
+
+    public static int parrotMimicDelayChance() {
+        return ParrotMimicDelay.getChance();
     }
 
     public static boolean containersAcceptTransfer(Container container) {
