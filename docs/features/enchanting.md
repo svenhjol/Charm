@@ -9,6 +9,10 @@ Combine the **Curse Break** enchanted book with any cursed item on an anvil to r
 
 This enchanted book is not available via the enchantment table but can be found as a treasure enchantment or be obtained by trading with a librarian villager.
 
+## Curse of Leeching
+![Leeching](https://i.postimg.cc/J7kNFw09/Leeching.png)
+An item with the Curse of Leeching will restore a little of the player's hunger at the cost of the item's durability.
+
 ## Homing
 ![Homing](https://i.postimg.cc/1RMHBksL/Homing.png)
 Combine the **Homing** enchanted book with a pickaxe, shovel or hoe on an anvil to enable the tool to help you locate ore. The tool will be attracted to ore of the same ingots/gems that make up the head of the tool.
