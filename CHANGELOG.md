@@ -3,6 +3,7 @@
 ## 1.5.7
 * Added configurable parrot mimic chance. Fixes #245
 * Added cauldron cleaning things.
+* Added Curse of Leeching.
 * Updated some textures from MCVinnyq
 
 ## 1.5.6
