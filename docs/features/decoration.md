@@ -29,7 +29,7 @@ If the **Quark** mod is enabled, **Crates** use Quark's drop-off and sort functi
 You may seal a crate with an iron ingot on an anvil - the only way to release items from a sealed crate is to break it open.  A sealed crate does not let you access its inventory and is not transportable even with silk touch.
 
 ## Gold Lanterns
-![Gold Lanterns](https://i.postimg.cc/tghdxfBv/Gold-lanterns.png)
+![Gold Lanterns](https://i.postimg.cc/bNNRSfG2/Gold_lanterns.jpg)
 A **Gold Lantern** is crafted with gold nuggets instead of iron nuggets.
 
 ## Random animal textures
