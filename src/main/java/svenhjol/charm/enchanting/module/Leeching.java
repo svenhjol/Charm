@@ -23,8 +23,8 @@ public class Leeching extends MesonModule {
     @Config(name = "Hunger restored", description = "Amount of hunger restored to the player when the item is damaged.")
     public static int restored = 1;
 
-    @Config(name = "Chance (out of 1.0) of item taking durability damage when player is hungry.")
-    public static float chance = 0.05F;
+    @Config(name = "Chance", description = "Chance (out of 1.0) of item taking durability damage when player is hungry.")
+    public static double chance = 0.05D;
 
     @Config(name = "Durability damage", description = "Amount of durability damage given to the item when restoring hunger.")
     public static int damage = 3;
@@ -43,20 +43,22 @@ public class Leeching extends MesonModule {
             && event.player.world.getGameTime() % 20 == 0
         ) {
             final ServerPlayerEntity player = (ServerPlayerEntity)event.player;
-            final ItemStack mainItem = player.getHeldItemMainhand();
-            final ItemStack offhandItem = player.getHeldItemOffhand();
 
-            if (EnchantmentsHelper.hasEnchantment(enchantment, mainItem)) {
-                damageItemAndRestoreHunger(player, mainItem);
-            } else if (EnchantmentsHelper.hasEnchantment(enchantment, offhandItem)) {
-                damageItemAndRestoreHunger(player, offhandItem);
+            if (player.world.rand.nextFloat() < chance) {
+                final int size = player.inventory.getSizeInventory();
+                for (int i = 0; i < size; i++) {
+                    final ItemStack stackInSlot = player.inventory.getStackInSlot(i);
+                    if (!stackInSlot.isEmpty() && EnchantmentsHelper.hasEnchantment(enchantment, stackInSlot)) {
+                        damageItemAndRestoreHunger(player, stackInSlot);
+                    }
+                }
             }
         }
     }
 
     private void damageItemAndRestoreHunger(ServerPlayerEntity player, ItemStack heldItem) {
         final FoodStats foodStats = player.getFoodStats();
-        if (foodStats.needFood() && player.world.rand.nextFloat() < chance) {
+        if (foodStats.needFood()) {
             final int level = foodStats.getFoodLevel();
             foodStats.setFoodLevel(level + restored);
             heldItem.damageItem(damage, player, p -> { });

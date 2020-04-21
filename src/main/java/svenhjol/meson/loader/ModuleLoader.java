@@ -176,7 +176,7 @@ public class ModuleLoader {
 
                 ForgeConfigSpec.ConfigValue<Boolean> val = builder.define(module.getName() + " enabled", module.enabledByDefault);
                 refreshConfig.add(() -> {
-                    module.enabled = val.get();
+                    module.enabled = module.enabled && val.get();
                     addEnabledModule(module);
                 });
             }
