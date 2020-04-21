@@ -7,7 +7,7 @@ import svenhjol.meson.MesonModule;
 
 public class LeechingCurseEnchantment extends MesonEnchantment {
     public LeechingCurseEnchantment(MesonModule module) {
-        super(module, "leeching",
+        super(module, "leeching_curse",
             Rarity.UNCOMMON, EnchantmentType.BREAKABLE, EquipmentSlotType.values());
     }
 
