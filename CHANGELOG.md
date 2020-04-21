@@ -1,10 +1,11 @@
 # Changelog for Charm
 
 ## 1.5.7
+* Fixed module enabled when sould be disabled. Fixes #247
 * Added configurable parrot mimic chance. Fixes #245
 * Added cauldron cleaning things.
 * Added Curse of Leeching.
-* Updated some textures from MCVinnyq
+* Updated some textures from MCVinnyq.
 
 ## 1.5.6
 * Added parrots perching on nearby end rods.
