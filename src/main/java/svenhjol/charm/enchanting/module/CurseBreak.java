@@ -1,5 +1,6 @@
 package svenhjol.charm.enchanting.module;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.text.ITextComponent;
@@ -45,6 +46,9 @@ public class CurseBreak extends MesonModule {
             && right.getItem() == Items.ENCHANTED_BOOK
             && EnchantmentsHelper.hasEnchantment(enchantment, right)
         ) {
+            if (EnchantmentHelper.getEnchantments(left).isEmpty())
+                return;
+
             out = left.copy();
             ITextComponent displayName = out.getDisplayName();
             EnchantmentsHelper.removeRandomCurse(out);

@@ -4,10 +4,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemFrameEntity;
-import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -17,6 +14,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import svenhjol.charm.Charm;
 import svenhjol.meson.MesonItem;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemNBTHelper;
@@ -29,9 +27,6 @@ public class BoundCompassItem extends MesonItem {
     private static final String POS = "pos";
     private static final String DIM = "dim";
     private static final String COLOR = "color";
-    private static final String ROTA = "rota";
-    private static final String ROTATION = "rotation";
-    private static final String LASTUPDATE = "lastUpdateTick";
     private static final String DIMENSIONAL = "dimensional";
 
     public BoundCompassItem(MesonModule module) {
@@ -80,37 +75,7 @@ public class BoundCompassItem extends MesonItem {
                     angle = Math.random();
                 }
 
-                if (hasEntity) {
-                    angle = wobble(world, stack, angle);
-                }
-
                 return MathHelper.positiveModulo((float) angle, 1.0F);
-            }
-
-            @OnlyIn(Dist.CLIENT)
-            private double wobble(World worldIn, ItemStack stack, double angle) {
-                if (!stack.hasTag()) {
-                    return 0.0f;
-                }
-
-                double rotation = ItemNBTHelper.getDouble(stack, ROTATION, 0);
-                double rota = ItemNBTHelper.getDouble(stack, ROTA, 0);
-                long lastUpdateTick = ItemNBTHelper.getLong(stack, LASTUPDATE, 0);
-
-                if (worldIn.getGameTime() != lastUpdateTick) {
-                    lastUpdateTick = worldIn.getGameTime();
-                    double d0 = angle - rotation;
-                    d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
-                    rota += d0 * 0.1D;
-                    rota *= 0.8D;
-                    rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
-                }
-
-                ItemNBTHelper.setLong(stack, LASTUPDATE, lastUpdateTick);
-                ItemNBTHelper.setDouble(stack, ROTATION, rotation);
-                ItemNBTHelper.setDouble(stack, ROTA, rota);
-
-                return rotation;
             }
 
             @OnlyIn(Dist.CLIENT)
@@ -147,6 +112,10 @@ public class BoundCompassItem extends MesonItem {
 
     public static void setColor(ItemStack stack, int color) {
         ItemNBTHelper.setInt(stack, COLOR, color);
+
+        // adjust glint color
+        if (Charm.quarkCompat != null && Charm.quarkCompat.hasColorRuneModule())
+            Charm.quarkCompat.applyColor(stack, DyeColor.byId(color));
     }
 
     public static void setDim(ItemStack stack, int dim) {
