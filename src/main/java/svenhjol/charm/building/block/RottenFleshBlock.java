@@ -52,7 +52,7 @@ public class RottenFleshBlock extends MesonBlock {
             final BlockState plantState = worldIn.getBlockState(pos.up(2));
             if (plantState.getBlock() instanceof IPlantable && aboveState.canSustainPlant(worldIn, pos.up(1), Direction.UP, (IPlantable) plantState.getBlock())) {
                 if (plantState.getBlock() instanceof IGrowable) {
-                    if (random.nextInt(10) >= BlockOfRottenFlesh.growChance) {
+                    if (random.nextInt(10) <= BlockOfRottenFlesh.growChance) {
                         final IGrowable growable = (IGrowable) plantState.getBlock();
                         if (growable.canGrow(worldIn, pos.up(2), plantState, worldIn.isRemote)) {
                             growable.grow(worldIn, worldIn.rand, pos.up(2), plantState);
