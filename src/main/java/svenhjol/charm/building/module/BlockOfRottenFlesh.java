@@ -19,6 +19,9 @@ public class BlockOfRottenFlesh extends MesonModule {
     @Config(name = "Compostable", description = "If true, a block of rotten flesh can be composted.")
     public static boolean compostable = true;
 
+    @Config(name = "GrowChance", description = "Chance (out of 10) that the crop planted above a block of rotten flesh will get a growth boost each tick. (Default: 3")
+    public static int growChance = 3;
+
     @Override
     public void init() {
         block = new RottenFleshBlock(this);

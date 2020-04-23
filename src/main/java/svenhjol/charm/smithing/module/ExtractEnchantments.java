@@ -83,7 +83,7 @@ public class ExtractEnchantments extends MesonModule {
 
         // set the display name on the returned item
         String name = event.getName();
-        if (!name.isEmpty()) {
+        if (name != null && !name.isEmpty()) {
             out.setDisplayName(new StringTextComponent(name));
         }
 

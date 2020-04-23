@@ -5,7 +5,11 @@
 * Added configurable parrot mimic chance. Fixes #245
 * Added cauldron cleaning things.
 * Added Curse of Leeching.
+* Added Dimensional Compasses.
+* Bound compasses no longer have an enchantment glint; dimensional compasses do.
 * Updated some textures from MCVinnyq.
+* JEI integration for Charm anvil recipes.
+* Rotten flesh block now has configurable fertiliser chance.
 
 ## 1.5.6
 * Added parrots perching on nearby end rods.

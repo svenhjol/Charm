@@ -145,5 +145,7 @@
   "map.charm.village": "Village Map",
 
   "tile.charm.bookshelf_chest": "Bookshelf Chest",
-  "tile.charm.crate": "Crate"
+  "tile.charm.crate": "Crate",
+
+  "item.charm.dimensional_compass": "Dimensional Compass"
 }

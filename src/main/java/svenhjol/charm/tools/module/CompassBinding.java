@@ -107,7 +107,7 @@ public class CompassBinding extends MesonModule {
             compass.setDisplayName(strName);
             BoundCompassItem.setPos(compass, compassPos);
             BoundCompassItem.setDim(compass, WorldHelper.getDimensionId(world));
-            BoundCompassItem.setColor(compass, color.getColorValue());
+            BoundCompassItem.setColor(compass, color.getId());
 
             // set the player to hold it or in their inventory
             PlayerHelper.setHeldItem(player, hand, compass);

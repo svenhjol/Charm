@@ -1,5 +1,6 @@
 package svenhjol.charm.base.compat;
 
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -35,5 +36,15 @@ public class QuarkCompat implements IQuarkCompat {
             }
         }
         return ItemStack.EMPTY;
+    }
+
+    public void applyColor(ItemStack stack, DyeColor color) {
+        // get the rune
+//        Item runeItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Quark.MOD_ID, color.getName() + "_rune"));
+//        if (runeItem instanceof RuneItem) {
+//            ItemStack rune = new ItemStack(runeItem);
+//            ItemNBTHelper.setBoolean(stack, ColorRunesModule.TAG_RUNE_ATTACHED, true);
+//            ItemNBTHelper.setCompound(stack, ColorRunesModule.TAG_RUNE_COLOR, rune.serializeNBT());
+//        }
     }
 }
