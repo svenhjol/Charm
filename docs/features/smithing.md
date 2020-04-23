@@ -10,6 +10,12 @@ Combine an item with its golden version on an anvil to reduce the original item'
 
 No more "Too expensive"!
 
+## Dimensional Compasses
+Combine a Bound Compass with an Eye of Ender on an anvil to allow the compass to always point to the same co-ordinates across dimensions.
+This respects the 1:8 spatial conversion of the Nether, helping you to precisely align Nether Portals.
+
+The **Compass Binding** module must be enabled for this to work.
+
 ## Extract Enchantments
 ![Extract Enchantments](https://i.postimg.cc/mgKVM7Bk/Extract-enchantments.png)
 Extract enchantments from any enchanted item into an empty book on an anvil. Enchantments at level 1 will be preserved, but enchantments higher than level 1 will be weakened by one level. The enchanted item will be destroyed in the process.

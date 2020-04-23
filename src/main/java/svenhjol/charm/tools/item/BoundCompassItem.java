@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -31,6 +32,7 @@ public class BoundCompassItem extends MesonItem {
     private static final String ROTA = "rota";
     private static final String ROTATION = "rotation";
     private static final String LASTUPDATE = "lastUpdateTick";
+    private static final String DIMENSIONAL = "dimensional";
 
     public BoundCompassItem(MesonModule module) {
         super(module, "bound_compass", new Item.Properties()
@@ -52,19 +54,24 @@ public class BoundCompassItem extends MesonItem {
 
                 double angle;
                 boolean validDimension;
+                boolean isDimensional = isDimensional(stack);
+                final int currentDim = world.getDimension().getType().getId();
                 BlockPos pos = getPos(stack);
                 int dim = getDim(stack);
 
                 if (pos != null) {
                     // check current dimension
-                    validDimension = world.getDimension().getType().getId() == dim;
+                    validDimension = currentDim == dim;
                 } else {
                     // set to spawn point
                     pos = world.getSpawnPoint();
-                    validDimension = world.getDimension().getType().getId() == 0;
+                    validDimension = currentDim == 0;
                 }
 
-                if (validDimension) {
+                if (isDimensional)
+                    pos = translatePosForDimension(world, pos, stack);
+
+                if (validDimension || isDimensional) {
                     double yaw = hasEntity ? entity.rotationYaw : getFrameRotation((ItemFrameEntity) Objects.requireNonNull(entity));
                     yaw = MathHelper.positiveModulo(yaw / 360.0, 1.0);
                     double relAngle = getPosToAngle(entity, pos) / (Math.PI * 2);
@@ -127,6 +134,10 @@ public class BoundCompassItem extends MesonItem {
         return ItemNBTHelper.getInt(stack, DIM, 0);
     }
 
+    public static boolean isDimensional(ItemStack stack) {
+        return ItemNBTHelper.getBoolean(stack, DIMENSIONAL, false);
+    }
+
     @Nullable
     public static BlockPos getPos(ItemStack stack) {
         if (!stack.hasTag()) return null;
@@ -146,9 +157,13 @@ public class BoundCompassItem extends MesonItem {
         ItemNBTHelper.setLong(stack, POS, pos.toLong());
     }
 
+    public static void setDimensional(ItemStack stack, boolean isDimensional) {
+        ItemNBTHelper.setBoolean(stack, DIMENSIONAL, isDimensional);
+    }
+
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> textComponents, ITooltipFlag flag) {
-        BlockPos pos = getPos(stack);
+        BlockPos pos = translatePosForDimension(world, getPos(stack), stack);
 
         if (pos != null) {
             String x = String.valueOf(pos.getX());
@@ -161,6 +176,29 @@ public class BoundCompassItem extends MesonItem {
 
     @Override
     public boolean hasEffect(ItemStack stack) {
-        return getPos(stack) != null;
+        return isDimensional(stack);
+    }
+
+    public BlockPos translatePosForDimension(IWorld world, BlockPos pos, ItemStack stack) {
+        if (isDimensional(stack) && world != null && pos != null) {
+            if (getDim(stack) == 0 && getCurrentDimensionId(world) == -1) {
+                pos = translateOverworldToNether(pos);
+            } else if (getDim(stack) == -1 && getCurrentDimensionId(world) == 0) {
+                pos = translateNetherToOverworld(pos);
+            }
+        }
+        return pos;
+    }
+
+    public BlockPos translateOverworldToNether(BlockPos pos) {
+        return new BlockPos(pos.getX() / 8, pos.getY(), pos.getZ() / 8);
+    }
+
+    public BlockPos translateNetherToOverworld(BlockPos pos) {
+        return new BlockPos(pos.getX() * 8, pos.getY(), pos.getZ() * 8);
+    }
+
+    public int getCurrentDimensionId(IWorld world) {
+        return world.getDimension().getType().getId();
     }
 }
