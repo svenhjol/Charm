@@ -11,6 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.ToolType;
+import svenhjol.charm.building.module.BlockOfRottenFlesh;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
 
@@ -19,11 +20,11 @@ import java.util.Random;
 public class RottenFleshBlock extends MesonBlock {
     public RottenFleshBlock(final MesonModule module) {
         super(module, "rotten_flesh_block", Block.Properties
-            .create(Material.ORGANIC)
-            .sound(SoundType.GROUND)
-            .hardnessAndResistance(1.0F, 2.0F)
-            .harvestTool(ToolType.SHOVEL)
-            .tickRandomly()
+                .create(Material.ORGANIC)
+                .sound(SoundType.GROUND)
+                .hardnessAndResistance(1.0F, 2.0F)
+                .harvestTool(ToolType.SHOVEL)
+                .tickRandomly()
         );
     }
 
@@ -51,10 +52,12 @@ public class RottenFleshBlock extends MesonBlock {
             final BlockState plantState = worldIn.getBlockState(pos.up(2));
             if (plantState.getBlock() instanceof IPlantable && aboveState.canSustainPlant(worldIn, pos.up(1), Direction.UP, (IPlantable) plantState.getBlock())) {
                 if (plantState.getBlock() instanceof IGrowable) {
-                    final IGrowable growable = (IGrowable) plantState.getBlock();
-                    if (growable.canGrow(worldIn, pos.up(2), plantState, worldIn.isRemote)) {
-                        growable.grow(worldIn, worldIn.rand, pos.up(2), plantState);
-                        worldIn.playEvent(2005, pos.up(2), 0);
+                    if (random.nextInt(10) <= BlockOfRottenFlesh.growChance) {
+                        final IGrowable growable = (IGrowable) plantState.getBlock();
+                        if (growable.canGrow(worldIn, pos.up(2), plantState, worldIn.isRemote)) {
+                            growable.grow(worldIn, worldIn.rand, pos.up(2), plantState);
+                            worldIn.playEvent(2005, pos.up(2), 0);
+                        }
                     }
                 }
             }
