@@ -10,6 +10,7 @@
 * Updated some textures from MCVinnyq.
 * JEI integration for Charm anvil recipes.
 * Rotten flesh block now has configurable fertiliser chance.
+* Bat in a bucket now only highlights living entities.
 
 ## 1.5.6
 * Added parrots perching on nearby end rods.
