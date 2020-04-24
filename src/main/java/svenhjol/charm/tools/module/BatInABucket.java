@@ -1,6 +1,7 @@
 package svenhjol.charm.tools.module;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -43,7 +44,7 @@ public class BatInABucket extends MesonModule {
     // client stuff
     public static int clientTicks;
     public static double clientRange;
-    public static List<Entity> clientEntities = new ArrayList<>();
+    public static List<LivingEntity> clientEntities = new ArrayList<>();
 
     @Override
     public void init() {
@@ -99,8 +100,8 @@ public class BatInABucket extends MesonModule {
     private void setNearbyEntities(PlayerEntity player) {
         clientEntities.clear();
         AxisAlignedBB area = player.getBoundingBox().grow(clientRange, clientRange / 2.0, clientRange);
-        Predicate<Entity> selector = entity -> true;
-        clientEntities = player.world.getEntitiesWithinAABB(Entity.class, area, selector);
+        Predicate<LivingEntity> selector = entity -> true;
+        clientEntities = player.world.getEntitiesWithinAABB(LivingEntity.class, area, selector);
     }
 
     @OnlyIn(Dist.CLIENT)
