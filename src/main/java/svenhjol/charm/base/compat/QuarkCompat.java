@@ -17,7 +17,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import svenhjol.meson.Meson;
 import svenhjol.meson.enums.ColorVariant;
 import svenhjol.meson.enums.WoodType;
-import svenhjol.meson.helper.ItemNBTHelper;
 import vazkii.quark.base.Quark;
 import vazkii.quark.base.module.ModuleLoader;
 import vazkii.quark.building.module.VariantChestsModule;
