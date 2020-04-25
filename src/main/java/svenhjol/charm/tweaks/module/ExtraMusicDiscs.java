@@ -1,14 +1,10 @@
 package svenhjol.charm.tweaks.module;
 
-import net.minecraft.entity.monster.SkeletonEntity;
-import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.tweaks.item.CharmMusicDiscItem;
@@ -17,11 +13,9 @@ import svenhjol.meson.iface.Module;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS, hasSubscriptions = true,
-    description = "Adds music discs of all Minecraft ambient music.\n" +
-        "These additional discs will be dropped when a zombie is killed by a skeleton.")
+    description = "Adds music discs of all Minecraft ambient music.")
 public class ExtraMusicDiscs extends MesonModule {
     public static String[] discNames = new String[]{
         "calm1",
@@ -68,16 +62,6 @@ public class ExtraMusicDiscs extends MesonModule {
         for (String name : discNames) {
             SoundEvent sound = new SoundEvent(new ResourceLocation(Charm.MOD_ID, "music_disc." + name));
             discs.add(new CharmMusicDiscItem(this, "music_disc_" + name, sound, props, 0));
-        }
-    }
-
-    @SubscribeEvent
-    public void onDeath(LivingDeathEvent event) {
-        if (event.getEntityLiving() instanceof ZombieEntity
-            && event.getSource().getTrueSource() instanceof SkeletonEntity
-        ) {
-            CharmMusicDiscItem item = discs.get(new Random().nextInt(discs.size()));
-            event.getEntityLiving().entityDropItem(item, 1);
         }
     }
 }

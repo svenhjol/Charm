@@ -1,6 +1,7 @@
 package svenhjol.charm.base;
 
 public class CharmCategories {
+    public static final String CORE = "Core";
     public static final String AUTOMATION = "Automation";
     public static final String BREWING = "Brewing";
     public static final String BUILDING = "Building";

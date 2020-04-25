@@ -1,5 +1,9 @@
 # Changelog for Charm
 
+## 1.5.8
+* Added all music discs to the minecraft music disc pool.
+* Music discs are now dropped by creepers when killed by skeletons, as per vanilla mechanics.
+
 ## 1.5.7
 * Fixed module enabled when sould be disabled. Fixes #247
 * Added configurable parrot mimic chance. Fixes #245
