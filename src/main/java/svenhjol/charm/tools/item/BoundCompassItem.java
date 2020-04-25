@@ -72,11 +72,41 @@ public class BoundCompassItem extends MesonItem {
                     double relAngle = getPosToAngle(entity, pos) / (Math.PI * 2);
                     angle = 0.5 - (yaw - 0.25 - relAngle);
                 } else {
-                    angle = Math.random();
+                    angle = 0;
                 }
+
+//                if (hasEntity && !validDimension) {
+//                    angle = wobble(world, stack, angle);
+//                }
 
                 return MathHelper.positiveModulo((float) angle, 1.0F);
             }
+
+//            @OnlyIn(Dist.CLIENT)
+//            private double wobble(World worldIn, ItemStack stack, double angle) {
+//                if (!stack.hasTag()) {
+//                    return 0.0f;
+//                }
+//
+//                double rotation = ItemNBTHelper.getDouble(stack, ROTATION, 0);
+//                double rota = ItemNBTHelper.getDouble(stack, ROTA, 0);
+//                long lastUpdateTick = ItemNBTHelper.getLong(stack, LASTUPDATE, 0);
+//
+//                if (worldIn.getGameTime() != lastUpdateTick) {
+//                    lastUpdateTick = worldIn.getGameTime();
+//                    double d0 = angle - rotation;
+//                    d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
+//                    rota += d0 * 0.1D;
+//                    rota *= 0.8D;
+//                    rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
+//                }
+//
+//                ItemNBTHelper.setLong(stack, LASTUPDATE, lastUpdateTick);
+//                ItemNBTHelper.setDouble(stack, ROTATION, rotation);
+//                ItemNBTHelper.setDouble(stack, ROTA, rota);
+//
+//                return rotation;
+//            }
 
             @OnlyIn(Dist.CLIENT)
             private double getFrameRotation(ItemFrameEntity frame) {
