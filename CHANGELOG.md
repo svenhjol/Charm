@@ -9,7 +9,7 @@
 * Bound compasses no longer have an enchantment glint; dimensional compasses do.
 * Updated some textures from MCVinnyq.
 * JEI integration for Charm anvil recipes.
-* Rotten flesh block now has configurable fertiliser chance.
+* Rotten flesh block now has configurable fertiliser chance and rate of passive growth has been nerfed.
 * Bat in a bucket now only highlights living entities.
 
 ## 1.5.6
