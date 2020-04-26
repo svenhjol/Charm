@@ -81,44 +81,44 @@ public class BoundCompassItem extends MesonItem {
 
                 return MathHelper.positiveModulo((float) angle, 1.0F);
             }
-
-//            @OnlyIn(Dist.CLIENT)
-//            private double wobble(World worldIn, ItemStack stack, double angle) {
-//                if (!stack.hasTag()) {
-//                    return 0.0f;
-//                }
-//
-//                double rotation = ItemNBTHelper.getDouble(stack, ROTATION, 0);
-//                double rota = ItemNBTHelper.getDouble(stack, ROTA, 0);
-//                long lastUpdateTick = ItemNBTHelper.getLong(stack, LASTUPDATE, 0);
-//
-//                if (worldIn.getGameTime() != lastUpdateTick) {
-//                    lastUpdateTick = worldIn.getGameTime();
-//                    double d0 = angle - rotation;
-//                    d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
-//                    rota += d0 * 0.1D;
-//                    rota *= 0.8D;
-//                    rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
-//                }
-//
-//                ItemNBTHelper.setLong(stack, LASTUPDATE, lastUpdateTick);
-//                ItemNBTHelper.setDouble(stack, ROTATION, rotation);
-//                ItemNBTHelper.setDouble(stack, ROTA, rota);
-//
-//                return rotation;
-//            }
-
-            @OnlyIn(Dist.CLIENT)
-            private double getFrameRotation(ItemFrameEntity frame) {
-                return MathHelper.wrapDegrees(180 + Objects.requireNonNull(frame.getHorizontalFacing()).getHorizontalIndex() * 90);
-            }
-
-            @OnlyIn(Dist.CLIENT)
-            private double getPosToAngle(Entity entity, BlockPos pos) {
-                BlockPos entityPos = entity.getPosition();
-                return Math.atan2(pos.getZ() - entityPos.getZ(), pos.getX() - entityPos.getX());
-            }
         });
+    }
+
+//    @OnlyIn(Dist.CLIENT)
+//    private double wobble(World worldIn, ItemStack stack, double angle) {
+//        if (!stack.hasTag()) {
+//            return 0.0f;
+//        }
+//
+//        double rotation = ItemNBTHelper.getDouble(stack, ROTATION, 0);
+//        double rota = ItemNBTHelper.getDouble(stack, ROTA, 0);
+//        long lastUpdateTick = ItemNBTHelper.getLong(stack, LASTUPDATE, 0);
+//
+//        if (worldIn.getGameTime() != lastUpdateTick) {
+//            lastUpdateTick = worldIn.getGameTime();
+//            double d0 = angle - rotation;
+//            d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
+//            rota += d0 * 0.1D;
+//            rota *= 0.8D;
+//            rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
+//        }
+//
+//        ItemNBTHelper.setLong(stack, LASTUPDATE, lastUpdateTick);
+//        ItemNBTHelper.setDouble(stack, ROTATION, rotation);
+//        ItemNBTHelper.setDouble(stack, ROTA, rota);
+//
+//        return rotation;
+//    }
+
+    @OnlyIn(Dist.CLIENT)
+    private double getFrameRotation(ItemFrameEntity frame) {
+        return MathHelper.wrapDegrees(180 + Objects.requireNonNull(frame.getHorizontalFacing()).getHorizontalIndex() * 90);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private double getPosToAngle(Entity entity, BlockPos pos) {
+        BlockPos entityPos = entity.getPosition();
+        return Math.atan2(pos.getZ() - entityPos.getZ(), pos.getX() - entityPos.getX());
     }
 
     public static int getColor(ItemStack stack) {
