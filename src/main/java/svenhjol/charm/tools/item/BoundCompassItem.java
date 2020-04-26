@@ -28,6 +28,9 @@ public class BoundCompassItem extends MesonItem {
     private static final String DIM = "dim";
     private static final String COLOR = "color";
     private static final String DIMENSIONAL = "dimensional";
+    private static final String ROTA = "rota";
+    private static final String ROTATION = "rotation";
+    private static final String LASTUPDATE = "lastUpdateTick";
 
     public BoundCompassItem(MesonModule module) {
         super(module, "bound_compass", new Item.Properties()
@@ -49,7 +52,7 @@ public class BoundCompassItem extends MesonItem {
 
                 double angle;
                 boolean validDimension;
-                boolean isDimensional = isDimensional(stack);
+                final boolean isDimensional = isDimensional(stack);
                 final int currentDim = world.getDimension().getType().getId();
                 BlockPos pos = getPos(stack);
                 int dim = getDim(stack);
@@ -75,50 +78,56 @@ public class BoundCompassItem extends MesonItem {
                     angle = 0;
                 }
 
-//                if (hasEntity && !validDimension) {
-//                    angle = wobble(world, stack, angle);
-//                }
+                if (hasEntity)
+                    angle = wobble(world, stack, angle);
 
                 return MathHelper.positiveModulo((float) angle, 1.0F);
             }
-
-//            @OnlyIn(Dist.CLIENT)
-//            private double wobble(World worldIn, ItemStack stack, double angle) {
-//                if (!stack.hasTag()) {
-//                    return 0.0f;
-//                }
-//
-//                double rotation = ItemNBTHelper.getDouble(stack, ROTATION, 0);
-//                double rota = ItemNBTHelper.getDouble(stack, ROTA, 0);
-//                long lastUpdateTick = ItemNBTHelper.getLong(stack, LASTUPDATE, 0);
-//
-//                if (worldIn.getGameTime() != lastUpdateTick) {
-//                    lastUpdateTick = worldIn.getGameTime();
-//                    double d0 = angle - rotation;
-//                    d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
-//                    rota += d0 * 0.1D;
-//                    rota *= 0.8D;
-//                    rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
-//                }
-//
-//                ItemNBTHelper.setLong(stack, LASTUPDATE, lastUpdateTick);
-//                ItemNBTHelper.setDouble(stack, ROTATION, rotation);
-//                ItemNBTHelper.setDouble(stack, ROTA, rota);
-//
-//                return rotation;
-//            }
-
-            @OnlyIn(Dist.CLIENT)
-            private double getFrameRotation(ItemFrameEntity frame) {
-                return MathHelper.wrapDegrees(180 + Objects.requireNonNull(frame.getHorizontalFacing()).getHorizontalIndex() * 90);
-            }
-
-            @OnlyIn(Dist.CLIENT)
-            private double getPosToAngle(Entity entity, BlockPos pos) {
-                BlockPos entityPos = entity.getPosition();
-                return Math.atan2(pos.getZ() - entityPos.getZ(), pos.getX() - entityPos.getX());
-            }
         });
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private double wobble(World worldIn, ItemStack stack, double angle) {
+        if (!stack.hasTag()) {
+            return 0.0f;
+        }
+
+        double rotation = ItemNBTHelper.getDouble(stack, ROTATION, 0);
+        double rota = ItemNBTHelper.getDouble(stack, ROTA, 0);
+        long lastUpdateTick = ItemNBTHelper.getLong(stack, LASTUPDATE, 0);
+
+        double oldRotation = rotation;
+        double oldRota = rota;
+
+        if (worldIn.getGameTime() != lastUpdateTick) {
+            double d0 = angle - rotation;
+            d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
+            rota += d0 * 0.1D;
+            rota *= 0.8D;
+            rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
+        }
+
+        if (Math.round(rota*100)/100D != Math.round(oldRota*100)/100D
+            || Math.round(rotation*100)/100D != Math.round(oldRotation*100)/100D
+        ) {
+            lastUpdateTick = worldIn.getGameTime();
+            ItemNBTHelper.setLong(stack, LASTUPDATE, lastUpdateTick);
+            ItemNBTHelper.setDouble(stack, ROTATION, rotation);
+            ItemNBTHelper.setDouble(stack, ROTA, rota);
+        }
+
+        return rotation;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private double getFrameRotation(ItemFrameEntity frame) {
+        return MathHelper.wrapDegrees(180 + Objects.requireNonNull(frame.getHorizontalFacing()).getHorizontalIndex() * 90);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private double getPosToAngle(Entity entity, BlockPos pos) {
+        BlockPos entityPos = entity.getPosition();
+        return Math.atan2(pos.getZ() - entityPos.getZ(), pos.getX() - entityPos.getX());
     }
 
     public static int getColor(ItemStack stack) {
