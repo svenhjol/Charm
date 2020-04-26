@@ -75,6 +75,11 @@ repositories {
         url "http://maven.blamejared.com/"
     }
 
+    maven { // for Curseforge mod download
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+
     flatDir {
         dirs "libs"
     }
