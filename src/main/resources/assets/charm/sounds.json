@@ -224,23 +224,5 @@
       "name": "minecraft:music/game/end/end",
       "stream": true
     }]
-  },
-  "music_disc.charm_cold": {
-    "sounds": [
-      {
-        "name": "charm:music/mus",
-        "stream": true
-      }
-    ]
-  },
-  "music.charm_cold": {
-    "category": "music",
-    "sounds": [
-      {
-        "name": "charm:music/mus",
-        "stream": true,
-        "volume": 0.25
-      }
-    ]
   }
 }
