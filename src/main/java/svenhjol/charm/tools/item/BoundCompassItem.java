@@ -39,6 +39,13 @@ public class BoundCompassItem extends MesonItem {
         );
 
         addPropertyOverride(new ResourceLocation("angle"), new IItemPropertyGetter() {
+            @OnlyIn(Dist.CLIENT)
+            private double rotation;
+            @OnlyIn(Dist.CLIENT)
+            private double rota;
+            @OnlyIn(Dist.CLIENT)
+            private long lastUpdateTick;
+
             @Override
             public float call(ItemStack stack, @Nullable World world, @Nullable LivingEntity entityIn) {
                 if (entityIn == null && !stack.isOnItemFrame()) return 0;
@@ -73,61 +80,72 @@ public class BoundCompassItem extends MesonItem {
                     double yaw = hasEntity ? entity.rotationYaw : getFrameRotation((ItemFrameEntity) Objects.requireNonNull(entity));
                     yaw = MathHelper.positiveModulo(yaw / 360.0, 1.0);
                     double relAngle = getPosToAngle(entity, pos) / (Math.PI * 2);
-                    angle = 0.5 - (yaw - 0.25 - relAngle);
+                    angle = wobble(world, stack, 0.5 - (yaw - 0.25 - relAngle));
                 } else {
-                    angle = 0;
+                    angle = wobbleRandomly(world, stack, Math.random());
                 }
-
-                if (hasEntity)
-                    angle = wobble(world, stack, angle);
 
                 return MathHelper.positiveModulo((float) angle, 1.0F);
             }
+
+            @OnlyIn(Dist.CLIENT)
+            private double wobbleRandomly(World worldIn, ItemStack stack, double angle) {
+                if (!stack.hasTag())
+                    return 0.0f;
+
+                if (worldIn.getGameTime() != lastUpdateTick) {
+                    this.lastUpdateTick = worldIn.getGameTime();
+                    double d0 = angle - rotation;
+                    d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
+                    this.rota += d0 * 0.1D;
+                    this.rota *= 0.8D;
+                    this.rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
+                }
+
+                return rotation;
+            }
+
+            @OnlyIn(Dist.CLIENT)
+            private double wobble(World worldIn, ItemStack stack, double angle) {
+                if (!stack.hasTag())
+                    return 0.0f;
+
+                double rotation = ItemNBTHelper.getDouble(stack, ROTATION, 0);
+                double rota = ItemNBTHelper.getDouble(stack, ROTA, 0);
+                long lastUpdateTick = ItemNBTHelper.getLong(stack, LASTUPDATE, 0);
+
+                double oldRotation = rotation;
+                double oldRota = rota;
+
+                if (worldIn.getGameTime() != lastUpdateTick) {
+                    double d0 = angle - rotation;
+                    d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
+                    rota += d0 * 0.1D;
+                    rota *= 0.8D;
+                    rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
+                }
+
+                if (Math.round(rota * 100) / 100D != Math.round(oldRota * 100) / 100D || Math.round(rotation * 100) / 100D != Math.round(oldRotation * 100) / 100D) {
+                    lastUpdateTick = worldIn.getGameTime();
+                    ItemNBTHelper.setLong(stack, LASTUPDATE, lastUpdateTick);
+                    ItemNBTHelper.setDouble(stack, ROTATION, rotation);
+                    ItemNBTHelper.setDouble(stack, ROTA, rota);
+                }
+
+                return rotation;
+            }
+
+            @OnlyIn(Dist.CLIENT)
+            private double getFrameRotation(ItemFrameEntity frame) {
+                return MathHelper.wrapDegrees(180 + Objects.requireNonNull(frame.getHorizontalFacing()).getHorizontalIndex() * 90);
+            }
+
+            @OnlyIn(Dist.CLIENT)
+            private double getPosToAngle(Entity entity, BlockPos pos) {
+                BlockPos entityPos = entity.getPosition();
+                return Math.atan2(pos.getZ() - entityPos.getZ(), pos.getX() - entityPos.getX());
+            }
         });
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private double wobble(World worldIn, ItemStack stack, double angle) {
-        if (!stack.hasTag()) {
-            return 0.0f;
-        }
-
-        double rotation = ItemNBTHelper.getDouble(stack, ROTATION, 0);
-        double rota = ItemNBTHelper.getDouble(stack, ROTA, 0);
-        long lastUpdateTick = ItemNBTHelper.getLong(stack, LASTUPDATE, 0);
-
-        double oldRotation = rotation;
-        double oldRota = rota;
-
-        if (worldIn.getGameTime() != lastUpdateTick) {
-            double d0 = angle - rotation;
-            d0 = MathHelper.positiveModulo(d0 + 0.5D, 1.0D) - 0.5D;
-            rota += d0 * 0.1D;
-            rota *= 0.8D;
-            rotation = MathHelper.positiveModulo(rotation + rota, 1.0D);
-        }
-
-        if (Math.round(rota*100)/100D != Math.round(oldRota*100)/100D
-            || Math.round(rotation*100)/100D != Math.round(oldRotation*100)/100D
-        ) {
-            lastUpdateTick = worldIn.getGameTime();
-            ItemNBTHelper.setLong(stack, LASTUPDATE, lastUpdateTick);
-            ItemNBTHelper.setDouble(stack, ROTATION, rotation);
-            ItemNBTHelper.setDouble(stack, ROTA, rota);
-        }
-
-        return rotation;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private double getFrameRotation(ItemFrameEntity frame) {
-        return MathHelper.wrapDegrees(180 + Objects.requireNonNull(frame.getHorizontalFacing()).getHorizontalIndex() * 90);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private double getPosToAngle(Entity entity, BlockPos pos) {
-        BlockPos entityPos = entity.getPosition();
-        return Math.atan2(pos.getZ() - entityPos.getZ(), pos.getX() - entityPos.getX());
     }
 
     public static int getColor(ItemStack stack) {
