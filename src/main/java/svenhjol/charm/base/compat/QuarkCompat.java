@@ -43,11 +43,30 @@ public class QuarkCompat implements IQuarkCompat {
 
     @Nullable
     public ColorVariant getRuneColor(ItemStack stack) {
-        return ColorVariant.WHITE;
+        ColorVariant color = ColorVariant.WHITE;
+
+        if (isRune(stack)) {
+            RuneItem item = (RuneItem) stack.getItem();
+            ResourceLocation itemRegName = item.getRegistryName();
+            if (itemRegName == null)
+                return null;
+
+            String colorName = itemRegName.getPath().replace("_rune", "").toUpperCase();
+            try {
+                color = ColorVariant.valueOf(colorName);
+            } catch (Exception e) {
+                Meson.LOG.debug("Failed to get color of rune" + stack.getItem());
+                return null;
+            }
+        }
+
+        return color;
     }
 
     public ItemStack getRune(ColorVariant color) {
-        return ItemStack.EMPTY;
+        ResourceLocation res = new ResourceLocation(Quark.MOD_ID, color.getName() + "_rune");
+        Item runeItem = ForgeRegistries.ITEMS.getValue(res);
+        return runeItem == null ? ItemStack.EMPTY : new ItemStack(runeItem);
     }
 
     public ItemStack getQuiltedWool(ColorVariant color) {

@@ -42,6 +42,8 @@
   "block.charm.pig_iron_ore": "Pig Iron Ore",
   "block.charm.redstone_sand": "Redstone Sand",
   "block.charm.rotten_flesh_block": "Rotten Flesh Block",
+  "block.charm.rune_portal": "Rune Portal",
+  "block.charm.rune_portal_frame": "Rune Portal Frame",
   "block.charm.smooth_glowstone": "Smooth Glowstone",
   "block.charm.variable_redstone_lamp": "Variable Redstone Lamp",
 
