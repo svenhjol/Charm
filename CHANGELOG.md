@@ -4,6 +4,7 @@
 * Added all music discs to the minecraft music disc pool.
 * Music discs are now dropped by creepers when killed by skeletons, as per vanilla mechanics.
 * Fixed Potion of Decay language string.
+* [1.15] Added back End Portal Runes.
 
 ## 1.5.7
 * Fixed module enabled when sould be disabled. Fixes #247

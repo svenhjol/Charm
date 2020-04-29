@@ -13,8 +13,6 @@ Eyes of Ender present in the End Portal will be removed when right-clicking with
 
 An End Portal will link with the **closest matching** End Portal.  Also, it's important to note that portals link when **each side** of the portal contains the same runes, regardless of the order.
 
-`1.14.4 only`
-
 ## Fumaroles
 ![Fumaroles](https://i.postimg.cc/9FnB5y4b/Fumaroles.png)
 Fumaroles are small columns of hot steam rising from the floor of the Nether. Sometimes they erupt, sending entities that are placed on them high into the air.
