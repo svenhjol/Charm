@@ -17,10 +17,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 import svenhjol.meson.Meson;
 import svenhjol.meson.enums.ColorVariant;
 import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.helper.ItemNBTHelper;
 import vazkii.quark.base.Quark;
 import vazkii.quark.base.module.ModuleLoader;
 import vazkii.quark.building.module.VariantChestsModule;
+import vazkii.quark.tools.item.RuneItem;
 import vazkii.quark.tools.module.AncientTomesModule;
+import vazkii.quark.tools.module.ColorRunesModule;
 import vazkii.quark.world.block.CaveCrystalBlock;
 import vazkii.quark.world.module.BigDungeonModule;
 
@@ -31,11 +34,11 @@ import java.util.Random;
 
 public class QuarkCompat implements IQuarkCompat {
     public boolean hasColorRuneModule() {
-        return false;
+        return ModuleLoader.INSTANCE.isModuleEnabled(ColorRunesModule.class);
     }
 
     public boolean isRune(ItemStack stack) {
-        return false;
+        return stack.getItem() instanceof RuneItem;
     }
 
     @Nullable
@@ -59,12 +62,12 @@ public class QuarkCompat implements IQuarkCompat {
 
     public void applyColor(ItemStack stack, DyeColor color) {
         // get the rune
-//        Item runeItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Quark.MOD_ID, color.getName() + "_rune"));
-//        if (runeItem instanceof RuneItem) {
-//            ItemStack rune = new ItemStack(runeItem);
-//            ItemNBTHelper.setBoolean(stack, ColorRunesModule.TAG_RUNE_ATTACHED, true);
-//            ItemNBTHelper.setCompound(stack, ColorRunesModule.TAG_RUNE_COLOR, rune.serializeNBT());
-//        }
+        Item runeItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Quark.MOD_ID, color.getName() + "_rune"));
+        if (runeItem instanceof RuneItem) {
+            ItemStack rune = new ItemStack(runeItem);
+            ItemNBTHelper.setBoolean(stack, ColorRunesModule.TAG_RUNE_ATTACHED, true);
+            ItemNBTHelper.setCompound(stack, ColorRunesModule.TAG_RUNE_COLOR, rune.serializeNBT());
+        }
     }
 
     public ItemStack getRandomAncientTome(Random rand) {
