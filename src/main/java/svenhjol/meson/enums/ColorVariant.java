@@ -20,7 +20,8 @@ public enum ColorVariant implements IMesonEnum {
     BROWN,
     GREEN,
     RED,
-    BLACK;
+    BLACK,
+    RAINBOW;
 
     private static final ColorVariant[] METADATA_LOOKUP = new ColorVariant[values().length];
 
@@ -43,6 +44,6 @@ public enum ColorVariant implements IMesonEnum {
     }
 
     public static ColorVariant random() {
-        return byIndex(new Random().nextInt(values().length));
+        return byIndex(new Random().nextInt(values().length - 1)); // random should not include the Rainbow
     }
 }
