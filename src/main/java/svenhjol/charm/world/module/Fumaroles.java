@@ -40,11 +40,11 @@ public class Fumaroles extends MesonModule {
     public void init() {
         block = new FumaroleBlock(this);
         BlockState state = block.getDefaultState();
-        feature = new FumaroleFeature(BlockClusterFeatureConfig::func_227300_a_);
+        feature = new FumaroleFeature(BlockClusterFeatureConfig::deserialize);
         placement = new FumarolePlacement(FrequencyConfig::deserialize);
         config = (new BlockClusterFeatureConfig.Builder(
             new SimpleBlockStateProvider(state),
-            new SimpleBlockPlacer())).tries(64).func_227316_a_(ImmutableSet.of(NETHERRACK.getBlock())).func_227317_b_().build();
+            new SimpleBlockPlacer())).tries(64).whitelist(ImmutableSet.of(NETHERRACK.getBlock())).func_227317_b_().build();
 
         ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "fumarole");
         RegistryHandler.registerFeature(feature, placement, ID);

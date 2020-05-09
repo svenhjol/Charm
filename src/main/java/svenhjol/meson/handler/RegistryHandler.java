@@ -114,7 +114,7 @@ public class RegistryHandler {
 
     public static void registerVillagerPointOfInterest(PointOfInterestType type, ResourceLocation res) {
         addRegisterable(type, res);
-        PointOfInterestType.func_221052_a(type);
+        PointOfInterestType.registerBlockStates(type);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
