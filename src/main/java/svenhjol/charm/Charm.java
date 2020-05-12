@@ -1,5 +1,6 @@
 package svenhjol.charm;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import svenhjol.charm.base.CharmClient;
@@ -29,5 +30,6 @@ public class Charm extends MesonInstance {
     public void onClientSetup(FMLClientSetupEvent event) {
         super.onClientSetup(event);
         client = new CharmClient();
+        MinecraftForge.EVENT_BUS.addListener(CharmClient::onClientTick);
     }
 }
