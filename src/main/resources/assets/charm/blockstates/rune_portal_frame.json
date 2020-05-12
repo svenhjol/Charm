@@ -63,6 +63,10 @@
     "rune=black,facing=south": { "model": "charm:block/rune_portal_frame_black" },
     "rune=black,facing=west": { "model": "charm:block/rune_portal_frame_black", "y": 90 },
     "rune=black,facing=north": { "model": "charm:block/rune_portal_frame_black", "y": 180 },
-    "rune=black,facing=east": { "model": "charm:block/rune_portal_frame_black", "y": 270 }
+    "rune=black,facing=east": { "model": "charm:block/rune_portal_frame_black", "y": 270 },
+    "rune=rainbow,facing=south": { "model": "charm:block/rune_portal_frame_rainbow" },
+    "rune=rainbow,facing=west": { "model": "charm:block/rune_portal_frame_rainbow", "y": 90 },
+    "rune=rainbow,facing=north": { "model": "charm:block/rune_portal_frame_rainbow", "y": 180 },
+    "rune=rainbow,facing=east": { "model": "charm:block/rune_portal_frame_rainbow", "y": 270 }
   }
 }
