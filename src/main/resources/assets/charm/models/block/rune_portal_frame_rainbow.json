@@ -1,0 +1,6 @@
+{
+    "parent": "charm:block/rune_portal_frame",
+    "textures": {
+        "rune": "charm:block/rune_portal_frame_rainbow"
+    }
+}
