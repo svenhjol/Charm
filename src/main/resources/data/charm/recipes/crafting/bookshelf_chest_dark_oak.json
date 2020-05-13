@@ -6,10 +6,10 @@
     "XXX"
   ],
   "key": {
-    "#": {
+    "X": {
       "item": "minecraft:dark_oak_planks"
     },
-    "X": {
+    "#": {
       "item": "minecraft:bookshelf"
     }
   },

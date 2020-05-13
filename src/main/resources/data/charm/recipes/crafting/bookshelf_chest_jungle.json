@@ -6,10 +6,10 @@
     "XXX"
   ],
   "key": {
-    "#": {
+    "X": {
       "item": "minecraft:jungle_planks"
     },
-    "X": {
+    "#": {
       "item": "minecraft:bookshelf"
     }
   },
