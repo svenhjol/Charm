@@ -619,6 +619,47 @@ function initializeCoreMod() {
 
                 return method;
             }
+        },
+
+        /*
+         * GameData: this hack gets around Forge's blockstate prop check. It's definitely evil and I'm going to the Nether for this.
+         * It's needed to add waterloggable props to lanterns (and possibly other blocks).
+         */
+        'GameData$BlockCallbacks': {
+            target: {
+                'type': 'METHOD',
+                'class': 'net.minecraftforge.registries.GameData$BlockCallbacks',
+                'methodName': 'onAdd', // accepts
+                'methodDesc': '(Lnet/minecraftforge/registries/IForgeRegistryInternal;Lnet/minecraftforge/registries/RegistryManager;ILnet/minecraft/block/Block;Lnet/minecraft/block/Block;)V'
+            },
+            transformer: function(method) {
+                var didThing = false;
+                var arrayLength = method.instructions.size();
+
+                var j = 0;
+                for (var i = 0; i < arrayLength; ++i) {
+                    var instruction = method.instructions.get(i);
+                    var newInstructions = new InsnList();
+
+                    if (instruction.getOpcode() == Opcodes.IFNE) {
+                        var label = new LabelNode();
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 4));
+                        newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "bypassStateCheck", "(Lnet/minecraft/block/Block;)Z", false));
+                        newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
+                        newInstructions.add(new InsnNode(Opcodes.RETURN));
+                        newInstructions.add(label);
+
+                        method.instructions.insert(instruction, newInstructions);
+                        didThing = true;
+                        break;
+                    }
+                }
+
+                method.instructions.insertBefore(instruction, newInstructions);
+                print("[Charm ASM] Transformed GameData$BlockCallbacks onAdd");
+
+                return method;
+            }
         }
     }
 }

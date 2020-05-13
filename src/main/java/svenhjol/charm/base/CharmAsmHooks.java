@@ -1,5 +1,6 @@
 package svenhjol.charm.base;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MusicTicker.MusicType;
 import net.minecraft.entity.Entity;
@@ -20,6 +21,7 @@ import svenhjol.charm.mobs.module.ParrotMimicDelay;
 import svenhjol.charm.mobs.module.ParrotsOnEndRods;
 import svenhjol.charm.tweaks.client.AmbientMusicClient;
 import svenhjol.charm.tweaks.module.HuskImprovements;
+import svenhjol.charm.tweaks.module.LanternImprovements;
 import svenhjol.charm.tweaks.module.LeatherArmorInvisibility;
 import svenhjol.charm.tweaks.module.MobsAffectedByBeacon;
 import svenhjol.meson.Meson;
@@ -94,5 +96,9 @@ public class CharmAsmHooks {
     public static boolean containersAcceptTransfer(Container container) {
         return container instanceof CrateContainer
             || container instanceof BookshelfChestContainer;
+    }
+
+    public static boolean bypassStateCheck(Block block) {
+        return LanternImprovements.bypassStateCheck(block);
     }
 }
