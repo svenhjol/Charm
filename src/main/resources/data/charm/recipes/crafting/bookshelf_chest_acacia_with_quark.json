@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XXX",
-    "X#X",
-    "XXX"
+    "###",
+    "#X#",
+    "###"
   ],
   "key": {
     "#": {
-      "item": "minecraft:oak_planks"
+      "item": "minecraft:acacia_planks"
     },
     "X": {
-      "item": "minecraft:bookshelf"
+      "item": "quark:acacia_bookshelf"
     }
   },
   "result": {
-    "item": "charm:bookshelf_chest_oak"
+    "item": "charm:bookshelf_chest_acacia"
   },
   "conditions": [
     {
@@ -25,13 +25,10 @@
           "module": "charm:bookshelf_chests"
         },
         {
-          "type": "forge:not",
-          "value": {
             "type": "forge:mod_loaded",
             "modid": "quark"
           }
-        }
       ]
     }
-  ]
+    ]
 }

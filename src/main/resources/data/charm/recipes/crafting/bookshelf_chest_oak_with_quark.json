@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "XXX",
-    "X#X",
-    "XXX"
+    "###",
+    "#X#",
+    "###"
   ],
   "key": {
     "#": {
@@ -25,11 +25,8 @@
           "module": "charm:bookshelf_chests"
         },
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:mod_loaded",
-            "modid": "quark"
-          }
+          "type": "forge:mod_loaded",
+          "modid": "quark"
         }
       ]
     }
