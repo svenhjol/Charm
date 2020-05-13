@@ -1,15 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
-    "#X#",
-    "###"
+    "XXX",
+    "X#X",
+    "XXX"
   ],
   "key": {
-    "#": {
+    "X": {
       "item": "minecraft:jungle_planks"
     },
-    "X": {
+    "#": {
       "item": "minecraft:bookshelf"
     }
   },
@@ -18,8 +18,20 @@
   },
   "conditions": [
     {
-      "type": "meson:module_enabled",
-      "module": "charm:bookshelf_chests"
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "meson:module_enabled",
+          "module": "charm:bookshelf_chests"
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:mod_loaded",
+            "modid": "quark"
+          }
+        }
+      ]
     }
   ]
 }
