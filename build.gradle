@@ -9,7 +9,9 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-
+plugins {
+    id "com.wynprice.cursemaven" version "2.1.1"
+}
 apply plugin: 'net.minecraftforge.gradle'
 
 group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -50,7 +52,7 @@ dependencies {
 
     compile fg.deobf("vazkii.autoreglib:AutoRegLib:${arl_version}")
     compile fg.deobf("vazkii.quark:Quark:${quark_version}")
-    compile fg.deobf("quark-oddities:QuarkOddities:${quark_oddities_version}")
+    compile fg.deobf("curse.maven:${quark_oddities}")
 
     // locals
 //    compileOnly fg.deobf("srg.net.optifine:OptiFine:OptiFine")
