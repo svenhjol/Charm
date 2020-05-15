@@ -17,7 +17,7 @@ import svenhjol.charm.decoration.container.BookshelfChestContainer;
 import svenhjol.charm.decoration.inventory.BookshelfChestScreen;
 import svenhjol.charm.decoration.tileentity.BookshelfChestTileEntity;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.enums.VanillaWoodType;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.IMesonBlock;
@@ -30,7 +30,7 @@ import java.util.*;
         "Provides the same enchanting power as a normal bookshelf as long as there is at least 1 book on the shelf.")
 public class BookshelfChests extends MesonModule {
     public static List<Class<? extends Item>> validItems = new ArrayList<>();
-    public static Map<WoodType, IMesonBlock> blocks = new HashMap<>();
+    public static Map<VanillaWoodType, IMesonBlock> blocks = new HashMap<>();
 
     @Config(name = "Valid books", description = "List of item IDs that may be placed in a bookshelf chest.")
     public static List<String> configValidItems = Arrays.asList(
@@ -55,7 +55,7 @@ public class BookshelfChests extends MesonModule {
     @Override
     public void init() {
         // create all wood types for bookshelves
-        for (WoodType wood : WoodType.values()) {
+        for (VanillaWoodType wood : VanillaWoodType.values()) {
             blocks.put(wood, new BookshelfChestBlock(this, wood));
         }
 
