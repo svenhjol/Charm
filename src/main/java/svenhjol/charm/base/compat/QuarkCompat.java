@@ -16,7 +16,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ForgeRegistries;
 import svenhjol.meson.Meson;
 import svenhjol.meson.enums.ColorVariant;
-import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.enums.VanillaWoodType;
 import svenhjol.meson.helper.ItemNBTHelper;
 import vazkii.quark.base.Quark;
 import vazkii.quark.base.module.ModuleLoader;
@@ -130,8 +130,8 @@ public class QuarkCompat implements IQuarkCompat {
 
     @Nullable
     public Block getRandomChest(Random rand) {
-        List<WoodType> types = Arrays.asList(WoodType.values());
-        WoodType type = types.get(rand.nextInt(types.size()));
+        List<VanillaWoodType> types = Arrays.asList(VanillaWoodType.values());
+        VanillaWoodType type = types.get(rand.nextInt(types.size()));
         ResourceLocation res = new ResourceLocation(Quark.MOD_ID, type.name().toLowerCase() + "_chest");
         return ForgeRegistries.BLOCKS.getValue(res);
     }

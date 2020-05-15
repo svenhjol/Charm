@@ -10,7 +10,7 @@ import svenhjol.charm.base.CharmCategories;
 import svenhjol.charm.decoration.block.CustomBarrelBlock;
 import svenhjol.charm.decoration.tileentity.CustomBarrelTileEntity;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.enums.VanillaWoodType;
 import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.iface.Module;
@@ -30,8 +30,8 @@ public class AllTheBarrels extends MesonModule {
     @Override
     public void init() {
         // register barrel blocks for each wood type except oak where we use vanilla
-        Arrays.stream(WoodType.values())
-            .filter(type -> !type.equals(WoodType.OAK))
+        Arrays.stream(VanillaWoodType.values())
+            .filter(type -> !type.equals(VanillaWoodType.OAK))
             .forEach(type -> barrels.add(new CustomBarrelBlock(this, type)));
 
         // register the custom barrel tile entity to get around an issue with hardcoded check

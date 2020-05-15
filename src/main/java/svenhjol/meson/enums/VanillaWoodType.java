@@ -1,8 +1,6 @@
 package svenhjol.meson.enums;
 
-import svenhjol.meson.iface.IMesonEnum;
-
-public enum WoodType implements IMesonEnum {
+public enum VanillaWoodType implements IWoodType {
     OAK,
     SPRUCE,
     BIRCH,

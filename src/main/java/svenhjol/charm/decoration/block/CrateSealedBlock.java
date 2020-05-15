@@ -11,10 +11,10 @@ import net.minecraft.world.World;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.decoration.module.Crates;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.enums.IWoodType;
 
 public class CrateSealedBlock extends CrateBaseBlock {
-    public CrateSealedBlock(MesonModule module, WoodType wood) {
+    public CrateSealedBlock(MesonModule module, IWoodType wood) {
         super(module, "crate_sealed_" + wood.getName(), wood);
     }
 
@@ -30,7 +30,7 @@ public class CrateSealedBlock extends CrateBaseBlock {
         }
     }
 
-    public static Block getBlockByWood(WoodType wood) {
+    public static Block getBlockByWood(IWoodType wood) {
         return Crates.sealedTypes.get(wood);
     }
 }

@@ -19,15 +19,15 @@ import net.minecraft.world.World;
 import svenhjol.charm.decoration.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
-import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.enums.IWoodType;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
 public abstract class CrateBaseBlock extends MesonBlock {
-    protected WoodType wood;
+    protected IWoodType wood;
 
-    public CrateBaseBlock(MesonModule module, String name, WoodType wood) {
+    public CrateBaseBlock(MesonModule module, String name, IWoodType wood) {
         super(module, name, Block.Properties
             .create(Material.WOOD)
             .hardnessAndResistance(1.5F)
@@ -118,7 +118,7 @@ public abstract class CrateBaseBlock extends MesonBlock {
         return stack;
     }
 
-    public WoodType getWood() {
+    public IWoodType getWood() {
         return wood;
     }
 }

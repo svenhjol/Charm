@@ -18,7 +18,7 @@ import net.minecraft.world.storage.loot.LootParameters;
 import svenhjol.charm.decoration.module.Crates;
 import svenhjol.charm.decoration.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.enums.IWoodType;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
 public class CrateOpenBlock extends CrateBaseBlock {
     public static final ResourceLocation CONTENTS = new ResourceLocation("contents");
 
-    public CrateOpenBlock(MesonModule module, WoodType wood) {
+    public CrateOpenBlock(MesonModule module, IWoodType wood) {
         super(module, "crate_open_" + wood.getName(), wood);
     }
 
@@ -87,7 +87,7 @@ public class CrateOpenBlock extends CrateBaseBlock {
         return super.getDrops(state, builder);
     }
 
-    public static Block getBlockByWood(WoodType wood) {
+    public static Block getBlockByWood(IWoodType wood) {
         return Crates.openTypes.get(wood);
     }
 }

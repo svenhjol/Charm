@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.decoration.tileentity.BookshelfChestTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlock;
-import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.enums.IWoodType;
 
 import javax.annotation.Nullable;
 
@@ -32,9 +32,9 @@ import javax.annotation.Nullable;
 public class BookshelfChestBlock extends MesonBlock {
     public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, 9);
 
-    protected WoodType wood;
+    protected IWoodType wood;
 
-    public BookshelfChestBlock(MesonModule module, WoodType wood) {
+    public BookshelfChestBlock(MesonModule module, IWoodType wood) {
         super(module, "bookshelf_chest_" + wood.getName(), Block.Properties
             .create(Material.WOOD)
             .sound(SoundType.WOOD)

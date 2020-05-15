@@ -24,7 +24,8 @@ import svenhjol.charm.decoration.container.CrateContainer;
 import svenhjol.charm.decoration.inventory.CrateScreen;
 import svenhjol.charm.decoration.tileentity.CrateTileEntity;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.WoodType;
+import svenhjol.meson.enums.IWoodType;
+import svenhjol.meson.enums.VanillaWoodType;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.iface.Module;
 
@@ -37,8 +38,8 @@ import java.util.Map;
     description = "A smaller storage solution with the benefit of being transportable.\n" +
         "You can also seal a crate by combining it with an iron ingot on an anvil.  The only way to get things out is to break it.")
 public class Crates extends MesonModule {
-    public static Map<WoodType, CrateOpenBlock> openTypes = new HashMap<>();
-    public static Map<WoodType, CrateSealedBlock> sealedTypes = new HashMap<>();
+    public static Map<IWoodType, CrateOpenBlock> openTypes = new HashMap<>();
+    public static Map<IWoodType, CrateSealedBlock> sealedTypes = new HashMap<>();
     public static List<Class<? extends Block>> invalidBlocks = new ArrayList<>();
     public static List<Class<? extends Item>> invalidItems = new ArrayList<>();
 
@@ -54,7 +55,7 @@ public class Crates extends MesonModule {
     @Override
     public void init() {
         // create all wood types for open and sealed crates
-        for (WoodType wood : WoodType.values()) {
+        for (VanillaWoodType wood : VanillaWoodType.values()) {
             openTypes.put(wood, new CrateOpenBlock(this, wood));
             sealedTypes.put(wood, new CrateSealedBlock(this, wood));
         }
@@ -97,7 +98,7 @@ public class Crates extends MesonModule {
         if (!(block instanceof CrateBaseBlock)) return;
 
         if (right.getItem() == Items.IRON_INGOT && block instanceof CrateOpenBlock) {
-            WoodType wood = ((CrateOpenBlock) block).getWood();
+            IWoodType wood = ((CrateOpenBlock) block).getWood();
 
             out = new ItemStack(sealedTypes.get(wood));
             out.setTag(left.getTag());
