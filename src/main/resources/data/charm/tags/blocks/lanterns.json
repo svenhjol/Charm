@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "charm:gold_lantern",
+    "charm:white_lantern",
+    "charm:orange_lantern",
+    "charm:magenta_lantern",
+    "charm:light_blue_lantern",
+    "charm:yellow_lantern",
+    "charm:lime_lantern",
+    "charm:pink_lantern",
+    "charm:gray_lantern",
+    "charm:light_gray_lantern",
+    "charm:cyan_lantern",
+    "charm:purple_lantern",
+    "charm:blue_lantern",
+    "charm:brown_lantern",
+    "charm:green_lantern",
+    "charm:red_lantern",
+    "charm:black_lantern"
+  ]
+}

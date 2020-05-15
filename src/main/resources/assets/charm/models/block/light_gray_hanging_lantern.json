@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"particle": "charm:block/gold_lantern",
-		"all": "charm:block/gold_lantern"
+		"particle": "charm:block/light_gray_lantern",
+		"all": "charm:block/light_gray_lantern"
 	},
 	"elements": [
 		{

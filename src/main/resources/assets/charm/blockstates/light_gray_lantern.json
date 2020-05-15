@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "hanging=true": { "model": "charm:block/light_gray_hanging_lantern"},
+        "hanging=false": { "model": "charm:block/light_gray_lantern"}
+  }
+}
