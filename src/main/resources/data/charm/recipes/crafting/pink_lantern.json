@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "charm:lanterns"
+    },
+    {
+      "item": "pink_dye"
+    }
+  ],
+  "result": {
+    "item": "charm:pink_lantern"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:colored_lanterns"
+    }
+  ]
+}
