@@ -2,7 +2,6 @@ package svenhjol.charm.tweaks.module;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.LanternBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -35,6 +34,6 @@ public class LanternImprovements extends MesonModule {
     }
 
     public static boolean bypassStateCheck(Block block) {
-        return Meson.isModuleEnabled("charm:lantern_improvements") && block instanceof LanternBlock;
+        return Meson.isModuleEnabled("charm:lantern_improvements") && block instanceof ImprovedLanternBlock;
     }
 }
