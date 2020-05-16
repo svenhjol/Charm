@@ -6,9 +6,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.IMesonBlock;
+import svenhjol.meson.iface.IMesonFallingBlock;
 
-public abstract class MesonFallingBlock extends FallingBlock implements IMesonBlock {
+public abstract class MesonFallingBlock extends FallingBlock implements IMesonFallingBlock {
     protected MesonModule module;
 
     public MesonFallingBlock(MesonModule module, String name, Block.Properties props) {
