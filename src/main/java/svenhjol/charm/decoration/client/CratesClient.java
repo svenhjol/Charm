@@ -108,7 +108,13 @@ public class CratesClient {
                     GlStateManager.enableDepthTest();
 
                     for (int i = 0; i < size; i++) {
-                        ItemStack itemstack = cap.getStackInSlot(i);
+                        ItemStack itemstack;
+                        try {
+                            itemstack = cap.getStackInSlot(i);
+                        } catch (Exception e) {
+                            // catch null issue with itemstack. Needs investigation. #255
+                            continue;
+                        }
                         int xp = x + 6 + (i % 9) * 18;
                         int yp = y + 6 + (i / 9) * 18;
 
