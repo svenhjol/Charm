@@ -1,7 +1,7 @@
 {
     "parent": "block/cube_bottom_top",
     "textures": {
-        "top": "charm:block/barrel_oak_otop_open",
+        "top": "charm:block/barrel_oak_top_open",
         "side": "charm:block/barrel_oak_side",
         "bottom": "charm:block/barrel_oak_bottom"
     }
