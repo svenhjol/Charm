@@ -140,7 +140,7 @@ public class CratesClient {
             return false;
 
         final String itemName = itemRegName.toString();
-        if (!itemName.contains("charm:crate_"))
+        if (!itemName.contains("charm:crate_") || !itemName.contains("covalent:crate_")) // *facepalm*
             return false;
 
         return true;
