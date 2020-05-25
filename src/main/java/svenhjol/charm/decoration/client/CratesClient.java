@@ -140,10 +140,8 @@ public class CratesClient {
             return false;
 
         final String itemName = itemRegName.toString();
-        if (!itemName.contains("charm:crate_") || !itemName.contains("covalent:crate_")) // *facepalm*
-            return false;
-
-        return true;
+        // OH JUST GO TO BED SVEN
+        return itemName.contains("charm:crate_") || itemName.contains("covalent:crate_");
     }
 
     public void drawModalRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
