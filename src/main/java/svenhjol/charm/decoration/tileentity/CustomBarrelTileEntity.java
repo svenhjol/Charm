@@ -54,6 +54,6 @@ public class CustomBarrelTileEntity extends BarrelTileEntity {
 
     @Override
     protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent("block.charm.barrel_" + this.wood.getName());
+        return new TranslationTextComponent("block.meson.barrel_" + this.wood.getName());
     }
 }

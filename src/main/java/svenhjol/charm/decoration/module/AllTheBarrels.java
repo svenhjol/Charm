@@ -1,6 +1,5 @@
 package svenhjol.charm.decoration.module;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.config.ModConfig.ModConfigEvent;
@@ -11,7 +10,6 @@ import svenhjol.charm.decoration.block.CustomBarrelBlock;
 import svenhjol.charm.decoration.tileentity.CustomBarrelTileEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.VanillaWoodType;
-import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.handler.RegistryHandler;
 import svenhjol.meson.iface.Module;
 
@@ -43,7 +41,7 @@ public class AllTheBarrels extends MesonModule {
     @Override
     public void onModConfig(ModConfigEvent event) {
         // change the name of the vanilla barrel from "Barrel" to "Oak Barrel"
-        if (enabled)
-            OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.barrel_oak");
+//        if (enabled)
+//            OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.barrel_oak");
     }
 }
