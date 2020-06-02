@@ -8,7 +8,7 @@
     "P": {"item": "minecraft:oak_planks"}
   },
   "result": {
-    "item": "minecraft:barrel"
+    "item": "charm:barrel_oak"
   },
   "conditions": [
     {

@@ -241,6 +241,8 @@ public class EndPortalRunes extends MesonModule {
                     portal.setPortal(world, p, thisPortal, order);
                 }
             }
+
+            world.playSound(null, thisPortal, SoundEvents.BLOCK_END_PORTAL_SPAWN, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
     }
 
