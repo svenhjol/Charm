@@ -33,9 +33,9 @@ public class CrateOpenBlock extends CrateBaseBlock {
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (world.isRemote) {
-            return ActionResultType.PASS;
+            return ActionResultType.SUCCESS;
         } else if (player.isSpectator()) {
-            return ActionResultType.PASS;
+            return ActionResultType.SUCCESS;
         } else {
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof CrateTileEntity) {
@@ -45,7 +45,7 @@ public class CrateOpenBlock extends CrateBaseBlock {
                 /* @todo stats, see ShulkerBoxBlock */
                 return ActionResultType.SUCCESS;
             }
-            return ActionResultType.FAIL;
+            return ActionResultType.PASS;
         }
     }
 

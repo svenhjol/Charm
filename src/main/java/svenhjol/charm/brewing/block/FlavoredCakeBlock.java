@@ -79,7 +79,7 @@ public class FlavoredCakeBlock extends CakeBlock implements IMesonBlock {
             }
         }
 
-        return ActionResultType.FAIL;
+        return ActionResultType.PASS;
     }
 
     public void onEaten(PlayerEntity player) {

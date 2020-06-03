@@ -52,7 +52,8 @@ public class BookshelfChestBlock extends MesonBlock {
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (world.isRemote || player.isSpectator()) return ActionResultType.PASS;
+        if (world.isRemote || player.isSpectator())
+            return ActionResultType.SUCCESS;
 
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof BookshelfChestTileEntity) {
@@ -62,7 +63,7 @@ public class BookshelfChestBlock extends MesonBlock {
             /* @todo stats, see ShulkerBoxBlock */
             return ActionResultType.SUCCESS;
         }
-        return ActionResultType.FAIL;
+        return ActionResultType.PASS;
     }
 
     @Override
