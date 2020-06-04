@@ -4,7 +4,7 @@ permalink: /
 ---
 
 # Charm
-Charm is a **Forge Mod** for **Minecraft 1.14+**, inspired by [Quark](https://quark.vazkii.us/), that adds to the vanilla experience of Minecraft without drastically changing its gameplay.  Charm does not require **Quark** to be installed but is designed to play nicely with it and extend some of its features.
+Charm is a **Forge Mod** for **Minecraft 1.15**, inspired by [Quark](https://quark.vazkii.us/), that adds to the vanilla experience of Minecraft without drastically changing its gameplay.  Charm does not require **Quark** to be installed but is designed to play nicely with it and extend some of its features.
 
 It's a *modular* mod in that you can turn on or off any of the mod features via the config file.
 
