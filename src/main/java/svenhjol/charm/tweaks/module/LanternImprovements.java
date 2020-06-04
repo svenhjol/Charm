@@ -15,7 +15,7 @@ import svenhjol.meson.handler.OverrideHandler;
 import svenhjol.meson.iface.Module;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.TWEAKS,
-    description = "Vanilla lanterns are now waterloggable.")
+    description = "Vanilla lanterns are now waterloggable and obey gravity.")
 public class LanternImprovements extends MesonModule {
     public static Block lanternBlock;
     public static Item lanternItem;
