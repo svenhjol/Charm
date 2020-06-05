@@ -5,6 +5,7 @@
 * Fixed recipes for bookshelf chests when Quark is present.
 * Fixed oak barrel recipe.
 * Fixed pig iron giving XP when mined with silk touch.
+* Fixed crash when using homing on a non-vanilla digger.  Fixes #272
 * End portals with colored runes now make the "spawn" sound when creating a portal.
 * Updated all wood-type textures.
 * Added lantern improvements. Lanterns now obey gravity and can be waterlogged.
