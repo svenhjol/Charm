@@ -13,7 +13,33 @@ It's a *modular* mod in that you can turn on or off any of the mod features via 
 </div>
 
 
-## Minecraft 1.12
+## Covalent
+Covalent is an accompanying mod for Charm.  It provides **Barrels**, **Crates** and **Bookshelf Chests** in wood types from the following mods:
+* Atmospheric
+* Autumnity
+* Bamboo Blocks
+* Bloomful
+* Buzzier Bees
+* Endergetic Expansion
+* Swamp Expansion
+* Upgrade Aquatic
+
+Download it from the [Curseforge mod page](https://www.curseforge.com/minecraft/mc-mods/covalent).
+
+
+## Strange
+Strange is an adventure and exploration expansion for Charm.  It has a dedicated wiki [here](https://svenhjol.github.io/Strange/).
+
+
+## Charmonium
+Charmonium is an accompanying mod for Charm.  It provides ambient biome sounds, village sounds and underground sounds such as mineshafts and Quark's crystal caves.
+
+The mod also provides some additional music tracks that play under certain situations.  All additional music is available under a CC license at [open.audio](https://open.audio/channels/charmonium/).
+
+Download it from the [Curseforge mod page](https://www.curseforge.com/minecraft/mc-mods/charmonium).
+
+
+## Charm for Minecraft 1.12
 Charm for Minecraft 1.12 is no longer being actively maintained due to lack of time.  Serious bugs will be worked on when time permits.  [Read the 1.12 documentation here.]({{site.baseurl}}/features-1.12/index)
 
 
