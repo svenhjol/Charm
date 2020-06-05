@@ -54,8 +54,10 @@ dependencies {
     compile fg.deobf("vazkii.quark:Quark:${quark_version}")
     compile fg.deobf("curse.maven:${quark_oddities}")
 
-    // locals
-//    compileOnly fg.deobf("srg.net.optifine:OptiFine:OptiFine")
+    // for testing botania
+//    compile fg.deobf("curse.maven:botania:2953670")
+//    compile fg.deobf("curse.maven:patchouli:2945108")
+//    compile fg.deobf("curse.maven:curios:2972162")
 }
 
 repositories {
