@@ -86,8 +86,13 @@ public class Homing extends MesonModule {
             Hand hand = event.getHand();
             BlockPos pos = event.getPos();
             TieredItem item = (TieredItem) held.getItem();
+
+            if (!matches.containsKey(item.getTier()))
+                return;
+
             List<Block> matchedBlocks = matches.get(item.getTier());
-            if (matchedBlocks.isEmpty()) return;
+            if (matchedBlocks.isEmpty())
+                return;
 
             double distance = 128.0D;
             Stream<BlockPos> inRange = BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range));
