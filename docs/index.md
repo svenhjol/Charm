@@ -32,7 +32,7 @@ Strange is an adventure and exploration expansion for Charm.  It has a dedicated
 
 
 ## Charmonium
-Charmonium is an accompanying mod for Charm.  It provides ambient biome sounds, village sounds and underground sounds such as mineshafts and Quark's crystal caves.
+Charmonium is an accompanying mod for Charm.  It provides ambient biome sounds, village sounds and underground sounds in mineshafts and Quark's crystal caves.
 
 The mod also provides some additional music tracks that play under certain situations.  All additional music is available under a CC license at [open.audio](https://open.audio/channels/charmonium/).
 
