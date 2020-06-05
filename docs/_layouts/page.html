@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    {% include meta.html %}
+    {% seo %}
+  </head>
+
+  <body>
+    {% include header.html %}
+
+    <div class="page-content container">
+      <section id="main_content">
+        {{ content }}
+      </section>
+    </div>
+
+    {% include footer.html %}
+
+  </body>
+</html>

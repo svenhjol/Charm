@@ -47,3 +47,14 @@ Charm for Minecraft 1.12 is no longer being actively maintained due to lack of t
 You need to install the **Java Edition** of Minecraft and then the [correct version of Forge](https://files.minecraftforge.net/) for the version of Minecraft you want to play.  Once you have done this, drop the **Charm jar file** in your **mods** folder and start the game.
 
 After the game starts for the first time, you can edit the **charm-common.toml** file (in the config folder) to change things about Charm.  Each of Charm's features can be disabled or tweaked to fit your playstyle.
+
+
+## Credits
+Thank you to everyone who contributed ideas and to all playtesters.  
+
+Very grateful to the following for their contributions to the project so far:
+* [Warlord Wossman](https://www.curseforge.com/members/warlordwossman)
+* [mcvinnyq](https://www.curseforge.com/members/mcvinnyq)
+* [Coranthes](https://www.curseforge.com/members/coranthes)
+
+[More Credits](credits)
