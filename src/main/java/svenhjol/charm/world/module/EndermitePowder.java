@@ -10,8 +10,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmCategories;
+import svenhjol.charm.world.client.renderer.EndermitePowderRenderer;
 import svenhjol.charm.world.entity.EndermitePowderEntity;
 import svenhjol.charm.world.item.EndermitePowderItem;
 import svenhjol.meson.MesonModule;
@@ -23,22 +26,26 @@ import svenhjol.meson.iface.Module;
         "Use it in the End to help locate an End City.")
 public class EndermitePowder extends MesonModule {
     public static EndermitePowderItem item;
-    public static EntityType<?> entity;
+    public static EntityType<EndermitePowderEntity> entity;
 
     @Override
     public void init() {
         item = new EndermitePowderItem(this);
         ResourceLocation res = new ResourceLocation(Charm.MOD_ID, "endermite_powder");
 
-        entity = EntityType.Builder.create(EndermitePowderEntity::new, EntityClassification.MISC)
+        entity = EntityType.Builder.<EndermitePowderEntity>create(EndermitePowderEntity::new, EntityClassification.MISC)
             .setTrackingRange(80)
             .setUpdateInterval(10)
             .setShouldReceiveVelocityUpdates(false)
             .size(2.0F, 2.0F)
-            .build(res.getPath())
-            .setRegistryName(res);
+            .build(res.getPath());
 
         RegistryHandler.registerEntity(entity, res);
+    }
+
+    @Override
+    public void onClientSetup(FMLClientSetupEvent event) {
+        RenderingRegistry.registerEntityRenderingHandler(entity, EndermitePowderRenderer::new);
     }
 
     @SubscribeEvent

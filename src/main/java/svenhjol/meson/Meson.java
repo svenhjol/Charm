@@ -33,7 +33,7 @@ public class Meson {
     private IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     private IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
-    private static IQuarkCompat quarkCompat;
+    private static IQuarkCompat quarkCompat = null;
 
     private Meson() {
         // register crafting recipe conditions

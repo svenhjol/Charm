@@ -67,3 +67,4 @@ debugclient.sh
 buildmc.sh
 runClient.launch
 runServer.launch
+*.code-workspace

@@ -11,7 +11,6 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -21,6 +20,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -51,7 +51,6 @@ public class ImprovedLanternBlock extends FallingBlock implements IWaterLoggable
                 }
             }
         }
-
         return null;
     }
 
@@ -72,10 +71,6 @@ public class ImprovedLanternBlock extends FallingBlock implements IWaterLoggable
         return PushReaction.DESTROY;
     }
 
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
-
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
@@ -91,7 +86,6 @@ public class ImprovedLanternBlock extends FallingBlock implements IWaterLoggable
             return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
         }
         return stateIn;
-//        return getHangingDirection(stateIn).getOpposite() == facing && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
     @Override
@@ -100,13 +94,12 @@ public class ImprovedLanternBlock extends FallingBlock implements IWaterLoggable
     }
 
     @Override
-    public void checkFallable(World worldIn, BlockPos pos) {
-        BlockState state = worldIn.getBlockState(pos);
+    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
         if (state.get(HANGING) && worldIn.isAirBlock(pos.up())) {
             worldIn.setBlockState(pos, state.with(HANGING, false));
-            super.checkFallable(worldIn, pos);
+            super.tick(state, worldIn, pos, rand);
         } else if (!state.get(HANGING)) {
-            super.checkFallable(worldIn, pos);
+            super.tick(state, worldIn, pos, rand);
         }
     }
 

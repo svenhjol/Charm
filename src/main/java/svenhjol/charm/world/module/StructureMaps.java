@@ -99,7 +99,7 @@ public class StructureMaps extends MesonModule {
 
                     // generate the map
                     ItemStack stack = FilledMapItem.setupNewMap(world, pos.getX(), pos.getZ(), (byte) 2, true, true);
-                    FilledMapItem.renderBiomePreviewMap(world, stack);
+                    FilledMapItem.func_226642_a_(serverWorld, stack);
                     MapData.addTargetDecoration(stack, pos, "+", this.targetType);
                     stack.setDisplayName(new TranslationTextComponent("map.charm." + structure.name.toLowerCase(Locale.ENGLISH)));
 

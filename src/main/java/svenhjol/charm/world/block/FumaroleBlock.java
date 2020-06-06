@@ -104,7 +104,7 @@ public class FumaroleBlock extends MesonBlock {
     }
 
     @Override
-    public void tick(BlockState state, World world, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         super.tick(state, world, pos, rand);
         erupt(world, pos);
     }

@@ -49,7 +49,7 @@ public class RunePortalFrameBlock extends MesonBlock {
     private static BlockPattern portalShape;
 
     public RunePortalFrameBlock(MesonModule module) {
-        super(module, "rune_portal_frame", Block.Properties
+        super(module, "rune_portal_frame", Properties
             .create(Material.ROCK, MaterialColor.GREEN)
             .sound(SoundType.GLASS)
             .hardnessAndResistance(-1.0F, 3600000.0F)

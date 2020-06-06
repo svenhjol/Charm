@@ -7,10 +7,10 @@ import net.minecraftforge.fml.network.NetworkEvent;
 import svenhjol.charm.Charm;
 import svenhjol.meson.iface.IMesonMessage;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -29,7 +29,7 @@ public class ClientUpdatePlayerState implements IMesonMessage {
         try {
             final ByteArrayOutputStream out = new ByteArrayOutputStream();
             CompressedStreamTools.writeCompressed(msg.input, out);
-            serialized = DatatypeConverter.printBase64Binary(out.toByteArray());
+            serialized = Base64.getEncoder().encodeToString(out.toByteArray());
         } catch (Exception e) {
             Charm.LOG.warn("Failed to compress structures");
         }
@@ -40,7 +40,7 @@ public class ClientUpdatePlayerState implements IMesonMessage {
         CompoundNBT input = new CompoundNBT();
 
         try {
-            final byte[] byteData = DatatypeConverter.parseBase64Binary(buf.readString());
+            final byte[] byteData = Base64.getDecoder().decode(buf.readString());
             input = CompressedStreamTools.readCompressed(new ByteArrayInputStream(byteData));
         } catch (Exception e) {
             Charm.LOG.warn("Failed to uncompress structures");

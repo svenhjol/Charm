@@ -17,6 +17,7 @@ public class PigIronOreBlock extends MesonBlock {
 
     @Override
     public int getExpDrop(BlockState state, IWorldReader world, BlockPos pos, int fortune, int silktouch) {
+        if (silktouch > 0) return 0;
         Random rand = world instanceof World ? ((World) world).rand : new Random();
         return rand.nextInt(2);
     }

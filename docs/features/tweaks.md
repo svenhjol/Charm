@@ -28,11 +28,17 @@ Composter inputs and outputs can be added by the configuration file.  By default
 
 ## Extra music discs
 ![Extra music discs](https://i.postimg.cc/C5vsKqcF/Extra-records.png)
-All in-game ambient music by C418 is available on music discs, including the "underwater" tracks added in Minecraft 1.13.  These music discs are dropped by zombies that were killed by skeletons.
+All in-game ambient music by C418 is available on music discs, including the "underwater" tracks added in Minecraft 1.13.  These extra discs are available as drops when a skeleton kills a creeper.
+
+**Note**: due to technical limitations, extra music discs do not obey player distance from the jukebox and will play at full volume.
 
 ## Leather armor invisibility
 ![Leather armor invisibility](https://i.postimg.cc/K83DZ4B2/Leather-armor-invisibility.png)
 Leather armor is now completely invisible and does not increase mob awareness when drinking a **Potion of Invisibility**, giving you a bit more protection while you ninja.
+
+## Lantern improvements
+![Lantern improvements](https://i.postimg.cc/ryJDT4HJ/Lantern-improvements.jpg)
+Lanterns now obey gravity and can be waterlogged.  This feature is also inherited by gold lanterns.
 
 ## No anvil minimum XP
 ![No anvil minimum XP](https://i.postimg.cc/Bbw23Gvb/No-anvil-minimum-xp.png)

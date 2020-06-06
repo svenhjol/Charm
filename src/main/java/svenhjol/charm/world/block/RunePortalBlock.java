@@ -39,7 +39,7 @@ public class RunePortalBlock extends EndPortalBlock implements IMesonBlock {
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D);
 
     public RunePortalBlock(MesonModule module) {
-        super(Block.Properties
+        super(Properties
             .create(Material.PORTAL, MaterialColor.BLACK)
             .doesNotBlockMovement()
             .lightValue(15)

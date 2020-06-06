@@ -3,8 +3,12 @@
 ## 1.5.9
 * Fixed issue with crates not being named after the correct wood type.
 * Fixed recipes for bookshelf chests when Quark is present.
-* Updated all wood type textures.
-* Added lantern improvements; lanterns now obey gravity and can be waterlogged.
+* Fixed oak barrel recipe.
+* Fixed pig iron giving XP when mined with silk touch.
+* Fixed crash when using homing on a non-vanilla digger.  Fixes #272
+* End portals with colored runes now make the "spawn" sound when creating a portal.
+* Updated all wood-type textures.
+* Added lantern improvements. Lanterns now obey gravity and can be waterlogged.
 
 ## 1.5.8
 * Added all music discs to the minecraft music disc pool.
