@@ -23,7 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unused")
 public class Meson {
-    public static boolean DEBUG = false;
     public static final String MOD_ID = "Meson";
     public static final Meson INSTANCE = new Meson();
     public static final LogHandler LOG = new LogHandler(MOD_ID);
@@ -47,13 +46,6 @@ public class Meson {
     public void register(MesonInstance instance) {
         instances.put(instance.getId(), instance);
         LOG.info("Added " + instance.getId() + " to Meson");
-
-        if (DEBUG) {
-            LOG.warn("=== MESON RUNNING IN DEBUG MODE ===");
-            LOG.warn("This build of " + instance.getId() + " is designed for testing purposes.");
-            LOG.warn("Expect a lot of console output, some of which may be scary.");
-            LOG.warn("===================================\n");
-        }
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(instance::onCommonSetup);
