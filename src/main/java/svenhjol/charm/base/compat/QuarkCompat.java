@@ -21,9 +21,9 @@ import svenhjol.meson.helper.ItemNBTHelper;
 import vazkii.quark.base.Quark;
 import vazkii.quark.base.module.ModuleLoader;
 import vazkii.quark.building.module.VariantChestsModule;
+import vazkii.quark.tools.item.RuneItem;
 import vazkii.quark.tools.module.AncientTomesModule;
-import vazkii.quark.vanity.item.RuneItem;
-import vazkii.quark.vanity.module.ColorRunesModule;
+import vazkii.quark.tools.module.ColorRunesModule;
 import vazkii.quark.world.block.CaveCrystalBlock;
 import vazkii.quark.world.module.BigDungeonModule;
 

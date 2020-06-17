@@ -21,6 +21,7 @@ public class CustomBarrelTileEntity extends BarrelTileEntity {
     public CustomBarrelTileEntity(IWoodType wood) {
         super(AllTheBarrels.tile);
         this.wood = wood;
+        this.setCustomName(new TranslationTextComponent("block.charm.barrel_" + this.wood.getName()));
     }
 
     /**

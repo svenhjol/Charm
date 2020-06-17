@@ -57,15 +57,16 @@ public class PlayerHelper {
         World world = player.world;
         Random rand = world.rand;
 
-        if (!world.isSkyLightMax(player.getPosition())) return;
+        if (!WorldHelper.canSeeSky(world, player.getPosition()))
+            return;
 
         BlockPos pos = player.getPosition().add(-(dist / 2) + rand.nextInt(dist), 0, -(dist / 2) + rand.nextInt(dist));
         ((ServerWorld) world).addLightningBolt(new LightningBoltEntity(world, (double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, false));
     }
 
     public static boolean isCrouching(PlayerEntity player) {
-        return player.isSneaking(); // [1.14]
-        // return player.isCrouching(); // [1.15]
+//        return player.isSneaking(); // [1.14]
+         return player.isCrouching(); // [1.15]
     }
 
     public static void setHeldItem(PlayerEntity player, Hand hand, ItemStack item) {
@@ -190,7 +191,7 @@ public class PlayerHelper {
         WorldInfo worldinfo = serverPlayer.world.getWorldInfo();
         net.minecraftforge.fml.network.NetworkHooks.sendDimensionDataPacket(serverPlayer.connection.netManager, serverPlayer);
 
-        serverPlayer.connection.sendPacket(new SRespawnPacket(destination, worldinfo.getGenerator(), serverPlayer.interactionManager.getGameType()));
+        serverPlayer.connection.sendPacket(new SRespawnPacket(destination, WorldInfo.byHashing(worldinfo.getSeed()), worldinfo.getGenerator(), serverPlayer.interactionManager.getGameType()));
         serverPlayer.connection.sendPacket(new SServerDifficultyPacket(worldinfo.getDifficulty(), worldinfo.isDifficultyLocked()));
 
         PlayerList playerlist = serverPlayer.server.getPlayerList();
@@ -224,7 +225,7 @@ public class PlayerHelper {
         serverworld.getProfiler().endSection();
 
         serverPlayer.setWorld(serverworld1);
-        serverworld1.func_217447_b(serverPlayer);
+        serverworld1.addRespawnedPlayer(serverPlayer);
         serverPlayer.connection.setPlayerLocation(playerPos.getX(), playerPos.getY(), playerPos.getZ(), f1, f);
         serverPlayer.interactionManager.setWorld(serverworld1);
         serverPlayer.connection.sendPacket(new SPlayerAbilitiesPacket(serverPlayer.abilities));

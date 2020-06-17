@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Module(mod = Charm.MOD_ID, category = CharmCategories.DECORATION,
-    description = "Gold lanterns can be combined with dye to make colored lanterns.")
+    description = "Gold lanterns can be combined with dye to make colored lanterns.", enabledByDefault = false)
 public class ColoredLanterns extends MesonModule {
     public static Map<DyeColor, BaseLanternBlock> lanterns = new HashMap<>();
 

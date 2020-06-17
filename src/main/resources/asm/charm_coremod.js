@@ -144,8 +144,8 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.client.renderer.entity.layers.ArmorLayer',
-                'methodName': 'func_188361_a', // renderArmorLayer
-                'methodDesc': '(Lnet/minecraft/entity/LivingEntity;FFFFFFFLnet/minecraft/inventory/EquipmentSlotType;)V'
+                'methodName': 'func_229129_a_', // renderArmorPart
+                'methodDesc': '(Lcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;Lnet/minecraft/entity/LivingEntity;FFFFFFLnet/minecraft/inventory/EquipmentSlotType;I)V'
             },
             transformer: function(method) {
                 var didThing = false;
@@ -156,8 +156,8 @@ function initializeCoreMod() {
 
                     if (instruction.getOpcode() == Opcodes.ASTORE) {
                         var label = new LabelNode();
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
-                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 10));
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 3));
+                        newInstructions.add(new VarInsnNode(Opcodes.ALOAD, 12));
                         newInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ASM_HOOKS, "isArmorInvisible", "(Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)Z", false));
                         newInstructions.add(new JumpInsnNode(Opcodes.IFEQ, label));
                         newInstructions.add(new InsnNode(Opcodes.RETURN));
@@ -344,8 +344,8 @@ function initializeCoreMod() {
             target: {
                 'type': 'METHOD',
                 'class': 'net.minecraft.block.ComposterBlock',
-                'methodName': 'func_220051_a', // onBlockActivated
-                'methodDesc': '(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/BlockRayTraceResult;)Z'
+                'methodName': 'func_225533_a_', // onBlockActivated
+                'methodDesc': '(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/BlockRayTraceResult;)Lnet/minecraft/util/ActionResultType;'
             },
             transformer: function(method) {
                 var didThing = false;

@@ -47,14 +47,17 @@ minecraft {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
+    compile fg.deobf("curse.maven:${autoreglib}")
+    compile fg.deobf("curse.maven:${quark}")
+    compile fg.deobf("curse.maven:${quark_oddities}")
 
-    compile fg.deobf("vazkii.arl:AutoRegLib:${arl_version}")
-    compile fg.deobf("vazkii.quark:Quark:${quark_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${jei}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei}")
 
-    // locals
-//    compileOnly fg.deobf("srg.net.optifine:OptiFine:OptiFine")
+    // for testing botania
+//    compile fg.deobf("curse.maven:botania:2953670")
+//    compile fg.deobf("curse.maven:patchouli:2945108")
+//    compile fg.deobf("curse.maven:curios:2972162")
 }
 
 repositories {

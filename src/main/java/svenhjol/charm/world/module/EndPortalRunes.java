@@ -79,7 +79,7 @@ public class EndPortalRunes extends MesonModule {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void onClientSetup(FMLClientSetupEvent event) {
-        ClientRegistry.bindTileEntitySpecialRenderer(RunePortalTileEntity.class, new RunePortalTileEntityRenderer());
+        ClientRegistry.bindTileEntityRenderer(tile, RunePortalTileEntityRenderer::new);
     }
 
     @SubscribeEvent
@@ -241,6 +241,8 @@ public class EndPortalRunes extends MesonModule {
                     portal.setPortal(world, p, thisPortal, order);
                 }
             }
+
+            world.playSound(null, thisPortal, SoundEvents.BLOCK_END_PORTAL_SPAWN, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
     }
 
