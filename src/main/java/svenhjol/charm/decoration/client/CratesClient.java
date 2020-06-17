@@ -21,6 +21,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import svenhjol.charm.Charm;
+import svenhjol.charm.decoration.module.Crates;
 import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.helper.VersionHelper;
 
@@ -32,6 +33,9 @@ public class CratesClient {
 
     @SubscribeEvent
     public void onItemToolTip(ItemTooltipEvent event) {
+        if (!Crates.showTooltips)
+            return;
+
         final ItemStack stack = event.getItemStack();
         if (!isCrate(stack) || !stack.hasTag())
             return;
@@ -62,6 +66,9 @@ public class CratesClient {
 
     @SubscribeEvent
     public void onRenderToolTip(RenderTooltipEvent.PostText event) {
+        if (!Crates.showTooltips)
+            return;
+
         final Minecraft mc = Minecraft.getInstance();
         final ItemStack stack = event.getStack();
         if (!isCrate(stack) || !stack.hasTag())
