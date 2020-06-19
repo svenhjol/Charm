@@ -27,6 +27,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.IWoodType;
 import svenhjol.meson.enums.VanillaWoodType;
 import svenhjol.meson.handler.RegistryHandler;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.ArrayList;
@@ -48,6 +49,9 @@ public class Crates extends MesonModule {
 
     @ObjectHolder("charm:crate")
     public static TileEntityType<CrateTileEntity> tile;
+
+    @Config(name = "Show tooltips", description = "If true, hovering over a crate will show its contents in a tooltip.")
+    public static boolean showTooltips = true;
 
     public static CratesClient client;
 
