@@ -1,5 +1,10 @@
 # Changelog for Charm
 
+## 1.5.10
+* Added wolf tame textures (NeverLoseGuy)
+* Added zh_tw lang file (Nanamiya738)
+* Possible to enable/disable logging of debug messages via config. #276
+
 ## 1.5.9
 * Fixed issue with crates not being named after the correct wood type.
 * Fixed recipes for bookshelf chests when Quark is present.

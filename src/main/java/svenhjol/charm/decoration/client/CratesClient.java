@@ -3,11 +3,8 @@ package svenhjol.charm.decoration.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -21,6 +18,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import svenhjol.charm.Charm;
+import svenhjol.charm.decoration.module.Crates;
 import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.helper.VersionHelper;
 
@@ -32,6 +30,9 @@ public class CratesClient {
 
     @SubscribeEvent
     public void onItemToolTip(ItemTooltipEvent event) {
+        if (!Crates.showTooltips)
+            return;
+
         final ItemStack stack = event.getItemStack();
         if (!isCrate(stack) || !stack.hasTag())
             return;
@@ -62,6 +63,9 @@ public class CratesClient {
 
     @SubscribeEvent
     public void onRenderToolTip(RenderTooltipEvent.PostText event) {
+        if (!Crates.showTooltips)
+            return;
+
         final Minecraft mc = Minecraft.getInstance();
         final ItemStack stack = event.getStack();
         if (!isCrate(stack) || !stack.hasTag())
@@ -100,8 +104,6 @@ public class CratesClient {
                     mc.getTextureManager().bindTexture(WIDGET_RESOURCE);
 
                     RenderHelper.disableStandardItemLighting();
-
-//                    drawModalRectWithCustomSizedTexture(x, y, 0, 0, w, h, 256, 256);
                     renderTooltipBackground(mc, x, y, 9, 1, -1);
                     RenderSystem.color3f(1f, 1f, 1f);
 
@@ -140,21 +142,7 @@ public class CratesClient {
             return false;
 
         final String itemName = itemRegName.toString();
-        // OH JUST GO TO BED SVEN
         return itemName.contains("charm:crate_") || itemName.contains("covalent:crate_");
-    }
-
-    public void drawModalRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
-        float f = 1.0F / textureWidth;
-        float f1 = 1.0F / textureHeight;
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(x, (y + height), 0.0D).tex((u * f), ((v + (float)height) * f1)).endVertex();
-        bufferbuilder.pos((x + width), (y + height), 0.0D).tex(((u + (float)width) * f), ((v + (float)height) * f1)).endVertex();
-        bufferbuilder.pos((x + width), y, 0.0D).tex(((u + (float)width) * f), (v * f1)).endVertex();
-        bufferbuilder.pos(x, y, 0.0D).tex((u * f), (v * f1)).endVertex();
-        tessellator.draw();
     }
 
     private static final int CORNER = 5;
