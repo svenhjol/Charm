@@ -7,18 +7,18 @@
   ],
   "key": {
     "P": {
-      "item": "minecraft:oak_planks"
+      "tag": "minecraft:planks"
     },
     "S": {
-      "item": "minecraft:oak_slab"
+      "tag": "minecraft:wooden_slabs"
     }
   },
   "result": {
-    "item": "charm:barrel_oak"
+    "item": "minecraft:barrel"
   },
   "conditions": [
     {
-      "type": "meson:module_enabled",
+      "type": "meson:module_not_enabled",
       "module": "charm:all_the_barrels"
     }
   ]

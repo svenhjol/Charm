@@ -17,6 +17,7 @@ import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.PlayerQueueHandler;
 import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.loader.condition.ModuleEnabledCondition;
+import svenhjol.meson.loader.condition.ModuleNotEnabledCondition;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,7 +38,9 @@ public class Meson {
     private Meson() {
         // register crafting recipe conditions
         ModuleEnabledCondition.Serializer modEnabledCondition = new ModuleEnabledCondition.Serializer();
+        ModuleNotEnabledCondition.Serializer modNotEnabledCondition = new ModuleNotEnabledCondition.Serializer();
         CraftingHelper.register(modEnabledCondition);
+        CraftingHelper.register(modNotEnabledCondition);
 
         // basic queue for player tick events
         forgeEventBus.register(new PlayerQueueHandler());
