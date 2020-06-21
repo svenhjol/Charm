@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "hanging=false,lit=false": { "model": "charm:block/redstone_lantern" },
+    "hanging=false,lit=true": { "model": "charm:block/redstone_lantern_on" },
+    "hanging=true,lit=false": { "model": "charm:block/hanging_redstone_lantern" },
+    "hanging=true,lit=true": { "model": "charm:block/hanging_redstone_lantern_on" }
+  }
+}
