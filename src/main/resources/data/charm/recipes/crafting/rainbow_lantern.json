@@ -25,13 +25,13 @@
       "item": "minecraft:green_dye"
     },
     "B": {
-      "item": "minecraft:blue_dye"
+      "item": "minecraft:light_blue_dye"
     },
     "I": {
-      "item": "minecraft:indigo_dye"
+      "item": "minecraft:blue_dye"
     },
     "V": {
-      "item": "minecraft:violet_dye"
+      "item": "minecraft:magenta_dye"
     }
   },
   "result": {
