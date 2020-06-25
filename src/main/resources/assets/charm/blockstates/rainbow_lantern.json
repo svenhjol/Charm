@@ -2,5 +2,5 @@
     "variants": {
         "hanging=true": { "model": "charm:block/rainbow_hanging_lantern"},
         "hanging=false": { "model": "charm:block/rainbow_lantern"}
-  }
+    }
 }
