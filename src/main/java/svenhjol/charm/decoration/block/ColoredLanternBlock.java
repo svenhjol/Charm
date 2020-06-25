@@ -8,7 +8,7 @@ import svenhjol.meson.enums.ColorVariant;
 
 public class ColoredLanternBlock extends BaseLanternBlock {
     public ColoredLanternBlock(MesonModule module, ColorVariant color) {
-        super(module, color + "_lantern", Block.Properties
+        super(module, color.getName() + "_lantern", Block.Properties
             .create(Material.IRON)
             .hardnessAndResistance(3.5F)
             .sound(SoundType.LANTERN)
