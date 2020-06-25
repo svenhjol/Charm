@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RWV",
+    "OLI",
+    "YGB"
+  ],
+  "key": {
+    "L": {
+      "tag": "charm:lanterns"
+    },
+    "W": {
+      "item": "minecraft:white_dye"
+    },
+    "R": {
+      "item": "minecraft:red_dye"
+    },
+    "O": {
+      "item": "minecraft:orange_dye"
+    },
+    "Y": {
+      "item": "minecraft:yellow_dye"
+    },
+    "G": {
+      "item": "minecraft:green_dye"
+    },
+    "B": {
+      "item": "minecraft:blue_dye"
+    },
+    "I": {
+      "item": "minecraft:indigo_dye"
+    },
+    "V": {
+      "item": "minecraft:violet_dye"
+    }
+  },
+  "result": {
+    "item": "charm:rainbow_lantern"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:colored_lanterns"
+    }
+  ]
+}
