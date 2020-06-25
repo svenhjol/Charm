@@ -1,4 +1,4 @@
-
+{
     "parent": "item/generated",
     "textures": {
         "layer0": "charm:item/rainbow_lantern"
