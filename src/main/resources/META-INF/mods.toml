@@ -1,7 +1,7 @@
 modLoader="javafml"
-loaderVersion="[28,)"
+loaderVersion="[31,)"
 issueTrackerURL="http://github.com/svenhjol/Charm/issues"
-displayURL="http://github.com/svenhjol/Charm"
+displayURL="https://svenhjol.github.io/Charm/"
 
 [[mods]]
 modId="charm"
@@ -15,13 +15,13 @@ authors="svenhjol, warlordwossman"
 [[dependencies.charm]]
     modId="forge"
     mandatory=true
-    versionRange="[28.2,)"
+    versionRange="[31.2,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.charm]]
     modId="quark"
     mandatory=false
-    versionRange="[r2.0-210,)"
-    ordering="AFTER"
+    versionRange="[r2.0-199,)"
+    ordering="BEFORE"
     side="BOTH"
