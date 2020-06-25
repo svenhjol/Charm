@@ -3,11 +3,12 @@
 ## 1.5.10
 * Fixed barrel crafting issues. #288
 * Added Redstone Lanterns
-* Added Colored Lanterns
+* Added Colored Lanterns (Coranthes)
 * Added wolf tame textures (NeverLoseGuy)
 * Added zh_tw lang file (Nanamiya738)
+* Updated black wolf textures (MCVinnyq)
+* Barrel wood texture changes (Coranthes)
 * Now possible to enable/disable logging of debug messages via config. #276
-* Barrel wood texture changes
 
 ## 1.5.9
 * Fixed issue with crates not being named after the correct wood type.
