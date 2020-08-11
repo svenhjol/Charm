@@ -1,61 +1,69 @@
 buildscript {
     repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
     }
 }
-plugins {
-    id "com.wynprice.cursemaven" version "2.1.1"
-}
-apply plugin: 'net.minecraftforge.gradle.forge'
 
-
-version = "${mc_version}-${version}.${build_number}"
+apply plugin: 'net.minecraftforge.gradle'
 
 ext.configFile = file('gradle.properties')
 ext.config = parseConfig(configFile)
 
+version = "${minecraft_version}-${mod_version}"
 group = "svenhjol.charm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_name
 
 minecraft {
-    version = "${mc_version}-${forge_version}"
-    runDir = "run"
+//    coreMod = "svenhjol.charm.base.CharmLoadingPlugin"
+    mappings channel: 'snapshot', version: "${forge_mappings}"
 
-    coreMod = "svenhjol.charm.base.CharmLoadingPlugin"
+    runs {
+        client {
+            workingDirectory project.file('run')
 
-    mappings = mc_mappings
-    replace 'GRADLE:VERSION', version
-    replace 'scala.actors.threadpool.Arrays', 'java.util.Arrays' // Vazkii did this so I am too
-    replace '@MOD_VERSION@', project.version
-    replaceIn 'Charm.java'
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
-//    useDepAts = true
-    makeObfSourceJar = false
-}
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+        }
 
-runClient {
-    jvmArgs "-Xmx1G"
+        server {
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
 }
 
 jar {
-    exclude "**/*.bat"
-    exclude "**/*.psd"
-    exclude "**/*.exe"
-    exclude "**/unused"
-
     manifest {
-        attributes("FMLCorePluginContainsFMLMod": "true", "FMLCorePlugin": "svenhjol.charm.base.CharmLoadingPlugin")
+        attributes([
+                "Specification-Title": "${mod_name}",
+                "Specification-Vendor": "svenhjol",
+                "Specification-Version": "1", // We are version 1 of ourselves
+                "Implementation-Title": "${mod_name}",
+                "Implementation-Version": "${mod_version}",
+                "Implementation-Vendor": "svenhjol",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "FMLCorePluginContainsFMLMod": "true",
+                "FMLCorePlugin": "svenhjol.charm.base.CharmLoadingPlugin"
+        ])
     }
 }
 
 repositories {
+    maven {
+        url = "https://www.cursemaven.com"
+    }
     maven { // for AutoRegLib and Quark
         name "blamejared"
         url "http://maven.blamejared.com/"
@@ -66,45 +74,39 @@ repositories {
     }
     maven { // for HWYLA
         name 'Mobius'
-        url "https://tehnut.info/maven"
+        url "https://maven.tehnut.info"
+    }
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+    flatDir {
+        // for including local jar files
+        dirs "libs"
     }
 }
 
 dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
     // set to "compileOnly" to test without quark
-//    compile "curse.maven:${arl_version}"
-//    compile "curse.maven:${quark_version}"
-//    deobfProvided "curse:maven:${quark_version}:api"
-//    deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
-//    runtime "mcp.mobius.waila:Hwyla:${waila_version}_${mc_version}"
-//    runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+    compile "curse.maven:${arl}"
+    compile "curse.maven:${quark}"
+    compileOnly "mezz.jei:jei_${minecraft_version}:${jei}:api"
+//    runtimeOnly "mezz.jei:jei_${minecraft_version}:${jei}"
+    compile "inventory-tweaks:InventoryTweaks:${invtweaks}:api"
+//    deobfProvided "curse:maven:${quark}:api"
+//    runtime "mcp.mobius.waila:Hwyla:${waila}_${minecraft_version}"
 }
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-        expand 'version': project.version, 'mcversion': mc_version
+        expand 'version': project.version, 'mcversion': minecraft_version
     }
 
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info', '**/psd/**'
-    }
-}
-
-task deObfJar(type: Jar) {
-    from(sourceSets.main.output)
-    archiveName = "${baseName}-${version}-deobf.${extension}"
-}
-
-/**
- * Increments the buildnumber in your config file, and saves it
- */
-task incrementBuildNumber {
-    doFirst {
-        config.build_number = (build_number.toString().toInteger()) + 1
-        configFile.withWriter {
-            config.toProperties().store(it, "")
-        }
     }
 }
 
@@ -116,4 +118,4 @@ static def parseConfig(File config) {
     }
 }
 
-defaultTasks 'clean', 'build', 'incrementBuildNumber'
+defaultTasks 'clean', 'build'

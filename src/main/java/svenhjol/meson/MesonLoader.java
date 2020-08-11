@@ -22,14 +22,12 @@ public abstract class MesonLoader
     public static Map<String, MesonLoader> instances = new HashMap<>();
     public Configuration config;
     public String id;
-    public String version;
 
-    public MesonLoader registerModLoader(String id, String version)
+    public MesonLoader registerModLoader(String id)
     {
         MesonLoader instance = this;
         instances.put(id, instance);
         this.id = id;
-        this.version = version;
         return instance;
     }
 
