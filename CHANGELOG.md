@@ -1,5 +1,10 @@
 # Changelog for Charm 1.12
 
+## 1.3.7
+* Villages with random scattered crops are now rare by default.  For existing configs, change "Village Decorations: Crops outside" value from 0.8 to 0.1.
+* Spectres no longer curse your items by default (they just apply weakness).  For existing configs, "Spectre: Apply curse" to false.  If you want curses, leave as true.
+* Duplication bug: Inventories remain open when crates, barrels or bookshelf chests are broken by another player. Fixes #178
+
 ## 1.3.6
 
 ### Automation

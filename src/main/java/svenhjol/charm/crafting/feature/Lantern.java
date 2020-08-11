@@ -60,7 +60,7 @@ public class Lantern extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         super.preInit(event);
-        if (useCharmLanterns || !ForgeHelper.areModsLoaded("minecraftfuture")) {
+        if (useCharmLanterns || !ForgeHelper.areModsLoaded("futuremc")) {
             // register iron lantern if not overridden by other mods
             ironLantern = new BlockLantern("iron");
             RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, numberOfLanterns),

@@ -51,7 +51,7 @@ public class Barrel extends Feature
     @Override
     public boolean isEnabled()
     {
-        return enabled && (!ForgeHelper.areModsLoaded("minecraftfuture") || useCharmBarrels);
+        return enabled && (!ForgeHelper.areModsLoaded("futuremc") || useCharmBarrels);
     }
 
     @Override
