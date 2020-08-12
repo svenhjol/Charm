@@ -2,6 +2,7 @@ package svenhjol.charm.crafting.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
+import net.minecraft.block.BlockFence;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -11,6 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityFallingBlock;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
@@ -26,6 +28,7 @@ import svenhjol.charm.crafting.feature.Lantern;
 import svenhjol.meson.MesonBlock;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 
 public class BlockLantern extends MesonBlock
@@ -125,16 +128,17 @@ public class BlockLantern extends MesonBlock
     }
 
     /**
-     * Copypasta from Quark BlockCandle's Copypasta from BlockFalling.
+     * Barely changed Copypasta from Quark BlockCandle's Copypasta from BlockFalling.
      *
      * @link {https://github.com/Vazkii/Quark/blob/master/src/main/java/vazkii/quark/decoration/block/BlockCandle.java}
      * @param worldIn World
      * @param pos Pos
      */
-    private void checkFallable(World worldIn, BlockPos pos) {
+    private void checkFallable(World worldIn, BlockPos pos)
+    {
         boolean hanging = worldIn.getBlockState(pos).getValue(BlockLantern.HANGING);
-        if (hanging && !worldIn.isAirBlock(pos.up())) return;
-        if (!hanging && !worldIn.isAirBlock(pos.down())) return;
+        if (hanging && canPlaceBelow(worldIn, pos)) return;
+        if (!hanging && canPlaceAbove(worldIn, pos)) return;
 
         if ((worldIn.isAirBlock(pos.down()) || BlockFalling.canFallThrough(worldIn.getBlockState(pos.down()))) && pos.getY() >= 0) {
             int i = 32;
@@ -189,17 +193,46 @@ public class BlockLantern extends MesonBlock
     @Override
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        if (facing.equals(EnumFacing.DOWN)) {
+        if (canPlaceBelow(world, pos)) {
             return this.getDefaultState().withProperty(HANGING, true);
         }
-
         return this.getDefaultState().withProperty(HANGING, false);
     }
 
     @Override
-    public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side)
+    public boolean canPlaceBlockAt(World world, @Nonnull BlockPos pos)
     {
-        return side.equals(EnumFacing.DOWN) || side.equals(EnumFacing.UP);
+        return super.canPlaceBlockAt(world, pos) && (canPlaceAbove(world, pos) || canPlaceBelow(world, pos));
+    }
+
+    private boolean canPlaceAbove(World world, BlockPos pos)
+    {
+        IBlockState stateBelow = world.getBlockState(pos.down());
+        Block blockBelow = stateBelow.getBlock();
+
+        return blockBelow == Blocks.LIT_PUMPKIN || (blockBelow != Blocks.AIR && blockBelow.canPlaceTorchOnTop(stateBelow, world, pos.down()));
+    }
+
+    // Basically Block.canPlaceTorchOnTop, but for trying to place stuff below a block
+    private boolean canPlaceBelow(World world, BlockPos pos)
+    {
+        IBlockState stateAbove = world.getBlockState(pos.up());
+        Block blockAbove = stateAbove.getBlock();
+
+        if (stateAbove == Blocks.AIR)
+            return false;
+        else if (stateAbove.isSideSolid(world, pos.up(), EnumFacing.DOWN) || blockAbove instanceof BlockFence || blockAbove == Blocks.GLASS || blockAbove == Blocks.COBBLESTONE_WALL || blockAbove == Blocks.STAINED_GLASS)
+            return true;
+
+        BlockFaceShape shape = stateAbove.getBlockFaceShape(world, pos.up(), EnumFacing.DOWN);
+        return (shape == BlockFaceShape.SOLID || shape == BlockFaceShape.CENTER || shape == BlockFaceShape.CENTER_BIG) && !isExceptionBlockForAttaching(blockAbove);
+    }
+
+    @Override
+    @ParametersAreNonnullByDefault
+    public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos)
+    {
+        return false;
     }
 
     @SuppressWarnings("deprecation")
