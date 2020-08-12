@@ -1,9 +1,12 @@
 package svenhjol.charm.crafting.feature;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.crafting.block.BlockLantern;
+import svenhjol.charm.crafting.compat.FutureMcSounds;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.ForgeHelper;
@@ -77,7 +80,17 @@ public class Lantern extends Feature
             'T', Blocks.TORCH
         );
     }
-
+    
+    @Override
+    public void init(FMLInitializationEvent event)
+    {
+        SoundType lanternSoundType = FutureMcSounds.getLanternSoundType();
+        if (lanternSoundType != null) {
+            if (ironLantern != null) ironLantern.setSoundType(lanternSoundType);
+            goldLantern.setSoundType(lanternSoundType);
+        }
+    }
+    
     public static BlockLantern getDefaultLantern()
     {
         return ironLantern == null ? goldLantern : ironLantern;

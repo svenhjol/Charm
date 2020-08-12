@@ -47,6 +47,13 @@ public class BlockLantern extends MesonBlock
         setDefaultState(blockState.getBaseState().withProperty(HANGING, false));
     }
 
+    @Nonnull
+    @Override
+    public Block setSoundType(@Nonnull SoundType sound)
+    {
+        return super.setSoundType(sound);
+    }
+
     @Override
     public String getModId()
     {
