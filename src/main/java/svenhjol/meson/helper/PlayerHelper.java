@@ -1,10 +1,13 @@
 package svenhjol.meson.helper;
 
+import net.minecraft.entity.ai.attributes.AttributeMap;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPacketEntityEffect;
+import net.minecraft.network.play.server.SPacketEntityProperties;
 import net.minecraft.network.play.server.SPacketRespawn;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
@@ -16,10 +19,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PlayerHelper
 {
@@ -131,6 +131,12 @@ public class PlayerHelper
         for (PotionEffect potioneffect : player.getActivePotionEffects()) {
             player.connection.sendPacket(new SPacketEntityEffect(player.getEntityId(), potioneffect));
         }
+
+        AttributeMap attributeMap = (AttributeMap) player.getAttributeMap();
+        Collection<IAttributeInstance> watchedAttributes = attributeMap.getWatchedAttributes();
+        if (!watchedAttributes.isEmpty())
+            player.connection.sendPacket(new SPacketEntityProperties(player.getEntityId(), watchedAttributes));
+
         FMLCommonHandler.instance().firePlayerChangedDimensionEvent(player, oldDim, dimension);
     }
 }
