@@ -14,12 +14,16 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import svenhjol.charm.world.compat.ItemHandlerLootTableFiller;
 import svenhjol.meson.MesonTileInventory;
 import svenhjol.meson.helper.EntityHelper;
 
@@ -66,8 +70,13 @@ public class MesonDecoratorItems
 
         if (tile instanceof MesonTileInventory) {
             ((MesonTileInventory)tile).setLootTable(loot, lootSize);
-        } else if (tile instanceof TileEntityChest) {
+        } else if (tile instanceof TileEntityLockableLoot) {
             ((TileEntityChest)tile).setLootTable(loot, world.rand.nextLong());
+        } else if (tile != null) {
+            IItemHandler capability = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+            if (capability != null) {
+                ItemHandlerLootTableFiller.fillWithLoot(capability, world, loot, lootSize);
+            }
         }
     }
 

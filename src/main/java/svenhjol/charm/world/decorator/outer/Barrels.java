@@ -7,11 +7,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmLootTables;
 import svenhjol.charm.crafting.feature.Barrel;
 import svenhjol.charm.crafting.feature.Composter;
 import svenhjol.charm.crafting.tile.TileBarrel;
+import svenhjol.charm.world.compat.FutureMcBlocks;
+import svenhjol.charm.world.compat.ItemHandlerLootTableFiller;
 import svenhjol.charm.world.feature.VillageDecorations;
 import svenhjol.meson.decorator.MesonOuterDecorator;
 
@@ -51,10 +55,27 @@ public class Barrels extends MesonOuterDecorator
                     if (tile instanceof TileBarrel) {
                         ((TileBarrel) tile).setLootTable(loot);
                     }
+                } else if (FutureMcBlocks.barrel != null) {
+                    world.setBlockState(current, FutureMcBlocks.barrel.getDefaultState());
+                    if (!world.isRemote) {
+                        continue;
+                    }
+
+                    TileEntity tile = world.getTileEntity(current);
+                    if (tile == null) {
+                        continue;
+                    }
+
+                    IItemHandler capability = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+                    if (capability != null) {
+                        ItemHandlerLootTableFiller.fillWithLoot(capability, world, loot, 0);
+                    }
                 }
             } else {
                 if (Charm.hasFeature(Composter.class)) {
                     world.setBlockState(current, Composter.composter.getDefaultState());
+                } else if (FutureMcBlocks.composter != null) {
+                    world.setBlockState(current, FutureMcBlocks.composter.getDefaultState());
                 }
             }
         }

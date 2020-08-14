@@ -9,8 +9,9 @@ import svenhjol.charm.brewing.block.BlockFlavoredCake;
 import svenhjol.charm.brewing.feature.FlavoredCake;
 import svenhjol.charm.crafting.block.BlockLantern;
 import svenhjol.charm.crafting.feature.Lantern;
-import svenhjol.meson.decorator.MesonInnerDecorator;
+import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.decorator.MesonDecoratorItems;
+import svenhjol.meson.decorator.MesonInnerDecorator;
 
 import javax.annotation.Nullable;
 
@@ -49,14 +50,18 @@ public class CharmDecoratorItems extends MesonDecoratorItems
 
     public void addLantern(int x, int y, int z, boolean hanging)
     {
-        if (!Charm.hasFeature(Lantern.class)) return;
-        generator.add(Lantern.getDefaultLantern().getDefaultState().withProperty(BlockLantern.HANGING, hanging), x, y, z, EnumFacing.NORTH);
+        if (Lantern.ironLantern == null && FutureMcBlocks.lanternHangingProperty != null)
+            generator.add(FutureMcBlocks.lantern.getDefaultState().withProperty(FutureMcBlocks.lanternHangingProperty, hanging), x, y, z, EnumFacing.NORTH);
+        else if (Charm.hasFeature(Lantern.class))
+            generator.add(Lantern.getDefaultLantern().getDefaultState().withProperty(BlockLantern.HANGING, hanging), x, y, z, EnumFacing.NORTH);
     }
 
     public IBlockState getLantern()
     {
         IBlockState state;
-        if (Charm.hasFeature(Lantern.class)) {
+        if (Lantern.ironLantern == null && FutureMcBlocks.lanternHangingProperty != null) {
+            state = FutureMcBlocks.lantern.getDefaultState().withProperty(FutureMcBlocks.lanternHangingProperty, false);
+        } else if (Charm.hasFeature(Lantern.class)) {
             state = Lantern.getDefaultLantern().getDefaultState();
         } else {
             state = Blocks.TORCH.getDefaultState();

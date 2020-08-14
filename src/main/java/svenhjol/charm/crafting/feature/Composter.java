@@ -17,10 +17,11 @@ import svenhjol.charm.crafting.block.BlockComposter;
 import svenhjol.charm.crafting.message.MessageComposterAddLevel;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.NetworkHandler;
-import svenhjol.meson.helper.ItemHelper;
-import svenhjol.meson.registry.ProxyRegistry;
 import svenhjol.meson.handler.RecipeHandler;
+import svenhjol.meson.helper.ForgeHelper;
+import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.SoundHelper;
+import svenhjol.meson.registry.ProxyRegistry;
 
 import java.util.*;
 
@@ -30,11 +31,18 @@ public class Composter extends Feature
     public static Map<String, Float> inputs = new HashMap<>();
     public static List<String> outputs = new ArrayList<>();
     public static int maxOutput;
+    public static boolean useCharmComposters;
 
     @Override
     public String getDescription()
     {
         return "Right-click the composter with organic items to add them.  When the composter is full, bonemeal will be returned.";
+    }
+
+    @Override
+    public boolean isEnabled()
+    {
+        return enabled && (!ForgeHelper.areModsLoaded("futuremc") || useCharmComposters);
     }
 
     @Override
@@ -148,6 +156,12 @@ public class Composter extends Feature
                 "Maximum number of output items",
                 "Sets the maximum stack size of the composter output.",
                 3
+        );
+
+        useCharmComposters = propBoolean(
+                "Use Charm composters",
+                "Charm's composters will be enabled even if composters from other mods are present.",
+                false
         );
     }
 

@@ -8,6 +8,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.feature.Lantern;
+import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.decorator.MesonOuterDecorator;
 
 import java.util.List;
@@ -35,8 +36,12 @@ public class Lights extends MesonOuterDecorator
             float f = rand.nextFloat();
             IBlockState light;
 
-            if (f > 0.93f && Charm.hasFeature(Lantern.class)) {
-                light = Lantern.getDefaultLantern().getDefaultState();
+            if (f > 0.93f && (Charm.hasFeature(Lantern.class) || FutureMcBlocks.lanternHangingProperty != null)) {
+                if (Lantern.ironLantern == null && FutureMcBlocks.lanternHangingProperty != null) {
+                    light = FutureMcBlocks.lantern.getDefaultState().withProperty(FutureMcBlocks.lanternHangingProperty, false);
+                } else {
+                    light = Lantern.getDefaultLantern().getDefaultState();
+                }
             } else if (f > 0.84f) {
                 light = Blocks.REDSTONE_TORCH.getDefaultState();
             } else {
