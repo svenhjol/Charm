@@ -69,7 +69,8 @@ public class Composter extends Feature
                         "inspirations:cactus_seeds",
                         "inspirations:sugar_cane_seeds",
                         "inspirations:carrot_seeds",
-                        "inspirations:potato_seeds"
+                        "inspirations:potato_seeds",
+                        "futuremc:sweet_berries"
                 }
         );
         for (String item : items) inputs.put(item, 0.3f);
@@ -112,7 +113,10 @@ public class Composter extends Feature
                         "inspirations:flower",
                         "inspirations:materials[4]",
                         "inspirations:materials[5]",
-                        "inspirations:edibles[0]"
+                        "inspirations:edibles[0]",
+                        "futuremc:cornflower",
+                        "futuremc:lily_of_the_valley",
+                        "futuremc:wither_rose"
                 }
         );
         for (String item : items) inputs.put(item, 0.65f);
