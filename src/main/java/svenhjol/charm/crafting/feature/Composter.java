@@ -19,7 +19,6 @@ import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.handler.RecipeHandler;
-import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.registry.ProxyRegistry;
@@ -43,7 +42,7 @@ public class Composter extends Feature
     @Override
     public boolean isEnabled()
     {
-        return enabled && (!ForgeHelper.areModsLoaded("futuremc") || useCharmComposters);
+        return enabled && (FutureMcBlocks.composter == null || useCharmComposters);
     }
 
     @Override

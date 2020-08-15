@@ -11,7 +11,6 @@ import svenhjol.charm.crafting.block.BlockBarrel;
 import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RecipeHandler;
-import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.LootHelper;
 import svenhjol.meson.registry.ProxyRegistry;
 
@@ -52,7 +51,7 @@ public class Barrel extends Feature
     @Override
     public boolean isEnabled()
     {
-        return enabled && (!ForgeHelper.areModsLoaded("futuremc") || useCharmBarrels);
+        return enabled && (FutureMcBlocks.barrel == null || useCharmBarrels);
     }
 
     @Override

@@ -11,7 +11,6 @@ import svenhjol.charm.crafting.compat.FutureMcSounds;
 import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RecipeHandler;
-import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.registry.ProxyRegistry;
 
 public class Lantern extends Feature
@@ -65,7 +64,7 @@ public class Lantern extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         super.preInit(event);
-        if (useCharmLanterns || !ForgeHelper.areModsLoaded("futuremc")) {
+        if (useCharmLanterns || ironLantern == null) {
             if (ironLantern == null) {
                 // register iron lantern if not overridden by other mods
                 ironLantern = new BlockLantern("iron");
