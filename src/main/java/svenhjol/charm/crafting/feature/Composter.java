@@ -15,6 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockComposter;
 import svenhjol.charm.crafting.message.MessageComposterAddLevel;
+import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.handler.RecipeHandler;
@@ -177,11 +178,16 @@ public class Composter extends Feature
         GameRegistry.registerTileEntity(composter.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":composter"));
         NetworkHandler.register(MessageComposterAddLevel.class, Side.CLIENT);
 
-        RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(composter),
+        if (FutureMcBlocks.composter == null) {
+            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(composter),
                 "F F", "F F", "PPP",
                 'F', "fenceWood",
                 'P', "plankWood"
-        );
+            );
+        } else {
+            RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(composter), new ItemStack(FutureMcBlocks.composter));
+            RecipeHandler.addShapelessRecipe(new ItemStack(FutureMcBlocks.composter), ProxyRegistry.newStack(composter));
+        }
     }
 
     @SideOnly(Side.CLIENT)

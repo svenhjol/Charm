@@ -3,10 +3,12 @@ package svenhjol.charm.crafting.feature;
 import net.minecraft.block.SoundType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import svenhjol.charm.crafting.block.BlockLantern;
 import svenhjol.charm.crafting.compat.FutureMcSounds;
+import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.ForgeHelper;
@@ -64,13 +66,18 @@ public class Lantern extends Feature
     {
         super.preInit(event);
         if (useCharmLanterns || !ForgeHelper.areModsLoaded("futuremc")) {
-            // register iron lantern if not overridden by other mods
-            ironLantern = new BlockLantern("iron");
-            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, numberOfLanterns),
-                "III", "ITI", "III",
-                'I', Items.IRON_NUGGET,
-                'T', Blocks.TORCH
-            );
+            if (ironLantern == null) {
+                // register iron lantern if not overridden by other mods
+                ironLantern = new BlockLantern("iron");
+                RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, numberOfLanterns),
+                    "III", "ITI", "III",
+                    'I', Items.IRON_NUGGET,
+                    'T', Blocks.TORCH
+                );
+            } else {
+                RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(ironLantern), new ItemStack(FutureMcBlocks.lantern));
+                RecipeHandler.addShapelessRecipe(new ItemStack(FutureMcBlocks.lantern), ProxyRegistry.newStack(ironLantern));
+            }
         }
 
         goldLantern = new BlockLantern("gold");

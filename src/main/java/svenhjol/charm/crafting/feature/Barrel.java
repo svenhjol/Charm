@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBarrel;
+import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RecipeHandler;
 import svenhjol.meson.helper.ForgeHelper;
@@ -62,7 +63,7 @@ public class Barrel extends Feature
         useCharmBarrels = propBoolean(
             "Use Charm barrels",
             "Charm's barrels will be enabled even if barrels from other mods are present.",
-            false
+            true
         );
 
         // internal
@@ -95,13 +96,24 @@ public class Barrel extends Feature
             types.put(rarity, barrels);
         }
 
-        // create recipes for all block barrel wood types
-        for (int i = 0; i < BlockBarrel.WoodVariant.values().length; i++) {
-            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1, i),
-                "WSW", "W W", "WSW",
-                'W', ProxyRegistry.newStack(Blocks.PLANKS, 1, i),
-                'S', ProxyRegistry.newStack(Blocks.WOODEN_SLAB, 1, i)
-            );
+        if (FutureMcBlocks.barrel == null) {
+            // create recipes for all block barrel wood types
+            for (int i = 0; i < BlockBarrel.WoodVariant.values().length; i++) {
+                RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1, i),
+                    "WSW", "W W", "WSW",
+                    'W', ProxyRegistry.newStack(Blocks.PLANKS, 1, i),
+                    'S', ProxyRegistry.newStack(Blocks.WOODEN_SLAB, 1, i)
+                );
+            }
+        } else {
+            // create recipes for all block barrel wood types
+            for (int i = 0; i < BlockBarrel.WoodVariant.values().length; i++) {
+                RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1, i),
+                    "WWW", "S S", "WWW",
+                    'W', ProxyRegistry.newStack(Blocks.PLANKS, 1, i),
+                    'S', ProxyRegistry.newStack(Blocks.WOODEN_SLAB, 1, i)
+                );
+            }
         }
     }
 
