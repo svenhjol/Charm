@@ -4,10 +4,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -19,6 +23,7 @@ import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.NetworkHandler;
 import svenhjol.meson.handler.RecipeHandler;
+import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.SoundHelper;
 import svenhjol.meson.registry.ProxyRegistry;
@@ -42,7 +47,7 @@ public class Composter extends Feature
     @Override
     public boolean isEnabled()
     {
-        return enabled && (FutureMcBlocks.composter == null || useCharmComposters);
+        return enabled && (!ForgeHelper.areModsLoaded("futuremc") || useCharmComposters);
     }
 
     @Override
@@ -177,6 +182,19 @@ public class Composter extends Feature
         GameRegistry.registerTileEntity(composter.getTileEntityClass(), new ResourceLocation(Charm.MOD_ID + ":composter"));
         NetworkHandler.register(MessageComposterAddLevel.class, Side.CLIENT);
 
+        if (!ForgeHelper.areModsLoaded("futuremc")) {
+            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(composter),
+                "F F", "F F", "PPP",
+                'F', "fenceWood",
+                'P', "plankWood"
+            );
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void onRegister(RegistryEvent.Register<IRecipe> event)
+    {
+        // Register recipe here only when FutureMC is present, inside preInit FutureMC blocks don't exist
         if (FutureMcBlocks.composter == null) {
             RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(composter),
                 "F F", "F F", "PPP",
@@ -184,9 +202,15 @@ public class Composter extends Feature
                 'P', "plankWood"
             );
         } else {
-            RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(composter), new ItemStack(FutureMcBlocks.composter));
-            RecipeHandler.addShapelessRecipe(new ItemStack(FutureMcBlocks.composter), ProxyRegistry.newStack(composter));
+            RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(Composter.composter), new ItemStack(FutureMcBlocks.composter));
+            RecipeHandler.addShapelessRecipe(new ItemStack(FutureMcBlocks.composter), ProxyRegistry.newStack(Composter.composter));
         }
+    }
+
+    @Override
+    public boolean hasSubscriptions()
+    {
+        return ForgeHelper.areModsLoaded("futuremc") && useCharmComposters;
     }
 
     @SideOnly(Side.CLIENT)

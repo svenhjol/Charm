@@ -4,13 +4,18 @@ import net.minecraft.block.SoundType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import svenhjol.charm.crafting.block.BlockLantern;
 import svenhjol.charm.crafting.compat.FutureMcSounds;
 import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RecipeHandler;
+import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.registry.ProxyRegistry;
 
 public class Lantern extends Feature
@@ -64,18 +69,15 @@ public class Lantern extends Feature
     public void preInit(FMLPreInitializationEvent event)
     {
         super.preInit(event);
-        if (useCharmLanterns || ironLantern == null) {
-            if (ironLantern == null) {
-                // register iron lantern if not overridden by other mods
-                ironLantern = new BlockLantern("iron");
+        if (useCharmLanterns || !ForgeHelper.areModsLoaded("futuremc")) {
+            // register iron lantern if not overridden by other mods
+            ironLantern = new BlockLantern("iron");
+            if (!ForgeHelper.areModsLoaded("futuremc")) {
                 RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, numberOfLanterns),
                     "III", "ITI", "III",
                     'I', Items.IRON_NUGGET,
                     'T', Blocks.TORCH
                 );
-            } else {
-                RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(ironLantern), new ItemStack(FutureMcBlocks.lantern));
-                RecipeHandler.addShapelessRecipe(new ItemStack(FutureMcBlocks.lantern), ProxyRegistry.newStack(ironLantern));
             }
         }
 
@@ -86,7 +88,29 @@ public class Lantern extends Feature
             'T', Blocks.TORCH
         );
     }
-    
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void onRegister(RegistryEvent.Register<IRecipe> event)
+    {
+        // Register recipe here only when FutureMC is present, inside preInit FutureMC blocks don't exist
+        if (FutureMcBlocks.lantern == null) {
+            RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(ironLantern, numberOfLanterns),
+                "III", "ITI", "III",
+                'I', Items.IRON_NUGGET,
+                'T', Blocks.TORCH
+            );
+        } else {
+            RecipeHandler.addShapelessRecipe(ProxyRegistry.newStack(ironLantern), new ItemStack(FutureMcBlocks.lantern));
+            RecipeHandler.addShapelessRecipe(new ItemStack(FutureMcBlocks.lantern), ProxyRegistry.newStack(ironLantern));
+        }
+    }
+
+    @Override
+    public boolean hasSubscriptions()
+    {
+        return ForgeHelper.areModsLoaded("futuremc") && useCharmLanterns;
+    }
+
     @Override
     public void init(FMLInitializationEvent event)
     {

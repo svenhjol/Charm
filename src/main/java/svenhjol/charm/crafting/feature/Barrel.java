@@ -8,9 +8,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import svenhjol.charm.Charm;
 import svenhjol.charm.crafting.block.BlockBarrel;
-import svenhjol.charm.world.compat.FutureMcBlocks;
 import svenhjol.meson.Feature;
 import svenhjol.meson.handler.RecipeHandler;
+import svenhjol.meson.helper.ForgeHelper;
 import svenhjol.meson.helper.LootHelper;
 import svenhjol.meson.registry.ProxyRegistry;
 
@@ -51,7 +51,7 @@ public class Barrel extends Feature
     @Override
     public boolean isEnabled()
     {
-        return enabled && (FutureMcBlocks.barrel == null || useCharmBarrels);
+        return enabled && (!ForgeHelper.areModsLoaded("futuremc") || useCharmBarrels);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class Barrel extends Feature
             types.put(rarity, barrels);
         }
 
-        if (FutureMcBlocks.barrel == null) {
+        if (!ForgeHelper.areModsLoaded("futuremc")) {
             // create recipes for all block barrel wood types
             for (int i = 0; i < BlockBarrel.WoodVariant.values().length; i++) {
                 RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1, i),
@@ -105,7 +105,7 @@ public class Barrel extends Feature
                 );
             }
         } else {
-            // create recipes for all block barrel wood types
+            // create alternate recipes for all block barrel wood types (only when FutureMC is present)
             for (int i = 0; i < BlockBarrel.WoodVariant.values().length; i++) {
                 RecipeHandler.addShapedRecipe(ProxyRegistry.newStack(block, 1, i),
                     "WWW", "S S", "WWW",

@@ -5,47 +5,30 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import svenhjol.charm.Charm;
-import svenhjol.charm.crafting.feature.Barrel;
-import svenhjol.charm.crafting.feature.Composter;
-import svenhjol.charm.crafting.feature.Lantern;
 
 public class FutureMcBlocks
 {
+    // Only access this class if FutureMC blocks have been initialized, so generally after preInit
     public static final Block barrel;
     public static final Block composter;
     public static final Block lantern;
     public static final PropertyBool lanternHangingProperty;
 
     static {
-        if (Charm.hasFeature(Barrel.class)) {
-            barrel = null;
-        } else {
-            barrel = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("futuremc", "barrel"));
-        }
+        barrel = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("futuremc", "barrel"));
+        composter = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("futuremc", "composter"));
+        lantern = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("futuremc", "lantern"));
 
-        if (Charm.hasFeature(Composter.class)) {
-            composter = null;
-        } else {
-            composter = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("futuremc", "composter"));
-        }
-
-        if (Charm.hasFeature(Lantern.class) && Lantern.ironLantern != null) {
-            lantern = null;
-            lanternHangingProperty = null;
-        } else {
-            lantern = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("futuremc", "lantern"));
-            PropertyBool property = null;
-            if (lantern != null) {
-                for (IProperty<?> propertyKey : lantern.getDefaultState().getPropertyKeys()) {
-                    if (propertyKey instanceof PropertyBool && propertyKey.getName().toLowerCase().equals("hanging")) {
-                        property = (PropertyBool) propertyKey;
-                        break;
-                    }
+        PropertyBool property = null;
+        if (lantern != null) {
+            for (IProperty<?> propertyKey : lantern.getDefaultState().getPropertyKeys()) {
+                if (propertyKey instanceof PropertyBool && propertyKey.getName().toLowerCase().equals("hanging")) {
+                    property = (PropertyBool) propertyKey;
+                    break;
                 }
             }
-
-            lanternHangingProperty = property;
         }
+
+        lanternHangingProperty = property;
     }
 }
