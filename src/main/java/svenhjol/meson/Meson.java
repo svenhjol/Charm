@@ -1,9 +1,9 @@
 package svenhjol.meson;
 
-import com.google.common.base.CaseFormat;
 import svenhjol.meson.handler.ConfigHandler;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.ModuleHandler;
+import svenhjol.meson.helper.StringHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +54,7 @@ public abstract class Meson {
             return false;
 
         if (module.contains("_"))
-            module = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, module);
+            module = StringHelper.snakeToUpperCamel(module);
 
         if (!loadedModules.get(mod).containsKey(module))
             return false;

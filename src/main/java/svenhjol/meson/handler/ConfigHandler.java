@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.StringHelper;
 import svenhjol.meson.iface.Config;
 
 import java.io.*;
@@ -59,9 +60,10 @@ public class ConfigHandler {
         }
 
         modules.forEach((moduleName, module) -> {
+            String fileName = StringHelper.upperCamelToSnake(moduleName);
 
             // read each module config
-            Path moduleFile = Paths.get(CONFIG_PATH + "/modules/" + moduleName + ".json");
+            Path moduleFile = Paths.get(CONFIG_PATH + "/modules/" + fileName + ".json");
             Map<?, ?> configMap = new HashMap<>();
             this.moduleConfig.put(moduleName, new HashMap<>());
 
