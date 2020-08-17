@@ -13,7 +13,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.iface.Module;
 
+@Module(description = "Right-clicking on a grass path block with a hoe turns it back into dirt.")
 public class PathToDirt extends MesonModule {
     @Override
     public void init() {
