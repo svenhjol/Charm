@@ -1,6 +1,7 @@
 /.gradle
 /build
 /run
+/logs
 /.vscode
 /.settings
 /.metadata
