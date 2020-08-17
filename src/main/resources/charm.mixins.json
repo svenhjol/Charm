@@ -4,7 +4,8 @@
   "package": "svenhjol.charm.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "AutomaticRecipeUnlockMixin"
+    "AutomaticRecipeUnlockMixin",
+    "CampfiresNoDamageMixin"
   ],
   "client": [
   ],
