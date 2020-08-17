@@ -25,8 +25,10 @@ public class Charm extends Meson implements ModInitializer {
             ChickensDropFeathers.class,
             Core.class,
             DirtToPath.class,
+            FeatherFallingCrops.class,
             PathToDirt.class,
-            RemoveNitwits.class
+            RemoveNitwits.class,
+            RemovePotionGlint.class
         ));
     }
 }

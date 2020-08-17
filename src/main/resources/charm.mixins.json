@@ -4,9 +4,11 @@
   "package": "svenhjol.charm.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "PlayerManagerMixin",
     "CampfireBlockMixin",
     "ChickenEntityMixin",
+    "FarmlandBlockMixin",
+    "PlayerManagerMixin",
+    "PotionItemMixin",
     "ServerWorldMixin"
   ],
   "client": [
