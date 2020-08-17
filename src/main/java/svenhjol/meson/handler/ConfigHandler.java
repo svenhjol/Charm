@@ -44,7 +44,7 @@ public class ConfigHandler {
                 if (!(key instanceof String)) continue;
 
                 String moduleName = (String)key;
-                boolean enabled = (boolean)entry.getValue();
+                boolean enabled = (Boolean)entry.getValue();
 
                 if (this.enabledConfig.containsKey(moduleName)) {
                     this.enabledConfig.put(moduleName, enabled);
