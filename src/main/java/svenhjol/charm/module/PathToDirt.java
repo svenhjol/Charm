@@ -27,7 +27,7 @@ public class PathToDirt extends MesonModule {
         }
     }
 
-    public boolean convertPath(Entity entity, BlockPos pos, Hand hand, ItemStack stack) {
+    private boolean convertPath(Entity entity, BlockPos pos, Hand hand, ItemStack stack) {
         if (entity.world != null
             && entity instanceof PlayerEntity
             && stack.getItem() instanceof HoeItem
