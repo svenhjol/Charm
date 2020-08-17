@@ -58,7 +58,6 @@ public class ConfigHandler {
             throw new RuntimeException("Failed to handle config for " + mod.getId(), e);
         }
 
-        // TODO config step for each module
         modules.forEach((moduleName, module) -> {
 
             // read each module config
@@ -80,7 +79,7 @@ public class ConfigHandler {
                     this.moduleConfig.get(moduleName).put(optionName, optionVal);
                 }
             } catch (Exception e) {
-                // TODO log config read error
+                Meson.LOG.error("Failed to read module config for " + moduleName + ": " + e.getMessage());
             }
 
             // get annotations and set config fields
@@ -106,7 +105,7 @@ public class ConfigHandler {
                         this.moduleConfig.get(moduleName).put(name, val);
                     }
                 } catch (Exception e) {
-                    // TODO log config parse error
+                    Meson.LOG.error("Failed to set config for " + moduleName + ": " + e.getMessage());
                 }
             });
 
@@ -116,7 +115,7 @@ public class ConfigHandler {
                     writeConfig(moduleFile, this.moduleConfig.get(moduleName));
 
             } catch (Exception e) {
-                // TODO log config write error
+                Meson.LOG.error("Failed to write module config for " + moduleName + ": " + e.getMessage());
             }
         });
     }
