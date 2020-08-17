@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "charm",
+  "version": "${version}",
+
+  "name": "Charm",
+  "description": "Smaller things.",
+  "authors": [
+    "svenhjol",
+    "Coranthes",
+    "WarlordWossman"
+  ],
+  "contact": {
+    "homepage": "https://svenhjol.github.io/Charm/",
+    "sources": "https://github.com/svenhjol/Charm"
+  },
+
+  "license": "MIT",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "svenhjol.charm.Charm"
+    ]
+  },
+  "mixins": [
+    "charm.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "svenhjol.charm.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "AutomaticRecipeUnlockMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
