@@ -19,12 +19,13 @@ import svenhjol.meson.iface.Module;
 public class DirtToPath extends MesonModule {
     @Override
     public void init() {
-        if (enabled) {
-            UseBlockCallback.EVENT.register(((player, world, hand, hitResult) -> {
-                boolean result = convertDirt(player, hitResult.getBlockPos(), hand, player.getStackInHand(hand));
-                return result ? ActionResult.SUCCESS : ActionResult.PASS;
-            }));
-        }
+        if (!enabled)
+            return;
+
+        UseBlockCallback.EVENT.register(((player, world, hand, hitResult) -> {
+            boolean result = convertDirt(player, hitResult.getBlockPos(), hand, player.getStackInHand(hand));
+            return result ? ActionResult.SUCCESS : ActionResult.PASS;
+        }));
     }
 
     private boolean convertDirt(Entity entity, BlockPos pos, Hand hand, ItemStack stack) {
