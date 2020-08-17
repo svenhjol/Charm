@@ -3,6 +3,7 @@ package svenhjol.charm;
 import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.module.AutomaticRecipeUnlock;
 import svenhjol.charm.module.DirtToPath;
+import svenhjol.charm.module.PathToDirt;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 
@@ -22,7 +23,8 @@ public class Charm extends Meson implements ModInitializer {
     public List<Class<? extends MesonModule>> getModules() {
         return new ArrayList<>(Arrays.asList(
             AutomaticRecipeUnlock.class,
-            DirtToPath.class
+            DirtToPath.class,
+            PathToDirt.class
         ));
     }
 }
