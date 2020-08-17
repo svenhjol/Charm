@@ -1,10 +1,7 @@
 package svenhjol.charm;
 
 import net.fabricmc.api.ModInitializer;
-import svenhjol.charm.module.AutomaticRecipeUnlock;
-import svenhjol.charm.module.CampfiresNoDamage;
-import svenhjol.charm.module.DirtToPath;
-import svenhjol.charm.module.PathToDirt;
+import svenhjol.charm.module.*;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 
@@ -25,8 +22,11 @@ public class Charm extends Meson implements ModInitializer {
         return new ArrayList<>(Arrays.asList(
             AutomaticRecipeUnlock.class,
             CampfiresNoDamage.class,
+            ChickensDropFeathers.class,
+            Core.class,
             DirtToPath.class,
-            PathToDirt.class
+            PathToDirt.class,
+            RemoveNitwits.class
         ));
     }
 }

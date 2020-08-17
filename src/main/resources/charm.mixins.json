@@ -4,8 +4,10 @@
   "package": "svenhjol.charm.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "AutomaticRecipeUnlockMixin",
-    "CampfiresNoDamageMixin"
+    "PlayerManagerMixin",
+    "CampfireBlockMixin",
+    "ChickenEntityMixin",
+    "ServerWorldMixin"
   ],
   "client": [
   ],
