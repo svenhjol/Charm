@@ -12,13 +12,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.module.CampfiresNoDamage;
 
 @Mixin(CampfireBlock.class)
-public abstract class CampfiresNoDamageMixin {
+public abstract class CampfireBlockMixin {
     @Inject(
         method = "onEntityCollision",
         at = @At("HEAD"),
         cancellable = true
     )
-    private void onEntityCollisionHook(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo ci) {
+    private void hookOnEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo ci) {
         if (CampfiresNoDamage.bypassDamage(state))
             ci.cancel();
     }

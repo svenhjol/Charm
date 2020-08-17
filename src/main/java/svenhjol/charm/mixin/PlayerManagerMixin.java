@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.module.AutomaticRecipeUnlock;
 
 @Mixin(PlayerManager.class)
-public class AutomaticRecipeUnlockMixin {
+public class PlayerManagerMixin {
     @Inject(method = "onPlayerConnect", at = @At("RETURN"))
     private void hookOnPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
         AutomaticRecipeUnlock.unlockRecipes(player);
