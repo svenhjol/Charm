@@ -8,6 +8,9 @@ import svenhjol.meson.MesonModule;
 
 public class VariantAnimalTexturesClient {
     public VariantAnimalTexturesClient(MesonModule module) {
+        if (!module.enabled)
+            return;
+
         if (VariantAnimalTextures.variantChickens)
             EntityRendererRegistry.INSTANCE.register(EntityType.CHICKEN, ((dispatcher, context)
                 -> new VariantAnimalsRenderer.Chicken(dispatcher)));
