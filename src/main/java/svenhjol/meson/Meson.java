@@ -1,5 +1,7 @@
 package svenhjol.meson;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.meson.handler.ConfigHandler;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.ModuleHandler;
@@ -22,7 +24,15 @@ public abstract class Meson {
         this.moduleHandler = new ModuleHandler(this, getModules());
         this.configHandler = new ConfigHandler(this);
 
+        // initialize all modules
         eachModule(MesonModule::init);
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
+            eachModule(MesonModule::initClient);
+
+        // setup all enabled modules
+        eachEnabledModule(MesonModule::setup);
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
+            eachModule(MesonModule::initClient);
     }
 
     public String getId() {
