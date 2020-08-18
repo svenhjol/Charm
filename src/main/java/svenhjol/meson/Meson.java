@@ -7,16 +7,16 @@ import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.handler.ModuleHandler;
 import svenhjol.meson.helper.StringHelper;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 public abstract class Meson {
     private ModuleHandler moduleHandler;
     private ConfigHandler configHandler;
     private String id;
-    public static Map<String, Map<String, MesonModule>> loadedModules = new HashMap<>();
+    public static Map<String, Map<String, MesonModule>> loadedModules = new ConcurrentHashMap<>();
     public static LogHandler LOG = new LogHandler("Meson");
 
     public void init(String id) {
