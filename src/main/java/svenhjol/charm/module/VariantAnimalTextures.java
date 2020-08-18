@@ -1,7 +1,7 @@
 package svenhjol.charm.module;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.VariantAnimalTexturesClient;
@@ -50,6 +50,9 @@ public class VariantAnimalTextures extends MesonModule {
     @Config(name = "Rare variants", description = "If true, all animals have a chance to spawn as a rare variant.")
     public static boolean rareVariants = true;
 
+    @Config(name = "Rarity of rare variants", description = "Approximately 1 in X chance of a mob spawning as a rare variant.")
+    public static int rarity = 1000;
+
     @Override
     public void initClient() {
         client = new VariantAnimalTexturesClient(this);
@@ -59,12 +62,45 @@ public class VariantAnimalTextures extends MesonModule {
     public void setup() {
         // add vanilla textures
         chickens.add(new Identifier(PREFIX + "chicken.png"));
+        cows.add(new Identifier(PREFIX + "cow/cow.png"));
+        pigs.add(new Identifier(PREFIX + "pig/pig.png"));
+        squids.add(new Identifier(PREFIX + "squid.png"));
+        Identifier wolf = new Identifier(PREFIX + "wolf/wolf.png");
+        wolves.add(wolf);
+        wolvesTame.put(wolf, new Identifier(PREFIX + "wolf/wolf_tame.png"));
+        wolvesAngry.put(wolf, new Identifier(PREFIX + "wolf/wolf_angry.png"));
 
         for (int i = 1; i <= 5; i++)
             addCustomTextures(chickens, MobType.CHICKEN, "chicken" + i);
 
         for (int i = 1; i <= 2; i++)
             addCustomTextures(rareChickens, MobType.CHICKEN, "rare_chicken" + i);
+
+        for (int i = 1; i <= 7; i++)
+            addCustomTextures(cows, MobType.COW, "cow" + i);
+
+        for (int i = 1; i <= 1; i++)
+            addCustomTextures(rareCows, MobType.COW, "rare_cow" + i);
+
+        for (int i = 1; i <= 5; i++)
+            addCustomTextures(pigs, MobType.PIG, "pig" + i);
+
+        for (int i = 1; i <= 1; i++)
+            addCustomTextures(rarePigs, MobType.PIG, "rare_pig" + i);
+
+        for (int i = 1; i <= 4; i++)
+            addCustomTextures(squids, MobType.SQUID, "squid" + i);
+
+        for (int i = 1; i <= 1; i++)
+            addCustomTextures(rareSquids, MobType.SQUID, "rare_squid" + i);
+
+        for (int i = 1; i <= 25; i++)
+            addCustomTextures(wolves, MobType.WOLF, "nlg_wolf" + i); // add NeverLoseGuy wolf textures
+
+        for (int i = 1; i <= 1; i++)
+            addCustomTextures(rareWolves, MobType.WOLF, "rare_wolf" + i);
+
+        addCustomTextures(wolves, MobType.WOLF, "brownwolf", "greywolf", "blackwolf", "amotwolf", "jupiter1390");
     }
 
     public void addCustomTextures(List<Identifier> set, MobType type, String... names) {
@@ -85,9 +121,33 @@ public class VariantAnimalTextures extends MesonModule {
         return getRandomTexture(entity, chickens, rareChickens);
     }
 
+    public static Identifier getCowTexture(CowEntity entity) {
+        return getRandomTexture(entity, cows, rareCows);
+    }
+
+    public static Identifier getPigTexture(PigEntity entity) {
+        return getRandomTexture(entity, pigs, rarePigs);
+    }
+
+    public static Identifier getSquidTexture(SquidEntity entity) {
+        return getRandomTexture(entity, squids, rareSquids);
+    }
+
+    public static Identifier getWolfTexture(WolfEntity entity) {
+        Identifier res = getRandomTexture(entity, wolves, rareWolves);
+
+        if (entity.isTamed()) {
+            res = wolvesTame.get(res);
+        } else if (entity.isUniversallyAngry(entity.world)) {
+            res = wolvesAngry.get(res);
+        }
+
+        return res;
+    }
+
     public static Identifier getRandomTexture(Entity entity, List<Identifier> normalSet, List<Identifier> rareSet) {
         UUID id = entity.getUuid();
-        boolean isRare = rareVariants && !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % 50 == 0;
+        boolean isRare = rareVariants && !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % rarity == 0;
 
         List<Identifier> set = isRare ? rareSet : normalSet;
         int choice = Math.abs((int)(id.getMostSignificantBits() % set.size()));
