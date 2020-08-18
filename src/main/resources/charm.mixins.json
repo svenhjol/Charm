@@ -9,7 +9,9 @@
     "FarmlandBlockMixin",
     "PlayerManagerMixin",
     "PotionItemMixin",
-    "ServerWorldMixin"
+    "ServerWorldMixin",
+    "accessor.GoalSelectorAccessor",
+    "accessor.MobEntityAccessor"
   ],
   "client": [
   ],
