@@ -12,16 +12,13 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ConfigHandler {
     private static final String CONFIG_PATH = "./config/charm";
     private static final String MODULES = CONFIG_PATH + "/modules.json";
-    private final Map<String, Boolean> enabledConfig = new HashMap<>();
-    private final Map<String, Map<String, Object>> moduleConfig = new HashMap<>();
+    private final Map<String, Boolean> enabledConfig = new TreeMap<>();
+    private final Map<String, Map<String, Object>> moduleConfig = new TreeMap<>();
 
     public ConfigHandler(Meson mod) {
         if (!Meson.loadedModules.containsKey(mod.getId()))
