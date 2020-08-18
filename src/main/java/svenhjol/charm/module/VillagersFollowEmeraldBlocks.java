@@ -12,7 +12,7 @@ import svenhjol.meson.helper.MobHelper;
 import svenhjol.meson.iface.Module;
 
 @Module(description = "Villagers are attracted when the player holds a block of emeralds.")
-public class VillagersFollowEmeralds extends MesonModule {
+public class VillagersFollowEmeraldBlocks extends MesonModule {
     @Override
     public void init() {
         if (!enabled)
