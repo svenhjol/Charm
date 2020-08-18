@@ -99,7 +99,13 @@ public class ConfigHandler {
                     Object val = field.get(null);
 
                     if (this.moduleConfig.get(moduleName).containsKey(name)) {
-                        field.set(null, this.moduleConfig.get(moduleName).get(name));
+                        Object configVal = this.moduleConfig.get(moduleName).get(name);
+
+                        if (val instanceof Integer && configVal instanceof Double)
+                            configVal = (int)(double)configVal;  // this is stupidland
+
+                        field.set(null, configVal);
+                        this.moduleConfig.get(moduleName).put(name, configVal);
                     } else {
                         this.moduleConfig.get(moduleName).put(name, val);
                     }
