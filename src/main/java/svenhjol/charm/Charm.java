@@ -29,7 +29,8 @@ public class Charm extends Meson implements ModInitializer {
             HoeHarvesting.class,
             PathToDirt.class,
             RemoveNitwits.class,
-            RemovePotionGlint.class
+            RemovePotionGlint.class,
+            VillagersFollowEmeralds.class
         ));
     }
 }
