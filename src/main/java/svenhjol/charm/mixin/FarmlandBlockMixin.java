@@ -14,9 +14,7 @@ import svenhjol.charm.module.FeatherFallingCrops;
 public class FarmlandBlockMixin {
     @Inject(method = "onLandedUpon", at = @At("HEAD"), cancellable = true)
     private void hookOnLandedUpon(World world, BlockPos pos, Entity entity, float distance, CallbackInfo ci) {
-        boolean result = FeatherFallingCrops.landedOnFarmlandBlock(entity);
-
-        if (result)
+        if (FeatherFallingCrops.landedOnFarmlandBlock(entity))
             ci.cancel();
     }
 }
