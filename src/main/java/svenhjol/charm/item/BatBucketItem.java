@@ -69,7 +69,7 @@ public class BatBucketItem extends MesonItem {
         }
         player.swingHand(hand);
 
-        // send client message to start glowing
+        // send message to client to start glowing
         if (!world.isClient) {
             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
             data.writeDouble(BatBucket.glowingRange);
