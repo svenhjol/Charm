@@ -22,6 +22,7 @@ public class Charm extends Meson implements ModInitializer {
         return new ArrayList<>(Arrays.asList(
             AnvilImprovements.class,
             AutomaticRecipeUnlock.class,
+//            BatBucket.class,
             CampfiresNoDamage.class,
             ChickensDropFeathers.class,
             Core.class,
