@@ -4,6 +4,8 @@
   "package": "svenhjol.charm.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AnvilBlockMixin",
+    "AnvilScreenHandlerMixin",
     "CampfireBlockMixin",
     "ChickenEntityMixin",
     "FarmlandBlockMixin",
@@ -14,6 +16,7 @@
     "accessor.MobEntityAccessor"
   ],
   "client": [
+    "AnvilScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

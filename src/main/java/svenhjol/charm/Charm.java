@@ -20,6 +20,7 @@ public class Charm extends Meson implements ModInitializer {
     @Override
     public List<Class<? extends MesonModule>> getModules() {
         return new ArrayList<>(Arrays.asList(
+            AnvilImprovements.class,
             AutomaticRecipeUnlock.class,
             CampfiresNoDamage.class,
             ChickensDropFeathers.class,
