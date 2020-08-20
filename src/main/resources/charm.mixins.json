@@ -14,10 +14,13 @@
     "PotionItemMixin",
     "ServerWorldMixin",
     "accessor.GoalSelectorAccessor",
+    "accessor.HandledScreenAccessor",
     "accessor.MobEntityAccessor"
   ],
   "client": [
-    "AnvilScreenMixin"
+    "AnvilScreenMixin",
+    "HandledScreenMixin",
+    "ScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
