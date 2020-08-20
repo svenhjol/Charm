@@ -34,9 +34,7 @@ public class PortableEnderChestClient {
                 return ActionResult.PASS;
 
             InventoryScreen screen = (InventoryScreen)client.currentScreen;
-
             int guiLeft = ScreenHelper.getX(screen);
-            int guiTop = ScreenHelper.getY(screen);
 
             this.chestButton = new TexturedButtonWidget(guiLeft + 130, height / 2 - 22, 20, 18, 20, 0, 19, CharmResources.INVENTORY_BUTTONS, click -> {
                 ClientSidePacketRegistry.INSTANCE.sendToServer(PortableEnderChest.MSG_SERVER_OPEN_ENDER_CHEST, new PacketByteBuf(Unpooled.buffer()));
