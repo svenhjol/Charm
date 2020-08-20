@@ -25,6 +25,4 @@ public class HandledScreenMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         RenderGuiCallback.EVENT.invoker().interact(client, matrices, mouseX, mouseY, delta);
     }
-
-
 }
