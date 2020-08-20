@@ -24,7 +24,7 @@ public class BatBucket extends MesonModule {
     public static BatBucketItem BAT_BUCKET_ITEM;
     public static BatBucketClient client = null;
 
-    public static final Identifier MSG_CLIENT_SET_GLOWING = new Identifier(Charm.MOD_ID, "client_glowing");
+    public static final Identifier MSG_CLIENT_SET_GLOWING = new Identifier(Charm.MOD_ID, "client_set_glowing");
 
     @Config(name = "Glowing time", description = "Number of seconds that entities will receive the glowing effect.")
     public static int glowingTime = 10;
