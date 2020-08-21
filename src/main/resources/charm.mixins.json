@@ -15,7 +15,8 @@
     "ServerWorldMixin",
     "accessor.GoalSelectorAccessor",
     "accessor.HandledScreenAccessor",
-    "accessor.MobEntityAccessor"
+    "accessor.MobEntityAccessor",
+    "accessor.SlotAccessor"
   ],
   "client": [
     "AnvilScreenMixin",
