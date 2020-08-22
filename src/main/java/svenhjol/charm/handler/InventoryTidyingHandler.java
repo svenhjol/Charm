@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class InventorySortingHandler {
+public class InventoryTidyingHandler {
     public static final int TILE = 0;
     public static final int PLAYER = 1;
 
@@ -77,7 +77,7 @@ public class InventorySortingHandler {
     }
 
     public static void sortInventory(List<ItemStack> stacks) {
-        stacks.sort(InventorySortingHandler::compare); // TODO world's crappiest sorting
+        stacks.sort(InventoryTidyingHandler::compare); // TODO world's crappiest sorting
     }
 
     private static boolean setInventory(Inventory inventory, List<ItemStack> stacks, int startSlot, int endSlot) {

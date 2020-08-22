@@ -14,7 +14,7 @@ import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
-import svenhjol.charm.module.InventorySorting;
+import svenhjol.charm.module.InventoryTidying;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ScreenHelper;
 
@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static svenhjol.charm.handler.InventorySortingHandler.PLAYER;
-import static svenhjol.charm.handler.InventorySortingHandler.TILE;
+import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
+import static svenhjol.charm.handler.InventoryTidyingHandler.TILE;
 
-public class InventorySortingClient {
+public class InventoryTidyingClient {
     private static final int LEFT = 159;
     private static final int TOP = 12;
     private final MesonModule module;
@@ -34,7 +34,7 @@ public class InventorySortingClient {
     public final List<Class<? extends Screen>> tileScreens = new ArrayList<>();
     public final List<Class<? extends Screen>> blacklistScreens = new ArrayList<>();
 
-    public InventorySortingClient(MesonModule module) {
+    public InventoryTidyingClient(MesonModule module) {
         this.module = module;
 
         if (!module.enabled)
@@ -111,6 +111,6 @@ public class InventorySortingClient {
     private void sendSortMessage(int type) {
         PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
         data.writeInt(type);
-        ClientSidePacketRegistry.INSTANCE.sendToServer(InventorySorting.MSG_SERVER_SORT_INVENTORY, data);
+        ClientSidePacketRegistry.INSTANCE.sendToServer(InventoryTidying.MSG_SERVER_TIDY_INVENTORY, data);
     }
 }
