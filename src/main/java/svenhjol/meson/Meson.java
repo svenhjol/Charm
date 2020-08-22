@@ -32,7 +32,7 @@ public abstract class Meson {
         // setup all enabled modules
         eachEnabledModule(MesonModule::setup);
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
-            eachModule(MesonModule::initClient);
+            eachModule(MesonModule::setupClient);
     }
 
     public String getId() {
