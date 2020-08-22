@@ -13,6 +13,7 @@
     "PlayerManagerMixin",
     "PotionItemMixin",
     "ServerWorldMixin",
+    "accessor.DispenserBlockAccessor",
     "accessor.GoalSelectorAccessor",
     "accessor.HandledScreenAccessor",
     "accessor.MobEntityAccessor",
