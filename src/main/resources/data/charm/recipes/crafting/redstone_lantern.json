@@ -4,7 +4,7 @@
     "III", "ITI", "III"
   ],
   "key": {
-    "I": {"tag": "forge:nuggets/iron"},
+    "I": {"item": "minecraft:iron_nugget"},
     "T": {"item": "minecraft:redstone_torch"}
   },
   "result": {
