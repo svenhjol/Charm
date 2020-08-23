@@ -1,6 +1,7 @@
 package svenhjol.meson.helper;
 
 import com.mojang.serialization.Lifecycle;
+import net.minecraft.block.Block;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.item.Item;
@@ -12,9 +13,14 @@ import svenhjol.charm.mixin.accessor.DispenserBlockAccessor;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class OverrideHandler {
-    public static void changeVanillaItem(Identifier id, Item item) {
+    public static void changeItem(Identifier id, Item item) {
         int rawId = Registry.ITEM.getRawId(Registry.ITEM.get(id));
         ((MutableRegistry)Registry.ITEM).set(rawId, RegistryKey.of(Registry.ITEM.getKey(), id), item, Lifecycle.stable());
+    }
+
+    public static void changeBlock(Identifier id, Block block) {
+        int rawId = Registry.BLOCK.getRawId(Registry.BLOCK.get(id));
+        ((MutableRegistry)Registry.BLOCK).set(rawId, RegistryKey.of(Registry.BLOCK.getKey(), id), block, Lifecycle.stable());
     }
 
     public static void changeDispenserBehavior(Item existingItem, Item newItem) {
