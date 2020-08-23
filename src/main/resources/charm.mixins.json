@@ -16,6 +16,7 @@
     "accessor.DispenserBlockAccessor",
     "accessor.GoalSelectorAccessor",
     "accessor.HandledScreenAccessor",
+    "accessor.ItemAccessor",
     "accessor.MobEntityAccessor",
     "accessor.SlotAccessor"
   ],
