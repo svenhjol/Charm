@@ -34,6 +34,7 @@ public class Charm extends Meson implements ModInitializer {
             LanternImprovements.class,
             PathToDirt.class,
             PortableEnderChest.class,
+            RedstoneLanterns.class,
             RemoveNitwits.class,
             RemovePotionGlint.class,
             StackableEnchantedBooks.class,

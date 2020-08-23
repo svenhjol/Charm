@@ -16,10 +16,12 @@
     "ServerWorldMixin",
     "StrayEntityMixin",
     "accessor.DispenserBlockAccessor",
+    "accessor.FireBlockAccessor",
     "accessor.GoalSelectorAccessor",
     "accessor.HandledScreenAccessor",
     "accessor.ItemAccessor",
     "accessor.MobEntityAccessor",
+    "accessor.RenderLayersAccessor",
     "accessor.SlotAccessor"
   ],
   "client": [

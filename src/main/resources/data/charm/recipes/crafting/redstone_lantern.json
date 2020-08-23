@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III", "ITI", "III"
+  ],
+  "key": {
+    "I": {"tag": "forge:nuggets/iron"},
+    "T": {"item": "minecraft:redstone_torch"}
+  },
+  "result": {
+    "item": "charm:redstone_lantern"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:redstone_lanterns"
+    }
+  ]
+}
