@@ -44,7 +44,6 @@ public class HuskImprovements extends MesonModule {
     }
 
     public static boolean canSpawn() {
-
         return Meson.enabled("charm:husk_improvements") && spawnAnywhere;
     }
 }
