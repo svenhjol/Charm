@@ -28,6 +28,7 @@ public class Charm extends Meson implements ModInitializer {
             Core.class,
             DirtToPath.class,
             FeatherFallingCrops.class,
+            GoldLanterns.class,
             HoeHarvesting.class,
             HuskImprovements.class,
             InventoryTidying.class,

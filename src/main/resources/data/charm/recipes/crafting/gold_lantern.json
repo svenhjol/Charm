@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG", "GTG", "GGG"
+  ],
+  "key": {
+    "G": {"item": "minecraft:gold_nugget"},
+    "T": {"item": "minecraft:torch"}
+  },
+  "result": {
+    "item": "charm:gold_lantern"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:gold_lanterns"
+    }
+  ]
+}
