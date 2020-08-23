@@ -14,16 +14,18 @@ public class StackablePotions extends MesonModule {
 
     @Override
     public void init() {
-        PotionItem potionItem = new PotionItem((new Item.Settings()).maxCount(stackSize).group(ItemGroup.BREWING));
-        SplashPotionItem splashPotionItem = new SplashPotionItem((new Item.Settings()).maxCount(stackSize).group(ItemGroup.BREWING));
-        LingeringPotionItem lingeringPotionItem = new LingeringPotionItem((new Item.Settings()).maxCount(stackSize).group(ItemGroup.BREWING));
+        if (enabled) {
+            PotionItem potionItem = new PotionItem((new Item.Settings()).maxCount(stackSize).group(ItemGroup.BREWING));
+            SplashPotionItem splashPotionItem = new SplashPotionItem((new Item.Settings()).maxCount(stackSize).group(ItemGroup.BREWING));
+            LingeringPotionItem lingeringPotionItem = new LingeringPotionItem((new Item.Settings()).maxCount(stackSize).group(ItemGroup.BREWING));
 
-        // re-register dispenser splash behavior
-        OverrideHandler.overrideDispenserBehavior(Items.SPLASH_POTION, splashPotionItem);
+            // re-register dispenser splash behavior
+            OverrideHandler.overrideDispenserBehavior(Items.SPLASH_POTION, splashPotionItem);
 
-        // re-register vanilla potion items
-        OverrideHandler.overrideVanillaItem(new Identifier("potion"), potionItem);
-        OverrideHandler.overrideVanillaItem(new Identifier("splash_potion"), splashPotionItem);
-        OverrideHandler.overrideVanillaItem(new Identifier("lingering_potion"), lingeringPotionItem);
+            // re-register vanilla potion items
+            OverrideHandler.overrideVanillaItem(new Identifier("potion"), potionItem);
+            OverrideHandler.overrideVanillaItem(new Identifier("splash_potion"), splashPotionItem);
+            OverrideHandler.overrideVanillaItem(new Identifier("lingering_potion"), lingeringPotionItem);
+        }
     }
 }
