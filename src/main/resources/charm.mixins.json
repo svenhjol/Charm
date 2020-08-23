@@ -9,6 +9,7 @@
     "CampfireBlockMixin",
     "ChickenEntityMixin",
     "FarmlandBlockMixin",
+    "HuskEntityMixin",
     "LivingEntityMixin",
     "PlayerManagerMixin",
     "PotionItemMixin",
