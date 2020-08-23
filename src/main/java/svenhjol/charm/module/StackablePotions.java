@@ -1,9 +1,8 @@
 package svenhjol.charm.module;
 
-import net.minecraft.item.*;
-import net.minecraft.util.Identifier;
+import net.minecraft.item.Items;
+import svenhjol.charm.mixin.accessor.ItemAccessor;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.OverrideHandler;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
@@ -15,17 +14,9 @@ public class StackablePotions extends MesonModule {
     @Override
     public void init() {
         if (enabled) {
-            PotionItem potionItem = new PotionItem((new Item.Settings()).maxCount(stackSize).group(ItemGroup.BREWING));
-            SplashPotionItem splashPotionItem = new SplashPotionItem((new Item.Settings()).maxCount(stackSize).group(ItemGroup.BREWING));
-            LingeringPotionItem lingeringPotionItem = new LingeringPotionItem((new Item.Settings()).maxCount(stackSize).group(ItemGroup.BREWING));
-
-            // re-register dispenser splash behavior
-            OverrideHandler.overrideDispenserBehavior(Items.SPLASH_POTION, splashPotionItem);
-
-            // re-register vanilla potion items
-            OverrideHandler.overrideVanillaItem(new Identifier("potion"), potionItem);
-            OverrideHandler.overrideVanillaItem(new Identifier("splash_potion"), splashPotionItem);
-            OverrideHandler.overrideVanillaItem(new Identifier("lingering_potion"), lingeringPotionItem);
+            ((ItemAccessor) Items.POTION).setMaxCount(stackSize);
+            ((ItemAccessor) Items.SPLASH_POTION).setMaxCount(stackSize);
+            ((ItemAccessor) Items.LINGERING_POTION).setMaxCount(stackSize);
         }
     }
 }
