@@ -28,7 +28,6 @@ public class PortableEnderChest extends MesonModule {
 
     @Override
     public void init() {
-
         // listen for network requests to open the portable ender chest
         ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_OPEN_ENDER_CHEST, (context, data) -> {
             context.getTaskQueue().execute(() -> {

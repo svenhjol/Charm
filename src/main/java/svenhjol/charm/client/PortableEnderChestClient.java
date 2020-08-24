@@ -19,14 +19,11 @@ import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.ScreenHelper;
 
 public class PortableEnderChestClient {
-    private final MesonModule module;
     public TexturedButtonWidget chestButton;
 
     public PortableEnderChestClient(MesonModule module) {
-        this.module = module;
-
         // set up client listeners
-        SetupGuiCallback.EVENT.register((client, width, height, addButton) -> {
+        SetupGuiCallback.EVENT.register((client, width, height, buttons, addButton) -> {
             if (client.player == null)
                 return ActionResult.PASS;
 
@@ -64,5 +61,9 @@ public class PortableEnderChestClient {
     private boolean hasChest(PlayerEntity player) {
         return PortableEnderChest.offhandOnly && ItemHelper.getBlockClass(player.getOffHandStack()) == EnderChestBlock.class
             || !PortableEnderChest.offhandOnly && player.inventory.contains(new ItemStack(Blocks.ENDER_CHEST));
+    }
+
+    public boolean isButtonVisible() {
+        return this.chestButton != null && this.chestButton.visible;
     }
 }

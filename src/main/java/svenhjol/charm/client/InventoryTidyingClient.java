@@ -53,7 +53,7 @@ public class InventoryTidyingClient {
         ));
 
         // set up client listeners
-        SetupGuiCallback.EVENT.register(((client, width, height, addButton) -> {
+        SetupGuiCallback.EVENT.register(((client, width, height, buttons, addButton) -> {
             if (client.player == null)
                 return ActionResult.PASS;
 

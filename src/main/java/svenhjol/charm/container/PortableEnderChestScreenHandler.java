@@ -13,7 +13,7 @@ public class PortableEnderChestScreenHandler extends GenericContainerScreenHandl
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return true; // any instances where player can't use an Ender Chest?
+        return true; // TODO any instances where player can't use an Ender Chest?
     }
 
     @Override
