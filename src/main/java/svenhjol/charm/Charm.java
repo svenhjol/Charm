@@ -25,6 +25,7 @@ public class Charm extends Meson implements ModInitializer {
             BatBucket.class,
             BeaconsHealMobs.class,
             CampfiresNoDamage.class,
+            CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
             Core.class,
             DirtToPath.class,
@@ -47,7 +48,8 @@ public class Charm extends Meson implements ModInitializer {
             TamedAnimalsNoDamage.class,
             UseTotemFromInventory.class,
             VariantAnimalTextures.class,
-            VillagersFollowEmeraldBlocks.class
+            VillagersFollowEmeraldBlocks.class,
+            WitchesDropLuck.class
         ));
     }
 }
