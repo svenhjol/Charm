@@ -17,12 +17,12 @@ import java.util.Random;
 public class MoreVillagerTrades extends MesonModule {
     @Override
     public void init() {
-        VillagerHelper.addTrade(VillagerProfession.LIBRARIAN, 1, new EmeraldsForEnchantedBookTrade());
-        VillagerHelper.addTrade(VillagerProfession.BUTCHER, 1, new ItemForZombieFleshTrade(Items.PORKCHOP, 3, 6));
-        VillagerHelper.addTrade(VillagerProfession.LEATHERWORKER, 1, new ItemForZombieFleshTrade(Items.LEATHER, 1, 3));
-        VillagerHelper.addTrade(VillagerProfession.ARMORER, 1, new RepairedAnvilForDamagedAnvilTrade());
-        VillagerHelper.addTrade(VillagerProfession.TOOLSMITH, 1, new RepairedAnvilForDamagedAnvilTrade());
-        VillagerHelper.addTrade(VillagerProfession.WEAPONSMITH, 1, new RepairedAnvilForDamagedAnvilTrade());
+        VillagerHelper.addTrade(VillagerProfession.LIBRARIAN, 3, new EmeraldsForEnchantedBookTrade());
+        VillagerHelper.addTrade(VillagerProfession.BUTCHER, 3, new ItemForZombieFleshTrade(Items.PORKCHOP, 3, 6));
+        VillagerHelper.addTrade(VillagerProfession.LEATHERWORKER, 3, new ItemForZombieFleshTrade(Items.LEATHER, 1, 3));
+        VillagerHelper.addTrade(VillagerProfession.ARMORER, 2, new RepairedAnvilForDamagedAnvilTrade());
+        VillagerHelper.addTrade(VillagerProfession.TOOLSMITH, 2, new RepairedAnvilForDamagedAnvilTrade());
+        VillagerHelper.addTrade(VillagerProfession.WEAPONSMITH, 2, new RepairedAnvilForDamagedAnvilTrade());
     }
 
     public static class EmeraldsForEnchantedBookTrade implements TradeOffers.Factory {
