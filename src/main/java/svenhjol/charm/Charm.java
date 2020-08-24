@@ -2,14 +2,14 @@ package svenhjol.charm;
 
 import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.module.*;
-import svenhjol.meson.Meson;
+import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Charm extends Meson implements ModInitializer {
+public class Charm extends MesonMod implements ModInitializer {
     public static final String MOD_ID = "charm";
 
     @Override

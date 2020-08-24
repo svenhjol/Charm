@@ -4,7 +4,7 @@ public abstract class MesonModule {
     public boolean enabled = true;
     public boolean enabledByDefault = true;
     public boolean alwaysEnabled = false;
-    public Meson mod;
+    public MesonMod mod;
 
     public boolean shouldSetup() {
         return true;

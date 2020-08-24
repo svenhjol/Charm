@@ -3,6 +3,7 @@ package svenhjol.meson.handler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import svenhjol.meson.Meson;
+import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.StringHelper;
 import svenhjol.meson.iface.Config;
@@ -20,7 +21,7 @@ public class ConfigHandler {
     private final Map<String, Boolean> enabledConfig = new TreeMap<>();
     private final Map<String, Map<String, Object>> moduleConfig = new TreeMap<>();
 
-    public ConfigHandler(Meson mod) {
+    public ConfigHandler(MesonMod mod) {
         if (!Meson.loadedModules.containsKey(mod.getId()))
             return;
 

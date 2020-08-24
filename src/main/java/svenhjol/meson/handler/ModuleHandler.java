@@ -1,6 +1,7 @@
 package svenhjol.meson.handler;
 
 import svenhjol.meson.Meson;
+import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ModuleHandler {
-    public ModuleHandler(Meson mod, List<Class<? extends MesonModule>> classes) {
+    public ModuleHandler(MesonMod mod, List<Class<? extends MesonModule>> classes) {
         Map<String, MesonModule> moduleInstances = new HashMap<>();
 
         classes.forEach(clazz -> {
