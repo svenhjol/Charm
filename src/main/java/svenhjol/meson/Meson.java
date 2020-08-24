@@ -15,7 +15,6 @@ public class Meson {
     private static Map<String, MesonMod> mods = new ConcurrentHashMap<>();
 
     private Meson() {
-        // TODO handle TradeOffers mapping
     }
 
     public void register(MesonMod mod) {
