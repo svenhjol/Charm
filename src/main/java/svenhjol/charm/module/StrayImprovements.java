@@ -25,7 +25,7 @@ public class StrayImprovements extends MesonModule {
     public static boolean dropIce = true;
 
     @Config(name = "Maximum drops", description = "Maximum blue ice dropped when stray is killed.")
-    public static double maxDrops = 2;
+    public static int maxDrops = 2;
 
     @Override
     public void init() {

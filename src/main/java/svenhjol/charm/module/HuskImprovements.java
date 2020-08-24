@@ -25,7 +25,7 @@ public class HuskImprovements extends MesonModule {
     public static boolean dropSand = true;
 
     @Config(name = "Maximum drops", description = "Maximum sand dropped when husk is killed.")
-    public static double maxDrops = 2;
+    public static int maxDrops = 2;
 
     @Override
     public void init() {
