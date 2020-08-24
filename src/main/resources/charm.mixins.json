@@ -18,6 +18,7 @@
     "StrayEntityMixin",
     "accessor.DispenserBlockAccessor",
     "accessor.FireBlockAccessor",
+    "accessor.GenerationSettingsAccessor",
     "accessor.GoalSelectorAccessor",
     "accessor.HandledScreenAccessor",
     "accessor.ItemAccessor",
