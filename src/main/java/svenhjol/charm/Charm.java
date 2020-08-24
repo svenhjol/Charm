@@ -43,6 +43,7 @@ public class Charm extends Meson implements ModInitializer {
             StackableEnchantedBooks.class,
             StackablePotions.class,
             StrayImprovements.class,
+            TamedAnimalsNoDamage.class,
             UseTotemFromInventory.class,
             VariantAnimalTextures.class,
             VillagersFollowEmeraldBlocks.class
