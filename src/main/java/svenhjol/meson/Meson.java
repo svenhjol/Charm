@@ -26,12 +26,12 @@ public abstract class Meson {
 
         // initialize all modules
         eachModule(MesonModule::init);
-        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
+        if (isClient())
             eachModule(MesonModule::initClient);
 
         // setup all enabled modules
         eachEnabledModule(MesonModule::setup);
-        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
+        if (isClient())
             eachModule(MesonModule::setupClient);
     }
 
@@ -70,5 +70,9 @@ public abstract class Meson {
             return false;
 
         return loadedModules.get(mod).get(module).enabled;
+    }
+
+    public static boolean isClient() {
+        return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
     }
 }
