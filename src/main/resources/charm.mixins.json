@@ -6,6 +6,7 @@
   "mixins": [
     "AnvilBlockMixin",
     "AnvilScreenHandlerMixin",
+    "BeaconBlockEntityMixin",
     "CampfireBlockMixin",
     "ChickenEntityMixin",
     "FarmlandBlockMixin",

@@ -23,6 +23,7 @@ public class Charm extends Meson implements ModInitializer {
             AnvilImprovements.class,
             AutomaticRecipeUnlock.class,
             BatBucket.class,
+            BeaconsHealMobs.class,
             CampfiresNoDamage.class,
             ChickensDropFeathers.class,
             Core.class,
