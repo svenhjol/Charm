@@ -23,19 +23,21 @@ import java.util.List;
 public class MoreVillageBiomes extends MesonModule {
     @Override
     public void init() {
-        List<RegistryKey<Biome>> biomeKeys = new ArrayList<>(Arrays.asList(
-            BiomeKeys.JUNGLE, BiomeKeys.SWAMP
-        ));
+        if (enabled) {
+            List<RegistryKey<Biome>> biomeKeys = new ArrayList<>(Arrays.asList(
+                BiomeKeys.JUNGLE, BiomeKeys.SWAMP
+            ));
 
-        for (RegistryKey<Biome> biomeKey : biomeKeys) {
-            Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-            BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_PLAINS);
+            for (RegistryKey<Biome> biomeKey : biomeKeys) {
+                Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
+                BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_PLAINS);
+            }
+
+            AddEntityCallback.EVENT.register((entity -> {
+                changeVillagerSkin(entity);
+                return ActionResult.PASS;
+            }));
         }
-
-        AddEntityCallback.EVENT.register((entity -> {
-            changeVillagerSkin(entity);
-            return ActionResult.PASS;
-        }));
     }
 
     private void changeVillagerSkin(Entity entity) {
