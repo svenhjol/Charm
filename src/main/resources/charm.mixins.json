@@ -33,6 +33,7 @@
   ],
   "client": [
     "AnvilScreenMixin",
+    "ArmorFeatureRendererMixin",
     "HandledScreenMixin",
     "MusicTrackerMixin",
     "ScreenMixin",

@@ -10,19 +10,26 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.event.EntityDropsCallback;
 import svenhjol.charm.event.HurtEntityCallback;
+import svenhjol.charm.module.ArmorInvisibility;
 import svenhjol.charm.module.UseTotemFromInventory;
+import svenhjol.meson.Meson;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
+
+    @Shadow
+    public abstract Iterable<ItemStack> getArmorItems();
 
     @Redirect(
         method = "tryUseTotem",
@@ -52,5 +59,29 @@ public abstract class LivingEntityMixin extends Entity {
         ActionResult result = HurtEntityCallback.EVENT.invoker().interact((LivingEntity) (Object) this, source, amount);
         if (result == ActionResult.FAIL)
             ci.cancel();
+    }
+
+    @Inject(
+        method = "getArmorVisibility",
+        at = @At(value = "RETURN"),
+        cancellable = true
+    )
+    private void armorCoverHook(CallbackInfoReturnable<Float> cir) {
+        if (Meson.enabled("charm:armor_invisibility")) {
+            LivingEntity entity = (LivingEntity) (Object) this;
+            Iterable<ItemStack> armorItems = this.getArmorItems();
+
+            int i = 0;
+            int j = 0;
+
+            for (ItemStack itemstack : armorItems) {
+                if (!ArmorInvisibility.shouldArmorBeInvisible(entity, itemstack)) {
+                    ++j;
+                }
+                ++i;
+            }
+
+            cir.setReturnValue(i > 0 ? (float)j / (float)i : 0.0F);
+        }
     }
 }

@@ -21,6 +21,7 @@ public class Charm extends MesonMod implements ModInitializer {
     public List<Class<? extends MesonModule>> getModules() {
         return new ArrayList<>(Arrays.asList(
             AnvilImprovements.class,
+            ArmorInvisibility.class,
             AutomaticRecipeUnlock.class,
             BatBucket.class,
             BeaconsHealMobs.class,
