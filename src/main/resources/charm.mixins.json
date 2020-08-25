@@ -16,6 +16,7 @@
     "PotionItemMixin",
     "ServerWorldMixin",
     "StrayEntityMixin",
+    "WanderingTraderManagerMixin",
     "accessor.DispenserBlockAccessor",
     "accessor.FireBlockAccessor",
     "accessor.GenerationSettingsAccessor",

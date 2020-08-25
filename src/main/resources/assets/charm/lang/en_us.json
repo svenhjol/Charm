@@ -4,5 +4,16 @@
   "block.charm.redstone_lantern": "Redstone Lantern",
   "container.charm.portable_ender_chest": "Portable Ender Chest",
   "container.charm.portable_crafting_table": "Portable Crafting",
-  "item.charm.bat_bucket": "Bat in a Bucket"
+  "filled_map.charm.trader_map": "%s Map",
+  "item.charm.bat_bucket": "Bat in a Bucket",
+  "structure.charm.desert_pyramid": "Desert Pyramid",
+  "structure.charm.igloo": "Igloo",
+  "structure.charm.jungle_pyramid": "Jungle Pyramid",
+  "structure.charm.mineshaft": "Mineshaft",
+  "structure.charm.ocean_ruin": "Ocean Ruin",
+  "structure.charm.pillager_outpost": "Pillager Outpost",
+  "structure.charm.ruined_portal": "Ruined Portal",
+  "structure.charm.shipwreck": "Shipwreck",
+  "structure.charm.swamp_hut": "Swamp Hut",
+  "structure.charm.village": "Village"
 }

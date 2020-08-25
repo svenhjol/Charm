@@ -50,6 +50,7 @@ public class Charm extends MesonMod implements ModInitializer {
             UseTotemFromInventory.class,
             VariantAnimalTextures.class,
             VillagersFollowEmeraldBlocks.class,
+            WanderingTraderImprovements.class,
             WitchesDropLuck.class
         ));
     }
