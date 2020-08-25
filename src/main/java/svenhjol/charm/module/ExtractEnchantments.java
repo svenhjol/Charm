@@ -30,10 +30,10 @@ public class ExtractEnchantments extends MesonModule {
 
     @Override
     public void init() {
-        UpdateAnvilCallback.EVENT.register((this::doTheThing));
+        UpdateAnvilCallback.EVENT.register(this::tryExtract);
     }
 
-    private ActionResult doTheThing(AnvilScreenHandler handler, ItemStack left, ItemStack right, Inventory output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {
+    private ActionResult tryExtract(AnvilScreenHandler handler, ItemStack left, ItemStack right, Inventory output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {
         ItemStack out;
 
         if (left.isEmpty() || right.isEmpty())
