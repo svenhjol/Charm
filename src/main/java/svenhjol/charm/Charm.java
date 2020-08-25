@@ -41,6 +41,7 @@ public class Charm extends MesonMod implements ModInitializer {
             MoreVillagerTrades.class,
             MusicImprovements.class,
             PathToDirt.class,
+            ParrotsStayOnShoulder.class,
             PortableCrafting.class,
             PortableEnderChest.class,
             RedstoneLanterns.class,
