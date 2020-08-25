@@ -21,6 +21,13 @@ public class Meson {
         mods.put(mod.getId(), mod);
     }
 
+    public static MesonMod getMod(String id) {
+        if (!mods.containsKey(id))
+            throw new RuntimeException("No such mod: " + id);
+
+        return mods.get(id);
+    }
+
     public static boolean enabled(String moduleName) {
         String[] split = moduleName.split(":");
         String mod = split[0];
