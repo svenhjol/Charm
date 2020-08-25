@@ -25,12 +25,16 @@
     "accessor.ItemAccessor",
     "accessor.MobEntityAccessor",
     "accessor.RenderLayersAccessor",
-    "accessor.SlotAccessor"
+    "accessor.SlotAccessor",
+    "accessor.SoundManagerAccessor",
+    "accessor.SoundSystemAccessor"
   ],
   "client": [
     "AnvilScreenMixin",
     "HandledScreenMixin",
-    "ScreenMixin"
+    "MusicTrackerMixin",
+    "ScreenMixin",
+    "SoundSystemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
