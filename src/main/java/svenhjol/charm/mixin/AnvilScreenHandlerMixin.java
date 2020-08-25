@@ -2,10 +2,11 @@ package svenhjol.charm.mixin;
 
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.screen.Property;
+import net.minecraft.screen.*;
+import net.minecraft.util.ActionResult;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,16 +15,25 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.module.AnvilImprovements;
 import svenhjol.charm.module.StackableEnchantedBooks;
 import svenhjol.meson.Meson;
 
 @Mixin(AnvilScreenHandler.class)
-public class AnvilScreenHandlerMixin {
-    @Shadow
-    @Final
-    private Property levelCost;
+public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
+    @Shadow @Final private Property levelCost;
+
+    @Shadow private String newItemName;
+
+    @Shadow private int repairItemUsage;
+
+    public AnvilScreenHandlerMixin(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+        super(type, syncId, playerInventory, context);
+    }
 
     @Redirect(
         method = "updateResult",
@@ -33,8 +43,29 @@ public class AnvilScreenHandlerMixin {
             ordinal = 1
         )
     )
-    private boolean hookUpdateResult(PlayerAbilities abilities) {
+    private boolean hookUpdateResultTooExpensive(PlayerAbilities abilities) {
         return AnvilImprovements.allowTooExpensive() || abilities.creativeMode;
+    }
+
+    @Inject(
+        method = "updateResult",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/item/ItemStack;isDamageable()Z"
+        ),
+        cancellable = true,
+        locals = LocalCapture.CAPTURE_FAILHARD
+    )
+    private void hookUpdateResultUpdateAnvil(CallbackInfo ci, ItemStack left, int i, int baseCost, int k, ItemStack itemStack2, ItemStack right) {
+        ActionResult result = UpdateAnvilCallback.EVENT.invoker().interact((AnvilScreenHandler)(Object)this, left, right, this.output, this.newItemName, baseCost, this::applyUpdateAnvil);
+        if (result == ActionResult.SUCCESS)
+            ci.cancel();
+    }
+
+    private void applyUpdateAnvil(ItemStack out, int xpCost, int materialCost) {
+        output.setStack(0, out);
+        levelCost.set(xpCost);
+        repairItemUsage = materialCost;
     }
 
     @Inject(
