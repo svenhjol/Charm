@@ -26,6 +26,7 @@
     "accessor.ItemAccessor",
     "accessor.MobEntityAccessor",
     "accessor.RenderLayersAccessor",
+    "accessor.ServerWorldAccessor",
     "accessor.SlotAccessor",
     "accessor.SoundManagerAccessor",
     "accessor.SoundSystemAccessor"

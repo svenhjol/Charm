@@ -45,6 +45,7 @@ public class Charm extends MesonMod implements ModInitializer {
             RedstoneLanterns.class,
             RemoveNitwits.class,
             RemovePotionGlint.class,
+            SleepImprovements.class,
             StackableEnchantedBooks.class,
             StackablePotions.class,
             StrayImprovements.class,
