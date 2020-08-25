@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 
 @Module(description = "Allows the night to pass when a specified number of players are asleep.")
 public class SleepImprovements extends MesonModule {
+    @Config(name = "Faster sleep", description = "If true, the sleeping player does not need to wait as long before ending the night.")
+    public static boolean fasterSleep = false;
+
     @Config(name = "Number of required players", description = "The number of players required to sleep in order to bring the next day.")
     public static int requiredPlayers = 1;
 
@@ -39,7 +42,7 @@ public class SleepImprovements extends MesonModule {
             return;
 
         List<ServerPlayerEntity> validPlayers = server.getPlayerManager().getPlayerList().stream()
-            .filter(p -> !p.isSpectator() && p.isSleepingLongEnough())
+            .filter(p -> !p.isSpectator() && (fasterSleep ? p.isSleeping() : p.isSleepingLongEnough()))
             .collect(Collectors.toList());
 
         if (validPlayers.size() < requiredPlayers)
