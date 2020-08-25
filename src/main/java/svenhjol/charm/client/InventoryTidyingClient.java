@@ -9,7 +9,6 @@ import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.ActionResult;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
@@ -55,13 +54,13 @@ public class InventoryTidyingClient {
         // set up client listeners
         SetupGuiCallback.EVENT.register(((client, width, height, buttons, addButton) -> {
             if (client.player == null)
-                return ActionResult.PASS;
+                return;
 
             if (!(client.currentScreen instanceof HandledScreen))
-                return ActionResult.PASS;
+                return;
 
             if (blacklistScreens.contains(client.currentScreen.getClass()))
-                return ActionResult.PASS;
+                return;
 
             this.sortingButtons.clear();
 
@@ -87,7 +86,6 @@ public class InventoryTidyingClient {
             }
 
             this.sortingButtons.forEach(addButton);
-            return ActionResult.PASS;
         }));
 
         RenderGuiCallback.EVENT.register(((client, matrices, mouseX, mouseY, delta) -> {
@@ -99,8 +97,6 @@ public class InventoryTidyingClient {
                 int x = ScreenHelper.getX(screen);
                 this.sortingButtons.forEach(button -> button.setPos(x + LEFT, button.y));
             }
-
-            return ActionResult.PASS;
         }));
     }
 

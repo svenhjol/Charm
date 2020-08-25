@@ -3,7 +3,6 @@ package svenhjol.charm.client;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
-import net.minecraft.util.ActionResult;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.module.PortableCrafting;
@@ -18,22 +17,20 @@ public class InventoryButtonClient {
             Screen currentScreen = client.currentScreen;
 
             if (!(currentScreen instanceof InventoryScreen))
-                return ActionResult.PASS;
+                return;
 
             if (!buttons.isEmpty() && buttons.get(0) instanceof TexturedButtonWidget)
                 this.recipeButton = (TexturedButtonWidget)buttons.get(0);
 
             redrawButtons((InventoryScreen)currentScreen);
-            return ActionResult.PASS;
         }));
 
         RenderGuiCallback.EVENT.register(((client, matrices, mouseX, mouseY, delta) -> {
             Screen currentScreen = client.currentScreen;
             if (!(currentScreen instanceof InventoryScreen))
-                return ActionResult.PASS;
+                return;
 
             redrawButtons((InventoryScreen)currentScreen);
-            return ActionResult.PASS;
         }));
     }
 

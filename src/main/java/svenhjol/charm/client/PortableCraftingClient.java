@@ -9,7 +9,6 @@ import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.ActionResult;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
@@ -25,10 +24,10 @@ public class PortableCraftingClient {
         // set up client listeners
         SetupGuiCallback.EVENT.register(((client, width, height, buttons, addButton) -> {
             if (client.player == null)
-                return ActionResult.PASS;
+                return;
 
             if (!(client.currentScreen instanceof InventoryScreen))
-                return ActionResult.PASS;
+                return;
 
             InventoryScreen screen = (InventoryScreen)client.currentScreen;
             int guiLeft = ScreenHelper.getX(screen);
@@ -39,8 +38,6 @@ public class PortableCraftingClient {
 
             this.craftingButton.visible = hasCrafting(client.player);
             addButton.accept(this.craftingButton);
-
-            return ActionResult.PASS;
         }));
 
         RenderGuiCallback.EVENT.register((client, matrices, mouseX, mouseY, delta) -> {
@@ -48,13 +45,11 @@ public class PortableCraftingClient {
                 || this.craftingButton == null
                 || client.player == null
             ) {
-                return ActionResult.PASS;
+                return;
             }
 
             if (client.player.world.getTime() % 5 == 0)
                 this.craftingButton.visible = hasCrafting(client.player);
-
-            return ActionResult.PASS;
         });
     }
 

@@ -9,7 +9,6 @@ import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.ActionResult;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
@@ -25,10 +24,10 @@ public class PortableEnderChestClient {
         // set up client listeners
         SetupGuiCallback.EVENT.register((client, width, height, buttons, addButton) -> {
             if (client.player == null)
-                return ActionResult.PASS;
+                return;
 
             if (!(client.currentScreen instanceof InventoryScreen))
-                return ActionResult.PASS;
+                return;
 
             InventoryScreen screen = (InventoryScreen)client.currentScreen;
             int guiLeft = ScreenHelper.getX(screen);
@@ -39,8 +38,6 @@ public class PortableEnderChestClient {
 
             this.chestButton.visible = hasChest(client.player);
             addButton.accept(this.chestButton);
-
-            return ActionResult.PASS;
         });
 
         RenderGuiCallback.EVENT.register((client, matrices, mouseX, mouseY, delta) -> {
@@ -48,13 +45,11 @@ public class PortableEnderChestClient {
                 || this.chestButton == null
                 || client.player == null
             ) {
-                return ActionResult.PASS;
+                return;
             }
 
             if (client.player.world.getTime() % 5 == 0)
                 this.chestButton.visible = hasChest(client.player);
-
-            return ActionResult.PASS;
         });
     }
 
