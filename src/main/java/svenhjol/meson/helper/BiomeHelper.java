@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.GenerationSettings;
@@ -28,6 +29,15 @@ public class BiomeHelper {
 
     public static Optional<RegistryKey<Biome>> getBiomeKeyAtPosition(ServerWorld world, BlockPos pos) {
         return world.method_31081(pos);
+    }
+
+    public static BlockPos locateBiome(RegistryKey<Biome> biomeKey, ServerWorld world, BlockPos pos) {
+        Biome biome = world.getRegistryManager().get(Registry.BIOME_KEY).get(biomeKey);
+        return locateBiome(biome, world, pos);
+    }
+
+    public static BlockPos locateBiome(Biome biome, ServerWorld world, BlockPos pos) {
+        return world.locateBiome(biome, pos, 6400, 8);
     }
 
     public static void addStructureFeature(Biome biome, ConfiguredStructureFeature<?, ?> structureFeature) {
