@@ -17,6 +17,7 @@
     "ServerWorldMixin",
     "StrayEntityMixin",
     "WanderingTraderManagerMixin",
+    "accessor.AnvilScreenHandlerAccessor",
     "accessor.DispenserBlockAccessor",
     "accessor.FireBlockAccessor",
     "accessor.GenerationSettingsAccessor",
