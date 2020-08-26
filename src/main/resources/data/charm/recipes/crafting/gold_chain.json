@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "N",
+    "I",
+    "N"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "N": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "result": {
+    "item": "charm:gold_chain"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:gold_chains"
+    }
+  ]
+}

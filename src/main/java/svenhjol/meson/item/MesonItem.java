@@ -1,8 +1,6 @@
 package svenhjol.meson.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.meson.MesonModule;
 

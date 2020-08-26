@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S", "W", "W"
+  ],
+  "key": {
+    "S": {"item": "minecraft:string"},
+    "W": {"item": "charm:beeswax"}
+  },
+  "result": {
+    "item": "charm:candle"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:candles"
+    }
+  ]
+}
