@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "minecraft:honeycomb"
+  },
+  "result": "charm:beeswax",
+  "experience": 0.2,
+  "cookingtime": 200,
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:candles"
+    }
+  ]
+}
