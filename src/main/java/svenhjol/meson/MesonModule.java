@@ -6,10 +6,6 @@ public abstract class MesonModule {
     public boolean alwaysEnabled = false;
     public MesonMod mod;
 
-    public boolean shouldSetup() {
-        return true;
-    }
-
     public boolean depends() {
         return true;
     }
