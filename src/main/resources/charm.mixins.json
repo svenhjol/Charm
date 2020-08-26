@@ -12,6 +12,9 @@
     "FarmlandBlockMixin",
     "HuskEntityMixin",
     "LivingEntityMixin",
+    "MinecraftClientMixin",
+    "MinecraftDedicatedServerMixin",
+    "MineshaftGeneratorMixin",
     "PlayerEntityMixin",
     "PlayerManagerMixin",
     "PotionItemMixin",
@@ -19,6 +22,7 @@
     "StrayEntityMixin",
     "WanderingTraderManagerMixin",
     "accessor.AnvilScreenHandlerAccessor",
+    "accessor.BlocksAccessor",
     "accessor.DispenserBlockAccessor",
     "accessor.FireBlockAccessor",
     "accessor.GenerationSettingsAccessor",
@@ -31,7 +35,8 @@
     "accessor.ServerWorldAccessor",
     "accessor.SlotAccessor",
     "accessor.SoundManagerAccessor",
-    "accessor.SoundSystemAccessor"
+    "accessor.SoundSystemAccessor",
+    "accessor.StructurePieceAccessor"
   ],
   "client": [
     "AnvilScreenMixin",

@@ -1,5 +1,6 @@
 package svenhjol.meson;
 
+import svenhjol.charm.event.CommonSetupCallback;
 import svenhjol.meson.handler.ConfigHandler;
 import svenhjol.meson.handler.ModuleHandler;
 
@@ -24,10 +25,13 @@ public abstract class MesonMod {
         if (Meson.isClient())
             eachModule(MesonModule::initClient);
 
-        // setup all enabled modules
-        eachEnabledModule(MesonModule::setup);
-        if (Meson.isClient())
-            eachModule(MesonModule::setupClient);
+        // listen for common setup events
+        CommonSetupCallback.EVENT.register(() -> {
+            eachEnabledModule(MesonModule::setup);
+
+            if (Meson.isClient())
+                eachEnabledModule(MesonModule::setupClient);
+        });
     }
 
     public String getId() {
