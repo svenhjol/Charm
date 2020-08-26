@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:netherite_ingot"
+    }
+  ],
+  "result": {
+    "item": "charm:netherite_nugget",
+    "count": 9
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:netherite_nuggets"
+    }
+  ]
+}
