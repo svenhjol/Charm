@@ -13,14 +13,14 @@ import svenhjol.charm.mixin.accessor.DispenserBlockAccessor;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class OverrideHandler {
-    public static void changeItem(Identifier id, Item item) {
+    public static Item changeItem(Identifier id, Item item) {
         int rawId = Registry.ITEM.getRawId(Registry.ITEM.get(id));
-        ((MutableRegistry)Registry.ITEM).set(rawId, RegistryKey.of(Registry.ITEM.getKey(), id), item, Lifecycle.stable());
+        return (Item)((MutableRegistry)Registry.ITEM).set(rawId, RegistryKey.of(Registry.ITEM.getKey(), id), item, Lifecycle.stable());
     }
 
-    public static void changeBlock(Identifier id, Block block) {
+    public static Block changeBlock(Identifier id, Block block) {
         int rawId = Registry.BLOCK.getRawId(Registry.BLOCK.get(id));
-        ((MutableRegistry)Registry.BLOCK).set(rawId, RegistryKey.of(Registry.BLOCK.getKey(), id), block, Lifecycle.stable());
+        return (Block)((MutableRegistry)Registry.BLOCK).set(rawId, RegistryKey.of(Registry.BLOCK.getKey(), id), block, Lifecycle.stable());
     }
 
     public static void changeDispenserBehavior(Item existingItem, Item newItem) {
