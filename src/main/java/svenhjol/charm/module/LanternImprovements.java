@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.block.ImprovedLanternBlock;
+import svenhjol.charm.mixin.accessor.BlocksAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.OverrideHandler;
 import svenhjol.meson.iface.Module;
@@ -25,8 +26,10 @@ public class LanternImprovements extends MesonModule {
             Item lanternItem = new BlockItem(lanternBlock, new Item.Settings().group(ItemGroup.DECORATIONS));
             Item soulLanternItem = new BlockItem(soulLanternBlock, new Item.Settings().group(ItemGroup.DECORATIONS));
 
-            OverrideHandler.changeBlock(lantern, lanternBlock);
-            OverrideHandler.changeBlock(soulLantern, soulLanternBlock);
+            BlocksAccessor.setLantern(OverrideHandler.changeBlock(lantern, lanternBlock));
+            BlocksAccessor.setSoulLantern(OverrideHandler.changeBlock(soulLantern, soulLanternBlock));
+
+            // TODO probably need to change items here
             OverrideHandler.changeItem(lantern, lanternItem);
             OverrideHandler.changeItem(soulLantern, soulLanternItem);
         }
