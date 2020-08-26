@@ -2,12 +2,13 @@ package svenhjol.meson.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import svenhjol.charm.mixin.accessor.FireBlockAccessor;
+import svenhjol.charm.mixin.accessor.HoeItemAccessor;
+import svenhjol.charm.mixin.accessor.PickaxeItemAccessor;
+import svenhjol.charm.mixin.accessor.ShovelItemAccessor;
 import svenhjol.meson.MesonModule;
 
 import java.util.function.BiConsumer;
@@ -48,5 +49,16 @@ public interface IMesonBlock {
 
     default void setFireInfo(int encouragement, int flammability) {
         ((FireBlockAccessor) Blocks.FIRE).invokeRegisterFlammableBlock((Block)this, encouragement, flammability);
+    }
+
+    default void setEffectiveTool(Class<? extends MiningToolItem> clazz) {
+        if (clazz == PickaxeItem.class)
+            PickaxeItemAccessor.getEffectiveBlocks().add((Block)this);
+
+        if (clazz == ShovelItem.class)
+            ShovelItemAccessor.getEffectiveBlocks().add((Block)this);
+
+        if (clazz == HoeItem.class)
+            HoeItemAccessor.getEffectiveBlocks().add((Block)this);
     }
 }
