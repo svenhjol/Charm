@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP", "P P", "PSP"
+  ],
+  "key": {
+    "S": {"item": "minecraft:acacia_slab"},
+    "P": {"item": "minecraft:acacia_planks"}
+  },
+  "result": {
+    "item": "charm:acacia_barrel"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:variant_barrels"
+    }
+  ]
+}

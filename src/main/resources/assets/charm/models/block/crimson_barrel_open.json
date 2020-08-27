@@ -1,0 +1,8 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "top": "charm:block/crimson_barrel_top_open",
+        "side": "charm:block/crimson_barrel_side",
+        "bottom": "charm:block/crimson_barrel_bottom"
+    }
+}
