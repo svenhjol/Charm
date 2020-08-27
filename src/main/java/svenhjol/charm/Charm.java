@@ -36,6 +36,7 @@ public class Charm extends MesonMod implements ModInitializer {
             DirtToPath.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
+            GoldBars.class,
             GoldChains.class,
             GoldLanterns.class,
             HoeHarvesting.class,
