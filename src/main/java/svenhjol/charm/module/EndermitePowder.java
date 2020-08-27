@@ -33,6 +33,9 @@ public class EndermitePowder extends MesonModule {
 
     @Override
     public void init() {
+
+        // TODO "No data fixer registered for endermite_powder"
+
         ENDERMITE_POWDER = new EndermitePowderItem(this);
 
         // setup and register the entity
