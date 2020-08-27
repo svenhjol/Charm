@@ -55,6 +55,9 @@ public abstract class EnchantmentScreenHandlerMixin {
         /**
          * Copypasta from {@link EnchantmentScreenHandler#onContentChanged(Inventory)}
          */
+
+        // TODO check VariantBookshelves/Bookcases enabled before overriding
+
         context.run((world, blockPos) -> {
             int i = 0;
 
