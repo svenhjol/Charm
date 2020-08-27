@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "charm:block/birch_bookshelf"
+    }
+  }
+}
