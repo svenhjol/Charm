@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:lantern",
+    "minecraft:soul_lantern",
+    "charm:gold_lantern",
+    "charm:gold_soul_lantern",
+    "charm:redstone_lantern"
+  ]
+}
