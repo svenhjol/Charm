@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EEE", "EEE", "EEE"
+  ],
+  "key": {
+    "E": {"item": "minecraft:ender_pearl"}
+  },
+  "result": {
+    "item": "charm:ender_pearl_block"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:block_of_ender_pearls"
+    }
+  ]
+}

@@ -9,6 +9,7 @@
     "BeaconBlockEntityMixin",
     "CampfireBlockMixin",
     "ChickenEntityMixin",
+    "ChorusFruitItemMixin",
     "FarmlandBlockMixin",
     "HuskEntityMixin",
     "LivingEntityMixin",

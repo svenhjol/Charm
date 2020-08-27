@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.module.BatBucket;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemNBTHelper;
+import svenhjol.meson.helper.MobHelper;
 import svenhjol.meson.item.MesonItem;
 
 public class BatBucketItem extends MesonItem {
@@ -53,7 +54,7 @@ public class BatBucketItem extends MesonItem {
             BlockPos spawnPos = new BlockPos(x, y, z);
 
             // spawn the bat
-            BatEntity bat =  EntityType.BAT.create((ServerWorld)world, null, null, player, spawnPos, SpawnReason.BUCKET, false, false);
+            BatEntity bat = MobHelper.spawn(EntityType.BAT, (ServerWorld)world, spawnPos, SpawnReason.BUCKET);
             if (bat != null) {
 
                 CompoundTag data = ItemNBTHelper.getCompound(held, STORED_BAT);
