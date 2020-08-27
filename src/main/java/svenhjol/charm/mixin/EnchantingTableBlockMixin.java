@@ -11,6 +11,14 @@ import svenhjol.meson.helper.EnchantmentsHelper;
 
 @Mixin(EnchantingTableBlock.class)
 public class EnchantingTableBlockMixin {
+    /**
+     * When rendering a rune particle on the client, this hook redirects
+     * the default check of `isOf(Blocks.BOOKSHELF)` to check
+     * EnchantmentsHelper.ENCHANTING_BLOCKS.
+     *
+     * If present, returns true to enable the rune particle to be rendered.
+     * Falls back to vanilla behavior if not.
+     */
     @Redirect(
         method = "randomDisplayTick",
         at = @At(
