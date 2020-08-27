@@ -87,7 +87,7 @@ public class InventoryTidyingHandler {
             inventory.removeStack(i, inventory.getMaxCountPerStack());
             if (!stack.isEmpty()) {
                 // this ended up being different from Forge's IItemHandler implementation.
-                // May cause breakage... testme
+                // TODO May cause breakage... testme
                 inventory.setStack(i, stack);
             }
         }

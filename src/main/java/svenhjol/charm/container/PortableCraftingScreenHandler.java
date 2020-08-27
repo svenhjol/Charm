@@ -12,7 +12,7 @@ public class PortableCraftingScreenHandler extends CraftingScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return true; // TODO any instances where player can't use a crafting table?
+        return true;
     }
 
     @Override
