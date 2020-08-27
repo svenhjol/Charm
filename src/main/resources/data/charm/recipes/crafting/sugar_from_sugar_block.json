@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "charm:sugar_block"
+    }
+  ],
+  "result": {
+    "item": "minecraft:sugar",
+    "count": 9
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:block_of_sugar"
+    }
+  ]
+}
