@@ -4,7 +4,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LanternBlock;
 import net.minecraft.block.SlabBlock;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.loot.LootTables;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.MineshaftGenerator.MineshaftCorridor;
 import net.minecraft.structure.MineshaftGenerator.MineshaftRoom;
 import net.minecraft.structure.StructurePiece;
@@ -16,6 +18,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.mixin.accessor.StructurePieceAccessor;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
@@ -58,7 +61,7 @@ public class MineshaftImprovements extends MesonModule {
     public static boolean generateCrates = true;
 
     @Override
-    public void setup() {
+    public void afterInit() {
         commonFloorBlocks.addAll(Arrays.asList(
             Blocks.IRON_ORE.getDefaultState(),
             Blocks.COAL_ORE.getDefaultState(),
@@ -165,30 +168,29 @@ public class MineshaftImprovements extends MesonModule {
             }
         }
 
-        // TODO crates
-//        if (generateCrates && rand.nextFloat() < crateChance && Meson.enabled("charm:crates")) {
-//            if (rand.nextFloat() < 0.9F) {
-//                int r = rand.nextInt(3) + 12;
-//                int y = ((StructurePieceAccessor)piece).callApplyYTransform(0);
-//                int x = ((StructurePieceAccessor)piece).callApplyXTransform(1, r);
-//                int z = ((StructurePieceAccessor)piece).callApplyZTransform(1, r);
-//
-//                BlockPos blockpos = new BlockPos(x, y, z);
-//
-//                if (box.contains(blockpos)) {
-//                    BlockState state = Crates.getRandomCrateBlock(rand).getDefaultState();
-//                    Identifier loot = crateLootTables.get(rand.nextInt(crateLootTables.size()));
-//
-//                    world.setBlockState(blockpos, state, 2);
-//
-//                    TileEntity tile = world.getTileEntity(blockpos);
-//                    if (tile instanceof CrateTileEntity) {
-//                        ((CrateTileEntity) tile).setLootTable(loot, rand.nextLong());
-//                        tile.write(new CompoundNBT());
-//                    }
-//                }
-//            }
-//        }
+        if (generateCrates && rand.nextFloat() < crateChance && Meson.enabled("charm:crates")) {
+            if (rand.nextFloat() < 0.9F) {
+                int r = rand.nextInt(3) + 12;
+                int y = ((StructurePieceAccessor)piece).callApplyYTransform(0);
+                int x = ((StructurePieceAccessor)piece).callApplyXTransform(1, r);
+                int z = ((StructurePieceAccessor)piece).callApplyZTransform(1, r);
+
+                BlockPos blockpos = new BlockPos(x, y, z);
+
+                if (box.contains(blockpos)) {
+                    BlockState state = Crates.getRandomCrateBlock(rand).getDefaultState();
+                    Identifier loot = crateLootTables.get(rand.nextInt(crateLootTables.size()));
+
+                    world.setBlockState(blockpos, state, 2);
+
+                    BlockEntity tile = world.getBlockEntity(blockpos);
+                    if (tile instanceof CrateBlockEntity) {
+                        ((CrateBlockEntity) tile).setLootTable(loot, rand.nextLong());
+                        tile.toTag(new CompoundTag());
+                    }
+                }
+            }
+        }
     }
 
     private static void room(MineshaftRoom piece, ServerWorldAccess world, StructureAccessor accessor, ChunkGenerator chunkGenerator, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos) {

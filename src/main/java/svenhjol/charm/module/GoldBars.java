@@ -16,7 +16,7 @@ public class GoldBars extends MesonModule {
     }
 
     @Override
-    public void setupClient() {
+    public void afterInitClient() {
         RenderLayersAccessor.getBlocks().put(GOLD_BARS, RenderLayer.getCutout());
     }
 }

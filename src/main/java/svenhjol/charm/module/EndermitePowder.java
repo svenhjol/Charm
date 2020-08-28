@@ -62,7 +62,7 @@ public class EndermitePowder extends MesonModule {
 
     @Override
     @Environment(EnvType.CLIENT)
-    public void setupClient() {
+    public void afterInitClient() {
         new EndermitePowderClient(this);
     }
 }
