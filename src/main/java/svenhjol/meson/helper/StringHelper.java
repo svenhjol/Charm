@@ -4,7 +4,7 @@ import com.google.common.base.CaseFormat;
 
 public class StringHelper {
     public static String snakeToUpperCamel(String string) {
-        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, string);
+        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, string).substring(0, 1).toUpperCase().substring(1);
     }
 
     public static String upperCamelToSnake(String string) {
