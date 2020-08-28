@@ -1,7 +1,7 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.render.entity.EndermiteEntityRenderer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.SpawnGroup;
@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
+import svenhjol.charm.client.EndermitePowderClient;
 import svenhjol.charm.entity.EndermitePowderEntity;
 import svenhjol.charm.event.EntityDropsCallback;
 import svenhjol.charm.item.EndermitePowderItem;
@@ -33,12 +34,10 @@ public class EndermitePowder extends MesonModule {
 
     @Override
     public void init() {
-
-        // TODO "No data fixer registered for endermite_powder"
-
         ENDERMITE_POWDER = new EndermitePowderItem(this);
 
         // setup and register the entity
+        // TODO "No data fixer registered for endermite_powder"
         ENTITY = EntityType.Builder.<EndermitePowderEntity>create(EndermitePowderEntity::new, SpawnGroup.MISC)
             .maxTrackingRange(80)
             .trackingTickInterval(10)
@@ -62,8 +61,8 @@ public class EndermitePowder extends MesonModule {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void setupClient() {
-        EntityRendererRegistry.INSTANCE.register(ENTITY, ((dispatcher, context)
-            -> new EndermiteEntityRenderer(dispatcher)));
+        new EndermitePowderClient(this);
     }
 }
