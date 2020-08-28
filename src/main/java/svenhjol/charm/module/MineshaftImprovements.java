@@ -48,6 +48,8 @@ public class MineshaftImprovements extends MesonModule {
     public static float blockPileChance = 0.12F;
     public static float crateChance = 0.14F;
 
+    private static boolean isEnabled;
+
     @Config(name = "Corridor blocks", description = "If true, stone, ore, lanterns and TNT will spawn inside mineshaft corridors.")
     public static boolean generateCorridorBlocks = true;
 
@@ -62,6 +64,8 @@ public class MineshaftImprovements extends MesonModule {
 
     @Override
     public void afterInit() {
+        isEnabled = true;
+
         commonFloorBlocks.addAll(Arrays.asList(
             Blocks.IRON_ORE.getDefaultState(),
             Blocks.COAL_ORE.getDefaultState(),
@@ -117,7 +121,7 @@ public class MineshaftImprovements extends MesonModule {
     }
 
     public static void generatePiece(StructurePiece piece, StructureWorldAccess world, StructureAccessor accessor, ChunkGenerator chunkGenerator, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos) {
-        if (!Meson.enabled("charm:mineshaft_improvements"))
+        if (!isEnabled)
             return;
 
         if (piece instanceof MineshaftCorridor) {
@@ -168,7 +172,7 @@ public class MineshaftImprovements extends MesonModule {
             }
         }
 
-        if (generateCrates && rand.nextFloat() < crateChance && Meson.enabled("charm:crates")) {
+        if (generateCrates && Meson.enabled("charm:crates") && rand.nextFloat() < crateChance) {
             if (rand.nextFloat() < 0.9F) {
                 int r = rand.nextInt(3) + 12;
                 int y = ((StructurePieceAccessor)piece).callApplyYTransform(0);
