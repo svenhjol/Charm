@@ -25,7 +25,10 @@ public abstract class ScreenMixin {
     /**
      * Simulates Forge's InitGuiEvent.Post
      */
-    @Inject(method = "init(Lnet/minecraft/client/MinecraftClient;II)V", at = @At("RETURN"))
+    @Inject(
+        method = "init(Lnet/minecraft/client/MinecraftClient;II)V",
+        at = @At("RETURN")
+    )
     private void hookConstructor(MinecraftClient client, int width, int height, CallbackInfo ci) {
         SetupGuiCallback.EVENT.invoker().interact(client, width, height, this.buttons, this::addButton);
     }
