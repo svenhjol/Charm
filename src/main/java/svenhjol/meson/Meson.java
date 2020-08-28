@@ -36,8 +36,7 @@ public class Meson {
         if (!loadedModules.containsKey(mod))
             return false;
 
-        if (module.contains("_"))
-            module = StringHelper.snakeToUpperCamel(module);
+        module = StringHelper.snakeToUpperCamel(module);
 
         if (!loadedModules.get(mod).containsKey(module))
             return false;
