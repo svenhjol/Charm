@@ -37,4 +37,9 @@ public class VariantBarrels extends MesonModule {
             OverrideHandler.changeItemTranslationKey(Items.BARREL, "item.charm.fisherman_barrel");
         }
     }
+
+    @Override
+    public List<Identifier> getRecipesToRemove() {
+        return Arrays.asList(new Identifier("minecraft", "barrel"));
+    }
 }

@@ -1,5 +1,10 @@
 package svenhjol.meson;
 
+import net.minecraft.util.Identifier;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class MesonModule {
     public boolean enabled = true;
     public boolean enabledByDefault = true;
@@ -12,6 +17,10 @@ public abstract class MesonModule {
 
     public String getName() {
         return this.getClass().getSimpleName();
+    }
+
+    public List<Identifier> getRecipesToRemove() {
+        return new ArrayList<>();
     }
 
     public void init() {

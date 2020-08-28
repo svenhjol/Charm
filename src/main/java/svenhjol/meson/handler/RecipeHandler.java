@@ -14,6 +14,13 @@ public class RecipeHandler {
     public static void filter(Map<Identifier, JsonElement> recipes) {
         for (String modId : Meson.loadedModules.keySet()) {
             Map<String, MesonModule> modMap = Meson.loadedModules.get(modId);
+
+            // remove recipes specified by enabled modules
+            modMap.values().stream().filter(m -> m.enabled && !m.getRecipesToRemove().isEmpty()).forEach(m -> {
+                m.getRecipesToRemove().forEach(recipes::remove);
+            });
+
+            // fetch all the recipes that match the mod's ID
             List<Identifier> modRecipes = recipes.keySet().stream().filter(r -> r.getNamespace().equals(modId)).collect(Collectors.toList());
 
             modRecipes.forEach(recipeId -> {
@@ -22,6 +29,8 @@ public class RecipeHandler {
                     return;
 
                 String moduleId = StringHelper.snakeToUpperCamel(path.split("/")[0]);
+
+                // remove recipes for disabled modules
                 if (modMap.containsKey(moduleId) && !modMap.get(moduleId).enabled)
                     recipes.remove(recipeId);
             });
