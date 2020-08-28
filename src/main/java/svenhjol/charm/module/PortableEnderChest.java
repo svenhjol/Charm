@@ -12,7 +12,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.PortableEnderChestClient;
-import svenhjol.charm.container.PortableEnderChestScreenHandler;
+import svenhjol.charm.screenhandler.PortableEnderChestScreenHandler;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;

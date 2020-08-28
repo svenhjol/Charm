@@ -11,7 +11,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.PortableCraftingClient;
-import svenhjol.charm.container.PortableCraftingScreenHandler;
+import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
