@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "charm:block/dark_oak_crate" }
+  }
+}

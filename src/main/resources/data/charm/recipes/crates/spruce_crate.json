@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IWI", "W W", "IWI"
+  ],
+  "key": {
+    "I": {"item": "minecraft:iron_ingot"},
+    "W": {"item": "minecraft:spruce_planks"}
+  },
+  "result": {
+    "item": "charm:spruce_crate"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:crates"
+    }
+  ]
+}

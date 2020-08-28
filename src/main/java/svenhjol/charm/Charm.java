@@ -33,6 +33,7 @@ public class Charm extends MesonMod implements ModInitializer {
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
             Core.class,
+            Crates.class,
             DecreaseRepairCost.class,
             DirtToPath.class,
             EndermitePowder.class,

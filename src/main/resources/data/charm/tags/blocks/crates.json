@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "charm:acacia_crate",
+    "charm:birch_crate",
+    "charm:crimson_crate",
+    "charm:dark_oak_crate",
+    "charm:jungle_crate",
+    "charm:oak_crate",
+    "charm:spruce_crate",
+    "charm:warped_crate"
+  ]
+}
