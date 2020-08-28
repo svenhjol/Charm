@@ -31,11 +31,19 @@ public abstract class MesonModule {
         // run on client, even if not enabled (enabled flag is available)
     }
 
-    public void setup() {
+    public void afterInit() {
         // run on both sides, only executed if module enabled
     }
 
+    public void afterInitClient() {
+        // run on both sides, only executed if module enabled
+    }
+
+    public void setup() {
+        // run on both sides on world load, only executed if module enabled
+    }
+
     public void setupClient() {
-        // run on client, only executed if module enabled
+        // run on client on world load, only executed if module enabled
     }
 }

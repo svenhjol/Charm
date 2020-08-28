@@ -20,10 +20,15 @@ public abstract class MesonMod {
         this.moduleHandler = new ModuleHandler(this, getModules());
         this.configHandler = new ConfigHandler(this);
 
-        // initialize all modules
+        // early init, use for registering blocks etc.
         eachModule(MesonModule::init);
         if (Meson.isClient())
             eachModule(MesonModule::initClient);
+
+        // post init, only enabled modules are run
+        eachEnabledModule(MesonModule::afterInit);
+        if (Meson.isClient())
+            eachEnabledModule(MesonModule::afterInitClient);
 
         // listen for common setup events
         CommonSetupCallback.EVENT.register(() -> {
