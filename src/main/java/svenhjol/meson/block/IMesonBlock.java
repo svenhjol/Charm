@@ -24,7 +24,9 @@ public interface IMesonBlock {
         createBlockItem(id);
     }
 
-    ItemGroup getItemGroup();
+    default ItemGroup getItemGroup() {
+        return ItemGroup.BUILDING_BLOCKS;
+    }
 
     default int getMaxStackSize() {
         return 64;
