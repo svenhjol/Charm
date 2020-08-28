@@ -24,7 +24,7 @@ public class MineshaftGeneratorMixin {
         method = "generate(Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/world/gen/StructureAccessor;Lnet/minecraft/world/gen/chunk/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/BlockBox;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/util/math/BlockPos;)Z",
         at = @At("RETURN")
     )
-    private void generateHook(StructureWorldAccess world, StructureAccessor structure, ChunkGenerator gen, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos, CallbackInfoReturnable<Boolean> cir) {
+    private void hookGenerate(StructureWorldAccess world, StructureAccessor structure, ChunkGenerator gen, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos, CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValue()) // if a piece did generate
             MineshaftImprovements.generatePiece((StructurePiece)(Object)this, world, structure, gen, rand, box, chunkPos, blockPos);
     }

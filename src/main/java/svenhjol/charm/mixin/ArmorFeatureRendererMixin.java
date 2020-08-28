@@ -21,7 +21,7 @@ public class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEn
         at = @At("HEAD"),
         cancellable = true
     )
-    private void renderArmorPartHook(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T livingEntity, EquipmentSlot equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci) {
+    private void hookRenderArmorPart(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T livingEntity, EquipmentSlot equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci) {
         if (Meson.enabled("charm:armor_invisibility")) {
             ItemStack stack = livingEntity.getEquippedStack(equipmentSlot);
             if (ArmorInvisibility.shouldArmorBeInvisible(livingEntity, stack))

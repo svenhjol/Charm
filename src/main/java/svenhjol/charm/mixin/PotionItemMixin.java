@@ -15,7 +15,7 @@ public class PotionItemMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    public void hasEffectHook(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+    public void hookHasGlint(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (RemovePotionGlint.shouldRemoveGlint())
             cir.setReturnValue(false);
     }

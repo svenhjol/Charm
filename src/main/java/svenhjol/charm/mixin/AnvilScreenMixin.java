@@ -17,7 +17,7 @@ public class AnvilScreenMixin {
             target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z"
         )
     )
-    private boolean maximumCostCheckHook(PlayerAbilities abilities, MatrixStack matrix, int x, int y) {
+    private boolean hookMaximumCostCheck(PlayerAbilities abilities, MatrixStack matrix, int x, int y) {
         return AnvilImprovements.removeTooExpensive || abilities.creativeMode;
     }
 }

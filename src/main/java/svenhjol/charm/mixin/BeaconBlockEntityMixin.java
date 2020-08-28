@@ -25,7 +25,7 @@ public abstract class BeaconBlockEntityMixin extends BlockEntity {
         method = "applyPlayerEffects",
         at = @At("HEAD")
     )
-    private void addEffectsHook(CallbackInfo ci) {
+    private void hookAddEffects(CallbackInfo ci) {
         if (this.world != null)
             BeaconsHealMobs.healInBeaconRange(this.world, this.level, this.pos, this.primary, this.secondary);
     }

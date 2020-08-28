@@ -66,7 +66,7 @@ public abstract class LivingEntityMixin extends Entity {
         at = @At(value = "RETURN"),
         cancellable = true
     )
-    private void armorCoverHook(CallbackInfoReturnable<Float> cir) {
+    private void hookArmorCover(CallbackInfoReturnable<Float> cir) {
         if (Meson.enabled("charm:armor_invisibility")) {
             LivingEntity entity = (LivingEntity) (Object) this;
             Iterable<ItemStack> armorItems = this.getArmorItems();

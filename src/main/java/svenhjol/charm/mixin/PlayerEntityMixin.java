@@ -30,7 +30,7 @@ public abstract class PlayerEntityMixin extends Entity {
         at = @At("HEAD"),
         cancellable = true
     )
-    private void spawnShoulderEntitiesHook(CallbackInfo ci) {
+    private void hookSpawnShoulderEntities(CallbackInfo ci) {
         if (ParrotsStayOnShoulder.shouldParrotStayMounted(this.world, this.shoulderEntityAddedTime))
             ci.cancel();
     }

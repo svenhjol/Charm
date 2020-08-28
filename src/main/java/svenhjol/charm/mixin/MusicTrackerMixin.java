@@ -20,7 +20,7 @@ public class MusicTrackerMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private void tickHook(CallbackInfo ci) {
+    private void hookTick(CallbackInfo ci) {
         if (MusicClient.enabled && MusicClient.handleTick(this.current))
             ci.cancel();
     }
@@ -30,7 +30,7 @@ public class MusicTrackerMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private void stopHook(CallbackInfo ci) {
+    private void hookStop(CallbackInfo ci) {
         if (MusicClient.enabled && MusicClient.handleStop())
             ci.cancel();
     }
@@ -40,7 +40,7 @@ public class MusicTrackerMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private void isPlayingHook(MusicSound music, CallbackInfoReturnable<Boolean> cir) {
+    private void hookIsPlayingType(MusicSound music, CallbackInfoReturnable<Boolean> cir) {
         if (MusicClient.enabled && MusicClient.handlePlaying(music))
             cir.setReturnValue(true);
     }
