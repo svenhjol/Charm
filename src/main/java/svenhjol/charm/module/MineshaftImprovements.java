@@ -187,10 +187,10 @@ public class MineshaftImprovements extends MesonModule {
 
                     world.setBlockState(blockpos, state, 2);
 
-                    BlockEntity tile = world.getBlockEntity(blockpos);
-                    if (tile instanceof CrateBlockEntity) {
-                        ((CrateBlockEntity) tile).setLootTable(loot, rand.nextLong());
-                        tile.toTag(new CompoundTag());
+                    BlockEntity blockEntity = world.getBlockEntity(blockpos);
+                    if (blockEntity instanceof CrateBlockEntity) {
+                        ((CrateBlockEntity) blockEntity).setLootTable(loot, rand.nextLong());
+                        blockEntity.toTag(new CompoundTag());
                     }
                 }
             }

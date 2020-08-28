@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.function.Predicate;
 
 public class InventoryTidyingHandler {
-    public static final int TILE = 0;
+    public static final int BE = 0;
     public static final int PLAYER = 1;
 
     private static final Map<Predicate<ItemStack>, Comparator<ItemStack>> testCompare = new HashMap<>();

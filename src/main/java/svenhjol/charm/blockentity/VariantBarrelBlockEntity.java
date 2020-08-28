@@ -10,7 +10,7 @@ import svenhjol.charm.module.VariantBarrels;
 
 public class VariantBarrelBlockEntity extends BarrelBlockEntity {
     public VariantBarrelBlockEntity() {
-        BarrelBlockEntityAccessor.invokeConstructor(VariantBarrels.TILE);
+        BarrelBlockEntityAccessor.invokeConstructor(VariantBarrels.BLOCK_ENTITY);
     }
 
     /**

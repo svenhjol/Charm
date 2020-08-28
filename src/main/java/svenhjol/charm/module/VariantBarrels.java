@@ -21,7 +21,7 @@ public class VariantBarrels extends MesonModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "barrel");
     public static final Map<IStorageMaterial, VariantBarrelBlock> BARREL_BLOCKS = new HashMap<>();
 
-    public static BlockEntityType<VariantBarrelBlockEntity> TILE;
+    public static BlockEntityType<VariantBarrelBlockEntity> BLOCK_ENTITY;
 
     @Override
     public void init() {
@@ -29,8 +29,8 @@ public class VariantBarrels extends MesonModule {
             BARREL_BLOCKS.put(type, new VariantBarrelBlock(this, type));
         }
 
-        TILE = BlockEntityType.Builder.create(VariantBarrelBlockEntity::new).build(null);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, ID, TILE);
+        BLOCK_ENTITY = BlockEntityType.Builder.create(VariantBarrelBlockEntity::new).build(null);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, ID, BLOCK_ENTITY);
 
         if (enabled) {
             OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.fisherman_barrel");

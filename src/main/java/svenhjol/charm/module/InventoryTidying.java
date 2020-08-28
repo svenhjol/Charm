@@ -15,7 +15,7 @@ import svenhjol.meson.iface.Module;
 import java.util.List;
 
 import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
-import static svenhjol.charm.handler.InventoryTidyingHandler.TILE;
+import static svenhjol.charm.handler.InventoryTidyingHandler.BE;
 
 @Module(description = "Button to automatically tidy inventories.")
 public class InventoryTidying extends MesonModule {
@@ -54,7 +54,7 @@ public class InventoryTidying extends MesonModule {
 
         if (type == PLAYER && player.playerScreenHandler != null) {
             useContainer = player.playerScreenHandler;
-        } else if (type == TILE && player.currentScreenHandler != null) {
+        } else if (type == BE && player.currentScreenHandler != null) {
             useContainer = player.currentScreenHandler;
         } else {
             return;
@@ -67,7 +67,7 @@ public class InventoryTidying extends MesonModule {
             if (type == PLAYER && slot.inventory == player.inventory) {
                 InventoryTidyingHandler.sort(player.inventory, 9, 36);
                 break;
-            } else if (type == TILE) {
+            } else if (type == BE) {
                 InventoryTidyingHandler.sort(inventory, 0, inventory.size());
                 break;
             }

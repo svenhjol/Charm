@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
-import static svenhjol.charm.handler.InventoryTidyingHandler.TILE;
+import static svenhjol.charm.handler.InventoryTidyingHandler.BE;
 
 public class InventoryTidyingClient {
     private static final int LEFT = 159;
@@ -31,7 +31,7 @@ public class InventoryTidyingClient {
     private final MesonModule module;
     private final List<TexturedButtonWidget> sortingButtons = new ArrayList<>();
 
-    public final List<Class<? extends Screen>> tileScreens = new ArrayList<>();
+    public final List<Class<? extends Screen>> blockEntityScreens = new ArrayList<>();
     public final List<Class<? extends Screen>> blacklistScreens = new ArrayList<>();
 
     public InventoryTidyingClient(MesonModule module) {
@@ -40,7 +40,7 @@ public class InventoryTidyingClient {
         if (!module.enabled)
             return;
 
-        tileScreens.addAll(Arrays.asList(
+        blockEntityScreens.addAll(Arrays.asList(
             GenericContainerScreen.class,
             HopperScreen.class,
             ShulkerBoxScreen.class,
@@ -73,8 +73,8 @@ public class InventoryTidyingClient {
 
             List<Slot> slots = screenHandler.slots;
             for (Slot slot : slots) {
-                if (tileScreens.contains(screen.getClass()) && ((SlotAccessor)slot).getIndex() == 0) {
-                    this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(TILE));
+                if (blockEntityScreens.contains(screen.getClass()) && ((SlotAccessor)slot).getIndex() == 0) {
+                    this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(BE));
                 }
 
                 if (slot.inventory == client.player.inventory) {
