@@ -1,4 +1,4 @@
-package svenhjol.meson.screenhandler;
+package svenhjol.charm.screenhandler;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
