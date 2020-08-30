@@ -54,7 +54,7 @@ public class CrateBlockEntity extends LootableContainerBlockEntity implements Si
 
     @Override
     protected void setInvStackList(DefaultedList<ItemStack> list) {
-
+        this.items = list;
     }
 
     @Override

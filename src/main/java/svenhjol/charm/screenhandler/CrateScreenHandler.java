@@ -6,7 +6,6 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.module.Crates;
-import svenhjol.meson.screenhandler.CrateSlot;
 import svenhjol.meson.screenhandler.MesonScreenHandler;
 
 public class CrateScreenHandler extends MesonScreenHandler {
