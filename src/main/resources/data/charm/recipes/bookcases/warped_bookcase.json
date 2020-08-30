@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:warped_planks"
+    },
+    "X": {
+      "item": "charm:warped_bookshelf"
+    }
+  },
+  "result": {
+    "item": "charm:warped_bookcase"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:bookcases"
+    }
+  ]
+}

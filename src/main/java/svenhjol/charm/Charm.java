@@ -1,6 +1,7 @@
 package svenhjol.charm;
 
 import net.fabricmc.api.ModInitializer;
+import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.module.*;
 import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
@@ -15,6 +16,7 @@ public class Charm extends MesonMod implements ModInitializer {
     @Override
     public void onInitialize() {
         super.init(MOD_ID);
+        CharmSounds.init(this);
     }
 
     @Override
@@ -28,6 +30,7 @@ public class Charm extends MesonMod implements ModInitializer {
             BlockOfEnderPearls.class,
             BlockOfGunpowder.class,
             BlockOfSugar.class,
+            Bookcases.class,
             CampfiresNoDamage.class,
             Candles.class,
             CaveSpidersDropCobwebs.class,

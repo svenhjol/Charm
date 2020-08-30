@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "minecraft:block/dark_oak_planks",
+    "side": "charm:block/bookcase/dark_oak_bookcase_0"
+  }
+}

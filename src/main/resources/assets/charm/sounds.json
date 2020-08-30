@@ -1,0 +1,16 @@
+{
+  "bookshelf_open": {
+    "category": "blocks",
+    "sounds": [
+      "charm:bookshelf_open1",
+      "charm:bookshelf_open2"
+    ]
+  },
+  "bookshelf_close": {
+    "category": "blocks",
+    "sounds": [
+      "charm:bookshelf_close1",
+      "charm:bookshelf_close2"
+    ]
+  }
+}
