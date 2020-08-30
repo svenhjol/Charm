@@ -12,6 +12,7 @@ import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
+import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.InventoryTidying;
@@ -45,6 +46,7 @@ public class InventoryTidyingClient {
             HopperScreen.class,
             ShulkerBoxScreen.class,
             CrateScreen.class,
+            BookcaseScreen.class,
             Generic3x3ContainerScreen.class
         ));
 
