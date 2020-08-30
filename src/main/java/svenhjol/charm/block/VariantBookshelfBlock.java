@@ -19,10 +19,4 @@ public class VariantBookshelfBlock extends MesonBlock {
     public int getBurnTime() {
         return 300;
     }
-
-    // TODO doesn't seem possible to do enchantment power without several hooks
-//    @Override
-//    public float getEnchantPowerBonus(BlockState state, IWorldReader world, BlockPos pos) {
-//        return 1;
-//    }
 }
