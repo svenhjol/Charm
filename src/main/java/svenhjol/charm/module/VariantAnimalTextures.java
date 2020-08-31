@@ -2,6 +2,7 @@ package svenhjol.charm.module;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.*;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.VariantAnimalTexturesClient;
@@ -15,7 +16,7 @@ import java.util.*;
 @Module(description = "Animals may spawn with different textures.")
 public class VariantAnimalTextures extends MesonModule {
     private static final String PREFIX = "textures/entity/";
-    private static VariantAnimalTexturesClient client;
+    private static final Identifier DEFAULT_SHEEP = new Identifier(PREFIX + "sheep/sheep.png");
 
     public static List<Identifier> wolves = new ArrayList<>();
     public static List<Identifier> cows = new ArrayList<>();
@@ -31,6 +32,9 @@ public class VariantAnimalTextures extends MesonModule {
 
     public static Map<Identifier, Identifier> wolvesTame = new HashMap<>();
     public static Map<Identifier, Identifier> wolvesAngry = new HashMap<>();
+    public static Map<DyeColor, Identifier> sheep = new HashMap<>();
+
+    private static VariantAnimalTexturesClient client;
 
     @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
     public static boolean variantWolves = true;
@@ -46,6 +50,9 @@ public class VariantAnimalTextures extends MesonModule {
 
     @Config(name = "Variant pigs", description = "If true, pigs may spawn with different textures.")
     public static boolean variantPigs = true;
+
+    @Config(name = "Variant sheep", description = "If true, sheep face and 'shorn' textures match their wool color.")
+    public static boolean variantSheep = true;
 
     @Config(name = "Rare variants", description = "If true, all animals have a chance to spawn as a rare variant.")
     public static boolean rareVariants = true;
@@ -101,6 +108,12 @@ public class VariantAnimalTextures extends MesonModule {
             addCustomTextures(rareWolves, MobType.WOLF, "rare_wolf" + i);
 
         addCustomTextures(wolves, MobType.WOLF, "brownwolf", "greywolf", "blackwolf", "amotwolf", "jupiter1390");
+
+        // add all the sheep textures by dyecolor
+        for (DyeColor color : DyeColor.values()) {
+            Identifier res = createResource(MobType.SHEEP, "sheep_" + color.toString());
+            sheep.put(color, res);
+        }
     }
 
     public void addCustomTextures(List<Identifier> set, MobType type, String... names) {
@@ -127,6 +140,11 @@ public class VariantAnimalTextures extends MesonModule {
 
     public static Identifier getPigTexture(PigEntity entity) {
         return getRandomTexture(entity, pigs, rarePigs);
+    }
+
+    public static Identifier getSheepTexture(SheepEntity entity) {
+        DyeColor fleeceColor = entity.getColor();
+        return sheep.getOrDefault(fleeceColor, DEFAULT_SHEEP);
     }
 
     public static Identifier getSquidTexture(SquidEntity entity) {
@@ -158,5 +176,5 @@ public class VariantAnimalTextures extends MesonModule {
         return new Identifier(Charm.MOD_ID, PREFIX + type.asString() + "/" + texture + ".png");
     }
 
-    public enum MobType implements IMesonEnum { WOLF, COW, PIG, CHICKEN, SQUID }
+    public enum MobType implements IMesonEnum { WOLF, COW, PIG, CHICKEN, SQUID, SHEEP }
 }

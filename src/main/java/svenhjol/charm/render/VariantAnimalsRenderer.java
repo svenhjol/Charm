@@ -39,6 +39,17 @@ public class VariantAnimalsRenderer {
         }
     }
 
+    public static class Sheep extends SheepEntityRenderer {
+        public Sheep(EntityRenderDispatcher dispatcher) {
+            super(dispatcher);
+        }
+
+        @Override
+        public Identifier getTexture(SheepEntity entity) {
+            return VariantAnimalTextures.getSheepTexture(entity);
+        }
+    }
+
     public static class Squid extends SquidEntityRenderer {
         public Squid(EntityRenderDispatcher dispatcher) {
             super(dispatcher);

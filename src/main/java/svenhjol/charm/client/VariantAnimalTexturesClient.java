@@ -31,6 +31,8 @@ public class VariantAnimalTexturesClient {
             EntityRendererRegistry.INSTANCE.register(EntityType.WOLF, ((dispatcher, context)
                 -> new VariantAnimalsRenderer.Wolf(dispatcher)));
 
-        // TODO needs sheep porting
+        if (VariantAnimalTextures.variantSheep)
+            EntityRendererRegistry.INSTANCE.register(EntityType.SHEEP, ((dispatcher, context)
+                -> new VariantAnimalsRenderer.Sheep(dispatcher)));
     }
 }
