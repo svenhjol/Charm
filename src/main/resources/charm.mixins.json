@@ -13,6 +13,7 @@
     "EnchantmentScreenHandlerMixin",
     "FarmlandBlockMixin",
     "HuskEntityMixin",
+    "ItemEntityMixin",
     "LivingEntityMixin",
     "MinecraftDedicatedServerMixin",
     "MineshaftGeneratorMixin",

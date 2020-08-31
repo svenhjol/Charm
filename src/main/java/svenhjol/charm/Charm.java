@@ -40,6 +40,7 @@ public class Charm extends MesonMod implements ModInitializer {
             DecreaseRepairCost.class,
             DirtToPath.class,
             EndermitePowder.class,
+            ExtendNetherite.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
             GoldBars.class,
