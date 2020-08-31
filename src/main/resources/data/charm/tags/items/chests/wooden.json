@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "charm:acacia_chest",
+    "charm:acacia_trapped_chest",
+    "charm:birch_chest",
+    "charm:birch_trapped_chest",
+    "charm:crimson_chest",
+    "charm:crimson_trapped_chest",
+    "charm:dark_oak_chest",
+    "charm:dark_oak_trapped_chest",
+    "charm:jungle_chest",
+    "charm:jungle_trapped_chest",
+    "charm:oak_chest",
+    "charm:oak_trapped_chest",
+    "charm:spruce_chest",
+    "charm:spruce_trapped_chest",
+    "charm:warped_chest",
+    "charm:warped_trapped_chest"
+  ]
+}

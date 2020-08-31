@@ -45,6 +45,7 @@
   "client": [
     "AnvilScreenMixin",
     "ArmorFeatureRendererMixin",
+    "BuiltinModelItemRendererMixin",
     "EnchantingTableBlockMixin",
     "HandledScreenMixin",
     "MinecraftClientMixin",

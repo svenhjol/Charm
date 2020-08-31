@@ -71,6 +71,7 @@ public class Charm extends MesonMod implements ModInitializer {
             VariantAnimalTextures.class,
             VariantBarrels.class,
             VariantBookshelves.class,
+            VariantChests.class,
             VillagersFollowEmeraldBlocks.class,
             WanderingTraderImprovements.class,
             WitchesDropLuck.class

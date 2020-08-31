@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "charm:birch_chest"
+    },
+    {
+      "item": "minecraft:tripwire_hook"
+    }
+  ],
+  "result": {
+    "item": "charm:birch_trapped_chest"
+  },
+  "conditions": [
+    {
+      "type": "meson:module_enabled",
+      "module": "charm:variant_chests"
+    }
+  ]
+}
