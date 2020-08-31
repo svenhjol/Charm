@@ -57,6 +57,7 @@ public class Charm extends MesonMod implements ModInitializer {
             NetheriteNuggets.class,
             PathToDirt.class,
             ParrotsStayOnShoulder.class,
+            PlayerState.class,
             PortableCrafting.class,
             PortableEnderChest.class,
             RedstoneLanterns.class,
