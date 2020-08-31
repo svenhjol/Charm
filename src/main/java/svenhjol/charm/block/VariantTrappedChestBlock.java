@@ -89,10 +89,4 @@ public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock,
     protected Stat<Identifier> getOpenStat() {
         return Stats.CUSTOM.getOrCreateStat(Stats.TRIGGER_TRAPPED_CHEST);
     }
-
-    @Override
-    public int getBurnTime() {
-        return 300;
-    }
-
 }

@@ -1,5 +1,6 @@
 package svenhjol.meson.block;
 
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
@@ -13,8 +14,6 @@ import svenhjol.meson.MesonModule;
 
 import java.util.function.BiConsumer;
 
-// TODO itemStackRenderer cannot be translated from Forge, mixins?
-// TODO burnTime cannot be translated from Forge, research alternative
 public interface IMesonBlock {
     boolean enabled();
 
@@ -49,8 +48,8 @@ public interface IMesonBlock {
         return null;
     }
 
-    default int getBurnTime() {
-        return 0;
+    default void setBurnTime(int burnTime) {
+        FuelRegistry.INSTANCE.add((Block)this, burnTime);
     }
 
     default void setFireInfo(int encouragement, int flammability) {
