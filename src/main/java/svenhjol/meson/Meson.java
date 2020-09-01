@@ -2,6 +2,7 @@ package svenhjol.meson;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
+import svenhjol.charm.event.CommonSetupCallback;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.helper.StringHelper;
 
@@ -19,6 +20,32 @@ public class Meson {
 
     public void register(MesonMod mod) {
         mods.put(mod.getId(), mod);
+    }
+
+    public static void go() {
+        // early init, use for registering blocks etc.
+        mods.forEach((id, mod) -> {
+            mod.eachModule(MesonModule::init);
+            if (Meson.isClient())
+                mod.eachModule(MesonModule::initClient);
+        });
+
+        // post init, only enabled modules are run
+        mods.forEach((id, mod) -> {
+            mod.eachEnabledModule(MesonModule::afterInit);
+            if (Meson.isClient())
+                mod.eachEnabledModule(MesonModule::afterInitClient);
+        });
+
+        // listen for common setup events
+        CommonSetupCallback.EVENT.register(() -> {
+            mods.forEach((id, mod) -> {
+                mod.eachEnabledModule(MesonModule::setup);
+
+                if (Meson.isClient())
+                    mod.eachEnabledModule(MesonModule::setupClient);
+            });
+        });
     }
 
     public static MesonMod getMod(String id) {

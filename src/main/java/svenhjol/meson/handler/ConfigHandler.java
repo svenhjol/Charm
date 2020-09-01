@@ -16,14 +16,17 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ConfigHandler {
-    private static final String CONFIG_PATH = "./config/charm";
-    private static final String MODULES = CONFIG_PATH + "/modules.json";
+    private static String CONFIG_PATH;
+    private static String MODULES;
     private final Map<String, Boolean> enabledConfig = new TreeMap<>();
     private final Map<String, Map<String, Object>> moduleConfig = new TreeMap<>();
 
     public ConfigHandler(MesonMod mod) {
         if (!Meson.loadedModules.containsKey(mod.getId()))
             return;
+
+        CONFIG_PATH = "./config/" + mod.getId() + "/";
+        MODULES = CONFIG_PATH + "/modules.json";
 
         // build config map from all loaded modules
         Map<String, MesonModule> modules = Meson.loadedModules.get(mod.getId());

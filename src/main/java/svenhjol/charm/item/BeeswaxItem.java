@@ -9,10 +9,7 @@ public class BeeswaxItem extends MesonItem {
     public BeeswaxItem(MesonModule module) {
         super(module, "beeswax", new Item.Settings()
             .group(ItemGroup.MATERIALS));
-    }
 
-//    @Override
-//    public int getBurnTime(ItemStack itemStack) {
-//        return 800;
-//    }
+        this.setBurnTime(800);
+    }
 }

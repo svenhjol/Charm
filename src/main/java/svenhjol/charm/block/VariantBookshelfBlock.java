@@ -13,10 +13,7 @@ public class VariantBookshelfBlock extends MesonBlock {
         /** @see net.minecraft.block.FireBlock */
         if (type.isFlammable())
             this.setFireInfo(30, 20);
-    }
 
-    @Override
-    public int getBurnTime() {
-        return 300;
+        this.setBurnTime(300);
     }
 }

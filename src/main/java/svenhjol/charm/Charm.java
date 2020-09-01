@@ -1,8 +1,8 @@
 package svenhjol.charm;
 
-import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.module.*;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
 
@@ -10,13 +10,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Charm extends MesonMod implements ModInitializer {
+public class Charm extends MesonMod {
     public static final String MOD_ID = "charm";
 
     @Override
     public void onInitialize() {
         super.init(MOD_ID);
         CharmSounds.init(this);
+
+        // Charm seems to always be the last to launch, but needs more testing
+        Meson.go();
     }
 
     @Override
@@ -40,6 +43,7 @@ public class Charm extends MesonMod implements ModInitializer {
             DecreaseRepairCost.class,
             DirtToPath.class,
             EndermitePowder.class,
+            ExtendNetherite.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
             GoldBars.class,
@@ -56,6 +60,7 @@ public class Charm extends MesonMod implements ModInitializer {
             NetheriteNuggets.class,
             PathToDirt.class,
             ParrotsStayOnShoulder.class,
+            PlayerState.class,
             PortableCrafting.class,
             PortableEnderChest.class,
             RedstoneLanterns.class,
