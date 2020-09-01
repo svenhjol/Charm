@@ -1,5 +1,6 @@
 package svenhjol.meson;
 
+import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.event.CommonSetupCallback;
 import svenhjol.meson.handler.ConfigHandler;
 import svenhjol.meson.handler.ModuleHandler;
@@ -7,7 +8,7 @@ import svenhjol.meson.handler.ModuleHandler;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class MesonMod {
+public abstract class MesonMod implements ModInitializer {
     private ModuleHandler moduleHandler;
     private ConfigHandler configHandler;
     private String id;

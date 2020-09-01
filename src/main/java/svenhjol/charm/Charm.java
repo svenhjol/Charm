@@ -1,6 +1,5 @@
 package svenhjol.charm;
 
-import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.module.*;
 import svenhjol.meson.MesonMod;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Charm extends MesonMod implements ModInitializer {
+public class Charm extends MesonMod {
     public static final String MOD_ID = "charm";
 
     @Override
