@@ -47,6 +47,7 @@
     "AnvilScreenMixin",
     "ArmorFeatureRendererMixin",
     "BuiltinModelItemRendererMixin",
+    "ClientWorldMixin",
     "EnchantingTableBlockMixin",
     "HandledScreenMixin",
     "MinecraftClientMixin",
