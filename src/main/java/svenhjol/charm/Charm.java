@@ -30,6 +30,7 @@ public class Charm extends MesonMod {
             AutomaticRecipeUnlock.class,
             BatBucket.class,
             BeaconsHealMobs.class,
+            Beekeepers.class,
             BlockOfEnderPearls.class,
             BlockOfGunpowder.class,
             BlockOfSugar.class,

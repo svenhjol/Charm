@@ -38,6 +38,7 @@
     "accessor.MobEntityAccessor",
     "accessor.PickaxeItemAccessor",
     "accessor.PlayerEntityAccessor",
+    "accessor.PointOfInterestTypeAccessor",
     "accessor.ServerWorldAccessor",
     "accessor.ShovelItemAccessor",
     "accessor.SlotAccessor",

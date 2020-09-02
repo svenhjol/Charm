@@ -1,15 +1,28 @@
 package svenhjol.meson.helper;
 
+import com.google.common.collect.ImmutableSet;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.fabricmc.fabric.mixin.object.builder.VillagerProfessionAccessor;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
+import net.minecraft.world.poi.PointOfInterestType;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class VillagerHelper {
+    public static VillagerProfession addProfession(Identifier id, PointOfInterestType poit, SoundEvent worksound) {
+        VillagerProfession profession = VillagerProfessionAccessor.create(id.toString(), poit, ImmutableSet.of(), ImmutableSet.of(), worksound);
+        VillagerProfession registeredProfession = Registry.register(Registry.VILLAGER_PROFESSION, id, profession);
+        TradeOffers.PROFESSION_TO_LEVELED_TRADE.put(profession, new Int2ObjectOpenHashMap<>());
+        return registeredProfession;
+    }
+
     public static void addTrade(VillagerProfession profession, int level, TradeOffers.Factory trade) {
         Int2ObjectMap<TradeOffers.Factory[]> fixedTrades = TradeOffers.PROFESSION_TO_LEVELED_TRADE.get(profession);
         Int2ObjectMap<List<TradeOffers.Factory>> mutableTrades = new Int2ObjectOpenHashMap<>();
