@@ -3,6 +3,7 @@ package svenhjol.meson;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.event.CommonSetupCallback;
+import svenhjol.charm.event.StructureSetupCallback;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.helper.StringHelper;
 
@@ -36,6 +37,9 @@ public class Meson {
             if (Meson.isClient())
                 mod.eachEnabledModule(MesonModule::afterInitClient);
         });
+
+        // allow mods to modify structures in a controlled way
+        StructureSetupCallback.EVENT.invoker().interact();
 
         // listen for common setup events
         CommonSetupCallback.EVENT.register(() -> {
