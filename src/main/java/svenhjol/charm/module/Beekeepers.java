@@ -1,6 +1,5 @@
 package svenhjol.charm.module;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.entity.Entity;
@@ -54,8 +53,15 @@ public class Beekeepers extends MesonModule {
         // HACK: set the structure pool elementCounts to mutable - move to helper method asap!
 
         List<Pair<StructurePoolElement, Integer>> elementCounts = ((StructurePoolAccessor) houses).getElementCounts();
-        if (elementCounts instanceof ImmutableList)
-            ((StructurePoolAccessor)houses).setElementCounts(new ArrayList<>(elementCounts));
+        elementCounts = new ArrayList<>(elementCounts);
+
+        // strip off the empty thing
+        Pair<StructurePoolElement, Integer> emptyElement = elementCounts.get(elementCounts.size() - 1);
+        elementCounts.remove( elementCounts.get(elementCounts.size() - 1) );
+
+        if (false) { // DELETES ALL HOUSES, DO NOT USE!
+            ((StructurePoolAccessor) houses).setElementCounts(new ArrayList<>());
+        }
 
         Pair<Function<StructurePool.Projection, LegacySinglePoolElement>, Integer> pair =
             Pair.of(StructurePoolElement.method_30426("charm:village/plains/houses/plains_beekeeper_1", StructureProcessorLists.MOSSIFY_10_PERCENT), 10);
@@ -63,7 +69,12 @@ public class Beekeepers extends MesonModule {
         StructurePool.Projection projection = StructurePool.Projection.RIGID;
         Integer count = pair.getSecond();
         StructurePoolElement structurePoolElement = (StructurePoolElement)((Function)pair.getFirst()).apply(projection);
+
+        // add our custom one
         ((StructurePoolAccessor)houses).getElementCounts().add(Pair.of(structurePoolElement, count));
+
+        // add back the empty thing
+        ((StructurePoolAccessor)houses).getElementCounts().add(emptyElement);
 
         for (int i = 0; i < count; i++) {
             ((StructurePoolAccessor)houses).getElements().add(structurePoolElement);
