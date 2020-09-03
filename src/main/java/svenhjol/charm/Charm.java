@@ -55,6 +55,7 @@ public class Charm extends MesonMod {
             Innkeepers.class,
             InventoryTidying.class,
             LanternImprovements.class,
+            Lumberjacks.class,
             MineshaftImprovements.class,
             MoreVillageBiomes.class,
             MoreVillagerTrades.class,
