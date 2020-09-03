@@ -42,7 +42,8 @@
     "accessor.ServerWorldAccessor",
     "accessor.ShovelItemAccessor",
     "accessor.SlotAccessor",
-    "accessor.StructurePieceAccessor"
+    "accessor.StructurePieceAccessor",
+    "accessor.StructurePoolAccessor"
   ],
   "client": [
     "AnvilScreenMixin",

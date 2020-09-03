@@ -23,6 +23,7 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor;
+import svenhjol.charm.mixin.accessor.StructurePoolAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.VillagerHelper;
 import svenhjol.meson.iface.Module;
@@ -52,13 +53,12 @@ public class Beekeepers extends MesonModule {
         StructurePool houses = BuiltinRegistries.STRUCTURE_POOL.get(new Identifier("village/plains/houses"));
         // HACK: set the structure pool elementCounts to mutable - move to helper method asap!
 
-
         List<Pair<StructurePoolElement, Integer>> elementCounts = ((StructurePoolAccessor) houses).getElementCounts();
         if (elementCounts instanceof ImmutableList)
             ((StructurePoolAccessor)houses).setElementCounts(new ArrayList<>(elementCounts));
 
         Pair<Function<StructurePool.Projection, LegacySinglePoolElement>, Integer> pair =
-            Pair.of(StructurePoolElement.method_30426("charm:village/plains/houses/plains_beekeeper_1", StructureProcessorLists.MOSSIFY_10_PERCENT), 2);
+            Pair.of(StructurePoolElement.method_30426("charm:village/plains/houses/plains_beekeeper_1", StructureProcessorLists.MOSSIFY_10_PERCENT), 10);
 
         StructurePool.Projection projection = StructurePool.Projection.RIGID;
         Integer count = pair.getSecond();
