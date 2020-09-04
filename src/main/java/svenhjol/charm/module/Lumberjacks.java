@@ -1,30 +1,42 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.recipe.*;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import svenhjol.charm.Charm;
 import svenhjol.charm.block.WoodcutterBlock;
+import svenhjol.charm.gui.WoodcutterScreen;
 import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
 import svenhjol.charm.recipe.WoodcuttingRecipe;
+import svenhjol.charm.screenhandler.WoodcutterScreenHandler;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
 @Module(description = "")
 public class Lumberjacks extends MesonModule {
-    public static Identifier RECIPE_ID = new Identifier("woodcutter");
-    public static WoodcutterBlock WOODCUTTER;
-    public static RecipeType<WoodcuttingRecipe> WOODCUTTING_RECIPE_TYPE;
-    public static RecipeSerializer<WoodcuttingRecipe> WOODCUTTING_RECIPE_SERIALIZER;
+    public static Identifier RECIPE_ID = new Identifier("woodcutting");
+    public static Identifier SCREEN_HANDLER_ID = new Identifier(Charm.MOD_ID, "woodcutter");
+    public static WoodcutterBlock WOODCUTTER_BLOCK;
+    public static ScreenHandlerType<WoodcutterScreenHandler> SCREEN_HANDLER;
+    public static RecipeType<WoodcuttingRecipe> RECIPE_TYPE;
+    public static RecipeSerializer<WoodcuttingRecipe> RECIPE_SERIALIZER;
 
     @Override
     public void init() {
-        WOODCUTTER = new WoodcutterBlock(this);
-        WOODCUTTING_RECIPE_TYPE = RecipeType.register("woodcutting");
-        WOODCUTTING_RECIPE_SERIALIZER = RecipeSerializer.register("woodcutting", new WoodcuttingRecipe.Serializer(WoodcuttingRecipe::new));
+        WOODCUTTER_BLOCK = new WoodcutterBlock(this);
+        RECIPE_TYPE = RecipeType.register(RECIPE_ID.toString());
+        RECIPE_SERIALIZER = RecipeSerializer.register(RECIPE_ID.toString(), new WoodcuttingRecipe.Serializer(WoodcuttingRecipe::new));
+        SCREEN_HANDLER = Registry.register(Registry.SCREEN_HANDLER, SCREEN_HANDLER_ID, new ScreenHandlerType<>(WoodcutterScreenHandler::new));
+//        ScreenHandlerRegistry.registerSimple(SCREEN_HANDLER_ID, WoodcutterScreenHandler::new);
     }
 
     @Override
     public void initClient() {
-        RenderLayersAccessor.getBlocks().put(WOODCUTTER, RenderLayer.getCutout());
+        RenderLayersAccessor.getBlocks().put(WOODCUTTER_BLOCK, RenderLayer.getCutout());
+        ScreenRegistry.register(SCREEN_HANDLER, WoodcutterScreen::new);
     }
 }

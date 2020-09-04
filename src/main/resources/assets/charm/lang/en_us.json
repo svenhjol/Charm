@@ -61,6 +61,7 @@
   "container.charm.crate": "Crate",
   "container.charm.portable_crafting_table": "Portable Crafting",
   "container.charm.portable_ender_chest": "Portable Ender Chest",
+  "container.charm.woodcutter": "Woodcutter",
   "entity.minecraft.villager.beekeeper": "Beekeeper",
   "filled_map.charm.trader_map": "%s Map",
   "item.charm.bat_bucket": "Bat in a Bucket",
