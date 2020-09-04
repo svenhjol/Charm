@@ -49,7 +49,7 @@ public interface StructureSetupCallback {
         StructurePoolElement element = pair.getFirst().apply(projection);
         StructurePool pool = getVanillaPool(poolId);
 
-        if (true) { // DELETES ALL IN POOL, DO NOT USE!
+        if (false) { // DELETES ALL IN POOL, DO NOT USE!
             ((StructurePoolAccessor) pool).setElementCounts(new ArrayList<>());
         }
         
