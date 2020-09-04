@@ -9,6 +9,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.structure.processor.StructureProcessorLists;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -45,11 +46,24 @@ public class Beekeepers extends MesonModule {
 
         // register beekeeper structures
         StructureSetupCallback.EVENT.register(() -> {
+            StructureProcessorList processor = StructureProcessorLists.MOSSIFY_10_PERCENT;
+            StructurePool.Projection projection = StructurePool.Projection.RIGID;
+
             Map<Identifier, Integer> plainsBuildings = new HashMap<>();
+            Map<Identifier, Integer> savannaBuildings = new HashMap<>();
+            Map<Identifier, Integer> taigaBuildings = new HashMap<>();
 
             Identifier plainsHouses = new Identifier("village/plains/houses");
+            Identifier savannaHouses = new Identifier("village/savanna/houses");
+            Identifier taigaHouses = new Identifier("village/taiga/houses");
+
             plainsBuildings.put(new Identifier("charm:village/plains/houses/plains_beekeeper_1"), 10);
-            plainsBuildings.forEach((building, count) -> StructureSetupCallback.addStructurePoolElement(plainsHouses, building, StructureProcessorLists.MOSSIFY_10_PERCENT, StructurePool.Projection.RIGID, count));
+            savannaBuildings.put(new Identifier("charm:village/savanna/houses/savanna_beekeeper_1"), 10);
+            taigaBuildings.put(new Identifier("charm:village/taiga/houses/taiga_beekeeper_1"), 10);
+
+            plainsBuildings.forEach((building, count) -> StructureSetupCallback.addStructurePoolElement(plainsHouses, building, processor, projection, count));
+            savannaBuildings.forEach((building, count) -> StructureSetupCallback.addStructurePoolElement(savannaHouses, building, processor, projection, count));
+            taigaBuildings.forEach((building, count) -> StructureSetupCallback.addStructurePoolElement(taigaHouses, building, processor, projection, count));
         });
     }
 
