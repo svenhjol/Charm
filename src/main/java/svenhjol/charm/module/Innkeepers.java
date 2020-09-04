@@ -22,7 +22,7 @@ public class Innkeepers extends MesonModule {
     public void init() {
         BREW_BOTTLE = new BrewBottleBlock(this);
 
-        // register beekeeper structures
+        // register innkeeper structures
         StructureSetupCallback.EVENT.register(() -> {
             StructureProcessorList processor = StructureProcessorLists.MOSSIFY_10_PERCENT;
             StructurePool.Projection projection = StructurePool.Projection.RIGID;
@@ -38,6 +38,7 @@ public class Innkeepers extends MesonModule {
             // @Coranthes: register your buildings here, 1 per line.
             // plainsBuildings.put(new Identifier("charm:village/plains/houses/plains_beekeeper_1"), 10);
             // savannaBuildings.put(new Identifier("charm:village/savanna/houses/savanna_beekeeper_1"), 10);
+            // taigaBuildings.put(new Identifier("charm:village/plains/houses/plains_beekeeper_1"), 10);
 
             plainsBuildings.forEach((building, count) -> StructureSetupCallback.addStructurePoolElement(plainsHouses, building, processor, projection, count));
             savannaBuildings.forEach((building, count) -> StructureSetupCallback.addStructurePoolElement(savannaHouses, building, processor, projection, count));
