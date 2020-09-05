@@ -118,7 +118,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
     }
 
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, Lumberjacks.WOODCUTTER_BLOCK);
+        return canUse(this.context, player, Lumberjacks.WOODCUTTER);
     }
 
     public boolean onButtonClick(PlayerEntity player, int id) {
