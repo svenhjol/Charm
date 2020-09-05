@@ -63,6 +63,8 @@
   "container.charm.portable_ender_chest": "Portable Ender Chest",
   "container.charm.woodcutter": "Woodcutter",
   "entity.minecraft.villager.beekeeper": "Beekeeper",
+  "entity.minecraft.villager.innkeeper": "Innkeeper",
+  "entity.minecraft.villager.lumberjack": "Lumberjack",
   "filled_map.charm.trader_map": "%s Map",
   "item.charm.bat_bucket": "Bat in a Bucket",
   "item.charm.beeswax": "Beeswax",
