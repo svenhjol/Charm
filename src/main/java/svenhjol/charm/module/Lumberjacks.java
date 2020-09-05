@@ -67,9 +67,9 @@ public class Lumberjacks extends MesonModule {
         @Override
         public TradeOffer create(Entity entity, Random random) {
             int count = random.nextInt(2) + 1;
-            ItemStack in1 = new ItemStack(Items.OAK_PLANKS, count * 4);
+            ItemStack in1 = new ItemStack(Items.OAK_PLANKS, count * 6);
             ItemStack out = new ItemStack(Items.EMERALD, count);
-            return new TradeOffer(in1, out, 10, 5, 0.2F);
+            return new TradeOffer(in1, out, 10, 1, 0.2F);
         }
     }
 }
