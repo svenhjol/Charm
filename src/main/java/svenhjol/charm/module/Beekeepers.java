@@ -27,7 +27,7 @@ import java.util.Random;
 
 import static svenhjol.charm.event.StructureSetupCallback.addVillageHouse;
 
-@Module(description = "")
+@Module(description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
 public class Beekeepers extends MesonModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "beekeeper");
     public static VillagerProfession BEEKEEPER;
