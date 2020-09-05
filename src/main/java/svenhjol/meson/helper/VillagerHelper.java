@@ -3,7 +3,9 @@ package svenhjol.meson.helper;
 import com.google.common.collect.ImmutableSet;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.fabricmc.fabric.mixin.object.builder.PointOfInterestTypeAccessor;
 import net.fabricmc.fabric.mixin.object.builder.VillagerProfessionAccessor;
+import net.minecraft.block.Block;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
@@ -21,6 +23,12 @@ public class VillagerHelper {
         VillagerProfession registeredProfession = Registry.register(Registry.VILLAGER_PROFESSION, id, profession);
         TradeOffers.PROFESSION_TO_LEVELED_TRADE.put(profession, new Int2ObjectOpenHashMap<>());
         return registeredProfession;
+    }
+
+    public static PointOfInterestType addPointOfInterestType(Identifier id, Block block, int ticketCount) {
+        PointOfInterestType poit = PointOfInterestTypeAccessor.callCreate(id.toString(), ImmutableSet.copyOf(block.getStateManager().getStates()), ticketCount, 1);
+        Registry.register(Registry.POINT_OF_INTEREST_TYPE, id, poit);
+        return PointOfInterestTypeAccessor.callSetup(poit);
     }
 
     public static void addTrade(VillagerProfession profession, int level, TradeOffers.Factory trade) {

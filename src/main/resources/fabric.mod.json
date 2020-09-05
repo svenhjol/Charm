@@ -27,6 +27,7 @@
   "mixins": [
     "charm.mixins.json"
   ],
+  "accessWidener": "charm.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.7.4",

@@ -1,60 +1,53 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.ai.pathing.NavigationType;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.StonecutterBlock;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import svenhjol.charm.screenhandler.WoodcutterScreenHandler;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.MesonBlock;
+import svenhjol.meson.block.IMesonBlock;
 
-public class WoodcutterBlock extends MesonBlock {
-    public static final DirectionProperty FACING;
-    protected static final VoxelShape SHAPE;
+import javax.annotation.Nullable;
+
+public class WoodcutterBlock extends StonecutterBlock implements IMesonBlock {
+    private MesonModule module;
+    private static final Text TITLE = new TranslatableText("container.charm.woodcutter");
 
     public WoodcutterBlock(MesonModule module) {
-        super(module, "woodcutter", AbstractBlock.Settings.copy(Blocks.STONECUTTER));
+        super(AbstractBlock.Settings.copy(Blocks.STONECUTTER));
+        register(module, "woodcutter");
+        this.module = module;
     }
 
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return SHAPE;
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (world.isClient) {
+            return ActionResult.SUCCESS;
+        } else {
+            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+            return ActionResult.CONSUME;
+        }
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+    @Nullable
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        return new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity)
+            -> new WoodcutterScreenHandler(i, playerInventory, ScreenHandlerContext.create(world, pos)), TITLE);
     }
 
-    public boolean hasSidedTransparency(BlockState state) {
-        return true;
-    }
-
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
-    }
-
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
-    }
-
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
-    }
-
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
-        return false;
-    }
-
-    static {
-        FACING = HorizontalFacingBlock.FACING;
-        SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 9.0D, 16.0D);
+    @Override
+    public boolean enabled() {
+        return module.enabled;
     }
 }

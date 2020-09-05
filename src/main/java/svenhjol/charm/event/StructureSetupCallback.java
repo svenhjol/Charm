@@ -7,9 +7,11 @@ import net.minecraft.structure.pool.LegacySinglePoolElement;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.structure.processor.StructureProcessorList;
+import net.minecraft.structure.processor.StructureProcessorLists;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import svenhjol.charm.mixin.accessor.StructurePoolAccessor;
+import svenhjol.meson.enums.IMesonEnum;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,5 +62,20 @@ public interface StructureSetupCallback {
         }
     }
 
+    static void addVillageHouse(VillageType type, Identifier pieceId, int count) {
+        Identifier houses = new Identifier("village/" + type.asString() + "/houses");
+        StructureProcessorList processor = StructureProcessorLists.MOSSIFY_10_PERCENT;
+        StructurePool.Projection projection = StructurePool.Projection.RIGID;
+        addStructurePoolElement(houses, pieceId, processor, projection, count);
+    }
+
     void interact();
+
+    enum VillageType implements IMesonEnum {
+        DESERT,
+        PLAINS,
+        SAVANNA,
+        SNOWY,
+        TAIGA
+    }
 }

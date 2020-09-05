@@ -8,9 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.processor.StructureProcessorList;
-import net.minecraft.structure.processor.StructureProcessorLists;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.village.TradeOffer;
@@ -19,17 +16,18 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.StructureSetupCallback;
+import svenhjol.charm.event.StructureSetupCallback.VillageType;
 import svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.VillagerHelper;
 import svenhjol.meson.iface.Module;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
-@Module(description = "")
+import static svenhjol.charm.event.StructureSetupCallback.addVillageHouse;
+
+@Module(description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
 public class Beekeepers extends MesonModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "beekeeper");
     public static VillagerProfession BEEKEEPER;
@@ -46,24 +44,11 @@ public class Beekeepers extends MesonModule {
 
         // register beekeeper structures
         StructureSetupCallback.EVENT.register(() -> {
-            StructureProcessorList processor = StructureProcessorLists.MOSSIFY_10_PERCENT;
-            StructurePool.Projection projection = StructurePool.Projection.RIGID;
 
-            Map<Identifier, Integer> plainsBuildings = new HashMap<>();
-            Map<Identifier, Integer> savannaBuildings = new HashMap<>();
-            Map<Identifier, Integer> taigaBuildings = new HashMap<>();
+            addVillageHouse(VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_beekeeper_1"), 10);
+            addVillageHouse(VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_beekeeper_1"), 10);
+            addVillageHouse(VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_beekeeper_1"), 10);
 
-            Identifier plainsHouses = new Identifier("village/plains/houses");
-            Identifier savannaHouses = new Identifier("village/savanna/houses");
-            Identifier taigaHouses = new Identifier("village/taiga/houses");
-
-            plainsBuildings.put(new Identifier("charm:village/plains/houses/plains_beekeeper_1"), 10);
-            savannaBuildings.put(new Identifier("charm:village/savanna/houses/savanna_beekeeper_1"), 10);
-            taigaBuildings.put(new Identifier("charm:village/taiga/houses/taiga_beekeeper_1"), 10);
-
-            plainsBuildings.forEach((building, count) -> StructureSetupCallback.addStructurePoolElement(plainsHouses, building, processor, projection, count));
-            savannaBuildings.forEach((building, count) -> StructureSetupCallback.addStructurePoolElement(savannaHouses, building, processor, projection, count));
-            taigaBuildings.forEach((building, count) -> StructureSetupCallback.addStructurePoolElement(taigaHouses, building, processor, projection, count));
         });
     }
 
