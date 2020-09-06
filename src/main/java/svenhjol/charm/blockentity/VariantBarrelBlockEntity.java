@@ -5,7 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.sound.SoundEvents;
-import svenhjol.charm.mixin.accessor.BarrelBlockEntityAccessor;
+import svenhjol.meson.mixin.accessor.BarrelBlockEntityAccessor;
 import svenhjol.charm.module.VariantBarrels;
 
 public class VariantBarrelBlockEntity extends BarrelBlockEntity {

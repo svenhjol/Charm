@@ -14,7 +14,7 @@ import svenhjol.meson.event.RenderGuiCallback;
 import svenhjol.meson.event.SetupGuiCallback;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
-import svenhjol.charm.mixin.accessor.SlotAccessor;
+import svenhjol.meson.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.InventoryTidying;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ScreenHelper;

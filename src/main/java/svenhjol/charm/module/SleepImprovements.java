@@ -6,7 +6,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import svenhjol.charm.mixin.accessor.ServerWorldAccessor;
+import svenhjol.meson.mixin.accessor.ServerWorldAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;

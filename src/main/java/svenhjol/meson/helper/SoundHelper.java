@@ -6,8 +6,8 @@ import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.sound.SoundSystem;
 import net.minecraft.sound.SoundCategory;
-import svenhjol.charm.mixin.accessor.SoundManagerAccessor;
-import svenhjol.charm.mixin.accessor.SoundSystemAccessor;
+import svenhjol.meson.mixin.accessor.SoundManagerAccessor;
+import svenhjol.meson.mixin.accessor.SoundSystemAccessor;
 
 public class SoundHelper {
     public static SoundManager getSoundManager() {

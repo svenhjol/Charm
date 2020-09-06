@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.accessor;
+package svenhjol.meson.mixin.accessor;
 
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.item.ItemStack;

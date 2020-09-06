@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.accessor;
+package svenhjol.meson.mixin.accessor;
 
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.sound.SoundSystem;

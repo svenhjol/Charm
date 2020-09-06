@@ -11,7 +11,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import svenhjol.meson.mixin.accessor.BlockAccessor;
 import svenhjol.meson.mixin.accessor.DispenserBlockAccessor;
-import svenhjol.charm.mixin.accessor.ItemAccessor;
+import svenhjol.meson.mixin.accessor.ItemAccessor;
 
 import java.util.HashMap;
 import java.util.Map;

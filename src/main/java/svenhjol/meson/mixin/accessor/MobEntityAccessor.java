@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.accessor;
+package svenhjol.meson.mixin.accessor;
 
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.mob.MobEntity;

@@ -17,7 +17,7 @@ import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.meson.event.StructureSetupCallback;
 import svenhjol.meson.event.StructureSetupCallback.VillageType;
-import svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor;
+import svenhjol.meson.mixin.accessor.PointOfInterestTypeAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.VillagerHelper;
 import svenhjol.meson.iface.Module;

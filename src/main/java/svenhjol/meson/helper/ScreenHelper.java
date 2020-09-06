@@ -1,7 +1,7 @@
 package svenhjol.meson.helper;
 
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import svenhjol.charm.mixin.accessor.HandledScreenAccessor;
+import svenhjol.meson.mixin.accessor.HandledScreenAccessor;
 
 public class ScreenHelper {
     public static int getX(HandledScreen<?> screen) {

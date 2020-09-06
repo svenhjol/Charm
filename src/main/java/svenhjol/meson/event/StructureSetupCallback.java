@@ -10,7 +10,7 @@ import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.structure.processor.StructureProcessorLists;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
-import svenhjol.charm.mixin.accessor.StructurePoolAccessor;
+import svenhjol.meson.mixin.accessor.StructurePoolAccessor;
 import svenhjol.meson.enums.IMesonEnum;
 
 import java.util.ArrayList;

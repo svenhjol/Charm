@@ -8,8 +8,8 @@ import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import svenhjol.charm.mixin.accessor.GoalSelectorAccessor;
-import svenhjol.charm.mixin.accessor.MobEntityAccessor;
+import svenhjol.meson.mixin.accessor.GoalSelectorAccessor;
+import svenhjol.meson.mixin.accessor.MobEntityAccessor;
 
 import java.util.Set;
 

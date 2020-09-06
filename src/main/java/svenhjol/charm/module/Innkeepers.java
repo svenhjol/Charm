@@ -15,7 +15,7 @@ import svenhjol.charm.block.BrewBottleBlock;
 import svenhjol.meson.event.StructureSetupCallback;
 import svenhjol.meson.event.StructureSetupCallback.VillageType;
 import svenhjol.charm.item.SuspiciousBrewItem;
-import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
+import svenhjol.meson.mixin.accessor.RenderLayersAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.VillagerHelper;
 import svenhjol.meson.iface.Module;

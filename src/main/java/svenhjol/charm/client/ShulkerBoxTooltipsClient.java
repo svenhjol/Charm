@@ -17,7 +17,7 @@ import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.meson.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
-import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
+import svenhjol.meson.mixin.accessor.ShulkerBoxBlockEntityAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.ItemNBTHelper;

@@ -7,7 +7,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.block.VariantLadderBlock;
-import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
+import svenhjol.meson.mixin.accessor.RenderLayersAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.IVariantMaterial;
 import svenhjol.meson.enums.VanillaVariantMaterial;

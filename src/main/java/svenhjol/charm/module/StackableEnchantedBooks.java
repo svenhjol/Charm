@@ -2,7 +2,7 @@ package svenhjol.charm.module;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import svenhjol.charm.mixin.accessor.ItemAccessor;
+import svenhjol.meson.mixin.accessor.ItemAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;

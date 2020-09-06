@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.accessor;
+package svenhjol.meson.mixin.accessor;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.structure.StructurePiece;

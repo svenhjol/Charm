@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.accessor;
+package svenhjol.meson.mixin.accessor;
 
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;

@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.accessor;
+package svenhjol.meson.mixin.accessor;
 
 import net.minecraft.screen.slot.Slot;
 import org.spongepowered.asm.mixin.Mixin;

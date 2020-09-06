@@ -7,9 +7,9 @@ import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import svenhjol.meson.mixin.accessor.FireBlockAccessor;
-import svenhjol.charm.mixin.accessor.HoeItemAccessor;
-import svenhjol.charm.mixin.accessor.PickaxeItemAccessor;
-import svenhjol.charm.mixin.accessor.ShovelItemAccessor;
+import svenhjol.meson.mixin.accessor.HoeItemAccessor;
+import svenhjol.meson.mixin.accessor.PickaxeItemAccessor;
+import svenhjol.meson.mixin.accessor.ShovelItemAccessor;
 import svenhjol.meson.MesonModule;
 
 import java.util.function.BiConsumer;

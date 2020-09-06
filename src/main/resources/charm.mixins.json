@@ -20,35 +20,14 @@
     "ShulkerBoxBlockEntityMixin",
     "ShulkerBoxSlotMixin",
     "StrayEntityMixin",
-    "WanderingTraderManagerMixin",
-    "accessor.AnvilScreenHandlerAccessor",
-    "accessor.BarrelBlockEntityAccessor",
-    "accessor.BlocksAccessor",
-    "accessor.GenerationSettingsAccessor",
-    "accessor.GoalSelectorAccessor",
-    "accessor.HoeItemAccessor",
-    "accessor.ItemAccessor",
-    "accessor.MobEntityAccessor",
-    "accessor.PickaxeItemAccessor",
-    "accessor.PlayerEntityAccessor",
-    "accessor.PointOfInterestTypeAccessor",
-    "accessor.ServerWorldAccessor",
-    "accessor.ShovelItemAccessor",
-    "accessor.ShulkerBoxBlockEntityAccessor",
-    "accessor.SlotAccessor",
-    "accessor.StructurePieceAccessor",
-    "accessor.StructurePoolAccessor"
+    "WanderingTraderManagerMixin"
   ],
   "client": [
     "AnvilScreenMixin",
     "ArmorFeatureRendererMixin",
     "ClientRecipeBookMixin",
     "MusicTrackerMixin",
-    "TexturedRenderLayersMixin",
-    "accessor.HandledScreenAccessor",
-    "accessor.RenderLayersAccessor",
-    "accessor.SoundManagerAccessor",
-    "accessor.SoundSystemAccessor"
+    "TexturedRenderLayersMixin"
   ],
   "injectors": {
     "defaultRequire": 1

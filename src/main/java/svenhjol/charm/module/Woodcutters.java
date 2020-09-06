@@ -10,7 +10,7 @@ import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.block.WoodcutterBlock;
 import svenhjol.charm.gui.WoodcutterScreen;
-import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
+import svenhjol.meson.mixin.accessor.RenderLayersAccessor;
 import svenhjol.charm.recipe.WoodcuttingRecipe;
 import svenhjol.charm.screenhandler.WoodcutterScreenHandler;
 import svenhjol.meson.MesonModule;

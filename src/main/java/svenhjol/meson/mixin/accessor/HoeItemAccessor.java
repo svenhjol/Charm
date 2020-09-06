@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.accessor;
+package svenhjol.meson.mixin.accessor;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ShovelItem;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.Set;
 
 @Mixin(ShovelItem.class)
-public interface PickaxeItemAccessor {
+public interface HoeItemAccessor {
     @Accessor("EFFECTIVE_BLOCKS")
     static Set<Block> getEffectiveBlocks() {
         throw new IllegalStateException();

@@ -2,7 +2,7 @@ package svenhjol.charm.module;
 
 import net.minecraft.client.render.RenderLayer;
 import svenhjol.charm.block.GoldBarsBlock;
-import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
+import svenhjol.meson.mixin.accessor.RenderLayersAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 

@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.accessor;
+package svenhjol.meson.mixin.accessor;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.structure.pool.StructurePool;

@@ -19,7 +19,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import svenhjol.charm.blockentity.CrateBlockEntity;
-import svenhjol.charm.mixin.accessor.StructurePieceAccessor;
+import svenhjol.meson.mixin.accessor.StructurePieceAccessor;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;

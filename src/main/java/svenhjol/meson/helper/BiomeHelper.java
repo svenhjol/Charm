@@ -10,7 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
-import svenhjol.charm.mixin.accessor.GenerationSettingsAccessor;
+import svenhjol.meson.mixin.accessor.GenerationSettingsAccessor;
 
 import java.util.ArrayList;
 import java.util.List;

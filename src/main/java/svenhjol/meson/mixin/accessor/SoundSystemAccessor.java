@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.accessor;
+package svenhjol.meson.mixin.accessor;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.client.sound.SoundInstance;
