@@ -2,7 +2,6 @@ package svenhjol.charm.recipe;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Blocks;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CuttingRecipe;
@@ -22,8 +21,6 @@ public class WoodcuttingRecipe extends CuttingRecipe {
 
    @Environment(EnvType.CLIENT)
    public ItemStack getRecipeKindIcon() {
-      return new ItemStack(Blocks.STONECUTTER);
+      return new ItemStack(Lumberjacks.WOODCUTTER);
    }
-
-
 }

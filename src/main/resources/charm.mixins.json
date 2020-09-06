@@ -52,6 +52,7 @@
     "AnvilScreenMixin",
     "ArmorFeatureRendererMixin",
     "BuiltinModelItemRendererMixin",
+    "ClientRecipeBookMixin",
     "ClientWorldMixin",
     "EnchantingTableBlockMixin",
     "HandledScreenMixin",
