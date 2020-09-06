@@ -27,10 +27,11 @@ import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
 import static svenhjol.charm.handler.InventoryTidyingHandler.BE;
 
 public class InventoryTidyingClient {
-    private static final int LEFT = 159;
-    private static final int TOP = 12;
     private final MesonModule module;
-    private final List<TexturedButtonWidget> sortingButtons = new ArrayList<>();
+
+    public static final int LEFT = 159;
+    public static final int TOP = 12;
+    public static final List<TexturedButtonWidget> sortingButtons = new ArrayList<>();
 
     public final List<Class<? extends Screen>> blockEntityScreens = new ArrayList<>();
     public final List<Class<? extends Screen>> blacklistScreens = new ArrayList<>();
@@ -65,7 +66,7 @@ public class InventoryTidyingClient {
             if (blacklistScreens.contains(client.currentScreen.getClass()))
                 return;
 
-            this.sortingButtons.clear();
+            sortingButtons.clear();
 
             HandledScreen<?> screen = (HandledScreen<?>)client.currentScreen;
             ScreenHandler screenHandler = screen.getScreenHandler();
@@ -88,7 +89,7 @@ public class InventoryTidyingClient {
                 }
             }
 
-            this.sortingButtons.forEach(addButton);
+            sortingButtons.forEach(addButton);
         }));
 
         RenderGuiCallback.EVENT.register(((client, matrices, mouseX, mouseY, delta) -> {
@@ -98,13 +99,13 @@ public class InventoryTidyingClient {
                 // handles the recipe being open/closed
                 InventoryScreen screen = (InventoryScreen)client.currentScreen;
                 int x = ScreenHelper.getX(screen);
-                this.sortingButtons.forEach(button -> button.setPos(x + LEFT, button.y));
+                sortingButtons.forEach(button -> button.setPos(x + LEFT, button.y));
             }
         }));
     }
 
     private void addSortingButton(Screen screen, int x, int y, ButtonWidget.PressAction onPress) {
-        this.sortingButtons.add(new TexturedButtonWidget(x, y, 10, 10, 40, 0, 10, CharmResources.INVENTORY_BUTTONS, onPress));
+        sortingButtons.add(new TexturedButtonWidget(x, y, 10, 10, 40, 0, 10, CharmResources.INVENTORY_BUTTONS, onPress));
     }
 
     private void sendSortMessage(int type) {
