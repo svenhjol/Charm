@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin;
+package svenhjol.meson.mixin;
 
 import net.minecraft.entity.ItemEntity;
 import org.spongepowered.asm.mixin.Mixin;

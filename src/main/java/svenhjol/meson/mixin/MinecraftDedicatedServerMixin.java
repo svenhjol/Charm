@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin;
+package svenhjol.meson.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dedicated.MinecraftDedicatedServer;

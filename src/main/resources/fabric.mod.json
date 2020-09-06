@@ -16,7 +16,7 @@
   },
 
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/charm/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -25,9 +25,10 @@
     ]
   },
   "mixins": [
+    "meson.mixins.json",
     "charm.mixins.json"
   ],
-  "accessWidener": "charm.accesswidener",
+  "accessWidener": "meson.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.7.4",

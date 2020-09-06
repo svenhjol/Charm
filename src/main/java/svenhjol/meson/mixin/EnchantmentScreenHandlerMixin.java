@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin;
+package svenhjol.meson.mixin;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
@@ -16,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.module.Hacks;
 import svenhjol.meson.helper.EnchantmentsHelper;
 
 import java.util.List;
@@ -53,9 +52,8 @@ public abstract class EnchantmentScreenHandlerMixin {
         cancellable = true
     )
     private void hookOnContentChanged(Inventory inventory, CallbackInfo ci, ItemStack itemStack) {
-        if (!Hacks.hackEnchantingTable)
-            return;
-
+//        if (!Hacks.hackEnchantingTable)
+//            return;
         /**
          * Copypasta from {@link EnchantmentScreenHandler#onContentChanged(Inventory)}
          */

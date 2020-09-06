@@ -9,8 +9,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.MutableRegistry;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import svenhjol.charm.mixin.accessor.BlockAccessor;
-import svenhjol.charm.mixin.accessor.DispenserBlockAccessor;
+import svenhjol.meson.mixin.accessor.BlockAccessor;
+import svenhjol.meson.mixin.accessor.DispenserBlockAccessor;
 import svenhjol.charm.mixin.accessor.ItemAccessor;
 
 import java.util.HashMap;

@@ -6,7 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import svenhjol.charm.mixin.accessor.FireBlockAccessor;
+import svenhjol.meson.mixin.accessor.FireBlockAccessor;
 import svenhjol.charm.mixin.accessor.HoeItemAccessor;
 import svenhjol.charm.mixin.accessor.PickaxeItemAccessor;
 import svenhjol.charm.mixin.accessor.ShovelItemAccessor;

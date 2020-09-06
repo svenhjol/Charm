@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin;
+package svenhjol.meson.mixin;
 
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;

@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin;
+package svenhjol.meson.mixin;
 
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.resource.ResourceManager;

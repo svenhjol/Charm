@@ -1,0 +1,29 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "svenhjol.meson.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BuiltinModelItemRendererMixin",
+    "ClientWorldMixin",
+    "EnchantingTableBlockMixin",
+    "EnchantmentScreenHandlerMixin",
+    "HandledScreenMixin",
+    "ItemEntityMixin",
+    "MinecraftClientMixin",
+    "MinecraftDedicatedServerMixin",
+    "PlayerEntityMixin",
+    "RecipeManagerMixin",
+    "ScreenMixin",
+    "ServerWorldMixin",
+    "SoundSystemMixin",
+    "SpriteAtlasTextureMixin",
+    "accessor.BlockAccessor",
+    "accessor.DispenserBlockAccessor",
+    "accessor.FireBlockAccessor"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

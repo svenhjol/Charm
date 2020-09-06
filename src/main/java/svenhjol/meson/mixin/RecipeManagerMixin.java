@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin;
+package svenhjol.meson.mixin;
 
 import com.google.gson.JsonElement;
 import net.minecraft.recipe.RecipeManager;
@@ -15,6 +15,12 @@ import java.util.Map;
 
 @Mixin(RecipeManager.class)
 public class RecipeManagerMixin {
+    /**
+     * Allows RecipeHandler to remove recipes that are no longer
+     * valid according to the module configuration.
+     * 
+     * {@link RecipeHandler#filter(Map)}
+     */
     @Inject(
         method = "apply",
         at = @At("HEAD")
