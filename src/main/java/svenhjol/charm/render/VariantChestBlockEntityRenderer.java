@@ -10,22 +10,22 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
-import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
 public class VariantChestBlockEntityRenderer<T extends VariantChestBlockEntity & ChestAnimationProgress> extends ChestBlockEntityRenderer<T> {
-    private static final Map<IStorageMaterial, Map<ChestType, SpriteIdentifier>> normalTextures = new HashMap<>();
-    private static final Map<IStorageMaterial, Map<ChestType, SpriteIdentifier>> trappedTextures = new HashMap<>();
+    private static final Map<IVariantMaterial, Map<ChestType, SpriteIdentifier>> normalTextures = new HashMap<>();
+    private static final Map<IVariantMaterial, Map<ChestType, SpriteIdentifier>> trappedTextures = new HashMap<>();
 
     public VariantChestBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
         super(dispatcher);
     }
 
-    public static void addTexture(IStorageMaterial material, ChestType chestType, Identifier id, boolean trapped) {
-        Map<IStorageMaterial, Map<ChestType, SpriteIdentifier>> textures = trapped
+    public static void addTexture(IVariantMaterial material, ChestType chestType, Identifier id, boolean trapped) {
+        Map<IVariantMaterial, Map<ChestType, SpriteIdentifier>> textures = trapped
             ? VariantChestBlockEntityRenderer.trappedTextures
             : VariantChestBlockEntityRenderer.normalTextures;
 
@@ -40,11 +40,11 @@ public class VariantChestBlockEntityRenderer<T extends VariantChestBlockEntity &
         if (!(blockEntity instanceof VariantChestBlockEntity))
             return null;
 
-        Map<IStorageMaterial, Map<ChestType, SpriteIdentifier>> textures = blockEntity instanceof VariantTrappedChestBlockEntity
+        Map<IVariantMaterial, Map<ChestType, SpriteIdentifier>> textures = blockEntity instanceof VariantTrappedChestBlockEntity
             ? trappedTextures
             : normalTextures;
 
-        IStorageMaterial material = ((VariantChestBlockEntity)blockEntity).getMaterialType();
+        IVariantMaterial material = ((VariantChestBlockEntity)blockEntity).getMaterialType();
 
         if (textures.containsKey(material))
             return textures.get(material).getOrDefault(chestType, null);

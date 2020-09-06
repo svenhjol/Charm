@@ -4,12 +4,12 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
 import svenhjol.charm.block.IVariantChestBlock;
 import svenhjol.charm.module.VariantChests;
-import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 
 public class VariantChestBlockEntity extends ChestBlockEntity {
-    private IStorageMaterial materialType = null;
+    private IVariantMaterial materialType = null;
 
     public VariantChestBlockEntity() {
         super(VariantChests.NORMAL_BLOCK_ENTITY);
@@ -20,14 +20,14 @@ public class VariantChestBlockEntity extends ChestBlockEntity {
     }
 
     @Nullable
-    public IStorageMaterial getMaterialType() {
+    public IVariantMaterial getMaterialType() {
         if (materialType == null && world != null)
             return ((IVariantChestBlock)this.getCachedState().getBlock()).getMaterialType();
 
         return materialType;
     }
 
-    public void setMaterialType(IStorageMaterial materialType) {
+    public void setMaterialType(IVariantMaterial materialType) {
         this.materialType = materialType;
     }
 }

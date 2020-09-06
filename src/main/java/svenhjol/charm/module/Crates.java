@@ -16,8 +16,8 @@ import svenhjol.charm.client.CratesClient;
 import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.screenhandler.CrateScreenHandler;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IStorageMaterial;
-import svenhjol.meson.enums.VanillaStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.meson.enums.VanillaVariantMaterial;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
@@ -27,7 +27,7 @@ import java.util.*;
 @Module(description = "A smaller storage solution with the benefit of being transportable.")
 public class Crates extends MesonModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "crate");
-    public static final Map<IStorageMaterial, CrateBlock> CRATE_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, CrateBlock> CRATE_BLOCKS = new HashMap<>();
 
     public static ScreenHandlerType<CrateScreenHandler> SCREEN_HANDLER;
     public static BlockEntityType<CrateBlockEntity> BLOCK_ENTITY;
@@ -43,7 +43,7 @@ public class Crates extends MesonModule {
 
     @Override
     public void init() {
-        for (VanillaStorageMaterial type : VanillaStorageMaterial.values()) {
+        for (VanillaVariantMaterial type : VanillaVariantMaterial.values()) {
             CRATE_BLOCKS.put(type, new CrateBlock(this, type));
         }
 

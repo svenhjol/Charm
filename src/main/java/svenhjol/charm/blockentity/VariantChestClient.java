@@ -13,7 +13,7 @@ import svenhjol.charm.event.TextureStitchCallback;
 import svenhjol.charm.module.VariantChests;
 import svenhjol.charm.render.VariantChestBlockEntityRenderer;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
 
 import java.util.Set;
 
@@ -53,7 +53,7 @@ public class VariantChestClient {
     }
 
 
-    private void addChestTexture(Set<Identifier> textures, IStorageMaterial variant, ChestType chestType) {
+    private void addChestTexture(Set<Identifier> textures, IVariantMaterial variant, ChestType chestType) {
         String chestTypeName = chestType != ChestType.SINGLE ? "_" + chestType.asString().toLowerCase() : "";
         String[] bases = {"trapped", "normal"};
 

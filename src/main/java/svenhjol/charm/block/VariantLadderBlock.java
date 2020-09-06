@@ -5,12 +5,12 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.LadderBlock;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.IMesonBlock;
-import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
 
 public class VariantLadderBlock extends LadderBlock implements IMesonBlock {
     private final MesonModule module;
 
-    public VariantLadderBlock(MesonModule module, IStorageMaterial type) {
+    public VariantLadderBlock(MesonModule module, IVariantMaterial type) {
         super(AbstractBlock.Settings.copy(Blocks.LADDER));
         register(module, type.asString() + "_ladder");
 

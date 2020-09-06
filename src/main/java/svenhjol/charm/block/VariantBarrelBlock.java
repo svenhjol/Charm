@@ -13,15 +13,15 @@ import net.minecraft.world.BlockView;
 import svenhjol.charm.blockentity.VariantBarrelBlockEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.IMesonBlock;
-import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 
 public class VariantBarrelBlock extends BarrelBlock implements IMesonBlock {
     protected MesonModule module;
-    protected IStorageMaterial type;
+    protected IVariantMaterial type;
 
-    public VariantBarrelBlock(MesonModule module, IStorageMaterial type) {
+    public VariantBarrelBlock(MesonModule module, IVariantMaterial type) {
         super(AbstractBlock.Settings.copy(Blocks.BARREL));
 
         this.module = module;

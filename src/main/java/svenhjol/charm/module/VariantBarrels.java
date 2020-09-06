@@ -9,8 +9,8 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.block.VariantBarrelBlock;
 import svenhjol.charm.blockentity.VariantBarrelBlockEntity;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IStorageMaterial;
-import svenhjol.meson.enums.VanillaStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.meson.enums.VanillaVariantMaterial;
 import svenhjol.meson.helper.OverrideHandler;
 import svenhjol.meson.iface.Module;
 
@@ -19,13 +19,13 @@ import java.util.*;
 @Module(description = "Barrels available in all types of vanilla wood.")
 public class VariantBarrels extends MesonModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "barrel");
-    public static final Map<IStorageMaterial, VariantBarrelBlock> BARREL_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, VariantBarrelBlock> BARREL_BLOCKS = new HashMap<>();
 
     public static BlockEntityType<VariantBarrelBlockEntity> BLOCK_ENTITY;
 
     @Override
     public void init() {
-        for (VanillaStorageMaterial type : VanillaStorageMaterial.values()) {
+        for (VanillaVariantMaterial type : VanillaVariantMaterial.values()) {
             BARREL_BLOCKS.put(type, new VariantBarrelBlock(this, type));
         }
 
