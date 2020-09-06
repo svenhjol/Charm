@@ -20,7 +20,7 @@ import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 @Module(description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
-public class BatBucket extends MesonModule {
+public class BatBuckets extends MesonModule {
     public static BatBucketItem BAT_BUCKET_ITEM;
     public static BatBucketClient client = null;
 

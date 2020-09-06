@@ -17,7 +17,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import svenhjol.charm.module.BatBucket;
+import svenhjol.charm.module.BatBuckets;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemNBTHelper;
 import svenhjol.meson.helper.MobHelper;
@@ -73,10 +73,10 @@ public class BatBucketItem extends MesonItem {
         // send message to client to start glowing
         if (!world.isClient) {
             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
-            data.writeDouble(BatBucket.glowingRange);
-            data.writeInt(BatBucket.glowingTime);
+            data.writeDouble(BatBuckets.glowingRange);
+            data.writeInt(BatBuckets.glowingTime);
 
-            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, BatBucket.MSG_CLIENT_SET_GLOWING, data);
+            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, BatBuckets.MSG_CLIENT_SET_GLOWING, data);
         }
 
         if (!player.isCreative())
