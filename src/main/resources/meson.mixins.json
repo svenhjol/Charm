@@ -4,25 +4,26 @@
   "package": "svenhjol.meson.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BuiltinModelItemRendererMixin",
-    "ClientWorldMixin",
-    "EnchantingTableBlockMixin",
-    "EnchantmentScreenHandlerMixin",
     "HandledScreenMixin",
     "ItemEntityMixin",
-    "MinecraftClientMixin",
     "MinecraftDedicatedServerMixin",
     "PlayerEntityMixin",
     "RecipeManagerMixin",
-    "ScreenMixin",
     "ServerWorldMixin",
-    "SoundSystemMixin",
-    "SpriteAtlasTextureMixin",
     "accessor.BlockAccessor",
     "accessor.DispenserBlockAccessor",
     "accessor.FireBlockAccessor"
   ],
-  "client": [],
+  "client": [
+    "BuiltinModelItemRendererMixin",
+    "ClientWorldMixin",
+    "EnchantingTableBlockMixin",
+    "EnchantmentScreenHandlerMixin",
+    "MinecraftClientMixin",
+    "ScreenMixin",
+    "SoundSystemMixin",
+    "SpriteAtlasTextureMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
