@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "charm:block/oak_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "charm:block/oak_ladder"
+    },
+    "facing=south": {
+      "model": "charm:block/oak_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "charm:block/oak_ladder",
+      "y": 270
+    }
+  }
+}

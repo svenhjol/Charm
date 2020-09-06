@@ -1,5 +1,6 @@
 package svenhjol.charm.mixin;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -8,6 +9,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,6 +22,7 @@ import svenhjol.charm.event.EntityDropsCallback;
 import svenhjol.charm.event.HurtEntityCallback;
 import svenhjol.charm.module.ArmorInvisibility;
 import svenhjol.charm.module.UseTotemFromInventory;
+import svenhjol.charm.module.VariantLadders;
 import svenhjol.meson.Meson;
 
 @Mixin(LivingEntity.class)
@@ -83,5 +86,19 @@ public abstract class LivingEntityMixin extends Entity {
 
             cir.setReturnValue(i > 0 ? (float)j / (float)i : 0.0F);
         }
+    }
+
+    /**
+     * Checks trapdoor ladder is a variant ladder when player is climbing.
+     * {@link VariantLadders#canEnterTrapdoor(World, BlockPos, BlockState)}
+     */
+    @Inject(
+        method = "canEnterTrapdoor",
+        at = @At("HEAD"),
+        cancellable = true
+    )
+    private void hookCanEnterTrapdoor(BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir) {
+        if (VariantLadders.canEnterTrapdoor(this.world, pos, state))
+            cir.setReturnValue(true);
     }
 }

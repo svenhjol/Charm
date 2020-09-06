@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "charm:block/crimson_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "charm:block/crimson_ladder"
+    },
+    "facing=south": {
+      "model": "charm:block/crimson_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "charm:block/crimson_ladder",
+      "y": 270
+    }
+  }
+}

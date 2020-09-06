@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "charm:acacia_ladder",
+    "charm:birch_ladder",
+    "charm:crimson_ladder",
+    "charm:dark_oak_ladder",
+    "charm:jungle_ladder",
+    "charm:oak_ladder",
+    "charm:spruce_ladder",
+    "charm:warped_ladder"
+  ]
+}

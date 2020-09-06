@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "charm:block/spruce_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "charm:block/spruce_ladder"
+    },
+    "facing=south": {
+      "model": "charm:block/spruce_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "charm:block/spruce_ladder",
+      "y": 270
+    }
+  }
+}
