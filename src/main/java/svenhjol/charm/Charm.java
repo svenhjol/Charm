@@ -85,7 +85,8 @@ public class Charm extends MesonMod {
             VariantLadders.class,
             VillagersFollowEmeraldBlocks.class,
             WanderingTraderImprovements.class,
-            WitchesDropLuck.class
+            WitchesDropLuck.class,
+            Woodcutters.class
         ));
     }
 }
