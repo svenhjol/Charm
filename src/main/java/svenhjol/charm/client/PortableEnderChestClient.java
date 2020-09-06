@@ -51,11 +51,13 @@ public class PortableEnderChestClient {
                 this.chestButton.visible = hasChest(client.player);
         });
 
-        ClientTickEvents.END_WORLD_TICK.register(client -> {
-            while (PortableEnderChest.keyBinding.wasPressed()) {
-                triggerOpenChest();
-            }
-        });
+        if (PortableEnderChest.enableKeybind) {
+            ClientTickEvents.END_WORLD_TICK.register(client -> {
+                while (PortableEnderChest.keyBinding.wasPressed()) {
+                    triggerOpenChest();
+                }
+            });
+        }
     }
 
     private boolean hasChest(PlayerEntity player) {

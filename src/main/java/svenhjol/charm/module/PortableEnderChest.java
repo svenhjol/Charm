@@ -18,6 +18,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.client.PortableEnderChestClient;
 import svenhjol.charm.screenhandler.PortableEnderChestScreenHandler;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 @Module(description = "Allows access to chest contents if the player has an Ender Chest in their inventory.")
@@ -26,6 +27,9 @@ public class PortableEnderChest extends MesonModule {
     public static KeyBinding keyBinding;
     public static final Identifier MSG_SERVER_OPEN_ENDER_CHEST = new Identifier(Charm.MOD_ID, "server_open_ender_chest");
     public static PortableEnderChestClient client;
+
+    @Config(name = "Enable keybind", description = "If true, sets a keybind for opening the portable Ender Chest (defaults to 'b').")
+    public static boolean enableKeybind = true;
 
     @Override
     public void afterInit() {

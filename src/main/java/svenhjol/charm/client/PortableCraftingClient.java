@@ -1,6 +1,7 @@
 package svenhjol.charm.client;
 
 import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
@@ -31,7 +32,7 @@ public class PortableCraftingClient {
             int guiLeft = ScreenHelper.getX(screen);
 
             this.craftingButton = new TexturedButtonWidget(guiLeft + 130, height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click -> {
-                ClientSidePacketRegistry.INSTANCE.sendToServer(PortableCrafting.MSG_SERVER_OPEN_CRAFTING, new PacketByteBuf(Unpooled.buffer()));
+                triggerOpenCraftingTable();
             });
 
             this.craftingButton.visible = hasCrafting(client.player);
@@ -49,10 +50,22 @@ public class PortableCraftingClient {
             if (client.player.world.getTime() % 5 == 0)
                 this.craftingButton.visible = hasCrafting(client.player);
         });
+
+        if (PortableCrafting.enableKeybind) {
+            ClientTickEvents.END_WORLD_TICK.register(client -> {
+                while (PortableCrafting.keyBinding.wasPressed()) {
+                    triggerOpenCraftingTable();
+                }
+            });
+        }
     }
 
     private boolean hasCrafting(PlayerEntity player) {
         return player.inventory.contains(new ItemStack(Blocks.CRAFTING_TABLE));
+    }
+
+    private void triggerOpenCraftingTable() {
+        ClientSidePacketRegistry.INSTANCE.sendToServer(PortableCrafting.MSG_SERVER_OPEN_CRAFTING, new PacketByteBuf(Unpooled.buffer()));
     }
 
     public boolean isButtonVisible() {
