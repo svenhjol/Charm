@@ -48,7 +48,7 @@ public class CrateBlockEntity extends LootableContainerBlockEntity implements Si
     }
 
     @Override
-    protected DefaultedList<ItemStack> getInvStackList() {
+    public DefaultedList<ItemStack> getInvStackList() {
         return this.items;
     }
 
@@ -64,7 +64,7 @@ public class CrateBlockEntity extends LootableContainerBlockEntity implements Si
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        return Crates.canContainItem(stack);
+        return Crates.canCrateInsertItem(stack);
     }
 
     @Override

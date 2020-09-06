@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
@@ -13,6 +12,7 @@ import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.block.CrateBlock;
 import svenhjol.charm.blockentity.CrateBlockEntity;
+import svenhjol.charm.client.CratesClient;
 import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.screenhandler.CrateScreenHandler;
 import svenhjol.meson.MesonModule;
@@ -32,8 +32,10 @@ public class Crates extends MesonModule {
     public static BlockEntityType<CrateBlockEntity> BLOCK_ENTITY;
 
     // add blocks and items to these lists to blacklist them from crates
-    public static final List<Class<? extends Block>> invalidBlocks = new ArrayList<>();
-    public static final List<Class<? extends Item>> invalidItems = new ArrayList<>();
+    public static final List<Class<? extends Block>> invalidCrateBlocks = new ArrayList<>();
+    public static final List<Class<? extends Block>> invalidShulkerBoxBlocks = new ArrayList<>();
+
+    public static boolean isEnabled;
 
     @Override
     public void init() {
@@ -41,21 +43,29 @@ public class Crates extends MesonModule {
             CRATE_BLOCKS.put(type, new CrateBlock(this, type));
         }
 
-        invalidBlocks.add(ShulkerBoxBlock.class);
-        invalidBlocks.add(CrateBlock.class);
+        invalidCrateBlocks.add(ShulkerBoxBlock.class);
+        invalidCrateBlocks.add(CrateBlock.class);
+        invalidShulkerBoxBlocks.add(CrateBlock.class);
 
         SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ID, CrateScreenHandler::new); // registers via fabric magic
         BLOCK_ENTITY = BlockEntityType.Builder.create(CrateBlockEntity::new).build(null);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, ID, BLOCK_ENTITY);
+
+        isEnabled = this.enabled;
     }
 
     @Override
     public void initClient() {
+        new CratesClient(this);
         ScreenRegistry.register(SCREEN_HANDLER, CrateScreen::new);
     }
 
-    public static boolean canContainItem(ItemStack stack) {
-        return !invalidItems.contains(stack.getItem().getClass()) && !invalidBlocks.contains(ItemHelper.getBlockClass(stack));
+    public static boolean canCrateInsertItem(ItemStack stack) {
+        return !isEnabled || !invalidCrateBlocks.contains(ItemHelper.getBlockClass(stack));
+    }
+
+    public static boolean canShulkerBoxInsertItem(ItemStack stack) {
+        return !isEnabled || !invalidShulkerBoxBlocks.contains(ItemHelper.getBlockClass(stack));
     }
 
     public static CrateBlock getRandomCrateBlock(Random rand) {

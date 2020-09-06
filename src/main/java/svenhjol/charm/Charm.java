@@ -70,6 +70,7 @@ public class Charm extends MesonMod {
             RedstoneSand.class,
             RemoveNitwits.class,
             RemovePotionGlint.class,
+            ShulkerBoxTooltips.class,
             SleepImprovements.class,
             StackableEnchantedBooks.class,
             StackablePotions.class,
