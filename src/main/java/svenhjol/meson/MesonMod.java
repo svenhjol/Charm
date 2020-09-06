@@ -25,7 +25,7 @@ public abstract class MesonMod implements ModInitializer {
         return id;
     }
 
-    public abstract List<Class<? extends MesonModule>> getModules();
+    protected abstract List<Class<? extends MesonModule>> getModules();
 
     public void eachModule(Consumer<MesonModule> consumer) {
         Meson.loadedModules.get(this.id)
