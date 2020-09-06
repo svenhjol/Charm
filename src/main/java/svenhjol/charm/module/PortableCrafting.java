@@ -1,10 +1,7 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.options.KeyBinding;
-import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
@@ -12,7 +9,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
-import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.PortableCraftingClient;
 import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
@@ -23,7 +19,6 @@ import svenhjol.meson.iface.Module;
 @Module(description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
 public class PortableCrafting extends MesonModule {
     private static final Text LABEL = new TranslatableText("container.charm.portable_crafting_table");
-    public static KeyBinding keyBinding;
     public static final Identifier MSG_SERVER_OPEN_CRAFTING = new Identifier(Charm.MOD_ID, "server_open_crafting");
     public static PortableCraftingClient client;
 
@@ -42,13 +37,6 @@ public class PortableCrafting extends MesonModule {
                 PortableCrafting.openContainer(player);
             });
         });
-
-        keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "key.charm.openCraftingTable",
-            InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_C,
-            "key.categories.inventory"
-        ));
     }
 
     @Override

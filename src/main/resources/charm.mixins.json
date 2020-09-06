@@ -20,7 +20,10 @@
     "ShulkerBoxBlockEntityMixin",
     "ShulkerBoxSlotMixin",
     "StrayEntityMixin",
-    "WanderingTraderManagerMixin"
+    "WanderingTraderManagerMixin",
+    "accessor.BlocksAccessor",
+    "accessor.PlayerEntityAccessor",
+    "accessor.ShulkerBoxBlockEntityAccessor"
   ],
   "client": [
     "AnvilScreenMixin",

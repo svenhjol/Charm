@@ -2,13 +2,17 @@ package svenhjol.charm.client;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
+import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.meson.event.RenderGuiCallback;
 import svenhjol.meson.event.SetupGuiCallback;
@@ -18,6 +22,7 @@ import svenhjol.meson.helper.ScreenHelper;
 
 public class PortableEnderChestClient {
     public TexturedButtonWidget chestButton;
+    public static KeyBinding keyBinding;
 
     public PortableEnderChestClient(MesonModule module) {
         // set up client listeners
@@ -52,8 +57,15 @@ public class PortableEnderChestClient {
         });
 
         if (PortableEnderChest.enableKeybind) {
+            keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.charm.openEnderChest",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_B,
+                "key.categories.inventory"
+            ));
+
             ClientTickEvents.END_WORLD_TICK.register(client -> {
-                while (PortableEnderChest.keyBinding.wasPressed()) {
+                while (keyBinding.wasPressed()) {
                     triggerOpenChest();
                 }
             });

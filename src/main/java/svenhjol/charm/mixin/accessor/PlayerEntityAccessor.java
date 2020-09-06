@@ -1,4 +1,4 @@
-package svenhjol.meson.mixin.accessor;
+package svenhjol.charm.mixin.accessor;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;

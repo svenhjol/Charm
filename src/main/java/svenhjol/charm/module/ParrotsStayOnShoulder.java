@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import svenhjol.meson.event.PlayerTickCallback;
-import svenhjol.meson.mixin.accessor.PlayerEntityAccessor;
+import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 

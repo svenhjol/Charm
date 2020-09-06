@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.block.ImprovedLanternBlock;
-import svenhjol.meson.mixin.accessor.BlocksAccessor;
+import svenhjol.charm.mixin.accessor.BlocksAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.OverrideHandler;
 import svenhjol.meson.iface.Module;

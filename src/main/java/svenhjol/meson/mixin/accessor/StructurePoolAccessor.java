@@ -11,11 +11,11 @@ import java.util.List;
 @Mixin(StructurePool.class)
 public interface StructurePoolAccessor {
     @Accessor
-    public List<StructurePoolElement> getElements();
+    List<StructurePoolElement> getElements();
 
     @Accessor
-    public List<Pair<StructurePoolElement, Integer>> getElementCounts();
+    List<Pair<StructurePoolElement, Integer>> getElementCounts();
 
     @Accessor
-    public void setElementCounts(List<Pair<StructurePoolElement, Integer>> list);
+    void setElementCounts(List<Pair<StructurePoolElement, Integer>> list);
 }
