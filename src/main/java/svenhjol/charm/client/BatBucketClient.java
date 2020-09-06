@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
-import svenhjol.charm.module.BatBucket;
+import svenhjol.charm.module.BatBuckets;
 import svenhjol.meson.MesonModule;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class BatBucketClient {
         this.module = module;
 
         // register client messages
-        ClientSidePacketRegistry.INSTANCE.register(BatBucket.MSG_CLIENT_SET_GLOWING, (context, data) -> {
+        ClientSidePacketRegistry.INSTANCE.register(BatBuckets.MSG_CLIENT_SET_GLOWING, (context, data) -> {
             double range = data.readDouble();
             int ticks = data.readInt() * 20; // ticks is sent as number of seconds, multiply by 20 for ticks
             context.getTaskQueue().execute(() -> {

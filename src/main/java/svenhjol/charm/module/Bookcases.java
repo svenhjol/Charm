@@ -15,8 +15,8 @@ import svenhjol.charm.blockentity.BookcaseBlockEntity;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.screenhandler.BookcaseScreenHandler;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IStorageMaterial;
-import svenhjol.meson.enums.VanillaStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.meson.enums.VanillaVariantMaterial;
 import svenhjol.meson.helper.EnchantmentsHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
@@ -26,7 +26,7 @@ import java.util.*;
 @Module(description = "Bookshelves that can hold up to 9 stacks of books and maps.")
 public class Bookcases extends MesonModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "bookcase");
-    public static final Map<IStorageMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
 
     public static ScreenHandlerType<BookcaseScreenHandler> SCREEN_HANDLER;
     public static BlockEntityType<BookcaseBlockEntity> BLOCK_ENTITY;
@@ -51,7 +51,7 @@ public class Bookcases extends MesonModule {
             Items.FILLED_MAP.getClass()
         ));
 
-        VanillaStorageMaterial.getTypes().forEach(type -> {
+        VanillaVariantMaterial.getTypes().forEach(type -> {
             BOOKCASE_BLOCKS.put(type, new BookcaseBlock(this, type));
         });
 

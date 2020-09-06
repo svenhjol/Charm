@@ -12,16 +12,16 @@ import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.module.VariantChests;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.IMesonBlock;
-import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("NullableProblems")
 public class VariantChestBlock extends ChestBlock implements IMesonBlock, IVariantChestBlock {
     private final MesonModule module;
-    private final IStorageMaterial type;
+    private final IVariantMaterial type;
 
-    public VariantChestBlock(MesonModule module, IStorageMaterial type) {
+    public VariantChestBlock(MesonModule module, IVariantMaterial type) {
         super(Settings.copy(Blocks.CHEST), () -> VariantChests.NORMAL_BLOCK_ENTITY);
 
         this.module = module;
@@ -55,7 +55,7 @@ public class VariantChestBlock extends ChestBlock implements IMesonBlock, IVaria
     }
 
     @Override
-    public IStorageMaterial getMaterialType() {
+    public IVariantMaterial getMaterialType() {
         return this.type;
     }
 }

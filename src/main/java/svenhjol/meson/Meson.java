@@ -7,6 +7,7 @@ import svenhjol.charm.event.StructureSetupCallback;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.helper.StringHelper;
 
+import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -59,20 +60,26 @@ public class Meson {
         return mods.get(id);
     }
 
-    public static boolean enabled(String moduleName) {
+    @Nullable
+    public static MesonModule getModule(String moduleName) {
         String[] split = moduleName.split(":");
         String mod = split[0];
         String module = split[1];
 
         if (!loadedModules.containsKey(mod))
-            return false;
+            return null;
 
         module = StringHelper.snakeToUpperCamel(module);
 
         if (!loadedModules.get(mod).containsKey(module))
-            return false;
+            return null;
 
-        return loadedModules.get(mod).get(module).enabled;
+        return loadedModules.get(mod).get(module);
+    }
+
+    public static boolean enabled(String moduleName) {
+        MesonModule module = getModule(moduleName);
+        return module != null && module.enabled;
     }
 
     public static boolean isClient() {

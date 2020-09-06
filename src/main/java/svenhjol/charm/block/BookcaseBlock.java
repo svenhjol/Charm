@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.blockentity.BookcaseBlockEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlockEntity;
-import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 
@@ -29,9 +29,9 @@ public class BookcaseBlock extends MesonBlockEntity {
     public static final IntProperty SLOTS = IntProperty.of("slots", 0, BookcaseBlockEntity.SIZE);
 
     protected MesonModule module;
-    protected IStorageMaterial type;
+    protected IVariantMaterial type;
 
-    public BookcaseBlock(MesonModule module, IStorageMaterial type) {
+    public BookcaseBlock(MesonModule module, IVariantMaterial type) {
         super(module, type.asString() + "_bookcase", AbstractBlock.Settings
             .copy(Blocks.BOOKSHELF));
 

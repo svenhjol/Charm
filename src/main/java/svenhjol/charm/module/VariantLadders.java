@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 import svenhjol.charm.block.VariantLadderBlock;
 import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IStorageMaterial;
-import svenhjol.meson.enums.VanillaStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.meson.enums.VanillaVariantMaterial;
 import svenhjol.meson.iface.Module;
 
 import java.util.HashMap;
@@ -18,13 +18,13 @@ import java.util.Map;
 
 @Module(description = "Ladders available in all types of vanilla wood.")
 public class VariantLadders extends MesonModule {
-    public static final Map<IStorageMaterial, VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
 
     public static boolean isEnabled;
 
     @Override
     public void init() {
-        VanillaStorageMaterial.getTypes().forEach(type -> {
+        VanillaVariantMaterial.getTypes().forEach(type -> {
             LADDER_BLOCKS.put(type, new VariantLadderBlock(this, type));
         });
 

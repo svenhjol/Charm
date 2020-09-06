@@ -18,7 +18,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
-import svenhjol.charm.module.Lumberjacks;
+import svenhjol.charm.module.Woodcutters;
 import svenhjol.charm.recipe.WoodcuttingRecipe;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
     }
 
     public WoodcutterScreenHandler(int syncId, PlayerInventory playerInventory, final ScreenHandlerContext context) {
-        super(Lumberjacks.SCREEN_HANDLER, syncId);
+        super(Woodcutters.SCREEN_HANDLER, syncId);
         this.selectedRecipe = Property.create();
         this.availableRecipes = Lists.newArrayList();
         this.inputStack = ItemStack.EMPTY;
@@ -118,7 +118,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
     }
 
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, Lumberjacks.WOODCUTTER);
+        return canUse(this.context, player, Woodcutters.WOODCUTTER);
     }
 
     public boolean onButtonClick(PlayerEntity player, int id) {
@@ -148,7 +148,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
         this.selectedRecipe.set(-1);
         this.outputSlot.setStack(ItemStack.EMPTY);
         if (!stack.isEmpty()) {
-            this.availableRecipes = this.world.getRecipeManager().getAllMatches(Lumberjacks.RECIPE_TYPE, input, this.world);
+            this.availableRecipes = this.world.getRecipeManager().getAllMatches(Woodcutters.RECIPE_TYPE, input, this.world);
         }
 
     }
@@ -166,7 +166,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
     }
 
     public ScreenHandlerType<?> getType() {
-        return Lumberjacks.SCREEN_HANDLER;
+        return Woodcutters.SCREEN_HANDLER;
     }
 
     @Environment(EnvType.CLIENT)
@@ -196,7 +196,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
                 if (!this.insertItem(itemStack2, 2, 38, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.world.getRecipeManager().getFirstMatch(Lumberjacks.RECIPE_TYPE, new SimpleInventory(new ItemStack[]{itemStack2}), this.world).isPresent()) {
+            } else if (this.world.getRecipeManager().getFirstMatch(Woodcutters.RECIPE_TYPE, new SimpleInventory(new ItemStack[]{itemStack2}), this.world).isPresent()) {
                 if (!this.insertItem(itemStack2, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }

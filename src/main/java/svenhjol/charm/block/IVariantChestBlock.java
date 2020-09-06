@@ -1,7 +1,7 @@
 package svenhjol.charm.block;
 
-import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
 
 public interface IVariantChestBlock {
-    IStorageMaterial getMaterialType();
+    IVariantMaterial getMaterialType();
 }

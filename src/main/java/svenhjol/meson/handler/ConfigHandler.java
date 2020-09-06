@@ -2,10 +2,10 @@ package svenhjol.meson.handler;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonMod;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.StringHelper;
 import svenhjol.meson.iface.Config;
 
 import java.io.*;
@@ -16,78 +16,53 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ConfigHandler {
-    private static String CONFIG_PATH;
-    private static String MODULES;
-    private final Map<String, Boolean> enabledConfig = new TreeMap<>();
-    private final Map<String, Map<String, Object>> moduleConfig = new TreeMap<>();
+    private final Map<String, Map<String, Object>> finalConfig = new LinkedHashMap<>();
 
     public ConfigHandler(MesonMod mod) {
+        String modId = mod.getId();
+        String configPath = "./config/" + modId + ".json";
+
+        // mod must exist in Meson
         if (!Meson.loadedModules.containsKey(mod.getId()))
             return;
 
-        CONFIG_PATH = "./config/" + mod.getId() + "/";
-        MODULES = CONFIG_PATH + "/modules.json";
-
         // build config map from all loaded modules
-        Map<String, MesonModule> modules = Meson.loadedModules.get(mod.getId());
+        Map<String, MesonModule> modules = new TreeMap<>(Meson.loadedModules.get(modId));
 
         modules.forEach((moduleName, module) -> {
-            if (module.alwaysEnabled)
-                return; // don't add to the config if it's an always-enabled module
+            this.finalConfig.put(moduleName, new LinkedHashMap<>());
+            this.finalConfig.get(moduleName).put("Description", module.description);
 
-            this.enabledConfig.put(moduleName, module.enabled);
+            if (!module.alwaysEnabled)
+                this.finalConfig.get(moduleName).put("Enabled", module.enabled);
         });
 
+        // read config from disk and add to the config map
         try {
-            // read module config and set module enabled values accordingly
-            Map<?, ?> configMap = this.readConfig(Paths.get(MODULES));
-            for (Map.Entry<?, ?> entry : configMap.entrySet()) {
+            Map<?, ?> loadedConfig = this.readConfig(Paths.get(configPath));
+
+            for (Map.Entry<?, ?> entry : loadedConfig.entrySet()) {
                 Object key = entry.getKey();
-                if (!(key instanceof String)) continue;
+                if (!(key instanceof String))
+                    continue;
 
                 String moduleName = (String)key;
-                boolean enabled = (Boolean)entry.getValue();
-
-                if (this.enabledConfig.containsKey(moduleName)) {
-                    this.enabledConfig.put(moduleName, enabled);
-                    modules.get(moduleName).enabled = enabled;
-                }
+                this.finalConfig.get(moduleName).putAll((LinkedTreeMap)entry.getValue());
             }
-
-            // write out updated module enabled values
-            this.writeConfig(Paths.get(MODULES), this.enabledConfig);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to handle config for " + mod.getId(), e);
+            throw new RuntimeException("Failed to read config for " + modId, e);
         }
 
-        modules.forEach((moduleName, module) -> {
-            String fileName = StringHelper.upperCamelToSnake(moduleName);
+        // parse config and apply values to modules
+        for (Map.Entry<String, MesonModule> entry : modules.entrySet()) {
+            String moduleName = entry.getKey();
+            MesonModule module = entry.getValue();
 
-            // read each module config
-            Path moduleFile = Paths.get(CONFIG_PATH + "/modules/" + fileName + ".json");
-            Map<?, ?> configMap = new HashMap<>();
-            this.moduleConfig.put(moduleName, new HashMap<>());
+            // set module enabled/disabled
+            module.enabled = (boolean)this.finalConfig.get(moduleName).getOrDefault("Enabled", module.enabledByDefault);
 
-            try {
-                if (moduleFile.toFile().exists())
-                    configMap = readConfig(moduleFile);
-
-                for (Map.Entry<?, ?> entry : configMap.entrySet()) {
-                    Object key = entry.getKey();
-                    if (!(key instanceof String)) continue;
-
-                    String optionName = (String) key;
-                    Object optionVal = entry.getValue();
-
-                    this.moduleConfig.get(moduleName).put(optionName, optionVal);
-                }
-            } catch (Exception e) {
-                Meson.LOG.error("Failed to read module config for " + moduleName + ": " + e.getMessage());
-            }
-
-            // get annotations and set config fields
+            // get and set module config options
             ArrayList<Field> fields = new ArrayList<>(Arrays.asList(module.getClass().getDeclaredFields()));
-
             fields.forEach(field -> {
                 try {
                     Config annotation = field.getDeclaredAnnotation(Config.class);
@@ -102,31 +77,29 @@ public class ConfigHandler {
 
                     Object val = field.get(null);
 
-                    if (this.moduleConfig.get(moduleName).containsKey(name)) {
-                        Object configVal = this.moduleConfig.get(moduleName).get(name);
+                    if (this.finalConfig.get(moduleName).containsKey(name)) {
+                        Object configVal = this.finalConfig.get(moduleName).get(name);
 
                         if (val instanceof Integer && configVal instanceof Double)
                             configVal = (int)(double)configVal;  // this is stupidland
 
                         field.set(null, configVal);
-                        this.moduleConfig.get(moduleName).put(name, configVal);
+                        this.finalConfig.get(moduleName).put(name, configVal);
                     } else {
-                        this.moduleConfig.get(moduleName).put(name, val);
+                        this.finalConfig.get(moduleName).put(name, val);
                     }
                 } catch (Exception e) {
                     Meson.LOG.error("Failed to set config for " + moduleName + ": " + e.getMessage());
                 }
             });
+        }
 
-            // write out the module config
-            try {
-                if (!this.moduleConfig.get(moduleName).isEmpty())
-                    writeConfig(moduleFile, this.moduleConfig.get(moduleName));
-
-            } catch (Exception e) {
-                Meson.LOG.error("Failed to write module config for " + moduleName + ": " + e.getMessage());
-            }
-        });
+        // write out the config
+        try {
+            this.writeConfig(Paths.get(configPath), this.finalConfig);
+        } catch (Exception e) {
+            Meson.LOG.error("Failed to write config: " + e.getMessage());
+        }
     }
 
     private Map<?, ?> readConfig(Path path) throws IOException {

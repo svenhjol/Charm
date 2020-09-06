@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.Lumberjacks;
+import svenhjol.charm.module.Woodcutters;
 
 @Mixin(ClientRecipeBook.class)
 public class ClientRecipeBookMixin {
@@ -21,7 +21,7 @@ public class ClientRecipeBookMixin {
         cancellable = true
     )
     private static void hookGetGroupForRecipe(Recipe<?> recipe, CallbackInfoReturnable<RecipeBookGroup> cir) {
-        if (recipe.getType() == Lumberjacks.RECIPE_TYPE)
+        if (recipe.getType() == Woodcutters.RECIPE_TYPE)
             cir.setReturnValue(RecipeBookGroup.STONECUTTER);
     }
 }

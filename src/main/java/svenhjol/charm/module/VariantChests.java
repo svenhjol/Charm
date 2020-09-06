@@ -11,8 +11,8 @@ import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.blockentity.VariantChestClient;
 import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IStorageMaterial;
-import svenhjol.meson.enums.VanillaStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.meson.enums.VanillaVariantMaterial;
 import svenhjol.meson.iface.Module;
 
 import java.util.Arrays;
@@ -25,15 +25,15 @@ public class VariantChests extends MesonModule {
     public static final Identifier NORMAL_ID = new Identifier("variant_chest");
     public static final Identifier TRAPPED_ID = new Identifier(Charm.MOD_ID, "trapped_chest");
 
-    public static final Map<IStorageMaterial, VariantChestBlock> NORMAL_CHEST_BLOCKS = new HashMap<>();
-    public static final Map<IStorageMaterial, VariantTrappedChestBlock> TRAPPED_CHEST_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, VariantChestBlock> NORMAL_CHEST_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, VariantTrappedChestBlock> TRAPPED_CHEST_BLOCKS = new HashMap<>();
 
     public static BlockEntityType<VariantChestBlockEntity> NORMAL_BLOCK_ENTITY;
     public static BlockEntityType<VariantTrappedChestBlockEntity> TRAPPED_BLOCK_ENTITY;
 
     @Override
     public void init() {
-        for (VanillaStorageMaterial type : VanillaStorageMaterial.values()) {
+        for (VanillaVariantMaterial type : VanillaVariantMaterial.values()) {
             NORMAL_CHEST_BLOCKS.put(type, new VariantChestBlock(this, type));
             TRAPPED_CHEST_BLOCKS.put(type, new VariantTrappedChestBlock(this, type));
         }

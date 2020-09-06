@@ -26,7 +26,7 @@ import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.module.Crates;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.MesonBlockEntity;
-import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -34,9 +34,9 @@ import java.util.List;
 public class CrateBlock extends MesonBlockEntity {
     private static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
     private static final Identifier CONTENTS = new Identifier("contents");
-    private IStorageMaterial type;
+    private IVariantMaterial type;
 
-    public CrateBlock(MesonModule module, IStorageMaterial type) {
+    public CrateBlock(MesonModule module, IVariantMaterial type) {
         super(module, type.asString() + "_crate", AbstractBlock.Settings
             .of(Material.WOOD)
             .sounds(BlockSoundGroup.WOOD)
@@ -187,7 +187,7 @@ public class CrateBlock extends MesonBlockEntity {
         return stack;
     }
 
-    private static Block getBlockByMaterial(IStorageMaterial type) {
+    private static Block getBlockByMaterial(IVariantMaterial type) {
         return Crates.CRATE_BLOCKS.get(type);
     }
 }

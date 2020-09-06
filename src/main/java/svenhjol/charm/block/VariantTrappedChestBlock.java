@@ -20,16 +20,16 @@ import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
 import svenhjol.charm.module.VariantChests;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.IMesonBlock;
-import svenhjol.meson.enums.IStorageMaterial;
+import svenhjol.meson.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings({"NullableProblems", "deprecation"})
 public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock, IVariantChestBlock {
     private final MesonModule module;
-    private final IStorageMaterial type;
+    private final IVariantMaterial type;
 
-    public VariantTrappedChestBlock(MesonModule module, IStorageMaterial type) {
+    public VariantTrappedChestBlock(MesonModule module, IVariantMaterial type) {
         super(Settings.copy(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_BLOCK_ENTITY);
 
         this.module = module;
@@ -74,7 +74,7 @@ public class VariantTrappedChestBlock extends ChestBlock implements IMesonBlock,
     }
 
     @Override
-    public IStorageMaterial getMaterialType() {
+    public IVariantMaterial getMaterialType() {
         return type;
     }
 
