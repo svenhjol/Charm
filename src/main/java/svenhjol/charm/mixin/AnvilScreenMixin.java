@@ -18,6 +18,6 @@ public class AnvilScreenMixin {
         )
     )
     private boolean hookMaximumCostCheck(PlayerAbilities abilities, MatrixStack matrix, int x, int y) {
-        return AnvilImprovements.removeTooExpensive || abilities.creativeMode;
+        return AnvilImprovements.allowTooExpensive() || abilities.creativeMode;
     }
 }
