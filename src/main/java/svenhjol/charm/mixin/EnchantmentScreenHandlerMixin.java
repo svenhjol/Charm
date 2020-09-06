@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.module.Core;
+import svenhjol.charm.module.Hacks;
 import svenhjol.meson.helper.EnchantmentsHelper;
 
 import java.util.List;
@@ -53,7 +53,7 @@ public abstract class EnchantmentScreenHandlerMixin {
         cancellable = true
     )
     private void hookOnContentChanged(Inventory inventory, CallbackInfo ci, ItemStack itemStack) {
-        if (!Core.hackEnchantingTable)
+        if (!Hacks.hackEnchantingTable)
             return;
 
         /**

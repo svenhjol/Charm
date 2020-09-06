@@ -19,12 +19,6 @@ public class Core extends MesonModule {
     @Config(name = "Inventory button return", description = "If inventory crafting or inventory ender chest modules are enabled, pressing escape or inventory key returns you to the inventory rather than closing the window.")
     public static boolean inventoryButtonReturn = false;
 
-    @Config(
-        name = "Charm hack: Enchanting Table",
-        description = "If true, changes the code that the vanilla Enchanting Table uses to detect enchanting blocks around it."
-    )
-    public static boolean hackEnchantingTable = true;
-
     @Override
     public void initClient() {
         new InventoryButtonClient();
