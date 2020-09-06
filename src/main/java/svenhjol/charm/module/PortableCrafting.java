@@ -13,7 +13,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.client.PortableCraftingClient;
 import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 @Module(description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
@@ -21,9 +20,6 @@ public class PortableCrafting extends MesonModule {
     private static final Text LABEL = new TranslatableText("container.charm.portable_crafting_table");
     public static final Identifier MSG_SERVER_OPEN_CRAFTING = new Identifier(Charm.MOD_ID, "server_open_crafting");
     public static PortableCraftingClient client;
-
-    @Config(name = "Offhand only", description = "If true, the crafting button will only appear when the player holds the crafting table in their offhand.")
-    public static boolean offhandOnly = false;
 
     @Override
     public void init() {

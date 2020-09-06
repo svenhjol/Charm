@@ -3,7 +3,6 @@ package svenhjol.charm.client;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.CraftingTableBlock;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,7 +13,6 @@ import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.module.PortableCrafting;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.ScreenHelper;
 
 public class PortableCraftingClient {
@@ -54,8 +52,7 @@ public class PortableCraftingClient {
     }
 
     private boolean hasCrafting(PlayerEntity player) {
-        return PortableCrafting.offhandOnly && ItemHelper.getBlockClass(player.getOffHandStack()) == CraftingTableBlock.class
-            || !PortableCrafting.offhandOnly && player.inventory.contains(new ItemStack(Blocks.CRAFTING_TABLE));
+        return player.inventory.contains(new ItemStack(Blocks.CRAFTING_TABLE));
     }
 
     public boolean isButtonVisible() {
