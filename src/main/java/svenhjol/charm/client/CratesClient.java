@@ -17,6 +17,7 @@ import svenhjol.charm.block.CrateBlock;
 import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
+import svenhjol.charm.module.Crates;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.helper.ItemNBTHelper;
@@ -25,6 +26,9 @@ import java.util.List;
 
 public class CratesClient {
     public CratesClient(MesonModule module) {
+        if (!Crates.showTooltip)
+            return;
+
         RenderTooltipCallback.EVENT.register(((matrices, stack, lines, x, y) -> {
             if (stack != null && ItemHelper.getBlockClass(stack) == CrateBlock.class) {
                 boolean result = renderTooltip(matrices, stack, lines, x, y);

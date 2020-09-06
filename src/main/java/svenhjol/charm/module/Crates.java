@@ -19,6 +19,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.IStorageMaterial;
 import svenhjol.meson.enums.VanillaStorageMaterial;
 import svenhjol.meson.helper.ItemHelper;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.*;
@@ -34,6 +35,9 @@ public class Crates extends MesonModule {
     // add blocks and items to these lists to blacklist them from crates
     public static final List<Class<? extends Block>> invalidCrateBlocks = new ArrayList<>();
     public static final List<Class<? extends Block>> invalidShulkerBoxBlocks = new ArrayList<>();
+
+    @Config(name = "Show tooltip", description = "If true, hovering over a crate will show its contents in a tooltip.")
+    public static boolean showTooltip = true;
 
     public static boolean isEnabled;
 
