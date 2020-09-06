@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.block.EnderPearlBlock;
 import svenhjol.charm.entity.goal.FormEndermiteGoal;
-import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.meson.event.AddEntityCallback;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.MobHelper;

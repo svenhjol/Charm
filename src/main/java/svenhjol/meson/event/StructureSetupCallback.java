@@ -1,4 +1,4 @@
-package svenhjol.charm.event;
+package svenhjol.meson.event;
 
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.event.Event;

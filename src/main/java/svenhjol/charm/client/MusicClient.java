@@ -20,7 +20,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import svenhjol.charm.event.PlaySoundCallback;
+import svenhjol.meson.event.PlaySoundCallback;
 import svenhjol.charm.module.MusicImprovements;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;

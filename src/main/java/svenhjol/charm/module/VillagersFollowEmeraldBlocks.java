@@ -6,7 +6,7 @@ import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.ActionResult;
-import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.meson.event.AddEntityCallback;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.MobHelper;
 import svenhjol.meson.iface.Module;

@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.StructureFeature;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.PlayerStateClient;
-import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.meson.event.PlayerTickCallback;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PosHelper;

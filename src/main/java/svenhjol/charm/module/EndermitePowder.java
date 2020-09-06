@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.EndermitePowderClient;
 import svenhjol.charm.entity.EndermitePowderEntity;
-import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.meson.event.EntityDropsCallback;
 import svenhjol.charm.item.EndermitePowderItem;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemHelper;

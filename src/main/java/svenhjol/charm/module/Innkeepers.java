@@ -12,8 +12,8 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.block.BrewBottleBlock;
-import svenhjol.charm.event.StructureSetupCallback;
-import svenhjol.charm.event.StructureSetupCallback.VillageType;
+import svenhjol.meson.event.StructureSetupCallback;
+import svenhjol.meson.event.StructureSetupCallback.VillageType;
 import svenhjol.charm.item.SuspiciousBrewItem;
 import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
 import svenhjol.meson.MesonModule;
@@ -23,7 +23,7 @@ import svenhjol.meson.iface.Module;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-import static svenhjol.charm.event.StructureSetupCallback.addVillageHouse;
+import static svenhjol.meson.event.StructureSetupCallback.addVillageHouse;
 
 @Module(description = "Innkeepers are villagers that trade potion items. Their job site is TBC.")
 public class Innkeepers extends MesonModule {

@@ -12,7 +12,7 @@ import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.util.TriConsumer;
-import svenhjol.charm.event.UpdateAnvilCallback;
+import svenhjol.meson.event.UpdateAnvilCallback;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;

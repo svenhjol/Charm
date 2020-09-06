@@ -5,7 +5,7 @@ import net.minecraft.resource.ResourcePackManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.event.CommonSetupCallback;
+import svenhjol.meson.event.CommonSetupCallback;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {

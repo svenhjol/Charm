@@ -15,8 +15,8 @@ import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.StructureSetupCallback;
-import svenhjol.charm.event.StructureSetupCallback.VillageType;
+import svenhjol.meson.event.StructureSetupCallback;
+import svenhjol.meson.event.StructureSetupCallback.VillageType;
 import svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.VillagerHelper;
@@ -25,7 +25,7 @@ import svenhjol.meson.iface.Module;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-import static svenhjol.charm.event.StructureSetupCallback.addVillageHouse;
+import static svenhjol.meson.event.StructureSetupCallback.addVillageHouse;
 
 @Module(description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
 public class Beekeepers extends MesonModule {

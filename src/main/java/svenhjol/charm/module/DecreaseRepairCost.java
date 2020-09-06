@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.util.TriConsumer;
-import svenhjol.charm.event.UpdateAnvilCallback;
+import svenhjol.meson.event.UpdateAnvilCallback;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Config;

@@ -2,8 +2,8 @@ package svenhjol.meson;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-import svenhjol.charm.event.CommonSetupCallback;
-import svenhjol.charm.event.StructureSetupCallback;
+import svenhjol.meson.event.CommonSetupCallback;
+import svenhjol.meson.event.StructureSetupCallback;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.helper.StringHelper;
 

@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
-import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.meson.event.EntityDropsCallback;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.PotionHelper;
 import svenhjol.meson.iface.Config;

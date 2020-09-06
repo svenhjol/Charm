@@ -15,7 +15,7 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmResources;
-import svenhjol.charm.event.RenderTooltipCallback;
+import svenhjol.meson.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
 import svenhjol.meson.MesonModule;

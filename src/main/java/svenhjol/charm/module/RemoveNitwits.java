@@ -5,7 +5,7 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.village.VillagerData;
 import net.minecraft.village.VillagerProfession;
-import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.meson.event.AddEntityCallback;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;

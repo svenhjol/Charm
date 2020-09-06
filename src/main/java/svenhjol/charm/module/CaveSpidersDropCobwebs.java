@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.meson.event.EntityDropsCallback;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.iface.Config;

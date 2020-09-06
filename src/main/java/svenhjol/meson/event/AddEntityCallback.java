@@ -1,4 +1,4 @@
-package svenhjol.charm.event;
+package svenhjol.meson.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;

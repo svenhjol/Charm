@@ -7,7 +7,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
-import svenhjol.charm.event.HurtEntityCallback;
+import svenhjol.meson.event.HurtEntityCallback;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 

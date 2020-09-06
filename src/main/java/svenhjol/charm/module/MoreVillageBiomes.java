@@ -10,7 +10,7 @@ import net.minecraft.village.VillagerType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeatures;
-import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.meson.event.AddEntityCallback;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.BiomeHelper;
 import svenhjol.meson.iface.Module;

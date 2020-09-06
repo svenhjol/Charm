@@ -15,7 +15,7 @@ import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.block.CrateBlock;
 import svenhjol.charm.blockentity.CrateBlockEntity;
-import svenhjol.charm.event.RenderTooltipCallback;
+import svenhjol.meson.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
 import svenhjol.charm.module.Crates;
 import svenhjol.meson.MesonModule;
