@@ -22,6 +22,7 @@ public class ModuleHandler {
                     module.alwaysEnabled = annotation.alwaysEnabled();
                     module.enabledByDefault = annotation.enabledByDefault();
                     module.enabled = module.enabledByDefault;
+                    module.description = annotation.description();
 
                     String moduleName = module.getName();
                     moduleInstances.put(moduleName, module);
