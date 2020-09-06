@@ -22,6 +22,8 @@
     "PotionItemMixin",
     "RecipeManagerMixin",
     "ServerWorldMixin",
+    "ShulkerBoxBlockEntityMixin",
+    "ShulkerBoxSlotMixin",
     "SpriteAtlasTextureMixin",
     "StrayEntityMixin",
     "WanderingTraderManagerMixin",
@@ -41,6 +43,7 @@
     "accessor.PointOfInterestTypeAccessor",
     "accessor.ServerWorldAccessor",
     "accessor.ShovelItemAccessor",
+    "accessor.ShulkerBoxBlockEntityAccessor",
     "accessor.SlotAccessor",
     "accessor.StructurePieceAccessor",
     "accessor.StructurePoolAccessor"
