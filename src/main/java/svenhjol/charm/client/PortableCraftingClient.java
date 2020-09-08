@@ -60,7 +60,7 @@ public class PortableCraftingClient {
             keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.charm.openCraftingTable",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_C,
+                GLFW.GLFW_KEY_V,
                 "key.categories.inventory"
             ));
 
