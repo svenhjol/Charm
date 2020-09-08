@@ -52,7 +52,6 @@ public class Charm extends MesonMod {
             GoldLanterns.class,
             HoeHarvesting.class,
             HuskImprovements.class,
-            Innkeepers.class,
             InventoryTidying.class,
             LanternImprovements.class,
             Lumberjacks.class,
