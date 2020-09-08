@@ -46,7 +46,7 @@ public class BlockOfEnderPearls extends MesonModule {
     }
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         AddEntityCallback.EVENT.register((entity -> {
             if (!convertSilverfish)
                 return ActionResult.PASS;

@@ -18,7 +18,7 @@ public class GoldLanterns extends MesonModule {
     }
 
     @Override
-    public void registerClient() {
+    public void clientRegister() {
         RenderLayersAccessor.getBlocks().put(GOLD_LANTERN, RenderLayer.getCutout());
         RenderLayersAccessor.getBlocks().put(GOLD_SOUL_LANTERN, RenderLayer.getCutout());
     }

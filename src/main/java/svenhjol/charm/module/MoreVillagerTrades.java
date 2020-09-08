@@ -16,7 +16,7 @@ import java.util.Random;
 @Module(description = "Adds convenience trades to some village professions.")
 public class MoreVillagerTrades extends MesonModule {
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         VillagerHelper.addTrade(VillagerProfession.LIBRARIAN, 3, new EmeraldsForEnchantedBookTrade());
         VillagerHelper.addTrade(VillagerProfession.BUTCHER, 3, new ItemForZombieFleshTrade(Items.PORKCHOP, 3, 6));
         VillagerHelper.addTrade(VillagerProfession.LEATHERWORKER, 3, new ItemForZombieFleshTrade(Items.LEATHER, 1, 3));

@@ -37,7 +37,7 @@ public class VariantBarrels extends MesonModule {
     }
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.fisherman_barrel");
         OverrideHandler.changeItemTranslationKey(Items.BARREL, "item.charm.fisherman_barrel");
     }

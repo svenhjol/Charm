@@ -24,7 +24,7 @@ public class Lumberjacks extends MesonModule {
     public static PointOfInterestType POIT;
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         // TODO dedicated sounds for woodcutter and jobsite
         POIT = VillagerHelper.addPointOfInterestType(Woodcutters.BLOCK_ID, Woodcutters.WOODCUTTER, 1);
         LUMBERJACK = VillagerHelper.addProfession(VILLAGER_ID, POIT, SoundEvents.ENTITY_VILLAGER_WORK_MASON);

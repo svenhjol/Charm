@@ -57,7 +57,7 @@ public class PlayerState extends MesonModule {
 
     @Override
     @Environment(EnvType.CLIENT)
-    public void registerClient() {
+    public void clientRegister() {
         client = new PlayerStateClient();
 
         // send a state update request on a heartbeat (serverStateInterval)

@@ -27,7 +27,7 @@ public class VariantBookshelves extends MesonModule {
     }
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         OverrideHandler.changeBlockTranslationKey(Blocks.BOOKSHELF, "block.charm.oak_bookshelf");
         EnchantmentsHelper.ENCHANTING_BLOCKS.addAll(BOOKSHELF_BLOCKS.values());
     }

@@ -29,14 +29,14 @@ public class Meson {
         mods.forEach((id, mod) -> {
             mod.eachModule(MesonModule::register);
             if (Meson.isClient())
-                mod.eachModule(MesonModule::registerClient);
+                mod.eachModule(MesonModule::clientRegister);
         });
 
         // post init, only enabled modules are run
         mods.forEach((id, mod) -> {
-            mod.eachEnabledModule(MesonModule::initWhenEnabled);
+            mod.eachEnabledModule(MesonModule::init);
             if (Meson.isClient())
-                mod.eachEnabledModule(MesonModule::initClientWhenEnabled);
+                mod.eachEnabledModule(MesonModule::clientInit);
         });
 
         // allow mods to modify structures in a controlled way
@@ -45,10 +45,10 @@ public class Meson {
         // listen for common setup events
         CommonSetupCallback.EVENT.register(() -> {
             mods.forEach((id, mod) -> {
-                mod.eachEnabledModule(MesonModule::initWorldWhenEnabled);
+                mod.eachEnabledModule(MesonModule::initWorld);
 
                 if (Meson.isClient())
-                    mod.eachEnabledModule(MesonModule::initClientWorldWhenEnabled);
+                    mod.eachEnabledModule(MesonModule::clientInitWorld);
             });
         });
     }

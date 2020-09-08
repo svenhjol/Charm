@@ -36,7 +36,7 @@ public class VariantLadders extends MesonModule {
     }
 
     @Override
-    public void registerClient() {
+    public void clientRegister() {
         LADDER_BLOCKS.values().forEach(ladder -> {
             RenderLayersAccessor.getBlocks().put(ladder, RenderLayer.getCutout());
         });

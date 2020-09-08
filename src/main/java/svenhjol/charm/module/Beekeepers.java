@@ -33,7 +33,7 @@ public class Beekeepers extends MesonModule {
     public static VillagerProfession BEEKEEPER;
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         BEEKEEPER = VillagerHelper.addProfession(ID, PointOfInterestType.BEEHIVE, SoundEvents.BLOCK_BEEHIVE_WORK);
 
         // HACK: set ticketCount so that villager can use it as job site

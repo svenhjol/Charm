@@ -16,7 +16,7 @@ import svenhjol.meson.iface.Module;
 @Module(description = "Adds gravity to vanilla lanterns")
 public class LanternImprovements extends MesonModule {
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         Identifier lantern = new Identifier("lantern");
         Identifier soulLantern = new Identifier("soul_lantern");
 

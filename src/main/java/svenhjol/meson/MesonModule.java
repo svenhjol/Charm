@@ -28,23 +28,23 @@ public abstract class MesonModule {
         // run on both sides, even if not enabled (enabled flag is available)
     }
 
-    public void registerClient() {
+    public void clientRegister() {
         // run on client, even if not enabled (enabled flag is available)
     }
 
-    public void initWhenEnabled() {
+    public void init() {
         // run on both sides, only executed if module enabled
     }
 
-    public void initClientWhenEnabled() {
+    public void clientInit() {
         // run on both sides, only executed if module enabled
     }
 
-    public void initWorldWhenEnabled() {
+    public void initWorld() {
         // run on both sides on world load, only executed if module enabled
     }
 
-    public void initClientWorldWhenEnabled() {
+    public void clientInitWorld() {
         // run on client on world load, only executed if module enabled
     }
 }

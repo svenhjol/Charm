@@ -38,7 +38,7 @@ public class BatBuckets extends MesonModule {
     }
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             capture(entity, player, hand);
             return ActionResult.PASS;
@@ -46,7 +46,7 @@ public class BatBuckets extends MesonModule {
     }
 
     @Override
-    public void initClientWhenEnabled() {
+    public void clientInit() {
         client = new BatBucketClient(this);
     }
 

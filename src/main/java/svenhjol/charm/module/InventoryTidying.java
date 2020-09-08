@@ -23,7 +23,7 @@ public class InventoryTidying extends MesonModule {
     public static final Identifier MSG_SERVER_TIDY_INVENTORY = new Identifier(Charm.MOD_ID, "server_tidy_inventory");
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         // listen for network requests to run the server callback
         ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_TIDY_INVENTORY, (context, data) -> {
             int type = data.readInt();
@@ -41,7 +41,7 @@ public class InventoryTidying extends MesonModule {
     }
 
     @Override
-    public void initClientWhenEnabled() {
+    public void clientInit() {
         client = new InventoryTidyingClient(this);
     }
 

@@ -13,7 +13,7 @@ public class StackableEnchantedBooks extends MesonModule {
     public static int stackSize = 16;
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         ((ItemAccessor)Items.ENCHANTED_BOOK).setMaxCount(stackSize);
     }
 

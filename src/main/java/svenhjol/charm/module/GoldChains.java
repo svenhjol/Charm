@@ -16,7 +16,7 @@ public class GoldChains extends MesonModule {
     }
 
     @Override
-    public void registerClient() {
+    public void clientRegister() {
         RenderLayersAccessor.getBlocks().put(GOLD_CHAIN, RenderLayer.getCutout());
     }
 }

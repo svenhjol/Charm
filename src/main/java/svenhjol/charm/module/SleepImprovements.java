@@ -23,7 +23,7 @@ public class SleepImprovements extends MesonModule {
     public static int requiredPlayers = 1;
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         ServerTickEvents.END_WORLD_TICK.register((serverWorld -> {
             if (serverWorld != null
                 && serverWorld.getTime() % 20 == 0

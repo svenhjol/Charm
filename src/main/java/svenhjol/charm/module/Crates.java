@@ -59,7 +59,7 @@ public class Crates extends MesonModule {
     }
 
     @Override
-    public void initClientWhenEnabled() {
+    public void clientInit() {
         new CratesClient(this);
         ScreenRegistry.register(SCREEN_HANDLER, CrateScreen::new);
     }

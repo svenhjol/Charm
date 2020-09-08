@@ -20,7 +20,7 @@ public class Core extends MesonModule {
     public static boolean inventoryButtonReturn = false;
 
     @Override
-    public void registerClient() {
+    public void clientRegister() {
         new InventoryButtonClient();
 
         // listen for network requests to open the player's inventory

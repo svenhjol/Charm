@@ -14,7 +14,7 @@ import svenhjol.meson.iface.Module;
 @Module(description = "Tamed animals do not take direct damage from players.")
 public class TamedAnimalsNoDamage extends MesonModule {
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         AttackEntityCallback.EVENT.register(((player, world, hand, entity, hitResult) -> {
             if (entity instanceof TameableEntity
                 && ((TameableEntity)entity).isTamed()

@@ -66,12 +66,12 @@ public class Bookcases extends MesonModule {
     }
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         EnchantmentsHelper.ENCHANTING_BLOCKS.addAll(BOOKCASE_BLOCKS.values());
     }
 
     @Override
-    public void initClientWhenEnabled() {
+    public void clientInit() {
         ScreenRegistry.register(SCREEN_HANDLER, BookcaseScreen::new);
     }
 

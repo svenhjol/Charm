@@ -46,7 +46,7 @@ public class WanderingTraderImprovements extends MesonModule {
     public static boolean frequentSpawn = false;
 
     @Override
-    public void initWhenEnabled() {
+    public void init() {
         if (tradeStructureMaps) {
             traderMaps.addAll(Arrays.asList(
                 new StructureMap(StructureFeature.RUINED_PORTAL, false), // ruined portal
