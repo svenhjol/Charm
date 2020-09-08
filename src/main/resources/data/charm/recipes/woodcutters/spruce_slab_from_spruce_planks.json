@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:woodcutting",
+  "ingredient": {
+    "item": "minecraft:spruce_planks"
+  },
+  "result": "minecraft:spruce_slab",
+  "count": 2
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:woodcutting",
+  "ingredient": {
+    "tag": "minecraft:planks"
+  },
+  "result": "minecraft:ladder",
+  "count": 4
+}
