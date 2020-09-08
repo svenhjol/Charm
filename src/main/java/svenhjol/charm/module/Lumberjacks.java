@@ -11,11 +11,14 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.event.StructureSetupCallback;
 import svenhjol.meson.helper.VillagerHelper;
 import svenhjol.meson.iface.Module;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+
+import static svenhjol.meson.event.StructureSetupCallback.addVillageHouse;
 
 @Module(description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.")
 public class Lumberjacks extends MesonModule {
@@ -29,6 +32,18 @@ public class Lumberjacks extends MesonModule {
         POIT = VillagerHelper.addPointOfInterestType(Woodcutters.BLOCK_ID, Woodcutters.WOODCUTTER, 1);
         LUMBERJACK = VillagerHelper.addProfession(VILLAGER_ID, POIT, SoundEvents.ENTITY_VILLAGER_WORK_MASON);
         VillagerHelper.addTrade(LUMBERJACK, 1, new EmeraldsForWoodenPlanks());
+
+
+        // register lumberjack structures
+        StructureSetupCallback.EVENT.register(() -> {
+
+            addVillageHouse(StructureSetupCallback.VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_1"), 10);
+            addVillageHouse(StructureSetupCallback.VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_lumberjack_1"), 10);
+            addVillageHouse(StructureSetupCallback.VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_lumberjack_1"), 10);
+            addVillageHouse(StructureSetupCallback.VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_lumberjack_1"), 10);
+            addVillageHouse(StructureSetupCallback.VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_2"), 10);
+            addVillageHouse(StructureSetupCallback.VillageType.SNOWY, new Identifier("charm:village/snowy/houses/snowy_lumberbee_1"), 10);
+        });
     }
 
     public static class EmeraldsForWoodenPlanks implements TradeOffers.Factory {
