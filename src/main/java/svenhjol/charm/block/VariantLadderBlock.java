@@ -3,6 +3,9 @@ package svenhjol.charm.block;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LadderBlock;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.collection.DefaultedList;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.IMesonBlock;
 import svenhjol.meson.enums.IVariantMaterial;
@@ -18,6 +21,12 @@ public class VariantLadderBlock extends LadderBlock implements IMesonBlock {
         this.setBurnTime(300);
 
         this.module = module;
+    }
+
+    @Override
+    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> list) {
+        if (enabled())
+            super.addStacksForDisplay(group, list);
     }
 
     @Override
