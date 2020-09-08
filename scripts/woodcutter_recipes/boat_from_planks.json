@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:woodcutting",
+  "ingredient": {
+    "item": "minecraft:TYPE_planks"
+  },
+  "result": "minecraft:TYPE_boat",
+  "count": 1
+}

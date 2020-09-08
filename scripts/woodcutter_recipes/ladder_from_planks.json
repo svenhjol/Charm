@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:woodcutting",
+  "ingredient": {
+    "item": "minecraft:TYPE_planks"
+  },
+  "result": "charm:TYPE_ladder",
+  "count": 4
+}
