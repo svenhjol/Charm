@@ -47,6 +47,9 @@ public class ConfigHandler {
                     continue;
 
                 String moduleName = (String)key;
+                if (!this.finalConfig.containsKey(moduleName))
+                    continue;
+
                 this.finalConfig.get(moduleName).putAll((LinkedTreeMap)entry.getValue());
             }
         } catch (Exception e) {
