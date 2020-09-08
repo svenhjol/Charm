@@ -38,7 +38,7 @@ public class InventoryButtonClient {
         int y = screen.height / 2 - 22;
         int left = ScreenHelper.getX(screen);
 
-        if (PortableCrafting.client.isButtonVisible()) {
+        if (PortableCrafting.client != null && PortableCrafting.client.isButtonVisible()) {
             if (PortableEnderChest.client.isButtonVisible()) {
                 // recipe, crafting and chest buttons
                 if (this.recipeButton != null)
@@ -53,7 +53,7 @@ public class InventoryButtonClient {
                 PortableCrafting.client.craftingButton.setPos(left + 130, y);
 
             }
-        } else if (PortableEnderChest.client.isButtonVisible()) {
+        } else if (PortableEnderChest.client != null && PortableEnderChest.client.isButtonVisible()) {
             // just the recipe and chest buttons
             if (this.recipeButton != null)
                 this.recipeButton.visible = true;
