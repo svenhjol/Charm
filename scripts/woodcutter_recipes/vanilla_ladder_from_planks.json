@@ -1,7 +1,7 @@
 {
   "type": "minecraft:woodcutting",
   "ingredient": {
-    "item": "minecraft:oak_planks"
+    "tag": "minecraft:planks"
   },
   "result": "minecraft:ladder",
   "count": 4

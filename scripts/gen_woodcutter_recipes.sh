@@ -31,7 +31,6 @@ copy_replace() {
   fi
 }
 
-copy_replace "${RECIPES}/boat_from_planks.json" "${DATAROOT}/recipes/woodcutters/${TYPE}_boat_from_${TYPE}_planks.json"
 copy_replace "${RECIPES}/button_from_planks.json" "${DATAROOT}/recipes/woodcutters/${TYPE}_button_from_${TYPE}_planks.json"
 copy_replace "${RECIPES}/door_from_planks.json" "${DATAROOT}/recipes/woodcutters/${TYPE}_door_from_${TYPE}_planks.json"
 copy_replace "${RECIPES}/fence_from_planks.json" "${DATAROOT}/recipes/woodcutters/${TYPE}_fence_from_${TYPE}_planks.json"
@@ -40,11 +39,16 @@ copy_replace "${RECIPES}/sign_from_planks.json" "${DATAROOT}/recipes/woodcutters
 copy_replace "${RECIPES}/slab_from_planks.json" "${DATAROOT}/recipes/woodcutters/${TYPE}_slab_from_${TYPE}_planks.json"
 copy_replace "${RECIPES}/stairs_from_planks.json" "${DATAROOT}/recipes/woodcutters/${TYPE}_stairs_from_${TYPE}_planks.json"
 
+# there are no crimson or warped boats
+if [[ "${TYPE}" != "crimson" ]] && [[ "${TYPE}" != "warped" ]]; then
+  copy_replace "${RECIPES}/boat_from_planks.json" "${DATAROOT}/recipes/woodcutters/${TYPE}_boat_from_${TYPE}_planks.json"
+fi
+
 # variant ladders
 copy_replace "${RECIPES}/ladder_from_planks.json" "${DATAROOT}/recipes/variant_ladders/${TYPE}_ladder_from_${TYPE}_planks.json"
 
 # copy the default ladder recipe; this is overridden by ladders module
-copy_replace "${RECIPES}/vanilla_ladder_from_oak_planks.json" "${DATAROOT}/recipes/woodcutters/vanilla_ladder_from_oak_planks.json"
+copy_replace "${RECIPES}/vanilla_ladder_from_planks.json" "${DATAROOT}/recipes/woodcutters/vanilla_ladder_from_planks.json"
 
 # copy the default woodcutter recipe in case it gets overwritten
 copy_replace "${RECIPES}/woodcutter.json" "${DATAROOT}/recipes/woodcutters/woodcutter.json"
