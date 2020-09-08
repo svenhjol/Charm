@@ -16,7 +16,6 @@
     "accessor.FireBlockAccessor",
     "accessor.GenerationSettingsAccessor",
     "accessor.GoalSelectorAccessor",
-    "accessor.HandledScreenAccessor",
     "accessor.HoeItemAccessor",
     "accessor.ItemAccessor",
     "accessor.MobEntityAccessor",
@@ -38,6 +37,7 @@
     "ScreenMixin",
     "SoundSystemMixin",
     "SpriteAtlasTextureMixin",
+    "accessor.HandledScreenAccessor",
     "accessor.RenderLayersAccessor",
     "accessor.SoundManagerAccessor",
     "accessor.SoundSystemAccessor"
