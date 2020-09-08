@@ -24,13 +24,31 @@ public class MoreVillageBiomes extends MesonModule {
     @Override
     public void init() {
         if (enabled) {
-            List<RegistryKey<Biome>> biomeKeys = new ArrayList<>(Arrays.asList(
-                BiomeKeys.JUNGLE, BiomeKeys.SWAMP
+            List<RegistryKey<Biome>> plainsBiomeKeys = new ArrayList<>(Arrays.asList(
+                BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.SWAMP
             ));
 
-            for (RegistryKey<Biome> biomeKey : biomeKeys) {
+            List<RegistryKey<Biome>> taigaBiomeKeys = new ArrayList<>(Arrays.asList(
+                BiomeKeys.SNOWY_TAIGA
+            ));
+
+            List<RegistryKey<Biome>> snowyBiomeKeys = new ArrayList<>(Arrays.asList(
+                BiomeKeys.ICE_SPIKES
+            ));
+
+            for (RegistryKey<Biome> biomeKey : plainsBiomeKeys) {
                 Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
                 BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_PLAINS);
+            }
+
+            for (RegistryKey<Biome> biomeKey : taigaBiomeKeys) {
+                Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
+                BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_TAIGA);
+            }
+
+            for (RegistryKey<Biome> biomeKey : snowyBiomeKeys) {
+                Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
+                BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_SNOWY);
             }
 
             AddEntityCallback.EVENT.register((entity -> {
