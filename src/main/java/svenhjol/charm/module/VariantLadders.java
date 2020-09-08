@@ -4,8 +4,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.LadderBlock;
 import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import svenhjol.charm.Charm;
 import svenhjol.charm.block.VariantLadderBlock;
 import svenhjol.meson.mixin.accessor.RenderLayersAccessor;
 import svenhjol.meson.MesonModule;
@@ -13,7 +15,9 @@ import svenhjol.meson.enums.IVariantMaterial;
 import svenhjol.meson.enums.VanillaVariantMaterial;
 import svenhjol.meson.iface.Module;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Module(description = "Ladders available in all types of vanilla wood.")
@@ -45,5 +49,10 @@ public class VariantLadders extends MesonModule {
         }
 
         return false;
+    }
+
+    @Override
+    public List<Identifier> getRecipesToRemove() {
+        return Arrays.asList(new Identifier(Charm.MOD_ID, "woodcutters/vanilla_ladder_from_planks"));
     }
 }
