@@ -20,7 +20,7 @@ public class DecreaseRepairCost extends MesonModule {
     public static int decreaseAmount = 5;
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         // if anvil improvements are not enabled, then set the xpCost to 1.
         if (!Meson.enabled("charm:anvil_improvements") && xpCost < 1)
             xpCost = 1;

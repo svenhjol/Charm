@@ -42,7 +42,7 @@ public class PlayerState extends MesonModule {
     public static int serverStateInverval = 120;
 
     @Override
-    public void init() {
+    public void register() {
         // register server message handler to call the serverCallback
         ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_UPDATE_PLAYER_STATE, (context, data) -> {
             context.getTaskQueue().execute(() -> {
@@ -57,7 +57,7 @@ public class PlayerState extends MesonModule {
 
     @Override
     @Environment(EnvType.CLIENT)
-    public void initClient() {
+    public void registerClient() {
         client = new PlayerStateClient();
 
         // send a state update request on a heartbeat (serverStateInterval)

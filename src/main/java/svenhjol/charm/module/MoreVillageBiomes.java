@@ -22,7 +22,7 @@ import java.util.List;
 @Module(description = "Villages can spawn in swamps and jungles.")
 public class MoreVillageBiomes extends MesonModule {
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         List<RegistryKey<Biome>> plainsBiomeKeys = new ArrayList<>(Arrays.asList(
             BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.SWAMP
         ));

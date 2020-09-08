@@ -33,12 +33,12 @@ public class BatBuckets extends MesonModule {
     public static int glowingRange = 24;
 
     @Override
-    public void init() {
+    public void register() {
         BAT_BUCKET_ITEM = new BatBucketItem(this);
     }
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             capture(entity, player, hand);
             return ActionResult.PASS;
@@ -46,7 +46,7 @@ public class BatBuckets extends MesonModule {
     }
 
     @Override
-    public void afterInitClient() {
+    public void initClientWhenEnabled() {
         client = new BatBucketClient(this);
     }
 

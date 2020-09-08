@@ -27,7 +27,7 @@ public class VariantLadders extends MesonModule {
     public static boolean isEnabled = false;
 
     @Override
-    public void init() {
+    public void register() {
         VanillaVariantMaterial.getTypes().forEach(type -> {
             LADDER_BLOCKS.put(type, new VariantLadderBlock(this, type));
         });
@@ -36,7 +36,7 @@ public class VariantLadders extends MesonModule {
     }
 
     @Override
-    public void initClient() {
+    public void registerClient() {
         LADDER_BLOCKS.values().forEach(ladder -> {
             RenderLayersAccessor.getBlocks().put(ladder, RenderLayer.getCutout());
         });

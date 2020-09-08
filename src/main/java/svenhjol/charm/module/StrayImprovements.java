@@ -28,7 +28,7 @@ public class StrayImprovements extends MesonModule {
     public static int maxDrops = 2;
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         EntityDropsCallback.EVENT.register(((entity, source, lootingLevel) -> {
             if (dropIce
                 && !entity.world.isClient

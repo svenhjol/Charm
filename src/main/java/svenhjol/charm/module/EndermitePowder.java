@@ -33,7 +33,7 @@ public class EndermitePowder extends MesonModule {
     public static int maxDrops = 2;
 
     @Override
-    public void init() {
+    public void register() {
         ENDERMITE_POWDER = new EndermitePowderItem(this);
 
         // setup and register the entity
@@ -48,7 +48,7 @@ public class EndermitePowder extends MesonModule {
     }
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         // react to entity drops
         EntityDropsCallback.EVENT.register(((entity, source, lootingLevel) -> {
             if (!entity.world.isClient
@@ -65,7 +65,7 @@ public class EndermitePowder extends MesonModule {
 
     @Override
     @Environment(EnvType.CLIENT)
-    public void initClient() {
+    public void registerClient() {
         new EndermitePowderClient(this);
     }
 }

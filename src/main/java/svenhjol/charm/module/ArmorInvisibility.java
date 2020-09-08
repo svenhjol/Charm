@@ -19,7 +19,7 @@ public class ArmorInvisibility extends MesonModule {
     public static boolean isEnabled = false;
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         isEnabled = true;
 
         invisibleItems.addAll(Arrays.asList(

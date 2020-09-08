@@ -11,12 +11,12 @@ public class RedstoneLanterns extends MesonModule {
     public static RedstoneLanternBlock REDSTONE_LANTERN;
 
     @Override
-    public void init() {
+    public void register() {
         REDSTONE_LANTERN = new RedstoneLanternBlock(this);
     }
 
     @Override
-    public void initClient() {
+    public void registerClient() {
         RenderLayersAccessor.getBlocks().put(REDSTONE_LANTERN, RenderLayer.getCutout());
     }
 }

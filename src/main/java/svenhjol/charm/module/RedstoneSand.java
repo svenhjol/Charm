@@ -9,7 +9,7 @@ public class RedstoneSand extends MesonModule {
     public static RedstoneSandBlock REDSTONE_SAND;
 
     @Override
-    public void init() {
+    public void register() {
         REDSTONE_SAND = new RedstoneSandBlock(this);
     }
 }

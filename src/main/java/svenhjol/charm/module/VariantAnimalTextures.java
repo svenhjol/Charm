@@ -61,12 +61,12 @@ public class VariantAnimalTextures extends MesonModule {
     public static int rarity = 1000;
 
     @Override
-    public void afterInitClient() {
+    public void initClientWhenEnabled() {
         client = new VariantAnimalTexturesClient(this);
     }
 
     @Override
-    public void setup() {
+    public void initWorldWhenEnabled() {
         // add vanilla textures
         chickens.add(new Identifier(PREFIX + "chicken.png"));
         cows.add(new Identifier(PREFIX + "cow/cow.png"));

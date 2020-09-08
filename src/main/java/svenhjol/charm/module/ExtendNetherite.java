@@ -17,7 +17,7 @@ public class ExtendNetherite extends MesonModule {
     public static int extendBy = 300;
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         int ticks = 6000 + (extendBy * 20);
 
         List<Item> netheriteItems = new ArrayList<>(Arrays.asList(

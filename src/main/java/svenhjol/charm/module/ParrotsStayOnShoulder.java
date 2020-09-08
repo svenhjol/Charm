@@ -14,7 +14,7 @@ public class ParrotsStayOnShoulder extends MesonModule {
     private static boolean isEnabled = false;
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         isEnabled = true;
         PlayerTickCallback.EVENT.register(this::dismountParrot);
     }

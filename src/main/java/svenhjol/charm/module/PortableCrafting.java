@@ -26,7 +26,7 @@ public class PortableCrafting extends MesonModule {
     public static boolean enableKeybind = true;
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         // listen for network requests to open the portable ender chest
         ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_OPEN_CRAFTING, (context, data) -> {
             context.getTaskQueue().execute(() -> {
@@ -40,7 +40,7 @@ public class PortableCrafting extends MesonModule {
     }
 
     @Override
-    public void afterInitClient() {
+    public void initClientWhenEnabled() {
         client = new PortableCraftingClient(this);
     }
 

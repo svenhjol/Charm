@@ -14,7 +14,7 @@ import svenhjol.meson.iface.Module;
 @Module(description = "Villagers are attracted when the player holds a block of emeralds.")
 public class VillagersFollowEmeraldBlocks extends MesonModule {
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         AddEntityCallback.EVENT.register((entity -> {
             followEmerald(entity);
             return ActionResult.PASS;

@@ -26,7 +26,7 @@ public class Woodcutters extends MesonModule {
     public static RecipeSerializer<WoodcuttingRecipe> RECIPE_SERIALIZER;
 
     @Override
-    public void init() {
+    public void register() {
         WOODCUTTER = new WoodcutterBlock(this);
         RECIPE_TYPE = RecipeType.register(RECIPE_ID.toString());
         RECIPE_SERIALIZER = RecipeSerializer.register(RECIPE_ID.toString(), new WoodcuttingRecipe.Serializer(WoodcuttingRecipe::new));
@@ -34,12 +34,12 @@ public class Woodcutters extends MesonModule {
     }
 
     @Override
-    public void initClient() {
+    public void registerClient() {
         RenderLayersAccessor.getBlocks().put(WOODCUTTER, RenderLayer.getCutout());
     }
 
     @Override
-    public void afterInitClient() {
+    public void initClientWhenEnabled() {
         ScreenRegistry.register(SCREEN_HANDLER, WoodcutterScreen::new);
     }
 }

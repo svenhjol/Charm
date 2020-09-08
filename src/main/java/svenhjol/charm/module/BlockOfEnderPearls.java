@@ -41,12 +41,12 @@ public class BlockOfEnderPearls extends MesonModule {
     public static boolean convertSilverfish = true;
 
     @Override
-    public void init() {
+    public void register() {
         ENDER_PEARL_BLOCK = new EnderPearlBlock(this);
     }
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         AddEntityCallback.EVENT.register((entity -> {
             if (!convertSilverfish)
                 return ActionResult.PASS;

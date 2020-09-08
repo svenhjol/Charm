@@ -9,7 +9,7 @@ public class BlockOfSugar extends MesonModule {
     public static SugarBlock SUGAR_BLOCK;
 
     @Override
-    public void init() {
+    public void register() {
         SUGAR_BLOCK = new SugarBlock(this);
     }
 }

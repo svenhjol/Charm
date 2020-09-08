@@ -9,7 +9,7 @@ public class NetheriteNuggets extends MesonModule {
     public static NetheriteNuggetItem NETHERITE_NUGGET;
 
     @Override
-    public void init() {
+    public void register() {
         NETHERITE_NUGGET = new NetheriteNuggetItem(this);
     }
 }

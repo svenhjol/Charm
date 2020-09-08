@@ -39,7 +39,7 @@ public class Bookcases extends MesonModule {
     );
 
     @Override
-    public void init() {
+    public void register() {
         validItems.addAll(Arrays.asList(
             Items.BOOK.getClass(),
             Items.ENCHANTED_BOOK.getClass(),
@@ -66,12 +66,12 @@ public class Bookcases extends MesonModule {
     }
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         EnchantmentsHelper.ENCHANTING_BLOCKS.addAll(BOOKCASE_BLOCKS.values());
     }
 
     @Override
-    public void afterInitClient() {
+    public void initClientWhenEnabled() {
         ScreenRegistry.register(SCREEN_HANDLER, BookcaseScreen::new);
     }
 

@@ -11,12 +11,12 @@ public class GoldBars extends MesonModule {
     public static GoldBarsBlock GOLD_BARS;
 
     @Override
-    public void init() {
+    public void register() {
         GOLD_BARS = new GoldBarsBlock(this);
     }
 
     @Override
-    public void initClient() {
+    public void registerClient() {
         RenderLayersAccessor.getBlocks().put(GOLD_BARS, RenderLayer.getCutout());
     }
 }

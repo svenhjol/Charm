@@ -63,7 +63,7 @@ public class MineshaftImprovements extends MesonModule {
     public static boolean generateCrates = true;
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         isEnabled = true;
 
         commonFloorBlocks.addAll(Arrays.asList(

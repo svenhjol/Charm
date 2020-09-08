@@ -12,13 +12,13 @@ public class GoldLanterns extends MesonModule {
     public static GoldLanternBlock GOLD_SOUL_LANTERN;
 
     @Override
-    public void init() {
+    public void register() {
         GOLD_LANTERN = new GoldLanternBlock(this, "gold_lantern");
         GOLD_SOUL_LANTERN = new GoldLanternBlock(this, "gold_soul_lantern");
     }
 
     @Override
-    public void initClient() {
+    public void registerClient() {
         RenderLayersAccessor.getBlocks().put(GOLD_LANTERN, RenderLayer.getCutout());
         RenderLayersAccessor.getBlocks().put(GOLD_SOUL_LANTERN, RenderLayer.getCutout());
     }

@@ -8,7 +8,7 @@ public class RemovePotionGlint extends MesonModule {
     private static boolean isEnabled = false;
 
     @Override
-    public void init() {
+    public void register() {
         isEnabled = this.enabled;
     }
 

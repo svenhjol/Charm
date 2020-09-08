@@ -32,7 +32,7 @@ public class VariantChests extends MesonModule {
     public static BlockEntityType<VariantTrappedChestBlockEntity> TRAPPED_BLOCK_ENTITY;
 
     @Override
-    public void init() {
+    public void register() {
         for (VanillaVariantMaterial type : VanillaVariantMaterial.values()) {
             NORMAL_CHEST_BLOCKS.put(type, new VariantChestBlock(this, type));
             TRAPPED_CHEST_BLOCKS.put(type, new VariantTrappedChestBlock(this, type));
@@ -46,7 +46,7 @@ public class VariantChests extends MesonModule {
     }
 
     @Override
-    public void afterInitClient() {
+    public void initClientWhenEnabled() {
         new VariantChestClient(this);
     }
 

@@ -20,14 +20,14 @@ public class VariantBookshelves extends MesonModule {
     public static final Map<IVariantMaterial, VariantBookshelfBlock> BOOKSHELF_BLOCKS = new HashMap<>();
 
     @Override
-    public void init() {
+    public void register() {
         VanillaVariantMaterial.getTypesWithout(VanillaVariantMaterial.OAK).forEach(type -> {
             BOOKSHELF_BLOCKS.put(type, new VariantBookshelfBlock(this, type));
         });
     }
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         OverrideHandler.changeBlockTranslationKey(Blocks.BOOKSHELF, "block.charm.oak_bookshelf");
         EnchantmentsHelper.ENCHANTING_BLOCKS.addAll(BOOKSHELF_BLOCKS.values());
     }

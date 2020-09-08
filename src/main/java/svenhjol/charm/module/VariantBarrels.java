@@ -27,7 +27,7 @@ public class VariantBarrels extends MesonModule {
     public static BlockEntityType<VariantBarrelBlockEntity> BLOCK_ENTITY;
 
     @Override
-    public void init() {
+    public void register() {
         for (VanillaVariantMaterial type : VanillaVariantMaterial.values()) {
             BARREL_BLOCKS.put(type, new VariantBarrelBlock(this, type));
         }
@@ -37,7 +37,7 @@ public class VariantBarrels extends MesonModule {
     }
 
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.fisherman_barrel");
         OverrideHandler.changeItemTranslationKey(Items.BARREL, "item.charm.fisherman_barrel");
     }

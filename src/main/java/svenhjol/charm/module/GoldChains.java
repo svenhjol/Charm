@@ -11,12 +11,12 @@ public class GoldChains extends MesonModule {
     public static GoldChainBlock GOLD_CHAIN;
 
     @Override
-    public void init() {
+    public void register() {
         GOLD_CHAIN = new GoldChainBlock(this);
     }
 
     @Override
-    public void initClient() {
+    public void registerClient() {
         RenderLayersAccessor.getBlocks().put(GOLD_CHAIN, RenderLayer.getCutout());
     }
 }

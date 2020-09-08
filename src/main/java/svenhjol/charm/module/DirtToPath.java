@@ -18,7 +18,7 @@ import svenhjol.meson.iface.Module;
 @Module(description = "Right-clicking dirt with a shovel turns it into grass path.")
 public class DirtToPath extends MesonModule {
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         UseBlockCallback.EVENT.register(((player, world, hand, hitResult) -> {
             boolean result = convertDirt(player, hitResult.getBlockPos(), hand, player.getStackInHand(hand));
             return result ? ActionResult.SUCCESS : ActionResult.PASS;

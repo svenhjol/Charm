@@ -9,7 +9,7 @@ public class BlockOfGunpowder extends MesonModule {
     public static GunpowderBlock GUNPOWDER_BLOCK;
 
     @Override
-    public void init() {
+    public void register() {
         GUNPOWDER_BLOCK = new GunpowderBlock(this);
     }
 }

@@ -42,7 +42,7 @@ public class Crates extends MesonModule {
     public static boolean isEnabled = false;
 
     @Override
-    public void init() {
+    public void register() {
         for (VanillaVariantMaterial type : VanillaVariantMaterial.values()) {
             CRATE_BLOCKS.put(type, new CrateBlock(this, type));
         }
@@ -59,7 +59,7 @@ public class Crates extends MesonModule {
     }
 
     @Override
-    public void afterInitClient() {
+    public void initClientWhenEnabled() {
         new CratesClient(this);
         ScreenRegistry.register(SCREEN_HANDLER, CrateScreen::new);
     }

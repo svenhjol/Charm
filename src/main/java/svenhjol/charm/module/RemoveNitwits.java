@@ -13,7 +13,7 @@ import svenhjol.meson.iface.Module;
 @Module(description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
 public class RemoveNitwits extends MesonModule {
     @Override
-    public void afterInit() {
+    public void initWhenEnabled() {
         AddEntityCallback.EVENT.register(this::changeNitwitProfession);
     }
 

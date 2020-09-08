@@ -27,16 +27,16 @@ public class Meson {
     public static void go() {
         // early init, use for registering blocks etc.
         mods.forEach((id, mod) -> {
-            mod.eachModule(MesonModule::init);
+            mod.eachModule(MesonModule::register);
             if (Meson.isClient())
-                mod.eachModule(MesonModule::initClient);
+                mod.eachModule(MesonModule::registerClient);
         });
 
         // post init, only enabled modules are run
         mods.forEach((id, mod) -> {
-            mod.eachEnabledModule(MesonModule::afterInit);
+            mod.eachEnabledModule(MesonModule::initWhenEnabled);
             if (Meson.isClient())
-                mod.eachEnabledModule(MesonModule::afterInitClient);
+                mod.eachEnabledModule(MesonModule::initClientWhenEnabled);
         });
 
         // allow mods to modify structures in a controlled way
@@ -45,10 +45,10 @@ public class Meson {
         // listen for common setup events
         CommonSetupCallback.EVENT.register(() -> {
             mods.forEach((id, mod) -> {
-                mod.eachEnabledModule(MesonModule::setup);
+                mod.eachEnabledModule(MesonModule::initWorldWhenEnabled);
 
                 if (Meson.isClient())
-                    mod.eachEnabledModule(MesonModule::setupClient);
+                    mod.eachEnabledModule(MesonModule::initClientWorldWhenEnabled);
             });
         });
     }

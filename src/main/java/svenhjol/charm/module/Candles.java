@@ -18,7 +18,7 @@ public class Candles extends MesonModule {
     public static boolean litWhenPlaced = false;
 
     @Override
-    public void init() {
+    public void register() {
         CANDLE = new CandleBlock(this);
         BEESWAX = new BeeswaxItem(this);
     }
