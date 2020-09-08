@@ -43,7 +43,6 @@ public class PlayerState extends MesonModule {
 
     @Override
     public void init() {
-
         // register server message handler to call the serverCallback
         ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_UPDATE_PLAYER_STATE, (context, data) -> {
             context.getTaskQueue().execute(() -> {

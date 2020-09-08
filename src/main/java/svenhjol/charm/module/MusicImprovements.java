@@ -14,7 +14,7 @@ public class MusicImprovements extends MesonModule {
     public static boolean playCreativeMusic = true;
 
     @Override
-    public void initClient() {
+    public void afterInitClient() {
         client = new MusicClient(this);
     }
 }

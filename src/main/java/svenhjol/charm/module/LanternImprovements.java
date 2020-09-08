@@ -16,22 +16,20 @@ import svenhjol.meson.iface.Module;
 @Module(description = "Adds gravity to vanilla lanterns")
 public class LanternImprovements extends MesonModule {
     @Override
-    public void init() {
-        if (enabled) {
-            Identifier lantern = new Identifier("lantern");
-            Identifier soulLantern = new Identifier("soul_lantern");
+    public void afterInit() {
+        Identifier lantern = new Identifier("lantern");
+        Identifier soulLantern = new Identifier("soul_lantern");
 
-            Block lanternBlock = new ImprovedLanternBlock(AbstractBlock.Settings.copy(Blocks.LANTERN));
-            Block soulLanternBlock = new ImprovedLanternBlock(AbstractBlock.Settings.copy(Blocks.SOUL_LANTERN));
-            Item lanternItem = new BlockItem(lanternBlock, new Item.Settings().group(ItemGroup.DECORATIONS));
-            Item soulLanternItem = new BlockItem(soulLanternBlock, new Item.Settings().group(ItemGroup.DECORATIONS));
+        Block lanternBlock = new ImprovedLanternBlock(AbstractBlock.Settings.copy(Blocks.LANTERN));
+        Block soulLanternBlock = new ImprovedLanternBlock(AbstractBlock.Settings.copy(Blocks.SOUL_LANTERN));
+        Item lanternItem = new BlockItem(lanternBlock, new Item.Settings().group(ItemGroup.DECORATIONS));
+        Item soulLanternItem = new BlockItem(soulLanternBlock, new Item.Settings().group(ItemGroup.DECORATIONS));
 
-            BlocksAccessor.setLantern(OverrideHandler.changeBlock(lantern, lanternBlock));
-            BlocksAccessor.setSoulLantern(OverrideHandler.changeBlock(soulLantern, soulLanternBlock));
+        BlocksAccessor.setLantern(OverrideHandler.changeBlock(lantern, lanternBlock));
+        BlocksAccessor.setSoulLantern(OverrideHandler.changeBlock(soulLantern, soulLanternBlock));
 
-            // TODO probably need to change items here
-            OverrideHandler.changeItem(lantern, lanternItem);
-            OverrideHandler.changeItem(soulLantern, soulLanternItem);
-        }
+        // TODO probably need to change items here
+        OverrideHandler.changeItem(lantern, lanternItem);
+        OverrideHandler.changeItem(soulLantern, soulLanternItem);
     }
 }

@@ -29,7 +29,7 @@ public class ExtractEnchantments extends MesonModule {
     public static int treasureCost = 15;
 
     @Override
-    public void init() {
+    public void afterInit() {
         UpdateAnvilCallback.EVENT.register(this::tryExtract);
     }
 

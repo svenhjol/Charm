@@ -20,11 +20,7 @@ public class DecreaseRepairCost extends MesonModule {
     public static int decreaseAmount = 5;
 
     @Override
-    public void init() {
-        // don't enable this module if netherite nuggets are not enabled in config.
-        if (!Meson.enabled("charm:netherite_nuggets"))
-            return;
-
+    public void afterInit() {
         // if anvil improvements are not enabled, then set the xpCost to 1.
         if (!Meson.enabled("charm:anvil_improvements") && xpCost < 1)
             xpCost = 1;

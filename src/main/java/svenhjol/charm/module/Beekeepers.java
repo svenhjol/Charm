@@ -33,7 +33,7 @@ public class Beekeepers extends MesonModule {
     public static VillagerProfession BEEKEEPER;
 
     @Override
-    public void init() {
+    public void afterInit() {
         BEEKEEPER = VillagerHelper.addProfession(ID, PointOfInterestType.BEEHIVE, SoundEvents.BLOCK_BEEHIVE_WORK);
 
         // HACK: set ticketCount so that villager can use it as job site
@@ -44,11 +44,9 @@ public class Beekeepers extends MesonModule {
 
         // register beekeeper structures
         StructureSetupCallback.EVENT.register(() -> {
-
             addVillageHouse(VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_beekeeper_1"), 10);
             addVillageHouse(VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_beekeeper_1"), 10);
             addVillageHouse(VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_beekeeper_1"), 10);
-
         });
     }
 

@@ -24,7 +24,7 @@ import java.util.Map;
 public class VariantLadders extends MesonModule {
     public static final Map<IVariantMaterial, VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
 
-    public static boolean isEnabled;
+    public static boolean isEnabled = false;
 
     @Override
     public void init() {
@@ -36,7 +36,7 @@ public class VariantLadders extends MesonModule {
     }
 
     @Override
-    public void afterInitClient() {
+    public void initClient() {
         LADDER_BLOCKS.values().forEach(ladder -> {
             RenderLayersAccessor.getBlocks().put(ladder, RenderLayer.getCutout());
         });

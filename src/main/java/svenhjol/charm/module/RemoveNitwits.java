@@ -13,17 +13,11 @@ import svenhjol.meson.iface.Module;
 @Module(description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
 public class RemoveNitwits extends MesonModule {
     @Override
-    public void init() {
-        if (!enabled)
-            return;
-
-        AddEntityCallback.EVENT.register((entity -> {
-            changeNitwitProfession(entity);
-            return ActionResult.PASS;
-        }));
+    public void afterInit() {
+        AddEntityCallback.EVENT.register(this::changeNitwitProfession);
     }
 
-    private void changeNitwitProfession(Entity entity) {
+    private ActionResult changeNitwitProfession(Entity entity) {
         if (!entity.world.isClient
             && entity instanceof VillagerEntity
         ) {
@@ -35,5 +29,7 @@ public class RemoveNitwits extends MesonModule {
                 Meson.LOG.debug("Changed nitwit's profession to NONE: " + villager.getUuidAsString());
             }
         }
+
+        return ActionResult.PASS;
     }
 }

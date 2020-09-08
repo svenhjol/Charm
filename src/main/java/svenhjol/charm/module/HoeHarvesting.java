@@ -26,10 +26,7 @@ public class HoeHarvesting extends MesonModule {
     private static final List<BlockState> harvestable = new ArrayList<>();
 
     @Override
-    public void init() {
-        if (!enabled)
-            return;
-
+    public void afterInit() {
         addHarvestable("minecraft:beetroots[age=3]");
         addHarvestable("minecraft:carrots[age=7]");
         addHarvestable("minecraft:nether_wart[age=3]");

@@ -15,13 +15,12 @@ import java.util.List;
 
 @Module(description = "Lightweight armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
 public class ArmorInvisibility extends MesonModule {
-
     public static List<Item> invisibleItems = new ArrayList<>();
+    public static boolean isEnabled = false;
 
     @Override
-    public void init() {
-        if (!enabled)
-            return;
+    public void afterInit() {
+        isEnabled = true;
 
         invisibleItems.addAll(Arrays.asList(
             Items.LEATHER_HELMET,
@@ -36,7 +35,7 @@ public class ArmorInvisibility extends MesonModule {
     }
 
     public static boolean shouldArmorBeInvisible(Entity entity, ItemStack stack) {
-        if (entity instanceof LivingEntity) {
+        if (isEnabled && entity instanceof LivingEntity) {
             if (((LivingEntity)entity).getStatusEffect(StatusEffects.INVISIBILITY) != null)
                 return invisibleItems.contains(stack.getItem());
         }

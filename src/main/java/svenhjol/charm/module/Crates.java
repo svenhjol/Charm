@@ -39,7 +39,7 @@ public class Crates extends MesonModule {
     @Config(name = "Show tooltip", description = "If true, hovering over a crate will show its contents in a tooltip.")
     public static boolean showTooltip = true;
 
-    public static boolean isEnabled;
+    public static boolean isEnabled = false;
 
     @Override
     public void init() {
@@ -59,7 +59,7 @@ public class Crates extends MesonModule {
     }
 
     @Override
-    public void initClient() {
+    public void afterInitClient() {
         new CratesClient(this);
         ScreenRegistry.register(SCREEN_HANDLER, CrateScreen::new);
     }

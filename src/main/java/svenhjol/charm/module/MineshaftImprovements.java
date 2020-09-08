@@ -48,7 +48,7 @@ public class MineshaftImprovements extends MesonModule {
     public static float blockPileChance = 0.12F;
     public static float crateChance = 0.14F;
 
-    private static boolean isEnabled;
+    private static boolean isEnabled = false;
 
     @Config(name = "Corridor blocks", description = "If true, stone, ore, lanterns and TNT will spawn inside mineshaft corridors.")
     public static boolean generateCorridorBlocks = true;

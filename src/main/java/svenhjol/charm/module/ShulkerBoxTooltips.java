@@ -7,7 +7,7 @@ import svenhjol.meson.iface.Module;
 @Module(description = "Shows the contents of a Shulker Box on hover-over.")
 public class ShulkerBoxTooltips extends MesonModule {
     @Override
-    public void initClient() {
+    public void afterInitClient() {
         new ShulkerBoxTooltipsClient(this);
     }
 }

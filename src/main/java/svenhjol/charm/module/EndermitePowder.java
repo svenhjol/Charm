@@ -15,9 +15,9 @@ import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.EndermitePowderClient;
 import svenhjol.charm.entity.EndermitePowderEntity;
-import svenhjol.meson.event.EntityDropsCallback;
 import svenhjol.charm.item.EndermitePowderItem;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.event.EntityDropsCallback;
 import svenhjol.meson.helper.ItemHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
@@ -45,7 +45,10 @@ public class EndermitePowder extends MesonModule {
             .build(ID.getPath());
 
         Registry.register(Registry.ENTITY_TYPE, ID, ENTITY);
+    }
 
+    @Override
+    public void afterInit() {
         // react to entity drops
         EntityDropsCallback.EVENT.register(((entity, source, lootingLevel) -> {
             if (!entity.world.isClient

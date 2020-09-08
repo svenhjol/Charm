@@ -36,6 +36,10 @@ public class Woodcutters extends MesonModule {
     @Override
     public void initClient() {
         RenderLayersAccessor.getBlocks().put(WOODCUTTER, RenderLayer.getCutout());
+    }
+
+    @Override
+    public void afterInitClient() {
         ScreenRegistry.register(SCREEN_HANDLER, WoodcutterScreen::new);
     }
 }

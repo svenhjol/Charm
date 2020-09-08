@@ -24,11 +24,12 @@ public class VariantBookshelves extends MesonModule {
         VanillaVariantMaterial.getTypesWithout(VanillaVariantMaterial.OAK).forEach(type -> {
             BOOKSHELF_BLOCKS.put(type, new VariantBookshelfBlock(this, type));
         });
+    }
 
-        if (enabled) {
-            OverrideHandler.changeBlockTranslationKey(Blocks.BOOKSHELF, "block.charm.oak_bookshelf");
-            EnchantmentsHelper.ENCHANTING_BLOCKS.addAll(BOOKSHELF_BLOCKS.values());
-        }
+    @Override
+    public void afterInit() {
+        OverrideHandler.changeBlockTranslationKey(Blocks.BOOKSHELF, "block.charm.oak_bookshelf");
+        EnchantmentsHelper.ENCHANTING_BLOCKS.addAll(BOOKSHELF_BLOCKS.values());
     }
 
     @Override

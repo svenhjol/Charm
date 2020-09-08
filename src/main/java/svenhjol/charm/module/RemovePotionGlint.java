@@ -5,7 +5,7 @@ import svenhjol.meson.iface.Module;
 
 @Module(description = "Removes the potion enchantment glint so you can see what the potion color is.")
 public class RemovePotionGlint extends MesonModule {
-    private static boolean isEnabled;
+    private static boolean isEnabled = false;
 
     @Override
     public void init() {

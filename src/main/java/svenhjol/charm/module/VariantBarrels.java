@@ -14,7 +14,10 @@ import svenhjol.meson.enums.VanillaVariantMaterial;
 import svenhjol.meson.helper.OverrideHandler;
 import svenhjol.meson.iface.Module;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Module(description = "Barrels available in all types of vanilla wood.")
 public class VariantBarrels extends MesonModule {
@@ -31,11 +34,12 @@ public class VariantBarrels extends MesonModule {
 
         BLOCK_ENTITY = BlockEntityType.Builder.create(VariantBarrelBlockEntity::new).build(null);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, ID, BLOCK_ENTITY);
+    }
 
-        if (enabled) {
-            OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.fisherman_barrel");
-            OverrideHandler.changeItemTranslationKey(Items.BARREL, "item.charm.fisherman_barrel");
-        }
+    @Override
+    public void afterInit() {
+        OverrideHandler.changeBlockTranslationKey(Blocks.BARREL, "block.charm.fisherman_barrel");
+        OverrideHandler.changeItemTranslationKey(Items.BARREL, "item.charm.fisherman_barrel");
     }
 
     @Override

@@ -12,11 +12,9 @@ public class StackablePotions extends MesonModule {
     public static int stackSize = 16;
 
     @Override
-    public void init() {
-        if (enabled) {
-            ((ItemAccessor) Items.POTION).setMaxCount(stackSize);
-            ((ItemAccessor) Items.SPLASH_POTION).setMaxCount(stackSize);
-            ((ItemAccessor) Items.LINGERING_POTION).setMaxCount(stackSize);
-        }
+    public void afterInit() {
+        ((ItemAccessor) Items.POTION).setMaxCount(stackSize);
+        ((ItemAccessor) Items.SPLASH_POTION).setMaxCount(stackSize);
+        ((ItemAccessor) Items.LINGERING_POTION).setMaxCount(stackSize);
     }
 }

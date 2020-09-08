@@ -61,7 +61,7 @@ public class VariantAnimalTextures extends MesonModule {
     public static int rarity = 1000;
 
     @Override
-    public void initClient() {
+    public void afterInitClient() {
         client = new VariantAnimalTexturesClient(this);
     }
 

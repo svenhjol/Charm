@@ -14,12 +14,9 @@ public class ParrotsStayOnShoulder extends MesonModule {
     private static boolean isEnabled = false;
 
     @Override
-    public void init() {
-        if (!enabled)
-            return;
-
-        PlayerTickCallback.EVENT.register(this::dismountParrot);
+    public void afterInit() {
         isEnabled = true;
+        PlayerTickCallback.EVENT.register(this::dismountParrot);
     }
 
     public static boolean shouldParrotStayMounted(World world, long shoulderTime) {

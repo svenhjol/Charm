@@ -16,7 +16,7 @@ public class RedstoneLanterns extends MesonModule {
     }
 
     @Override
-    public void afterInitClient() {
+    public void initClient() {
         RenderLayersAccessor.getBlocks().put(REDSTONE_LANTERN, RenderLayer.getCutout());
     }
 }

@@ -23,7 +23,7 @@ public class WitchesDropLuck extends MesonModule {
     public static double dropChance = 0.05D;
 
     @Override
-    public void init() {
+    public void afterInit() {
         EntityDropsCallback.EVENT.register(((entity, source, lootingLevel) -> {
             tryDropLuck(entity, lootingLevel, source);
             return ActionResult.PASS;

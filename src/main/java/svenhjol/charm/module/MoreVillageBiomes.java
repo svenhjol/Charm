@@ -22,40 +22,38 @@ import java.util.List;
 @Module(description = "Villages can spawn in swamps and jungles.")
 public class MoreVillageBiomes extends MesonModule {
     @Override
-    public void init() {
-        if (enabled) {
-            List<RegistryKey<Biome>> plainsBiomeKeys = new ArrayList<>(Arrays.asList(
-                BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.SWAMP
-            ));
+    public void afterInit() {
+        List<RegistryKey<Biome>> plainsBiomeKeys = new ArrayList<>(Arrays.asList(
+            BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.SWAMP
+        ));
 
-            List<RegistryKey<Biome>> taigaBiomeKeys = new ArrayList<>(Arrays.asList(
-                BiomeKeys.SNOWY_TAIGA
-            ));
+        List<RegistryKey<Biome>> taigaBiomeKeys = new ArrayList<>(Arrays.asList(
+            BiomeKeys.SNOWY_TAIGA
+        ));
 
-            List<RegistryKey<Biome>> snowyBiomeKeys = new ArrayList<>(Arrays.asList(
-                BiomeKeys.ICE_SPIKES
-            ));
+        List<RegistryKey<Biome>> snowyBiomeKeys = new ArrayList<>(Arrays.asList(
+            BiomeKeys.ICE_SPIKES
+        ));
 
-            for (RegistryKey<Biome> biomeKey : plainsBiomeKeys) {
-                Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-                BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_PLAINS);
-            }
-
-            for (RegistryKey<Biome> biomeKey : taigaBiomeKeys) {
-                Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-                BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_TAIGA);
-            }
-
-            for (RegistryKey<Biome> biomeKey : snowyBiomeKeys) {
-                Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-                BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_SNOWY);
-            }
-
-            AddEntityCallback.EVENT.register((entity -> {
-                changeVillagerSkin(entity);
-                return ActionResult.PASS;
-            }));
+        for (RegistryKey<Biome> biomeKey : plainsBiomeKeys) {
+            Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
+            BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_PLAINS);
         }
+
+        for (RegistryKey<Biome> biomeKey : taigaBiomeKeys) {
+            Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
+            BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_TAIGA);
+        }
+
+        for (RegistryKey<Biome> biomeKey : snowyBiomeKeys) {
+            Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
+            BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_SNOWY);
+        }
+
+        AddEntityCallback.EVENT.register((entity -> {
+            changeVillagerSkin(entity);
+            return ActionResult.PASS;
+        }));
     }
 
     private void changeVillagerSkin(Entity entity) {

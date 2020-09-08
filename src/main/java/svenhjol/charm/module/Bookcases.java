@@ -63,13 +63,15 @@ public class Bookcases extends MesonModule {
         SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ID, BookcaseScreenHandler::new);
         BLOCK_ENTITY = BlockEntityType.Builder.create(BookcaseBlockEntity::new).build(null);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, ID, BLOCK_ENTITY);
-
-        if (enabled)
-            EnchantmentsHelper.ENCHANTING_BLOCKS.addAll(BOOKCASE_BLOCKS.values());
     }
 
     @Override
-    public void initClient() {
+    public void afterInit() {
+        EnchantmentsHelper.ENCHANTING_BLOCKS.addAll(BOOKCASE_BLOCKS.values());
+    }
+
+    @Override
+    public void afterInitClient() {
         ScreenRegistry.register(SCREEN_HANDLER, BookcaseScreen::new);
     }
 
