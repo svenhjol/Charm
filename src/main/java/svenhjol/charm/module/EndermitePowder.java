@@ -52,7 +52,7 @@ public class EndermitePowder extends MesonModule {
     @Override
     public void init() {
         // react to entity drops
-        EntityDropsCallback.EVENT.register(this::tryDropEndermitePowder);
+        EntityDropsCallback.EVENT.register(this::tryDrop);
     }
 
     @Override
