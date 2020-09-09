@@ -15,13 +15,10 @@ import svenhjol.meson.iface.Module;
 public class VillagersFollowEmeraldBlocks extends MesonModule {
     @Override
     public void init() {
-        AddEntityCallback.EVENT.register((entity -> {
-            followEmerald(entity);
-            return ActionResult.PASS;
-        }));
+        AddEntityCallback.EVENT.register(this::followEmerald);
     }
 
-    private void followEmerald(Entity entity) {
+    private ActionResult followEmerald(Entity entity) {
         if (entity instanceof VillagerEntity) {
             VillagerEntity villager = (VillagerEntity) entity;
 
@@ -30,5 +27,7 @@ public class VillagersFollowEmeraldBlocks extends MesonModule {
             if (MobHelper.getGoals(villager).stream().noneMatch(g -> g.getGoal() instanceof TemptGoal))
                 MobHelper.getGoalSelector(villager).add(3, new TemptGoal(villager, 0.6, ingredient, false));
         }
+
+        return ActionResult.PASS;
     }
 }

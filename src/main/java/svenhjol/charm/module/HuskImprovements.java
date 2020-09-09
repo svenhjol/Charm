@@ -1,7 +1,9 @@
 package svenhjol.charm.module;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HuskEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -29,21 +31,23 @@ public class HuskImprovements extends MesonModule {
 
     @Override
     public void init() {
-        EntityDropsCallback.EVENT.register(((entity, source, lootingLevel) -> {
-            if (dropSand
-                && !entity.world.isClient
-                && entity instanceof HuskEntity
-            ) {
-                World world = entity.getEntityWorld();
-                BlockPos pos = entity.getBlockPos();
-                int amount = ItemHelper.getAmountWithLooting(world.random, maxDrops, lootingLevel, (float)lootingBoost);
-                world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.SAND, amount)));
-            }
-            return ActionResult.PASS;
-        }));
+        EntityDropsCallback.EVENT.register(this::tryDrop);
     }
 
     public static boolean canSpawn() {
         return Meson.enabled("charm:husk_improvements") && spawnAnywhere;
+    }
+
+    private ActionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {
+        if (dropSand
+            && !entity.world.isClient
+            && entity instanceof HuskEntity
+        ) {
+            World world = entity.getEntityWorld();
+            BlockPos pos = entity.getBlockPos();
+            int amount = ItemHelper.getAmountWithLooting(world.random, maxDrops, lootingLevel, (float)lootingBoost);
+            world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.SAND, amount)));
+        }
+        return ActionResult.PASS;
     }
 }

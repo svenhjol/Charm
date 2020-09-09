@@ -24,13 +24,10 @@ public class WitchesDropLuck extends MesonModule {
 
     @Override
     public void init() {
-        EntityDropsCallback.EVENT.register(((entity, source, lootingLevel) -> {
-            tryDropLuck(entity, lootingLevel, source);
-            return ActionResult.PASS;
-        }));
+        EntityDropsCallback.EVENT.register(this::tryDrop);
     }
 
-    public void tryDropLuck(LivingEntity entity, int lootingLevel, DamageSource damageSource) {
+    public ActionResult tryDrop(LivingEntity entity, DamageSource damageSource, int lootingLevel) {
         if (!entity.world.isClient
             && entity instanceof WitchEntity
             && damageSource.getAttacker() instanceof PlayerEntity
@@ -40,5 +37,6 @@ public class WitchesDropLuck extends MesonModule {
             ItemStack potion = PotionHelper.getPotionItemStack(Potions.LUCK, 1);
             entity.world.spawnEntity(new ItemEntity(entity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), potion));
         }
+        return ActionResult.PASS;
     }
 }

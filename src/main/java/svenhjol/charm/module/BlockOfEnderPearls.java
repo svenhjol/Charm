@@ -2,6 +2,7 @@ package svenhjol.charm.module;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.mob.SilverfishEntity;
@@ -17,9 +18,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.block.EnderPearlBlock;
 import svenhjol.charm.entity.goal.FormEndermiteGoal;
-import svenhjol.meson.event.AddEntityCallback;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.event.AddEntityCallback;
 import svenhjol.meson.helper.MobHelper;
 import svenhjol.meson.helper.PosHelper;
 import svenhjol.meson.iface.Config;
@@ -47,16 +48,7 @@ public class BlockOfEnderPearls extends MesonModule {
 
     @Override
     public void init() {
-        AddEntityCallback.EVENT.register((entity -> {
-            if (!convertSilverfish)
-                return ActionResult.PASS;
-
-            if (!(entity instanceof SilverfishEntity))
-                return ActionResult.PASS; // must be a silverfish to process it
-
-            addGoalToSilverfish((SilverfishEntity)entity);
-            return ActionResult.PASS;
-        }));
+        AddEntityCallback.EVENT.register(this::addGoalToSilverfish);
     }
 
     public static boolean tryChorusTeleport(LivingEntity entity, ItemStack stack) {
@@ -124,10 +116,19 @@ public class BlockOfEnderPearls extends MesonModule {
         return true;
     }
 
-    private void addGoalToSilverfish(SilverfishEntity silverfish) {
+    private ActionResult addGoalToSilverfish(Entity entity) {
+        if (!convertSilverfish)
+            return ActionResult.PASS;
+
+        if (!(entity instanceof SilverfishEntity))
+            return ActionResult.PASS; // must be a silverfish to process it
+
+        SilverfishEntity silverfish = (SilverfishEntity)entity;
         GoalSelector goalSelector = MobHelper.getGoalSelector(silverfish);
 
         if (goalSelector.getRunningGoals().noneMatch(g -> g.getGoal() instanceof FormEndermiteGoal))
             goalSelector.add(2, new FormEndermiteGoal(silverfish));
+
+        return ActionResult.SUCCESS;
     }
 }

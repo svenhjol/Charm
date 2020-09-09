@@ -7,6 +7,9 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.world.World;
 import svenhjol.meson.event.HurtEntityCallback;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
@@ -15,23 +18,22 @@ import svenhjol.meson.iface.Module;
 public class TamedAnimalsNoDamage extends MesonModule {
     @Override
     public void init() {
-        AttackEntityCallback.EVENT.register(((player, world, hand, entity, hitResult) -> {
-            if (entity instanceof TameableEntity
-                && ((TameableEntity)entity).isTamed()
-                && !player.isCreative()
-            ) {
-                return ActionResult.FAIL;
-            }
-            return ActionResult.PASS;
-        }));
-
-        HurtEntityCallback.EVENT.register(((entity, source, amount) -> {
-            boolean result = tryIgnoreDamage(entity, source);
-            return result ? ActionResult.FAIL : ActionResult.PASS;
-        }));
+        AttackEntityCallback.EVENT.register(this::tryIgnoreAttack);
+        HurtEntityCallback.EVENT.register(this::tryIgnoreDamage);
     }
 
-    private boolean tryIgnoreDamage(LivingEntity entity, DamageSource damageSource) {
+    private ActionResult tryIgnoreAttack(PlayerEntity player, World world, Hand hand, Entity entity, EntityHitResult hitResult) {
+        if (entity instanceof TameableEntity
+            && ((TameableEntity)entity).isTamed()
+            && !player.isCreative()
+        ) {
+            return ActionResult.FAIL;
+        }
+
+        return ActionResult.PASS;
+    }
+
+    private ActionResult tryIgnoreDamage(LivingEntity entity, DamageSource damageSource, float amount) {
         if (!(entity instanceof PlayerEntity)) {
             Entity attacker = damageSource.getAttacker();
             Entity source = damageSource.getSource();
@@ -42,8 +44,10 @@ public class TamedAnimalsNoDamage extends MesonModule {
             if (attacker instanceof PlayerEntity) player = (PlayerEntity) attacker;
 
             if (player != null && !player.isCreative())
-                return (entity instanceof TameableEntity && ((TameableEntity) entity).isTamed());
+                if (entity instanceof TameableEntity && ((TameableEntity) entity).isTamed())
+                    return ActionResult.FAIL; // the positive outcome!
         }
-        return false;
+
+        return ActionResult.PASS;
     }
 }

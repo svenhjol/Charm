@@ -14,7 +14,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.iface.Module;
 
@@ -33,28 +35,26 @@ public class HoeHarvesting extends MesonModule {
         addHarvestable("minecraft:potatoes[age=7]");
         addHarvestable("minecraft:wheat[age=7]");
 
-        UseBlockCallback.EVENT.register(((player, world, hand, hitResult) -> {
-            boolean result = tryHarvest(player, hitResult.getBlockPos(), hand, player.getStackInHand(hand));
-            return result ? ActionResult.SUCCESS : ActionResult.PASS;
-        }));
+        UseBlockCallback.EVENT.register(this::tryHarvest);
     }
 
-    public boolean tryHarvest(PlayerEntity player, BlockPos pos, Hand hand, ItemStack held) {
-        if (!player.world.isClient
-            && held.getItem() instanceof HoeItem
-        ) {
+    public ActionResult tryHarvest(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
+        ItemStack held = player.getStackInHand(hand);
+        BlockPos pos = hitResult.getBlockPos();
+
+        if (!world.isClient && held.getItem() instanceof HoeItem) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
-            ServerWorld world = (ServerWorld)serverPlayer.world;
+            ServerWorld serverWorld = (ServerWorld)serverPlayer.world;
             BlockState state = world.getBlockState(pos);
             Block block = state.getBlock();
 
             if (!harvestable.contains(state))
-                return false;
+                return ActionResult.PASS;
 
             Item blockItem = block.asItem();
             BlockState newState = block.getDefaultState();
 
-            List<ItemStack> drops = Block.getDroppedStacks(state, world, pos, null, player, ItemStack.EMPTY);
+            List<ItemStack> drops = Block.getDroppedStacks(state, serverWorld, pos, null, player, ItemStack.EMPTY);
             for (ItemStack drop : drops) {
                 if (drop.getItem() == blockItem)
                     drop.decrement(1);
@@ -68,10 +68,10 @@ public class HoeHarvesting extends MesonModule {
 
             // damage the hoe a bit
             held.damage(1, player, p -> p.swingHand(hand));
-            return true;
+            return ActionResult.SUCCESS;
         }
 
-        return false;
+        return ActionResult.PASS;
     }
 
     public static void addHarvestable(String blockState) {

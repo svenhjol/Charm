@@ -50,13 +50,10 @@ public class MoreVillageBiomes extends MesonModule {
             BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_SNOWY);
         }
 
-        AddEntityCallback.EVENT.register((entity -> {
-            changeVillagerSkin(entity);
-            return ActionResult.PASS;
-        }));
+        AddEntityCallback.EVENT.register(this::changeVillagerSkin);
     }
 
-    private void changeVillagerSkin(Entity entity) {
+    private ActionResult changeVillagerSkin(Entity entity) {
         if (!entity.world.isClient
             && entity instanceof VillagerEntity
             && entity.updateNeeded
@@ -74,5 +71,7 @@ public class MoreVillageBiomes extends MesonModule {
                     villager.setVillagerData(data.withType(VillagerType.forBiome(BiomeHelper.getBiomeKeyAtPosition(world, villager.getBlockPos()))));
             }
         }
+
+        return ActionResult.PASS;
     }
 }

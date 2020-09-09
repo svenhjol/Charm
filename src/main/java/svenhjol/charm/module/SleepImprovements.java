@@ -24,17 +24,13 @@ public class SleepImprovements extends MesonModule {
 
     @Override
     public void init() {
-        ServerTickEvents.END_WORLD_TICK.register((serverWorld -> {
-            if (serverWorld != null
-                && serverWorld.getTime() % 20 == 0
-                && serverWorld.getRegistryKey().equals(World.OVERWORLD)
-            ) {
-                tryEndNight(serverWorld);
-            }
-        }));
+        ServerTickEvents.END_WORLD_TICK.register(this::tryEndNight);
     }
 
     private void tryEndNight(ServerWorld world) {
+        if (world == null || world.getTime() % 20 != 0 || !world.getRegistryKey().equals(World.OVERWORLD))
+            return;
+
         MinecraftServer server = world.getServer();
 
         int currentPlayerCount = world.getServer().getCurrentPlayerCount();

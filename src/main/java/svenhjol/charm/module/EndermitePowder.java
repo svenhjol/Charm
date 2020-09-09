@@ -2,9 +2,11 @@ package svenhjol.charm.module;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.EndermiteEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -50,22 +52,24 @@ public class EndermitePowder extends MesonModule {
     @Override
     public void init() {
         // react to entity drops
-        EntityDropsCallback.EVENT.register(((entity, source, lootingLevel) -> {
-            if (!entity.world.isClient
-                && entity instanceof EndermiteEntity
-            ) {
-                World world = entity.getEntityWorld();
-                BlockPos pos = entity.getBlockPos();
-                int amount = ItemHelper.getAmountWithLooting(world.random, maxDrops, lootingLevel, (float)lootingBoost);
-                world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ENDERMITE_POWDER, amount)));
-            }
-            return ActionResult.PASS;
-        }));
+        EntityDropsCallback.EVENT.register(this::tryDropEndermitePowder);
     }
 
     @Override
     @Environment(EnvType.CLIENT)
     public void clientRegister() {
         new EndermitePowderClient(this);
+    }
+
+    private ActionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {
+        if (!entity.world.isClient
+            && entity instanceof EndermiteEntity
+        ) {
+            World world = entity.getEntityWorld();
+            BlockPos pos = entity.getBlockPos();
+            int amount = ItemHelper.getAmountWithLooting(world.random, maxDrops, lootingLevel, (float)lootingBoost);
+            world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ENDERMITE_POWDER, amount)));
+        }
+        return ActionResult.PASS;
     }
 }

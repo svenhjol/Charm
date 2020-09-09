@@ -37,7 +37,7 @@ public abstract class MesonModule {
     }
 
     public void clientInit() {
-        // run on both sides, only executed if module enabled
+        // run on client, only executed if module enabled
     }
 
     public void initWorld() {

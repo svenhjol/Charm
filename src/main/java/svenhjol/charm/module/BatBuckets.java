@@ -10,6 +10,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.BatBucketClient;
 import svenhjol.charm.item.BatBucketItem;
@@ -39,10 +41,7 @@ public class BatBuckets extends MesonModule {
 
     @Override
     public void init() {
-        UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-            capture(entity, player, hand);
-            return ActionResult.PASS;
-        });
+        UseEntityCallback.EVENT.register(this::tryCapture);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class BatBuckets extends MesonModule {
         client = new BatBucketClient(this);
     }
 
-    private void capture(Entity entity, PlayerEntity player, Hand hand) {
+    private ActionResult tryCapture(PlayerEntity player, World world, Hand hand, Entity entity, EntityHitResult hitResult) {
         if (!entity.world.isClient
             && entity instanceof BatEntity
             && ((BatEntity)entity).getHealth() > 0
@@ -59,7 +58,7 @@ public class BatBuckets extends MesonModule {
             ItemStack held = player.getStackInHand(hand);
 
             if (held.isEmpty() || held.getItem() != Items.BUCKET)
-                return;
+                return ActionResult.PASS;
 
             ItemStack batBucket = new ItemStack(BAT_BUCKET_ITEM);
             CompoundTag tag = new CompoundTag();
@@ -74,6 +73,9 @@ public class BatBuckets extends MesonModule {
 
             player.swingHand(hand);
             entity.remove();
+            return ActionResult.SUCCESS;
         }
+
+        return ActionResult.PASS;
     }
 }
