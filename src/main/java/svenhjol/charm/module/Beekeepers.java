@@ -45,7 +45,9 @@ public class Beekeepers extends MesonModule {
         // register beekeeper structures
         StructureSetupCallback.EVENT.register(() -> {
             addVillageHouse(VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_beekeeper_1"), 10);
+            addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_beekeeper_1"), 10);
             addVillageHouse(VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_beekeeper_1"), 10);
+            addVillageHouse(VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_beekeeper_2"), 10);
             addVillageHouse(VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_beekeeper_1"), 10);
         });
     }
