@@ -12,6 +12,7 @@ import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.event.StructureSetupCallback;
+import svenhjol.meson.event.StructureSetupCallback.VillageType;
 import svenhjol.meson.helper.VillagerHelper;
 import svenhjol.meson.iface.Module;
 
@@ -36,13 +37,12 @@ public class Lumberjacks extends MesonModule {
 
         // register lumberjack structures
         StructureSetupCallback.EVENT.register(() -> {
-
-            addVillageHouse(StructureSetupCallback.VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_1"), 10);
-            addVillageHouse(StructureSetupCallback.VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_lumberjack_1"), 10);
-            addVillageHouse(StructureSetupCallback.VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_lumberjack_1"), 10);
-            addVillageHouse(StructureSetupCallback.VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_lumberjack_1"), 10);
-            addVillageHouse(StructureSetupCallback.VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_2"), 10);
-            addVillageHouse(StructureSetupCallback.VillageType.SNOWY, new Identifier("charm:village/snowy/houses/snowy_lumberbee_1"), 10);
+            addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_1"), 10);
+            addVillageHouse(VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_lumberjack_1"), 10);
+            addVillageHouse(VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_lumberjack_1"), 10);
+            addVillageHouse(VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_lumberjack_1"), 10);
+            addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_2"), 10);
+            addVillageHouse(VillageType.SNOWY, new Identifier("charm:village/snowy/houses/snowy_lumberbee_1"), 10);
         });
     }
 
