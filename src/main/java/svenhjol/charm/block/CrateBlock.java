@@ -85,7 +85,7 @@ public class CrateBlock extends MesonBlockEntity {
         if (blockEntity instanceof CrateBlockEntity) {
             CrateBlockEntity crate = (CrateBlockEntity)blockEntity;
 
-            if (!world.isClient && player.isCreative()) {
+            if (!world.isClient && player.isCreative() && !crate.isEmpty()) {
                 ItemStack stack = new ItemStack(getBlockByMaterial(this.type));
                 CompoundTag tag = crate.toTag(new CompoundTag());
 
