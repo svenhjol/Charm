@@ -36,6 +36,10 @@ public interface StructureSetupCallback {
             List<Pair<StructurePoolElement, Integer>> elementCounts = ((StructurePoolAccessor) pool).getElementCounts();
             ((StructurePoolAccessor)pool).setElementCounts(new ArrayList<>(elementCounts));
 
+            if (false) { // DELETES ALL IN POOL, DO NOT USE!
+                ((StructurePoolAccessor) pool).setElementCounts(new ArrayList<>());
+            }
+
             vanillaPools.put(id, pool);
         }
 
@@ -48,10 +52,6 @@ public interface StructureSetupCallback {
 
         StructurePoolElement element = pair.getFirst().apply(projection);
         StructurePool pool = getVanillaPool(poolId);
-
-        if (false) { // DELETES ALL IN POOL, DO NOT USE!
-            ((StructurePoolAccessor) pool).setElementCounts(new ArrayList<>());
-        }
         
         // add custom piece to the element counts
         ((StructurePoolAccessor)pool).getElementCounts().add(Pair.of(element, count));
