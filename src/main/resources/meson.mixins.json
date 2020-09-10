@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ItemEntityMixin",
+    "LivingEntityMixin",
     "MinecraftDedicatedServerMixin",
     "PlayerEntityMixin",
     "RecipeManagerMixin",

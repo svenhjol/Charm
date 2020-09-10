@@ -20,9 +20,9 @@ public class MusicCondition {
     }
 
     public MusicCondition(MusicSound music) {
-        this.sound = music.getEvent();
-        this.minDelay = music.method_27280();
-        this.maxDelay = music.method_27281();
+        this.sound = music.getSound();
+        this.minDelay = music.getMinDelay();
+        this.maxDelay = music.getMaxDelay();
     }
 
     public boolean handle() {

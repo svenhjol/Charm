@@ -33,6 +33,8 @@ import java.util.Map;
 @Module(description = "Ender pearl storage. Eating a chorus fruit will teleport you to the nearest ender pearl block.")
 public class BlockOfEnderPearls extends MesonModule {
     public static EnderPearlBlock ENDER_PEARL_BLOCK;
+
+    @Config(name = "Chorus teleport range", description = "A chorus fruit will teleport you to an ender pearl block within this range (in blocks).")
     public static int teleportRange = 8;
 
     @Config(name = "Chorus fruit teleport", description = "If true, eating a chorus fruit while in range of an ender pearl block will teleport you to it.")
