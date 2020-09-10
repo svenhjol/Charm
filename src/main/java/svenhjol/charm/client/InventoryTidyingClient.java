@@ -10,21 +10,19 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.CharmResources;
-import svenhjol.meson.event.RenderGuiCallback;
-import svenhjol.meson.event.SetupGuiCallback;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
-import svenhjol.meson.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.InventoryTidying;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.event.RenderGuiCallback;
+import svenhjol.meson.event.SetupGuiCallback;
 import svenhjol.meson.helper.ScreenHelper;
+import svenhjol.meson.mixin.accessor.SlotAccessor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
 import static svenhjol.charm.handler.InventoryTidyingHandler.BE;
+import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
 
 public class InventoryTidyingClient {
     private final MesonModule module;
@@ -36,11 +34,16 @@ public class InventoryTidyingClient {
     public final List<Class<? extends Screen>> blockEntityScreens = new ArrayList<>();
     public final List<Class<? extends Screen>> blacklistScreens = new ArrayList<>();
 
+    public final Map<Class<? extends Screen>, Map<Integer, Integer>> screenTweaks = new HashMap<>();
+
     public InventoryTidyingClient(MesonModule module) {
         this.module = module;
 
         if (!module.enabled)
             return;
+
+        screenTweaks.put(MerchantScreen.class, new HashMap<Integer, Integer>() {{ put(100, 0); }});
+        screenTweaks.put(InventoryScreen.class, new HashMap<Integer, Integer>() {{ put(0, 76); }});
 
         blockEntityScreens.addAll(Arrays.asList(
             GenericContainerScreen.class,
@@ -52,7 +55,8 @@ public class InventoryTidyingClient {
         ));
 
         blacklistScreens.addAll(Arrays.asList(
-            CreativeInventoryScreen.class
+            CreativeInventoryScreen.class,
+            BeaconScreen.class
         ));
 
         // set up client listeners
@@ -69,10 +73,19 @@ public class InventoryTidyingClient {
             sortingButtons.clear();
 
             HandledScreen<?> screen = (HandledScreen<?>)client.currentScreen;
+            Class<? extends HandledScreen> clazz = screen.getClass();
             ScreenHandler screenHandler = screen.getScreenHandler();
 
             int x = ScreenHelper.getX(screen) + LEFT;
             int y = ScreenHelper.getY(screen) - TOP;
+
+            if (screenTweaks.containsKey(clazz)) {
+                Map<Integer, Integer> m = screenTweaks.get(clazz);
+                for (Map.Entry<Integer, Integer> e : m.entrySet()) {
+                    x += e.getKey();
+                    y += e.getValue();
+                }
+            }
 
             List<Slot> slots = screenHandler.slots;
             for (Slot slot : slots) {
@@ -81,9 +94,6 @@ public class InventoryTidyingClient {
                 }
 
                 if (slot.inventory == client.player.inventory) {
-                    if (screen instanceof InventoryScreen)
-                        y += 76;
-
                     this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(PLAYER));
                     break;
                 }
