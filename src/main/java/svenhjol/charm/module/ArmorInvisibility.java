@@ -35,6 +35,9 @@ public class ArmorInvisibility extends MesonModule {
     }
 
     public static boolean shouldArmorBeInvisible(Entity entity, ItemStack stack) {
+        if (stack.isEmpty())
+            return true; // air is invisible!
+
         if (isEnabled && entity instanceof LivingEntity) {
             if (((LivingEntity)entity).getStatusEffect(StatusEffects.INVISIBILITY) != null)
                 return invisibleItems.contains(stack.getItem());

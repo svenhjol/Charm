@@ -1,13 +1,10 @@
 package svenhjol.charm.mixin;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,10 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.meson.event.EntityDropsCallback;
-import svenhjol.meson.event.HurtEntityCallback;
 import svenhjol.charm.module.ArmorInvisibility;
 import svenhjol.charm.module.UseTotemFromInventory;
 import svenhjol.charm.module.VariantLadders;
@@ -45,28 +39,9 @@ public abstract class LivingEntityMixin extends Entity {
         return UseTotemFromInventory.tryFromInventory(livingEntity, hand);
     }
 
-    @Inject(method = "drop", at = @At("TAIL"))
-    private void hookDrop(DamageSource source, CallbackInfo ci) {
-        LivingEntity entity = (LivingEntity)(Object)this;
-        int lootingLevel = EnchantmentHelper.getLooting(entity);
-
-        EntityDropsCallback.EVENT.invoker().interact(entity, source, lootingLevel);
-    }
-    
-    @Inject(
-        method = "applyDamage",
-        at = @At("HEAD"),
-        cancellable = true
-    )
-    private void hookApplyDamage(DamageSource source, float amount, CallbackInfo ci) {
-        ActionResult result = HurtEntityCallback.EVENT.invoker().interact((LivingEntity) (Object) this, source, amount);
-        if (result == ActionResult.FAIL)
-            ci.cancel();
-    }
-
     @Inject(
         method = "getArmorVisibility",
-        at = @At(value = "RETURN"),
+        at = @At(value = "HEAD"),
         cancellable = true
     )
     private void hookArmorCover(CallbackInfoReturnable<Float> cir) {
