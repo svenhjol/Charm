@@ -148,7 +148,7 @@ public class MusicClient {
     }
 
     public static boolean handlePlaying(MusicSound music) {
-        return currentMusic != null && music.getEvent().getId().equals(currentMusic.getId());
+        return currentMusic != null && music.getSound().getId().equals(currentMusic.getId());
     }
 
     public static void forceStop() {
