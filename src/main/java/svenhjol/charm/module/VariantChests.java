@@ -46,7 +46,7 @@ public class VariantChests extends MesonModule {
     }
 
     @Override
-    public void clientInit() {
+    public void clientRegister() {
         new VariantChestClient(this);
     }
 
