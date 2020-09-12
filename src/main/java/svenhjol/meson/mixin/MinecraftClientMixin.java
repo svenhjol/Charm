@@ -5,7 +5,7 @@ import net.minecraft.resource.ResourcePackManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.meson.event.CommonSetupCallback;
+import svenhjol.meson.event.ClientJoinCallback;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
@@ -18,7 +18,7 @@ public class MinecraftClientMixin {
     )
     private void hookAfterScanPacks(ResourcePackManager resourcePackManager) {
         resourcePackManager.scanPacks();
-        CommonSetupCallback.EVENT.invoker().interact();
+        ClientJoinCallback.EVENT.invoker().interact((MinecraftClient)(Object)this);
     }
 }
 

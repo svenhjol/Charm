@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.meson.event.ServerSetupCallback;
+import svenhjol.meson.event.DedicatedServerSetupCallback;
 
 @Mixin(MinecraftDedicatedServer.class)
 public class MinecraftDedicatedServerMixin {
@@ -18,6 +18,6 @@ public class MinecraftDedicatedServerMixin {
         remap = false
     ))
     private void hookSetupServer(CallbackInfoReturnable<Boolean> cir) {
-        ServerSetupCallback.EVENT.invoker().interact((MinecraftServer)(Object)this);
+        DedicatedServerSetupCallback.EVENT.invoker().interact((MinecraftServer)(Object)this);
     }
 }
