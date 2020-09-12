@@ -2,7 +2,9 @@ package svenhjol.meson;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-import svenhjol.meson.event.CommonSetupCallback;
+import svenhjol.meson.event.ClientJoinCallback;
+import svenhjol.meson.event.DedicatedServerSetupCallback;
+import svenhjol.meson.event.LoadWorldCallback;
 import svenhjol.meson.event.StructureSetupCallback;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.helper.StringHelper;
@@ -42,14 +44,19 @@ public class Meson {
         // allow mods to modify structures in a controlled way
         StructureSetupCallback.EVENT.invoker().interact();
 
-        // listen for common setup events
-        CommonSetupCallback.EVENT.register(() -> {
-            mods.forEach((id, mod) -> {
-                mod.eachEnabledModule(MesonModule::initWorld);
+        // listen for world loading events
+        LoadWorldCallback.EVENT.register(server -> {
+            mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.loadWorld(server)));
+        });
 
-                if (Meson.isClient())
-                    mod.eachEnabledModule(MesonModule::clientInitWorld);
-            });
+        // listen for client join events (client only)
+        ClientJoinCallback.EVENT.register(client -> {
+            mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.clientJoinWorld(client)));
+        });
+
+        // listen for server setup events (dedicated server only)
+        DedicatedServerSetupCallback.EVENT.register(server -> {
+            mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.dedicatedServerInit(server)));
         });
     }
 

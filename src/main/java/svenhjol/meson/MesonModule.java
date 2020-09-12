@@ -1,5 +1,7 @@
 package svenhjol.meson;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -40,11 +42,15 @@ public abstract class MesonModule {
         // run on client, only executed if module enabled
     }
 
-    public void initWorld() {
-        // run on both sides on world load, only executed if module enabled
+    public void loadWorld(MinecraftServer server) {
+        // run on server on world load, only executed if module enabled
     }
 
-    public void clientInitWorld() {
+    public void clientJoinWorld(MinecraftClient client) {
         // run on client on world load, only executed if module enabled
+    }
+
+    public void dedicatedServerInit(MinecraftServer server) {
+        // run only on the dedicated server world load, only executed if module enabled
     }
 }
