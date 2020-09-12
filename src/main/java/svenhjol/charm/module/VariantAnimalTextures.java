@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.DyeColor;
@@ -66,7 +67,7 @@ public class VariantAnimalTextures extends MesonModule {
     }
 
     @Override
-    public void initWorld() {
+    public void clientJoinWorld(MinecraftClient client) {
         // add vanilla textures
         chickens.add(new Identifier(PREFIX + "chicken.png"));
         cows.add(new Identifier(PREFIX + "cow/cow.png"));
