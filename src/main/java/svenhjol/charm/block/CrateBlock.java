@@ -25,13 +25,13 @@ import net.minecraft.world.World;
 import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.module.Crates;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.MesonBlockEntity;
+import svenhjol.meson.block.MesonBlockWithEntity;
 import svenhjol.meson.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class CrateBlock extends MesonBlockEntity {
+public class CrateBlock extends MesonBlockWithEntity {
     private static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
     private static final Identifier CONTENTS = new Identifier("contents");
     private IVariantMaterial type;
@@ -51,11 +51,6 @@ public class CrateBlock extends MesonBlockEntity {
         CrateBlockEntity crate = new CrateBlockEntity();
         crate.setCustomName(new TranslatableText("block." + this.module.mod.getId() + "." + type.asString() + "_crate"));
         return crate;
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
     }
 
     @Override

@@ -1,15 +1,17 @@
 package svenhjol.meson.block;
 
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.meson.MesonModule;
 
-public abstract class MesonBlockEntity extends BlockWithEntity implements IMesonBlock {
+public abstract class MesonBlockWithEntity extends BlockWithEntity implements IMesonBlock {
     public MesonModule module;
 
-    protected MesonBlockEntity(MesonModule module, String name, Settings props) {
+    protected MesonBlockWithEntity(MesonModule module, String name, Settings props) {
         super(props);
         this.module = module;
         register(module, name);
@@ -24,5 +26,10 @@ public abstract class MesonBlockEntity extends BlockWithEntity implements IMeson
     @Override
     public boolean enabled() {
         return module.enabled;
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 }

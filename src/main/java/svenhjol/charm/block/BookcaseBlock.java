@@ -20,12 +20,12 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import svenhjol.charm.blockentity.BookcaseBlockEntity;
 import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.MesonBlockEntity;
+import svenhjol.meson.block.MesonBlockWithEntity;
 import svenhjol.meson.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 
-public class BookcaseBlock extends MesonBlockEntity {
+public class BookcaseBlock extends MesonBlockWithEntity {
     public static final IntProperty SLOTS = IntProperty.of("slots", 0, BookcaseBlockEntity.SIZE);
 
     protected MesonModule module;
@@ -39,11 +39,6 @@ public class BookcaseBlock extends MesonBlockEntity {
         this.type = type;
 
         setDefaultState(getDefaultState().with(SLOTS, 0));
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
     }
 
     @Override
