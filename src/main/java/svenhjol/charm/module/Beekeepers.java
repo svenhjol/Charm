@@ -14,6 +14,7 @@ import svenhjol.meson.helper.VillagerHelper;
 import svenhjol.meson.iface.Module;
 
 import static svenhjol.meson.event.StructureSetupCallback.addVillageHouse;
+import static svenhjol.meson.helper.VillagerHelper.addTrade;
 
 @Module(description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
 public class Beekeepers extends MesonModule {
@@ -28,14 +29,14 @@ public class Beekeepers extends MesonModule {
         ((PointOfInterestTypeAccessor)PointOfInterestType.BEEHIVE).setTicketCount(1);
 
         // register beekeeper trades
-        VillagerHelper.addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.EmeraldsForFlowers());
-        VillagerHelper.addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.BottlesForEmerald());
-        VillagerHelper.addTrade(BEEKEEPER, 2, new BeekeeperTradeOffers.EmeraldsForCharcoal());
-        VillagerHelper.addTrade(BEEKEEPER, 2, new BeekeeperTradeOffers.BeeswaxForEmeralds());
-        VillagerHelper.addTrade(BEEKEEPER, 3, new BeekeeperTradeOffers.EmeraldsForHoneycomb());
-        VillagerHelper.addTrade(BEEKEEPER, 3, new BeekeeperTradeOffers.CampfireForEmerald());
-        VillagerHelper.addTrade(BEEKEEPER, 4, new BeekeeperTradeOffers.LeadForEmeralds());
-        VillagerHelper.addTrade(BEEKEEPER, 5, new BeekeeperTradeOffers.PopulatedBeehiveForEmeralds());
+        addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.EmeraldsForFlowers());
+        addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.BottlesForEmerald());
+        addTrade(BEEKEEPER, 2, new BeekeeperTradeOffers.EmeraldsForCharcoal());
+        addTrade(BEEKEEPER, 2, new BeekeeperTradeOffers.BeeswaxForEmeralds());
+        addTrade(BEEKEEPER, 3, new BeekeeperTradeOffers.EmeraldsForHoneycomb());
+        addTrade(BEEKEEPER, 3, new BeekeeperTradeOffers.CampfireForEmerald());
+        addTrade(BEEKEEPER, 4, new BeekeeperTradeOffers.LeadForEmeralds());
+        addTrade(BEEKEEPER, 5, new BeekeeperTradeOffers.PopulatedBeehiveForEmeralds());
 
         // register beekeeper structures
         StructureSetupCallback.EVENT.register(() -> {
