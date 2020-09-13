@@ -6,6 +6,7 @@ import svenhjol.meson.event.ClientJoinCallback;
 import svenhjol.meson.event.DedicatedServerSetupCallback;
 import svenhjol.meson.event.LoadWorldCallback;
 import svenhjol.meson.event.StructureSetupCallback;
+import svenhjol.meson.handler.DecorationHandler;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.helper.StringHelper;
 
@@ -20,6 +21,7 @@ public class Meson {
     private static Map<String, MesonMod> mods = new ConcurrentHashMap<>();
 
     private Meson() {
+        DecorationHandler.init();
     }
 
     public void register(MesonMod mod) {
