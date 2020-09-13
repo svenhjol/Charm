@@ -16,7 +16,6 @@ public class Charm extends MesonMod {
     @Override
     public void onInitialize() {
         super.init(MOD_ID);
-        CharmSounds.init(this);
 
         // Charm seems to always be the last to launch, but needs more testing
         Meson.go();
