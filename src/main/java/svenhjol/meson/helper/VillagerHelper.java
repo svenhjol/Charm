@@ -81,6 +81,16 @@ public class VillagerHelper {
         protected int experience = 2;
         protected float multiplier = 0.05F;
 
+        public void setInput(Item item, int count) {
+            this.in = item;
+            this.inCount = count;
+        }
+
+        public void setOutput(Item item, int count) {
+            this.out = item;
+            this.outCount = count;
+        }
+
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
