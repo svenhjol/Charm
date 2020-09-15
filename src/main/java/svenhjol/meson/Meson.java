@@ -21,7 +21,6 @@ public class Meson {
     private static Map<String, MesonMod> mods = new ConcurrentHashMap<>();
 
     private Meson() {
-        DecorationHandler.init();
     }
 
     public void register(MesonMod mod) {
@@ -48,6 +47,7 @@ public class Meson {
 
         // listen for world loading events
         LoadWorldCallback.EVENT.register(server -> {
+            DecorationHandler.init();
             mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.loadWorld(server)));
         });
 
