@@ -18,6 +18,18 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public class BiomeHelper {
+    public static List<String> BADLANDS = new ArrayList<>();
+    public static List<String> DESERT = new ArrayList<>();
+    public static List<String> END = new ArrayList<>();
+    public static List<String> FOREST = new ArrayList<>();
+    public static List<String> JUNGLE = new ArrayList<>();
+    public static List<String> MOUNTAINS = new ArrayList<>();
+    public static List<String> NETHER = new ArrayList<>();
+    public static List<String> PLAINS = new ArrayList<>();
+    public static List<String> SAVANNA = new ArrayList<>();
+    public static List<String> SNOWY = new ArrayList<>();
+    public static List<String> TAIGA = new ArrayList<>();
+
     public static Biome getBiome(ServerWorld world, BlockPos pos) {
         BiomeAccess biomeAccess = world.getBiomeAccess();
         return biomeAccess.getBiome(pos);

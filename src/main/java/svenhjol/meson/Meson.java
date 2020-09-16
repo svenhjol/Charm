@@ -6,6 +6,7 @@ import svenhjol.meson.event.ClientJoinCallback;
 import svenhjol.meson.event.DedicatedServerSetupCallback;
 import svenhjol.meson.event.LoadWorldCallback;
 import svenhjol.meson.event.StructureSetupCallback;
+import svenhjol.meson.handler.BiomeHandler;
 import svenhjol.meson.handler.DecorationHandler;
 import svenhjol.meson.handler.LogHandler;
 import svenhjol.meson.helper.StringHelper;
@@ -28,6 +29,8 @@ public class Meson {
     }
 
     public static void go() {
+        BiomeHandler.init();
+
         // early init, use for registering blocks etc.
         mods.forEach((id, mod) -> {
             mod.eachModule(MesonModule::register);
@@ -47,7 +50,7 @@ public class Meson {
 
         // listen for world loading events
         LoadWorldCallback.EVENT.register(server -> {
-            DecorationHandler.init();
+            DecorationHandler.init(); // needs to be loaded late so that tags are populated
             mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.loadWorld(server)));
         });
 
