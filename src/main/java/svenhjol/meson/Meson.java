@@ -22,7 +22,6 @@ public class Meson {
     private static Map<String, MesonMod> mods = new ConcurrentHashMap<>();
 
     private Meson() {
-        DecorationHandler.init();
     }
 
     public void register(MesonMod mod) {

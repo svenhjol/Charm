@@ -4,18 +4,20 @@ import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tag.ItemTags;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import svenhjol.charm.module.Candles;
 import svenhjol.meson.Meson;
-import svenhjol.meson.helper.DecorationHelper;
 import svenhjol.meson.helper.VillagerHelper.SingleItemTypeTrade;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 public class BeekeeperTradeOffers {
@@ -23,7 +25,8 @@ public class BeekeeperTradeOffers {
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
-            setInput(DecorationHelper.flower(random), random.nextInt(3) + 13);
+            List<Item> flowers = ItemTags.FLOWERS.values();
+            setInput(flowers.get(random.nextInt(flowers.size())), random.nextInt(3) + 13);
             setOutput(Items.EMERALD, 1);
             return super.create(entity, random);
         }
