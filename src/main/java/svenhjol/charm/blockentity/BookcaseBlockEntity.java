@@ -129,11 +129,7 @@ public class BookcaseBlockEntity extends LootableContainerBlockEntity implements
         int filled = 0;
 
         for (int i = 0; i < SIZE; i++) {
-            if (world == null)
-                continue;
-
-            ItemStack stack = getStack(i);
-            if (stack == null || !stack.isEmpty())
+            if (!getStack(i).isEmpty())
                 filled++;
         }
 
