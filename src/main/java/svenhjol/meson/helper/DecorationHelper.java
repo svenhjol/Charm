@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 public class DecorationHelper {
+    public static List<Block> BARK = new ArrayList<>();
     public static List<Identifier> BOOKCASE_LOOT_TABLES = new ArrayList<>();
     public static List<Block> CARPETS = new ArrayList<>();
     public static List<Identifier> CHEST_LOOT_TABLES = new ArrayList<>();
@@ -28,6 +29,8 @@ public class DecorationHelper {
     public static List<Block> RARE_ORES = new ArrayList<>();
     public static List<Block> SAPLINGS = new ArrayList<>();
     public static List<EntityType<?>> SPAWNER_MOBS = new ArrayList<>();
+    public static List<Block> STRIPPED_LOGS = new ArrayList<>();
+    public static List<Block> STRIPPED_WOOD = new ArrayList<>();
     public static List<IVariantMaterial> VARIANT_MATERIALS = new ArrayList<>();
     public static List<Block> WOOL = new ArrayList<>();
 
@@ -40,14 +43,41 @@ public class DecorationHelper {
 
         VARIANT_MATERIALS.addAll(VanillaVariantMaterial.getTypes());
 
-        CHEST_LOOT_TABLES = Arrays.asList(
+        BARK.addAll(Arrays.asList(
+            Blocks.ACACIA_WOOD,
+            Blocks.BIRCH_WOOD,
+            Blocks.DARK_OAK_WOOD,
+            Blocks.JUNGLE_WOOD,
+            Blocks.OAK_WOOD,
+            Blocks.SPRUCE_WOOD
+        ));
+
+        STRIPPED_LOGS.addAll(Arrays.asList(
+            Blocks.STRIPPED_ACACIA_LOG,
+            Blocks.STRIPPED_BIRCH_LOG,
+            Blocks.STRIPPED_DARK_OAK_LOG,
+            Blocks.STRIPPED_JUNGLE_LOG,
+            Blocks.STRIPPED_OAK_LOG,
+            Blocks.STRIPPED_SPRUCE_LOG
+        ));
+
+        STRIPPED_WOOD.addAll(Arrays.asList(
+            Blocks.STRIPPED_ACACIA_WOOD,
+            Blocks.STRIPPED_BIRCH_WOOD,
+            Blocks.STRIPPED_DARK_OAK_WOOD,
+            Blocks.STRIPPED_JUNGLE_WOOD,
+            Blocks.STRIPPED_OAK_WOOD,
+            Blocks.STRIPPED_SPRUCE_WOOD
+        ));
+
+        CHEST_LOOT_TABLES.addAll(Arrays.asList(
             LootTables.ABANDONED_MINESHAFT_CHEST,
             LootTables.BURIED_TREASURE_CHEST,
             LootTables.DESERT_PYRAMID_CHEST,
             LootTables.JUNGLE_TEMPLE_CHEST,
             LootTables.SIMPLE_DUNGEON_CHEST,
             LootTables.STRONGHOLD_CORRIDOR_CHEST
-        );
+        ));
 
         COMMON_LOOT_TABLES.addAll(Arrays.asList(
             LootTables.JUNGLE_TEMPLE_DISPENSER_CHEST,
