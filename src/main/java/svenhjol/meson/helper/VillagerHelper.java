@@ -7,7 +7,7 @@ import net.fabricmc.fabric.mixin.object.builder.PointOfInterestTypeAccessor;
 import net.fabricmc.fabric.mixin.object.builder.VillagerProfessionAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvent;
@@ -73,20 +73,20 @@ public class VillagerHelper {
     }
 
     public static abstract class SingleItemTypeTrade implements Factory {
-        protected Item in = Items.AIR;
-        protected Item out = Items.EMERALD;
+        protected ItemConvertible  in = Items.AIR;
+        protected ItemConvertible out = Items.EMERALD;
         protected int inCount = 1;
         protected int outCount = 1;
         protected int maxUses = 20;
         protected int experience = 2;
         protected float multiplier = 0.05F;
 
-        public void setInput(Item item, int count) {
+        public void setInput(ItemConvertible item, int count) {
             this.in = item;
             this.inCount = count;
         }
 
-        public void setOutput(Item item, int count) {
+        public void setOutput(ItemConvertible item, int count) {
             this.out = item;
             this.outCount = count;
         }
