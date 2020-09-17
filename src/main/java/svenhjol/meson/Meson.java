@@ -55,9 +55,11 @@ public class Meson {
         });
 
         // listen for client join events (client only)
-        ClientJoinCallback.EVENT.register(client -> {
-            mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.clientJoinWorld(client)));
-        });
+        if (isClient()) {
+            ClientJoinCallback.EVENT.register(client -> {
+                mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.clientJoinWorld(client)));
+            });
+        }
 
         // listen for server setup events (dedicated server only)
         DedicatedServerSetupCallback.EVENT.register(server -> {
