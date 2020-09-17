@@ -1,6 +1,5 @@
 package svenhjol.charm;
 
-import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.module.*;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonMod;
@@ -56,7 +55,6 @@ public class Charm extends MesonMod {
             Lumberjacks.class,
             MineshaftImprovements.class,
             MoreVillageBiomes.class,
-            MoreVillagerTrades.class,
             MusicImprovements.class,
             NetheriteNuggets.class,
             PathToDirt.class,
