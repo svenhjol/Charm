@@ -6,10 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import svenhjol.meson.mixin.accessor.FireBlockAccessor;
-import svenhjol.meson.mixin.accessor.HoeItemAccessor;
-import svenhjol.meson.mixin.accessor.PickaxeItemAccessor;
-import svenhjol.meson.mixin.accessor.ShovelItemAccessor;
+import svenhjol.meson.mixin.accessor.*;
 import svenhjol.meson.MesonModule;
 
 import java.util.function.BiConsumer;
@@ -59,6 +56,9 @@ public interface IMesonBlock {
     default void setEffectiveTool(Class<? extends MiningToolItem> clazz) {
         if (clazz == PickaxeItem.class)
             PickaxeItemAccessor.getEffectiveBlocks().add((Block)this);
+
+        if (clazz == AxeItem.class)
+            AxeItemAccessor.getEffectiveBlocks().add((Block)this);
 
         if (clazz == ShovelItem.class)
             ShovelItemAccessor.getEffectiveBlocks().add((Block)this);

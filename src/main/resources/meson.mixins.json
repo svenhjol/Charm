@@ -13,6 +13,7 @@
     "ServerWorldMixin",
     "ThrownEntityMixin",
     "accessor.AnvilScreenHandlerAccessor",
+    "accessor.AxeItemAccessor",
     "accessor.BarrelBlockEntityAccessor",
     "accessor.BlockAccessor",
     "accessor.DispenserBlockAccessor",
