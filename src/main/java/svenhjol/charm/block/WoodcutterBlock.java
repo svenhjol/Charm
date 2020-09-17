@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.StonecutterBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -32,6 +33,8 @@ public class WoodcutterBlock extends StonecutterBlock implements IMesonBlock {
         super(AbstractBlock.Settings.copy(Blocks.STONECUTTER));
         register(module, "woodcutter");
         this.module = module;
+
+        setEffectiveTool(AxeItem.class);
     }
 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
