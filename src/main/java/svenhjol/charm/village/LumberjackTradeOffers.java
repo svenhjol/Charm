@@ -32,7 +32,20 @@ public class LumberjackTradeOffers {
         @Override
         public TradeOffer create(Entity entity, Random random) {
             experience = 2;
-            List<Item> logs = ItemTags.LOGS_THAT_BURN.values();
+            List<ItemConvertible> logs = new ArrayList<>(Arrays.asList(
+                Blocks.ACACIA_LOG,
+                Blocks.BIRCH_LOG,
+                Blocks.DARK_OAK_LOG,
+                Blocks.JUNGLE_LOG,
+                Blocks.OAK_LOG,
+                Blocks.SPRUCE_LOG,
+                Blocks.STRIPPED_ACACIA_LOG,
+                Blocks.STRIPPED_BIRCH_LOG,
+                Blocks.STRIPPED_DARK_OAK_LOG,
+                Blocks.STRIPPED_JUNGLE_LOG,
+                Blocks.STRIPPED_OAK_LOG,
+                Blocks.STRIPPED_SPRUCE_LOG
+            ));
             setInput(logs.get(random.nextInt(logs.size())), 8);
             setOutput(Items.EMERALD, 1);
             return super.create(entity, random);
@@ -43,7 +56,7 @@ public class LumberjackTradeOffers {
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
-            experience = 3;
+            experience = 2;
             List<Item> saplings = Arrays.asList(Items.OAK_SAPLING, Items.BIRCH_SAPLING, Items.SPRUCE_SAPLING);
             setInput(Items.EMERALD, 1);
             setOutput(saplings.get(random.nextInt(saplings.size())), 1);
@@ -86,7 +99,7 @@ public class LumberjackTradeOffers {
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
-            experience = 8;
+            experience = 7;
             List<Item> beds = ItemTags.BEDS.values();
             setInput(Items.EMERALD, 3);
             setOutput(beds.get(random.nextInt(beds.size())), 1);
@@ -98,7 +111,7 @@ public class LumberjackTradeOffers {
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
-            experience = 7;
+            experience = 6;
             List<ItemConvertible> doors = random.nextFloat() < 0.5F ? new ArrayList<>(ItemTags.WOODEN_FENCES.values()) : new ArrayList<>(BlockTags.FENCE_GATES.values());
             setInput(Items.EMERALD, 1);
             setOutput(doors.get(random.nextInt(doors.size())), 1);
@@ -158,8 +171,8 @@ public class LumberjackTradeOffers {
         public TradeOffer create(Entity entity, Random random) {
             experience = 10;
             List<Item> saplings = Arrays.asList(Items.ACACIA_SAPLING, Items.DARK_OAK_SAPLING, Items.JUNGLE_SAPLING);
-            setInput(saplings.get(random.nextInt(saplings.size())), 1);
-            setOutput(Items.EMERALD, 3);
+            setInput(Items.EMERALD, 3);
+            setOutput(saplings.get(random.nextInt(saplings.size())), 1);
             return super.create(entity, random);
         }
     }
@@ -190,6 +203,9 @@ public class LumberjackTradeOffers {
         }
     }
 
+    /**
+     * @deprecated Log inputs can be reduced to 1, making this trade too OP.
+     */
     public static class PlanksForLogs implements TradeOffers.Factory {
         @Nullable
         @Override
@@ -214,6 +230,22 @@ public class LumberjackTradeOffers {
             ItemConvertible out = planks.get(logs.get(index));
 
             return new TradeOffer(new ItemStack(in1, count), new ItemStack(in2, 1), new ItemStack(out, count * 6), 5, 15, 0.05F);
+        }
+    }
+
+    public static class MusicBlocksForLogs extends SingleItemTypeTrade {
+        @Nullable
+        @Override
+        public TradeOffer create(Entity entity, Random random) {
+            experience = 15;
+            if (random.nextFloat() < 0.5F) {
+                setOutput(Blocks.JUKEBOX, 1);
+            } else {
+                setOutput(Blocks.NOTE_BLOCK, 1);
+            }
+
+            setInput(Items.EMERALD, 8);
+            return super.create(entity, random);
         }
     }
 

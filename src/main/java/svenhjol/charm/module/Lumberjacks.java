@@ -39,7 +39,7 @@ public class Lumberjacks extends MesonModule {
         addTrade(LUMBERJACK, 3, new DoorsForEmeralds());
         addTrade(LUMBERJACK, 3, new UncommonSaplingsForEmeralds());
         addTrade(LUMBERJACK, 4, new CrateForEmeralds());
-        addTrade(LUMBERJACK, 4, new PlanksForLogs());
+        addTrade(LUMBERJACK, 4, new MusicBlocksForLogs());
         addTrade(LUMBERJACK, 5, new BookcaseForEmeralds());
         addTrade(LUMBERJACK, 5, new WorkstationForEmeralds());
 
