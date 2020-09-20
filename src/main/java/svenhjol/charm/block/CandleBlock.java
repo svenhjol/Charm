@@ -42,7 +42,7 @@ public class CandleBlock extends MesonBlock implements Waterloggable {
         super(module, "candle", AbstractBlock.Settings
             .of(Material.ORGANIC_PRODUCT)
             .sounds(BlockSoundGroup.WOOL)
-            .lightLevel(s -> s.get(LIT) ? Candles.lightLevel : 0)
+            .luminance(s -> s.get(LIT) ? Candles.lightLevel : 0)
             .strength(0.5F));
 
         this.flame = ParticleTypes.FLAME;
