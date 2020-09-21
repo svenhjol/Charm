@@ -41,10 +41,10 @@ public class MineshaftImprovements extends MesonModule {
     public static List<BlockState> roomDecoration = new ArrayList<>();
     public static List<Identifier> crateLootTables = new ArrayList<>();
 
-    public static float floorBlockChance = 0.08F;
-    public static float ceilingBlockChance = 0.04F;
+    public static float floorBlockChance = 0.05F;
+    public static float ceilingBlockChance = 0.03F;
     public static float rareBlockChance = 0.08F;
-    public static float roomBlockChance = 0.36F;
+    public static float roomBlockChance = 0.32F;
     public static float blockPileChance = 0.12F;
     public static float crateChance = 0.14F;
 
