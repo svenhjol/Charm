@@ -1,13 +1,14 @@
 package svenhjol.charm.block;
 
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.LanternBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.IMesonBlock;
 
-public abstract class BaseLanternBlock extends ImprovedLanternBlock implements IMesonBlock {
+public abstract class BaseLanternBlock extends LanternBlock implements IMesonBlock {
     protected MesonModule module;
 
     public BaseLanternBlock(MesonModule module, String name, AbstractBlock.Settings settings) {
