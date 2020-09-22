@@ -17,3 +17,10 @@
 * Custom villagers now have zombie textures
 * Removed "More Villager Trades" feature
 * Axe now effective tool for woodcutter block
+
+## 2.0.0 beta 4
+* Bump to Minecraft 1.16.3
+* Removed improved lanterns due to unsolvable graphical issue
+* Reduced mineshaft default ore spawn rate
+* Lumberjacks log trade now only uses logs and stripped logs as requested item
+* Lumberjacks now sell noteblocks and jukeboxes instead of converting logs to planks
