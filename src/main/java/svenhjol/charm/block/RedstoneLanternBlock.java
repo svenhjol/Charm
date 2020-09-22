@@ -4,7 +4,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -46,16 +45,6 @@ public class RedstoneLanternBlock extends BaseLanternBlock {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
         builder.add(LIT);
-    }
-
-    @Override
-    public void onLanding(World world, BlockPos pos, BlockState fallingBlockState, BlockState currentStateInPos, FallingBlockEntity fallingBlockEntity) {
-        super.onLanding(world, pos, fallingBlockState, currentStateInPos, fallingBlockEntity);
-
-        if (world.isReceivingRedstonePower(pos)) {
-            BlockState state = world.getBlockState(pos);
-            world.setBlockState(pos, state.with(LIT, true), 2);
-        }
     }
 
     @Override
