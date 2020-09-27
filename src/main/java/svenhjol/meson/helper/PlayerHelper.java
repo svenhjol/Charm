@@ -15,7 +15,7 @@ public class PlayerHelper {
      */
     public static boolean addOrDropStack(PlayerEntity player, ItemStack stack) {
         if (!player.inventory.insertStack(stack)) {
-            player.dropItem(stack, false);
+            player.dropItem(stack, true);
             return false;
         }
         return true;
