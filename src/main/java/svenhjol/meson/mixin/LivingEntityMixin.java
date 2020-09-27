@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import svenhjol.meson.event.EntityDeathCallback;
 import svenhjol.meson.event.EntityDropsCallback;
 import svenhjol.meson.event.HurtEntityCallback;
 
@@ -30,5 +31,13 @@ public class LivingEntityMixin {
         ActionResult result = HurtEntityCallback.EVENT.invoker().interact((LivingEntity) (Object) this, source, amount);
         if (result == ActionResult.FAIL)
             ci.cancel();
+    }
+
+    @Inject(
+        method = "onDeath",
+        at = @At("HEAD")
+    )
+    private void hookOnDeath(DamageSource source, CallbackInfo ci) {
+        EntityDeathCallback.EVENT.invoker().interact((LivingEntity)(Object)this, source);
     }
 }
