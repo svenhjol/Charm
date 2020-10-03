@@ -36,7 +36,7 @@ public interface StructureSetupCallback {
             List<Pair<StructurePoolElement, Integer>> elementCounts = ((StructurePoolAccessor) pool).getElementCounts();
             ((StructurePoolAccessor)pool).setElementCounts(new ArrayList<>(elementCounts));
 
-            if (true) { // DELETES ALL IN POOL, DO NOT USE!
+            if (false) { // DELETES ALL IN POOL, DO NOT USE!
                 ((StructurePoolAccessor) pool).setElementCounts(new ArrayList<>());
             }
 
