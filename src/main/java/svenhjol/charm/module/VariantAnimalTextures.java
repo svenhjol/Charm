@@ -67,7 +67,22 @@ public class VariantAnimalTextures extends MesonModule {
     }
 
     @Override
-    public void clientJoinWorld(MinecraftClient client) {
+    public void clientReloadPacks(MinecraftClient client) {
+        // reset
+        chickens = new ArrayList<>();
+        cows = new ArrayList<>();
+        pigs = new ArrayList<>();
+        squids = new ArrayList<>();
+        wolves = new ArrayList<>();
+        wolvesTame = new HashMap<>();
+        wolvesAngry = new HashMap<>();
+
+        rareChickens = new ArrayList<>();
+        rareCows = new ArrayList<>();
+        rarePigs = new ArrayList<>();
+        rareSquids = new ArrayList<>();
+        rareWolves = new ArrayList<>();
+
         // add vanilla textures
         chickens.add(new Identifier(PREFIX + "chicken.png"));
         cows.add(new Identifier(PREFIX + "cow/cow.png"));
