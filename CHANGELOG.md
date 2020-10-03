@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+* Fixed crash when trying to open lumberjack trades (dedicated server)
+* Fixed missing loot tables for some custom village structures
+
 ## 2.0.0
 * Fixed tidy button position on village trade screens
 * Fixed broken armor invisibility when stripping in front of mobs
