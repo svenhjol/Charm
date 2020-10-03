@@ -12,7 +12,14 @@ import java.util.Arrays;
 import static svenhjol.meson.helper.DecorationHelper.*;
 
 public class DecorationHandler {
+    private static boolean hasInit = false;
+
     public static void init() {
+        if (hasInit)
+            return;
+
+        hasInit = true;
+
         CARPETS.addAll(BlockTags.CARPETS.values());
         FLOWERS.addAll(BlockTags.FLOWERS.values());
         FLOWER_POTS.addAll(BlockTags.FLOWER_POTS.values());

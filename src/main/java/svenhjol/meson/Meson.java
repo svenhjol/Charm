@@ -2,10 +2,7 @@ package svenhjol.meson;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-import svenhjol.meson.event.ClientJoinCallback;
-import svenhjol.meson.event.DedicatedServerSetupCallback;
-import svenhjol.meson.event.LoadWorldCallback;
-import svenhjol.meson.event.StructureSetupCallback;
+import svenhjol.meson.event.*;
 import svenhjol.meson.handler.BiomeHandler;
 import svenhjol.meson.handler.DecorationHandler;
 import svenhjol.meson.handler.LogHandler;
@@ -56,13 +53,19 @@ public class Meson {
 
         // listen for client join events (client only)
         if (isClient()) {
+            ClientReloadPacksCallback.EVENT.register(client -> {
+                mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.clientReloadPacks(client)));
+            });
+
             ClientJoinCallback.EVENT.register(client -> {
+                DecorationHandler.init(); // needs to be loaded late so that tags are populated
                 mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.clientJoinWorld(client)));
             });
         }
 
         // listen for server setup events (dedicated server only)
         DedicatedServerSetupCallback.EVENT.register(server -> {
+            DecorationHandler.init(); // needs to be loaded late so that tags are populated
             mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.dedicatedServerInit(server)));
         });
     }
