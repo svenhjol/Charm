@@ -7,9 +7,8 @@ import net.minecraft.util.math.Direction;
 import svenhjol.meson.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.function.Function;
 
 public class DecorationHelper {
     public static List<Block> BARK = new ArrayList<>();
@@ -29,6 +28,8 @@ public class DecorationHelper {
     public static List<Block> STRIPPED_WOOD = new ArrayList<>();
     public static List<IVariantMaterial> VARIANT_MATERIALS = new ArrayList<>();
     public static List<Block> WOOL = new ArrayList<>();
+
+    public static Map<Block, Function<BlockState, BlockState>> STATE_CALLBACK = new HashMap<>();
 
     public static Identifier getRandomLootTable(List<Identifier> lootTables, Random random) {
         return lootTables.get(random.nextInt(lootTables.size()));
@@ -72,6 +73,9 @@ public class DecorationHelper {
             if (block == Blocks.COMPOSTER)
                 state = state.with(ComposterBlock.LEVEL, random.nextInt(7));
         }
+
+        if (STATE_CALLBACK.containsKey(block))
+            state = STATE_CALLBACK.get(block).apply(state);
 
         return state;
     }

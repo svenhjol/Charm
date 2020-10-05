@@ -3,6 +3,7 @@ package svenhjol.charm.module;
 import svenhjol.charm.block.CandleBlock;
 import svenhjol.charm.item.BeeswaxItem;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.helper.DecorationHelper;
 import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
@@ -21,5 +22,12 @@ public class Candles extends MesonModule {
     public void register() {
         CANDLE = new CandleBlock(this);
         BEESWAX = new BeeswaxItem(this);
+    }
+
+    @Override
+    public void init() {
+        // add Candles to decoration blocks
+        DecorationHelper.DECORATION_BLOCKS.add(CANDLE);
+        DecorationHelper.STATE_CALLBACK.put(CANDLE, s -> s.with(CandleBlock.LIT, true));
     }
 }
