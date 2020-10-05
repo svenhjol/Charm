@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.2
+* Candles are now valid decoration blocks when generating structures
+
 ## 2.0.1
 * Fixed crash when trying to open lumberjack trades (dedicated server)
 * Fixed missing loot tables for some custom village structures
