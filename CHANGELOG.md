@@ -2,6 +2,8 @@
 
 ## 2.0.2
 * Candles are now valid decoration blocks when generating structures
+* Restored vanilla chests and barrels, crafted using mixed wood
+* Added hopper and minecart chest recipes with variant chests #231
 
 ## 2.0.1
 * Fixed crash when trying to open lumberjack trades (dedicated server)
