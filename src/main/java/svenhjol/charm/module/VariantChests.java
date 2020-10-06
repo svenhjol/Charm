@@ -15,9 +15,7 @@ import svenhjol.meson.enums.IVariantMaterial;
 import svenhjol.meson.enums.VanillaVariantMaterial;
 import svenhjol.meson.iface.Module;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Module(description = "Chests available in all types of vanilla wood.")
@@ -48,13 +46,5 @@ public class VariantChests extends MesonModule {
     @Override
     public void clientRegister() {
         new VariantChestClient(this);
-    }
-
-    @Override
-    public List<Identifier> getRecipesToRemove() {
-        return Arrays.asList(
-            new Identifier("minecraft", "chest"),
-            new Identifier("minecraft", "trapped_chest")
-        );
     }
 }
