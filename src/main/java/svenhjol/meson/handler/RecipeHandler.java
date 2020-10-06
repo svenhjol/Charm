@@ -6,9 +6,11 @@ import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.StringHelper;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RecipeHandler {
     public static void filter(Map<Identifier, JsonElement> recipes) {
@@ -35,5 +37,12 @@ public class RecipeHandler {
                     recipes.remove(recipeId);
             });
         }
+    }
+
+    public static Iterator<Map.Entry<Identifier, JsonElement>> sortedRecipes(Map<Identifier, JsonElement> recipes) {
+        return Stream.concat(
+            recipes.entrySet().stream().filter(r -> !r.getKey().getNamespace().equals("minecraft")),
+            recipes.entrySet().stream().filter(r -> r.getKey().getNamespace().equals("minecraft"))
+        ).iterator();
     }
 }
