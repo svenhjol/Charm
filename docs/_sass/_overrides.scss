@@ -1,0 +1,116 @@
+@import 'variables';
+@import 'mixins';
+
+h1, h2, h3, h4, h5, h6 {
+    color: $header-color;
+
+    a, a:focus, a:visited {
+        color: $header-color;
+    }
+}
+
+h2 {
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+ul li {
+    list-style-image: none;
+}
+
+a, a:link, a:visited {
+    color: $link-color;
+    text-shadow: none;
+    text-decoration: none;
+}
+
+a:hover {
+    color: lighten($link-color, 12);
+    text-decoration: none;
+    @include trans(color, 0.5s, linear);
+}
+
+header {
+    border: 0;
+    margin: 0;
+    padding-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    p.author {
+        font-size: 0.9em;
+        padding: 0;
+        padding-bottom: 20px;
+        margin: 0;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 3.0em;
+        font-weight: normal;
+
+        &:before {
+            display: none;
+        }
+    }
+
+    h2 {
+        margin-top: 20px;
+    }
+
+    a, a:hover, a:focus {
+        text-decoration: none;
+    }
+
+    .title {
+        padding: 20px;
+    }
+
+    &.splash {
+        padding: 0;
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: url("https://i.postimg.cc/Y0HJx13t/splash.jpg");
+        height: 400px;
+    }
+
+    .download {
+        float: right;
+        margin-top: -60px;
+        margin-right: -10px;
+    }
+}
+
+footer {
+    border-top: 1px dashed $border-color;
+    background-color: rgba(0, 0, 0, 0.3);
+    clear: both;
+    padding: 30px 0;
+    margin-top: 100px;
+    text-align: left;
+
+    h2 {
+        color: white;
+        font-size: 1.7em;
+    }
+    a, a:hover, a:visited, a:focus {
+        text-decoration: none;
+        color: white;
+    }
+    
+    color: white;
+}
+
+.center-image {
+    margin: 0 auto;
+    display: block;
+    padding: 10px 0;
+}
+
+.download {
+    text-align: center;
+    a:hover {
+        color: white;
+    }
+}

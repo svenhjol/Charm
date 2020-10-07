@@ -1,0 +1,49 @@
+@import 'variables';
+
+.home-content {
+    .download-link {
+        text-align: center;
+    }
+
+    #main_content h1 {
+        font-size: 3.7em;
+        text-align: center;
+    }
+
+    h2 {
+        margin-top: 70px;
+        text-align: center;
+    }
+}
+
+.category-content {
+    p {
+        line-height: 1.6em;
+    }
+
+    h2 {
+        clear: both;
+        border-bottom: 1px dashed $border-color;
+
+        &:not(:first-child) {
+            padding-top: 20px;
+        }
+    }
+
+    img {
+        width: 150px;
+        height: 150px;
+        float: right;
+        margin-left: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #303030;
+        border-radius: 5px;
+        box-shadow: 1px 3px 4px #000000;
+    }
+
+    code {
+        padding: 8px 16px;
+        background-color: $tag-background-color;
+        color: $tag-color;
+    }
+}

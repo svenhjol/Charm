@@ -1,0 +1,5 @@
+@mixin trans($prop, $duration, $mode) {
+    -moz-transition: $prop $duration $mode;
+    -webkit-transition: $prop $duration $mode;
+    transition: $prop $duration $mode;
+}
