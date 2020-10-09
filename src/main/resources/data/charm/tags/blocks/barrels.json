@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:barrel",
     "charm:acacia_barrel",
     "charm:birch_barrel",
     "charm:crimson_barrel",
