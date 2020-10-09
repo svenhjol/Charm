@@ -22,6 +22,6 @@ public abstract class HuskEntityMixin {
     )
     private static void hookCanSpawn(EntityType<HuskEntity> entity, ServerWorldAccess world, SpawnReason reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValue() && HuskImprovements.canSpawn())
-            cir.setReturnValue(true);
+            cir.setReturnValue(HuskEntity.canSpawnInDark(entity, world, reason, pos, rand));
     }
 }

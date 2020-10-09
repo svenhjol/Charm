@@ -22,6 +22,6 @@ public abstract class StrayEntityMixin {
     )
     private static void hookCanSpawn(EntityType<StrayEntity> entity, ServerWorldAccess world, SpawnReason reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
         if (!cir.getReturnValue() && StrayImprovements.canSpawn())
-            cir.setReturnValue(true);
+            cir.setReturnValue(StrayEntity.canSpawnInDark(entity, world, reason, pos, rand));
     }
 }
