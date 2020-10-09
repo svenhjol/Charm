@@ -49,6 +49,7 @@ public class Charm extends MesonMod {
             ExtendNetherite.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
+            GlowPearls.class,
             GoldBars.class,
             GoldChains.class,
             GoldLanterns.class,
