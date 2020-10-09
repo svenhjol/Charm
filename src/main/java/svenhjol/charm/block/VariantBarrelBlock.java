@@ -3,6 +3,7 @@ package svenhjol.charm.block;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -10,10 +11,11 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
-import svenhjol.charm.blockentity.VariantBarrelBlockEntity;
+import svenhjol.charm.module.VariantBarrels;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.block.IMesonBlock;
 import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.meson.mixin.accessor.BarrelBlockEntityAccessor;
 
 import javax.annotation.Nullable;
 
@@ -54,7 +56,7 @@ public class VariantBarrelBlock extends BarrelBlock implements IMesonBlock {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockView world) {
-        VariantBarrelBlockEntity barrel = new VariantBarrelBlockEntity();
+        BarrelBlockEntity barrel = BarrelBlockEntityAccessor.invokeConstructor(VariantBarrels.BLOCK_ENTITY);
         barrel.setCustomName(new TranslatableText("block." + this.module.mod.getId() + "." + type.asString() + "_barrel"));
         return barrel;
     }

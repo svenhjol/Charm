@@ -1,6 +1,7 @@
 package svenhjol.charm;
 
 import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.base.CharmTags;
 import svenhjol.charm.module.*;
 import svenhjol.meson.Meson;
 import svenhjol.meson.MesonMod;
@@ -17,6 +18,7 @@ public class Charm extends MesonMod {
     public void onInitialize() {
         super.init(MOD_ID);
         CharmSounds.init();
+        CharmTags.init();
 
         // Charm seems to always be the last to launch, but needs more testing
         Meson.go();

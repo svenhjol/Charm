@@ -4,6 +4,7 @@
   "package": "svenhjol.meson.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "BarrelBlockEntityMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
     "MinecraftDedicatedServerMixin",
@@ -16,6 +17,7 @@
     "accessor.AxeItemAccessor",
     "accessor.BarrelBlockEntityAccessor",
     "accessor.BlockAccessor",
+    "accessor.BlockTagsAccessor",
     "accessor.DispenserBlockAccessor",
     "accessor.FireBlockAccessor",
     "accessor.GenerationSettingsAccessor",
