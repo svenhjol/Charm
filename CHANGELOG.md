@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.3
+* Darkness check for Husks and Strays, fixes them spawning in full light
+* Lecterns can now be crafted from variant bookshelves. Fixes #330
+* Explicit registration of Charm sounds. Relates to #333
+
 ## 2.0.2
 * Candles are now valid decoration blocks when generating structures
 * Restored vanilla chests and barrels, crafted using mixed wood
