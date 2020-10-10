@@ -8,11 +8,12 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.client.GlowPearlsClient;
 import svenhjol.charm.entity.GlowPearlEntity;
 import svenhjol.charm.item.GlowPearlItem;
+import svenhjol.meson.Meson;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.event.ClientEntitySpawnCallback;
 import svenhjol.meson.iface.Module;
 
-@Module(description = "Glow Pearls")
+@Module(description = "Glow Pearls can be thrown to produce a light source where they impact the ground.")
 public class GlowPearls extends MesonModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "glow_pearl");
     public static GlowPearlItem GLOW_PEARL;
@@ -31,6 +32,8 @@ public class GlowPearls extends MesonModule {
             .build(ID.getPath());
 
         Registry.register(Registry.ENTITY_TYPE, ID, ENTITY);
+
+        this.enabled = Meson.enabled("charm:placeable_glowstone_dust");
     }
 
     @Override
