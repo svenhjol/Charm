@@ -26,6 +26,8 @@ public class PlacedGlowstoneDustBlock extends MesonBlock implements Waterloggabl
     public PlacedGlowstoneDustBlock(MesonModule module) {
         super(module, "placed_glowstone_dust", Settings.copy(Blocks.REDSTONE_WIRE)
             .luminance(l -> 8));
+
+        this.setDefaultState(getDefaultState().with(WATERLOGGED, false));
     }
 
     @Override
@@ -57,6 +59,11 @@ public class PlacedGlowstoneDustBlock extends MesonBlock implements Waterloggabl
         } else {
             return false;
         }
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
     @Override

@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -47,14 +48,20 @@ public class PlaceableGlowstoneDust extends MesonModule {
         ItemStack stack = player.getStackInHand(hand);
 
         if (world != null && stack.getItem() == Items.GLOWSTONE_DUST) {
-            BlockState state = world.getBlockState(pos);
-            BlockState stateUp = world.getBlockState(pos.up());
+            BlockState stateAtPos = world.getBlockState(pos);
+            BlockState stateAbove = world.getBlockState(pos.up());
+            boolean stateAboveIsLiquid = stateAbove.getMaterial().isLiquid();
 
-            if (state.isOpaque() && stateUp.isAir()) {
+            if (stateAtPos.isOpaque() && (stateAbove.isAir() || stateAboveIsLiquid)) {
                 player.swingHand(hand);
 
                 if (!world.isClient) {
-                    world.setBlockState(pos.up(), PLACED_GLOWSTONE_DUST.getDefaultState(), 11);
+                    BlockState state = PLACED_GLOWSTONE_DUST.getDefaultState();
+
+                    if (stateAboveIsLiquid)
+                        state = state.with(Properties.WATERLOGGED, true);
+
+                    world.setBlockState(pos.up(), state, 2);
                     world.playSound(null, pos, SoundEvents.BLOCK_NYLIUM_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
                     if (!player.isCreative())
