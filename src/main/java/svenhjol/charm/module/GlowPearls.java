@@ -9,6 +9,7 @@ import svenhjol.charm.client.GlowPearlsClient;
 import svenhjol.charm.entity.GlowPearlEntity;
 import svenhjol.charm.item.GlowPearlItem;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.event.ClientEntitySpawnCallback;
 import svenhjol.meson.iface.Module;
 
 @Module(description = "Glow Pearls")
@@ -35,5 +36,15 @@ public class GlowPearls extends MesonModule {
     @Override
     public void clientRegister() {
         client = new GlowPearlsClient(this);
+    }
+
+    @Override
+    public void clientInit() {
+        ClientEntitySpawnCallback.EVENT.register(((world, packet, x, y, z, entityType) -> {
+            if (entityType == ENTITY) {
+                GlowPearlEntity entity = new GlowPearlEntity(world, x, y, z);
+                ClientEntitySpawnCallback.addEntity(world, entity, packet, x, y, z);
+            }
+        }));
     }
 }

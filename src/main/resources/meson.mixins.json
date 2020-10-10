@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BarrelBlockEntityMixin",
+    "ClientPlayNetworkHandlerMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
     "MinecraftDedicatedServerMixin",

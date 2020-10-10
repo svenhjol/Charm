@@ -63,6 +63,7 @@ public class Charm extends MesonMod {
             NetheriteNuggets.class,
             PathToDirt.class,
             ParrotsStayOnShoulder.class,
+            PlaceableGlowstoneDust.class,
             PlayerState.class,
             PortableCrafting.class,
             PortableEnderChest.class,
