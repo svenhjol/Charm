@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.4
+* Added feature Placeable Glowstone Dust that lets you... place glowstone dust
+* Added feature Glow Pearls which are projectiles that light up the ground upon landing
+
 ## 2.0.3
 * Darkness check for Husks and Strays, fixes them spawning in full light
 * Lecterns can now be crafted from variant bookshelves. Fixes #330
