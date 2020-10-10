@@ -14,8 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.meson.event.GuiSetupCallback;
 import svenhjol.meson.event.RenderGuiCallback;
-import svenhjol.meson.event.SetupGuiCallback;
 import svenhjol.charm.module.PortableEnderChest;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.ScreenHelper;
@@ -26,7 +26,7 @@ public class PortableEnderChestClient {
 
     public PortableEnderChestClient(MesonModule module) {
         // set up client listeners
-        SetupGuiCallback.EVENT.register((client, width, height, buttons, addButton) -> {
+        GuiSetupCallback.EVENT.register((client, width, height, buttons, addButton) -> {
             if (client.player == null)
                 return;
 

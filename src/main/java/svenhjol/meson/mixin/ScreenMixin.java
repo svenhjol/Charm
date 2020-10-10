@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.meson.event.RenderTooltipCallback;
-import svenhjol.meson.event.SetupGuiCallback;
+import svenhjol.meson.event.GuiSetupCallback;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public abstract class ScreenMixin {
         at = @At("RETURN")
     )
     private void hookConstructor(MinecraftClient client, int width, int height, CallbackInfo ci) {
-        SetupGuiCallback.EVENT.invoker().interact(client, width, height, this.buttons, this::addButton);
+        GuiSetupCallback.EVENT.invoker().interact(client, width, height, this.buttons, this::addButton);
     }
 
     /**

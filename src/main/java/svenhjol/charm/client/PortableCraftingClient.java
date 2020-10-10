@@ -16,8 +16,8 @@ import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.module.PortableCrafting;
 import svenhjol.meson.MesonModule;
+import svenhjol.meson.event.GuiSetupCallback;
 import svenhjol.meson.event.RenderGuiCallback;
-import svenhjol.meson.event.SetupGuiCallback;
 import svenhjol.meson.helper.ScreenHelper;
 
 public class PortableCraftingClient {
@@ -26,7 +26,7 @@ public class PortableCraftingClient {
 
     public PortableCraftingClient(MesonModule module) {
         // set up client listeners
-        SetupGuiCallback.EVENT.register(((client, width, height, buttons, addButton) -> {
+        GuiSetupCallback.EVENT.register(((client, width, height, buttons, addButton) -> {
             if (client.player == null)
                 return;
 

@@ -4,7 +4,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import svenhjol.meson.event.RenderGuiCallback;
-import svenhjol.meson.event.SetupGuiCallback;
+import svenhjol.meson.event.GuiSetupCallback;
 import svenhjol.charm.module.PortableCrafting;
 import svenhjol.charm.module.PortableEnderChest;
 import svenhjol.meson.helper.ScreenHelper;
@@ -13,7 +13,7 @@ public class InventoryButtonClient {
     public TexturedButtonWidget recipeButton;
 
     public InventoryButtonClient() {
-        SetupGuiCallback.EVENT.register(((client, width, height, buttons, addButton) -> {
+        GuiSetupCallback.EVENT.register(((client, width, height, buttons, addButton) -> {
             Screen currentScreen = client.currentScreen;
 
             if (!(currentScreen instanceof InventoryScreen))

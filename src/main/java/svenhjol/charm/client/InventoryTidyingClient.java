@@ -15,7 +15,7 @@ import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.module.InventoryTidying;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.event.RenderGuiCallback;
-import svenhjol.meson.event.SetupGuiCallback;
+import svenhjol.meson.event.GuiSetupCallback;
 import svenhjol.meson.helper.ScreenHelper;
 import svenhjol.meson.mixin.accessor.SlotAccessor;
 
@@ -60,7 +60,7 @@ public class InventoryTidyingClient {
         ));
 
         // set up client listeners
-        SetupGuiCallback.EVENT.register(((client, width, height, buttons, addButton) -> {
+        GuiSetupCallback.EVENT.register(((client, width, height, buttons, addButton) -> {
             if (client.player == null)
                 return;
 
