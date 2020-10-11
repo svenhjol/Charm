@@ -4,7 +4,8 @@ permalink: /
 ---
 
 # Charm
-Charm is a **Forge Mod** for **Minecraft 1.15**, inspired by [Quark](https://quark.vazkii.us/), that adds to the vanilla experience of Minecraft without drastically changing its gameplay.  Charm does not require **Quark** to be installed but is designed to play nicely with it and extend some of its features.
+Charm is a **Fabric Mod** (Forge version coming soon!) for **Minecraft 1.16.3**, inspired by [Quark](https://quark.vazkii.us/), that adds to the vanilla experience of Minecraft without drastically changing its gameplay.
+Charm does not require **Quark** to be installed but is designed to play nicely with it and extend some of its features.
 
 It's a *modular* mod in that you can turn on or off any of the mod features via the config file.
 
@@ -39,9 +40,12 @@ The mod also provides some additional music tracks that play under certain situa
 Download it from the [Curseforge mod page](https://www.curseforge.com/minecraft/mc-mods/charmonium).
 
 
+## Charm for Minecraft 1.15
+Charm for Minecraft 1.15 is no longer being actively maintained due to lack of time.
+Please update to Minecraft 1.16 for the latest features!  [Read the 1.15 documentation here.]({{site.baseurl}}/features-1.15/index)
+
 ## Charm for Minecraft 1.12
 Charm for Minecraft 1.12 is no longer being actively maintained due to lack of time.  Serious bugs will be worked on when time permits.  [Read the 1.12 documentation here.]({{site.baseurl}}/features-1.12/index)
-
 
 ## Installation
 You need to install the **Java Edition** of Minecraft and then the [correct version of Forge](https://files.minecraftforge.net/) for the version of Minecraft you want to play.  Once you have done this, drop the **Charm jar file** in your **mods** folder and start the game.
