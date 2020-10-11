@@ -45,7 +45,7 @@ public class Meson {
         // allow mods to modify structures in a controlled way
         StructureSetupCallback.EVENT.invoker().interact();
 
-        // listen for world loading events
+        // listen for server world loading events
         LoadWorldCallback.EVENT.register(server -> {
             initServerHandlers();
             mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.loadWorld(server)));
@@ -63,11 +63,11 @@ public class Meson {
             });
         }
 
-        // listen for server setup events (dedicated server only)
-        DedicatedServerSetupCallback.EVENT.register(server -> {
-            initServerHandlers();
-            mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.dedicatedServerInit(server)));
-        });
+        /** @deprecated listen for server setup events (dedicated server only) */
+        //DedicatedServerSetupCallback.EVENT.register(server -> {
+        //    initServerHandlers();
+        //    mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.dedicatedServerInit(server)));
+        //});
     }
 
     public static MesonMod getMod(String id) {
