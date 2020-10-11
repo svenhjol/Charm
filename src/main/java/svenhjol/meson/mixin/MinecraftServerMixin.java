@@ -9,15 +9,6 @@ import svenhjol.meson.event.LoadWorldCallback;
 
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
-//    @Inject(
-//        method = "runServer",
-//        at = @At(
-//            value = "INVOKE_ASSIGN",
-//            target = "Lnet/minecraft/util/Util;getMeasuringTimeMs()J",
-//            ordinal = 0
-//        )
-//    )
-
     @Inject(
         method = "createWorlds",
         at = @At(
