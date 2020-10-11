@@ -25,7 +25,7 @@ public class MinecraftServerMixin {
             target = "Lnet/minecraft/server/world/ServerWorld;getPersistentStateManager()Lnet/minecraft/world/PersistentStateManager;"
         )
     )
-    private void hookRunServer(CallbackInfo ci) {
+    private void hookCreateWorlds(CallbackInfo ci) {
         LoadWorldCallback.EVENT.invoker().interact((MinecraftServer)(Object)this);
     }
 }
