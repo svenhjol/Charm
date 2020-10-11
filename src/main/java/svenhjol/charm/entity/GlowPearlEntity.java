@@ -4,8 +4,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.module.GlowPearls;
 import svenhjol.charm.module.PlaceableGlowstoneDust;
+import svenhjol.meson.helper.PlayerHelper;
 
 public class GlowPearlEntity extends ThrownItemEntity {
     public GlowPearlEntity(EntityType<? extends GlowPearlEntity> entityType, World world) {
@@ -57,9 +58,12 @@ public class GlowPearlEntity extends ThrownItemEntity {
                 world.playSound(null, hitPos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
             } else {
 
-                // cannot place, drop the glow pearl
-                ItemEntity itemEntity = new ItemEntity(world, getX(), getY(), getZ(), new ItemStack(GlowPearls.GLOW_PEARL));
-                world.spawnEntity(itemEntity);
+                // cannot place, return the glow pearl
+                if (this.getOwner() instanceof PlayerEntity) {
+                    PlayerEntity player = (PlayerEntity)this.getOwner();
+                    world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 0.7F, 1.0F);
+                    PlayerHelper.addOrDropStack(player, new ItemStack(GlowPearls.GLOW_PEARL));
+                }
             }
         }
         this.remove();
