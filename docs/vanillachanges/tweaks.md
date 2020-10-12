@@ -84,7 +84,7 @@ Enchanted books of the same type can stack up to 16.
 
 ### Stackable potions
 ![Stackable potions](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-Potions, water bottles, potion bases (mundane, awkward etc) and their splash/lingering varieties can stack up to 16 making them sortable and more convenient to carry around.
+Potions, water bottles, potion bases (mundane, awkward etc) and their splash/lingering varieties can stack up to 16, making them sortable and more convenient to carry around.
 
 ### Use Totem of Undying from inventory
 ![Use totem of Undying from inventory](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
