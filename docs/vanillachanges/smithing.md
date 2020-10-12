@@ -7,7 +7,7 @@ title: Smithing
 
 ### Anvil Improvements
 ![Anvil Improvements](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-Removes minimum and maximum XP costs on the anvil.  No more "Too Expensive".
+Removes minimum and maximum XP costs on the anvil.  No more "Too Expensive."
 
 Anvils are also 50% less likely to become damaged after each use.
 
