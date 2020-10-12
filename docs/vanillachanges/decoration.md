@@ -12,7 +12,7 @@ Craft a Block of Ender Pearls from 9 ender pearls.  If a silverfish burrows into
 ### Bookcases
 ![Bookcases](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 A bookshelf that has 18 inventory slots for storing books.
-It provides the same enchanting power as a normal bookshelf as long as there is at least 1 slot occupied, and can be crafted from each of the 8 vanilla wood types.
+It provides the same enchanting power as a normal bookshelf as long as there is at least 1 slot occupied and can be crafted from each of the 8 vanilla wood types.
 
 The texture will change as books are added or removed.
 
@@ -35,7 +35,7 @@ COMING SOON
 
 ### Crates
 ![Crates](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-Crates offer a smaller storage solution than a chest or barrel with the benefit of being transportable making it an early game alternative to shulkerboxes. 
+Crates offer a smaller storage solution than a chest or barrel with the benefit of being transportable, making it an early-game alternative to shulkerboxes. 
 
 Crates are also available in all vanilla wood variants.
 
@@ -43,17 +43,17 @@ The contents can be measured using a comparator, like a vanilla chest.
 
 ### Gold Bars
 ![Gold Bars](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-Gold bars are crafted with gold ingots instead of the default vanilla iron recipe.
+Gold bars are crafted with gold ingots in the same shape as the vanilla iron bars recipe.
 
 If **Quark** is present, this feature is disabled by default.
 
 ### Gold Chains
 ![Gold Chains](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-Gold chains are crafted with gold ingots and nuggets instead of the default vanilla iron recipe.
+Gold chains are crafted with gold ingots and nuggets in the same shape as the vanilla iron chains recipe.
 
 ### Gold Lanterns
 ![Gold Lanterns](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-A **Gold Lantern** is crafted with gold nuggets instead of iron nuggets.
+A **Gold Lantern** is crafted with gold nuggets around a torch.
 
 The **Gold Soul Lantern** can be crafted using gold nuggets around a soul torch.
 
@@ -62,7 +62,7 @@ The **Gold Soul Lantern** can be crafted using gold nuggets around a soul torch.
 Chickens, Cows, Pigs, Squids and Wolves may spawn with alternate textures.
 Some of the wolf textures were kindly contributed by [jupiter1930](https://www.reddit.com/user/jupiter1390) and [All_My_Own_Trash](https://www.reddit.com/user/All_My_Own_Trash).
 
-If **Quark** is present, chickens, cows and pigs are disabled by default.
+If **Quark** is present, chickens, cows, and pigs are disabled by default.
 
 ### Variant Barrels
 ![Variant Barrels](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
