@@ -7,7 +7,7 @@ title: Mobs
 
 ### Beacons heal friendly mobs
 ![Mobs affected by beacon](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-A beacon with the secondary effect of **Regeneration** will heal all tamed, friendly and neutral mobs in the area around it.
+A beacon with the secondary effect of **Regeneration** will heal all tamed, friendly, and neutral mobs in the area around it.
 
 ### Beekeepers
 ![Beekeepers](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
@@ -21,7 +21,7 @@ A cave spider has a chance to drop a cobweb when killed.
 
 ### Chickens drop feathers
 ![Chickens drop feathers](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-Sometimes chickens drop a feather instead of laying an egg.  After dropping a feather, the amount of time until another egg or feather drop is reduced by half.
+Sometimes chickens drop a feather instead of laying an egg.  After dropping a feather, the amount of time until another egg or feather drops is reduced by half.
 
 *Vegan friendly!* 
 
@@ -69,7 +69,7 @@ Strays can now spawn underground in their biomes and also have a chance to drop 
 
 ### Tamed animals no damage
 ![Tamed animals no damage](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-Tamed animals no longer take direct damage from players. They still suffer secondary effects, such as potion effects from a tipped arrow.
+Tamed animals no longer take direct damage from players. They still can suffer secondary effects, such as potion effects from a tipped arrow.
 
 If you are in Creative Mode, this feature is bypassed.
 
@@ -81,7 +81,7 @@ If **Quark** is present, this feature is disabled by default.
 
 ### Wandering Trader Improvements
 ![Wandering Trader Improvements](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-Wandering Traders only spawn when there is a signal fire nearby.
+Wandering Traders only spawn when there is a signal fire (i.e., a campfire with a hay bale beneath) nearby.
 They also sell maps to structures and biomes.
 
 A configuration option is available to make Wandering Traders spawn more frequently.
