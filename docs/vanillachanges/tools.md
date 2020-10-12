@@ -16,4 +16,4 @@ Right-click to release the captured bat, causing the outline of all entities aro
 
 ### Woodcutters
 ![Woodcutters](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-The woodcutter is a functional block that adds more efficient recipes for crafting wooden stairs and slabs.
+The woodcutter is a functional block that adds more efficient recipes for crafting wooden items.
