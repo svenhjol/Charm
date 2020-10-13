@@ -1,12 +1,13 @@
 package svenhjol.charm.module;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
-import svenhjol.charm.client.VariantAnimalTexturesClient;
+import svenhjol.charm.client.VariantMobTexturesClient;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.IMesonEnum;
 import svenhjol.meson.iface.Config;
@@ -14,34 +15,29 @@ import svenhjol.meson.iface.Module;
 
 import java.util.*;
 
-@Module(description = "Animals may spawn with different textures.")
-public class VariantAnimalTextures extends MesonModule {
+@Module(description = "Mobs may spawn with different textures.")
+public class VariantMobTextures extends MesonModule {
     private static final String PREFIX = "textures/entity/";
     private static final Identifier DEFAULT_SHEEP = new Identifier(PREFIX + "sheep/sheep.png");
 
-    public static List<Identifier> wolves = new ArrayList<>();
-    public static List<Identifier> cows = new ArrayList<>();
-    public static List<Identifier> squids = new ArrayList<>();
     public static List<Identifier> chickens = new ArrayList<>();
+    public static List<Identifier> cows = new ArrayList<>();
+    public static List<Identifier> snowGolems = new ArrayList<>();
+    public static List<Identifier> squids = new ArrayList<>();
     public static List<Identifier> pigs = new ArrayList<>();
+    public static List<Identifier> wolves = new ArrayList<>();
 
-    public static List<Identifier> rareWolves = new ArrayList<>();
+    public static List<Identifier> rareChickens = new ArrayList<>();
     public static List<Identifier> rareCows = new ArrayList<>();
     public static List<Identifier> rareSquids = new ArrayList<>();
-    public static List<Identifier> rareChickens = new ArrayList<>();
     public static List<Identifier> rarePigs = new ArrayList<>();
+    public static List<Identifier> rareWolves = new ArrayList<>();
 
     public static Map<Identifier, Identifier> wolvesTame = new HashMap<>();
     public static Map<Identifier, Identifier> wolvesAngry = new HashMap<>();
     public static Map<DyeColor, Identifier> sheep = new HashMap<>();
 
-    private static VariantAnimalTexturesClient client;
-
-    @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
-    public static boolean variantWolves = true;
-
-    @Config(name = "Variant squids", description = "If true, squids may spawn with different textures.")
-    public static boolean variantSquids = true;
+    private static VariantMobTexturesClient client;
 
     @Config(name = "Variant cows", description = "If true, cows may spawn with different textures.")
     public static boolean variantCows = true;
@@ -55,6 +51,15 @@ public class VariantAnimalTextures extends MesonModule {
     @Config(name = "Variant sheep", description = "If true, sheep face and 'shorn' textures match their wool color.")
     public static boolean variantSheep = true;
 
+    @Config(name = "Variant snow golems", description = "If true, snow golems may spawn with different derp faces.")
+    public static boolean variantSnowGolems = true;
+
+    @Config(name = "Variant squids", description = "If true, squids may spawn with different textures.")
+    public static boolean variantSquids = true;
+
+    @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
+    public static boolean variantWolves = true;
+
     @Config(name = "Rare variants", description = "If true, all animals have a chance to spawn as a rare variant.")
     public static boolean rareVariants = true;
 
@@ -63,7 +68,7 @@ public class VariantAnimalTextures extends MesonModule {
 
     @Override
     public void clientInit() {
-        client = new VariantAnimalTexturesClient(this);
+        client = new VariantMobTexturesClient(this);
     }
 
     @Override
@@ -72,6 +77,7 @@ public class VariantAnimalTextures extends MesonModule {
         chickens = new ArrayList<>();
         cows = new ArrayList<>();
         pigs = new ArrayList<>();
+        snowGolems = new ArrayList<>();
         squids = new ArrayList<>();
         wolves = new ArrayList<>();
         wolvesTame = new HashMap<>();
@@ -87,7 +93,9 @@ public class VariantAnimalTextures extends MesonModule {
         chickens.add(new Identifier(PREFIX + "chicken.png"));
         cows.add(new Identifier(PREFIX + "cow/cow.png"));
         pigs.add(new Identifier(PREFIX + "pig/pig.png"));
+        snowGolems.add(new Identifier(PREFIX + "snow_golem.png"));
         squids.add(new Identifier(PREFIX + "squid.png"));
+
         Identifier wolf = new Identifier(PREFIX + "wolf/wolf.png");
         wolves.add(wolf);
         wolvesTame.put(wolf, new Identifier(PREFIX + "wolf/wolf_tame.png"));
@@ -110,6 +118,9 @@ public class VariantAnimalTextures extends MesonModule {
 
         for (int i = 1; i <= 1; i++)
             addCustomTextures(rarePigs, MobType.PIG, "rare_pig" + i);
+
+        for (int i = 1; i <= 4; i++)
+            addCustomTextures(snowGolems, MobType.SNOW_GOLEM, "snow_golem" + i);
 
         for (int i = 1; i <= 4; i++)
             addCustomTextures(squids, MobType.SQUID, "squid" + i);
@@ -163,6 +174,10 @@ public class VariantAnimalTextures extends MesonModule {
         return sheep.getOrDefault(fleeceColor, DEFAULT_SHEEP);
     }
 
+    public static Identifier getSnowGolemTexture(SnowGolemEntity entity) {
+        return getRandomTexture(entity, snowGolems, ImmutableList.of());
+    }
+
     public static Identifier getSquidTexture(SquidEntity entity) {
         return getRandomTexture(entity, squids, rareSquids);
     }
@@ -192,5 +207,5 @@ public class VariantAnimalTextures extends MesonModule {
         return new Identifier(Charm.MOD_ID, PREFIX + type.asString() + "/" + texture + ".png");
     }
 
-    public enum MobType implements IMesonEnum { WOLF, COW, PIG, CHICKEN, SQUID, SHEEP }
+    public enum MobType implements IMesonEnum { WOLF, COW, PIG, CHICKEN, SQUID, SHEEP, SNOW_GOLEM }
 }
