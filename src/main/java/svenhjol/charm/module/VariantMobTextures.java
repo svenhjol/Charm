@@ -119,7 +119,7 @@ public class VariantMobTextures extends MesonModule {
         for (int i = 1; i <= 1; i++)
             addCustomTextures(rarePigs, MobType.PIG, "rare_pig" + i);
 
-        for (int i = 1; i <= 4; i++)
+        for (int i = 1; i <= 5; i++)
             addCustomTextures(snowGolems, MobType.SNOW_GOLEM, "snow_golem" + i);
 
         for (int i = 1; i <= 4; i++)
