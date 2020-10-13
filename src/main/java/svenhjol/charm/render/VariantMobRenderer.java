@@ -50,6 +50,17 @@ public class VariantMobRenderer {
         }
     }
 
+    public static class SnowGolem extends SnowGolemEntityRenderer {
+        public SnowGolem(EntityRenderDispatcher dispatcher) {
+            super(dispatcher);
+        }
+
+        @Override
+        public Identifier getTexture(SnowGolemEntity entity) {
+            return VariantMobTextures.getSnowGolemTexture(entity);
+        }
+    }
+
     public static class Squid extends SquidEntityRenderer {
         public Squid(EntityRenderDispatcher dispatcher) {
             super(dispatcher);

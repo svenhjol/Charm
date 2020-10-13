@@ -23,6 +23,14 @@ public class VariantMobTexturesClient {
             EntityRendererRegistry.INSTANCE.register(EntityType.PIG, ((dispatcher, context)
                 -> new VariantMobRenderer.Pig(dispatcher)));
 
+        if (VariantMobTextures.variantSheep)
+            EntityRendererRegistry.INSTANCE.register(EntityType.SHEEP, ((dispatcher, context)
+                -> new VariantMobRenderer.Sheep(dispatcher)));
+
+        if (VariantMobTextures.variantSnowGolems)
+            EntityRendererRegistry.INSTANCE.register(EntityType.SNOW_GOLEM, ((dispatcher, context)
+                -> new VariantMobRenderer.SnowGolem(dispatcher)));
+
         if (VariantMobTextures.variantSquids)
             EntityRendererRegistry.INSTANCE.register(EntityType.SQUID, ((dispatcher, context)
                 -> new VariantMobRenderer.Squid(dispatcher)));
@@ -31,8 +39,5 @@ public class VariantMobTexturesClient {
             EntityRendererRegistry.INSTANCE.register(EntityType.WOLF, ((dispatcher, context)
                 -> new VariantMobRenderer.Wolf(dispatcher)));
 
-        if (VariantMobTextures.variantSheep)
-            EntityRendererRegistry.INSTANCE.register(EntityType.SHEEP, ((dispatcher, context)
-                -> new VariantMobRenderer.Sheep(dispatcher)));
     }
 }
