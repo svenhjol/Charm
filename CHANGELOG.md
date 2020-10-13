@@ -3,6 +3,7 @@
 ## 2.0.4
 * Added feature Placeable Glowstone Dust that lets you... place glowstone dust
 * Added feature Glow Pearls which are projectiles that light up the ground upon landing
+* Added variant snow golem derp faces
 
 ## 2.0.3
 * Darkness check for Husks and Strays, fixes them spawning in full light
