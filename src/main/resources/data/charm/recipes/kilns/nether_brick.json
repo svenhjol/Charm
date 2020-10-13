@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:firing",
+  "ingredient": {
+    "item": "minecraft:netherrack"
+  },
+  "result": "minecraft:nether_brick",
+  "experience": 0.1,
+  "cookingtime": 100
+}
