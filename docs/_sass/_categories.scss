@@ -1,11 +1,37 @@
 @import 'mixins';
 
+.mods {
+    padding: 0;
+
+    li {
+        min-width: 25%;
+    }
+
+    a {
+        $bgcolor: #202020;
+        background-color: $bgcolor;
+        padding: 16px 12px;
+        text-align: center;
+        font-size: 0.8em;
+
+        &:hover {
+            background-color: lighten($color: $bgcolor, $amount: 5%);
+            @include trans(all, 0.5s, linear);
+        }
+    }
+
+    .list-group-item {
+        padding: 0px;
+        background-color: transparent;
+    }
+}
+
 .categories {
     padding: 0;
     margin-bottom: 40px;
 
     li {
-        min-width: 10%;
+        min-width: 14.28%;
     }
         
     a {

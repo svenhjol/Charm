@@ -10,14 +10,13 @@ import svenhjol.meson.event.LoadWorldCallback;
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
     @Inject(
-        method = "runServer",
+        method = "createWorlds",
         at = @At(
             value = "INVOKE_ASSIGN",
-            target = "Lnet/minecraft/util/Util;getMeasuringTimeMs()J",
-            ordinal = 0
+            target = "Lnet/minecraft/server/world/ServerWorld;getPersistentStateManager()Lnet/minecraft/world/PersistentStateManager;"
         )
     )
-    private void hookRunServer(CallbackInfo ci) {
+    private void hookCreateWorlds(CallbackInfo ci) {
         LoadWorldCallback.EVENT.invoker().interact((MinecraftServer)(Object)this);
     }
 }

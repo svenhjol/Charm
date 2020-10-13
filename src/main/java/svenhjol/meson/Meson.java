@@ -45,9 +45,9 @@ public class Meson {
         // allow mods to modify structures in a controlled way
         StructureSetupCallback.EVENT.invoker().interact();
 
-        // listen for world loading events
+        // listen for server world loading events
         LoadWorldCallback.EVENT.register(server -> {
-            DecorationHandler.init(); // needs to be loaded late so that tags are populated
+            initServerHandlers();
             mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.loadWorld(server)));
         });
 
@@ -58,16 +58,16 @@ public class Meson {
             });
 
             ClientJoinCallback.EVENT.register(client -> {
-                DecorationHandler.init(); // needs to be loaded late so that tags are populated
+                initClientHandlers();
                 mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.clientJoinWorld(client)));
             });
         }
 
-        // listen for server setup events (dedicated server only)
-        DedicatedServerSetupCallback.EVENT.register(server -> {
-            DecorationHandler.init(); // needs to be loaded late so that tags are populated
-            mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.dedicatedServerInit(server)));
-        });
+        /** @deprecated listen for server setup events (dedicated server only) */
+        //DedicatedServerSetupCallback.EVENT.register(server -> {
+        //    initServerHandlers();
+        //    mods.forEach((id, mod) -> mod.eachEnabledModule(m -> m.dedicatedServerInit(server)));
+        //});
     }
 
     public static MesonMod getMod(String id) {
@@ -101,5 +101,13 @@ public class Meson {
 
     public static boolean isClient() {
         return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+    }
+
+    private static void initClientHandlers() {
+        DecorationHandler.init(); // load late so that tags are populated at this point
+    }
+
+    private static void initServerHandlers() {
+        DecorationHandler.init(); // load late so that tags are populated at this point
     }
 }

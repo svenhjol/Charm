@@ -1,5 +1,5 @@
 ---
-layout: category
+layout: category-1.15
 title: Building
 ---
 
