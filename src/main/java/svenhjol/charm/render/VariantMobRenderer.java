@@ -3,9 +3,9 @@ package svenhjol.charm.render;
 import net.minecraft.client.render.entity.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.Identifier;
-import svenhjol.charm.module.VariantAnimalTextures;
+import svenhjol.charm.module.VariantMobTextures;
 
-public class VariantAnimalsRenderer {
+public class VariantMobRenderer {
     public static class Chicken extends ChickenEntityRenderer {
         public Chicken(EntityRenderDispatcher dispatcher) {
             super(dispatcher);
@@ -13,7 +13,7 @@ public class VariantAnimalsRenderer {
 
         @Override
         public Identifier getTexture(ChickenEntity entity) {
-            return VariantAnimalTextures.getChickenTexture(entity);
+            return VariantMobTextures.getChickenTexture(entity);
         }
     }
 
@@ -24,7 +24,7 @@ public class VariantAnimalsRenderer {
 
         @Override
         public Identifier getTexture(CowEntity entity) {
-            return VariantAnimalTextures.getCowTexture(entity);
+            return VariantMobTextures.getCowTexture(entity);
         }
     }
 
@@ -35,7 +35,7 @@ public class VariantAnimalsRenderer {
 
         @Override
         public Identifier getTexture(PigEntity entity) {
-            return VariantAnimalTextures.getPigTexture(entity);
+            return VariantMobTextures.getPigTexture(entity);
         }
     }
 
@@ -46,7 +46,7 @@ public class VariantAnimalsRenderer {
 
         @Override
         public Identifier getTexture(SheepEntity entity) {
-            return VariantAnimalTextures.getSheepTexture(entity);
+            return VariantMobTextures.getSheepTexture(entity);
         }
     }
 
@@ -57,7 +57,7 @@ public class VariantAnimalsRenderer {
 
         @Override
         public Identifier getTexture(SquidEntity entity) {
-            return VariantAnimalTextures.getSquidTexture(entity);
+            return VariantMobTextures.getSquidTexture(entity);
         }
     }
 
@@ -68,7 +68,7 @@ public class VariantAnimalsRenderer {
 
         @Override
         public Identifier getTexture(WolfEntity entity) {
-            return VariantAnimalTextures.getWolfTexture(entity);
+            return VariantMobTextures.getWolfTexture(entity);
         }
     }
 }

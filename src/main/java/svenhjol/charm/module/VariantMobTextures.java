@@ -6,7 +6,7 @@ import net.minecraft.entity.passive.*;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
-import svenhjol.charm.client.VariantAnimalTexturesClient;
+import svenhjol.charm.client.VariantMobTexturesClient;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.enums.IMesonEnum;
 import svenhjol.meson.iface.Config;
@@ -14,8 +14,8 @@ import svenhjol.meson.iface.Module;
 
 import java.util.*;
 
-@Module(description = "Animals may spawn with different textures.")
-public class VariantAnimalTextures extends MesonModule {
+@Module(description = "Movs may spawn with different textures.")
+public class VariantMobTextures extends MesonModule {
     private static final String PREFIX = "textures/entity/";
     private static final Identifier DEFAULT_SHEEP = new Identifier(PREFIX + "sheep/sheep.png");
 
@@ -35,7 +35,7 @@ public class VariantAnimalTextures extends MesonModule {
     public static Map<Identifier, Identifier> wolvesAngry = new HashMap<>();
     public static Map<DyeColor, Identifier> sheep = new HashMap<>();
 
-    private static VariantAnimalTexturesClient client;
+    private static VariantMobTexturesClient client;
 
     @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
     public static boolean variantWolves = true;
@@ -63,7 +63,7 @@ public class VariantAnimalTextures extends MesonModule {
 
     @Override
     public void clientInit() {
-        client = new VariantAnimalTexturesClient(this);
+        client = new VariantMobTexturesClient(this);
     }
 
     @Override
