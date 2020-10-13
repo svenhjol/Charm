@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    {% include meta.html %}
+    {% seo %}
+  </head>
+
+  <body>
+    <div class="header-content container">
+      <h1><a href="{{ site.baseurl }}/vanillachanges/">Vanilla Changes</a></h1>
+      <p>
+        </a><a href="{{ site.baseurl }}/">Back to Charm homepage</a> | <a href="https://www.curseforge.com/minecraft/mc-mods/charm">Download Charm from Curseforge</a>
+      </p>
+    </div>
+
+    {% include vanillachanges-categories.html %}
+
+    <div class="page-content container">
+      <section id="main_content">
+        {{ content }}
+      </section>
+    </div>
+
+    {% include footer.html %}
+
+  </body>
+</html>
