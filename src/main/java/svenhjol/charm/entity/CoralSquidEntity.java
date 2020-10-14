@@ -3,10 +3,7 @@ package svenhjol.charm.entity;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CoralBlock;
-import net.minecraft.block.CoralBlockBlock;
-import net.minecraft.block.CoralFanBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -86,6 +83,10 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
     @Override
     public boolean canSpawn(WorldView world) {
+        // don't spawn on surface of water
+        if (!world.getBlockState(this.getBlockPos().up()).isOf(Blocks.WATER))
+            return false;
+
         Box box = this.getBoundingBox().expand(5, 30, 5);
 
         BlockPos pos1 = new BlockPos(box.minX, box.minY, box.minZ);
@@ -102,6 +103,11 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 //            Meson.LOG.info("Can spawn at " + getBlockPos().toShortString());
 
         return canSpawn;
+    }
+
+    @Override
+    public int getLimitPerChunk() {
+        return 8; // might be important for performance
     }
 
     public Identifier getTexture() {
