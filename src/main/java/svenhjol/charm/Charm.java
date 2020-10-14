@@ -73,6 +73,7 @@ public class Charm extends MesonMod {
             RemovePotionGlint.class,
             ShulkerBoxTooltips.class,
             SleepImprovements.class,
+            SmoothGlowstone.class,
             StackableEnchantedBooks.class,
             StackablePotions.class,
             StrayImprovements.class,
