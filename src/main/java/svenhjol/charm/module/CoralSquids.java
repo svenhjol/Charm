@@ -49,7 +49,7 @@ public class CoralSquids extends MesonModule {
 
         biomes.forEach(biomeKey -> {
             Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-            BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_AMBIENT, CORAL_SQUID, 100, 8, 12);
+            BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_AMBIENT, CORAL_SQUID, 50, 6, 8);
         });
     }
 }

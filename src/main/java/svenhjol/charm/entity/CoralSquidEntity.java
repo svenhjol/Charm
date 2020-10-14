@@ -33,9 +33,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.*;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import svenhjol.charm.Charm;
-import svenhjol.meson.Meson;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -84,7 +86,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
     @Override
     public boolean canSpawn(WorldView world) {
-        Box box = this.getBoundingBox().expand(15, 30, 15);
+        Box box = this.getBoundingBox().expand(5, 30, 5);
 
         BlockPos pos1 = new BlockPos(box.minX, box.minY, box.minZ);
         BlockPos pos2 = new BlockPos(box.maxX, box.maxY, box.maxZ);
@@ -96,8 +98,8 @@ public class CoralSquidEntity extends WaterCreatureEntity {
                 || state.getBlock() instanceof CoralFanBlock;
         });
 
-        if (canSpawn)
-            Meson.LOG.info("Can spawn at " + getBlockPos().toShortString());
+//        if (canSpawn)
+//            Meson.LOG.info("Can spawn at " + getBlockPos().toShortString());
 
         return canSpawn;
     }
