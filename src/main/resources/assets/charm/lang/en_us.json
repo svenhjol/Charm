@@ -73,6 +73,7 @@
   "container.charm.portable_crafting_table": "Portable Crafting",
   "container.charm.portable_ender_chest": "Portable Ender Chest",
   "container.charm.woodcutter": "Woodcutter",
+  "entity.charm.coral_squid": "Coral Squid",
   "entity.minecraft.villager.beekeeper": "Beekeeper",
   "entity.minecraft.villager.lumberjack": "Lumberjack",
   "filled_map.charm.trader_map": "%s Map",

@@ -1,5 +1,6 @@
 package svenhjol.charm.entity;
 
+import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -9,42 +10,57 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import svenhjol.meson.Meson;
+import svenhjol.charm.Charm;
 
+import javax.annotation.Nullable;
+import java.util.Map;
+
+/**
+ * Most of this is copypasta from SquidEntity.
+ * canSpanw() checks for coral.
+ */
 public class CoralSquidEntity extends WaterCreatureEntity {
+    public static final String CORAL_SQUID_TYPE_TAG = "CoralSquidType";
+
+    private static final TrackedData<Integer> CORAL_SQUID_TYPE;
+    public static final Map<Integer, Identifier> TEXTURES;
+    public static final Map<Integer, Item> DROPS;
+
+    public float dropChance = 1.0F;
+
     public float tiltAngle;
     public float prevTiltAngle;
     public float rollAngle;
     public float prevRollAngle;
-    /**
-     * Timer between thrusts as the squid swims. Represented as an angle from 0 to 2PI.
-     */
     public float thrustTimer;
-    /**
-     * This serves no real purpose.
-     */
     public float prevThrustTimer;
     public float tentacleAngle;
     public float prevTentacleAngle;
-    /**
-     * A scale factor for the squid's swimming speed.
-     *
-     * Gets reset to 1 at the beginning of each thrust and gradually decreases to make the squid lurch around.
-     */
     private float swimVelocityScale;
     private float thrustTimerSpeed;
     private float turningSpeed;
@@ -58,6 +74,14 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         this.thrustTimerSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.4F;
     }
 
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
+        setCoralSquidType(random.nextInt(5));
+        return entityData;
+    }
+
     @Override
     public boolean canSpawn(WorldView world) {
         Box box = this.getBoundingBox().expand(0, 20, 0);
@@ -65,44 +89,90 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         BlockPos pos1 = new BlockPos(box.minX, box.minY, box.minZ);
         BlockPos pos2 = new BlockPos(box.maxX, box.maxY, box.maxZ);
 
-        boolean canSpawn = BlockPos.stream(pos1, pos2).anyMatch(p -> {
+        return BlockPos.stream(pos1, pos2).anyMatch(p -> {
             BlockState state = world.getBlockState(p);
             return state.getBlock() instanceof CoralBlock;
         });
+    }
 
-        if (canSpawn)
-            Meson.LOG.info("Can spawn at " + getBlockPos().toShortString());
+    public Identifier getTexture() {
+        return TEXTURES.getOrDefault(getCoralSquidType(), TEXTURES.get(0));
+    }
 
-        return canSpawn;
+    public int getCoralSquidType() {
+        return this.dataTracker.get(CORAL_SQUID_TYPE);
+    }
+
+    public void setCoralSquidType(int type) {
+        if (type < 0 || type > 4)
+            type = this.random.nextInt(5);
+
+        this.dataTracker.set(CORAL_SQUID_TYPE, type);
+    }
+
+    @Override
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(CORAL_SQUID_TYPE, 1);
+    }
+
+    @Override
+    public void writeCustomDataToTag(CompoundTag tag) {
+        super.writeCustomDataToTag(tag);
+        tag.putInt(CORAL_SQUID_TYPE_TAG, this.getCoralSquidType());
+    }
+
+    @Override
+    public void readCustomDataFromTag(CompoundTag tag) {
+        super.readCustomDataFromTag(tag);
+        this.setCoralSquidType(tag.getInt(CORAL_SQUID_TYPE_TAG));
     }
 
     protected void initGoals() {
-        this.goalSelector.add(0, new CoralSquidEntity.SwimGoal(this));
+        this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new CoralSquidEntity.EscapeAttackerGoal());
     }
 
+    @Override
+    protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
+        super.dropEquipment(source, lootingMultiplier, allowDrops);
+        Entity attacker = source.getAttacker();
+
+        if (attacker instanceof PlayerEntity && random.nextFloat() < dropChance)
+            this.dropItem(DROPS.get(getCoralSquidType()));
+    }
+
     public static DefaultAttributeContainer.Builder createSquidAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0D);
     }
 
     protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
         return dimensions.height * 0.5F;
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.ENTITY_SQUID_AMBIENT;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.ENTITY_SQUID_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_SQUID_DEATH;
     }
 
+    @Override
     protected float getSoundVolume() {
         return 0.4F;
+    }
+
+    @Override
+    protected float getSoundPitch() {
+        return 1.2F;
     }
 
     protected boolean canClimb() {
@@ -184,7 +254,6 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         } else {
             super.handleStatus(status);
         }
-
     }
 
     /**
@@ -236,7 +305,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
                         }
 
                         if (f > 0.0F) {
-                            vec3d = vec3d.multiply((double)f);
+                            vec3d = vec3d.multiply(f);
                         }
                     }
 
@@ -255,7 +324,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         }
     }
 
-    class SwimGoal extends Goal {
+    static class SwimGoal extends Goal {
         private final CoralSquidEntity squid;
 
         public SwimGoal(CoralSquidEntity squid) {
@@ -277,7 +346,24 @@ public class CoralSquidEntity extends WaterCreatureEntity {
                 float j = MathHelper.sin(f) * 0.2F;
                 this.squid.setSwimmingVector(g, h, j);
             }
-
         }
+    }
+
+    static {
+        CORAL_SQUID_TYPE = DataTracker.registerData(CoralSquidEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        TEXTURES = Util.make(Maps.newHashMap(), map -> {
+            map.put(0, new Identifier(Charm.MOD_ID, "textures/entity/coral_squid/tube.png"));
+            map.put(1, new Identifier(Charm.MOD_ID, "textures/entity/coral_squid/brain.png"));
+            map.put(2, new Identifier(Charm.MOD_ID, "textures/entity/coral_squid/bubble.png"));
+            map.put(3, new Identifier(Charm.MOD_ID, "textures/entity/coral_squid/fire.png"));
+            map.put(4, new Identifier(Charm.MOD_ID, "textures/entity/coral_squid/horn.png"));
+        });
+        DROPS = Util.make(Maps.newHashMap(), map -> {
+            map.put(0, Items.TUBE_CORAL);
+            map.put(1, Items.BRAIN_CORAL);
+            map.put(2, Items.BUBBLE_CORAL);
+            map.put(3, Items.FIRE_CORAL);
+            map.put(4, Items.HORN_CORAL);
+        });
     }
 }

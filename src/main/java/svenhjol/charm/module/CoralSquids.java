@@ -14,7 +14,7 @@ import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.BiomeHelper;
 import svenhjol.meson.iface.Module;
 
-@Module(description = "Coral Squids")
+@Module(description = "Coral Squids spawn around coral in warm oceans.")
 public class CoralSquids extends MesonModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "coral_squid");
     public static EntityType<CoralSquidEntity> CORAL_SQUID;
@@ -41,6 +41,6 @@ public class CoralSquids extends MesonModule {
     @Override
     public void init() {
         Biome biome = BiomeHelper.getBiomeFromBiomeKey(BiomeKeys.WARM_OCEAN);
-        BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_CREATURE, CORAL_SQUID, 500, 6, 10);
+        BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_CREATURE, CORAL_SQUID, 100, 8, 12);
     }
 }

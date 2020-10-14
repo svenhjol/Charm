@@ -6,22 +6,22 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import svenhjol.charm.Charm;
 import svenhjol.charm.entity.CoralSquidEntity;
 import svenhjol.charm.model.CoralSquidEntityModel;
 
 public class CoralSquidEntityRenderer extends MobEntityRenderer<CoralSquidEntity, CoralSquidEntityModel<CoralSquidEntity>> {
-    private static final Identifier TEXTURE = new Identifier(Charm.MOD_ID, "textures/entity/coral_squid.png");
-
     public CoralSquidEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new CoralSquidEntityModel<>(), 0.7F);
     }
 
     @Override
     public Identifier getTexture(CoralSquidEntity entity) {
-        return TEXTURE;
+        return entity.getTexture();
     }
 
+    /**
+     * Copypasta from SquidEntityRenderer.
+     */
     protected void setupTransforms(CoralSquidEntity squidEntity, MatrixStack matrixStack, float f, float g, float h) {
         float i = MathHelper.lerp(h, squidEntity.prevTiltAngle, squidEntity.tiltAngle);
         float j = MathHelper.lerp(h, squidEntity.prevRollAngle, squidEntity.rollAngle);
