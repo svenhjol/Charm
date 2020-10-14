@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import svenhjol.charm.Charm;
@@ -13,6 +14,10 @@ import svenhjol.charm.entity.CoralSquidEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.BiomeHelper;
 import svenhjol.meson.iface.Module;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Module(description = "Coral Squids spawn around coral in warm oceans.")
 public class CoralSquids extends MesonModule {
@@ -24,7 +29,7 @@ public class CoralSquids extends MesonModule {
     @Override
     public void register() {
         CORAL_SQUID = EntityType.Builder.create(CoralSquidEntity::new, SpawnGroup.WATER_CREATURE)
-            .setDimensions(0.8F, 0.8F)
+            .setDimensions(0.4F, 0.4F)
             .maxTrackingRange(8)
             .build(ID.getPath());
 
@@ -40,7 +45,11 @@ public class CoralSquids extends MesonModule {
 
     @Override
     public void init() {
-        Biome biome = BiomeHelper.getBiomeFromBiomeKey(BiomeKeys.WARM_OCEAN);
-        BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_CREATURE, CORAL_SQUID, 500, 8, 12);
+        List<RegistryKey<Biome>> biomes = new ArrayList<>(Arrays.asList(BiomeKeys.WARM_OCEAN, BiomeKeys.DEEP_WARM_OCEAN));
+
+        biomes.forEach(biomeKey -> {
+            Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
+            BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_AMBIENT, CORAL_SQUID, 100, 8, 12);
+        });
     }
 }

@@ -5,6 +5,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CoralBlock;
+import net.minecraft.block.CoralBlockBlock;
+import net.minecraft.block.CoralFanBlock;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -33,6 +35,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
 import svenhjol.charm.Charm;
+import svenhjol.meson.Meson;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -81,15 +84,22 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
     @Override
     public boolean canSpawn(WorldView world) {
-        Box box = this.getBoundingBox().expand(0, 20, 0);
+        Box box = this.getBoundingBox().expand(15, 30, 15);
 
         BlockPos pos1 = new BlockPos(box.minX, box.minY, box.minZ);
         BlockPos pos2 = new BlockPos(box.maxX, box.maxY, box.maxZ);
 
-        return BlockPos.stream(pos1, pos2).anyMatch(p -> {
+        boolean canSpawn = BlockPos.stream(pos1, pos2).anyMatch(p -> {
             BlockState state = world.getBlockState(p);
-            return state.getBlock() instanceof CoralBlock;
+            return state.getBlock() instanceof CoralBlock
+                || state.getBlock() instanceof CoralBlockBlock
+                || state.getBlock() instanceof CoralFanBlock;
         });
+
+        if (canSpawn)
+            Meson.LOG.info("Can spawn at " + getBlockPos().toShortString());
+
+        return canSpawn;
     }
 
     public Identifier getTexture() {
