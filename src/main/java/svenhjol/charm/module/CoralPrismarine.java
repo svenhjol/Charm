@@ -1,6 +1,6 @@
 package svenhjol.charm.module;
 
-import svenhjol.charm.block.CoralDarkPrismarineBlock;
+import svenhjol.charm.block.DarkCoralPrismarineBlock;
 import svenhjol.charm.block.CoralPrismarineBlock;
 import svenhjol.charm.block.CoralPrismarineBricksBlock;
 import svenhjol.meson.MesonModule;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class CoralPrismarine extends MesonModule {
     public static final Map<ICoralMaterial, CoralPrismarineBlock> CORAL_PRISMARINE = new HashMap<>();
     public static final Map<ICoralMaterial, CoralPrismarineBricksBlock> CORAL_PRISMARINE_BRICKS = new HashMap<>();
-    public static final Map<ICoralMaterial, CoralDarkPrismarineBlock> CORAL_DARK_PRISMARINE = new HashMap<>();
+    public static final Map<ICoralMaterial, DarkCoralPrismarineBlock> DARK_CORAL_PRISMARINE = new HashMap<>();
 
 
     @Override
@@ -23,7 +23,7 @@ public class CoralPrismarine extends MesonModule {
         for (ICoralMaterial type : VanillaLivingCoralMaterial.getTypes()) {
             CORAL_PRISMARINE.put(type, new CoralPrismarineBlock(this, type));
             CORAL_PRISMARINE_BRICKS.put(type, new CoralPrismarineBricksBlock(this, type));
-            CORAL_DARK_PRISMARINE.put(type, new CoralDarkPrismarineBlock(this, type));
+            DARK_CORAL_PRISMARINE.put(type, new DarkCoralPrismarineBlock(this, type));
         }
     }
 }

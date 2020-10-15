@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:prismarine"
+      "item": "minecraft:dark_prismarine"
     },
     {
-      "item": "minecraft:horn_coral"
+      "item": "minecraft:brain_coral"
     }
   ],
   "result": {
-    "item": "charm:horn_prismarine",
+    "item": "charm:dark_brain_prismarine",
     "count": 1
   }
 }

@@ -1,19 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " S ",
-    "SCS",
-    " S "
-  ],
-  "key": {
-    "C": {
-      "item": "minecraft:tube_coral"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:prismarine"
     },
-    "S": {
-      "item": "minecraft:prismarine_shard"
+    {
+      "item": "minecraft:tube_coral"
     }
-  },
+  ],
   "result": {
-    "item": "charm:tube_prismarine"
+    "item": "charm:tube_prismarine",
+    "count": 1
   }
 }
