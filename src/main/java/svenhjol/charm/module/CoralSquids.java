@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(description = "Coral Squids spawn around coral in warm oceans.")
+@Module(description = "Coral Squids spawn near coral in warm oceans.")
 public class CoralSquids extends MesonModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "coral_squid");
     public static Identifier EGG_ID = new Identifier(Charm.MOD_ID, "coral_squid_spawn_egg");
@@ -43,7 +43,7 @@ public class CoralSquids extends MesonModule {
             .maxTrackingRange(8)
             .build(ID.getPath());
 
-        SPAWN_EGG = new SpawnEggItem(CORAL_SQUID, 0xFF00FF, 0x0000FF, (new Item.Settings()).group(ItemGroup.MISC));
+        SPAWN_EGG = new SpawnEggItem(CORAL_SQUID, 0x0000FF, 0xFF00FF, (new Item.Settings()).group(ItemGroup.MISC));
         Registry.register(Registry.ITEM, EGG_ID, SPAWN_EGG);
 
         Registry.register(Registry.ENTITY_TYPE, ID, CORAL_SQUID);
