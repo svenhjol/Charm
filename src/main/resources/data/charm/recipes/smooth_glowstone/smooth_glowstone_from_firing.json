@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:firing",
+  "ingredient": {
+    "item": "minecraft:glowstone"
+  },
+  "result": "charm:smooth_glowstone",
+  "experience": 0.2,
+  "cookingtime": 100
+}
