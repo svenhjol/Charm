@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:firing",
+  "ingredient": {
+    "item": "minecraft:brown_terracotta"
+  },
+  "result": "minecraft:brown_glazed_terracotta",
+  "experience": 0.1,
+  "cookingtime": 100
+}
