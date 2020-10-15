@@ -19,7 +19,7 @@ The texture will change as books are added or removed.
 Contents can be measured using a comparator, outputting a signal based on the number of filled slots rather than the quantity of items.
 
 ### Candles
-![Candles](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Candles](https://raw.githubusercontent.com/svenhjol/Charm-Assets/a32af33ebf6f5e3bad8d42564a8bde659f8aac42/web/charm-features/candles.png)
 Candles are made from beeswax and have a lower ambient light than torches.
 By default, candles must be lit using a flint and steel.
 
