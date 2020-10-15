@@ -35,6 +35,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import svenhjol.charm.Charm;
+import svenhjol.charm.module.CoralSquids;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -49,8 +50,6 @@ public class CoralSquidEntity extends WaterCreatureEntity {
     private static final TrackedData<Integer> CORAL_SQUID_TYPE;
     public static final Map<Integer, Identifier> TEXTURES;
     public static final Map<Integer, Item> DROPS;
-
-    public float dropChance = 1.0F;
 
     public float tiltAngle;
     public float prevTiltAngle;
@@ -92,17 +91,12 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         BlockPos pos1 = new BlockPos(box.minX, box.minY, box.minZ);
         BlockPos pos2 = new BlockPos(box.maxX, box.maxY, box.maxZ);
 
-        boolean canSpawn = BlockPos.stream(pos1, pos2).anyMatch(p -> {
+        return BlockPos.stream(pos1, pos2).anyMatch(p -> {
             BlockState state = world.getBlockState(p);
             return state.getBlock() instanceof CoralBlock
                 || state.getBlock() instanceof CoralBlockBlock
                 || state.getBlock() instanceof CoralFanBlock;
         });
-
-//        if (canSpawn)
-//            Meson.LOG.info("Can spawn at " + getBlockPos().toShortString());
-
-        return canSpawn;
     }
 
     @Override
@@ -153,7 +147,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         super.dropEquipment(source, lootingMultiplier, allowDrops);
         Entity attacker = source.getAttacker();
 
-        if (attacker instanceof PlayerEntity && random.nextFloat() < dropChance)
+        if (attacker instanceof PlayerEntity && random.nextFloat() < CoralSquids.dropChance)
             this.dropItem(DROPS.get(getCoralSquidType()));
     }
 

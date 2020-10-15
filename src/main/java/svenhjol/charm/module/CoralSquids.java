@@ -13,6 +13,7 @@ import svenhjol.charm.client.CoralSquidsClient;
 import svenhjol.charm.entity.CoralSquidEntity;
 import svenhjol.meson.MesonModule;
 import svenhjol.meson.helper.BiomeHelper;
+import svenhjol.meson.iface.Config;
 import svenhjol.meson.iface.Module;
 
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ public class CoralSquids extends MesonModule {
     public static EntityType<CoralSquidEntity> CORAL_SQUID;
 
     public CoralSquidsClient client;
+
+    @Config(name = "Drop chance", description = "Chance (out of 1.0) of a coral squid dropping coral when killed by the player.")
+    public static double dropChance = 0.2D;
 
     @Override
     public void register() {
