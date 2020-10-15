@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "THISMOD:block/TYPE",
+    "top": "THISMOD:block/TYPE",
+    "side": "THISMOD:block/TYPE"
+  }
+}
