@@ -1,19 +1,15 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " S ",
-    "SCS",
-    " S "
-  ],
-  "key": {
-    "C": {
-      "item": "minecraft:brain_coral"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:prismarine"
     },
-    "S": {
-      "item": "minecraft:prismarine_shard"
+    {
+      "item": "minecraft:brain_coral"
     }
-  },
+  ],
   "result": {
-    "item": "charm:brain_prismarine"
+    "item": "charm:brain_prismarine",
+    "count": 1
   }
 }
