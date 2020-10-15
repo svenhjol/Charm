@@ -22,6 +22,9 @@
   "entrypoints": {
     "main": [
       "svenhjol.charm.Charm"
+    ],
+    "rei_plugins": [
+      "svenhjol.charm.base.integration.CharmReiPlugin"
     ]
   },
   "mixins": [
