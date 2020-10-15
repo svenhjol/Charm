@@ -69,7 +69,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
     public CoralSquidEntity(EntityType<? extends CoralSquidEntity> entityType, World world) {
         super(entityType, world);
         this.random.setSeed(this.getEntityId());
-        this.thrustTimerSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.4F;
+        this.thrustTimerSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.28F;
     }
 
     @Nullable
@@ -181,7 +181,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
     @Override
     protected float getSoundPitch() {
-        return 1.2F;
+        return 1.F;
     }
 
     protected boolean canClimb() {
@@ -244,7 +244,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
                     d -= 0.08D;
                 }
 
-                this.setVelocity(0.0D, d * 0.9800000190734863D, 0.0D);
+                this.setVelocity(0.0D, d * 0.981D, 0.0D);
             }
 
             this.tiltAngle = (float)((double)this.tiltAngle + (double)(-90.0F - this.tiltAngle) * 0.02D);
