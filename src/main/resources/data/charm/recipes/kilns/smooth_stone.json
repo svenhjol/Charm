@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:firing",
+  "ingredient": {
+    "item": "minecraft:stone"
+  },
+  "result": "minecraft:smooth_stone",
+  "experience": 0.1,
+  "cookingtime": 100
+}

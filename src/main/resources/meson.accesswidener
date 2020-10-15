@@ -2,6 +2,7 @@ accessWidener v1 named
 
 accessible class net/minecraft/screen/ScreenHandlerType$Factory
 accessible class net/minecraft/recipe/CuttingRecipe$Serializer$RecipeFactory
+accessible class net/minecraft/recipe/CookingRecipeSerializer$RecipeFactory
 
 accessible method net/minecraft/screen/ScreenHandlerType <init> (Lnet/minecraft/screen/ScreenHandlerType$Factory;)V
 accessible method net/minecraft/recipe/CuttingRecipe$Serializer <init> (Lnet/minecraft/recipe/CuttingRecipe$Serializer$RecipeFactory;)V

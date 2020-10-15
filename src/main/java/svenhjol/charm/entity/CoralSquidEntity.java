@@ -35,6 +35,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import svenhjol.charm.Charm;
+import svenhjol.charm.module.CoralSquids;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -49,8 +50,6 @@ public class CoralSquidEntity extends WaterCreatureEntity {
     private static final TrackedData<Integer> CORAL_SQUID_TYPE;
     public static final Map<Integer, Identifier> TEXTURES;
     public static final Map<Integer, Item> DROPS;
-
-    public float dropChance = 1.0F;
 
     public float tiltAngle;
     public float prevTiltAngle;
@@ -70,7 +69,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
     public CoralSquidEntity(EntityType<? extends CoralSquidEntity> entityType, World world) {
         super(entityType, world);
         this.random.setSeed(this.getEntityId());
-        this.thrustTimerSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.4F;
+        this.thrustTimerSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.28F;
     }
 
     @Nullable
@@ -92,17 +91,12 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         BlockPos pos1 = new BlockPos(box.minX, box.minY, box.minZ);
         BlockPos pos2 = new BlockPos(box.maxX, box.maxY, box.maxZ);
 
-        boolean canSpawn = BlockPos.stream(pos1, pos2).anyMatch(p -> {
+        return BlockPos.stream(pos1, pos2).anyMatch(p -> {
             BlockState state = world.getBlockState(p);
             return state.getBlock() instanceof CoralBlock
                 || state.getBlock() instanceof CoralBlockBlock
                 || state.getBlock() instanceof CoralFanBlock;
         });
-
-//        if (canSpawn)
-//            Meson.LOG.info("Can spawn at " + getBlockPos().toShortString());
-
-        return canSpawn;
     }
 
     @Override
@@ -153,7 +147,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         super.dropEquipment(source, lootingMultiplier, allowDrops);
         Entity attacker = source.getAttacker();
 
-        if (attacker instanceof PlayerEntity && random.nextFloat() < dropChance)
+        if (attacker instanceof PlayerEntity && random.nextFloat() < CoralSquids.dropChance)
             this.dropItem(DROPS.get(getCoralSquidType()));
     }
 
@@ -187,7 +181,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
     @Override
     protected float getSoundPitch() {
-        return 1.2F;
+        return 1.F;
     }
 
     protected boolean canClimb() {
@@ -250,7 +244,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
                     d -= 0.08D;
                 }
 
-                this.setVelocity(0.0D, d * 0.9800000190734863D, 0.0D);
+                this.setVelocity(0.0D, d * 0.981D, 0.0D);
             }
 
             this.tiltAngle = (float)((double)this.tiltAngle + (double)(-90.0F - this.tiltAngle) * 0.02D);
