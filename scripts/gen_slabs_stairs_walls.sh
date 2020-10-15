@@ -90,9 +90,6 @@ copy_replace "${SOURCE}/models/block/slab.json" "${ASSETS}/models/block/${TYPE}_
 copy_replace "${SOURCE}/models/block/slab_top.json" "${ASSETS}/models/block/${TYPE}_slab_top.json"
 copy_replace "${SOURCE}/models/block/stairs.json" "${ASSETS}/models/block/${TYPE}_stairs.json"
 
-# textures/block
-copy_replace "${SOURCE}/textures/block/placeholder.json" "${ASSETS}/textures/block/${TYPE}.json"
-
 # loot_tables/blocks
 copy_replace "${SOURCE}/loot_tables/blocks/slab.json" "${DATA}/loot_tables/blocks/${TYPE}_slab.json"
 copy_replace "${SOURCE}/loot_tables/blocks/stairs.json" "${DATA}/loot_tables/blocks/${TYPE}_stairs.json"
