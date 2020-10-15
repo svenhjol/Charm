@@ -9,8 +9,10 @@ import svenhjol.charm.Charm;
 @Environment(EnvType.CLIENT)
 public class CharmReiPlugin implements REIPluginV0 {
 
+    public static final Identifier PLUGIN = new Identifier(Charm.MOD_ID, "rei_plugin");
+
     @Override
     public Identifier getPluginIdentifier() {
-        return new Identifier(Charm.MOD_ID, "rei_plugin");
+        return PLUGIN;
     }
 }
