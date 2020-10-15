@@ -19,6 +19,12 @@ public class CoralSquidEntityRenderer extends MobEntityRenderer<CoralSquidEntity
         return entity.getTexture();
     }
 
+    @Override
+    protected void scale(CoralSquidEntity entity, MatrixStack matrixStack, float f) {
+        super.scale(entity, matrixStack, f);
+        matrixStack.scale(0.8F, 0.8F, 0.8F);
+    }
+
     /**
      * Copypasta from SquidEntityRenderer.
      */
