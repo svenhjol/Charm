@@ -10,7 +10,7 @@ title: Mobs
 A beacon with the secondary effect of **Regeneration** will heal all tamed, friendly, and neutral mobs in the area around it.
 
 ### Beekeepers
-![Beekeepers](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Beekeepers](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/beekeeper.png?raw=true)
 Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.
 
 Villages have the chance to spawn with dedicated beekeeper houses.
