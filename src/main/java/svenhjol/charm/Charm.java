@@ -43,6 +43,7 @@ public class Charm extends MesonMod {
             ChickensDropFeathers.class,
             CoralSeaLanterns.class,
             Core.class,
+            CoralSquids.class,
             Crates.class,
             DecreaseRepairCost.class,
             DirtToPath.class,
