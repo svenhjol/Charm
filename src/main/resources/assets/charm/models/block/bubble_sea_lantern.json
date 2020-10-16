@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "charm:block/bubble_sea_lantern"
+  }
+}
