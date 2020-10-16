@@ -25,13 +25,9 @@ By default, candles must be lit using a flint and steel.
 
 **Beeswax** is produced by smelting Honey combs. 
 
-### Coral Prismarine
-![Coral Prismarine](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-COMING SOON
-
 ### Coral Sea Lanterns
 ![Coral Sea Lanterns](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-COMING SOON
+Craft a sea lantern with coral to create a sea lantern of the coral's color.
 
 ### Crates
 ![Crates](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/variant-crates.png?raw=true)
