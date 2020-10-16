@@ -6,7 +6,7 @@ title: World
 ## World
 
 ### Mineshaft improvements
-![Mineshaft improvements](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Mineshaft improvements](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/mineshaft-improve.png?raw=true)
 Adds more ores and items to vanilla mineshafts.
 * The central room has rare ores such as diamond.
 * Corridors have more coal and iron ores as well as some gold.
@@ -14,7 +14,7 @@ Adds more ores and items to vanilla mineshafts.
 * You can also find TNT and loot crates.
 
 ### More village biomes
-![More village biomes](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![More village biomes](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/village-biomes.png?raw=true)
 Villages now have a chance to appear in the following biomes:
 * Jungles
 * Bamboo Jungles
