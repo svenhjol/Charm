@@ -28,8 +28,8 @@ copy_replace() {
   IT=$3
 
   cp "${SRC}" "${DEST}"
-  sed -i "s/TYPE/${TYPE}/g" "${DEST}"
   sed -i "s/LONGTYPE/${LONGTYPE}/g" "${DEST}"
+  sed -i "s/TYPE/${TYPE}/g" "${DEST}"
   sed -i "s/NAMESPACE/${NAMESPACE}/g" "${DEST}"
   sed -i "s/THISMOD/${THISMOD}/g" "${DEST}"
 
