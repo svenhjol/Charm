@@ -5,6 +5,11 @@ if [ -z `which sed` ]; then
   exit 1
 fi
 
+if [ -z "$1" ]; then
+  echo "Missing type"
+  exit 1
+fi
+
 TYPE=$1
 THISMOD="charm"
 DATA="../src/main/resources/data/${THISMOD}"
