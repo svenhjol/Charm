@@ -2,6 +2,6 @@
   "variants": {
     "type=bottom": { "model": "THISMOD:block/TYPE_slab" },
     "type=top": { "model": "THISMOD:block/TYPE_slab_top" },
-    "type=double": { "model": "THISMOD:block/TYPE" }
+    "type=double": { "model": "THISMOD:block/LONGTYPE" }
   }
 }

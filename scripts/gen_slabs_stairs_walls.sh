@@ -6,8 +6,14 @@ if [ -z `which sed` ]; then
 fi
 
 if [ -z "$1" ]; then
-  echo "Missing type"
+  echo "Missing short type (e.g. prismarine_brick)"
   exit 1
+fi
+
+if [ -z "$2" ]; then
+  LONGTYPE=$1
+else
+  LONGTYPE=$2
 fi
 
 TYPE=$1
@@ -23,6 +29,7 @@ copy_replace() {
 
   cp "${SRC}" "${DEST}"
   sed -i "s/TYPE/${TYPE}/g" "${DEST}"
+  sed -i "s/LONGTYPE/${LONGTYPE}/g" "${DEST}"
   sed -i "s/NAMESPACE/${NAMESPACE}/g" "${DEST}"
   sed -i "s/THISMOD/${THISMOD}/g" "${DEST}"
 

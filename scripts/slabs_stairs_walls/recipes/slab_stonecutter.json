@@ -1,7 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "THISMOD:TYPE"
+    "item": "THISMOD:LONGTYPE"
   },
   "result": "THISMOD:TYPE_slab",
   "count": 1
