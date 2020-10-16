@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:sea_lantern"
+    },
+    {
+      "item": "minecraft:tube_coral"
+    }
+  ],
+  "result": {
+    "item": "charm:tube_sea_lantern"
+  }
+}
