@@ -31,6 +31,6 @@ The enchanted item will be destroyed in the process.
 A tool with the **Magnetic** enchantment adds block drops straight to your inventory.  This enchantment may also be added to shears.
 
 ### Netherite Nuggets
-![Netherite Nuggets](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Netherite Nuggets](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/netherite-nugget.png?raw=true)
 Netherite can be broken into nuggets, and netherite nuggets can be combined to create a netherite ingot.
 Use a Netherite nugget to reduce the repair cost of tools and armor on an anvil.
