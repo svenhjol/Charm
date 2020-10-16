@@ -34,7 +34,7 @@ COMING SOON
 COMING SOON
 
 ### Crates
-![Crates](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Crates](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/variant-crates.png?raw=true)
 Crates offer a smaller storage solution than a chest or barrel with the benefit of being transportable, making it an early-game alternative to shulkerboxes. 
 
 Crates are also available in all vanilla wood variants.
@@ -42,7 +42,7 @@ Crates are also available in all vanilla wood variants.
 The contents can be measured using a comparator, like a vanilla chest.
 
 ### Gold Bars
-![Gold Bars](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Gold Bars](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/gold-bars.png?raw=true)
 Gold bars are crafted with gold ingots in the same shape as the vanilla iron bars recipe.
 
 If **Quark** is present, this feature is disabled by default.
@@ -65,7 +65,7 @@ Some of the wolf textures were kindly contributed by [jupiter1930](https://www.r
 If **Quark** is present, chickens, cows, and pigs are disabled by default.
 
 ### Variant Barrels
-![Variant Barrels](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Variant Barrels](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/new-variant-barrels.png?raw=true)
 Barrels of each type of vanilla wood can be crafted using the respective wood planks and slabs.  These extra barrels work with **Quark**'s drop-off and sort features.
 
 **Vanilla Barrels** are still available, crafted with a mix of wood types.#
@@ -79,7 +79,7 @@ The variants provide the same enchanting power as a normal bookshelf.
 If **Quark** is present, this feature is disabled by default.
 
 ### Variant Chests
-![Variant Chests](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Variant Chests](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/variant-chests.png?raw=true)
 Chests of each type of vanilla wood can be crafted using the respective wood planks.
 
 **Vanilla Chests** are still available, crafted with a mix of wood types.
@@ -87,7 +87,7 @@ Chests of each type of vanilla wood can be crafted using the respective wood pla
 If **Quark** is present, this feature is disabled by default.
 
 ### Variant Ladders
-![Variant Ladders](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Variant Ladders](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/variant-ladders.png?raw=true)
 Ladders of each type of vanilla wood can be crafted using the respective wood plank with sticks.
 The vanilla ladder is still available using the default vanilla recipe.
 
