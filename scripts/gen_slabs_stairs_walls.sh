@@ -86,9 +86,9 @@ copy_replace "${SOURCE}/models/block/wall_side.json" "${ASSETS}/models/block/${T
 copy_replace "${SOURCE}/models/block/wall_side_tall.json" "${ASSETS}/models/block/${TYPE}_wall_side_tall.json"
 
 # models/item
-copy_replace "${SOURCE}/models/block/slab.json" "${ASSETS}/models/block/${TYPE}_slab.json"
-copy_replace "${SOURCE}/models/block/slab_top.json" "${ASSETS}/models/block/${TYPE}_slab_top.json"
-copy_replace "${SOURCE}/models/block/stairs.json" "${ASSETS}/models/block/${TYPE}_stairs.json"
+copy_replace "${SOURCE}/models/item/slab.json" "${ASSETS}/models/item/${TYPE}_slab.json"
+copy_replace "${SOURCE}/models/item/stairs.json" "${ASSETS}/models/item/${TYPE}_stairs.json"
+copy_replace "${SOURCE}/models/item/wall.json" "${ASSETS}/models/item/${TYPE}_wall.json"
 
 # loot_tables/blocks
 copy_replace "${SOURCE}/loot_tables/blocks/slab.json" "${DATA}/loot_tables/blocks/${TYPE}_slab.json"
@@ -96,7 +96,7 @@ copy_replace "${SOURCE}/loot_tables/blocks/stairs.json" "${DATA}/loot_tables/blo
 copy_replace "${SOURCE}/loot_tables/blocks/wall.json" "${DATA}/loot_tables/blocks/${TYPE}_wall.json"
 
 # recipes
-mkdir "${DATA}/recipes/${TYPE}"
+mkdir -p "${DATA}/recipes/${TYPE}"
 copy_replace "${SOURCE}/recipes/slab.json" "${DATA}/recipes/${TYPE}/${TYPE}_slab.json"
 copy_replace "${SOURCE}/recipes/stairs.json" "${DATA}/recipes/${TYPE}/${TYPE}_stairs.json"
 copy_replace "${SOURCE}/recipes/wall.json" "${DATA}/recipes/${TYPE}/${TYPE}_wall.json"

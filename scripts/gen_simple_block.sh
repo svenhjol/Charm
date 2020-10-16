@@ -33,7 +33,7 @@ copy_replace "${SOURCE}/blockstates/block.json" "${ASSETS}/blockstates/${TYPE}.j
 copy_replace "${SOURCE}/models/block/block.json" "${ASSETS}/models/block/${TYPE}.json"
 
 # models/item
-copy_replace "${SOURCE}/models/block/block.json" "${ASSETS}/models/block/${TYPE}.json"
+copy_replace "${SOURCE}/models/item/block.json" "${ASSETS}/models/item/${TYPE}.json"
 
 # loot_tables/blocks
 copy_replace "${SOURCE}/loot_tables/blocks/block.json" "${DATA}/loot_tables/blocks/${TYPE}.json"
