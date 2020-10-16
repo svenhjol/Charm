@@ -6,7 +6,7 @@ if [ -z `which sed` ]; then
 fi
 
 if [ -z "$1" ]; then
-  echo "Missing wood type"
+  echo "Missing type"
   exit 1
 fi
 

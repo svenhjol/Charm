@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:sea_lantern"
+    },
+    {
+      "item": "minecraft:brain_coral"
+    }
+  ],
+  "result": {
+    "item": "charm:brain_sea_lantern"
+  }
+}

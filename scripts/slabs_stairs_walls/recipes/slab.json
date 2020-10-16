@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "THISMOD:LONGTYPE"
+    }
+  },
+  "result": {
+    "item": "THISMOD:TYPE_slab",
+    "count": 6
+  }
+}

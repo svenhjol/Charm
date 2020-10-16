@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "charm:block/fire_sea_lantern"
+    }
+  }
+}
