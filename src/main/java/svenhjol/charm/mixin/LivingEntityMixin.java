@@ -22,9 +22,9 @@ import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.event.EntityDeathCallback;
 import svenhjol.charm.event.EntityDropsCallback;
 import svenhjol.charm.event.HurtEntityCallback;
-import svenhjol.charm.module.core.ArmorInvisibility;
-import svenhjol.charm.module.core.UseTotemFromInventory;
-import svenhjol.charm.module.core.VariantLadders;
+import svenhjol.charm.module.ArmorInvisibility;
+import svenhjol.charm.module.UseTotemFromInventory;
+import svenhjol.charm.module.VariantLadders;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {

@@ -35,7 +35,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.core.CoralSquids;
+import svenhjol.charm.module.CoralSquids;
 
 import javax.annotation.Nullable;
 import java.util.Map;

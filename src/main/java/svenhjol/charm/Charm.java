@@ -5,23 +5,18 @@ import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.CharmTags;
 import svenhjol.charm.base.handler.LogHandler;
 import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.module.core.*;
+import svenhjol.charm.module.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Charm implements ModInitializer {
     public static final String MOD_ID = "charm";
-    public static final String STORAGEBLOCKS_ID = "storageblocks";
-    public static final String ADVENTURE_ID = "adventure";
-
     public static LogHandler LOG = new LogHandler("Charm");
 
     @Override
     public void onInitialize() {
-
-        // add vanilla modules
-        ModuleHandler.AVAILABLE_MODULES.put(MOD_ID, new ArrayList<>(Arrays.asList(
+        ModuleHandler.AVAILABLE_MODULES.put(Charm.MOD_ID, new ArrayList<>(Arrays.asList(
             AnvilImprovements.class,
             ArmorInvisibility.class,
             AutomaticRecipeUnlock.class,

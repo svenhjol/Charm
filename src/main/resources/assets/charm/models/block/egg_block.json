@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "top": "charm:block/egg_block_top",
-    "side": "charm:block/egg_block_side",
-    "bottom": "charm:block/egg_block_top"
-  }
-}

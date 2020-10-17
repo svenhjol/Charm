@@ -3,7 +3,6 @@ package svenhjol.charm.base.handler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.base.helper.StringHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.ClientJoinCallback;
@@ -112,7 +111,7 @@ public class ModuleHandler {
                         module.mod = annotation.mod();
                         module.alwaysEnabled = annotation.alwaysEnabled();
                         module.enabledByDefault = annotation.enabledByDefault();
-                        module.enabled = ModHelper.isLoaded(mod) && module.enabledByDefault;
+                        module.enabled = module.enabledByDefault;
                         module.description = annotation.description();
 
                         String moduleName = module.getName();
@@ -128,8 +127,7 @@ public class ModuleHandler {
             });
 
             // config for this module set
-            if (ModHelper.isLoaded(mod))
-                ConfigHandler.createConfig(mod, loaded);
+            ConfigHandler.createConfig(mod, loaded);
 
             // add loaded modules
             loaded.forEach((moduleName, module) ->

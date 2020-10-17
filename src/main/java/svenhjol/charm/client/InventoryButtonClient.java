@@ -5,8 +5,8 @@ import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.GuiSetupCallback;
-import svenhjol.charm.module.core.PortableCrafting;
-import svenhjol.charm.module.core.PortableEnderChest;
+import svenhjol.charm.module.PortableCrafting;
+import svenhjol.charm.module.PortableEnderChest;
 import svenhjol.charm.base.helper.ScreenHelper;
 
 public class InventoryButtonClient {

@@ -19,10 +19,10 @@ import java.util.Map;
 
 public class ConfigHandler {
 
-    public static void createConfig(String category, Map<String, CharmModule> modules) {
+    public static void createConfig(String mod, Map<String, CharmModule> modules) {
         Map<String, Map<String, Object>> finalConfig = new LinkedHashMap<>();
 
-        String configName = category.equals(Charm.MOD_ID) ? Charm.MOD_ID : Charm.MOD_ID + "-" + category;
+        String configName = mod.equals(Charm.MOD_ID) ? Charm.MOD_ID : Charm.MOD_ID + "-" + mod;
         String configPath = "./config/" + configName + ".json";
 
         modules.forEach((moduleName, module) -> {

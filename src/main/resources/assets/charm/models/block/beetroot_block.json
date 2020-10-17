@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "top": "charm:block/beetroot_block_top",
-    "side": "charm:block/beetroot_block_side",
-    "bottom": "charm:block/beetroot_block_bottom"
-  }
-}

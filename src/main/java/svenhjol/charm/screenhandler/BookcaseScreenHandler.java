@@ -6,7 +6,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.screenhandler.CharmScreenHandler;
 import svenhjol.charm.blockentity.BookcaseBlockEntity;
-import svenhjol.charm.module.core.Bookcases;
+import svenhjol.charm.module.Bookcases;
 
 public class BookcaseScreenHandler extends CharmScreenHandler {
     public BookcaseScreenHandler(int syncId, PlayerInventory player) {

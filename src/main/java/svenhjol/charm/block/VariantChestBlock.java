@@ -9,7 +9,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.BlockView;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
-import svenhjol.charm.module.core.VariantChests;
+import svenhjol.charm.module.VariantChests;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
 import svenhjol.charm.base.enums.IVariantMaterial;

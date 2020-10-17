@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
-import svenhjol.charm.module.core.BatBuckets;
+import svenhjol.charm.module.BatBuckets;
 import svenhjol.charm.base.CharmModule;
 
 import java.util.ArrayList;

@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.core.Kilns;
-import svenhjol.charm.module.core.Woodcutters;
+import svenhjol.charm.module.Kilns;
+import svenhjol.charm.module.Woodcutters;
 
 @Mixin(ClientRecipeBook.class)
 public class ClientRecipeBookMixin {

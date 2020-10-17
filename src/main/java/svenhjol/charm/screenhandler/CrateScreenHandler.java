@@ -6,7 +6,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.screenhandler.CharmScreenHandler;
 import svenhjol.charm.blockentity.CrateBlockEntity;
-import svenhjol.charm.module.core.Crates;
+import svenhjol.charm.module.Crates;
 
 public class CrateScreenHandler extends CharmScreenHandler {
     public CrateScreenHandler(int syncId, PlayerInventory player) {

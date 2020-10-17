@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import svenhjol.charm.module.core.Core;
+import svenhjol.charm.module.Core;
 
 public class LogHandler {
     public String name;
