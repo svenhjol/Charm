@@ -1,4 +1,4 @@
-package svenhjol.charm.module.core;
+package svenhjol.charm.module.storageblocks;
 
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;

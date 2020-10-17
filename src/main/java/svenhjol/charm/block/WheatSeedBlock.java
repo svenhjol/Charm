@@ -4,7 +4,7 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmBlock;
-import svenhjol.charm.module.core.StorageBlocks;
+import svenhjol.charm.module.storageblocks.StorageBlocks;
 
 public class WheatSeedBlock extends CharmBlock {
     public WheatSeedBlock(CharmModule module) {
