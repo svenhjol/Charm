@@ -3,6 +3,7 @@ package svenhjol.charm.base.handler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.base.helper.StringHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.ClientJoinCallback;
@@ -95,7 +96,7 @@ public class ModuleHandler {
     }
 
     private static void instantiateModules() {
-        AVAILABLE_MODULES.forEach((category, modules) -> {
+        AVAILABLE_MODULES.forEach((mod, modules) -> {
             Map<String, CharmModule> loaded = new TreeMap<>();
 
             modules.forEach(clazz -> {
@@ -111,9 +112,8 @@ public class ModuleHandler {
                         module.mod = annotation.mod();
                         module.alwaysEnabled = annotation.alwaysEnabled();
                         module.enabledByDefault = annotation.enabledByDefault();
-                        module.enabled = module.enabledByDefault;
+                        module.enabled = ModHelper.isLoaded(mod) && module.enabledByDefault;
                         module.description = annotation.description();
-                        module.category = category;
 
                         String moduleName = module.getName();
                         loaded.put(moduleName, module);
@@ -128,7 +128,8 @@ public class ModuleHandler {
             });
 
             // config for this module set
-            ConfigHandler.createConfig(category, loaded);
+            if (ModHelper.isLoaded(mod))
+                ConfigHandler.createConfig(mod, loaded);
 
             // add loaded modules
             loaded.forEach((moduleName, module) ->

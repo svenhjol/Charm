@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 public class Charm implements ModInitializer {
     public static final String MOD_ID = "charm";
+    public static final String STORAGEBLOCKS_ID = "storageblocks";
     public static final String ADVENTURE_ID = "adventure";
 
     public static LogHandler LOG = new LogHandler("Charm");

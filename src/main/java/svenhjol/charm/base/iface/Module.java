@@ -10,5 +10,4 @@ public @interface Module {
     boolean enabledByDefault() default true;
     String description() default "";
     String mod() default "";
-    String catgory() default "";
 }
