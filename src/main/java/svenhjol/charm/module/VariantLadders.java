@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LadderBlock;
 import net.minecraft.block.TrapdoorBlock;
@@ -8,12 +9,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.block.VariantLadderBlock;
-import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.block.VariantLadderBlock;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class VariantLadders extends CharmModule {
     @Override
     public void clientRegister() {
         LADDER_BLOCKS.values().forEach(ladder -> {
-            RenderLayersAccessor.getBlocks().put(ladder, RenderLayer.getCutout());
+            BlockRenderLayerMap.INSTANCE.putBlock(ladder, RenderLayer.getCutout());
         });
     }
 

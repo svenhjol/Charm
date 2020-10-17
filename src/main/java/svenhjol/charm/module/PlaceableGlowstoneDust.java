@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.RenderLayer;
@@ -16,10 +17,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.block.PlacedGlowstoneDustBlock;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
+import svenhjol.charm.block.PlacedGlowstoneDustBlock;
 
 @Module(mod = Charm.MOD_ID, description = "Glowstone dust can be placed on the ground as a light source.")
 public class PlaceableGlowstoneDust extends CharmModule {
@@ -32,7 +32,7 @@ public class PlaceableGlowstoneDust extends CharmModule {
 
     @Override
     public void clientRegister() {
-        RenderLayersAccessor.getBlocks().put(PLACED_GLOWSTONE_DUST, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(PLACED_GLOWSTONE_DUST, RenderLayer.getCutout());
     }
 
     @Override

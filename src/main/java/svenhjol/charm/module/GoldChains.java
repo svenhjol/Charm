@@ -1,11 +1,11 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.render.RenderLayer;
 import svenhjol.charm.Charm;
-import svenhjol.charm.block.GoldChainBlock;
-import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.block.GoldChainBlock;
 
 @Module(mod = Charm.MOD_ID, description = "Gold version of the vanilla chain.")
 public class GoldChains extends CharmModule {
@@ -18,6 +18,6 @@ public class GoldChains extends CharmModule {
 
     @Override
     public void clientRegister() {
-        RenderLayersAccessor.getBlocks().put(GOLD_CHAIN, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(GOLD_CHAIN, RenderLayer.getCutout());
     }
 }

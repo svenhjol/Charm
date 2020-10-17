@@ -69,7 +69,6 @@
     "SpriteAtlasTextureMixin",
     "TexturedRenderLayersMixin",
     "accessor.HandledScreenAccessor",
-    "accessor.RenderLayersAccessor",
     "accessor.SoundManagerAccessor",
     "accessor.SoundSystemAccessor"
   ],

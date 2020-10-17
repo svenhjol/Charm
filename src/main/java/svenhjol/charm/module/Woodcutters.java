@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.recipe.RecipeSerializer;
@@ -8,13 +9,12 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.WoodcutterBlock;
 import svenhjol.charm.gui.WoodcutterScreen;
 import svenhjol.charm.recipe.WoodcuttingRecipe;
 import svenhjol.charm.screenhandler.WoodcutterScreenHandler;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
 
 @Module(mod = Charm.MOD_ID, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
 public class Woodcutters extends CharmModule {
@@ -35,7 +35,7 @@ public class Woodcutters extends CharmModule {
 
     @Override
     public void clientRegister() {
-        RenderLayersAccessor.getBlocks().put(WOODCUTTER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(WOODCUTTER, RenderLayer.getCutout());
     }
 
     @Override
