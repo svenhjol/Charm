@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {"item": "minecraft:potato"}
+  },
+  "result": {
+    "item": "charm:potato_block"
+  }
+}

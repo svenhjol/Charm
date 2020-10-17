@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "charm:block/wheat_seed_block" }
+  }
+}
