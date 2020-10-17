@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
-import svenhjol.charm.module.vanillachanges.Core;
+import svenhjol.charm.module.core.Core;
 
 public class PortableCraftingScreenHandler extends CraftingScreenHandler {
     public PortableCraftingScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {

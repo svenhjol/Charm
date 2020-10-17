@@ -18,7 +18,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
-import svenhjol.charm.module.vanillachanges.Woodcutters;
+import svenhjol.charm.module.core.Woodcutters;
 import svenhjol.charm.recipe.WoodcuttingRecipe;
 
 import java.util.List;

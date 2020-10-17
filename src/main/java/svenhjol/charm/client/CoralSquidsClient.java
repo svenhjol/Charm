@@ -1,7 +1,7 @@
 package svenhjol.charm.client;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import svenhjol.charm.module.vanillachanges.CoralSquids;
+import svenhjol.charm.module.core.CoralSquids;
 import svenhjol.charm.render.CoralSquidEntityRenderer;
 import svenhjol.charm.base.CharmModule;
 

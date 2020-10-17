@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import svenhjol.charm.module.vanillachanges.Kilns;
+import svenhjol.charm.module.core.Kilns;
 import svenhjol.charm.screenhandler.KilnScreenHandler;
 
 public class KilnBlockEntity extends AbstractFurnaceBlockEntity {

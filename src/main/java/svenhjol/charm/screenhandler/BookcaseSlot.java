@@ -3,7 +3,7 @@ package svenhjol.charm.screenhandler;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
-import svenhjol.charm.module.vanillachanges.Bookcases;
+import svenhjol.charm.module.core.Bookcases;
 
 public class BookcaseSlot extends Slot {
     public BookcaseSlot(Inventory inventory, int slotIndex, int x, int y) {

@@ -7,7 +7,7 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.block.VariantChestBlock;
 import svenhjol.charm.block.VariantTrappedChestBlock;
-import svenhjol.charm.module.vanillachanges.VariantChests;
+import svenhjol.charm.module.core.VariantChests;
 import svenhjol.charm.render.VariantChestBlockEntityRenderer;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.IVariantMaterial;

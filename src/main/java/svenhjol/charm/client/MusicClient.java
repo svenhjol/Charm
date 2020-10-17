@@ -21,7 +21,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.vanillachanges.MusicImprovements;
+import svenhjol.charm.module.core.MusicImprovements;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.event.PlaySoundCallback;
 import svenhjol.charm.base.helper.DimensionHelper;

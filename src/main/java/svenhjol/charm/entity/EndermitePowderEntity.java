@@ -12,7 +12,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import svenhjol.charm.module.vanillachanges.EndermitePowder;
+import svenhjol.charm.module.core.EndermitePowder;
 
 @SuppressWarnings("EntityConstructor")
 public class EndermitePowderEntity extends Entity {

@@ -13,7 +13,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.module.vanillachanges.Candles;
+import svenhjol.charm.module.core.Candles;
 import svenhjol.charm.base.helper.VillagerHelper.SingleItemTypeTrade;
 
 import javax.annotation.Nullable;

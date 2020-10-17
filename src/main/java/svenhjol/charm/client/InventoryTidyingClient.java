@@ -12,7 +12,7 @@ import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
-import svenhjol.charm.module.vanillachanges.InventoryTidying;
+import svenhjol.charm.module.core.InventoryTidying;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.GuiSetupCallback;

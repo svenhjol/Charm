@@ -3,7 +3,7 @@ package svenhjol.charm.screenhandler;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
-import svenhjol.charm.module.vanillachanges.Crates;
+import svenhjol.charm.module.core.Crates;
 
 public class CrateSlot extends Slot {
     public CrateSlot(Inventory inventory, int slotIndex, int x, int y) {

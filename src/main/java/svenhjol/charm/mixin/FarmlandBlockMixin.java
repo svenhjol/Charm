@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.vanillachanges.FeatherFallingCrops;
+import svenhjol.charm.module.core.FeatherFallingCrops;
 
 @Mixin(FarmlandBlock.class)
 public class FarmlandBlockMixin {

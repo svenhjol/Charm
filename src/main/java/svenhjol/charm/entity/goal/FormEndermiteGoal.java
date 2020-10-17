@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import svenhjol.charm.module.vanillachanges.BlockOfEnderPearls;
+import svenhjol.charm.module.core.BlockOfEnderPearls;
 import svenhjol.charm.base.helper.MobHelper;
 
 import java.util.EnumSet;

@@ -5,7 +5,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.screen.AbstractFurnaceScreenHandler;
 import net.minecraft.screen.PropertyDelegate;
-import svenhjol.charm.module.vanillachanges.Kilns;
+import svenhjol.charm.module.core.Kilns;
 
 public class KilnScreenHandler extends AbstractFurnaceScreenHandler {
     public KilnScreenHandler(int syncId, PlayerInventory playerInventory) {

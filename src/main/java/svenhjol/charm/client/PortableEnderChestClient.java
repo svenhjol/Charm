@@ -16,7 +16,7 @@ import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.event.GuiSetupCallback;
 import svenhjol.charm.event.RenderGuiCallback;
-import svenhjol.charm.module.vanillachanges.PortableEnderChest;
+import svenhjol.charm.module.core.PortableEnderChest;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.ScreenHelper;
 

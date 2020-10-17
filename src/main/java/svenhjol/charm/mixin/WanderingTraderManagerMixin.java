@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.module.vanillachanges.WanderingTraderImprovements;
+import svenhjol.charm.module.core.WanderingTraderImprovements;
 
 import java.util.Random;
 
