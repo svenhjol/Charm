@@ -3,7 +3,7 @@ package svenhjol.charm.render;
 import net.minecraft.client.render.entity.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.Identifier;
-import svenhjol.charm.module.VariantMobTextures;
+import svenhjol.charm.module.vanillachanges.VariantMobTextures;
 
 public class VariantMobRenderer {
     public static class Chicken extends ChickenEntityRenderer {

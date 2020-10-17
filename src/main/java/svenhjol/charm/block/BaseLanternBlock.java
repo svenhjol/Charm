@@ -5,13 +5,13 @@ import net.minecraft.block.LanternBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.IMesonBlock;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.ICharmBlock;
 
-public abstract class BaseLanternBlock extends LanternBlock implements IMesonBlock {
-    protected MesonModule module;
+public abstract class BaseLanternBlock extends LanternBlock implements ICharmBlock {
+    protected CharmModule module;
 
-    public BaseLanternBlock(MesonModule module, String name, AbstractBlock.Settings settings) {
+    public BaseLanternBlock(CharmModule module, String name, AbstractBlock.Settings settings) {
         super(settings);
         this.module = module;
         register(module, name);

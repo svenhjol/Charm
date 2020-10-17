@@ -9,11 +9,11 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.MesonFallingBlock;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.CharmFallingBlock;
 
-public class RedstoneSandBlock extends MesonFallingBlock {
-    public RedstoneSandBlock(MesonModule module) {
+public class RedstoneSandBlock extends CharmFallingBlock {
+    public RedstoneSandBlock(CharmModule module) {
         super(module, "redstone_sand", Block.Settings
             .of(Material.AGGREGATE)
             .sounds(BlockSoundGroup.SAND)

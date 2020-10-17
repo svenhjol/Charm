@@ -5,13 +5,13 @@ import net.minecraft.block.PaneBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.IMesonBlock;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.ICharmBlock;
 
-public class GoldBarsBlock extends PaneBlock implements IMesonBlock {
-    private MesonModule module;
+public class GoldBarsBlock extends PaneBlock implements ICharmBlock {
+    private CharmModule module;
 
-    public GoldBarsBlock(MesonModule module) {
+    public GoldBarsBlock(CharmModule module) {
         super(Settings.copy(Blocks.IRON_BARS));
         this.module = module;
         this.register(module, "gold_bars");

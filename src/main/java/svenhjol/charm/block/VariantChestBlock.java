@@ -9,19 +9,19 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.BlockView;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
-import svenhjol.charm.module.VariantChests;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.IMesonBlock;
-import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.charm.module.vanillachanges.VariantChests;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.ICharmBlock;
+import svenhjol.charm.base.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("NullableProblems")
-public class VariantChestBlock extends ChestBlock implements IMesonBlock, IVariantChestBlock {
-    private final MesonModule module;
+public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVariantChestBlock {
+    private final CharmModule module;
     private final IVariantMaterial type;
 
-    public VariantChestBlock(MesonModule module, IVariantMaterial type) {
+    public VariantChestBlock(CharmModule module, IVariantMaterial type) {
         super(Settings.copy(Blocks.CHEST), () -> VariantChests.NORMAL_BLOCK_ENTITY);
 
         this.module = module;
@@ -50,7 +50,7 @@ public class VariantChestBlock extends ChestBlock implements IMesonBlock, IVaria
     @Override
     public BlockEntity createBlockEntity(BlockView worldIn) {
         VariantChestBlockEntity chest = new VariantChestBlockEntity();
-        chest.setCustomName(new TranslatableText("block." + this.module.mod.getId() + "." + type.asString() + "_chest"));
+        chest.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_chest"));
         return chest;
     }
 

@@ -15,7 +15,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Direction;
-import svenhjol.charm.module.Crates;
+import svenhjol.charm.module.vanillachanges.Crates;
 import svenhjol.charm.screenhandler.CrateScreenHandler;
 
 import javax.annotation.Nullable;

@@ -16,7 +16,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Direction;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.block.BookcaseBlock;
-import svenhjol.charm.module.Bookcases;
+import svenhjol.charm.module.vanillachanges.Bookcases;
 import svenhjol.charm.screenhandler.BookcaseScreenHandler;
 
 import javax.annotation.Nullable;

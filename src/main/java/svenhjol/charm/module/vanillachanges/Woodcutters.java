@@ -1,0 +1,45 @@
+package svenhjol.charm.module.vanillachanges;
+
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import svenhjol.charm.Charm;
+import svenhjol.charm.block.WoodcutterBlock;
+import svenhjol.charm.gui.WoodcutterScreen;
+import svenhjol.charm.recipe.WoodcuttingRecipe;
+import svenhjol.charm.screenhandler.WoodcutterScreenHandler;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.mixin.accessor.RenderLayersAccessor;
+
+@Module(mod = Charm.MOD_ID, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
+public class Woodcutters extends CharmModule {
+    public static Identifier RECIPE_ID = new Identifier("woodcutting");
+    public static Identifier BLOCK_ID = new Identifier(Charm.MOD_ID, "woodcutter");
+    public static WoodcutterBlock WOODCUTTER;
+    public static ScreenHandlerType<WoodcutterScreenHandler> SCREEN_HANDLER;
+    public static RecipeType<WoodcuttingRecipe> RECIPE_TYPE;
+    public static RecipeSerializer<WoodcuttingRecipe> RECIPE_SERIALIZER;
+
+    @Override
+    public void register() {
+        WOODCUTTER = new WoodcutterBlock(this);
+        RECIPE_TYPE = RecipeType.register(RECIPE_ID.toString());
+        RECIPE_SERIALIZER = RecipeSerializer.register(RECIPE_ID.toString(), new WoodcuttingRecipe.Serializer(WoodcuttingRecipe::new));
+        SCREEN_HANDLER = Registry.register(Registry.SCREEN_HANDLER, BLOCK_ID, new ScreenHandlerType<>(WoodcutterScreenHandler::new));
+    }
+
+    @Override
+    public void clientRegister() {
+        RenderLayersAccessor.getBlocks().put(WOODCUTTER, RenderLayer.getCutout());
+    }
+
+    @Override
+    public void clientInit() {
+        ScreenRegistry.register(SCREEN_HANDLER, WoodcutterScreen::new);
+    }
+}

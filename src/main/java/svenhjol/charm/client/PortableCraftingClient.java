@@ -14,17 +14,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.base.CharmResources;
-import svenhjol.charm.module.PortableCrafting;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.event.GuiSetupCallback;
-import svenhjol.meson.event.RenderGuiCallback;
-import svenhjol.meson.helper.ScreenHelper;
+import svenhjol.charm.module.vanillachanges.PortableCrafting;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.GuiSetupCallback;
+import svenhjol.charm.event.RenderGuiCallback;
+import svenhjol.charm.base.helper.ScreenHelper;
 
 public class PortableCraftingClient {
     public TexturedButtonWidget craftingButton;
     public static KeyBinding keyBinding;
 
-    public PortableCraftingClient(MesonModule module) {
+    public PortableCraftingClient(CharmModule module) {
         // set up client listeners
         GuiSetupCallback.EVENT.register(((client, width, height, buttons, addButton) -> {
             if (client.player == null)

@@ -15,12 +15,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.StructureFeature;
 import svenhjol.charm.entity.EndermitePowderEntity;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.DimensionHelper;
-import svenhjol.meson.item.MesonItem;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.DimensionHelper;
+import svenhjol.charm.base.item.CharmItem;
 
-public class EndermitePowderItem extends MesonItem {
-    public EndermitePowderItem(MesonModule module) {
+public class EndermitePowderItem extends CharmItem {
+    public EndermitePowderItem(CharmModule module) {
         super(module, "endermite_powder", new Item.Settings().group(ItemGroup.MISC));
     }
 

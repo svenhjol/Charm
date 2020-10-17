@@ -9,11 +9,5 @@
   },
   "result": {
     "item": "charm:gold_lantern"
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:gold_lanterns"
-    }
-  ]
+  }
 }

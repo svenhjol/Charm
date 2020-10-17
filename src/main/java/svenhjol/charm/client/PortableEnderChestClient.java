@@ -14,17 +14,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.base.CharmResources;
-import svenhjol.meson.event.GuiSetupCallback;
-import svenhjol.meson.event.RenderGuiCallback;
-import svenhjol.charm.module.PortableEnderChest;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ScreenHelper;
+import svenhjol.charm.event.GuiSetupCallback;
+import svenhjol.charm.event.RenderGuiCallback;
+import svenhjol.charm.module.vanillachanges.PortableEnderChest;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ScreenHelper;
 
 public class PortableEnderChestClient {
     public TexturedButtonWidget chestButton;
     public static KeyBinding keyBinding;
 
-    public PortableEnderChestClient(MesonModule module) {
+    public PortableEnderChestClient(CharmModule module) {
         // set up client listeners
         GuiSetupCallback.EVENT.register((client, width, height, buttons, addButton) -> {
             if (client.player == null)

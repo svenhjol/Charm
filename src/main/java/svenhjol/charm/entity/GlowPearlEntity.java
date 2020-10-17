@@ -15,9 +15,9 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.charm.module.GlowPearls;
-import svenhjol.charm.module.PlaceableGlowstoneDust;
-import svenhjol.meson.helper.PlayerHelper;
+import svenhjol.charm.module.vanillachanges.GlowPearls;
+import svenhjol.charm.module.vanillachanges.PlaceableGlowstoneDust;
+import svenhjol.charm.base.helper.PlayerHelper;
 
 public class GlowPearlEntity extends ThrownItemEntity {
     public GlowPearlEntity(EntityType<? extends GlowPearlEntity> entityType, World world) {

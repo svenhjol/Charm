@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.ArmorInvisibility;
-import svenhjol.meson.Meson;
+import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.module.vanillachanges.ArmorInvisibility;
 
 @Mixin(ArmorFeatureRenderer.class)
 public class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEntityModel<T>, A extends BipedEntityModel<T>> {
@@ -22,7 +22,7 @@ public class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEn
         cancellable = true
     )
     private void hookRenderArmorPart(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T livingEntity, EquipmentSlot equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci) {
-        if (Meson.enabled("charm:armor_invisibility")) {
+        if (ModuleHandler.enabled("charm:armor_invisibility")) {
             ItemStack stack = livingEntity.getEquippedStack(equipmentSlot);
             if (ArmorInvisibility.shouldArmorBeInvisible(livingEntity, stack))
                 ci.cancel();

@@ -1,6 +1,6 @@
 package svenhjol.charm.blockentity;
 
-import svenhjol.charm.module.VariantChests;
+import svenhjol.charm.module.vanillachanges.VariantChests;
 
 public class VariantTrappedChestBlockEntity extends VariantChestBlockEntity {
     public VariantTrappedChestBlockEntity() {

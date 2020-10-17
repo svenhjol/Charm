@@ -11,14 +11,14 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.meson.MesonModule;
+import svenhjol.charm.base.CharmModule;
 
 import java.util.Random;
 
 public class RedstoneLanternBlock extends BaseLanternBlock {
     public static BooleanProperty LIT = Properties.LIT;
 
-    public RedstoneLanternBlock(MesonModule module) {
+    public RedstoneLanternBlock(CharmModule module) {
         super(module, "redstone_lantern", AbstractBlock.Settings.copy(Blocks.LANTERN)
             .luminance(p -> p.get(Properties.LIT) ? 15 : 0));
 

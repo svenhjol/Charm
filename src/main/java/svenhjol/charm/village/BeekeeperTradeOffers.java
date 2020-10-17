@@ -12,9 +12,9 @@ import net.minecraft.tag.ItemTags;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
-import svenhjol.charm.module.Candles;
-import svenhjol.meson.Meson;
-import svenhjol.meson.helper.VillagerHelper.SingleItemTypeTrade;
+import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.module.vanillachanges.Candles;
+import svenhjol.charm.base.helper.VillagerHelper.SingleItemTypeTrade;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -68,7 +68,7 @@ public class BeekeeperTradeOffers {
         public TradeOffer create(Entity entity, Random random) {
             setInput(Items.EMERALD, 3);
 
-            if (Meson.enabled("charm:candles")) {
+            if (ModuleHandler.enabled("charm:candles")) {
                 setOutput(Candles.BEESWAX, 1);
             } else {
                 setOutput(Items.HONEYCOMB, 1);

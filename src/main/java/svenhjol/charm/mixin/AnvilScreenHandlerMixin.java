@@ -18,10 +18,10 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.meson.event.UpdateAnvilCallback;
-import svenhjol.charm.module.AnvilImprovements;
-import svenhjol.charm.module.StackableEnchantedBooks;
-import svenhjol.meson.Meson;
+import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.module.vanillachanges.AnvilImprovements;
+import svenhjol.charm.module.vanillachanges.StackableEnchantedBooks;
+import svenhjol.charm.event.UpdateAnvilCallback;
 
 @Mixin(AnvilScreenHandler.class)
 public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
@@ -94,7 +94,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         )
     )
     private void anvilUpdateHook(Inventory inv, int index, ItemStack stack) {
-        if (Meson.enabled("charm:stackable_enchanted_books"))
+        if (ModuleHandler.enabled("charm:stackable_enchanted_books"))
             stack = StackableEnchantedBooks.getReducedStack(inv.getStack(index));
 
         inv.setStack(index, stack);

@@ -4,11 +4,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.slot.Slot;
+import svenhjol.charm.base.screenhandler.CharmScreenHandler;
 import svenhjol.charm.blockentity.CrateBlockEntity;
-import svenhjol.charm.module.Crates;
-import svenhjol.meson.screenhandler.MesonScreenHandler;
+import svenhjol.charm.module.vanillachanges.Crates;
 
-public class CrateScreenHandler extends MesonScreenHandler {
+public class CrateScreenHandler extends CharmScreenHandler {
     public CrateScreenHandler(int syncId, PlayerInventory player) {
         this(syncId, player, new SimpleInventory(CrateBlockEntity.SIZE));
     }

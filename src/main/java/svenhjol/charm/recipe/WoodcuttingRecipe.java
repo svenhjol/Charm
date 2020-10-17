@@ -8,7 +8,7 @@ import net.minecraft.recipe.CuttingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import svenhjol.charm.module.Woodcutters;
+import svenhjol.charm.module.vanillachanges.Woodcutters;
 
 public class WoodcuttingRecipe extends CuttingRecipe {
    public WoodcuttingRecipe(Identifier id, String group, Ingredient input, ItemStack output) {

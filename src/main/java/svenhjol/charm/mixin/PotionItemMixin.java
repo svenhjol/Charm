@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.RemovePotionGlint;
+import svenhjol.charm.module.vanillachanges.RemovePotionGlint;
 
 @Mixin(PotionItem.class)
 public class PotionItemMixin {

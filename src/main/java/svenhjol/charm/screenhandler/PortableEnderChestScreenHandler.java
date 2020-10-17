@@ -8,7 +8,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
-import svenhjol.charm.module.Core;
+import svenhjol.charm.module.vanillachanges.Core;
 
 public class PortableEnderChestScreenHandler extends GenericContainerScreenHandler {
     public PortableEnderChestScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {

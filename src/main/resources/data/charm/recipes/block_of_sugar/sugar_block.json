@@ -10,11 +10,5 @@
   },
   "result": {
     "item": "charm:sugar_block"
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:block_of_sugar"
-    }
-  ]
+  }
 }

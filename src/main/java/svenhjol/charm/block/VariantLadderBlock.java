@@ -6,14 +6,14 @@ import net.minecraft.block.LadderBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.IMesonBlock;
-import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.ICharmBlock;
+import svenhjol.charm.base.enums.IVariantMaterial;
 
-public class VariantLadderBlock extends LadderBlock implements IMesonBlock {
-    private final MesonModule module;
+public class VariantLadderBlock extends LadderBlock implements ICharmBlock {
+    private final CharmModule module;
 
-    public VariantLadderBlock(MesonModule module, IVariantMaterial type) {
+    public VariantLadderBlock(CharmModule module, IVariantMaterial type) {
         super(AbstractBlock.Settings.copy(Blocks.LADDER));
         register(module, type.asString() + "_ladder");
 

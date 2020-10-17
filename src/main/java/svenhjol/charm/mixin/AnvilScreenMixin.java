@@ -6,7 +6,7 @@ import net.minecraft.entity.player.PlayerAbilities;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.module.AnvilImprovements;
+import svenhjol.charm.module.vanillachanges.AnvilImprovements;
 
 @Mixin(AnvilScreen.class)
 public class AnvilScreenMixin {

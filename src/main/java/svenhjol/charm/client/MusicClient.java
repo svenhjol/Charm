@@ -20,12 +20,12 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import svenhjol.meson.event.PlaySoundCallback;
-import svenhjol.charm.module.MusicImprovements;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.DimensionHelper;
-import svenhjol.meson.helper.SoundHelper;
+import svenhjol.charm.Charm;
+import svenhjol.charm.module.vanillachanges.MusicImprovements;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.PlaySoundCallback;
+import svenhjol.charm.base.helper.DimensionHelper;
+import svenhjol.charm.base.helper.SoundHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import java.util.Random;
 
 @SuppressWarnings("unused")
 public class MusicClient {
-    private final MesonModule module;
+    private final CharmModule module;
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;
     private static SoundInstance currentMusic;
@@ -42,7 +42,7 @@ public class MusicClient {
     private static final List<MusicCondition> musicConditions = new ArrayList<>();
     public static boolean enabled;
 
-    public MusicClient(MesonModule module) {
+    public MusicClient(CharmModule module) {
         this.module = module;
 
         // set statically so hooks can check this is enabled
@@ -91,7 +91,7 @@ public class MusicClient {
             SoundHelper.getPlayingSounds().forEach((category, s) -> {
                 if (category == SoundCategory.RECORDS) {
                     musicToStop = sound;
-                    Meson.LOG.debug("Triggered background music while record playing");
+                    Charm.LOG.debug("Triggered background music while record playing");
                 }
             });
         }

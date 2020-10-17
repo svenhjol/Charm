@@ -15,11 +15,5 @@
   },
   "result": {
     "item": "charm:acacia_bookcase"
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:bookcases"
-    }
-  ]
+  }
 }

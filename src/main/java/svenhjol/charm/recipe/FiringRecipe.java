@@ -7,7 +7,7 @@ import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
-import svenhjol.charm.module.Kilns;
+import svenhjol.charm.module.vanillachanges.Kilns;
 
 public class FiringRecipe extends AbstractCookingRecipe {
     public FiringRecipe(Identifier id, String group, Ingredient input, ItemStack output, float experience, int cookTime) {

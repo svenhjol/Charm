@@ -6,13 +6,13 @@ import net.minecraft.block.ChainBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.IMesonBlock;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.ICharmBlock;
 
-public class GoldChainBlock extends ChainBlock implements IMesonBlock {
-    private final MesonModule module;
+public class GoldChainBlock extends ChainBlock implements ICharmBlock {
+    private final CharmModule module;
 
-    public GoldChainBlock(MesonModule module) {
+    public GoldChainBlock(CharmModule module) {
         super(AbstractBlock.Settings.copy(Blocks.CHAIN));
         this.module = module;
         this.register(module, "gold_chain");

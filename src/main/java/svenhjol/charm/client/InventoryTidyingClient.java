@@ -12,12 +12,12 @@ import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
-import svenhjol.charm.module.InventoryTidying;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.event.RenderGuiCallback;
-import svenhjol.meson.event.GuiSetupCallback;
-import svenhjol.meson.helper.ScreenHelper;
-import svenhjol.meson.mixin.accessor.SlotAccessor;
+import svenhjol.charm.module.vanillachanges.InventoryTidying;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.RenderGuiCallback;
+import svenhjol.charm.event.GuiSetupCallback;
+import svenhjol.charm.base.helper.ScreenHelper;
+import svenhjol.charm.mixin.accessor.SlotAccessor;
 
 import java.util.*;
 
@@ -25,7 +25,7 @@ import static svenhjol.charm.handler.InventoryTidyingHandler.BE;
 import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
 
 public class InventoryTidyingClient {
-    private final MesonModule module;
+    private final CharmModule module;
 
     public static final int LEFT = 159;
     public static final int TOP = 12;
@@ -36,7 +36,7 @@ public class InventoryTidyingClient {
 
     public final Map<Class<? extends Screen>, Map<Integer, Integer>> screenTweaks = new HashMap<>();
 
-    public InventoryTidyingClient(MesonModule module) {
+    public InventoryTidyingClient(CharmModule module) {
         this.module = module;
 
         if (!module.enabled)

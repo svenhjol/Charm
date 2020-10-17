@@ -2,12 +2,12 @@ package svenhjol.charm.client;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.entity.EntityType;
-import svenhjol.charm.module.VariantMobTextures;
+import svenhjol.charm.module.vanillachanges.VariantMobTextures;
 import svenhjol.charm.render.VariantMobRenderer;
-import svenhjol.meson.MesonModule;
+import svenhjol.charm.base.CharmModule;
 
 public class VariantMobTexturesClient {
-    public VariantMobTexturesClient(MesonModule module) {
+    public VariantMobTexturesClient(CharmModule module) {
         if (!module.enabled)
             return;
 

@@ -9,11 +9,5 @@
   },
   "result": {
     "item": "charm:candle"
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:candles"
-    }
-  ]
+  }
 }

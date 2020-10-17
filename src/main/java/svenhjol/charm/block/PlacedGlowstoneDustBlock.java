@@ -16,14 +16,14 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.MesonBlock;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.CharmBlock;
 
-public class PlacedGlowstoneDustBlock extends MesonBlock implements Waterloggable {
+public class PlacedGlowstoneDustBlock extends CharmBlock implements Waterloggable {
     public static final VoxelShape SHAPE = Block.createCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 1.0D, 13.0D);
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-    public PlacedGlowstoneDustBlock(MesonModule module) {
+    public PlacedGlowstoneDustBlock(CharmModule module) {
         super(module, "placed_glowstone_dust", Settings.copy(Blocks.REDSTONE_WIRE)
             .luminance(l -> 8));
 

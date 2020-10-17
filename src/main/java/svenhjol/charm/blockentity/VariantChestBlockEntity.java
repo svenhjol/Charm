@@ -3,8 +3,8 @@ package svenhjol.charm.blockentity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
 import svenhjol.charm.block.IVariantChestBlock;
-import svenhjol.charm.module.VariantChests;
-import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.charm.module.vanillachanges.VariantChests;
+import svenhjol.charm.base.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 

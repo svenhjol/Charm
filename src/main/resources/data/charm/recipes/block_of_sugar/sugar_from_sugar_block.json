@@ -8,11 +8,5 @@
   "result": {
     "item": "minecraft:sugar",
     "count": 9
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:block_of_sugar"
-    }
-  ]
+  }
 }
