@@ -38,7 +38,7 @@ Endermite Powder has a chance of being dropped from **Endermites** when killed b
 Husks can now spawn underground in their biomes and also have a chance to drop sand when killed.
 
 ### Lumberjacks
-![Lumberjacks](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Lumberjacks](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/lumberjack.png?raw=true)
 Lumberjacks are villagers that trade wooden items. Their job site is the **Woodcutter**.
 
 Villages have the chance to spawn with dedicated lumberjack houses.
@@ -60,7 +60,7 @@ COMING SOON
 Prevents nitwits from spawning as new villagers.  It also converts any nitwits to unemployed villagers in nearby areas.
 
 ### Snow Golem derp faces
-![Snow Golem derp faces](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Snow Golem derp faces](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/snow-golem-derp-faces.png?raw=true)
 [COMING SOON]
 
 ### Stray improvements
@@ -74,13 +74,13 @@ Tamed animals no longer take direct damage from players. They still can suffer s
 If you are in Creative Mode, this feature is bypassed.
 
 ### Villagers follow emerald blocks
-![Villagers follow emerald blocks](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Villagers follow emerald blocks](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/villagers-follow-emerald.png?raw=true)
 Villagers are attracted when the player holds a block of emeralds.
 
 If **Quark** is present, this feature is disabled by default.
 
 ### Wandering Trader Improvements
-![Wandering Trader Improvements](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Wandering Trader Improvements](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/improved-traders.png?raw=true)
 Wandering Traders only spawn when there is a signal fire (i.e., a campfire with a hay bale beneath) nearby.
 They also sell maps to structures and biomes.
 
