@@ -10,7 +10,7 @@ title: Decoration
 Craft a Block of Ender Pearls from 9 ender pearls.  If a silverfish burrows into an Ender Pearl Block, it will turn into an Endermite.  Eating a Chorus Fruit will teleport you to the nearest Ender Pearl Block rather than a random location.  Both features are configurable.
 
 ### Bookcases
-![Bookcases](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Bookcases](https://github.com/svenhjol/Charm-Assets/blob/87b93c3ddf9d4332cc7c8e0b3fb65ae2baa99dae/web/charm-features/bookcases-retextured.png?raw=true)
 A bookshelf that has 18 inventory slots for storing books.
 It provides the same enchanting power as a normal bookshelf as long as there is at least 1 slot occupied and can be crafted from each of the 8 vanilla wood types.
 
@@ -44,11 +44,11 @@ Gold bars are crafted with gold ingots in the same shape as the vanilla iron bar
 If **Quark** is present, this feature is disabled by default.
 
 ### Gold Chains
-![Gold Chains](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Gold Chains](https://github.com/svenhjol/Charm-Assets/blob/87b93c3ddf9d4332cc7c8e0b3fb65ae2baa99dae/web/charm-features/gold-chains.png?raw=true)
 Gold chains are crafted with gold ingots and nuggets in the same shape as the vanilla iron chains recipe.
 
 ### Gold Lanterns
-![Gold Lanterns](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Gold Lanterns](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/golden-lanterns.png?raw=true)
 A **Gold Lantern** is crafted with gold nuggets around a torch.
 
 The **Gold Soul Lantern** can be crafted using gold nuggets around a soul torch.
@@ -68,7 +68,7 @@ Barrels of each type of vanilla wood can be crafted using the respective wood pl
 Only vanilla barrels work as a Fisherman villager job site.
 
 ### Variant Bookshelves
-![Variant Bookshelves](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Variant Bookshelves](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/bookshelves.png?raw=true)
 Bookshelves of each type of vanilla wood can be crafted using the respective wood planks and a bookshelf.
 The variants provide the same enchanting power as a normal bookshelf.
 
