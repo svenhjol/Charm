@@ -62,6 +62,7 @@ public class Charm implements ModInitializer {
             PortableEnderChest.class,
             RedstoneLanterns.class,
             RedstoneSand.class,
+            RefinedObsidian.class,
             RemoveNitwits.class,
             RemovePotionGlint.class,
             ShulkerBoxTooltips.class,

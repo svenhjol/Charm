@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "minecraft:obsidian"
+  },
+  "result": "charm:refined_obsidian",
+  "experience": 0.2,
+  "cookingtime": 200
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "charm:block/refined_obsidian_slab" },
+    "type=top": { "model": "charm:block/refined_obsidian_slab_top" },
+    "type=double": { "model": "charm:block/refined_obsidian" }
+  }
+}
