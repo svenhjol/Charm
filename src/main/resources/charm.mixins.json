@@ -26,6 +26,7 @@
     "ServerWorldMixin",
     "ShulkerBoxBlockEntityMixin",
     "ShulkerBoxSlotMixin",
+    "SinglePoolElementMixin",
     "StrayEntityMixin",
     "ThrownEntityMixin",
     "WanderingTraderManagerMixin",

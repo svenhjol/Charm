@@ -2,6 +2,7 @@ package svenhjol.charm;
 
 import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.base.CharmStructures;
 import svenhjol.charm.base.CharmTags;
 import svenhjol.charm.base.handler.LogHandler;
 import svenhjol.charm.base.handler.ModuleHandler;
@@ -84,6 +85,7 @@ public class Charm implements ModInitializer {
             Woodcutters.class
         )));
 
+        CharmStructures.init();
         CharmSounds.init();
         CharmTags.init();
 
