@@ -60,6 +60,10 @@ Some of the wolf textures were kindly contributed by [jupiter1930](https://www.r
 
 If **Quark** is present, chickens, cows, and pigs are disabled by default.
 
+### Smooth Glowstone
+![Block of Ender Pearls](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Smooth Glowstone.
+
 ### Variant Barrels
 ![Variant Barrels](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/new-variant-barrels.png?raw=true)
 Barrels of each type of vanilla wood can be crafted using the respective wood planks and slabs.  These extra barrels work with **Quark**'s drop-off and sort features.
