@@ -20,7 +20,7 @@ public class DecorationHelper {
     public static List<Block> DECORATION_BLOCKS = new ArrayList<>();
     public static List<Block> FLOWERS = new ArrayList<>();
     public static List<Block> FLOWER_POTS = new ArrayList<>();
-    public static List<Identifier> RARE_LOOT_TABLES = new ArrayList<>();
+    public static List<Identifier> RARE_CHEST_LOOT_TABLES = new ArrayList<>();
     public static List<Block> RARE_ORES = new ArrayList<>();
     public static List<Block> SAPLINGS = new ArrayList<>();
     public static List<EntityType<?>> SPAWNER_MOBS = new ArrayList<>();

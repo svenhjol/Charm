@@ -44,13 +44,8 @@ public class DecorationHandler {
 
         COMMON_LOOT_TABLES.addAll(LootHelper.getVanillaVillageLootTables());
 
-        RARE_LOOT_TABLES.addAll(Arrays.asList(
-            LootTables.STRONGHOLD_LIBRARY_CHEST,
-            LootTables.NETHER_BRIDGE_CHEST,
-            LootTables.END_CITY_TREASURE_CHEST,
-            LootTables.RUINED_PORTAL_CHEST,
-            LootTables.WOODLAND_MANSION_CHEST,
-            LootTables.UNDERWATER_RUIN_BIG_CHEST
+        RARE_CHEST_LOOT_TABLES.addAll(Arrays.asList(
+            LootTables.RUINED_PORTAL_CHEST
         ));
 
         BOOKCASE_LOOT_TABLES.addAll(Arrays.asList(
