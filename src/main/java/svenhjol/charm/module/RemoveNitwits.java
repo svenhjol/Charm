@@ -5,13 +5,13 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.village.VillagerData;
 import net.minecraft.village.VillagerProfession;
-import svenhjol.meson.event.AddEntityCallback;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
-public class RemoveNitwits extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
+public class RemoveNitwits extends CharmModule {
     @Override
     public void init() {
         AddEntityCallback.EVENT.register(this::changeNitwitProfession);
@@ -26,7 +26,7 @@ public class RemoveNitwits extends MesonModule {
 
             if (data.getProfession() == VillagerProfession.NITWIT) {
                 villager.setVillagerData(data.withProfession(VillagerProfession.NONE));
-                Meson.LOG.debug("Changed nitwit's profession to NONE: " + villager.getUuidAsString());
+                Charm.LOG.debug("Changed nitwit's profession to NONE: " + villager.getUuidAsString());
             }
         }
 

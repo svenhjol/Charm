@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "charm:refined_obsidian"
+  },
+  "result": "charm:refined_obsidian_slab",
+  "count": 1
+}

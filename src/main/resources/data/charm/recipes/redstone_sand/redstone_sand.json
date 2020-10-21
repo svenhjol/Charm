@@ -9,11 +9,5 @@
   },
   "result": {
     "item": "charm:redstone_sand"
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:redstone_sand"
-    }
-  ]
+  }
 }

@@ -27,18 +27,18 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import svenhjol.charm.module.Candles;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.MesonBlock;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.CharmBlock;
 
 import java.util.Random;
 
-public class CandleBlock extends MesonBlock implements Waterloggable {
+public class CandleBlock extends CharmBlock implements Waterloggable {
     protected static final VoxelShape SHAPE = Block.createCuboidShape(6.0D, 0.0D, 6.0D, 10.0D, 9.0D, 10.0D);
     public static final BooleanProperty LIT = Properties.LIT;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     private final ParticleEffect flame;
 
-    public CandleBlock(MesonModule module) {
+    public CandleBlock(CharmModule module) {
         super(module, "candle", AbstractBlock.Settings
             .of(Material.ORGANIC_PRODUCT)
             .sounds(BlockSoundGroup.WOOL)

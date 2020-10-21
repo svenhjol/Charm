@@ -15,23 +15,5 @@
   },
   "result": {
     "item": "charm:birch_bookshelf"
-  },
-  "conditions": [
-    {
-      "type": "forge:and",
-      "values": [
-        {
-          "type": "meson:module_enabled",
-          "module": "charm:variant_bookshelves"
-        },
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:mod_loaded",
-            "modid": "quark"
-          }
-        }
-      ]
-    }
-  ]
+  }
 }

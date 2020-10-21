@@ -18,20 +18,21 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.blockentity.CrateBlockEntity;
-import svenhjol.meson.mixin.accessor.StructurePieceAccessor;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.mixin.accessor.StructurePieceAccessor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-@Module(description = "Adds decoration and more ores to mineshafts.")
-public class MineshaftImprovements extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.")
+public class MineshaftImprovements extends CharmModule {
     public static List<BlockState> commonFloorBlocks = new ArrayList<>();
     public static List<BlockState> commonCeilingBlocks = new ArrayList<>();
     public static List<BlockState> rareFloorBlocks = new ArrayList<>();
@@ -172,7 +173,7 @@ public class MineshaftImprovements extends MesonModule {
             }
         }
 
-        if (generateCrates && Meson.enabled("charm:crates") && rand.nextFloat() < crateChance) {
+        if (generateCrates && ModuleHandler.enabled("charm:crates") && rand.nextFloat() < crateChance) {
             if (rand.nextFloat() < 0.9F) {
                 int r = rand.nextInt(3) + 12;
                 int y = ((StructurePieceAccessor)piece).callApplyYTransform(0);

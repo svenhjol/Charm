@@ -10,12 +10,13 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
-import svenhjol.meson.event.HurtEntityCallback;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.event.HurtEntityCallback;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Tamed animals do not take direct damage from players.")
-public class TamedAnimalsNoDamage extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.")
+public class TamedAnimalsNoDamage extends CharmModule {
     @Override
     public void init() {
         AttackEntityCallback.EVENT.register(this::tryIgnoreAttack);

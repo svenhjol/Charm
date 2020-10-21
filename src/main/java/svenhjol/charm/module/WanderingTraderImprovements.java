@@ -16,21 +16,22 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.feature.StructureFeature;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.BiomeHelper;
-import svenhjol.meson.helper.MapHelper;
-import svenhjol.meson.helper.VillagerHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.BiomeHelper;
+import svenhjol.charm.base.helper.MapHelper;
+import svenhjol.charm.base.helper.VillagerHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-@Module(description = "Wandering traders only appear near signal campfires and sell maps to biomes and structures.")
-public class WanderingTraderImprovements extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Wandering traders only appear near signal campfires and sell maps to biomes and structures.")
+public class WanderingTraderImprovements extends CharmModule {
     public static final List<TraderMap> traderMaps = new ArrayList<>();
 
     @Config(name = "Spawn near signal fire", description = "If true, wandering traders will only spawn if the player is near a signal fire.")
@@ -82,7 +83,7 @@ public class WanderingTraderImprovements extends MesonModule {
     }
 
     public static boolean checkSpawnConditions(World world, BlockPos pos) {
-        if (!Meson.enabled("charm:wandering_trader_improvements"))
+        if (!ModuleHandler.enabled("charm:wandering_trader_improvements"))
             return true;
 
         if (!spawnNearSignalFire)
@@ -98,7 +99,7 @@ public class WanderingTraderImprovements extends MesonModule {
                 && state.get(CampfireBlock.SIGNAL_FIRE);
         });
 
-        Meson.LOG.debug(foundFire
+        Charm.LOG.debug(foundFire
             ? "Found signal fire within range of player, attempting to spawn Wandering Trader."
             : "No signal fire within range of player, not spawning Wandering Trader.");
 
@@ -106,7 +107,7 @@ public class WanderingTraderImprovements extends MesonModule {
     }
 
     public static boolean shouldSpawnFrequently() {
-        return Meson.enabled("charm:wandering_trader_improvements") && frequentSpawn;
+        return ModuleHandler.enabled("charm:wandering_trader_improvements") && frequentSpawn;
     }
 
     public static class StructureMapForEmeraldsTrade implements TradeOffers.Factory {

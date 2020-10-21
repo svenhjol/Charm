@@ -1,14 +1,15 @@
 package svenhjol.charm.module;
 
+import svenhjol.charm.Charm;
 import svenhjol.charm.block.CandleBlock;
 import svenhjol.charm.item.BeeswaxItem;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.DecorationHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.DecorationHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Candles are made from beeswax and have a lower ambient light than torches.")
-public class Candles extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Candles are made from beeswax and have a lower ambient light than torches.")
+public class Candles extends CharmModule {
     public static CandleBlock CANDLE;
     public static BeeswaxItem BEESWAX;
 

@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LadderBlock;
 import net.minecraft.block.TrapdoorBlock;
@@ -8,20 +9,19 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.enums.VanillaVariantMaterial;
+import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.VariantLadderBlock;
-import svenhjol.meson.mixin.accessor.RenderLayersAccessor;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IVariantMaterial;
-import svenhjol.meson.enums.VanillaVariantMaterial;
-import svenhjol.meson.iface.Module;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Module(description = "Ladders available in all types of vanilla wood.")
-public class VariantLadders extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Ladders available in all types of vanilla wood.")
+public class VariantLadders extends CharmModule {
     public static final Map<IVariantMaterial, VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
 
     public static boolean isEnabled = false;
@@ -38,7 +38,7 @@ public class VariantLadders extends MesonModule {
     @Override
     public void clientRegister() {
         LADDER_BLOCKS.values().forEach(ladder -> {
-            RenderLayersAccessor.getBlocks().put(ladder, RenderLayer.getCutout());
+            BlockRenderLayerMap.INSTANCE.putBlock(ladder, RenderLayer.getCutout());
         });
     }
 

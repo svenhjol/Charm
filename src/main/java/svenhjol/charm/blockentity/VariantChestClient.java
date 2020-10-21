@@ -5,24 +5,26 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.util.Identifier;
-import svenhjol.charm.Charm;
 import svenhjol.charm.block.VariantChestBlock;
 import svenhjol.charm.block.VariantTrappedChestBlock;
-import svenhjol.meson.event.BlockItemRenderCallback;
-import svenhjol.meson.event.TextureStitchCallback;
 import svenhjol.charm.module.VariantChests;
 import svenhjol.charm.render.VariantChestBlockEntityRenderer;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.event.BlockItemRenderCallback;
+import svenhjol.charm.event.TextureStitchCallback;
 
 import java.util.Set;
 
 @Environment(EnvType.CLIENT)
 public class VariantChestClient {
+    private final CharmModule module;
     private final VariantChestBlockEntity CACHED_NORMAL_CHEST = new VariantChestBlockEntity();
     private final VariantTrappedChestBlockEntity CACHED_TRAPPED_CHEST = new VariantTrappedChestBlockEntity();
 
-    public VariantChestClient(MesonModule module) {
+    public VariantChestClient(CharmModule module) {
+        this.module = module;
+
         BlockEntityRendererRegistry.INSTANCE.register(VariantChests.NORMAL_BLOCK_ENTITY, VariantChestBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(VariantChests.TRAPPED_BLOCK_ENTITY, VariantChestBlockEntityRenderer::new);
 
@@ -58,7 +60,7 @@ public class VariantChestClient {
         String[] bases = {"trapped", "normal"};
 
         for (String base : bases) {
-            Identifier id = new Identifier(Charm.MOD_ID, "entity/chest/" + variant.asString() + "_" + base + chestTypeName);
+            Identifier id = new Identifier(module.mod, "entity/chest/" + variant.asString() + "_" + base + chestTypeName);
             VariantChestBlockEntityRenderer.addTexture(variant, chestType, id, base.equals("trapped"));
             textures.add(id);
         }

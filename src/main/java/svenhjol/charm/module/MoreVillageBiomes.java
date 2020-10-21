@@ -10,17 +10,18 @@ import net.minecraft.village.VillagerType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeatures;
-import svenhjol.meson.event.AddEntityCallback;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.BiomeHelper;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.BiomeHelper;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(description = "Villages can spawn in swamps and jungles.")
-public class MoreVillageBiomes extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Villages can spawn in swamps and jungles.")
+public class MoreVillageBiomes extends CharmModule {
     @Override
     public void init() {
         List<RegistryKey<Biome>> plainsBiomeKeys = new ArrayList<>(Arrays.asList(

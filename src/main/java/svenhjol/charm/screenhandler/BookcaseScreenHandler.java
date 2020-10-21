@@ -4,11 +4,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.slot.Slot;
+import svenhjol.charm.base.screenhandler.CharmScreenHandler;
 import svenhjol.charm.blockentity.BookcaseBlockEntity;
 import svenhjol.charm.module.Bookcases;
-import svenhjol.meson.screenhandler.MesonScreenHandler;
 
-public class BookcaseScreenHandler extends MesonScreenHandler {
+public class BookcaseScreenHandler extends CharmScreenHandler {
     public BookcaseScreenHandler(int syncId, PlayerInventory player) {
         this(syncId, player, new SimpleInventory(BookcaseBlockEntity.SIZE));
     }

@@ -9,11 +9,11 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.MesonFallingBlock;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.CharmFallingBlock;
 
-public class SugarBlock extends MesonFallingBlock {
-    public SugarBlock(MesonModule module) {
+public class SugarBlock extends CharmFallingBlock {
+    public SugarBlock(CharmModule module) {
         super(module, "sugar_block", Settings
             .of(Material.AGGREGATE)
             .sounds(BlockSoundGroup.SAND)

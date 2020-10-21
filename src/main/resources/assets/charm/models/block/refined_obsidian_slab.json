@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "charm:block/refined_obsidian",
+    "top": "charm:block/refined_obsidian",
+    "side": "charm:block/refined_obsidian"
+  }
+}

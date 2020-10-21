@@ -8,11 +8,5 @@
   },
   "result": {
     "item": "charm:ender_pearl_block"
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:block_of_ender_pearls"
-    }
-  ]
+  }
 }

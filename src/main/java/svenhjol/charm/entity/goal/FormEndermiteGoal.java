@@ -13,7 +13,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import svenhjol.charm.module.BlockOfEnderPearls;
-import svenhjol.meson.helper.MobHelper;
+import svenhjol.charm.base.helper.MobHelper;
 
 import java.util.EnumSet;
 import java.util.Random;

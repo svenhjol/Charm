@@ -9,11 +9,5 @@
   },
   "result": {
     "item": "charm:warped_crate"
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:crates"
-    }
-  ]
+  }
 }

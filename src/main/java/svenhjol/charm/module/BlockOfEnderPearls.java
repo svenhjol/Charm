@@ -16,22 +16,23 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.block.EnderPearlBlock;
 import svenhjol.charm.entity.goal.FormEndermiteGoal;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.event.AddEntityCallback;
-import svenhjol.meson.helper.MobHelper;
-import svenhjol.meson.helper.PosHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.base.helper.MobHelper;
+import svenhjol.charm.base.helper.PosHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(description = "Ender pearl storage. Eating a chorus fruit will teleport you to the nearest ender pearl block.")
-public class BlockOfEnderPearls extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Ender pearl storage. Eating a chorus fruit will teleport you to the nearest ender pearl block.")
+public class BlockOfEnderPearls extends CharmModule {
     public static EnderPearlBlock ENDER_PEARL_BLOCK;
 
     @Config(name = "Chorus teleport range", description = "A chorus fruit will teleport you to an ender pearl block within this range (in blocks).")
@@ -54,7 +55,7 @@ public class BlockOfEnderPearls extends MesonModule {
     }
 
     public static boolean tryChorusTeleport(LivingEntity entity, ItemStack stack) {
-        if (!Meson.enabled("charm:block_of_ender_pearls") || !chorusTeleport)
+        if (!ModuleHandler.enabled("charm:block_of_ender_pearls") || !chorusTeleport)
             return false;
 
         if (!(entity instanceof PlayerEntity))

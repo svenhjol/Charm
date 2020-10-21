@@ -9,16 +9,16 @@ import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.InventoryTidyingClient;
 import svenhjol.charm.handler.InventoryTidyingHandler;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.List;
 
 import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
 import static svenhjol.charm.handler.InventoryTidyingHandler.BE;
 
-@Module(description = "Button to automatically tidy inventories.")
-public class InventoryTidying extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Button to automatically tidy inventories.")
+public class InventoryTidying extends CharmModule {
     public static InventoryTidyingClient client;
     public static final Identifier MSG_SERVER_TIDY_INVENTORY = new Identifier(Charm.MOD_ID, "server_tidy_inventory");
 

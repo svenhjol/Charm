@@ -9,15 +9,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.meson.event.EntityDropsCallback;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ItemHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Strays spawn anywhere within their biome and have a chance to drop blue ice.")
-public class StrayImprovements extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Strays spawn anywhere within their biome and have a chance to drop blue ice.")
+public class StrayImprovements extends CharmModule {
     public static double lootingBoost = 0.3D;
 
     @Config(name = "Spawn anywhere in biome", description = "If true, strays can spawn anywhere within their biome rather than just the surface.")
@@ -35,7 +36,7 @@ public class StrayImprovements extends MesonModule {
     }
 
     public static boolean canSpawn() {
-        return Meson.enabled("charm:stray_improvements") && spawnAnywhere;
+        return ModuleHandler.enabled("charm:stray_improvements") && spawnAnywhere;
     }
 
     private ActionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {

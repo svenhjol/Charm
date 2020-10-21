@@ -10,7 +10,7 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
-import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.charm.base.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;

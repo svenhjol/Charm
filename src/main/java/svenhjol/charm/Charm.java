@@ -1,32 +1,23 @@
 package svenhjol.charm;
 
+import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.base.CharmStructures;
 import svenhjol.charm.base.CharmTags;
+import svenhjol.charm.base.handler.LogHandler;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.module.*;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonMod;
-import svenhjol.meson.MesonModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class Charm extends MesonMod {
+public class Charm implements ModInitializer {
     public static final String MOD_ID = "charm";
+    public static LogHandler LOG = new LogHandler("Charm");
 
     @Override
     public void onInitialize() {
-        super.init(MOD_ID);
-        CharmSounds.init();
-        CharmTags.init();
-
-        // Charm seems to always be the last to launch, but needs more testing
-        Meson.go();
-    }
-
-    @Override
-    public List<Class<? extends MesonModule>> getModules() {
-        return new ArrayList<>(Arrays.asList(
+        ModuleHandler.AVAILABLE_MODULES.put(Charm.MOD_ID, new ArrayList<>(Arrays.asList(
             AnvilImprovements.class,
             ArmorInvisibility.class,
             AutomaticRecipeUnlock.class,
@@ -48,6 +39,7 @@ public class Charm extends MesonMod {
             DecreaseRepairCost.class,
             DirtToPath.class,
             EndermitePowder.class,
+            EntitySpawner.class,
             ExtendNetherite.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
@@ -72,6 +64,7 @@ public class Charm extends MesonMod {
             PortableEnderChest.class,
             RedstoneLanterns.class,
             RedstoneSand.class,
+            RefinedObsidian.class,
             RemoveNitwits.class,
             RemovePotionGlint.class,
             ShulkerBoxTooltips.class,
@@ -91,6 +84,12 @@ public class Charm extends MesonMod {
             WanderingTraderImprovements.class,
             WitchesDropLuck.class,
             Woodcutters.class
-        ));
+        )));
+
+        CharmStructures.init();
+        CharmSounds.init();
+        CharmTags.init();
+
+        ModuleHandler.init();
     }
 }

@@ -2,17 +2,18 @@ package svenhjol.charm.module;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ItemHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(description = "Extends the lifetime of netherite-based items before they despawn.")
-public class ExtendNetherite extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Extends the lifetime of netherite-based items before they despawn.")
+public class ExtendNetherite extends CharmModule {
     @Config(name = "Extra lifetime", description = "Additional time (in seconds) given to netherite and netherite-based items before they despawn.")
     public static int extendBy = 300;
 

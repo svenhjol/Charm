@@ -13,11 +13,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Right-clicking on a grass path block with a hoe turns it back into dirt.")
-public class PathToDirt extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Right-clicking on a grass path block with a hoe turns it back into dirt.")
+public class PathToDirt extends CharmModule {
     @Override
     public void init() {
         UseBlockCallback.EVENT.register(this::convertPath);

@@ -18,14 +18,14 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.client.EndermitePowderClient;
 import svenhjol.charm.entity.EndermitePowderEntity;
 import svenhjol.charm.item.EndermitePowderItem;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.event.EntityDropsCallback;
-import svenhjol.meson.helper.ItemHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Endermites drop endermite powder that can be used to locate an End City.")
-public class EndermitePowder extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Endermites drop endermite powder that can be used to locate an End City.")
+public class EndermitePowder extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "endermite_powder");
     public static EntityType<EndermitePowderEntity> ENTITY;
     public static EndermitePowderItem ENDERMITE_POWDER;

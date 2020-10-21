@@ -11,14 +11,14 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.module.Bookcases;
 import svenhjol.charm.module.Crates;
 import svenhjol.charm.module.VariantLadders;
 import svenhjol.charm.module.Woodcutters;
-import svenhjol.meson.Meson;
-import svenhjol.meson.enums.IVariantMaterial;
-import svenhjol.meson.helper.DecorationHelper;
-import svenhjol.meson.helper.VillagerHelper.SingleItemTypeTrade;
+import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.helper.DecorationHelper;
+import svenhjol.charm.base.helper.VillagerHelper.SingleItemTypeTrade;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -70,7 +70,7 @@ public class LumberjackTradeOffers {
         public TradeOffer create(Entity entity, Random random) {
             experience = 2;
             ItemConvertible item;
-            if (Meson.enabled("charm:variant_ladders")) {
+            if (ModuleHandler.enabled("charm:variant_ladders")) {
                 IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
                 item = VariantLadders.LADDER_BLOCKS.get(variant);
             } else {
@@ -277,7 +277,7 @@ public class LumberjackTradeOffers {
                 Blocks.LOOM
             ));
 
-            if (Meson.enabled("charm:woodcutters"))
+            if (ModuleHandler.enabled("charm:woodcutters"))
                 workstations.add(Woodcutters.WOODCUTTER);
 
             IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);

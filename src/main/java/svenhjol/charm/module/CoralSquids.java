@@ -14,17 +14,17 @@ import net.minecraft.world.biome.BiomeKeys;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.CoralSquidsClient;
 import svenhjol.charm.entity.CoralSquidEntity;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.BiomeHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.BiomeHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(description = "Coral Squids spawn near coral in warm oceans.")
-public class CoralSquids extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Coral Squids spawn near coral in warm oceans.")
+public class CoralSquids extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "coral_squid");
     public static Identifier EGG_ID = new Identifier(Charm.MOD_ID, "coral_squid_spawn_egg");
 

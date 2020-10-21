@@ -5,16 +5,16 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.client.GlowPearlsClient;
 import svenhjol.charm.entity.GlowPearlEntity;
 import svenhjol.charm.item.GlowPearlItem;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.event.ClientEntitySpawnCallback;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.ClientEntitySpawnCallback;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Glow Pearls can be thrown to produce a light source where they impact the ground.")
-public class GlowPearls extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Glow Pearls can be thrown to produce a light source where they impact the ground.")
+public class GlowPearls extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "glow_pearl");
     public static GlowPearlItem GLOW_PEARL;
     public static EntityType<GlowPearlEntity> ENTITY;
@@ -33,7 +33,7 @@ public class GlowPearls extends MesonModule {
 
         Registry.register(Registry.ENTITY_TYPE, ID, ENTITY);
 
-        this.enabled = Meson.enabled("charm:placeable_glowstone_dust");
+        this.enabled = ModuleHandler.enabled("charm:placeable_glowstone_dust");
     }
 
     @Override

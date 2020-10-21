@@ -1,13 +1,14 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.render.RenderLayer;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.GoldBarsBlock;
-import svenhjol.meson.mixin.accessor.RenderLayersAccessor;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
 
-@Module(description = "Gold variant of vanilla iron bars.")
-public class GoldBars extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Gold variant of vanilla iron bars.")
+public class GoldBars extends CharmModule {
     public static GoldBarsBlock GOLD_BARS;
 
     @Override
@@ -17,6 +18,6 @@ public class GoldBars extends MesonModule {
 
     @Override
     public void clientRegister() {
-        RenderLayersAccessor.getBlocks().put(GOLD_BARS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(GOLD_BARS, RenderLayer.getCutout());
     }
 }

@@ -1,11 +1,12 @@
 package svenhjol.charm.module;
 
+import svenhjol.charm.Charm;
 import svenhjol.charm.client.ShulkerBoxTooltipsClient;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Shows the contents of a Shulker Box on hover-over.")
-public class ShulkerBoxTooltips extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Shows the contents of a Shulker Box on hover-over.")
+public class ShulkerBoxTooltips extends CharmModule {
     @Override
     public void clientInit() {
         new ShulkerBoxTooltipsClient(this);

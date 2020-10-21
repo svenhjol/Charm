@@ -1,16 +1,17 @@
 package svenhjol.charm.module;
 
+import svenhjol.charm.Charm;
 import svenhjol.charm.block.CoralSeaLanternBlock;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.ICoralMaterial;
-import svenhjol.meson.enums.VanillaLivingCoralMaterial;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.ICoralMaterial;
+import svenhjol.charm.base.enums.VanillaLivingCoralMaterial;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(description = "Coral can be combined with sea lanterns to make colored variants.")
-public class CoralSeaLanterns extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Coral can be combined with sea lanterns to make colored variants.")
+public class CoralSeaLanterns extends CharmModule {
     public static final Map<ICoralMaterial, CoralSeaLanternBlock> CORAL_SEA_LANTERNS = new HashMap<>();
 
     @Override

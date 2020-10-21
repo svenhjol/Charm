@@ -13,12 +13,12 @@ import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.PortableEnderChestClient;
 import svenhjol.charm.screenhandler.PortableEnderChestScreenHandler;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Allows access to chest contents if the player has an Ender Chest in their inventory.")
-public class PortableEnderChest extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Allows access to chest contents if the player has an Ender Chest in their inventory.")
+public class PortableEnderChest extends CharmModule {
     private static final Text LABEL = new TranslatableText("container.charm.portable_ender_chest");
     public static final Identifier MSG_SERVER_OPEN_ENDER_CHEST = new Identifier(Charm.MOD_ID, "server_open_ender_chest");
     public static PortableEnderChestClient client;

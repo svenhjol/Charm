@@ -2,13 +2,14 @@ package svenhjol.charm.module;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import svenhjol.meson.mixin.accessor.ItemAccessor;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.mixin.accessor.ItemAccessor;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Allows enchanted books to stack.")
-public class StackableEnchantedBooks extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Allows enchanted books to stack.")
+public class StackableEnchantedBooks extends CharmModule {
     @Config(name = "Stack size", description = "Maximum enchanted book stack size.")
     public static int stackSize = 16;
 

@@ -1,13 +1,14 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.render.RenderLayer;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.RedstoneLanternBlock;
-import svenhjol.meson.mixin.accessor.RenderLayersAccessor;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
 
-@Module(description = "A lantern that emits light when a redstone signal is received.")
-public class RedstoneLanterns extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "A lantern that emits light when a redstone signal is received.")
+public class RedstoneLanterns extends CharmModule {
     public static RedstoneLanternBlock REDSTONE_LANTERN;
 
     @Override
@@ -17,6 +18,6 @@ public class RedstoneLanterns extends MesonModule {
 
     @Override
     public void clientRegister() {
-        RenderLayersAccessor.getBlocks().put(REDSTONE_LANTERN, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(REDSTONE_LANTERN, RenderLayer.getCutout());
     }
 }

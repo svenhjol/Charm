@@ -14,11 +14,11 @@ import svenhjol.charm.blockentity.KilnBlockEntity;
 import svenhjol.charm.gui.KilnScreen;
 import svenhjol.charm.recipe.FiringRecipe;
 import svenhjol.charm.screenhandler.KilnScreenHandler;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "A functional block that speeds up cooking of clay, bricks and terracotta.")
-public class Kilns extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "A functional block that speeds up cooking of clay, bricks and terracotta.")
+public class Kilns extends CharmModule {
     public static Identifier RECIPE_ID = new Identifier("firing");
     public static Identifier BLOCK_ID = new Identifier(Charm.MOD_ID, "kiln");
     public static KilnBlock KILN;

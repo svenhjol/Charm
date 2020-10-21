@@ -6,15 +6,16 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(description = "Lightweight armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
-public class ArmorInvisibility extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Lightweight armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
+public class ArmorInvisibility extends CharmModule {
     public static List<Item> invisibleItems = new ArrayList<>();
     public static boolean isEnabled = false;
 

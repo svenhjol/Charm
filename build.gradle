@@ -11,7 +11,7 @@ version = project.mod_version
 group = project.maven_group
 
 minecraft {
-	accessWidener = file("src/main/resources/meson.accesswidener")
+	accessWidener = file("src/main/resources/charm.accesswidener")
 }
 
 dependencies {

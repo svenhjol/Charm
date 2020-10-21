@@ -9,11 +9,5 @@
   },
   "result": {
     "item": "charm:redstone_lantern"
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:redstone_lanterns"
-    }
-  ]
+  }
 }

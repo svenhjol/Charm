@@ -12,12 +12,12 @@ import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.PortableCraftingClient;
 import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
-public class PortableCrafting extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
+public class PortableCrafting extends CharmModule {
     private static final Text LABEL = new TranslatableText("container.charm.portable_crafting_table");
     public static final Identifier MSG_SERVER_OPEN_CRAFTING = new Identifier(Charm.MOD_ID, "server_open_crafting");
     public static PortableCraftingClient client;

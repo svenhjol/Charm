@@ -6,11 +6,5 @@
   "result": {
     "item": "minecraft:ender_pearl",
     "count": 9
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:block_of_ender_pearls"
-    }
-  ]
+  }
 }

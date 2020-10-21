@@ -10,24 +10,32 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import svenhjol.charm.entity.GlowPearlEntity;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.item.IMesonItem;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.item.ICharmItem;
 
-public class GlowPearlItem extends EnderPearlItem implements IMesonItem {
-    protected MesonModule module;
+public class GlowPearlItem extends EnderPearlItem implements ICharmItem {
+    protected CharmModule module;
 
-    public GlowPearlItem(MesonModule module) {
+    public GlowPearlItem(CharmModule module) {
         super(new Item.Settings().maxCount(16).group(ItemGroup.MISC));
         this.module = module;
         this.register(module, "glow_pearl");
+    }
+
+    @Override
+    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+        if (enabled())
+            super.appendStacks(group, stacks);
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
         user.getItemCooldownManager().set(this, 10);
+
         if (!world.isClient) {
             GlowPearlEntity entity = new GlowPearlEntity(world, user);
             entity.setItem(itemStack);

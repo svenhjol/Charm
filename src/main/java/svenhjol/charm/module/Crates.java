@@ -15,17 +15,17 @@ import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.client.CratesClient;
 import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.screenhandler.CrateScreenHandler;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IVariantMaterial;
-import svenhjol.meson.enums.VanillaVariantMaterial;
-import svenhjol.meson.helper.ItemHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.enums.VanillaVariantMaterial;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.*;
 
-@Module(description = "A smaller storage solution with the benefit of being transportable.")
-public class Crates extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "A smaller storage solution with the benefit of being transportable.")
+public class Crates extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "crate");
     public static final Map<IVariantMaterial, CrateBlock> CRATE_BLOCKS = new HashMap<>();
 

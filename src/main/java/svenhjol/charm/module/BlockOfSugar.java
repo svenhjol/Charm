@@ -1,11 +1,12 @@
 package svenhjol.charm.module;
 
+import svenhjol.charm.Charm;
 import svenhjol.charm.block.SugarBlock;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "A storage block for sugar. It obeys gravity and dissolves in water.")
-public class BlockOfSugar extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "A storage block for sugar. It obeys gravity and dissolves in water.")
+public class BlockOfSugar extends CharmModule {
     public static SugarBlock SUGAR_BLOCK;
 
     @Override

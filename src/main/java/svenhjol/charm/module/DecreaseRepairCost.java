@@ -5,14 +5,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.util.TriConsumer;
-import svenhjol.meson.event.UpdateAnvilCallback;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.UpdateAnvilCallback;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Combine a tool or armor with a netherite nugget on an anvil to reduce its repair cost.")
-public class DecreaseRepairCost extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Combine a tool or armor with a netherite nugget on an anvil to reduce its repair cost.")
+public class DecreaseRepairCost extends CharmModule {
     @Config(name = "XP cost", description = "Number of levels required to reduce repair cost on the anvil.")
     public static int xpCost = 0;
 
@@ -22,7 +23,7 @@ public class DecreaseRepairCost extends MesonModule {
     @Override
     public void init() {
         // if anvil improvements are not enabled, then set the xpCost to 1.
-        if (!Meson.enabled("charm:anvil_improvements") && xpCost < 1)
+        if (!ModuleHandler.enabled("charm:anvil_improvements") && xpCost < 1)
             xpCost = 1;
 
         // register the anvil recipe for this operation

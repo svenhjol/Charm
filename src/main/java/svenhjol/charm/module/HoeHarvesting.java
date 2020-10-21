@@ -17,14 +17,15 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Module(description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.")
-public class HoeHarvesting extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.")
+public class HoeHarvesting extends CharmModule {
     private static final List<BlockState> harvestable = new ArrayList<>();
 
     @Override

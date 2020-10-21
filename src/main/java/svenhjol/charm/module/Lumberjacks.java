@@ -6,17 +6,17 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.village.LumberjackTradeOffers.*;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.event.StructureSetupCallback;
-import svenhjol.meson.event.StructureSetupCallback.VillageType;
-import svenhjol.meson.helper.VillagerHelper;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.StructureSetupCallback;
+import svenhjol.charm.event.StructureSetupCallback.VillageType;
+import svenhjol.charm.base.helper.VillagerHelper;
+import svenhjol.charm.base.iface.Module;
 
-import static svenhjol.meson.event.StructureSetupCallback.addVillageHouse;
-import static svenhjol.meson.helper.VillagerHelper.addTrade;
+import static svenhjol.charm.event.StructureSetupCallback.addVillageHouse;
+import static svenhjol.charm.base.helper.VillagerHelper.addTrade;
 
-@Module(description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.")
-public class Lumberjacks extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.")
+public class Lumberjacks extends CharmModule {
     public static Identifier VILLAGER_ID = new Identifier(Charm.MOD_ID, "lumberjack");
     public static VillagerProfession LUMBERJACK;
     public static PointOfInterestType POIT;

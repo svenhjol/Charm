@@ -12,16 +12,17 @@ import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.util.TriConsumer;
-import svenhjol.meson.event.UpdateAnvilCallback;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.event.UpdateAnvilCallback;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(description = "Extract enchantments from any enchanted item into an empty book.")
-public class ExtractEnchantments extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item into an empty book.")
+public class ExtractEnchantments extends CharmModule {
     @Config(name = "Initial XP cost", description = "Initial XP cost before adding XP equivalent to the enchantment level(s) of the item.")
     public static int initialCost = 2;
 

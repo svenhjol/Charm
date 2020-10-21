@@ -8,15 +8,15 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.VariantMobTexturesClient;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IMesonEnum;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.ICharmEnum;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.*;
 
-@Module(description = "Mobs may spawn with different textures.")
-public class VariantMobTextures extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Mobs may spawn with different textures.")
+public class VariantMobTextures extends CharmModule {
     private static final String PREFIX = "textures/entity/";
     private static final Identifier DEFAULT_SHEEP = new Identifier(PREFIX + "sheep/sheep.png");
 
@@ -207,5 +207,5 @@ public class VariantMobTextures extends MesonModule {
         return new Identifier(Charm.MOD_ID, PREFIX + type.asString() + "/" + texture + ".png");
     }
 
-    public enum MobType implements IMesonEnum { WOLF, COW, PIG, CHICKEN, SQUID, SHEEP, SNOW_GOLEM }
+    public enum MobType implements ICharmEnum { WOLF, COW, PIG, CHICKEN, SQUID, SHEEP, SNOW_GOLEM }
 }

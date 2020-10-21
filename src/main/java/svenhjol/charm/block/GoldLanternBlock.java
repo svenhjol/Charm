@@ -2,10 +2,10 @@ package svenhjol.charm.block;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
-import svenhjol.meson.MesonModule;
+import svenhjol.charm.base.CharmModule;
 
 public class GoldLanternBlock extends BaseLanternBlock {
-    public GoldLanternBlock(MesonModule module, String name) {
+    public GoldLanternBlock(CharmModule module, String name) {
         super(module, name, AbstractBlock.Settings.copy(Blocks.LANTERN));
     }
 }

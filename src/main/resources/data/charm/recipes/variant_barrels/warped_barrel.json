@@ -9,11 +9,5 @@
   },
   "result": {
     "item": "charm:warped_barrel"
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:variant_barrels"
-    }
-  ]
+  }
 }

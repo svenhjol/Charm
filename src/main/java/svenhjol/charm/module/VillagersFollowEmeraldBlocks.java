@@ -6,13 +6,14 @@ import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.ActionResult;
-import svenhjol.meson.event.AddEntityCallback;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.MobHelper;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.MobHelper;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Villagers are attracted when the player holds a block of emeralds.")
-public class VillagersFollowEmeraldBlocks extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Villagers are attracted when the player holds a block of emeralds.")
+public class VillagersFollowEmeraldBlocks extends CharmModule {
     @Override
     public void init() {
         AddEntityCallback.EVENT.register(this::followEmerald);

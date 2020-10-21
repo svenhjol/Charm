@@ -10,11 +10,5 @@
   ],
   "result": {
     "item": "charm:acacia_trapped_chest"
-  },
-  "conditions": [
-    {
-      "type": "meson:module_enabled",
-      "module": "charm:variant_chests"
-    }
-  ]
+  }
 }

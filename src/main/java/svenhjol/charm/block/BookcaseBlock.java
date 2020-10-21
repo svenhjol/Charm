@@ -1,6 +1,9 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.LivingEntity;
@@ -19,19 +22,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import svenhjol.charm.blockentity.BookcaseBlockEntity;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.MesonBlockWithEntity;
-import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.CharmBlockWithEntity;
+import svenhjol.charm.base.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 
-public class BookcaseBlock extends MesonBlockWithEntity {
+public class BookcaseBlock extends CharmBlockWithEntity {
     public static final IntProperty SLOTS = IntProperty.of("slots", 0, BookcaseBlockEntity.SIZE);
 
-    protected MesonModule module;
+    protected CharmModule module;
     protected IVariantMaterial type;
 
-    public BookcaseBlock(MesonModule module, IVariantMaterial type) {
+    public BookcaseBlock(CharmModule module, IVariantMaterial type) {
         super(module, type.asString() + "_bookcase", AbstractBlock.Settings
             .copy(Blocks.BOOKSHELF));
 
@@ -100,7 +103,7 @@ public class BookcaseBlock extends MesonBlockWithEntity {
     @Override
     public BlockEntity createBlockEntity(BlockView world) {
         BookcaseBlockEntity bookcase = new BookcaseBlockEntity();
-        bookcase.setCustomName(new TranslatableText("block." + this.module.mod.getId() + "." + type.asString() + "_bookcase"));
+        bookcase.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_bookcase"));
         return bookcase;
     }
 

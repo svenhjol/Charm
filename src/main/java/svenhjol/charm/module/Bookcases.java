@@ -14,17 +14,17 @@ import svenhjol.charm.block.BookcaseBlock;
 import svenhjol.charm.blockentity.BookcaseBlockEntity;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.screenhandler.BookcaseScreenHandler;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IVariantMaterial;
-import svenhjol.meson.enums.VanillaVariantMaterial;
-import svenhjol.meson.helper.EnchantmentsHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.enums.VanillaVariantMaterial;
+import svenhjol.charm.base.helper.EnchantmentsHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.*;
 
-@Module(description = "Bookshelves that can hold up to 9 stacks of books and maps.")
-public class Bookcases extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Bookshelves that can hold up to 9 stacks of books and maps.")
+public class Bookcases extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "bookcase");
     public static final Map<IVariantMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
 

@@ -15,14 +15,14 @@ import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.BatBucketClient;
 import svenhjol.charm.item.BatBucketItem;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ItemNBTHelper;
-import svenhjol.meson.helper.PlayerHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ItemNBTHelper;
+import svenhjol.charm.base.helper.PlayerHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
-public class BatBuckets extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
+public class BatBuckets extends CharmModule {
     public static BatBucketItem BAT_BUCKET_ITEM;
     public static BatBucketClient client = null;
 

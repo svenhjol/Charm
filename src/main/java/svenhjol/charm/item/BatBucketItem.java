@@ -18,15 +18,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import svenhjol.charm.module.BatBuckets;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ItemNBTHelper;
-import svenhjol.meson.helper.MobHelper;
-import svenhjol.meson.item.MesonItem;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ItemNBTHelper;
+import svenhjol.charm.base.helper.MobHelper;
+import svenhjol.charm.base.item.CharmItem;
 
-public class BatBucketItem extends MesonItem {
+public class BatBucketItem extends CharmItem {
     public static final String STORED_BAT = "stored_bat";
 
-    public BatBucketItem(MesonModule module) {
+    public BatBucketItem(CharmModule module) {
         super(module, "bat_bucket", new Item.Settings()
             .group(ItemGroup.MISC)
             .maxCount(1));

@@ -6,16 +6,17 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import svenhjol.meson.mixin.accessor.ServerWorldAccessor;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.mixin.accessor.ServerWorldAccessor;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Module(description = "Allows the night to pass when a specified number of players are asleep.")
-public class SleepImprovements extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Allows the night to pass when a specified number of players are asleep.")
+public class SleepImprovements extends CharmModule {
     @Config(name = "Faster sleep", description = "If true, the sleeping player does not need to wait as long before ending the night.")
     public static boolean fasterSleep = false;
 

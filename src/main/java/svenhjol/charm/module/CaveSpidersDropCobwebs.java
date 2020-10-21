@@ -9,14 +9,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.meson.event.EntityDropsCallback;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ItemHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Cave spiders have a chance to drop cobwebs.")
-public class CaveSpidersDropCobwebs extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Cave spiders have a chance to drop cobwebs.")
+public class CaveSpidersDropCobwebs extends CharmModule {
     public static double lootingBoost = 0.3D;
 
     @Config(name = "Maximum drops", description = "Maximum cobwebs dropped when cave spider is killed.")

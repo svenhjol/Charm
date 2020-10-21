@@ -7,19 +7,19 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
 import svenhjol.charm.module.BatBuckets;
-import svenhjol.meson.MesonModule;
+import svenhjol.charm.base.CharmModule;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class BatBucketClient {
-    protected final MesonModule module;
+    protected final CharmModule module;
     public int ticks;
     public double range;
     public static List<LivingEntity> entities = new ArrayList<>();
 
-    public BatBucketClient(MesonModule module) {
+    public BatBucketClient(CharmModule module) {
         this.module = module;
 
         // register client messages

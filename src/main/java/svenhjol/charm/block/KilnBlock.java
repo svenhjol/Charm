@@ -17,16 +17,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import svenhjol.charm.blockentity.KilnBlockEntity;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.IMesonBlock;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.ICharmBlock;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class KilnBlock extends AbstractFurnaceBlock implements IMesonBlock {
-    protected MesonModule module;
+public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
+    protected CharmModule module;
 
-    public KilnBlock(MesonModule module) {
+    public KilnBlock(CharmModule module) {
         super(AbstractBlock.Settings
             .of(Material.STONE)
             .requiresTool()

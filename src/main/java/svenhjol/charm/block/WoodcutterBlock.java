@@ -20,16 +20,16 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.screenhandler.WoodcutterScreenHandler;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.IMesonBlock;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.ICharmBlock;
 
 import javax.annotation.Nullable;
 
-public class WoodcutterBlock extends StonecutterBlock implements IMesonBlock {
-    private MesonModule module;
+public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
+    private CharmModule module;
     private static final Text TITLE = new TranslatableText("container.charm.woodcutter");
 
-    public WoodcutterBlock(MesonModule module) {
+    public WoodcutterBlock(CharmModule module) {
         super(AbstractBlock.Settings.copy(Blocks.STONECUTTER));
         register(module, "woodcutter");
         this.module = module;

@@ -3,14 +3,15 @@ package svenhjol.charm.module;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Chickens randomly drop feathers.")
-public class ChickensDropFeathers extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Chickens randomly drop feathers.")
+public class ChickensDropFeathers extends CharmModule {
     public static void tryDropFeather(ChickenEntity chicken) {
-        if (!Meson.enabled("charm:chickens_drop_feathers"))
+        if (!ModuleHandler.enabled("charm:chickens_drop_feathers"))
             return;
 
         if (chicken.isAlive()

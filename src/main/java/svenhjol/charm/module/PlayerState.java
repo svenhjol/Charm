@@ -15,12 +15,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.StructureFeature;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.PlayerStateClient;
-import svenhjol.meson.event.PlayerTickCallback;
-import svenhjol.meson.Meson;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.PosHelper;
-import svenhjol.meson.iface.Config;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.PosHelper;
+import svenhjol.charm.base.iface.Config;
+import svenhjol.charm.base.iface.Module;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -30,8 +29,8 @@ import java.util.Base64;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-@Module(description = "Synchronize additional state from server to client.", alwaysEnabled = true)
-public class PlayerState extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Synchronize additional state from server to client.", alwaysEnabled = true)
+public class PlayerState extends CharmModule {
     public static final Identifier MSG_SERVER_UPDATE_PLAYER_STATE = new Identifier(Charm.MOD_ID, "server_update_player_state");
     public static final Identifier MSG_CLIENT_UPDATE_PLAYER_STATE = new Identifier(Charm.MOD_ID, "client_update_player_state");
     public static List<BiConsumer<ServerPlayerEntity, CompoundTag>> listeners = new ArrayList<>();
@@ -74,7 +73,7 @@ public class PlayerState extends MesonModule {
                 byte[] byteData = Base64.getDecoder().decode(data.readString());
                 tag = NbtIo.readCompressed(new ByteArrayInputStream(byteData));
             } catch (IOException e) {
-                Meson.LOG.warn("Failed to decompress player state");
+                Charm.LOG.warn("Failed to decompress player state");
             }
 
             CompoundTag finalTag = tag;
@@ -113,7 +112,7 @@ public class PlayerState extends MesonModule {
             NbtIo.writeCompressed(tag, out);
             serialized = Base64.getEncoder().encodeToString(out.toByteArray());
         } catch (IOException e) {
-            Meson.LOG.warn("Failed to compress player state");
+            Charm.LOG.warn("Failed to compress player state");
         }
 
         if (serialized != null) {

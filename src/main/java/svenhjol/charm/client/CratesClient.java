@@ -15,17 +15,17 @@ import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.block.CrateBlock;
 import svenhjol.charm.blockentity.CrateBlockEntity;
-import svenhjol.meson.event.RenderTooltipCallback;
+import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
 import svenhjol.charm.module.Crates;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ItemHelper;
-import svenhjol.meson.helper.ItemNBTHelper;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.helper.ItemNBTHelper;
 
 import java.util.List;
 
 public class CratesClient {
-    public CratesClient(MesonModule module) {
+    public CratesClient(CharmModule module) {
         if (!Crates.showTooltip)
             return;
 

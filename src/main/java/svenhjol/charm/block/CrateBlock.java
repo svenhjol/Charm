@@ -1,6 +1,9 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.ItemEntity;
@@ -24,19 +27,19 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.module.Crates;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.MesonBlockWithEntity;
-import svenhjol.meson.enums.IVariantMaterial;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.CharmBlockWithEntity;
+import svenhjol.charm.base.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class CrateBlock extends MesonBlockWithEntity {
+public class CrateBlock extends CharmBlockWithEntity {
     private static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
     private static final Identifier CONTENTS = new Identifier("contents");
     private IVariantMaterial type;
 
-    public CrateBlock(MesonModule module, IVariantMaterial type) {
+    public CrateBlock(CharmModule module, IVariantMaterial type) {
         super(module, type.asString() + "_crate", AbstractBlock.Settings
             .of(Material.WOOD)
             .sounds(BlockSoundGroup.WOOD)
@@ -49,7 +52,7 @@ public class CrateBlock extends MesonBlockWithEntity {
     @Override
     public BlockEntity createBlockEntity(BlockView world) {
         CrateBlockEntity crate = new CrateBlockEntity();
-        crate.setCustomName(new TranslatableText("block." + this.module.mod.getId() + "." + type.asString() + "_crate"));
+        crate.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_crate"));
         return crate;
     }
 

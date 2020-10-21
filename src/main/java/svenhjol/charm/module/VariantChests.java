@@ -10,16 +10,16 @@ import svenhjol.charm.block.VariantTrappedChestBlock;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.blockentity.VariantChestClient;
 import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IVariantMaterial;
-import svenhjol.meson.enums.VanillaVariantMaterial;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.enums.VanillaVariantMaterial;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(description = "Chests available in all types of vanilla wood.")
-public class VariantChests extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Chests available in all types of vanilla wood.")
+public class VariantChests extends CharmModule {
     public static final Identifier NORMAL_ID = new Identifier("variant_chest");
     public static final Identifier TRAPPED_ID = new Identifier(Charm.MOD_ID, "trapped_chest");
 

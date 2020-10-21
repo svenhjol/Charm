@@ -1,11 +1,12 @@
 package svenhjol.charm.module;
 
+import svenhjol.charm.Charm;
 import svenhjol.charm.item.NetheriteNuggetItem;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Netherite nuggets can be combined to create a netherite ingot.")
-public class NetheriteNuggets extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Netherite nuggets can be combined to create a netherite ingot.")
+public class NetheriteNuggets extends CharmModule {
     public static NetheriteNuggetItem NETHERITE_NUGGET;
 
     @Override

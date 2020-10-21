@@ -4,13 +4,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
-import svenhjol.meson.event.PlayerTickCallback;
+import svenhjol.charm.Charm;
+import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.iface.Module;
 
-@Module(description = "Parrots stay on your shoulder when jumping and falling. Crouch to make them dismount.")
-public class ParrotsStayOnShoulder extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Parrots stay on your shoulder when jumping and falling. Crouch to make them dismount.")
+public class ParrotsStayOnShoulder extends CharmModule {
     private static boolean isEnabled = false;
 
     @Override

@@ -11,13 +11,13 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.MesonBlock;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.CharmBlock;
 
 import java.util.Random;
 
-public class EnderPearlBlock extends MesonBlock {
-    public EnderPearlBlock(MesonModule module) {
+public class EnderPearlBlock extends CharmBlock {
+    public EnderPearlBlock(CharmModule module) {
         super(module, "ender_pearl_block", AbstractBlock.Settings
             .of(Material.GLASS)
             .sounds(BlockSoundGroup.GLASS)

@@ -1,19 +1,20 @@
 package svenhjol.charm.module;
 
 import net.minecraft.block.Blocks;
+import svenhjol.charm.Charm;
 import svenhjol.charm.block.VariantBookshelfBlock;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.enums.IVariantMaterial;
-import svenhjol.meson.enums.VanillaVariantMaterial;
-import svenhjol.meson.helper.EnchantmentsHelper;
-import svenhjol.meson.helper.OverrideHandler;
-import svenhjol.meson.iface.Module;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.enums.VanillaVariantMaterial;
+import svenhjol.charm.base.helper.EnchantmentsHelper;
+import svenhjol.charm.base.helper.OverrideHandler;
+import svenhjol.charm.base.iface.Module;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(description = "Bookshelves available in all types of vanilla wood.")
-public class VariantBookshelves extends MesonModule {
+@Module(mod = Charm.MOD_ID, description = "Bookshelves available in all types of vanilla wood.")
+public class VariantBookshelves extends CharmModule {
     public static final Map<IVariantMaterial, VariantBookshelfBlock> BOOKSHELF_BLOCKS = new HashMap<>();
 
     @Override

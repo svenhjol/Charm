@@ -15,17 +15,17 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmResources;
-import svenhjol.meson.event.RenderTooltipCallback;
+import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.helper.ItemHelper;
-import svenhjol.meson.helper.ItemNBTHelper;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.helper.ItemNBTHelper;
 
 import java.util.List;
 
 public class ShulkerBoxTooltipsClient {
-    public ShulkerBoxTooltipsClient(MesonModule module) {
+    public ShulkerBoxTooltipsClient(CharmModule module) {
         RenderTooltipCallback.EVENT.register(((matrices, stack, lines, x, y) -> {
             if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
                 boolean result = renderTooltip(matrices, stack, lines, x, y);

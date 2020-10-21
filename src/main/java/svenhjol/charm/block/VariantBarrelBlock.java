@@ -12,18 +12,18 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import svenhjol.charm.module.VariantBarrels;
-import svenhjol.meson.MesonModule;
-import svenhjol.meson.block.IMesonBlock;
-import svenhjol.meson.enums.IVariantMaterial;
-import svenhjol.meson.mixin.accessor.BarrelBlockEntityAccessor;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.ICharmBlock;
+import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.mixin.accessor.BarrelBlockEntityAccessor;
 
 import javax.annotation.Nullable;
 
-public class VariantBarrelBlock extends BarrelBlock implements IMesonBlock {
-    protected MesonModule module;
+public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
+    protected CharmModule module;
     protected IVariantMaterial type;
 
-    public VariantBarrelBlock(MesonModule module, IVariantMaterial type) {
+    public VariantBarrelBlock(CharmModule module, IVariantMaterial type) {
         super(AbstractBlock.Settings.copy(Blocks.BARREL));
 
         this.module = module;
@@ -57,7 +57,7 @@ public class VariantBarrelBlock extends BarrelBlock implements IMesonBlock {
     @Override
     public BlockEntity createBlockEntity(BlockView world) {
         BarrelBlockEntity barrel = BarrelBlockEntityAccessor.invokeConstructor(VariantBarrels.BLOCK_ENTITY);
-        barrel.setCustomName(new TranslatableText("block." + this.module.mod.getId() + "." + type.asString() + "_barrel"));
+        barrel.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_barrel"));
         return barrel;
     }
 }
