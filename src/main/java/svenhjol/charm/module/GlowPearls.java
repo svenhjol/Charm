@@ -5,13 +5,12 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.GlowPearlsClient;
 import svenhjol.charm.entity.GlowPearlEntity;
 import svenhjol.charm.item.GlowPearlItem;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.event.ClientEntitySpawnCallback;
-import svenhjol.charm.base.iface.Module;
 
 @Module(mod = Charm.MOD_ID, description = "Glow Pearls can be thrown to produce a light source where they impact the ground.")
 public class GlowPearls extends CharmModule {
@@ -39,15 +38,5 @@ public class GlowPearls extends CharmModule {
     @Override
     public void clientRegister() {
         client = new GlowPearlsClient(this);
-    }
-
-    @Override
-    public void clientInit() {
-        ClientEntitySpawnCallback.EVENT.register(((world, packet, x, y, z, entityType) -> {
-            if (entityType == ENTITY) {
-                GlowPearlEntity entity = new GlowPearlEntity(world, x, y, z);
-                ClientEntitySpawnCallback.addEntity(world, entity, packet, x, y, z);
-            }
-        }));
     }
 }
