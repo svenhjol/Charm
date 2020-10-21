@@ -61,7 +61,7 @@ Some of the wolf textures were kindly contributed by [jupiter1930](https://www.r
 If **Quark** is present, chickens, cows, and pigs are disabled by default.
 
 ### Smooth Glowstone
-![Block of Ender Pearls](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Smooth Glowstone](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Smooth Glowstone.
 
 ### Variant Barrels
