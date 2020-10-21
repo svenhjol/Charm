@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.0
+* VariantAnimalTextures has become VariantMobTextures. This changes the charm.json config file
+* Added feature Coral Squids
+* Added feature Coral Sea Lanterns
+* Added Snow Golem derp face variants
+* Added Kilns
+* Added Refined Obsidian
+* Added Smooth Glowstone
+* Removed invisible mineshaft spiders
+
 ## 2.0.4
 * Added feature Placeable Glowstone Dust that lets you... place glowstone dust
 * Added feature Glow Pearls which are projectiles that light up the ground upon landing
