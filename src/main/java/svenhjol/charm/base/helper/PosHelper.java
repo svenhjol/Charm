@@ -52,7 +52,7 @@ public class PosHelper {
     }
 
     @Nullable
-    public BlockPos getSurfacePos(World world, BlockPos pos) {
+    public static BlockPos getSurfacePos(World world, BlockPos pos) {
         int surface = 0;
 
         for (int y = world.getHeight(); y >= 0; --y) {
