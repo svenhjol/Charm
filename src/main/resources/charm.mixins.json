@@ -42,6 +42,7 @@
     "accessor.GoalSelectorAccessor",
     "accessor.HoeItemAccessor",
     "accessor.ItemAccessor",
+    "accessor.MinecraftServerAccessor",
     "accessor.MobEntityAccessor",
     "accessor.PickaxeItemAccessor",
     "accessor.PlayerEntityAccessor",
@@ -52,7 +53,9 @@
     "accessor.SlotAccessor",
     "accessor.SpawnSettingsAccessor",
     "accessor.StructurePieceAccessor",
-    "accessor.StructurePoolAccessor"
+    "accessor.StructurePoolAccessor",
+    "accessor.VillagerEntityAccessor",
+    "accessor.WorldSaveHandlerAccessor"
   ],
   "client": [
     "AnvilScreenMixin",
