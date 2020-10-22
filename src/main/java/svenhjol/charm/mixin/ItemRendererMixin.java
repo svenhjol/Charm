@@ -37,9 +37,6 @@ public class ItemRendererMixin {
         )
     )
     private VertexConsumer hookRenderItem(VertexConsumerProvider vertexConsumers, RenderLayer layer, boolean solid, boolean glint) {
-        if (this.itemStackToRender == null)
-            return ItemRenderer.getItemGlintConsumer(vertexConsumers, layer, solid, glint);
-
-        return ColoredGlintHandler.getCustomGlint(this.itemStackToRender, vertexConsumers, layer, solid, glint);
+        return ColoredGlintHandler.getCustomGlint(vertexConsumers, layer, solid, glint, this.itemStackToRender);
     }
 }

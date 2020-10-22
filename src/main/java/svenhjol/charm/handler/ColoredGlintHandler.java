@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.RenderPhaseAccessor;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,11 +34,11 @@ public class ColoredGlintHandler {
             .build(false));
     }
 
-    public static VertexConsumer getCustomGlint(ItemStack stack, VertexConsumerProvider vertexConsumers, RenderLayer layer, boolean solid, boolean glint) {
+    public static VertexConsumer getCustomGlint(VertexConsumerProvider vertexConsumers, RenderLayer layer, boolean solid, boolean glint, @Nullable ItemStack stack) {
         if (glint) {
             RenderLayer renderGlint = RenderLayer.getGlint();
 
-            if (stack.hasTag()) {
+            if (stack != null && stack.hasTag()) {
                 CompoundTag tag = stack.getTag();
                 if (tag != null) {
                     if (tag.contains(GLINT_TAG)) {
