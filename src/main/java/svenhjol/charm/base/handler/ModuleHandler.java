@@ -9,6 +9,7 @@ import svenhjol.charm.event.ClientJoinCallback;
 import svenhjol.charm.event.ClientReloadPacksCallback;
 import svenhjol.charm.event.LoadWorldCallback;
 import svenhjol.charm.event.StructureSetupCallback;
+import svenhjol.charm.handler.ColoredGlintHandler;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ public class ModuleHandler {
 
         instantiateModules();
 
-        // first initializers
+        // both-side initializers
         BiomeHandler.init();
 
         // early init, always run, use for registering things
@@ -52,8 +53,12 @@ public class ModuleHandler {
             eachEnabledModule(m -> m.loadWorld(server));
         });
 
-        // listen for client join events (client only)
+        // client-only initializers and listeners
         if (isClient()) {
+
+            // client initializers
+            ColoredGlintHandler.init();
+
             ClientReloadPacksCallback.EVENT.register(client -> {
                 eachEnabledModule(m -> m.clientReloadPacks(client));
             });

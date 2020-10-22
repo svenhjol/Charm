@@ -67,6 +67,7 @@
     "EnchantingTableBlockMixin",
     "EnchantmentScreenHandlerMixin",
     "HandledScreenMixin",
+    "ItemRendererMixin",
     "MinecraftClientMixin",
     "MusicTrackerMixin",
     "ScreenMixin",
@@ -74,6 +75,7 @@
     "SpriteAtlasTextureMixin",
     "TexturedRenderLayersMixin",
     "accessor.HandledScreenAccessor",
+    "accessor.RenderPhaseAccessor",
     "accessor.SoundManagerAccessor",
     "accessor.SoundSystemAccessor"
   ],
