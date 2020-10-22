@@ -19,6 +19,7 @@
     "MinecraftDedicatedServerMixin",
     "MinecraftServerMixin",
     "MineshaftGeneratorMixin",
+    "PistonBlockMixin",
     "PlayerEntityMixin",
     "PlayerManagerMixin",
     "PotionItemMixin",
