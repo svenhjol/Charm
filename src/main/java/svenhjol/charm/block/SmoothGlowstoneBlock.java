@@ -18,8 +18,5 @@ public class SmoothGlowstoneBlock extends CharmBlock {
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
 
-        if (world.random.nextFloat() < 0.2F)
-            world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 12.0F, Explosion.DestructionType.DESTROY);
-
     }
 }

@@ -9,7 +9,7 @@ import svenhjol.charm.base.block.CharmBlock;
 public class RefinedObsidianBlock extends CharmBlock {
     public RefinedObsidianBlock(CharmModule module) {
         super(module, "refined_obsidian", AbstractBlock.Settings
-            .copy(Blocks.COBBLESTONE)
+            .copy(Blocks.OBSIDIAN)
             .sounds(BlockSoundGroup.BASALT)
         );
     }
