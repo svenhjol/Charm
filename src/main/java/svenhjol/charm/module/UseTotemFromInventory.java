@@ -22,7 +22,7 @@ public class UseTotemFromInventory extends CharmModule {
                 if (player.getOffHandStack().getItem() == Items.TOTEM_OF_UNDYING) {
                     return player.getOffHandStack();
                 } else {
-                    return player.inventory.getStack(player.inventory.getSlotWithStack(totem));
+                    return player.inventory.getStack(player.inventory.method_7371(totem));
                 }
             }
         }
