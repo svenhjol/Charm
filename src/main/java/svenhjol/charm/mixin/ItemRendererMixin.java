@@ -33,10 +33,21 @@ public class ItemRendererMixin {
         method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformation$Mode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
         at = @At(
             value = "INVOKE",
+            target = "Lnet/minecraft/client/render/item/ItemRenderer;getDirectItemGlintConsumer(Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/render/RenderLayer;ZZ)Lnet/minecraft/client/render/VertexConsumer;"
+        )
+    )
+    private VertexConsumer hookRenderItemGetDirectItemGlintConsumer(VertexConsumerProvider vertexConsumers, RenderLayer layer, boolean solid, boolean glint) {
+        return ColoredGlintHandler.getDirectItemGlintConsumer(vertexConsumers, layer, solid, glint, this.itemStackToRender);
+    }
+
+    @Redirect(
+        method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformation$Mode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
+        at = @At(
+            value = "INVOKE",
             target = "Lnet/minecraft/client/render/item/ItemRenderer;getItemGlintConsumer(Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/render/RenderLayer;ZZ)Lnet/minecraft/client/render/VertexConsumer;"
         )
     )
-    private VertexConsumer hookRenderItem(VertexConsumerProvider vertexConsumers, RenderLayer layer, boolean solid, boolean glint) {
-        return ColoredGlintHandler.getCustomGlint(vertexConsumers, layer, solid, glint, this.itemStackToRender);
+    private VertexConsumer hookRenderItemGetItemGlintConsumer(VertexConsumerProvider vertexConsumers, RenderLayer layer, boolean solid, boolean glint) {
+        return ColoredGlintHandler.getItemGlintConsumer(vertexConsumers, layer, solid, glint, this.itemStackToRender);
     }
 }

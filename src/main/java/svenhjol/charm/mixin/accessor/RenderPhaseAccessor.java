@@ -30,4 +30,14 @@ public interface RenderPhaseAccessor {
     static RenderPhase.Texturing getGlintTexturing() {
         throw new IllegalStateException();
     }
+
+    @Accessor("ENTITY_GLINT_TEXTURING")
+    static RenderPhase.Texturing getEntityGlintTexturing() {
+        throw new IllegalStateException();
+    }
+
+    @Accessor("ITEM_TARGET")
+    static RenderPhase.Target getItemTarget() {
+        throw new IllegalStateException();
+    }
 }
