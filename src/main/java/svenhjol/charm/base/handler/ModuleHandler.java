@@ -56,15 +56,13 @@ public class ModuleHandler {
         // client-only initializers and listeners
         if (isClient()) {
 
-            // client initializers
-            ColoredGlintHandler.init();
-
             ClientReloadPacksCallback.EVENT.register(client -> {
                 eachEnabledModule(m -> m.clientReloadPacks(client));
             });
 
             ClientJoinCallback.EVENT.register(client -> {
-                DecorationHandler.init(); // load late so that tags are populated at this point
+                ColoredGlintHandler.init(); // load late so that buffer builders are populated
+                DecorationHandler.init(); // load late so that tags are populated
                 eachEnabledModule(m -> m.clientJoinWorld(client));
             });
         }

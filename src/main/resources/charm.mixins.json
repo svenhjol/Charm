@@ -74,7 +74,9 @@
     "SoundSystemMixin",
     "SpriteAtlasTextureMixin",
     "TexturedRenderLayersMixin",
+    "accessor.BufferBuilderStorageAccessor",
     "accessor.HandledScreenAccessor",
+    "accessor.MinecraftClientAccessor",
     "accessor.RenderPhaseAccessor",
     "accessor.SoundManagerAccessor",
     "accessor.SoundSystemAccessor"

@@ -18,8 +18,6 @@ public class DecorationHandler {
         if (hasInit)
             return;
 
-        hasInit = true;
-
         CARPETS.addAll(BlockTags.CARPETS.values());
         FLOWERS.addAll(BlockTags.FLOWERS.values());
         FLOWER_POTS.addAll(BlockTags.FLOWER_POTS.values());
@@ -110,5 +108,7 @@ public class DecorationHandler {
             EntityType.SPIDER,
             EntityType.CAVE_SPIDER
         ));
+
+        hasInit = true;
     }
 }

@@ -36,8 +36,8 @@ public class ItemRendererMixin {
             target = "Lnet/minecraft/client/render/item/ItemRenderer;getDirectItemGlintConsumer(Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/render/RenderLayer;ZZ)Lnet/minecraft/client/render/VertexConsumer;"
         )
     )
-    private VertexConsumer hookRenderItemGetDirectItemGlintConsumer(VertexConsumerProvider vertexConsumers, RenderLayer layer, boolean solid, boolean glint) {
-        return ColoredGlintHandler.getDirectItemGlintConsumer(vertexConsumers, layer, solid, glint, this.itemStackToRender);
+    private VertexConsumer hookRenderItemGetDirectGlintConsumer(VertexConsumerProvider provider, RenderLayer layer, boolean solid, boolean glint) {
+        return ColoredGlintHandler.getDirectItemGlintConsumer(provider, layer, solid, glint, this.itemStackToRender);
     }
 
     @Redirect(
