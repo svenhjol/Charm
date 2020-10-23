@@ -26,6 +26,7 @@ public class ColoredGlintHandler {
     public static Map<DyeColor, RenderLayer> DIRECT_ENTITY_GLINT = new HashMap<>();
 
     private static boolean hasInit = false;
+    private static final boolean changeDefaultGlintColor = false;
 
     public static void init() {
         if (hasInit)
@@ -41,6 +42,10 @@ public class ColoredGlintHandler {
         }
 
         hasInit = true;
+    }
+
+    public static DyeColor getDefaultClintColor() {
+        return DyeColor.PURPLE;
     }
 
     public static RenderLayer createGlint(DyeColor dyeColor, Identifier texture) {
@@ -105,6 +110,11 @@ public class ColoredGlintHandler {
         RenderLayer renderDirectGlint = RenderLayer.getDirectGlint();
         RenderLayer renderDirectEntityGlint = RenderLayer.getDirectEntityGlint();
 
+        if (changeDefaultGlintColor) {
+            renderDirectGlint = DIRECT_GLINT.get(getDefaultClintColor());
+            renderDirectEntityGlint = DIRECT_ENTITY_GLINT.get(getDefaultClintColor());
+        }
+
         if (stack != null && stack.hasTag()) {
             CompoundTag tag = stack.getTag();
             if (tag != null) {
@@ -123,6 +133,11 @@ public class ColoredGlintHandler {
         if (glint) {
             RenderLayer renderGlint = RenderLayer.getGlint();
             RenderLayer renderEntityGlint = RenderLayer.getEntityGlint();
+
+            if (changeDefaultGlintColor) {
+                renderGlint = GLINT.get(getDefaultClintColor());
+                renderEntityGlint = ENTITY_GLINT.get(getDefaultClintColor());
+            }
 
             if (stack != null && stack.hasTag()) {
                 CompoundTag tag = stack.getTag();
