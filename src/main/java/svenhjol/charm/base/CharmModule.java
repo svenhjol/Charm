@@ -43,10 +43,6 @@ public abstract class CharmModule {
         // run on client, only executed if module enabled
     }
 
-    public void clientReloadPacks(MinecraftClient client) {
-        // run on client when resource packs are reloaded
-    }
-
     public void loadWorld(MinecraftServer server) {
         // run on server on world load, only executed if module enabled
     }

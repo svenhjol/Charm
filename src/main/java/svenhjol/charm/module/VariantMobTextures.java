@@ -72,7 +72,7 @@ public class VariantMobTextures extends CharmModule {
     }
 
     @Override
-    public void clientReloadPacks(MinecraftClient client) {
+    public void clientJoinWorld(MinecraftClient client) {
         // reset
         chickens = new ArrayList<>();
         cows = new ArrayList<>();

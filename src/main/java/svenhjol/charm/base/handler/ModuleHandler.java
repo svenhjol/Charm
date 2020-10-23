@@ -6,7 +6,6 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.StringHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.ClientJoinCallback;
-import svenhjol.charm.event.ClientReloadPacksCallback;
 import svenhjol.charm.event.LoadWorldCallback;
 import svenhjol.charm.event.StructureSetupCallback;
 import svenhjol.charm.handler.ColoredGlintHandler;
@@ -55,11 +54,6 @@ public class ModuleHandler {
 
         // client-only initializers and listeners
         if (isClient()) {
-
-            ClientReloadPacksCallback.EVENT.register(client -> {
-                eachEnabledModule(m -> m.clientReloadPacks(client));
-            });
-
             ClientJoinCallback.EVENT.register(client -> {
                 ColoredGlintHandler.init(); // load late so that buffer builders are populated
                 DecorationHandler.init(); // load late so that tags are populated
