@@ -9,6 +9,7 @@
 * Added Kilns
 * Added Refined Obsidian
 * Added Smooth Glowstone
+* Glow Pearls and placed glowstone can now light up any solid block face
 * Removed invisible mineshaft spiders
 
 ## 2.0.4
