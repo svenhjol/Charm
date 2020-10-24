@@ -5,7 +5,8 @@
     "texture": "charm:block/crimson_ladder"
   },
   "elements": [
-    {   "from": [ 0, 0, 15.2 ],
+    {
+      "from": [ 0, 0, 15.2 ],
       "to": [ 16, 16, 15.2 ],
       "shade": false,
       "faces": {
