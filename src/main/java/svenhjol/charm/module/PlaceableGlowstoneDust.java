@@ -13,11 +13,13 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.PosHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.PlacedGlowstoneDustBlock;
 
@@ -40,36 +42,48 @@ public class PlaceableGlowstoneDust extends CharmModule {
         UseBlockCallback.EVENT.register(this::tryPlaceDust);
     }
 
-    public static boolean canPlaceAt(World world, BlockPos pos) {
-        return world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos, Direction.UP);
+    public static boolean tryPlaceDust(World world, HitResult hitResult) {
+        if (hitResult.getType() != HitResult.Type.BLOCK)
+            return false;
+
+        BlockHitResult blockHitResult = (BlockHitResult)hitResult;
+        BlockPos pos = blockHitResult.getBlockPos();
+        Direction side = blockHitResult.getSide();
+        BlockState state = world.getBlockState(pos);
+        BlockPos offsetPos = pos.offset(side);
+
+        if (state.isSideSolidFullSquare(world, pos, side) && PosHelper.isLikeAir(world, offsetPos)) {
+            BlockState placedState = PlaceableGlowstoneDust.PLACED_GLOWSTONE_DUST.getDefaultState()
+                .with(PlacedGlowstoneDustBlock.FACING, side);
+
+            BlockState offsetState = world.getBlockState(offsetPos);
+            if (offsetState.getMaterial().isLiquid())
+                placedState = placedState.with(Properties.WATERLOGGED, true);
+
+            world.setBlockState(offsetPos, placedState, 2);
+            world.playSound(null, offsetPos, SoundEvents.BLOCK_NYLIUM_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            return true;
+        }
+
+        return false;
     }
 
     private ActionResult tryPlaceDust(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
-        BlockPos pos = hitResult.getBlockPos();
         ItemStack stack = player.getStackInHand(hand);
 
         if (world != null && stack.getItem() == Items.GLOWSTONE_DUST) {
-            BlockState stateAtPos = world.getBlockState(pos);
-            BlockState stateAbove = world.getBlockState(pos.up());
-            boolean stateAboveIsLiquid = stateAbove.getMaterial().isLiquid();
+            player.swingHand(hand);
 
-            if (stateAtPos.isOpaque() && (stateAbove.isAir() || stateAboveIsLiquid)) {
-                player.swingHand(hand);
+            if (!world.isClient) {
+                boolean result = tryPlaceDust(world, hitResult);
 
-                if (!world.isClient) {
-                    BlockState state = PLACED_GLOWSTONE_DUST.getDefaultState();
-
-                    if (stateAboveIsLiquid)
-                        state = state.with(Properties.WATERLOGGED, true);
-
-                    world.setBlockState(pos.up(), state, 2);
-                    world.playSound(null, pos, SoundEvents.BLOCK_NYLIUM_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
+                if (result) {
                     if (!player.isCreative())
                         stack.decrement(1);
 
                     return ActionResult.SUCCESS;
                 }
+                return ActionResult.FAIL;
             }
         }
 

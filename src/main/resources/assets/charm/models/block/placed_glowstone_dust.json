@@ -10,8 +10,8 @@
       "to": [ 16, 0.25, 16 ],
       "shade": false,
       "faces": {
-        "up": { "uv": [ 0, 0, 16, 16 ], "texture": "#dot", "tintindex": 0 },
-        "down": { "uv": [ 0, 16, 16, 0 ], "texture": "#dot", "tintindex": 0 }
+        "down": { "uv": [ 0, 0, 16, 16 ], "texture": "#dot", "tintindex": 0 },
+        "up": { "uv": [ 0, 16, 16, 0 ], "texture": "#dot", "tintindex": 0 }
       }
     }
   ]
