@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.loot.function.LootFunctionType;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -45,6 +46,10 @@ public class RegistryHandler {
 
     public static Item item(Identifier id, Item item) {
         return Registry.register(Registry.ITEM, id, item);
+    }
+
+    public static LootFunctionType lootFunctionType(Identifier id, LootFunctionType lootFunctionType) {
+        return Registry.register(Registry.LOOT_FUNCTION_TYPE, id, lootFunctionType);
     }
 
     public static PointOfInterestType pointOfInterestType(Identifier id, PointOfInterestType poit) {
