@@ -44,6 +44,7 @@
     "accessor.HoeItemAccessor",
     "accessor.ItemAccessor",
     "accessor.MinecraftServerAccessor",
+    "accessor.MovingSoundInstanceAccessor",
     "accessor.MobEntityAccessor",
     "accessor.PickaxeItemAccessor",
     "accessor.PlayerEntityAccessor",

@@ -16,8 +16,10 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.village.VillagerProfession;
+import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.poi.PointOfInterestType;
 
 import java.util.function.Supplier;
@@ -30,6 +32,10 @@ public class RegistryHandler {
 
     public static <T extends BlockEntity> BlockEntityType<T> blockEntity(Identifier id, Supplier<T> supplier, Block... blocks) {
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, BlockEntityType.Builder.create(supplier, blocks).build(null));
+    }
+
+    public static void configuredFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
+        BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, id, configuredFeature);
     }
 
     public static <T extends Entity> EntityType<T> entity(Identifier id, EntityType<T> entityType) {
