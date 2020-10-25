@@ -34,8 +34,9 @@ public class RegistryHandler {
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, BlockEntityType.Builder.create(supplier, blocks).build(null));
     }
 
-    public static void configuredFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
+    public static ConfiguredStructureFeature<?, ?> configuredFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
         BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, id, configuredFeature);
+        return configuredFeature;
     }
 
     public static <T extends Entity> EntityType<T> entity(Identifier id, EntityType<T> entityType) {
