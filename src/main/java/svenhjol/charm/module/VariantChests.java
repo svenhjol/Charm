@@ -3,17 +3,17 @@ package svenhjol.charm.module;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.enums.VanillaVariantMaterial;
+import svenhjol.charm.base.handler.RegistryHandler;
+import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.VariantChestBlock;
 import svenhjol.charm.block.VariantTrappedChestBlock;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.blockentity.VariantChestClient;
 import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.enums.IVariantMaterial;
-import svenhjol.charm.base.enums.VanillaVariantMaterial;
-import svenhjol.charm.base.iface.Module;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,11 +36,8 @@ public class VariantChests extends CharmModule {
             TRAPPED_CHEST_BLOCKS.put(type, new VariantTrappedChestBlock(this, type));
         }
 
-        NORMAL_BLOCK_ENTITY = BlockEntityType.Builder.create(VariantChestBlockEntity::new, NORMAL_CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
-        TRAPPED_BLOCK_ENTITY = BlockEntityType.Builder.create(VariantTrappedChestBlockEntity::new, TRAPPED_CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
-
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, NORMAL_ID, NORMAL_BLOCK_ENTITY);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, TRAPPED_ID, TRAPPED_BLOCK_ENTITY);
+        NORMAL_BLOCK_ENTITY = RegistryHandler.blockEntity(NORMAL_ID, VariantChestBlockEntity::new, NORMAL_CHEST_BLOCKS.values().toArray(new Block[0]));
+        TRAPPED_BLOCK_ENTITY = RegistryHandler.blockEntity(TRAPPED_ID, VariantTrappedChestBlockEntity::new, TRAPPED_CHEST_BLOCKS.values().toArray(new Block[0]));
     }
 
     @Override

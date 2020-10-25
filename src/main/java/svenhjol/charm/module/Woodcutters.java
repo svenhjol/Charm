@@ -1,15 +1,14 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.ClientRegistryHandler;
+import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.WoodcutterBlock;
 import svenhjol.charm.gui.WoodcutterScreen;
@@ -28,18 +27,18 @@ public class Woodcutters extends CharmModule {
     @Override
     public void register() {
         WOODCUTTER = new WoodcutterBlock(this);
-        RECIPE_TYPE = RecipeType.register(RECIPE_ID.toString());
-        RECIPE_SERIALIZER = RecipeSerializer.register(RECIPE_ID.toString(), new WoodcuttingRecipe.Serializer(WoodcuttingRecipe::new));
-        SCREEN_HANDLER = Registry.register(Registry.SCREEN_HANDLER, BLOCK_ID, new ScreenHandlerType<>(WoodcutterScreenHandler::new));
+        RECIPE_TYPE = RegistryHandler.recipeType(RECIPE_ID.toString());
+        RECIPE_SERIALIZER = RegistryHandler.recipeSerializer(RECIPE_ID.toString(), new WoodcuttingRecipe.Serializer<>(WoodcuttingRecipe::new));
+        SCREEN_HANDLER = RegistryHandler.screenHandler(BLOCK_ID, WoodcutterScreenHandler::new);
     }
 
     @Override
     public void clientRegister() {
-        BlockRenderLayerMap.INSTANCE.putBlock(WOODCUTTER, RenderLayer.getCutout());
+        ClientRegistryHandler.setRenderLayer(WOODCUTTER, RenderLayer.getCutout());
     }
 
     @Override
     public void clientInit() {
-        ScreenRegistry.register(SCREEN_HANDLER, WoodcutterScreen::new);
+        ClientRegistryHandler.screenHandler(SCREEN_HANDLER, WoodcutterScreen::new);
     }
 }

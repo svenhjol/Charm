@@ -1,10 +1,13 @@
 package svenhjol.charm.base.helper;
 
+import net.fabricmc.fabric.mixin.object.builder.DefaultAttributeRegistryAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -32,6 +35,12 @@ public class MobHelper {
 
     public static <T extends Entity> T spawn(EntityType<T> type, ServerWorld world, BlockPos pos, SpawnReason reason) {
         return type.create(world, null, null, null, pos, reason, false, false);
+    }
+
+    public static void setEntityAttributes(EntityType<? extends LivingEntity> entityType, DefaultAttributeContainer attributes) {
+
+        DefaultAttributeRegistryAccessor.getRegistry()
+            .put(entityType, attributes);
     }
 
     public static boolean spawnMobNearPos(ServerWorld world, BlockPos pos, MobEntity mob, BiConsumer<MobEntity, BlockPos> onSpawn) {

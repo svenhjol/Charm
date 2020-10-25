@@ -1,23 +1,23 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.mixin.object.builder.DefaultAttributeRegistryAccessor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import svenhjol.charm.Charm;
-import svenhjol.charm.client.CoralSquidsClient;
-import svenhjol.charm.entity.CoralSquidEntity;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.BiomeHelper;
+import svenhjol.charm.base.helper.MobHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.client.CoralSquidsClient;
+import svenhjol.charm.entity.CoralSquidEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,17 +38,14 @@ public class CoralSquids extends CharmModule {
 
     @Override
     public void register() {
-        CORAL_SQUID = EntityType.Builder.create(CoralSquidEntity::new, SpawnGroup.WATER_CREATURE)
+        CORAL_SQUID = RegistryHandler.entity(ID, EntityType.Builder.create(CoralSquidEntity::new, SpawnGroup.WATER_CREATURE)
             .setDimensions(0.4F, 0.4F)
             .maxTrackingRange(8)
-            .build(ID.getPath());
+            .build(ID.getPath()));
 
-        SPAWN_EGG = new SpawnEggItem(CORAL_SQUID, 0x0000FF, 0xFF00FF, (new Item.Settings()).group(ItemGroup.MISC));
-        Registry.register(Registry.ITEM, EGG_ID, SPAWN_EGG);
+        SPAWN_EGG = RegistryHandler.item(EGG_ID, new SpawnEggItem(CORAL_SQUID, 0x0000FF, 0xFF00FF, (new Item.Settings()).group(ItemGroup.MISC)));
 
-        Registry.register(Registry.ENTITY_TYPE, ID, CORAL_SQUID);
-        DefaultAttributeRegistryAccessor.getRegistry()
-            .put(CORAL_SQUID, CoralSquidEntity.createSquidAttributes().build());
+        MobHelper.setEntityAttributes(CORAL_SQUID, CoralSquidEntity.createSquidAttributes().build());
     }
 
     @Override

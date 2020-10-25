@@ -13,10 +13,10 @@ import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
+import svenhjol.charm.base.handler.RegistryHandler;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -28,14 +28,14 @@ import static net.minecraft.village.TradeOffers.*;
 public class VillagerHelper {
     public static VillagerProfession addProfession(Identifier id, PointOfInterestType poit, SoundEvent worksound) {
         VillagerProfession profession = VillagerProfessionAccessor.create(id.toString(), poit, ImmutableSet.of(), ImmutableSet.of(), worksound);
-        VillagerProfession registeredProfession = Registry.register(Registry.VILLAGER_PROFESSION, id, profession);
+        VillagerProfession registeredProfession = RegistryHandler.villagerProfession(id, profession);
         PROFESSION_TO_LEVELED_TRADE.put(profession, new Int2ObjectOpenHashMap<>());
         return registeredProfession;
     }
 
     public static PointOfInterestType addPointOfInterestType(Identifier id, Block block, int ticketCount) {
         PointOfInterestType poit = PointOfInterestTypeAccessor.callCreate(id.toString(), ImmutableSet.copyOf(block.getStateManager().getStates()), ticketCount, 1);
-        Registry.register(Registry.POINT_OF_INTEREST_TYPE, id, poit);
+        RegistryHandler.pointOfInterestType(id, poit);
         return PointOfInterestTypeAccessor.callSetup(poit);
     }
 
