@@ -16,6 +16,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -74,6 +75,10 @@ public class RegistryHandler {
 
     public static SoundEvent sound(Identifier id, SoundEvent sound) {
         return Registry.register(Registry.SOUND_EVENT, id, sound);
+    }
+
+    public static StructurePieceType structurePiece(Identifier id, StructurePieceType structurePieceType) {
+        return Registry.register(Registry.STRUCTURE_PIECE, id, structurePieceType);
     }
 
     public static VillagerProfession villagerProfession(Identifier id, VillagerProfession profession) {
