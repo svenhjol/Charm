@@ -53,7 +53,7 @@ public class PlaceableGlowstoneDust extends CharmModule {
         BlockState state = world.getBlockState(pos);
         BlockPos offsetPos = pos.offset(side);
 
-        if (state.isSideSolidFullSquare(world, pos, side) && PosHelper.isLikeAir(world, offsetPos)) {
+        if (state.isSideSolidFullSquare(world, pos, side) && PosHelper.isLikeAir(world, offsetPos) && world.getBlockState(offsetPos).getBlock() != Blocks.LAVA) {
             BlockState placedState = PlaceableGlowstoneDust.PLACED_GLOWSTONE_DUST.getDefaultState()
                 .with(PlacedGlowstoneDustBlock.FACING, side);
 
