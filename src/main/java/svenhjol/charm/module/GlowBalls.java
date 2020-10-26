@@ -12,7 +12,7 @@ import svenhjol.charm.client.GlowBallsClient;
 import svenhjol.charm.entity.GlowBallEntity;
 import svenhjol.charm.item.GlowBallItem;
 
-@Module(mod = Charm.MOD_ID, description = "Glow Balls can be thrown to produce a light source where they impact the ground.")
+@Module(mod = Charm.MOD_ID, description = "Glow Balls can be thrown to produce a light source where they impact.")
 public class GlowBalls extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "glow_ball");
     public static GlowBallItem GLOW_BALL;
