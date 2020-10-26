@@ -3,6 +3,7 @@ package svenhjol.charm.module;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -57,7 +58,7 @@ public class PlaceableGlowstoneDust extends CharmModule {
                 .with(PlacedGlowstoneDustBlock.FACING, side);
 
             BlockState offsetState = world.getBlockState(offsetPos);
-            if (offsetState.getMaterial().isLiquid())
+            if (offsetState.getBlock() == Blocks.WATER)
                 placedState = placedState.with(Properties.WATERLOGGED, true);
 
             world.setBlockState(offsetPos, placedState, 2);
