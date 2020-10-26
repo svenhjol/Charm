@@ -12,17 +12,17 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import svenhjol.charm.entity.GlowPearlEntity;
+import svenhjol.charm.entity.GlowBallEntity;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.item.ICharmItem;
 
-public class GlowPearlItem extends EnderPearlItem implements ICharmItem {
+public class GlowBallItem extends EnderPearlItem implements ICharmItem {
     protected CharmModule module;
 
-    public GlowPearlItem(CharmModule module) {
+    public GlowBallItem(CharmModule module) {
         super(new Item.Settings().maxCount(16).group(ItemGroup.MISC));
         this.module = module;
-        this.register(module, "glow_pearl");
+        this.register(module, "glow_ball");
     }
 
     @Override
@@ -37,7 +37,7 @@ public class GlowPearlItem extends EnderPearlItem implements ICharmItem {
         user.getItemCooldownManager().set(this, 10);
 
         if (!world.isClient) {
-            GlowPearlEntity entity = new GlowPearlEntity(world, user);
+            GlowBallEntity entity = new GlowBallEntity(world, user);
             entity.setItem(itemStack);
             entity.setProperties(user, user.pitch, user.yaw, 0.0F, 1.5F, 1.0F);
             world.spawnEntity(entity);

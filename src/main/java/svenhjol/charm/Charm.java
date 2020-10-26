@@ -43,7 +43,7 @@ public class Charm implements ModInitializer {
             ExtendNetherite.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
-            GlowPearls.class,
+            GlowBalls.class,
             GoldBars.class,
             GoldChains.class,
             GoldLanterns.class,

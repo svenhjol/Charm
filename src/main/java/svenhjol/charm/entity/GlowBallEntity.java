@@ -13,26 +13,26 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import svenhjol.charm.base.helper.PlayerHelper;
-import svenhjol.charm.module.GlowPearls;
+import svenhjol.charm.module.GlowBalls;
 import svenhjol.charm.module.PlaceableGlowstoneDust;
 
-public class GlowPearlEntity extends ThrownItemEntity {
-    public GlowPearlEntity(EntityType<? extends GlowPearlEntity> entityType, World world) {
+public class GlowBallEntity extends ThrownItemEntity {
+    public GlowBallEntity(EntityType<? extends GlowBallEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public GlowPearlEntity(World world, LivingEntity owner) {
-        super(GlowPearls.ENTITY, owner, world);
+    public GlowBallEntity(World world, LivingEntity owner) {
+        super(GlowBalls.ENTITY, owner, world);
     }
 
     @Environment(EnvType.CLIENT)
-    public GlowPearlEntity(World world, double x, double y, double z) {
-        super(GlowPearls.ENTITY, x, y, z, world);
+    public GlowBallEntity(World world, double x, double y, double z) {
+        super(GlowBalls.ENTITY, x, y, z, world);
     }
 
     @Override
     protected Item getDefaultItem() {
-        return GlowPearls.GLOW_PEARL;
+        return GlowBalls.GLOW_BALL;
     }
 
     @Override
@@ -46,13 +46,13 @@ public class GlowPearlEntity extends ThrownItemEntity {
             if (result)
                 return;
 
-            // cannot place, return the glow pearl
+            // cannot place, return the glow ball
             if (this.getOwner() instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity)this.getOwner();
 
                 if (!player.isCreative()) {
-                    world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 0.7F, 1.0F);
-                    PlayerHelper.addOrDropStack(player, new ItemStack(GlowPearls.GLOW_PEARL));
+                    world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.PLAYERS, 0.7F, 1.0F);
+                    PlayerHelper.addOrDropStack(player, new ItemStack(GlowBalls.GLOW_BALL));
                 }
             }
         }
