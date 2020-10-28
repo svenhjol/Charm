@@ -24,7 +24,7 @@ public class EntitySpawner extends CharmModule {
     @Override
     public void register() {
         ENTITY_SPAWNER = new EntitySpawnerBlock(this);
-        BLOCK_ENTITY = RegistryHandler.blockEntity(ID, EntitySpawnerBlockEntity::new);
+        BLOCK_ENTITY = RegistryHandler.blockEntity(ID, EntitySpawnerBlockEntity::new, ENTITY_SPAWNER);
     }
 
     @Override
