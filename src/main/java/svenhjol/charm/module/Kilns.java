@@ -9,6 +9,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.ClientRegistryHandler;
 import svenhjol.charm.base.handler.RegistryHandler;
+import svenhjol.charm.base.helper.DecorationHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.KilnBlock;
 import svenhjol.charm.blockentity.KilnBlockEntity;
@@ -38,5 +39,11 @@ public class Kilns extends CharmModule {
     @Override
     public void clientInit() {
         ClientRegistryHandler.screenHandler(SCREEN_HANDLER, KilnScreen::new);
+    }
+
+    @Override
+    public void init() {
+        DecorationHelper.DECORATION_BLOCKS.add(KILN);
+        DecorationHelper.STATE_CALLBACK.put(KILN, facing -> KILN.getDefaultState().with(KilnBlock.FACING, facing));
     }
 }

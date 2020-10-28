@@ -29,7 +29,7 @@ public class DecorationHelper {
     public static List<IVariantMaterial> VARIANT_MATERIALS = new ArrayList<>();
     public static List<Block> WOOL = new ArrayList<>();
 
-    public static Map<Block, Function<BlockState, BlockState>> STATE_CALLBACK = new HashMap<>();
+    public static Map<Block, Function<Direction, BlockState>> STATE_CALLBACK = new HashMap<>();
 
     public static Identifier getRandomLootTable(List<Identifier> lootTables, Random random) {
         return lootTables.get(random.nextInt(lootTables.size()));
@@ -75,7 +75,7 @@ public class DecorationHelper {
         }
 
         if (STATE_CALLBACK.containsKey(block))
-            state = STATE_CALLBACK.get(block).apply(state);
+            state = STATE_CALLBACK.get(block).apply(facing);
 
         return state;
     }
