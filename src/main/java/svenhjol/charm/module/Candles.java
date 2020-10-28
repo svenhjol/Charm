@@ -29,6 +29,6 @@ public class Candles extends CharmModule {
     public void init() {
         // add Candles to decoration blocks
         DecorationHelper.DECORATION_BLOCKS.add(CANDLE);
-        DecorationHelper.STATE_CALLBACK.put(CANDLE, s -> s.with(CandleBlock.LIT, true));
+        DecorationHelper.STATE_CALLBACK.put(CANDLE, s -> CANDLE.getDefaultState().with(CandleBlock.LIT, true));
     }
 }
