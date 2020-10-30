@@ -13,8 +13,8 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.handler.ColoredGlintHandler;
 
-@Module(mod = Charm.MOD_ID, alwaysEnabled = true)
-public class EnchantColors extends CharmModule {
+@Module(mod = Charm.MOD_ID, alwaysEnabled = true, description = "Upcoming feature for 2.1.2")
+public class Moonstones extends CharmModule {
     @Override
     public void init() {
         UpdateAnvilCallback.EVENT.register(this::tryColor);
