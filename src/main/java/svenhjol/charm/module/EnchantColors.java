@@ -13,7 +13,7 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.handler.ColoredGlintHandler;
 
-@Module(mod = Charm.MOD_ID)
+@Module(mod = Charm.MOD_ID, alwaysEnabled = true)
 public class EnchantColors extends CharmModule {
     @Override
     public void init() {
@@ -22,6 +22,9 @@ public class EnchantColors extends CharmModule {
 
     private ActionResult tryColor(AnvilScreenHandler handler, ItemStack left, ItemStack right, Inventory output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {
         ItemStack out;
+
+        if (!Core.debug)
+            return ActionResult.PASS;
 
         if (left.isEmpty() || right.isEmpty())
             return ActionResult.PASS;
