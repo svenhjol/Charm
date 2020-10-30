@@ -40,4 +40,9 @@ public interface RenderPhaseAccessor {
     static RenderPhase.Target getItemTarget() {
         throw new IllegalStateException();
     }
+
+    @Accessor("VIEW_OFFSET_Z_LAYERING")
+    static RenderPhase.Layering getViewOffsetZLayering() {
+        throw new IllegalStateException();
+    }
 }
