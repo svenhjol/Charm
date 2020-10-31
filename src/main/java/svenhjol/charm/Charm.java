@@ -38,7 +38,7 @@ public class Charm implements ModInitializer {
             Crates.class,
             DecreaseRepairCost.class,
             DirtToPath.class,
-            EnchantColors.class,
+            Moonstones.class,
             EndermitePowder.class,
             EntitySpawner.class,
             ExtendNetherite.class,

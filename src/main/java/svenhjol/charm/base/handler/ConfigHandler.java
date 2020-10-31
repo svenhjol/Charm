@@ -12,10 +12,7 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ConfigHandler {
 
@@ -46,7 +43,9 @@ public class ConfigHandler {
                 if (!finalConfig.containsKey(moduleName))
                     continue;
 
-                finalConfig.get(moduleName).putAll((LinkedTreeMap)entry.getValue());
+                LinkedTreeMap<? extends String, ?> entriesFromConfig = (LinkedTreeMap) entry.getValue();
+                entriesFromConfig.remove("Description");
+                finalConfig.get(moduleName).putAll(entriesFromConfig);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to read config for " + configName, e);
