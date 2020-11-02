@@ -73,8 +73,6 @@ public class DataBlockProcessor extends StructureProcessor {
         private static final String MOB = "mob";
         private static final String ORE = "ore";
         private static final String FLOWERPOT = "plantpot";
-        private static final String RUBBLE = "rubble";
-        private static final String RUNE = "rune";
         private static final String SAPLING = "sapling";
         private static final String SPAWNER = "spawner";
         private static final String STORAGE = "storage";
