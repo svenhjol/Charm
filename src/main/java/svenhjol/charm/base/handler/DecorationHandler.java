@@ -28,7 +28,6 @@ public class DecorationHandler {
 
         CHEST_LOOT_TABLES = Arrays.asList(
             LootTables.ABANDONED_MINESHAFT_CHEST,
-            LootTables.BURIED_TREASURE_CHEST,
             LootTables.DESERT_PYRAMID_CHEST,
             LootTables.JUNGLE_TEMPLE_CHEST,
             LootTables.SIMPLE_DUNGEON_CHEST,
