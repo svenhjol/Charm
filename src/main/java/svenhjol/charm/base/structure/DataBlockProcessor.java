@@ -78,8 +78,8 @@ public class DataBlockProcessor extends StructureProcessor {
         private static final String STORAGE = "storage";
 
         public static float BLOCK_CHANCE = 0.8F;
-        public static float BOOKCASE_CHANCE = 0.25F;
-        public static float BOOKCASE_LOOT_CHANCE = 0.1F;
+        public static float BOOKCASE_CHANCE = 0.15F;
+        public static float BOOKCASE_LOOT_CHANCE = 0.4F;
         public static float CHEST_CHANCE = 0.66F;
         public static float DECORATION_CHANCE = 0.85F;
         public static float FLOWER_CHANCE = 0.8F;
