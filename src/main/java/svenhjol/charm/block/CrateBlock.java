@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.TranslatableText;
@@ -25,11 +24,11 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import svenhjol.charm.blockentity.CrateBlockEntity;
-import svenhjol.charm.module.Crates;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmBlockWithEntity;
 import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.blockentity.CrateBlockEntity;
+import svenhjol.charm.module.Crates;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -129,15 +128,6 @@ public class CrateBlock extends CharmBlockWithEntity {
                 CrateBlockEntity crate = (CrateBlockEntity)blockEntity;
                 crate.checkLootInteraction(player);
                 player.openHandledScreen(crate);
-            }
-
-            // fabric default implementation
-            if (false) {
-                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-
-                if (screenHandlerFactory != null) {
-                    player.openHandledScreen(screenHandlerFactory);
-                }
             }
         }
 
