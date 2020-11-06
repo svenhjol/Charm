@@ -60,16 +60,16 @@ public class MusicClient {
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
     }
 
-    public ActionResult handleUseBlock(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
+    private ActionResult handleUseBlock(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
         stopRecord(player, hitResult.getBlockPos(), player.getStackInHand(hand));
         return ActionResult.PASS;
     }
 
-    public void handlePlaySound(SoundSystem soundSystem, SoundInstance sound) {
+    private void handlePlaySound(SoundSystem soundSystem, SoundInstance sound) {
         checkShouldStopMusic(sound);
     }
 
-    public void handleClientTick(MinecraftClient client) {
+    private void handleClientTick(MinecraftClient client) {
         checkActuallyStopMusic();
     }
 
