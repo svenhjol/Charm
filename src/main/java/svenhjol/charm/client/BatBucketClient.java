@@ -25,10 +25,7 @@ public class BatBucketClient {
     public BatBucketClient(CharmModule module) {
         this.module = module;
 
-        // register client messages
         ClientSidePacketRegistry.INSTANCE.register(BatBuckets.MSG_CLIENT_SET_GLOWING, this::handleMessageClientSetGlowing);
-
-        // register client tick handler
         ClientTickEvents.START_CLIENT_TICK.register(this::handleClientTick);
     }
 
