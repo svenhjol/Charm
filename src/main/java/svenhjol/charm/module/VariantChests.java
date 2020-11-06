@@ -12,7 +12,7 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.VariantChestBlock;
 import svenhjol.charm.block.VariantTrappedChestBlock;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
-import svenhjol.charm.blockentity.VariantChestClient;
+import svenhjol.charm.client.VariantChestClient;
 import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package svenhjol.charm.blockentity;
+package svenhjol.charm.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,6 +7,8 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.block.VariantChestBlock;
 import svenhjol.charm.block.VariantTrappedChestBlock;
+import svenhjol.charm.blockentity.VariantChestBlockEntity;
+import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
 import svenhjol.charm.module.VariantChests;
 import svenhjol.charm.render.VariantChestBlockEntityRenderer;
 import svenhjol.charm.base.CharmModule;
