@@ -9,6 +9,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundManager;
+import net.minecraft.client.sound.SoundSystem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -17,15 +18,18 @@ import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.MusicImprovements;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.event.PlaySoundCallback;
 import svenhjol.charm.base.helper.DimensionHelper;
 import svenhjol.charm.base.helper.SoundHelper;
+import svenhjol.charm.event.PlaySoundCallback;
+import svenhjol.charm.module.MusicImprovements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,18 +55,22 @@ public class MusicClient {
         if (MusicImprovements.playCreativeMusic)
             addCreativeMusicCondition();
 
-        UseBlockCallback.EVENT.register(((player, world, hand, hitResult) -> {
-            stopRecord(player, hitResult.getBlockPos(), player.getStackInHand(hand));
-            return ActionResult.PASS;
-        }));
+        UseBlockCallback.EVENT.register(this::handleUseBlock);
+        PlaySoundCallback.EVENT.register(this::handlePlaySound);
+        ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
+    }
 
-        PlaySoundCallback.EVENT.register(((soundSystem, sound) -> {
-            checkShouldStopMusic(sound);
-        }));
+    public ActionResult handleUseBlock(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
+        stopRecord(player, hitResult.getBlockPos(), player.getStackInHand(hand));
+        return ActionResult.PASS;
+    }
 
-        ClientTickEvents.END_CLIENT_TICK.register((client -> {
-            checkActuallyStopMusic();
-        }));
+    public void handlePlaySound(SoundSystem soundSystem, SoundInstance sound) {
+        checkShouldStopMusic(sound);
+    }
+
+    public void handleClientTick(MinecraftClient client) {
+        checkActuallyStopMusic();
     }
 
     public void addCreativeMusicCondition() {

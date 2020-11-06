@@ -3,7 +3,10 @@ package svenhjol.charm.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.ChestType;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.block.VariantChestBlock;
 import svenhjol.charm.block.VariantTrappedChestBlock;
@@ -30,32 +33,34 @@ public class VariantChestClient {
         BlockEntityRendererRegistry.INSTANCE.register(VariantChests.NORMAL_BLOCK_ENTITY, VariantChestBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(VariantChests.TRAPPED_BLOCK_ENTITY, VariantChestBlockEntityRenderer::new);
 
-        TextureStitchCallback.EVENT.register(((atlas, textures) -> {
-            if (atlas.getId().toString().equals("minecraft:textures/atlas/chest.png")) {
-                VariantChests.NORMAL_CHEST_BLOCKS.keySet().forEach(type -> {
-                    addChestTexture(textures, type, ChestType.LEFT);
-                    addChestTexture(textures, type, ChestType.RIGHT);
-                    addChestTexture(textures, type, ChestType.SINGLE);
-                });
-            }
-        }));
-
-        BlockItemRenderCallback.EVENT.register(block -> {
-            if (block instanceof VariantChestBlock) {
-                VariantChestBlock chest = (VariantChestBlock)block;
-                CACHED_NORMAL_CHEST.setMaterialType(chest.getMaterialType());
-                return CACHED_NORMAL_CHEST;
-
-            } else if (block instanceof VariantTrappedChestBlock) {
-                VariantTrappedChestBlock chest = (VariantTrappedChestBlock)block;
-                CACHED_TRAPPED_CHEST.setMaterialType(chest.getMaterialType());
-                return CACHED_TRAPPED_CHEST;
-            }
-
-            return null;
-        });
+        TextureStitchCallback.EVENT.register(this::handleTextureStitch);
+        BlockItemRenderCallback.EVENT.register(this::handleBlockItemRender);
     }
 
+    private void handleTextureStitch(SpriteAtlasTexture atlas, Set<Identifier> textures) {
+        if (atlas.getId().toString().equals("minecraft:textures/atlas/chest.png")) {
+            VariantChests.NORMAL_CHEST_BLOCKS.keySet().forEach(type -> {
+                addChestTexture(textures, type, ChestType.LEFT);
+                addChestTexture(textures, type, ChestType.RIGHT);
+                addChestTexture(textures, type, ChestType.SINGLE);
+            });
+        }
+    }
+
+    private BlockEntity handleBlockItemRender(Block block) {
+        if (block instanceof VariantChestBlock) {
+            VariantChestBlock chest = (VariantChestBlock)block;
+            CACHED_NORMAL_CHEST.setMaterialType(chest.getMaterialType());
+            return CACHED_NORMAL_CHEST;
+
+        } else if (block instanceof VariantTrappedChestBlock) {
+            VariantTrappedChestBlock chest = (VariantTrappedChestBlock)block;
+            CACHED_TRAPPED_CHEST.setMaterialType(chest.getMaterialType());
+            return CACHED_TRAPPED_CHEST;
+        }
+
+        return null;
+    }
 
     private void addChestTexture(Set<Identifier> textures, IVariantMaterial variant, ChestType chestType) {
         String chestTypeName = chestType != ChestType.SINGLE ? "_" + chestType.asString().toLowerCase() : "";

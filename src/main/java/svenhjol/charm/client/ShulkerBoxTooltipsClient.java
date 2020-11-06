@@ -26,14 +26,16 @@ import java.util.List;
 
 public class ShulkerBoxTooltipsClient {
     public ShulkerBoxTooltipsClient(CharmModule module) {
-        RenderTooltipCallback.EVENT.register(((matrices, stack, lines, x, y) -> {
-            if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
-                boolean result = renderTooltip(matrices, stack, lines, x, y);
-                if (result)
-                    return ActionResult.SUCCESS;
-            }
-            return ActionResult.PASS;
-        }));
+        RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
+    }
+
+    private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+        if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
+            boolean result = renderTooltip(matrices, stack, lines, x, y);
+            if (result)
+                return ActionResult.SUCCESS;
+        }
+        return ActionResult.PASS;
     }
 
     private boolean renderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {

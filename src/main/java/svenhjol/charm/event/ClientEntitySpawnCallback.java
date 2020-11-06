@@ -7,6 +7,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 
+/**
+ * Lets entities be created on the client when spawned on the server.
+ */
 public interface ClientEntitySpawnCallback {
     Event<ClientEntitySpawnCallback> EVENT = EventFactory.createArrayBacked(ClientEntitySpawnCallback.class, (listeners) -> (world, packet, x, y, z, entityType) -> {
         for (ClientEntitySpawnCallback listener : listeners) {
