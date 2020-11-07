@@ -17,14 +17,14 @@ public class ParrotsStayOnShoulder extends CharmModule {
     @Override
     public void init() {
         isEnabled = true;
-        PlayerTickCallback.EVENT.register(this::dismountParrot);
+        PlayerTickCallback.EVENT.register(this::tryDismountParrot);
     }
 
     public static boolean shouldParrotStayMounted(World world, long shoulderTime) {
         return shoulderTime + 20L < world.getTime() && isEnabled;
     }
 
-    public void dismountParrot(PlayerEntity player) {
+    public void tryDismountParrot(PlayerEntity player) {
         if (!player.world.isClient
             && player.world.getTime() % 10 == 0
             && player.isSneaking()
