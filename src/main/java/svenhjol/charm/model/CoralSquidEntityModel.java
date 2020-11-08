@@ -14,24 +14,18 @@ public class CoralSquidEntityModel<T extends Entity> extends CompositeEntityMode
 
     public CoralSquidEntityModel() {
         this.head = new ModelPart(this, 0, 0);
-//        this.head.addCuboid(-6.0F, -8.0F, -6.0F, 12.0F, 16.0F, 12.0F);
         this.head.addCuboid(-3.0F, -4.0F, -3.0F, 6.0F, 8.0F, 6.0F);
         ModelPart var10000 = this.head;
-//        var10000.pivotY += 8.0F;
         var10000.pivotY += 4.0F;
 
         for(int j = 0; j < this.tentacles.length; ++j) {
             this.tentacles[j] = new ModelPart(this, 48, 0);
             double d = (double)j * 3.141592653589793D * 2.0D / (double)this.tentacles.length;
-//            float f = (float)Math.cos(d) * 5.0F;
-//            float g = (float)Math.sin(d) * 5.0F;
             float f = (float)Math.cos(d) * 2.5F;
             float g = (float)Math.sin(d) * 2.5F;
-//            this.tentacles[j].addCuboid(-1.0F, 0.0F, -1.0F, 2.0F, 18.0F, 2.0F);
             this.tentacles[j].addCuboid(-0.5F, 0.0F, -0.5F, 1.0F, 7.0F, 1.0F);
             this.tentacles[j].pivotX = f;
             this.tentacles[j].pivotZ = g;
-//            this.tentacles[j].pivotY = 15.0F;
             this.tentacles[j].pivotY = 7.5F;
             d = (double)j * 3.141592653589793D * -2.0D / (double)this.tentacles.length + 1.5707963267948966D;
             this.tentacles[j].yaw = (float)d;
