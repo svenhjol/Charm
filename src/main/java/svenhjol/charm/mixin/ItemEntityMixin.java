@@ -13,7 +13,7 @@ public class ItemEntityMixin {
         method = "tick",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/entity/ItemEntity;remove()V",
+            target = "Lnet/minecraft/entity/ItemEntity;discard()V",
             ordinal = 1
         ),
         cancellable = true
