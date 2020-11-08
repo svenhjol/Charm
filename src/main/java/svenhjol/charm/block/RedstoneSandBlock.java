@@ -11,6 +11,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmFallingBlock;
+import svenhjol.charm.base.helper.BlockHelper;
 
 public class RedstoneSandBlock extends CharmFallingBlock {
     public RedstoneSandBlock(CharmModule module) {
@@ -20,7 +21,7 @@ public class RedstoneSandBlock extends CharmFallingBlock {
             .strength(0.5F)
         );
 
-        this.setEffectiveTool(ShovelItem.class);
+        BlockHelper.setEffectiveTool(this, ShovelItem.class);
     }
 
     @Override

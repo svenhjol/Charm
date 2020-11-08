@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmBlock;
+import svenhjol.charm.base.helper.BlockHelper;
 
 import java.util.Random;
 
@@ -24,7 +25,7 @@ public class EnderPearlBlock extends CharmBlock {
             .strength(2.0F)
         );
 
-        this.setEffectiveTool(PickaxeItem.class);
+        BlockHelper.setEffectiveTool(this, PickaxeItem.class);
     }
 
     @Override

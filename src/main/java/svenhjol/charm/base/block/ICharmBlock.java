@@ -52,18 +52,4 @@ public interface ICharmBlock {
     default void setFireInfo(int encouragement, int flammability) {
         ((FireBlockAccessor) Blocks.FIRE).invokeRegisterFlammableBlock((Block)this, encouragement, flammability);
     }
-
-    default void setEffectiveTool(Class<? extends MiningToolItem> clazz) {
-        if (clazz == PickaxeItem.class)
-            PickaxeItemAccessor.getEffectiveBlocks().add((Block)this);
-
-        if (clazz == AxeItem.class)
-            AxeItemAccessor.getEffectiveBlocks().add((Block)this);
-
-        if (clazz == ShovelItem.class)
-            ShovelItemAccessor.getEffectiveBlocks().add((Block)this);
-
-        if (clazz == HoeItem.class)
-            HoeItemAccessor.getEffectiveBlocks().add((Block)this);
-    }
 }
