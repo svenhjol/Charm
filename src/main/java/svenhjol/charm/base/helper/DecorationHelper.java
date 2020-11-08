@@ -68,8 +68,6 @@ public class DecorationHelper {
             // some blocks have custom state, randomize it here
             if (block == Blocks.CAMPFIRE)
                 state = state.with(CampfireBlock.LIT, false);
-            if (block == Blocks.CAULDRON)
-                state = state.with(CauldronBlock.LEVEL, random.nextInt(3));
             if (block == Blocks.COMPOSTER)
                 state = state.with(ComposterBlock.LEVEL, random.nextInt(7));
         }

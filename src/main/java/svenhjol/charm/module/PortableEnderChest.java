@@ -11,6 +11,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.client.PortableEnderChestClient;
 import svenhjol.charm.screenhandler.PortableEnderChestScreenHandler;
 import svenhjol.charm.base.CharmModule;
@@ -32,7 +33,7 @@ public class PortableEnderChest extends CharmModule {
         ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_OPEN_ENDER_CHEST, (context, data) -> {
             context.getTaskQueue().execute(() -> {
                 ServerPlayerEntity player = (ServerPlayerEntity)context.getPlayer();
-                if (player == null || !player.inventory.contains(new ItemStack(Blocks.ENDER_CHEST)))
+                if (player == null || !PlayerHelper.getInventory(player).contains(new ItemStack(Blocks.ENDER_CHEST)))
                     return;
 
                 PortableEnderChest.openContainer(player);

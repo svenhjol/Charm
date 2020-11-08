@@ -14,6 +14,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import svenhjol.charm.module.Crates;
 import svenhjol.charm.screenhandler.CrateScreenHandler;
@@ -26,13 +27,13 @@ public class CrateBlockEntity extends LootableContainerBlockEntity implements Si
     private static final int[] SLOTS = IntStream.range(0, SIZE).toArray();
     private DefaultedList<ItemStack> items = DefaultedList.ofSize(SIZE, ItemStack.EMPTY);
 
-    public CrateBlockEntity() {
-        super(Crates.BLOCK_ENTITY);
+    public CrateBlockEntity(BlockPos pos, BlockState state) {
+        super(Crates.BLOCK_ENTITY, pos, state);
     }
 
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
+    public void fromTag(CompoundTag tag) {
+        super.fromTag(tag);
         this.items = DefaultedList.ofSize(SIZE, ItemStack.EMPTY);
         if (!this.deserializeLootTable(tag))
             Inventories.fromTag(tag, this.items);

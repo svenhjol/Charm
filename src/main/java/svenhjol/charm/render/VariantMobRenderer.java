@@ -1,5 +1,6 @@
 package svenhjol.charm.render;
 
+import net.minecraft.class_5617;
 import net.minecraft.client.render.entity.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.Identifier;
@@ -7,7 +8,7 @@ import svenhjol.charm.module.VariantMobTextures;
 
 public class VariantMobRenderer {
     public static class Chicken extends ChickenEntityRenderer {
-        public Chicken(EntityRenderDispatcher dispatcher) {
+        public Chicken(class_5617.class_5618 dispatcher) {
             super(dispatcher);
         }
 
@@ -18,7 +19,7 @@ public class VariantMobRenderer {
     }
 
     public static class Cow extends CowEntityRenderer {
-        public Cow(EntityRenderDispatcher dispatcher) {
+        public Cow(class_5617.class_5618 dispatcher) {
             super(dispatcher);
         }
 
@@ -29,7 +30,7 @@ public class VariantMobRenderer {
     }
 
     public static class Pig extends PigEntityRenderer {
-        public Pig(EntityRenderDispatcher dispatcher) {
+        public Pig(class_5617.class_5618 dispatcher) {
             super(dispatcher);
         }
 
@@ -40,7 +41,7 @@ public class VariantMobRenderer {
     }
 
     public static class Sheep extends SheepEntityRenderer {
-        public Sheep(EntityRenderDispatcher dispatcher) {
+        public Sheep(class_5617.class_5618 dispatcher) {
             super(dispatcher);
         }
 
@@ -51,7 +52,7 @@ public class VariantMobRenderer {
     }
 
     public static class SnowGolem extends SnowGolemEntityRenderer {
-        public SnowGolem(EntityRenderDispatcher dispatcher) {
+        public SnowGolem(class_5617.class_5618 dispatcher) {
             super(dispatcher);
         }
 
@@ -62,7 +63,7 @@ public class VariantMobRenderer {
     }
 
     public static class Squid extends SquidEntityRenderer {
-        public Squid(EntityRenderDispatcher dispatcher) {
+        public Squid(class_5617.class_5618 dispatcher) {
             super(dispatcher);
         }
 
@@ -73,7 +74,7 @@ public class VariantMobRenderer {
     }
 
     public static class Wolf extends WolfEntityRenderer {
-        public Wolf(EntityRenderDispatcher dispatcher) {
+        public Wolf(class_5617.class_5618 dispatcher) {
             super(dispatcher);
         }
 

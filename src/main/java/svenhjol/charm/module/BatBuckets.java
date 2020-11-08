@@ -72,7 +72,7 @@ public class BatBuckets extends CharmModule {
             }
 
             player.swingHand(hand);
-            entity.remove();
+            entity.discard();
             return ActionResult.SUCCESS;
         }
 

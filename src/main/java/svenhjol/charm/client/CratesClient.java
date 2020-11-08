@@ -1,26 +1,24 @@
 package svenhjol.charm.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.BlockItem;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.block.CrateBlock;
-import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
 import svenhjol.charm.module.Crates;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.ItemHelper;
-import svenhjol.charm.base.helper.ItemNBTHelper;
 
 import java.util.List;
 
@@ -56,15 +54,13 @@ public class CratesClient {
             tag = tag.copy();
             tag.putString("id", "charm:crate");
         }
-        BlockItem blockItem = (BlockItem) stack.getItem();
-        BlockEntity blockEntity = BlockEntity.createFromTag(blockItem.getBlock().getDefaultState(), tag);
-        if (blockEntity == null)
-            return false;
 
-        CrateBlockEntity crate = (CrateBlockEntity) blockEntity;
-        DefaultedList<ItemStack> items = crate.getInvStackList();
-
-        int size = crate.size();
+        int inventorySize = 27; // TODO: should be a constant somewhere
+        CompoundTag tag1 = stack.getOrCreateTag();
+        DefaultedList<ItemStack> itemStacks = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
+        if (tag1.contains("Items", 9)) {
+            Inventories.fromTag(tag, itemStacks);
+        }
 
         int x = tx - 5;
         int y = ty - 35;
@@ -93,11 +89,11 @@ public class CratesClient {
         DiffuseLighting.enable();
         RenderSystem.enableDepthTest();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < inventorySize; i++) {
             ItemStack itemstack;
 
             try {
-                itemstack = items.get(i);
+                itemstack = itemStacks.get(i);
             } catch (Exception e) {
                 // catch null issue with itemstack. Needs investigation. #255
                 continue;

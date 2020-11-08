@@ -1,46 +1,41 @@
 package svenhjol.charm.model;
 
-import com.google.common.collect.ImmutableList;
+import net.minecraft.*;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.entity.Entity;
 
 import java.util.Arrays;
 
-public class CoralSquidEntityModel<T extends Entity> extends CompositeEntityModel<T> {
-    private final ModelPart head;
+public class CoralSquidEntityModel<T extends Entity> extends class_5597<T> {
     private final ModelPart[] tentacles = new ModelPart[8];
-    private final ImmutableList<ModelPart> parts;
+    private final ModelPart modelPart;
 
-    public CoralSquidEntityModel() {
-        this.head = new ModelPart(this, 0, 0);
-//        this.head.addCuboid(-6.0F, -8.0F, -6.0F, 12.0F, 16.0F, 12.0F);
-        this.head.addCuboid(-3.0F, -4.0F, -3.0F, 6.0F, 8.0F, 6.0F);
-        ModelPart var10000 = this.head;
-//        var10000.pivotY += 8.0F;
-        var10000.pivotY += 4.0F;
+    public CoralSquidEntityModel(ModelPart modelPart) {
+        this.modelPart = modelPart;
+        Arrays.setAll(this.tentacles, t -> modelPart.method_32086(getTentacleIndex(t)));
+    }
 
-        for(int j = 0; j < this.tentacles.length; ++j) {
-            this.tentacles[j] = new ModelPart(this, 48, 0);
-            double d = (double)j * 3.141592653589793D * 2.0D / (double)this.tentacles.length;
-//            float f = (float)Math.cos(d) * 5.0F;
-//            float g = (float)Math.sin(d) * 5.0F;
-            float f = (float)Math.cos(d) * 2.5F;
-            float g = (float)Math.sin(d) * 2.5F;
-//            this.tentacles[j].addCuboid(-1.0F, 0.0F, -1.0F, 2.0F, 18.0F, 2.0F);
-            this.tentacles[j].addCuboid(-0.5F, 0.0F, -0.5F, 1.0F, 7.0F, 1.0F);
-            this.tentacles[j].pivotX = f;
-            this.tentacles[j].pivotZ = g;
-//            this.tentacles[j].pivotY = 15.0F;
-            this.tentacles[j].pivotY = 7.5F;
-            d = (double)j * 3.141592653589793D * -2.0D / (double)this.tentacles.length + 1.5707963267948966D;
-            this.tentacles[j].yaw = (float)d;
+    private static String getTentacleIndex(int i) {
+        return "tentacle" + i;
+    }
+
+    public static class_5607 render() {
+        class_5609 lv = new class_5609();
+        class_5610 lv2 = lv.method_32111();
+        lv2.method_32117("body", class_5606.method_32108().method_32101(0, 0).method_32097(-3.0F, -4.0F, -3.0F, 6.0F, 8.0F, 6.0F), class_5603.method_32090(0.0F, 8.0F, 0.0F));
+        class_5606 lv3 = class_5606.method_32108().method_32101(48, 0).method_32097(-0.5F, 0.0F, -0.5F, 1.0F, 7.0F, 1.0F);
+
+        for(int k = 0; k < 8; ++k) {
+            double d = (double)k * 3.141592653589793D * 2.0D / 8.0D;
+            float f = (float)Math.cos(d) * 5.0F;
+            float g = 7.5F;
+            float h = (float)Math.sin(d) * 5.0F;
+            d = (double)k * 3.141592653589793D * -2.0D / 8.0D + 1.5707963267948966D;
+            float l = (float)d;
+            lv2.method_32117(getTentacleIndex(k), lv3, class_5603.method_32091(f, g, h, 0.0F, l, 0.0F));
         }
 
-        ImmutableList.Builder<ModelPart> builder = ImmutableList.builder();
-        builder.add(this.head);
-        builder.addAll(Arrays.asList(this.tentacles));
-        this.parts = builder.build();
+        return class_5607.method_32110(lv, 64, 32);
     }
 
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
@@ -54,7 +49,8 @@ public class CoralSquidEntityModel<T extends Entity> extends CompositeEntityMode
 
     }
 
-    public Iterable<ModelPart> getParts() {
-        return this.parts;
+    @Override
+    public ModelPart method_32008() {
+        return this.modelPart;
     }
 }

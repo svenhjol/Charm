@@ -49,8 +49,8 @@ public class CrateBlock extends CharmBlockWithEntity {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        CrateBlockEntity crate = new CrateBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        CrateBlockEntity crate = new CrateBlockEntity(pos, state);
         crate.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_crate"));
         return crate;
     }

@@ -19,7 +19,7 @@ public class PistonBlockMixin {
         cancellable = true
     )
     private static void hookIsMovable(BlockState blockState, World world, BlockPos blockPos, Direction direction, boolean canBreak, Direction pistonDir, CallbackInfoReturnable<Boolean> cir) {
-        if (blockState.getBlock().isIn(CharmTags.IMMOVABLE_BY_PISTONS))
+        if (blockState.isIn(CharmTags.IMMOVABLE_BY_PISTONS))
             cir.setReturnValue(false);
     }
 }

@@ -168,7 +168,7 @@ public class DataBlockProcessor extends StructureProcessor {
         }
 
         protected void armorStand() {
-            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate();
+            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawner.ENTITY_SPAWNER.getDefaultState());
             if (blockEntity == null) return;
             this.tag = new CompoundTag();
 
@@ -204,7 +204,7 @@ public class DataBlockProcessor extends StructureProcessor {
                     .with(BookcaseBlock.SLOTS, BookcaseBlockEntity.SIZE); // make it have the "full" texture
 
                 if (random.nextFloat() < BOOKCASE_LOOT_CHANCE) {
-                    BookcaseBlockEntity blockEntity = Bookcases.BLOCK_ENTITY.instantiate();
+                    BookcaseBlockEntity blockEntity = Bookcases.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, Bookcases.BOOKCASE_BLOCKS.get(VanillaVariantMaterial.OAK).getDefaultState());
                     if (blockEntity == null)
                         return;
 
@@ -229,8 +229,7 @@ public class DataBlockProcessor extends StructureProcessor {
         }
 
         protected void cauldron() {
-            state = Blocks.CAULDRON.getDefaultState()
-                .with(CauldronBlock.LEVEL, (int) Math.max(3.0F, 4.0F * random.nextFloat()));
+            state = Blocks.CAULDRON.getDefaultState();
         }
 
         protected void chest() {
@@ -250,7 +249,7 @@ public class DataBlockProcessor extends StructureProcessor {
             state = setFacing(state, ChestBlock.FACING, getValue("facing", data, "north"));
 
             Identifier lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_CHEST_CHANCE ? RARE_CHEST_LOOT_TABLES : CHEST_LOOT_TABLES, random);
-            ChestBlockEntity blockEntity = BlockEntityType.CHEST.instantiate();
+            ChestBlockEntity blockEntity = BlockEntityType.CHEST.instantiate(BlockPos.ORIGIN, Blocks.CHEST.getDefaultState());
             if (blockEntity == null)
                 return;
 
@@ -267,7 +266,7 @@ public class DataBlockProcessor extends StructureProcessor {
         }
 
         protected void entity() {
-            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate();
+            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawner.ENTITY_SPAWNER.getDefaultState());
             if (blockEntity == null) return;
             tag = new CompoundTag();
 
@@ -318,7 +317,7 @@ public class DataBlockProcessor extends StructureProcessor {
         protected void mob() {
             if (!withChance(MOB_CHANCE)) return;
 
-            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate();
+            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawner.ENTITY_SPAWNER.getDefaultState());
             if (blockEntity == null) return;
 
             String type = getValue("type", this.data, "");
@@ -381,7 +380,7 @@ public class DataBlockProcessor extends StructureProcessor {
 
             state = Blocks.SPAWNER.getDefaultState();
 
-            MobSpawnerBlockEntity blockEntity = BlockEntityType.MOB_SPAWNER.instantiate();
+            MobSpawnerBlockEntity blockEntity = BlockEntityType.MOB_SPAWNER.instantiate(BlockPos.ORIGIN, Blocks.SPAWNER.getDefaultState());
             if (blockEntity != null) {
                 blockEntity.getLogic().setEntityId(entity);
                 tag = new CompoundTag();
@@ -398,7 +397,7 @@ public class DataBlockProcessor extends StructureProcessor {
             if (random.nextFloat() < 0.5F && ModuleHandler.enabled("charm:crates")) {
                 // get a crate
                 state = Crates.CRATE_BLOCKS.get(woodType).getDefaultState();
-                blockEntity = Crates.BLOCK_ENTITY.instantiate();
+                blockEntity = Crates.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, Crates.CRATE_BLOCKS.get(VanillaVariantMaterial.OAK).getDefaultState());
             } else {
                 // get a barrel
                 if (ModuleHandler.enabled("charm:variant_barrels")) {
@@ -409,7 +408,7 @@ public class DataBlockProcessor extends StructureProcessor {
                     state = Blocks.BARREL.getDefaultState();
                 }
                 state = state.with(BarrelBlock.FACING, Direction.UP);
-                blockEntity = BlockEntityType.BARREL.instantiate();
+                blockEntity = BlockEntityType.BARREL.instantiate(BlockPos.ORIGIN, Blocks.BARREL.getDefaultState());
             }
 
             if (blockEntity == null)

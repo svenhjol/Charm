@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ConfigHandler {
 
     public static void createConfig(String mod, Map<String, CharmModule> modules) {

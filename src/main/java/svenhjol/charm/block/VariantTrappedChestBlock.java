@@ -56,8 +56,8 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView worldIn) {
-        VariantTrappedChestBlockEntity chest = new VariantTrappedChestBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        VariantTrappedChestBlockEntity chest = new VariantTrappedChestBlockEntity(pos, state);
         chest.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_trapped_chest"));
 
         return chest;

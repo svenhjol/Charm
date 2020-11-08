@@ -38,7 +38,7 @@ public class GlowBallEntity extends ThrownItemEntity {
     @Override
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        this.remove();
+        this.discard();
 
         if (!world.isClient) {
             boolean result = PlaceableGlowstoneDust.tryPlaceDust(world, hitResult);

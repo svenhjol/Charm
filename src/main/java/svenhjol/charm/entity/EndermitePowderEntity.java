@@ -84,7 +84,7 @@ public class EndermitePowderEntity extends Entity {
         }
 
         if (ticks++ > maxLiveTime) {
-            remove();
+            discard();
             ticks = 0;
         }
     }

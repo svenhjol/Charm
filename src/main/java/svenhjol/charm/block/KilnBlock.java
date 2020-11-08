@@ -14,11 +14,10 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import svenhjol.charm.blockentity.KilnBlockEntity;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
+import svenhjol.charm.blockentity.KilnBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -47,8 +46,8 @@ public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new KilnBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new KilnBlockEntity(pos, state);
     }
 
     @Override

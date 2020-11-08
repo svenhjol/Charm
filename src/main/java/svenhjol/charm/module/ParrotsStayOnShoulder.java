@@ -31,12 +31,12 @@ public class ParrotsStayOnShoulder extends CharmModule {
         ) {
             final ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
             if (!serverPlayer.getShoulderEntityLeft().isEmpty()) {
-                ((PlayerEntityAccessor)serverPlayer).callDropShoulderEntity(serverPlayer.getShoulderEntityLeft());
-                ((PlayerEntityAccessor)serverPlayer).callSetShoulderEntityLeft(new CompoundTag());
+                ((PlayerEntityAccessor)serverPlayer).invokeDropShoulderEntity(serverPlayer.getShoulderEntityLeft());
+                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityLeft(new CompoundTag());
             }
             if (!serverPlayer.getShoulderEntityRight().isEmpty()) {
-                ((PlayerEntityAccessor)serverPlayer).callDropShoulderEntity(serverPlayer.getShoulderEntityRight());
-                ((PlayerEntityAccessor)serverPlayer).callSetShoulderEntityRight(new CompoundTag());
+                ((PlayerEntityAccessor)serverPlayer).invokeDropShoulderEntity(serverPlayer.getShoulderEntityRight());
+                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityRight(new CompoundTag());
             }
         }
     }

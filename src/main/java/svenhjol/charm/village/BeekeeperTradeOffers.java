@@ -1,5 +1,6 @@
 package svenhjol.charm.village;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -10,6 +11,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import svenhjol.charm.base.handler.ModuleHandler;
@@ -117,7 +119,7 @@ public class BeekeeperTradeOffers {
             ItemStack in1 = new ItemStack(Items.EMERALD, count);
             ItemStack out = new ItemStack(Items.BEEHIVE);
 
-            BeehiveBlockEntity blockEntity = new BeehiveBlockEntity();
+            BeehiveBlockEntity blockEntity = new BeehiveBlockEntity(BlockPos.ORIGIN, Blocks.BEEHIVE.getDefaultState());
 
             for (int i = 0; i < 1; i++) {
                 BeeEntity bee = new BeeEntity(EntityType.BEE, entity.world);

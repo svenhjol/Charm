@@ -12,8 +12,8 @@ import svenhjol.charm.module.GlowBalls;
 
 public class GlowBallsClient {
     public GlowBallsClient(CharmModule module) {
-        EntityRendererRegistry.INSTANCE.register(GlowBalls.ENTITY, ((dispatcher, context)
-            -> new FlyingItemEntityRenderer(dispatcher, context.getItemRenderer())));
+        EntityRendererRegistry.INSTANCE.register(GlowBalls.ENTITY, dispatcher
+            -> new FlyingItemEntityRenderer<>(dispatcher, 1.0F, true));
 
         ClientEntitySpawnCallback.EVENT.register(this::handleClientEntitySpawn);
     }

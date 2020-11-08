@@ -10,6 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.client.PortableCraftingClient;
 import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
 import svenhjol.charm.base.CharmModule;
@@ -31,7 +32,7 @@ public class PortableCrafting extends CharmModule {
         ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_OPEN_CRAFTING, (context, data) -> {
             context.getTaskQueue().execute(() -> {
                 ServerPlayerEntity player = (ServerPlayerEntity)context.getPlayer();
-                if (player == null || !player.inventory.contains(new ItemStack(Blocks.CRAFTING_TABLE)))
+                if (player == null || !PlayerHelper.getInventory(player).contains(new ItemStack(Blocks.CRAFTING_TABLE)))
                     return;
 
                 PortableCrafting.openContainer(player);

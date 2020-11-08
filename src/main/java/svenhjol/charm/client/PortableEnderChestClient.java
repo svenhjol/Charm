@@ -19,6 +19,7 @@ import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.event.GuiSetupCallback;
 import svenhjol.charm.event.RenderGuiCallback;
+import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
 import svenhjol.charm.module.PortableEnderChest;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.ScreenHelper;
@@ -82,7 +83,7 @@ public class PortableEnderChestClient {
     }
 
     private boolean hasChest(PlayerEntity player) {
-        return player.inventory.contains(new ItemStack(Blocks.ENDER_CHEST));
+        return ((PlayerEntityAccessor)player).getInventory().contains(new ItemStack(Blocks.ENDER_CHEST));
     }
 
     private void triggerOpenChest() {

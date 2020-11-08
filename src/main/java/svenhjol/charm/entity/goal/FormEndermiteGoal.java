@@ -81,7 +81,7 @@ public class FormEndermiteGoal extends WanderAroundGoal {
             if (endermite != null) {
                 world.removeBlock(pos, false);
                 silverfish.playSpawnEffects();
-                silverfish.remove();
+                silverfish.discard();
                 world.spawnEntity(endermite);
             }
         }

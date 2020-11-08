@@ -12,6 +12,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.entity.GlowBallEntity;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.item.ICharmItem;
@@ -33,7 +34,7 @@ public class GlowBallItem extends EnderPearlItem implements ICharmItem {
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
+        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
         user.getItemCooldownManager().set(this, 10);
 
         if (!world.isClient) {
@@ -44,7 +45,7 @@ public class GlowBallItem extends EnderPearlItem implements ICharmItem {
         }
 
         user.incrementStat(Stats.USED.getOrCreateStat(this));
-        if (!user.abilities.creativeMode) {
+        if (!PlayerHelper.getAbilities(user).creativeMode) {
             itemStack.decrement(1);
         }
 

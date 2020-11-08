@@ -13,6 +13,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.block.BookcaseBlock;
@@ -27,13 +28,13 @@ public class BookcaseBlockEntity extends LootableContainerBlockEntity implements
     private static final int[] SLOTS = IntStream.range(0, SIZE).toArray();
     private DefaultedList<ItemStack> items = DefaultedList.ofSize(SIZE, ItemStack.EMPTY);
 
-    public BookcaseBlockEntity() {
-        super(Bookcases.BLOCK_ENTITY);
+    public BookcaseBlockEntity(BlockPos pos, BlockState state) {
+        super(Bookcases.BLOCK_ENTITY, pos, state);
     }
 
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
+    public void fromTag(CompoundTag tag) {
+        super.fromTag(tag);
         this.items = DefaultedList.ofSize(SIZE, ItemStack.EMPTY);
         if (!this.deserializeLootTable(tag))
             Inventories.fromTag(tag, this.items);

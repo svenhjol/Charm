@@ -7,6 +7,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.client.InventoryTidyingClient;
 import svenhjol.charm.handler.InventoryTidyingHandler;
 import svenhjol.charm.base.CharmModule;
@@ -63,8 +64,8 @@ public class InventoryTidying extends CharmModule {
         for (Slot slot : slots) {
             Inventory inventory = slot.inventory;
 
-            if (type == PLAYER && slot.inventory == player.inventory) {
-                InventoryTidyingHandler.sort(player.inventory, 9, 36);
+            if (type == PLAYER && slot.inventory == PlayerHelper.getInventory(player)) {
+                InventoryTidyingHandler.sort(PlayerHelper.getInventory(player), 9, 36);
                 break;
             } else if (type == BE) {
                 InventoryTidyingHandler.sort(inventory, 0, inventory.size());

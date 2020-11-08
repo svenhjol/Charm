@@ -34,7 +34,7 @@ public class DirtToPath extends CharmModule {
                 player.swingHand(hand);
 
                 if (!world.isClient) {
-                    world.setBlockState(pos, Blocks.GRASS_PATH.getDefaultState(), 11);
+                    world.setBlockState(pos, Blocks.DIRT_PATH.getDefaultState(), 11);
                     world.playSound(null, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
                     // damage the shovel a bit

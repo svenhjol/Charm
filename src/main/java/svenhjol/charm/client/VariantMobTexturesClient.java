@@ -12,32 +12,25 @@ public class VariantMobTexturesClient {
             return;
 
         if (VariantMobTextures.variantChickens)
-            EntityRendererRegistry.INSTANCE.register(EntityType.CHICKEN, ((dispatcher, context)
-                -> new VariantMobRenderer.Chicken(dispatcher)));
+            EntityRendererRegistry.INSTANCE.register(EntityType.CHICKEN, VariantMobRenderer.Chicken::new);
 
         if (VariantMobTextures.variantCows)
-            EntityRendererRegistry.INSTANCE.register(EntityType.COW, ((dispatcher, context)
-                -> new VariantMobRenderer.Cow(dispatcher)));
+            EntityRendererRegistry.INSTANCE.register(EntityType.COW, VariantMobRenderer.Cow::new);
 
         if (VariantMobTextures.variantPigs)
-            EntityRendererRegistry.INSTANCE.register(EntityType.PIG, ((dispatcher, context)
-                -> new VariantMobRenderer.Pig(dispatcher)));
+            EntityRendererRegistry.INSTANCE.register(EntityType.PIG, VariantMobRenderer.Pig::new);
 
         if (VariantMobTextures.variantSheep)
-            EntityRendererRegistry.INSTANCE.register(EntityType.SHEEP, ((dispatcher, context)
-                -> new VariantMobRenderer.Sheep(dispatcher)));
+            EntityRendererRegistry.INSTANCE.register(EntityType.SHEEP, VariantMobRenderer.Sheep::new);
 
         if (VariantMobTextures.variantSnowGolems)
-            EntityRendererRegistry.INSTANCE.register(EntityType.SNOW_GOLEM, ((dispatcher, context)
-                -> new VariantMobRenderer.SnowGolem(dispatcher)));
+            EntityRendererRegistry.INSTANCE.register(EntityType.SNOW_GOLEM, VariantMobRenderer.SnowGolem::new);
 
         if (VariantMobTextures.variantSquids)
-            EntityRendererRegistry.INSTANCE.register(EntityType.SQUID, ((dispatcher, context)
-                -> new VariantMobRenderer.Squid(dispatcher)));
+            EntityRendererRegistry.INSTANCE.register(EntityType.SQUID, VariantMobRenderer.Squid::new);
 
         if (VariantMobTextures.variantWolves)
-            EntityRendererRegistry.INSTANCE.register(EntityType.WOLF, ((dispatcher, context)
-                -> new VariantMobRenderer.Wolf(dispatcher)));
+            EntityRendererRegistry.INSTANCE.register(EntityType.WOLF, VariantMobRenderer.Wolf::new);
 
     }
 }

@@ -16,23 +16,24 @@ public class ServerWorldMixin {
         method = "addEntity",
         at = @At(
             value = "INVOKE",
-            target = "net/minecraft/server/world/ServerWorld.getChunk(IILnet/minecraft/world/chunk/ChunkStatus;Z)Lnet/minecraft/world/chunk/Chunk;"
+            target = "Lnet/minecraft/class_5579;addEntity(Lnet/minecraft/class_5568;)Z"
         )
     )
     private void hookAddEntity(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         AddEntityCallback.EVENT.invoker().interact(entity);
     }
 
-    @Inject(
-        method = "loadEntity",
-        at = @At(
-            value = "INVOKE",
-            target = "net/minecraft/server/world/ServerWorld.loadEntityUnchecked(Lnet/minecraft/entity/Entity;)V"
-        )
-    )
-    private void hookLoadEntity(Entity entity, CallbackInfoReturnable<Boolean> cir) {
-        AddEntityCallback.EVENT.invoker().interact(entity);
-    }
+    // TODO: check, this might not be needed now
+//    @Inject(
+//        method = "loadEntity",
+//        at = @At(
+//            value = "INVOKE",
+//            target = "net/minecraft/server/world/ServerWorld.loadEntityUnchecked(Lnet/minecraft/entity/Entity;)V"
+//        )
+//    )
+//    private void hookLoadEntity(Entity entity, CallbackInfoReturnable<Boolean> cir) {
+//        AddEntityCallback.EVENT.invoker().interact(entity);
+//    }
 
     /**
      * Calls our AddEntityCallback event when a player

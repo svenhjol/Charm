@@ -1,17 +1,18 @@
 package svenhjol.charm.render;
 
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.class_5617;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import svenhjol.charm.client.CoralSquidsClient;
 import svenhjol.charm.entity.CoralSquidEntity;
 import svenhjol.charm.model.CoralSquidEntityModel;
 
 public class CoralSquidEntityRenderer extends MobEntityRenderer<CoralSquidEntity, CoralSquidEntityModel<CoralSquidEntity>> {
-    public CoralSquidEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
-        super(entityRenderDispatcher, new CoralSquidEntityModel<>(), 0.7F);
+    public CoralSquidEntityRenderer(class_5617.class_5618 dispatcher) {
+        super(dispatcher, new CoralSquidEntityModel<>(dispatcher.method_32167(CoralSquidsClient.LAYER)), 0.7F);
     }
 
     @Override

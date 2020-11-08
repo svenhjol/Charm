@@ -15,6 +15,7 @@ import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
+import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
 import svenhjol.charm.module.InventoryTidying;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.event.RenderGuiCallback;
@@ -101,7 +102,7 @@ public class InventoryTidyingClient {
                 this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(BE));
             }
 
-            if (slot.inventory == client.player.inventory) {
+            if (slot.inventory == ((PlayerEntityAccessor)client.player).getInventory()) {
                 this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(PLAYER));
                 break;
             }

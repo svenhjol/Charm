@@ -19,12 +19,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import svenhjol.charm.blockentity.BookcaseBlockEntity;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmBlockWithEntity;
 import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.blockentity.BookcaseBlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -101,8 +100,8 @@ public class BookcaseBlock extends CharmBlockWithEntity {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        BookcaseBlockEntity bookcase = new BookcaseBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        BookcaseBlockEntity bookcase = new BookcaseBlockEntity(pos, state);
         bookcase.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_bookcase"));
         return bookcase;
     }

@@ -30,7 +30,7 @@ public class PathToDirt extends CharmModule {
 
         if (world != null && stack.getItem() instanceof HoeItem) {
             BlockState state = world.getBlockState(pos);
-            if (state.getBlock() == Blocks.GRASS_PATH) {
+            if (state.getBlock() == Blocks.DIRT_PATH) {
                 player.swingHand(hand);
 
                 if (!world.isClient) {

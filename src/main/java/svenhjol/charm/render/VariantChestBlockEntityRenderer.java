@@ -2,15 +2,15 @@ package svenhjol.charm.render;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.ChestType;
+import net.minecraft.class_5614;
 import net.minecraft.client.block.ChestAnimationProgress;
 import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
+import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
-import svenhjol.charm.base.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class VariantChestBlockEntityRenderer<T extends VariantChestBlockEntity &
     private static final Map<IVariantMaterial, Map<ChestType, SpriteIdentifier>> normalTextures = new HashMap<>();
     private static final Map<IVariantMaterial, Map<ChestType, SpriteIdentifier>> trappedTextures = new HashMap<>();
 
-    public VariantChestBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
+    public VariantChestBlockEntityRenderer(class_5614.class_5615 dispatcher) {
         super(dispatcher);
     }
 

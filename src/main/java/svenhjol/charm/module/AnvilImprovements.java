@@ -5,6 +5,7 @@ import net.minecraft.screen.Property;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 
@@ -24,7 +25,7 @@ public class AnvilImprovements extends CharmModule {
 
     public static boolean allowTakeWithoutXp(PlayerEntity player, Property levelCost) {
         return ModuleHandler.enabled("charm:anvil_improvements")
-            && (player.abilities.creativeMode || ((player.experienceLevel >= levelCost.get()) && levelCost.get() > -1));
+            && (PlayerHelper.getAbilities(player).creativeMode || ((player.experienceLevel >= levelCost.get()) && levelCost.get() > -1));
     }
 
     public static boolean tryDamageAnvil() {
