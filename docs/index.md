@@ -11,10 +11,10 @@ It's a *modular* mod in that you can turn on or off any of the mod features via 
 
 Find out more about Charm and accompanying mods here:
 
-* [Vanilla changes]({{site.baseurl}}/vanillachanges/)
-* [Exploration and Adventure]({{site.baseurl}}/adventure/)
-* [Storage blocks]({{site.baseurl}}/storageblocks/)
-* [Environment]({{site.baseurl}}/environment/)
+* [Vanilla changes]({{site.baseurl}}/vanillachanges)
+* [Exploration and Adventure]({{site.baseurl}}/adventure)
+* [Storage blocks]({{site.baseurl}}/storageblocks)
+* [Environment]({{site.baseurl}}/environment)
 
 <div class="download">
     <a href="https://www.curseforge.com/minecraft/mc-mods/charm" class="btn btn-github">Download from Curseforge!</a>
