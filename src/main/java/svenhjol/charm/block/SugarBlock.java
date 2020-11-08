@@ -11,6 +11,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmFallingBlock;
+import svenhjol.charm.base.helper.BlockHelper;
 
 public class SugarBlock extends CharmFallingBlock {
     public SugarBlock(CharmModule module) {
@@ -20,7 +21,7 @@ public class SugarBlock extends CharmFallingBlock {
             .strength(0.5F)
         );
 
-        setEffectiveTool(ShovelItem.class);
+        BlockHelper.setEffectiveTool(this, ShovelItem.class);
     }
 
     @Override

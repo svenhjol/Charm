@@ -113,10 +113,10 @@ public class PlacedGlowstoneDustBlock extends CharmBlock implements Waterloggabl
 
     static {
         SHAPE.put(Direction.UP, Block.createCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 1.0D, 13.0D));
-        SHAPE.put(Direction.DOWN, Block.createCuboidShape(3.0D, 16.0D, 3.0D, 13.0D, 15.0D, 13.0D));
+        SHAPE.put(Direction.DOWN, Block.createCuboidShape(3.0D, 15.0D, 3.0D, 13.0D, 16.0D, 13.0D));
         SHAPE.put(Direction.EAST, Block.createCuboidShape(0.0D, 3.0D, 3.0D, 1.0D, 13.0D, 13.0D));
         SHAPE.put(Direction.SOUTH, Block.createCuboidShape(3.0D, 3.0D, 0.0D, 13.0D, 13.0D, 1.0D));
-        SHAPE.put(Direction.WEST, Block.createCuboidShape(16.0D, 3.0D, 3.0D, 15.0D, 13.0D, 13.0D));
-        SHAPE.put(Direction.NORTH, Block.createCuboidShape(3.0D, 3.0D, 16.0D, 13.0D, 13.0D, 15.0D));
+        SHAPE.put(Direction.WEST, Block.createCuboidShape(15.0D, 3.0D, 3.0D, 16.0D, 13.0D, 13.0D));
+        SHAPE.put(Direction.NORTH, Block.createCuboidShape(3.0D, 3.0D, 15.0D, 13.0D, 13.0D, 16.0D));
     }
 }

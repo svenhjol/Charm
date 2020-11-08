@@ -19,6 +19,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import svenhjol.charm.base.helper.BlockHelper;
 import svenhjol.charm.screenhandler.WoodcutterScreenHandler;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
@@ -34,7 +35,7 @@ public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
         register(module, "woodcutter");
         this.module = module;
 
-        setEffectiveTool(AxeItem.class);
+        BlockHelper.setEffectiveTool(this, AxeItem.class);
     }
 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {

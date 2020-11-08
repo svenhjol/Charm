@@ -13,4 +13,9 @@ public interface AxeItemAccessor {
     static Set<Block> getEffectiveBlocks() {
         throw new IllegalStateException();
     }
+
+    @Accessor("EFFECTIVE_BLOCKS")
+    static void setEffectiveBlocks(Set<Block> blocks) {
+        throw new IllegalStateException();
+    }
 }

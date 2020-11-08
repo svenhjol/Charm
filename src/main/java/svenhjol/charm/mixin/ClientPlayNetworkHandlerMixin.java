@@ -2,6 +2,8 @@ package svenhjol.charm.mixin;
 
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,7 +22,7 @@ public class ClientPlayNetworkHandlerMixin {
         at = @At("RETURN"),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookOnEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci, double x, double y, double z) {
-        ClientEntitySpawnCallback.EVENT.invoker().interact(world, packet, x, y, z, packet.getEntityTypeId());
+    private void hookOnEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci, EntityType<?> entityType, Entity entity) {
+        ClientEntitySpawnCallback.EVENT.invoker().interact(world, packet, entityType, entity);
     }
 }
