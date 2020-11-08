@@ -24,16 +24,14 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.poi.PointOfInterestType;
 
-import java.util.function.Supplier;
-
 @SuppressWarnings("UnusedReturnValue")
 public class RegistryHandler {
     public static Block block(Identifier id, Block block) {
         return Registry.register(Registry.BLOCK, id, block);
     }
 
-    public static <T extends BlockEntity> BlockEntityType<T> blockEntity(Identifier id, Supplier<T> supplier, Block... blocks) {
-        return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, BlockEntityType.Builder.create(supplier, blocks).build(null));
+    public static <T extends BlockEntity> BlockEntityType<T> blockEntity(Identifier id, BlockEntityType.class_5559<T> builder, Block... blocks) {
+        return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, BlockEntityType.Builder.create(builder, blocks).build(null));
     }
 
     public static ConfiguredStructureFeature<?, ?> configuredFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
