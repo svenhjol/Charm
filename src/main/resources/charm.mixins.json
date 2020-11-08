@@ -13,6 +13,7 @@
     "ClientPlayNetworkHandlerMixin",
     "FarmlandBlockMixin",
     "HuskEntityMixin",
+    "InGameHudMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
     "MinecraftDedicatedServerMixin",

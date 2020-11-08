@@ -68,6 +68,7 @@ public class Charm implements ModInitializer {
             RefinedObsidian.class,
             RemoveNitwits.class,
             RemovePotionGlint.class,
+            RemoveSpyglassScope.class,
             ShulkerBoxTooltips.class,
             SleepImprovements.class,
             SmoothGlowstone.class,
