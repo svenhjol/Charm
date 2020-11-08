@@ -20,20 +20,20 @@ import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.helper.DataBlockHelper;
 import svenhjol.charm.module.EntitySpawner;
 
 import java.util.*;
 
-public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
+public class EntitySpawnerBlockEntity extends BlockEntity {
     private final static String ENTITY = "entity";
     private final static String PERSIST = "persist";
     private final static String HEALTH = "health";
@@ -48,13 +48,13 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
     public int count = 1;
     public String meta = "";
 
-    public EntitySpawnerBlockEntity() {
-        super(EntitySpawner.BLOCK_ENTITY);
+    public EntitySpawnerBlockEntity(BlockPos pos, BlockState state) {
+        super(EntitySpawner.BLOCK_ENTITY, pos, state);
     }
 
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
+    public void fromTag(CompoundTag tag) {
+        super.fromTag(tag);
 
         this.entity = Identifier.tryParse(tag.getString(ENTITY));
         this.persist = tag.getBoolean(PERSIST);
@@ -80,12 +80,10 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
         return tag;
     }
 
-    @Override
-    public void tick() {
+    public static <T extends EntitySpawnerBlockEntity> void tick(World world, BlockPos pos, BlockState state, T entitySpawner) {
         if (world == null || world.getTime() % 10 == 0 || world.getDifficulty() == Difficulty.PEACEFUL)
             return;
 
-        BlockPos pos = getPos();
         List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(pos).expand(EntitySpawner.triggerDistance));
 
         if (players.size() == 0)
@@ -93,33 +91,33 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
 
         // remove the spawner, create the entity
         world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-        boolean result = trySpawn(pos);
+        boolean result = trySpawn(world, entitySpawner.pos, entitySpawner);
 
         if (result) {
-            Charm.LOG.debug("EntitySpawner spawned entity " + entity.toString() + " at pos: " + pos);
+            Charm.LOG.debug("EntitySpawner spawned entity " + entitySpawner.entity.toString() + " at pos: " + pos);
         } else {
-            Charm.LOG.debug("EntitySpawner failed to spawn entity " + entity.toString() + " at pos: " + pos);
+            Charm.LOG.debug("EntitySpawner failed to spawn entity " + entitySpawner.entity.toString() + " at pos: " + pos);
         }
     }
 
-    public boolean trySpawn(BlockPos pos) {
+    public static boolean trySpawn(World world, BlockPos pos, EntitySpawnerBlockEntity entitySpawner) {
         Entity spawned;
         if (world == null)
             return false;
 
-        Optional<EntityType<?>> optionalEntityType = Registry.ENTITY_TYPE.getOrEmpty(entity);
+        Optional<EntityType<?>> optionalEntityType = Registry.ENTITY_TYPE.getOrEmpty(entitySpawner.entity);
         if (!optionalEntityType.isPresent())
             return false;
 
         EntityType<?> type = optionalEntityType.get();
 
         if (type == EntityType.MINECART || type == EntityType.CHEST_MINECART)
-            return tryCreateMinecart(type, pos);
+            return tryCreateMinecart(world, pos, type, entitySpawner);
 
         if (type == EntityType.ARMOR_STAND)
-            return tryCreateArmorStand(pos);
+            return tryCreateArmorStand(world, pos, entitySpawner);
 
-        for (int i = 0; i < this.count; i++) {
+        for (int i = 0; i < entitySpawner.count; i++) {
             spawned = type.create(world);
             if (spawned == null)
                 return false;
@@ -128,8 +126,8 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
 
             if (spawned instanceof MobEntity) {
                 MobEntity m = (MobEntity) spawned;
-                if (persist) m.setPersistent();
-                if (health > 0) m.setHealth((float) health);
+                if (entitySpawner.persist) m.setPersistent();
+                if (entitySpawner.health > 0) m.setHealth((float) entitySpawner.health);
                 m.initialize((ServerWorldAccess)world, world.getLocalDifficulty(pos), SpawnReason.TRIGGERED, null, null);
             }
 
@@ -138,13 +136,13 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
         return true;
     }
 
-    public boolean tryCreateMinecart(EntityType<?> type, BlockPos pos) {
+    public static boolean tryCreateMinecart(World world, BlockPos pos, EntityType<?> type, EntitySpawnerBlockEntity entitySpawner) {
         AbstractMinecartEntity minecart = null;
         if (world == null) return false;
 
         if (type == EntityType.CHEST_MINECART) {
             minecart = new ChestMinecartEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
-            Identifier lootTable = DataBlockHelper.getLootTable(this.meta, LootTables.ABANDONED_MINESHAFT_CHEST);
+            Identifier lootTable = DataBlockHelper.getLootTable(entitySpawner.meta, LootTables.ABANDONED_MINESHAFT_CHEST);
             ((ChestMinecartEntity)minecart).setLootTable(lootTable, world.random.nextLong());
         } else if (type == EntityType.MINECART) {
             minecart = new MinecartEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
@@ -158,7 +156,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
         return true;
     }
 
-    public boolean tryCreateArmorStand(BlockPos pos) {
+    public static boolean tryCreateArmorStand(World world, BlockPos pos, EntitySpawnerBlockEntity entitySpawner) {
         if (world == null)
             return false;
 
@@ -167,9 +165,9 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
         if (stand == null)
             return false;
 
-        Direction face = DataBlockHelper.getFacing(DataBlockHelper.getValue("facing", this.meta, "north"));
-        Direction facing = this.rotation.rotate(face);
-        String type = DataBlockHelper.getValue("type", this.meta, "");
+        Direction face = DataBlockHelper.getFacing(DataBlockHelper.getValue("facing", entitySpawner.meta, "north"));
+        Direction facing = entitySpawner.rotation.rotate(face);
+        String type = DataBlockHelper.getValue("type", entitySpawner.meta, "");
 
         List<Item> ironHeld = new ArrayList<>(Arrays.asList(
             Items.IRON_SWORD, Items.IRON_PICKAXE, Items.IRON_AXE
