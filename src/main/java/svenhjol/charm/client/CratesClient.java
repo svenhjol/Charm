@@ -56,9 +56,8 @@ public class CratesClient {
         }
 
         int inventorySize = 27; // TODO: should be a constant somewhere
-        CompoundTag tag1 = stack.getOrCreateTag();
         DefaultedList<ItemStack> itemStacks = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
-        if (tag1.contains("Items", 9)) {
+        if (tag.contains("Items")) {
             Inventories.fromTag(tag, itemStacks);
         }
 
