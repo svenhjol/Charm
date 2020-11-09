@@ -6,6 +6,7 @@
 * Added feature Coral Squids
 * Added feature Coral Sea Lanterns
 * Added Snow Golem derp face variants
+* Added feature Remove Spyglass Scope (1.17 only)
 * Added Kilns
 * Added Refined Obsidian
 * Added Smooth Glowstone
@@ -15,7 +16,6 @@
 ## 2.0.4
 * Added feature Placeable Glowstone Dust that lets you... place glowstone dust
 * Added feature Glow Balls which are projectiles that light up the block they impact
-* Added variant snow golem derp faces
 
 ## 2.0.3
 * Darkness check for Husks and Strays, fixes them spawning in full light
