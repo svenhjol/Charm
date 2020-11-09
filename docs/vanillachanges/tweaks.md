@@ -64,6 +64,10 @@ If you have a crafting table in your inventory, you can open the 3x3 crafting gr
 ![Remove potion glint](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Removes the enchanted glowing effect from potions, so you can actually see their true color.
 
+### Remove Spyglass scope
+![Remove Spyglass scope](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+[1.17 only] Removes the dark outer overlay when zooming in with the spyglass, giving you the full view.
+
 ### Shulker Box tooltips
 ![Shulker Box tooltips](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Hovering over a filled Shulker Box in the inventory shows a tooltip with the contents.
