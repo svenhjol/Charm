@@ -181,7 +181,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
     @Override
     protected float getSoundPitch() {
-        return 1.F;
+        return 1.25F;
     }
 
     protected boolean canClimb() {
