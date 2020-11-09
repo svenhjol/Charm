@@ -1,6 +1,8 @@
-# Charm
+# Charm 2.x for Fabric 1.17
 
-Charm 2.0 for Fabric 1.16.3
+This is alpha stuff, building against the snapshots.
+
+You probably want the `1.16-fabric` or `1.16-forge` branches.
 
 Todo: moar readme
 
