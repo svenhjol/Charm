@@ -6,6 +6,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
+import svenhjol.charm.entity.GlowBallEntity;
 
 /**
  * Lets entities be created on the client when spawned on the server.
@@ -26,12 +27,14 @@ public interface ClientEntitySpawnCallback {
         double y = packet.getY();
         double z = packet.getZ();
 
-        entity.updateTrackedPosition(x, y, z);
-        entity.refreshPositionAfterTeleport(x, y, z);
-        entity.pitch = (float)(packet.getPitch() * 360) / 256.0F;
-        entity.yaw = (float)(packet.getYaw() * 360) / 256.0F;
-        entity.setEntityId(id);
-        entity.setUuid(packet.getUuid());
-        world.addEntity(id, entity);
+        GlowBallEntity e = new GlowBallEntity(world, x, y, z);
+
+        e.updateTrackedPosition(x, y, z);
+        e.refreshPositionAfterTeleport(x, y, z);
+        e.pitch = (float)(packet.getPitch() * 360) / 256.0F;
+        e.yaw = (float)(packet.getYaw() * 360) / 256.0F;
+        e.setEntityId(id);
+        e.setUuid(packet.getUuid());
+        world.addEntity(id, e);
     }
 }

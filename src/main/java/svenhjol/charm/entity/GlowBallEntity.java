@@ -8,6 +8,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
@@ -56,5 +58,11 @@ public class GlowBallEntity extends ThrownItemEntity {
                 }
             }
         }
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
+    public Packet<?> createSpawnPacket() {
+        return new EntitySpawnS2CPacket(this, this.getEntityId());
     }
 }
