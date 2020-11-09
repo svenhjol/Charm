@@ -52,6 +52,4 @@ public interface ICharmBlock {
     default void setFireInfo(int encouragement, int flammability) {
         ((FireBlockAccessor) Blocks.FIRE).invokeRegisterFlammableBlock((Block)this, encouragement, flammability);
     }
-
-
 }

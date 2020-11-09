@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1
+* Fix candles not making sound when lighting
+* Update glowpearl texture
+
 ## 2.1.0
 * Totem of Undying causing crash on server. Fixes #339
 * VariantAnimalTextures has become VariantMobTextures. This changes the charm.json config file
