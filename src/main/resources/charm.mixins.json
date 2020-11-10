@@ -2,6 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "svenhjol.charm.mixin",
+  "refmap": "charm.mixins.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AnvilBlockMixin",
