@@ -1,27 +1,26 @@
 package svenhjol.charm.block;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ShovelItem;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmFallingBlock;
-import svenhjol.charm.base.helper.BlockHelper;
 
 public class SugarBlock extends CharmFallingBlock {
     public SugarBlock(CharmModule module) {
-        super(module, "sugar_block", Settings
+        super(module, "sugar_block", FabricBlockSettings
             .of(Material.AGGREGATE)
             .sounds(BlockSoundGroup.SAND)
+            .breakByTool(FabricToolTags.SHOVELS)
             .strength(0.5F)
         );
-
-        BlockHelper.setEffectiveTool(this, ShovelItem.class);
     }
 
     @Override

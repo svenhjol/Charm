@@ -15,12 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 public class ModuleHandler {
     public static Map<String, List<Class<? extends CharmModule>>> AVAILABLE_MODULES = new HashMap<>();
-    public static Map<String, CharmModule> LOADED_MODULES = new ConcurrentHashMap<>();
+    public static Map<String, CharmModule> LOADED_MODULES = new TreeMap<>();
 
     private static boolean hasInit = false;
 
@@ -93,8 +92,6 @@ public class ModuleHandler {
 
     private static void instantiateModules() {
         AVAILABLE_MODULES.forEach((mod, modules) -> {
-            Map<String, CharmModule> loaded = new TreeMap<>();
-
             modules.forEach(clazz -> {
                 try {
                     CharmModule module = clazz.getDeclaredConstructor().newInstance();
@@ -112,7 +109,7 @@ public class ModuleHandler {
                         module.description = annotation.description();
 
                         String moduleName = module.getName();
-                        loaded.put(moduleName, module);
+                        LOADED_MODULES.put(moduleName, module);
 
                     } else {
                         throw new RuntimeException("No module annotation for class " + clazz.toString());
@@ -123,12 +120,7 @@ public class ModuleHandler {
                 }
             });
 
-            // config for this module set
-            ConfigHandler.createConfig(mod, loaded);
-
-            // add loaded modules
-            loaded.forEach((moduleName, module) ->
-                LOADED_MODULES.put(moduleName, module));
+            ConfigHandler.createConfig(mod, LOADED_MODULES);
         });
     }
 

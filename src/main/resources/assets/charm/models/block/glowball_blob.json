@@ -1,0 +1,18 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "charm:block/glowball_blob",
+    "blob": "charm:block/glowball_blob"
+  },
+  "elements": [
+    {
+      "from": [ 0, 0.25, 0 ],
+      "to": [ 16, 0.25, 16 ],
+      "shade": false,
+      "faces": {
+        "down": { "uv": [ 0, 0, 16, 16 ], "texture": "#blob", "tintindex": 0 },
+        "up": { "uv": [ 0, 16, 16, 0 ], "texture": "#blob", "tintindex": 0 }
+      }
+    }
+  ]
+}

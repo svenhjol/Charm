@@ -1,11 +1,11 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.AbstractBlock;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.block.StonecutterBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -19,10 +19,9 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import svenhjol.charm.base.helper.BlockHelper;
-import svenhjol.charm.screenhandler.WoodcutterScreenHandler;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
+import svenhjol.charm.screenhandler.WoodcutterScreenHandler;
 
 import javax.annotation.Nullable;
 
@@ -31,11 +30,14 @@ public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
     private static final Text TITLE = new TranslatableText("container.charm.woodcutter");
 
     public WoodcutterBlock(CharmModule module) {
-        super(AbstractBlock.Settings.copy(Blocks.STONECUTTER));
+        super(FabricBlockSettings
+            .of(Material.STONE)
+            .requiresTool()
+            .breakByTool(FabricToolTags.AXES)
+            .strength(3.5F));
+
         register(module, "woodcutter");
         this.module = module;
-
-        BlockHelper.setEffectiveTool(this, AxeItem.class);
     }
 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {

@@ -25,13 +25,13 @@ import svenhjol.charm.base.block.CharmBlock;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PlacedGlowstoneDustBlock extends CharmBlock implements Waterloggable {
+public class GlowballBlobBlock extends CharmBlock implements Waterloggable {
     public static final Map<Direction, VoxelShape> SHAPE = new HashMap<>();
     public static final DirectionProperty FACING = FacingBlock.FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-    public PlacedGlowstoneDustBlock(CharmModule module) {
-        super(module, "placed_glowstone_dust", Settings.copy(Blocks.REDSTONE_WIRE)
+    public GlowballBlobBlock(CharmModule module) {
+        super(module, "glowball_blob", Settings.copy(Blocks.REDSTONE_WIRE)
             .luminance(l -> 8));
 
         this.setDefaultState(getDefaultState().with(WATERLOGGED, false));
