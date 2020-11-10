@@ -53,7 +53,7 @@ public class ColoredGlintHandler {
     }
 
     public static RenderLayer createGlint(DyeColor dyeColor, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.class_5596.field_27382, 256, RenderLayer.MultiPhaseParameters.builder()
+        RenderLayer renderLayer = RenderLayer.of("glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
@@ -67,7 +67,7 @@ public class ColoredGlintHandler {
     }
 
     public static RenderLayer createEntityGlint(DyeColor dyeColor, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("entity_glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.class_5596.field_27382, 256, RenderLayer.MultiPhaseParameters.builder()
+        RenderLayer renderLayer = RenderLayer.of("entity_glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
@@ -82,7 +82,7 @@ public class ColoredGlintHandler {
     }
 
     public static RenderLayer createArmorGlint(DyeColor dyeColor, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("armor_glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.class_5596.field_27382, 256, RenderLayer.MultiPhaseParameters.builder()
+        RenderLayer renderLayer = RenderLayer.of("armor_glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
@@ -97,7 +97,7 @@ public class ColoredGlintHandler {
     }
 
     public static RenderLayer createArmorEntityGlint(DyeColor dyeColor, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("armor_entity_glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.class_5596.field_27382, 256, RenderLayer.MultiPhaseParameters.builder()
+        RenderLayer renderLayer = RenderLayer.of("armor_entity_glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
@@ -112,7 +112,7 @@ public class ColoredGlintHandler {
     }
 
     public static RenderLayer createDirectGlint(DyeColor dyeColor, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("glint_direct_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.class_5596.field_27382, 256, RenderLayer.MultiPhaseParameters.builder()
+        RenderLayer renderLayer = RenderLayer.of("glint_direct_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
@@ -126,7 +126,7 @@ public class ColoredGlintHandler {
     }
 
     public static RenderLayer createDirectEntityGlint(DyeColor dyeColor, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("entity_glint_direct_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.class_5596.field_27382, 256, RenderLayer.MultiPhaseParameters.builder()
+        RenderLayer renderLayer = RenderLayer.of("entity_glint_direct_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())

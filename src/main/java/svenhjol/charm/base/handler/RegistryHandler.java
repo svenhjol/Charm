@@ -30,7 +30,7 @@ public class RegistryHandler {
         return Registry.register(Registry.BLOCK, id, block);
     }
 
-    public static <T extends BlockEntity> BlockEntityType<T> blockEntity(Identifier id, BlockEntityType.class_5559<T> builder, Block... blocks) {
+    public static <T extends BlockEntity> BlockEntityType<T> blockEntity(Identifier id, BlockEntityType.BlockEntityFactory<T> builder, Block... blocks) {
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, BlockEntityType.Builder.create(builder, blocks).build(null));
     }
 

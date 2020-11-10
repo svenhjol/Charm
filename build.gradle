@@ -27,7 +27,10 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 	implementation "com.electronwill.night-config:toml:3.6.2"
+	implementation "com.moandjiezana.toml:toml4j:0.7.2"
+
 	include "com.electronwill.night-config:toml:3.6.2"
+	include "com.moandjiezana.toml:toml4j:0.7.2"
 }
 
 processResources {

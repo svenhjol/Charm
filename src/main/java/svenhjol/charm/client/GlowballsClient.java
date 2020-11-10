@@ -18,10 +18,9 @@ public class GlowballsClient {
         ClientEntitySpawnCallback.EVENT.register(this::handleClientEntitySpawn);
     }
 
-    private void handleClientEntitySpawn(ClientWorld world, EntitySpawnS2CPacket packet, double x, double y, double z, EntityType<?> entityType) {
+    private void handleClientEntitySpawn(EntitySpawnS2CPacket packet, EntityType<?> entityType, ClientWorld world, double x, double y, double z) {
         if (entityType == Glowballs.GLOWBALL) {
-            GlowballEntity entity = new GlowballEntity(world, x, y, z);
-            ClientEntitySpawnCallback.addEntity(world, entity, packet, x, y, z);
+            ClientEntitySpawnCallback.addEntity(packet, world, new GlowballEntity(world, x, y, z));
         }
     }
 }

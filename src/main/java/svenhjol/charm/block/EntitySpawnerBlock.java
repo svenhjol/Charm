@@ -2,8 +2,8 @@ package svenhjol.charm.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.class_5558;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -36,8 +36,8 @@ public class EntitySpawnerBlock extends CharmBlockWithEntity {
 
     @Override
     @Nullable
-    public <T extends BlockEntity> class_5558<T> method_31645(World world, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return world.isClient ? null : method_31618(blockEntityType, EntitySpawner.BLOCK_ENTITY, EntitySpawnerBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState blockState, BlockEntityType<T> blockEntityType) {
+        return world.isClient ? null : checkType(blockEntityType, EntitySpawner.BLOCK_ENTITY, EntitySpawnerBlockEntity::tick);
     }
 
     @Override

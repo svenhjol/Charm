@@ -48,7 +48,7 @@ public class GlowballEntity extends ThrownItemEntity {
     @Override
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        this.remove();
+        this.discard();
 
         if (!world.isClient) {
             if (hitResult.getType() == HitResult.Type.BLOCK) {

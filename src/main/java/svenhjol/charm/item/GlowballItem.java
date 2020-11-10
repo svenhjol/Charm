@@ -12,9 +12,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import svenhjol.charm.entity.GlowballEntity;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.item.ICharmItem;
+import svenhjol.charm.entity.GlowballEntity;
 
 public class GlowballItem extends EnderPearlItem implements ICharmItem {
     protected CharmModule module;
@@ -33,7 +34,7 @@ public class GlowballItem extends EnderPearlItem implements ICharmItem {
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
+        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
 
         if (!world.isClient) {
             GlowballEntity entity = new GlowballEntity(world, user);
