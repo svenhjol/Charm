@@ -38,14 +38,17 @@ public class CoralSquids extends CharmModule {
 
     @Override
     public void register() {
+        // register to MC registry
         CORAL_SQUID = RegistryHandler.entity(ID, EntityType.Builder.create(CoralSquidEntity::new, SpawnGroup.WATER_CREATURE)
             .setDimensions(0.4F, 0.4F)
             .maxTrackingRange(8)
             .build(ID.getPath()));
 
+        // create a spawn egg for the squid
         SPAWN_EGG = RegistryHandler.item(EGG_ID, new SpawnEggItem(CORAL_SQUID, 0x0000FF, 0xFF00FF, (new Item.Settings()).group(ItemGroup.MISC)));
 
-        MobHelper.setEntityAttributes(CORAL_SQUID, CoralSquidEntity.createSquidAttributes().build());
+        // register the entity attributes
+        MobHelper.setEntityAttributes(CORAL_SQUID, CoralSquidEntity.createSquidAttributes());
     }
 
     @Override
