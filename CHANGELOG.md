@@ -2,7 +2,7 @@
 
 ## 2.1.1
 * Fix Coral Squid hitboxes. #351, #361
-* Fix candles not making sound when lighting
+* Fix Candles not making sound when lighting
 * Glow balls are now known as glowballs
 * Placeable Glowstone Dust has been removed
 * Update glowball texture
