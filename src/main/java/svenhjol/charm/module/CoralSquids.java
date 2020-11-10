@@ -40,7 +40,7 @@ public class CoralSquids extends CharmModule {
     public void register() {
         // register to MC registry
         CORAL_SQUID = RegistryHandler.entity(ID, EntityType.Builder.create(CoralSquidEntity::new, SpawnGroup.WATER_CREATURE)
-            .setDimensions(0.4F, 0.4F)
+            .setDimensions(0.54F, 0.54F)
             .maxTrackingRange(8)
             .build(ID.getPath()));
 
