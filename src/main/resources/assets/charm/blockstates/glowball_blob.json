@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=up": { "model": "charm:block/glowball_blob"},
+    "facing=down": { "model": "charm:block/glowball_blob", "x": 180 },
+    "facing=north": { "model": "charm:block/glowball_blob", "x": 90, "y": 0, "uvlock": true },
+    "facing=east": { "model": "charm:block/glowball_blob", "x": 90, "y": 90, "uvlock": true },
+    "facing=south": { "model": "charm:block/glowball_blob", "x": 90, "y": 180, "uvlock": true },
+    "facing=west": { "model": "charm:block/glowball_blob", "x": 90, "y": 270, "uvlock": true }
+  }
+}

@@ -12,17 +12,17 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import svenhjol.charm.entity.GlowBallEntity;
+import svenhjol.charm.entity.GlowballEntity;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.item.ICharmItem;
 
-public class GlowBallItem extends EnderPearlItem implements ICharmItem {
+public class GlowballItem extends EnderPearlItem implements ICharmItem {
     protected CharmModule module;
 
-    public GlowBallItem(CharmModule module) {
+    public GlowballItem(CharmModule module) {
         super(new Item.Settings().maxCount(16).group(ItemGroup.MISC));
         this.module = module;
-        this.register(module, "glow_ball");
+        this.register(module, "glowball");
     }
 
     @Override
@@ -33,11 +33,10 @@ public class GlowBallItem extends EnderPearlItem implements ICharmItem {
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
-        user.getItemCooldownManager().set(this, 10);
+        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
 
         if (!world.isClient) {
-            GlowBallEntity entity = new GlowBallEntity(world, user);
+            GlowballEntity entity = new GlowballEntity(world, user);
             entity.setItem(itemStack);
             entity.setProperties(user, user.pitch, user.yaw, 0.0F, 1.5F, 1.0F);
             world.spawnEntity(entity);
