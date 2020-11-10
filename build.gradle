@@ -30,6 +30,9 @@ dependencies {
 	// REI
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
 	modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
+
+	implementation "com.electronwill.night-config:toml:3.6.2"
+	include "com.electronwill.night-config:toml:3.6.2"
 }
 
 processResources {
