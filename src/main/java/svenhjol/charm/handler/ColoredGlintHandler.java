@@ -70,27 +70,27 @@ public class ColoredGlintHandler {
     }
 
     public static RenderLayer getArmorGlintRenderLayer() {
-        return ARMOR_GLINT.get(getStackColor(targetStack));
+        return ARMOR_GLINT.getOrDefault(getStackColor(targetStack), RenderLayer.getArmorGlint());
     }
 
     public static RenderLayer getArmorEntityGlintRenderLayer() {
-        return ARMOR_ENTITY_GLINT.get(getStackColor(targetStack));
+        return ARMOR_ENTITY_GLINT.getOrDefault(getStackColor(targetStack), RenderLayer.getArmorEntityGlint());
     }
 
     public static RenderLayer getDirectGlintRenderLayer() {
-        return DIRECT_GLINT.get(getStackColor(targetStack));
+        return DIRECT_GLINT.getOrDefault(getStackColor(targetStack), RenderLayer.getDirectGlint());
     }
 
     public static RenderLayer getDirectEntityGlintRenderLayer() {
-        return DIRECT_ENTITY_GLINT.get(getStackColor(targetStack));
+        return DIRECT_ENTITY_GLINT.getOrDefault(getStackColor(targetStack), RenderLayer.getDirectEntityGlint());
     }
 
     public static RenderLayer getEntityGlintRenderLayer() {
-        return ENTITY_GLINT.get(getStackColor(targetStack));
+        return ENTITY_GLINT.getOrDefault(getStackColor(targetStack), RenderLayer.getEntityGlint());
     }
 
     public static RenderLayer getGlintRenderLayer() {
-        return GLINT.get(getStackColor(targetStack));
+        return GLINT.getOrDefault(getStackColor(targetStack), RenderLayer.getGlint());
     }
 
     private static RenderLayer createGlint(DyeColor dyeColor, Identifier texture) {
