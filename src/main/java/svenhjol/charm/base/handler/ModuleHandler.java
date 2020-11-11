@@ -92,6 +92,8 @@ public class ModuleHandler {
 
     private static void instantiateModules() {
         AVAILABLE_MODULES.forEach((mod, modules) -> {
+            Map<String, CharmModule> loaded = new TreeMap<>();
+
             modules.forEach(clazz -> {
                 try {
                     CharmModule module = clazz.getDeclaredConstructor().newInstance();
@@ -109,7 +111,7 @@ public class ModuleHandler {
                         module.description = annotation.description();
 
                         String moduleName = module.getName();
-                        LOADED_MODULES.put(moduleName, module);
+                        loaded.put(moduleName, module);
 
                     } else {
                         throw new RuntimeException("No module annotation for class " + clazz.toString());
@@ -120,7 +122,12 @@ public class ModuleHandler {
                 }
             });
 
-            ConfigHandler.createConfig(mod, LOADED_MODULES);
+            // config for this module set
+            ConfigHandler.createConfig(mod, loaded);
+
+            // add loaded modules
+            loaded.forEach((moduleName, module) ->
+                LOADED_MODULES.put(moduleName, module));
         });
     }
 
