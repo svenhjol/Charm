@@ -11,19 +11,21 @@ import svenhjol.charm.module.RemoveSpyglassScope;
 
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin {
-    @Shadow protected abstract void renderOverlay(Identifier identifier, float scale, int i);
-
     @Shadow @Final private static Identifier SPYGLASS_SCOPE;
+
+    @Shadow protected abstract void method_32598(float f);
+
+    @Shadow private float field_27959;
 
     @Redirect(
         method = "render",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/hud/InGameHud;renderOverlay(Lnet/minecraft/util/Identifier;FI)V"
+            target = "Lnet/minecraft/client/gui/hud/InGameHud;method_32598(F)V"
         )
     )
-    public void hookRender(InGameHud inGameHud, Identifier identifier, float scale, int i) {
+    public void hookRender(InGameHud inGameHud, float f) {
         if (!RemoveSpyglassScope.shouldRemoveHud())
-            renderOverlay(SPYGLASS_SCOPE, 0.5F, -16777216);
+            this.method_32598(this.field_27959);
     }
 }
