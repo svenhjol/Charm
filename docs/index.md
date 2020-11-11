@@ -49,6 +49,6 @@ Honorable mentions:
 * [mcvinnyq](https://www.curseforge.com/members/mcvinnyq) for graphics
 * [Clinton]() for playtesting and ideas
 * [Sokyran]() for 1.12 fixes
-* [F43nd1r]() for Forge porting
+* [F43nd1r](https://github.com/F43nd1r) for Forge porting
 
 Todo: moar credits
