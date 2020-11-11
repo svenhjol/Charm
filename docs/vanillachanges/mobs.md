@@ -27,7 +27,7 @@ Sometimes chickens drop a feather instead of laying an egg.  After dropping a fe
 
 ### Coral Squid
 ![Coral Squid](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-[COMING SOON]
+Coral Squid hang out around coral in warm ocean biomes. They come in 5 different colors and have a chance to drop the corresponding coral color when killed - but you would never dream of killing such a cute little squidlet, right?
 
 ### Endermite Powder
 ![Endermite Powder](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
@@ -61,7 +61,7 @@ Prevents nitwits from spawning as new villagers.  It also converts any nitwits t
 
 ### Snow Golem derp faces
 ![Snow Golem derp faces](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/snow-golem-derp-faces.png?raw=true)
-[COMING SOON]
+This is part of the Variant Mob Textures feature.  Snow Golems can spawn with different "derp" faces, visible when you shear the pumpkin from their head.
 
 ### Stray improvements
 ![Stray improvements](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
