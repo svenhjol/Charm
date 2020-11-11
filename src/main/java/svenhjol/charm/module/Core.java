@@ -1,13 +1,14 @@
 package svenhjol.charm.module;
 
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
-import svenhjol.charm.client.InventoryButtonClient;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.client.InventoryButtonClient;
 
 @Module(mod = Charm.MOD_ID, alwaysEnabled = true, description = "Core configuration values.")
 public class Core extends CharmModule {
@@ -18,6 +19,9 @@ public class Core extends CharmModule {
 
     @Config(name = "Inventory button return", description = "If inventory crafting or inventory ender chest modules are enabled, pressing escape or inventory key returns you to the inventory rather than closing the window.")
     public static boolean inventoryButtonReturn = false;
+
+    @Config(name = "Enchantment glint color", description = "Set the default glint color for all enchanted items.")
+    public static String glintColor = DyeColor.PURPLE.getName();
 
     @Override
     public void clientRegister() {

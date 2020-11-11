@@ -70,6 +70,7 @@
     "ItemRendererMixin",
     "MinecraftClientMixin",
     "MusicTrackerMixin",
+    "RenderLayerMixin",
     "ScreenMixin",
     "SoundSystemMixin",
     "SpriteAtlasTextureMixin",

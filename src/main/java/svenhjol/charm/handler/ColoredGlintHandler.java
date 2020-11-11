@@ -10,8 +10,8 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.BufferBuilderStorageAccessor;
 import svenhjol.charm.mixin.accessor.MinecraftClientAccessor;
 import svenhjol.charm.mixin.accessor.RenderPhaseAccessor;
+import svenhjol.charm.module.Core;
 
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
@@ -27,8 +27,11 @@ public class ColoredGlintHandler {
     public static Map<DyeColor, RenderLayer> ARMOR_GLINT = new HashMap<>();
     public static Map<DyeColor, RenderLayer> ARMOR_ENTITY_GLINT = new HashMap<>();
 
+    public static boolean isEnabled;
+    public static DyeColor defaultGlintColor;
+    public static ItemStack targetStack;
+
     private static boolean hasInit = false;
-    private static final boolean changeDefaultGlintColor = false;
 
     public static void init() {
         if (hasInit)
@@ -45,14 +48,52 @@ public class ColoredGlintHandler {
             ARMOR_ENTITY_GLINT.put(dyeColor, createArmorEntityGlint(dyeColor, TEXTURES.get(dyeColor)));
         }
 
+        defaultGlintColor = DyeColor.byName(Core.glintColor, DyeColor.PURPLE);
+
         hasInit = true;
     }
 
-    public static DyeColor getDefaultClintColor() {
-        return DyeColor.PURPLE;
+    public static DyeColor getDefaultGlintColor() {
+        return defaultGlintColor;
     }
 
-    public static RenderLayer createGlint(DyeColor dyeColor, Identifier texture) {
+    public static DyeColor getStackColor(ItemStack stack) {
+        if (stack != null && stack.hasTag()) {
+            CompoundTag tag = stack.getTag();
+            if (tag != null) {
+                if (tag.contains(GLINT_TAG))
+                    return DyeColor.byName(tag.getString(GLINT_TAG), DyeColor.PURPLE);
+            }
+        }
+
+        return getDefaultGlintColor();
+    }
+
+    public static RenderLayer getArmorGlintRenderLayer() {
+        return ARMOR_GLINT.get(getStackColor(targetStack));
+    }
+
+    public static RenderLayer getArmorEntityGlintRenderLayer() {
+        return ARMOR_ENTITY_GLINT.get(getStackColor(targetStack));
+    }
+
+    public static RenderLayer getDirectGlintRenderLayer() {
+        return DIRECT_GLINT.get(getStackColor(targetStack));
+    }
+
+    public static RenderLayer getDirectEntityGlintRenderLayer() {
+        return DIRECT_ENTITY_GLINT.get(getStackColor(targetStack));
+    }
+
+    public static RenderLayer getEntityGlintRenderLayer() {
+        return ENTITY_GLINT.get(getStackColor(targetStack));
+    }
+
+    public static RenderLayer getGlintRenderLayer() {
+        return GLINT.get(getStackColor(targetStack));
+    }
+
+    private static RenderLayer createGlint(DyeColor dyeColor, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, 7, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
@@ -66,7 +107,7 @@ public class ColoredGlintHandler {
         return renderLayer;
     }
 
-    public static RenderLayer createEntityGlint(DyeColor dyeColor, Identifier texture) {
+    private static RenderLayer createEntityGlint(DyeColor dyeColor, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("entity_glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, 7, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
@@ -81,7 +122,7 @@ public class ColoredGlintHandler {
         return renderLayer;
     }
 
-    public static RenderLayer createArmorGlint(DyeColor dyeColor, Identifier texture) {
+    private static RenderLayer createArmorGlint(DyeColor dyeColor, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("armor_glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, 7, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
@@ -96,7 +137,7 @@ public class ColoredGlintHandler {
         return renderLayer;
     }
 
-    public static RenderLayer createArmorEntityGlint(DyeColor dyeColor, Identifier texture) {
+    private static RenderLayer createArmorEntityGlint(DyeColor dyeColor, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("armor_entity_glint_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, 7, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
@@ -111,7 +152,7 @@ public class ColoredGlintHandler {
         return renderLayer;
     }
 
-    public static RenderLayer createDirectGlint(DyeColor dyeColor, Identifier texture) {
+    private static RenderLayer createDirectGlint(DyeColor dyeColor, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("glint_direct_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, 7, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
@@ -125,7 +166,7 @@ public class ColoredGlintHandler {
         return renderLayer;
     }
 
-    public static RenderLayer createDirectEntityGlint(DyeColor dyeColor, Identifier texture) {
+    private static RenderLayer createDirectEntityGlint(DyeColor dyeColor, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("entity_glint_direct_" + dyeColor.getName(), VertexFormats.POSITION_TEXTURE, 7, 256, RenderLayer.MultiPhaseParameters.builder()
             .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
@@ -138,83 +179,6 @@ public class ColoredGlintHandler {
 
         getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.getExpectedBufferSize()));
         return renderLayer;
-    }
-
-    public static VertexConsumer getDirectItemGlintConsumer(VertexConsumerProvider provider, RenderLayer layer, boolean solid, boolean glint, @Nullable ItemStack stack) {
-        RenderLayer renderDirectGlint = RenderLayer.getDirectGlint();
-        RenderLayer renderDirectEntityGlint = RenderLayer.getDirectEntityGlint();
-
-        if (changeDefaultGlintColor) {
-            renderDirectGlint = DIRECT_GLINT.get(getDefaultClintColor());
-            renderDirectEntityGlint = DIRECT_ENTITY_GLINT.get(getDefaultClintColor());
-        }
-
-        if (stack != null && stack.hasTag()) {
-            CompoundTag tag = stack.getTag();
-            if (tag != null) {
-                if (tag.contains(GLINT_TAG)) {
-                    DyeColor dyeColor = DyeColor.byName(tag.getString(GLINT_TAG), DyeColor.PURPLE);
-                    renderDirectGlint = DIRECT_GLINT.get(dyeColor);
-                    renderDirectEntityGlint = DIRECT_ENTITY_GLINT.get(dyeColor);
-                }
-            }
-        }
-
-        return glint ? VertexConsumers.dual(provider.getBuffer(solid ? renderDirectGlint : renderDirectEntityGlint), provider.getBuffer(layer)) : provider.getBuffer(layer);
-    }
-
-    public static VertexConsumer getItemGlintConsumer(VertexConsumerProvider vertexConsumers, RenderLayer layer, boolean solid, boolean glint, @Nullable ItemStack stack) {
-        if (glint) {
-            RenderLayer renderGlint = RenderLayer.getGlint();
-            RenderLayer renderEntityGlint = RenderLayer.getEntityGlint();
-
-            if (changeDefaultGlintColor) {
-                renderGlint = GLINT.get(getDefaultClintColor());
-                renderEntityGlint = ENTITY_GLINT.get(getDefaultClintColor());
-            }
-
-            if (stack != null && stack.hasTag()) {
-                CompoundTag tag = stack.getTag();
-                if (tag != null) {
-                    if (tag.contains(GLINT_TAG)) {
-                        DyeColor dyeColor = DyeColor.byName(tag.getString(GLINT_TAG), DyeColor.PURPLE);
-                        renderGlint = GLINT.get(dyeColor);
-                        renderEntityGlint = ENTITY_GLINT.get(dyeColor);
-                    }
-                }
-            }
-
-            return MinecraftClient.isFabulousGraphicsOrBetter() && layer == TexturedRenderLayers.getItemEntityTranslucentCull() ? VertexConsumers.dual(vertexConsumers.getBuffer(RenderLayer.method_30676()), vertexConsumers.getBuffer(layer)) : VertexConsumers.dual(vertexConsumers.getBuffer(solid ? renderGlint : renderEntityGlint), vertexConsumers.getBuffer(layer));
-        } else {
-            return vertexConsumers.getBuffer(layer);
-        }
-    }
-
-    public static VertexConsumer getArmorGlintConsumer(VertexConsumerProvider provider, RenderLayer layer, boolean solid, boolean glint, @Nullable ItemStack stack) {
-        if (glint) {
-            RenderLayer renderArmorGlint = RenderLayer.getArmorGlint();
-            RenderLayer renderArmorEntityGlint = RenderLayer.getArmorEntityGlint();
-
-            if (changeDefaultGlintColor) {
-                renderArmorGlint = ARMOR_GLINT.get(getDefaultClintColor());
-                renderArmorEntityGlint = ARMOR_ENTITY_GLINT.get(getDefaultClintColor());
-            }
-
-            if (stack != null && stack.hasTag()) {
-                CompoundTag tag = stack.getTag();
-                if (tag != null) {
-                    if (tag.contains(GLINT_TAG)) {
-                        DyeColor dyeColor = DyeColor.byName(tag.getString(GLINT_TAG), DyeColor.PURPLE);
-                        renderArmorGlint = ARMOR_GLINT.get(dyeColor);
-                        renderArmorEntityGlint = ARMOR_ENTITY_GLINT.get(dyeColor);
-                    }
-                }
-            }
-
-            return VertexConsumers.dual(provider.getBuffer(solid ? renderArmorGlint : renderArmorEntityGlint), provider.getBuffer(layer));
-        } else {
-            return provider.getBuffer(layer);
-        }
     }
 
     private static SortedMap<RenderLayer, BufferBuilder> getEntityBuilders() {
