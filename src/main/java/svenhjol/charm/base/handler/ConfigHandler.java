@@ -3,7 +3,7 @@ package svenhjol.charm.base.handler;
 import com.electronwill.nightconfig.core.CommentedConfig;
 import com.electronwill.nightconfig.toml.TomlFormat;
 import com.electronwill.nightconfig.toml.TomlWriter;
-import me.sargunvohra.mcmods.autoconfig1u.shadowed.com.moandjiezana.toml.Toml;
+import com.moandjiezana.toml.Toml;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
