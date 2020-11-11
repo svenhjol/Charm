@@ -1,8 +1,6 @@
 package svenhjol.charm.mixin;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
@@ -16,7 +14,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.BlockItemRenderCallback;
 import svenhjol.charm.handler.ColoredGlintHandler;
@@ -24,7 +21,6 @@ import svenhjol.charm.handler.ColoredGlintHandler;
 @Mixin(BuiltinModelItemRenderer.class)
 public class BuiltinModelItemRendererMixin {
     @Shadow @Final private BlockEntityRenderDispatcher field_27738;
-    private ItemStack itemStackToRender;
 
     /**
      * Allows modules to define their own blockItem entity renderers
@@ -36,7 +32,7 @@ public class BuiltinModelItemRendererMixin {
         cancellable = true
     )
     private void hookRender(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j, CallbackInfo ci) {
-        this.itemStackToRender = stack;
+        ColoredGlintHandler.targetStack = stack; // take reference to item to be rendered
 
         Item item = stack.getItem();
         if (item instanceof BlockItem) {
@@ -47,19 +43,5 @@ public class BuiltinModelItemRendererMixin {
                 ci.cancel();
             }
         }
-    }
-
-    /**
-     * Redirect shield and trident glint consumer calls to Charm's ColoredGlintHandler
-     */
-    @Redirect(
-        method = "render",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/render/item/ItemRenderer;getDirectItemGlintConsumer(Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/client/render/RenderLayer;ZZ)Lnet/minecraft/client/render/VertexConsumer;"
-        )
-    )
-    private VertexConsumer hookRenderGetDirectGlintConsumer(VertexConsumerProvider provider, RenderLayer layer, boolean solid, boolean glint) {
-        return ColoredGlintHandler.getDirectItemGlintConsumer(provider, layer, solid, glint, this.itemStackToRender);
     }
 }

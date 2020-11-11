@@ -70,6 +70,7 @@
     "ItemRendererMixin",
     "MinecraftClientMixin",
     "MusicTrackerMixin",
+    "RenderLayerMixin",
     "ScreenMixin",
     "SoundSystemMixin",
     "SpriteAtlasTextureMixin",
@@ -77,6 +78,7 @@
     "accessor.BufferBuilderStorageAccessor",
     "accessor.HandledScreenAccessor",
     "accessor.MinecraftClientAccessor",
+    "accessor.RenderLayerAccessor",
     "accessor.RenderPhaseAccessor",
     "accessor.SoundManagerAccessor",
     "accessor.SoundSystemAccessor"

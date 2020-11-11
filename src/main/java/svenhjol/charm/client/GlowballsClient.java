@@ -10,6 +10,7 @@ import svenhjol.charm.entity.GlowballEntity;
 import svenhjol.charm.event.ClientEntitySpawnCallback;
 import svenhjol.charm.module.Glowballs;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class GlowballsClient {
     public GlowballsClient(CharmModule module) {
         EntityRendererRegistry.INSTANCE.register(Glowballs.GLOWBALL, dispatcher
