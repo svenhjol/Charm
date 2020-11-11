@@ -183,51 +183,51 @@ public class EntitySpawnerBlockEntity extends BlockEntity {
 
         if (type.equals("chain")) {
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.MAINHAND.getArmorStandSlotId(), new ItemStack(ironHeld.get(random.nextInt(ironHeld.size()))));
+                stand.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ironHeld.get(random.nextInt(ironHeld.size()))));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.HEAD.getArmorStandSlotId(), new ItemStack(Items.CHAINMAIL_HELMET));
+                stand.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.CHEST.getArmorStandSlotId(), new ItemStack(Items.CHAINMAIL_CHESTPLATE));
+                stand.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.LEGS.getArmorStandSlotId(), new ItemStack(Items.CHAINMAIL_LEGGINGS));
+                stand.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.FEET.getArmorStandSlotId(), new ItemStack(Items.CHAINMAIL_BOOTS));
+                stand.equipStack(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_BOOTS));
         }
         if (type.equals("iron")) {
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.MAINHAND.getArmorStandSlotId(), new ItemStack(ironHeld.get(random.nextInt(ironHeld.size()))));
+                stand.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ironHeld.get(random.nextInt(ironHeld.size()))));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.HEAD.getArmorStandSlotId(), new ItemStack(Items.IRON_HELMET));
+                stand.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.CHEST.getArmorStandSlotId(), new ItemStack(Items.IRON_CHESTPLATE));
+                stand.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.LEGS.getArmorStandSlotId(), new ItemStack(Items.IRON_LEGGINGS));
+                stand.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.FEET.getArmorStandSlotId(), new ItemStack(Items.IRON_BOOTS));
+                stand.equipStack(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
         }
         if (type.equals("gold")) {
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.MAINHAND.getArmorStandSlotId(), new ItemStack(goldHeld.get(random.nextInt(goldHeld.size()))));
+                stand.equipStack(EquipmentSlot.MAINHAND, new ItemStack(goldHeld.get(random.nextInt(goldHeld.size()))));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.HEAD.getArmorStandSlotId(), new ItemStack(Items.GOLDEN_HELMET));
+                stand.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.CHEST.getArmorStandSlotId(), new ItemStack(Items.GOLDEN_CHESTPLATE));
+                stand.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.LEGS.getArmorStandSlotId(), new ItemStack(Items.GOLDEN_LEGGINGS));
+                stand.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.GOLDEN_LEGGINGS));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.FEET.getArmorStandSlotId(), new ItemStack(Items.GOLDEN_BOOTS));
+                stand.equipStack(EquipmentSlot.FEET, new ItemStack(Items.GOLDEN_BOOTS));
         }
         if (type.equals("diamond")) {
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.MAINHAND.getArmorStandSlotId(), new ItemStack(diamondHeld.get(random.nextInt(diamondHeld.size()))));
+                stand.equipStack(EquipmentSlot.MAINHAND, new ItemStack(diamondHeld.get(random.nextInt(diamondHeld.size()))));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.HEAD.getArmorStandSlotId(), new ItemStack(Items.DIAMOND_HELMET));
+                stand.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.DIAMOND_HELMET));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.CHEST.getArmorStandSlotId(), new ItemStack(Items.DIAMOND_CHESTPLATE));
+                stand.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.LEGS.getArmorStandSlotId(), new ItemStack(Items.DIAMOND_LEGGINGS));
+                stand.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.DIAMOND_LEGGINGS));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.FEET.getArmorStandSlotId(), new ItemStack(Items.DIAMOND_BOOTS));
+                stand.equipStack(EquipmentSlot.FEET, new ItemStack(Items.DIAMOND_BOOTS));
         }
 
         float yaw = facing.getHorizontal();
