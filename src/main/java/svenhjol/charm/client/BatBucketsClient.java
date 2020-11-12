@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class BatBucketClient {
+public class BatBucketsClient {
     protected final CharmModule module;
     public int ticks;
     public double range;
     public static List<LivingEntity> entities = new ArrayList<>();
 
-    public BatBucketClient(CharmModule module) {
+    public BatBucketsClient(CharmModule module) {
         this.module = module;
 
         ClientSidePacketRegistry.INSTANCE.register(BatBuckets.MSG_CLIENT_SET_GLOWING, this::handleMessageClientSetGlowing);

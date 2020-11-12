@@ -26,11 +26,18 @@ dependencies {
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
-	implementation "com.electronwill.night-config:toml:3.6.2"
-	implementation "com.moandjiezana.toml:toml4j:0.7.2"
 
-	include "com.electronwill.night-config:toml:3.6.2"
+	// REI
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
+	modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
+
+	implementation "com.moandjiezana.toml:toml4j:0.7.2"
+	implementation "com.electronwill.night-config:core:${project.tomlnc_version}"
+	implementation "com.electronwill.night-config:toml:${project.tomlnc_version}"
+
 	include "com.moandjiezana.toml:toml4j:0.7.2"
+	include "com.electronwill.night-config:core:${project.tomlnc_version}"
+	include "com.electronwill.night-config:toml:${project.tomlnc_version}"
 }
 
 processResources {
