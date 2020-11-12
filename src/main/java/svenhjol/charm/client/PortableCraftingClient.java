@@ -44,6 +44,7 @@ public class PortableCraftingClient {
             ));
 
             ClientTickEvents.END_WORLD_TICK.register(client -> {
+                if (keyBinding == null) return;
                 while (keyBinding.wasPressed()) {
                     triggerOpenCraftingTable();
                 }
