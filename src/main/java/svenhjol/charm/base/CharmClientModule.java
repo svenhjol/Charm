@@ -3,6 +3,12 @@ package svenhjol.charm.base;
 import net.minecraft.client.MinecraftClient;
 
 public abstract class CharmClientModule {
+    private CharmModule module;
+
+    public CharmClientModule(CharmModule module) {
+        this.module = module;
+    }
+
     public String getName() {
         return this.getClass().getSimpleName();
     }
