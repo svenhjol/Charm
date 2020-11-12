@@ -9,8 +9,12 @@ import java.lang.annotation.*;
 @Inherited
 public @interface Module {
     boolean alwaysEnabled() default false;
+
     boolean enabledByDefault() default true;
+
     String description() default "";
+
     String mod() default "";
+
     Class<?> client() default Charm.class;
 }
