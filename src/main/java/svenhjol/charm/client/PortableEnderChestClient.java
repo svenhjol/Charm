@@ -44,6 +44,7 @@ public class PortableEnderChestClient {
             ));
 
             ClientTickEvents.END_WORLD_TICK.register(client -> {
+                if (keyBinding == null) return;
                 while (keyBinding.wasPressed()) {
                     triggerOpenChest();
                 }

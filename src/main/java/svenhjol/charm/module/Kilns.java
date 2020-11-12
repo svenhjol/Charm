@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.recipe.CookingRecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -7,7 +8,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.handler.ClientRegistryHandler;
 import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.DecorationHelper;
 import svenhjol.charm.base.iface.Module;
@@ -38,7 +38,7 @@ public class Kilns extends CharmModule {
 
     @Override
     public void clientInit() {
-        ClientRegistryHandler.screenHandler(SCREEN_HANDLER, KilnScreen::new);
+        ScreenRegistry.register(SCREEN_HANDLER, KilnScreen::new);
     }
 
     @Override

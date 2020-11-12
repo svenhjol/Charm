@@ -8,16 +8,16 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.block.VariantChestBlock;
 import svenhjol.charm.block.VariantTrappedChestBlock;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
-import svenhjol.charm.module.VariantChests;
-import svenhjol.charm.render.VariantChestBlockEntityRenderer;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.event.BlockItemRenderCallback;
 import svenhjol.charm.event.TextureStitchCallback;
+import svenhjol.charm.module.VariantChests;
+import svenhjol.charm.render.VariantChestBlockEntityRenderer;
 
 import java.util.Set;
 

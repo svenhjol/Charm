@@ -17,7 +17,7 @@ public class RedstoneLanterns extends CharmModule {
     }
 
     @Override
-    public void clientRegister() {
+    public void clientInit() {
         BlockRenderLayerMap.INSTANCE.putBlock(REDSTONE_LANTERN, RenderLayer.getCutout());
     }
 }

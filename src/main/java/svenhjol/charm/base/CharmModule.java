@@ -50,8 +50,4 @@ public abstract class CharmModule {
     public void clientJoinWorld(MinecraftClient client) {
         // run on client on world load, only executed if module enabled
     }
-
-    public void serverInit(MinecraftServer server) {
-        // run only on the dedicated server world load, only executed if module enabled
-    }
 }

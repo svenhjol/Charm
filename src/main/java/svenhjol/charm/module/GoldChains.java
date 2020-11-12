@@ -17,7 +17,7 @@ public class GoldChains extends CharmModule {
     }
 
     @Override
-    public void clientRegister() {
+    public void clientInit() {
         BlockRenderLayerMap.INSTANCE.putBlock(GOLD_CHAIN, RenderLayer.getCutout());
     }
 }

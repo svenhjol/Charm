@@ -1,11 +1,11 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.handler.ClientRegistryHandler;
 import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
@@ -28,7 +28,7 @@ public class EntitySpawner extends CharmModule {
     }
 
     @Override
-    public void clientRegister() {
-        ClientRegistryHandler.setRenderLayer(ENTITY_SPAWNER, RenderLayer.getCutout());
+    public void clientInit() {
+        BlockRenderLayerMap.INSTANCE.putBlock(ENTITY_SPAWNER, RenderLayer.getCutout());
     }
 }

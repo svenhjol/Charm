@@ -1,5 +1,7 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -7,7 +9,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.handler.ClientRegistryHandler;
 import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.WoodcutterBlock;
@@ -33,12 +34,8 @@ public class Woodcutters extends CharmModule {
     }
 
     @Override
-    public void clientRegister() {
-        ClientRegistryHandler.setRenderLayer(WOODCUTTER, RenderLayer.getCutout());
-    }
-
-    @Override
     public void clientInit() {
-        ClientRegistryHandler.screenHandler(SCREEN_HANDLER, WoodcutterScreen::new);
+        ScreenRegistry.register(SCREEN_HANDLER, WoodcutterScreen::new);
+        BlockRenderLayerMap.INSTANCE.putBlock(WOODCUTTER, RenderLayer.getCutout());
     }
 }

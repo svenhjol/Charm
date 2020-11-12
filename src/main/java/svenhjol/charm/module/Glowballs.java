@@ -37,6 +37,10 @@ public class Glowballs extends CharmModule {
     @Override
     public void clientRegister() {
         client = new GlowballsClient(this);
+    }
+
+    @Override
+    public void clientInit() {
         BlockRenderLayerMap.INSTANCE.putBlock(GLOWBALL_BLOCK, RenderLayer.getTranslucent());
     }
 }

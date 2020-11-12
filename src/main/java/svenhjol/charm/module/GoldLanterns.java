@@ -19,7 +19,7 @@ public class GoldLanterns extends CharmModule {
     }
 
     @Override
-    public void clientRegister() {
+    public void clientInit() {
         BlockRenderLayerMap.INSTANCE.putBlock(GOLD_LANTERN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(GOLD_SOUL_LANTERN, RenderLayer.getCutout());
     }

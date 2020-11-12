@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntityType;
@@ -10,7 +11,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
-import svenhjol.charm.base.handler.ClientRegistryHandler;
 import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.base.iface.Config;
@@ -59,7 +59,7 @@ public class Crates extends CharmModule {
     @Override
     public void clientInit() {
         new CratesClient(this);
-        ClientRegistryHandler.screenHandler(SCREEN_HANDLER, CrateScreen::new);
+        ScreenRegistry.register(SCREEN_HANDLER, CrateScreen::new);
     }
 
     public static boolean canCrateInsertItem(ItemStack stack) {

@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,7 +12,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
-import svenhjol.charm.base.handler.ClientRegistryHandler;
 import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.EnchantmentsHelper;
 import svenhjol.charm.base.iface.Config;
@@ -71,7 +71,7 @@ public class Bookcases extends CharmModule {
 
     @Override
     public void clientInit() {
-        ClientRegistryHandler.screenHandler(SCREEN_HANDLER, BookcaseScreen::new);
+        ScreenRegistry.register(SCREEN_HANDLER, BookcaseScreen::new);
     }
 
     public static boolean canContainItem(ItemStack stack) {
