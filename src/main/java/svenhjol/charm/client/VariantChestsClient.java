@@ -1,35 +1,35 @@
 package svenhjol.charm.client;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
+import svenhjol.charm.base.CharmClientModule;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.block.VariantChestBlock;
 import svenhjol.charm.block.VariantTrappedChestBlock;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
-import svenhjol.charm.module.VariantChests;
-import svenhjol.charm.render.VariantChestBlockEntityRenderer;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.event.BlockItemRenderCallback;
 import svenhjol.charm.event.TextureStitchCallback;
+import svenhjol.charm.module.VariantChests;
+import svenhjol.charm.render.VariantChestBlockEntityRenderer;
 
 import java.util.Set;
 
-@Environment(EnvType.CLIENT)
-public class VariantChestClient {
-    private final CharmModule module;
+public class VariantChestsClient extends CharmClientModule {
     private final VariantChestBlockEntity CACHED_NORMAL_CHEST = new VariantChestBlockEntity();
     private final VariantTrappedChestBlockEntity CACHED_TRAPPED_CHEST = new VariantTrappedChestBlockEntity();
 
-    public VariantChestClient(CharmModule module) {
-        this.module = module;
+    public VariantChestsClient(CharmModule module) {
+        super(module);
+    }
 
+    @Override
+    public void register() {
         BlockEntityRendererRegistry.INSTANCE.register(VariantChests.NORMAL_BLOCK_ENTITY, VariantChestBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(VariantChests.TRAPPED_BLOCK_ENTITY, VariantChestBlockEntityRenderer::new);
 

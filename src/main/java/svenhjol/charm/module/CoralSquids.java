@@ -23,15 +23,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Coral Squids spawn near coral in warm oceans.")
+@Module(mod = Charm.MOD_ID, client = CoralSquidsClient.class, description = "Coral Squids spawn near coral in warm oceans.")
 public class CoralSquids extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "coral_squid");
     public static Identifier EGG_ID = new Identifier(Charm.MOD_ID, "coral_squid_spawn_egg");
 
     public static EntityType<CoralSquidEntity> CORAL_SQUID;
     public static Item SPAWN_EGG;
-
-    public CoralSquidsClient client;
 
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a coral squid dropping coral when killed by the player.")
     public static double dropChance = 0.2D;
@@ -49,11 +47,6 @@ public class CoralSquids extends CharmModule {
 
         // register the entity attributes
         MobHelper.setEntityAttributes(CORAL_SQUID, CoralSquidEntity.createSquidAttributes());
-    }
-
-    @Override
-    public void clientRegister() {
-        client = new CoralSquidsClient(this);
     }
 
     @Override

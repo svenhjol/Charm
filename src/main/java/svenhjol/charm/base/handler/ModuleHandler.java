@@ -1,14 +1,10 @@
 package svenhjol.charm.base.handler;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.StringHelper;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.event.ClientJoinCallback;
 import svenhjol.charm.event.LoadWorldCallback;
 import svenhjol.charm.event.StructureSetupCallback;
-import svenhjol.charm.handler.ColoredGlintHandler;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -34,13 +30,9 @@ public class ModuleHandler {
 
         // early init, always run, use for registering things
         eachModule(CharmModule::register);
-        if (isClient())
-            eachModule(CharmModule::clientRegister);
 
         // post init, only enabled modules are run
         eachEnabledModule(CharmModule::init);
-        if (isClient())
-            eachEnabledModule(CharmModule::clientInit);
 
         // allow modules to modify structures via an event
         StructureSetupCallback.EVENT.invoker().interact();
@@ -50,15 +42,6 @@ public class ModuleHandler {
             DecorationHandler.init(); // load late so that tags are populated at this point
             eachEnabledModule(m -> m.loadWorld(server));
         });
-
-        // client-only initializers and listeners
-        if (isClient()) {
-            ClientJoinCallback.EVENT.register(client -> {
-                ColoredGlintHandler.init(); // load late so that buffer builders are populated
-                DecorationHandler.init(); // load late so that tags are populated
-                eachEnabledModule(m -> m.clientJoinWorld(client));
-            });
-        }
 
         /** @deprecated listen for server setup events (dedicated server only) */
         //DedicatedServerSetupCallback.EVENT.register(server -> {
@@ -86,10 +69,6 @@ public class ModuleHandler {
         return module != null && module.enabled;
     }
 
-    public static boolean isClient() {
-        return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
-    }
-
     private static void instantiateModules() {
         AVAILABLE_MODULES.forEach((mod, modules) -> {
             Map<String, CharmModule> loaded = new TreeMap<>();
@@ -109,6 +88,7 @@ public class ModuleHandler {
                         module.enabledByDefault = annotation.enabledByDefault();
                         module.enabled = module.enabledByDefault;
                         module.description = annotation.description();
+                        module.client = annotation.client();
 
                         String moduleName = module.getName();
                         loaded.put(moduleName, module);

@@ -1,7 +1,5 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -24,7 +22,7 @@ import svenhjol.charm.entity.EndermitePowderEntity;
 import svenhjol.charm.event.EntityDropsCallback;
 import svenhjol.charm.item.EndermitePowderItem;
 
-@Module(mod = Charm.MOD_ID, description = "Endermites drop endermite powder that can be used to locate an End City.")
+@Module(mod = Charm.MOD_ID, client = EndermitePowderClient.class, description = "Endermites drop endermite powder that can be used to locate an End City.")
 public class EndermitePowder extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "endermite_powder");
     public static EntityType<EndermitePowderEntity> ENTITY;
@@ -45,12 +43,6 @@ public class EndermitePowder extends CharmModule {
             .trackingTickInterval(10)
             .setDimensions(2.0F, 2.0F)
             .build(ID.getPath()));
-    }
-
-    @Override
-    @Environment(EnvType.CLIENT)
-    public void clientRegister() {
-        new EndermitePowderClient(this);
     }
 
     @Override

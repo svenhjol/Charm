@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.2
+
+
 ## 2.1.1
 * Fix Coral Squid hitboxes. #351, #361
 * Fix Candles not making sound when lighting

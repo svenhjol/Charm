@@ -21,7 +21,7 @@ public class MusicTrackerMixin {
         cancellable = true
     )
     private void hookTick(CallbackInfo ci) {
-        if (MusicClient.enabled && MusicClient.handleTick(this.current))
+        if (MusicClient.isEnabled && MusicClient.handleTick(this.current))
             ci.cancel();
     }
 
@@ -31,7 +31,7 @@ public class MusicTrackerMixin {
         cancellable = true
     )
     private void hookStop(CallbackInfo ci) {
-        if (MusicClient.enabled && MusicClient.handleStop())
+        if (MusicClient.isEnabled && MusicClient.handleStop())
             ci.cancel();
     }
 
@@ -41,7 +41,7 @@ public class MusicTrackerMixin {
         cancellable = true
     )
     private void hookIsPlayingType(MusicSound music, CallbackInfoReturnable<Boolean> cir) {
-        if (MusicClient.enabled && MusicClient.handlePlaying(music))
+        if (MusicClient.isEnabled && MusicClient.handlePlaying(music))
             cir.setReturnValue(true);
     }
 }
