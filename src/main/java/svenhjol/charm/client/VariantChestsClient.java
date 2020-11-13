@@ -1,7 +1,5 @@
 package svenhjol.charm.client;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
@@ -22,7 +20,6 @@ import svenhjol.charm.render.VariantChestBlockEntityRenderer;
 
 import java.util.Set;
 
-@Environment(EnvType.CLIENT)
 public class VariantChestsClient extends CharmClientModule {
     private final VariantChestBlockEntity CACHED_NORMAL_CHEST = new VariantChestBlockEntity();
     private final VariantTrappedChestBlockEntity CACHED_TRAPPED_CHEST = new VariantTrappedChestBlockEntity();
