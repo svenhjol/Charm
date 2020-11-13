@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import org.lwjgl.glfw.GLFW;
+import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.event.GuiSetupCallback;
 import svenhjol.charm.event.RenderGuiCallback;
@@ -27,11 +28,16 @@ import svenhjol.charm.base.helper.ScreenHelper;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class PortableEnderChestClient {
+public class PortableEnderChestClient extends CharmClientModule {
     public TexturedButtonWidget chestButton;
     public static KeyBinding keyBinding;
 
     public PortableEnderChestClient(CharmModule module) {
+        super(module);
+    }
+
+    @Override
+    public void register() {
         // set up client listeners
         GuiSetupCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
@@ -44,8 +50,10 @@ public class PortableEnderChestClient {
                 "key.categories.inventory"
             ));
 
-            ClientTickEvents.END_WORLD_TICK.register(client -> {
-                if (keyBinding == null) return;
+            ClientTickEvents.END_WORLD_TICK.register(world -> {
+                if (keyBinding == null || world == null)
+                    return;
+
                 while (keyBinding.wasPressed()) {
                     triggerOpenChest();
                 }

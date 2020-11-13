@@ -7,17 +7,16 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.handler.ClientRegistryHandler;
 import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.DecorationHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.KilnBlock;
 import svenhjol.charm.blockentity.KilnBlockEntity;
-import svenhjol.charm.gui.KilnScreen;
+import svenhjol.charm.client.KilnsClient;
 import svenhjol.charm.recipe.FiringRecipe;
 import svenhjol.charm.screenhandler.KilnScreenHandler;
 
-@Module(mod = Charm.MOD_ID, description = "A functional block that speeds up cooking of clay, bricks and terracotta.")
+@Module(mod = Charm.MOD_ID, client = KilnsClient.class, description = "A functional block that speeds up cooking of clay, bricks and terracotta.")
 public class Kilns extends CharmModule {
     public static Identifier RECIPE_ID = new Identifier("firing");
     public static Identifier BLOCK_ID = new Identifier(Charm.MOD_ID, "kiln");
@@ -34,11 +33,6 @@ public class Kilns extends CharmModule {
         RECIPE_SERIALIZER = RegistryHandler.recipeSerializer(RECIPE_ID.toString(), new CookingRecipeSerializer<>(FiringRecipe::new, 100));
         BLOCK_ENTITY = RegistryHandler.blockEntity(BLOCK_ID, KilnBlockEntity::new, KILN);
         SCREEN_HANDLER = RegistryHandler.screenHandler(BLOCK_ID, KilnScreenHandler::new);
-    }
-
-    @Override
-    public void clientInit() {
-        ClientRegistryHandler.screenHandler(SCREEN_HANDLER, KilnScreen::new);
     }
 
     @Override

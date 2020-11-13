@@ -15,12 +15,11 @@ import svenhjol.charm.base.iface.Module;
 
 import java.util.List;
 
-import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
 import static svenhjol.charm.handler.InventoryTidyingHandler.BE;
+import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
 
-@Module(mod = Charm.MOD_ID, description = "Button to automatically tidy inventories.")
+@Module(mod = Charm.MOD_ID, client = InventoryTidyingClient.class, description = "Button to automatically tidy inventories.")
 public class InventoryTidying extends CharmModule {
-    public static InventoryTidyingClient client;
     public static final Identifier MSG_SERVER_TIDY_INVENTORY = new Identifier(Charm.MOD_ID, "server_tidy_inventory");
 
     @Override
@@ -39,11 +38,6 @@ public class InventoryTidying extends CharmModule {
         });
 
         InventoryTidyingHandler.init();
-    }
-
-    @Override
-    public void clientInit() {
-        client = new InventoryTidyingClient(this);
     }
 
     public static void serverCallback(ServerPlayerEntity player, int type) {

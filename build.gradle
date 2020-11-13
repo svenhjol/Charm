@@ -31,11 +31,11 @@ dependencies {
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
 	modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
 
-	implementation "com.moandjiezana.toml:toml4j:0.7.2"
+	implementation "com.moandjiezana.toml:toml4j:${project.toml4j_version}"
 	implementation "com.electronwill.night-config:core:${project.tomlnc_version}"
 	implementation "com.electronwill.night-config:toml:${project.tomlnc_version}"
 
-	include "com.moandjiezana.toml:toml4j:0.7.2"
+	include "com.moandjiezana.toml:toml4j:${project.toml4j_version}"
 	include "com.electronwill.night-config:core:${project.tomlnc_version}"
 	include "com.electronwill.night-config:toml:${project.tomlnc_version}"
 }

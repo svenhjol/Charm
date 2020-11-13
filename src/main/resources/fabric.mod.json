@@ -23,6 +23,9 @@
     "main": [
       "svenhjol.charm.Charm"
     ],
+    "client": [
+      "svenhjol.charm.CharmClient"
+    ],
     "rei_plugins": [
       "svenhjol.charm.base.integration.CharmReiPlugin"
     ]

@@ -1,6 +1,5 @@
 package svenhjol.charm.base;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 
@@ -13,7 +12,7 @@ public abstract class CharmModule {
     public boolean alwaysEnabled = false;
     public String description = "";
     public String mod = "";
-    public String category = "";
+    public Class<? extends CharmClientModule> client = null;
 
     public boolean depends() {
         return true;
@@ -28,30 +27,14 @@ public abstract class CharmModule {
     }
 
     public void register() {
-        // run on both sides, even if not enabled (enabled flag is available)
-    }
-
-    public void clientRegister() {
-        // run on client, even if not enabled (enabled flag is available)
+        // run on both sides, even if module disabled (this.enabled is available)
     }
 
     public void init() {
-        // run on both sides, only executed if module enabled
-    }
-
-    public void clientInit() {
-        // run on client, only executed if module enabled
+        // run on both sides, only if module enabled
     }
 
     public void loadWorld(MinecraftServer server) {
-        // run on server on world load, only executed if module enabled
-    }
-
-    public void clientJoinWorld(MinecraftClient client) {
-        // run on client on world load, only executed if module enabled
-    }
-
-    public void serverInit(MinecraftServer server) {
-        // run only on the dedicated server world load, only executed if module enabled
+        // run on integrated server, only if module enabled
     }
 }

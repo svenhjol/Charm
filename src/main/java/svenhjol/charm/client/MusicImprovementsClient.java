@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -24,7 +25,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import svenhjol.charm.Charm;
+import svenhjol.charm.CharmClient;
+import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.DimensionHelper;
 import svenhjol.charm.base.helper.SoundHelper;
@@ -34,23 +36,26 @@ import svenhjol.charm.module.MusicImprovements;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
-public class MusicClient {
-    private final CharmModule module;
+public class MusicImprovementsClient extends CharmClientModule {
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;
     private static SoundInstance currentMusic;
     private static Identifier currentDim = null;
     private static int timeUntilNextMusic = 100;
     private static final List<MusicCondition> musicConditions = new ArrayList<>();
-    public static boolean enabled;
+    public static boolean isEnabled;
 
-    public MusicClient(CharmModule module) {
-        this.module = module;
+    public MusicImprovementsClient(CharmModule module) {
+        super(module);
+    }
 
+    @Override
+    public void register() {
         // set statically so hooks can check this is enabled
-        enabled = module.enabled;
+        isEnabled = module.enabled;
 
         if (MusicImprovements.playCreativeMusic)
             addCreativeMusicCondition();
@@ -99,7 +104,7 @@ public class MusicClient {
             SoundHelper.getPlayingSounds().forEach((category, s) -> {
                 if (category == SoundCategory.RECORDS) {
                     musicToStop = sound;
-                    Charm.LOG.debug("Triggered background music while record playing");
+                    CharmClient.LOG.debug("Triggered background music while record playing");
                 }
             });
         }
@@ -185,5 +190,42 @@ public class MusicClient {
 
     public static List<MusicCondition> getMusicConditions() {
         return musicConditions;
+    }
+
+    public static class MusicCondition {
+        private final SoundEvent sound;
+        private final int minDelay;
+        private final int maxDelay;
+        private Predicate<MinecraftClient> condition;
+
+        public MusicCondition(SoundEvent sound, int minDelay, int maxDelay, Predicate<MinecraftClient> condition) {
+            this.sound = sound;
+            this.minDelay = minDelay;
+            this.maxDelay = maxDelay;
+            this.condition = condition;
+        }
+
+        public MusicCondition(MusicSound music) {
+            this.sound = music.getSound();
+            this.minDelay = music.getMinDelay();
+            this.maxDelay = music.getMaxDelay();
+        }
+
+        public boolean handle() {
+            if (condition == null) return false;
+            return condition.test(MinecraftClient.getInstance());
+        }
+
+        public SoundEvent getSound() {
+            return sound;
+        }
+
+        public int getMaxDelay() {
+            return maxDelay;
+        }
+
+        public int getMinDelay() {
+            return minDelay;
+        }
     }
 }

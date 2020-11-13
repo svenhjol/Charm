@@ -4,7 +4,7 @@ import net.minecraft.class_5617;
 import net.minecraft.client.render.entity.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.Identifier;
-import svenhjol.charm.module.VariantMobTextures;
+import svenhjol.charm.client.VariantMobTexturesClient;
 
 public class VariantMobRenderer {
     public static class Chicken extends ChickenEntityRenderer {
@@ -14,7 +14,7 @@ public class VariantMobRenderer {
 
         @Override
         public Identifier getTexture(ChickenEntity entity) {
-            return VariantMobTextures.getChickenTexture(entity);
+            return VariantMobTexturesClient.getChickenTexture(entity);
         }
     }
 
@@ -25,7 +25,7 @@ public class VariantMobRenderer {
 
         @Override
         public Identifier getTexture(CowEntity entity) {
-            return VariantMobTextures.getCowTexture(entity);
+            return VariantMobTexturesClient.getCowTexture(entity);
         }
     }
 
@@ -36,7 +36,7 @@ public class VariantMobRenderer {
 
         @Override
         public Identifier getTexture(PigEntity entity) {
-            return VariantMobTextures.getPigTexture(entity);
+            return VariantMobTexturesClient.getPigTexture(entity);
         }
     }
 
@@ -47,7 +47,7 @@ public class VariantMobRenderer {
 
         @Override
         public Identifier getTexture(SheepEntity entity) {
-            return VariantMobTextures.getSheepTexture(entity);
+            return VariantMobTexturesClient.getSheepTexture(entity);
         }
     }
 
@@ -58,7 +58,7 @@ public class VariantMobRenderer {
 
         @Override
         public Identifier getTexture(SnowGolemEntity entity) {
-            return VariantMobTextures.getSnowGolemTexture(entity);
+            return VariantMobTexturesClient.getSnowGolemTexture(entity);
         }
     }
 
@@ -69,7 +69,7 @@ public class VariantMobRenderer {
 
         @Override
         public Identifier getTexture(SquidEntity entity) {
-            return VariantMobTextures.getSquidTexture(entity);
+            return VariantMobTexturesClient.getSquidTexture(entity);
         }
     }
 
@@ -80,7 +80,7 @@ public class VariantMobRenderer {
 
         @Override
         public Identifier getTexture(WolfEntity entity) {
-            return VariantMobTextures.getWolfTexture(entity);
+            return VariantMobTexturesClient.getWolfTexture(entity);
         }
     }
 }

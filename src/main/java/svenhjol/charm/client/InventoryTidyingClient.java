@@ -12,6 +12,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
@@ -29,9 +30,7 @@ import java.util.function.Consumer;
 import static svenhjol.charm.handler.InventoryTidyingHandler.BE;
 import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
 
-public class InventoryTidyingClient {
-    private final CharmModule module;
-
+public class InventoryTidyingClient extends CharmClientModule {
     public static final int LEFT = 159;
     public static final int TOP = 12;
     public static final List<TexturedButtonWidget> sortingButtons = new ArrayList<>();
@@ -42,8 +41,11 @@ public class InventoryTidyingClient {
     public final Map<Class<? extends Screen>, Map<Integer, Integer>> screenTweaks = new HashMap<>();
 
     public InventoryTidyingClient(CharmModule module) {
-        this.module = module;
+        super(module);
+    }
 
+    @Override
+    public void register() {
         if (!module.enabled)
             return;
 

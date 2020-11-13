@@ -13,6 +13,7 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.base.helper.ItemNBTHelper;
@@ -21,8 +22,13 @@ import svenhjol.charm.handler.TooltipInventoryHandler;
 
 import java.util.List;
 
-public class ShulkerBoxTooltipsClient {
+public class ShulkerBoxTooltipsClient extends CharmClientModule {
     public ShulkerBoxTooltipsClient(CharmModule module) {
+        super(module);
+    }
+
+    @Override
+    public void register() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
