@@ -6,8 +6,8 @@ import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.module.EntitySpawner;
 
-public class EntitySpawnerClient extends CharmClientModule {
-    public EntitySpawnerClient(CharmModule module) {
+public class EntitySpawnersClient extends CharmClientModule {
+    public EntitySpawnersClient(CharmModule module) {
         super(module);
     }
 

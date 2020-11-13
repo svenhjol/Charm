@@ -25,7 +25,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import svenhjol.charm.Charm;
+import svenhjol.charm.CharmClient;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.DimensionHelper;
@@ -39,7 +39,7 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
-public class MusicClient extends CharmClientModule {
+public class MusicImprovementsClient extends CharmClientModule {
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;
     private static SoundInstance currentMusic;
@@ -48,9 +48,12 @@ public class MusicClient extends CharmClientModule {
     private static final List<MusicCondition> musicConditions = new ArrayList<>();
     public static boolean isEnabled;
 
-    public MusicClient(CharmModule module) {
+    public MusicImprovementsClient(CharmModule module) {
         super(module);
+    }
 
+    @Override
+    public void register() {
         // set statically so hooks can check this is enabled
         isEnabled = module.enabled;
 
@@ -101,7 +104,7 @@ public class MusicClient extends CharmClientModule {
             SoundHelper.getPlayingSounds().forEach((category, s) -> {
                 if (category == SoundCategory.RECORDS) {
                     musicToStop = sound;
-                    Charm.LOG.debug("Triggered background music while record playing");
+                    CharmClient.LOG.debug("Triggered background music while record playing");
                 }
             });
         }

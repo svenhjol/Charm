@@ -20,6 +20,7 @@ public class ClientHandler {
         if (hasInit)
             return;
 
+        // create all charm-based client modules
         instantiateModules();
 
         // early init, always run, use for registering things
@@ -39,7 +40,6 @@ public class ClientHandler {
 
     private static void instantiateModules() {
         ModuleHandler.LOADED_MODULES.forEach((modId, module) -> {
-
             CharmClientModule client;
 
             Class<? extends CharmClientModule> clazz = module.client;

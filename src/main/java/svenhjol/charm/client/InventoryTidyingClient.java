@@ -41,7 +41,10 @@ public class InventoryTidyingClient extends CharmClientModule {
 
     public InventoryTidyingClient(CharmModule module) {
         super(module);
+    }
 
+    @Override
+    public void register() {
         if (!module.enabled)
             return;
 

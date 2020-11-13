@@ -20,7 +20,6 @@ import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
 public class PortableCrafting extends CharmModule {
     private static final Text LABEL = new TranslatableText("container.charm.portable_crafting_table");
     public static final Identifier MSG_SERVER_OPEN_CRAFTING = new Identifier(Charm.MOD_ID, "server_open_crafting");
-    public static PortableCraftingClient client;
 
     @Config(name = "Enable keybind", description = "If true, sets a keybind for opening the portable crafting table (defaults to 'c').")
     public static boolean enableKeybind = true;

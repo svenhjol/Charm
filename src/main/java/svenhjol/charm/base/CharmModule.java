@@ -12,7 +12,7 @@ public abstract class CharmModule {
     public boolean alwaysEnabled = false;
     public String description = "";
     public String mod = "";
-    public Class<? extends CharmClientModule> client;
+    public Class<? extends CharmClientModule> client = null;
 
     public boolean depends() {
         return true;
@@ -27,7 +27,7 @@ public abstract class CharmModule {
     }
 
     public void register() {
-        // run on both sides, even if module disabled
+        // run on both sides, even if module disabled (this.enabled is available)
     }
 
     public void init() {

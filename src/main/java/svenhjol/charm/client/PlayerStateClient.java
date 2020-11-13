@@ -9,6 +9,7 @@ import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
+import svenhjol.charm.CharmClient;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.event.PlayerTickCallback;
@@ -48,7 +49,7 @@ public class PlayerStateClient extends CharmClientModule {
                 byte[] byteData = Base64.getDecoder().decode(data.readString());
                 tag = NbtIo.readCompressed(new ByteArrayInputStream(byteData));
             } catch (IOException e) {
-                Charm.LOG.warn("Failed to decompress player state");
+                CharmClient.LOG.warn("Failed to decompress player state");
             }
 
             CompoundTag finalTag = tag;
