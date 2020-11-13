@@ -55,5 +55,4 @@ public class Lumberjacks extends CharmModule {
             addVillageHouse(VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_lumberjack_1"), 5);
         });
     }
-
 }

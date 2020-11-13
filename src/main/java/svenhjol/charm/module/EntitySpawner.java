@@ -1,8 +1,6 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
@@ -11,8 +9,9 @@ import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.EntitySpawnerBlock;
 import svenhjol.charm.blockentity.EntitySpawnerBlockEntity;
+import svenhjol.charm.client.EntitySpawnerClient;
 
-@Module(mod = Charm.MOD_ID, description = "Spawns entities when a player is within range.", alwaysEnabled = true)
+@Module(mod = Charm.MOD_ID, client = EntitySpawnerClient.class, description = "Spawns entities when a player is within range.", alwaysEnabled = true)
 public class EntitySpawner extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "entity_spawner");
     public static EntitySpawnerBlock ENTITY_SPAWNER;
@@ -25,10 +24,5 @@ public class EntitySpawner extends CharmModule {
     public void register() {
         ENTITY_SPAWNER = new EntitySpawnerBlock(this);
         BLOCK_ENTITY = RegistryHandler.blockEntity(ID, EntitySpawnerBlockEntity::new, ENTITY_SPAWNER);
-    }
-
-    @Override
-    public void clientInit() {
-        BlockRenderLayerMap.INSTANCE.putBlock(ENTITY_SPAWNER, RenderLayer.getCutout());
     }
 }

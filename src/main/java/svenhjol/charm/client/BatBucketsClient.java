@@ -8,24 +8,34 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
-import svenhjol.charm.module.BatBuckets;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class BatBucketsClient {
-    protected final CharmModule module;
-    public int ticks;
-    public double range;
+public class BatBucketsClient extends CharmClientModule {
+    public static final Identifier MSG_CLIENT_SET_GLOWING = new Identifier(Charm.MOD_ID, "client_set_glowing");
     public static List<LivingEntity> entities = new ArrayList<>();
 
-    public BatBucketsClient(CharmModule module) {
-        this.module = module;
+    public int ticks;
+    public double range;
 
-        ClientSidePacketRegistry.INSTANCE.register(BatBuckets.MSG_CLIENT_SET_GLOWING, this::handleMessageClientSetGlowing);
+    public BatBucketsClient(CharmModule module) {
+        super(module);
+    }
+
+    @Override
+    public void register() {
+        ClientSidePacketRegistry.INSTANCE.register(MSG_CLIENT_SET_GLOWING, this::handleMessageClientSetGlowing);
+    }
+
+    @Override
+    public void init() {
         ClientTickEvents.START_CLIENT_TICK.register(this::handleClientTick);
     }
 

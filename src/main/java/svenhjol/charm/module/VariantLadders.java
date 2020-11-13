@@ -1,10 +1,8 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LadderBlock;
 import net.minecraft.block.TrapdoorBlock;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -14,13 +12,14 @@ import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.VariantLadderBlock;
+import svenhjol.charm.client.VariantLaddersClient;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, description = "Ladders available in all types of vanilla wood.")
+@Module(mod = Charm.MOD_ID, client = VariantLaddersClient.class, description = "Ladders available in all types of vanilla wood.")
 public class VariantLadders extends CharmModule {
     public static final Map<IVariantMaterial, VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
 
@@ -33,13 +32,6 @@ public class VariantLadders extends CharmModule {
         });
 
         isEnabled = this.enabled;
-    }
-
-    @Override
-    public void clientInit() {
-        LADDER_BLOCKS.values().forEach(ladder -> {
-            BlockRenderLayerMap.INSTANCE.putBlock(ladder, RenderLayer.getCutout());
-        });
     }
 
     public static boolean canEnterTrapdoor(World world, BlockPos pos, BlockState state) {

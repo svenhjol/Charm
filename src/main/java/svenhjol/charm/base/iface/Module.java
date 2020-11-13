@@ -1,6 +1,6 @@
 package svenhjol.charm.base.iface;
 
-import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmClientModule;
 
 import java.lang.annotation.*;
 
@@ -16,5 +16,5 @@ public @interface Module {
 
     String mod() default "";
 
-    Class<?> client() default Charm.class;
+    Class<? extends CharmClientModule> client() default CharmClientModule.class;
 }

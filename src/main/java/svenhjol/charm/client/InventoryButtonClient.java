@@ -6,21 +6,32 @@ import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
+import svenhjol.charm.base.CharmClientModule;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.ClientHandler;
 import svenhjol.charm.base.helper.ScreenHelper;
 import svenhjol.charm.event.GuiSetupCallback;
 import svenhjol.charm.event.RenderGuiCallback;
-import svenhjol.charm.module.PortableCrafting;
-import svenhjol.charm.module.PortableEnderChest;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-public class InventoryButtonClient {
+public class InventoryButtonClient extends CharmClientModule {
     public TexturedButtonWidget recipeButton;
+    public PortableCraftingClient portableCraftingClient;
+    public PortableEnderChestClient portableEnderChestClient;
 
-    public InventoryButtonClient() {
+    public InventoryButtonClient(CharmModule module) {
+        super(module);
+    }
+
+    @Override
+    public void register() {
         GuiSetupCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
+
+        portableCraftingClient = (PortableCraftingClient)ClientHandler.getModule("charm:portable_crafting");
+        portableEnderChestClient = (PortableEnderChestClient)ClientHandler.getModule("charm:portable_ender_chest");
     }
 
     private void handleGuiSetup(MinecraftClient client, int width, int height, List<AbstractButtonWidget> buttons, Consumer<AbstractButtonWidget> addButton) {
@@ -47,26 +58,26 @@ public class InventoryButtonClient {
         int y = screen.height / 2 - 22;
         int left = ScreenHelper.getX(screen);
 
-        if (PortableCrafting.client != null && PortableCrafting.client.isButtonVisible()) {
-            if (PortableEnderChest.client.isButtonVisible()) {
+        if (portableCraftingClient != null && portableCraftingClient.isButtonVisible()) {
+            if (portableEnderChestClient.isButtonVisible()) {
                 // recipe, crafting and chest buttons
                 if (this.recipeButton != null)
                     this.recipeButton.visible = false;
-                PortableCrafting.client.craftingButton.setPos(left + 104, y);
-                PortableEnderChest.client.chestButton.setPos(left + 130, y);
+                portableCraftingClient.craftingButton.setPos(left + 104, y);
+                portableEnderChestClient.chestButton.setPos(left + 130, y);
 
             } else {
                 // just the recipe and crafting buttons
                 if (this.recipeButton != null)
                     this.recipeButton.visible = true;
-                PortableCrafting.client.craftingButton.setPos(left + 130, y);
+                portableCraftingClient.craftingButton.setPos(left + 130, y);
 
             }
-        } else if (PortableEnderChest.client != null && PortableEnderChest.client.isButtonVisible()) {
+        } else if (portableEnderChestClient != null && portableEnderChestClient.isButtonVisible()) {
             // just the recipe and chest buttons
             if (this.recipeButton != null)
                 this.recipeButton.visible = true;
-            PortableEnderChest.client.chestButton.setPos(left + 130, y);
+            portableEnderChestClient.chestButton.setPos(left + 130, y);
         }
     }
 }

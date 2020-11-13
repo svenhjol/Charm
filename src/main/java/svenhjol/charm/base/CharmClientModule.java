@@ -3,10 +3,12 @@ package svenhjol.charm.base;
 import net.minecraft.client.MinecraftClient;
 
 public abstract class CharmClientModule {
-    private CharmModule module;
+    protected CharmModule module;
+    public boolean enabled;
 
     public CharmClientModule(CharmModule module) {
         this.module = module;
+        this.enabled = module.enabled;
     }
 
     public String getName() {

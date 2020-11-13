@@ -10,13 +10,13 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
-import svenhjol.charm.client.PortableCraftingClient;
-import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.client.PortableCraftingClient;
+import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
 
-@Module(mod = Charm.MOD_ID, description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
+@Module(mod = Charm.MOD_ID, client = PortableCraftingClient.class, description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
 public class PortableCrafting extends CharmModule {
     private static final Text LABEL = new TranslatableText("container.charm.portable_crafting_table");
     public static final Identifier MSG_SERVER_OPEN_CRAFTING = new Identifier(Charm.MOD_ID, "server_open_crafting");
@@ -37,11 +37,6 @@ public class PortableCrafting extends CharmModule {
                 PortableCrafting.openContainer(player);
             });
         });
-    }
-
-    @Override
-    public void clientInit() {
-        client = new PortableCraftingClient(this);
     }
 
     public static void openContainer(ServerPlayerEntity player) {
