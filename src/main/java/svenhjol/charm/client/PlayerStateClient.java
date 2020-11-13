@@ -29,8 +29,11 @@ public class PlayerStateClient extends CharmClientModule {
     public boolean village = false;
     public boolean isDaytime = true;
 
+    public static PlayerStateClient INSTANCE;
+
     public PlayerStateClient(CharmModule module) {
         super(module);
+        INSTANCE = this;
     }
 
     @Override
