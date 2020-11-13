@@ -49,8 +49,10 @@ public class PortableCraftingClient extends CharmClientModule {
                 "key.categories.inventory"
             ));
 
-            ClientTickEvents.END_WORLD_TICK.register(client -> {
-                if (keyBinding == null) return;
+            ClientTickEvents.END_WORLD_TICK.register(world -> {
+                if (keyBinding == null || world == null)
+                    return;
+
                 while (keyBinding.wasPressed()) {
                     triggerOpenCraftingTable();
                 }
