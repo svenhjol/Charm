@@ -41,6 +41,7 @@
     "accessor.GenerationSettingsAccessor",
     "accessor.GoalSelectorAccessor",
     "accessor.ItemAccessor",
+    "accessor.ItemEntityAccessor",
     "accessor.MinecraftServerAccessor",
     "accessor.MineshaftGeneratorAccessor",
     "accessor.MobEntityAccessor",
