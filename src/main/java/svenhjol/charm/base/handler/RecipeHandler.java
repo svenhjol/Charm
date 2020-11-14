@@ -15,28 +15,25 @@ public class RecipeHandler {
     public static void filter(Map<Identifier, JsonElement> recipes) {
         Map<String, CharmModule> loadedModules = ModuleHandler.getLoadedModules();
 
-        for (String modId : loadedModules.keySet()) {
+        // remove recipes specified by enabled modules
+        loadedModules.values().stream().filter(m -> m.enabled && !m.getRecipesToRemove().isEmpty()).forEach(m -> {
+            m.getRecipesToRemove().forEach(recipes::remove);
+        });
 
-            // remove recipes specified by enabled modules
-            loadedModules.values().stream().filter(m -> m.enabled && !m.getRecipesToRemove().isEmpty()).forEach(m -> {
-                m.getRecipesToRemove().forEach(recipes::remove);
-            });
+        // fetch all modded recipes
+        List<Identifier> moddedRecipes = recipes.keySet().stream().filter(r -> !r.getNamespace().equals("minecraft")).collect(Collectors.toList());
 
-            // fetch all the recipes that match the mod's ID
-            List<Identifier> modRecipes = recipes.keySet().stream().filter(r -> r.getNamespace().equals(modId)).collect(Collectors.toList());
+        moddedRecipes.forEach(recipeId -> {
+            String path = recipeId.getPath();
+            if (!path.contains("/"))
+                return;
 
-            modRecipes.forEach(recipeId -> {
-                String path = recipeId.getPath();
-                if (!path.contains("/"))
-                    return;
+            String moduleId = StringHelper.snakeToUpperCamel(path.split("/")[0]);
 
-                String moduleId = StringHelper.snakeToUpperCamel(path.split("/")[0]);
-
-                // remove recipes for disabled modules
-                if (loadedModules.containsKey(moduleId) && !loadedModules.get(moduleId).enabled)
-                    recipes.remove(recipeId);
-            });
-        }
+            // remove recipes for disabled modules
+            if (loadedModules.containsKey(moduleId) && !loadedModules.get(moduleId).enabled)
+                recipes.remove(recipeId);
+        });
     }
 
     public static Iterator<Map.Entry<Identifier, JsonElement>> sortedRecipes(Map<Identifier, JsonElement> recipes) {
