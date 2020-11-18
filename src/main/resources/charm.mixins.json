@@ -66,6 +66,7 @@
     "ElytraFeatureRendererMixin",
     "EnchantingTableBlockMixin",
     "EnchantmentScreenHandlerMixin",
+    "GrindstoneScreenMixin",
     "HandledScreenMixin",
     "ItemRendererMixin",
     "MinecraftClientMixin",
