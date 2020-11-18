@@ -9,10 +9,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.screen.AnvilScreenHandler;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
@@ -86,5 +88,15 @@ public class ExtractEnchantments extends CharmModule {
 
         apply.accept(out, cost, 1);
         return ActionResult.SUCCESS;
+    }
+
+    public static Slot getGrindstoneSlot(int index, Inventory inventory) {
+        return new Slot(inventory, index, 49, 19 + (index * 21)) {
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                boolean valid = stack.isDamageable() || stack.getItem() == Items.ENCHANTED_BOOK || stack.hasEnchantments();
+                return ModuleHandler.enabled("charm:extract_enchantments") ? valid || stack.getItem() == Items.BOOK : valid;
+            }
+        };
     }
 }
