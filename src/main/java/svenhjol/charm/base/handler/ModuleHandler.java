@@ -7,15 +7,13 @@ import svenhjol.charm.event.LoadWorldCallback;
 import svenhjol.charm.event.StructureSetupCallback;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class ModuleHandler {
     public static Map<String, List<Class<? extends CharmModule>>> AVAILABLE_MODULES = new HashMap<>();
     public static Map<String, CharmModule> LOADED_MODULES = new TreeMap<>();
+    private static List<Class<? extends CharmModule>> ENABLED_MODULES = new ArrayList<>(); // this is a cache of enabled classes
 
     private static boolean hasInit = false;
 
@@ -32,7 +30,11 @@ public class ModuleHandler {
         eachModule(CharmModule::register);
 
         // post init, only enabled modules are run
-        eachEnabledModule(CharmModule::init);
+        eachEnabledModule(module -> {
+            // this is a cache for quick lookup of enabled classes
+            ENABLED_MODULES.add(module.getClass());
+            module.init();
+        });
 
         // allow modules to modify structures via an event
         StructureSetupCallback.EVENT.invoker().interact();
@@ -60,6 +62,20 @@ public class ModuleHandler {
         return LOADED_MODULES;
     }
 
+    /**
+     * Use this within static hook methods for quick check if a module is enabled.
+     * @param clazz Module to check
+     * @return True if the module is enabled
+     */
+    public static boolean enabled(Class<? extends CharmModule> clazz) {
+        return ENABLED_MODULES.contains(clazz);
+    }
+
+    /**
+     * Use this anywhere to check a module's enabled status for any Charm-based (or Quark) module.
+     * @param moduleName Name (modid:module_name) of module to check
+     * @return True if the module is enabled
+     */
     public static boolean enabled(String moduleName) {
         String[] split = moduleName.split(":");
         String modName = split[0]; // TODO: check module is running
