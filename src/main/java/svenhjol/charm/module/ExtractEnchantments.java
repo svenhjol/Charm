@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.ExtractEnchantmentsClient;
@@ -29,6 +30,11 @@ public class ExtractEnchantments extends CharmModule {
 
     @Config(name = "Treasure XP cost", description = "If the enchantment is a treasure enchantment, such as Mending, this cost will be added.")
     public static int treasureCost = 15;
+
+    @Override
+    public boolean depends() {
+        return !ModHelper.isLoaded("grindenchantments");
+    }
 
     public static Slot getGrindstoneInputSlot(int index, Inventory inputs) {
         return new Slot(inputs, index, 49, 19 + (index * 21)) {
