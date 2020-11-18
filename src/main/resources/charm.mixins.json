@@ -12,6 +12,7 @@
     "ChickenEntityMixin",
     "ChorusFruitItemMixin",
     "ClientPlayNetworkHandlerMixin",
+    "DefaultResourcePackMixin",
     "FarmlandBlockMixin",
     "GrindstoneScreenHandlerMixin",
     "HuskEntityMixin",
