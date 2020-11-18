@@ -3,6 +3,7 @@
 ## 2.1.2
 * Fix dropped netherite-based items cause crash on dedicated server
 * Fix disabled modules do not disable recipes after change to toml config
+* Enchantments are now extracted by the grindstone (Credit to [martenschaefer](https://github.com/mschae23/grind-enchantments))
 
 ## 2.1.1
 * Fix Coral Squid hitboxes. #351, #361
