@@ -13,6 +13,7 @@ import java.util.Arrays;
 
 public class Charm implements ModInitializer {
     public static final String MOD_ID = "charm";
+    public static final boolean EXPERIMENTAL = true;
     public static LogHandler LOG = new LogHandler("Charm");
 
     @Override
@@ -43,7 +44,6 @@ public class Charm implements ModInitializer {
             ExtendNetherite.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
-            GlintBooks.class,
             Glowballs.class,
             GoldBars.class,
             GoldChains.class,
@@ -85,6 +85,12 @@ public class Charm implements ModInitializer {
             WitchesDropLuck.class,
             Woodcutters.class
         )));
+
+        if (EXPERIMENTAL) {
+            ModuleHandler.AVAILABLE_MODULES.get(Charm.MOD_ID).add(
+                GlintBooks.class
+            );
+        }
 
         CharmStructures.init();
         CharmSounds.init();
