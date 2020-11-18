@@ -95,7 +95,7 @@ public class ExtractEnchantments extends CharmModule {
             @Override
             public boolean canInsert(ItemStack stack) {
                 boolean valid = stack.isDamageable() || stack.getItem() == Items.ENCHANTED_BOOK || stack.hasEnchantments();
-                return ModuleHandler.enabled("charm:extract_enchantments") ? valid || stack.getItem() == Items.BOOK : valid;
+                return ModuleHandler.enabled(ExtractEnchantments.class) ? valid || stack.getItem() == Items.BOOK : valid;
             }
         };
     }
