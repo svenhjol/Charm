@@ -65,7 +65,7 @@ public class GlowballEntity extends ThrownItemEntity {
         BlockState state = world.getBlockState(pos);
         BlockPos offsetPos = pos.offset(side);
 
-        if (state.isSideSolidFullSquare(world, pos, side) && (world.isAir(offsetPos) || world.isWater(offsetPos))) {
+        if (state.isSideSolidFullSquare(world, pos, side) && (world.isAir(offsetPos) || world.getBlockState(offsetPos).isOf(Blocks.WATER))) {
             BlockState placedState = Glowballs.GLOWBALL_BLOCK.getDefaultState()
                 .with(GlowballBlobBlock.FACING, side);
 
