@@ -40,7 +40,7 @@ public class WorldRendererMixin {
         )
     )
     private void hookRenderWeatherTexture(TextureManager textureManager, Identifier id) {
-        float h = world.getRainGradient(this.gradient);
+        float h = world.getThunderGradient(this.gradient);
         if (h > 0.0F && ModuleHandler.enabled("charm:snow_storms")) {
             textureManager.bindTexture(SnowStorms.HEAVY_SNOW);
         } else {
