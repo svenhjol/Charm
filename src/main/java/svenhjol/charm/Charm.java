@@ -74,6 +74,7 @@ public class Charm implements ModInitializer {
             StackablePotions.class,
             StrayImprovements.class,
             TamedAnimalsNoDamage.class,
+            Tinted.class,
             UseTotemFromInventory.class,
             VariantBarrels.class,
             VariantBookshelves.class,
@@ -85,12 +86,6 @@ public class Charm implements ModInitializer {
             WitchesDropLuck.class,
             Woodcutters.class
         )));
-
-        if (EXPERIMENTAL) {
-            ModuleHandler.AVAILABLE_MODULES.get(Charm.MOD_ID).add(
-                GlintBooks.class
-            );
-        }
 
         CharmStructures.init();
         CharmSounds.init();
