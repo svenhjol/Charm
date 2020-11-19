@@ -9,10 +9,10 @@ import svenhjol.charm.module.Kilns;
 
 public class KilnScreenHandler extends AbstractFurnaceScreenHandler {
     public KilnScreenHandler(int syncId, PlayerInventory playerInventory) {
-        super(Kilns.SCREEN_HANDLER, Kilns.RECIPE_TYPE, RecipeBookCategory.SMOKER, syncId, playerInventory);
+        super(Kilns.SCREEN_HANDLER, Kilns.RECIPE_TYPE, RecipeBookCategory.FURNACE, syncId, playerInventory);
     }
 
     public KilnScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
-        super(Kilns.SCREEN_HANDLER, Kilns.RECIPE_TYPE, RecipeBookCategory.SMOKER, syncId, playerInventory, inventory, propertyDelegate);
+        super(Kilns.SCREEN_HANDLER, Kilns.RECIPE_TYPE, RecipeBookCategory.FURNACE, syncId, playerInventory, inventory, propertyDelegate);
     }
 }
