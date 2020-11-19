@@ -26,6 +26,7 @@
     "PlayerManagerMixin",
     "PotionItemMixin",
     "RecipeManagerMixin",
+    "ServerPlayerInteractionManagerMixin",
     "ServerWorldMixin",
     "ShulkerBoxBlockEntityMixin",
     "ShulkerBoxSlotMixin",
