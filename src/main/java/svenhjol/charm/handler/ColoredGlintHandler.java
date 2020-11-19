@@ -74,13 +74,6 @@ public class ColoredGlintHandler {
         return getDefaultGlintColor();
     }
 
-    /**
-     * Adds the glint tag directly to the input stack with no sanity checking.
-     */
-    public static void applyStackColor(ItemStack stack, String color) {
-        stack.getOrCreateTag().putString(GLINT_TAG, color);
-    }
-
     public static RenderLayer getArmorGlintRenderLayer() {
         return ARMOR_GLINT.getOrDefault(getStackColor(targetStack), RenderLayerAccessor.getArmorGlint());
     }
