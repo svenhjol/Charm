@@ -71,6 +71,7 @@ public class Charm implements ModInitializer {
             ShulkerBoxTooltips.class,
             SleepImprovements.class,
             SmoothGlowstone.class,
+            SnowStorms.class,
             StackableEnchantedBooks.class,
             StackablePotions.class,
             StrayImprovements.class,

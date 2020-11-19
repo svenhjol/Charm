@@ -8,6 +8,8 @@ import svenhjol.charm.event.ClientJoinCallback;
 import svenhjol.charm.handler.ColoredGlintHandler;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Consumer;
@@ -15,6 +17,7 @@ import java.util.function.Consumer;
 public class ClientHandler {
     public static Map<String, CharmClientModule> LOADED_MODULES = new TreeMap<>();
     private static boolean hasInit = false;
+    private static List<Class<? extends CharmClientModule>> ENABLED_MODULES = new ArrayList<>(); // this is a cache of enabled classes
 
     public static void init() {
         if (hasInit)
@@ -27,7 +30,11 @@ public class ClientHandler {
         eachModule(CharmClientModule::register);
 
         // post init, only enabled modules are run
-        eachEnabledModule(CharmClientModule::init);
+        eachEnabledModule(module -> {
+            // this is a cache for quick lookup of enabled classes
+            ENABLED_MODULES.add(module.getClass());
+            module.init();
+        });
 
         ClientJoinCallback.EVENT.register(client -> {
             ColoredGlintHandler.init();
@@ -61,6 +68,15 @@ public class ClientHandler {
     @Nullable
     public static CharmClientModule getModule(String moduleName) {
         return LOADED_MODULES.getOrDefault(StringHelper.snakeToUpperCamel(moduleName), null);
+    }
+
+    /**
+     * Use this within static hook methods for quick check if a module is enabled.
+     * @param clazz Module to check
+     * @return True if the module is enabled
+     */
+    public static boolean enabled(Class<? extends CharmClientModule> clazz) {
+        return ENABLED_MODULES.contains(clazz);
     }
 
     private static void eachModule(Consumer<CharmClientModule> consumer) {
