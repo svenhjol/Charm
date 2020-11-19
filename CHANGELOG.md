@@ -3,7 +3,12 @@
 ## 2.1.2
 * Fix dropped netherite-based items cause crash on dedicated server
 * Fix disabled modules do not disable recipes after change to toml config
+* Fix shulker boxes not being craftable with variant chests
+* Fix dispenser not firing glowballs
+* Fix refined obsidian walls not connecting
+* Fix glowballs converting blocks to water source blocks
 * Enchantments are now extracted by the grindstone (Credit to [martenschaefer](https://github.com/mschae23/grind-enchantments))
+* Reduce spawn weight and group size of Coral Squids
 
 ## 2.1.1
 * Fix Coral Squid hitboxes. #351, #361
