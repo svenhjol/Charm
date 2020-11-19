@@ -9,8 +9,8 @@ import svenhjol.charm.base.CharmModule;
 public abstract class CharmEnchantment extends Enchantment implements ICharmEnchantment {
     protected CharmModule module;
 
-    protected CharmEnchantment(CharmModule module, String name, Rarity weight, EnchantmentTarget type, EquipmentSlot[] slotTypes) {
-        super(weight, type, slotTypes);
+    public CharmEnchantment(CharmModule module, String name, Rarity rarity, EnchantmentTarget target, EquipmentSlot[] slotTypes) {
+        super(rarity, target, slotTypes);
         this.register(module, name);
         this.module = module;
     }
