@@ -19,6 +19,7 @@ public class Charm implements ModInitializer {
     @Override
     public void onInitialize() {
         ModuleHandler.AVAILABLE_MODULES.put(Charm.MOD_ID, new ArrayList<>(Arrays.asList(
+            Acquisition.class,
             AnvilImprovements.class,
             ArmorInvisibility.class,
             AutomaticRecipeUnlock.class,
