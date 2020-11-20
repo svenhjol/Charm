@@ -15,10 +15,12 @@
 			"scale": [ 0.75, 0.75, 0.75 ]
 		},
 		"firstperson_righthand": {
-			"rotation": [ 0, -100, 0 ]
+			"rotation": [ 0, -90, 0 ],
+			"translation": [ 9, -2, -10 ]
 		},
 		"firstperson_lefthand": {
-			"rotation": [ 0, 100, 0 ]
+			"rotation": [ 0, 80, 0 ],
+			"translation": [ 10, -2, -10 ]
 		}
 	}
 }
