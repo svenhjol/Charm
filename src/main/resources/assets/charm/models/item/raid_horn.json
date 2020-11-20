@@ -1,6 +1,5 @@
 {
-	"parent": "minecraft:item/handheld_rod",
-	"gui_light": "front",
+	"parent": "minecraft:item/handheld",
 	"textures": { 
 		"layer0": "charm:item/raid_horn"
 	},
