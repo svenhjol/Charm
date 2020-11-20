@@ -6,7 +6,7 @@ title: Decoration
 ## Decoration
 
 ### Block of Ender Pearls
-![Block of Ender Pearls](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Block of Ender Pearls](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/ender-pearl-block.png?raw=true)
 Craft a Block of Ender Pearls from 9 ender pearls.  If a silverfish burrows into an Ender Pearl Block, it will turn into an Endermite.  Eating a Chorus Fruit will teleport you to the nearest Ender Pearl Block rather than a random location.  Both features are configurable.
 
 ### Bookcases
@@ -26,7 +26,7 @@ By default, candles must be lit using a flint and steel.
 **Beeswax** is produced by smelting Honey combs. 
 
 ### Coral Sea Lanterns
-![Coral Sea Lanterns](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Coral Sea Lanterns](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/coral-lanterns.png?raw=true)
 Craft a sea lantern with coral to create a sea lantern of the coral's color.
 
 ### Crates
