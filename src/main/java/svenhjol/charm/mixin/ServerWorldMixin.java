@@ -63,7 +63,7 @@ public class ServerWorldMixin {
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookTrySnowAndIce(WorldChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos, boolean isRaining, int chunkX, int chunkZ) {
-        SnowStorms.trySetSnowAndIce((ServerWorld)(Object)this, chunkX, chunkZ);
+    private void hookTryPlaceSnow(WorldChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos, boolean isRaining, int chunkX, int chunkZ) {
+        SnowStorms.tryPlaceSnow((ServerWorld)(Object)this, chunkX, chunkZ);
     }
 }

@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.module.SnowStorms;
+import svenhjol.charm.client.SnowStormsClient;
 
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
@@ -40,11 +39,7 @@ public class WorldRendererMixin {
         )
     )
     private void hookRenderWeatherTexture(TextureManager textureManager, Identifier id) {
-        float h = world.getThunderGradient(this.gradient);
-        if (h > 0.0F && ModuleHandler.enabled("charm:snow_storms")) {
-            textureManager.bindTexture(SnowStorms.HEAVY_SNOW);
-        } else {
-            textureManager.bindTexture(SNOW);
-        }
+        if (!SnowStormsClient.tryHeavySnowTexture(world, textureManager, gradient))
+            textureManager.bindTexture(id);
     }
 }
