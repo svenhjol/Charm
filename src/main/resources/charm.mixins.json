@@ -49,6 +49,7 @@
     "accessor.MinecraftServerAccessor",
     "accessor.MineshaftGeneratorAccessor",
     "accessor.MobEntityAccessor",
+    "accessor.PillagerSpawnerAccessor",
     "accessor.PlayerEntityAccessor",
     "accessor.PointOfInterestTypeAccessor",
     "accessor.ServerWorldAccessor",

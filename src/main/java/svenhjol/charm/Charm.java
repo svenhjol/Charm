@@ -63,6 +63,7 @@ public class Charm implements ModInitializer {
             PlayerState.class,
             PortableCrafting.class,
             PortableEnderChest.class,
+            RaidHorns.class,
             RedstoneLanterns.class,
             RedstoneSand.class,
             RefinedObsidian.class,
