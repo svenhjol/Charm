@@ -1,8 +1,38 @@
 # Changelog
 
+## 2.1.2
+* Fix dropped netherite-based items cause crash on dedicated server
+* Fix disabled modules do not disable recipes after change to toml config
+* Fix shulker boxes not being craftable with variant chests
+* Fix dispenser not firing glowballs
+* Fix refined obsidian walls not connecting
+* Fix glowballs converting blocks to water source blocks
+* Enchantments are now extracted by the grindstone (Credit to [martenschaefer](https://github.com/mschae23/grind-enchantments))
+* Reduce spawn weight and group size of Coral Squids
+
+## 2.1.1
+* Fix Coral Squid hitboxes. #351, #361
+* Fix Candles not making sound when lighting
+* Glow balls are now known as glowballs
+* Placeable Glowstone Dust has been removed
+* Update glowball texture
+* **Charm's config now uses toml format.** Old json file will not be deleted, but existing config changes **will not be copied across.**
+
+## 2.1.0
+* Totem of Undying causing crash on server. Fixes #339
+* VariantAnimalTextures has become VariantMobTextures. This changes the charm.json config file
+* Added feature Coral Squids
+* Added feature Coral Sea Lanterns
+* Added Snow Golem derp face variants
+* Added Kilns
+* Added Refined Obsidian
+* Added Smooth Glowstone
+* Glow Pearls and placed glowstone can now light up any solid block face
+* Removed invisible mineshaft spiders
+
 ## 2.0.4
 * Added feature Placeable Glowstone Dust that lets you... place glowstone dust
-* Added feature Glow Pearls which are projectiles that light up the ground upon landing
+* Added feature Glow Balls which are projectiles that light up the block they impact
 * Added variant snow golem derp faces
 
 ## 2.0.3

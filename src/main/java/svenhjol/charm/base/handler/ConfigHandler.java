@@ -1,143 +1,115 @@
 package svenhjol.charm.base.handler;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.internal.LinkedTreeMap;
+import com.electronwill.nightconfig.core.CommentedConfig;
+import com.electronwill.nightconfig.toml.TomlFormat;
+import com.electronwill.nightconfig.toml.TomlWriter;
+import com.moandjiezana.toml.Toml;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
 
-import java.io.*;
+import java.io.File;
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ConfigHandler {
 
     public static void createConfig(String mod, Map<String, CharmModule> modules) {
-        Map<String, Map<String, Object>> finalConfig = new LinkedHashMap<>();
-
         String configName = mod.equals(Charm.MOD_ID) ? Charm.MOD_ID : Charm.MOD_ID + "-" + mod;
-        String configPath = "./config/" + configName + ".json";
+        String configPath = "./config/" + configName + ".toml";
 
-        modules.forEach((moduleName, module) -> {
-            finalConfig.put(moduleName, new LinkedHashMap<>());
-            finalConfig.get(moduleName).put("Description", module.description);
+        // this blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically
+        CommentedConfig writeConfig = TomlFormat.newConfig(LinkedHashMap::new);
+        Path path = Paths.get(configPath);
+        File file = path.toFile();
+        Toml readConfig = file.exists() ? new Toml().read(path.toFile()) : new Toml();
 
-            if (!module.alwaysEnabled)
-                finalConfig.get(moduleName).put("Enabled", module.enabled);
-        });
-
-        // read config from disk and add to the config map
-        try {
-            Map<?, ?> loadedConfig = readConfig(Paths.get(configPath));
-
-            for (Map.Entry<?, ?> entry : loadedConfig.entrySet()) {
-                Object key = entry.getKey();
-                if (!(key instanceof String))
-                    continue;
-
-                String moduleName = (String)key;
-                if (!finalConfig.containsKey(moduleName))
-                    continue;
-
-                finalConfig.get(moduleName).putAll((LinkedTreeMap)entry.getValue());
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to read config for " + configName, e);
-        }
+        List<String> moduleNames = new ArrayList<>(modules.keySet());
+        Collections.sort(moduleNames);
 
         // parse config and apply values to modules
-        for (Map.Entry<String, CharmModule> entry : modules.entrySet()) {
-            String moduleName = entry.getKey();
-            CharmModule module = entry.getValue();
+        for (String moduleName : moduleNames) {
+            CharmModule module = modules.get(moduleName);
 
             // set module enabled/disabled
-            module.enabled = (boolean)finalConfig.get(moduleName).getOrDefault("Enabled", module.enabledByDefault);
+            String moduleEnabled = moduleName + " Enabled";
+            String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
+            module.enabled = readConfig.contains(moduleEnabledQuoted) ? readConfig.getBoolean(moduleEnabledQuoted) : module.enabledByDefault;
+
+            if (!module.alwaysEnabled) {
+                writeConfig.setComment(moduleEnabled, module.description);
+                writeConfig.add(moduleEnabled, module.enabled);
+            }
 
             // get and set module config options
-            ArrayList<Field> fields = new ArrayList<>(Arrays.asList(module.getClass().getDeclaredFields()));
-            fields.forEach(field -> {
+            ArrayList<Field> classFields = new ArrayList<>(Arrays.asList(module.getClass().getDeclaredFields()));
+            classFields.forEach(classField -> {
                 try {
-                    Config annotation = field.getDeclaredAnnotation(Config.class);
+                    Config annotation = classField.getDeclaredAnnotation(Config.class);
                     if (annotation == null)
                         return;
 
-                    field.setAccessible(true);
+                    // set the static property as writable so that the config can modify it
+                    classField.setAccessible(true);
                     String name = annotation.name();
+                    String description = annotation.description();
 
                     if (name.isEmpty())
-                        name = field.getName();
+                        name = classField.getName();
 
-                    Object val = field.get(null);
+                    Object classValue = classField.get(null);
+                    Object configValue = null;
 
-                    if (finalConfig.get(moduleName).containsKey(name)) {
-                        Object configVal = finalConfig.get(moduleName).get(name);
+                    if (readConfig.contains(moduleName)) {
 
-                        if (val instanceof Integer && configVal instanceof Double)
-                            configVal = (int)(double)configVal;  // this is stupidland
+                        // get the block of key/value pairs from the config
+                        Toml moduleKeys = readConfig.getTable(moduleName);
+                        Map<String, Object> mappedKeys = new HashMap<>();
 
-                        field.set(null, configVal);
-                        finalConfig.get(moduleName).put(name, configVal);
-                    } else {
-                        finalConfig.get(moduleName).put(name, val);
+                        // key names sometimes have quotes, map to remove them
+                        moduleKeys.toMap().forEach((k, v) -> mappedKeys.put(k.replace("\"", ""), v));
+                        configValue = mappedKeys.get(name);
+
+                        if (configValue != null) {
+
+                            // there's some weirdness with casting, deal with that here
+                            if (classValue instanceof Integer && configValue instanceof Double)
+                                configValue = (int)(double) configValue;
+
+                            if (classValue instanceof Integer && configValue instanceof Long)
+                                configValue = (int)(long) configValue;
+
+                            classField.set(null, configValue);
+                        }
                     }
+
+                    if (configValue == null)
+                        configValue = classValue;
+
+                    // set the key/value pair. The "." specifies that it is nested
+                    String moduleConfigName = moduleName + "." + name;
+                    writeConfig.setComment(moduleConfigName, description);
+                    writeConfig.add(moduleConfigName, configValue);
+
                 } catch (Exception e) {
                     Charm.LOG.error("Failed to set config for " + moduleName + ": " + e.getMessage());
                 }
             });
         }
 
-        // write out the config
         try {
-            writeConfig(Paths.get(configPath), finalConfig);
+            // write out and close the file
+            TomlWriter tomlWriter = new TomlWriter();
+            Writer buffer = Files.newBufferedWriter(path);
+            tomlWriter.write(writeConfig, buffer);
+            buffer.close();
+
         } catch (Exception e) {
             Charm.LOG.error("Failed to write config: " + e.getMessage());
-        }
-    }
-
-    private static Map<?, ?> readConfig(Path path) throws IOException {
-        touch(path);
-
-        Gson gson = new Gson();
-        Reader reader = Files.newBufferedReader(path);
-        Map<?, ?> map = gson.fromJson(reader, Map.class);
-        reader.close();
-        return map;
-    }
-
-    private static void writeConfig(Path path, Map<?, ?> map) throws IOException {
-        touch(path);
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Writer writer = Files.newBufferedWriter(path);
-        gson.toJson(map, writer);
-        writer.close();
-    }
-
-    private static void touch(Path path) throws IOException {
-        File file = path.toFile();
-
-        if (file.exists())
-            return;
-
-        File dir = file.getParentFile();
-
-        if (!dir.exists()) {
-            if (!dir.mkdirs()) {
-                throw new IOException("Could not create config parent directories");
-            }
-        } else if (!dir.isDirectory()) {
-            throw new IOException("Parent file is not a directory");
-        }
-
-        try (Writer writer = new FileWriter(file)) {
-            writer.write("{}");
         }
     }
 }

@@ -5,8 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.mixin.accessor.*;
 
 import java.util.function.BiConsumer;
@@ -16,7 +16,7 @@ public interface ICharmBlock {
 
     default void register(CharmModule module, String name) {
         Identifier id = new Identifier(module.mod, name);
-        Registry.register(Registry.BLOCK, id, (Block)this);
+        RegistryHandler.block(id, (Block)this);
         createBlockItem(id);
     }
 
@@ -38,7 +38,7 @@ public interface ICharmBlock {
         settings.maxCount(getMaxStackSize());
 
         CharmBlockItem blockItem = new CharmBlockItem(this, settings);
-        Registry.register(Registry.ITEM, id, blockItem);
+        RegistryHandler.item(id, blockItem);
     }
 
     default BiConsumer<ItemStack, Boolean> getInventoryTickConsumer() {
@@ -51,19 +51,5 @@ public interface ICharmBlock {
 
     default void setFireInfo(int encouragement, int flammability) {
         ((FireBlockAccessor) Blocks.FIRE).invokeRegisterFlammableBlock((Block)this, encouragement, flammability);
-    }
-
-    default void setEffectiveTool(Class<? extends MiningToolItem> clazz) {
-        if (clazz == PickaxeItem.class)
-            PickaxeItemAccessor.getEffectiveBlocks().add((Block)this);
-
-        if (clazz == AxeItem.class)
-            AxeItemAccessor.getEffectiveBlocks().add((Block)this);
-
-        if (clazz == ShovelItem.class)
-            ShovelItemAccessor.getEffectiveBlocks().add((Block)this);
-
-        if (clazz == HoeItem.class)
-            HoeItemAccessor.getEffectiveBlocks().add((Block)this);
     }
 }

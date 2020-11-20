@@ -2,11 +2,11 @@ package svenhjol.charm.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.AbstractBlock;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.PickaxeItem;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
@@ -18,13 +18,12 @@ import java.util.Random;
 
 public class EnderPearlBlock extends CharmBlock {
     public EnderPearlBlock(CharmModule module) {
-        super(module, "ender_pearl_block", AbstractBlock.Settings
+        super(module, "ender_pearl_block", FabricBlockSettings
             .of(Material.GLASS)
             .sounds(BlockSoundGroup.GLASS)
+            .breakByTool(FabricToolTags.PICKAXES)
             .strength(2.0F)
         );
-
-        this.setEffectiveTool(PickaxeItem.class);
     }
 
     @Override

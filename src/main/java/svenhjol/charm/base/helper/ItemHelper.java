@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import svenhjol.charm.mixin.accessor.ItemEntityAccessor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class ItemHelper {
     public static boolean shouldItemDespawn(ItemEntity itemEntity) {
         Item item = itemEntity.getStack().getItem();
         if (ItemHelper.ITEM_LIFETIME.containsKey(item)) {
-            if (itemEntity.getAge() < ItemHelper.ITEM_LIFETIME.get(item))
+            if (((ItemEntityAccessor)itemEntity).getAge() < ItemHelper.ITEM_LIFETIME.get(item))
                 return false;
         }
 

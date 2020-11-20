@@ -9,24 +9,20 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.client.BatBucketClient;
-import svenhjol.charm.item.BatBucketItem;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.client.BatBucketsClient;
+import svenhjol.charm.item.BatBucketItem;
 
-@Module(mod = Charm.MOD_ID, description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
+@Module(mod = Charm.MOD_ID, client = BatBucketsClient.class, description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
 public class BatBuckets extends CharmModule {
     public static BatBucketItem BAT_BUCKET_ITEM;
-    public static BatBucketClient client = null;
-
-    public static final Identifier MSG_CLIENT_SET_GLOWING = new Identifier(Charm.MOD_ID, "client_set_glowing");
 
     @Config(name = "Glowing time", description = "Number of seconds that entities will receive the glowing effect.")
     public static int glowingTime = 10;
@@ -42,11 +38,6 @@ public class BatBuckets extends CharmModule {
     @Override
     public void init() {
         UseEntityCallback.EVENT.register(this::tryCapture);
-    }
-
-    @Override
-    public void clientInit() {
-        client = new BatBucketClient(this);
     }
 
     private ActionResult tryCapture(PlayerEntity player, World world, Hand hand, Entity entity, EntityHitResult hitResult) {

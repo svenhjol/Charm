@@ -1,29 +1,31 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.mixin.object.builder.DefaultAttributeRegistryAccessor;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import svenhjol.charm.Charm;
-import svenhjol.charm.client.CoralSquidsClient;
-import svenhjol.charm.entity.CoralSquidEntity;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.BiomeHelper;
+import svenhjol.charm.base.helper.MobHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.client.CoralSquidsClient;
+import svenhjol.charm.entity.CoralSquidEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Coral Squids spawn near coral in warm oceans.")
+@Module(mod = Charm.MOD_ID, client = CoralSquidsClient.class, description = "Coral Squids spawn near coral in warm oceans.")
 public class CoralSquids extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "coral_squid");
     public static Identifier EGG_ID = new Identifier(Charm.MOD_ID, "coral_squid_spawn_egg");
@@ -31,29 +33,22 @@ public class CoralSquids extends CharmModule {
     public static EntityType<CoralSquidEntity> CORAL_SQUID;
     public static Item SPAWN_EGG;
 
-    public CoralSquidsClient client;
-
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a coral squid dropping coral when killed by the player.")
     public static double dropChance = 0.2D;
 
     @Override
     public void register() {
-        CORAL_SQUID = EntityType.Builder.create(CoralSquidEntity::new, SpawnGroup.WATER_CREATURE)
-            .setDimensions(0.4F, 0.4F)
-            .maxTrackingRange(8)
-            .build(ID.getPath());
+        // register to MC registry
+        CORAL_SQUID = RegistryHandler.entity(ID, FabricEntityTypeBuilder
+            .create(SpawnGroup.WATER_CREATURE, CoralSquidEntity::new)
+            .dimensions(EntityDimensions.fixed(0.54f, 0.54f))
+            .build());
 
-        SPAWN_EGG = new SpawnEggItem(CORAL_SQUID, 0x0000FF, 0xFF00FF, (new Item.Settings()).group(ItemGroup.MISC));
-        Registry.register(Registry.ITEM, EGG_ID, SPAWN_EGG);
+        // create a spawn egg for the squid
+        SPAWN_EGG = RegistryHandler.item(EGG_ID, new SpawnEggItem(CORAL_SQUID, 0x0000FF, 0xFF00FF, (new Item.Settings()).group(ItemGroup.MISC)));
 
-        Registry.register(Registry.ENTITY_TYPE, ID, CORAL_SQUID);
-        DefaultAttributeRegistryAccessor.getRegistry()
-            .put(CORAL_SQUID, CoralSquidEntity.createSquidAttributes().build());
-    }
-
-    @Override
-    public void clientRegister() {
-        client = new CoralSquidsClient(this);
+        // register the entity attributes
+        MobHelper.setEntityAttributes(CORAL_SQUID, CoralSquidEntity.createSquidAttributes());
     }
 
     @Override
@@ -62,7 +57,7 @@ public class CoralSquids extends CharmModule {
 
         biomes.forEach(biomeKey -> {
             Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-            BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_AMBIENT, CORAL_SQUID, 40, 5, 6);
+            BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_AMBIENT, CORAL_SQUID, 10, 2, 4);
         });
     }
 }

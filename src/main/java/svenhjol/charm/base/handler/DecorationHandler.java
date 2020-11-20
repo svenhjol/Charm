@@ -18,8 +18,6 @@ public class DecorationHandler {
         if (hasInit)
             return;
 
-        hasInit = true;
-
         CARPETS.addAll(BlockTags.CARPETS.values());
         FLOWERS.addAll(BlockTags.FLOWERS.values());
         FLOWER_POTS.addAll(BlockTags.FLOWER_POTS.values());
@@ -30,7 +28,6 @@ public class DecorationHandler {
 
         CHEST_LOOT_TABLES = Arrays.asList(
             LootTables.ABANDONED_MINESHAFT_CHEST,
-            LootTables.BURIED_TREASURE_CHEST,
             LootTables.DESERT_PYRAMID_CHEST,
             LootTables.JUNGLE_TEMPLE_CHEST,
             LootTables.SIMPLE_DUNGEON_CHEST,
@@ -44,13 +41,8 @@ public class DecorationHandler {
 
         COMMON_LOOT_TABLES.addAll(LootHelper.getVanillaVillageLootTables());
 
-        RARE_LOOT_TABLES.addAll(Arrays.asList(
-            LootTables.STRONGHOLD_LIBRARY_CHEST,
-            LootTables.NETHER_BRIDGE_CHEST,
-            LootTables.END_CITY_TREASURE_CHEST,
-            LootTables.RUINED_PORTAL_CHEST,
-            LootTables.WOODLAND_MANSION_CHEST,
-            LootTables.UNDERWATER_RUIN_BIG_CHEST
+        RARE_CHEST_LOOT_TABLES.addAll(Arrays.asList(
+            LootTables.RUINED_PORTAL_CHEST
         ));
 
         BOOKCASE_LOOT_TABLES.addAll(Arrays.asList(
@@ -115,5 +107,7 @@ public class DecorationHandler {
             EntityType.SPIDER,
             EntityType.CAVE_SPIDER
         ));
+
+        hasInit = true;
     }
 }

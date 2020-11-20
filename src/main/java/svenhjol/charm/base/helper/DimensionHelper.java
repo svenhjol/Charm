@@ -23,6 +23,10 @@ public class DimensionHelper {
         return getDimension(world).equals(dimension);
     }
 
+    public static boolean isDimension(World world, RegistryKey<World> key) {
+        return world.getRegistryKey().equals(key);
+    }
+
     public static Identifier getDimension(World world) {
         RegistryKey<World> key = world.getRegistryKey();
         return key.getValue();

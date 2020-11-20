@@ -13,11 +13,13 @@ import java.util.Arrays;
 
 public class Charm implements ModInitializer {
     public static final String MOD_ID = "charm";
+    public static final boolean EXPERIMENTAL = true;
     public static LogHandler LOG = new LogHandler("Charm");
 
     @Override
     public void onInitialize() {
         ModuleHandler.AVAILABLE_MODULES.put(Charm.MOD_ID, new ArrayList<>(Arrays.asList(
+            Acquisition.class,
             AnvilImprovements.class,
             ArmorInvisibility.class,
             AutomaticRecipeUnlock.class,
@@ -33,8 +35,8 @@ public class Charm implements ModInitializer {
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
             CoralSeaLanterns.class,
-            Core.class,
             CoralSquids.class,
+            Core.class,
             Crates.class,
             DecreaseRepairCost.class,
             DirtToPath.class,
@@ -43,7 +45,7 @@ public class Charm implements ModInitializer {
             ExtendNetherite.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
-            GlowPearls.class,
+            Glowballs.class,
             GoldBars.class,
             GoldChains.class,
             GoldLanterns.class,
@@ -56,9 +58,8 @@ public class Charm implements ModInitializer {
             MoreVillageBiomes.class,
             MusicImprovements.class,
             NetheriteNuggets.class,
-            PathToDirt.class,
             ParrotsStayOnShoulder.class,
-            PlaceableGlowstoneDust.class,
+            PathToDirt.class,
             PlayerState.class,
             PortableCrafting.class,
             PortableEnderChest.class,
@@ -70,10 +71,12 @@ public class Charm implements ModInitializer {
             ShulkerBoxTooltips.class,
             SleepImprovements.class,
             SmoothGlowstone.class,
+            SnowStorms.class,
             StackableEnchantedBooks.class,
             StackablePotions.class,
             StrayImprovements.class,
             TamedAnimalsNoDamage.class,
+            Tinted.class,
             UseTotemFromInventory.class,
             VariantBarrels.class,
             VariantBookshelves.class,

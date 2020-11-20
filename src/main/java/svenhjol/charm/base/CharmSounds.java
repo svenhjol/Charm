@@ -2,8 +2,8 @@ package svenhjol.charm.base;
 
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.RegistryHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ public class CharmSounds {
     public static final SoundEvent BOOKSHELF_CLOSE = createSound("bookshelf_close");
 
     public static void init() {
-        REGISTER.forEach((id, sound) -> Registry.register(Registry.SOUND_EVENT, id, sound));
+        REGISTER.forEach(RegistryHandler::sound);
     }
 
     public static SoundEvent createSound(String name) {

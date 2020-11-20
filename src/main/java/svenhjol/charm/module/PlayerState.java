@@ -1,9 +1,6 @@
 package svenhjol.charm.module;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
@@ -14,14 +11,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.StructureFeature;
 import svenhjol.charm.Charm;
-import svenhjol.charm.client.PlayerStateClient;
-import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.PosHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.client.PlayerStateClient;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,13 +24,10 @@ import java.util.Base64;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-@Module(mod = Charm.MOD_ID, description = "Synchronize additional state from server to client.", alwaysEnabled = true)
+@Module(mod = Charm.MOD_ID, client = PlayerStateClient.class, description = "Synchronize additional state from server to client.", alwaysEnabled = true)
 public class PlayerState extends CharmModule {
     public static final Identifier MSG_SERVER_UPDATE_PLAYER_STATE = new Identifier(Charm.MOD_ID, "server_update_player_state");
-    public static final Identifier MSG_CLIENT_UPDATE_PLAYER_STATE = new Identifier(Charm.MOD_ID, "client_update_player_state");
     public static List<BiConsumer<ServerPlayerEntity, CompoundTag>> listeners = new ArrayList<>();
-
-    public static PlayerStateClient client;
 
     @Config(name = "Server state update interval", description = "Interval (in ticks) on which additional world state will be synchronised to the client.")
     public static int serverStateInverval = 120;
@@ -50,35 +42,6 @@ public class PlayerState extends CharmModule {
                     return;
 
                 serverCallback(player);
-            });
-        });
-    }
-
-    @Override
-    @Environment(EnvType.CLIENT)
-    public void clientRegister() {
-        client = new PlayerStateClient();
-
-        // send a state update request on a heartbeat (serverStateInterval)
-        PlayerTickCallback.EVENT.register((player -> {
-            if (player.world.isClient && player.world.getTime() % serverStateInverval == 0)
-                ClientSidePacketRegistry.INSTANCE.sendToServer(MSG_SERVER_UPDATE_PLAYER_STATE, new PacketByteBuf(Unpooled.buffer()));
-        }));
-
-        // register client message handler to call the clientCallback
-        ClientSidePacketRegistry.INSTANCE.register(MSG_CLIENT_UPDATE_PLAYER_STATE, (context, data) -> {
-            CompoundTag tag = new CompoundTag();
-
-            try {
-                byte[] byteData = Base64.getDecoder().decode(data.readString());
-                tag = NbtIo.readCompressed(new ByteArrayInputStream(byteData));
-            } catch (IOException e) {
-                Charm.LOG.warn("Failed to decompress player state");
-            }
-
-            CompoundTag finalTag = tag;
-            context.getTaskQueue().execute(() -> {
-                clientCallback(finalTag);
             });
         });
     }
@@ -117,20 +80,7 @@ public class PlayerState extends CharmModule {
 
         if (serialized != null) {
             buffer.writeString(serialized);
-            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, MSG_CLIENT_UPDATE_PLAYER_STATE, buffer);
+            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, PlayerStateClient.MSG_CLIENT_UPDATE_PLAYER_STATE, buffer);
         }
-    }
-
-    /**
-     * Unpack the received server data from the NBT tag.
-     */
-    @Environment(EnvType.CLIENT)
-    public static void clientCallback(CompoundTag data) {
-        client.mineshaft = data.getBoolean("mineshaft");
-        client.stronghold = data.getBoolean("stronghold");
-        client.fortress = data.getBoolean("fortress");
-        client.shipwreck = data.getBoolean("shipwreck");
-        client.village = data.getBoolean("village");
-        client.isDaytime = data.getBoolean("day");
     }
 }

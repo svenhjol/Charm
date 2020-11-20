@@ -1,15 +1,14 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
-import svenhjol.charm.client.InventoryButtonClient;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.client.CoreClient;
 
-@Module(mod = Charm.MOD_ID, alwaysEnabled = true, description = "Core configuration values.")
+@Module(mod = Charm.MOD_ID, client = CoreClient.class, alwaysEnabled = true, description = "Core configuration values.")
 public class Core extends CharmModule {
     public static final Identifier MSG_SERVER_OPEN_INVENTORY = new Identifier(Charm.MOD_ID, "server_open_inventory");
 
@@ -19,13 +18,9 @@ public class Core extends CharmModule {
     @Config(name = "Inventory button return", description = "If inventory crafting or inventory ender chest modules are enabled, pressing escape or inventory key returns you to the inventory rather than closing the window.")
     public static boolean inventoryButtonReturn = false;
 
-    @Override
-    public void clientRegister() {
-        new InventoryButtonClient();
+    @Config(name = "Enchantment glint override", description = "If true, replaces vanilla glint color rendering with Charm's, allowing for multiple enchantment glint colors.")
+    public static boolean overrideGlint = true;
 
-        // listen for network requests to open the player's inventory
-        ClientSidePacketRegistry.INSTANCE.register(MSG_SERVER_OPEN_INVENTORY, (context, data) -> {
-            context.getTaskQueue().execute(PlayerHelper::openInventory);
-        });
-    }
+    @Config(name = "Enchantment glint color", description = "Set the default glint color for all enchanted items.  Requires 'Enchantment glint override' to be true.")
+    public static String glintColor = DyeColor.PURPLE.getName();
 }

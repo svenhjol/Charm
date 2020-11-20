@@ -73,15 +73,13 @@ public class DataBlockProcessor extends StructureProcessor {
         private static final String MOB = "mob";
         private static final String ORE = "ore";
         private static final String FLOWERPOT = "plantpot";
-        private static final String RUBBLE = "rubble";
-        private static final String RUNE = "rune";
         private static final String SAPLING = "sapling";
         private static final String SPAWNER = "spawner";
         private static final String STORAGE = "storage";
 
         public static float BLOCK_CHANCE = 0.8F;
-        public static float BOOKCASE_CHANCE = 0.25F;
-        public static float BOOKCASE_LOOT_CHANCE = 0.1F;
+        public static float BOOKCASE_CHANCE = 0.15F;
+        public static float BOOKCASE_LOOT_CHANCE = 0.4F;
         public static float CHEST_CHANCE = 0.66F;
         public static float DECORATION_CHANCE = 0.85F;
         public static float FLOWER_CHANCE = 0.8F;
@@ -92,6 +90,7 @@ public class DataBlockProcessor extends StructureProcessor {
         public static float MOB_CHANCE = 0.75F;
         public static float ORE_CHANCE = 0.75F;
         public static float RARE_ORE_CHANCE = 0.25F;
+        public static float RARE_CHEST_CHANCE = 0.1F;
         public static float RUBBLE_CHANCE = 0.9F;
         public static float RUNESTONE_CHANCE = 0.75F;
         public static float SAPLING_CHANCE = 0.8F;
@@ -250,7 +249,7 @@ public class DataBlockProcessor extends StructureProcessor {
 
             state = setFacing(state, ChestBlock.FACING, getValue("facing", data, "north"));
 
-            Identifier lootTable = DecorationHelper.getRandomLootTable(CHEST_LOOT_TABLES, random);
+            Identifier lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_CHEST_CHANCE ? RARE_CHEST_LOOT_TABLES : CHEST_LOOT_TABLES, random);
             ChestBlockEntity blockEntity = BlockEntityType.CHEST.instantiate();
             if (blockEntity == null)
                 return;

@@ -14,9 +14,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.BlockItemRenderCallback;
+import svenhjol.charm.handler.ColoredGlintHandler;
 
 @Mixin(BuiltinModelItemRenderer.class)
 public class BuiltinModelItemRendererMixin {
+
     /**
      * Allows modules to define their own blockItem entity renderers
      * to show in the player's inventory.
@@ -27,6 +29,8 @@ public class BuiltinModelItemRendererMixin {
         cancellable = true
     )
     private void hookRender(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j, CallbackInfo ci) {
+        ColoredGlintHandler.targetStack = stack; // take reference to item to be rendered
+
         Item item = stack.getItem();
         if (item instanceof BlockItem) {
             BlockEntity blockEntity = BlockItemRenderCallback.EVENT.invoker().interact(((BlockItem) item).getBlock());

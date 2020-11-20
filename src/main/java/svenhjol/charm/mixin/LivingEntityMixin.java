@@ -84,7 +84,10 @@ public abstract class LivingEntityMixin extends Entity {
             cir.setReturnValue(true);
     }
 
-    @Inject(method = "drop", at = @At("TAIL"))
+    @Inject(
+        method = "drop",
+        at = @At("TAIL")
+    )
     private void hookDrop(DamageSource source, CallbackInfo ci) {
         LivingEntity entity = (LivingEntity)(Object)this;
         int lootingLevel = EnchantmentHelper.getLooting(entity);

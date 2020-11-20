@@ -18,12 +18,14 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.feature.MineshaftFeature;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.mixin.accessor.MineshaftGeneratorAccessor;
 import svenhjol.charm.mixin.accessor.StructurePieceAccessor;
 
 import java.util.ArrayList;
@@ -42,12 +44,12 @@ public class MineshaftImprovements extends CharmModule {
     public static List<BlockState> roomDecoration = new ArrayList<>();
     public static List<Identifier> crateLootTables = new ArrayList<>();
 
-    public static float floorBlockChance = 0.05F;
-    public static float ceilingBlockChance = 0.03F;
+    public static float floorBlockChance = 0.04F;
+    public static float ceilingBlockChance = 0.02F;
     public static float rareBlockChance = 0.08F;
-    public static float roomBlockChance = 0.32F;
-    public static float blockPileChance = 0.12F;
-    public static float crateChance = 0.14F;
+    public static float roomBlockChance = 0.3F;
+    public static float blockPileChance = 0.1F;
+    public static float crateChance = 0.1F;
 
     private static boolean isEnabled = false;
 
@@ -123,6 +125,9 @@ public class MineshaftImprovements extends CharmModule {
 
     public static void generatePiece(StructurePiece piece, StructureWorldAccess world, StructureAccessor accessor, ChunkGenerator chunkGenerator, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (!isEnabled)
+            return;
+
+        if (((MineshaftGeneratorAccessor)piece).getMineshaftType() == MineshaftFeature.Type.MESA)
             return;
 
         if (piece instanceof MineshaftCorridor) {

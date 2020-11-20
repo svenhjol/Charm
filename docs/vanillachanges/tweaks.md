@@ -79,11 +79,11 @@ In addition, a configuration option has been added for the sleep animation to be
 If **Quark** is present, this feature is disabled by default.
 
 ### Stackable enchanted books
-![Stackable enchanted books](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Stackable enchanted books](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/stackable-books.png?raw=true)
 Enchanted books of the same type can stack up to 16.
 
 ### Stackable potions
-![Stackable potions](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Stackable potions](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/stacking-potions.png?raw=true)
 Potions, water bottles, potion bases (mundane, awkward etc) and their splash/lingering varieties can stack up to 16, making them sortable and more convenient to carry around.
 
 ### Use Totem of Undying from inventory

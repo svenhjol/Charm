@@ -6,7 +6,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.StructureFeature;
+import svenhjol.charm.Charm;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class PosHelper {
@@ -47,5 +49,25 @@ public class PosHelper {
     public static boolean isSolid(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         return state.isOpaque() && !world.isAir(pos) && !state.getMaterial().isLiquid();
+    }
+
+    @Nullable
+    public static BlockPos getSurfacePos(World world, BlockPos pos) {
+        int surface = 0;
+
+        for (int y = world.getHeight(); y >= 0; --y) {
+            BlockPos n = new BlockPos(pos.getX(), y, pos.getZ());
+            if (world.isAir(n) && !world.isAir(n.down())) {
+                surface = y;
+                break;
+            }
+        }
+
+        if (surface <= 0) {
+            Charm.LOG.warn("Failed to find a surface value to spawn the player");
+            return null;
+        }
+
+        return new BlockPos(pos.getX(), surface, pos.getZ());
     }
 }

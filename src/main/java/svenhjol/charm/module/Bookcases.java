@@ -1,7 +1,5 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,20 +8,21 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
-import svenhjol.charm.block.BookcaseBlock;
-import svenhjol.charm.blockentity.BookcaseBlockEntity;
-import svenhjol.charm.gui.BookcaseScreen;
-import svenhjol.charm.screenhandler.BookcaseScreenHandler;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
+import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.EnchantmentsHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.block.BookcaseBlock;
+import svenhjol.charm.blockentity.BookcaseBlockEntity;
+import svenhjol.charm.client.BookcasesClient;
+import svenhjol.charm.screenhandler.BookcaseScreenHandler;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, description = "Bookshelves that can hold up to 9 stacks of books and maps.")
+@Module(mod = Charm.MOD_ID, client = BookcasesClient.class, description = "Bookshelves that can hold up to 9 stacks of books and maps.")
 public class Bookcases extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "bookcase");
     public static final Map<IVariantMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
@@ -60,19 +59,13 @@ public class Bookcases extends CharmModule {
             validItems.add(item.getClass());
         });
 
-        SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ID, BookcaseScreenHandler::new);
-        BLOCK_ENTITY = BlockEntityType.Builder.create(BookcaseBlockEntity::new).build(null);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, ID, BLOCK_ENTITY);
+        SCREEN_HANDLER = RegistryHandler.screenHandler(ID, BookcaseScreenHandler::new);
+        BLOCK_ENTITY = RegistryHandler.blockEntity(ID, BookcaseBlockEntity::new);
     }
 
     @Override
     public void init() {
         EnchantmentsHelper.ENCHANTING_BLOCKS.addAll(BOOKCASE_BLOCKS.values());
-    }
-
-    @Override
-    public void clientInit() {
-        ScreenRegistry.register(SCREEN_HANDLER, BookcaseScreen::new);
     }
 
     public static boolean canContainItem(ItemStack stack) {

@@ -1,23 +1,22 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.recipe.CookingRecipeSerializer;
-import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.RegistryHandler;
+import svenhjol.charm.base.helper.DecorationHelper;
+import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.KilnBlock;
 import svenhjol.charm.blockentity.KilnBlockEntity;
-import svenhjol.charm.gui.KilnScreen;
+import svenhjol.charm.client.KilnsClient;
 import svenhjol.charm.recipe.FiringRecipe;
 import svenhjol.charm.screenhandler.KilnScreenHandler;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.iface.Module;
 
-@Module(mod = Charm.MOD_ID, description = "A functional block that speeds up cooking of clay, bricks and terracotta.")
+@Module(mod = Charm.MOD_ID, client = KilnsClient.class, description = "A functional block that speeds up cooking of clay, bricks and terracotta.")
 public class Kilns extends CharmModule {
     public static Identifier RECIPE_ID = new Identifier("firing");
     public static Identifier BLOCK_ID = new Identifier(Charm.MOD_ID, "kiln");
@@ -30,16 +29,15 @@ public class Kilns extends CharmModule {
     @Override
     public void register() {
         KILN = new KilnBlock(this);
-        RECIPE_TYPE = RecipeType.register(RECIPE_ID.toString());
-        RECIPE_SERIALIZER = RecipeSerializer.register(RECIPE_ID.toString(), new CookingRecipeSerializer(FiringRecipe::new, 100));
-        BLOCK_ENTITY = BlockEntityType.Builder.create(KilnBlockEntity::new, KILN).build(null);
-        SCREEN_HANDLER = Registry.register(Registry.SCREEN_HANDLER, BLOCK_ID, new ScreenHandlerType<>(KilnScreenHandler::new));
-
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, BLOCK_ID, BLOCK_ENTITY);
+        RECIPE_TYPE = RegistryHandler.recipeType(RECIPE_ID.toString());
+        RECIPE_SERIALIZER = RegistryHandler.recipeSerializer(RECIPE_ID.toString(), new CookingRecipeSerializer<>(FiringRecipe::new, 100));
+        BLOCK_ENTITY = RegistryHandler.blockEntity(BLOCK_ID, KilnBlockEntity::new, KILN);
+        SCREEN_HANDLER = RegistryHandler.screenHandler(BLOCK_ID, KilnScreenHandler::new);
     }
 
     @Override
-    public void clientInit() {
-        ScreenRegistry.register(SCREEN_HANDLER, KilnScreen::new);
+    public void init() {
+        DecorationHelper.DECORATION_BLOCKS.add(KILN);
+        DecorationHelper.STATE_CALLBACK.put(KILN, facing -> KILN.getDefaultState().with(KilnBlock.FACING, facing));
     }
 }

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "charm:refined_obsidian",
+    "charm:refined_obsidian_slab",
+    "charm:refined_obsidian_stairs",
+    "charm:refined_obsidian_wall"
+  ]
+}

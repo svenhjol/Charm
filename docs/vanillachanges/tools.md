@@ -15,5 +15,5 @@ Right-click to release the captured bat, causing the outline of all entities aro
 [COMING SOON]
 
 ### Woodcutters
-![Woodcutters](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Woodcutters](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/woodcutter.png?raw=true)
 The woodcutter is a functional block that adds more efficient recipes for crafting wooden items.

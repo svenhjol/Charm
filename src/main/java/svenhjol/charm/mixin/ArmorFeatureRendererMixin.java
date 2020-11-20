@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.handler.ColoredGlintHandler;
 import svenhjol.charm.module.ArmorInvisibility;
 
 @Mixin(ArmorFeatureRenderer.class)
@@ -21,11 +22,14 @@ public class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEn
         at = @At("HEAD"),
         cancellable = true
     )
-    private void hookRenderArmorPart(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T livingEntity, EquipmentSlot equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci) {
+    private void hookRenderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T livingEntity, EquipmentSlot equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci) {
         if (ModuleHandler.enabled("charm:armor_invisibility")) {
             ItemStack stack = livingEntity.getEquippedStack(equipmentSlot);
             if (ArmorInvisibility.shouldArmorBeInvisible(livingEntity, stack))
                 ci.cancel();
         }
+
+        // take a reference to the item being rendered, this is needed for the glint consumer
+        ColoredGlintHandler.targetStack = livingEntity.getEquippedStack(equipmentSlot);
     }
 }

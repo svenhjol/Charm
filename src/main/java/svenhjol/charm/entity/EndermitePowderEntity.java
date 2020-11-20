@@ -76,11 +76,13 @@ public class EndermitePowderEntity extends Entity {
         double bpy = y + vec.y * ticks + ticks * rise;
         double bpz = z + vec.z * ticks;
 
-        for (int i = 0; i < particles; i++) {
-            double px = bpx + (Math.random() - 0.5) * posSpread;
-            double py = bpy + (Math.random() - 0.5) * posSpread;
-            double pz = bpz + (Math.random() - 0.5) * posSpread;
-            ((ServerWorld) world).spawnParticles(ParticleTypes.PORTAL, px, py, pz, 1, 0.2D, 0.12D, 0.1D, 0.06D);
+        if (!world.isClient) {
+            for (int i = 0; i < particles; i++) {
+                double px = bpx + (Math.random() - 0.5) * posSpread;
+                double py = bpy + (Math.random() - 0.5) * posSpread;
+                double pz = bpz + (Math.random() - 0.5) * posSpread;
+                ((ServerWorld) world).spawnParticles(ParticleTypes.PORTAL, px, py, pz, 1, 0.2D, 0.12D, 0.1D, 0.06D);
+            }
         }
 
         if (ticks++ > maxLiveTime) {

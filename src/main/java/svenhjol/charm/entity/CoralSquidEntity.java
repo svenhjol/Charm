@@ -86,7 +86,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         if (!world.getBlockState(this.getBlockPos().up()).isOf(Blocks.WATER))
             return false;
 
-        Box box = this.getBoundingBox().expand(5, 30, 5);
+        Box box = this.getBoundingBox().expand(0, 20, 0);
 
         BlockPos pos1 = new BlockPos(box.minX, box.minY, box.minZ);
         BlockPos pos2 = new BlockPos(box.maxX, box.maxY, box.maxZ);
@@ -181,7 +181,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
     @Override
     protected float getSoundPitch() {
-        return 1.F;
+        return 1.25F;
     }
 
     protected boolean canClimb() {

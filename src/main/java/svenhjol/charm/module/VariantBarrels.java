@@ -3,13 +3,13 @@ package svenhjol.charm.module;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
-import svenhjol.charm.block.VariantBarrelBlock;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
+import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.block.VariantBarrelBlock;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,6 @@ public class VariantBarrels extends CharmModule {
             BARREL_BLOCKS.put(type, new VariantBarrelBlock(this, type));
         }
 
-        BLOCK_ENTITY = BlockEntityType.Builder.create(BarrelBlockEntity::new).build(null);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, ID, BLOCK_ENTITY);
+        BLOCK_ENTITY = RegistryHandler.blockEntity(ID, BarrelBlockEntity::new);
     }
 }

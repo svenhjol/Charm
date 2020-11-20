@@ -19,19 +19,13 @@ public class CoralSquidEntityRenderer extends MobEntityRenderer<CoralSquidEntity
         return entity.getTexture();
     }
 
-    @Override
-    protected void scale(CoralSquidEntity entity, MatrixStack matrixStack, float f) {
-        super.scale(entity, matrixStack, f);
-        matrixStack.scale(0.8F, 0.8F, 0.8F);
-    }
-
     /**
      * Copypasta from SquidEntityRenderer.
      */
     protected void setupTransforms(CoralSquidEntity squidEntity, MatrixStack matrixStack, float f, float g, float h) {
         float i = MathHelper.lerp(h, squidEntity.prevTiltAngle, squidEntity.tiltAngle);
         float j = MathHelper.lerp(h, squidEntity.prevRollAngle, squidEntity.rollAngle);
-        matrixStack.translate(0.0D, 0.5D, 0.0D);
+        matrixStack.translate(0.0D, 0.25D, 0.0D);
         matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F - g));
         matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(i));
         matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(j));

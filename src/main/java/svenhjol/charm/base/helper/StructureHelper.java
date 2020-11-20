@@ -12,10 +12,6 @@ import java.util.List;
 public class StructureHelper {
     public static List<StructureProcessor> SINGLE_POOL_ELEMENT_PROCESSORS = new ArrayList<>();
 
-    public static void registerConfiguredFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
-        BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, id, configuredFeature);
-    }
-
     public static void addToBiome(List<String> biomeGroup, ConfiguredStructureFeature<?, ?> configuredFeature) {
         biomeGroup.forEach(id -> BuiltinRegistries.BIOME.getOrEmpty(new Identifier(id))
             .ifPresent(biome -> BiomeHelper.addStructureFeature(biome, configuredFeature)));

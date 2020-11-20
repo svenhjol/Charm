@@ -3,22 +3,22 @@ package svenhjol.charm.module;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
-import svenhjol.charm.block.VariantChestBlock;
-import svenhjol.charm.block.VariantTrappedChestBlock;
-import svenhjol.charm.blockentity.VariantChestBlockEntity;
-import svenhjol.charm.blockentity.VariantChestClient;
-import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
+import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.block.VariantChestBlock;
+import svenhjol.charm.block.VariantTrappedChestBlock;
+import svenhjol.charm.blockentity.VariantChestBlockEntity;
+import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
+import svenhjol.charm.client.VariantChestsClient;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, description = "Chests available in all types of vanilla wood.")
+@Module(mod = Charm.MOD_ID, client = VariantChestsClient.class, description = "Chests available in all types of vanilla wood.")
 public class VariantChests extends CharmModule {
     public static final Identifier NORMAL_ID = new Identifier("variant_chest");
     public static final Identifier TRAPPED_ID = new Identifier(Charm.MOD_ID, "trapped_chest");
@@ -36,15 +36,7 @@ public class VariantChests extends CharmModule {
             TRAPPED_CHEST_BLOCKS.put(type, new VariantTrappedChestBlock(this, type));
         }
 
-        NORMAL_BLOCK_ENTITY = BlockEntityType.Builder.create(VariantChestBlockEntity::new, NORMAL_CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
-        TRAPPED_BLOCK_ENTITY = BlockEntityType.Builder.create(VariantTrappedChestBlockEntity::new, TRAPPED_CHEST_BLOCKS.values().toArray(new Block[0])).build(null);
-
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, NORMAL_ID, NORMAL_BLOCK_ENTITY);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, TRAPPED_ID, TRAPPED_BLOCK_ENTITY);
-    }
-
-    @Override
-    public void clientRegister() {
-        new VariantChestClient(this);
+        NORMAL_BLOCK_ENTITY = RegistryHandler.blockEntity(NORMAL_ID, VariantChestBlockEntity::new, NORMAL_CHEST_BLOCKS.values().toArray(new Block[0]));
+        TRAPPED_BLOCK_ENTITY = RegistryHandler.blockEntity(TRAPPED_ID, VariantTrappedChestBlockEntity::new, TRAPPED_CHEST_BLOCKS.values().toArray(new Block[0]));
     }
 }

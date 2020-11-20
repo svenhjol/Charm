@@ -14,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
+import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
@@ -24,16 +25,23 @@ import svenhjol.charm.base.helper.ItemNBTHelper;
 
 import java.util.List;
 
-public class ShulkerBoxTooltipsClient {
+public class ShulkerBoxTooltipsClient extends CharmClientModule {
     public ShulkerBoxTooltipsClient(CharmModule module) {
-        RenderTooltipCallback.EVENT.register(((matrices, stack, lines, x, y) -> {
-            if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
-                boolean result = renderTooltip(matrices, stack, lines, x, y);
-                if (result)
-                    return ActionResult.SUCCESS;
-            }
-            return ActionResult.PASS;
-        }));
+        super(module);
+    }
+
+    @Override
+    public void register() {
+        RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
+    }
+
+    private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+        if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
+            boolean result = renderTooltip(matrices, stack, lines, x, y);
+            if (result)
+                return ActionResult.SUCCESS;
+        }
+        return ActionResult.PASS;
     }
 
     private boolean renderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {

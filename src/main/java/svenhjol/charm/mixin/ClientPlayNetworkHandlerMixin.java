@@ -20,7 +20,7 @@ public class ClientPlayNetworkHandlerMixin {
         at = @At("RETURN"),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookOnEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci, double x, double y, double z) {
-        ClientEntitySpawnCallback.EVENT.invoker().interact(world, packet, x, y, z, packet.getEntityTypeId());
+    private void hookOnEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci) {
+        ClientEntitySpawnCallback.EVENT.invoker().interact(packet, packet.getEntityTypeId(), world, packet.getX(), packet.getY(), packet.getZ());
     }
 }

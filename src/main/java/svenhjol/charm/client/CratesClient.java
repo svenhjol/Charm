@@ -1,6 +1,7 @@
 package svenhjol.charm.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.DiffuseLighting;
@@ -12,10 +13,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
+import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.block.CrateBlock;
 import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.event.RenderTooltipCallback;
+import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.handler.TooltipInventoryHandler;
 import svenhjol.charm.module.Crates;
 import svenhjol.charm.base.CharmModule;
@@ -24,19 +27,26 @@ import svenhjol.charm.base.helper.ItemNBTHelper;
 
 import java.util.List;
 
-public class CratesClient {
+public class CratesClient extends CharmClientModule {
     public CratesClient(CharmModule module) {
-        if (!Crates.showTooltip)
-            return;
+        super(module);
+    }
 
-        RenderTooltipCallback.EVENT.register(((matrices, stack, lines, x, y) -> {
-            if (stack != null && ItemHelper.getBlockClass(stack) == CrateBlock.class) {
-                boolean result = renderTooltip(matrices, stack, lines, x, y);
-                if (result)
-                    return ActionResult.SUCCESS;
-            }
-            return ActionResult.PASS;
-        }));
+    @Override
+    public void register() {
+        if (Crates.showTooltip)
+            RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
+
+        ScreenRegistry.register(Crates.SCREEN_HANDLER, CrateScreen::new);
+    }
+
+    private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+        if (stack != null && ItemHelper.getBlockClass(stack) == CrateBlock.class) {
+            boolean result = renderTooltip(matrices, stack, lines, x, y);
+            if (result)
+                return ActionResult.SUCCESS;
+        }
+        return ActionResult.PASS;
     }
 
     private boolean renderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
