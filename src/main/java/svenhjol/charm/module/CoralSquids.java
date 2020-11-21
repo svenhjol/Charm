@@ -39,6 +39,9 @@ public class CoralSquids extends CharmModule {
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a coral squid dropping coral when killed by the player.")
     public static double dropChance = 0.2D;
 
+    @Config(name = "Weight", description = "Spawn weight")
+    public static int spawnWeight = 20;
+
     @Override
     public void register() {
         // register to MC registry
@@ -62,7 +65,7 @@ public class CoralSquids extends CharmModule {
 
         biomes.forEach(biomeKey -> {
             Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-            BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_AMBIENT, CORAL_SQUID, 20, 2, 4);
+            BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_AMBIENT, CORAL_SQUID, spawnWeight, 2, 4);
         });
     }
 }
