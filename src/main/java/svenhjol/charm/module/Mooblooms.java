@@ -63,7 +63,7 @@ public class Mooblooms extends CharmModule {
         if (entity instanceof BeeEntity) {
             BeeEntity bee = (BeeEntity)entity;
             if (MobHelper.getGoals(bee).stream().noneMatch(g -> g.getGoal() instanceof BeeMoveToMoobloomGoal))
-                MobHelper.getGoalSelector(bee).add(1, new BeeMoveToMoobloomGoal(bee));
+                MobHelper.getGoalSelector(bee).add(4, new BeeMoveToMoobloomGoal(bee));
         }
 
         return ActionResult.PASS;
