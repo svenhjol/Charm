@@ -17,7 +17,7 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Fea
         super(context);
     }
 
-    // copypasta from MooshroomMushroomFeatureRenderer
+    // copypasta from MooshroomMushroomFeatureRenderer with adjustments to scale and another flower added
     @Override
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         if (!entity.isBaby() && !entity.isInvisible()) {
@@ -27,21 +27,32 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Fea
 
 
             matrixStack.push();
-            matrixStack.translate(0.20000000298023224D, -0.3499999940395355D, 0.5D);
+            matrixStack.translate(0.2D, -0.35D, 0.5D);
             matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
-            matrixStack.scale(-1.0F, -1.0F, 1.0F);
-            matrixStack.translate(-0.5D, -0.5D, -0.5D);
+            matrixStack.scale(-0.75F, -0.75F, 0.75F);
+            matrixStack.translate(-0.5D, -0.65D, -0.5D);
             blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
             matrixStack.pop();
 
 
             matrixStack.push();
-            matrixStack.translate(0.20000000298023224D, -0.3499999940395355D, 0.5D);
+            matrixStack.translate(0.2D, -0.35D, 0.5D);
             matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(42.0F));
-            matrixStack.translate(0.10000000149011612D, 0.0D, -0.6000000238418579D);
+            matrixStack.translate(0.4D, 0.0D, -0.6D);
             matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
-            matrixStack.scale(-1.0F, -1.0F, 1.0F);
-            matrixStack.translate(-0.5D, -0.5D, -0.5D);
+            matrixStack.scale(-0.75F, -0.75F, 0.75F);
+            matrixStack.translate(-0.5D, -0.65D, -0.5D);
+            blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
+            matrixStack.pop();
+
+
+            matrixStack.push();
+            matrixStack.translate(0.2D, -0.35D, 0.5D);
+            matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(42.0F));
+            matrixStack.translate(-0.05, 0.0D, -0.4D);
+            matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
+            matrixStack.scale(-0.75F, -0.75F, 0.75F);
+            matrixStack.translate(-0.5D, -0.65D, -0.5D);
             blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
             matrixStack.pop();
 
@@ -51,8 +62,8 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Fea
                 (this.getContextModel()).getHead().rotate(matrixStack);
                 matrixStack.translate(0.0D, -0.699999988079071D, -0.20000000298023224D);
                 matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-78.0F));
-                matrixStack.scale(-1.0F, -1.0F, 1.0F);
-                matrixStack.translate(-0.5D, -0.5D, -0.5D);
+                matrixStack.scale(-0.75F, -0.75F, 0.75F);
+                matrixStack.translate(-0.5D, -0.65D, -0.5D);
                 blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
                 matrixStack.pop();
             }
