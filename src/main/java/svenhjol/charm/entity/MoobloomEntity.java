@@ -31,10 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.Mooblooms;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class MoobloomEntity extends CowEntity {
     private static final String TYPE_TAG = "Type";
@@ -43,7 +40,7 @@ public class MoobloomEntity extends CowEntity {
     private static final String EFFECT_AMPLIFIER_TAG = "EffectAmplifier";
 
     private static TrackedData<String> TYPE;
-    public static Map<Type, Identifier> TEXTURES;
+    public static Map<Type, Identifier> TEXTURES = new HashMap<>();
 
     private StatusEffect flowerEffect;
     private int flowerEffectDuration;
@@ -51,6 +48,13 @@ public class MoobloomEntity extends CowEntity {
 
     public MoobloomEntity(EntityType<? extends CowEntity> entityType, World world) {
         super(entityType, world);
+
+        // set up the textures for each mooblomom type
+        TEXTURES = Util.make(Maps.newHashMap(), map -> {
+            for (Type type : Type.values()) {
+                map.put(type, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/" + type.name + ".png"));
+            }
+        });
     }
 
     @Override
@@ -144,9 +148,11 @@ public class MoobloomEntity extends CowEntity {
         DANDELION("dandelion", Blocks.DANDELION.getDefaultState()),
         LILY_OF_THE_VALLEY("lily_of_the_valley", Blocks.LILY_OF_THE_VALLEY.getDefaultState()),
         ORANGE_TULIP("orange_tulip", Blocks.ORANGE_TULIP.getDefaultState()),
+        PINK_TULIP("pink_tulip", Blocks.PINK_TULIP.getDefaultState()),
+        RED_TULIP("red_tulip", Blocks.RED_TULIP.getDefaultState()),
+        WHITE_TULIP("white_tulip", Blocks.WHITE_TULIP.getDefaultState()),
         OXEYE_DAISY("oxeye_daisy", Blocks.OXEYE_DAISY.getDefaultState()),
-        POPPY("poppy", Blocks.POPPY.getDefaultState()),
-        WITHER_ROSE("wither_rose", Blocks.WITHER_ROSE.getDefaultState());
+        POPPY("poppy", Blocks.POPPY.getDefaultState());
 
         private final String name;
         private final BlockState flower;
@@ -173,17 +179,5 @@ public class MoobloomEntity extends CowEntity {
 
     static {
         TYPE = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.STRING);
-        TEXTURES = Util.make(Maps.newHashMap(), map -> {
-            map.put(Type.ALLIUM, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/allium.png"));
-            map.put(Type.AZURE_BLUET, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/azure_bluet.png"));
-            map.put(Type.BLUE_ORCHID, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/blue_orchid.png"));
-            map.put(Type.CORNFLOWER, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/cornflower.png"));
-            map.put(Type.DANDELION, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/dandelion.png"));
-            map.put(Type.LILY_OF_THE_VALLEY, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/lily_of_the_valley.png"));
-            map.put(Type.ORANGE_TULIP, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/orange_tulip.png"));
-            map.put(Type.OXEYE_DAISY, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/oxeye_daisy.png"));
-            map.put(Type.POPPY, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/poppy.png"));
-            map.put(Type.WITHER_ROSE, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/wither_rose.png"));
-        });
     }
 }
