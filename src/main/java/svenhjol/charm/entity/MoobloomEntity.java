@@ -46,17 +46,10 @@ import java.util.*;
 public class MoobloomEntity extends CowEntity {
     private static final String TYPE_TAG = "Type";
     private static final String POLLINATED_TAG = "Pollinated";
-    private static final String EFFECT_ID_TAG = "EffectId";
-    private static final String EFFECT_DURATION_TAG = "EffectDuration";
-    private static final String EFFECT_AMPLIFIER_TAG = "EffectAmplifier";
 
-    private static TrackedData<String> TYPE;
+    private static final TrackedData<String> TYPE;
+    private static final TrackedData<Boolean> POLLINATED;
     public static Map<Type, Identifier> TEXTURES = new HashMap<>();
-
-    private StatusEffect flowerEffect;
-    private int flowerEffectDuration;
-    private int flowerEffectAmplifier;
-    private boolean pollinated;
 
     public MoobloomEntity(EntityType<? extends CowEntity> entityType, World world) {
         super(entityType, world);
@@ -77,12 +70,6 @@ public class MoobloomEntity extends CowEntity {
         Type type = types.get(random.nextInt(types.size()));
         setMoobloomType(type);
 
-        Optional<Pair<StatusEffect, Integer>> effectFromFlower = getEffectFromFlower(type.flower);
-        effectFromFlower.ifPresent(e -> {
-            MoobloomEntity.this.flowerEffect = e.getLeft();
-            MoobloomEntity.this.flowerEffectDuration = e.getRight();
-        });
-
         return entityData;
     }
 
@@ -90,6 +77,7 @@ public class MoobloomEntity extends CowEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(TYPE, Type.ALLIUM.name());
+        this.dataTracker.startTracking(POLLINATED, false);
     }
 
     @Override
@@ -103,10 +91,22 @@ public class MoobloomEntity extends CowEntity {
         ItemStack held = player.getStackInHand(hand);
 
         if (held.getItem() == Items.BOWL && !this.isBaby()) {
-            // TODO: handle timer
-            if (this.flowerEffect != null) {
-                ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
-                SuspiciousStewItem.addEffectToStew(stew, this.flowerEffect, this.flowerEffectDuration);
+            if (!world.isClient && isPollinated()) {
+                ItemStack stew;
+
+                Optional<Pair<StatusEffect, Integer>> effectFromFlower = getEffectFromFlower(this.getMoobloomType().flower);
+
+                if (effectFromFlower.isPresent()) {
+                    StatusEffect effect = effectFromFlower.get().getLeft();
+                    int duration = effectFromFlower.get().getRight();
+                    stew = new ItemStack(Items.SUSPICIOUS_STEW);
+                    SuspiciousStewItem.addEffectToStew(stew, effect, duration);
+                } else {
+                    stew = new ItemStack(Items.MUSHROOM_STEW);
+                }
+
+                player.setStackInHand(hand, stew);
+                this.dataTracker.set(POLLINATED, false);
             }
 
             return ActionResult.success(this.world.isClient);
@@ -119,29 +119,16 @@ public class MoobloomEntity extends CowEntity {
     public void writeCustomDataToTag(CompoundTag tag) {
         super.writeCustomDataToTag(tag);
         tag.putString(TYPE_TAG, this.getMoobloomType().name);
-        if (this.flowerEffect != null) {
-            tag.putByte(EFFECT_ID_TAG, (byte)StatusEffect.getRawId(this.flowerEffect));
-            tag.putInt(EFFECT_DURATION_TAG, this.flowerEffectDuration);
-            tag.putInt(EFFECT_AMPLIFIER_TAG, this.flowerEffectAmplifier);
-            tag.putBoolean(POLLINATED_TAG, this.pollinated);
-        }
+        tag.putBoolean(POLLINATED_TAG, this.dataTracker.get(POLLINATED));
     }
 
     @Override
     public void readCustomDataFromTag(CompoundTag tag) {
         super.readCustomDataFromTag(tag);
         this.setMoobloomType(Type.fromName(tag.getString(TYPE_TAG)));
-        if (tag.contains(EFFECT_ID_TAG, 1))
-            this.flowerEffect = StatusEffect.byRawId(tag.getByte(EFFECT_ID_TAG));
-
-        if (tag.contains(EFFECT_DURATION_TAG, 3))
-            this.flowerEffectDuration = tag.getInt(EFFECT_DURATION_TAG);
-
-        if (tag.contains(EFFECT_AMPLIFIER_TAG))
-            this.flowerEffectAmplifier = tag.getInt(EFFECT_AMPLIFIER_TAG);
 
         if (tag.contains(POLLINATED_TAG))
-            this.pollinated = tag.getBoolean(POLLINATED_TAG);
+            this.dataTracker.set(POLLINATED, tag.getBoolean(POLLINATED_TAG));
     }
 
     @Override
@@ -169,16 +156,15 @@ public class MoobloomEntity extends CowEntity {
 
     public void pollinate() {
         if (world.isClient) {
-            produceParticles(ParticleTypes.LANDING_HONEY);
+            produceParticles(ParticleTypes.HAPPY_VILLAGER);
         } else {
             world.playSound(null, getBlockPos(), SoundEvents.ENTITY_BEE_POLLINATE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+            this.dataTracker.set(POLLINATED, true);
         }
-
-        this.pollinated = true;
     }
 
     public boolean isPollinated() {
-        return this.pollinated;
+        return this.dataTracker.get(POLLINATED);
     }
 
     public Type getMoobloomType() {
@@ -246,5 +232,6 @@ public class MoobloomEntity extends CowEntity {
 
     static {
         TYPE = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.STRING);
+        POLLINATED = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }
 }
