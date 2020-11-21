@@ -20,7 +20,7 @@ public class MoobloomPlantFlowerGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING))
+        if (!world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING))
             return false;
 
         if (planting)
