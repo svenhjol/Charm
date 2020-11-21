@@ -55,7 +55,7 @@ public class Mooblooms extends CharmModule {
 
         biomes.forEach(biomeKey -> {
             Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-            BiomeHelper.addSpawnEntry(biome, SpawnGroup.CREATURE, MOOBLOOM, 10, 2, 4);
+            BiomeHelper.addSpawnEntry(biome, SpawnGroup.CREATURE, MOOBLOOM, 30, 2, 4);
         });
     }
 
