@@ -45,7 +45,7 @@ public class BeeMoveToMoobloomGoal extends Goal {
         bee.resetPollinationTicks();
 
         Box box = bee.getBoundingBox().expand(RANGE, RANGE / 2.0, RANGE);
-        Predicate<MoobloomEntity> selector = entity -> !entity.isPollinated();
+        Predicate<MoobloomEntity> selector = entity -> !entity.isPollinated() && entity.isAlive();
         List<MoobloomEntity> entities = world.getEntitiesByClass(MoobloomEntity.class, box, selector);
 
         if (entities.size() > 0) {
@@ -68,14 +68,14 @@ public class BeeMoveToMoobloomGoal extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return moobloom != null && moveTicks < MAX_MOVE_TICKS;
+        return moobloom != null && moobloom.isAlive() && moveTicks < MAX_MOVE_TICKS;
     }
 
     @Override
     public void tick() {
         moveTicks++;
 
-        if (moobloom == null)
+        if (moobloom == null || !moobloom.isAlive())
             return;
 
         if (moveTicks > MAX_MOVE_TICKS) {
