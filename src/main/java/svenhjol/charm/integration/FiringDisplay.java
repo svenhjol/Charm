@@ -7,7 +7,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.util.Identifier;
-import svenhjol.charm.module.Kilns;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class FiringDisplay extends DefaultCookingDisplay implements TransferReci
 
     @Override
     public Identifier getRecipeCategory() {
-        return Kilns.RECIPE_ID;
+        return CharmReiPlugin.FIRING;
     }
 
     @Override
