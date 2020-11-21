@@ -23,6 +23,7 @@ import svenhjol.charm.client.ExtractEnchantmentsClient;
 import javax.annotation.Nullable;
 import java.util.*;
 
+@SuppressWarnings({"unchecked", "rawtypes"})
 @Module(mod = Charm.MOD_ID, client = ExtractEnchantmentsClient.class, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.")
 public class ExtractEnchantments extends CharmModule {
     @Config(name = "Initial XP cost", description = "Initial XP cost before adding XP equivalent to the enchantment level(s) of the item.")
