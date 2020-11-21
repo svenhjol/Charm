@@ -1,5 +1,6 @@
 package svenhjol.charm.integration;
 
+import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.api.RecipeHelper;
 import me.shedaniel.rei.api.plugins.REIPluginV0;
@@ -7,42 +8,39 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
+import svenhjol.charm.gui.KilnScreen;
+import svenhjol.charm.module.Kilns;
 import svenhjol.charm.module.Woodcutters;
+import svenhjol.charm.recipe.FiringRecipe;
+import svenhjol.charm.recipe.WoodcuttingRecipe;
 
 @Environment(EnvType.CLIENT)
 public class CharmReiPlugin implements REIPluginV0 {
-    public static final Identifier WOODCUTTING = new Identifier(Charm.MOD_ID, "woodcutting");
-    public static final Identifier FIRING = new Identifier(Charm.MOD_ID, "firing");
+    public static final Identifier PLUGIN = new Identifier(Charm.MOD_ID, "rei_plugin");
+    public static final Identifier WOODCUTTING = new Identifier(Charm.MOD_ID, "plugins/woodcutting");
+    public static final Identifier FIRING = new Identifier(Charm.MOD_ID, "plugins/firing");
 
     @Override
     public Identifier getPluginIdentifier() {
-        return new Identifier(Charm.MOD_ID, "rei_plugin");
-    }
-
-    @Override
-    public void registerOthers(RecipeHelper recipeHelper) {
-        recipeHelper.registerWorkingStations(WOODCUTTING, EntryStack.create(Woodcutters.WOODCUTTER));
-//        recipeHelper.registerWorkingStations(FIRING, EntryStack.create(Kilns.KILN));
-
-        recipeHelper.removeAutoCraftButton(WOODCUTTING);
-//        recipeHelper.removeAutoCraftButton(FIRING);
-
-//        BuiltinPlugin.getInstance().registerInformation(EntryStack.create(EnergonRelics.Items.CIRCUIT_BOARD), new TranslatableText("category.rei." + Charm.MOD_ID + ".information.structure_generation.title"), texts -> {
-//            List<Text> newTexts = new ArrayList<>(texts);
-//            newTexts.add(new TranslatableText("category.rei." + Charm.MOD_ID + ".information.structure_generation.research_complex"));
-//            return newTexts;
-//        });
+        return PLUGIN;
     }
 
     @Override
     public void registerRecipeDisplays(RecipeHelper recipeHelper) {
-        WoodcuttingCategory.register(recipeHelper);
-//        ReactorFuelCategory.register(recipeHelper);
+        recipeHelper.registerRecipes(WOODCUTTING, WoodcuttingRecipe.class, WoodcuttingDisplay::new);
+        recipeHelper.registerRecipes(FIRING, FiringRecipe.class, FiringDisplay::new);
     }
 
     @Override
     public void registerPluginCategories(RecipeHelper recipeHelper) {
         recipeHelper.registerCategories(new WoodcuttingCategory());
+        recipeHelper.registerCategories(new FiringCategory());
     }
 
+    @Override
+    public void registerOthers(RecipeHelper recipeHelper) {
+        recipeHelper.registerWorkingStations(WOODCUTTING, EntryStack.create(Woodcutters.WOODCUTTER));
+        recipeHelper.registerWorkingStations(FIRING, EntryStack.create(Kilns.KILN));
+        recipeHelper.registerContainerClickArea(new Rectangle(78, 32, 28, 23), KilnScreen.class, FIRING);
+    }
 }

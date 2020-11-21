@@ -14,6 +14,10 @@ public class FiringRecipe extends AbstractCookingRecipe {
         super(Kilns.RECIPE_TYPE, id, group, input, output, experience, cookTime);
     }
 
+    public Ingredient getInput() {
+        return this.input;
+    }
+
     @Environment(EnvType.CLIENT)
     public ItemStack getRecipeKindIcon() {
         return new ItemStack(Kilns.KILN);

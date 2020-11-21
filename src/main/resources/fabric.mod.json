@@ -28,6 +28,9 @@
     ],
     "rei_plugins": [
       "svenhjol.charm.integration.CharmReiPlugin"
+    ],
+    "rei_containers": [
+      "svenhjol.charm.integration.CharmReiContainerPlugin"
     ]
   },
   "mixins": [

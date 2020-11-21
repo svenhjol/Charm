@@ -5,35 +5,44 @@ import me.shedaniel.rei.api.RecipeDisplay;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
-import svenhjol.charm.module.Woodcutters;
+import net.minecraft.util.collection.DefaultedList;
+import org.jetbrains.annotations.NotNull;
+import svenhjol.charm.recipe.WoodcuttingRecipe;
 
 import java.util.Collections;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class WoodcuttingDisplay implements RecipeDisplay {
-    private final EntryStack input;
-    public final EntryStack output;
+    private List<List<EntryStack>> inputs;
+    private List<EntryStack> output;
+    private WoodcuttingRecipe display;
 
-    public WoodcuttingDisplay(ItemStack input, ItemStack output) {
-        this.input = EntryStack.create(input);
-        this.output = EntryStack.create(output);
+    public WoodcuttingDisplay(WoodcuttingRecipe recipe) {
+        this(recipe.getPreviewInputs(), recipe.getOutput());
+        this.display = recipe;
+    }
+
+    public WoodcuttingDisplay(DefaultedList<Ingredient> ingredients, ItemStack output) {
+        this.inputs = EntryStack.ofIngredients(ingredients);
+        this.output = Collections.singletonList(EntryStack.create(output));
     }
 
     @Override
-    public List<List<EntryStack>> getInputEntries() {
-        return Collections.singletonList(Collections.singletonList(input));
+    public @NotNull List<List<EntryStack>> getInputEntries() {
+        return inputs;
     }
 
     @Override
-    public List<List<EntryStack>> getResultingEntries() {
-        return Collections.singletonList(Collections.singletonList(output));
+    public @NotNull List<List<EntryStack>> getResultingEntries() {
+        return Collections.singletonList(output);
     }
 
     @Override
-    public Identifier getRecipeCategory() {
-        return Woodcutters.RECIPE_ID;
+    public @NotNull Identifier getRecipeCategory() {
+        return CharmReiPlugin.WOODCUTTING;
     }
 
     @Override

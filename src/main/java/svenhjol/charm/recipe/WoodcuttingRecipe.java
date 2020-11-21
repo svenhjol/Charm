@@ -20,7 +20,7 @@ public class WoodcuttingRecipe extends CuttingRecipe {
    }
 
    public ItemStack getOutput() {
-      return this.output;
+      return this.output.copy();
    }
 
    public boolean matches(Inventory inv, World world) {
