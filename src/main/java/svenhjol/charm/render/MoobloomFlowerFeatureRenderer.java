@@ -22,15 +22,19 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Fea
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         if (!entity.isBaby() && !entity.isInvisible()) {
             BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
-            BlockState blockState = entity.getMoobloomType().getFlower();
+            BlockState state = entity.getMoobloomType().getFlower();
             int m = LivingEntityRenderer.getOverlay(entity, 0.0F);
+
+
             matrixStack.push();
             matrixStack.translate(0.20000000298023224D, -0.3499999940395355D, 0.5D);
             matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
             matrixStack.scale(-1.0F, -1.0F, 1.0F);
             matrixStack.translate(-0.5D, -0.5D, -0.5D);
-            blockRenderManager.renderBlockAsEntity(blockState, matrixStack, vertexConsumerProvider, light, m);
+            blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
             matrixStack.pop();
+
+
             matrixStack.push();
             matrixStack.translate(0.20000000298023224D, -0.3499999940395355D, 0.5D);
             matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(42.0F));
@@ -38,16 +42,20 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Fea
             matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
             matrixStack.scale(-1.0F, -1.0F, 1.0F);
             matrixStack.translate(-0.5D, -0.5D, -0.5D);
-            blockRenderManager.renderBlockAsEntity(blockState, matrixStack, vertexConsumerProvider, light, m);
+            blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
             matrixStack.pop();
-            matrixStack.push();
-            (this.getContextModel()).getHead().rotate(matrixStack);
-            matrixStack.translate(0.0D, -0.699999988079071D, -0.20000000298023224D);
-            matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-78.0F));
-            matrixStack.scale(-1.0F, -1.0F, 1.0F);
-            matrixStack.translate(-0.5D, -0.5D, -0.5D);
-            blockRenderManager.renderBlockAsEntity(blockState, matrixStack, vertexConsumerProvider, light, m);
-            matrixStack.pop();
+
+
+            if (entity.isPollinated()) {
+                matrixStack.push();
+                (this.getContextModel()).getHead().rotate(matrixStack);
+                matrixStack.translate(0.0D, -0.699999988079071D, -0.20000000298023224D);
+                matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-78.0F));
+                matrixStack.scale(-1.0F, -1.0F, 1.0F);
+                matrixStack.translate(-0.5D, -0.5D, -0.5D);
+                blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
+                matrixStack.pop();
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 package svenhjol.charm.entity;
 
 import com.google.common.collect.Maps;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -19,7 +21,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -92,10 +98,6 @@ public class MoobloomEntity extends CowEntity {
         this.goalSelector.add(3, new MoobloomPlantFlowerGoal(this));
     }
 
-    public static boolean canSpawn(EntityType<MoobloomEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getBaseLightLevel(pos, 0) > 8;
-    }
-
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack held = player.getStackInHand(hand);
@@ -155,6 +157,30 @@ public class MoobloomEntity extends CowEntity {
         return entity;
     }
 
+    @Environment(EnvType.CLIENT)
+    protected void produceParticles(ParticleEffect particle) {
+        for(int i = 0; i < 5; ++i) {
+            double d = this.random.nextGaussian() * 0.02D;
+            double e = this.random.nextGaussian() * 0.02D;
+            double f = this.random.nextGaussian() * 0.02D;
+            this.world.addParticle(particle, this.getParticleX(1.0D), this.getRandomBodyY() + 1.0D, this.getParticleZ(1.0D), d, e, f);
+        }
+    }
+
+    public void pollinate() {
+        if (world.isClient) {
+            produceParticles(ParticleTypes.LANDING_HONEY);
+        } else {
+            world.playSound(null, getBlockPos(), SoundEvents.ENTITY_BEE_POLLINATE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+        }
+
+        this.pollinated = true;
+    }
+
+    public boolean isPollinated() {
+        return this.pollinated;
+    }
+
     public Type getMoobloomType() {
         return Type.fromName(this.dataTracker.get(TYPE));
     }
@@ -175,6 +201,10 @@ public class MoobloomEntity extends CowEntity {
         }
 
         return Optional.empty();
+    }
+
+    public static boolean canSpawn(EntityType<MoobloomEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return world.getBaseLightLevel(pos, 0) > 8;
     }
 
     public enum Type {

@@ -1,10 +1,13 @@
 package svenhjol.charm.module;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
@@ -17,6 +20,8 @@ import svenhjol.charm.base.helper.MobHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.MoobloomsClient;
 import svenhjol.charm.entity.MoobloomEntity;
+import svenhjol.charm.entity.goal.BeeMoveToMoobloomGoal;
+import svenhjol.charm.event.AddEntityCallback;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,11 +45,25 @@ public class Mooblooms extends CharmModule {
 
     @Override
     public void init() {
+        // add goals to any spawned bees
+        AddEntityCallback.EVENT.register(this::tryAddGoalsToBee);
+
+        // add the mooblooms to flower forest biomes
         List<RegistryKey<Biome>> biomes = new ArrayList<>(Collections.singletonList(BiomeKeys.FLOWER_FOREST));
 
         biomes.forEach(biomeKey -> {
             Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
             BiomeHelper.addSpawnEntry(biome, SpawnGroup.CREATURE, MOOBLOOM, 10, 2, 4);
         });
+    }
+
+    private ActionResult tryAddGoalsToBee(Entity entity) {
+        if (entity instanceof BeeEntity) {
+            BeeEntity bee = (BeeEntity)entity;
+            if (MobHelper.getGoals(bee).stream().noneMatch(g -> g.getGoal() instanceof BeeMoveToMoobloomGoal))
+                MobHelper.getGoalSelector(bee).add(1, new BeeMoveToMoobloomGoal(bee));
+        }
+
+        return ActionResult.PASS;
     }
 }
