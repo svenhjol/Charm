@@ -13,7 +13,7 @@ public class CoralSquidsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        EntityRendererRegistry.INSTANCE.register(CoralSquids.CORAL_SQUID, (dispatcher, context) ->
-            new CoralSquidEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(CoralSquids.CORAL_SQUID, (dispatcher, context)
+            -> new CoralSquidEntityRenderer(dispatcher));
     }
 }

@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -20,11 +21,14 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.Mooblooms;
 
 import java.util.Map;
+import java.util.Random;
 
 public class MoobloomEntity extends CowEntity {
     private static final String TYPE_TAG = "Type";
@@ -47,6 +51,11 @@ public class MoobloomEntity extends CowEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(TYPE, Type.ALLIUM.name());
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return world.getBaseLightLevel(pos, 0) > 8;
     }
 
     @Override
@@ -97,6 +106,10 @@ public class MoobloomEntity extends CowEntity {
 
     public void setMoobloomType(Type type) {
         this.dataTracker.set(TYPE, type.name);
+    }
+
+    public Identifier getMoobloomTexture() {
+        return TEXTURES.getOrDefault(this.getMoobloomType(), TEXTURES.get(Type.ALLIUM));
     }
 
     @Override
