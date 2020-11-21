@@ -1,8 +1,10 @@
 package svenhjol.charm.entity;
 
 import com.google.common.collect.Maps;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -27,14 +29,17 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.Charm;
+import svenhjol.charm.entity.goal.MoobloomPlantFlowerGoal;
 import svenhjol.charm.module.Mooblooms;
 
 import java.util.*;
 
 public class MoobloomEntity extends CowEntity {
     private static final String TYPE_TAG = "Type";
+    private static final String POLLINATED_TAG = "Pollinated";
     private static final String EFFECT_ID_TAG = "EffectId";
     private static final String EFFECT_DURATION_TAG = "EffectDuration";
     private static final String EFFECT_AMPLIFIER_TAG = "EffectAmplifier";
@@ -45,11 +50,12 @@ public class MoobloomEntity extends CowEntity {
     private StatusEffect flowerEffect;
     private int flowerEffectDuration;
     private int flowerEffectAmplifier;
+    private boolean pollinated;
 
     public MoobloomEntity(EntityType<? extends CowEntity> entityType, World world) {
         super(entityType, world);
 
-        // set up the textures for each mooblomom type
+        // set up the textures for each moobloom type
         TEXTURES = Util.make(Maps.newHashMap(), map -> {
             for (Type type : Type.values()) {
                 map.put(type, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/" + type.name + ".png"));
@@ -62,7 +68,14 @@ public class MoobloomEntity extends CowEntity {
         entityData = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
 
         List<Type> types = Arrays.asList(Type.values());
-        setMoobloomType(types.get(random.nextInt(types.size())));
+        Type type = types.get(random.nextInt(types.size()));
+        setMoobloomType(type);
+
+        Optional<Pair<StatusEffect, Integer>> effectFromFlower = getEffectFromFlower(type.flower);
+        effectFromFlower.ifPresent(e -> {
+            MoobloomEntity.this.flowerEffect = e.getLeft();
+            MoobloomEntity.this.flowerEffectDuration = e.getRight();
+        });
 
         return entityData;
     }
@@ -74,7 +87,12 @@ public class MoobloomEntity extends CowEntity {
     }
 
     @Override
-    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+    protected void initGoals() {
+        super.initGoals();
+        this.goalSelector.add(3, new MoobloomPlantFlowerGoal(this));
+    }
+
+    public static boolean canSpawn(EntityType<MoobloomEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
         return world.getBaseLightLevel(pos, 0) > 8;
     }
 
@@ -103,6 +121,7 @@ public class MoobloomEntity extends CowEntity {
             tag.putByte(EFFECT_ID_TAG, (byte)StatusEffect.getRawId(this.flowerEffect));
             tag.putInt(EFFECT_DURATION_TAG, this.flowerEffectDuration);
             tag.putInt(EFFECT_AMPLIFIER_TAG, this.flowerEffectAmplifier);
+            tag.putBoolean(POLLINATED_TAG, this.pollinated);
         }
     }
 
@@ -118,6 +137,22 @@ public class MoobloomEntity extends CowEntity {
 
         if (tag.contains(EFFECT_AMPLIFIER_TAG))
             this.flowerEffectAmplifier = tag.getInt(EFFECT_AMPLIFIER_TAG);
+
+        if (tag.contains(POLLINATED_TAG))
+            this.pollinated = tag.getBoolean(POLLINATED_TAG);
+    }
+
+    @Override
+    protected void mobTick() {
+        super.mobTick();
+    }
+
+    @Override
+    public MoobloomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
+        MoobloomEntity entity = Mooblooms.MOOBLOOM.create(serverWorld);
+        Type childType = serverWorld.random.nextFloat() < 0.5F ? this.getMoobloomType() : ((MoobloomEntity)passiveEntity).getMoobloomType();
+        entity.setMoobloomType(childType);
+        return entity;
     }
 
     public Type getMoobloomType() {
@@ -132,13 +167,15 @@ public class MoobloomEntity extends CowEntity {
         return TEXTURES.getOrDefault(this.getMoobloomType(), TEXTURES.get(Type.ALLIUM));
     }
 
-    @Override
-    public MoobloomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-        MoobloomEntity entity = Mooblooms.MOOBLOOM.create(serverWorld);
-        Type childType = serverWorld.random.nextFloat() < 0.5F ? this.getMoobloomType() : ((MoobloomEntity)passiveEntity).getMoobloomType();
-        entity.setMoobloomType(childType);
-        return entity;
-    }s
+    public Optional<Pair<StatusEffect, Integer>> getEffectFromFlower(BlockState flower) {
+        Block block = flower.getBlock();
+        if (block instanceof FlowerBlock) {
+            FlowerBlock flowerBlock = (FlowerBlock)block;
+            return Optional.of(Pair.of(flowerBlock.getEffectInStew(), flowerBlock.getEffectInStewDuration()));
+        }
+
+        return Optional.empty();
+    }
 
     public enum Type {
         ALLIUM("allium", Blocks.ALLIUM.getDefaultState()),
