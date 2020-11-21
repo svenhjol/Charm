@@ -1,4 +1,4 @@
-package svenhjol.charm.base.integration;
+package svenhjol.charm.integration;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -11,13 +11,14 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.Woodcutters;
+import svenhjol.charm.recipe.WoodcuttingRecipe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
@@ -60,7 +61,20 @@ public class WoodcuttingCategory implements RecipeCategory<WoodcuttingDisplay> {
 
     public static void register(RecipeHelper recipeHelper) {
         // TODO: iterate woodcutting recipes
-        recipeHelper.registerDisplay(new WoodcuttingDisplay(new ItemStack(Items.OAK_PLANKS), new ItemStack(Items.OAK_BOAT)));
-        recipeHelper.registerDisplay(new WoodcuttingDisplay(new ItemStack(Items.OAK_PLANKS), new ItemStack(Items.OAK_FENCE)));
+        List<WoodcuttingRecipe> recipes = recipeHelper.getRecipeManager().listAllOfType(Woodcutters.RECIPE_TYPE);
+
+        recipes.forEach(recipe -> {
+            List<ItemStack> matching = Arrays.asList(recipe.getInput().getMatchingStacksClient());
+            if (matching.size() == 0)
+                return;
+
+            ItemStack input = matching.get(0);
+            ItemStack output = recipe.getOutput();
+
+            recipeHelper.registerDisplay(new WoodcuttingDisplay(input, output));
+        });
+
+//        recipeHelper.registerDisplay(new WoodcuttingDisplay(new ItemStack(Items.OAK_PLANKS), new ItemStack(Items.OAK_BOAT)));
+//        recipeHelper.registerDisplay(new WoodcuttingDisplay(new ItemStack(Items.OAK_PLANKS), new ItemStack(Items.OAK_FENCE)));
     }
 }

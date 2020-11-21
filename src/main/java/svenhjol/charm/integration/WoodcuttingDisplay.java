@@ -1,4 +1,4 @@
-package svenhjol.charm.base.integration;
+package svenhjol.charm.integration;
 
 import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.api.RecipeDisplay;
