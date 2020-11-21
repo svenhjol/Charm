@@ -5,9 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -19,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -38,8 +37,9 @@ import svenhjol.charm.entity.goal.MoobloomPlantFlowerGoal;
 import svenhjol.charm.module.Mooblooms;
 
 import java.util.*;
+import java.util.function.Consumer;
 
-public class MoobloomEntity extends CowEntity {
+public class MoobloomEntity extends CowEntity implements Shearable {
     private static final String TYPE_TAG = "Type";
     private static final String POLLINATED_TAG = "Pollinated";
 
@@ -86,7 +86,7 @@ public class MoobloomEntity extends CowEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack held = player.getStackInHand(hand);
 
-        if (held.getItem() == Items.BOWL && !this.isBaby()) {
+        if (held.getItem() == Items.BOWL && !isBaby()) {
             if (!world.isClient && isPollinated()) {
                 ItemStack stew;
 
@@ -99,16 +99,26 @@ public class MoobloomEntity extends CowEntity {
                     int duration = effectFromFlower.getRight() * 2;
 
                     stew = new ItemStack(Items.SUSPICIOUS_STEW);
+                    playSound(SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK, 1.0F, 1.0F);
                     SuspiciousStewItem.addEffectToStew(stew, effect, duration);
                 } else {
                     stew = new ItemStack(Items.MUSHROOM_STEW);
+                    playSound(SoundEvents.ENTITY_MOOSHROOM_MILK, 1.0F, 1.0F);
                 }
 
                 player.setStackInHand(hand, stew);
                 this.dataTracker.set(POLLINATED, false);
             }
 
-            return ActionResult.success(this.world.isClient);
+            return ActionResult.success(world.isClient);
+
+        } else if (held.getItem() == Items.SHEARS && isShearable()) {
+
+            this.sheared(SoundCategory.PLAYERS);
+            if (!world.isClient)
+                held.damage(1, player, playerEntity -> playerEntity.sendToolBreakStatus(hand));
+
+            return ActionResult.success(world.isClient);
         }
 
         return super.interactMob(player, hand);
@@ -176,6 +186,40 @@ public class MoobloomEntity extends CowEntity {
 
     public static boolean canSpawn(EntityType<MoobloomEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
         return world.getBaseLightLevel(pos, 0) > 8;
+    }
+
+    // copypasta from MooshroomEntity
+    @Override
+    public void sheared(SoundCategory shearedSoundCategory) {
+        this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_MOOSHROOM_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
+        if (!this.world.isClient()) {
+            ((ServerWorld)this.world).spawnParticles(ParticleTypes.EXPLOSION, this.getX(), this.getBodyY(0.5D), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            this.remove();
+            CowEntity cowEntity = EntityType.COW.create(this.world);
+            cowEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+            cowEntity.setHealth(this.getHealth());
+            cowEntity.bodyYaw = this.bodyYaw;
+            if (this.hasCustomName()) {
+                cowEntity.setCustomName(this.getCustomName());
+                cowEntity.setCustomNameVisible(this.isCustomNameVisible());
+            }
+
+            if (this.isPersistent()) {
+                cowEntity.setPersistent();
+            }
+
+            cowEntity.setInvulnerable(this.isInvulnerable());
+            this.world.spawnEntity(cowEntity);
+
+            for(int i = 0; i < 5; ++i) {
+                this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getBodyY(1.0D), this.getZ(), new ItemStack(this.getMoobloomType().flower.getBlock())));
+            }
+        }
+    }
+
+    @Override
+    public boolean isShearable() {
+        return isAlive() && !this.isBaby();
     }
 
     public enum Type {
