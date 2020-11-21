@@ -27,18 +27,18 @@ import net.minecraft.tag.FluidTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.WorldAccess;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CoralSquids;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Most of this is copypasta from SquidEntity.
@@ -80,28 +80,31 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         return entityData;
     }
 
-    @Override
-    public boolean canSpawn(WorldView world) {
-        // don't spawn on surface of water
-        if (!world.getBlockState(this.getBlockPos().up()).isOf(Blocks.WATER))
-            return false;
+    public static boolean canSpawn(EntityType<CoralSquidEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        boolean coralBelow = false;
 
-        Box box = this.getBoundingBox().expand(0, 20, 0);
+        for (int y = 0; y > -16; y--) {
+            BlockPos downPos = pos.add(0, y, 0);
+            BlockState downState = world.getBlockState(downPos);
+            coralBelow = downState.getBlock() instanceof CoralParentBlock;
 
-        BlockPos pos1 = new BlockPos(box.minX, box.minY, box.minZ);
-        BlockPos pos2 = new BlockPos(box.maxX, box.maxY, box.maxZ);
+            if (coralBelow)
+                break;
+        }
 
-        return BlockPos.stream(pos1, pos2).anyMatch(p -> {
-            BlockState state = world.getBlockState(p);
-            return state.getBlock() instanceof CoralBlock
-                || state.getBlock() instanceof CoralBlockBlock
-                || state.getBlock() instanceof CoralFanBlock;
-        });
+        boolean canSpawn = pos.getY() > 20
+            && pos.getY() < world.getSeaLevel()
+            && coralBelow;
+
+        if (canSpawn)
+            Charm.LOG.debug("Can spawn coral squid at " + pos.toShortString());
+
+        return canSpawn;
     }
 
     @Override
     public int getLimitPerChunk() {
-        return 8; // might be important for performance
+        return 4; // might be important for performance
     }
 
     public Identifier getTexture() {
