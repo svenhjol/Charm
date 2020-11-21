@@ -1,8 +1,6 @@
 package svenhjol.charm.entity;
 
 import com.google.common.collect.Maps;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -21,8 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -94,11 +90,14 @@ public class MoobloomEntity extends CowEntity {
             if (!world.isClient && isPollinated()) {
                 ItemStack stew;
 
-                Optional<Pair<StatusEffect, Integer>> effectFromFlower = getEffectFromFlower(this.getMoobloomType().flower);
+                Optional<Pair<StatusEffect, Integer>> optionalFlower = getEffectFromFlower(this.getMoobloomType().flower);
 
-                if (effectFromFlower.isPresent()) {
-                    StatusEffect effect = effectFromFlower.get().getLeft();
-                    int duration = effectFromFlower.get().getRight();
+                if (optionalFlower.isPresent()) {
+                    Pair<StatusEffect, Integer> effectFromFlower = optionalFlower.get();
+
+                    StatusEffect effect = effectFromFlower.getLeft();
+                    int duration = effectFromFlower.getRight() * 2;
+
                     stew = new ItemStack(Items.SUSPICIOUS_STEW);
                     SuspiciousStewItem.addEffectToStew(stew, effect, duration);
                 } else {
@@ -144,23 +143,9 @@ public class MoobloomEntity extends CowEntity {
         return entity;
     }
 
-    @Environment(EnvType.CLIENT)
-    protected void produceParticles(ParticleEffect particle) {
-        for(int i = 0; i < 5; ++i) {
-            double d = this.random.nextGaussian() * 0.02D;
-            double e = this.random.nextGaussian() * 0.02D;
-            double f = this.random.nextGaussian() * 0.02D;
-            this.world.addParticle(particle, this.getParticleX(1.0D), this.getRandomBodyY() + 1.0D, this.getParticleZ(1.0D), d, e, f);
-        }
-    }
-
     public void pollinate() {
-        if (world.isClient) {
-            produceParticles(ParticleTypes.HAPPY_VILLAGER);
-        } else {
-            world.playSound(null, getBlockPos(), SoundEvents.ENTITY_BEE_POLLINATE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            this.dataTracker.set(POLLINATED, true);
-        }
+        world.playSound(null, getBlockPos(), SoundEvents.ENTITY_BEE_POLLINATE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+        this.dataTracker.set(POLLINATED, true);
     }
 
     public boolean isPollinated() {

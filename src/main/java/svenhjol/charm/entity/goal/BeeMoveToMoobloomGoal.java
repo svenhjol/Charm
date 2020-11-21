@@ -16,9 +16,10 @@ public class BeeMoveToMoobloomGoal extends Goal {
     private final BeeEntity bee;
     private final World world;
     private MoobloomEntity moobloom = null;
-    private int ticks;
+    private int moveTicks;
     private int range = 24;
     private int maxTicks = 1200;
+    private int lastTried = 0;
 
     public BeeMoveToMoobloomGoal(BeeEntity bee) {
         this.bee = bee;
@@ -27,15 +28,17 @@ public class BeeMoveToMoobloomGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (bee.hasNectar())
-            return true;
+        if (bee.hasNectar()) {
+            if (--lastTried <= 0)
+                return true;
+        }
 
         return false;
     }
 
     @Override
     public void start() {
-        ticks = 0;
+        moveTicks = 0;
         bee.resetPollinationTicks();
 
         Box box = bee.getBoundingBox().expand(range, range / 2.0, range);
@@ -45,6 +48,10 @@ public class BeeMoveToMoobloomGoal extends Goal {
         if (entities.size() > 0) {
             moobloom = entities.get(world.random.nextInt(entities.size()));
             bee.setCannotEnterHiveTicks(maxTicks);
+        } else {
+            moobloom = null;
+            lastTried = 200;
+            return;
         }
 
         super.start();
@@ -52,7 +59,7 @@ public class BeeMoveToMoobloomGoal extends Goal {
 
     @Override
     public void stop() {
-        ticks = 0;
+        moveTicks = 0;
         moobloom = null;
         bee.getNavigation().stop();
         bee.getNavigation().resetRangeMultiplier();
@@ -60,17 +67,17 @@ public class BeeMoveToMoobloomGoal extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return moobloom != null && ticks < maxTicks;
+        return moobloom != null && moveTicks < maxTicks;
     }
 
     @Override
     public void tick() {
-        ticks++;
+        moveTicks++;
 
         if (moobloom == null)
             return;
 
-        if (ticks > maxTicks) {
+        if (moveTicks > maxTicks) {
             moobloom = null;
         } else if (!bee.getNavigation().isFollowingPath()) {
             ((BeeEntityAccessor) bee).invokeStartMovingTo(moobloom.getBlockPos());
@@ -78,11 +85,11 @@ public class BeeMoveToMoobloomGoal extends Goal {
         } else {
 
             // update bee tracking to take into account moving moobloom
-            if (ticks % 50 == 0)
+            if (moveTicks % 50 == 0)
                 ((BeeEntityAccessor) bee).invokeStartMovingTo(moobloom.getBlockPos());
 
             double dist = bee.getPos().distanceTo(moobloom.getPos());
-            if (dist < 3) {
+            if (dist < 2.2) {
                 ((BeeEntityAccessor)bee).invokeSetHasNectar(false);
                 bee.removeStatusEffect(StatusEffects.GLOWING); // TEMP
                 moobloom.pollinate();
