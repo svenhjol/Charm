@@ -12,7 +12,7 @@ import svenhjol.charm.entity.MoobloomEntity;
 public class MoobloomEntityRenderer extends MobEntityRenderer<MoobloomEntity, CowEntityModel<MoobloomEntity>> {
     public MoobloomEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new CowEntityModel<>(), 0.7F);
-        // TODO: add flower feature
+        this.addFeature(new MoobloomFlowerFeatureRenderer<>(this));
     }
 
     @Override
