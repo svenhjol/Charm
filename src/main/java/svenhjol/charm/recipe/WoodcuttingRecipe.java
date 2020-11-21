@@ -15,6 +15,14 @@ public class WoodcuttingRecipe extends CuttingRecipe {
       super(Woodcutters.RECIPE_TYPE, Woodcutters.RECIPE_SERIALIZER, id, group, input, output);
    }
 
+   public Ingredient getInput() {
+      return this.input;
+   }
+
+   public ItemStack getOutput() {
+      return this.output;
+   }
+
    public boolean matches(Inventory inv, World world) {
       return this.input.test(inv.getStack(0));
    }
