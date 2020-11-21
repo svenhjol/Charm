@@ -37,6 +37,7 @@
     "WanderingTraderManagerMixin",
     "accessor.AnvilScreenHandlerAccessor",
     "accessor.BarrelBlockEntityAccessor",
+    "accessor.BeeEntityAccessor",
     "accessor.BlockAccessor",
     "accessor.BlocksAccessor",
     "accessor.BlockTagsAccessor",

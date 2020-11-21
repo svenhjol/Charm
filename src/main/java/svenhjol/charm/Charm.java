@@ -55,6 +55,7 @@ public class Charm implements ModInitializer {
             Kilns.class,
             Lumberjacks.class,
             MineshaftImprovements.class,
+            Mooblooms.class,
             MoreVillageBiomes.class,
             MusicImprovements.class,
             NetheriteNuggets.class,
