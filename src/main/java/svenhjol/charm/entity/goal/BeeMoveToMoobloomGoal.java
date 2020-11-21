@@ -18,6 +18,7 @@ public class BeeMoveToMoobloomGoal extends Goal {
     private MoobloomEntity moobloom = null;
     private int ticks;
     private int range = 24;
+    private int maxTicks = 1200;
 
     public BeeMoveToMoobloomGoal(BeeEntity bee) {
         this.bee = bee;
@@ -58,7 +59,7 @@ public class BeeMoveToMoobloomGoal extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return moobloom != null && ticks < 600;
+        return moobloom != null && ticks < maxTicks;
     }
 
     @Override
@@ -68,12 +69,15 @@ public class BeeMoveToMoobloomGoal extends Goal {
         if (moobloom == null)
             return;
 
-        if (ticks > 600) {
+        if (ticks > maxTicks) {
             moobloom = null;
         } else if (!bee.getNavigation().isFollowingPath()) {
             ((BeeEntityAccessor) bee).invokeStartMovingTo(moobloom.getBlockPos());
             bee.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100));
         } else {
+            if (ticks % 80 == 0)
+                ((BeeEntityAccessor) bee).invokeStartMovingTo(moobloom.getBlockPos());
+
             double dist = bee.getPos().distanceTo(moobloom.getPos());
             if (dist < 3.3) {
                 ((BeeEntityAccessor)bee).invokeSetHasNectar(false);
