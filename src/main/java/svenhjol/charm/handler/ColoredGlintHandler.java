@@ -27,7 +27,6 @@ public class ColoredGlintHandler {
     public static Map<String, RenderLayer> ARMOR_GLINT = new HashMap<>();
     public static Map<String, RenderLayer> ARMOR_ENTITY_GLINT = new HashMap<>();
 
-    public static boolean isEnabled;
     public static String defaultGlintColor;
     public static ItemStack targetStack;
 

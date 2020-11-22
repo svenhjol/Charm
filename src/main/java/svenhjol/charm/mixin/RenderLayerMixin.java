@@ -8,6 +8,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.handler.ColoredGlintHandler;
 import svenhjol.charm.module.Core;
 
+/**
+ * In Forge: RenderTypeMixin
+ */
 @Mixin(RenderLayer.class)
 public class RenderLayerMixin {
     @Inject(
