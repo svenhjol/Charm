@@ -22,8 +22,6 @@ public class ServerPlayerInteractionManagerMixin {
 
     @Shadow public ServerWorld world;
 
-    @Shadow private GameMode gameMode;
-
     @Inject(
         method = "tryBreakBlock",
         at = @At(

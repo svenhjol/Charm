@@ -39,8 +39,8 @@ public class CoralSquids extends CharmModule {
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a coral squid dropping coral when killed by the player.")
     public static double dropChance = 0.2D;
 
-    @Config(name = "Weight", description = "Spawn weight")
-    public static int spawnWeight = 20;
+    @Config(name = "Spawn weight", description = "Chance of coral squids spawning in warm ocean biomes.")
+    public static int spawnWeight = 50;
 
     @Override
     public void register() {

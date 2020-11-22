@@ -141,11 +141,6 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     }
 
     @Override
-    protected void mobTick() {
-        super.mobTick();
-    }
-
-    @Override
     public MoobloomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
         MoobloomEntity entity = Mooblooms.MOOBLOOM.create(serverWorld);
         Type childType = serverWorld.random.nextFloat() < 0.5F ? this.getMoobloomType() : ((MoobloomEntity)passiveEntity).getMoobloomType();
@@ -192,7 +187,7 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     @Override
     public void sheared(SoundCategory shearedSoundCategory) {
         this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_MOOSHROOM_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
-        if (!this.world.isClient()) {
+        if (!this.world.isClient) {
             ((ServerWorld)this.world).spawnParticles(ParticleTypes.EXPLOSION, this.getX(), this.getBodyY(0.5D), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             this.remove();
             CowEntity cowEntity = EntityType.COW.create(this.world);

@@ -168,7 +168,7 @@ public class DataBlockProcessor extends StructureProcessor {
         }
 
         protected void armorStand() {
-            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate();
+            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate();
             if (blockEntity == null) return;
             this.tag = new CompoundTag();
 
@@ -177,7 +177,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.rotation = this.rotation;
             blockEntity.toTag(this.tag);
 
-            this.state = EntitySpawner.ENTITY_SPAWNER.getDefaultState();
+            this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
 
         protected void block() {
@@ -267,7 +267,7 @@ public class DataBlockProcessor extends StructureProcessor {
         }
 
         protected void entity() {
-            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate();
+            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate();
             if (blockEntity == null) return;
             tag = new CompoundTag();
 
@@ -284,7 +284,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.rotation = this.rotation;
             blockEntity.toTag(this.tag);
 
-            this.state = EntitySpawner.ENTITY_SPAWNER.getDefaultState();
+            this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
 
         protected void flower() {
@@ -318,7 +318,7 @@ public class DataBlockProcessor extends StructureProcessor {
         protected void mob() {
             if (!withChance(MOB_CHANCE)) return;
 
-            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate();
+            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate();
             if (blockEntity == null) return;
 
             String type = getValue("type", this.data, "");
@@ -332,7 +332,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.rotation = this.rotation;
             blockEntity.toTag(this.tag);
 
-            this.state = EntitySpawner.ENTITY_SPAWNER.getDefaultState();
+            this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
 
         protected void ore() {

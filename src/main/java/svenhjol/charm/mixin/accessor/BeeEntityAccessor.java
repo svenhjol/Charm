@@ -8,9 +8,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(BeeEntity.class)
 public interface BeeEntityAccessor {
-    @Accessor
-    int getTicksSincePollination();
-
     @Invoker
     void invokeSetHasNectar(boolean hasNectar);
 

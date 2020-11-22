@@ -18,8 +18,6 @@ import svenhjol.charm.client.SnowStormsClient;
 public class WorldRendererMixin {
     @Shadow private ClientWorld world;
 
-    @Shadow @Final private static Identifier SNOW;
-
     private float gradient;
 
     @Inject(

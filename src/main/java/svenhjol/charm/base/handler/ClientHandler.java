@@ -30,10 +30,10 @@ public class ClientHandler {
         eachModule(CharmClientModule::register);
 
         // post init, only enabled modules are run
-        eachEnabledModule(module -> {
+        eachEnabledModule(clientModule -> {
             // this is a cache for quick lookup of enabled classes
-            ENABLED_MODULES.add(module.getClass());
-            module.init();
+            ENABLED_MODULES.add(clientModule.getClass());
+            clientModule.init();
         });
 
         ClientJoinCallback.EVENT.register(client -> {

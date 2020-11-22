@@ -39,9 +39,9 @@ public class Glowballs extends CharmModule {
 
         DispenserBlock.registerBehavior(GLOWBALL_ITEM, new ProjectileDispenserBehavior() {
             protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
-                return Util.make(new GlowballEntity(world, position.getX(), position.getY(), position.getZ()), (entity) -> {
-                    entity.setItem(stack);
-                });
+            return Util.make(new GlowballEntity(world, position.getX(), position.getY(), position.getZ()), (entity) -> {
+                entity.setItem(stack);
+            });
             }
         });
     }

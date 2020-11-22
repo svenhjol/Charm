@@ -29,7 +29,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.ServerWorldAccess;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.helper.DataBlockHelper;
-import svenhjol.charm.module.EntitySpawner;
+import svenhjol.charm.module.EntitySpawners;
 
 import java.util.*;
 
@@ -49,7 +49,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
     public String meta = "";
 
     public EntitySpawnerBlockEntity() {
-        super(EntitySpawner.BLOCK_ENTITY);
+        super(EntitySpawners.BLOCK_ENTITY);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
             return;
 
         BlockPos pos = getPos();
-        List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(pos).expand(EntitySpawner.triggerDistance));
+        List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(pos).expand(EntitySpawners.triggerDistance));
 
         if (players.size() == 0)
             return;
