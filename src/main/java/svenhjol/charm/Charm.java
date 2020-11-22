@@ -13,7 +13,6 @@ import java.util.Arrays;
 
 public class Charm implements ModInitializer {
     public static final String MOD_ID = "charm";
-    public static final boolean EXPERIMENTAL = true;
     public static LogHandler LOG = new LogHandler("Charm");
 
     @Override
