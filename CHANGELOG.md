@@ -7,8 +7,14 @@
 * Fix dispenser not firing glowballs
 * Fix refined obsidian walls not connecting
 * Fix glowballs converting blocks to water source blocks
-* Enchantments are now extracted by the grindstone (Credit to [martenschaefer](https://github.com/mschae23/grind-enchantments))
 * Reduce spawn weight and group size of Coral Squids
+* Enchantments are now extracted by the grindstone (Credit to [martenschaefer](https://github.com/mschae23/grind-enchantments))
+* Added Mooblooms
+* Added Snow storms
+* Added Raid horns
+* Added Acquisition enchantment
+* Added Tinted enchantment
+* REI woodcutter and kiln integration
 
 ## 2.1.1
 * Fix Coral Squid hitboxes. #351, #361
