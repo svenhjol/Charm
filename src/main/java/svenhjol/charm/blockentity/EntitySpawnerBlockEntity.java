@@ -3,14 +3,13 @@ package svenhjol.charm.blockentity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.decoration.ArmorStandEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.entity.vehicle.ChestMinecartEntity;
@@ -39,6 +38,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
     private final static String ENTITY = "entity";
     private final static String PERSIST = "persist";
     private final static String HEALTH = "health";
+    private final static String ARMOR = "armor";
     private final static String META = "meta";
     private final static String COUNT = "count";
     private final static String ROTATION = "rotation";
@@ -48,6 +48,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
     public boolean persist = false;
     public double health = 0;
     public int count = 1;
+    public String armor = "";
     public String meta = "";
 
     public EntitySpawnerBlockEntity() {
@@ -62,6 +63,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
         this.persist = tag.getBoolean(PERSIST);
         this.health = tag.getDouble(HEALTH);
         this.count = tag.getInt(COUNT);
+        this.armor = tag.getString(ARMOR);
         this.meta = tag.getString(META);
 
         String rot = tag.getString(ROTATION);
@@ -77,6 +79,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
         tag.putBoolean(PERSIST, persist);
         tag.putDouble(HEALTH, health);
         tag.putInt(COUNT, count);
+        tag.putString(ARMOR, armor);
         tag.putString(META, meta);
 
         return tag;
@@ -141,6 +144,11 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
                     m.setHealth((float) health);
                 }
 
+                if (!armor.isEmpty()) {
+                    Random random = world.random;
+                    tryEquip(m, armor, random);
+                }
+
                 m.initialize((ServerWorldAccess)world, world.getLocalDifficulty(pos), SpawnReason.TRIGGERED, null, null);
             }
 
@@ -182,6 +190,16 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
         Direction facing = this.rotation.rotate(face);
         String type = DataBlockHelper.getValue("type", this.meta, "");
 
+        tryEquip(stand, type, random);
+
+        float yaw = facing.getHorizontal();
+        stand.refreshPositionAndAngles(pos, yaw, 0.0F);
+        world.spawnEntity(stand);
+
+        return true;
+    }
+
+    private void tryEquip(LivingEntity entity, String type, Random random) {
         List<Item> ironHeld = new ArrayList<>(Arrays.asList(
             Items.IRON_SWORD, Items.IRON_PICKAXE, Items.IRON_AXE
         ));
@@ -194,59 +212,65 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
             Items.DIAMOND_SWORD, Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_SHOVEL
         ));
 
+        if (type.equals("leather")) {
+            if (random.nextFloat() < 0.25F)
+                entity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ironHeld.get(random.nextInt(ironHeld.size()))));
+            if (random.nextFloat() < 0.25F)
+                entity.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
+            if (random.nextFloat() < 0.25F)
+                entity.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
+            if (random.nextFloat() < 0.25F)
+                entity.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
+            if (random.nextFloat() < 0.25F)
+                entity.equipStack(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
+        }
         if (type.equals("chain")) {
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.MAINHAND.getArmorStandSlotId(), new ItemStack(ironHeld.get(random.nextInt(ironHeld.size()))));
+                entity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ironHeld.get(random.nextInt(ironHeld.size()))));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.HEAD.getArmorStandSlotId(), new ItemStack(Items.CHAINMAIL_HELMET));
+                entity.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.CHEST.getArmorStandSlotId(), new ItemStack(Items.CHAINMAIL_CHESTPLATE));
+                entity.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.LEGS.getArmorStandSlotId(), new ItemStack(Items.CHAINMAIL_LEGGINGS));
+                entity.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.FEET.getArmorStandSlotId(), new ItemStack(Items.CHAINMAIL_BOOTS));
+                entity.equipStack(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_BOOTS));
         }
         if (type.equals("iron")) {
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.MAINHAND.getArmorStandSlotId(), new ItemStack(ironHeld.get(random.nextInt(ironHeld.size()))));
+                entity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ironHeld.get(random.nextInt(ironHeld.size()))));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.HEAD.getArmorStandSlotId(), new ItemStack(Items.IRON_HELMET));
+                entity.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.CHEST.getArmorStandSlotId(), new ItemStack(Items.IRON_CHESTPLATE));
+                entity.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.LEGS.getArmorStandSlotId(), new ItemStack(Items.IRON_LEGGINGS));
+                entity.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.FEET.getArmorStandSlotId(), new ItemStack(Items.IRON_BOOTS));
+                entity.equipStack(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
         }
         if (type.equals("gold")) {
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.MAINHAND.getArmorStandSlotId(), new ItemStack(goldHeld.get(random.nextInt(goldHeld.size()))));
+                entity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(goldHeld.get(random.nextInt(goldHeld.size()))));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.HEAD.getArmorStandSlotId(), new ItemStack(Items.GOLDEN_HELMET));
+                entity.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.CHEST.getArmorStandSlotId(), new ItemStack(Items.GOLDEN_CHESTPLATE));
+                entity.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.LEGS.getArmorStandSlotId(), new ItemStack(Items.GOLDEN_LEGGINGS));
+                entity.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.GOLDEN_LEGGINGS));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.FEET.getArmorStandSlotId(), new ItemStack(Items.GOLDEN_BOOTS));
+                entity.equipStack(EquipmentSlot.FEET, new ItemStack(Items.GOLDEN_BOOTS));
         }
         if (type.equals("diamond")) {
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.MAINHAND.getArmorStandSlotId(), new ItemStack(diamondHeld.get(random.nextInt(diamondHeld.size()))));
+                entity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(diamondHeld.get(random.nextInt(diamondHeld.size()))));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.HEAD.getArmorStandSlotId(), new ItemStack(Items.DIAMOND_HELMET));
+                entity.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.DIAMOND_HELMET));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.CHEST.getArmorStandSlotId(), new ItemStack(Items.DIAMOND_CHESTPLATE));
+                entity.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.LEGS.getArmorStandSlotId(), new ItemStack(Items.DIAMOND_LEGGINGS));
+                entity.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.DIAMOND_LEGGINGS));
             if (random.nextFloat() < 0.25F)
-                stand.equip(EquipmentSlot.FEET.getArmorStandSlotId(), new ItemStack(Items.DIAMOND_BOOTS));
+                entity.equipStack(EquipmentSlot.FEET, new ItemStack(Items.DIAMOND_BOOTS));
         }
-
-        float yaw = facing.getHorizontal();
-        stand.refreshPositionAndAngles(pos, yaw, 0.0F);
-        world.spawnEntity(stand);
-
-        return true;
     }
 }

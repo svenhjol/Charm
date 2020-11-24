@@ -328,6 +328,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.entity = new Identifier(type);
             blockEntity.health = getValue("health", this.data, 0.0D);
             blockEntity.persist = getValue("persist", this.data, true);
+            blockEntity.armor = getValue("armor", this.data, "");
             blockEntity.count = getValue("count", this.data, 1);
             blockEntity.rotation = this.rotation;
             blockEntity.toTag(this.tag);
