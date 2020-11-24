@@ -31,7 +31,11 @@ public class DecorationHandler {
             LootTables.DESERT_PYRAMID_CHEST,
             LootTables.JUNGLE_TEMPLE_CHEST,
             LootTables.SIMPLE_DUNGEON_CHEST,
-            LootTables.STRONGHOLD_CORRIDOR_CHEST
+            LootTables.STRONGHOLD_CORRIDOR_CHEST,
+            LootTables.SHIPWRECK_MAP_CHEST,
+            LootTables.SHIPWRECK_SUPPLY_CHEST,
+            LootTables.SHIPWRECK_TREASURE_CHEST,
+            LootTables.STRONGHOLD_CROSSING_CHEST
         );
 
         COMMON_LOOT_TABLES.addAll(Arrays.asList(
