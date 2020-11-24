@@ -7,6 +7,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -129,7 +131,16 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
             if (spawned instanceof MobEntity) {
                 MobEntity m = (MobEntity) spawned;
                 if (persist) m.setPersistent();
-                if (health > 0) m.setHealth((float) health);
+
+                if (health > 0) {
+                    // need to override this attribute on the entity to allow health values greater than maxhealth
+                    EntityAttributeInstance healthAttribute = m.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+                    if (healthAttribute != null)
+                        healthAttribute.setBaseValue(health);
+
+                    m.setHealth((float) health);
+                }
+
                 m.initialize((ServerWorldAccess)world, world.getLocalDifficulty(pos), SpawnReason.TRIGGERED, null, null);
             }
 
