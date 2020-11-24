@@ -7,6 +7,8 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.decoration.ArmorStandEntity;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.ZombieEntity;
@@ -39,6 +41,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
     private final static String PERSIST = "persist";
     private final static String HEALTH = "health";
     private final static String ARMOR = "armor";
+    private final static String EFFECTS = "effects";
     private final static String META = "meta";
     private final static String COUNT = "count";
     private final static String ROTATION = "rotation";
@@ -48,6 +51,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
     public boolean persist = false;
     public double health = 0;
     public int count = 1;
+    public String effects = "";
     public String armor = "";
     public String meta = "";
 
@@ -63,6 +67,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
         this.persist = tag.getBoolean(PERSIST);
         this.health = tag.getDouble(HEALTH);
         this.count = tag.getInt(COUNT);
+        this.effects = tag.getString(EFFECTS);
         this.armor = tag.getString(ARMOR);
         this.meta = tag.getString(META);
 
@@ -79,6 +84,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
         tag.putBoolean(PERSIST, persist);
         tag.putDouble(HEALTH, health);
         tag.putInt(COUNT, count);
+        tag.putString(EFFECTS, effects);
         tag.putString(ARMOR, armor);
         tag.putString(META, meta);
 
@@ -132,24 +138,44 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
             spawned.refreshPositionAndAngles(pos, 0.0F, 0.0F);
 
             if (spawned instanceof MobEntity) {
-                MobEntity m = (MobEntity) spawned;
-                if (persist) m.setPersistent();
+                MobEntity mob = (MobEntity) spawned;
+                if (persist) mob.setPersistent();
 
+                // set the mob health if specified (values greater than zero)
                 if (health > 0) {
                     // need to override this attribute on the entity to allow health values greater than maxhealth
-                    EntityAttributeInstance healthAttribute = m.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+                    EntityAttributeInstance healthAttribute = mob.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
                     if (healthAttribute != null)
                         healthAttribute.setBaseValue(health);
 
-                    m.setHealth((float) health);
+                    mob.setHealth((float) health);
                 }
 
+                // add armor to the mob
                 if (!armor.isEmpty()) {
                     Random random = world.random;
-                    tryEquip(m, armor, random);
+                    tryEquip(mob, armor, random);
                 }
 
-                m.initialize((ServerWorldAccess)world, world.getLocalDifficulty(pos), SpawnReason.TRIGGERED, null, null);
+                // apply status effects to the mob
+                // TODO: make this a helper so that Strange can use it too
+                final List<String> effectsList = new ArrayList<>();
+                if (effects.length() > 0) {
+                    if (effects.contains(",")) {
+                        effectsList.addAll(Arrays.asList(effects.split(",")));
+                    } else {
+                        effectsList.add(effects);
+                    }
+                    if (effectsList.size() > 0) {
+                        effectsList.forEach(effectName -> {
+                            StatusEffect effect = Registry.STATUS_EFFECT.get(new Identifier(effectName));
+                            if (effect != null)
+                                mob.addStatusEffect(new StatusEffectInstance(effect, 999999, 1));
+                        });
+                    }
+                }
+
+                mob.initialize((ServerWorldAccess)world, world.getLocalDifficulty(pos), SpawnReason.TRIGGERED, null, null);
             }
 
             world.spawnEntity(spawned);
