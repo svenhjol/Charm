@@ -12,11 +12,11 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class PosHelper {
-    public static BlockPos addRandomOffset(BlockPos pos, Random rand, int max) {
-        int n = rand.nextInt(max);
-        int e = rand.nextInt(max);
-        int s = rand.nextInt(max);
-        int w = rand.nextInt(max);
+    public static BlockPos addRandomOffset(BlockPos pos, Random rand, int min, int max) {
+        int n = min + rand.nextInt(max);
+        int e = min + rand.nextInt(max);
+        int s = min + rand.nextInt(max);
+        int w = min + rand.nextInt(max);
         pos = pos.north(rand.nextFloat() < 0.5F ? n : -n);
         pos = pos.east(rand.nextFloat() < 0.5F ? e : -e);
         pos = pos.south(rand.nextFloat() < 0.5F ? s : -s);
