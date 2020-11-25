@@ -33,9 +33,8 @@ public class LootHelper {
             .collect(Collectors.toList());
     }
 
-    public static Identifier getLootTable(String data, Identifier fallback) {
+    public static Identifier getLootTable(String loot, Identifier fallback) {
         Identifier lootTable = fallback;
-        String loot = DataBlockHelper.getValue("loot", data, "");
 
         if (!loot.isEmpty()) {
             List<Identifier> tables = getAllLootTables();
