@@ -25,25 +25,6 @@ public class DataBlockHelper {
         return state;
     }
 
-    public static Identifier getLootTable(String data, Identifier fallback) {
-        Identifier lootTable = fallback;
-        String loot = getValue("loot", data, "");
-
-        if (!loot.isEmpty()) {
-            List<Identifier> tables = LootHelper.getAllLootTables();
-
-            for (Identifier res : tables) {
-                String[] s = res.getPath().split("/");
-                if (loot.contains(s[s.length - 1])) {
-                    lootTable = res;
-                    break;
-                }
-            }
-        }
-
-        return lootTable;
-    }
-
     public static boolean getValue(String key, String name, boolean fallback) {
         String val = getValue(key, name, fallback ? "true" : "false");
         return val.isEmpty() ? fallback : Boolean.parseBoolean(val);

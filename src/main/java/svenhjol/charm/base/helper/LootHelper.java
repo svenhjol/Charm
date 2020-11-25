@@ -32,4 +32,23 @@ public class LootHelper {
             .filter(t -> t.getPath().contains(pattern))
             .collect(Collectors.toList());
     }
+
+    public static Identifier getLootTable(String data, Identifier fallback) {
+        Identifier lootTable = fallback;
+        String loot = DataBlockHelper.getValue("loot", data, "");
+
+        if (!loot.isEmpty()) {
+            List<Identifier> tables = getAllLootTables();
+
+            for (Identifier res : tables) {
+                String[] s = res.getPath().split("/");
+                if (loot.contains(s[s.length - 1])) {
+                    lootTable = res;
+                    break;
+                }
+            }
+        }
+
+        return lootTable;
+    }
 }

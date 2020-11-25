@@ -22,6 +22,7 @@ import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.DecorationHelper;
+import svenhjol.charm.base.helper.LootHelper;
 import svenhjol.charm.block.BookcaseBlock;
 import svenhjol.charm.blockentity.BookcaseBlockEntity;
 import svenhjol.charm.blockentity.EntitySpawnerBlockEntity;
@@ -254,7 +255,7 @@ public class DataBlockProcessor extends StructureProcessor {
             if (blockEntity == null)
                 return;
 
-            blockEntity.setLootTable(getLootTable(data, lootTable), random.nextLong());
+            blockEntity.setLootTable(LootHelper.getLootTable(data, lootTable), random.nextLong());
             tag = new CompoundTag();
             blockEntity.toTag(tag);
         }
@@ -418,7 +419,7 @@ public class DataBlockProcessor extends StructureProcessor {
                 return;
 
             Identifier lootTable = DecorationHelper.getRandomLootTable(COMMON_LOOT_TABLES, random);
-            blockEntity.setLootTable(getLootTable(data, lootTable), random.nextLong());
+            blockEntity.setLootTable(LootHelper.getLootTable(data, lootTable), random.nextLong());
             tag = new CompoundTag();
             blockEntity.toTag(tag);
         }

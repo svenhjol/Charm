@@ -9,9 +9,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.entity.vehicle.ChestMinecartEntity;
@@ -32,6 +30,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.ServerWorldAccess;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.helper.DataBlockHelper;
+import svenhjol.charm.base.helper.LootHelper;
 import svenhjol.charm.module.EntitySpawners;
 
 import java.util.*;
@@ -189,7 +188,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
 
         if (type == EntityType.CHEST_MINECART) {
             minecart = new ChestMinecartEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
-            Identifier lootTable = DataBlockHelper.getLootTable(this.meta, LootTables.ABANDONED_MINESHAFT_CHEST);
+            Identifier lootTable = LootHelper.getLootTable(this.meta, LootTables.ABANDONED_MINESHAFT_CHEST);
             ((ChestMinecartEntity)minecart).setLootTable(lootTable, world.random.nextLong());
         } else if (type == EntityType.MINECART) {
             minecart = new MinecartEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
