@@ -1,15 +1,11 @@
 package svenhjol.charm.base.helper;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -60,14 +56,5 @@ public class PlayerHelper {
 //            world.sendEntityStatus(player, (byte) 46);
 //            world.playSound(null, pos, SoundEvents.BLOCK_PORTAL_TRAVEL, SoundCategory.PLAYERS, 0.5F, 1.25F);
         }
-    }
-
-    public static void openInventory() {
-        MinecraftClient mc = MinecraftClient.getInstance();
-
-        if (mc.player == null)
-            return;
-
-        mc.openScreen(new InventoryScreen(mc.player));
     }
 }
