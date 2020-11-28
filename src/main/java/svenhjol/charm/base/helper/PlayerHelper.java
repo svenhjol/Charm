@@ -52,9 +52,6 @@ public class PlayerHelper {
             } else {
                 ((ServerPlayerEntity)player).teleport(serverWorld, x, y, z, yaw, pitch);
             }
-//            player.requestTeleport(pos.getX() + 0.5D, pos.getY() + 0.25D, pos.getZ() + 0.5D);
-//            world.sendEntityStatus(player, (byte) 46);
-//            world.playSound(null, pos, SoundEvents.BLOCK_PORTAL_TRAVEL, SoundCategory.PLAYERS, 0.5F, 1.25F);
         }
     }
 }
