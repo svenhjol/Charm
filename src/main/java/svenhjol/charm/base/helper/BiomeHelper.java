@@ -83,11 +83,6 @@ public class BiomeHelper {
         }
 
         BiomeModifications.addStructure(biomeSelector, structureKey);
-//        GenerationSettings settings = biome.getGenerationSettings();
-//        checkGenerationSettingsMutable(settings);
-//        ((GenerationSettingsAccessor)settings).getStructureFeatures().add(() -> structureFeature);
-
-
     }
 
     public static void addSpawnEntry(RegistryKey<Biome> biomeKey, SpawnGroup group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
@@ -96,38 +91,6 @@ public class BiomeHelper {
             BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
         } catch (Exception e) {
             Charm.LOG.error("Failed to add entity to biome spawn. This may cause crashes when trying to spawn the entity.");
-        }
-    }
-
-    /**
-     * Evil hack until there's a better way to add structures to biomes
-     */
-    private static void checkGenerationSettingsMutable(GenerationSettings settings) {
-        List<Supplier<ConfiguredStructureFeature<?, ?>>> existing = ((GenerationSettingsAccessor)settings).getStructureFeatures();
-        if (existing instanceof ImmutableList)
-            ((GenerationSettingsAccessor)settings).setStructureFeatures(new ArrayList<>(existing));
-    }
-
-    /**
-     * Evil hack until there's a better way to add mobs to biomes
-     */
-    private static void checkSpawnSettingsMutable(SpawnSettings settings) {
-        Map<SpawnGroup, List<SpawnEntry>> spawners = ((SpawnSettingsAccessor) settings).getSpawners();
-        Map<EntityType<?>, SpawnSettings.SpawnDensity> spawnCosts = ((SpawnSettingsAccessor) settings).getSpawnCosts();
-
-        if (spawners instanceof ImmutableMap) {
-            // have to make each list mutable as well. BIOME API OMFG.
-            HashMap<SpawnGroup, List<SpawnEntry>> mutable = new HashMap<>(spawners);
-
-            spawners.forEach((spawnGroup, spawnEntries) ->
-                mutable.put(spawnGroup, new ArrayList<>(spawnEntries)));
-
-            ((SpawnSettingsAccessor)settings).setSpawners(new HashMap<>(mutable));
-        }
-
-        // may need costs in future, for now it's unused
-        if (spawnCosts instanceof ImmutableMap) {
-            ((SpawnSettingsAccessor)settings).setSpawnCosts(new HashMap<>(spawnCosts));
         }
     }
 }
