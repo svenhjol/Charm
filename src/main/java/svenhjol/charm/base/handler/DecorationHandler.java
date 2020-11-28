@@ -3,15 +3,20 @@ package svenhjol.charm.base.handler;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootTables;
+import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.tag.BlockTags;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.helper.LootHelper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static svenhjol.charm.base.helper.DecorationHelper.*;
 
 public class DecorationHandler {
+    public static List<StructureProcessor> SINGLE_POOL_ELEMENT_PROCESSORS = new ArrayList<>();
+
     private static boolean hasInit = false;
 
     public static void init() {

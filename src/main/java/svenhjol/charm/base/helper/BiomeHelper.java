@@ -5,9 +5,12 @@ import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.impl.biome.modification.BiomeModificationContextImpl;
+import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -18,6 +21,7 @@ import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.biome.SpawnSettings.SpawnEntry;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.gen.feature.StructureFeature;
 import svenhjol.charm.mixin.accessor.GenerationSettingsAccessor;
 import svenhjol.charm.mixin.accessor.SpawnSettingsAccessor;
 
@@ -60,21 +64,22 @@ public class BiomeHelper {
         return world.locateBiome(biome, pos, 6400, 8);
     }
 
-    public static void addStructureFeature(Biome biome, ConfiguredStructureFeature<?, ?> structureFeature) {
-        GenerationSettings settings = biome.getGenerationSettings();
-        checkGenerationSettingsMutable(settings);
-        ((GenerationSettingsAccessor)settings).getStructureFeatures().add(() -> structureFeature);
+    public static void addStructureFeatureToBiomes(List<RegistryKey<Biome>> biomeKeys, ConfiguredStructureFeature<?, ?> configuredFeature) {
+        biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureFeature(biomeKey, configuredFeature));
+    }
+
+    public static void addStructureFeature(RegistryKey<Biome> biomeKey, ConfiguredStructureFeature<?, ?> structureFeature) {
+        Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
+        RegistryKey<ConfiguredStructureFeature<?, ?>> structureKey = BuiltInRegistryKeys.get(structureFeature);
+        BiomeModifications.addStructure(biomeSelector, structureKey);
+//        GenerationSettings settings = biome.getGenerationSettings();
+//        checkGenerationSettingsMutable(settings);
+//        ((GenerationSettingsAccessor)settings).getStructureFeatures().add(() -> structureFeature);
+
+
     }
 
     public static void addSpawnEntry(RegistryKey<Biome> biomeKey, SpawnGroup group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
-//        SpawnSettings settings = biome.getSpawnSettings();
-//        checkSpawnSettingsMutable(settings);
-//
-//        // TODO: revise all this
-//        Map<SpawnGroup, List<SpawnEntry>> spawners = ((SpawnSettingsAccessor) settings).getSpawners();
-//        spawners.get(group).add(new SpawnEntry(entity, weight, minGroupSize, maxGroupSize));
-//        ((SpawnSettingsAccessor)settings).setSpawners(spawners);
-
         Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
         BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
     }
