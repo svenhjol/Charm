@@ -30,17 +30,17 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class BiomeHelper {
-    public static List<String> BADLANDS = new ArrayList<>();
-    public static List<String> DESERT = new ArrayList<>();
-    public static List<String> END = new ArrayList<>();
-    public static List<String> FOREST = new ArrayList<>();
-    public static List<String> JUNGLE = new ArrayList<>();
-    public static List<String> MOUNTAINS = new ArrayList<>();
-    public static List<String> NETHER = new ArrayList<>();
-    public static List<String> PLAINS = new ArrayList<>();
-    public static List<String> SAVANNA = new ArrayList<>();
-    public static List<String> SNOWY = new ArrayList<>();
-    public static List<String> TAIGA = new ArrayList<>();
+    public static List<RegistryKey<Biome>> BADLANDS = new ArrayList<>();
+    public static List<RegistryKey<Biome>> DESERT = new ArrayList<>();
+    public static List<RegistryKey<Biome>> END = new ArrayList<>();
+    public static List<RegistryKey<Biome>> FOREST = new ArrayList<>();
+    public static List<RegistryKey<Biome>> JUNGLE = new ArrayList<>();
+    public static List<RegistryKey<Biome>> MOUNTAINS = new ArrayList<>();
+    public static List<RegistryKey<Biome>> NETHER = new ArrayList<>();
+    public static List<RegistryKey<Biome>> PLAINS = new ArrayList<>();
+    public static List<RegistryKey<Biome>> SAVANNA = new ArrayList<>();
+    public static List<RegistryKey<Biome>> SNOWY = new ArrayList<>();
+    public static List<RegistryKey<Biome>> TAIGA = new ArrayList<>();
 
     public static Biome getBiome(ServerWorld world, BlockPos pos) {
         BiomeAccess biomeAccess = world.getBiomeAccess();
