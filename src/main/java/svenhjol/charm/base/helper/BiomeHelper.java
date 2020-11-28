@@ -22,6 +22,7 @@ import net.minecraft.world.biome.SpawnSettings.SpawnEntry;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.gen.feature.StructureFeature;
+import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.GenerationSettingsAccessor;
 import svenhjol.charm.mixin.accessor.SpawnSettingsAccessor;
 
@@ -29,6 +30,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+@SuppressWarnings({"UnstableApiUsage", "unused", "deprecation"})
 public class BiomeHelper {
     public static List<RegistryKey<Biome>> BADLANDS = new ArrayList<>();
     public static List<RegistryKey<Biome>> DESERT = new ArrayList<>();
@@ -69,8 +71,17 @@ public class BiomeHelper {
     }
 
     public static void addStructureFeature(RegistryKey<Biome> biomeKey, ConfiguredStructureFeature<?, ?> structureFeature) {
-        Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
-        RegistryKey<ConfiguredStructureFeature<?, ?>> structureKey = BuiltInRegistryKeys.get(structureFeature);
+        RegistryKey<ConfiguredStructureFeature<?, ?>> structureKey;
+        Predicate<BiomeSelectionContext> biomeSelector;
+
+        try {
+            biomeSelector = BiomeSelectors.includeByKey(biomeKey);
+            structureKey = BuiltInRegistryKeys.get(structureFeature);
+        } catch (Exception e) {
+            Charm.LOG.error("Failed to add structure to biome. This may cause crashes when trying to locate the structure.");
+            return;
+        }
+
         BiomeModifications.addStructure(biomeSelector, structureKey);
 //        GenerationSettings settings = biome.getGenerationSettings();
 //        checkGenerationSettingsMutable(settings);
@@ -80,8 +91,12 @@ public class BiomeHelper {
     }
 
     public static void addSpawnEntry(RegistryKey<Biome> biomeKey, SpawnGroup group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
-        Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
-        BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
+        try {
+            Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
+            BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
+        } catch (Exception e) {
+            Charm.LOG.error("Failed to add entity to biome spawn. This may cause crashes when trying to spawn the entity.");
+        }
     }
 
     /**
