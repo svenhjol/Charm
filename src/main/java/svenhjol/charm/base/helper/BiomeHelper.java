@@ -2,6 +2,9 @@ package svenhjol.charm.base.helper;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.server.world.ServerWorld;
@@ -19,6 +22,7 @@ import svenhjol.charm.mixin.accessor.GenerationSettingsAccessor;
 import svenhjol.charm.mixin.accessor.SpawnSettingsAccessor;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class BiomeHelper {
@@ -62,14 +66,17 @@ public class BiomeHelper {
         ((GenerationSettingsAccessor)settings).getStructureFeatures().add(() -> structureFeature);
     }
 
-    public static void addSpawnEntry(Biome biome, SpawnGroup group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
-        SpawnSettings settings = biome.getSpawnSettings();
-        checkSpawnSettingsMutable(settings);
+    public static void addSpawnEntry(RegistryKey<Biome> biomeKey, SpawnGroup group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
+//        SpawnSettings settings = biome.getSpawnSettings();
+//        checkSpawnSettingsMutable(settings);
+//
+//        // TODO: revise all this
+//        Map<SpawnGroup, List<SpawnEntry>> spawners = ((SpawnSettingsAccessor) settings).getSpawners();
+//        spawners.get(group).add(new SpawnEntry(entity, weight, minGroupSize, maxGroupSize));
+//        ((SpawnSettingsAccessor)settings).setSpawners(spawners);
 
-        // TODO: revise all this
-        Map<SpawnGroup, List<SpawnEntry>> spawners = ((SpawnSettingsAccessor) settings).getSpawners();
-        spawners.get(group).add(new SpawnEntry(entity, weight, minGroupSize, maxGroupSize));
-        ((SpawnSettingsAccessor)settings).setSpawners(spawners);
+        Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
+        BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
     }
 
     /**
