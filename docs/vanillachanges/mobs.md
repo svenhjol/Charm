@@ -45,7 +45,11 @@ Villages have the chance to spawn with dedicated lumberjack houses.
 
 ### Mooblooms
 ![Mooblooms](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-[COMING SOON]
+The Moobloom is a flower-covered variant of the mooshroom. They spawn in Flower Forest biomes and come in a number of colors and flower varieties.
+As they wander, they have a chance of planting a flower of the type they are covered with.
+
+Bees will try and pollinate nearby mooblooms, causing an additional flower to appear on the moobloom's head.
+Once pollinated, you may milk a moobloom using a bowl to obtain a suspicious stew of the type of flower that the moobloom is covered with.
 
 ### Parrots stay on shoulder
 ![Parrots stay on shoulder](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/parrots-stay..png?raw=true)
