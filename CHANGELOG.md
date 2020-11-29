@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.3
+* Added AutoRestock (F43nd1r)
+
 ## 2.1.2
 * Fix dropped netherite-based items cause crash on dedicated server
 * Fix disabled modules do not disable recipes after change to toml config
