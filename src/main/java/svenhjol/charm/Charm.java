@@ -17,7 +17,7 @@ public class Charm implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ModuleHandler.AVAILABLE_MODULES.put(Charm.MOD_ID, new ArrayList<>(Arrays.asList(
+        ModuleHandler.INSTANCE.registerFabricMod(MOD_ID, Arrays.asList(
             Acquisition.class,
             AnvilImprovements.class,
             ArmorInvisibility.class,
@@ -89,12 +89,12 @@ public class Charm implements ModInitializer {
             WanderingTraderImprovements.class,
             WitchesDropLuck.class,
             Woodcutters.class
-        )));
+        ));
 
         CharmStructures.init();
         CharmSounds.init();
         CharmTags.init();
 
-        ModuleHandler.init();
+        ModuleHandler.INSTANCE.init();
     }
 }

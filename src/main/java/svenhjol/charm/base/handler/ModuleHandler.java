@@ -11,13 +11,16 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class ModuleHandler {
-    public static Map<String, List<Class<? extends CharmModule>>> AVAILABLE_MODULES = new HashMap<>();
     public static Map<String, CharmModule> LOADED_MODULES = new TreeMap<>();
+
+    private static final Map<String, List<Class<? extends CharmModule>>> AVAILABLE_MODULES = new HashMap<>();
     private static List<Class<? extends CharmModule>> ENABLED_MODULES = new ArrayList<>(); // this is a cache of enabled classes
 
-    private static boolean hasInit = false;
+    private boolean hasInit = false;
 
-    public static void init() {
+    public static ModuleHandler INSTANCE = new ModuleHandler();
+
+    public void init() {
         if (hasInit)
             return;
 
@@ -45,12 +48,11 @@ public class ModuleHandler {
             eachEnabledModule(m -> m.loadWorld(server));
         });
 
-        /** @deprecated listen for server setup events (dedicated server only) */
-        //DedicatedServerSetupCallback.EVENT.register(server -> {
-        //    eachEnabledModule(m -> m.dedicatedServerInit(server));
-        //});
-
         hasInit = true;
+    }
+
+    public void registerFabricMod(String modId, List<Class<? extends CharmModule>> modules) {
+        AVAILABLE_MODULES.put(modId, modules);
     }
 
     @Nullable
