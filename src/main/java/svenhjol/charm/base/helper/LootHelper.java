@@ -41,9 +41,11 @@ public class LootHelper {
 
             for (Identifier res : tables) {
                 String[] s = res.getPath().split("/");
-                if (loot.contains(s[s.length - 1])) {
-                    lootTable = res;
-                    break;
+                for (String frag : s) {
+                    if (frag.contains(loot)) {
+                        lootTable = res;
+                        break;
+                    }
                 }
             }
         }
