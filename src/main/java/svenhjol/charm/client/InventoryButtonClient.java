@@ -30,8 +30,8 @@ public class InventoryButtonClient extends CharmClientModule {
         GuiSetupCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
 
-        portableCraftingClient = (PortableCraftingClient)ClientHandler.getModule("charm:portable_crafting");
-        portableEnderChestClient = (PortableEnderChestClient)ClientHandler.getModule("charm:portable_ender_chest");
+        portableCraftingClient = (PortableCraftingClient) ClientHandler.getModule("portable_crafting");
+        portableEnderChestClient = (PortableEnderChestClient) ClientHandler.getModule("portable_ender_chest");
     }
 
     private void handleGuiSetup(MinecraftClient client, int width, int height, List<AbstractButtonWidget> buttons, Consumer<AbstractButtonWidget> addButton) {

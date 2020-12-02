@@ -21,5 +21,8 @@ public class CoreClient extends CharmClientModule {
         ClientSidePacketRegistry.INSTANCE.register(Core.MSG_SERVER_OPEN_INVENTORY, (context, data) -> {
             context.getTaskQueue().execute(ClientHelper::openPlayerInventory);
         });
+
+        // call the register method of inventoryButtonClient
+        this.inventoryButtonClient.register();
     }
 }
