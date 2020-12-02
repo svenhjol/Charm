@@ -32,7 +32,8 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
+        if (this.enabled)
+            RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
     private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
