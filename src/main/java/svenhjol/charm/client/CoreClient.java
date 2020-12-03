@@ -25,4 +25,10 @@ public class CoreClient extends CharmClientModule {
         // call the register method of inventoryButtonClient
         this.inventoryButtonClient.register();
     }
+
+    @Override
+    public void init() {
+        // proxy calls
+        this.inventoryButtonClient.init();
+    }
 }

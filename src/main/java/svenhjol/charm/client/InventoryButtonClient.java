@@ -29,7 +29,10 @@ public class InventoryButtonClient extends CharmClientModule {
     public void register() {
         GuiSetupCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
+    }
 
+    @Override
+    public void init() {
         portableCraftingClient = (PortableCraftingClient) ClientHandler.getModule("portable_crafting");
         portableEnderChestClient = (PortableEnderChestClient) ClientHandler.getModule("portable_ender_chest");
     }
