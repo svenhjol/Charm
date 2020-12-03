@@ -88,47 +88,48 @@ public class ModuleHandler {
     }
 
     private static void instantiateModules(String modId) {
-        AVAILABLE_MODULES.forEach((mod, modules) -> {
-            Map<String, CharmModule> loaded = new TreeMap<>();
+        if (!AVAILABLE_MODULES.containsKey(modId))
+            throw new RuntimeException("Could not fetch modules for " + modId + ", giving up");
 
-            modules.forEach(clazz -> {
-                try {
-                    CharmModule module = clazz.getDeclaredConstructor().newInstance();
-                    if (clazz.isAnnotationPresent(Module.class)) {
-                        Module annotation = clazz.getAnnotation(Module.class);
+        Map<String, CharmModule> loaded = new TreeMap<>();
 
-                        // mod is now a required string
-                        if (annotation.mod().isEmpty())
-                            throw new Exception("mod name must be defined");
+        AVAILABLE_MODULES.get(modId).forEach(clazz -> {
+            try {
+                CharmModule module = clazz.getDeclaredConstructor().newInstance();
+                if (clazz.isAnnotationPresent(Module.class)) {
+                    Module annotation = clazz.getAnnotation(Module.class);
 
-                        module.mod = annotation.mod();
-                        module.alwaysEnabled = annotation.alwaysEnabled();
-                        module.enabledByDefault = annotation.enabledByDefault();
-                        module.enabled = module.enabledByDefault;
-                        module.description = annotation.description();
-                        module.client = annotation.client();
+                    // mod is now a required string
+                    if (annotation.mod().isEmpty())
+                        throw new Exception("mod name must be defined");
 
-                        String moduleName = module.getName();
-                        loaded.put(moduleName, module);
+                    module.mod = annotation.mod();
+                    module.alwaysEnabled = annotation.alwaysEnabled();
+                    module.enabledByDefault = annotation.enabledByDefault();
+                    module.enabled = module.enabledByDefault;
+                    module.description = annotation.description();
+                    module.client = annotation.client();
 
-                    } else {
-                        throw new RuntimeException("No module annotation for class " + clazz.toString());
-                    }
+                    String moduleName = module.getName();
+                    loaded.put(moduleName, module);
 
-                } catch (Exception e) {
-                    throw new RuntimeException("Could not initialize module class: " + clazz.toString(), e);
+                } else {
+                    throw new RuntimeException("No module annotation for class " + clazz.toString());
                 }
-            });
 
-            // config for this module set
-            ConfigHandler.createConfig(mod, loaded);
+            } catch (Exception e) {
+                throw new RuntimeException("Could not initialize module class: " + clazz.toString(), e);
+            }
+        });
 
-            // add loaded modules
-            loaded.forEach((moduleName, module) -> {
-                LOADED_MODULES.put(moduleName, module);
-                Charm.LOG.info("Loaded module " + moduleName);
-                module.register();
-            });
+        // config for this module set
+        ConfigHandler.createConfig(modId, loaded);
+
+        // add and run register method for all loaded modules
+        loaded.forEach((moduleName, module) -> {
+            LOADED_MODULES.put(moduleName, module);
+            Charm.LOG.info("Loaded module " + moduleName);
+            module.register();
         });
     }
 
