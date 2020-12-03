@@ -1,5 +1,6 @@
 package svenhjol.charm.base.handler;
 
+import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.StringHelper;
 import svenhjol.charm.base.iface.Module;
@@ -12,25 +13,21 @@ import java.util.function.Consumer;
 
 public class ModuleHandler {
     public static Map<String, CharmModule> LOADED_MODULES = new TreeMap<>();
-
-    private static final Map<String, List<Class<? extends CharmModule>>> AVAILABLE_MODULES = new HashMap<>();
-    private static List<Class<? extends CharmModule>> ENABLED_MODULES = new ArrayList<>(); // this is a cache of enabled classes
+    public static final Map<String, List<Class<? extends CharmModule>>> AVAILABLE_MODULES = new HashMap<>();
+    private static final List<Class<? extends CharmModule>> ENABLED_MODULES = new ArrayList<>(); // this is a cache of enabled classes
 
     private boolean hasInit = false;
 
     public static ModuleHandler INSTANCE = new ModuleHandler();
 
+    private ModuleHandler() {
+        // both-side initializers
+        BiomeHandler.init();
+    }
+
     public void init() {
         if (hasInit)
             return;
-
-        instantiateModules();
-
-        // both-side initializers
-        BiomeHandler.init();
-
-        // early init, always run, use for registering things
-        eachModule(CharmModule::register);
 
         // post init, only enabled modules are run
         eachEnabledModule(module -> {
@@ -53,6 +50,9 @@ public class ModuleHandler {
 
     public void registerFabricMod(String modId, List<Class<? extends CharmModule>> modules) {
         AVAILABLE_MODULES.put(modId, modules);
+
+        // create all charm-based modules
+        instantiateModules(modId);
     }
 
     @Nullable
@@ -87,7 +87,7 @@ public class ModuleHandler {
         return module != null && module.enabled;
     }
 
-    private static void instantiateModules() {
+    private static void instantiateModules(String modId) {
         AVAILABLE_MODULES.forEach((mod, modules) -> {
             Map<String, CharmModule> loaded = new TreeMap<>();
 
@@ -124,8 +124,11 @@ public class ModuleHandler {
             ConfigHandler.createConfig(mod, loaded);
 
             // add loaded modules
-            loaded.forEach((moduleName, module) ->
-                LOADED_MODULES.put(moduleName, module));
+            loaded.forEach((moduleName, module) -> {
+                LOADED_MODULES.put(moduleName, module);
+                Charm.LOG.info("Loaded module " + moduleName);
+                module.register();
+            });
         });
     }
 
