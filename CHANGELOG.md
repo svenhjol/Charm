@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.4
+* Fix client inventory buttons
+
 ## 2.1.3
 * Added AutoRestock (F43nd1r)
 

@@ -17,7 +17,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import svenhjol.charm.client.BatBucketsClient;
 import svenhjol.charm.module.BatBuckets;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.ItemNBTHelper;
@@ -77,7 +76,7 @@ public class BatBucketItem extends CharmItem {
             data.writeDouble(BatBuckets.glowingRange);
             data.writeInt(BatBuckets.glowingTime);
 
-            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, BatBucketsClient.MSG_CLIENT_SET_GLOWING, data);
+            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, BatBuckets.MSG_CLIENT_SET_GLOWING, data);
         }
 
         if (!player.isCreative())

@@ -8,18 +8,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
-import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.module.BatBuckets;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class BatBucketsClient extends CharmClientModule {
-    public static final Identifier MSG_CLIENT_SET_GLOWING = new Identifier(Charm.MOD_ID, "client_set_glowing");
     public static List<LivingEntity> entities = new ArrayList<>();
 
     public int ticks;
@@ -31,7 +29,7 @@ public class BatBucketsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        ClientSidePacketRegistry.INSTANCE.register(MSG_CLIENT_SET_GLOWING, this::handleMessageClientSetGlowing);
+        ClientSidePacketRegistry.INSTANCE.register(BatBuckets.MSG_CLIENT_SET_GLOWING, this::handleClientSetGlowing);
     }
 
     @Override
@@ -55,7 +53,7 @@ public class BatBucketsClient extends CharmClientModule {
         }
     }
 
-    private void handleMessageClientSetGlowing(PacketContext context, PacketByteBuf data) {
+    private void handleClientSetGlowing(PacketContext context, PacketByteBuf data) {
         double range = data.readDouble();
         int ticks = data.readInt() * 20; // ticks is sent as number of seconds, multiply by 20 for ticks
         context.getTaskQueue().execute(() -> {
