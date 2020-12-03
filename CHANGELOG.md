@@ -2,6 +2,7 @@
 
 ## 2.1.4
 * Fix client inventory buttons
+* Fix inventory button flicker when display Quark's backpack ui (F43nd1r)
 
 ## 2.1.3
 * Added AutoRestock (F43nd1r)
