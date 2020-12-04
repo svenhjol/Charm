@@ -2,6 +2,7 @@
 
 ## 2.1.5
 * Fix missing spruce bookshelf recipe
+* Reduce spawn weights of lumberjack and beekeeper village pieces
 
 ## 2.1.4
 * Fix client inventory buttons
