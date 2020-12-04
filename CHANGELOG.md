@@ -4,6 +4,8 @@
 * Fix missing spruce bookshelf recipe
 * Reduce spawn weights of lumberjack and beekeeper village pieces
 * Acquisition enchantment now drops XP from harvested blocks
+* Raid Horns volume reduced by 25% and is configurable
+* Raid Horns have cooldown after use
 
 ## 2.1.4
 * Fix client inventory buttons

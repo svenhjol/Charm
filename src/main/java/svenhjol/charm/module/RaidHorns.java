@@ -24,6 +24,9 @@ public class RaidHorns extends CharmModule {
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a patrol captain dropping a raid horn when killed by the player.")
     public static double dropChance = 0.05D;
 
+    @Config(name = "Volume", description = "Volume of the raid horn sound effect when used.  1.0 is maximum volume.")
+    public static double volume = 0.75D;
+
     @Override
     public void register() {
         RAID_HORN = new RaidHornItem(this);
