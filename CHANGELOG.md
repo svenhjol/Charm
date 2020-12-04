@@ -6,6 +6,7 @@
 * Acquisition enchantment now drops XP from harvested blocks
 * Raid Horns volume reduced by 25% and is configurable
 * Raid Horns have cooldown after use
+* Default amount of levels required to extract a treasure enchantment has been decreased from 15 to 10
 
 ## 2.1.4
 * Fix client inventory buttons
