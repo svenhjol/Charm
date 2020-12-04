@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.5
+* Fix missing spruce bookshelf recipe
+
 ## 2.1.4
 * Fix client inventory buttons
 * Fix inventory button flicker when display Quark's backpack ui (F43nd1r)
