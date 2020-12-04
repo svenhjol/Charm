@@ -30,7 +30,7 @@ public class ExtractEnchantments extends CharmModule {
     public static int initialCost = 2;
 
     @Config(name = "Treasure XP cost", description = "If the enchantment is a treasure enchantment, such as Mending, this cost will be added.")
-    public static int treasureCost = 15;
+    public static int treasureCost = 10;
 
     @Override
     public boolean depends() {
