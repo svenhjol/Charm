@@ -29,7 +29,6 @@ public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
     public KilnBlock(CharmModule module) {
         super(AbstractBlock.Settings
             .of(Material.STONE)
-            .requiresTool()
             .strength(3.5F)
             .luminance(l -> l.get(Properties.LIT) ? 13 : 0));
 

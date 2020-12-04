@@ -4,6 +4,7 @@
 * Fix missing spruce bookshelf recipe
 * Fix acquisition enchantment not dropping XP from harvested blocks
 * Fix grindstone not showing the XP cost when the player has enough XP
+* Fix kilns and woodcutters not dropping themselves on break without optimal tool
 * Reduce spawn weights of lumberjack and beekeeper village pieces
 * Raid Horns volume reduced by 25% and is configurable
 * Raid Horns have cooldown after use

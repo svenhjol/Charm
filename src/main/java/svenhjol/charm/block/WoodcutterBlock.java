@@ -32,7 +32,6 @@ public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
     public WoodcutterBlock(CharmModule module) {
         super(FabricBlockSettings
             .of(Material.STONE)
-            .requiresTool()
             .breakByTool(FabricToolTags.AXES)
             .strength(3.5F));
 
