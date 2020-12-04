@@ -2,8 +2,9 @@
 
 ## 2.1.5
 * Fix missing spruce bookshelf recipe
+* Fix acquisition enchantment not dropping XP from harvested blocks
+* Fix grindstone not showing the XP cost when the player has enough XP
 * Reduce spawn weights of lumberjack and beekeeper village pieces
-* Acquisition enchantment now drops XP from harvested blocks
 * Raid Horns volume reduced by 25% and is configurable
 * Raid Horns have cooldown after use
 * Default amount of levels required to extract a treasure enchantment has been decreased from 15 to 10

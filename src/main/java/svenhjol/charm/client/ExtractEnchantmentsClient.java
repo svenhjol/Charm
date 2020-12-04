@@ -40,13 +40,15 @@ public class ExtractEnchantmentsClient extends CharmClientModule {
             // get the stack cost and render it
             int cost = ExtractEnchantments.getCost(enchanted.get());
 
-            if (!ExtractEnchantments.hasEnoughXp(player, cost)) {
-                String string = I18n.translate("container.repair.cost", cost);
-                int color = 16736352;
-                int k = width - 8 - textRenderer.getWidth(string) - 2;
-                DrawableHelper.fill(matrices, k - 2, 67, width - 8, 79, 1325400064);
-                textRenderer.drawWithShadow(matrices, string, (float)k, 69.0F, color);
-            }
+            int color = 8453920;
+            String string = I18n.translate("container.repair.cost", cost);
+
+            if (!ExtractEnchantments.hasEnoughXp(player, cost))
+                color = 16736352;
+
+            int k = width - 8 - textRenderer.getWidth(string) - 2;
+            DrawableHelper.fill(matrices, k - 2, 67, width - 8, 79, 1325400064);
+            textRenderer.drawWithShadow(matrices, string, (float)k, 69.0F, color);
         }
     }
 }
