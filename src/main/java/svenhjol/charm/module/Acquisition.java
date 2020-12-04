@@ -50,6 +50,8 @@ public class Acquisition extends CharmModule {
             PlayerHelper.addOrDropStack(player, drop);
         });
 
+        state.onStacksDropped(world, pos, held);
+
         return ActionResult.SUCCESS;
     }
 }
