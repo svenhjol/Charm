@@ -71,6 +71,8 @@ public class CratesClient extends CharmClientModule {
 
         CrateBlockEntity crate = (CrateBlockEntity) blockEntity;
         DefaultedList<ItemStack> items = crate.getInvStackList();
+        if (items.stream().allMatch(ItemStack::isEmpty))
+            return false;
 
         int size = crate.size();
 
