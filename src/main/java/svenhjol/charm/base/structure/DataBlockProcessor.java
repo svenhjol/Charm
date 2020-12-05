@@ -247,6 +247,13 @@ public class DataBlockProcessor extends StructureProcessor {
             if (ModuleHandler.enabled("charm:variant_chests")) {
                 IVariantMaterial variantMaterial = DecorationHelper.getRandomVariantMaterial(random);
 
+                String type = getValue("material", this.data, "");
+                if (!type.isEmpty()) {
+                    IVariantMaterial material = DecorationHelper.getVariantMaterial(type);
+                    if (material != null)
+                        variantMaterial = material;
+                }
+
                 state = random.nextFloat() < 0.05F ?
                     VariantChests.TRAPPED_CHEST_BLOCKS.get(variantMaterial).getDefaultState() :
                     VariantChests.NORMAL_CHEST_BLOCKS.get(variantMaterial).getDefaultState();
