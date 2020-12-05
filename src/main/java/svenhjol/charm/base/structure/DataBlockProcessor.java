@@ -21,6 +21,7 @@ import net.minecraft.world.WorldView;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.base.helper.DataBlockHelper;
 import svenhjol.charm.base.helper.DecorationHelper;
 import svenhjol.charm.base.helper.LootHelper;
 import svenhjol.charm.block.BookcaseBlock;
@@ -269,7 +270,8 @@ public class DataBlockProcessor extends StructureProcessor {
             if (blockEntity == null)
                 return;
 
-            blockEntity.setLootTable(LootHelper.getLootTable(data, lootTable), random.nextLong());
+            String loot = getValue("loot", data, "");
+            blockEntity.setLootTable(LootHelper.getLootTable(loot, lootTable), random.nextLong());
             tag = new CompoundTag();
             blockEntity.toTag(tag);
         }
@@ -433,7 +435,9 @@ public class DataBlockProcessor extends StructureProcessor {
                 return;
 
             Identifier lootTable = DecorationHelper.getRandomLootTable(COMMON_LOOT_TABLES, random);
-            blockEntity.setLootTable(LootHelper.getLootTable(data, lootTable), random.nextLong());
+
+            String loot = getValue("loot", data, "");
+            blockEntity.setLootTable(LootHelper.getLootTable(loot, lootTable), random.nextLong());
             tag = new CompoundTag();
             blockEntity.toTag(tag);
         }

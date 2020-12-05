@@ -188,7 +188,9 @@ public class EntitySpawnerBlockEntity extends BlockEntity implements Tickable {
 
         if (type == EntityType.CHEST_MINECART) {
             minecart = new ChestMinecartEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
-            Identifier lootTable = LootHelper.getLootTable(this.meta, LootTables.ABANDONED_MINESHAFT_CHEST);
+
+            String loot = DataBlockHelper.getValue("loot", this.meta, "");
+            Identifier lootTable = LootHelper.getLootTable(loot, LootTables.ABANDONED_MINESHAFT_CHEST);
             ((ChestMinecartEntity)minecart).setLootTable(lootTable, world.random.nextLong());
         } else if (type == EntityType.MINECART) {
             minecart = new MinecartEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);

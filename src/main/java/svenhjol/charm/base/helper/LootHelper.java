@@ -4,11 +4,14 @@ import net.minecraft.loot.LootTables;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LootHelper {
     public static List<Identifier> CUSTOM_LOOT_TABLES = new ArrayList<>();
+    public static Map<String, Identifier> CACHED_LOOT_TABLES_NAMES = new HashMap<>();
 
     public static List<Identifier> getAllLootTables() {
         List<Identifier> allLootTables = new ArrayList<>();
@@ -36,16 +39,20 @@ public class LootHelper {
     public static Identifier getLootTable(String loot, Identifier fallback) {
         Identifier lootTable = fallback;
 
-        if (!loot.isEmpty()) {
+        if (CACHED_LOOT_TABLES_NAMES.isEmpty()) {
             List<Identifier> tables = getAllLootTables();
+            for (Identifier table : tables) {
+                String[] s = table.getPath().split("/");
+                String last = s[s.length - 1];
+                CACHED_LOOT_TABLES_NAMES.put(last, table);
+            }
+        }
 
-            for (Identifier res : tables) {
-                String[] s = res.getPath().split("/");
-                for (String frag : s) {
-                    if (frag.contains(loot)) {
-                        lootTable = res;
-                        break;
-                    }
+        if (!loot.isEmpty()) {
+            for (String s : CACHED_LOOT_TABLES_NAMES.keySet()) {
+                if (s.contains(loot)) {
+                    lootTable = CACHED_LOOT_TABLES_NAMES.get(s);
+                    break;
                 }
             }
         }
