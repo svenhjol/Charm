@@ -200,7 +200,7 @@ public class DataBlockProcessor extends StructureProcessor {
         protected void bookshelf() {
             IVariantMaterial variantMaterial = DecorationHelper.getRandomVariantMaterial(fixedRandom);
 
-            String type = getValue("type", this.data, "");
+            String type = getValue("material", this.data, "");
             if (!type.isEmpty()) {
                 IVariantMaterial material = DecorationHelper.getVariantMaterial(type);
                 if (material != null)
