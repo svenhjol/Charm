@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.enums.VanillaVariantMaterial;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -82,5 +83,15 @@ public class DecorationHelper {
 
     public static IVariantMaterial getRandomVariantMaterial(Random random) {
         return VARIANT_MATERIALS.get(random.nextInt(VARIANT_MATERIALS.size()));
+    }
+
+    @Nullable
+    public static IVariantMaterial getVariantMaterial(String string) {
+        for (IVariantMaterial material : VARIANT_MATERIALS) {
+            if (material.asString().equals(string))
+                return material;
+        }
+
+        return null;
     }
 }

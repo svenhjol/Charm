@@ -200,6 +200,13 @@ public class DataBlockProcessor extends StructureProcessor {
         protected void bookshelf() {
             IVariantMaterial variantMaterial = DecorationHelper.getRandomVariantMaterial(fixedRandom);
 
+            String type = getValue("type", this.data, "");
+            if (!type.isEmpty()) {
+                IVariantMaterial material = DecorationHelper.getVariantMaterial(type);
+                if (material != null)
+                    variantMaterial = material;
+            }
+
             if (ModuleHandler.enabled("charm:bookcases") && withChance(BOOKCASE_CHANCE)) {
                 state = Bookcases.BOOKCASE_BLOCKS.get(variantMaterial).getDefaultState()
                     .with(BookcaseBlock.SLOTS, BookcaseBlockEntity.SIZE); // make it have the "full" texture
