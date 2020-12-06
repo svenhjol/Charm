@@ -92,6 +92,7 @@ public class DataBlockProcessor extends StructureProcessor {
         public static float MOB_CHANCE = 0.75F;
         public static float ORE_CHANCE = 0.75F;
         public static float RARE_ORE_CHANCE = 0.25F;
+        public static float RARE_BOOKCASE_CHANCE = 0.1F;
         public static float RARE_CHEST_CHANCE = 0.1F;
         public static float RUBBLE_CHANCE = 0.9F;
         public static float RUNESTONE_CHANCE = 0.75F;
@@ -217,7 +218,9 @@ public class DataBlockProcessor extends StructureProcessor {
                     if (blockEntity == null)
                         return;
 
-                    blockEntity.setLootTable(DecorationHelper.getRandomLootTable(BOOKCASE_LOOT_TABLES, random), random.nextLong());
+                    Identifier lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_BOOKCASE_CHANCE ? RARE_BOOKCASE_LOOT_TABLES : BOOKCASE_LOOT_TABLES, random);
+                    blockEntity.setLootTable(lootTable, random.nextLong());
+
                     this.tag = new CompoundTag();
                     blockEntity.toTag(this.tag);
                 }

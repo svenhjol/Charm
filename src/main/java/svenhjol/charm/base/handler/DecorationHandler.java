@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootTables;
 import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.tag.BlockTags;
+import svenhjol.charm.base.CharmLoot;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.helper.LootHelper;
 
@@ -54,6 +55,10 @@ public class DecorationHandler {
         ));
 
         BOOKCASE_LOOT_TABLES.addAll(Arrays.asList(
+            CharmLoot.VILLAGE_LIBRARIAN
+        ));
+
+        RARE_BOOKCASE_LOOT_TABLES.addAll(Arrays.asList(
             LootTables.STRONGHOLD_LIBRARY_CHEST
         ));
 
