@@ -1,22 +1,11 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.ConstantLootTableRange;
-import net.minecraft.loot.LootManager;
-import net.minecraft.loot.LootTables;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.LootFunctionType;
-import net.minecraft.resource.ResourceManager;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
@@ -28,12 +17,9 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.enchantment.TintedEnchantment;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.handler.ColoredGlintHandler;
-import svenhjol.charm.loot.TintedEnchantmentLootFunction;
 
 @Module(mod = Charm.MOD_ID, description = "When applied, this enchantment lets you change the color of the enchanted glint using dye on an anvil. Requires Core 'Enchantment glint override' to be true.")
 public class Tinted extends CharmModule {
-    public static final Identifier LOOT_ID = new Identifier(Charm.MOD_ID, "tinted_book_loot");
-    public static LootFunctionType LOOT_FUNCTION;
     public static TintedEnchantment TINTED;
 
     @Config(name = "XP cost", description = "Number of levels required to change a tinted item using dye on an anvil.")
@@ -42,7 +28,6 @@ public class Tinted extends CharmModule {
     @Override
     public void register() {
         TINTED = new TintedEnchantment(this);
-        LOOT_FUNCTION = RegistryHandler.lootFunctionType(LOOT_ID, new LootFunctionType(new TintedEnchantmentLootFunction.Serializer()));
     }
 
     @Override
@@ -57,9 +42,6 @@ public class Tinted extends CharmModule {
 
         // listen for anvil behavior
         UpdateAnvilCallback.EVENT.register(this::handleAnvilBehavior);
-
-        // listen for loot table generation
-        LootTableLoadingCallback.EVENT.register(this::handleLootTables);
     }
 
     /**
@@ -88,17 +70,5 @@ public class Tinted extends CharmModule {
         apply.accept(out, cost, 1);
 
         return ActionResult.SUCCESS;
-    }
-
-    private void handleLootTables(ResourceManager resourceManager, LootManager lootManager, Identifier id, FabricLootSupplierBuilder supplier, LootTableLoadingCallback.LootTableSetter setter) {
-        if (id.equals(LootTables.STRONGHOLD_LIBRARY_CHEST)) {
-            FabricLootPoolBuilder builder = FabricLootPoolBuilder.builder()
-                .rolls(ConstantLootTableRange.create(1))
-                .with(ItemEntry.builder(Items.BOOK)
-                    .weight(1)
-                    .apply(() -> new TintedEnchantmentLootFunction(new LootCondition[0])));
-
-            supplier.pool(builder);
-        }
     }
 }
