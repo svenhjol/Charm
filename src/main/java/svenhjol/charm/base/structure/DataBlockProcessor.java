@@ -21,7 +21,6 @@ import net.minecraft.world.WorldView;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.base.helper.DataBlockHelper;
 import svenhjol.charm.base.helper.DecorationHelper;
 import svenhjol.charm.base.helper.LootHelper;
 import svenhjol.charm.block.BookcaseBlock;
@@ -81,7 +80,6 @@ public class DataBlockProcessor extends StructureProcessor {
 
         public static float BLOCK_CHANCE = 0.8F;
         public static float BOOKCASE_CHANCE = 0.15F;
-        public static float BOOKCASE_LOOT_CHANCE = 0.4F;
         public static float CHEST_CHANCE = 0.66F;
         public static float DECORATION_CHANCE = 0.85F;
         public static float FLOWER_CHANCE = 0.8F;
@@ -92,7 +90,7 @@ public class DataBlockProcessor extends StructureProcessor {
         public static float MOB_CHANCE = 0.75F;
         public static float ORE_CHANCE = 0.75F;
         public static float RARE_ORE_CHANCE = 0.25F;
-        public static float RARE_BOOKCASE_CHANCE = 0.1F;
+        public static float RARE_BOOKCASE_CHANCE = 0.05F;
         public static float RARE_CHEST_CHANCE = 0.1F;
         public static float RUBBLE_CHANCE = 0.9F;
         public static float RUNESTONE_CHANCE = 0.75F;
@@ -213,17 +211,15 @@ public class DataBlockProcessor extends StructureProcessor {
                 state = Bookcases.BOOKCASE_BLOCKS.get(variantMaterial).getDefaultState()
                     .with(BookcaseBlock.SLOTS, BookcaseBlockEntity.SIZE); // make it have the "full" texture
 
-                if (random.nextFloat() < BOOKCASE_LOOT_CHANCE) {
-                    BookcaseBlockEntity blockEntity = Bookcases.BLOCK_ENTITY.instantiate();
-                    if (blockEntity == null)
-                        return;
+                BookcaseBlockEntity blockEntity = Bookcases.BLOCK_ENTITY.instantiate();
+                if (blockEntity == null)
+                    return;
 
-                    Identifier lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_BOOKCASE_CHANCE ? RARE_BOOKCASE_LOOT_TABLES : BOOKCASE_LOOT_TABLES, random);
-                    blockEntity.setLootTable(lootTable, random.nextLong());
+                Identifier lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_BOOKCASE_CHANCE ? RARE_BOOKCASE_LOOT_TABLES : BOOKCASE_LOOT_TABLES, random);
+                blockEntity.setLootTable(lootTable, random.nextLong());
 
-                    this.tag = new CompoundTag();
-                    blockEntity.toTag(this.tag);
-                }
+                this.tag = new CompoundTag();
+                blockEntity.toTag(this.tag);
             } else if (ModuleHandler.enabled("charm:variant_bookshelves") && variantMaterial != VanillaVariantMaterial.OAK) {
                 state = VariantBookshelves.BOOKSHELF_BLOCKS.get(variantMaterial).getDefaultState();
             } else {
