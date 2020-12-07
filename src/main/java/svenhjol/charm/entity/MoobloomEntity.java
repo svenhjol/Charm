@@ -14,6 +14,7 @@ import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.nbt.CompoundTag;
@@ -106,7 +107,8 @@ public class MoobloomEntity extends CowEntity implements Shearable {
                     playSound(SoundEvents.ENTITY_MOOSHROOM_MILK, 1.0F, 1.0F);
                 }
 
-                player.setStackInHand(hand, stew);
+                ItemStack out = ItemUsage.method_30270(held, player, stew, false);
+                player.setStackInHand(hand, out);
                 this.dataTracker.set(POLLINATED, false);
             }
 

@@ -7,6 +7,7 @@
 * Fix kilns and woodcutters not dropping themselves on break without optimal tool
 * Fix crates showing tooltip when empty
 * Fix overworld music sometimes playing when entering the nether
+* Fix bowl stack lost when milking Mooblooms #403
 * Reduce spawn weights of lumberjack and beekeeper village pieces
 * Raid Horns volume reduced by 25% and is configurable
 * Raid Horns have cooldown after use
