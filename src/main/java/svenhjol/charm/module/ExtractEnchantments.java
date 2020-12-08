@@ -29,9 +29,6 @@ public class ExtractEnchantments extends CharmModule {
     @Config(name = "Initial XP cost", description = "Initial XP cost before adding XP equivalent to the enchantment level(s) of the item.")
     public static int initialCost = 2;
 
-    @Config(name = "Treasure XP cost", description = "If the enchantment is a treasure enchantment, such as Mending, this cost will be added.")
-    public static int treasureCost = 10;
-
     @Override
     public boolean depends() {
         return !ModHelper.isLoaded("grindenchantments");
@@ -195,12 +192,8 @@ public class ExtractEnchantments extends CharmModule {
                 return 0;
 
             int level = entry.getValue();
-            if (level > 0 && ench.isAvailableForEnchantedBookOffer()) {
+            if (level > 0 && ench.isAvailableForEnchantedBookOffer())
                 cost += level;
-
-                if (ench.isTreasure())
-                    cost += treasureCost;
-            }
         }
 
         // add repair cost on the input item
