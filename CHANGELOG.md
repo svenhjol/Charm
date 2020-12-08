@@ -2,6 +2,9 @@
 
 ## 2.1.6
 * Fix bowl stack lost when milking Mooblooms #403
+* Remove Wandering Trader signal fire restriction
+* Remove treasure enchantment cost on grindstone
+* Hoe harvesting fully grown crop now plays sound
 
 ## 2.1.5
 * Fix missing spruce bookshelf recipe
