@@ -37,9 +37,6 @@ public class DecorationHandler {
             LootTables.DESERT_PYRAMID_CHEST,
             LootTables.JUNGLE_TEMPLE_CHEST,
             LootTables.SIMPLE_DUNGEON_CHEST,
-            LootTables.STRONGHOLD_CORRIDOR_CHEST,
-            LootTables.STRONGHOLD_CROSSING_CHEST,
-            LootTables.SHIPWRECK_SUPPLY_CHEST,
             LootTables.SHIPWRECK_TREASURE_CHEST
         );
 
@@ -51,7 +48,8 @@ public class DecorationHandler {
         COMMON_LOOT_TABLES.addAll(LootHelper.getVanillaVillageLootTables());
 
         RARE_CHEST_LOOT_TABLES.addAll(Arrays.asList(
-            LootTables.RUINED_PORTAL_CHEST
+            LootTables.RUINED_PORTAL_CHEST,
+            LootTables.END_CITY_TREASURE_CHEST
         ));
 
         BOOKCASE_LOOT_TABLES.addAll(Arrays.asList(
