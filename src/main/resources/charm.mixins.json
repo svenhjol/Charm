@@ -11,6 +11,7 @@
     "CampfireBlockMixin",
     "ChickenEntityMixin",
     "ChorusFruitItemMixin",
+    "ComposterBlockMixin",
     "DefaultResourcePackMixin",
     "FarmlandBlockMixin",
     "GrindstoneScreenHandlerMixin",

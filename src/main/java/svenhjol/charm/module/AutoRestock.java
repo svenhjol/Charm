@@ -10,6 +10,7 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.PlayerTickCallback;
 
@@ -26,6 +27,11 @@ public class AutoRestock extends CharmModule {
     @Override
     public void init() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
+    }
+
+    public static void addItemUsedStat(PlayerEntity player, ItemStack stack) {
+        if (ModuleHandler.enabled(AutoRestock.class))
+            player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
     }
 
     private void handlePlayerTick(PlayerEntity playerIn) {
