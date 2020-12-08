@@ -15,20 +15,6 @@ import java.util.Random;
 
 @Mixin(WanderingTraderManager.class)
 public class WanderingTraderManagerMixin {
-    @Inject(
-        method = "method_18018",
-        at = @At(
-            value = "INVOKE_ASSIGN",
-            target = "Lnet/minecraft/server/world/ServerWorld;getPointOfInterestStorage()Lnet/minecraft/world/poi/PointOfInterestStorage;"
-        ),
-        locals = LocalCapture.CAPTURE_FAILHARD,
-        cancellable = true
-    )
-    private void hookTraderSpawn(ServerWorld serverWorld, CallbackInfoReturnable<Boolean> cir, PlayerEntity player) {
-        if (!WanderingTraderImprovements.checkSpawnConditions(serverWorld, player.getBlockPos()))
-            cir.setReturnValue(false);
-    }
-
     @Redirect(
         method = "method_18018",
         at = @At(
