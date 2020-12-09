@@ -24,8 +24,8 @@ public class ComposterBlockMixin {
         at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;syncWorldEvent(ILnet/minecraft/util/math/BlockPos;I)V"),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    public void hookOnBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockHitResult hit,
-                                     CallbackInfoReturnable<ActionResult> cir, int i, ItemStack itemstack, BlockState blockstate) {
+    public void hookOnUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockHitResult hit,
+                                     CallbackInfoReturnable<ActionResult> cir, int i, ItemStack itemstack) {
         AutoRestock.addItemUsedStat(player, itemstack);
     }
 }
