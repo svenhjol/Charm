@@ -29,6 +29,8 @@ public class ModuleHandler {
         if (hasInit)
             return;
 
+        eachModule(module -> module.enabled = module.depends());
+
         // post init, only enabled modules are run
         eachEnabledModule(module -> {
             // this is a cache for quick lookup of enabled classes
