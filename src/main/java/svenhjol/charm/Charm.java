@@ -77,6 +77,7 @@ public class Charm implements ModInitializer {
             SnowStorms.class,
             StackableEnchantedBooks.class,
             StackablePotions.class,
+            StackableStews.class,
             StrayImprovements.class,
             TamedAnimalsNoDamage.class,
             Tinted.class,
