@@ -27,8 +27,15 @@ public class StackableStews extends CharmModule {
     }
 
     public static boolean tryEatStewStack(LivingEntity entity, ItemStack stack) {
-        if (stack.getCount() >= 1 && entity instanceof PlayerEntity)
-            return !((PlayerEntity)entity).abilities.creativeMode;
+        if (stack.getCount() >= 1) {
+            if (entity instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity) entity;
+                if (!player.abilities.creativeMode) {
+                    player.giveItemStack(new ItemStack(Items.BOWL));
+                    return true;
+                }
+            }
+        }
 
         return false;
     }
