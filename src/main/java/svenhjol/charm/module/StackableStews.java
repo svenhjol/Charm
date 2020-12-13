@@ -5,9 +5,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.mixin.accessor.ItemAccessor;
+
+import java.util.Stack;
 
 @Module(mod = Charm.MOD_ID, description = "Allows stews to stack.")
 public class StackableStews extends CharmModule {
@@ -27,9 +30,15 @@ public class StackableStews extends CharmModule {
     }
 
     public static boolean tryEatStewStack(LivingEntity entity, ItemStack stack) {
-        if (stack.getCount() >= 1 && entity instanceof PlayerEntity)
-            return !((PlayerEntity)entity).abilities.creativeMode;
+        if (!ModuleHandler.enabled(StackableStews.class) || stack.getMaxCount() == 1)
+            return false;
 
-        return false;
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
+            if (!player.abilities.creativeMode)
+                player.giveItemStack(new ItemStack(Items.BOWL));
+        }
+
+        return true;
     }
 }
