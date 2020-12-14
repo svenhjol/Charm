@@ -67,6 +67,8 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
 
         ShulkerBoxBlockEntity shulkerbox = (ShulkerBoxBlockEntity) blockEntity;
         DefaultedList<ItemStack> items = ((ShulkerBoxBlockEntityAccessor)shulkerbox).getInventory();
+        if (items.stream().allMatch(ItemStack::isEmpty))
+            return false;
 
         int size = shulkerbox.size();
 
