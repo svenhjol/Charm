@@ -68,6 +68,7 @@ public abstract class ScreenMixin {
     )
     private void hookRenderOrderedTooltip(MatrixStack matrices, List<? extends OrderedText> lines, int x, int y, CallbackInfo ci) {
         ActionResult result = RenderTooltipCallback.EVENT.invoker().interact(matrices, itemStack, lines, x, y);
+        itemStack = null;
         if (result != ActionResult.PASS)
             ci.cancel();
     }
