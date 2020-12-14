@@ -49,6 +49,11 @@ public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
     }
 
     @Override
+    public ItemGroup getItemGroup() {
+        return ItemGroup.DECORATIONS;
+    }
+
+    @Override
     public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> list) {
         if (enabled())
             super.addStacksForDisplay(group, list);
