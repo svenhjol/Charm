@@ -3,6 +3,7 @@
 ## 2.1.8
 * Fix itemgroups. #406
 * Fix render hover in incorrect place
+* Fix village jigsaw piece problems. #409
 * Shulkerbox no longer shows hover when empty
 * Remove bookshelf recipe in wrong place
 
