@@ -40,7 +40,6 @@ public class CrateBlockEntity extends LootableContainerBlockEntity implements Si
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
         if (!this.serializeLootTable(tag))
             Inventories.toTag(tag, this.items, false);
 
