@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.8
+* Fix itemgroups. #406
+* Fix render hover in incorrect place
+* Shulkerbox no longer shows hover when empty
+* Remove bookshelf recipe in wrong place
+
 ## 2.1.7
 * Added StackableStews (F43nd1r)
 
