@@ -5,7 +5,7 @@
 * Fix render hover in incorrect place
 * Fix village jigsaw piece problems. #409
 * Fix modules being enabled when they shouldn't (#420, others)
-* Fix Shulkerbox no longer shows hover when empty
+* Fix Shulkerbox showing hover when empty
 * Fix bookshelf recipe in wrong place
 
 ## 2.1.7
