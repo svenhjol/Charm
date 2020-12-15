@@ -4,8 +4,9 @@
 * Fix itemgroups. #406
 * Fix render hover in incorrect place
 * Fix village jigsaw piece problems. #409
-* Shulkerbox no longer shows hover when empty
-* Remove bookshelf recipe in wrong place
+* Fix modules being enabled when they shouldn't (#420, others)
+* Fix Shulkerbox no longer shows hover when empty
+* Fix bookshelf recipe in wrong place
 
 ## 2.1.7
 * Added StackableStews (F43nd1r)
