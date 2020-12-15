@@ -29,7 +29,7 @@ public class ModuleHandler {
         if (hasInit)
             return;
 
-        eachModule(module -> module.enabled = module.depends());
+        eachModule(module -> module.enabled = module.enabled && module.depends());
 
         // post init, only enabled modules are run
         eachEnabledModule(module -> {
