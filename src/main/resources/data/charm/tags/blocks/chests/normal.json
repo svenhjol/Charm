@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:chest",
     "charm:acacia_chest",
     "charm:birch_chest",
     "charm:crimson_chest",

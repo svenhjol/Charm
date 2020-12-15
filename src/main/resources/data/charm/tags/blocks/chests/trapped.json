@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:trapped_chest",
     "charm:acacia_trapped_chest",
     "charm:birch_trapped_chest",
     "charm:crimson_trapped_chest",

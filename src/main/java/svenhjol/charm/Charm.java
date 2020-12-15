@@ -22,6 +22,7 @@ public class Charm implements ModInitializer {
             Acquisition.class,
             AnvilImprovements.class,
             ArmorInvisibility.class,
+            Atlas.class,
             AutomaticRecipeUnlock.class,
             AutoRestock.class,
             BatBuckets.class,

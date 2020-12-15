@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "charm:chests/normal"
+    },
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "minecraft:map"
+    }
+  ],
+  "result": {
+    "item": "charm:atlas",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "charm:atlas"
+    }
+  ]
+}
