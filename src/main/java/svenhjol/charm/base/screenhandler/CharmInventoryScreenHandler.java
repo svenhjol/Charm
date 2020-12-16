@@ -1,18 +1,17 @@
-package svenhjol.charm.screenhandler;
+package svenhjol.charm.base.screenhandler;
 
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
-import svenhjol.charm.base.screenhandler.CharmScreenHandler;
 
 import java.util.function.Predicate;
 
-public class SimpleCharmContainer extends CharmScreenHandler {
+public class CharmInventoryScreenHandler extends CharmScreenHandler {
 
-    public SimpleCharmContainer(int rows, Predicate<ItemStack> condition, ScreenHandlerType<? extends SimpleCharmContainer> type, int syncId,
-                                PlayerInventory player, Inventory inventory) {
+    public CharmInventoryScreenHandler(int rows, Predicate<ItemStack> condition, ScreenHandlerType<? extends CharmInventoryScreenHandler> type, int syncId,
+                                       PlayerInventory player, Inventory inventory) {
         super(type, syncId, player, inventory);
 
         // container's inventory slots

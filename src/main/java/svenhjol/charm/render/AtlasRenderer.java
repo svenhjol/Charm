@@ -14,13 +14,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
-import svenhjol.charm.base.helper.AtlasInventory;
+import svenhjol.charm.Charm;
+import svenhjol.charm.screenhandler.AtlasInventory;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
 public class AtlasRenderer implements AutoCloseable {
-    public final RenderLayer ATLAS_BACKGROUND = RenderLayer.getText(new Identifier("charm", "textures/map/atlas_background.png"));
+    public final RenderLayer ATLAS_BACKGROUND = RenderLayer.getText(new Identifier(Charm.MOD_ID, "textures/map/atlas_background.png"));
     public final TextureManager textureManager;
     public final Map<AtlasInventory, Instance> instances = new WeakHashMap<>();
 

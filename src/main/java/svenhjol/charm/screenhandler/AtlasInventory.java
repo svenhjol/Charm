@@ -1,4 +1,4 @@
-package svenhjol.charm.base.helper;
+package svenhjol.charm.screenhandler;
 
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,6 +20,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.module.Atlas;
 import svenhjol.charm.screenhandler.AtlasContainer;
 
