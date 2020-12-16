@@ -3,10 +3,10 @@ package svenhjol.charm.screenhandler;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
-import svenhjol.charm.base.helper.AtlasInventory;
+import svenhjol.charm.base.screenhandler.CharmInventoryScreenHandler;
 import svenhjol.charm.module.Atlas;
 
-public class AtlasContainer extends SimpleCharmContainer {
+public class AtlasContainer extends CharmInventoryScreenHandler {
 
     public AtlasContainer(int syncId, PlayerInventory player) {
         this(syncId, player, new SimpleInventory(AtlasInventory.SIZE));

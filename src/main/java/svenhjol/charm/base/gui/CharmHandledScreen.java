@@ -1,8 +1,7 @@
-package svenhjol.charm.gui;
+package svenhjol.charm.base.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.java.games.input.Component;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,10 +10,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.base.CharmResources;
 
-public class SimpleCharmScreen<T extends ScreenHandler> extends HandledScreen<T> {
+public class CharmHandledScreen<T extends ScreenHandler> extends HandledScreen<T> {
     private final Identifier texture;
 
-    public SimpleCharmScreen(int rows, T handler, PlayerInventory inventory, Text title) {
+    public CharmHandledScreen(int rows, T handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
         this.passEvents = true;
         this.backgroundWidth = 175;
@@ -31,8 +30,8 @@ public class SimpleCharmScreen<T extends ScreenHandler> extends HandledScreen<T>
         }
     }
 
-    public static <T extends ScreenHandler> ScreenRegistry.Factory<T, SimpleCharmScreen<T>> createFactory(int rows) {
-        return (handler, inventory, title) -> new SimpleCharmScreen<>(rows, handler, inventory, title);
+    public static <T extends ScreenHandler> ScreenRegistry.Factory<T, CharmHandledScreen<T>> createFactory(int rows) {
+        return (handler, inventory, title) -> new CharmHandledScreen<>(rows, handler, inventory, title);
     }
 
     @Override

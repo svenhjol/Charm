@@ -12,9 +12,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.AtlasInventory;
+import svenhjol.charm.screenhandler.AtlasInventory;
 import svenhjol.charm.event.RenderHeldItemCallback;
-import svenhjol.charm.gui.SimpleCharmScreen;
+import svenhjol.charm.base.gui.CharmHandledScreen;
 import svenhjol.charm.module.Atlas;
 import svenhjol.charm.render.AtlasRenderer;
 
@@ -28,7 +28,7 @@ public class AtlasClient extends CharmClientModule {
 
     @Override
     public void register() {
-        ScreenRegistry.register(Atlas.CONTAINER, SimpleCharmScreen.createFactory(2));
+        ScreenRegistry.register(Atlas.CONTAINER, CharmHandledScreen.createFactory(2));
     }
 
     @Override
