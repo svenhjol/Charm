@@ -130,7 +130,7 @@ public class ModuleHandler {
         // add and run register method for all loaded modules
         loaded.forEach((moduleName, module) -> {
             LOADED_MODULES.put(moduleName, module);
-            Charm.LOG.info("Loaded module " + moduleName + "(enabled: " + (module.enabled ? "yes" : "no") + ")");
+            Charm.LOG.info("Loaded module " + moduleName + " (enabled: " + (module.enabled ? "yes" : "no") + ")");
             module.register();
         });
     }
