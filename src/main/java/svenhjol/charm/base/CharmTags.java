@@ -7,9 +7,11 @@ import svenhjol.charm.mixin.accessor.BlockTagsAccessor;
 public class CharmTags {
     public static Tag.Identified<Block> BARRELS;
     public static Tag.Identified<Block> IMMOVABLE_BY_PISTONS;
+    public static Tag.Identified<Block> NETHER_PORTAL_FRAMES;
 
     public static void init() {
         BARRELS = BlockTagsAccessor.invokeRegister("charm:barrels");
         IMMOVABLE_BY_PISTONS = BlockTagsAccessor.invokeRegister("charm:immovable_by_pistons");
+        NETHER_PORTAL_FRAMES = BlockTagsAccessor.invokeRegister("charm:nether_portal_frames");
     }
 }

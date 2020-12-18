@@ -9,7 +9,6 @@ import svenhjol.charm.base.handler.LogHandler;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.module.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Charm implements ModInitializer {
@@ -58,6 +57,7 @@ public class Charm implements ModInitializer {
             Lumberjacks.class,
             MineshaftImprovements.class,
             Mooblooms.class,
+            MorePortalFrames.class,
             MoreVillageBiomes.class,
             MusicImprovements.class,
             NetheriteNuggets.class,
