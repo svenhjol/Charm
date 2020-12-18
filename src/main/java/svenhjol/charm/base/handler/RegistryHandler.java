@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.loot.function.LootFunctionType;
+import net.minecraft.potion.Potion;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -60,6 +61,10 @@ public class RegistryHandler {
 
     public static PointOfInterestType pointOfInterestType(Identifier id, PointOfInterestType poit) {
         return Registry.register(Registry.POINT_OF_INTEREST_TYPE, id, poit);
+    }
+
+    public static Potion potion(Identifier id, Potion potion) {
+        return Registry.register(Registry.POTION, id, potion);
     }
 
     public static <T extends Recipe<?>> RecipeType<T> recipeType(String recipeId) {
