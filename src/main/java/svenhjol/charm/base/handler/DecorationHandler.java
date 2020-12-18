@@ -12,6 +12,7 @@ import svenhjol.charm.base.helper.LootHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static svenhjol.charm.base.helper.DecorationHelper.*;
 
@@ -25,7 +26,8 @@ public class DecorationHandler {
             return;
 
         CARPETS.addAll(BlockTags.CARPETS.values());
-        FLOWERS.addAll(BlockTags.FLOWERS.values());
+        FLOWERS.addAll(BlockTags.FLOWERS.values().stream()
+            .filter(b -> b != Blocks.WITHER_ROSE).collect(Collectors.toList()));
         FLOWER_POTS.addAll(BlockTags.FLOWER_POTS.values());
         SAPLINGS.addAll(BlockTags.SAPLINGS.values());
         WOOL.addAll(BlockTags.WOOL.values());
