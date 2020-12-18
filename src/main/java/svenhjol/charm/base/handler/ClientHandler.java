@@ -94,7 +94,7 @@ public class ClientHandler {
     private static void eachEnabledModule(Consumer<CharmClientModule> consumer) {
         LOADED_MODULES.values()
             .stream()
-            .filter(m -> m.enabled)
+            .filter(m -> m.getModule().enabled)
             .forEach(consumer);
     }
 }

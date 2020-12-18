@@ -11,6 +11,10 @@ public abstract class CharmClientModule {
         this.enabled = module.enabled;
     }
 
+    public CharmModule getModule() {
+        return module;
+    }
+
     public String getName() {
         return this.getClass().getSimpleName();
     }
