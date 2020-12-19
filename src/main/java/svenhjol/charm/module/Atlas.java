@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-@Module(mod = Charm.MOD_ID, client = AtlasClient.class, description = "A map storage.")
+@Module(mod = Charm.MOD_ID, client = AtlasClient.class, description = "Storage for maps that automatically updates the displayed map as you explore.")
 public class Atlas extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "atlas");
     // add items to this list to whitelist them in atlases
