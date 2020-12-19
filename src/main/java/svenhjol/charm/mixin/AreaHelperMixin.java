@@ -9,5 +9,6 @@ import svenhjol.charm.module.MorePortalFrames;
 
 @Mixin(AreaHelper.class)
 public class AreaHelperMixin {
-    @Final @Shadow private static final AbstractBlock.ContextPredicate IS_VALID_FRAME_BLOCK = (blockState, blockView, blockPos) -> MorePortalFrames.isValidBlock(blockState);
+    @Final
+    @Shadow private static final AbstractBlock.ContextPredicate IS_VALID_FRAME_BLOCK = (blockState, blockView, blockPos) -> MorePortalFrames.isValidBlock(blockState);
 }
