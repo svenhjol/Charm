@@ -55,6 +55,7 @@ public class Charm implements ModInitializer {
             InventoryTidying.class,
             Kilns.class,
             Lumberjacks.class,
+            MapTooltip.class,
             MineshaftImprovements.class,
             Mooblooms.class,
             MorePortalFrames.class,

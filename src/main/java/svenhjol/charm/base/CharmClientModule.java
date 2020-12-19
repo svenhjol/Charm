@@ -4,11 +4,9 @@ import net.minecraft.client.MinecraftClient;
 
 public abstract class CharmClientModule {
     protected CharmModule module;
-    public boolean enabled;
 
     public CharmClientModule(CharmModule module) {
         this.module = module;
-        this.enabled = module.enabled;
     }
 
     public CharmModule getModule() {
