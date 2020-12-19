@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.10
+* Fix exploit with books on grindstone
+* Fix crates losing their content on world save/load
+* Remove wither rose from custom village flower builds
+* Dynamic data for custom village builds
+* Added More Portal Frames
+
 ## 2.1.9
 * Fix grindstone enchantment extraction consuming an entire book stack (ridjack)
 * Added Atlas (F43nd1r)
