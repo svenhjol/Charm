@@ -23,3 +23,10 @@ Villages now have a chance to appear in the following biomes:
 * Swamps
 
 Villagers spawning in these extra biomes will use their correct biome texture, including the unused textures for Jungle and Swamp villagers.
+
+### Snow Storms
+![Snow Storms](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+During a thunderstorm in a snowy biome, snow layers will increase over time.
+
+Locations that snow is normally not able to be placed, such as next to a light source, will support snow layers being added for the duration of the storm.
+
