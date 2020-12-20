@@ -2,10 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "charm:chests/normal"
-    },
-    {
-      "item": "minecraft:book"
+      "item": "minecraft:writable_book"
     },
     {
       "item": "minecraft:map"
