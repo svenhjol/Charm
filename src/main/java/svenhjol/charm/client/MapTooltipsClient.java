@@ -1,6 +1,5 @@
 package svenhjol.charm.client;
 
-import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -17,15 +16,14 @@ import net.minecraft.util.math.Matrix4f;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.event.RenderTooltipCallback;
 
 import java.util.List;
 
-public class MapTooltipClient extends CharmClientModule {
+public class MapTooltipsClient extends CharmClientModule {
     private static final RenderLayer MAP_BACKGROUND = RenderLayer.getText(new Identifier("textures/map/map_background.png"));
 
-    public MapTooltipClient(CharmModule module) {
+    public MapTooltipsClient(CharmModule module) {
         super(module);
     }
 
@@ -35,7 +33,7 @@ public class MapTooltipClient extends CharmClientModule {
     }
 
     private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
-        if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
+        if (stack != null && stack.getItem() == Items.FILLED_MAP) {
             boolean result = renderTooltip(matrices, stack, lines, x, y);
             if (result)
                 return ActionResult.SUCCESS;
