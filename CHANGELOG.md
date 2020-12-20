@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.11
+* Added mob sound culling
+
 ## 2.1.10
 * Fix exploit with books on grindstone
 * Fix crates losing their content on world save/load

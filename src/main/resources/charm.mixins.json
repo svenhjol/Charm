@@ -23,6 +23,7 @@
     "MinecraftDedicatedServerMixin",
     "MinecraftServerMixin",
     "MineshaftGeneratorMixin",
+    "MobEntityMixin",
     "MushroomStewItemMixin",
     "PistonBlockMixin",
     "PlayerEntityMixin",

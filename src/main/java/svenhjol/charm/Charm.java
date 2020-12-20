@@ -57,6 +57,7 @@ public class Charm implements ModInitializer {
             Lumberjacks.class,
             MapTooltips.class,
             MineshaftImprovements.class,
+            MobSoundCulling.class,
             Mooblooms.class,
             MorePortalFrames.class,
             MoreVillageBiomes.class,
