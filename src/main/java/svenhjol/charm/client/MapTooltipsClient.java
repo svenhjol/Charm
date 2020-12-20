@@ -22,10 +22,10 @@ import svenhjol.charm.event.RenderTooltipCallback;
 
 import java.util.List;
 
-public class MapTooltipClient extends CharmClientModule {
+public class MapTooltipsClient extends CharmClientModule {
     private static final RenderLayer MAP_BACKGROUND = RenderLayer.getText(new Identifier("textures/map/map_background.png"));
 
-    public MapTooltipClient(CharmModule module) {
+    public MapTooltipsClient(CharmModule module) {
         super(module);
     }
 
