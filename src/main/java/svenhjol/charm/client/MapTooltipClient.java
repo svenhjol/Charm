@@ -35,7 +35,7 @@ public class MapTooltipClient extends CharmClientModule {
     }
 
     private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
-        if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
+        if (stack != null && stack.getItem() == Items.FILLED_MAP) {
             boolean result = renderTooltip(matrices, stack, lines, x, y);
             if (result)
                 return ActionResult.SUCCESS;
