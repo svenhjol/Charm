@@ -1,12 +1,17 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import svenhjol.charm.Charm;
@@ -34,13 +39,18 @@ public class CoralSquids extends CharmModule {
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a coral squid dropping coral when killed by the player.")
     public static double dropChance = 0.2D;
 
+    @Config(name = "Spawn weight", description = "Chance of coral squids spawning in warm ocean biomes.")
+    public static int spawnWeight = 50;
+
     @Override
     public void register() {
         // register to MC registry
-        CORAL_SQUID = RegistryHandler.entity(ID, EntityType.Builder.create(CoralSquidEntity::new, SpawnGroup.WATER_CREATURE)
-            .setDimensions(0.54F, 0.54F)
-            .maxTrackingRange(8)
-            .build(ID.getPath()));
+        CORAL_SQUID = RegistryHandler.entity(ID, FabricEntityTypeBuilder
+            .create(SpawnGroup.WATER_AMBIENT, CoralSquidEntity::new)
+            .dimensions(EntityDimensions.fixed(0.54f, 0.54f))
+            .build());
+
+        SpawnRestrictionAccessor.callRegister(CORAL_SQUID, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CoralSquidEntity::canSpawn);
 
         // create a spawn egg for the squid
         SPAWN_EGG = RegistryHandler.item(EGG_ID, new SpawnEggItem(CORAL_SQUID, 0x0000FF, 0xFF00FF, (new Item.Settings()).group(ItemGroup.MISC)));
@@ -54,8 +64,7 @@ public class CoralSquids extends CharmModule {
         List<RegistryKey<Biome>> biomes = new ArrayList<>(Arrays.asList(BiomeKeys.WARM_OCEAN, BiomeKeys.DEEP_WARM_OCEAN));
 
         biomes.forEach(biomeKey -> {
-            Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-            BiomeHelper.addSpawnEntry(biome, SpawnGroup.WATER_AMBIENT, CORAL_SQUID, 40, 5, 6);
+            BiomeHelper.addSpawnEntry(biomeKey, SpawnGroup.WATER_AMBIENT, CORAL_SQUID, spawnWeight, 2, 4);
         });
     }
 }

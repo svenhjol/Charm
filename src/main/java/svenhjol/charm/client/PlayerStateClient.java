@@ -27,6 +27,7 @@ public class PlayerStateClient extends CharmClientModule {
     public boolean fortress = false;
     public boolean shipwreck = false;
     public boolean village = false;
+    public boolean ruin = false;
     public boolean isDaytime = true;
 
     public static PlayerStateClient INSTANCE;
@@ -72,6 +73,7 @@ public class PlayerStateClient extends CharmClientModule {
         this.fortress = data.getBoolean("fortress");
         this.shipwreck = data.getBoolean("shipwreck");
         this.village = data.getBoolean("village");
+        this.ruin = data.getBoolean("ruin");
         this.isDaytime = data.getBoolean("day");
     }
 }

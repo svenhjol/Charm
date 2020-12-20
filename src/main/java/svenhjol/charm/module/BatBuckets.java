@@ -9,6 +9,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
@@ -22,6 +23,7 @@ import svenhjol.charm.item.BatBucketItem;
 
 @Module(mod = Charm.MOD_ID, client = BatBucketsClient.class, description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
 public class BatBuckets extends CharmModule {
+    public static final Identifier MSG_CLIENT_SET_GLOWING = new Identifier(Charm.MOD_ID, "client_set_glowing");
     public static BatBucketItem BAT_BUCKET_ITEM;
 
     @Config(name = "Glowing time", description = "Number of seconds that entities will receive the glowing effect.")

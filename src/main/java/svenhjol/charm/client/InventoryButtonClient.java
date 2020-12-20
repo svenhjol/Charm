@@ -29,9 +29,12 @@ public class InventoryButtonClient extends CharmClientModule {
     public void register() {
         GuiSetupCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
+    }
 
-        portableCraftingClient = (PortableCraftingClient)ClientHandler.getModule("charm:portable_crafting");
-        portableEnderChestClient = (PortableEnderChestClient)ClientHandler.getModule("charm:portable_ender_chest");
+    @Override
+    public void init() {
+        portableCraftingClient = (PortableCraftingClient) ClientHandler.getModule("portable_crafting");
+        portableEnderChestClient = (PortableEnderChestClient) ClientHandler.getModule("portable_ender_chest");
     }
 
     private void handleGuiSetup(MinecraftClient client, int width, int height, List<AbstractButtonWidget> buttons, Consumer<AbstractButtonWidget> addButton) {
@@ -55,7 +58,6 @@ public class InventoryButtonClient extends CharmClientModule {
     }
 
     private void redrawButtons(InventoryScreen screen) {
-        int y = screen.height / 2 - 22;
         int left = ScreenHelper.getX(screen);
 
         if (portableCraftingClient != null && portableCraftingClient.isButtonVisible()) {
@@ -63,21 +65,21 @@ public class InventoryButtonClient extends CharmClientModule {
                 // recipe, crafting and chest buttons
                 if (this.recipeButton != null)
                     this.recipeButton.visible = false;
-                portableCraftingClient.craftingButton.setPos(left + 104, y);
-                portableEnderChestClient.chestButton.setPos(left + 130, y);
+                portableCraftingClient.craftingButton.setPos(left + 104, portableCraftingClient.craftingButton.y);
+                portableEnderChestClient.chestButton.setPos(left + 130, portableEnderChestClient.chestButton.y);
 
             } else {
                 // just the recipe and crafting buttons
                 if (this.recipeButton != null)
                     this.recipeButton.visible = true;
-                portableCraftingClient.craftingButton.setPos(left + 130, y);
+                portableCraftingClient.craftingButton.setPos(left + 130, portableCraftingClient.craftingButton.y);
 
             }
         } else if (portableEnderChestClient != null && portableEnderChestClient.isButtonVisible()) {
             // just the recipe and chest buttons
             if (this.recipeButton != null)
                 this.recipeButton.visible = true;
-            portableEnderChestClient.chestButton.setPos(left + 130, y);
+            portableEnderChestClient.chestButton.setPos(left + 130, portableEnderChestClient.chestButton.y);
         }
     }
 }

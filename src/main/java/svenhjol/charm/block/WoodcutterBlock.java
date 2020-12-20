@@ -32,7 +32,6 @@ public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
     public WoodcutterBlock(CharmModule module) {
         super(FabricBlockSettings
             .of(Material.STONE)
-            .requiresTool()
             .breakByTool(FabricToolTags.AXES)
             .strength(3.5F));
 
@@ -47,6 +46,11 @@ public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
             player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
             return ActionResult.CONSUME;
         }
+    }
+
+    @Override
+    public ItemGroup getItemGroup() {
+        return ItemGroup.DECORATIONS;
     }
 
     @Override

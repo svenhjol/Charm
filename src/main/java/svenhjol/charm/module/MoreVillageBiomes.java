@@ -1,9 +1,12 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.VillagerData;
 import net.minecraft.village.VillagerType;
@@ -37,18 +40,15 @@ public class MoreVillageBiomes extends CharmModule {
         ));
 
         for (RegistryKey<Biome> biomeKey : plainsBiomeKeys) {
-            Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-            BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_PLAINS);
+            BiomeHelper.addStructureFeature(biomeKey, ConfiguredStructureFeatures.VILLAGE_PLAINS);
         }
 
         for (RegistryKey<Biome> biomeKey : taigaBiomeKeys) {
-            Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-            BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_TAIGA);
+            BiomeHelper.addStructureFeature(biomeKey, ConfiguredStructureFeatures.VILLAGE_TAIGA);
         }
 
         for (RegistryKey<Biome> biomeKey : snowyBiomeKeys) {
-            Biome biome = BiomeHelper.getBiomeFromBiomeKey(biomeKey);
-            BiomeHelper.addStructureFeature(biome, ConfiguredStructureFeatures.VILLAGE_SNOWY);
+            BiomeHelper.addStructureFeature(biomeKey, ConfiguredStructureFeatures.VILLAGE_SNOWY);
         }
 
         AddEntityCallback.EVENT.register(this::changeVillagerSkin);

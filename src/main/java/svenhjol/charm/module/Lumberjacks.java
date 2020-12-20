@@ -45,14 +45,12 @@ public class Lumberjacks extends CharmModule {
 
         // register lumberjack structures
         StructureSetupCallback.EVENT.register(() -> {
-            addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_1"), 10);
-            addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_2"), 10);
-            addVillageHouse(VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_beejack_1"), 10);
+            addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_1"), 5);
+            addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_2"), 5);
             addVillageHouse(VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_lumberjack_1"), 5);
-            addVillageHouse(VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_lumberjack_2"), 10);
-            addVillageHouse(VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_lumberjack_1"), 10);
-            addVillageHouse(VillageType.SNOWY, new Identifier("charm:village/snowy/houses/snowy_lumberbee_1"), 10);
+            addVillageHouse(VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_lumberjack_1"), 5);
             addVillageHouse(VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_lumberjack_1"), 5);
+            addVillageHouse(VillageType.SNOWY, new Identifier("charm:village/snowy/houses/snowy_lumberjack_2"), 5);
         });
     }
 }

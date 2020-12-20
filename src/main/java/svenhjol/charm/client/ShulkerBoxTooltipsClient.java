@@ -2,23 +2,27 @@ package svenhjol.charm.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.ShulkerBoxBlock;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.inventory.Inventories;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
-import svenhjol.charm.base.CharmModule;
+import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
+import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
 
 import java.util.List;
 
@@ -28,7 +32,7 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
     }
 
     @Override
-    public void register() {
+    public void init() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
@@ -56,12 +60,17 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
             tag = tag.copy();
             tag.putString("id", "minecraft:shulker_box");
         }
+        BlockItem blockItem = (BlockItem) stack.getItem();
+        BlockEntity blockEntity = BlockEntity.createFromTag(BlockPos.ORIGIN, blockItem.getBlock().getDefaultState(), tag);
+        if (blockEntity == null)
+            return false;
 
-        int inventorySize = 27; // TODO: should be a constant somewhere
-        DefaultedList<ItemStack> itemStacks = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
-        if (tag.contains("Items", 9)) {
-            Inventories.fromTag(tag, itemStacks);
-        }
+        ShulkerBoxBlockEntity shulkerbox = (ShulkerBoxBlockEntity) blockEntity;
+        DefaultedList<ItemStack> items = ((ShulkerBoxBlockEntityAccessor)shulkerbox).getInventory();
+        if (items.stream().allMatch(ItemStack::isEmpty))
+            return false;
+
+        int size = shulkerbox.size();
 
         int x = tx - 5;
         int y = ty - 35;
@@ -90,11 +99,11 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         DiffuseLighting.enable();
         RenderSystem.enableDepthTest();
 
-        for (int i = 0; i < inventorySize; i++) {
+        for (int i = 0; i < size; i++) {
             ItemStack itemstack;
 
             try {
-                itemstack = itemStacks.get(i);
+                itemstack = items.get(i);
             } catch (Exception e) {
                 // catch null issue with itemstack. Needs investigation. #255
                 continue;

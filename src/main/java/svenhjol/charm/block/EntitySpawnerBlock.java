@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmBlockWithEntity;
 import svenhjol.charm.blockentity.EntitySpawnerBlockEntity;
-import svenhjol.charm.module.EntitySpawner;
+import svenhjol.charm.module.EntitySpawners;
 
 import javax.annotation.Nullable;
 
@@ -37,7 +37,7 @@ public class EntitySpawnerBlock extends CharmBlockWithEntity {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return world.isClient ? null : checkType(blockEntityType, EntitySpawner.BLOCK_ENTITY, EntitySpawnerBlockEntity::tick);
+        return world.isClient ? null : checkType(blockEntityType, EntitySpawners.BLOCK_ENTITY, EntitySpawnerBlockEntity::tick);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class PortableEnderChestClient extends CharmClientModule {
     }
 
     @Override
-    public void register() {
+    public void init() {
         // set up client listeners
         GuiSetupCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);

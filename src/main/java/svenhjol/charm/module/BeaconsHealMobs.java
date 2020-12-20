@@ -21,7 +21,7 @@ public class BeaconsHealMobs extends CharmModule {
 
         if (!world.isClient) {
             double d0 = levels * 10 + 10;
-            Box bb = (new Box(pos)).expand(d0).expand(0.0D, world.getHeight(), 0.0D);
+            Box bb = (new Box(pos)).expand(d0).expand(0.0D, world.getTopHeightLimit(), 0.0D);
 
             if (primaryEffect == StatusEffects.REGENERATION || secondaryEffect == StatusEffects.REGENERATION) {
                 List<PassiveEntity> list = world.getNonSpectatingEntities(PassiveEntity.class, bb);

@@ -12,11 +12,11 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class PosHelper {
-    public static BlockPos addRandomOffset(BlockPos pos, Random rand, int max) {
-        int n = rand.nextInt(max);
-        int e = rand.nextInt(max);
-        int s = rand.nextInt(max);
-        int w = rand.nextInt(max);
+    public static BlockPos addRandomOffset(BlockPos pos, Random rand, int min, int max) {
+        int n = rand.nextInt(max - min) + min;
+        int e = rand.nextInt(max - min) + min;
+        int s = rand.nextInt(max - min) + min;
+        int w = rand.nextInt(max - min) + min;
         pos = pos.north(rand.nextFloat() < 0.5F ? n : -n);
         pos = pos.east(rand.nextFloat() < 0.5F ? e : -e);
         pos = pos.south(rand.nextFloat() < 0.5F ? s : -s);
@@ -55,7 +55,7 @@ public class PosHelper {
     public static BlockPos getSurfacePos(World world, BlockPos pos) {
         int surface = 0;
 
-        for (int y = world.getHeight(); y >= 0; --y) {
+        for (int y = world.getTopHeightLimit(); y >= 0; --y) {
             BlockPos n = new BlockPos(pos.getX(), y, pos.getZ());
             if (world.isAir(n) && !world.isAir(n.down())) {
                 surface = y;

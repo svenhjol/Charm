@@ -8,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
@@ -28,7 +29,6 @@ public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
     public KilnBlock(CharmModule module) {
         super(AbstractBlock.Settings
             .of(Material.STONE)
-            .requiresTool()
             .strength(3.5F)
             .luminance(l -> l.get(Properties.LIT) ? 13 : 0));
 
@@ -42,6 +42,11 @@ public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
         if (blockEntity instanceof KilnBlockEntity) {
             player.openHandledScreen((NamedScreenHandlerFactory)blockEntity);
         }
+    }
+
+    @Override
+    public ItemGroup getItemGroup() {
+        return ItemGroup.DECORATIONS;
     }
 
     @Nullable

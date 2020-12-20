@@ -22,6 +22,7 @@ import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.DecorationHelper;
+import svenhjol.charm.base.helper.LootHelper;
 import svenhjol.charm.block.BookcaseBlock;
 import svenhjol.charm.blockentity.BookcaseBlockEntity;
 import svenhjol.charm.blockentity.EntitySpawnerBlockEntity;
@@ -79,7 +80,6 @@ public class DataBlockProcessor extends StructureProcessor {
 
         public static float BLOCK_CHANCE = 0.8F;
         public static float BOOKCASE_CHANCE = 0.15F;
-        public static float BOOKCASE_LOOT_CHANCE = 0.4F;
         public static float CHEST_CHANCE = 0.66F;
         public static float DECORATION_CHANCE = 0.85F;
         public static float FLOWER_CHANCE = 0.8F;
@@ -90,6 +90,7 @@ public class DataBlockProcessor extends StructureProcessor {
         public static float MOB_CHANCE = 0.75F;
         public static float ORE_CHANCE = 0.75F;
         public static float RARE_ORE_CHANCE = 0.25F;
+        public static float RARE_BOOKCASE_CHANCE = 0.05F;
         public static float RARE_CHEST_CHANCE = 0.1F;
         public static float RUBBLE_CHANCE = 0.9F;
         public static float RUNESTONE_CHANCE = 0.75F;
@@ -168,7 +169,7 @@ public class DataBlockProcessor extends StructureProcessor {
         }
 
         protected void armorStand() {
-            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawner.ENTITY_SPAWNER.getDefaultState());
+            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawners.ENTITY_SPAWNER.getDefaultState());
             if (blockEntity == null) return;
             this.tag = new CompoundTag();
 
@@ -177,7 +178,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.rotation = this.rotation;
             blockEntity.toTag(this.tag);
 
-            this.state = EntitySpawner.ENTITY_SPAWNER.getDefaultState();
+            this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
 
         protected void block() {
@@ -199,19 +200,26 @@ public class DataBlockProcessor extends StructureProcessor {
         protected void bookshelf() {
             IVariantMaterial variantMaterial = DecorationHelper.getRandomVariantMaterial(fixedRandom);
 
+            String type = getValue("material", this.data, "");
+            if (!type.isEmpty()) {
+                IVariantMaterial material = DecorationHelper.getVariantMaterial(type);
+                if (material != null)
+                    variantMaterial = material;
+            }
+
             if (ModuleHandler.enabled("charm:bookcases") && withChance(BOOKCASE_CHANCE)) {
                 state = Bookcases.BOOKCASE_BLOCKS.get(variantMaterial).getDefaultState()
                     .with(BookcaseBlock.SLOTS, BookcaseBlockEntity.SIZE); // make it have the "full" texture
 
-                if (random.nextFloat() < BOOKCASE_LOOT_CHANCE) {
-                    BookcaseBlockEntity blockEntity = Bookcases.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, Bookcases.BOOKCASE_BLOCKS.get(VanillaVariantMaterial.OAK).getDefaultState());
-                    if (blockEntity == null)
-                        return;
+                BookcaseBlockEntity blockEntity = Bookcases.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, Bookcases.BOOKCASE_BLOCKS.get(variantMaterial).getDefaultState());
+                if (blockEntity == null)
+                    return;
 
-                    blockEntity.setLootTable(DecorationHelper.getRandomLootTable(BOOKCASE_LOOT_TABLES, random), random.nextLong());
-                    this.tag = new CompoundTag();
-                    blockEntity.toTag(this.tag);
-                }
+                Identifier lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_BOOKCASE_CHANCE ? RARE_BOOKCASE_LOOT_TABLES : BOOKCASE_LOOT_TABLES, random);
+                blockEntity.setLootTable(lootTable, random.nextLong());
+
+                this.tag = new CompoundTag();
+                blockEntity.toTag(this.tag);
             } else if (ModuleHandler.enabled("charm:variant_bookshelves") && variantMaterial != VanillaVariantMaterial.OAK) {
                 state = VariantBookshelves.BOOKSHELF_BLOCKS.get(variantMaterial).getDefaultState();
             } else {
@@ -238,7 +246,14 @@ public class DataBlockProcessor extends StructureProcessor {
             if (ModuleHandler.enabled("charm:variant_chests")) {
                 IVariantMaterial variantMaterial = DecorationHelper.getRandomVariantMaterial(random);
 
-                state = random.nextFloat() < 0.1F ?
+                String type = getValue("material", this.data, "");
+                if (!type.isEmpty()) {
+                    IVariantMaterial material = DecorationHelper.getVariantMaterial(type);
+                    if (material != null)
+                        variantMaterial = material;
+                }
+
+                state = random.nextFloat() < 0.05F ?
                     VariantChests.TRAPPED_CHEST_BLOCKS.get(variantMaterial).getDefaultState() :
                     VariantChests.NORMAL_CHEST_BLOCKS.get(variantMaterial).getDefaultState();
 
@@ -253,7 +268,8 @@ public class DataBlockProcessor extends StructureProcessor {
             if (blockEntity == null)
                 return;
 
-            blockEntity.setLootTable(getLootTable(data, lootTable), random.nextLong());
+            String loot = getValue("loot", data, "");
+            blockEntity.setLootTable(LootHelper.getLootTable(loot, lootTable), random.nextLong());
             tag = new CompoundTag();
             blockEntity.toTag(tag);
         }
@@ -266,7 +282,7 @@ public class DataBlockProcessor extends StructureProcessor {
         }
 
         protected void entity() {
-            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawner.ENTITY_SPAWNER.getDefaultState());
+            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawners.ENTITY_SPAWNER.getDefaultState());
             if (blockEntity == null) return;
             tag = new CompoundTag();
 
@@ -283,7 +299,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.rotation = this.rotation;
             blockEntity.toTag(this.tag);
 
-            this.state = EntitySpawner.ENTITY_SPAWNER.getDefaultState();
+            this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
 
         protected void flower() {
@@ -317,7 +333,7 @@ public class DataBlockProcessor extends StructureProcessor {
         protected void mob() {
             if (!withChance(MOB_CHANCE)) return;
 
-            EntitySpawnerBlockEntity blockEntity = EntitySpawner.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawner.ENTITY_SPAWNER.getDefaultState());
+            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawners.ENTITY_SPAWNER.getDefaultState());
             if (blockEntity == null) return;
 
             String type = getValue("type", this.data, "");
@@ -327,11 +343,13 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.entity = new Identifier(type);
             blockEntity.health = getValue("health", this.data, 0.0D);
             blockEntity.persist = getValue("persist", this.data, true);
+            blockEntity.armor = getValue("armor", this.data, "");
+            blockEntity.effects = getValue("effects", this.data, "");
             blockEntity.count = getValue("count", this.data, 1);
             blockEntity.rotation = this.rotation;
             blockEntity.toTag(this.tag);
 
-            this.state = EntitySpawner.ENTITY_SPAWNER.getDefaultState();
+            this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
 
         protected void ore() {
@@ -415,7 +433,9 @@ public class DataBlockProcessor extends StructureProcessor {
                 return;
 
             Identifier lootTable = DecorationHelper.getRandomLootTable(COMMON_LOOT_TABLES, random);
-            blockEntity.setLootTable(getLootTable(data, lootTable), random.nextLong());
+
+            String loot = getValue("loot", data, "");
+            blockEntity.setLootTable(LootHelper.getLootTable(loot, lootTable), random.nextLong());
             tag = new CompoundTag();
             blockEntity.toTag(tag);
         }

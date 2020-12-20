@@ -4,6 +4,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -64,12 +66,13 @@ public class GlowballEntity extends ThrownItemEntity {
         Direction side = hitResult.getSide();
         BlockState state = world.getBlockState(pos);
         BlockPos offsetPos = pos.offset(side);
+        BlockState offsetState = world.getBlockState(offsetPos);
 
-        if (state.isSideSolidFullSquare(world, pos, side) && (world.isAir(offsetPos) || world.isWater(offsetPos))) {
+        if (state.isSideSolidFullSquare(world, pos, side)
+            && (world.isAir(offsetPos) || (offsetState.getMaterial() == Material.WATER && offsetState.get(FluidBlock.LEVEL) == 0))) {
             BlockState placedState = Glowballs.GLOWBALL_BLOCK.getDefaultState()
                 .with(GlowballBlobBlock.FACING, side);
 
-            BlockState offsetState = world.getBlockState(offsetPos);
             if (offsetState.getBlock() == Blocks.WATER)
                 placedState = placedState.with(Properties.WATERLOGGED, true);
 

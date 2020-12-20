@@ -54,7 +54,7 @@ public class BookcaseBlock extends CharmBlockWithEntity {
                 player.openHandledScreen(bookcase);
             }
         }
-        return ActionResult.SUCCESS;
+        return ActionResult.CONSUME;
     }
 
 

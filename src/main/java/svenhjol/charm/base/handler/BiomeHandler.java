@@ -1,21 +1,22 @@
 package svenhjol.charm.base.handler;
 
+import net.minecraft.world.biome.BiomeKeys;
 import svenhjol.charm.base.helper.BiomeHelper;
 
 import java.util.Arrays;
 
 public class BiomeHandler {
     public static void init() {
-        BiomeHelper.BADLANDS.addAll(Arrays.asList("minecraft:badlands", "minecraft:badlands_plateau", "minecraft:wooded_badlands_plateau"));
-        BiomeHelper.DESERT.addAll(Arrays.asList("minecraft:desert", "minecraft:desert_hills", "minecraft:desert_lakes"));
-        BiomeHelper.END.addAll(Arrays.asList("minecraft:end_barrens", "minecraft:end_highlands", "minecraft:end_midlands", "minecraft:small_end_islands"));
-        BiomeHelper.FOREST.addAll(Arrays.asList("minecraft:forest", "minecraft:wooded_mountains", "minecraft:birch_forest", "minecraft:dark_forest", "minecraft:dark_forest_hills"));
-        BiomeHelper.JUNGLE.addAll(Arrays.asList("minecraft:jungle", "minecraft:bamboo_jungle", "minecraft:modified_jungle"));
-        BiomeHelper.MOUNTAINS.addAll(Arrays.asList("minecraft:mountains", "minecraft:gravelly_mountains", "minecraft:mountain_edge"));
-        BiomeHelper.NETHER.addAll(Arrays.asList("minecraft:soul_sand_valley", "minecraft:crimson_forest", "minecraft:warped_forest", "minecrat:basalt_deltas", "minecraft:nether_wastes"));
-        BiomeHelper.PLAINS.addAll(Arrays.asList("minecraft:plains", "minecraft:swamp", "minecraft:sunflower_plains", "minecraft:flower_forest"));
-        BiomeHelper.SAVANNA.addAll(Arrays.asList("minecraft:savanna", "minecraft:savanna_plateau", "minecraft:shattered_savanna"));
-        BiomeHelper.SNOWY.addAll(Arrays.asList("minecraft:snowy_tundra", "minecraft:snowy_taiga", "minecraft:ice_spikes"));
-        BiomeHelper.TAIGA.addAll(Arrays.asList("minecraft:taiga", "minecraft:taiga_hills", "minecraft:taiga_mountains"));
+        BiomeHelper.BADLANDS.addAll(Arrays.asList(BiomeKeys.BADLANDS, BiomeKeys.BADLANDS_PLATEAU, BiomeKeys.WOODED_BADLANDS_PLATEAU));
+        BiomeHelper.DESERT.addAll(Arrays.asList(BiomeKeys.DESERT, BiomeKeys.DESERT_HILLS, BiomeKeys.DESERT_LAKES));
+        BiomeHelper.END.addAll(Arrays.asList(BiomeKeys.END_BARRENS, BiomeKeys.END_HIGHLANDS, BiomeKeys.END_MIDLANDS, BiomeKeys.SMALL_END_ISLANDS));
+        BiomeHelper.FOREST.addAll(Arrays.asList(BiomeKeys.FOREST, BiomeKeys.BIRCH_FOREST, BiomeKeys.DARK_FOREST, BiomeKeys.DARK_FOREST_HILLS));
+        BiomeHelper.JUNGLE.addAll(Arrays.asList(BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.MODIFIED_JUNGLE));
+        BiomeHelper.MOUNTAINS.addAll(Arrays.asList(BiomeKeys.MOUNTAINS, BiomeKeys.GRAVELLY_MOUNTAINS, BiomeKeys.WOODED_MOUNTAINS, BiomeKeys.SNOWY_MOUNTAINS));
+        BiomeHelper.NETHER.addAll(Arrays.asList(BiomeKeys.SOUL_SAND_VALLEY, BiomeKeys.CRIMSON_FOREST, BiomeKeys.WARPED_FOREST, BiomeKeys.BASALT_DELTAS, BiomeKeys.NETHER_WASTES));
+        BiomeHelper.PLAINS.addAll(Arrays.asList(BiomeKeys.PLAINS, BiomeKeys.SWAMP, BiomeKeys.SUNFLOWER_PLAINS, BiomeKeys.FLOWER_FOREST));
+        BiomeHelper.SAVANNA.addAll(Arrays.asList(BiomeKeys.SAVANNA, BiomeKeys.SAVANNA_PLATEAU, BiomeKeys.SHATTERED_SAVANNA));
+        BiomeHelper.SNOWY.addAll(Arrays.asList(BiomeKeys.SNOWY_TUNDRA, BiomeKeys.SNOWY_TAIGA, BiomeKeys.ICE_SPIKES));
+        BiomeHelper.TAIGA.addAll(Arrays.asList(BiomeKeys.TAIGA, BiomeKeys.TAIGA_HILLS, BiomeKeys.TAIGA_MOUNTAINS));
     }
 }

@@ -9,6 +9,7 @@ public class CharmClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ClientHandler.init();
+        ClientHandler.INSTANCE.registerFabricMod(Charm.MOD_ID);
+        ClientHandler.INSTANCE.init();
     }
 }

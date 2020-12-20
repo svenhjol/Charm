@@ -31,7 +31,9 @@ public class GlowballBlobBlock extends CharmBlock implements Waterloggable {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     public GlowballBlobBlock(CharmModule module) {
-        super(module, "glowball_blob", Settings.copy(Blocks.REDSTONE_WIRE)
+        super(module, "glowball_blob", Settings.of(Material.REPLACEABLE_PLANT)
+            .noCollision()
+            .breakInstantly()
             .luminance(l -> 8));
 
         this.setDefaultState(getDefaultState().with(WATERLOGGED, false));

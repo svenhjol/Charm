@@ -1,8 +1,73 @@
 # Changelog
 
+## 2.1.10
+* Fix exploit with books on grindstone
+* Fix crates losing their content on world save/load
+* Fix Quark overrides not working properly (F43nd1r)
+* Fix village builds not spawning villages (Coranthes)
+* Remove wither rose from custom village flower builds
+* Atlas recipe has been changed
+* Dynamic data for custom village builds
+* Added More Portal Frames
+* Added Map Tooltips with atlas support (F43nd1r)
+
+## 2.1.9
+* Fix grindstone enchantment extraction consuming an entire book stack (ridjack)
+* Added Atlas (F43nd1r)
+
+## 2.1.8
+* Fix itemgroups. #406
+* Fix render hover in incorrect place
+* Fix village jigsaw piece problems. #409
+* Fix modules being enabled when they shouldn't (#420, others)
+* Fix Shulkerbox showing hover when empty
+* Fix bookshelf recipe in wrong place
+
+## 2.1.7
+* Added StackableStews (F43nd1r)
+
+## 2.1.6
+* Fix bowl stack lost when milking Mooblooms #403
+* AutoRestock now works properly when adding items to composter (F43nd1r)
+* Remove Wandering Trader signal fire restriction
+* Remove treasure enchantment cost on grindstone
+* Hoe harvesting fully grown crop now plays sound
+
+## 2.1.5
+* Fix missing spruce bookshelf recipe
+* Fix acquisition enchantment not dropping XP from harvested blocks
+* Fix grindstone not showing the XP cost when the player has enough XP
+* Fix kilns and woodcutters not dropping themselves on break without optimal tool
+* Fix crates showing tooltip when empty
+* Fix overworld music sometimes playing when entering the nether
+* Reduce spawn weights of lumberjack and beekeeper village pieces
+* Raid Horns volume reduced by 25% and is configurable
+* Raid Horns have cooldown after use
+* Default amount of levels required to extract a treasure enchantment has been decreased from 15 to 10
+
+## 2.1.4
+* Fix client inventory buttons
+* Fix inventory button flicker when display Quark's backpack ui (F43nd1r)
+
+## 2.1.3
+* Added AutoRestock (F43nd1r)
+
 ## 2.1.2
 * Fix dropped netherite-based items cause crash on dedicated server
 * Fix disabled modules do not disable recipes after change to toml config
+* Fix shulker boxes not being craftable with variant chests
+* Fix dispenser not firing glowballs
+* Fix refined obsidian walls not connecting
+* Fix glowballs converting blocks to water source blocks
+* Reduce spawn weight and group size of Coral Squids
+* After much deliberation, we decided Coral Squids should no longer spawn uncontrollably and crash servers
+* Enchantments are now extracted by the grindstone (Credit to [martenschaefer](https://github.com/mschae23/grind-enchantments))
+* Added Mooblooms
+* Added Snow storms
+* Added Raid horns
+* Added Acquisition enchantment
+* Added Tinted enchantment
+* REI woodcutter and kiln integration
 
 ## 2.1.1
 * Fix Coral Squid hitboxes. #351, #361

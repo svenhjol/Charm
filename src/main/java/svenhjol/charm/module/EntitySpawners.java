@@ -12,7 +12,7 @@ import svenhjol.charm.blockentity.EntitySpawnerBlockEntity;
 import svenhjol.charm.client.EntitySpawnersClient;
 
 @Module(mod = Charm.MOD_ID, client = EntitySpawnersClient.class, description = "Spawns entities when a player is within range.", alwaysEnabled = true)
-public class EntitySpawner extends CharmModule {
+public class EntitySpawners extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "entity_spawner");
     public static EntitySpawnerBlock ENTITY_SPAWNER;
     public static BlockEntityType<EntitySpawnerBlockEntity> BLOCK_ENTITY;

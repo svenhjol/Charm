@@ -8,6 +8,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.handler.ColoredGlintHandler;
 import svenhjol.charm.module.Core;
 
+/**
+ * In Forge: RenderTypeMixin
+ */
 @Mixin(RenderLayer.class)
 public class RenderLayerMixin {
     @Inject(
@@ -16,7 +19,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetArmorGlint(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.debug)
+        if (Core.overrideGlint)
             cir.setReturnValue(ColoredGlintHandler.getArmorGlintRenderLayer());
     }
 
@@ -26,7 +29,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetArmorEntityGlint(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.debug)
+        if (Core.overrideGlint)
             cir.setReturnValue(ColoredGlintHandler.getArmorEntityGlintRenderLayer());
     }
 
@@ -36,7 +39,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetEntityGlint(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.debug)
+        if (Core.overrideGlint)
             cir.setReturnValue(ColoredGlintHandler.getEntityGlintRenderLayer());
     }
 
@@ -46,7 +49,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetEntityGlintDirect(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.debug)
+        if (Core.overrideGlint)
             cir.setReturnValue(ColoredGlintHandler.getDirectEntityGlintRenderLayer());
     }
 
@@ -56,7 +59,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetGlint(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.debug)
+        if (Core.overrideGlint)
             cir.setReturnValue(ColoredGlintHandler.getGlintRenderLayer());
     }
 
@@ -66,7 +69,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetGlintDirect(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.debug)
+        if (Core.overrideGlint)
             cir.setReturnValue(ColoredGlintHandler.getDirectGlintRenderLayer());
     }
 }

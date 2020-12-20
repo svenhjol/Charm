@@ -1,0 +1,26 @@
+{
+	"parent": "minecraft:item/handheld",
+	"textures": { 
+		"layer0": "charm:item/raid_horn"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [ 0, 0, -60 ],
+			"translation": [ 2, 0.1, 0 ],
+			"scale": [ 0.75, 0.75, 0.75 ]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [ 0, 0, 30 ],
+			"translation": [ 2, 0.1, 0 ],
+			"scale": [ 0.75, 0.75, 0.75 ]
+		},
+		"firstperson_righthand": {
+			"rotation": [ 0, -90, 0 ],
+			"translation": [ 9, -2, -10 ]
+		},
+		"firstperson_lefthand": {
+			"rotation": [ 0, 80, 0 ],
+			"translation": [ 10, -2, -10 ]
+		}
+	}
+}

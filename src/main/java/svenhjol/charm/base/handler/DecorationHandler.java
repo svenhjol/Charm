@@ -3,15 +3,22 @@ package svenhjol.charm.base.handler;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootTables;
+import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.tag.BlockTags;
+import svenhjol.charm.base.CharmLoot;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.helper.LootHelper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static svenhjol.charm.base.helper.DecorationHelper.*;
 
 public class DecorationHandler {
+    public static List<StructureProcessor> SINGLE_POOL_ELEMENT_PROCESSORS = new ArrayList<>();
+
     private static boolean hasInit = false;
 
     public static void init() {
@@ -19,7 +26,8 @@ public class DecorationHandler {
             return;
 
         CARPETS.addAll(BlockTags.CARPETS.values());
-        FLOWERS.addAll(BlockTags.FLOWERS.values());
+        FLOWERS.addAll(BlockTags.FLOWERS.values().stream()
+            .filter(b -> b != Blocks.WITHER_ROSE).collect(Collectors.toList()));
         FLOWER_POTS.addAll(BlockTags.FLOWER_POTS.values());
         SAPLINGS.addAll(BlockTags.SAPLINGS.values());
         WOOL.addAll(BlockTags.WOOL.values());
@@ -31,7 +39,7 @@ public class DecorationHandler {
             LootTables.DESERT_PYRAMID_CHEST,
             LootTables.JUNGLE_TEMPLE_CHEST,
             LootTables.SIMPLE_DUNGEON_CHEST,
-            LootTables.STRONGHOLD_CORRIDOR_CHEST
+            LootTables.SHIPWRECK_TREASURE_CHEST
         );
 
         COMMON_LOOT_TABLES.addAll(Arrays.asList(
@@ -42,10 +50,15 @@ public class DecorationHandler {
         COMMON_LOOT_TABLES.addAll(LootHelper.getVanillaVillageLootTables());
 
         RARE_CHEST_LOOT_TABLES.addAll(Arrays.asList(
-            LootTables.RUINED_PORTAL_CHEST
+            LootTables.RUINED_PORTAL_CHEST,
+            LootTables.END_CITY_TREASURE_CHEST
         ));
 
         BOOKCASE_LOOT_TABLES.addAll(Arrays.asList(
+            CharmLoot.VILLAGE_LIBRARIAN
+        ));
+
+        RARE_BOOKCASE_LOOT_TABLES.addAll(Arrays.asList(
             LootTables.STRONGHOLD_LIBRARY_CHEST
         ));
 

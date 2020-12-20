@@ -1,7 +1,9 @@
 package svenhjol.charm.base.helper;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.server.world.ServerWorld;
@@ -10,29 +12,28 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.biome.SpawnSettings.SpawnEntry;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
-import svenhjol.charm.mixin.accessor.GenerationSettingsAccessor;
-import svenhjol.charm.mixin.accessor.SpawnSettingsAccessor;
+import svenhjol.charm.Charm;
 
-import java.util.*;
-import java.util.function.Supplier;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
+@SuppressWarnings({"UnstableApiUsage", "unused", "deprecation"})
 public class BiomeHelper {
-    public static List<String> BADLANDS = new ArrayList<>();
-    public static List<String> DESERT = new ArrayList<>();
-    public static List<String> END = new ArrayList<>();
-    public static List<String> FOREST = new ArrayList<>();
-    public static List<String> JUNGLE = new ArrayList<>();
-    public static List<String> MOUNTAINS = new ArrayList<>();
-    public static List<String> NETHER = new ArrayList<>();
-    public static List<String> PLAINS = new ArrayList<>();
-    public static List<String> SAVANNA = new ArrayList<>();
-    public static List<String> SNOWY = new ArrayList<>();
-    public static List<String> TAIGA = new ArrayList<>();
+    public static List<RegistryKey<Biome>> BADLANDS = new ArrayList<>();
+    public static List<RegistryKey<Biome>> DESERT = new ArrayList<>();
+    public static List<RegistryKey<Biome>> END = new ArrayList<>();
+    public static List<RegistryKey<Biome>> FOREST = new ArrayList<>();
+    public static List<RegistryKey<Biome>> JUNGLE = new ArrayList<>();
+    public static List<RegistryKey<Biome>> MOUNTAINS = new ArrayList<>();
+    public static List<RegistryKey<Biome>> NETHER = new ArrayList<>();
+    public static List<RegistryKey<Biome>> PLAINS = new ArrayList<>();
+    public static List<RegistryKey<Biome>> SAVANNA = new ArrayList<>();
+    public static List<RegistryKey<Biome>> SNOWY = new ArrayList<>();
+    public static List<RegistryKey<Biome>> TAIGA = new ArrayList<>();
 
     public static Biome getBiome(ServerWorld world, BlockPos pos) {
         BiomeAccess biomeAccess = world.getBiomeAccess();
@@ -44,7 +45,7 @@ public class BiomeHelper {
     }
 
     public static Optional<RegistryKey<Biome>> getBiomeKeyAtPosition(ServerWorld world, BlockPos pos) {
-        return world.method_31081(pos);
+        return world.getBiomeKey(pos);
     }
 
     public static BlockPos locateBiome(RegistryKey<Biome> biomeKey, ServerWorld world, BlockPos pos) {
@@ -56,51 +57,31 @@ public class BiomeHelper {
         return world.locateBiome(biome, pos, 6400, 8);
     }
 
-    public static void addStructureFeature(Biome biome, ConfiguredStructureFeature<?, ?> structureFeature) {
-        GenerationSettings settings = biome.getGenerationSettings();
-        checkGenerationSettingsMutable(settings);
-        ((GenerationSettingsAccessor)settings).getStructureFeatures().add(() -> structureFeature);
+    public static void addStructureFeatureToBiomes(List<RegistryKey<Biome>> biomeKeys, ConfiguredStructureFeature<?, ?> configuredFeature) {
+        biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureFeature(biomeKey, configuredFeature));
     }
 
-    public static void addSpawnEntry(Biome biome, SpawnGroup group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
-        SpawnSettings settings = biome.getSpawnSettings();
-        checkSpawnSettingsMutable(settings);
+    public static void addStructureFeature(RegistryKey<Biome> biomeKey, ConfiguredStructureFeature<?, ?> structureFeature) {
+        RegistryKey<ConfiguredStructureFeature<?, ?>> structureKey;
+        Predicate<BiomeSelectionContext> biomeSelector;
 
-        // TODO: revise all this
-        Map<SpawnGroup, List<SpawnEntry>> spawners = ((SpawnSettingsAccessor) settings).getSpawners();
-        spawners.get(group).add(new SpawnEntry(entity, weight, minGroupSize, maxGroupSize));
-        ((SpawnSettingsAccessor)settings).setSpawners(spawners);
-    }
-
-    /**
-     * Evil hack until there's a better way to add structures to biomes
-     */
-    private static void checkGenerationSettingsMutable(GenerationSettings settings) {
-        List<Supplier<ConfiguredStructureFeature<?, ?>>> existing = ((GenerationSettingsAccessor)settings).getStructureFeatures();
-        if (existing instanceof ImmutableList)
-            ((GenerationSettingsAccessor)settings).setStructureFeatures(new ArrayList<>(existing));
-    }
-
-    /**
-     * Evil hack until there's a better way to add mobs to biomes
-     */
-    private static void checkSpawnSettingsMutable(SpawnSettings settings) {
-        Map<SpawnGroup, List<SpawnEntry>> spawners = ((SpawnSettingsAccessor) settings).getSpawners();
-        Map<EntityType<?>, SpawnSettings.SpawnDensity> spawnCosts = ((SpawnSettingsAccessor) settings).getSpawnCosts();
-
-        if (spawners instanceof ImmutableMap) {
-            // have to make each list mutable as well. BIOME API OMFG.
-            HashMap<SpawnGroup, List<SpawnEntry>> mutable = new HashMap<>(spawners);
-
-            spawners.forEach((spawnGroup, spawnEntries) ->
-                mutable.put(spawnGroup, new ArrayList<>(spawnEntries)));
-
-            ((SpawnSettingsAccessor)settings).setSpawners(new HashMap<>(mutable));
+        try {
+            biomeSelector = BiomeSelectors.includeByKey(biomeKey);
+            structureKey = BuiltInRegistryKeys.get(structureFeature);
+        } catch (Exception e) {
+            Charm.LOG.error("Failed to add structure to biome. This may cause crashes when trying to locate the structure.");
+            return;
         }
 
-        // may need costs in future, for now it's unused
-        if (spawnCosts instanceof ImmutableMap) {
-            ((SpawnSettingsAccessor)settings).setSpawnCosts(new HashMap<>(spawnCosts));
+        BiomeModifications.addStructure(biomeSelector, structureKey);
+    }
+
+    public static void addSpawnEntry(RegistryKey<Biome> biomeKey, SpawnGroup group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
+        try {
+            Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
+            BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
+        } catch (Exception e) {
+            Charm.LOG.error("Failed to add entity to biome spawn. This may cause crashes when trying to spawn the entity.");
         }
     }
 }

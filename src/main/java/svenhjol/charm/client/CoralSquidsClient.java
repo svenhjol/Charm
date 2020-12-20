@@ -18,7 +18,7 @@ public class CoralSquidsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        LAYER = EntityHelper.registerEntityModelLayer(CoralSquids.ID, CoralSquidEntityModel.render().method_32109());
+        LAYER = EntityHelper.registerEntityModelLayer(CoralSquids.ID, CoralSquidEntityModel.getTexturedModelData().createModel());
         EntityRendererRegistry.INSTANCE.register(CoralSquids.CORAL_SQUID, CoralSquidEntityRenderer::new);
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -37,6 +38,10 @@ public class RegistryHandler {
     public static ConfiguredStructureFeature<?, ?> configuredFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
         BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, id, configuredFeature);
         return configuredFeature;
+    }
+
+    public static Enchantment enchantment(Identifier id, Enchantment enchantment) {
+        return Registry.register(Registry.ENCHANTMENT, id, enchantment);
     }
 
     public static <T extends Entity> EntityType<T> entity(Identifier id, EntityType<T> entityType) {

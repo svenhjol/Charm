@@ -7,18 +7,20 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.inventory.Inventories;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
-import svenhjol.charm.base.CharmModule;
+import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.block.CrateBlock;
+import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.handler.TooltipInventoryHandler;
@@ -63,12 +65,17 @@ public class CratesClient extends CharmClientModule {
             tag = tag.copy();
             tag.putString("id", "charm:crate");
         }
+        BlockItem blockItem = (BlockItem) stack.getItem();
+        BlockEntity blockEntity = BlockEntity.createFromTag(BlockPos.ORIGIN, blockItem.getBlock().getDefaultState(), tag);
+        if (blockEntity == null)
+            return false;
 
-        int inventorySize = 27; // TODO: should be a constant somewhere
-        DefaultedList<ItemStack> itemStacks = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
-        if (tag.contains("Items")) {
-            Inventories.fromTag(tag, itemStacks);
-        }
+        CrateBlockEntity crate = (CrateBlockEntity) blockEntity;
+        DefaultedList<ItemStack> items = crate.getInvStackList();
+        if (items.stream().allMatch(ItemStack::isEmpty))
+            return false;
+
+        int size = crate.size();
 
         int x = tx - 5;
         int y = ty - 35;
@@ -97,11 +104,11 @@ public class CratesClient extends CharmClientModule {
         DiffuseLighting.enable();
         RenderSystem.enableDepthTest();
 
-        for (int i = 0; i < inventorySize; i++) {
+        for (int i = 0; i < size; i++) {
             ItemStack itemstack;
 
             try {
-                itemstack = itemStacks.get(i);
+                itemstack = items.get(i);
             } catch (Exception e) {
                 // catch null issue with itemstack. Needs investigation. #255
                 continue;

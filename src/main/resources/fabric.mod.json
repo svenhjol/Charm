@@ -27,7 +27,10 @@
       "svenhjol.charm.CharmClient"
     ],
     "rei_plugins": [
-      "svenhjol.charm.base.integration.CharmReiPlugin"
+      "svenhjol.charm.integration.CharmReiPlugin"
+    ],
+    "rei_containers": [
+      "svenhjol.charm.integration.CharmReiContainerPlugin"
     ]
   },
   "mixins": [

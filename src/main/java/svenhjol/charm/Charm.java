@@ -1,6 +1,7 @@
 package svenhjol.charm;
 
 import net.fabricmc.api.ModInitializer;
+import svenhjol.charm.base.CharmLoot;
 import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.CharmStructures;
 import svenhjol.charm.base.CharmTags;
@@ -8,7 +9,6 @@ import svenhjol.charm.base.handler.LogHandler;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.module.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Charm implements ModInitializer {
@@ -17,10 +17,13 @@ public class Charm implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ModuleHandler.AVAILABLE_MODULES.put(Charm.MOD_ID, new ArrayList<>(Arrays.asList(
+        ModuleHandler.INSTANCE.registerFabricMod(MOD_ID, Arrays.asList(
+            Acquisition.class,
             AnvilImprovements.class,
             ArmorInvisibility.class,
+            Atlas.class,
             AutomaticRecipeUnlock.class,
+            AutoRestock.class,
             BatBuckets.class,
             BeaconsHealMobs.class,
             Beekeepers.class,
@@ -39,7 +42,7 @@ public class Charm implements ModInitializer {
             DecreaseRepairCost.class,
             DirtToPath.class,
             EndermitePowder.class,
-            EntitySpawner.class,
+            EntitySpawners.class,
             ExtendNetherite.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
@@ -52,7 +55,10 @@ public class Charm implements ModInitializer {
             InventoryTidying.class,
             Kilns.class,
             Lumberjacks.class,
+            MapTooltip.class,
             MineshaftImprovements.class,
+            Mooblooms.class,
+            MorePortalFrames.class,
             MoreVillageBiomes.class,
             MusicImprovements.class,
             NetheriteNuggets.class,
@@ -61,6 +67,7 @@ public class Charm implements ModInitializer {
             PlayerState.class,
             PortableCrafting.class,
             PortableEnderChest.class,
+            RaidHorns.class,
             RedstoneLanterns.class,
             RedstoneSand.class,
             RefinedObsidian.class,
@@ -70,10 +77,13 @@ public class Charm implements ModInitializer {
             ShulkerBoxTooltips.class,
             SleepImprovements.class,
             SmoothGlowstone.class,
+            SnowStorms.class,
             StackableEnchantedBooks.class,
             StackablePotions.class,
+            StackableStews.class,
             StrayImprovements.class,
             TamedAnimalsNoDamage.class,
+            Tinted.class,
             UseTotemFromInventory.class,
             VariantBarrels.class,
             VariantBookshelves.class,
@@ -84,12 +94,13 @@ public class Charm implements ModInitializer {
             WanderingTraderImprovements.class,
             WitchesDropLuck.class,
             Woodcutters.class
-        )));
+        ));
 
+        CharmLoot.init();
         CharmStructures.init();
         CharmSounds.init();
         CharmTags.init();
 
-        ModuleHandler.init();
+        ModuleHandler.INSTANCE.init();
     }
 }

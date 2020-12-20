@@ -34,9 +34,6 @@ import java.util.Random;
 public class WanderingTraderImprovements extends CharmModule {
     public static final List<TraderMap> traderMaps = new ArrayList<>();
 
-    @Config(name = "Spawn near signal fire", description = "If true, wandering traders will only spawn if the player is near a signal fire.")
-    public static boolean spawnNearSignalFire = true;
-
     @Config(name = "Trade biome maps", description = "If true, wandering traders will sell maps to biomes.")
     public static boolean tradeBiomeMaps = true;
 
@@ -80,30 +77,6 @@ public class WanderingTraderImprovements extends CharmModule {
 
         for (int i = 0; i < 3; i++)
             VillagerHelper.addWanderingTrade(new StructureMapForEmeraldsTrade(), false);
-    }
-
-    public static boolean checkSpawnConditions(World world, BlockPos pos) {
-        if (!ModuleHandler.enabled("charm:wandering_trader_improvements"))
-            return true;
-
-        if (!spawnNearSignalFire)
-            return true;
-
-        BlockPos pos1 = pos.add(-24, -24, -24);
-        BlockPos pos2 = pos.add(24, 24, 24);
-
-        boolean foundFire = BlockPos.stream(pos1, pos2).anyMatch(p -> {
-            BlockState state = world.getBlockState(p);
-            return state.getBlock() instanceof CampfireBlock
-                && state.contains(CampfireBlock.SIGNAL_FIRE)
-                && state.get(CampfireBlock.SIGNAL_FIRE);
-        });
-
-        Charm.LOG.debug(foundFire
-            ? "Found signal fire within range of player, attempting to spawn Wandering Trader."
-            : "No signal fire within range of player, not spawning Wandering Trader.");
-
-        return foundFire;
     }
 
     public static boolean shouldSpawnFrequently() {

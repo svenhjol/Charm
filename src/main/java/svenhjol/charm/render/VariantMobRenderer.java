@@ -1,6 +1,5 @@
 package svenhjol.charm.render;
 
-import net.minecraft.class_5617;
 import net.minecraft.client.render.entity.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.util.Identifier;
@@ -8,8 +7,8 @@ import svenhjol.charm.client.VariantMobTexturesClient;
 
 public class VariantMobRenderer {
     public static class Chicken extends ChickenEntityRenderer {
-        public Chicken(class_5617.class_5618 dispatcher) {
-            super(dispatcher);
+        public Chicken(EntityRendererFactory.Context context) {
+            super(context);
         }
 
         @Override
@@ -19,8 +18,8 @@ public class VariantMobRenderer {
     }
 
     public static class Cow extends CowEntityRenderer {
-        public Cow(class_5617.class_5618 dispatcher) {
-            super(dispatcher);
+        public Cow(EntityRendererFactory.Context context) {
+            super(context);
         }
 
         @Override
@@ -30,8 +29,8 @@ public class VariantMobRenderer {
     }
 
     public static class Pig extends PigEntityRenderer {
-        public Pig(class_5617.class_5618 dispatcher) {
-            super(dispatcher);
+        public Pig(EntityRendererFactory.Context context) {
+            super(context);
         }
 
         @Override
@@ -41,8 +40,8 @@ public class VariantMobRenderer {
     }
 
     public static class Sheep extends SheepEntityRenderer {
-        public Sheep(class_5617.class_5618 dispatcher) {
-            super(dispatcher);
+        public Sheep(EntityRendererFactory.Context context) {
+            super(context);
         }
 
         @Override
@@ -52,8 +51,8 @@ public class VariantMobRenderer {
     }
 
     public static class SnowGolem extends SnowGolemEntityRenderer {
-        public SnowGolem(class_5617.class_5618 dispatcher) {
-            super(dispatcher);
+        public SnowGolem(EntityRendererFactory.Context context) {
+            super(context);
         }
 
         @Override
@@ -63,8 +62,8 @@ public class VariantMobRenderer {
     }
 
     public static class Squid extends SquidEntityRenderer {
-        public Squid(class_5617.class_5618 dispatcher) {
-            super(dispatcher);
+        public Squid(EntityRendererFactory.Context context) {
+            super(context);
         }
 
         @Override
@@ -74,8 +73,8 @@ public class VariantMobRenderer {
     }
 
     public static class Wolf extends WolfEntityRenderer {
-        public Wolf(class_5617.class_5618 dispatcher) {
-            super(dispatcher);
+        public Wolf(EntityRendererFactory.Context context) {
+            super(context);
         }
 
         @Override

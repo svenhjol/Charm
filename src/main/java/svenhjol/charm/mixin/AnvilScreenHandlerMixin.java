@@ -1,10 +1,13 @@
 package svenhjol.charm.mixin;
 
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.screen.*;
 import net.minecraft.util.ActionResult;
 import org.objectweb.asm.Opcodes;
@@ -68,6 +71,18 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         repairItemUsage = materialCost;
     }
 
+    @Redirect(
+        method = "updateResult",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/enchantment/Enchantment;getMaxLevel()I",
+            ordinal = 1
+        )
+    )
+    private int hookUpdateResultAllowHigherLevel(Enchantment enchantment) {
+        return AnvilImprovements.getEnchantmentMaxLevel(enchantment, this.input.getStack(1));
+    }
+
     @Inject(
         method = "canTakeOutput",
         at = @At("HEAD"),
@@ -99,4 +114,6 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
         inv.setStack(index, stack);
     }
+
+
 }
