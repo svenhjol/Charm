@@ -45,9 +45,7 @@ public class HoeHarvesting extends CharmModule {
         ItemStack held = player.getStackInHand(hand);
         BlockPos pos = hitResult.getBlockPos();
 
-        if (!world.isClient && held.getItem() instanceof HoeItem) {
-            ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
-            ServerWorld serverWorld = (ServerWorld)serverPlayer.world;
+        if (held.getItem() instanceof HoeItem) {
             BlockState state = world.getBlockState(pos);
             Block block = state.getBlock();
 
@@ -57,22 +55,28 @@ public class HoeHarvesting extends CharmModule {
             Item blockItem = block.asItem();
             BlockState newState = block.getDefaultState();
 
-            List<ItemStack> drops = Block.getDroppedStacks(state, serverWorld, pos, null, player, ItemStack.EMPTY);
-            for (ItemStack drop : drops) {
-                if (drop.getItem() == blockItem)
-                    drop.decrement(1);
+            if (!world.isClient) {
+                ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
+                ServerWorld serverWorld = (ServerWorld)serverPlayer.world;
 
-                if (!drop.isEmpty())
-                    Block.dropStack(world, pos, drop);
+                List<ItemStack> drops = Block.getDroppedStacks(state, serverWorld, pos, null, player, ItemStack.EMPTY);
+                for (ItemStack drop : drops) {
+                    if (drop.getItem() == blockItem)
+                        drop.decrement(1);
+
+                    if (!drop.isEmpty())
+                        Block.dropStack(world, pos, drop);
+                }
+
+                world.syncGlobalEvent(2001, pos, Block.getRawIdFromState(newState));
+                world.setBlockState(pos, newState);
+                world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+                // damage the hoe a bit
+                held.damage(1, player, p -> p.swingHand(hand));
             }
 
-            world.syncGlobalEvent(2001, pos, Block.getRawIdFromState(newState));
-            world.setBlockState(pos, newState);
-            world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
-            // damage the hoe a bit
-            held.damage(1, player, p -> p.swingHand(hand));
-            return ActionResult.SUCCESS;
+            return ActionResult.success(world.isClient);
         }
 
         return ActionResult.PASS;
