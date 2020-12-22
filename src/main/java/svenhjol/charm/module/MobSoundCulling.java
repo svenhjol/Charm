@@ -15,7 +15,7 @@ import java.util.List;
 
 @Module(mod = Charm.MOD_ID, description = "Configure how often mob sounds are played.")
 public class MobSoundCulling extends CharmModule {
-    public static final int VANILLA_DELAY = 80;
+    public static final int VANILLA_DELAY = 120;
 
     @Config(name = "Custom mob types", description = "List of mobs to apply the custom sound delay to.")
     public static List<String> customMobs = Arrays.asList(
