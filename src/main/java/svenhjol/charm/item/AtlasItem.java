@@ -27,7 +27,7 @@ public class AtlasItem extends CharmItem {
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemStack = playerIn.getStackInHand(handIn);
         if (worldIn.isClient) {
-            return TypedActionResult.fail(itemStack);
+            return TypedActionResult.consume(itemStack);
         }
         playerIn.openHandledScreen(Atlas.getInventory(worldIn, itemStack));
         return TypedActionResult.consume(itemStack);
