@@ -1,6 +1,7 @@
 package svenhjol.charm.base.handler;
 
 import com.google.common.collect.ImmutableList;
+import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
@@ -25,6 +26,8 @@ public class ClientHandler {
     private ClientHandler() {}
 
     public void registerFabricMod(String modId) {
+        CharmClient.LOG.info("[ClientHandler] Registering a new mod: " + modId);
+
         List<Class<? extends CharmModule>> available = ModuleHandler.AVAILABLE_MODULES.getOrDefault(modId, ImmutableList.of());
 
         available.forEach(moduleClass -> {
@@ -47,7 +50,7 @@ public class ClientHandler {
 
                 String moduleName = module.getName();
                 ClientHandler.LOADED_MODULES.put(moduleName, client);
-                CharmClient.LOG.info("Loaded client module " + moduleName);
+                CharmClient.LOG.info("Registering client module " + moduleName);
                 client.register();
             }
         });
@@ -56,6 +59,8 @@ public class ClientHandler {
     public void init() {
         if (hasInit)
             return;
+
+        CharmClient.LOG.info("[ModuleHandler] Start initialising all charm mods");
 
         // post init, only enabled modules are run
         eachEnabledModule(clientModule -> {
@@ -69,6 +74,8 @@ public class ClientHandler {
             DecorationHandler.init();
             eachEnabledModule(m -> m.loadWorld(client));
         });
+
+        CharmClient.LOG.info("[ModuleHandler] Done initialising all charm mods");
 
         hasInit = true;
     }
