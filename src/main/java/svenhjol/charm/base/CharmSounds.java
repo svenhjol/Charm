@@ -16,6 +16,7 @@ public class CharmSounds
     public static final SoundEvent SPECTRE_AMBIENT = createSoundEvent("spectre_ambient");
     public static final SoundEvent SPECTRE_DEATH = createSoundEvent("spectre_disappear");
     public static final SoundEvent SPECTRE_HIT = createSoundEvent("spectre_hit");
+    public static final SoundEvent SPECTRE_HIT_NO_SUBTITLE = createSoundEvent("spectre_hit_no_subtitle");
     public static final SoundEvent SPECTRE_MOVE = createSoundEvent("spectre_move");
     public static final SoundEvent HOMING = createSoundEvent("homing");
     public static final SoundEvent ENDER_WHISPERS = createSoundEvent("whispers");
@@ -40,6 +41,7 @@ public class CharmSounds
             SPECTRE_AMBIENT,
             SPECTRE_DEATH,
             SPECTRE_HIT,
+            SPECTRE_HIT_NO_SUBTITLE,
             SPECTRE_MOVE,
             HOMING,
             ENDER_WHISPERS,

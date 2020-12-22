@@ -60,6 +60,12 @@
     ],
     "subtitle": "subtitle.charm.spectre.hit"
   },
+  "spectre_hit_no_subtitle": {
+    "category": "hostile",
+    "sounds": [
+      "charm:spectre_hit"
+    ]
+  },
   "spectre_move": {
     "category": "hostile",
     "sounds": [

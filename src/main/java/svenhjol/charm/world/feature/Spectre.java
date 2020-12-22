@@ -5,6 +5,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -128,7 +129,7 @@ public class Spectre extends Feature
             world.spawnParticle(EnumParticleTypes.CLOUD, dx, dy, dz, d0, d1, d2);
         }
 
-        SoundHelper.playSoundAtPos(world, pos, CharmSounds.SPECTRE_HIT, 0.2f - (world.rand.nextFloat() / 4.0f), 1.25f - (world.rand.nextFloat() / 4.0f));
+        SoundHelper.playSoundAtPos(world, pos, CharmSounds.SPECTRE_HIT_NO_SUBTITLE, SoundCategory.HOSTILE, 0.2f - (world.rand.nextFloat() / 4.0f), 1.25f - (world.rand.nextFloat() / 4.0f));
     }
 
     @Override
