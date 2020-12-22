@@ -33,7 +33,7 @@ public class ClientHandler {
     public void register(CharmClientModule module) {
         LOADED_MODULES.put(module.getName(), module);
 
-        CharmClient.LOG.info("Registering module " + module.getName());
+        CharmClient.LOG.debug("Registering module " + module.getName());
         module.register();
     }
 

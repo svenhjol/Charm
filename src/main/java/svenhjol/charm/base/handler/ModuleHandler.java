@@ -41,7 +41,7 @@ public class ModuleHandler {
     public void register(CharmModule module) {
         LOADED_MODULES.put(module.getName(), module);
 
-        Charm.LOG.info("Registering module " + module.getName());
+        Charm.LOG.debug("Registering module " + module.getName());
         module.register();
     }
 
