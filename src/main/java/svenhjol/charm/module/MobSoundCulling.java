@@ -1,8 +1,6 @@
 package svenhjol.charm.module;
 
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
