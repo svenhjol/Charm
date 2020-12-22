@@ -23,7 +23,7 @@ public class MobSoundCulling extends CharmModule {
         "minecraft:sheep"
     );
 
-    @Config(name = "Custom mob sound delay", description = "This delay applies to all mobs in the custom mob types list.")
+    @Config(name = "Custom mob sound delay", description = "This delay applies to all mobs in the custom mob types list. Vanilla delay is 80 or 120 depending on the mob.")
     public static int customDelay = 800;
 
     public static int getMinAmbientSoundDelay(MobEntity entity) {
