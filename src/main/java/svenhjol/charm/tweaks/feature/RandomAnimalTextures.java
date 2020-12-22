@@ -8,9 +8,9 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import svenhjol.meson.Feature;
 import svenhjol.charm.tweaks.render.RenderOcelotTextures;
 import svenhjol.charm.tweaks.render.RenderWolfTextures;
+import svenhjol.meson.Feature;
 import svenhjol.meson.iface.IMesonEnum;
 
 import java.util.HashMap;
@@ -122,17 +122,27 @@ public class RandomAnimalTextures extends Feature
     @Override
     public void preInitClient(FMLPreInitializationEvent event)
     {
-        //noinspection unchecked
-        RenderingRegistry.registerEntityRenderingHandler(EntityWolf.class, RenderWolfTextures.factory());
-        //noinspection unchecked
-        RenderingRegistry.registerEntityRenderingHandler(EntityOcelot.class, RenderOcelotTextures.factory());
+        if (enableWolves) {
+            //noinspection unchecked
+            RenderingRegistry.registerEntityRenderingHandler(EntityWolf.class, RenderWolfTextures.factory());
+        }
+        if (enableCats) {
+            //noinspection unchecked
+            RenderingRegistry.registerEntityRenderingHandler(EntityOcelot.class, RenderOcelotTextures.factory());
+        }
     }
 
     @SideOnly(Side.CLIENT)
     public static ResourceLocation getWolfTexture(EntityWolf entity)
     {
         String[] set = sets.get(SET.WOLVES);
-        String tex = getRandomTexture(entity, set);
+        String tex;
+
+        if (set.length > 0) {
+            tex = getRandomTexture(entity, set);
+        } else {
+            tex = "minecraft:wolf";
+        }
 
         if (entity.isTamed()) {
             tex += "_tame";
@@ -146,16 +156,24 @@ public class RandomAnimalTextures extends Feature
     @SideOnly(Side.CLIENT)
     public static ResourceLocation getOcelotTexture(EntityOcelot entity)
     {
-        String[] set = sets.get(SET.OTHERCATS);
+        String[] set;
+        String defTex;
 
         switch (entity.getTameSkin()) {
-            case 0: set = sets.get(SET.OCELOTS); break;
-            case 1: set = sets.get(SET.REDCATS); break;
-            case 2: set = sets.get(SET.BLACKCATS); break;
-            case 3: set = sets.get(SET.OTHERCATS); break;
+            case 0: set = sets.get(SET.OCELOTS); defTex = "minecraft:ocelot"; break;
+            case 1: set = sets.get(SET.REDCATS); defTex = "minecraft:red"; break;
+            case 2: set = sets.get(SET.BLACKCATS); defTex = "minecraft:black"; break;
+            default: set = sets.get(SET.OTHERCATS); defTex = "minecraft:siamese"; break;
         }
 
-        String tex = getRandomTexture(entity, set);
+        String tex;
+
+        if (set.length > 0) {
+            tex = getRandomTexture(entity, set);
+        } else {
+            tex = defTex;
+        }
+
         return getTextureFromString(MOB.CAT, tex);
     }
 
