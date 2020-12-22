@@ -24,12 +24,22 @@ public class AtlasItem extends CharmItem {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemStack = playerIn.getStackInHand(handIn);
-        if (worldIn.isClient) {
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        if (world.isClient) {
             return TypedActionResult.consume(itemStack);
         }
-        playerIn.openHandledScreen(Atlas.getInventory(worldIn, itemStack));
+        if (hand == Hand.OFF_HAND && !Atlas.offHandOpen) {
+            return TypedActionResult.pass(itemStack);
+        }
+        AtlasInventory inventory = Atlas.getInventory(world, itemStack);
+        for (int i = 0; i < inventory.size(); ++i) {
+            ItemStack item = inventory.getStack(i);
+            if (item.getItem() == Items.FILLED_MAP) {
+                Atlas.sendMapToClient((ServerPlayerEntity) player, item, i);
+            }
+        }
+        player.openHandledScreen(Atlas.getInventory(world, itemStack));
         return TypedActionResult.consume(itemStack);
     }
 
