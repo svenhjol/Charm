@@ -12,6 +12,7 @@ import java.util.TreeMap;
 import java.util.function.Consumer;
 
 public class CharmClientLoader {
+    private final String MOD_ID;
     private final List<Class<? extends CharmModule>> CLASSES;
     private final Map<String, CharmClientModule> LOADED_MODULES = new TreeMap<>();
 
@@ -22,6 +23,7 @@ public class CharmClientLoader {
 
         CharmClient.LOG.info("Setting up client modules for '" + modId + "'");
 
+        MOD_ID = modId;
         CLASSES = loader.getClasses();
 
         register();
@@ -30,7 +32,15 @@ public class CharmClientLoader {
         CharmClient.LOG.info("Done setting up client modules for '" + modId + "'");
     }
 
-    private void register() {
+    public String getModId() {
+        return MOD_ID;
+    }
+
+    public List<Class<? extends CharmModule>> getClasses() {
+        return CLASSES;
+    }
+
+    protected void register() {
         CLASSES.forEach(moduleClass -> {
             String name = moduleClass.getSimpleName();
 
@@ -46,7 +56,7 @@ public class CharmClientLoader {
                     client = clazz.getConstructor(CharmModule.class).newInstance(module);
                 } catch (Exception e) {
                     CharmClient.LOG.error("Failed to create the client for " + module.getName());
-                    throw new RuntimeException("The chickens escaped");
+                    throw new RuntimeException("The chickens escaped", e);
                 }
 
                 String moduleName = module.getName();
@@ -56,7 +66,7 @@ public class CharmClientLoader {
         });
     }
 
-    private void init() {
+    protected void init() {
         // post init, only enabled modules are run
         eachEnabledModule(client -> ClientHandler.INSTANCE.init(client));
 
@@ -65,7 +75,7 @@ public class CharmClientLoader {
         });
     }
 
-    private void eachEnabledModule(Consumer<CharmClientModule> consumer) {
+    protected void eachEnabledModule(Consumer<CharmClientModule> consumer) {
         LOADED_MODULES.values()
             .stream()
             .filter(m -> m.getModule().enabled)

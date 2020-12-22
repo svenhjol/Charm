@@ -75,15 +75,13 @@ public class CharmLoader {
 
     protected void init() {
         // run dependency check on each module
-        eachModule(module -> ModuleHandler.INSTANCE.depends(module));
+        eachModule(ModuleHandler.INSTANCE::depends);
 
         // post init, only enabled modules are run
-        eachEnabledModule(module -> ModuleHandler.INSTANCE.init(module));
+        eachEnabledModule(ModuleHandler.INSTANCE::init);
 
         // listen for server world loading events
-        LoadWorldCallback.EVENT.register(server -> {
-            eachEnabledModule(m -> m.loadWorld(server));
-        });
+        LoadWorldCallback.EVENT.register(server -> eachEnabledModule(m -> m.loadWorld(server)));
     }
 
     protected void eachModule(Consumer<CharmModule> consumer) {
