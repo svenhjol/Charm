@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " CC",
+    " HC",
+    "S  "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:prismarine_crystals"
+    },
+      "H": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+
+    "S": {
+      "item": "minecraft:prismarine_shard"
+    }
+  },
+  "result": {
+    "item": "minecraft:trident",
+    "count": 1
+  }
+}
