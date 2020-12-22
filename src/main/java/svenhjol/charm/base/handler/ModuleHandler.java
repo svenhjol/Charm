@@ -4,21 +4,18 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmLoader;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.StringHelper;
-import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.LoadWorldCallback;
 import svenhjol.charm.event.StructureSetupCallback;
 
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.function.Consumer;
 
 public class ModuleHandler {
-    public static Map<String, CharmModule> LOADED_MODULES = new TreeMap<>();
-    public static final Map<String, List<Class<? extends CharmModule>>> AVAILABLE_MODULES = new HashMap<>();
-    public static final List<Class<? extends CharmModule>> ENABLED_MODULES = new ArrayList<>(); // this is a cache of enabled classes
-    private static Map<String, CharmLoader> INSTANCES = new HashMap<>();
-
     public static ModuleHandler INSTANCE = new ModuleHandler();
+    public final static Map<String, CharmModule> LOADED_MODULES = new TreeMap<>();
+
+    private static final Map<String, CharmLoader> LOADER_INSTANCES = new HashMap<>();
+    private static final List<Class<? extends CharmModule>> ENABLED_MODULES = new ArrayList<>(); // this is a cache of enabled classes
 
     private ModuleHandler() {
         BiomeHandler.init();
@@ -32,10 +29,19 @@ public class ModuleHandler {
         });
     }
 
+    public void addLoader(CharmLoader loader) {
+        LOADER_INSTANCES.put(loader.getModId(), loader);
+    }
+
+    @Nullable
+    public CharmLoader getLoader(String modId) {
+        return LOADER_INSTANCES.getOrDefault(modId, null);
+    }
+
     public void register(CharmModule module) {
         LOADED_MODULES.put(module.getName(), module);
 
-        Charm.LOG.info("Registering module " + module.getName() + " (enabled: " + (module.enabled ? "yes" : "no") + ")");
+        Charm.LOG.info("Registering module " + module.getName());
         module.register();
     }
 

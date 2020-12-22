@@ -2,7 +2,6 @@ package svenhjol.charm.base;
 
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.handler.ConfigHandler;
-import svenhjol.charm.base.handler.DecorationHandler;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.LoadWorldCallback;
@@ -12,27 +11,33 @@ import java.util.function.Consumer;
 
 public class CharmLoader {
     private final String MOD_ID;
-    private final List<Class<? extends CharmModule>> AVAILABLE_MODULES;
+    private final List<Class<? extends CharmModule>> CLASSES;
     private final Map<String, CharmModule> LOADED_MODULES = new TreeMap<>();
 
-    public CharmLoader(String modId, List<Class<? extends CharmModule>> modules) {
+    public CharmLoader(String modId, List<Class<? extends CharmModule>> classes) {
         MOD_ID = modId;
-        AVAILABLE_MODULES = modules;
+        CLASSES = classes;
 
         Charm.LOG.info("Setting up a new Charm-based module '" + modId + "'");
+
+        ModuleHandler.INSTANCE.addLoader(this);
 
         register();
         init();
 
-        Charm.LOG.info("Done settting up '" + modId + "'");
+        Charm.LOG.info("Done setting up '" + modId + "'");
+    }
+
+    public String getModId() {
+        return MOD_ID;
+    }
+
+    public List<Class<? extends CharmModule>> getClasses() {
+        return CLASSES;
     }
 
     protected void register() {
-        Charm.LOG.info("[ModuleHandler] Registering mod: " + MOD_ID);
-
-        Map<String, CharmModule> loaded = new TreeMap<>();
-
-        AVAILABLE_MODULES.forEach(clazz -> {
+        CLASSES.forEach(clazz -> {
             try {
                 CharmModule module = clazz.getDeclaredConstructor().newInstance();
                 if (clazz.isAnnotationPresent(Module.class)) {
@@ -62,14 +67,13 @@ public class CharmLoader {
         });
 
         // config for this module set
-        ConfigHandler.createConfig(MOD_ID, loaded);
+        ConfigHandler.createConfig(MOD_ID, LOADED_MODULES);
 
         // add and run register method for all loaded modules
         LOADED_MODULES.forEach((moduleName, module) -> ModuleHandler.INSTANCE.register(module));
     }
 
     protected void init() {
-
         // run dependency check on each module
         eachModule(module -> ModuleHandler.INSTANCE.depends(module));
 
