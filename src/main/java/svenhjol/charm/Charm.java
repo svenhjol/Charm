@@ -38,6 +38,7 @@ public class Charm implements ModInitializer {
             CoralSeaLanterns.class,
             CoralSquids.class,
             Core.class,
+            CraftableGildedBlackstone.class,
             Crates.class,
             DecreaseRepairCost.class,
             DirtToPath.class,
