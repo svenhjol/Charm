@@ -98,7 +98,7 @@ public abstract class LivingEntityMixin extends Entity {
         LivingEntity entity = (LivingEntity)(Object)this;
         int lootingLevel = EnchantmentHelper.getLooting(entity);
 
-        EntityDropsCallback.EVENT.invoker().interact(entity, source, lootingLevel);
+        EntityDropsCallback.AFTER.invoker().interact(entity, source, lootingLevel);
     }
 
     /**
