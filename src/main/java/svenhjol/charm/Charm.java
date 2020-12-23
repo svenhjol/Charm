@@ -38,6 +38,7 @@ public class Charm implements ModInitializer {
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
             CoralSeaLanterns.class,
+            CoralSquidBuckets.class,
             CoralSquids.class,
             Core.class,
             Crates.class,
