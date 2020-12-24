@@ -42,10 +42,21 @@ public class HoeHarvesting extends CharmModule {
     }
 
     public ActionResult tryHarvest(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
-        ItemStack held = player.getStackInHand(hand);
-        BlockPos pos = hitResult.getBlockPos();
+        // event is broken in fabric? hand is always mainhand
+        ItemStack mainhand = player.getMainHandStack();
+        ItemStack offhand = player.getOffHandStack();
+        ItemStack held;
 
-        if (held.getItem() instanceof HoeItem) {
+        if (mainhand.getItem() instanceof HoeItem) {
+            held = mainhand;
+        } else if (offhand.getItem() instanceof HoeItem) {
+            held = offhand;
+        } else {
+            held = null;
+        }
+
+        if (held != null) {
+            BlockPos pos = hitResult.getBlockPos();
             BlockState state = world.getBlockState(pos);
             Block block = state.getBlock();
 
@@ -74,9 +85,11 @@ public class HoeHarvesting extends CharmModule {
 
                 // damage the hoe a bit
                 held.damage(1, player, p -> p.swingHand(hand));
+
+                return ActionResult.CONSUME;
             }
 
-            return ActionResult.success(world.isClient);
+            return ActionResult.SUCCESS;
         }
 
         return ActionResult.PASS;

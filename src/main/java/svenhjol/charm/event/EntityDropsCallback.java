@@ -7,7 +7,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.ActionResult;
 
 public interface EntityDropsCallback {
-    Event<EntityDropsCallback> EVENT = EventFactory.createArrayBacked(EntityDropsCallback.class, (listeners) -> (entity, source, lootingLevel) -> {
+    Event<EntityDropsCallback> AFTER = EventFactory.createArrayBacked(EntityDropsCallback.class, (listeners) -> (entity, source, lootingLevel) -> {
         for (EntityDropsCallback listener : listeners) {
             ActionResult result = listener.interact(entity, source, lootingLevel);
             if (result != ActionResult.PASS)

@@ -4,6 +4,7 @@
   "package": "svenhjol.charm.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AnimalEntityMixin",
     "AnvilBlockMixin",
     "AnvilScreenHandlerMixin",
     "AreaHelperMixin",

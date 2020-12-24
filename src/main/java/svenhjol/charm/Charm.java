@@ -2,9 +2,7 @@ package svenhjol.charm;
 
 import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.base.*;
-import svenhjol.charm.base.handler.BiomeHandler;
 import svenhjol.charm.base.handler.LogHandler;
-import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.module.*;
 
 import java.util.Arrays;

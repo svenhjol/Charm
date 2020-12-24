@@ -25,7 +25,7 @@ public class CaveSpidersDropCobwebs extends CharmModule {
 
     @Override
     public void init() {
-        EntityDropsCallback.EVENT.register((this::tryDropCobweb));
+        EntityDropsCallback.AFTER.register((this::tryDropCobweb));
     }
 
     public ActionResult tryDropCobweb(LivingEntity entity, DamageSource source, int lootingLevel) {
