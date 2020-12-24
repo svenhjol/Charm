@@ -5,7 +5,7 @@
 * Enchantment descriptions support (F43nd1r)
 * Coral Squids may now be captured in a bucket. They do not despawn when placed (Coranthes)
 * Feeding animals restocks item (F43nd1r)
-* Hoe harvesting no longer places block (F43nd1r)
+* Hoe harvesting no longer places block in offhand (F43nd1r)
 * Config option to enable no trampling of crops even without feather falling (F43nd1r)
 * Config option to allow opening of atlas in off-hand (F43nd1r)
 
