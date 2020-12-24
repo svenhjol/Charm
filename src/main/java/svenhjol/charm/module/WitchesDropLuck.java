@@ -25,7 +25,7 @@ public class WitchesDropLuck extends CharmModule {
 
     @Override
     public void init() {
-        EntityDropsCallback.EVENT.register(this::tryDrop);
+        EntityDropsCallback.AFTER.register(this::tryDrop);
     }
 
     public ActionResult tryDrop(LivingEntity entity, DamageSource damageSource, int lootingLevel) {

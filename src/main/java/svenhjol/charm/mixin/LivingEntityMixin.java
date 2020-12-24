@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.event.EntityDeathCallback;
 import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.charm.event.EntityDropsXpCallback;
 import svenhjol.charm.event.HurtEntityCallback;
 import svenhjol.charm.module.ArmorInvisibility;
 import svenhjol.charm.module.UseTotemFromInventory;
@@ -84,6 +85,11 @@ public abstract class LivingEntityMixin extends Entity {
             cir.setReturnValue(true);
     }
 
+    /**
+     * Hooks after entity items have been dropped.
+     * @param source
+     * @param ci
+     */
     @Inject(
         method = "drop",
         at = @At("TAIL")
@@ -92,7 +98,23 @@ public abstract class LivingEntityMixin extends Entity {
         LivingEntity entity = (LivingEntity)(Object)this;
         int lootingLevel = EnchantmentHelper.getLooting(entity);
 
-        EntityDropsCallback.EVENT.invoker().interact(entity, source, lootingLevel);
+        EntityDropsCallback.AFTER.invoker().interact(entity, source, lootingLevel);
+    }
+
+    /**
+     * Hooks before entity has dropped XP. Cancellable with actionresult != PASS.
+     * @param ci
+     */
+    @Inject(
+        method = "dropXp",
+        at = @At("HEAD"),
+        cancellable = true
+    )
+    private void hookDropXp(CallbackInfo ci) {
+        LivingEntity entity = (LivingEntity)(Object)this;
+        ActionResult result = EntityDropsXpCallback.BEFORE.invoker().interact(entity);
+        if (result != ActionResult.PASS)
+            ci.cancel();
     }
 
     @Inject(
