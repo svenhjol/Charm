@@ -31,10 +31,10 @@ import java.util.List;
 
 @Module(mod = Charm.MOD_ID, client = CoralSquidsClient.class, description = "Coral Squids spawn near coral in warm oceans.")
 public class CoralSquids extends CharmModule {
-    public static CoralSquidBucketItem CORAL_SQUID_BUCKET;
     public static Identifier ID = new Identifier(Charm.MOD_ID, "coral_squid");
     public static Identifier EGG_ID = new Identifier(Charm.MOD_ID, "coral_squid_spawn_egg");
 
+    public static CoralSquidBucketItem CORAL_SQUID_BUCKET;
     public static EntityType<CoralSquidEntity> CORAL_SQUID;
     public static Item SPAWN_EGG;
 

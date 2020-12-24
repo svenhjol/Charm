@@ -56,9 +56,10 @@ import java.util.Random;
 public class CoralSquidEntity extends WaterCreatureEntity {
     public static final String CORAL_SQUID_TYPE_TAG = "CoralSquidType";
     public static final String CORAL_SQUID_FROM_BUCKET_TAG = "FromBucket";
-    private static final TrackedData<Boolean> FROM_BUCKET;
 
+    private static final TrackedData<Boolean> FROM_BUCKET;
     private static final TrackedData<Integer> CORAL_SQUID_TYPE;
+
     public static final Map<Integer, Identifier> TEXTURES;
     public static final Map<Integer, Item> DROPS;
 
