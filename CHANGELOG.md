@@ -2,7 +2,7 @@
 
 ## 2.2.0
 * Fix Wandering Trader not spawning (F43nd1r)
-& Fix grindstone xp exploit (sven)
+* Fix grindstone xp exploit (sven)
 * Enchantment descriptions support (F43nd1r)
 * Coral Squids may now be captured in a bucket. They do not despawn when placed (Coranthes)
 * Feeding animals restocks item (F43nd1r)
