@@ -23,6 +23,7 @@ import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.CoralSquidsClient;
 import svenhjol.charm.entity.CoralSquidEntity;
+import svenhjol.charm.item.CoralSquidBucketItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,7 @@ import java.util.List;
 
 @Module(mod = Charm.MOD_ID, client = CoralSquidsClient.class, description = "Coral Squids spawn near coral in warm oceans.")
 public class CoralSquids extends CharmModule {
+    public static CoralSquidBucketItem CORAL_SQUID_BUCKET;
     public static Identifier ID = new Identifier(Charm.MOD_ID, "coral_squid");
     public static Identifier EGG_ID = new Identifier(Charm.MOD_ID, "coral_squid_spawn_egg");
 
@@ -57,6 +59,9 @@ public class CoralSquids extends CharmModule {
 
         // register the entity attributes
         MobHelper.setEntityAttributes(CORAL_SQUID, CoralSquidEntity.createSquidAttributes());
+
+        // create a bucket item
+        CORAL_SQUID_BUCKET = new CoralSquidBucketItem(this);
     }
 
     @Override
