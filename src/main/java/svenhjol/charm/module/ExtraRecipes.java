@@ -22,6 +22,9 @@ public class ExtraRecipes extends CharmModule {
 
     @Config(name = "Green Dye", description = "If true, adds a recipe for Green Dye using vines.")
     public static boolean useGreenDye = true;
+
+    @Config(name = "Soul Torch", description = "If true, adds a recipe for Soul Torches using soul sand/soul soil and sticks.")
+    public static boolean useSoulTorch = true;
     @Override
 
 
@@ -35,7 +38,10 @@ public class ExtraRecipes extends CharmModule {
             removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/cyan_dye"));
         if (!useGreenDye)
             removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/green_dye"));
+        if (!useSoulTorch)
+            removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/soul_torch"));
         return removedRecipes;
+
     }
 }
 
