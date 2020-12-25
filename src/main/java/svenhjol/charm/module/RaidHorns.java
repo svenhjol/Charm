@@ -31,7 +31,7 @@ public class RaidHorns extends CharmModule {
     public void register() {
         RAID_HORN = new RaidHornItem(this);
 
-        EntityDropsCallback.EVENT.register(this::tryDrop);
+        EntityDropsCallback.AFTER.register(this::tryDrop);
     }
 
     public ActionResult tryDrop(LivingEntity entity, DamageSource source, int lootingLevel) {

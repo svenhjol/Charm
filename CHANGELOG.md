@@ -1,5 +1,29 @@
 # Changelog
 
+## 2.2.0
+* Fix Wandering Trader not spawning (F43nd1r)
+* Fix grindstone xp exploit (sven)
+* Enchantment descriptions support (F43nd1r)
+* Coral Squids may now be captured in a bucket. They do not despawn when placed (Coranthes)
+* Feeding animals restocks item (F43nd1r)
+* Hoe harvesting no longer places block in offhand (F43nd1r)
+* Config option to enable no trampling of crops even without feather falling (F43nd1r)
+* Config option to allow opening of atlas in off-hand (F43nd1r)
+
+## 2.1.11
+* Added mob sound culling
+
+## 2.1.10
+* Fix exploit with books on grindstone
+* Fix crates losing their content on world save/load
+* Fix Quark overrides not working properly (F43nd1r)
+* Fix village builds not spawning villages (Coranthes)
+* Remove wither rose from custom village flower builds
+* Atlas recipe has been changed
+* Dynamic data for custom village builds
+* Added More Portal Frames
+* Added Map Tooltips with atlas support (F43nd1r)
+
 ## 2.1.9
 * Fix grindstone enchantment extraction consuming an entire book stack (ridjack)
 * Added Atlas (F43nd1r)

@@ -3,7 +3,9 @@ package svenhjol.charm.entity;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.*;
+import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CoralParentBlock;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -18,12 +20,16 @@ import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -34,6 +40,9 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.helper.ItemNBTHelper;
+import svenhjol.charm.base.helper.PlayerHelper;
+import svenhjol.charm.item.CoralSquidBucketItem;
 import svenhjol.charm.module.CoralSquids;
 
 import javax.annotation.Nullable;
@@ -46,8 +55,11 @@ import java.util.Random;
  */
 public class CoralSquidEntity extends WaterCreatureEntity {
     public static final String CORAL_SQUID_TYPE_TAG = "CoralSquidType";
+    public static final String CORAL_SQUID_FROM_BUCKET_TAG = "FromBucket";
 
+    private static final TrackedData<Boolean> FROM_BUCKET;
     private static final TrackedData<Integer> CORAL_SQUID_TYPE;
+
     public static final Map<Integer, Identifier> TEXTURES;
     public static final Map<Integer, Item> DROPS;
 
@@ -126,18 +138,21 @@ public class CoralSquidEntity extends WaterCreatureEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(CORAL_SQUID_TYPE, 1);
+        this.dataTracker.startTracking(FROM_BUCKET, false);
     }
 
     @Override
     public void writeCustomDataToTag(CompoundTag tag) {
         super.writeCustomDataToTag(tag);
         tag.putInt(CORAL_SQUID_TYPE_TAG, this.getCoralSquidType());
+        tag.putBoolean(CORAL_SQUID_FROM_BUCKET_TAG, this.isFromBucket());
     }
 
     @Override
     public void readCustomDataFromTag(CompoundTag tag) {
         super.readCustomDataFromTag(tag);
         this.setCoralSquidType(tag.getInt(CORAL_SQUID_TYPE_TAG));
+        this.setFromBucket(tag.getBoolean(CORAL_SQUID_FROM_BUCKET_TAG));
     }
 
     protected void initGoals() {
@@ -281,6 +296,51 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         return this.swimX != 0.0F || this.swimY != 0.0F || this.swimZ != 0.0F;
     }
 
+    @Override
+    protected ActionResult interactMob(PlayerEntity player, Hand hand) {
+        // copypasta from FishEntity
+        ItemStack held = player.getStackInHand(hand);
+        if (held.getItem() == Items.WATER_BUCKET && this.isAlive()) {
+            this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
+            held.decrement(1);
+
+            ItemStack coralSquidBucket = new ItemStack(CoralSquids.CORAL_SQUID_BUCKET);
+            CompoundTag tag = new CompoundTag();
+            ItemNBTHelper.setCompound(coralSquidBucket, CoralSquidBucketItem.STORED_CORAL_SQUID, this.toTag(tag));
+
+            if (this.hasCustomName())
+                coralSquidBucket.setCustomName(this.getCustomName());
+
+            if (!this.world.isClient)
+                Criteria.FILLED_BUCKET.trigger((ServerPlayerEntity)player, coralSquidBucket);
+
+            PlayerHelper.addOrDropStack(player, coralSquidBucket);
+
+            this.remove();
+            return ActionResult.success(this.world.isClient);
+        } else {
+            return super.interactMob(player, hand);
+        }
+    }
+
+    private boolean isFromBucket() {
+        return this.dataTracker.get(FROM_BUCKET);
+    }
+
+    public void setFromBucket(boolean fromBucket) {
+        this.dataTracker.set(FROM_BUCKET, fromBucket);
+    }
+
+    @Override
+    public boolean cannotDespawn() {
+        return super.cannotDespawn() || this.isFromBucket();
+    }
+
+    @Override
+    public boolean canImmediatelyDespawn(double distanceSquared) {
+        return !this.isFromBucket() && !this.hasCustomName();
+    }
+
     class EscapeAttackerGoal extends Goal {
         private int timer;
 
@@ -363,6 +423,8 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
     static {
         CORAL_SQUID_TYPE = DataTracker.registerData(CoralSquidEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        FROM_BUCKET = DataTracker.registerData(CoralSquidEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
         TEXTURES = Util.make(Maps.newHashMap(), map -> {
             map.put(0, new Identifier(Charm.MOD_ID, "textures/entity/coral_squid/tube.png"));
             map.put(1, new Identifier(Charm.MOD_ID, "textures/entity/coral_squid/brain.png"));

@@ -48,7 +48,7 @@ public class EndermitePowder extends CharmModule {
     @Override
     public void init() {
         // react to entity drops
-        EntityDropsCallback.EVENT.register(this::tryDrop);
+        EntityDropsCallback.AFTER.register(this::tryDrop);
     }
 
     private ActionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {

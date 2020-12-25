@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-@Module(mod = Charm.MOD_ID, client = AtlasClient.class, description = "A map storage.")
+@Module(mod = Charm.MOD_ID, client = AtlasClient.class, description = "Storage for maps that automatically updates the displayed map as you explore.")
 public class Atlas extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "atlas");
     // add items to this list to whitelist them in atlases
@@ -37,6 +37,9 @@ public class Atlas extends CharmModule {
 
     @Config(name = "Map Size", description = "The atlas will create maps of this size (0-4).")
     public static int mapSize = 2;
+
+    @Config(name = "Open in off hand", description = "Allow opening the atlas while it is in the off hand.")
+    public static boolean offHandOpen = false;
 
     public static AtlasItem ATLAS_ITEM;
     public static ScreenHandlerType<AtlasContainer> CONTAINER;
@@ -71,6 +74,17 @@ public class Atlas extends CharmModule {
         return inventory;
     }
 
+    public static void sendMapToClient(ServerPlayerEntity player, ItemStack map, int slot) {
+        if (map.getItem().isNetworkSynced()) {
+            map.getItem().inventoryTick(map, player.world, player, slot, true);
+            Packet<?> packet = ((NetworkSyncedItem) map.getItem()).createSyncPacket(map, player.world, player);
+            if (packet != null) {
+                player.networkHandler.sendPacket(packet);
+            }
+        }
+    }
+
+
     @Override
     public void register() {
         ATLAS_ITEM = new AtlasItem(this);
@@ -98,13 +112,7 @@ public class Atlas extends CharmModule {
                 AtlasInventory.MapInfo mapInfo = inventory.updateActiveMap(serverPlayer);
                 if (mapInfo != null) {
                     ItemStack map = inventory.getStack(mapInfo.slot);
-                    if (map.getItem().isNetworkSynced()) {
-                        map.getItem().inventoryTick(map, serverPlayer.world, serverPlayer, mapInfo.slot, true);
-                        Packet<?> ipacket = ((NetworkSyncedItem) map.getItem()).createSyncPacket(map, serverPlayer.world, serverPlayer);
-                        if (ipacket != null) {
-                            serverPlayer.networkHandler.sendPacket(ipacket);
-                        }
-                    }
+                    sendMapToClient(serverPlayer, map, mapInfo.slot);
                 }
             }
         }
