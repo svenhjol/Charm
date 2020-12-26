@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "minecraft:vine"
-    }
+    {"item": "minecraft:yellow_dye"},
+    {"item": "minecraft:blue_dye"}
   ],
   "result": {
     "item": "minecraft:green_dye",
