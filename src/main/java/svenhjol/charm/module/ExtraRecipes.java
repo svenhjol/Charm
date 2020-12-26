@@ -25,9 +25,8 @@ public class ExtraRecipes extends CharmModule {
 
     @Config(name = "Soul Torch", description = "If true, adds a recipe for Soul Torches using soul sand/soul soil and sticks.")
     public static boolean useSoulTorch = true;
+
     @Override
-
-
     public List<Identifier> getRecipesToRemove() {
         List<Identifier> removedRecipes = new ArrayList<>();
         if (!useGildedBlackstone)
