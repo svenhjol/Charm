@@ -19,6 +19,7 @@ public class Charm implements ModInitializer {
 
         new CharmLoader(MOD_ID, Arrays.asList(
             Acquisition.class,
+            AerialAffinity.class,
             AnvilImprovements.class,
             ArmorInvisibility.class,
             Atlas.class,
