@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2.2.1
+* Fix inventory buttons not working
 * Rework mixin for compatibility with enchantment table display #448
 * Remove custom name nbt from variant chests, barrels and crates
 
