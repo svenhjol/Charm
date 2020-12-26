@@ -21,18 +21,18 @@ public class EnchantingTableBlockMixin {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/util/math/BlockPos;add(III)Lnet/minecraft/util/math/BlockPos;",
-            shift = At.Shift.AFTER
+            shift = At.Shift.AFTER,
+            ordinal = 0
         ),
         cancellable = true,
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void hookRandomDisplayTick(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci,
         int i, int j, int k) {
-        BlockState s = world.getBlockState(pos.add(i, j, k));
+        BlockState s = world.getBlockState(pos.add(i, k, j));
         if (EnchantmentsHelper.canBlockPowerEnchantingTable(s)) {
             // copypasta from EnchantingTableBlock:61
             world.addParticle(ParticleTypes.ENCHANT, (double)pos.getX() + 0.5D, (double)pos.getY() + 2.0D, (double)pos.getZ() + 0.5D, (double)((float)i + random.nextFloat()) - 0.5D, (double)((float)k - random.nextFloat() - 1.0F), (double)((float)j + random.nextFloat()) - 0.5D);
-            ci.cancel();
         }
     }
 }
