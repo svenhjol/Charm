@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.1
+* Rework mixin for compatibility with enchantment table display #448
+* Remove custom name nbt from variant chests, barrels and crates
+
 ## 2.2.0
 * Fix Wandering Trader not spawning (F43nd1r)
 * Fix grindstone xp exploit (sven)
