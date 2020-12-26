@@ -50,12 +50,6 @@ If **Quark** is present, this feature is disabled by default.
 ![Path to Dirt](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Right-clicking on a grass path block with a hoe turns it back into dirt.
 
-### Placeable Glowstone Dust
-![Placeable Glowstone Dust](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-[COMING SOON] Right-click with glowstone dust to place it on the ground.  Placed glowstone dust has a light level of 8 and can be broken to pick up the item.
-
-If **Quark** is present, this feature is disabled by default.
-
 ### Portable Crafting
 ![Portable Crafting](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 If you have a crafting table in your inventory, you can open the 3x3 crafting grid with an inventory button or by pressing the `V` key (configurable in control settings) without having to place the crafting table down.
@@ -63,6 +57,10 @@ If you have a crafting table in your inventory, you can open the 3x3 crafting gr
 ### Remove potion glint
 ![Remove potion glint](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Removes the enchanted glowing effect from potions, so you can actually see their true color.
+
+### Remove Spyglass scope
+![Remove Spyglass scope](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+[1.17 only] Removes the dark outer overlay when zooming in with the spyglass, giving you the full view.
 
 ### Shulker Box tooltips
 ![Shulker Box tooltips](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
