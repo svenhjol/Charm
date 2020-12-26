@@ -4,7 +4,7 @@ title: Vanilla Changes
 ---
 
 Charm's core features include a number of changes and enchantments to the vanilla Minecraft game.
-All features are configurable by making changes to the <strong>charm.json</strong> file.
+All features are configurable by making changes to the <strong>charm.toml</strong> file.
 
 * [Automation]({{site.baseurl}}/vanillachanges/automation)
 * [Decoration]({{site.baseurl}}/vanillachanges/decoration)

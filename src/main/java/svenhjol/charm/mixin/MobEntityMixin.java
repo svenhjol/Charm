@@ -20,8 +20,13 @@ public class MobEntityMixin {
     )
     private void hookGetMinAmbientSoundDelay(CallbackInfo ci) {
         if (ModuleHandler.enabled(MobSoundCulling.class)) {
-            this.ambientSoundChance = -MobSoundCulling.getMinAmbientSoundDelay((MobEntity) (Object) this);
-            ci.cancel();
+            int val = MobSoundCulling.getMinAmbientSoundDelay((MobEntity) (Object) this);
+            if (val > -1) {
+                this.ambientSoundChance = -val;
+                ci.cancel();
+            }
         }
+
+        // fall-through to the mob's default delay
     }
 }
