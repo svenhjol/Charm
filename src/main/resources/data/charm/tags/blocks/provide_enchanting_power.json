@@ -3,6 +3,7 @@
   "values": [
     "minecraft:bookshelf",
     "#charm:bookcases",
-    "#charm:bookshelves"
+    "#charm:bookshelves",
+    "#c:bookshelves"
   ]
 }
