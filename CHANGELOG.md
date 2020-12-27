@@ -7,6 +7,7 @@
 * Rework mixin for compatibility with enchantment table display #448
 * Remove custom name nbt from variant chests, barrels and crates
 * Added aerial affinity (F43nd1r)
+* Added extra recipes (Coranthes)
 
 ## 2.2.0
 * Fix Wandering Trader not spawning (F43nd1r)
