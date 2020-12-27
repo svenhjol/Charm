@@ -21,6 +21,7 @@ import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.poi.PointOfInterestType;
@@ -36,7 +37,8 @@ public class RegistryHandler {
     }
 
     public static ConfiguredStructureFeature<?, ?> configuredFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
-        BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, id, configuredFeature);
+        RegistryKey<ConfiguredStructureFeature<?, ?>> key = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, id);
+        BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, key.getValue(), configuredFeature);
         return configuredFeature;
     }
 

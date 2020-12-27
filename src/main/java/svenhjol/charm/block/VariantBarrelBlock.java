@@ -8,7 +8,6 @@ import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -56,7 +55,6 @@ public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         BarrelBlockEntity barrel = new BarrelBlockEntity(pos, state);
-        barrel.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_barrel"));
         return barrel;
     }
 }

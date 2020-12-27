@@ -16,7 +16,6 @@ import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -50,9 +49,7 @@ public class CrateBlock extends CharmBlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        CrateBlockEntity crate = new CrateBlockEntity(pos, state);
-        crate.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_crate"));
-        return crate;
+        return new CrateBlockEntity(pos, state);
     }
 
     @Override

@@ -6,7 +6,6 @@ import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmModule;
@@ -51,7 +50,6 @@ public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVaria
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         VariantChestBlockEntity chest = new VariantChestBlockEntity(pos, state);
-        chest.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_chest"));
         return chest;
     }
 

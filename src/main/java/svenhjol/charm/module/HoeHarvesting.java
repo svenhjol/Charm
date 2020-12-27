@@ -42,12 +42,21 @@ public class HoeHarvesting extends CharmModule {
     }
 
     public ActionResult tryHarvest(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
-        ItemStack held = player.getStackInHand(hand);
-        BlockPos pos = hitResult.getBlockPos();
+        // event is broken in fabric? hand is always mainhand
+        ItemStack mainhand = player.getMainHandStack();
+        ItemStack offhand = player.getOffHandStack();
+        ItemStack held;
 
-        if (!world.isClient && held.getItem() instanceof HoeItem) {
-            ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
-            ServerWorld serverWorld = (ServerWorld)serverPlayer.world;
+        if (mainhand.getItem() instanceof HoeItem) {
+            held = mainhand;
+        } else if (offhand.getItem() instanceof HoeItem) {
+            held = offhand;
+        } else {
+            held = null;
+        }
+
+        if (held != null) {
+            BlockPos pos = hitResult.getBlockPos();
             BlockState state = world.getBlockState(pos);
             Block block = state.getBlock();
 
@@ -57,21 +66,29 @@ public class HoeHarvesting extends CharmModule {
             Item blockItem = block.asItem();
             BlockState newState = block.getDefaultState();
 
-            List<ItemStack> drops = Block.getDroppedStacks(state, serverWorld, pos, null, player, ItemStack.EMPTY);
-            for (ItemStack drop : drops) {
-                if (drop.getItem() == blockItem)
-                    drop.decrement(1);
+            if (!world.isClient) {
+                ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
+                ServerWorld serverWorld = (ServerWorld)serverPlayer.world;
 
-                if (!drop.isEmpty())
-                    Block.dropStack(world, pos, drop);
+                List<ItemStack> drops = Block.getDroppedStacks(state, serverWorld, pos, null, player, ItemStack.EMPTY);
+                for (ItemStack drop : drops) {
+                    if (drop.getItem() == blockItem)
+                        drop.decrement(1);
+
+                    if (!drop.isEmpty())
+                        Block.dropStack(world, pos, drop);
+                }
+
+                world.syncGlobalEvent(2001, pos, Block.getRawIdFromState(newState));
+                world.setBlockState(pos, newState);
+                world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+                // damage the hoe a bit
+                held.damage(1, player, p -> p.swingHand(hand));
+
+                return ActionResult.CONSUME;
             }
 
-            world.syncGlobalEvent(2001, pos, Block.getRawIdFromState(newState));
-            world.setBlockState(pos, newState);
-            world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
-            // damage the hoe a bit
-            held.damage(1, player, p -> p.swingHand(hand));
             return ActionResult.SUCCESS;
         }
 

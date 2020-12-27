@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "charm:acacia_bookcase",
+    "charm:acacia_bookshelf",
+    "charm:birch_bookcase",
+    "charm:birch_bookshelf",
+    "charm:crimson_bookcase",
+    "charm:crimson_bookshelf",
+    "charm:dark_oak_bookcase",
+    "charm:dark_oak_bookshelf",
+    "charm:jungle_bookcase",
+    "charm:jungle_bookshelf",
+    "charm:oak_bookcase",
+    "charm:spruce_bookcase",
+    "charm:spruce_bookshelf",
+    "charm:warped_bookcase",
+    "charm:warped_bookshelf"
+  ]
+}

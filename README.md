@@ -1,9 +1,11 @@
-# Charm 2.x for Fabric 1.17
+# Charm
 
-This is alpha stuff, building against the snapshots.
+Charm: A Vanilla+ Minecraft mod inspired by Quark.
 
-You probably want the `1.16-fabric` or `1.16-forge` branches.
+This is the **Fabric version** of Charm for the Minecraft **1.17** snapshots.
+The stable build of Charm can be found [here](https://github.com/svenhjol/Charm/).
 
-Todo: moar readme
+If you are looking for the Forge version of Charm, it's in [this repository](https://github.com/svenhjol/CharmForge/).
 
-[Charm Documentation here](https://svenhjol.github.io/Charm/).
+* [Mod's documentation](https://svenhjol.github.io/Charm/)
+* [CurseForge project page](https://www.curseforge.com/minecraft/mc-mods/charm/)

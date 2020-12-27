@@ -23,6 +23,6 @@ public class WanderingTraderManagerMixin {
         )
     )
     private int hookRandomCheck(Random random, int i) {
-        return WanderingTraderImprovements.shouldSpawnFrequently() ? 0 : 10; // 10 is vanilla random value
+        return WanderingTraderImprovements.shouldSpawnFrequently() ? 0 : random.nextInt(1); // 10 is vanilla random value
     }
 }

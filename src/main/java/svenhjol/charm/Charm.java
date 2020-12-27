@@ -1,12 +1,8 @@
 package svenhjol.charm;
 
 import net.fabricmc.api.ModInitializer;
-import svenhjol.charm.base.CharmLoot;
-import svenhjol.charm.base.CharmSounds;
-import svenhjol.charm.base.CharmStructures;
-import svenhjol.charm.base.CharmTags;
+import svenhjol.charm.base.*;
 import svenhjol.charm.base.handler.LogHandler;
-import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.module.*;
 
 import java.util.Arrays;
@@ -15,10 +11,15 @@ public class Charm implements ModInitializer {
     public static final String MOD_ID = "charm";
     public static LogHandler LOG = new LogHandler("Charm");
 
-    @Override
-    public void onInitialize() {
-        ModuleHandler.INSTANCE.registerFabricMod(MOD_ID, Arrays.asList(
+    private static boolean hasRunFirst = false;
+
+    public static void runFirst() {
+        if (hasRunFirst)
+            return;
+
+        new CharmLoader(MOD_ID, Arrays.asList(
             Acquisition.class,
+            AerialAffinity.class,
             AnvilImprovements.class,
             ArmorInvisibility.class,
             Atlas.class,
@@ -38,6 +39,7 @@ public class Charm implements ModInitializer {
             CoralSeaLanterns.class,
             CoralSquids.class,
             Core.class,
+            ExtraRecipes.class,
             Crates.class,
             DecreaseRepairCost.class,
             DirtToPath.class,
@@ -57,6 +59,7 @@ public class Charm implements ModInitializer {
             Lumberjacks.class,
             MapTooltips.class,
             MineshaftImprovements.class,
+            MobSoundCulling.class,
             Mooblooms.class,
             MorePortalFrames.class,
             MoreVillageBiomes.class,
@@ -101,6 +104,11 @@ public class Charm implements ModInitializer {
         CharmSounds.init();
         CharmTags.init();
 
-        ModuleHandler.INSTANCE.init();
+        hasRunFirst = true;
+    }
+
+    @Override
+    public void onInitialize() {
+        runFirst();
     }
 }

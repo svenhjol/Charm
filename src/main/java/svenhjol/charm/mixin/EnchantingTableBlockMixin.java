@@ -1,32 +1,38 @@
 package svenhjol.charm.mixin;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.EnchantingTableBlock;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.base.helper.EnchantmentsHelper;
+
+import java.util.Random;
 
 @Mixin(EnchantingTableBlock.class)
 public class EnchantingTableBlockMixin {
-    /**
-     * When rendering a rune particle on the client, this hook redirects
-     * the default check of `isOf(Blocks.BOOKSHELF)` to check
-     * EnchantmentsHelper.ENCHANTING_BLOCKS.
-     *
-     * If present, returns true to enable the rune particle to be rendered.
-     * Falls back to vanilla behavior if not.
-     */
-    @Redirect(
+    @Inject(
         method = "randomDisplayTick",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z"
-        )
+            target = "Lnet/minecraft/util/math/BlockPos;add(III)Lnet/minecraft/util/math/BlockPos;",
+            shift = At.Shift.AFTER,
+            ordinal = 0
+        ),
+        cancellable = true,
+        locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private boolean hookRandomDisplayTick(BlockState state, Block block) {
-        return EnchantmentsHelper.canBlockPowerEnchantingTable(state) || state.isOf(Blocks.BOOKSHELF);
+    private void hookRandomDisplayTick(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci,
+        int i, int j, int k) {
+        BlockState s = world.getBlockState(pos.add(i, k, j));
+        if (EnchantmentsHelper.canBlockPowerEnchantingTable(s)) {
+            // copypasta from EnchantingTableBlock:61
+            world.addParticle(ParticleTypes.ENCHANT, (double)pos.getX() + 0.5D, (double)pos.getY() + 2.0D, (double)pos.getZ() + 0.5D, (double)((float)i + random.nextFloat()) - 0.5D, (double)((float)k - random.nextFloat() - 1.0F), (double)((float)j + random.nextFloat()) - 0.5D);
+        }
     }
 }

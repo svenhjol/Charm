@@ -7,20 +7,20 @@ assignees: ''
 
 ---
 
-**Read me first!**
-1. We don't support Optifine or Optifabric. Please check that the problem still occurs if you remove Optifine/Optifabric from your mods.
-2. Don't use the bug report to suggest new features or behavior.
+Read me first!
+1. Is your issue about the Forge version of Charm? Please report your issue here: https://github.com/svenhjol/CharmForge/issues
+2. We don't support OptiFabric! Please check that the problem still occurs if you remove OptiFabric from your mods.
+3. Don't use the bug report to suggest new features or behavior.
 
-**Required - Versions**
-* Charm version - e.g. `2.1.0`
+Versions
+* Charm version - e.g. `2.2.0`
 * Minecraft version - e.g. `1.6.4`
-* Loader - `Forge` or `Fabric`
 
-**Required - Description**
+Description
 Write a clear description about what is going wrong.
 
-**Optional: Steps To Reproduce**
+Optional: Steps To Reproduce
 This helps us to repeat the issue you're having.
 
-**Optional: Stacktrace/Screenshots**
+Optional: Stacktrace/Screenshots
 By adding a stacktrace (e.g. pastebin link) and/or screenshots it helps us understand and fix the problem.
