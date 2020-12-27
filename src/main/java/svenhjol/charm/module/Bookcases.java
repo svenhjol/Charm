@@ -12,7 +12,6 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.handler.RegistryHandler;
-import svenhjol.charm.base.helper.EnchantmentsHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.BookcaseBlock;
@@ -61,11 +60,6 @@ public class Bookcases extends CharmModule {
 
         SCREEN_HANDLER = RegistryHandler.screenHandler(ID, BookcaseScreenHandler::new);
         BLOCK_ENTITY = RegistryHandler.blockEntity(ID, BookcaseBlockEntity::new);
-    }
-
-    @Override
-    public void init() {
-        EnchantmentsHelper.ENCHANTING_BLOCKS.addAll(BOOKCASE_BLOCKS.values());
     }
 
     public static boolean canContainItem(ItemStack stack) {
