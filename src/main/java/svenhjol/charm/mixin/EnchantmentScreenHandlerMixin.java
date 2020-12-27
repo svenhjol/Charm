@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.base.helper.EnchantmentsHelper;
-import svenhjol.charm.base.helper.ModHelper;
+import svenhjol.charm.module.Core;
 
 import java.util.List;
 import java.util.Random;
@@ -52,7 +52,7 @@ public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
     )
     private void hookOnContentChanged(Inventory inventory, CallbackInfo ci) {
         /** Copypasta from {@link EnchantmentScreenHandler#onContentChanged(Inventory) */
-        if (!ModHelper.isLoaded("betterend") && inventory == this.inventory) {
+        if (!Core.BETTER_END && inventory == this.inventory) {
             ItemStack itemStack = inventory.getStack(0);
             if (!itemStack.isEmpty() && itemStack.isEnchantable()) {
                 this.context.run((world, blockPos) -> {

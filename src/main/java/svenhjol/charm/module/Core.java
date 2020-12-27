@@ -4,6 +4,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.CoreClient;
@@ -23,4 +24,11 @@ public class Core extends CharmModule {
 
     @Config(name = "Enchantment glint color", description = "Set the default glint color for all enchanted items.  Requires 'Enchantment glint override' to be true.")
     public static String glintColor = DyeColor.PURPLE.getName();
+
+    public static boolean BETTER_END = false;
+
+    @Override
+    public void init() {
+        BETTER_END = ModHelper.isLoaded("betterend");
+    }
 }
