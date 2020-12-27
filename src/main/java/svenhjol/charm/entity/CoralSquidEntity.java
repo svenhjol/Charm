@@ -316,7 +316,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
             PlayerHelper.addOrDropStack(player, coralSquidBucket);
 
-            this.remove();
+            this.discard();
             return ActionResult.success(this.world.isClient);
         } else {
             return super.interactMob(player, hand);
