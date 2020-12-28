@@ -1,5 +1,7 @@
 # Changelog
 
+## 2.2.2
+
 ## 2.2.1
 * Fix inventory buttons not working
 * Resolve crash with ATBYW
