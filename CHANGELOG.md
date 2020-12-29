@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2.2.2
+* Show repair cost in item tooltip when on the anvil screen
 
 ## 2.2.1
 * Fix inventory buttons not working

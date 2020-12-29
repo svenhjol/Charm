@@ -3,16 +3,20 @@ package svenhjol.charm.module;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.Property;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import svenhjol.charm.Charm;
-import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -26,6 +30,9 @@ public class AnvilImprovements extends CharmModule {
 
     @Config(name = "Allow higher enchantment levels", description = "If true, an enchanted book with a level higher than the maximum enchantment level may be applied to an item.")
     public static boolean higherEnchantmentLevels = true;
+
+    @Config(name = "Show item repair cost", description = "If true, items show their repair cost in their tooltip when looking at the anvil screen.")
+    public static boolean showRepairCost = true;
 
     public static boolean allowTooExpensive() {
         return ModuleHandler.enabled("charm:anvil_improvements") && AnvilImprovements.removeTooExpensive;
@@ -56,5 +63,15 @@ public class AnvilImprovements extends CharmModule {
         return ModuleHandler.enabled("charm:anvil_improvements")
             && AnvilImprovements.strongerAnvils
             && new Random().nextFloat() < 0.5F;
+    }
+
+    public static List<Text> addRepairCostToTooltip(ItemStack stack, List<Text> tooltip) {
+        int repairCost = stack.getRepairCost();
+        if (repairCost > 0) {
+            tooltip.add(LiteralText.EMPTY); // a new line
+            tooltip.add(new TranslatableText("item.charm.repair_cost", repairCost).formatted(Formatting.GRAY));
+        }
+
+        return tooltip;
     }
 }
