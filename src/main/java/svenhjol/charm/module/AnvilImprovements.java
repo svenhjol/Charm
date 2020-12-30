@@ -3,8 +3,8 @@ package svenhjol.charm.module;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.Property;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -16,6 +16,7 @@ import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -43,20 +44,26 @@ public class AnvilImprovements extends CharmModule {
             && (player.abilities.creativeMode || ((player.experienceLevel >= levelCost.get()) && levelCost.get() > -1));
     }
 
-    public static int getEnchantmentMaxLevel(Enchantment enchantment, ItemStack stack) {
-        if (ModuleHandler.enabled("charm:anvil_improvements")
-            && higherEnchantmentLevels
-            && stack.getItem() == Items.ENCHANTED_BOOK
-        ) {
-            Map<Enchantment, Integer> map = EnchantmentHelper.get(stack);
-            if (map.containsKey(enchantment)) {
-                int level = map.get(enchantment);
-                if (level > enchantment.getMaxLevel())
-                    return level;
-            }
+    public static void setEnchantmentsAllowHighLevel(Map<Enchantment, Integer> enchantments, ItemStack book, ItemStack output) {
+        if (book.isEmpty() || output.isEmpty())
+            return;
+
+        if (ModuleHandler.enabled(AnvilImprovements.class) && book.getItem() instanceof EnchantedBookItem) {
+            Map<Enchantment, Integer> reset = new HashMap<>();
+            Map<Enchantment, Integer> bookEnchants = EnchantmentHelper.get(book);
+
+            bookEnchants.forEach((e, l) -> {
+                if (l > e.getMaxLevel())
+                    reset.put(e, l);
+            });
+
+            reset.forEach((e, l) -> {
+                if (enchantments.containsKey(e))
+                    enchantments.put(e, l);
+            });
         }
 
-        return enchantment.getMaxLevel();
+        EnchantmentHelper.set(enchantments, output);
     }
 
     public static boolean tryDamageAnvil() {

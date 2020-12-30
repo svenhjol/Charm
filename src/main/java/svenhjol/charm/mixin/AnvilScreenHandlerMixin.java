@@ -25,7 +25,6 @@ import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.module.AnvilImprovements;
 import svenhjol.charm.module.StackableEnchantedBooks;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Mixin(AnvilScreenHandler.class)
@@ -80,27 +79,14 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
             target = "Lnet/minecraft/enchantment/EnchantmentHelper;set(Ljava/util/Map;Lnet/minecraft/item/ItemStack;)V"
         )
     )
-    private void hookUpdateResultAllowHigherLevel2(Map<Enchantment, Integer> enchantments, ItemStack stack) {
+    private void hookUpdateResultAllowHigherLevel(Map<Enchantment, Integer> enchantments, ItemStack outputStack) {
+        if (!ModuleHandler.enabled(AnvilImprovements.class) || !AnvilImprovements.higherEnchantmentLevels) {
+            EnchantmentHelper.set(enchantments, outputStack); // vanilla behavior
+            return;
+        }
+
         ItemStack inputStack = this.input.getStack(1);
-
-        Map<Enchantment, Integer> reset = new HashMap<>();
-
-        // TODO: check it's an enchanted book
-
-        Map<Enchantment, Integer> bookEnchants = EnchantmentHelper.get(inputStack);
-
-        bookEnchants.forEach((e, l) -> {
-            if (l > e.getMaxLevel()) {
-                reset.put(e, l);
-            }
-        });
-
-        reset.forEach((e, l) -> {
-            if (enchantments.containsKey(e))
-                enchantments.put(e, l);
-        });
-
-        EnchantmentHelper.set(reset, stack);
+        AnvilImprovements.setEnchantmentsAllowHighLevel(enchantments, inputStack, outputStack);
     }
 
     @Inject(
