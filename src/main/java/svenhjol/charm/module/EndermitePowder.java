@@ -1,9 +1,7 @@
 package svenhjol.charm.module;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.SpawnGroup;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.EndermiteEntity;
 import net.minecraft.item.ItemStack;
@@ -37,12 +35,11 @@ public class EndermitePowder extends CharmModule {
         ENDERMITE_POWDER = new EndermitePowderItem(this);
 
         // setup and register the entity
-        // TODO "No data fixer registered for endermite_powder"
-        ENTITY = RegistryHandler.entity(ID, EntityType.Builder.<EndermitePowderEntity>create(EndermitePowderEntity::new, SpawnGroup.MISC)
-            .maxTrackingRange(80)
-            .trackingTickInterval(10)
-            .setDimensions(2.0F, 2.0F)
-            .build(ID.getPath()));
+        ENTITY = RegistryHandler.entity(ID, FabricEntityTypeBuilder
+            .<EndermitePowderEntity>create(SpawnGroup.MISC, EndermitePowderEntity::new)
+            .trackRangeBlocks(80)
+            .trackedUpdateRate(10)
+            .dimensions(EntityDimensions.fixed(2.0F, 2.0F)));
     }
 
     @Override

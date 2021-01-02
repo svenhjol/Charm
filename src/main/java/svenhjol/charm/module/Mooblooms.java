@@ -18,7 +18,6 @@ import svenhjol.charm.base.helper.BiomeHelper;
 import svenhjol.charm.base.helper.MobHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.MoobloomsClient;
-import svenhjol.charm.entity.CoralSquidEntity;
 import svenhjol.charm.entity.MoobloomEntity;
 import svenhjol.charm.entity.goal.BeeMoveToMoobloomGoal;
 import svenhjol.charm.event.AddEntityCallback;
@@ -37,8 +36,7 @@ public class Mooblooms extends CharmModule {
         MOOBLOOM = RegistryHandler.entity(ID, FabricEntityTypeBuilder
             .create(SpawnGroup.CREATURE, MoobloomEntity::new)
             .dimensions(EntityDimensions.fixed(0.9F, 1.4F))
-            .trackRangeBlocks(10)
-            .build());
+            .trackRangeBlocks(10));
 
         SpawnRestrictionAccessor.callRegister(MOOBLOOM, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MoobloomEntity::canSpawn);
 

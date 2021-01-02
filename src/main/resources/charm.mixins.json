@@ -40,6 +40,7 @@
     "StrayEntityMixin",
     "SuspiciousStewItemMixin",
     "ThrownEntityMixin",
+    "UtilMixin",
     "WanderingTraderManagerMixin",
     "accessor.AnvilScreenHandlerAccessor",
     "accessor.BarrelBlockEntityAccessor",

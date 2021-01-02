@@ -1,7 +1,9 @@
 package svenhjol.charm.module;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ProjectileDispenserBehavior;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -31,11 +33,11 @@ public class Glowballs extends CharmModule {
         GLOWBALL_BLOCK = new GlowballBlobBlock(this);
         GLOWBALL_ITEM = new GlowballItem(this);
 
-        GLOWBALL = RegistryHandler.entity(ID, EntityType.Builder.<GlowballEntity>create(GlowballEntity::new, SpawnGroup.MISC)
-            .maxTrackingRange(4)
-            .trackingTickInterval(10)
-            .setDimensions(0.25F, 0.25F)
-            .build(ID.getPath()));
+        GLOWBALL = RegistryHandler.entity(ID, FabricEntityTypeBuilder
+            .<GlowballEntity>create(SpawnGroup.MISC, GlowballEntity::new)
+            .trackRangeBlocks(4)
+            .trackedUpdateRate(10)
+            .dimensions(EntityDimensions.fixed(0.25F, 0.25F)));
 
         DispenserBlock.registerBehavior(GLOWBALL_ITEM, new ProjectileDispenserBehavior() {
             protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
