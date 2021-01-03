@@ -5,6 +5,7 @@
 * Rework enchantment hook due to incompatible mods
 * Added configurable spawn weight for beekeepers and lumberjacks
 * Remove `charm-` prefix from before charm-based module configs
+* Translations provided by [BardinTheDwarf](https://github.com/BardinTheDwarf) and [ph0elyx](https://github.com/ph0elyx)
 
 ## 2.2.1
 * Fix inventory buttons not working
