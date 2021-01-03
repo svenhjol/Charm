@@ -13,7 +13,9 @@ import svenhjol.charm.base.handler.RegistryHandler;
 public class UtilMixin {
     @Inject(method = "getChoiceTypeInternal",
         at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V"),
-        cancellable = true)
+        remap = false,
+        cancellable = true
+    )
     private static void hookAttemptDataFixInternal(DSL.TypeReference typeIn, String choiceName, CallbackInfoReturnable<Type<?>> callbackInfo) {
         if(RegistryHandler.SUPPRESS_DATA_FIXER_ERROR.contains(choiceName)) {
             callbackInfo.setReturnValue(null);

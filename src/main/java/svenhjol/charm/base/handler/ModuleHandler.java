@@ -20,9 +20,6 @@ public class ModuleHandler {
     private ModuleHandler() {
         BiomeHandler.init();
 
-        // allow modules to modify structures via an event
-        StructureSetupCallback.EVENT.invoker().interact();
-
         // listen for server world loading events
         LoadWorldCallback.EVENT.register(server -> {
             DecorationHandler.init(); // load late so that tags are populated at this point
@@ -69,6 +66,9 @@ public class ModuleHandler {
 
         Charm.LOG.info("Initialising module " + module.getName());
         module.init();
+
+        // allow modules to modify structures via an event
+        StructureSetupCallback.EVENT.invoker().interact();
     }
 
     @Nullable
