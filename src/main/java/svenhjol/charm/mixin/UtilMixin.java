@@ -12,8 +12,7 @@ import svenhjol.charm.base.handler.RegistryHandler;
 @Mixin(Util.class)
 public class UtilMixin {
     @Inject(method = "getChoiceTypeInternal",
-        at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V"),
-        remap = false,
+        at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V", remap = false),
         cancellable = true
     )
     private static void hookAttemptDataFixInternal(DSL.TypeReference typeIn, String choiceName, CallbackInfoReturnable<Type<?>> callbackInfo) {
