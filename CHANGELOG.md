@@ -3,6 +3,7 @@
 ## 2.2.2
 * Show repair cost in item tooltip when on the anvil screen
 * Rework enchantment hook due to incompatible mods
+* Added configurable spawn weight for beekeepers and lumberjacks
 
 ## 2.2.1
 * Fix inventory buttons not working
