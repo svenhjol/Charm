@@ -1,5 +1,4 @@
 {
-
   "block.charm.acacia_barrel": "Акациевая бочка",
   "block.charm.acacia_bookcase": "Акациевый книжный стеллаж",
   "block.charm.acacia_bookshelf": "Акациевая книжная полка",
@@ -109,8 +108,8 @@
   "enchantment.charm.tinted.desc": "Позволяет изменить цвет свечения предмета при помощи красителя на наковальне.",
   "entity.charm.coral_squid": "Коралловый спрут",
   "entity.charm.moobloom": "Цветочная корова",
-  "entity.minecraft.villager.charm.beekeeper": "Пчеловод",
-  "entity.minecraft.villager.charm.lumberjack": "Дровосек",
+  "entity.minecraft.villager.beekeeper": "Пчеловод",
+  "entity.minecraft.villager.lumberjack": "Дровосек",
   "filled_map.charm.trader_map": "Карта %s",
   "gui.charm.recipebook.toggleRecipes.fireable": "Показать поджигаемые",
   "item.charm.atlas": "Атлас",
@@ -136,5 +135,8 @@
   "structure.charm.ruined_portal": "Разрушенный портал",
   "structure.charm.shipwreck": "Затонувший корабль",
   "structure.charm.swamp_hut": "Хижина ведьмы",
-  "structure.charm.village": "Деревня"
+  "structure.charm.village": "Деревня",
+  "item.charm.repair_cost": "Repair Cost: %s",
+  "rei.charm.category.firing": "Firing",
+  "rei.charm.category.woodcutting": "Wood Cutting"
 }
