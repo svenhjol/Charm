@@ -26,6 +26,12 @@ public class ExtraRecipes extends CharmModule {
     @Config(name = "Soul Torch", description = "If true, adds a recipe for Soul Torches using soul sand/soul soil and sticks.")
     public static boolean useSoulTorch = true;
 
+    @Config(name = "Bread", description = "If true, adds a shapeless recipe for bread.")
+    public static boolean useBread = true;
+
+    @Config(name = "Paper", description = "If true, adds a shapeless recipe for paper.")
+    public static boolean usePaper = true;
+
     @Override
     public List<Identifier> getRecipesToRemove() {
         List<Identifier> removedRecipes = new ArrayList<>();
@@ -39,6 +45,10 @@ public class ExtraRecipes extends CharmModule {
             removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/green_dye"));
         if (!useSoulTorch)
             removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/soul_torch"));
+        if (!useBread)
+            removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/bread"));
+        if (!usePaper)
+            removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/paper"));
         return removedRecipes;
 
     }
