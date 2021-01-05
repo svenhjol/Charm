@@ -5,16 +5,15 @@ import net.minecraft.util.Identifier;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
-import svenhjol.charm.base.iface.Config;
-import svenhjol.charm.village.LumberjackTradeOffers.*;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.event.StructureSetupCallback;
-import svenhjol.charm.event.StructureSetupCallback.VillageType;
 import svenhjol.charm.base.helper.VillagerHelper;
+import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.event.StructureSetupCallback.VillageType;
+import svenhjol.charm.village.LumberjackTradeOffers.*;
 
-import static svenhjol.charm.event.StructureSetupCallback.addVillageHouse;
 import static svenhjol.charm.base.helper.VillagerHelper.addTrade;
+import static svenhjol.charm.event.StructureSetupCallback.addVillageHouse;
 
 @Module(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.")
 public class Lumberjacks extends CharmModule {
@@ -48,13 +47,11 @@ public class Lumberjacks extends CharmModule {
         addTrade(LUMBERJACK, 5, new WorkstationForEmeralds());
 
         // register lumberjack structures
-        StructureSetupCallback.EVENT.register(() -> {
-            addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_1"), buildingWeight);
-            addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_2"), buildingWeight);
-            addVillageHouse(VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_lumberjack_1"), buildingWeight);
-            addVillageHouse(VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_lumberjack_1"), buildingWeight);
-            addVillageHouse(VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_lumberjack_1"), buildingWeight);
-            addVillageHouse(VillageType.SNOWY, new Identifier("charm:village/snowy/houses/snowy_lumberjack_2"), buildingWeight);
-        });
+        addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_1"), buildingWeight);
+        addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_2"), buildingWeight);
+        addVillageHouse(VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_lumberjack_1"), buildingWeight);
+        addVillageHouse(VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_lumberjack_1"), buildingWeight);
+        addVillageHouse(VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_lumberjack_1"), buildingWeight);
+        addVillageHouse(VillageType.SNOWY, new Identifier("charm:village/snowy/houses/snowy_lumberjack_2"), buildingWeight);
     }
 }

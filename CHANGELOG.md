@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.3
+* Fix charm village buildings weight bug
+
 ## 2.2.2
 * Show repair cost in item tooltip when on the anvil screen
 * Rework enchantment hook due to incompatible mods
