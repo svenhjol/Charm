@@ -1,79 +1,72 @@
 package svenhjol.charm.client;
 
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import net.minecraft.item.Items;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.screenhandler.AtlasInventory;
-import svenhjol.charm.event.RenderHeldItemCallback;
-import svenhjol.charm.base.gui.CharmHandledScreen;
+import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.gui.AtlasScreen;
 import svenhjol.charm.module.Atlas;
 import svenhjol.charm.render.AtlasRenderer;
 
 public class AtlasClient extends CharmClientModule {
-    private final AtlasRenderer renderer;
+    private AtlasRenderer renderer;
 
     public AtlasClient(CharmModule module) {
         super(module);
-        renderer = new AtlasRenderer(MinecraftClient.getInstance().getTextureManager());
     }
 
     @Override
     public void register() {
-        ScreenRegistry.register(Atlas.CONTAINER, CharmHandledScreen.createFactory(2));
+        ScreenRegistry.register(Atlas.CONTAINER, AtlasScreen::new);
     }
 
-    @Override
-    public void init() {
-        RenderHeldItemCallback.EVENT.register(this::handleRenderItem);
-    }
-
-    private ActionResult handleRenderItem(float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        if (stack.getItem() == Atlas.ATLAS_ITEM) {
-            renderAtlas(matrices, vertexConsumers, light, hand, pitch, equipProgress, swingProgress, stack);
-            return ActionResult.SUCCESS;
+    @SubscribeEvent
+    public void onRenderHand(RenderHandEvent event) {
+        ItemStack itemStack = event.getItemStack();
+        if (itemStack.getItem() == Atlas.ATLAS_ITEM) {
+            if (renderer == null) {
+                renderer = new AtlasRenderer();
+            }
+            renderer.renderAtlas(event.getMatrixStack(), event.getBuffers(), event.getLight(), event.getHand(), event.getEquipProgress(),
+                event.getSwingProgress(), itemStack);
+            event.setCanceled(true);
         }
-
-        return ActionResult.PASS;
     }
 
-    public void renderAtlas(MatrixStack matrixStack, VertexConsumerProvider buffers, int light, Hand hand, float pitch, float equip, float swing, ItemStack stack) {
-        MinecraftClient minecraft = MinecraftClient.getInstance();
-        ClientWorld world = minecraft.world;
-        ClientPlayerEntity player = minecraft.player;
+    @SubscribeEvent
+    public void onItemTooltip(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+        if (stack.isEmpty() || stack.getItem() != Atlas.ATLAS_ITEM) return;
+
+        PlayerEntity player = event.getPlayer();
         if (player == null) return;
-        AtlasInventory inventory = Atlas.getInventory(world, stack);
 
-        matrixStack.push(); // needed so that parent renderer isn't affect by what we do here
+        AtlasInventory inventory = Atlas.getInventory(player.world, stack);
+        event.getToolTip().add(new StringTextComponent("Scale " + inventory.getScale()).mergeStyle(TextFormatting.GRAY));
 
-        // copypasta from renderMapFirstPersonSide
-        float e = hand == Hand.MAIN_HAND ? 1.0F : -1.0F;
-        matrixStack.translate(e * 0.125F, -0.125D, 0.0D);
+        ItemStack map = inventory.getLastActiveMapItem();
+        if (map == null) return;
 
-        // render player arm
-        if (!player.isInvisible()) {
-            matrixStack.push();
-            matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(e * 10.0F));
-            renderer.renderArm(player, matrixStack, buffers, light, swing, equip, hand);
-            matrixStack.pop();
-        }
-
-        // transform page based on the hand it is held and render it
-        matrixStack.push();
-        renderer.transformPageForHand(matrixStack, buffers, light, swing, equip, hand);
-        renderer.renderAtlas(player, inventory, matrixStack, buffers, light);
-        matrixStack.pop();
-
-        matrixStack.pop(); // close
+        IFormattableTextComponent name = map.hasDisplayName() ? map.getDisplayName().deepCopy()
+            : map.getDisplayName().deepCopy().append(new StringTextComponent(" #" + FilledMapItem.getMapId(map)));
+        event.getToolTip().add(name.mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
     }
 
+    public static void updateInventory(int atlasSlot) {
+        Minecraft mc = Minecraft.getInstance();
+        ClientPlayerEntity player = mc.player;
+        if (player == null) return;
+        ItemStack atlas = player.inventory.getStackInSlot(atlasSlot);
+        Atlas.getInventory(mc.world, atlas).reload(atlas);
+    }
+
+    public static boolean shouldDrawAtlasCopy(CartographyTableScreen screen) {
+        return ModuleHandler.enabled(Atlas.class) && screen.getContainer().getSlot(0).getStack().getItem() == Atlas.ATLAS_ITEM
+            && screen.getContainer().getSlot(1).getStack().getItem() == Items.MAP;
+    }
 }
 

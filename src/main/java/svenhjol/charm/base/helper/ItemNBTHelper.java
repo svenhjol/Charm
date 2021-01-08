@@ -2,6 +2,9 @@ package svenhjol.charm.base.helper;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+
+import java.util.UUID;
 
 @SuppressWarnings("unused")
 public class ItemNBTHelper {
@@ -33,6 +36,15 @@ public class ItemNBTHelper {
         return tagExists(stack, tag) ? getNBT(stack).getCompound(tag) : (nullify ? null : new CompoundTag());
     }
 
+    public static UUID getUuid(ItemStack stack, String tag) {
+        CompoundTag nbt = getNBT(stack);
+        return nbt.containsUuid(tag) ? nbt.getUuid(tag) : null;
+    }
+
+    public static ListTag getList(ItemStack stack, String tag) {
+        return tagExists(stack, tag) ? getNBT(stack).getList(tag, 10) : new ListTag();
+    }
+
     public static void setInt(ItemStack stack, String tag, int i) {
         getNBT(stack).putInt(tag, i);
     }
@@ -55,6 +67,14 @@ public class ItemNBTHelper {
 
     public static void setString(ItemStack stack, String tag, String s) {
         getNBT(stack).putString(tag, s);
+    }
+
+    public static void setUuid(ItemStack stack, String tag, UUID uuid) {
+        getNBT(stack).putUuid(tag, uuid);
+    }
+
+    public static void setList(ItemStack stack, String tag, ListTag list) {
+        getNBT(stack).put(tag, list);
     }
 
 
