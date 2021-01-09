@@ -14,6 +14,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.gui.AtlasScreen;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.module.InventoryTidying;
@@ -57,7 +58,8 @@ public class InventoryTidyingClient extends CharmClientModule {
             ShulkerBoxScreen.class,
             CrateScreen.class,
             BookcaseScreen.class,
-            Generic3x3ContainerScreen.class
+            Generic3x3ContainerScreen.class,
+            AtlasScreen.class
         ));
 
         blacklistScreens.addAll(Arrays.asList(

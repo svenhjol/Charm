@@ -1,10 +1,14 @@
 package svenhjol.charm.module;
 
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.item.*;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.CartographyTableScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
@@ -20,6 +24,7 @@ import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.AtlasClient;
+import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.item.AtlasItem;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.screenhandler.AtlasContainer;
@@ -30,6 +35,9 @@ import java.util.*;
 @Module(mod = Charm.MOD_ID, client = AtlasClient.class, description = "Storage for maps that automatically updates the displayed map as you explore.")
 public class Atlas extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "atlas");
+    public static final Identifier MSG_SERVER_ATLAS_TRANSFER = new Identifier(Charm.MOD_ID, "server_atlas_transfer");
+    public static final Identifier MSG_CLIENT_UPDATE_ATLAS_INVENTORY = new Identifier(Charm.MOD_ID, "client_update_atlas_inventory");
+
     // add items to this list to whitelist them in atlases
     public static final List<Item> VALID_ATLAS_ITEMS = new ArrayList<>();
     private static final Map<UUID, AtlasInventory> serverCache = new HashMap<>();
@@ -43,6 +51,24 @@ public class Atlas extends CharmModule {
 
     public static AtlasItem ATLAS_ITEM;
     public static ScreenHandlerType<AtlasContainer> CONTAINER;
+
+    @Override
+    public void register() {
+        ATLAS_ITEM = new AtlasItem(this);
+
+        VALID_ATLAS_ITEMS.add(Items.MAP);
+        VALID_ATLAS_ITEMS.add(Items.FILLED_MAP);
+
+        CONTAINER = RegistryHandler.screenHandler(ID, (syncId, playerInventory) -> new AtlasContainer(syncId, playerInventory, findAtlas(playerInventory)));
+    }
+
+    @Override
+    public void init() {
+        PlayerTickCallback.EVENT.register(this::handlePlayerTick);
+
+        // listen for network requests to run the server callback
+        ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_ATLAS_TRANSFER, this::handleServerAtlasTransfer);
+    }
 
     public static boolean inventoryContainsMap(PlayerInventory inventory, ItemStack itemStack) {
         if (inventory.contains(itemStack)) {
@@ -92,40 +118,10 @@ public class Atlas extends CharmModule {
         }
     }
 
-    public static void serverCallback(ServerPlayerEntity player, ServerAtlasTransfer msg) {
-        AtlasInventory inventory = Atlas.getInventory(player.world, player.inventory.getStack(msg.atlasSlot));
-        switch (msg.mode) {
-            case TO_HAND:
-                player.inventory.setCursorStack(inventory.removeMapByCoords(player.world, msg.mapX, msg.mapZ).map);
-                player.updateCursorStack();
-                updateClient(player, msg.atlasSlot);
-                break;
-            case TO_INVENTORY:
-                player.addItemStackToInventory(inventory.removeMapByCoords(player.world, msg.mapX, msg.mapZ).map);
-                updateClient(player, msg.atlasSlot);
-                break;
-            case FROM_HAND:
-                ItemStack heldItem = player.inventory.getCursorStack();
-                if (heldItem.getItem() == Items.FILLED_MAP && FilledMapItem.getMapState(heldItem, player.world).scale == inventory.getScale()) {
-                    inventory.addToInventory(player.world, heldItem);
-                    player.inventory.setCursorStack(ItemStack.EMPTY);
-                    player.updateCursorStack();
-                    updateClient(player, msg.atlasSlot);
-                }
-                break;
-            case FROM_INVENTORY:
-                ItemStack stack = player.inventory.getStack(msg.mapX);
-                if (stack.getItem() == Items.FILLED_MAP && FilledMapItem.getMapState(stack, player.world).scale == inventory.getScale()) {
-                    inventory.addToInventory(player.world, stack);
-                    player.inventory.removeStack(msg.mapX);
-                    updateClient(player, msg.atlasSlot);
-                }
-                break;
-        }
-    }
-
     public static void updateClient(ServerPlayerEntity player, int atlasSlot) {
-        Charm.PACKET_HANDLER.sendToPlayer(new ClientUpdateAtlasInventory(atlasSlot), player);
+        PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+        data.writeInt(atlasSlot);
+        ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, MSG_CLIENT_UPDATE_ATLAS_INVENTORY, data);
     }
 
     private static AtlasInventory findAtlas(PlayerInventory inventory) {
@@ -151,7 +147,7 @@ public class Atlas extends CharmModule {
     }
 
     public static boolean makeAtlasUpscaleOutput(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, World world,
-                                                 CraftingResultInventory craftResultInventory, CartographyTableScreenHandler cartographyContainer) {
+        CraftingResultInventory craftResultInventory, CartographyTableScreenHandler cartographyContainer) {
         if (ModuleHandler.enabled(Atlas.class) && topStack.getItem() == Atlas.ATLAS_ITEM) {
             AtlasInventory inventory = Atlas.getInventory(world, topStack);
             ItemStack output;
@@ -171,30 +167,62 @@ public class Atlas extends CharmModule {
         return false;
     }
 
-    @Override
-    public void register() {
-        ATLAS_ITEM = new AtlasItem(this);
-
-        VALID_ATLAS_ITEMS.add(Items.MAP);
-        VALID_ATLAS_ITEMS.add(Items.FILLED_MAP);
-
-        CONTAINER = RegistryHandler.screenHandler(ID, (syncId, playerInventory) -> new AtlasContainer(syncId, playerInventory, findAtlas(playerInventory)));
-    }
-
-    @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.START && event.side == LogicalSide.SERVER) {
-            ServerPlayerEntity player = (ServerPlayerEntity) event.player;
+    private void handlePlayerTick(PlayerEntity player) {
+        if (!player.world.isClient) {
+            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
             for (Hand hand : Hand.values()) {
-                ItemStack atlas = player.getStackInHand(hand);
+                ItemStack atlas = serverPlayer.getStackInHand(hand);
                 if (atlas.getItem() == ATLAS_ITEM) {
-                    AtlasInventory inventory = getInventory(player.world, atlas);
-                    if (inventory.updateActiveMap(player)) {
-                        updateClient(player, getSlotFromHand(player, hand));
+                    AtlasInventory inventory = getInventory(serverPlayer.world, atlas);
+                    if (inventory.updateActiveMap(serverPlayer)) {
+                        updateClient(serverPlayer, getSlotFromHand(serverPlayer, hand));
                     }
                 }
             }
         }
+    }
+
+    private void handleServerAtlasTransfer(PacketContext context, PacketByteBuf data) {
+        int atlasSlot = data.readInt();
+        int mapX = data.readInt();
+        int mapZ = data.readInt();
+        MoveMode mode = data.readEnumConstant(MoveMode.class);
+
+        context.getTaskQueue().execute(() -> {
+            ServerPlayerEntity player = (ServerPlayerEntity)context.getPlayer();
+            if (player == null)
+                return;
+
+            AtlasInventory inventory = Atlas.getInventory(player.world, player.inventory.getStack(atlasSlot));
+            switch (mode) {
+                case TO_HAND:
+                    player.inventory.setCursorStack(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
+                    player.updateCursorStack();
+                    updateClient(player, atlasSlot);
+                    break;
+                case TO_INVENTORY:
+                    player.giveItemStack(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
+                    updateClient(player, atlasSlot);
+                    break;
+                case FROM_HAND:
+                    ItemStack heldItem = player.inventory.getCursorStack();
+                    if (heldItem.getItem() == Items.FILLED_MAP && FilledMapItem.getMapState(heldItem, player.world).scale == inventory.getScale()) {
+                        inventory.addToInventory(player.world, heldItem);
+                        player.inventory.setCursorStack(ItemStack.EMPTY);
+                        player.updateCursorStack();
+                        updateClient(player, atlasSlot);
+                    }
+                    break;
+                case FROM_INVENTORY:
+                    ItemStack stack = player.inventory.getStack(mapX);
+                    if (stack.getItem() == Items.FILLED_MAP && FilledMapItem.getMapState(stack, player.world).scale == inventory.getScale()) {
+                        inventory.addToInventory(player.world, stack);
+                        player.inventory.removeStack(mapX);
+                        updateClient(player, atlasSlot);
+                    }
+                    break;
+            }
+        });
     }
 
     private static int getSlotFromHand(PlayerEntity player, Hand hand) {
@@ -203,5 +231,9 @@ public class Atlas extends CharmModule {
         } else {
             return player.inventory.size() - 1;
         }
+    }
+
+    public enum MoveMode {
+        TO_HAND, TO_INVENTORY, FROM_HAND, FROM_INVENTORY
     }
 }
