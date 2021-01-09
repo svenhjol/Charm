@@ -14,17 +14,18 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmClientModule;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.block.CrateBlock;
 import svenhjol.charm.blockentity.CrateBlockEntity;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.handler.TooltipInventoryHandler;
 import svenhjol.charm.module.Crates;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.ItemHelper;
-import svenhjol.charm.base.helper.ItemNBTHelper;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class CratesClient extends CharmClientModule {
@@ -40,7 +41,7 @@ public class CratesClient extends CharmClientModule {
         ScreenRegistry.register(Crates.SCREEN_HANDLER, CrateScreen::new);
     }
 
-    private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+    private ActionResult handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
         if (stack != null && ItemHelper.getBlockClass(stack) == CrateBlock.class) {
             boolean result = renderTooltip(matrices, stack, lines, x, y);
             if (result)
@@ -49,10 +50,10 @@ public class CratesClient extends CharmClientModule {
         return ActionResult.PASS;
     }
 
-    private boolean renderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
+    private boolean renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
         final MinecraftClient mc = MinecraftClient.getInstance();
 
-        if (!stack.hasTag())
+        if (stack == null || !stack.hasTag())
             return false;
 
         CompoundTag tag = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);

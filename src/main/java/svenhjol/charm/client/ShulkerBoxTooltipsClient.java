@@ -15,14 +15,15 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmClientModule;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.ItemHelper;
-import svenhjol.charm.base.helper.ItemNBTHelper;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ShulkerBoxTooltipsClient extends CharmClientModule {
@@ -35,7 +36,7 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
-    private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+    private ActionResult handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
         if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
             boolean result = renderTooltip(matrices, stack, lines, x, y);
             if (result)
@@ -44,10 +45,10 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         return ActionResult.PASS;
     }
 
-    private boolean renderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
+    private boolean renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
         final MinecraftClient mc = MinecraftClient.getInstance();
 
-        if (!stack.hasTag())
+        if (stack == null || !stack.hasTag())
             return false;
 
         CompoundTag tag = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);

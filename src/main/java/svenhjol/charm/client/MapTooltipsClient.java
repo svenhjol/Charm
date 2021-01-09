@@ -1,6 +1,5 @@
 package svenhjol.charm.client;
 
-import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -17,9 +16,9 @@ import net.minecraft.util.math.Matrix4f;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.event.RenderTooltipCallback;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class MapTooltipsClient extends CharmClientModule {
@@ -34,7 +33,7 @@ public class MapTooltipsClient extends CharmClientModule {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
-    private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+    private ActionResult handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
         if (stack != null && stack.getItem() == Items.FILLED_MAP) {
             boolean result = renderTooltip(matrices, stack, lines, x, y);
             if (result)
@@ -43,8 +42,8 @@ public class MapTooltipsClient extends CharmClientModule {
         return ActionResult.PASS;
     }
 
-    private boolean renderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
-        if (stack.getItem() != Items.FILLED_MAP) return false;
+    private boolean renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
+        if (stack == null || stack.getItem() != Items.FILLED_MAP) return false;
 
         final MinecraftClient mc = MinecraftClient.getInstance();
         final World world = mc.world;
