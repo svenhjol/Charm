@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.map.MapState;
 import net.minecraft.text.OrderedText;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.world.World;
@@ -33,25 +32,24 @@ public class MapTooltipsClient extends CharmClientModule {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
-    private ActionResult handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+    private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
         if (stack != null && stack.getItem() == Items.FILLED_MAP) {
-            boolean result = renderTooltip(matrices, stack, lines, x, y);
-            if (result)
-                return ActionResult.SUCCESS;
+            renderTooltip(matrices, stack, lines, x, y);
         }
-        return ActionResult.PASS;
     }
 
-    private boolean renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
-        if (stack == null || stack.getItem() != Items.FILLED_MAP) return false;
+    private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
+        if (stack == null || stack.getItem() != Items.FILLED_MAP) return;
 
         final MinecraftClient mc = MinecraftClient.getInstance();
         final World world = mc.world;
-        if (world == null) return false;
+        if (world == null) return;
 
         MapState data = FilledMapItem.getMapState(stack, world);
 
-        if (data == null) return false;
+        if (data == null) return;
+
+        ty -= 16;
 
         int x = tx;
         int y = ty - 72;
@@ -81,7 +79,6 @@ public class MapTooltipsClient extends CharmClientModule {
         mc.gameRenderer.getMapRenderer().draw(matrices, bufferSource, data, false, light);
         matrices.pop();
         matrices.pop();
-        return true;
     }
 }
 
