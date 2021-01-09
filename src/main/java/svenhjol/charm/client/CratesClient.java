@@ -72,7 +72,7 @@ public class CratesClient extends CharmClientModule {
 
         int size = crate.size();
 
-        ty -= 16;
+        ty -= 10;
 
         int x = tx - 5;
         int y = ty - 35;
