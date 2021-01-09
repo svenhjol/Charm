@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.OrderedText;
-import net.minecraft.util.ActionResult;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -13,13 +12,9 @@ import java.util.List;
 public interface RenderTooltipCallback {
     Event<RenderTooltipCallback> EVENT = EventFactory.createArrayBacked(RenderTooltipCallback.class, (listeners) -> (matrices, stack, lines, x, y) -> {
         for (RenderTooltipCallback listener : listeners) {
-            ActionResult result = listener.interact(matrices, stack, lines, x, y);
-            if (result != ActionResult.PASS)
-                return result;
+            listener.interact(matrices, stack, lines, x, y);
         }
-
-        return ActionResult.PASS;
     });
 
-    ActionResult interact(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y);
+    void interact(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y);
 }
