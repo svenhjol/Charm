@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.0
+* Added improved atlases (F43nd1r)
+* Fix crate, shulker and map tooltips not showing item name
+
 ## 2.2.3
 * Fix charm village buildings weight bug
 
