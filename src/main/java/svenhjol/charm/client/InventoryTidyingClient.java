@@ -58,13 +58,13 @@ public class InventoryTidyingClient extends CharmClientModule {
             ShulkerBoxScreen.class,
             CrateScreen.class,
             BookcaseScreen.class,
-            Generic3x3ContainerScreen.class,
-            AtlasScreen.class
+            Generic3x3ContainerScreen.class
         ));
 
         blacklistScreens.addAll(Arrays.asList(
             CreativeInventoryScreen.class,
-            BeaconScreen.class
+            BeaconScreen.class,
+            AtlasScreen.class
         ));
 
         // set up client listeners
