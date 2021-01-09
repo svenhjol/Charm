@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.ActionResult;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public interface RenderTooltipCallback {
@@ -20,5 +21,5 @@ public interface RenderTooltipCallback {
         return ActionResult.PASS;
     });
 
-    ActionResult interact(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y);
+    ActionResult interact(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y);
 }
