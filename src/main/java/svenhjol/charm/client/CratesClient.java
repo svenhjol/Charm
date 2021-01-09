@@ -41,9 +41,8 @@ public class CratesClient extends CharmClientModule {
     }
 
     private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
-        if (stack != null && ItemHelper.getBlockClass(stack) == CrateBlock.class) {
+        if (stack != null && ItemHelper.getBlockClass(stack) == CrateBlock.class)
             renderTooltip(matrices, stack, lines, x, y);
-        }
     }
 
     private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
@@ -73,7 +72,7 @@ public class CratesClient extends CharmClientModule {
 
         int size = crate.size();
 
-        ty -= 48;
+        ty -= 16;
 
         int x = tx - 5;
         int y = ty - 35;
@@ -123,7 +122,6 @@ public class CratesClient extends CharmClientModule {
         RenderSystem.disableDepthTest();
         RenderSystem.disableRescaleNormal();
         RenderSystem.popMatrix();
-        return;
     }
 }
 
