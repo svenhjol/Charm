@@ -3,6 +3,7 @@
 ## 2.3.0
 * Added improved atlases (F43nd1r)
 * Added player pressure plates (F43nd1r)
+* Remove mod sound culling
 * Fix crate, shulker and map tooltips not showing item name
 
 ## 2.2.3
