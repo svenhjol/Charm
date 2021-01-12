@@ -1,0 +1,28 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "###",
+      "XXX",
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:VARIANT_planks"
+      },
+      "X": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "charm:VARIANT_bookshelf"
+    },
+    "conditions": [
+      {
+        "type": "charm:module_enabled",
+        "module": "charm:variant_bookshelves"
+      }
+    ]
+  },
+  "variants": "wood"
+}

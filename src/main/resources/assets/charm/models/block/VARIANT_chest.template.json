@@ -1,0 +1,8 @@
+{
+  "template": {
+    "textures": {
+      "particle": "minecraft:block/VARIANT_planks"
+    }
+  },
+  "variants": "wood"
+}

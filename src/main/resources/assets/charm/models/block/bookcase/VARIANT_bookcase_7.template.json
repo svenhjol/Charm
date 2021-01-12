@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "charm:block/bookcase/VARIANT_bookcase_0",
+    "textures": {
+      "side": "charm:block/bookcase/VARIANT_bookcase_7"
+    }
+  },
+  "variants": "wood"
+}

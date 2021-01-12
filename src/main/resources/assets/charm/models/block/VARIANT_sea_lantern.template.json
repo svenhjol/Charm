@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+      "all": "charm:block/VARIANT_sea_lantern"
+    }
+  },
+  "variants": "coral"
+}
