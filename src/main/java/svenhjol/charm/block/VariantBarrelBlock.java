@@ -12,24 +12,29 @@ import net.minecraft.world.BlockView;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
 import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.mixin.accessor.BarrelBlockEntityAccessor;
 import svenhjol.charm.module.VariantBarrels;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
 
 public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
     protected CharmModule module;
     protected IVariantMaterial type;
+    private final List<String> loadedMods;
 
-    public VariantBarrelBlock(CharmModule module, IVariantMaterial type) {
-        this(module, type, AbstractBlock.Settings.copy(Blocks.BARREL));
+    public VariantBarrelBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
+        this(module, type, AbstractBlock.Settings.copy(Blocks.BARREL), loadedMods);
     }
 
-    public VariantBarrelBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings) {
+    public VariantBarrelBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings, String... loadedMods) {
         super(settings);
 
         this.module = module;
         this.type = type;
+        this.loadedMods = Arrays.asList(loadedMods);
 
         this.register(module, type.asString() + "_barrel");
         this.setDefaultState(this.getStateManager()
@@ -52,7 +57,7 @@ public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.enabled && loadedMods.stream().allMatch(ModHelper::isLoaded);
     }
 
     @Nullable
