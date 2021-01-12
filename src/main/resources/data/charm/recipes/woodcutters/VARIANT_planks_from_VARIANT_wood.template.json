@@ -1,0 +1,17 @@
+{
+  "template": {
+    "type": "minecraft:woodcutting",
+    "ingredient": {
+      "item": "minecraft:VARIANT_wood"
+    },
+    "result": "minecraft:VARIANT_planks",
+    "count": 4,
+    "conditions": [
+      {
+        "type": "charm:module_enabled",
+        "module": "charm:woodcutters"
+      }
+    ]
+  },
+  "variants": "overworld_wood"
+}

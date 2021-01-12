@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "charm:block/VARIANT_crate"
+  },
+  "variants": "wood"
+}

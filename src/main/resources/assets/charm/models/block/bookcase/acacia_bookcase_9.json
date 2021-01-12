@@ -1,6 +1,0 @@
-{
-  "parent": "charm:block/bookcase/acacia_bookcase_0",
-  "textures": {
-    "side": "charm:block/bookcase/acacia_bookcase_9"
-  }
-}

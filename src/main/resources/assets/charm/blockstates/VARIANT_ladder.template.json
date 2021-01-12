@@ -1,0 +1,22 @@
+{
+  "template": {
+    "variants": {
+      "facing=east": {
+        "model": "charm:block/VARIANT_ladder",
+        "y": 90
+      },
+      "facing=north": {
+        "model": "charm:block/VARIANT_ladder"
+      },
+      "facing=south": {
+        "model": "charm:block/VARIANT_ladder",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "charm:block/VARIANT_ladder",
+        "y": 270
+      }
+    }
+  },
+  "variants": "wood"
+}

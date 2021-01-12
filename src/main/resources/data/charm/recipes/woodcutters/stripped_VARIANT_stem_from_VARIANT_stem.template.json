@@ -1,0 +1,17 @@
+{
+  "template": {
+    "type": "minecraft:woodcutting",
+    "ingredient": {
+      "item": "minecraft:VARIANT_stem"
+    },
+    "result": "minecraft:stripped_VARIANT_stem",
+    "count": 1,
+    "conditions": [
+      {
+        "type": "charm:module_enabled",
+        "module": "charm:woodcutters"
+      }
+    ]
+  },
+  "variants": "nether_wood"
+}

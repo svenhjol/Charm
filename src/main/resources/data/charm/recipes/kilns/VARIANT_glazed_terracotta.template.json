@@ -1,0 +1,35 @@
+{
+  "template": {
+    "type": "minecraft:firing",
+    "ingredient": {
+      "item": "minecraft:VARIANT_terracotta"
+    },
+    "result": "minecraft:VARIANT_glazed_terracotta",
+    "experience": 0.1,
+    "cookingtime": 100,
+    "conditions": [
+      {
+        "type": "charm:module_enabled",
+        "module": "charm:kilns"
+      }
+    ]
+  },
+  "variants": [
+    "black",
+    "blue",
+    "brown",
+    "cyan",
+    "gray",
+    "green",
+    "light_blue",
+    "light_gray",
+    "lime",
+    "magenta",
+    "orange",
+    "pink",
+    "purple",
+    "red",
+    "white",
+    "yellow"
+  ]
+}

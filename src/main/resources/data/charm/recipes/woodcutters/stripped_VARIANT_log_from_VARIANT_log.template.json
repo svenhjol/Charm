@@ -1,0 +1,17 @@
+{
+  "template": {
+    "type": "minecraft:woodcutting",
+    "ingredient": {
+      "item": "minecraft:VARIANT_log"
+    },
+    "result": "minecraft:stripped_VARIANT_log",
+    "count": 1,
+    "conditions": [
+      {
+        "type": "charm:module_enabled",
+        "module": "charm:woodcutters"
+      }
+    ]
+  },
+  "variants": "overworld_wood"
+}

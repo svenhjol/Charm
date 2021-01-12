@@ -1,3 +1,6 @@
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
+
 plugins {
 	id 'fabric-loom' version '0.5-SNAPSHOT'
 	id 'maven-publish'
@@ -43,13 +46,27 @@ dependencies {
 processResources {
 	inputs.property "version", project.version
 
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
+	filesMatching("fabric.mod.json") {
 		expand "version": project.version
 	}
 
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
+	//expand resource templates
+	filesMatching("**/*.template.json") {
+		JsonBuilder json = new JsonBuilder(new JsonSlurper().parseText(it.file.text))
+		String template = new JsonBuilder(json.content.template).toPrettyString()
+		def v = json.content.variants
+		Iterable<String> variants
+		if (v instanceof String) variants = file("${sourceSets.main.resources.srcDirs[0]}/META-INF/${v}.variants").readLines().findAll { !it.isEmpty() }
+		else variants = v
+		File dir = it.relativePath.parent.getFile(file("$buildDir/resources/main"))
+		dir.mkdirs()
+		String name = it.name.replace(".template.json", ".json")
+		for (variant in variants) {
+			def file = new File(dir, name.replace("VARIANT", variant))
+			file.createNewFile()
+			file.text = template.replace("VARIANT", variant)
+		}
+		it.exclude()
 	}
 }
 

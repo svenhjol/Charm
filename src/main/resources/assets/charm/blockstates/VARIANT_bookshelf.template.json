@@ -1,0 +1,10 @@
+{
+  "template": {
+    "variants": {
+      "": {
+        "model": "charm:block/VARIANT_bookshelf"
+      }
+    }
+  },
+  "variants": "wood_no_oak"
+}
