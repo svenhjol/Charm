@@ -1,28 +1,30 @@
 package svenhjol.charm.block;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stat.Stat;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
-import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
-import svenhjol.charm.module.VariantChests;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
 import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
+import svenhjol.charm.module.VariantChests;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 @SuppressWarnings({"NullableProblems", "deprecation"})
 public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock, IVariantChestBlock {
@@ -30,7 +32,11 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
     private final IVariantMaterial type;
 
     public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type) {
-        super(Settings.copy(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_BLOCK_ENTITY);
+        this(module, type, Settings.copy(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_BLOCK_ENTITY);
+    }
+
+    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
+        super(settings, supplier);
 
         this.module = module;
         this.type = type;
@@ -57,10 +63,7 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockView worldIn) {
-        VariantTrappedChestBlockEntity chest = new VariantTrappedChestBlockEntity();
-        chest.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_trapped_chest"));
-
-        return chest;
+        return new VariantTrappedChestBlockEntity();
     }
 
     @Override

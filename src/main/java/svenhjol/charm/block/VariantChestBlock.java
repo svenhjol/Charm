@@ -1,8 +1,11 @@
 package svenhjol.charm.block;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
@@ -14,6 +17,7 @@ import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.module.VariantChests;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 @SuppressWarnings("NullableProblems")
 public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVariantChestBlock {
@@ -21,7 +25,11 @@ public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVaria
     private final IVariantMaterial type;
 
     public VariantChestBlock(CharmModule module, IVariantMaterial type) {
-        super(Settings.copy(Blocks.CHEST), () -> VariantChests.NORMAL_BLOCK_ENTITY);
+        this(module, type, Settings.copy(Blocks.CHEST), () -> VariantChests.NORMAL_BLOCK_ENTITY);
+    }
+
+    public VariantChestBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier) {
+        super(settings, supplier);
 
         this.module = module;
         this.type = type;

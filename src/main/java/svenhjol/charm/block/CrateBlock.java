@@ -38,11 +38,14 @@ public class CrateBlock extends CharmBlockWithEntity {
     private IVariantMaterial type;
 
     public CrateBlock(CharmModule module, IVariantMaterial type) {
-        super(module, type.asString() + "_crate", AbstractBlock.Settings
+        this(module, type, AbstractBlock.Settings
             .of(Material.WOOD)
             .sounds(BlockSoundGroup.WOOD)
             .strength(1.5F));
+    }
 
+    public CrateBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings) {
+        super(module, type.asString() + "_crate", settings);
         this.type = type;
     }
 

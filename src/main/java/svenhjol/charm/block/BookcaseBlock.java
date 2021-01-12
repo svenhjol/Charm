@@ -35,8 +35,11 @@ public class BookcaseBlock extends CharmBlockWithEntity {
     protected IVariantMaterial type;
 
     public BookcaseBlock(CharmModule module, IVariantMaterial type) {
-        super(module, type.asString() + "_bookcase", AbstractBlock.Settings
-            .copy(Blocks.BOOKSHELF));
+        this(module, type, AbstractBlock.Settings.copy(Blocks.BOOKSHELF));
+    }
+
+    public BookcaseBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings) {
+        super(module, type.asString() + "_bookcase", settings);
 
         this.module = module;
         this.type = type;
