@@ -68,7 +68,7 @@ Smooth Glowstone.
 ![Variant Barrels](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/new-variant-barrels.png?raw=true)
 Barrels of each type of vanilla wood can be crafted using the respective wood planks and slabs.  These extra barrels work with **Quark**'s drop-off and sort features.
 
-**Vanilla Barrels** are still available, crafted with a mix of wood types.#
+**Vanilla Barrels** are still available, crafted with a mix of wood types.
 Only vanilla barrels work as a Fisherman villager job site.
 
 ### Variant Bookshelves
