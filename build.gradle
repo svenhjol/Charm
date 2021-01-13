@@ -50,6 +50,8 @@ processResources {
 		expand "version": project.version
 	}
 
+	exclude("META-INF/*")
+
 	//expand resource templates
 	filesMatching("**/*.template.json") {
 		JsonBuilder json = new JsonBuilder(new JsonSlurper().parseText(it.file.text))
