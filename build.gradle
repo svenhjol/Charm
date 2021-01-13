@@ -50,7 +50,7 @@ processResources {
 		expand "version": project.version
 	}
 
-	exclude("META-INF/*")
+	exclude("META-INF/*.materials")
 
 	//expand resource templates
 	filesMatching("**/*.template.json") {
