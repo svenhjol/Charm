@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:oak_planks"
+    },
+    "X": {
+      "item": "minecraft:bookshelf"
+    }
+  },
+  "result": {
+    "item": "charm:oak_bookcase"
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "charm:bookcases"
+    }
+  ]
+}
