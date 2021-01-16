@@ -29,7 +29,7 @@ public class Bookcases extends CharmModule {
     public static ScreenHandlerType<BookcaseScreenHandler> SCREEN_HANDLER;
     public static BlockEntityType<BookcaseBlockEntity> BLOCK_ENTITY;
 
-    public static List<Class<? extends Item>> validItems = new ArrayList<>();
+    public static List<Item> validItems = new ArrayList<>();
 
     @Config(name = "Valid books", description = "Additional items that may be placed in bookcases.")
     public static List<String> configValidItems = Arrays.asList(
@@ -39,14 +39,14 @@ public class Bookcases extends CharmModule {
     @Override
     public void register() {
         validItems.addAll(Arrays.asList(
-            Items.BOOK.getClass(),
-            Items.ENCHANTED_BOOK.getClass(),
-            Items.WRITTEN_BOOK.getClass(),
-            Items.WRITABLE_BOOK.getClass(),
-            Items.KNOWLEDGE_BOOK.getClass(),
-            Items.PAPER.getClass(),
-            Items.MAP.getClass(),
-            Items.FILLED_MAP.getClass()
+            Items.BOOK,
+            Items.ENCHANTED_BOOK,
+            Items.WRITTEN_BOOK,
+            Items.WRITABLE_BOOK,
+            Items.KNOWLEDGE_BOOK,
+            Items.PAPER,
+            Items.MAP,
+            Items.FILLED_MAP
         ));
 
         VanillaVariantMaterial.getTypes().forEach(type -> {
@@ -55,7 +55,7 @@ public class Bookcases extends CharmModule {
 
         configValidItems.forEach(string -> {
             Item item = Registry.ITEM.get(new Identifier(string));
-            validItems.add(item.getClass());
+            validItems.add(item);
         });
 
         SCREEN_HANDLER = RegistryHandler.screenHandler(ID, BookcaseScreenHandler::new);
@@ -63,6 +63,6 @@ public class Bookcases extends CharmModule {
     }
 
     public static boolean canContainItem(ItemStack stack) {
-        return validItems.contains(stack.getItem().getClass());
+        return validItems.contains(stack.getItem());
     }
 }
