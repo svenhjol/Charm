@@ -1,26 +1,20 @@
 package svenhjol.charm.module;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.GameRules;
+import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.EnchantmentsHelper;
 import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.enchantment.AcquisitionEnchantment;
-import svenhjol.charm.event.PlayerBreakBlockAfterBreak;
-
-import java.util.List;
 
 @Module(mod = Charm.MOD_ID, description = "Tools with the Acquisition enchantment automatically pick up drops.")
 public class Acquisition extends CharmModule {
+    private static final ThreadLocal<PlayerEntity> breakingPlayer = new ThreadLocal<>();
     public static AcquisitionEnchantment ACQUISITION;
 
     @Override
@@ -28,30 +22,25 @@ public class Acquisition extends CharmModule {
         ACQUISITION = new AcquisitionEnchantment(this);
     }
 
-    @Override
-    public void init() {
-        PlayerBreakBlockAfterBreak.EVENT.register(this::tryBreakBlock);
+    public static void startBreaking(PlayerEntity player, ItemStack tool) {
+        if (ModuleHandler.enabled(Acquisition.class) && EnchantmentsHelper.has(tool, ACQUISITION)) {
+            breakingPlayer.set(player);
+        }
     }
 
-    private ActionResult tryBreakBlock(ServerWorld world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-        ItemStack held = player.getMainHandStack();
+    public static void stopBreaking() {
+        breakingPlayer.remove();
+    }
 
-        if (!EnchantmentsHelper.has(held, ACQUISITION))
-            return ActionResult.PASS;
-
-        Block block = state.getBlock();
-
-        // do the normal afterBreak stuff
-        player.incrementStat(Stats.MINED.getOrCreateStat(block));
-        player.addExhaustion(0.005F);
-
-        List<ItemStack> dropped = Block.getDroppedStacks(state, world, pos, blockEntity, player, held);
-        dropped.forEach(drop -> {
-            PlayerHelper.addOrDropStack(player, drop);
-        });
-
-        state.onStacksDropped(world, pos, held);
-
-        return ActionResult.SUCCESS;
+    public static boolean trySpawnToInventory(World world, ItemStack stack) {
+        //copy checks from Block#spawnAsEntity
+        if (!world.isClient && !stack.isEmpty() && world.getGameRules().getBoolean(GameRules.DO_TILE_DROPS)) {
+            PlayerEntity player = breakingPlayer.get();
+            if (player != null) {
+                PlayerHelper.addOrDropStack(player, stack);
+                return true;
+            }
+        }
+        return false;
     }
 }
