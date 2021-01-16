@@ -34,7 +34,6 @@
     "RecipeManagerMixin",
     "ServerPlayerInteractionManagerMixin",
     "ServerWorldMixin",
-    "ShearsItemMixin",
     "ShulkerBoxBlockEntityMixin",
     "ShulkerBoxSlotMixin",
     "SinglePoolElementMixin",
