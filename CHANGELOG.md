@@ -3,6 +3,8 @@
 ## 2.3.1
 * Acquisition compatibility fixes
 * Added missing tag for variant chests guarded by piglins
+* Prevent warnings in mineshaft mixin #42
+* Check trader has maps to trade #38
 * Fix some variant pig textures not being shown
 * Fix bookcase filter #32
 
