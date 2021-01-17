@@ -26,7 +26,7 @@ public class RecipeHandler {
     public static Iterator<Map.Entry<Identifier, JsonElement>> sortAndFilterRecipes(Map<Identifier, JsonElement> recipes) {
         return sortRecipes(recipes)
             .filter(RecipeHandler::filterUnloadedRecipeTypes)
-            .filter(RecipeHandler::prepareCharmModulesFilter)
+            .filter(RecipeHandler::filterUnloadedCharmModules)
             .iterator();
     }
 
@@ -50,7 +50,7 @@ public class RecipeHandler {
      * @param recipe
      * @return
      */
-    private static boolean prepareCharmModulesFilter(Map.Entry<Identifier, JsonElement> recipe) {
+    private static boolean filterUnloadedCharmModules(Map.Entry<Identifier, JsonElement> recipe) {
         Identifier id = recipe.getKey();
         if (id.getNamespace().equals("minecraft"))
             return true;
