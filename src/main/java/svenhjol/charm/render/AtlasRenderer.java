@@ -13,6 +13,7 @@ import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.map.MapState;
+import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -43,65 +44,66 @@ public class AtlasRenderer {
 
         matrixStack.push(); // needed so that parent renderer isn't affect by what we do here
 
+        Arm handSide = hand == Hand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite();
+
         // copypasta from renderMapFirstPersonSide
-        float e = hand == Hand.MAIN_HAND ? 1.0F : -1.0F;
+        float e = handSide == Arm.RIGHT ? 1.0F : -1.0F;
         matrixStack.translate(e * 0.125F, -0.125D, 0.0D);
 
         // render player arm
         if (!player.isInvisible()) {
             matrixStack.push();
             matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(e * 10.0F));
-            renderArm(player, matrixStack, buffers, light, swing, equip, hand);
+            renderArm(player, matrixStack, buffers, light, swing, equip, handSide);
             matrixStack.pop();
         }
 
         // transform page based on the hand it is held and render it
         matrixStack.push();
-        transformPageForHand(matrixStack, buffers, light, swing, equip, hand);
+        transformPageForHand(matrixStack, buffers, light, swing, equip, handSide);
         renderAtlasMap(inventory.getActiveMap(world), matrixStack, buffers, light);
         matrixStack.pop();
 
         matrixStack.pop(); // close
     }
 
-    public void renderArm(ClientPlayerEntity player, MatrixStack matrixStack, VertexConsumerProvider buffers, int light, float swing, float equip, Hand hand) {
-        // render arm
-        float e = hand == Hand.MAIN_HAND ? 1.0F : -1.0F;
-
+    public void renderArm(ClientPlayerEntity player, MatrixStack matrixStack, VertexConsumerProvider buffers, int light, float swing, float equip, Arm side) {
         // copypasta from renderArmFirstPerson
-        float e1 = MathHelper.sqrt(swing);
-        float e2 = -0.3F * MathHelper.sin(e1 * (float) Math.PI);
-        float e3 = 0.4F * MathHelper.sin(e1 * ((float) Math.PI * 2F));
-        float e4 = -0.4F * MathHelper.sin(swing * (float) Math.PI);
-        matrixStack.translate((double) (e * (e2 + 0.64000005F)), (double) (e3 + -0.6F + equip * -0.6F), (double) (e4 + -0.71999997F));
-        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(e * 45.0F));
-        float e5 = MathHelper.sin(swing * swing * (float) Math.PI);
-        float e6 = MathHelper.sin(e1 * (float) Math.PI);
-        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(e * e6 * 70.0F));
-        matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(e * e5 * -20.0F));
-        MinecraftClient.getInstance().getTextureManager().bindTexture(player.getSkinTexture());
-        matrixStack.translate((double) (e * -1.0F), (double) 3.6F, 3.5D);
-        matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(e * 120.0F));
+        boolean flag = side != Arm.LEFT;
+        float f = flag ? 1.0F : -1.0F;
+        float f1 = MathHelper.sqrt(swing);
+        float f2 = -0.3F * MathHelper.sin(f1 * (float)Math.PI);
+        float f3 = 0.4F * MathHelper.sin(f1 * ((float)Math.PI * 2F));
+        float f4 = -0.4F * MathHelper.sin(swing * (float)Math.PI);
+        matrixStack.translate(f * (f2 + 0.64000005F), f3 + -0.6F + equip * -0.6F, f4 + -0.71999997F);
+        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(f * 45.0F));
+        float f5 = MathHelper.sin(swing * swing * (float)Math.PI);
+        float f6 = MathHelper.sin(f1 * (float)Math.PI);
+        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(f * f6 * 70.0F));
+        matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(f * f5 * -20.0F));
+        textureManager.bindTexture(player.getSkinTexture());
+        matrixStack.translate(f * -1.0F, 3.6F, 3.5D);
+        matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(f * 120.0F));
         matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(200.0F));
-        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(e * -135.0F));
-        matrixStack.translate((double) (e * 5.6F), 0.0D, 0.0D);
+        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(f * -135.0F));
+        matrixStack.translate(f * 5.6F, 0.0D, 0.0D);
         PlayerEntityRenderer playerrenderer = (PlayerEntityRenderer) renderManager.getRenderer(player);
-        if (hand == Hand.MAIN_HAND) {
+        if (flag) {
             playerrenderer.renderRightArm(matrixStack, buffers, light, player);
         } else {
             playerrenderer.renderLeftArm(matrixStack, buffers, light, player);
         }
     }
 
-    public void transformPageForHand(MatrixStack matrixStack, VertexConsumerProvider buffers, int light, float swing, float equip, Hand hand) {
-        float e = hand == Hand.MAIN_HAND ? 1.0F : -1.0F;
-        matrixStack.translate((double) (e * 0.51F), (double) (-0.08F + equip * -1.2F), -0.75D);
+    public void transformPageForHand(MatrixStack matrixStack, VertexConsumerProvider buffers, int light, float swing, float equip, Arm handSide) {
+        float e = handSide == Arm.RIGHT ? 1.0F : -1.0F;
+        matrixStack.translate((e * 0.51F), (-0.08F + equip * -1.2F), -0.75D);
         float f1 = MathHelper.sqrt(swing);
         float f2 = MathHelper.sin(f1 * (float) Math.PI);
         float f3 = -0.5F * f2;
         float f4 = 0.4F * MathHelper.sin(f1 * ((float) Math.PI * 2F));
         float f5 = -0.3F * MathHelper.sin(swing * (float) Math.PI);
-        matrixStack.translate((double) (e * f3), (double) (f4 - 0.3F * f2), (double) f5);
+        matrixStack.translate((e * f3), (f4 - 0.3F * f2), f5);
         matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(f2 * -45.0F));
         matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(e * f2 * -30.0F));
     }
