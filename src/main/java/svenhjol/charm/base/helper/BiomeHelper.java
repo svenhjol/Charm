@@ -1,48 +1,27 @@
 package svenhjol.charm.base.helper;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.impl.biome.modification.BiomeModificationContextImpl;
 import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.biome.SpawnSettings.SpawnEntry;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.gen.feature.StructureFeature;
 import svenhjol.charm.Charm;
-import svenhjol.charm.mixin.accessor.GenerationSettingsAccessor;
-import svenhjol.charm.mixin.accessor.SpawnSettingsAccessor;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 @SuppressWarnings({"UnstableApiUsage", "unused", "deprecation"})
 public class BiomeHelper {
-    public static List<RegistryKey<Biome>> BADLANDS = new ArrayList<>();
-    public static List<RegistryKey<Biome>> DESERT = new ArrayList<>();
-    public static List<RegistryKey<Biome>> END = new ArrayList<>();
-    public static List<RegistryKey<Biome>> FOREST = new ArrayList<>();
-    public static List<RegistryKey<Biome>> JUNGLE = new ArrayList<>();
-    public static List<RegistryKey<Biome>> MOUNTAINS = new ArrayList<>();
-    public static List<RegistryKey<Biome>> NETHER = new ArrayList<>();
-    public static List<RegistryKey<Biome>> PLAINS = new ArrayList<>();
-    public static List<RegistryKey<Biome>> SAVANNA = new ArrayList<>();
-    public static List<RegistryKey<Biome>> SNOWY = new ArrayList<>();
-    public static List<RegistryKey<Biome>> TAIGA = new ArrayList<>();
+    public static Map<Biome.Category, List<RegistryKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
 
     public static Biome getBiome(ServerWorld world, BlockPos pos) {
         BiomeAccess biomeAccess = world.getBiomeAccess();
@@ -66,7 +45,8 @@ public class BiomeHelper {
         return world.locateBiome(biome, pos, 6400, 8);
     }
 
-    public static void addStructureFeatureToBiomes(List<RegistryKey<Biome>> biomeKeys, ConfiguredStructureFeature<?, ?> configuredFeature) {
+    public static void addStructureFeatureToBiomes(Biome.Category biomeCategory, ConfiguredStructureFeature<?, ?> configuredFeature) {
+        List<RegistryKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
         biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureFeature(biomeKey, configuredFeature));
     }
 
