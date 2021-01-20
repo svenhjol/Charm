@@ -33,7 +33,7 @@ public abstract class BaseStructure {
         starts.add(Pair.of(StructurePoolElement.method_30435(getPiecePath(pieceName), StructureProcessorLists.EMPTY), weight));
     }
 
-    protected void registerPool(String poolName, Map<String, Integer> elements) {
+    protected void registerPool(String poolName, Map<String, Integer> elements, StructurePool.Projection projection) {
         final List<Pair<Function<StructurePool.Projection, ? extends StructurePoolElement>, Integer>> pieces = new ArrayList<>();
 
         elements.forEach((piece, weight) ->
@@ -43,8 +43,12 @@ public abstract class BaseStructure {
             getPoolPath(poolName),
             getPoolPath("ends"),
             ImmutableList.copyOf(pieces),
-            StructurePool.Projection.RIGID
+            projection
         ));
+    }
+
+    protected void registerPool(String poolName, Map<String, Integer> elements) {
+        registerPool(poolName, elements, StructurePool.Projection.RIGID);
     }
 
     protected String getPiecePath(String piece) {
