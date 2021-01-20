@@ -18,6 +18,7 @@
     "ComposterBlockMixin",
     "DefaultResourcePackMixin",
     "FarmlandBlockMixin",
+    "GravityStructureProcessorMixin",
     "GrindstoneScreenHandlerMixin",
     "HuskEntityMixin",
     "ItemEntityMixin",
