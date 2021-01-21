@@ -18,7 +18,7 @@ import svenhjol.charm.screenhandler.KilnScreenHandler;
 
 @Module(mod = Charm.MOD_ID, client = KilnsClient.class, description = "A functional block that speeds up cooking of clay, bricks and terracotta.")
 public class Kilns extends CharmModule {
-    public static Identifier RECIPE_ID = new Identifier("firing");
+    public static Identifier RECIPE_ID = new Identifier(Charm.MOD_ID, "firing");
     public static Identifier BLOCK_ID = new Identifier(Charm.MOD_ID, "kiln");
     public static KilnBlock KILN;
     public static BlockEntityType<KilnBlockEntity> BLOCK_ENTITY;
