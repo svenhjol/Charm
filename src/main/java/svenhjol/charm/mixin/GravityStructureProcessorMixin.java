@@ -35,7 +35,10 @@ public class GravityStructureProcessorMixin {
     )
     private Heightmap.Type hookProcess(Heightmap.Type in) {
         Biome.Category category = biomeCategory.get();
-        if (category == Biome.Category.OCEAN && in == Heightmap.Type.WORLD_SURFACE_WG) {
+        if ((category == Biome.Category.OCEAN
+            || category == Biome.Category.BEACH
+            || category == Biome.Category.RIVER)
+            && in == Heightmap.Type.WORLD_SURFACE_WG) {
             return Heightmap.Type.OCEAN_FLOOR_WG;
         }
 
