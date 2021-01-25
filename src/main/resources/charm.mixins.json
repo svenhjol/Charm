@@ -18,7 +18,6 @@
     "ComposterBlockMixin",
     "DefaultResourcePackMixin",
     "FarmlandBlockMixin",
-    "GravityStructureProcessorMixin",
     "GrindstoneScreenHandlerMixin",
     "HuskEntityMixin",
     "ItemEntityMixin",
@@ -69,6 +68,7 @@
     "accessor.SpawnSettingsAccessor",
     "accessor.StructurePieceAccessor",
     "accessor.StructurePoolAccessor",
+    "accessor.StructureProcessorListsAccessor",
     "accessor.VillagerEntityAccessor",
     "accessor.WorldSaveHandlerAccessor"
   ],
