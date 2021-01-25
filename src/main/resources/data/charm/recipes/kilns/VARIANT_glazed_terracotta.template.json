@@ -1,6 +1,6 @@
 {
   "template": {
-    "type": "minecraft:firing",
+    "type": "charm:firing",
     "ingredient": {
       "item": "minecraft:VARIANT_terracotta"
     },

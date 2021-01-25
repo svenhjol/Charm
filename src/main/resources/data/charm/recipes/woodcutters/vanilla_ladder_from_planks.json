@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:woodcutting",
+  "type": "charm:woodcutting",
   "ingredient": {
     "tag": "minecraft:planks"
   },
