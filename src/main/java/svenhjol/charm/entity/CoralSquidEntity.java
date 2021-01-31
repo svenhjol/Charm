@@ -42,6 +42,7 @@ import net.minecraft.world.WorldAccess;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.base.helper.PlayerHelper;
+import svenhjol.charm.entity.CoralSquidEntity.SwimGoal;
 import svenhjol.charm.item.CoralSquidBucketItem;
 import svenhjol.charm.module.CoralSquids;
 
