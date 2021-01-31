@@ -12,7 +12,7 @@ Craft a Block of Ender Pearls from 9 ender pearls.  If a silverfish burrows into
 ### Bookcases
 ![Bookcases](https://github.com/svenhjol/Charm-Assets/blob/87b93c3ddf9d4332cc7c8e0b3fb65ae2baa99dae/web/charm-features/bookcases-retextured.png?raw=true)
 A bookshelf that has 18 inventory slots for storing books.
-It provides the same enchanting power as a normal bookshelf as long as there is at least 1 slot occupied and can be crafted from each of the 8 vanilla wood types.
+It provides the same enchanting power as a normal bookshelf and can be crafted from each of the 8 vanilla wood types.
 
 The texture will change as books are added or removed.
 
