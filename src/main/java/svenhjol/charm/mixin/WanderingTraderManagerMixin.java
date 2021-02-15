@@ -1,14 +1,9 @@
 package svenhjol.charm.mixin;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.WanderingTraderManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.module.WanderingTraderImprovements;
 
 import java.util.Random;
@@ -23,6 +18,6 @@ public class WanderingTraderManagerMixin {
         )
     )
     private int hookRandomCheck(Random random, int i) {
-        return WanderingTraderImprovements.shouldSpawnFrequently() ? 0 : random.nextInt(10); // 10 is vanilla random value
+        return WanderingTraderImprovements.shouldSpawnFrequently() ? 0 : random.nextInt(i);
     }
 }
