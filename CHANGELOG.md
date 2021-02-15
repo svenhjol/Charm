@@ -4,7 +4,8 @@
 * Support recipe button hidden by other mods svenhjol/CharmForge#24
 * Support for other mod renderlayers svenhjol/CharmForge#23
 * Crafting table tags svenhjol/CharmForge#47
-* Improved Raid Horn model
+* Added zh_tw localization ([Pancakes0228](https://github.com/Pancakes0228)) #434
+* Improved Raid Horn model (Coranthes)
 * Woodcutter and kiln recipe namespaces are now "charm" not "minecraft"
 * Atlas renders properly left-handedly
 * Disabled oak bookshelf recipe
