@@ -63,14 +63,14 @@ public class PlayerHelper {
             Set<PlayerPositionLookS2CPacket.Flag> flags = EnumSet.noneOf(PlayerPositionLookS2CPacket.Flag.class);
 
             ChunkPos chunkPos = new ChunkPos(new BlockPos(x, y, z));
-            serverWorld.getChunkManager().addTicket(ChunkTicketType.POST_TELEPORT, chunkPos, 1, player.getEntityId());
+            serverWorld.getChunkManager().addTicket(ChunkTicketType.POST_TELEPORT, chunkPos, 1, player.getId());
             player.stopRiding();
 
             if (player.isSleeping())
                 player.wakeUp(true, true);
 
             if (world == player.world) {
-                ((ServerPlayerEntity)player).networkHandler.teleportRequest(x, y, z, yaw, pitch, flags);
+                ((ServerPlayerEntity)player).networkHandler.requestTeleport(x, y, z, yaw, pitch, flags);
             } else {
                 ((ServerPlayerEntity)player).teleport(serverWorld, x, y, z, yaw, pitch);
             }

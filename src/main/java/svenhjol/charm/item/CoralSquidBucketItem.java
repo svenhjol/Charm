@@ -43,13 +43,13 @@ public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
     }
 
     @Override
-    public void onEmptied(World world, ItemStack stack, BlockPos pos) {
+    public void onEmptied(@Nullable PlayerEntity playerEntity, World world, ItemStack stack, BlockPos pos) {
         if (world instanceof ServerWorld) {
             CoralSquidEntity coralSquid = MobHelper.spawn(CoralSquids.CORAL_SQUID, (ServerWorld) world, pos, SpawnReason.BUCKET);
             if (coralSquid != null) {
                 CompoundTag data = ItemNBTHelper.getCompound(stack, STORED_CORAL_SQUID);
                 if (!data.isEmpty())
-                    coralSquid.readCustomDataFromTag(data);
+                    coralSquid.readCustomDataFromNbt(data);
 
                 if (stack.hasCustomName())
                     coralSquid.setCustomName(stack.getName());

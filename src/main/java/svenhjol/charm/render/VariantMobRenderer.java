@@ -3,6 +3,8 @@ package svenhjol.charm.render;
 import net.minecraft.client.render.entity.*;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.SquidEntityModel;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.*;
@@ -89,7 +91,7 @@ public class VariantMobRenderer {
 
     public static class Squid extends SquidEntityRenderer {
         public Squid(EntityRendererFactory.Context context) {
-            super(context);
+            super(context, new SquidEntityModel(context.getPart(EntityModelLayers.SQUID)));
             fillLayersFromOld(context, this, EntityType.SQUID);
         }
 

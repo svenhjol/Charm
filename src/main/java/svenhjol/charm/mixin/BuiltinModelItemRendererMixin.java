@@ -20,7 +20,7 @@ import svenhjol.charm.handler.ColoredGlintHandler;
 
 @Mixin(BuiltinModelItemRenderer.class)
 public class BuiltinModelItemRendererMixin {
-    @Shadow @Final private BlockEntityRenderDispatcher field_27738;
+    @Shadow @Final private BlockEntityRenderDispatcher blockEntityRenderDispatcher;
 
     /**
      * Allows modules to define their own blockItem entity renderers
@@ -39,7 +39,7 @@ public class BuiltinModelItemRendererMixin {
             BlockEntity blockEntity = BlockItemRenderCallback.EVENT.invoker().interact(((BlockItem) item).getBlock());
 
             if (blockEntity != null) {
-                this.field_27738.renderEntity(blockEntity, matrixStack, vertexConsumerProvider, i, j);
+                this.blockEntityRenderDispatcher.renderEntity(blockEntity, matrixStack, vertexConsumerProvider, i, j);
                 ci.cancel();
             }
         }

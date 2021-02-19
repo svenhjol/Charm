@@ -32,18 +32,18 @@ public class CrateBlockEntity extends LootableContainerBlockEntity implements Si
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void readNbt(CompoundTag tag) {
+        super.readNbt(tag);
         this.items = DefaultedList.ofSize(SIZE, ItemStack.EMPTY);
         if (!this.deserializeLootTable(tag))
-            Inventories.fromTag(tag, this.items);
+            Inventories.readNbt(tag, this.items);
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
+    public CompoundTag writeNbt(CompoundTag tag) {
+        super.writeNbt(tag);
         if (!this.serializeLootTable(tag))
-            Inventories.toTag(tag, this.items, false);
+            Inventories.writeNbt(tag, this.items, false);
 
         return tag;
     }

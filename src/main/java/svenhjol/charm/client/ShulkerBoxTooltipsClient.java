@@ -58,7 +58,7 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
             tag.putString("id", "minecraft:shulker_box");
         }
         BlockItem blockItem = (BlockItem) stack.getItem();
-        BlockEntity blockEntity = BlockEntity.createFromTag(BlockPos.ORIGIN, blockItem.getBlock().getDefaultState(), tag);
+        BlockEntity blockEntity = BlockEntity.createFromNbt(BlockPos.ORIGIN, blockItem.getBlock().getDefaultState(), tag);
         if (blockEntity == null)
             return;
 

@@ -55,7 +55,7 @@ public class PosHelper {
     public static BlockPos getSurfacePos(World world, BlockPos pos) {
         int surface = 0;
 
-        for (int y = world.getTopHeightLimit(); y >= 0; --y) {
+        for (int y = world.getTopY(); y >= 0; --y) {
             BlockPos n = new BlockPos(pos.getX(), y, pos.getZ());
             if (world.isAir(n) && !world.isAir(n.down())) {
                 surface = y;

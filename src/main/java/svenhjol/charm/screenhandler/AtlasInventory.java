@@ -73,7 +73,7 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
     private void load() {
         scale = ItemNBTHelper.getInt(atlas, SCALE, Atlas.defaultScale);
         diameter = 128 * (1 << scale);
-        Inventories.fromTag(ItemNBTHelper.getCompound(atlas, EMPTY_MAPS), emptyMaps);
+        Inventories.readNbt(ItemNBTHelper.getCompound(atlas, EMPTY_MAPS), emptyMaps);
         ListTag listNBT = ItemNBTHelper.getList(atlas, FILLED_MAPS);
         for (int i = 0; i < listNBT.size(); ++i) {
             putMapInfo(MapInfo.readFrom(listNBT.getCompound(i)));
@@ -240,7 +240,7 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
     public void markDirty() {
         ItemNBTHelper.setInt(atlas, SCALE, scale);
         CompoundTag emptyMapNBT = new CompoundTag();
-        Inventories.toTag(emptyMapNBT, emptyMaps, false);
+        Inventories.readNbt(emptyMapNBT, emptyMaps);
         ItemNBTHelper.setCompound(atlas, EMPTY_MAPS, emptyMapNBT);
         ListTag listNBT = new ListTag();
         for (MapInfo mapInfo : mapInfos.values()) {
@@ -323,8 +323,8 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
         }
 
         public static MapInfo readFrom(CompoundTag nbt) {
-            return new MapInfo(nbt.getInt(X), nbt.getInt(Z), nbt.getInt(ID), ItemStack.fromTag(nbt.getCompound(MAP)),
-                DimensionType.method_28521(new Dynamic<>(NbtOps.INSTANCE, nbt.get(DIMENSION))).result().orElse(World.OVERWORLD));
+            return new MapInfo(nbt.getInt(X), nbt.getInt(Z), nbt.getInt(ID), ItemStack.fromNbt(nbt.getCompound(MAP)),
+                DimensionType.worldFromDimensionTag(new Dynamic<>(NbtOps.INSTANCE, nbt.get(DIMENSION))).result().orElse(World.OVERWORLD));
         }
 
         public void writeTo(CompoundTag nbt) {
@@ -332,7 +332,7 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
             nbt.putInt(Z, z);
             nbt.putInt(ID, id);
             CompoundTag mapNBT = new CompoundTag();
-            map.toTag(mapNBT);
+            map.writeNbt(mapNBT);
             nbt.put(MAP, mapNBT);
             Identifier.CODEC.encodeStart(NbtOps.INSTANCE, dimension.getValue()).result().ifPresent(it -> nbt.put(DIMENSION, it));
         }

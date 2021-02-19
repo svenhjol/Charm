@@ -42,7 +42,6 @@ import net.minecraft.world.WorldAccess;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.base.helper.PlayerHelper;
-import svenhjol.charm.entity.CoralSquidEntity.SwimGoal;
 import svenhjol.charm.item.CoralSquidBucketItem;
 import svenhjol.charm.module.CoralSquids;
 
@@ -52,7 +51,7 @@ import java.util.Random;
 
 /**
  * Most of this is copypasta from SquidEntity.
- * canSpanw() checks for coral.
+ * canSpawn() checks for coral.
  */
 public class CoralSquidEntity extends WaterCreatureEntity {
     public static final String CORAL_SQUID_TYPE_TAG = "CoralSquidType";
@@ -81,7 +80,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
     public CoralSquidEntity(EntityType<? extends CoralSquidEntity> entityType, World world) {
         super(entityType, world);
-        this.random.setSeed(this.getEntityId());
+        this.random.setSeed(this.getId());
         this.thrustTimerSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.28F;
     }
 
@@ -143,15 +142,15 @@ public class CoralSquidEntity extends WaterCreatureEntity {
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public void writeCustomDataToNbt(CompoundTag tag) {
+        super.writeCustomDataToNbt(tag);
         tag.putInt(CORAL_SQUID_TYPE_TAG, this.getCoralSquidType());
         tag.putBoolean(CORAL_SQUID_FROM_BUCKET_TAG, this.isFromBucket());
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+    public void readCustomDataFromNbt(CompoundTag tag) {
+        super.readCustomDataFromNbt(tag);
         this.setCoralSquidType(tag.getInt(CORAL_SQUID_TYPE_TAG));
         this.setFromBucket(tag.getBoolean(CORAL_SQUID_FROM_BUCKET_TAG));
     }
@@ -307,7 +306,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
             ItemStack coralSquidBucket = new ItemStack(CoralSquids.CORAL_SQUID_BUCKET);
             CompoundTag tag = new CompoundTag();
-            ItemNBTHelper.setCompound(coralSquidBucket, CoralSquidBucketItem.STORED_CORAL_SQUID, this.toTag(tag));
+            ItemNBTHelper.setCompound(coralSquidBucket, CoralSquidBucketItem.STORED_CORAL_SQUID, this.writeNbt(tag));
 
             if (this.hasCustomName())
                 coralSquidBucket.setCustomName(this.getCustomName());

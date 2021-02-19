@@ -20,7 +20,7 @@ public class ServerWorldMixin {
         method = "addEntity",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/class_5579;addEntity(Lnet/minecraft/class_5568;)Z"
+            target = "Lnet/minecraft/server/world/ServerEntityManager;addEntity(Lnet/minecraft/world/entity/EntityLike;)Z"
         )
     )
     private void hookAddEntity(Entity entity, CallbackInfoReturnable<Boolean> cir) {

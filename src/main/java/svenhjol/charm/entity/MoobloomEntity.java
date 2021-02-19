@@ -126,15 +126,15 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public void writeCustomDataToNbt(CompoundTag tag) {
+        super.writeCustomDataToNbt(tag);
         tag.putString(TYPE_TAG, this.getMoobloomType().name);
         tag.putBoolean(POLLINATED_TAG, this.dataTracker.get(POLLINATED));
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+    public void readCustomDataFromNbt(CompoundTag tag) {
+        super.readCustomDataFromNbt(tag);
         this.setMoobloomType(Type.fromName(tag.getString(TYPE_TAG)));
 
         if (tag.contains(POLLINATED_TAG))

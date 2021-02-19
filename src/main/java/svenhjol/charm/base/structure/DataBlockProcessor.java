@@ -176,7 +176,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.entity = new Identifier("minecraft:armor_stand");
             blockEntity.meta = this.data;
             blockEntity.rotation = this.rotation;
-            blockEntity.toTag(this.tag);
+            blockEntity.writeNbt(this.tag);
 
             this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
@@ -219,7 +219,7 @@ public class DataBlockProcessor extends StructureProcessor {
                 blockEntity.setLootTable(lootTable, random.nextLong());
 
                 this.tag = new CompoundTag();
-                blockEntity.toTag(this.tag);
+                blockEntity.writeNbt(this.tag);
             } else if (ModuleHandler.enabled("charm:variant_bookshelves") && variantMaterial != VanillaVariantMaterial.OAK) {
                 state = VariantBookshelves.BOOKSHELF_BLOCKS.get(variantMaterial).getDefaultState();
             } else {
@@ -271,7 +271,7 @@ public class DataBlockProcessor extends StructureProcessor {
             String loot = getValue("loot", data, "");
             blockEntity.setLootTable(LootHelper.getLootTable(loot, lootTable), random.nextLong());
             tag = new CompoundTag();
-            blockEntity.toTag(tag);
+            blockEntity.writeNbt(tag);
         }
 
         protected void decoration() {
@@ -297,7 +297,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.entity = typeId;
             blockEntity.meta = this.data;
             blockEntity.rotation = this.rotation;
-            blockEntity.toTag(this.tag);
+            blockEntity.writeNbt(this.tag);
 
             this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
@@ -347,7 +347,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.effects = getValue("effects", this.data, "");
             blockEntity.count = getValue("count", this.data, 1);
             blockEntity.rotation = this.rotation;
-            blockEntity.toTag(this.tag);
+            blockEntity.writeNbt(this.tag);
 
             this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
@@ -402,7 +402,7 @@ public class DataBlockProcessor extends StructureProcessor {
             if (blockEntity != null) {
                 blockEntity.getLogic().setEntityId(entity);
                 tag = new CompoundTag();
-                blockEntity.toTag(this.tag);
+                blockEntity.writeNbt(this.tag);
             }
         }
 
@@ -437,7 +437,7 @@ public class DataBlockProcessor extends StructureProcessor {
             String loot = getValue("loot", data, "");
             blockEntity.setLootTable(LootHelper.getLootTable(loot, lootTable), random.nextLong());
             tag = new CompoundTag();
-            blockEntity.toTag(tag);
+            blockEntity.writeNbt(tag);
         }
 
         public boolean withChance(float chance) {

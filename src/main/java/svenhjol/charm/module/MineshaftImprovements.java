@@ -196,7 +196,7 @@ public class MineshaftImprovements extends CharmModule {
                     BlockEntity blockEntity = world.getBlockEntity(blockpos);
                     if (blockEntity instanceof CrateBlockEntity) {
                         ((CrateBlockEntity) blockEntity).setLootTable(loot, rand.nextLong());
-                        blockEntity.toTag(new CompoundTag());
+                        blockEntity.writeNbt(new CompoundTag());
                     }
                 }
             }

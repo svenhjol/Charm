@@ -40,13 +40,13 @@ public class EndermitePowderEntity extends Entity {
     }
 
     @Override
-    protected void readCustomDataFromTag(CompoundTag tag) {
+    protected void readCustomDataFromNbt(CompoundTag tag) {
         dataTracker.set(TARGET_X, tag.getInt(TAG_TARGET_X));
         dataTracker.set(TARGET_Z, tag.getInt(TAG_TARGET_Z));
     }
 
     @Override
-    protected void writeCustomDataToTag(CompoundTag tag) {
+    protected void writeCustomDataToNbt(CompoundTag tag) {
         tag.putInt(TAG_TARGET_X, dataTracker.get(TARGET_X));
         tag.putInt(TAG_TARGET_Z, dataTracker.get(TARGET_Z));
     }

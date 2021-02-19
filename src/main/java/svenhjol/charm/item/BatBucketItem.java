@@ -59,7 +59,7 @@ public class BatBucketItem extends CharmItem {
 
                 CompoundTag data = ItemNBTHelper.getCompound(held, STORED_BAT);
                 if (!data.isEmpty())
-                    bat.readCustomDataFromTag(data);
+                    bat.readCustomDataFromNbt(data);
 
                 world.spawnEntity(bat);
 

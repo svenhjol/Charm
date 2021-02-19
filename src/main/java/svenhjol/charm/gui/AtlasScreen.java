@@ -3,7 +3,6 @@ package svenhjol.charm.gui;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.MapRenderer;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.InputUtil;

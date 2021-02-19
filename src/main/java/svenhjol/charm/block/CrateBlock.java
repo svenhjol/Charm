@@ -84,7 +84,7 @@ public class CrateBlock extends CharmBlockWithEntity {
 
             if (!world.isClient && player.isCreative() && !crate.isEmpty()) {
                 ItemStack stack = new ItemStack(getBlockByMaterial(this.type));
-                CompoundTag tag = crate.toTag(new CompoundTag());
+                CompoundTag tag = crate.writeNbt(new CompoundTag());
 
                 if (!tag.isEmpty())
                     stack.putSubTag(BLOCK_ENTITY_TAG, tag);
@@ -168,7 +168,7 @@ public class CrateBlock extends CharmBlockWithEntity {
         if (crate == null)
             return ItemStack.EMPTY;
 
-        CompoundTag tag = crate.toTag(new CompoundTag());
+        CompoundTag tag = crate.writeNbt(new CompoundTag());
         if (!tag.isEmpty())
             stack.putSubTag(BLOCK_ENTITY_TAG, tag);
 

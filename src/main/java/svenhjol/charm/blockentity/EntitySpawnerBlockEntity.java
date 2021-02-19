@@ -59,8 +59,8 @@ public class EntitySpawnerBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void readNbt(CompoundTag tag) {
+        super.readNbt(tag);
 
         this.entity = Identifier.tryParse(tag.getString(ENTITY));
         this.persist = tag.getBoolean(PERSIST);
@@ -75,8 +75,8 @@ public class EntitySpawnerBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        super.toTag(tag);
+    public CompoundTag writeNbt(CompoundTag tag) {
+        super.writeNbt(tag);
 
         tag.putString(ENTITY, entity.toString());
         tag.putString(ROTATION, rotation.name());
