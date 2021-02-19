@@ -1,6 +1,7 @@
 package svenhjol.charm.block;
 
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -9,6 +10,7 @@ import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
@@ -59,8 +61,8 @@ public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVaria
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView worldIn) {
-        return new VariantChestBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new VariantChestBlockEntity(pos, state);
     }
 
     @Override

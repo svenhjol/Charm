@@ -28,7 +28,7 @@ public class PlayerPressurePlateBlock extends AbstractPressurePlateBlock impleme
     private final CharmModule module;
 
     public PlayerPressurePlateBlock(CharmModule module) {
-        super(FabricBlockSettings.of(Material.STONE, MaterialColor.BLACK)
+        super(FabricBlockSettings.of(Material.STONE, MapColor.BLACK)
             .requiresTool()
             .breakByTool(FabricToolTags.PICKAXES)
             .noCollision()

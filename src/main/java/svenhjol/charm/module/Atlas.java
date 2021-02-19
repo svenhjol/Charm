@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.item.*;
+import net.minecraft.item.map.MapState;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.CartographyTableScreenHandler;
@@ -21,11 +22,13 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.ItemNBTHelper;
+import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.AtlasClient;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.item.AtlasItem;
+import svenhjol.charm.mixin.accessor.MapStateAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.screenhandler.AtlasContainer;
 import svenhjol.charm.screenhandler.AtlasInventory;
@@ -108,7 +111,14 @@ public class Atlas extends CharmModule {
     public static void sendMapToClient(ServerPlayerEntity player, ItemStack map, boolean markDirty) {
         if (map.getItem().isNetworkSynced()) {
             if(markDirty) {
-                FilledMapItem.getMapState(map, player.world).markDirty(0, 0);
+                Integer mapId = FilledMapItem.getMapId(map);
+                MapState mapState = FilledMapItem.getMapState(mapId, player.world);
+
+                if (mapState == null) {
+                    return;
+                }
+
+                ((MapStateAccessor)mapState).invokeMarkDirty(0, 0);
             }
             map.getItem().inventoryTick(map, player.world, player, -1, true);
             Packet<?> packet = ((NetworkSyncedItem) map.getItem()).createSyncPacket(map, player.world, player);
@@ -193,10 +203,10 @@ public class Atlas extends CharmModule {
             if (player == null)
                 return;
 
-            AtlasInventory inventory = Atlas.getInventory(player.world, player.inventory.getStack(atlasSlot));
+            AtlasInventory inventory = Atlas.getInventory(player.world, PlayerHelper.getInventory(player).getStack(atlasSlot));
             switch (mode) {
                 case TO_HAND:
-                    player.inventory.setCursorStack(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
+                    PlayerHelper.getInventory(player).setCursorStack(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
                     player.updateCursorStack();
                     updateClient(player, atlasSlot);
                     break;
@@ -205,20 +215,28 @@ public class Atlas extends CharmModule {
                     updateClient(player, atlasSlot);
                     break;
                 case FROM_HAND:
-                    ItemStack heldItem = player.inventory.getCursorStack();
-                    if (heldItem.getItem() == Items.FILLED_MAP && FilledMapItem.getMapState(heldItem, player.world).scale == inventory.getScale()) {
-                        inventory.addToInventory(player.world, heldItem);
-                        player.inventory.setCursorStack(ItemStack.EMPTY);
-                        player.updateCursorStack();
-                        updateClient(player, atlasSlot);
+                    ItemStack heldItem = PlayerHelper.getInventory(player).getCursorStack();
+                    if (heldItem.getItem() == Items.FILLED_MAP) {
+                        Integer mapId = FilledMapItem.getMapId(heldItem);
+                        MapState mapState = FilledMapItem.getMapState(mapId, player.world);
+                        if (mapState != null && mapState.scale == inventory.getScale()) {
+                            inventory.addToInventory(player.world, heldItem);
+                            PlayerHelper.getInventory(player).setCursorStack(ItemStack.EMPTY);
+                            player.updateCursorStack();
+                            updateClient(player, atlasSlot);
+                        }
                     }
                     break;
                 case FROM_INVENTORY:
-                    ItemStack stack = player.inventory.getStack(mapX);
-                    if (stack.getItem() == Items.FILLED_MAP && FilledMapItem.getMapState(stack, player.world).scale == inventory.getScale()) {
-                        inventory.addToInventory(player.world, stack);
-                        player.inventory.removeStack(mapX);
-                        updateClient(player, atlasSlot);
+                    ItemStack stack = PlayerHelper.getInventory(player).getStack(mapX);
+                    if (stack.getItem() == Items.FILLED_MAP) {
+                        Integer mapId = FilledMapItem.getMapId(stack);
+                        MapState mapState = FilledMapItem.getMapState(mapId, player.world);
+                        if (mapState != null && mapState.scale == inventory.getScale()) {
+                            inventory.addToInventory(player.world, stack);
+                            PlayerHelper.getInventory(player).removeStack(mapX);
+                            updateClient(player, atlasSlot);
+                        }
                     }
                     break;
             }
@@ -227,9 +245,9 @@ public class Atlas extends CharmModule {
 
     private static int getSlotFromHand(PlayerEntity player, Hand hand) {
         if(hand == Hand.MAIN_HAND) {
-            return player.inventory.selectedSlot;
+            return PlayerHelper.getInventory(player).selectedSlot;
         } else {
-            return player.inventory.size() - 1;
+            return PlayerHelper.getInventory(player).size() - 1;
         }
     }
 

@@ -12,7 +12,7 @@ public class CartographyTableScreenMixin {
         method = "drawBackground",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/screen/ingame/CartographyTableScreen;drawMap(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/item/map/MapState;ZZZZ)V"
+            target = "Lnet/minecraft/client/gui/screen/ingame/CartographyTableScreen;drawMap(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/Integer;Lnet/minecraft/item/map/MapState;ZZZZ)V"
         ),
         index = 3
     )

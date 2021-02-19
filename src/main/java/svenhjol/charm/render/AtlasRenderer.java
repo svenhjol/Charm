@@ -9,7 +9,6 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.map.MapState;
@@ -17,6 +16,7 @@ import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.helper.MapRenderHelper;
 import svenhjol.charm.module.Atlas;
@@ -53,7 +53,7 @@ public class AtlasRenderer {
         // render player arm
         if (!player.isInvisible()) {
             matrixStack.push();
-            matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(e * 10.0F));
+            matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(e * 10.0F));
             renderArm(player, matrixStack, buffers, light, swing, equip, handSide);
             matrixStack.pop();
         }
@@ -61,7 +61,10 @@ public class AtlasRenderer {
         // transform page based on the hand it is held and render it
         matrixStack.push();
         transformPageForHand(matrixStack, buffers, light, swing, equip, handSide);
-        renderAtlasMap(inventory.getActiveMap(world), matrixStack, buffers, light);
+
+        int mapId = inventory.getActiveMapId(world);
+        MapState mapState = inventory.getActiveMap(world);
+        renderAtlasMap(mapId, mapState, matrixStack, buffers, light);
         matrixStack.pop();
 
         matrixStack.pop(); // close
@@ -76,16 +79,16 @@ public class AtlasRenderer {
         float f3 = 0.4F * MathHelper.sin(f1 * ((float)Math.PI * 2F));
         float f4 = -0.4F * MathHelper.sin(swing * (float)Math.PI);
         matrixStack.translate(f * (f2 + 0.64000005F), f3 + -0.6F + equip * -0.6F, f4 + -0.71999997F);
-        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(f * 45.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(f * 45.0F));
         float f5 = MathHelper.sin(swing * swing * (float)Math.PI);
         float f6 = MathHelper.sin(f1 * (float)Math.PI);
-        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(f * f6 * 70.0F));
-        matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(f * f5 * -20.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(f * f6 * 70.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(f * f5 * -20.0F));
         textureManager.bindTexture(player.getSkinTexture());
         matrixStack.translate(f * -1.0F, 3.6F, 3.5D);
-        matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(f * 120.0F));
-        matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(200.0F));
-        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(f * -135.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(f * 120.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(200.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(f * -135.0F));
         matrixStack.translate(f * 5.6F, 0.0D, 0.0D);
         PlayerEntityRenderer playerrenderer = (PlayerEntityRenderer) renderManager.getRenderer(player);
         if (flag) {
@@ -104,23 +107,23 @@ public class AtlasRenderer {
         float f4 = 0.4F * MathHelper.sin(f1 * ((float) Math.PI * 2F));
         float f5 = -0.3F * MathHelper.sin(swing * (float) Math.PI);
         matrixStack.translate((e * f3), (f4 - 0.3F * f2), f5);
-        matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(f2 * -45.0F));
-        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(e * f2 * -30.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(f2 * -45.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(e * f2 * -30.0F));
     }
 
-    public void renderAtlasMap(MapState mapData, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
+    public void renderAtlasMap(int mapId, MapState mapData, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
         this.renderBackground(ATLAS_BACKGROUND, matrixStack, buffers, light);
 
         if (mapData != null) {
             matrixStack.push();
-            mapItemRenderer.draw(matrixStack, buffers, mapData, false, light);
+            mapItemRenderer.draw(matrixStack, buffers, mapId, mapData, false, light);
             matrixStack.pop();
         }
     }
 
     private void renderBackground(RenderLayer background, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
-        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
-        matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+        matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
         matrixStack.scale(0.38F, 0.38F, 0.38F);
         matrixStack.translate(-0.5D, -0.5D, 0.0D);
         matrixStack.scale(0.0078125F, 0.0078125F, 0.0078125F);

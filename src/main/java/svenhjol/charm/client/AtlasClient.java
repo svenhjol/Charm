@@ -24,6 +24,7 @@ import net.minecraft.util.Hand;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.event.RenderHeldItemCallback;
 import svenhjol.charm.gui.AtlasScreen;
 import svenhjol.charm.module.Atlas;
@@ -95,7 +96,7 @@ public class AtlasClient extends CharmClientModule {
         MinecraftClient mc = MinecraftClient.getInstance();
         ClientPlayerEntity player = mc.player;
         if (player == null) return;
-        ItemStack atlas = player.inventory.getStack(atlasSlot);
+        ItemStack atlas = PlayerHelper.getInventory(player).getStack(atlasSlot);
         Atlas.getInventory(mc.world, atlas).reload(atlas);
     }
 

@@ -15,8 +15,8 @@ import svenhjol.charm.mixin.accessor.LivingEntityRendererAccessor;
 import java.util.List;
 
 public class VariantMobRenderer {
-    private static <T extends LivingEntity, M extends EntityModel<T>> void fillLayersFromOld(EntityRenderDispatcher manager, LivingEntityRenderer<T, M> renderer, EntityType<T> type) {
-        EntityRenderer<?> old = ((EntityRenderDispatcherAccessor)manager).getRenderers().get(type);
+    private static <T extends LivingEntity, M extends EntityModel<T>> void fillLayersFromOld(EntityRendererFactory.Context context, LivingEntityRenderer<T, M> renderer, EntityType<T> type) {
+        EntityRenderer<?> old = ((EntityRenderDispatcherAccessor)context.getRenderDispatcher()).getRenderers().get(type);
         if (old != null) {
             List<FeatureRenderer<T, M>> layerRenderers = ((LivingEntityRendererAccessor<T, M>) renderer).getFeatures();
             layerRenderers.clear();
@@ -28,9 +28,9 @@ public class VariantMobRenderer {
     }
 
     public static class Chicken extends ChickenEntityRenderer {
-        public Chicken(EntityRenderDispatcher dispatcher) {
-            super(dispatcher);
-            fillLayersFromOld(dispatcher, this, EntityType.CHICKEN);
+        public Chicken(EntityRendererFactory.Context context) {
+            super(context);
+            fillLayersFromOld(context, this, EntityType.CHICKEN);
         }
 
         @Override
@@ -40,9 +40,9 @@ public class VariantMobRenderer {
     }
 
     public static class Cow extends CowEntityRenderer {
-        public Cow(EntityRenderDispatcher dispatcher) {
-            super(dispatcher);
-            fillLayersFromOld(dispatcher, this, EntityType.COW);
+        public Cow(EntityRendererFactory.Context context) {
+            super(context);
+            fillLayersFromOld(context, this, EntityType.COW);
         }
 
         @Override
@@ -52,9 +52,9 @@ public class VariantMobRenderer {
     }
 
     public static class Pig extends PigEntityRenderer {
-        public Pig(EntityRenderDispatcher dispatcher) {
-            super(dispatcher);
-            fillLayersFromOld(dispatcher, this, EntityType.PIG);
+        public Pig(EntityRendererFactory.Context context) {
+            super(context);
+            fillLayersFromOld(context, this, EntityType.PIG);
         }
 
         @Override
@@ -64,9 +64,9 @@ public class VariantMobRenderer {
     }
 
     public static class Sheep extends SheepEntityRenderer {
-        public Sheep(EntityRenderDispatcher dispatcher) {
-            super(dispatcher);
-            fillLayersFromOld(dispatcher, this, EntityType.SHEEP);
+        public Sheep(EntityRendererFactory.Context context) {
+            super(context);
+            fillLayersFromOld(context, this, EntityType.SHEEP);
         }
 
         @Override
@@ -76,9 +76,9 @@ public class VariantMobRenderer {
     }
 
     public static class SnowGolem extends SnowGolemEntityRenderer {
-        public SnowGolem(EntityRenderDispatcher dispatcher) {
-            super(dispatcher);
-            fillLayersFromOld(dispatcher, this, EntityType.SNOW_GOLEM);
+        public SnowGolem(EntityRendererFactory.Context context) {
+            super(context);
+            fillLayersFromOld(context, this, EntityType.SNOW_GOLEM);
         }
 
         @Override
@@ -88,9 +88,9 @@ public class VariantMobRenderer {
     }
 
     public static class Squid extends SquidEntityRenderer {
-        public Squid(EntityRenderDispatcher dispatcher) {
-            super(dispatcher);
-            fillLayersFromOld(dispatcher, this, EntityType.SQUID);
+        public Squid(EntityRendererFactory.Context context) {
+            super(context);
+            fillLayersFromOld(context, this, EntityType.SQUID);
         }
 
         @Override
@@ -100,9 +100,9 @@ public class VariantMobRenderer {
     }
 
     public static class Wolf extends WolfEntityRenderer {
-        public Wolf(EntityRenderDispatcher dispatcher) {
-            super(dispatcher);
-            fillLayersFromOld(dispatcher, this, EntityType.WOLF);
+        public Wolf(EntityRendererFactory.Context context) {
+            super(context);
+            fillLayersFromOld(context, this, EntityType.WOLF);
         }
 
         @Override

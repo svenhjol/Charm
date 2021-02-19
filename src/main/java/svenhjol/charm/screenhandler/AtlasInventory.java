@@ -100,8 +100,12 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
         return Math.floorDiv(coordinate, diameter);
     }
 
+    @Nullable
     private static MapInfo createMapInfo(World world, ItemStack map) {
-        MapState mapData = FilledMapItem.getMapState(map, world);
+        Integer mapId = FilledMapItem.getMapId(map);
+        if (mapId == null) return null;
+
+        MapState mapData = FilledMapItem.getMapState(mapId, world);
         return mapData != null ? new MapInfo(mapData.xCenter, mapData.zCenter, FilledMapItem.getMapId(map), map, mapData.dimension) : null;
     }
 
@@ -141,9 +145,17 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
     }
 
     @Nullable
+    public int getActiveMapId(World world) {
+        return ItemNBTHelper.getInt(atlas, ACTIVE_MAP, -1);
+    }
+
+    @Nullable
     public MapState getActiveMap(World world) {
-        int activeId = ItemNBTHelper.getInt(atlas, ACTIVE_MAP, -1);
-        return activeId == -1 ? null : world.getMapState(FilledMapItem.getMapName(activeId));
+        int mapId = getActiveMapId(world);
+        if (mapId == -1)
+            return null;
+
+        return world.getMapState(FilledMapItem.getMapName(mapId));
     }
 
     @Nullable

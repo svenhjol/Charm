@@ -67,8 +67,8 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView worldIn) {
-        return new VariantTrappedChestBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new VariantTrappedChestBlockEntity(pos, state);
     }
 
     @Override

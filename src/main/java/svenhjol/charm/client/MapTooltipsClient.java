@@ -45,8 +45,10 @@ public class MapTooltipsClient extends CharmClientModule {
         final World world = mc.world;
         if (world == null) return;
 
-        MapState data = FilledMapItem.getMapState(stack, world);
+        Integer mapId = FilledMapItem.getMapId(stack);
+        if (mapId == null) return;
 
+        MapState data = FilledMapItem.getMapState(mapId, world);
         if (data == null) return;
 
         ty -= 16;
@@ -76,7 +78,7 @@ public class MapTooltipsClient extends CharmClientModule {
         builder.vertex(matrix4f, -7.0F, -7.0F, 0.0F).color(255, 255, 255, 255).texture(0.0F, 0.0F).light(light).next();
         matrices.push();
         matrices.translate(0.0, 0.0, 1.0);
-        mc.gameRenderer.getMapRenderer().draw(matrices, bufferSource, data, false, light);
+        mc.gameRenderer.getMapRenderer().draw(matrices, bufferSource, mapId, data, false, light);
         matrices.pop();
         matrices.pop();
     }

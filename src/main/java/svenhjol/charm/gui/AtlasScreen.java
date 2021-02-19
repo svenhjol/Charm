@@ -5,13 +5,9 @@ import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.MapRenderer;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.*;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
@@ -23,12 +19,14 @@ import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.base.gui.AbstractCharmContainerScreen;
 import svenhjol.charm.base.gui.CharmImageButton;
 import svenhjol.charm.base.helper.MapRenderHelper;
+import svenhjol.charm.mixin.accessor.MapStateAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.Atlas;
 import svenhjol.charm.screenhandler.AtlasContainer;
@@ -51,7 +49,7 @@ import static svenhjol.charm.screenhandler.AtlasInventory.MapInfo;
 public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
     private static final Identifier CONTAINER_BACKGROUND = new Identifier(Charm.MOD_ID, "textures/gui/atlas_container.png");
     private static final RenderLayer MAP_DECORATIONS = RenderLayer.getText(new Identifier("textures/map/map_icons.png"));
-    private static final RenderLayer LINES = RenderLayer.of("lines", VertexFormats.POSITION_COLOR, 7, 256, RenderLayer.MultiPhaseParameters.builder().build(false));
+    private static final RenderLayer LINES = RenderLayer.of("lines", VertexFormats.POSITION_COLOR, VertexFormat.DrawMode.LINES, 256, RenderLayer.MultiPhaseParameters.builder().build(false));
     private static final int SIZE = 48;
     private static final int LEFT = 74;
     private static final int TOP = 16;
@@ -173,13 +171,13 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
     private void renderDecorations(MatrixStack matrices, VertexConsumerProvider buffer, MapState mapData, float relativeScale, Predicate<MapIcon> filter) {
         int k = 0;
 
-        for (MapIcon mapdecoration : mapData.icons.values()) {
+        for (MapIcon mapdecoration : ((MapStateAccessor)mapData).getIcons().values()) {
             if (!filter.test(mapdecoration))
                 continue;
 
             matrices.push();
             matrices.translate(mapdecoration.getX() / 2f + 64, mapdecoration.getZ() / 2f + 64, 0.02);
-            matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(mapdecoration.getRotation() * 22.5f));
+            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(mapdecoration.getRotation() * 22.5f));
             matrices.scale(relativeScale * 4, relativeScale * 4, 3);
             matrices.translate(-0.125, 0.125, 0);
             byte b0 = mapdecoration.getTypeId();
@@ -329,12 +327,13 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
                 if (corner != null && (corner.x > key.x || key.x >= corner.x + mapDistance || corner.y > key.y || key.y >= corner.y + mapDistance)) {
                     continue;
                 }
-                MapState mapData = world.getMapState(FilledMapItem.getMapName(mapInfo.getValue().id));
+                int mapId = mapInfo.getValue().id;
+                MapState mapData = world.getMapState(FilledMapItem.getMapName(mapId));
                 if (mapData != null) {
                     matrices.push();
                     matrices.translate(mapSize * (key.x - currentMin.x), mapSize * (key.y - currentMin.y), 0.1);
                     matrices.scale(mapScale, mapScale, 1);
-                    mapItemRenderer.draw(matrices, bufferSource, mapData, false, LIGHT);
+                    mapItemRenderer.draw(matrices, bufferSource, mapId, mapData, false, LIGHT);
                     matrices.translate(0, 0, 0.2);
                     renderDecorations(matrices, bufferSource, mapData, 1.5f * mapDistance,
                             it -> it.getType() != MapIcon.Type.PLAYER_OFF_MAP && it.getType() != MapIcon.Type.PLAYER_OFF_LIMITS &&
@@ -503,11 +502,12 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
                 return;
             }
             if (mapInfo != null) {
-                MapState mapData = world.getMapState(FilledMapItem.getMapName(mapInfo.id));
+                int mapId = mapInfo.id;
+                MapState mapData = world.getMapState(FilledMapItem.getMapName(mapId));
                 if (mapData != null) {
                     matrices.push();
                     matrices.translate(0, 0, 1);
-                    mapItemRenderer.draw(matrices, bufferSource, mapData, true, LIGHT);
+                    mapItemRenderer.draw(matrices, bufferSource, mapId, mapData, true, LIGHT);
                     renderDecorations(matrices, bufferSource, mapData, 2f, it -> true);
                     matrices.pop();
                 }

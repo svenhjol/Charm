@@ -16,8 +16,9 @@ import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import svenhjol.charm.Charm;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
