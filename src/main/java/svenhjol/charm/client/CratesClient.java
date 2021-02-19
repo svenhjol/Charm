@@ -11,7 +11,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.OrderedText;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
@@ -26,6 +25,7 @@ import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.handler.TooltipInventoryHandler;
 import svenhjol.charm.module.Crates;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class CratesClient extends CharmClientModule {
@@ -41,25 +41,21 @@ public class CratesClient extends CharmClientModule {
         ScreenRegistry.register(Crates.SCREEN_HANDLER, CrateScreen::new);
     }
 
-    private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
-        if (stack != null && ItemHelper.getBlockClass(stack) == CrateBlock.class) {
-            boolean result = renderTooltip(matrices, stack, lines, x, y);
-            if (result)
-                return ActionResult.SUCCESS;
-        }
-        return ActionResult.PASS;
+    private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+        if (stack != null && ItemHelper.getBlockClass(stack) == CrateBlock.class)
+            renderTooltip(matrices, stack, lines, x, y);
     }
 
-    private boolean renderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
+    private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
         final MinecraftClient mc = MinecraftClient.getInstance();
 
-        if (!stack.hasTag())
-            return false;
+        if (stack == null || !stack.hasTag())
+            return;
 
         CompoundTag tag = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
 
         if (tag == null)
-            return false;
+            return;
 
         if (!tag.contains("id", 8)) {
             tag = tag.copy();
@@ -68,14 +64,16 @@ public class CratesClient extends CharmClientModule {
         BlockItem blockItem = (BlockItem) stack.getItem();
         BlockEntity blockEntity = BlockEntity.createFromTag(BlockPos.ORIGIN, blockItem.getBlock().getDefaultState(), tag);
         if (blockEntity == null)
-            return false;
+            return;
 
         CrateBlockEntity crate = (CrateBlockEntity) blockEntity;
         DefaultedList<ItemStack> items = crate.getInvStackList();
         if (items.stream().allMatch(ItemStack::isEmpty))
-            return false;
+            return;
 
         int size = crate.size();
+
+        ty -= 10;
 
         int x = tx - 5;
         int y = ty - 35;
@@ -125,7 +123,6 @@ public class CratesClient extends CharmClientModule {
         RenderSystem.disableDepthTest();
         RenderSystem.disableRescaleNormal();
         RenderSystem.popMatrix();
-        return true;
     }
 }
 

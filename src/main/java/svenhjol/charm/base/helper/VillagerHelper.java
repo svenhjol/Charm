@@ -14,6 +14,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradeOffers.Factory;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.base.handler.RegistryHandler;

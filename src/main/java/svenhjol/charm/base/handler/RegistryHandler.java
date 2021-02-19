@@ -1,6 +1,7 @@
 package svenhjol.charm.base.handler;
 
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -26,8 +27,14 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.poi.PointOfInterestType;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
 @SuppressWarnings("UnusedReturnValue")
 public class RegistryHandler {
+    public static List<String> SUPPRESS_DATA_FIXER_ERROR = new ArrayList<>();
+
     public static Block block(Identifier id, Block block) {
         return Registry.register(Registry.BLOCK, id, block);
     }
@@ -46,7 +53,9 @@ public class RegistryHandler {
         return Registry.register(Registry.ENCHANTMENT, id, enchantment);
     }
 
-    public static <T extends Entity> EntityType<T> entity(Identifier id, EntityType<T> entityType) {
+    public static <T extends Entity> EntityType<T> entity(Identifier id, FabricEntityTypeBuilder<T> build) {
+        SUPPRESS_DATA_FIXER_ERROR.add(id.toString());
+        EntityType<T> entityType = build.build();
         return Registry.register(Registry.ENTITY_TYPE, id, entityType);
     }
 

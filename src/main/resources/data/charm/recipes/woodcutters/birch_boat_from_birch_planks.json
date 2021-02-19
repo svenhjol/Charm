@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:woodcutting",
-  "ingredient": {
-    "item": "minecraft:birch_planks"
-  },
-  "result": "minecraft:birch_boat",
-  "count": 1
-}

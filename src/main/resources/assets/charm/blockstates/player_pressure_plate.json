@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "charm:block/player_pressure_plate_up" },
+    "powered=true": { "model": "charm:block/player_pressure_plate_down" }
+  }
+}

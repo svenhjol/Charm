@@ -7,7 +7,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.*;
 import net.minecraft.util.ActionResult;
 import org.objectweb.asm.Opcodes;
@@ -22,9 +21,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.module.AnvilImprovements;
 import svenhjol.charm.module.StackableEnchantedBooks;
-import svenhjol.charm.event.UpdateAnvilCallback;
+
+import java.util.Map;
 
 @Mixin(AnvilScreenHandler.class)
 public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
@@ -75,12 +76,17 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         method = "updateResult",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/enchantment/Enchantment;getMaxLevel()I",
-            ordinal = 1
+            target = "Lnet/minecraft/enchantment/EnchantmentHelper;set(Ljava/util/Map;Lnet/minecraft/item/ItemStack;)V"
         )
     )
-    private int hookUpdateResultAllowHigherLevel(Enchantment enchantment) {
-        return AnvilImprovements.getEnchantmentMaxLevel(enchantment, this.input.getStack(1));
+    private void hookUpdateResultAllowHigherLevel(Map<Enchantment, Integer> enchantments, ItemStack outputStack) {
+        if (!ModuleHandler.enabled(AnvilImprovements.class) || !AnvilImprovements.higherEnchantmentLevels) {
+            EnchantmentHelper.set(enchantments, outputStack); // vanilla behavior
+            return;
+        }
+
+        ItemStack inputStack = this.input.getStack(1);
+        AnvilImprovements.setEnchantmentsAllowHighLevel(enchantments, inputStack, outputStack);
     }
 
     @Inject(

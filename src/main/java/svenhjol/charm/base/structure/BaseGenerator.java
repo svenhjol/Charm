@@ -14,7 +14,7 @@ import java.util.function.Function;
 
 public abstract class BaseGenerator {
     @Nullable
-    protected static StructurePool registerPool(Identifier startPool, List<BaseStructure> structures) {
+    protected static StructurePool registerPool(Identifier startPool, List<BaseStructure> structures, StructurePool.Projection projection) {
         if (structures.isEmpty())
             return emptyPool(startPool);
 
@@ -30,9 +30,14 @@ public abstract class BaseGenerator {
                 startPool,
                 new Identifier("empty"),
                 ImmutableList.copyOf(starts),
-                StructurePool.Projection.RIGID
+                projection
             )
         );
+    }
+
+    @Nullable
+    protected static StructurePool registerPool(Identifier startPool, List<BaseStructure> strutures) {
+        return registerPool(startPool, strutures, StructurePool.Projection.RIGID);
     }
 
     protected static StructurePool emptyPool(Identifier poolName) {

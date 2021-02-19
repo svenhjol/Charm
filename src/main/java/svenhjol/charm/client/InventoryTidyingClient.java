@@ -14,6 +14,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.gui.AtlasScreen;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
@@ -63,7 +64,8 @@ public class InventoryTidyingClient extends CharmClientModule {
 
         blacklistScreens.addAll(Arrays.asList(
             CreativeInventoryScreen.class,
-            BeaconScreen.class
+            BeaconScreen.class,
+            AtlasScreen.class
         ));
 
         // set up client listeners

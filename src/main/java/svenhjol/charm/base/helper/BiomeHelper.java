@@ -23,17 +23,7 @@ import java.util.function.Predicate;
 
 @SuppressWarnings({"UnstableApiUsage", "unused", "deprecation"})
 public class BiomeHelper {
-    public static List<RegistryKey<Biome>> BADLANDS = new ArrayList<>();
-    public static List<RegistryKey<Biome>> DESERT = new ArrayList<>();
-    public static List<RegistryKey<Biome>> END = new ArrayList<>();
-    public static List<RegistryKey<Biome>> FOREST = new ArrayList<>();
-    public static List<RegistryKey<Biome>> JUNGLE = new ArrayList<>();
-    public static List<RegistryKey<Biome>> MOUNTAINS = new ArrayList<>();
-    public static List<RegistryKey<Biome>> NETHER = new ArrayList<>();
-    public static List<RegistryKey<Biome>> PLAINS = new ArrayList<>();
-    public static List<RegistryKey<Biome>> SAVANNA = new ArrayList<>();
-    public static List<RegistryKey<Biome>> SNOWY = new ArrayList<>();
-    public static List<RegistryKey<Biome>> TAIGA = new ArrayList<>();
+    public static Map<Biome.Category, List<RegistryKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
 
     public static Biome getBiome(ServerWorld world, BlockPos pos) {
         BiomeAccess biomeAccess = world.getBiomeAccess();
@@ -57,7 +47,8 @@ public class BiomeHelper {
         return world.locateBiome(biome, pos, 6400, 8);
     }
 
-    public static void addStructureFeatureToBiomes(List<RegistryKey<Biome>> biomeKeys, ConfiguredStructureFeature<?, ?> configuredFeature) {
+    public static void addStructureFeatureToBiomes(Biome.Category biomeCategory, ConfiguredStructureFeature<?, ?> configuredFeature) {
+        List<RegistryKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
         biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureFeature(biomeKey, configuredFeature));
     }
 

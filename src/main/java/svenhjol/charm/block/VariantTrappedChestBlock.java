@@ -1,39 +1,50 @@
 package svenhjol.charm.block;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stat.Stat;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
-import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
-import svenhjol.charm.module.VariantChests;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
 import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.helper.ModHelper;
+import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
+import svenhjol.charm.module.VariantChests;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
 
 @SuppressWarnings({"NullableProblems", "deprecation"})
 public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock, IVariantChestBlock {
     private final CharmModule module;
     private final IVariantMaterial type;
+    private final List<String> loadedMods;
 
-    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type) {
-        super(Settings.copy(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_BLOCK_ENTITY);
+    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
+        this(module, type, Settings.copy(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_BLOCK_ENTITY);
+    }
+
+    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
+        super(settings, supplier);
 
         this.module = module;
         this.type = type;
+        this.loadedMods = Arrays.asList(loadedMods);
 
         this.register(module, type.asString() + "_trapped_chest");
     }
@@ -51,16 +62,13 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.enabled && loadedMods.stream().allMatch(ModHelper::isLoaded);
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        VariantTrappedChestBlockEntity chest = new VariantTrappedChestBlockEntity(pos, state);
-        chest.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_trapped_chest"));
-
-        return chest;
+    public BlockEntity createBlockEntity(BlockView worldIn) {
+        return new VariantTrappedChestBlockEntity();
     }
 
     @Override

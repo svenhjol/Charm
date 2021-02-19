@@ -49,8 +49,7 @@ public class CoralSquids extends CharmModule {
         // register to MC registry
         CORAL_SQUID = RegistryHandler.entity(ID, FabricEntityTypeBuilder
             .create(SpawnGroup.WATER_AMBIENT, CoralSquidEntity::new)
-            .dimensions(EntityDimensions.fixed(0.54f, 0.54f))
-            .build());
+            .dimensions(EntityDimensions.fixed(0.54f, 0.54f)));
 
         SpawnRestrictionAccessor.callRegister(CORAL_SQUID, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CoralSquidEntity::canSpawn);
 

@@ -35,14 +35,17 @@ import java.util.List;
 public class CrateBlock extends CharmBlockWithEntity {
     private static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
     private static final Identifier CONTENTS = new Identifier("contents");
-    private IVariantMaterial type;
+    private final IVariantMaterial type;
 
-    public CrateBlock(CharmModule module, IVariantMaterial type) {
-        super(module, type.asString() + "_crate", AbstractBlock.Settings
+    public CrateBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
+        this(module, type, AbstractBlock.Settings
             .of(Material.WOOD)
             .sounds(BlockSoundGroup.WOOD)
-            .strength(1.5F));
+            .strength(1.5F), loadedMods);
+    }
 
+    public CrateBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings, String... loadedMods) {
+        super(module, type.asString() + "_crate", settings, loadedMods);
         this.type = type;
     }
 

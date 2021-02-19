@@ -1,26 +1,175 @@
 {
-	"parent": "minecraft:item/handheld",
-	"textures": { 
-		"layer0": "charm:item/raid_horn"
+
+	"textures": {
+		"raid_horn": "charm:item/raid_horn",
+		"particle": "charm:item/raid_horn"
 	},
+	"elements": [
+		{
+			"from": [4, 0, 7],
+			"to": [9, 1, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 8, 14]},
+			"faces": {
+				"north": {"uv": [7, 13, 12, 14], "rotation": 180, "texture": "raid_horn"},
+				"east": {"uv": [9, 13, 12, 14], "texture": "raid_horn"},
+				"south": {"uv": [7, 13, 12, 14], "texture": "raid_horn"},
+				"west": {"uv": [0, 15, 3, 16], "texture": "raid_horn"},
+				"up": {"uv": [0, 0, 5, 3], "texture": "raid_horn"},
+				"down": {"uv": [6, 12, 11, 15], "texture": "raid_horn"}
+			}
+		},
+		{
+			"from": [3, 1, 7],
+			"to": [10, 2, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 9, 14]},
+			"faces": {
+				"north": {"uv": [5, 12, 12, 13], "texture": "raid_horn"},
+				"east": {"uv": [9, 1, 12, 2], "texture": "raid_horn"},
+				"south": {"uv": [5, 12, 12, 13], "rotation": 180, "texture": "raid_horn"},
+				"west": {"uv": [6, 10, 9, 11], "texture": "raid_horn"},
+				"up": {"uv": [0, 0, 7, 3], "texture": "raid_horn"},
+				"down": {"uv": [9, 5, 16, 8], "texture": "raid_horn"}
+			}
+		},
+		{
+			"from": [2, 2, 7],
+			"to": [11, 3, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 10, 14]},
+			"faces": {
+				"north": {"uv": [5, 11, 14, 12], "texture": "raid_horn"},
+				"east": {"uv": [9, 1, 12, 2], "texture": "raid_horn"},
+				"south": {"uv": [5, 11, 14, 12], "rotation": 180, "texture": "raid_horn"},
+				"west": {"uv": [9, 1, 12, 2], "texture": "raid_horn"},
+				"up": {"uv": [0, 0, 9, 3], "texture": "raid_horn"},
+				"down": {"uv": [7, 5, 16, 8], "texture": "raid_horn"}
+			}
+		},
+		{
+			"from": [1, 3, 7],
+			"to": [12, 4, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 11, 14]},
+			"faces": {
+				"north": {"uv": [4, 10, 15, 11], "texture": "raid_horn"},
+				"east": {"uv": [9, 1, 12, 2], "texture": "raid_horn"},
+				"south": {"uv": [4, 10, 15, 11], "rotation": 180, "texture": "raid_horn"},
+				"west": {"uv": [9, 1, 12, 2], "texture": "raid_horn"},
+				"up": {"uv": [3, 12, 14, 15], "texture": "raid_horn"},
+				"down": {"uv": [5, 4, 16, 7], "texture": "raid_horn"}
+			}
+		},
+		{
+			"from": [0, 4, 7.5],
+			"to": [3, 5, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 12, 14]},
+			"faces": {
+				"north": {"uv": [11, 9, 15, 10], "texture": "raid_horn"},
+				"east": {"uv": [4, 11, 6, 12], "texture": "raid_horn"},
+				"south": {"uv": [11, 9, 15, 10], "rotation": 180, "texture": "raid_horn"},
+				"west": {"uv": [12, 7, 14, 8], "texture": "raid_horn"},
+				"up": {"uv": [2, 5, 6, 7], "texture": "raid_horn"},
+				"down": {"uv": [10, 6, 14, 8], "texture": "raid_horn"}
+			}
+		},
+		{
+			"from": [0, 5, 7.75],
+			"to": [2, 6, 9.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 13, 16]},
+			"faces": {
+				"north": {"uv": [6, 9, 9, 10], "texture": "raid_horn"},
+				"east": {"uv": [7, 9, 8.5, 10], "texture": "raid_horn"},
+				"south": {"uv": [12, 10, 15, 11], "rotation": 180, "texture": "raid_horn"},
+				"west": {"uv": [10, 7, 11.5, 8], "texture": "raid_horn"},
+				"up": {"uv": [12, 9, 15, 10.5], "rotation": 180, "texture": "raid_horn"},
+				"down": {"uv": [0, 0, 3, 1.5], "texture": "raid_horn"}
+			}
+		},
+		{
+			"from": [6, 4, 6.5],
+			"to": [13, 5, 10.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [18, 12, 14]},
+			"faces": {
+				"north": {"uv": [2, 9, 9, 10], "texture": "raid_horn"},
+				"east": {"uv": [11, 0, 15, 1], "texture": "raid_horn"},
+				"south": {"uv": [1, 7, 8, 8], "rotation": 180, "texture": "raid_horn"},
+				"west": {"uv": [1, 4, 5, 5], "texture": "raid_horn"},
+				"up": {"uv": [8, 4, 15, 8], "texture": "raid_horn"},
+				"down": {"uv": [1, 4, 8, 8], "texture": "raid_horn"}
+			}
+		},
+		{
+			"from": [7, 5, 6],
+			"to": [13, 6, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [18, 13, 15]},
+			"faces": {
+				"north": {"uv": [1, 6, 7, 7], "texture": "raid_horn"},
+				"east": {"uv": [2, 5, 7, 6], "texture": "raid_horn"},
+				"south": {"uv": [1, 6, 7, 7], "rotation": 180, "texture": "raid_horn"},
+				"west": {"uv": [1, 7, 6, 8], "texture": "raid_horn"},
+				"up": {"uv": [0, 0, 6, 5], "texture": "raid_horn"},
+				"down": {"uv": [3, 5, 9, 10], "texture": "raid_horn"}
+			}
+		},
+		{
+			"from": [7, 6, 5.5],
+			"to": [14, 8, 11.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [19, 14, 15]},
+			"faces": {
+				"north": {"uv": [1, 4, 8, 6], "texture": "raid_horn"},
+				"east": {"uv": [1, 4, 7, 6], "texture": "raid_horn"},
+				"south": {"uv": [1, 4, 8, 6], "rotation": 180, "texture": "raid_horn"},
+				"west": {"uv": [1, 4, 7, 6], "rotation": 180, "texture": "raid_horn"},
+				"up": {"uv": [0, 0, 7, 6], "texture": "raid_horn"},
+				"down": {"uv": [2, 4, 9, 10], "texture": "raid_horn"}
+			}
+		},
+		{
+			"from": [7, 8, 5],
+			"to": [15, 9, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [20, 16, 14]},
+			"faces": {
+				"north": {"uv": [1, 7, 9, 8], "texture": "raid_horn"},
+				"east": {"uv": [1, 4, 8, 5], "texture": "raid_horn"},
+				"south": {"uv": [1, 4, 9, 5], "texture": "raid_horn"},
+				"west": {"uv": [1, 7, 8, 8], "texture": "raid_horn"},
+				"up": {"uv": [8, 2, 16, 9], "texture": "raid_horn"},
+				"down": {"uv": [8, 2, 16, 9], "texture": "raid_horn"}
+			}
+		}
+	],
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [ 0, 0, -60 ],
-			"translation": [ 2, 0.1, 0 ],
-			"scale": [ 0.75, 0.75, 0.75 ]
+			"rotation": [68.5, 66.75, -172],
+			"translation": [2.25, 4.25, 3.25],
+			"scale": [-0.49414, -0.5, -0.5]
 		},
 		"thirdperson_lefthand": {
-			"rotation": [ 0, 0, 30 ],
-			"translation": [ 2, 0.1, 0 ],
-			"scale": [ 0.75, 0.75, 0.75 ]
+			"rotation": [-108, -437.75, 0],
+			"translation": [1.25, 4.75, 2],
+			"scale": [-0.49, -0.49, -0.49]
 		},
 		"firstperson_righthand": {
-			"rotation": [ 0, -90, 0 ],
-			"translation": [ 9, -2, -10 ]
+			"rotation": [0, 57, 0],
+			"translation": [1.88, 2, 1.13],
+			"scale": [0.68, 0.68, 0.68]
 		},
 		"firstperson_lefthand": {
-			"rotation": [ 0, 80, 0 ],
-			"translation": [ 10, -2, -10 ]
+			"rotation": [1, 48, 2],
+			"translation": [0.38, 3.2, 2.38],
+			"scale": [-0.68, 0.68, 0.68]
+		},
+		"gui": {
+			"rotation": [25, 36, 0],
+			"translation": [-0.75, 3, 0],
+			"scale": [0.9, 1.09, 1.39]
+		},
+		"head": {
+			"rotation": [-180, 143, -180],
+			"translation": [8, 3.25, -0.75],
+			"scale": [-2.85, -2.19, -3.65]
+		},
+		"fixed": {
+			"rotation": [-16, 2, 7],
+			"translation": [0, 2.5, -4.25]
 		}
 	}
 }

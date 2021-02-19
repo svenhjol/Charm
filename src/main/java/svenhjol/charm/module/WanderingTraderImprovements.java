@@ -1,7 +1,5 @@
 package svenhjol.charm.module;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CampfireBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -12,13 +10,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.feature.StructureFeature;
 import svenhjol.charm.Charm;
-import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.BiomeHelper;
 import svenhjol.charm.base.helper.MapHelper;
 import svenhjol.charm.base.helper.VillagerHelper;
@@ -86,9 +83,8 @@ public class WanderingTraderImprovements extends CharmModule {
     public static class StructureMapForEmeraldsTrade implements TradeOffers.Factory {
         @Override
         public TradeOffer create(Entity trader, Random rand) {
-            TraderMap traderMap = traderMaps.get(rand.nextInt(traderMaps.size()));
-
-            if (!trader.world.isClient) {
+            if (!trader.world.isClient && !traderMaps.isEmpty()) {
+                TraderMap traderMap = traderMaps.get(rand.nextInt(traderMaps.size()));
                 ItemStack map = traderMap.getMap((ServerWorld) trader.world, trader.getBlockPos());
                 if (map != null) {
                     ItemStack in1 = new ItemStack(Items.EMERALD, traderMap.getCost(rand));

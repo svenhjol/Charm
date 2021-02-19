@@ -5,7 +5,6 @@ import svenhjol.charm.base.CharmLoader;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.StringHelper;
 import svenhjol.charm.event.LoadWorldCallback;
-import svenhjol.charm.event.StructureSetupCallback;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -20,12 +19,10 @@ public class ModuleHandler {
     private ModuleHandler() {
         BiomeHandler.init();
 
-        // allow modules to modify structures via an event
-        StructureSetupCallback.EVENT.invoker().interact();
-
         // listen for server world loading events
         LoadWorldCallback.EVENT.register(server -> {
-            DecorationHandler.init(); // load late so that tags are populated at this point
+            // load late so that tags are populated at this point
+            DecorationHandler.init();
         });
     }
 

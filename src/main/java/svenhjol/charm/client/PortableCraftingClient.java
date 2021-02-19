@@ -4,7 +4,6 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
@@ -13,12 +12,12 @@ import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.base.CharmTags;
 import svenhjol.charm.base.helper.ScreenHelper;
 import svenhjol.charm.event.GuiSetupCallback;
 import svenhjol.charm.event.RenderGuiCallback;
@@ -92,7 +91,7 @@ public class PortableCraftingClient extends CharmClientModule {
     }
 
     private boolean hasCrafting(PlayerEntity player) {
-        return ((PlayerEntityAccessor)player).getInventory().contains(new ItemStack(Blocks.CRAFTING_TABLE));
+        return ((PlayerEntityAccessor)player).getInventory().contains(CharmTags.CRAFTING_TABLES);
     }
 
     private void triggerOpenCraftingTable() {

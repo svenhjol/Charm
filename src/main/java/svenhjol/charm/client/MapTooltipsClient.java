@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.map.MapState;
 import net.minecraft.text.OrderedText;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.world.World;
@@ -18,6 +17,7 @@ import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.event.RenderTooltipCallback;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class MapTooltipsClient extends CharmClientModule {
@@ -32,27 +32,24 @@ public class MapTooltipsClient extends CharmClientModule {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
-    private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+    private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
         if (stack != null && stack.getItem() == Items.FILLED_MAP) {
-            boolean result = renderTooltip(matrices, stack, lines, x, y);
-            if (result)
-                return ActionResult.SUCCESS;
+            renderTooltip(matrices, stack, lines, x, y);
         }
-        return ActionResult.PASS;
     }
 
-    private boolean renderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
-        if (stack.getItem() != Items.FILLED_MAP) return false;
+    private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
+        if (stack == null || stack.getItem() != Items.FILLED_MAP) return;
 
         final MinecraftClient mc = MinecraftClient.getInstance();
         final World world = mc.world;
-        if (world == null) return false;
+        if (world == null) return;
 
-        Integer mapId = FilledMapItem.getMapId(stack);
-        MapState mapState = FilledMapItem.getMapState(mapId, MinecraftClient.getInstance().world);
+        MapState data = FilledMapItem.getMapState(stack, world);
 
-        if (mapId == null || mapState == null)
-            return false;
+        if (data == null) return;
+
+        ty -= 16;
 
         int x = tx;
         int y = ty - 72;
@@ -71,8 +68,6 @@ public class MapTooltipsClient extends CharmClientModule {
         matrices.translate(x, y, 500.0);
         matrices.scale(0.5F, 0.5F, 1.0F);
         VertexConsumerProvider.Immediate bufferSource = mc.getBufferBuilders().getEntityVertexConsumers();
-
-
         final VertexConsumer builder = bufferSource.getBuffer(MAP_BACKGROUND);
         Matrix4f matrix4f = matrices.peek().getModel();
         builder.vertex(matrix4f, -7.0F, 135.0F, 0.0F).color(255, 255, 255, 255).texture(0.0F, 1.0F).light(light).next();
@@ -81,10 +76,9 @@ public class MapTooltipsClient extends CharmClientModule {
         builder.vertex(matrix4f, -7.0F, -7.0F, 0.0F).color(255, 255, 255, 255).texture(0.0F, 0.0F).light(light).next();
         matrices.push();
         matrices.translate(0.0, 0.0, 1.0);
-        mc.gameRenderer.getMapRenderer().draw(matrices, bufferSource, mapId, mapState, false, light);
+        mc.gameRenderer.getMapRenderer().draw(matrices, bufferSource, data, false, light);
         matrices.pop();
         matrices.pop();
-        return true;
     }
 }
 

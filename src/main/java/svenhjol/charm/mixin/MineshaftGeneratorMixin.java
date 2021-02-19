@@ -1,5 +1,6 @@
 package svenhjol.charm.mixin;
 
+import net.minecraft.structure.MineshaftGenerator;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
@@ -15,9 +16,9 @@ import svenhjol.charm.module.MineshaftImprovements;
 
 import java.util.Random;
 
-@Mixin(targets = {
-    "net.minecraft.structure.MineshaftGenerator$MineshaftCorridor",
-    "net.minecraft.structure.MineshaftGenerator$MineshaftRoom"
+@Mixin(value = {
+    MineshaftGenerator.MineshaftCorridor.class,
+    MineshaftGenerator.MineshaftRoom.class
 })
 public class MineshaftGeneratorMixin {
     @Inject(

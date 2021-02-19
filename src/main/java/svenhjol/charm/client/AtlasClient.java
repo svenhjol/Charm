@@ -1,79 +1,107 @@
 package svenhjol.charm.client;
 
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.network.PacketContext;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.CartographyTableScreen;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.Vec3f;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.screenhandler.AtlasInventory;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.event.RenderHeldItemCallback;
-import svenhjol.charm.base.gui.CharmHandledScreen;
+import svenhjol.charm.gui.AtlasScreen;
 import svenhjol.charm.module.Atlas;
 import svenhjol.charm.render.AtlasRenderer;
+import svenhjol.charm.screenhandler.AtlasInventory;
+
+import java.util.List;
 
 public class AtlasClient extends CharmClientModule {
-    private final AtlasRenderer renderer;
+    private AtlasRenderer renderer;
 
     public AtlasClient(CharmModule module) {
         super(module);
-        renderer = new AtlasRenderer(MinecraftClient.getInstance().getTextureManager());
     }
 
     @Override
     public void register() {
-        ScreenRegistry.register(Atlas.CONTAINER, CharmHandledScreen.createFactory(2));
+        ScreenRegistry.register(Atlas.CONTAINER, AtlasScreen::new);
     }
 
     @Override
     public void init() {
         RenderHeldItemCallback.EVENT.register(this::handleRenderItem);
+        ItemTooltipCallback.EVENT.register(this::handleItemTooltip);
+        ClientSidePacketRegistry.INSTANCE.register(Atlas.MSG_CLIENT_UPDATE_ATLAS_INVENTORY, this::handleClientUpdateAtlas);
     }
 
-    private ActionResult handleRenderItem(float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        if (stack.getItem() == Atlas.ATLAS_ITEM) {
-            renderAtlas(matrices, vertexConsumers, light, hand, pitch, equipProgress, swingProgress, stack);
+    public void handleClientUpdateAtlas(PacketContext context, PacketByteBuf data) {
+        int atlasSlot = data.readInt();
+        context.getTaskQueue().execute(() -> {
+            updateInventory(atlasSlot);
+        });
+    }
+
+    public ActionResult handleRenderItem(float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack itemStack, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+        if (itemStack.getItem() == Atlas.ATLAS_ITEM) {
+            if (renderer == null) {
+                renderer = new AtlasRenderer();
+            }
+            renderer.renderAtlas(matrices, vertexConsumers, light, hand, equipProgress, swingProgress, itemStack);
             return ActionResult.SUCCESS;
         }
 
         return ActionResult.PASS;
     }
 
-    public void renderAtlas(MatrixStack matrixStack, VertexConsumerProvider buffers, int light, Hand hand, float pitch, float equip, float swing, ItemStack stack) {
-        MinecraftClient minecraft = MinecraftClient.getInstance();
-        ClientWorld world = minecraft.world;
-        ClientPlayerEntity player = minecraft.player;
-        if (player == null) return;
-        AtlasInventory inventory = Atlas.getInventory(world, stack);
+    public void handleItemTooltip(ItemStack stack, TooltipContext context, List<Text> lines) {
+        if (stack == null || stack.isEmpty() || stack.getItem() != Atlas.ATLAS_ITEM)
+            return;
 
-        matrixStack.push(); // needed so that parent renderer isn't affect by what we do here
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        if (player == null)
+            return;
 
-        // copypasta from renderMapFirstPersonSide
-        float e = hand == Hand.MAIN_HAND ? 1.0F : -1.0F;
-        matrixStack.translate(e * 0.125F, -0.125D, 0.0D);
+        AtlasInventory inventory = Atlas.getInventory(player.world, stack);
 
-        // render player arm
-        if (!player.isInvisible()) {
-            matrixStack.push();
-            matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(e * 10.0F));
-            renderer.renderArm(player, matrixStack, buffers, light, swing, equip, hand);
-            matrixStack.pop();
-        }
+        ItemStack map = inventory.getLastActiveMapItem();
+        if (map == null)
+            return;
 
-        // transform page based on the hand it is held and render it
-        matrixStack.push();
-        renderer.transformPageForHand(matrixStack, buffers, light, swing, equip, hand);
-        renderer.renderAtlas(player, inventory, matrixStack, buffers, light);
-        matrixStack.pop();
+        lines.add(new LiteralText("Scale " + inventory.getScale()).formatted(Formatting.GRAY));
 
-        matrixStack.pop(); // close
+        MutableText name = map.hasCustomName() ? map.getName().copy()
+            : map.getName().copy().append(new LiteralText(" #" + FilledMapItem.getMapId(map)));
+        lines.add(name.formatted(Formatting.GRAY, Formatting.ITALIC));
     }
 
+    public static void updateInventory(int atlasSlot) {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        ClientPlayerEntity player = mc.player;
+        if (player == null) return;
+        ItemStack atlas = player.inventory.getStack(atlasSlot);
+        Atlas.getInventory(mc.world, atlas).reload(atlas);
+    }
+
+    public static boolean shouldDrawAtlasCopy(CartographyTableScreen screen) {
+        return ModuleHandler.enabled(Atlas.class) && screen.getScreenHandler().getSlot(0).getStack().getItem() == Atlas.ATLAS_ITEM
+            && screen.getScreenHandler().getSlot(1).getStack().getItem() == Items.MAP;
+    }
 }
 

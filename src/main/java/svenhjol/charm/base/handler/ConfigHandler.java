@@ -20,8 +20,7 @@ import java.util.*;
 public class ConfigHandler {
 
     public static void createConfig(String mod, Map<String, CharmModule> modules) {
-        String configName = mod.equals(Charm.MOD_ID) ? Charm.MOD_ID : Charm.MOD_ID + "-" + mod;
-        String configPath = "./config/" + configName + ".toml";
+        String configPath = "./config/" + mod + ".toml";
 
         // this blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically
         CommentedConfig writeConfig = TomlFormat.newConfig(LinkedHashMap::new);

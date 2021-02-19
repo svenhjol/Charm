@@ -7,7 +7,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.event.GuiSetupCallback;
+import svenhjol.charm.event.RenderTooltipCallback;
 
 import java.util.List;
 
@@ -63,13 +62,10 @@ public abstract class ScreenMixin {
      */
     @Inject(
         method = "renderOrderedTooltip",
-        at = @At("HEAD"),
-        cancellable = true
+        at = @At("HEAD")
     )
     private void hookRenderOrderedTooltip(MatrixStack matrices, List<? extends OrderedText> lines, int x, int y, CallbackInfo ci) {
-        ActionResult result = RenderTooltipCallback.EVENT.invoker().interact(matrices, itemStack, lines, x, y);
+        RenderTooltipCallback.EVENT.invoker().interact(matrices, itemStack, lines, x, y);
         itemStack = null;
-        if (result != ActionResult.PASS)
-            ci.cancel();
     }
 }

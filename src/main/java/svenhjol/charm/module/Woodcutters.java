@@ -15,7 +15,7 @@ import svenhjol.charm.screenhandler.WoodcutterScreenHandler;
 
 @Module(mod = Charm.MOD_ID, client = WoodcuttersClient.class, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
 public class Woodcutters extends CharmModule {
-    public static Identifier RECIPE_ID = new Identifier("woodcutting");
+    public static Identifier RECIPE_ID = new Identifier(Charm.MOD_ID, "woodcutting");
     public static Identifier BLOCK_ID = new Identifier(Charm.MOD_ID, "woodcutter");
     public static WoodcutterBlock WOODCUTTER;
     public static ScreenHandlerType<WoodcutterScreenHandler> SCREEN_HANDLER;

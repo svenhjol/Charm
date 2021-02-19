@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:gilded_blackstone"
+    }
+  },
+  "result": {
+    "item": "charm:player_pressure_plate"
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "charm:player_pressure_plates"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+name: Mark stale issues
+
+on:
+  schedule:
+  - cron: "30 2 * * *"
+
+jobs:
+  stale:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/stale@v3
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        days-before-stale: 14
+        days-before-close: 7
+        stale-issue-message: 'This issue needs more information and has not seen any activity recently. It will be closed automatically if no response is given.'
+        only-labels: 'needs info,lacking basic info'

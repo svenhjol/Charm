@@ -23,7 +23,7 @@ public class EndermitePowderEntity extends Entity {
     private static final String TAG_TARGET_X = "targetX";
     private static final String TAG_TARGET_Z = "targetZ";
 
-    public EndermitePowderEntity(EntityType<? extends Entity> type, World world) {
+    public EndermitePowderEntity(EntityType<? extends EndermitePowderEntity> type, World world) {
         super(type, world);
     }
 

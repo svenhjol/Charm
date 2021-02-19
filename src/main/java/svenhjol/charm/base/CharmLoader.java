@@ -77,7 +77,7 @@ public class CharmLoader {
         // run dependency check on each module
         eachModule(ModuleHandler.INSTANCE::depends);
 
-        // post init, only enabled modules are run
+        // init, only enabled modules are run
         eachEnabledModule(ModuleHandler.INSTANCE::init);
 
         // listen for server world loading events

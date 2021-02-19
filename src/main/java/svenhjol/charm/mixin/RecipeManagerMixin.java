@@ -17,28 +17,29 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-@Mixin(RecipeManager.class)
+@Mixin(value = RecipeManager.class)
 public class RecipeManagerMixin {
     private Map<Identifier, JsonElement> map2 = new TreeMap<>();
 
     /**
-     * Allows RecipeHandler to remove recipes that are no longer
-     * valid according to the module configuration.
+     * Creates map of Charm modules to remove from registered recipes.
+     * Prepares conversion of registered recipes map to a TreeMap
+     * so that modded recipes are iterated before vanilla recipes.
      * 
-     * {@link RecipeHandler#filter(Map)}
+     * {@link RecipeHandler#prepareCharmModulesFilter(Map)}
      */
     @Inject(
         method = "apply",
         at = @At("HEAD")
     )
     private void hookApply(Map<Identifier, JsonElement> map, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
-        RecipeHandler.filter(map);
+        RecipeHandler.prepareCharmModulesFilter(map);
         map2 = new TreeMap<>(map);
     }
 
     /**
-     * Allows RecipeHandler to sort Minecraft's recipes
-     * prioritising modded recipes over vanilla.
+     * Allows RecipeHandler to sort and filter registered recipes.
+     *
      * @param set
      * @return
      */
@@ -50,6 +51,6 @@ public class RecipeManagerMixin {
         )
     )
     private Iterator<?> hookNewHashMap(Set set) {
-        return RecipeHandler.sortedRecipes(map2);
+        return RecipeHandler.sortAndFilterRecipes(map2);
     }
 }

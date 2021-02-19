@@ -20,6 +20,7 @@ public class InventoryButtonClient extends CharmClientModule {
     public TexturedButtonWidget recipeButton;
     public PortableCraftingClient portableCraftingClient;
     public PortableEnderChestClient portableEnderChestClient;
+    private boolean hasHiddenRecipeButton = false;
 
     public InventoryButtonClient(CharmModule module) {
         super(module);
@@ -63,22 +64,28 @@ public class InventoryButtonClient extends CharmClientModule {
         if (portableCraftingClient != null && portableCraftingClient.isButtonVisible()) {
             if (portableEnderChestClient.isButtonVisible()) {
                 // recipe, crafting and chest buttons
-                if (this.recipeButton != null)
+                if (this.recipeButton != null) {
                     this.recipeButton.visible = false;
+                    this.hasHiddenRecipeButton = true;
+                }
                 portableCraftingClient.craftingButton.setPos(left + 104, portableCraftingClient.craftingButton.y);
                 portableEnderChestClient.chestButton.setPos(left + 130, portableEnderChestClient.chestButton.y);
 
             } else {
                 // just the recipe and crafting buttons
-                if (this.recipeButton != null)
+                if (this.recipeButton != null && this.hasHiddenRecipeButton) {
                     this.recipeButton.visible = true;
+                    this.hasHiddenRecipeButton = false;
+                }
                 portableCraftingClient.craftingButton.setPos(left + 130, portableCraftingClient.craftingButton.y);
 
             }
         } else if (portableEnderChestClient != null && portableEnderChestClient.isButtonVisible()) {
             // just the recipe and chest buttons
-            if (this.recipeButton != null)
+            if (this.recipeButton != null && this.hasHiddenRecipeButton) {
                 this.recipeButton.visible = true;
+                this.hasHiddenRecipeButton = false;
+            }
             portableEnderChestClient.chestButton.setPos(left + 130, portableEnderChestClient.chestButton.y);
         }
     }
