@@ -90,7 +90,7 @@ public class VariantMobTexturesClient extends CharmClientModule {
         cows.add(new Identifier(PREFIX + "cow/cow.png"));
         pigs.add(new Identifier(PREFIX + "pig/pig.png"));
         snowGolems.add(new Identifier(PREFIX + "snow_golem.png"));
-        squids.add(new Identifier(PREFIX + "squid.png"));
+        squids.add(new Identifier(PREFIX + "squid/squid.png"));
 
         Identifier wolf = new Identifier(PREFIX + "wolf/wolf.png");
         wolves.add(wolf);
