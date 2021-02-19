@@ -2,6 +2,7 @@ package svenhjol.charm.module;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.util.TriConsumer;
@@ -12,7 +13,7 @@ import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 
-@Module(mod = Charm.MOD_ID, description = "Combine a tool or armor with a netherite nugget on an anvil to reduce its repair cost.")
+@Module(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.")
 public class DecreaseRepairCost extends CharmModule {
     @Config(name = "XP cost", description = "Number of levels required to reduce repair cost on the anvil.")
     public static int xpCost = 0;
@@ -36,8 +37,8 @@ public class DecreaseRepairCost extends CharmModule {
         if (left.isEmpty() || right.isEmpty())
             return ActionResult.PASS; // if both the input and middle items are empty, do nothing
 
-        if (right.getItem() != NetheriteNuggets.NETHERITE_NUGGET)
-            return ActionResult.PASS; // if the middle item is not a netherite nugget, do nothing
+        if (right.getItem() != Items.AMETHYST_SHARD)
+            return ActionResult.PASS; // if the middle item is not an amethyst shard, do nothing
 
         if (left.getRepairCost() == 0)
             return ActionResult.PASS; // if the input item does not need repairing, do nothing
@@ -50,7 +51,7 @@ public class DecreaseRepairCost extends CharmModule {
         out.setRepairCost(Math.max(0, cost - decreaseAmount));
 
         // apply the stuff to the anvil
-        apply.accept(out, xpCost, 1); // item to output, the xp cost of this operation, and the amount of nuggets used.
+        apply.accept(out, xpCost, 1); // item to output, the xp cost of this operation, and the amount of shards used.
 
         return ActionResult.SUCCESS;
     }
