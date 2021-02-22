@@ -1,0 +1,99 @@
+# Charm 1.17 Testing
+
+## Module testing (Client only)
+- *Acquisition*
+   - to be renamed
+- Aerial affinity
+- Anvil improvements
+- Armor invisibility
+- **Atlas**
+   - slots don't show empty maps, but they're still there on click
+   - cartography table doesn't let you take the zoomed out atlas
+- Automatic recipe unlock
+- Autorestock
+- Bat Bucket
+- Beekeepers
+- Block of Ender Pearls
+- Block of Gunpowder
+- Block of Sugar
+- Bookcases
+- Campfires no damage
+- ~~Candles~~
+   - to be removed
+- Cave spiders drop cobwebs
+- Chickens drop feathers
+- Coral sea lanterns
+- Coral squids
+- ~~Crates~~
+   - to be removed
+- *Decrease repair cost*
+   - now works with Amethyst Shards
+- Dirt to path
+- Endermite powder
+- ?? Extend netherite
+- Extract enchantments
+- **Extra recipes**
+   - bread and paper don't seem to work
+- Feather falling crops
+- *Glowballs*
+   - light changed from 8 to 12
+- Gold bars
+- Gold chains
+- Gold lanterns
+- Hoe harvesting
+- Husk improvements
+- Inventory tidying
+- **Kilns**
+   - don't function
+- Lumberjacks
+- **Map tooltips**
+   - don't function
+- *Mineshaft improvements*
+   - now generates more minecarts rather than crates
+   - now generates piles of ore in corridors
+   - now generates emerald ore in central room
+- ?? Mooblooms
+- ?? More portal frames
+- More village biomes
+- ?? Music improvements
+- ~~Netherite nuggets~~
+   - to be removed
+- Parrots stay on shoulder
+- Path to dirt
+- Player pressure plates
+- Portable crafting
+- ~~Portable ender chest~~
+   - to be moved to Strange
+- Raid horns
+- Redstone lanterns
+- Redstone sand
+- ~~Refined obsidian~~
+   - move to Covalent
+- Remove nitwits
+- Remove potion glint
+- Remove spyglass scope
+- **Shulkerbox tooltips**
+   - doesn't function
+- ~~Sleep improvements~~
+   - to be removed
+- ~~Smooth glowstone~~
+   - move to Covalent
+- ?? Snowstorms
+- Stackable enchanted books
+- Stackable potions
+- Stackable stews
+- ?? Stray improvements
+- ?? Tamed animals no damage
+- *Tinted*
+   - functionality to be changed
+- ?? Use totem from inventory
+- Variant barrels
+- ?? Variant bookshelves
+- ?? Variant chests
+- ?? Variant ladders
+- ?? Variant mob textures
+- Villagers follow emerald blocks
+- ?? Wandering trader improvements
+- ?? Witches drop luck
+- ?? Woodcutters
+
