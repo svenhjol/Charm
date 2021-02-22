@@ -27,18 +27,6 @@ public class ServerWorldMixin {
         AddEntityCallback.EVENT.invoker().interact(entity);
     }
 
-    // TODO: check, this might not be needed now
-//    @Inject(
-//        method = "loadEntity",
-//        at = @At(
-//            value = "INVOKE",
-//            target = "net/minecraft/server/world/ServerWorld.loadEntityUnchecked(Lnet/minecraft/entity/Entity;)V"
-//        )
-//    )
-//    private void hookLoadEntity(Entity entity, CallbackInfoReturnable<Boolean> cir) {
-//        AddEntityCallback.EVENT.invoker().interact(entity);
-//    }
-
     /**
      * Calls our AddEntityCallback event when a player
      * joins the game on the server side.
