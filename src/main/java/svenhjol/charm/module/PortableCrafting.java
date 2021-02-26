@@ -40,6 +40,7 @@ public class PortableCrafting extends CharmModule {
     }
 
     public static void openContainer(ServerPlayerEntity player) {
+        player.closeHandledScreen();
         player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, inv, p) -> new PortableCraftingScreenHandler(i, inv, ScreenHandlerContext.create(p.world, p.getBlockPos())), LABEL));
     }
 }
