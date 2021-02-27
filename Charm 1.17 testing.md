@@ -8,7 +8,6 @@
 - Armor invisibility
 - **Atlas**
    - slots don't show empty maps, but they're still there on click
-   - cartography table doesn't let you take the zoomed out atlas
 - Automatic recipe unlock
 - Autorestock
 - Bat Bucket
