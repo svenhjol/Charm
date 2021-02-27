@@ -30,7 +30,8 @@
    - now works with Amethyst Shards
 - Dirt to path
 - Endermite powder
-- ?? Extend netherite
+- ~~Extend netherite~~
+   - to be removed
 - Extract enchantments
 - **Extra recipes**
    - bread and paper don't seem to work
@@ -52,10 +53,10 @@
    - now generates more minecarts rather than crates
    - now generates piles of ore in corridors
    - now generates emerald ore in central room
-- ?? Mooblooms
-- ?? More portal frames
+- Mooblooms
+- More portal frames
 - More village biomes
-- ?? Music improvements
+- Music improvements
 - ~~Netherite nuggets~~
    - to be removed
 - Parrots stay on shoulder
@@ -78,22 +79,22 @@
    - to be removed
 - ~~Smooth glowstone~~
    - move to Covalent
-- ?? Snowstorms
+- Snowstorms
 - Stackable enchanted books
 - Stackable potions
 - Stackable stews
-- ?? Stray improvements
-- ?? Tamed animals no damage
+- Stray improvements
+- Tamed animals no damage
 - *Tinted*
    - functionality to be changed
-- ?? Use totem from inventory
+- Use totem from inventory
 - Variant barrels
-- ?? Variant bookshelves
-- ?? Variant chests
-- ?? Variant ladders
-- ?? Variant mob textures
+- Variant bookshelves
+- Variant chests
+- Variant ladders
+- Variant mob textures
 - Villagers follow emerald blocks
-- ?? Wandering trader improvements
-- ?? Witches drop luck
-- ?? Woodcutters
+- Wandering trader improvements
+- Witches drop luck
+- Woodcutters
 
