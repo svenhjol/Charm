@@ -240,7 +240,7 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
     public void markDirty() {
         ItemNBTHelper.setInt(atlas, SCALE, scale);
         CompoundTag emptyMapNBT = new CompoundTag();
-        Inventories.readNbt(emptyMapNBT, emptyMaps);
+        Inventories.writeNbt(emptyMapNBT, emptyMaps, false);
         ItemNBTHelper.setCompound(atlas, EMPTY_MAPS, emptyMapNBT);
         ListTag listNBT = new ListTag();
         for (MapInfo mapInfo : mapInfos.values()) {
