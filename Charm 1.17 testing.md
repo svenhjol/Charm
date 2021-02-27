@@ -44,8 +44,7 @@
 - Hoe harvesting
 - Husk improvements
 - Inventory tidying
-- **Kilns**
-   - don't function
+- Kilns
 - Lumberjacks
 - Map tooltips
 - *Mineshaft improvements*

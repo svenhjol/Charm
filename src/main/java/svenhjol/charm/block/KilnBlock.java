@@ -7,6 +7,8 @@ import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.particle.ParticleTypes;
@@ -19,6 +21,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
 import svenhjol.charm.blockentity.KilnBlockEntity;
+import svenhjol.charm.module.Kilns;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -34,6 +37,12 @@ public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
 
         this.module = module;
         this.register(module, "kiln");
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(world, type, Kilns.BLOCK_ENTITY);
     }
 
     @Override

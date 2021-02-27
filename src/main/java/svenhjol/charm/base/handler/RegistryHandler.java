@@ -29,7 +29,6 @@ import net.minecraft.world.poi.PointOfInterestType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 @SuppressWarnings("UnusedReturnValue")
 public class RegistryHandler {
@@ -76,7 +75,7 @@ public class RegistryHandler {
     }
 
     public static <S extends RecipeSerializer<T>, T extends Recipe<?>> S recipeSerializer(String recipeId, S serializer) {
-        return RecipeSerializer.register(recipeId, serializer);
+        return Registry.register(Registry.RECIPE_SERIALIZER, recipeId, serializer);
     }
 
     public static <T extends ScreenHandler> ScreenHandlerType<T> screenHandler(Identifier id, ScreenHandlerType.Factory<T> factory) {
