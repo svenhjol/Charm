@@ -61,7 +61,7 @@ public abstract class ScreenMixin {
      * can hook into the tooltip before it is rendered.
      */
     @Inject(
-        method = "renderOrderedTooltip",
+        method = "renderTooltipFromComponents",
         at = @At("HEAD")
     )
     private void hookRenderOrderedTooltip(MatrixStack matrices, List<? extends OrderedText> lines, int x, int y, CallbackInfo ci) {
