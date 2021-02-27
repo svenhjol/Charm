@@ -34,7 +34,7 @@
    - to be removed
 - Extract enchantments
 - **Extra recipes**
-   - bread and paper don't seem to work
+   - bread and paper don't seem to work: Missing recipes
 - Feather falling crops
 - *Glowballs*
    - light changed from 8 to 12
@@ -47,8 +47,7 @@
 - **Kilns**
    - don't function
 - Lumberjacks
-- **Map tooltips**
-   - don't function
+- Map tooltips
 - *Mineshaft improvements*
    - now generates more minecarts rather than crates
    - now generates piles of ore in corridors
@@ -73,8 +72,7 @@
 - Remove nitwits
 - Remove potion glint
 - Remove spyglass scope
-- **Shulkerbox tooltips**
-   - doesn't function
+- Shulkerbox tooltips
 - ~~Sleep improvements~~
    - to be removed
 - ~~Smooth glowstone~~
