@@ -1,7 +1,5 @@
 package svenhjol.charm.base.helper;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -40,15 +38,6 @@ public class PlayerHelper {
 
     public static PlayerAbilities getAbilities(PlayerEntity player) {
         return ((PlayerEntityAccessor)player).getAbilities();
-    }
-
-    public static void openInventory() {
-        MinecraftClient mc = MinecraftClient.getInstance();
-
-        if (mc.player == null)
-            return;
-
-        mc.openScreen(new InventoryScreen(mc.player));
     }
 
     public static void teleport(World world, BlockPos pos, PlayerEntity player) {
