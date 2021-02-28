@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "#charm:chests/wooden",
-    "#charm:barrels",
-    "#charm:crates"
+    "#charm:barrels"
   ]
 }
