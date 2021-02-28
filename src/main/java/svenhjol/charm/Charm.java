@@ -75,7 +75,6 @@ public class Charm implements ModInitializer {
             RemovePotionGlint.class,
             RemoveSpyglassScope.class,
             ShulkerBoxTooltips.class,
-            SleepImprovements.class,
             SmoothGlowstone.class,
             SnowStorms.class,
             StackableEnchantedBooks.class,
