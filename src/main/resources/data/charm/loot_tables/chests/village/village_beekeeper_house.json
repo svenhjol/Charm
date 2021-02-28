@@ -56,11 +56,6 @@
         {
           "type": "minecraft:item",
           "weight": 1,
-          "name": "charm:candle"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
           "name": "minecraft:shears"
         }
       ]

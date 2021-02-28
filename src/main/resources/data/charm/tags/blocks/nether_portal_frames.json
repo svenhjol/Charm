@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "minecraft:obsidian",
-    "minecraft:crying_obsidian",
-    "charm:refined_obsidian"
+    "minecraft:crying_obsidian"
   ]
 }

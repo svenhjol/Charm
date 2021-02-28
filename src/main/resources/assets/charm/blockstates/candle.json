@@ -1,6 +1,0 @@
-{
-  "variants": {
-    "lit=false": { "model": "charm:block/candle" },
-    "lit=true": { "model": "charm:block/candle" }
-  }
-}
