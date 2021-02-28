@@ -6,8 +6,7 @@
 - Aerial affinity
 - Anvil improvements
 - Armor invisibility
-- **Atlas**
-   - slots don't show empty maps, but they're still there on click
+- Atlas
 - Automatic recipe unlock
 - Autorestock
 - Bat Bucket
@@ -32,8 +31,7 @@
 - ~~Extend netherite~~
    - to be removed
 - Extract enchantments
-- **Extra recipes**
-   - bread and paper don't seem to work: Missing recipes
+- Extra recipes
 - Feather falling crops
 - *Glowballs*
    - light changed from 8 to 12
