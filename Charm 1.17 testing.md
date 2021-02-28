@@ -13,7 +13,8 @@
 - Beekeepers
 - ~~Beeswax~~
    - to be removed
-- Block of Ender Pearls
+- *Block of Ender Pearls*
+   - default teleport range increased
 - Block of Gunpowder
 - Block of Sugar
 - Bookcases
