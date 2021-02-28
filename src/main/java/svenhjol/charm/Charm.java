@@ -44,7 +44,6 @@ public class Charm implements ModInitializer {
             DirtToPath.class,
             EndermitePowder.class,
             EntitySpawners.class,
-            ExtendNetherite.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
             Glowballs.class,
