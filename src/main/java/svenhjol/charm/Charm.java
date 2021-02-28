@@ -33,7 +33,6 @@ public class Charm implements ModInitializer {
             BlockOfSugar.class,
             Bookcases.class,
             CampfiresNoDamage.class,
-            Candles.class,
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
             CoralSeaLanterns.class,
