@@ -41,7 +41,7 @@ public class Lumberjacks extends CharmModule {
         addTrade(LUMBERJACK, 3, new EmeraldsForStems());
         addTrade(LUMBERJACK, 3, new DoorsForEmeralds());
         addTrade(LUMBERJACK, 3, new UncommonSaplingsForEmeralds());
-        addTrade(LUMBERJACK, 4, new CrateForEmeralds());
+        addTrade(LUMBERJACK, 4, new BarrelForEmeralds());
         addTrade(LUMBERJACK, 4, new MusicBlocksForLogs());
         addTrade(LUMBERJACK, 5, new BookcaseForEmeralds());
         addTrade(LUMBERJACK, 5, new WorkstationForEmeralds());

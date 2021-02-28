@@ -413,22 +413,15 @@ public class DataBlockProcessor extends StructureProcessor {
             LootableContainerBlockEntity blockEntity;
             IVariantMaterial woodType = DecorationHelper.getRandomVariantMaterial(random);
 
-            if (random.nextFloat() < 0.5F && ModuleHandler.enabled("charm:crates")) {
-                // get a crate
-                state = Crates.CRATE_BLOCKS.get(woodType).getDefaultState();
-                blockEntity = Crates.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, Crates.CRATE_BLOCKS.get(VanillaVariantMaterial.OAK).getDefaultState());
+            if (ModuleHandler.enabled("charm:variant_barrels")) {
+                // get variant barrel
+                state = VariantBarrels.BARREL_BLOCKS.get(woodType).getDefaultState();
             } else {
-                // get a barrel
-                if (ModuleHandler.enabled("charm:variant_barrels")) {
-                    // get variant barrel
-                    state = VariantBarrels.BARREL_BLOCKS.get(woodType).getDefaultState();
-                } else {
-                    // get vanilla barrel
-                    state = Blocks.BARREL.getDefaultState();
-                }
-                state = state.with(BarrelBlock.FACING, Direction.UP);
-                blockEntity = BlockEntityType.BARREL.instantiate(BlockPos.ORIGIN, Blocks.BARREL.getDefaultState());
+                // get vanilla barrel
+                state = Blocks.BARREL.getDefaultState();
             }
+            state = state.with(BarrelBlock.FACING, Direction.UP);
+            blockEntity = BlockEntityType.BARREL.instantiate(BlockPos.ORIGIN, Blocks.BARREL.getDefaultState());
 
             if (blockEntity == null)
                 return;

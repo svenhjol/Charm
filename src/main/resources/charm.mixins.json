@@ -35,8 +35,6 @@
     "ServerEntityManagerMixin",
     "ServerPlayerInteractionManagerMixin",
     "ServerWorldMixin",
-    "ShulkerBoxBlockEntityMixin",
-    "ShulkerBoxSlotMixin",
     "SinglePoolElementMixin",
     "SnowBlockMixin",
     "StrayEntityMixin",

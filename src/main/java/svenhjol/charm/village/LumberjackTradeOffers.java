@@ -11,14 +11,14 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
-import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.module.Bookcases;
-import svenhjol.charm.module.Crates;
-import svenhjol.charm.module.VariantLadders;
-import svenhjol.charm.module.Woodcutters;
 import svenhjol.charm.base.enums.IVariantMaterial;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.DecorationHelper;
 import svenhjol.charm.base.helper.VillagerHelper.SingleItemTypeTrade;
+import svenhjol.charm.module.Bookcases;
+import svenhjol.charm.module.VariantBarrels;
+import svenhjol.charm.module.VariantLadders;
+import svenhjol.charm.module.Woodcutters;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -191,14 +191,22 @@ public class LumberjackTradeOffers {
 
     // TIER 4
 
-    public static class CrateForEmeralds extends SingleItemTypeTrade {
+    public static class BarrelForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
             experience = 15;
-            IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
-            setInput(Items.EMERALD, 8);
-            setOutput(Crates.CRATE_BLOCKS.get(variant), 1);
+            ItemConvertible out;
+            setInput(Items.EMERALD, 4);
+
+            if (ModuleHandler.enabled("charm:variant_barrels")) {
+                IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
+                out = VariantBarrels.BARREL_BLOCKS.get(variant);
+            } else {
+                out = Blocks.BARREL;
+            }
+
+            setOutput(out, random.nextInt(2) + 1);
             return super.create(entity, random);
         }
     }
