@@ -24,7 +24,7 @@ import java.util.Set;
 
 public class VariantChestsClient extends CharmClientModule {
     private final VariantChestBlockEntity CACHED_NORMAL_CHEST = new VariantChestBlockEntity(BlockPos.ORIGIN, Blocks.CHEST.getDefaultState());
-    private final VariantTrappedChestBlockEntity CACHED_TRAPPED_CHEST = new VariantTrappedChestBlockEntity(BlockPos.ORIGIN, Blocks.CHEST.getDefaultState());
+    private final VariantTrappedChestBlockEntity CACHED_TRAPPED_CHEST = new VariantTrappedChestBlockEntity(BlockPos.ORIGIN, Blocks.TRAPPED_CHEST.getDefaultState());
 
     public VariantChestsClient(CharmModule module) {
         super(module);
