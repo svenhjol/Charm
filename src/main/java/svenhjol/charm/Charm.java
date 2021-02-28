@@ -61,7 +61,6 @@ public class Charm implements ModInitializer {
             MorePortalFrames.class,
             MoreVillageBiomes.class,
             MusicImprovements.class,
-            NetheriteNuggets.class,
             ParrotsStayOnShoulder.class,
             PathToDirt.class,
             PlayerPressurePlates.class,
