@@ -11,30 +11,23 @@
 - Autorestock
 - Bat Bucket
 - Beekeepers
-- ~~Beeswax~~
-   - to be removed
 - *Block of Ender Pearls*
    - default teleport range increased
 - Block of Gunpowder
 - Block of Sugar
 - Bookcases
 - Campfires no damage
-- ~~Candles~~
-   - to be removed
 - Cave spiders drop cobwebs
 - Chickens drop feathers
 - Coral sea lanterns
 - Coral squids
-- ~~Crates~~
-   - to be removed
 - *Decrease repair cost*
    - now works with Amethyst Shards
 - Dirt to path
 - Endermite powder
-- ~~Extend netherite~~
-   - to be removed
 - Extract enchantments
-- Extra recipes
+- *Extra recipes*
+   - added leather bundle recipe for 1.17
 - Feather falling crops
 - *Glowballs*
    - light changed from 8 to 12
@@ -55,8 +48,6 @@
 - More portal frames
 - More village biomes
 - Music improvements
-- ~~Netherite nuggets~~
-   - to be removed
 - Parrots stay on shoulder
 - Path to dirt
 - Player pressure plates
@@ -70,10 +61,9 @@
    - move to Covalent
 - Remove nitwits
 - Remove potion glint
-- Remove spyglass scope
+- *Remove spyglass scope*
+   - only 1.17
 - Shulkerbox tooltips
-- ~~Sleep improvements~~
-   - to be removed
 - ~~Smooth glowstone~~
    - move to Covalent
 - Snowstorms
