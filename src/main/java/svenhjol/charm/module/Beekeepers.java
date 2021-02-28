@@ -35,7 +35,7 @@ public class Beekeepers extends CharmModule {
         addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.EmeraldsForFlowers());
         addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.BottlesForEmerald());
         addTrade(BEEKEEPER, 2, new BeekeeperTradeOffers.EmeraldsForCharcoal());
-        addTrade(BEEKEEPER, 2, new BeekeeperTradeOffers.BeeswaxForEmeralds());
+        addTrade(BEEKEEPER, 2, new BeekeeperTradeOffers.CandlesForEmeralds());
         addTrade(BEEKEEPER, 3, new BeekeeperTradeOffers.EmeraldsForHoneycomb());
         addTrade(BEEKEEPER, 3, new BeekeeperTradeOffers.CampfireForEmerald());
         addTrade(BEEKEEPER, 4, new BeekeeperTradeOffers.LeadForEmeralds());

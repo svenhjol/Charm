@@ -14,8 +14,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
-import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.module.Candles;
 import svenhjol.charm.base.helper.VillagerHelper.SingleItemTypeTrade;
 
 import javax.annotation.Nullable;
@@ -64,17 +62,12 @@ public class BeekeeperTradeOffers {
         }
     }
 
-    public static class BeeswaxForEmeralds extends SingleItemTypeTrade {
+    public static class CandlesForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
             setInput(Items.EMERALD, 3);
-
-            if (ModuleHandler.enabled("charm:candles")) {
-                setOutput(Candles.BEESWAX, 1);
-            } else {
-                setOutput(Items.HONEYCOMB, 1);
-            }
+            setOutput(ItemTags.CANDLES.getRandom(random), 1);
 
             return super.create(entity, random);
         }
