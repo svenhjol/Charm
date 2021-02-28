@@ -1,6 +1,6 @@
 # Charm 1.17 Testing
 
-## Module testing (Client only)
+## Module testing (Client+Server)
 - *Acquisition*
    - to be renamed
 - Aerial affinity
@@ -11,6 +11,8 @@
 - Autorestock
 - Bat Bucket
 - Beekeepers
+- ~~Beeswax~~
+   - to be removed
 - Block of Ender Pearls
 - Block of Gunpowder
 - Block of Sugar
