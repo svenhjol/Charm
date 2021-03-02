@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3.3
+* Restored 2x2 bread and paper recipes
+
 ## 2.3.2
 * Fixes svenhjol/CharmForge#68, svenhjol/CharmForge#72, svenhjol/CharmForge#61, svenhjol/CharmForge#59
 * Support recipe button hidden by other mods svenhjol/CharmForge#24
