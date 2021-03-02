@@ -3,6 +3,7 @@ package svenhjol.charm.mixin.accessor;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -15,6 +16,9 @@ public interface PlayerEntityAccessor {
 
     @Accessor
     PlayerAbilities getAbilities();
+
+    @Accessor
+    EnderChestInventory getEnderChestInventory();
 
     @Invoker()
     void invokeSetShoulderEntityLeft(CompoundTag tag);

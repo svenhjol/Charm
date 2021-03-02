@@ -1,0 +1,83 @@
+package svenhjol.charm.item;
+
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.EnderChestInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.ClickType;
+import net.minecraft.util.math.MathHelper;
+import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.item.CharmItem;
+
+import java.util.Optional;
+
+public class EnderBundleItem extends CharmItem {
+    private static final int ITEM_BAR_COLOR = MathHelper.packRgb(0.4F, 0.4F, 1.0F);
+
+    public EnderBundleItem(CharmModule module) {
+        super(module, "ender_bundle", (new Item.Settings())
+            .maxCount(1)
+            .group(ItemGroup.TOOLS));
+    }
+
+    @Override
+    public boolean onStackClicked(ItemStack bundle, Slot slot, ClickType clickType, PlayerInventory playerInventory) {
+        PlayerEntity player = playerInventory.player;
+
+        if (player.currentScreenHandler instanceof GenericContainerScreenHandler
+            && !(slot.inventory instanceof PlayerInventory)) {
+            return false;
+        } else if (clickType != ClickType.RIGHT) {
+            return false;
+        } else {
+            ItemStack itemStack = slot.getStack();
+            if (itemStack.isEmpty()) {
+                Optional<ItemStack> out = removeLastStack(player);
+                out.ifPresent(slot::method_32756);
+            } else if (itemStack.getItem().hasStoredInventory()) {
+                ItemStack out = addToBundle(player, itemStack);
+                itemStack.setCount(out.getCount());
+            }
+            if (!player.world.isClient) {
+                player.currentScreenHandler.sendContentUpdates();
+            }
+        }
+
+        return true;
+    }
+
+    private static ItemStack addToBundle(PlayerEntity player, ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem().hasStoredInventory()) {
+            EnderChestInventory inventory = player.getEnderChestInventory();
+            ItemStack out = inventory.addStack(stack);
+            inventory.markDirty();
+            return out;
+        }
+
+        return stack;
+    }
+
+    private static Optional<ItemStack> removeLastStack(PlayerEntity player) {
+        EnderChestInventory inventory = player.getEnderChestInventory();
+        int index = 0;
+        int size = inventory.size();
+        for (int i = 0; i < size; i++) {
+            if (!inventory.getStack(i).isEmpty()) {
+                index = i;
+            }
+        }
+        ItemStack stack = inventory.getStack(index);
+        if (stack.isEmpty())
+            return Optional.empty();
+
+        ItemStack out = stack.copy();
+        stack.setCount(0);
+        inventory.markDirty();
+
+        return Optional.of(out);
+    }
+}

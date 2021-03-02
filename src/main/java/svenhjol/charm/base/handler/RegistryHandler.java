@@ -75,7 +75,7 @@ public class RegistryHandler {
     }
 
     public static <S extends RecipeSerializer<T>, T extends Recipe<?>> S recipeSerializer(String recipeId, S serializer) {
-        return Registry.register(Registry.RECIPE_SERIALIZER, recipeId, serializer);
+        return RecipeSerializer.register(recipeId, serializer);
     }
 
     public static <T extends ScreenHandler> ScreenHandlerType<T> screenHandler(Identifier id, ScreenHandlerType.Factory<T> factory) {

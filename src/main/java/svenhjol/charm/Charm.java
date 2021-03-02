@@ -41,6 +41,7 @@ public class Charm implements ModInitializer {
             ExtraRecipes.class,
             DecreaseRepairCost.class,
             DirtToPath.class,
+            EnderBundles.class,
             EndermitePowder.class,
             EntitySpawners.class,
             ExtractEnchantments.class,
