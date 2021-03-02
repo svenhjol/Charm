@@ -1,8 +1,7 @@
 # Changelog
 
-## 2.3.3
-* Restored 2x2 bread and paper recipes
-* Added missing terracotta firing recipe svenhjol/CharmForge#82
+## 2.4.0
+* TBC
 
 ## 2.3.2
 * Fixes svenhjol/CharmForge#68, svenhjol/CharmForge#72, svenhjol/CharmForge#61, svenhjol/CharmForge#59
