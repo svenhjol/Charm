@@ -1,6 +1,7 @@
 # Changelog
 
 ## 2.3.3
+* Restored 2x2 bread and paper recipes
 * Added missing terracotta firing recipe svenhjol/CharmForge#82
 * Added mixin blacklisting
 
