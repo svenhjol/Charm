@@ -28,6 +28,7 @@ public class Charm implements ModInitializer {
             BatBuckets.class,
             BeaconsHealMobs.class,
             Beekeepers.class,
+            BiomeDungeons.class,
             BlockOfEnderPearls.class,
             BlockOfGunpowder.class,
             BlockOfSugar.class,
