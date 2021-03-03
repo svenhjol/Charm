@@ -33,4 +33,9 @@ public class VariantBarrels extends CharmModule {
         List<VariantBarrelBlock> values = new ArrayList<>(BARREL_BLOCKS.values());
         return values.get(rand.nextInt(values.size()));
     }
+
+    @Override
+    public List<String> mixins() {
+        return Collections.singletonList("BarrelBlockEntityMixin");
+    }
 }
