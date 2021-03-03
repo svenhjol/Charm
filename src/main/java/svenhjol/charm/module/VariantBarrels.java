@@ -11,8 +11,7 @@ import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.VariantBarrelBlock;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Module(mod = Charm.MOD_ID, description = "Barrels available in all types of vanilla wood.")
 public class VariantBarrels extends CharmModule {
@@ -28,5 +27,10 @@ public class VariantBarrels extends CharmModule {
         }
 
         BLOCK_ENTITY = RegistryHandler.blockEntity(ID, BarrelBlockEntity::new);
+    }
+
+    @Override
+    public List<String> mixins() {
+        return Collections.singletonList("BarrelBlockEntityMixin");
     }
 }

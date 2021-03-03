@@ -109,5 +109,6 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "plugin": "svenhjol.charm.CharmMixinConfigPlugin"
 }
