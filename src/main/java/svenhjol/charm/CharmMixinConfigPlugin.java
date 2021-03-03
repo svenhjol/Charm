@@ -41,9 +41,9 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        String className = mixinClassName.toLowerCase().replace(mixinPackage, "");
+        String className = mixinClassName.toLowerCase().replace(mixinPackage + ".", "");
         if (mixinsToDisable.contains(className)) {
-            LogManager.getLogger().warn("Blacklisting " + className);
+            LogManager.getLogger().warn("Blacklisting " + mixinClassName);
             return false;
         }
 

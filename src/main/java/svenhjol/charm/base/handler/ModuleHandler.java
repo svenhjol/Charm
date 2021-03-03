@@ -65,7 +65,7 @@ public class ModuleHandler {
         List<String> mixins = module.mixins();
         if (!mixins.isEmpty()) {
             for (String mixin : mixins) {
-                if (CharmMixinConfigPlugin.mixinsToDisable.contains(mixin)) {
+                if (CharmMixinConfigPlugin.mixinsToDisable.contains(mixin.toLowerCase())) {
                     module.enabled = false;
                     Charm.LOG.warn("[ModuleHandler] Module " + module.getName() + " is disabled via mixin blacklist.");
                     return;
