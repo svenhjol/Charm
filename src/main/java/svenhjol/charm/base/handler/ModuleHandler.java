@@ -1,6 +1,7 @@
 package svenhjol.charm.base.handler;
 
 import svenhjol.charm.Charm;
+import svenhjol.charm.CharmMixinConfigPlugin;
 import svenhjol.charm.base.CharmLoader;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.StringHelper;
@@ -58,6 +59,19 @@ public class ModuleHandler {
 
         Charm.LOG.debug("[ModuleHandler] " + message);
         module.enabled = isEnabled && dependencyCheck;
+    }
+
+    public void mixins(CharmModule module) {
+        List<String> mixins = module.mixins();
+        if (!mixins.isEmpty()) {
+            for (String mixin : mixins) {
+                if (CharmMixinConfigPlugin.mixinsToDisable.contains(mixin.toLowerCase())) {
+                    module.enabled = false;
+                    Charm.LOG.warn("[ModuleHandler] Module " + module.getName() + " is disabled via mixin blacklist.");
+                    return;
+                }
+            }
+        }
     }
 
     public void init(CharmModule module) {

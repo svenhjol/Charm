@@ -2,7 +2,8 @@
 
 ## 2.3.3
 * Restored 2x2 bread and paper recipes
-* Added missing terracotta firing recipe #82
+* Added missing terracotta firing recipe svenhjol/CharmForge#82
+* Added mixin blacklisting
 
 ## 2.3.2
 * Fixes svenhjol/CharmForge#68, svenhjol/CharmForge#72, svenhjol/CharmForge#61, svenhjol/CharmForge#59
@@ -156,6 +157,7 @@
 ## 2.0.4
 * Added feature Placeable Glowstone Dust that lets you... place glowstone dust
 * Added feature Glow Balls which are projectiles that light up the block they impact
+* Added variant snow golem derp faces
 
 ## 2.0.3
 * Darkness check for Husks and Strays, fixes them spawning in full light
