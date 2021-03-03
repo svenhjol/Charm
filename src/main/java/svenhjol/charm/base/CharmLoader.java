@@ -74,6 +74,7 @@ public class CharmLoader {
     }
 
     protected void init() {
+        // test each module's required mixins
         eachModule(ModuleHandler.INSTANCE::mixins);
 
         // run dependency check on each module
