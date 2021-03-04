@@ -47,8 +47,8 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
             boolean found = false;
             BlockPos.Mutable blockPos = new BlockPos.Mutable(x, y, z);
 
-            Random random = new Random(y * 1024);
-            Random random1 = new Random(y * 1024); // this gets passed to the generator and must be the same seed as the one used here.
+            Random random = new Random(blockPos.asLong());
+            Random random1 = new Random(blockPos.asLong()); // this gets passed to the generator and must be the same seed as the one used here.
 
             BlockRotation blockRotation = BlockRotation.random(random);
             StructurePool structurePool = structurePoolFeatureConfig.getStartPool().get();
