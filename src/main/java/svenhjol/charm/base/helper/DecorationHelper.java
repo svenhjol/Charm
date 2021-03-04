@@ -84,6 +84,11 @@ public class DecorationHelper {
         return VARIANT_MATERIALS.get(random.nextInt(VARIANT_MATERIALS.size()));
     }
 
+    public static IVariantMaterial getRandomOverworldVariantMaterial(Random random) {
+        List<IVariantMaterial> types = VanillaVariantMaterial.getTypesWithout(VanillaVariantMaterial.CRIMSON, VanillaVariantMaterial.WARPED);
+        return types.get(random.nextInt(types.size()));
+    }
+
     @Nullable
     public static IVariantMaterial getVariantMaterial(String string) {
         for (IVariantMaterial material : VARIANT_MATERIALS) {
