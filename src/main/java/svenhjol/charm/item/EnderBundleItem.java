@@ -2,6 +2,7 @@ package svenhjol.charm.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EnderChestInventory;
@@ -56,7 +57,9 @@ public class EnderBundleItem extends CharmItem {
 
         if (player.currentScreenHandler instanceof GenericContainerScreenHandler
             && !(slot.inventory instanceof PlayerInventory)) {
-            return false;
+            return false; // don't allow inside ender chest inventory
+        } else if (player.currentScreenHandler instanceof CreativeInventoryScreen.CreativeScreenHandler) {
+            return false; // TODO: why is creative container wack?
         } else if (clickType != ClickType.RIGHT) {
             return false;
         } else {
@@ -68,12 +71,32 @@ public class EnderBundleItem extends CharmItem {
                 ItemStack out = addToBundle(player, itemStack);
                 itemStack.setCount(out.getCount());
             }
-            if (!player.world.isClient) {
-                player.currentScreenHandler.sendContentUpdates();
-            }
+            player.currentScreenHandler.sendContentUpdates();
         }
 
         return true;
+    }
+
+    @Override
+    public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerInventory playerInventory) {
+        PlayerEntity player = playerInventory.player;
+        if (player.currentScreenHandler instanceof GenericContainerScreenHandler
+            && !(slot.inventory instanceof PlayerInventory)
+        ) {
+            return false; // don't allow inside ender chest inventory
+        } else if (player.currentScreenHandler instanceof CreativeInventoryScreen.CreativeScreenHandler) {
+            return false; // TODO: why is creative contains wack?
+        } else if (clickType == ClickType.RIGHT && slot.method_32754(player)) {
+            if (otherStack.isEmpty()) {
+                removeLastStack(player).ifPresent(playerInventory::setCursorStack);
+            } else {
+                ItemStack out = addToBundle(player, otherStack);
+                otherStack.setCount(out.getCount());
+            }
+            player.currentScreenHandler.sendContentUpdates();
+            return true;
+        }
+        return false;
     }
 
     private static ItemStack addToBundle(PlayerEntity player, ItemStack stack) {
