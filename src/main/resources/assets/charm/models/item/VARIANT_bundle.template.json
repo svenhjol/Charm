@@ -7,7 +7,7 @@
     "overrides": [
       {
         "predicate": {
-          "filled": 0.0000001
+          "colored_bundle_filled": 0.0000001
         },
         "model": "charm:item/VARIANT_bundle_filled"
       }
