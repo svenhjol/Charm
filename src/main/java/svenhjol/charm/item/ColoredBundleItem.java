@@ -8,7 +8,7 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.item.ICharmItem;
 
 public class ColoredBundleItem extends BundleItem implements ICharmItem {
-    private CharmModule module;
+    private final CharmModule module;
 
     public ColoredBundleItem(CharmModule module, DyeColor color) {
         super((new Item.Settings()).maxCount(1).group(ItemGroup.TOOLS));

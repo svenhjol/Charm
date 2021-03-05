@@ -4,12 +4,13 @@ import net.minecraft.util.DyeColor;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.client.ColoredBundlesClient;
 import svenhjol.charm.item.ColoredBundleItem;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID)
+@Module(mod = Charm.MOD_ID, client = ColoredBundlesClient.class)
 public class ColoredBundles extends CharmModule {
     public static final Map<DyeColor, ColoredBundleItem> COLORED_BUNDLES = new HashMap<>();
 
