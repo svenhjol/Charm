@@ -1,5 +1,7 @@
 package svenhjol.charm.item;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EnderChestInventory;
@@ -12,6 +14,7 @@ import net.minecraft.util.ClickType;
 import net.minecraft.util.math.MathHelper;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.item.CharmItem;
+import svenhjol.charm.client.EnderBundlesClient;
 
 import java.util.Optional;
 
@@ -22,6 +25,29 @@ public class EnderBundleItem extends CharmItem {
         super(module, "ender_bundle", (new Item.Settings())
             .maxCount(1)
             .group(ItemGroup.TOOLS));
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static float getAmountFilled() {
+        return EnderBundlesClient.CACHED_AMOUNT_FILLED;
+    }
+
+    @Environment(EnvType.CLIENT)
+    @Override
+    public boolean isItemBarVisible(ItemStack stack) {
+        return EnderBundlesClient.CACHED_AMOUNT_FILLED > 0;
+    }
+
+    @Environment(EnvType.CLIENT)
+    @Override
+    public int getItemBarStep(ItemStack stack) {
+        return Math.min(13, (int)(12 * EnderBundlesClient.CACHED_AMOUNT_FILLED));
+    }
+
+    @Environment(EnvType.CLIENT)
+    @Override
+    public int getItemBarColor(ItemStack stack) {
+        return ITEM_BAR_COLOR;
     }
 
     @Override
