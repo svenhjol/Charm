@@ -48,7 +48,7 @@ public class BiomeHelper {
         return world.locateBiome(biome, pos, 6400, 8);
     }
 
-    public static void addStuctureToBiomeCategories(ConfiguredStructureFeature<?, ?> configuredFeature, Biome.Category biomeCategory) {
+    public static void addStructureToBiomeCategories(ConfiguredStructureFeature<?, ?> configuredFeature, Biome.Category biomeCategory) {
         List<RegistryKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
         biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureToBiome(configuredFeature, biomeKey));
     }
