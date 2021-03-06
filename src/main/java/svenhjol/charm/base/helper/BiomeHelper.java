@@ -48,12 +48,12 @@ public class BiomeHelper {
         return world.locateBiome(biome, pos, 6400, 8);
     }
 
-    public static void addStructureFeatureToBiomes(Biome.Category biomeCategory, ConfiguredStructureFeature<?, ?> configuredFeature) {
+    public static void addStuctureToBiomeCategories(ConfiguredStructureFeature<?, ?> configuredFeature, Biome.Category biomeCategory) {
         List<RegistryKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
-        biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureFeature(biomeKey, configuredFeature));
+        biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureToBiome(configuredFeature, biomeKey));
     }
 
-    public static void addStructureFeature(RegistryKey<Biome> biomeKey, ConfiguredStructureFeature<?, ?> structureFeature) {
+    public static void addStructureToBiome(ConfiguredStructureFeature<?, ?> structureFeature, RegistryKey<Biome> biomeKey) {
         RegistryKey<ConfiguredStructureFeature<?, ?>> structureKey;
         Predicate<BiomeSelectionContext> biomeSelector;
 
