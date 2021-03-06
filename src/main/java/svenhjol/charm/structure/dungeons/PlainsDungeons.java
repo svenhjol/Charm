@@ -4,6 +4,13 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.structure.BaseStructure;
 
 public class PlainsDungeons {
+    public static class Creeper extends BaseStructure {
+        public Creeper() {
+            super(Charm.MOD_ID, "dungeons", "plains_creeper");
+            addStart("plains_creeper", 1);
+        }
+    }
+
     public static class Columns extends BaseStructure {
         public Columns() {
             super(Charm.MOD_ID, "dungeons", "plains_columns");
