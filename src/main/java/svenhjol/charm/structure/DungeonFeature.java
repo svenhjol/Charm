@@ -42,7 +42,7 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
 
         public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, StructurePoolFeatureConfig structurePoolFeatureConfig, HeightLimitView heightLimitView) {
             int x = chunkPos.getStartX();
-            int y = DEFAULT_Y + new Random().nextInt(24) + 8;
+            int y = DEFAULT_Y + new Random().nextInt(32) + 8;
             int z = chunkPos.getStartZ();
             boolean found = false;
             BlockPos.Mutable blockPos = new BlockPos.Mutable(x, y, z);
@@ -71,10 +71,10 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
                 y--;
 
                 if (blockState.isAir()) {
-                    BlockPos.Mutable pos1 = new BlockPos.Mutable(corner1[0], y, corner1[1]);
-                    BlockPos.Mutable pos2 = new BlockPos.Mutable(corner2[0], y, corner2[1]);
-                    BlockPos.Mutable pos3 = new BlockPos.Mutable(corner3[0], y, corner3[1]);
-                    BlockPos.Mutable pos4 = new BlockPos.Mutable(corner4[0], y, corner4[1]);
+                    BlockPos pos1 = new BlockPos(corner1[0], y, corner1[1]);
+                    BlockPos pos2 = new BlockPos(corner2[0], y, corner2[1]);
+                    BlockPos pos3 = new BlockPos(corner3[0], y, corner3[1]);
+                    BlockPos pos4 = new BlockPos(corner4[0], y, corner4[1]);
 
                     BlockState state1 = cornerSample1.getState(pos1.down());
                     BlockState state2 = cornerSample2.getState(pos2.down());
