@@ -1,12 +1,13 @@
 package svenhjol.charm.client;
 
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.CartographyTableScreen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
@@ -49,14 +50,12 @@ public class AtlasClient extends CharmClientModule {
     public void init() {
         RenderHeldItemCallback.EVENT.register(this::handleRenderItem);
         ItemTooltipCallback.EVENT.register(this::handleItemTooltip);
-        ClientSidePacketRegistry.INSTANCE.register(Atlas.MSG_CLIENT_UPDATE_ATLAS_INVENTORY, this::handleClientUpdateAtlas);
+        ClientPlayNetworking.registerGlobalReceiver(Atlas.MSG_CLIENT_UPDATE_ATLAS_INVENTORY, this::handleClientUpdateAtlas);
     }
 
-    public void handleClientUpdateAtlas(PacketContext context, PacketByteBuf data) {
+    public void handleClientUpdateAtlas(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
         int atlasSlot = data.readInt();
-        context.getTaskQueue().execute(() -> {
-            updateInventory(atlasSlot);
-        });
+        client.execute(() -> updateInventory(atlasSlot));
     }
 
     public ActionResult handleRenderItem(float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack itemStack, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {

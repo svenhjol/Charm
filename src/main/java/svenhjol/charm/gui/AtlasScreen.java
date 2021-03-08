@@ -1,7 +1,7 @@
 package svenhjol.charm.gui;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.render.*;
@@ -203,7 +203,7 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
         data.writeInt(mapX);
         data.writeInt(mapZ);
         data.writeEnumConstant(mode);
-        ClientSidePacketRegistry.INSTANCE.sendToServer(Atlas.MSG_SERVER_ATLAS_TRANSFER, data);
+        ClientPlayNetworking.send(Atlas.MSG_SERVER_ATLAS_TRANSFER, data);
     }
 
     private enum ButtonDirection {

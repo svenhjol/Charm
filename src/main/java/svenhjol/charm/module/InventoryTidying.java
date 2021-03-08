@@ -1,17 +1,21 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.PlayerHelper;
+import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.InventoryTidyingClient;
 import svenhjol.charm.handler.InventoryTidyingHandler;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.iface.Module;
 
 import java.util.List;
 
@@ -25,19 +29,20 @@ public class InventoryTidying extends CharmModule {
     @Override
     public void init() {
         // listen for network requests to run the server callback
-        ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_TIDY_INVENTORY, (context, data) -> {
-            int type = data.readInt();
-
-            context.getTaskQueue().execute(() -> {
-                ServerPlayerEntity player = (ServerPlayerEntity)context.getPlayer();
-                if (player == null)
-                    return;
-
-                InventoryTidying.serverCallback(player, type);
-            });
-        });
+        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_TIDY_INVENTORY, this::handleServerTidyInventory);
 
         InventoryTidyingHandler.init();
+    }
+
+    private void handleServerTidyInventory(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+        int type = data.readInt();
+
+        server.execute(() -> {
+            if (player == null)
+                return;
+
+            InventoryTidying.serverCallback(player, type);
+        });
     }
 
     public static void serverCallback(ServerPlayerEntity player, int type) {

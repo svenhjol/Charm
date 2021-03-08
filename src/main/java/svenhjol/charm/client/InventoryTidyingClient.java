@@ -1,7 +1,7 @@
 package svenhjol.charm.client;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.*;
@@ -13,17 +13,17 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.CharmClientModule;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.base.helper.ScreenHelper;
+import svenhjol.charm.event.GuiSetupCallback;
+import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.gui.AtlasScreen;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
-import svenhjol.charm.module.InventoryTidying;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.event.RenderGuiCallback;
-import svenhjol.charm.event.GuiSetupCallback;
-import svenhjol.charm.base.helper.ScreenHelper;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
+import svenhjol.charm.module.InventoryTidying;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -133,6 +133,6 @@ public class InventoryTidyingClient extends CharmClientModule {
     private void sendSortMessage(int type) {
         PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
         data.writeInt(type);
-        ClientSidePacketRegistry.INSTANCE.sendToServer(InventoryTidying.MSG_SERVER_TIDY_INVENTORY, data);
+        ClientPlayNetworking.send(InventoryTidying.MSG_SERVER_TIDY_INVENTORY, data);
     }
 }

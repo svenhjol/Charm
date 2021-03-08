@@ -1,9 +1,10 @@
 package svenhjol.charm.client;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +30,7 @@ public class BatBucketsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        ClientSidePacketRegistry.INSTANCE.register(BatBuckets.MSG_CLIENT_SET_GLOWING, this::handleClientSetGlowing);
+        ClientPlayNetworking.registerGlobalReceiver(BatBuckets.MSG_CLIENT_SET_GLOWING, this::handleClientSetGlowing);
     }
 
     @Override
@@ -53,10 +54,10 @@ public class BatBucketsClient extends CharmClientModule {
         }
     }
 
-    private void handleClientSetGlowing(PacketContext context, PacketByteBuf data) {
+    private void handleClientSetGlowing(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
         double range = data.readDouble();
         int ticks = data.readInt() * 20; // ticks is sent as number of seconds, multiply by 20 for ticks
-        context.getTaskQueue().execute(() -> {
+        client.execute(() -> {
             this.range = range;
             this.ticks = ticks;
         });
