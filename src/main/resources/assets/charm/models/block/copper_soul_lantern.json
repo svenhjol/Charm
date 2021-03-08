@@ -1,9 +1,9 @@
 {
 	"textures": {
 		"3": "charm:block/lantern/copper_3",
+		"4": "charm:block/lantern/soul_light",
 		"5": "charm:block/lantern/copper_4",
 		"6": "charm:block/lantern/copper_5",
-		"7": "charm:block/lantern/light",
 		"particle": "charm:block/lantern/soul_light"
 	},
 	"elements": [
@@ -116,16 +116,15 @@
 			"to": [10.5, 9, 10.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [15, 10, 13]},
 			"faces": {
-				"north": {"uv": [5, 5, 10, 12], "texture": "#7", "tintindex": 0},
-				"east": {"uv": [5, 5, 10, 12], "texture": "#7", "tintindex": 0},
-				"south": {"uv": [5, 5, 10, 12], "texture": "#7", "tintindex": 0},
-				"west": {"uv": [5, 5, 10, 12], "texture": "#7", "tintindex": 0},
-				"up": {"uv": [10, 1, 15, 6], "texture": "#7"},
-				"down": {"uv": [1, 11, 6, 16], "texture": "#7"}
+				"north": {"uv": [6, 4, 11, 11], "texture": "#4", "tintindex": 0},
+				"east": {"uv": [6, 4, 11, 11], "texture": "#4", "tintindex": 0},
+				"south": {"uv": [6, 4, 11, 11], "texture": "#4", "tintindex": 0},
+				"west": {"uv": [6, 4, 11, 11], "texture": "#4", "tintindex": 0},
+				"up": {"uv": [10, 1, 15, 6], "texture": "#4"},
+				"down": {"uv": [1, 11, 6, 16], "texture": "#4"}
 			}
 		}
 	],
-	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [-113.75, 0, 0],
@@ -152,7 +151,7 @@
 			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
-			"rotation": [-168.25, -151.75, 0],
+			"rotation": [-168.25, -132.25, 0],
 			"translation": [0, 3.25, 0],
 			"scale": [-1.0918, -1.09375, -1.0918]
 		},
