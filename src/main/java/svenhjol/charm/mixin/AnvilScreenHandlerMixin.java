@@ -61,7 +61,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void hookUpdateResultUpdateAnvil(CallbackInfo ci, ItemStack left, int i, int baseCost, int k, ItemStack itemStack2, ItemStack right) {
-        ActionResult result = UpdateAnvilCallback.EVENT.invoker().interact((AnvilScreenHandler)(Object)this, left, right, this.output, this.newItemName, baseCost, this::applyUpdateAnvil);
+        ActionResult result = UpdateAnvilCallback.EVENT.invoker().interact((AnvilScreenHandler)(Object)this, this.player, left, right, this.output, this.newItemName, baseCost, this::applyUpdateAnvil);
         if (result == ActionResult.SUCCESS)
             ci.cancel();
     }
