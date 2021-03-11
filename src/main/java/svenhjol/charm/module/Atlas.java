@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CommandItemSlot;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.item.*;
 import net.minecraft.item.map.MapState;
@@ -206,11 +205,10 @@ public class Atlas extends CharmModule {
                 return;
 
             AtlasInventory inventory = Atlas.getInventory(player.world, PlayerHelper.getInventory(player).getStack(atlasSlot));
-            CommandItemSlot atlasItemSlot = player.getCommandItemSlot(atlasSlot);
 
             switch (mode) {
                 case TO_HAND:
-                    atlasItemSlot.set(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
+                    player.currentScreenHandler.method_34254(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
                     updateClient(player, atlasSlot);
                     break;
                 case TO_INVENTORY:
@@ -218,13 +216,13 @@ public class Atlas extends CharmModule {
                     updateClient(player, atlasSlot);
                     break;
                 case FROM_HAND:
-                    ItemStack heldItem = atlasItemSlot.get();
+                    ItemStack heldItem = player.currentScreenHandler.method_34255();
                     if (heldItem.getItem() == Items.FILLED_MAP) {
                         Integer mapId = FilledMapItem.getMapId(heldItem);
                         MapState mapState = FilledMapItem.getMapState(mapId, player.world);
                         if (mapState != null && mapState.scale == inventory.getScale()) {
                             inventory.addToInventory(player.world, heldItem);
-                            atlasItemSlot.set(ItemStack.EMPTY);
+                            player.currentScreenHandler.method_34254(ItemStack.EMPTY);
                             updateClient(player, atlasSlot);
                         }
                     }
