@@ -1,8 +1,8 @@
 package svenhjol.charm.module;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.PacketContext;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -13,6 +13,8 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.CartographyTableScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -70,7 +72,7 @@ public class Atlas extends CharmModule {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
 
         // listen for network requests to run the server callback
-        ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_ATLAS_TRANSFER, this::handleServerAtlasTransfer);
+        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_ATLAS_TRANSFER, this::handleServerAtlasTransfer);
     }
 
     public static boolean inventoryContainsMap(PlayerInventory inventory, ItemStack itemStack) {
@@ -131,7 +133,7 @@ public class Atlas extends CharmModule {
     public static void updateClient(ServerPlayerEntity player, int atlasSlot) {
         PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
         data.writeInt(atlasSlot);
-        ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, MSG_CLIENT_UPDATE_ATLAS_INVENTORY, data);
+        ServerPlayNetworking.send(player, MSG_CLIENT_UPDATE_ATLAS_INVENTORY, data);
     }
 
     private static AtlasInventory findAtlas(PlayerInventory inventory) {
@@ -192,22 +194,21 @@ public class Atlas extends CharmModule {
         }
     }
 
-    private void handleServerAtlasTransfer(PacketContext context, PacketByteBuf data) {
+    private void handleServerAtlasTransfer(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
         int atlasSlot = data.readInt();
         int mapX = data.readInt();
         int mapZ = data.readInt();
         MoveMode mode = data.readEnumConstant(MoveMode.class);
 
-        context.getTaskQueue().execute(() -> {
-            ServerPlayerEntity player = (ServerPlayerEntity)context.getPlayer();
+        server.execute(() -> {
             if (player == null)
                 return;
 
             AtlasInventory inventory = Atlas.getInventory(player.world, PlayerHelper.getInventory(player).getStack(atlasSlot));
+
             switch (mode) {
                 case TO_HAND:
-                    PlayerHelper.getInventory(player).setCursorStack(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
-                    player.updateCursorStack();
+                    player.currentScreenHandler.method_34254(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
                     updateClient(player, atlasSlot);
                     break;
                 case TO_INVENTORY:
@@ -215,14 +216,13 @@ public class Atlas extends CharmModule {
                     updateClient(player, atlasSlot);
                     break;
                 case FROM_HAND:
-                    ItemStack heldItem = PlayerHelper.getInventory(player).getCursorStack();
+                    ItemStack heldItem = player.currentScreenHandler.method_34255();
                     if (heldItem.getItem() == Items.FILLED_MAP) {
                         Integer mapId = FilledMapItem.getMapId(heldItem);
                         MapState mapState = FilledMapItem.getMapState(mapId, player.world);
                         if (mapState != null && mapState.scale == inventory.getScale()) {
                             inventory.addToInventory(player.world, heldItem);
-                            PlayerHelper.getInventory(player).setCursorStack(ItemStack.EMPTY);
-                            player.updateCursorStack();
+                            player.currentScreenHandler.method_34254(ItemStack.EMPTY);
                             updateClient(player, atlasSlot);
                         }
                     }

@@ -1,7 +1,7 @@
 package svenhjol.charm.item;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.BatEntity;
@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -17,11 +18,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import svenhjol.charm.module.BatBuckets;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.base.helper.MobHelper;
 import svenhjol.charm.base.item.CharmItem;
+import svenhjol.charm.module.BatBuckets;
 
 public class BatBucketItem extends CharmItem {
     public static final String STORED_BAT = "stored_bat";
@@ -75,8 +76,7 @@ public class BatBucketItem extends CharmItem {
             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
             data.writeDouble(BatBuckets.glowingRange);
             data.writeInt(BatBuckets.glowingTime);
-
-            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, BatBuckets.MSG_CLIENT_SET_GLOWING, data);
+            ServerPlayNetworking.send((ServerPlayerEntity)player, BatBuckets.MSG_CLIENT_SET_GLOWING, data);
         }
 
         if (!player.isCreative())

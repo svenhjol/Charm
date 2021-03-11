@@ -3,7 +3,7 @@ package svenhjol.charm.handler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.render.DiffuseLighting;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import svenhjol.charm.base.CharmResources;
 
@@ -17,12 +17,11 @@ public class TooltipInventoryHandler {
     private static final int EDGE = 18;
 
     public static void renderTooltipBackground(MinecraftClient mc, MatrixStack matrix, int x, int y, int width, int height, int color) {
-        mc.getTextureManager().bindTexture(CharmResources.SLOT_WIDGET);
-        RenderSystem.color3f(((color & 0xFF0000) >> 16) / 255f,
+        RenderSystem.setShader(GameRenderer::method_34540);
+        RenderSystem.setShaderTexture(0, CharmResources.SLOT_WIDGET);
+        RenderSystem.setShaderColor(((color & 0xFF0000) >> 16) / 255f,
             ((color & 0x00FF00) >> 8) / 255f,
             (color & 0x0000FF) / 255f);
-
-        DiffuseLighting.disable();
 
         DrawableHelper.drawTexture(matrix, x, y,
             0, 0, CORNER, CORNER, 256, 256);
@@ -57,7 +56,5 @@ public class TooltipInventoryHandler {
                     EDGE, EDGE, 256, 256);
             }
         }
-
-        RenderSystem.color3f(1F, 1F, 1F);
     }
 }

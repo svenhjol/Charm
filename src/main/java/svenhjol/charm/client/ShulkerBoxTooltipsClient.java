@@ -5,7 +5,6 @@ import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
@@ -16,7 +15,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.CharmResources;
 import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.event.RenderTooltipCallback;
@@ -83,21 +81,15 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         if (y < 0)
             y = ty + lines.size() * 10 + 5;
 
-        RenderSystem.pushMatrix();
-        DiffuseLighting.enable();
-        RenderSystem.enableRescaleNormal();
-        RenderSystem.color3f(1f, 1f, 1f);
-        RenderSystem.translatef(0, 0, 700);
-        mc.getTextureManager().bindTexture(CharmResources.SLOT_WIDGET);
-
-        DiffuseLighting.disable();
-        TooltipInventoryHandler.renderTooltipBackground(mc, matrices, x, y, 9, 3, -1);
-        RenderSystem.color3f(1f, 1f, 1f);
-
-        ItemRenderer render = mc.getItemRenderer();
-        DiffuseLighting.enable();
+        matrices.push();
         RenderSystem.enableDepthTest();
+        matrices.translate(0, 0, 400);
 
+        TooltipInventoryHandler.renderTooltipBackground(mc, matrices, x, y, 9, 3, -1);
+        ItemRenderer render = mc.getItemRenderer();
+
+        float old = render.zOffset;
+        render.zOffset = 400.0F;
         for (int i = 0; i < size; i++) {
             ItemStack itemstack;
 
@@ -111,13 +103,13 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
             int yp = y + 6 + (i / 9) * 18;
 
             if (!itemstack.isEmpty()) {
-                render.renderGuiItemIcon(itemstack, xp, yp);
+                render.renderInGui(itemstack, xp, yp);
                 render.renderGuiItemOverlay(mc.textRenderer, itemstack, xp, yp);
             }
         }
+        render.zOffset = old;
 
         RenderSystem.disableDepthTest();
-        RenderSystem.disableRescaleNormal();
-        RenderSystem.popMatrix();
+        matrices.pop();
     }
 }
