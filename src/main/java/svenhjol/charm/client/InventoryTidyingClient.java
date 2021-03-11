@@ -20,7 +20,6 @@ import svenhjol.charm.event.GuiSetupCallback;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.gui.AtlasScreen;
 import svenhjol.charm.gui.BookcaseScreen;
-import svenhjol.charm.gui.CrateScreen;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.InventoryTidying;
@@ -57,7 +56,6 @@ public class InventoryTidyingClient extends CharmClientModule {
             GenericContainerScreen.class,
             HopperScreen.class,
             ShulkerBoxScreen.class,
-            CrateScreen.class,
             BookcaseScreen.class,
             Generic3x3ContainerScreen.class
         ));

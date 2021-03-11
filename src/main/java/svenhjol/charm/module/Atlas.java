@@ -205,10 +205,10 @@ public class Atlas extends CharmModule {
                 return;
 
             AtlasInventory inventory = Atlas.getInventory(player.world, PlayerHelper.getInventory(player).getStack(atlasSlot));
+
             switch (mode) {
                 case TO_HAND:
-                    PlayerHelper.getInventory(player).setCursorStack(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
-                    player.updateCursorStack();
+                    player.currentScreenHandler.method_34254(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
                     updateClient(player, atlasSlot);
                     break;
                 case TO_INVENTORY:
@@ -216,14 +216,13 @@ public class Atlas extends CharmModule {
                     updateClient(player, atlasSlot);
                     break;
                 case FROM_HAND:
-                    ItemStack heldItem = PlayerHelper.getInventory(player).getCursorStack();
+                    ItemStack heldItem = player.currentScreenHandler.method_34255();
                     if (heldItem.getItem() == Items.FILLED_MAP) {
                         Integer mapId = FilledMapItem.getMapId(heldItem);
                         MapState mapState = FilledMapItem.getMapState(mapId, player.world);
                         if (mapState != null && mapState.scale == inventory.getScale()) {
                             inventory.addToInventory(player.world, heldItem);
-                            PlayerHelper.getInventory(player).setCursorStack(ItemStack.EMPTY);
-                            player.updateCursorStack();
+                            player.currentScreenHandler.method_34254(ItemStack.EMPTY);
                             updateClient(player, atlasSlot);
                         }
                     }
