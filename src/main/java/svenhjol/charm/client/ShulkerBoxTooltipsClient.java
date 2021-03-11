@@ -1,11 +1,8 @@
 package svenhjol.charm.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -41,8 +38,6 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
     }
 
     private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
-        final MinecraftClient mc = MinecraftClient.getInstance();
-
         if (stack == null || !stack.hasTag())
             return;
 
@@ -65,51 +60,6 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         if (items.stream().allMatch(ItemStack::isEmpty))
             return;
 
-        int size = shulkerbox.size();
-
-        ty -= 48;
-
-        int x = tx - 5;
-        int y = ty - 35;
-        int w = 172;
-        int h = 27;
-        int right = x + w;
-
-        if (right > mc.getWindow().getScaledWidth())
-            x -= (right - mc.getWindow().getScaledWidth());
-
-        if (y < 0)
-            y = ty + lines.size() * 10 + 5;
-
-        matrices.push();
-        RenderSystem.enableDepthTest();
-        matrices.translate(0, 0, 400);
-
-        TooltipInventoryHandler.renderTooltipBackground(mc, matrices, x, y, 9, 3, -1);
-        ItemRenderer render = mc.getItemRenderer();
-
-        float old = render.zOffset;
-        render.zOffset = 400.0F;
-        for (int i = 0; i < size; i++) {
-            ItemStack itemstack;
-
-            try {
-                itemstack = items.get(i);
-            } catch (Exception e) {
-                // catch null issue with itemstack. Needs investigation. #255
-                continue;
-            }
-            int xp = x + 6 + (i % 9) * 18;
-            int yp = y + 6 + (i / 9) * 18;
-
-            if (!itemstack.isEmpty()) {
-                render.renderInGui(itemstack, xp, yp);
-                render.renderGuiItemOverlay(mc.textRenderer, itemstack, xp, yp);
-            }
-        }
-        render.zOffset = old;
-
-        RenderSystem.disableDepthTest();
-        matrices.pop();
+        TooltipInventoryHandler.renderOverlay(matrices, items, lines, tx, ty);
     }
 }
