@@ -3,7 +3,7 @@ package svenhjol.charm.handler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.render.DiffuseLighting;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
@@ -13,7 +13,7 @@ import svenhjol.charm.base.CharmResources;
 import java.util.List;
 
 /**
- * Copypasta from Quark ShulkerBoxTooltips#renderTooltipBackground()
+ * Originally from Quark ShulkerBoxTooltips#renderTooltipBackground()
  * Also copied shulker_widget.png to resources/assets/textures/gui/slot_widget.png
  */
 public class TooltipInventoryHandler {
@@ -38,21 +38,16 @@ public class TooltipInventoryHandler {
         if (y < 0)
             y = ty + lines.size() * 10 + 5;
 
-        RenderSystem.pushMatrix();
-        DiffuseLighting.enable();
-        RenderSystem.enableRescaleNormal();
-        RenderSystem.color3f(1f, 1f, 1f);
-        RenderSystem.translatef(0, 0, 700);
-        mc.getTextureManager().bindTexture(CharmResources.SLOT_WIDGET);
+        matrices.push();
+        RenderSystem.enableDepthTest();
+        matrices.translate(0, 0, 400);
 
-        DiffuseLighting.disable();
         TooltipInventoryHandler.renderTooltipBackground(mc, matrices, x, y, 9, 3, -1);
-        RenderSystem.color3f(1f, 1f, 1f);
 
         ItemRenderer render = mc.getItemRenderer();
-        DiffuseLighting.enable();
-        RenderSystem.enableDepthTest();
 
+        float old = render.zOffset;
+        render.zOffset = 400.0F;
         for (int i = 0; i < items.size(); i++) {
             ItemStack itemstack;
 
@@ -66,23 +61,22 @@ public class TooltipInventoryHandler {
             int yp = y + 6 + (i / 9) * 18;
 
             if (!itemstack.isEmpty()) {
-                render.renderGuiItemIcon(itemstack, xp, yp);
+                render.renderInGui(itemstack, xp, yp);
                 render.renderGuiItemOverlay(mc.textRenderer, itemstack, xp, yp);
             }
         }
+        render.zOffset = old;
 
         RenderSystem.disableDepthTest();
-        RenderSystem.disableRescaleNormal();
-        RenderSystem.popMatrix();
+        matrices.pop();
     }
 
     public static void renderTooltipBackground(MinecraftClient mc, MatrixStack matrix, int x, int y, int width, int height, int color) {
-        mc.getTextureManager().bindTexture(CharmResources.SLOT_WIDGET);
-        RenderSystem.color3f(((color & 0xFF0000) >> 16) / 255f,
+        RenderSystem.setShader(GameRenderer::method_34540);
+        RenderSystem.setShaderTexture(0, CharmResources.SLOT_WIDGET);
+        RenderSystem.setShaderColor(((color & 0xFF0000) >> 16) / 255f,
             ((color & 0x00FF00) >> 8) / 255f,
             (color & 0x0000FF) / 255f);
-
-        DiffuseLighting.disable();
 
         DrawableHelper.drawTexture(matrix, x, y,
             0, 0, CORNER, CORNER, 256, 256);
@@ -117,7 +111,5 @@ public class TooltipInventoryHandler {
                     EDGE, EDGE, 256, 256);
             }
         }
-
-        RenderSystem.color3f(1F, 1F, 1F);
     }
 }

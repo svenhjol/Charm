@@ -3,7 +3,7 @@ package svenhjol.charm.client;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
@@ -17,13 +17,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.base.CharmClientModule;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.base.helper.ScreenHelper;
 import svenhjol.charm.event.GuiSetupCallback;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
 import svenhjol.charm.module.PortableEnderChest;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.ScreenHelper;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -96,7 +96,7 @@ public class PortableEnderChestClient extends CharmClientModule {
     }
 
     private void triggerOpenChest() {
-        ClientSidePacketRegistry.INSTANCE.sendToServer(PortableEnderChest.MSG_SERVER_OPEN_ENDER_CHEST, new PacketByteBuf(Unpooled.buffer()));
+        ClientPlayNetworking.send(PortableEnderChest.MSG_SERVER_OPEN_ENDER_CHEST, new PacketByteBuf(Unpooled.buffer()));
     }
 
     public boolean isButtonVisible() {

@@ -63,7 +63,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
                 return false;
             }
 
-            public ItemStack onTakeItem(PlayerEntity player, ItemStack stack) {
+            public void onTakeItem(PlayerEntity player, ItemStack stack) {
                 stack.onCraft(player.world, player, stack.getCount());
                 WoodcutterScreenHandler.this.output.unlockLastRecipe(player);
                 ItemStack itemStack = WoodcutterScreenHandler.this.inputSlot.takeStack(1);
@@ -79,7 +79,6 @@ public class WoodcutterScreenHandler extends ScreenHandler {
                     }
 
                 });
-                return super.onTakeItem(player, stack);
             }
         });
 

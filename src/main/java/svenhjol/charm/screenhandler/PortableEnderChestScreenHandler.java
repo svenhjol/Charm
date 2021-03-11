@@ -1,13 +1,14 @@
 package svenhjol.charm.screenhandler;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import svenhjol.charm.module.Core;
 
 public class PortableEnderChestScreenHandler extends GenericContainerScreenHandler {
@@ -25,6 +26,6 @@ public class PortableEnderChestScreenHandler extends GenericContainerScreenHandl
         super.close(player);
 
         if (!player.world.isClient && Core.inventoryButtonReturn)
-            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Core.MSG_SERVER_OPEN_INVENTORY, new PacketByteBuf(Unpooled.buffer()));
+            ServerPlayNetworking.send((ServerPlayerEntity)player, Core.MSG_SERVER_OPEN_INVENTORY, new PacketByteBuf(Unpooled.buffer()));
     }
 }

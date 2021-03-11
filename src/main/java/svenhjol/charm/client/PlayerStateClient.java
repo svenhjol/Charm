@@ -3,7 +3,10 @@ package svenhjol.charm.client;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.PacketByteBuf;
@@ -42,25 +45,25 @@ public class PlayerStateClient extends CharmClientModule {
         // send a state update request on a heartbeat (serverStateInterval)
         PlayerTickCallback.EVENT.register((player -> {
             if (player.world.isClient && player.world.getTime() % PlayerState.serverStateInverval == 0)
-                ClientSidePacketRegistry.INSTANCE.sendToServer(PlayerState.MSG_SERVER_UPDATE_PLAYER_STATE, new PacketByteBuf(Unpooled.buffer()));
+                ClientPlayNetworking.send(PlayerState.MSG_SERVER_UPDATE_PLAYER_STATE, new PacketByteBuf(Unpooled.buffer()));
         }));
 
         // register client message handler to call the clientCallback
-        ClientSidePacketRegistry.INSTANCE.register(MSG_CLIENT_UPDATE_PLAYER_STATE, (context, data) -> {
-            CompoundTag tag = new CompoundTag();
+        ClientPlayNetworking.registerGlobalReceiver(MSG_CLIENT_UPDATE_PLAYER_STATE, this::handleClientUpdatePlayerState);
+    }
 
-            try {
-                byte[] byteData = Base64.getDecoder().decode(data.readString());
-                tag = NbtIo.readCompressed(new ByteArrayInputStream(byteData));
-            } catch (IOException e) {
-                CharmClient.LOG.warn("Failed to decompress player state");
-            }
+    private void handleClientUpdatePlayerState(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+        CompoundTag tag = new CompoundTag();
 
-            CompoundTag finalTag = tag;
-            context.getTaskQueue().execute(() -> {
-                clientCallback(finalTag);
-            });
-        });
+        try {
+            byte[] byteData = Base64.getDecoder().decode(data.readString());
+            tag = NbtIo.readCompressed(new ByteArrayInputStream(byteData));
+        } catch (IOException e) {
+            CharmClient.LOG.warn("Failed to decompress player state");
+        }
+
+        CompoundTag finalTag = tag;
+        client.execute(() -> clientCallback(finalTag));
     }
 
     /**

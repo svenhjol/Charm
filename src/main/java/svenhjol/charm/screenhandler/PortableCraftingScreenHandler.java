@@ -1,12 +1,13 @@
 package svenhjol.charm.screenhandler;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.server.network.ServerPlayerEntity;
 import svenhjol.charm.module.Core;
 
 public class PortableCraftingScreenHandler extends CraftingScreenHandler {
@@ -24,6 +25,6 @@ public class PortableCraftingScreenHandler extends CraftingScreenHandler {
         super.close(player);
 
         if (!player.world.isClient && Core.inventoryButtonReturn)
-            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Core.MSG_SERVER_OPEN_INVENTORY, new PacketByteBuf(Unpooled.buffer()));
+            ServerPlayNetworking.send((ServerPlayerEntity)player, Core.MSG_SERVER_OPEN_INVENTORY, new PacketByteBuf(Unpooled.buffer()));
     }
 }
