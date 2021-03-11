@@ -1,9 +1,13 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -11,12 +15,12 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
-import svenhjol.charm.base.helper.PlayerHelper;
-import svenhjol.charm.client.PortableEnderChestClient;
-import svenhjol.charm.screenhandler.PortableEnderChestScreenHandler;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.client.PortableEnderChestClient;
+import svenhjol.charm.screenhandler.PortableEnderChestScreenHandler;
 
 @Module(mod = Charm.MOD_ID, client = PortableEnderChestClient.class, description = "Allows access to chest contents if the player has an Ender Chest in their inventory.")
 public class PortableEnderChest extends CharmModule {
@@ -29,14 +33,15 @@ public class PortableEnderChest extends CharmModule {
     @Override
     public void init() {
         // listen for network requests to open the portable ender chest
-        ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_OPEN_ENDER_CHEST, (context, data) -> {
-            context.getTaskQueue().execute(() -> {
-                ServerPlayerEntity player = (ServerPlayerEntity)context.getPlayer();
-                if (player == null || !PlayerHelper.getInventory(player).contains(new ItemStack(Blocks.ENDER_CHEST)))
-                    return;
+        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_OPEN_ENDER_CHEST, this::handleServerOpenEnderChest);
+    }
 
-                PortableEnderChest.openContainer(player);
-            });
+    private void handleServerOpenEnderChest(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+        server.execute(() -> {
+            if (player == null || !PlayerHelper.getInventory(player).contains(new ItemStack(Blocks.ENDER_CHEST)))
+                return;
+
+            PortableEnderChest.openContainer(player);
         });
     }
 
