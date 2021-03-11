@@ -1,5 +1,6 @@
 package svenhjol.charm.render;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.MapRenderer;
@@ -71,7 +72,7 @@ public class AtlasRenderer {
     }
 
     public void renderArm(ClientPlayerEntity player, MatrixStack matrixStack, VertexConsumerProvider buffers, int light, float swing, float equip, Arm side) {
-        // copypasta from renderArmFirstPerson
+        // copypasta from remderArmHoldingItem
         boolean flag = side != Arm.LEFT;
         float f = flag ? 1.0F : -1.0F;
         float f1 = MathHelper.sqrt(swing);
@@ -84,7 +85,7 @@ public class AtlasRenderer {
         float f6 = MathHelper.sin(f1 * (float)Math.PI);
         matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(f * f6 * 70.0F));
         matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(f * f5 * -20.0F));
-        textureManager.bindTexture(player.getSkinTexture());
+        RenderSystem.setShaderTexture(0, player.getSkinTexture());
         matrixStack.translate(f * -1.0F, 3.6F, 3.5D);
         matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(f * 120.0F));
         matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(200.0F));

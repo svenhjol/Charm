@@ -76,7 +76,7 @@ public class ExtractEnchantments extends CharmModule {
                 return true;
             }
 
-            public ItemStack onTakeItem(PlayerEntity player, ItemStack stack) {
+            public void onTakeItem(PlayerEntity player, ItemStack stack) {
                 ItemStack out = tryGetEnchantedBook(inputs, player);
 
                 context.run((world, blockPos) -> {
@@ -116,8 +116,6 @@ public class ExtractEnchantments extends CharmModule {
                 if (slot1.getCount() <= 1)
                     inputs.setStack(1, ItemStack.EMPTY);
                 // ---- CHARM: SNIP ----
-
-                return out;
             }
 
             /** vanilla */

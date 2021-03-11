@@ -16,11 +16,12 @@ import java.util.Random;
 
 @Mixin(EnchantingTableBlock.class)
 public class EnchantingTableBlockMixin {
+    // TODO: method_34592 will almost certainly become add()
     @Inject(
         method = "randomDisplayTick",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/util/math/BlockPos;add(III)Lnet/minecraft/util/math/BlockPos;",
+            target = "Lnet/minecraft/util/math/BlockPos;method_34592(III)Lnet/minecraft/util/math/BlockPos;",
             shift = At.Shift.AFTER,
             ordinal = 0
         ),

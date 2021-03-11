@@ -1,10 +1,13 @@
 package svenhjol.charm.client;
 
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.network.PacketByteBuf;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.ClientHelper;
-import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.module.Core;
 
 public class CoreClient extends CharmClientModule {
@@ -18,9 +21,7 @@ public class CoreClient extends CharmClientModule {
     @Override
     public void register() {
         // listen for network requests to open the player's inventory
-        ClientSidePacketRegistry.INSTANCE.register(Core.MSG_SERVER_OPEN_INVENTORY, (context, data) -> {
-            context.getTaskQueue().execute(ClientHelper::openPlayerInventory);
-        });
+        ClientPlayNetworking.registerGlobalReceiver(Core.MSG_SERVER_OPEN_INVENTORY, this::handleServerOpenInventory);
 
         // call the register method of inventoryButtonClient
         this.inventoryButtonClient.register();
@@ -30,5 +31,9 @@ public class CoreClient extends CharmClientModule {
     public void init() {
         // proxy calls
         this.inventoryButtonClient.init();
+    }
+
+    private void handleServerOpenInventory(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+        client.execute(ClientHelper::openPlayerInventory);
     }
 }

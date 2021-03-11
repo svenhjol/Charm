@@ -1,8 +1,8 @@
 package svenhjol.charm.base.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
@@ -44,7 +44,8 @@ public class CharmImageButton extends TexturedButtonWidget {
     }
 
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float mouseDelta) {
-        MinecraftClient.getInstance().getTextureManager().bindTexture(resourceLocation);
+        RenderSystem.setShader(GameRenderer::method_34542);
+        RenderSystem.setShaderTexture(0, resourceLocation);
         int yTex = yTexStart;
         if (!active) {
             yTex += yDiffDisabled;

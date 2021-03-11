@@ -2,7 +2,7 @@ import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 
 plugins {
-	id 'fabric-loom' version '0.5-SNAPSHOT'
+	id 'fabric-loom' version '0.6-SNAPSHOT'
 	id 'maven-publish'
 }
 
