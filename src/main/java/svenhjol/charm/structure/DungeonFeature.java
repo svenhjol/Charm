@@ -71,15 +71,15 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
                 y--;
 
                 if (blockState.isAir()) {
-                    BlockPos pos1 = new BlockPos(corner1[0], y, corner1[1]);
-                    BlockPos pos2 = new BlockPos(corner2[0], y, corner2[1]);
-                    BlockPos pos3 = new BlockPos(corner3[0], y, corner3[1]);
-                    BlockPos pos4 = new BlockPos(corner4[0], y, corner4[1]);
+                    BlockPos pos1 = new BlockPos(corner1[0], y-1, corner1[1]);
+                    BlockPos pos2 = new BlockPos(corner2[0], y-1, corner2[1]);
+                    BlockPos pos3 = new BlockPos(corner3[0], y-1, corner3[1]);
+                    BlockPos pos4 = new BlockPos(corner4[0], y-1, corner4[1]);
 
-                    BlockState state1 = cornerSample1.getState(pos1.down());
-                    BlockState state2 = cornerSample2.getState(pos2.down());
-                    BlockState state3 = cornerSample3.getState(pos3.down());
-                    BlockState state4 = cornerSample4.getState(pos4.down());
+                    BlockState state1 = cornerSample1.getState(pos1);
+                    BlockState state2 = cornerSample2.getState(pos2);
+                    BlockState state3 = cornerSample3.getState(pos3);
+                    BlockState state4 = cornerSample4.getState(pos4);
 
                     if (state1.isSolidBlock(EmptyBlockView.INSTANCE, pos1)
                         && state2.isSolidBlock(EmptyBlockView.INSTANCE, pos2)
