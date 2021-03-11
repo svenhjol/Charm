@@ -38,8 +38,8 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
 
    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
       this.renderBackground(matrices);
-      RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-      this.client.getTextureManager().bindTexture(TEXTURE);
+      RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+      RenderSystem.setShaderTexture(0, TEXTURE);
       int i = this.x;
       int j = this.y;
       this.drawTexture(matrices, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);

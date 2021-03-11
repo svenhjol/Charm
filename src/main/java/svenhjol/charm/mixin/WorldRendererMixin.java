@@ -1,11 +1,10 @@
 package svenhjol.charm.mixin;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,12 +31,13 @@ public class WorldRendererMixin {
         method = "renderWeather",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/texture/TextureManager;bindTexture(Lnet/minecraft/util/Identifier;)V",
+            target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/util/Identifier;)V",
             ordinal = 1
         )
     )
-    private void hookRenderWeatherTexture(TextureManager textureManager, Identifier id) {
-        if (!SnowStormsClient.tryHeavySnowTexture(world, textureManager, gradient))
-            textureManager.bindTexture(id);
+    private void hookRenderWeatherTexture(int i, Identifier id) {
+        if (!SnowStormsClient.tryHeavySnowTexture(world, gradient)) {
+            RenderSystem.setShaderTexture(i, id);
+        }
     }
 }
