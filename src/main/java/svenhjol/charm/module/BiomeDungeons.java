@@ -15,7 +15,7 @@ import svenhjol.charm.structure.DungeonFeature;
 import svenhjol.charm.structure.DungeonGenerator;
 
 import static svenhjol.charm.base.handler.RegistryHandler.configuredFeature;
-import static svenhjol.charm.base.helper.BiomeHelper.addStructureFeatureToBiomes;
+import static svenhjol.charm.base.helper.BiomeHelper.addStructureToBiomeCategories;
 
 @Module(mod = Charm.MOD_ID)
 public class BiomeDungeons extends CharmModule {
@@ -72,15 +72,15 @@ public class BiomeDungeons extends CharmModule {
         DungeonBuilds.init();
         DungeonGenerator.init();
 
-        if (!DungeonGenerator.BADLANDS_DUNGEONS.isEmpty()) addStructureFeatureToBiomes(Biome.Category.MESA, BADLANDS);
-        if (!DungeonGenerator.DESERT_DUNGEONS.isEmpty()) addStructureFeatureToBiomes(Biome.Category.DESERT, DESERT);
-        if (!DungeonGenerator.FOREST_DUNGEONS.isEmpty()) addStructureFeatureToBiomes(Biome.Category.FOREST, FOREST);
-        if (!DungeonGenerator.JUNGLE_DUNGEONS.isEmpty()) addStructureFeatureToBiomes(Biome.Category.JUNGLE, JUNGLE);
-        if (!DungeonGenerator.MOUNTAINS_DUNGEONS.isEmpty()) addStructureFeatureToBiomes(Biome.Category.EXTREME_HILLS, MOUNTAINS);
-        if (!DungeonGenerator.NETHER_DUNGEONS.isEmpty()) addStructureFeatureToBiomes(Biome.Category.NETHER, MOUNTAINS);
-        if (!DungeonGenerator.PLAINS_DUNGEONS.isEmpty()) addStructureFeatureToBiomes(Biome.Category.PLAINS, PLAINS);
-        if (!DungeonGenerator.SAVANNA_DUNGEONS.isEmpty()) addStructureFeatureToBiomes(Biome.Category.SAVANNA, SAVANNA);
-        if (!DungeonGenerator.SNOWY_DUNGEONS.isEmpty()) addStructureFeatureToBiomes(Biome.Category.ICY, SNOWY);
-        if (!DungeonGenerator.TAIGA_DUNGEONS.isEmpty()) addStructureFeatureToBiomes(Biome.Category.TAIGA, TAIGA);
+        if (!DungeonGenerator.BADLANDS_DUNGEONS.isEmpty()) addStructureToBiomeCategories(BADLANDS, Biome.Category.MESA);
+        if (!DungeonGenerator.DESERT_DUNGEONS.isEmpty()) addStructureToBiomeCategories(DESERT, Biome.Category.DESERT);
+        if (!DungeonGenerator.FOREST_DUNGEONS.isEmpty()) addStructureToBiomeCategories(FOREST, Biome.Category.FOREST);
+        if (!DungeonGenerator.JUNGLE_DUNGEONS.isEmpty()) addStructureToBiomeCategories(JUNGLE, Biome.Category.JUNGLE);
+        if (!DungeonGenerator.MOUNTAINS_DUNGEONS.isEmpty()) addStructureToBiomeCategories(MOUNTAINS, Biome.Category.EXTREME_HILLS);
+        if (!DungeonGenerator.NETHER_DUNGEONS.isEmpty()) addStructureToBiomeCategories(MOUNTAINS, Biome.Category.NETHER);
+        if (!DungeonGenerator.PLAINS_DUNGEONS.isEmpty()) addStructureToBiomeCategories(PLAINS, Biome.Category.PLAINS);
+        if (!DungeonGenerator.SAVANNA_DUNGEONS.isEmpty()) addStructureToBiomeCategories(SAVANNA, Biome.Category.SAVANNA);
+        if (!DungeonGenerator.SNOWY_DUNGEONS.isEmpty()) addStructureToBiomeCategories(SNOWY, Biome.Category.ICY);
+        if (!DungeonGenerator.TAIGA_DUNGEONS.isEmpty()) addStructureToBiomeCategories(TAIGA, Biome.Category.TAIGA);
     }
 }
