@@ -39,10 +39,10 @@ public class BiomeDungeons extends CharmModule {
 
         FabricStructureBuilder.create(DUNGEON_ID, DUNGEON_FEATURE)
             .step(GenerationStep.Feature.STRONGHOLDS)
-            .defaultConfig(2, 0, 1225502)
+            .defaultConfig(6, 2, 1225502)
             .register();
 
-        int dungeonSize = 2;
+        int dungeonSize = 1;
 
         BADLANDS    = DUNGEON_FEATURE.configure(new StructurePoolFeatureConfig(() -> DungeonGenerator.BADLANDS_POOL, dungeonSize));
         DESERT      = DUNGEON_FEATURE.configure(new StructurePoolFeatureConfig(() -> DungeonGenerator.DESERT_POOL, dungeonSize));
