@@ -351,6 +351,8 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
             matrices.translate(0, 0, 0.2);
             // need to revert the base scale to avoid some lines being to thin to be drawn
             matrices.scale(0.5f / BASE_SCALE, 0.5f / BASE_SCALE, 1);
+
+            // TODO: enabling the following lines b0rks the game
 //            for (int xLine = 1; xLine < mapDistance; ++xLine) {
 //                vLine(matrices, builder, xLine * 2 * SIZE / mapDistance, 0, 2 * SIZE, -1);
 //            }
