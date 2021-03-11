@@ -1,10 +1,13 @@
 package svenhjol.charm.module;
 
 import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -35,14 +38,15 @@ public class PlayerState extends CharmModule {
     @Override
     public void register() {
         // register server message handler to call the serverCallback
-        ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_UPDATE_PLAYER_STATE, (context, data) -> {
-            context.getTaskQueue().execute(() -> {
-                ServerPlayerEntity player = (ServerPlayerEntity)context.getPlayer();
-                if (player == null)
-                    return;
+        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_UPDATE_PLAYER_STATE, this::handleServerUpdatePlayerState);
+    }
 
-                serverCallback(player);
-            });
+    private void handleServerUpdatePlayerState(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+        server.execute(() -> {
+            if (player == null)
+                return;
+
+            serverCallback(player);
         });
     }
 
@@ -80,7 +84,7 @@ public class PlayerState extends CharmModule {
 
         if (serialized != null) {
             buffer.writeString(serialized);
-            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, PlayerStateClient.MSG_CLIENT_UPDATE_PLAYER_STATE, buffer);
+            ServerPlayNetworking.send(player, PlayerStateClient.MSG_CLIENT_UPDATE_PLAYER_STATE, buffer);
         }
     }
 }
