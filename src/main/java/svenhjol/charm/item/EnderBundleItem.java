@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.CommandItemSlot;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -52,9 +53,7 @@ public class EnderBundleItem extends CharmItem {
     }
 
     @Override
-    public boolean onStackClicked(ItemStack bundle, Slot slot, ClickType clickType, PlayerInventory playerInventory) {
-        PlayerEntity player = playerInventory.player;
-
+    public boolean onStackClicked(ItemStack bundle, Slot slot, ClickType clickType, PlayerEntity player) {
         if (player.currentScreenHandler instanceof GenericContainerScreenHandler
             && !(slot.inventory instanceof PlayerInventory)) {
             return false; // don't allow inside ender chest inventory
@@ -78,8 +77,7 @@ public class EnderBundleItem extends CharmItem {
     }
 
     @Override
-    public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerInventory playerInventory) {
-        PlayerEntity player = playerInventory.player;
+    public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, CommandItemSlot commandItemSlot) {
         if (player.currentScreenHandler instanceof GenericContainerScreenHandler
             && !(slot.inventory instanceof PlayerInventory)
         ) {
@@ -88,7 +86,7 @@ public class EnderBundleItem extends CharmItem {
             return false; // TODO: why is creative contains wack?
         } else if (clickType == ClickType.RIGHT && slot.method_32754(player)) {
             if (otherStack.isEmpty()) {
-                removeLastStack(player).ifPresent(playerInventory::setCursorStack);
+                removeLastStack(player).ifPresent(commandItemSlot::set);
             } else {
                 ItemStack out = addToBundle(player, otherStack);
                 otherStack.setCount(out.getCount());
