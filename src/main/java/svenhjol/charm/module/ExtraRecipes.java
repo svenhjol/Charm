@@ -1,19 +1,16 @@
 package svenhjol.charm.module;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.GameRules;
-import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.event.UpdateAnvilCallback;
+import svenhjol.charm.event.CheckAnvilRepairCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +48,7 @@ public class ExtraRecipes extends CharmModule {
 
     @Override
     public void init() {
-        UpdateAnvilCallback.EVENT.register(this::handleAnvilBehavior);
+        CheckAnvilRepairCallback.EVENT.register(this::handleCheckAnvilRepair);
     }
 
     @Override
@@ -77,34 +74,15 @@ public class ExtraRecipes extends CharmModule {
         return removedRecipes;
     }
 
-    private ActionResult handleAnvilBehavior(AnvilScreenHandler handler, PlayerEntity player, ItemStack left, ItemStack right, Inventory output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {
-        ItemStack out;
+    private boolean handleCheckAnvilRepair(AnvilScreenHandler handler, PlayerEntity player, ItemStack leftStack, ItemStack rightStack) {
+        if (!useLeatherForElytra || player == null || player.world == null)
+            return false;
 
-        if (player == null || player.world == null)
-            return ActionResult.PASS;
+        // don't activate if insomnia is enabled
+        if (!player.world.isClient && player.world.getGameRules().getBoolean(GameRules.DO_INSOMNIA))
+            return false;
 
-        // don't activate this recipe if config disabled or insomnia is enabled
-        if (!useLeatherForElytra || player.world.getGameRules().getBoolean(GameRules.DO_INSOMNIA))
-            return ActionResult.PASS;
-
-        if (left.getItem() != Items.ELYTRA || right.getItem() != Items.LEATHER)
-            return ActionResult.PASS;
-
-        int cost = left.getRepairCost();
-
-        out = left.copy();
-
-        // vanilla logic. TODO: move to AnvilHelper
-        int o = Math.min(out.getDamage(), out.getMaxDamage() / 4);
-        if (o <= 0) {
-            apply.accept(ItemStack.EMPTY, 0, 0);
-            return ActionResult.PASS;
-        }
-        out.setDamage(out.getDamage() - o);
-        out.setRepairCost(AnvilScreenHandler.getNextCost(cost));
-
-        apply.accept(out, cost, 1);
-        return ActionResult.SUCCESS;
+        return leftStack.getItem() == Items.ELYTRA && rightStack.getItem() == Items.LEATHER;
     }
 }
 
