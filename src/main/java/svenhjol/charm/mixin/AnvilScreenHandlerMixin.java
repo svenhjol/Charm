@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.*;
 import net.minecraft.util.ActionResult;
@@ -21,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.event.CheckAnvilRepairCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.module.AnvilImprovements;
 import svenhjol.charm.module.StackableEnchantedBooks;
@@ -51,24 +53,52 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         return AnvilImprovements.allowTooExpensive() || abilities.creativeMode;
     }
 
+    /**
+     * Allows intervention when checking if the anvil item can be
+     * repaired with another item via the CheckAnvilRepairCallback event.
+     *
+     * For example, elytra cannot normally be repaired with leather,
+     * but using the player.world we can check if insomnia is disabled
+     * and therefore allow this repair check.  The reason we don't
+     * hook into ElytraItem's canRepair method directly is because
+     * there is no world reference.
+     */
+    @Redirect(
+        method = "updateResult",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/item/Item;canRepair(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z"
+        )
+    )
+    private boolean hookUpdateResultCanRepair(Item leftItem, ItemStack leftStack, ItemStack rightStack) {
+        return CheckAnvilRepairCallback.EVENT.invoker().interact((AnvilScreenHandler)(Object) this, this.player, leftStack, rightStack);
+    }
+
+    /**
+     * Allows an event to completely override the normal anvil
+     * input and output process via the UpdateAnvilCallback event.
+     */
     @Inject(
         method = "updateResult",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/item/ItemStack;isDamageable()Z"
+            target = "Lnet/minecraft/item/ItemStack;isDamageable()Z",
+            ordinal = 0,
+            shift = At.Shift.BEFORE
         ),
         cancellable = true,
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void hookUpdateResultUpdateAnvil(CallbackInfo ci, ItemStack left, int i, int baseCost, int k, ItemStack itemStack2, ItemStack right) {
         ActionResult result = UpdateAnvilCallback.EVENT.invoker().interact((AnvilScreenHandler)(Object)this, this.player, left, right, this.output, this.newItemName, baseCost, this::applyUpdateAnvil);
-        if (result == ActionResult.SUCCESS)
+        if (result == ActionResult.SUCCESS) {
             ci.cancel();
+        }
     }
 
     private void applyUpdateAnvil(ItemStack out, int xpCost, int materialCost) {
         output.setStack(0, out);
-        levelCost.set(xpCost);
+        this.levelCost.set(5);
         repairItemUsage = materialCost;
     }
 
@@ -120,6 +150,4 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
         inv.setStack(index, stack);
     }
-
-
 }
