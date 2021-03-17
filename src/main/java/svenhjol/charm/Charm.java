@@ -47,7 +47,7 @@ public class Charm implements ModInitializer {
             FeatherFallingCrops.class,
             Glowballs.class,
             GoldBars.class,
-            CharmChains.class,
+            Chains.class,
             GoldLanterns.class,
             HoeHarvesting.class,
             HuskImprovements.class,

@@ -5,19 +5,16 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.CopperChainBlock;
 import svenhjol.charm.block.GoldChainBlock;
-import svenhjol.charm.block.GoldLanternBlock;
-import svenhjol.charm.client.CharmChainsClient;
+import svenhjol.charm.client.ChainsClient;
 
-@Module(mod = Charm.MOD_ID, client = CharmChainsClient.class, description = "Gold version of the vanilla chain.")
-public class CharmChains extends CharmModule {
+@Module(mod = Charm.MOD_ID, client = ChainsClient.class, description = "Gold and copper chains made from respective nuggets.")
+public class Chains extends CharmModule {
     public static GoldChainBlock GOLD_CHAIN;
     public static CopperChainBlock COPPER_CHAIN;
-
 
     @Override
     public void register() {
         GOLD_CHAIN = new GoldChainBlock(this, "gold_chain");
         COPPER_CHAIN = new CopperChainBlock(this, "copper_chain");
-
     }
 }
