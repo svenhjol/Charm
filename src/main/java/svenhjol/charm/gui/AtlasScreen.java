@@ -400,7 +400,7 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
             double normX = normalizeForMapArea(LEFT + x, mouseX);
             double normY = normalizeForMapArea(TOP + y, mouseY);
             if (button == 0 && 0 <= normX && normX < 1 && 0 <= normY && normY < 1) {
-                ItemStack heldItem = handler.method_34255();
+                ItemStack heldItem = handler.getCursorStack();
                 if (!heldItem.isEmpty()) {
                     sendAtlasTransfer(slot, -1, -1, Atlas.MoveMode.FROM_HAND);
                 } else {
@@ -554,7 +554,7 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
             if (button == 0 && x + LEFT <= mouseX && mouseX < x + LEFT + SIZE && y + TOP <= mouseY && mouseY < y + TOP + SIZE) {
-                ItemStack heldItem = handler.method_34255();
+                ItemStack heldItem = handler.getCursorStack();
                 if (!heldItem.isEmpty()) {
                     sendAtlasTransfer(slot, -1, -1, Atlas.MoveMode.FROM_HAND);
                 } else if (mapInfo != null) {

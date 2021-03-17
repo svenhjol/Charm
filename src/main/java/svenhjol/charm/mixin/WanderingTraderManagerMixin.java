@@ -11,7 +11,7 @@ import java.util.Random;
 @Mixin(WanderingTraderManager.class)
 public class WanderingTraderManagerMixin {
     @Redirect(
-        method = "method_18018",
+        method = "spawn",
         at = @At(
             value = "INVOKE",
             target = "Ljava/util/Random;nextInt(I)I"
