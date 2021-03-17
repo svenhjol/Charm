@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -31,7 +32,7 @@ public class DecreaseRepairCost extends CharmModule {
         UpdateAnvilCallback.EVENT.register(this::tryReduceRepairCost);
     }
 
-    private ActionResult tryReduceRepairCost(AnvilScreenHandler handler, ItemStack left, ItemStack right, Inventory output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {
+    private ActionResult tryReduceRepairCost(AnvilScreenHandler handler, PlayerEntity player, ItemStack left, ItemStack right, Inventory output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {
         ItemStack out; // this will be the tool/armor with reduced repair cost
 
         if (left.isEmpty() || right.isEmpty())
