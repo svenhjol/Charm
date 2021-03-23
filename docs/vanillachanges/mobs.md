@@ -60,7 +60,7 @@ Parrots now stay on the player's shoulder when jumping or falling. To remove a p
 Prevents nitwits from spawning as new villagers.  It also converts any nitwits to unemployed villagers in nearby areas.
 
 ### Sheared Sheep show their color
-![Sheared Sheep show their color](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/sheep_colors.jpg?raw=true)
+![Sheared Sheep show their color](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/sheep_colors.png?raw=true)
 When a sheep is dyed and then sheared, the wool patches that are seen on the sheep show the actual wool color.  By default all sheared sheep appear white, regardless of their actual color.  
 This feature has been ported from Bedrock Edition. 
 
