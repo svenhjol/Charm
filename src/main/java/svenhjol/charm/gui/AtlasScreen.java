@@ -49,7 +49,6 @@ import static svenhjol.charm.screenhandler.AtlasInventory.MapInfo;
 public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
     private static final Identifier CONTAINER_BACKGROUND = new Identifier(Charm.MOD_ID, "textures/gui/atlas_container.png");
     private static final RenderLayer MAP_DECORATIONS = RenderLayer.getText(new Identifier("textures/map/map_icons.png"));
-    private static final RenderLayer LINES = RenderLayer.of("lines", VertexFormats.POSITION_COLOR, VertexFormat.DrawMode.LINES, 256, RenderLayer.MultiPhaseParameters.builder().build(false));
     private static final int SIZE = 48;
     private static final int LEFT = 74;
     private static final int TOP = 16;
@@ -343,56 +342,23 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
                     matrices.pop();
                 }
             }
-            drawLines(matrices, bufferSource.getBuffer(LINES));
+            drawLines(matrices);
         }
 
-        private void drawLines(MatrixStack matrices, VertexConsumer builder) {
+        private void drawLines(MatrixStack matrices) {
             matrices.push();
             matrices.translate(0, 0, 0.2);
             // need to revert the base scale to avoid some lines being to thin to be drawn
             matrices.scale(0.5f / BASE_SCALE, 0.5f / BASE_SCALE, 1);
 
-            // TODO: enabling the following lines b0rks the game
-//            for (int xLine = 1; xLine < mapDistance; ++xLine) {
-//                vLine(matrices, builder, xLine * 2 * SIZE / mapDistance, 0, 2 * SIZE, -1);
-//            }
-//            for (int yLine = 1; yLine < mapDistance; ++yLine) {
-//                hLine(matrices, builder, 0, 2 * SIZE, yLine * 2 * SIZE / mapDistance, -1);
-//            }
+
+            for (int xLine = 1; xLine < mapDistance; ++xLine) {
+                drawVerticalLine(matrices, xLine * 2 * SIZE / mapDistance, 0, 2 * SIZE, -1);
+            }
+            for (int yLine = 1; yLine < mapDistance; ++yLine) {
+                drawHorizontalLine(matrices, 0, 2 * SIZE, yLine * 2 * SIZE / mapDistance, -1);
+            }
             matrices.pop();
-        }
-
-        private void hLine(MatrixStack matrixStack, VertexConsumer builder, int minX, int maxX, int y, int color) {
-            fill(matrixStack, builder, minX, y, maxX + 1, y + 1, color);
-        }
-
-        private void vLine(MatrixStack matrixStack, VertexConsumer builder, int x, int minY, int maxY, int color) {
-            fill(matrixStack, builder, x, minY + 1, x + 1, maxY, color);
-        }
-
-        private void fill(MatrixStack matrices, VertexConsumer builder, int minX, int minY, int maxX, int maxY, int color) {
-            if (minX < maxX) {
-                int i = minX;
-                minX = maxX;
-                maxX = i;
-            }
-
-            if (minY < maxY) {
-                int j = minY;
-                minY = maxY;
-                maxY = j;
-            }
-
-            float f3 = (float) (color >> 24 & 255) / 255.0F;
-            float f = (float) (color >> 16 & 255) / 255.0F;
-            float f1 = (float) (color >> 8 & 255) / 255.0F;
-            float f2 = (float) (color & 255) / 255.0F;
-
-            Matrix4f matrix = matrices.peek().getModel();
-            builder.vertex(matrix, (float) minX, (float) maxY, 0.0F).color(f, f1, f2, f3).next();
-            builder.vertex(matrix, (float) maxX, (float) maxY, 0.0F).color(f, f1, f2, f3).next();
-            builder.vertex(matrix, (float) maxX, (float) minY, 0.0F).color(f, f1, f2, f3).next();
-            builder.vertex(matrix, (float) minX, (float) minY, 0.0F).color(f, f1, f2, f3).next();
         }
 
         @Override
