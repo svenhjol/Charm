@@ -20,7 +20,7 @@ Anvils are also 50% less likely to become damaged when used.
 Combine a tool or armor with a **Netherite nugget** on an anvil to reduce its repair cost.
 
 ### Extend Netherite
-![Extend Netherite](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Extend Netherite](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/netherite.png?raw=true)
 Increases the lifetime of Netherite-based items before they despawn.
 
 ### Extract Enchantments

@@ -6,7 +6,7 @@ title: Tools
 ## Tools
 
 ### Bat in a Bucket
-![Bat in a bucket](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Bat in a bucket](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/bat-bucket.png?raw=true)
 Right-click a bat with an empty bucket to capture it (if you can!) and get the **Bat in a Bucket**.
 Right-click to release the captured bat, causing the outline of all entities around you to be visible for a moment.
 
@@ -15,7 +15,7 @@ Right-click to release the captured bat, causing the outline of all entities aro
 Combine a snowball with glowstone dust to get a glowball. You can throw it like a snowball and it will leave a little glowing blob where it impacts.
 
 ### Raid Horns
-![Raid Horns](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Raid Horns](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/raid-horn.png?raw=true)
 A **Raid Horn** may be used to cancel a village raid that is in progress.  When there is no raid in progress,
 blowing a raid horn will call a wandering pillager patrol group to spawn nearby.
 
