@@ -11,11 +11,17 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.event.ApplyBeaconEffectsCallback;
 
 import java.util.List;
 @Module(mod = Charm.MOD_ID, description = "Passive and friendly mobs will heal themselves within range of a beacon with the regeneration effect.")
 public class BeaconsHealMobs extends CharmModule {
-    public static void healInBeaconRange(World world, int levels, BlockPos pos, StatusEffect primaryEffect, StatusEffect secondaryEffect) {
+    @Override
+    public void init() {
+        ApplyBeaconEffectsCallback.EVENT.register(this::handleApplyBeaconEffects);
+    }
+
+    private void handleApplyBeaconEffects(World world, BlockPos pos, int levels, StatusEffect primaryEffect, StatusEffect secondaryEffect) {
         if (!ModuleHandler.enabled("charm:beacons_heal_mobs"))
             return;
 
