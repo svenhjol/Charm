@@ -4,6 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
@@ -18,11 +19,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.event.*;
 import svenhjol.charm.module.ArmorInvisibility;
 import svenhjol.charm.module.UseTotemFromInventory;
 import svenhjol.charm.module.VariantLadders;
+
+import java.util.Map;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -139,5 +143,21 @@ public abstract class LivingEntityMixin extends Entity {
     )
     private void hookJump(CallbackInfo ci) {
         EntityJumpCallback.EVENT.invoker().interact((LivingEntity)(Object)this);
+    }
+
+    @Inject(
+        method = "method_30129",
+        at = @At(
+            value = "INVOKE",
+            target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+            shift = At.Shift.BEFORE
+        ),
+        locals = LocalCapture.CAPTURE_FAILHARD
+    )
+    private void hookGetEquippedItems(CallbackInfoReturnable<Map<EquipmentSlot, ItemStack>> cir,
+        Map<EquipmentSlot, ItemStack> map, EquipmentSlot[] var2, int var3, int var4,
+        EquipmentSlot equipmentSlot, ItemStack itemStack3, ItemStack itemStack4
+    ) {
+        EntityEquipEvent.EVENT.invoker().interact((LivingEntity)(Object)this, equipmentSlot, itemStack3, itemStack4);
     }
 }
