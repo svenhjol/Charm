@@ -8,9 +8,9 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nullable;
 
-public interface EntityEquipEvent {
-    Event<EntityEquipEvent> EVENT = EventFactory.createArrayBacked(EntityEquipEvent.class, (listeners) -> (livingEntity, slot, from, to) -> {
-        for (EntityEquipEvent listener : listeners) {
+public interface EntityEquipCallback {
+    Event<EntityEquipCallback> EVENT = EventFactory.createArrayBacked(EntityEquipCallback.class, (listeners) -> (livingEntity, slot, from, to) -> {
+        for (EntityEquipCallback listener : listeners) {
             listener.interact(livingEntity, slot, from, to);
         }
     });

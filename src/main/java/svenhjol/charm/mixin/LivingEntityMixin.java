@@ -158,6 +158,6 @@ public abstract class LivingEntityMixin extends Entity {
         Map<EquipmentSlot, ItemStack> map, EquipmentSlot[] var2, int var3, int var4,
         EquipmentSlot equipmentSlot, ItemStack itemStack3, ItemStack itemStack4
     ) {
-        EntityEquipEvent.EVENT.invoker().interact((LivingEntity)(Object)this, equipmentSlot, itemStack3, itemStack4);
+        EntityEquipCallback.EVENT.invoker().interact((LivingEntity)(Object)this, equipmentSlot, itemStack3, itemStack4);
     }
 }
