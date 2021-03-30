@@ -1,6 +1,6 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -14,6 +14,7 @@ import net.minecraft.state.property.Property;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -41,7 +42,7 @@ public class Quadrants extends CharmModule {
     @Override
     public void init() {
         EntityEquipCallback.EVENT.register(this::handleEntityEquip);
-        AttackBlockCallback.EVENT.register(this::handleUseBlock);
+        UseBlockCallback.EVENT.register(this::handleUseBlock);
     }
 
     public static BlockState getRotatedBlockState(BlockState state, ItemPlacementContext context) {
@@ -76,15 +77,16 @@ public class Quadrants extends CharmModule {
         return state;
     }
 
-    private ActionResult handleUseBlock(PlayerEntity player, World world, Hand hand, BlockPos pos, Direction direction) {
+    private ActionResult handleUseBlock(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
         ItemStack held = player.getStackInHand(hand);
 
-        if (!held.isOf(QUADRANT) || world.isClient)
+        if (!held.isOf(QUADRANT))
             return ActionResult.PASS;
 
         if (player.getItemCooldownManager().isCoolingDown(QUADRANT))
-            return ActionResult.FAIL;
+            return ActionResult.SUCCESS;
 
+        BlockPos pos = hitResult.getBlockPos();
         BlockState state = world.getBlockState(pos);
         Collection<Property<?>> properties = state.getProperties();
         Property<Direction> prop = null;
@@ -105,16 +107,16 @@ public class Quadrants extends CharmModule {
 
         if (prop != null && exceptions.stream().noneMatch(exception -> exception.test(state))) {
             Direction d = state.get(prop);
-            world.setBlockState(pos, state.with(prop, d.rotateYClockwise()), 2);
+            world.setBlockState(pos, state.with(prop, d.rotateYClockwise()), 3);
+            world.getBlockTickScheduler().schedule(pos, state.getBlock(), 4);
             world.playSound(null, pos, SoundEvents.BLOCK_COPPER_PLACE, SoundCategory.BLOCKS, 1.0F, 0.9F);
 
             // damage the quadrant a bit
             held.damage(1, player, p -> p.sendToolBreakStatus(hand));
             player.getItemCooldownManager().set(QUADRANT, 5);
-            return ActionResult.SUCCESS;
         }
 
-        return ActionResult.PASS;
+        return ActionResult.SUCCESS;
     }
 
     private void handleEntityEquip(LivingEntity entity, EquipmentSlot slot, @Nullable ItemStack from, @Nullable ItemStack to) {
