@@ -9,13 +9,13 @@ import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
 
-public class GoldChainBlock extends ChainBlock implements ICharmBlock {
+public class CopperChainBlock extends ChainBlock implements ICharmBlock {
     private final CharmModule module;
 
-    public GoldChainBlock(CharmModule module, String gold_chain) {
+    public CopperChainBlock(CharmModule module, String copper_chain) {
         super(AbstractBlock.Settings.copy(Blocks.CHAIN));
         this.module = module;
-        this.register(module, "gold_chain");
+        this.register(module, "copper_chain");
     }
 
     @Override
@@ -34,3 +34,4 @@ public class GoldChainBlock extends ChainBlock implements ICharmBlock {
         return module.enabled;
     }
 }
+
