@@ -3,7 +3,7 @@ package svenhjol.charm.event;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import svenhjol.charm.Charm;
 
@@ -16,7 +16,7 @@ public interface PlayerSaveDataCallback {
         }
     });
 
-    static void writeFile(File file, CompoundTag tag) {
+    static void writeFile(File file, NbtCompound tag) {
         try {
             NbtIo.writeCompressed(tag, file);
         } catch (Exception e) {

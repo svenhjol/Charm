@@ -6,7 +6,7 @@ import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -54,7 +54,7 @@ public class BatBuckets extends CharmModule {
                 return ActionResult.PASS;
 
             ItemStack batBucket = new ItemStack(BAT_BUCKET_ITEM);
-            CompoundTag tag = new CompoundTag();
+            NbtCompound tag = new NbtCompound();
             ItemNBTHelper.setCompound(batBucket, BatBucketItem.STORED_BAT, bat.writeNbt(tag));
 
             if (held.getCount() == 1) {

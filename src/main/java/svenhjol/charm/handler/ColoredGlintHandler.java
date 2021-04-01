@@ -3,7 +3,7 @@ package svenhjol.charm.handler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
@@ -63,7 +63,7 @@ public class ColoredGlintHandler {
 
     public static String getStackColor(ItemStack stack) {
         if (stack != null && stack.hasTag()) {
-            CompoundTag tag = stack.getTag();
+            NbtCompound tag = stack.getTag();
             if (tag != null) {
                 if (tag.contains(GLINT_TAG))
                     return tag.getString(GLINT_TAG);

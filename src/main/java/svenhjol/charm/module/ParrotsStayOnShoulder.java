@@ -1,7 +1,7 @@
 package svenhjol.charm.module;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
@@ -32,11 +32,11 @@ public class ParrotsStayOnShoulder extends CharmModule {
             final ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
             if (!serverPlayer.getShoulderEntityLeft().isEmpty()) {
                 ((PlayerEntityAccessor)serverPlayer).invokeDropShoulderEntity(serverPlayer.getShoulderEntityLeft());
-                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityLeft(new CompoundTag());
+                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityLeft(new NbtCompound());
             }
             if (!serverPlayer.getShoulderEntityRight().isEmpty()) {
                 ((PlayerEntityAccessor)serverPlayer).invokeDropShoulderEntity(serverPlayer.getShoulderEntityRight());
-                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityRight(new CompoundTag());
+                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityRight(new NbtCompound());
             }
         }
     }
