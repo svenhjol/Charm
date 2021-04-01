@@ -1,16 +1,15 @@
 package svenhjol.charm.module;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.function.LootFunctionType;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.EnchantmentsHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
@@ -52,7 +51,7 @@ public class Tinted extends CharmModule {
         stack.getOrCreateTag().putString(ColoredGlintHandler.GLINT_TAG, color);
     }
 
-    private ActionResult handleAnvilBehavior(AnvilScreenHandler handler, ItemStack left, ItemStack right, Inventory output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {
+    private ActionResult handleAnvilBehavior(AnvilScreenHandler handler, PlayerEntity player, ItemStack left, ItemStack right, Inventory output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {
         ItemStack out;
 
         if (left.isEmpty() || right.isEmpty())

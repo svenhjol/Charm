@@ -19,10 +19,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.event.EntityDeathCallback;
-import svenhjol.charm.event.EntityDropsCallback;
-import svenhjol.charm.event.EntityDropsXpCallback;
-import svenhjol.charm.event.HurtEntityCallback;
+import svenhjol.charm.event.*;
 import svenhjol.charm.module.ArmorInvisibility;
 import svenhjol.charm.module.UseTotemFromInventory;
 import svenhjol.charm.module.VariantLadders;
@@ -134,5 +131,13 @@ public abstract class LivingEntityMixin extends Entity {
     )
     private void hookOnDeath(DamageSource source, CallbackInfo ci) {
         EntityDeathCallback.EVENT.invoker().interact((LivingEntity)(Object)this, source);
+    }
+
+    @Inject(
+        method = "jump",
+        at = @At("TAIL")
+    )
+    private void hookJump(CallbackInfo ci) {
+        EntityJumpCallback.EVENT.invoker().interact((LivingEntity)(Object)this);
     }
 }

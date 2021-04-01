@@ -3,7 +3,7 @@ package svenhjol.charm.handler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
@@ -63,7 +63,7 @@ public class ColoredGlintHandler {
 
     public static String getStackColor(ItemStack stack) {
         if (stack != null && stack.hasTag()) {
-            CompoundTag tag = stack.getTag();
+            NbtCompound tag = stack.getTag();
             if (tag != null) {
                 if (tag.contains(GLINT_TAG))
                     return tag.getString(GLINT_TAG);
@@ -97,11 +97,10 @@ public class ColoredGlintHandler {
         return GLINT.getOrDefault(getStackColor(targetStack), RenderLayerAccessor.getGlint());
     }
 
-    // TODO: method_34577 was texture()
     private static RenderLayer createGlint(String color, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("glint_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .method_34578(new RenderPhase.class_5942(GameRenderer::method_34520))
-            .method_34577(new RenderPhase.Texture(texture, true, false))
+            .shader(RenderPhaseAccessor.getGlintShader())
+            .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
             .depthTest(RenderPhaseAccessor.getEqualDepthTest())
@@ -115,8 +114,8 @@ public class ColoredGlintHandler {
 
     private static RenderLayer createEntityGlint(String color, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("entity_glint_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .method_34578(new RenderPhase.class_5942(GameRenderer::method_34527))
-            .method_34577(new RenderPhase.Texture(texture, true, false))
+            .shader(RenderPhaseAccessor.getEntityGlintShader())
+            .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
             .depthTest(RenderPhaseAccessor.getEqualDepthTest())
@@ -131,8 +130,8 @@ public class ColoredGlintHandler {
 
     private static RenderLayer createArmorGlint(String color, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("armor_glint_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .method_34578(new RenderPhase.class_5942(GameRenderer::method_34520))
-            .method_34577(new RenderPhase.Texture(texture, true, false))
+            .shader(RenderPhaseAccessor.getArmorGlintShader())
+            .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
             .depthTest(RenderPhaseAccessor.getEqualDepthTest())
@@ -147,8 +146,8 @@ public class ColoredGlintHandler {
 
     private static RenderLayer createArmorEntityGlint(String color, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("armor_entity_glint_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .method_34578(new RenderPhase.class_5942(GameRenderer::method_34523))
-            .method_34577(new RenderPhase.Texture(texture, true, false))
+            .shader(RenderPhaseAccessor.getArmorEntityGlintShader())
+            .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
             .depthTest(RenderPhaseAccessor.getEqualDepthTest())
@@ -163,8 +162,8 @@ public class ColoredGlintHandler {
 
     private static RenderLayer createDirectGlint(String color, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("glint_direct_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .method_34578(new RenderPhase.class_5942(GameRenderer::method_34526))
-            .method_34577(new RenderPhase.Texture(texture, true, false))
+            .shader(RenderPhaseAccessor.getDirectGlintShader())
+            .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
             .depthTest(RenderPhaseAccessor.getEqualDepthTest())
@@ -178,8 +177,8 @@ public class ColoredGlintHandler {
 
     private static RenderLayer createDirectEntityGlint(String color, Identifier texture) {
         RenderLayer renderLayer = RenderLayer.of("entity_glint_direct_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .method_34578(new RenderPhase.class_5942(GameRenderer::method_34528))
-            .method_34577(new RenderPhase.Texture(texture, true, false))
+            .shader(RenderPhaseAccessor.getDirectEntityGlintShader())
+            .texture(new RenderPhase.Texture(texture, true, false))
             .writeMaskState(RenderPhaseAccessor.getColorMask())
             .cull(RenderPhaseAccessor.getDisableCulling())
             .depthTest(RenderPhaseAccessor.getEqualDepthTest())

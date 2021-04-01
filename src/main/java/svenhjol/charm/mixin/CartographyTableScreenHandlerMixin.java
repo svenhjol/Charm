@@ -31,7 +31,7 @@ public class CartographyTableScreenHandlerMixin {
         cancellable = true
     )
     private void hookUpdateResult(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, CallbackInfo ci) {
-        World world = context.run((w, b) -> w).orElse(null);
+        World world = context.get((w, b) -> w).orElse(null);
         if (world == null) return;
         if (Atlas.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, world, resultSlot, (CartographyTableScreenHandler) (Object) this)) {
             ci.cancel();

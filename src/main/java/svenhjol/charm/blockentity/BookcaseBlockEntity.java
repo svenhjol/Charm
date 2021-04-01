@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -33,7 +33,7 @@ public class BookcaseBlockEntity extends LootableContainerBlockEntity implements
     }
 
     @Override
-    public void readNbt(CompoundTag tag) {
+    public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
         this.items = DefaultedList.ofSize(SIZE, ItemStack.EMPTY);
         if (!this.deserializeLootTable(tag))
@@ -41,7 +41,7 @@ public class BookcaseBlockEntity extends LootableContainerBlockEntity implements
     }
 
     @Override
-    public CompoundTag writeNbt(CompoundTag tag) {
+    public NbtCompound writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         if (!this.serializeLootTable(tag))
             Inventories.writeNbt(tag, this.items);
