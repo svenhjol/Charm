@@ -42,7 +42,7 @@ public class CharmHandledScreen<T extends ScreenHandler> extends AbstractCharmCo
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         if (client != null) {
-            RenderSystem.setShader(GameRenderer::method_34542);
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.setShaderTexture(0, texture);
             int x = (width - backgroundWidth) / 2;

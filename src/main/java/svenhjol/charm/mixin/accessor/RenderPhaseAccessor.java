@@ -45,4 +45,23 @@ public interface RenderPhaseAccessor {
     static RenderPhase.Layering getViewOffsetZLayering() {
         throw new IllegalStateException();
     }
+
+    @Accessor("GLINT_SHADER")
+    static RenderPhase.Shader getGlintShader() { throw new IllegalStateException(); }
+
+    @Accessor("ENTITY_GLINT_SHADER")
+    static RenderPhase.Shader getEntityGlintShader() { throw new IllegalStateException(); }
+
+    @Accessor("ARMOR_GLINT_SHADER")
+    static RenderPhase.Shader getArmorGlintShader() { throw new IllegalStateException(); }
+
+    @Accessor("ARMOR_ENTITY_GLINT_SHADER")
+    static RenderPhase.Shader getArmorEntityGlintShader() { throw new IllegalStateException(); }
+
+    @Accessor("DIRECT_GLINT_SHADER")
+    static RenderPhase.Shader getDirectGlintShader() { throw new IllegalStateException(); }
+
+    @Accessor("DIRECT_ENTITY_GLINT_SHADER")
+    static RenderPhase.Shader getDirectEntityGlintShader() { throw new IllegalStateException(); }
+
 }
