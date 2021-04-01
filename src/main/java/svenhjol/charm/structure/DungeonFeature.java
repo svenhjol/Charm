@@ -32,12 +32,12 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
     }
 
     public StructureFeature.StructureStartFactory<StructurePoolFeatureConfig> getStructureStartFactory() {
-        return (feature, chunkPos, blockBox, i, l) -> new Start(this, chunkPos, blockBox, i, l);
+        return (feature, chunkPos, i, l) -> new Start(this, chunkPos, i, l);
     }
 
     public static class Start extends MarginedStructureStart<StructurePoolFeatureConfig> {
-        public Start(DungeonFeature feature, ChunkPos chunkPos, BlockBox blockBox, int i, long l) {
-            super(feature, chunkPos, blockBox, i, l);
+        public Start(DungeonFeature feature, ChunkPos chunkPos, int i, long l) {
+            super(feature, chunkPos, i, l);
         }
 
         public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, StructurePoolFeatureConfig structurePoolFeatureConfig, HeightLimitView heightLimitView) {
@@ -55,10 +55,10 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
             StructurePoolElement structurePoolElement = structurePool.getRandomElement(new Random());
             BlockBox box = structurePoolElement.getBoundingBox(structureManager, blockPos, blockRotation);
 
-            int[] corner1 = new int[]{box.minX, box.minZ};
-            int[] corner2 = new int[]{box.maxX, box.minZ};
-            int[] corner3 = new int[]{box.minX, box.maxZ};
-            int[] corner4 = new int[]{box.maxX, box.maxZ};
+            int[] corner1 = new int[]{box.getMinX(), box.getMinZ()};
+            int[] corner2 = new int[]{box.getMaxX(), box.getMinZ()};
+            int[] corner3 = new int[]{box.getMinX(), box.getMaxZ()};
+            int[] corner4 = new int[]{box.getMaxX(), box.getMaxZ()};
 
             VerticalBlockSample cornerSample1 = chunkGenerator.getColumnSample(corner1[0], corner1[1], heightLimitView);
             VerticalBlockSample cornerSample2 = chunkGenerator.getColumnSample(corner2[0], corner2[1], heightLimitView);
@@ -66,7 +66,7 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
             VerticalBlockSample cornerSample4 = chunkGenerator.getColumnSample(corner4[0], corner4[1], heightLimitView);
 
             while (y > DEFAULT_Y && !found) {
-                BlockPos.Mutable mutable = new BlockPos.Mutable(box.minX, y, box.minZ);
+                BlockPos.Mutable mutable = new BlockPos.Mutable(box.getMinX(), y, box.getMinZ());
                 BlockState blockState = cornerSample1.getState(mutable);
                 y--;
 
@@ -93,7 +93,7 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
             if (found) {
                 BlockPos foundPos = new BlockPos(x, y + 1, z);
                 StructurePools.initDefaultPools();
-                StructurePoolBasedGenerator.method_30419(dynamicRegistryManager, structurePoolFeatureConfig, PoolStructurePiece::new, chunkGenerator, structureManager, foundPos, children, random1, true, false, heightLimitView);
+                StructurePoolBasedGenerator.method_30419(dynamicRegistryManager, structurePoolFeatureConfig, PoolStructurePiece::new, chunkGenerator, structureManager, foundPos, this, random1, true, false, heightLimitView);
                 this.setBoundingBoxFromChildren();
             }
         }
