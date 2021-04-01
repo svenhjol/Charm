@@ -86,7 +86,7 @@ public class DataBlockProcessor extends StructureProcessor {
         public static float FLOWER_CHANCE = 0.8F;
         public static float FLOWERPOT_CHANCE = 0.8F;
         public static float LANTERN_CHANCE = 0.9F;
-        public static float LANTERN_GOLD_CHANCE = 0.25F;
+        public static float LANTERN_VARIANT_CHANCE = 0.25F;
         public static float LAVA_CHANCE = 0.7F;
         public static float MOB_CHANCE = 0.75F;
         public static float ORE_CHANCE = 0.75F;
@@ -317,8 +317,13 @@ public class DataBlockProcessor extends StructureProcessor {
             if (!withChance(LANTERN_CHANCE)) return;
             state = Blocks.LANTERN.getDefaultState();
 
-            if (ModuleHandler.enabled("charm:gold_lanterns") && random.nextFloat() < LANTERN_GOLD_CHANCE)
-                state = GoldLanterns.GOLD_LANTERN.getDefaultState();
+            if (ModuleHandler.enabled("charm:lanterns") && random.nextFloat() < LANTERN_VARIANT_CHANCE) {
+                if (random.nextBoolean()) {
+                    state = Lanterns.GOLD_LANTERN.getDefaultState();
+                } else {
+                    state = Lanterns.COPPER_LANTERN.getDefaultState();
+                }
+            }
 
             if (data.contains("hanging"))
                 state = state.with(LanternBlock.HANGING, true);
