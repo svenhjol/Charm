@@ -208,7 +208,7 @@ public class Atlas extends CharmModule {
 
             switch (mode) {
                 case TO_HAND:
-                    player.currentScreenHandler.method_34254(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
+                    player.currentScreenHandler.setCursorStack(inventory.removeMapByCoords(player.world, mapX, mapZ).map);
                     updateClient(player, atlasSlot);
                     break;
                 case TO_INVENTORY:
@@ -216,13 +216,13 @@ public class Atlas extends CharmModule {
                     updateClient(player, atlasSlot);
                     break;
                 case FROM_HAND:
-                    ItemStack heldItem = player.currentScreenHandler.method_34255();
+                    ItemStack heldItem = player.currentScreenHandler.getCursorStack();
                     if (heldItem.getItem() == Items.FILLED_MAP) {
                         Integer mapId = FilledMapItem.getMapId(heldItem);
                         MapState mapState = FilledMapItem.getMapState(mapId, player.world);
                         if (mapState != null && mapState.scale == inventory.getScale()) {
                             inventory.addToInventory(player.world, heldItem);
-                            player.currentScreenHandler.method_34254(ItemStack.EMPTY);
+                            player.currentScreenHandler.setCursorStack(ItemStack.EMPTY);
                             updateClient(player, atlasSlot);
                         }
                     }

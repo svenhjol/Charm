@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleTypes;
@@ -40,13 +40,13 @@ public class EndermitePowderEntity extends Entity {
     }
 
     @Override
-    protected void readCustomDataFromNbt(CompoundTag tag) {
+    protected void readCustomDataFromNbt(NbtCompound tag) {
         dataTracker.set(TARGET_X, tag.getInt(TAG_TARGET_X));
         dataTracker.set(TARGET_Z, tag.getInt(TAG_TARGET_Z));
     }
 
     @Override
-    protected void writeCustomDataToNbt(CompoundTag tag) {
+    protected void writeCustomDataToNbt(NbtCompound tag) {
         tag.putInt(TAG_TARGET_X, dataTracker.get(TARGET_X));
         tag.putInt(TAG_TARGET_Z, dataTracker.get(TARGET_Z));
     }

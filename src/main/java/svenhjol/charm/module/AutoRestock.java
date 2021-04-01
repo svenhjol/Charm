@@ -4,7 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
@@ -56,7 +56,7 @@ public class AutoRestock extends CharmModule {
         } else {
             Item item = stack.getItem();
             int used = getItemUsed(player, item);
-            ListTag enchantments = stack.getEnchantments();
+            NbtList enchantments = stack.getEnchantments();
             StackData stackData = cached.get(hand);
             if (stackData == null) {
                 stackData = new StackData();
@@ -90,7 +90,7 @@ public class AutoRestock extends CharmModule {
 
     private static class StackData {
         private Item item;
-        private ListTag enchantments;
+        private NbtList enchantments;
         private int used;
     }
 
