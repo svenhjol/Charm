@@ -6,7 +6,6 @@ import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.structure.pool.StructurePools;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
@@ -29,14 +28,14 @@ public class JigsawVariableHeightFeature extends StructureFeature<StructurePoolF
     }
 
     public StructureFeature.StructureStartFactory<StructurePoolFeatureConfig> getStructureStartFactory() {
-        return (feature, chunkPos, blockBox, i, l) -> new Start(this, chunkPos, blockBox, i, l);
+        return (feature, chunkPos, i, l) -> new Start(this, chunkPos, i, l);
     }
 
     public static class Start extends MarginedStructureStart<StructurePoolFeatureConfig> {
         private final JigsawVariableHeightFeature jigsawFeature;
 
-        public Start(JigsawVariableHeightFeature feature, ChunkPos chunkPos, BlockBox blockBox, int i, long l) {
-            super(feature, chunkPos, blockBox, i, l);
+        public Start(JigsawVariableHeightFeature feature, ChunkPos chunkPos, int i, long l) {
+            super(feature, chunkPos, i, l);
             this.jigsawFeature = feature;
         }
 
@@ -48,7 +47,7 @@ public class JigsawVariableHeightFeature extends StructureFeature<StructurePoolF
 
             BlockPos blockPos = new BlockPos(chunkPos.getStartX(), y, chunkPos.getStartZ());
             StructurePools.initDefaultPools();
-            StructurePoolBasedGenerator.method_30419(dynamicRegistryManager, structurePoolFeatureConfig, PoolStructurePiece::new, chunkGenerator, structureManager, blockPos, this.children, this.random, false, this.jigsawFeature.surface, heightLimitView);
+            StructurePoolBasedGenerator.method_30419(dynamicRegistryManager, structurePoolFeatureConfig, PoolStructurePiece::new, chunkGenerator, structureManager, blockPos, this, this.random, false, this.jigsawFeature.surface, heightLimitView);
             this.setBoundingBoxFromChildren();
         }
     }

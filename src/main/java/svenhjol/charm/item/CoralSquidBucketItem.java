@@ -7,7 +7,7 @@ import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -47,7 +47,7 @@ public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
         if (world instanceof ServerWorld) {
             CoralSquidEntity coralSquid = MobHelper.spawn(CoralSquids.CORAL_SQUID, (ServerWorld) world, pos, SpawnReason.BUCKET);
             if (coralSquid != null) {
-                CompoundTag data = ItemNBTHelper.getCompound(stack, STORED_CORAL_SQUID);
+                NbtCompound data = ItemNBTHelper.getCompound(stack, STORED_CORAL_SQUID);
                 if (!data.isEmpty())
                     coralSquid.readCustomDataFromNbt(data);
 

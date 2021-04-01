@@ -86,7 +86,7 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
     }
 
     private CharmImageButton createButton(ButtonDirection dir) {
-        return new CharmImageButton(() -> x + LEFT + dir.left, () -> y + TOP + dir.top, dir.width, dir.height,
+        return new CharmImageButton(() -> getX() + LEFT + dir.left, () -> getY() + TOP + dir.top, dir.width, dir.height,
                 dir.texStart, 0, dir.height, 2 * dir.height, CharmResources.INVENTORY_BUTTONS, it -> mapGui.buttonClick(dir));
     }
 
@@ -206,6 +206,16 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
         data.writeInt(mapZ);
         data.writeEnumConstant(mode);
         ClientPlayNetworking.send(Atlas.MSG_SERVER_ATLAS_TRANSFER, data);
+    }
+
+    // TODO: Use until yarn mappings are sensible
+    private int getX() {
+        return field_2776;
+    }
+
+    // TODO: Use until yarn mappings are sensible
+    private int getY() {
+        return field_2800;
     }
 
     private enum ButtonDirection {
@@ -363,8 +373,8 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
 
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
-            double normX = normalizeForMapArea(LEFT + x, mouseX);
-            double normY = normalizeForMapArea(TOP + y, mouseY);
+            double normX = normalizeForMapArea(LEFT + getX(), mouseX);
+            double normY = normalizeForMapArea(TOP + getY(), mouseY);
             if (button == 0 && 0 <= normX && normX < 1 && 0 <= normY && normY < 1) {
                 ItemStack heldItem = handler.getCursorStack();
                 if (!heldItem.isEmpty()) {
@@ -519,7 +529,7 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
 
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
-            if (button == 0 && x + LEFT <= mouseX && mouseX < x + LEFT + SIZE && y + TOP <= mouseY && mouseY < y + TOP + SIZE) {
+            if (button == 0 && getX() + LEFT <= mouseX && mouseX < getX() + LEFT + SIZE && getY() + TOP <= mouseY && mouseY < getY() + TOP + SIZE) {
                 ItemStack heldItem = handler.getCursorStack();
                 if (!heldItem.isEmpty()) {
                     sendAtlasTransfer(slot, -1, -1, Atlas.MoveMode.FROM_HAND);
