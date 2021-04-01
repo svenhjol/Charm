@@ -10,8 +10,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.Identifier;
@@ -52,11 +52,11 @@ public class EnderBundlesClient extends CharmClientModule {
      * Handle message sent from the server containing updated ender inventory.
      */
     private void handleClientUpdateEnderInventory(PacketContext context, PacketByteBuf data) {
-        CompoundTag tag = data.readCompoundTag();
+        NbtCompound tag = data.readCompound();
         context.getTaskQueue().execute(() ->
             ClientHelper.getPlayer().ifPresent(player -> {
                 if (tag != null && tag.contains("EnderItems", 9)) {
-                    ListTag enderItems = tag.getList("EnderItems", 10);
+                    NbtList enderItems = tag.getList("EnderItems", 10);
                     EnderChestInventory inventory = ((PlayerEntityAccessor) player).getEnderChestInventory();
                     inventory.readTags(enderItems);
 

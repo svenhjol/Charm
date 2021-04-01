@@ -65,8 +65,8 @@ public class EnderBundleItem extends CharmItem {
             ItemStack itemStack = slot.getStack();
             if (itemStack.isEmpty()) {
                 Optional<ItemStack> out = removeLastStack(player);
-                out.ifPresent(slot::method_32756);
-            } else if (itemStack.getItem().hasStoredInventory()) {
+                out.ifPresent(slot::insertStack);
+            } else if (itemStack.getItem().canBeNested()) {
                 ItemStack out = addToBundle(player, itemStack);
                 itemStack.setCount(out.getCount());
             }
@@ -84,7 +84,7 @@ public class EnderBundleItem extends CharmItem {
             return false; // don't allow inside ender chest inventory
         } else if (player.currentScreenHandler instanceof CreativeInventoryScreen.CreativeScreenHandler) {
             return false; // TODO: why is creative contains wack?
-        } else if (clickType == ClickType.RIGHT && slot.method_32754(player)) {
+        } else if (clickType == ClickType.RIGHT && slot.canTakePartial(player)) {
             if (otherStack.isEmpty()) {
                 removeLastStack(player).ifPresent(commandItemSlot::set);
             } else {
@@ -98,7 +98,7 @@ public class EnderBundleItem extends CharmItem {
     }
 
     private static ItemStack addToBundle(PlayerEntity player, ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem().hasStoredInventory()) {
+        if (!stack.isEmpty() && stack.getItem().canBeNested()) {
             EnderChestInventory inventory = player.getEnderChestInventory();
             ItemStack out = inventory.addStack(stack);
             inventory.markDirty();

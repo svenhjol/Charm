@@ -2,7 +2,7 @@ package svenhjol.charm.module;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -30,11 +30,11 @@ public class EnderBundles extends CharmModule {
                 if (player == null)
                     return;
 
-                CompoundTag tag = new CompoundTag();
+                NbtCompound tag = new NbtCompound();
                 tag.put("EnderItems", player.getEnderChestInventory().getTags());
 
                 PacketByteBuf buffer = new PacketByteBuf(Unpooled.buffer());
-                buffer.writeCompoundTag(tag);
+                buffer.writeCompound(tag);
                 ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, MSG_CLIENT_UPDATE_ENDER_INVENTORY, buffer);
             });
         });
