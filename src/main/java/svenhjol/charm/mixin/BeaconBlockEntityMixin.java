@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.BeaconsHealMobs;
+import svenhjol.charm.event.ApplyBeaconEffectsCallback;
 
 @Mixin(BeaconBlockEntity.class)
 public abstract class BeaconBlockEntityMixin extends BlockEntity {
@@ -25,6 +25,6 @@ public abstract class BeaconBlockEntityMixin extends BlockEntity {
     )
     private static void hookAddEffects(World world, BlockPos pos, int level, StatusEffect primary, StatusEffect secondary, CallbackInfo ci) {
         if (world != null)
-            BeaconsHealMobs.healInBeaconRange(world, level, pos, primary, secondary);
+            ApplyBeaconEffectsCallback.EVENT.invoker().interact(world, pos, level, primary, secondary);
     }
 }

@@ -22,7 +22,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
@@ -86,7 +86,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
         entityData = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
         setCoralSquidType(random.nextInt(5));
         return entityData;
@@ -142,14 +142,14 @@ public class CoralSquidEntity extends WaterCreatureEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(CompoundTag tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         tag.putInt(CORAL_SQUID_TYPE_TAG, this.getCoralSquidType());
         tag.putBoolean(CORAL_SQUID_FROM_BUCKET_TAG, this.isFromBucket());
     }
 
     @Override
-    public void readCustomDataFromNbt(CompoundTag tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
         this.setCoralSquidType(tag.getInt(CORAL_SQUID_TYPE_TAG));
         this.setFromBucket(tag.getBoolean(CORAL_SQUID_FROM_BUCKET_TAG));
@@ -305,7 +305,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
             held.decrement(1);
 
             ItemStack coralSquidBucket = new ItemStack(CoralSquids.CORAL_SQUID_BUCKET);
-            CompoundTag tag = new CompoundTag();
+            NbtCompound tag = new NbtCompound();
             ItemNBTHelper.setCompound(coralSquidBucket, CoralSquidBucketItem.STORED_CORAL_SQUID, this.writeNbt(tag));
 
             if (this.hasCustomName())

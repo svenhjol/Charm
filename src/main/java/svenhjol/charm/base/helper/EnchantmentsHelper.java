@@ -21,6 +21,10 @@ public class EnchantmentsHelper {
         EnchantmentHelper.set(enchantments, stack);
     }
 
+    public static int getFortune(LivingEntity entity) {
+        return EnchantmentHelper.getEquipmentLevel(Enchantments.FORTUNE, entity);
+    }
+
     public static boolean hasFeatherFalling(LivingEntity entity) {
         return EnchantmentHelper.getEquipmentLevel(Enchantments.FEATHER_FALLING, entity) > 0;
     }

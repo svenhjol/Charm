@@ -1,6 +1,6 @@
 package svenhjol.charm.mixin;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -34,7 +34,7 @@ public class PlayerManagerMixin {
         method = "loadPlayerData",
         at = @At("HEAD")
     )
-    private void hookLoadPlayerData(ServerPlayerEntity playerEntity, CallbackInfoReturnable<CompoundTag> cir) {
+    private void hookLoadPlayerData(ServerPlayerEntity playerEntity, CallbackInfoReturnable<NbtCompound> cir) {
         PlayerLoadDataCallback.EVENT.invoker().interact(playerEntity, getPlayerDataDir());
     }
 
