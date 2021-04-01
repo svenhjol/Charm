@@ -3,12 +3,10 @@ package svenhjol.charm.client;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -43,7 +41,7 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         if (stack == null || !stack.hasTag())
             return;
 
-        CompoundTag tag = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
+        NbtCompound tag = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
 
         if (tag == null)
             return;

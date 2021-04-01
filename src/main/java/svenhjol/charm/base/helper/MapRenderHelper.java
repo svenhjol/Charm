@@ -1,9 +1,7 @@
 package svenhjol.charm.base.helper;
 
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
@@ -17,7 +15,8 @@ public class MapRenderHelper {
         matrices.push();
         matrices.translate(x, y, z);
         matrices.scale(scale, scale, 1);
-        VertexConsumerProvider.Immediate bufferSource = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
+        //see also MapTooltipsClient
+        VertexConsumerProvider.Immediate bufferSource = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
         drawBackgroundVertex(matrices, light, bufferSource.getBuffer(MAP_BACKGROUND));
         renderMap.accept(bufferSource);
         bufferSource.draw();

@@ -6,7 +6,7 @@ title: Mobs
 ## Mobs
 
 ### Beacons heal friendly mobs
-![Mobs affected by beacon](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Mobs affected by beacon](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/beacons_heal.png?raw=true)
 A beacon with the secondary effect of **Regeneration** will heal all tamed, friendly, and neutral mobs in the area around it.
 
 ### Beekeepers
@@ -44,7 +44,7 @@ Lumberjacks are villagers that trade wooden items. Their job site is the **Woodc
 Villages have the chance to spawn with dedicated lumberjack houses.
 
 ### Mooblooms
-![Mooblooms](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Mooblooms](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/mooblooms.png?raw=true)
 The Moobloom is a flower-covered variant of the mooshroom. They spawn in Flower Forest biomes and come in a number of colors and flower varieties.
 As they wander, they have a chance of planting a flower of the type they are covered with.
 
@@ -56,8 +56,13 @@ Once pollinated, you may milk a moobloom using a bowl to obtain a suspicious ste
 Parrots now stay on the player's shoulder when jumping or falling. To remove a parrot, just crouch.
 
 ### Remove Nitwits
-![Remove Nitwits](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Remove Nitwits](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/nitwits_no_more.png?raw=trueg)
 Prevents nitwits from spawning as new villagers.  It also converts any nitwits to unemployed villagers in nearby areas.
+
+### Sheared Sheep show their color
+![Sheared Sheep show their color](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/sheep_colors.png?raw=true)
+When a sheep is dyed and then sheared, the wool patches that are seen on the sheep show the actual wool color.  By default all sheared sheep appear white, regardless of their actual color.  
+This feature has been ported from Bedrock Edition. 
 
 ### Snow Golem derp faces
 ![Snow Golem derp faces](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/snow-golem-derp-faces.png?raw=true)
@@ -68,7 +73,7 @@ This is part of the Variant Mob Textures feature.  Snow Golems can spawn with di
 Strays can now spawn underground in their biomes and also have a chance to drop blue ice when killed.
 
 ### Tamed animals no damage
-![Tamed animals no damage](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Tamed animals no damage](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/pets_no_damage.png?raw=true)
 Tamed animals no longer take direct damage from players. They still can suffer secondary effects, such as potion effects from a tipped arrow.
 
 If you are in Creative Mode, this feature is bypassed.
