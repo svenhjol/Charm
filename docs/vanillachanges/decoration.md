@@ -54,14 +54,14 @@ A **Gold Lantern** is crafted with gold nuggets around a torch.
 The **Gold Soul Lantern** can be crafted using gold nuggets around a soul torch.
 
 ### Random animal textures
-![Random animal textures](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Random animal textures](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/variant-animals.png?raw=true)
 Chickens, Cows, Pigs, Squids and Wolves may spawn with alternate textures.
 Some of the wolf textures were kindly contributed by [jupiter1930](https://www.reddit.com/user/jupiter1390) and [All_My_Own_Trash](https://www.reddit.com/user/All_My_Own_Trash).
 
 If **Quark** is present, chickens, cows, and pigs are disabled by default.
 
 ### Smooth Glowstone
-![Smooth Glowstone](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Smooth Glowstone](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/smoother_glowstone.png?raw=true)
 Smooth Glowstone.
 
 ### Variant Barrels

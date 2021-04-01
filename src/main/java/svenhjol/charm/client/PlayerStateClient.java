@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
@@ -53,7 +53,7 @@ public class PlayerStateClient extends CharmClientModule {
     }
 
     private void handleClientUpdatePlayerState(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
-        CompoundTag tag = new CompoundTag();
+        NbtCompound tag = new NbtCompound();
 
         try {
             byte[] byteData = Base64.getDecoder().decode(data.readString());
@@ -62,7 +62,7 @@ public class PlayerStateClient extends CharmClientModule {
             CharmClient.LOG.warn("Failed to decompress player state");
         }
 
-        CompoundTag finalTag = tag;
+        NbtCompound finalTag = tag;
         client.execute(() -> clientCallback(finalTag));
     }
 
@@ -70,7 +70,7 @@ public class PlayerStateClient extends CharmClientModule {
      * Unpack the received server data from the NBT tag.
      */
     @Environment(EnvType.CLIENT)
-    public void clientCallback(CompoundTag data) {
+    public void clientCallback(NbtCompound data) {
         this.mineshaft = data.getBoolean("mineshaft");
         this.stronghold = data.getBoolean("stronghold");
         this.fortress = data.getBoolean("fortress");
