@@ -44,7 +44,7 @@ public class CharmImageButton extends TexturedButtonWidget {
     }
 
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float mouseDelta) {
-        RenderSystem.setShader(GameRenderer::method_34542);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, resourceLocation);
         int yTex = yTexStart;
         if (!active) {

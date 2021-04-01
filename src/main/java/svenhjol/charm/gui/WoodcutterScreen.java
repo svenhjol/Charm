@@ -40,13 +40,13 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
       this.renderBackground(matrices);
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       RenderSystem.setShaderTexture(0, TEXTURE);
-      int i = this.x;
-      int j = this.y;
+      int i = this.getX();
+      int j = this.getY();
       this.drawTexture(matrices, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
       int k = (int)(41.0F * this.scrollAmount);
       this.drawTexture(matrices, i + 119, j + 15 + k, 176 + (this.shouldScroll() ? 0 : 12), 0, 12, 15);
-      int l = this.x + 52;
-      int m = this.y + 14;
+      int l = this.getX() + 52;
+      int m = this.getY() + 14;
       int n = this.scrollOffset + 12;
       this.renderRecipeBackground(matrices, mouseX, mouseY, l, m, n);
       this.renderRecipeIcons(l, m, n);
@@ -55,8 +55,8 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
    protected void drawMouseoverTooltip(MatrixStack matrices, int x, int y) {
       super.drawMouseoverTooltip(matrices, x, y);
       if (this.canCraft) {
-         int i = this.x + 52;
-         int j = this.y + 14;
+         int i = this.getX() + 52;
+         int j = this.getY() + 14;
          int k = this.scrollOffset + 12;
          List<WoodcuttingRecipe> list = (this.handler).getAvailableRecipes();
 
@@ -69,7 +69,6 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
             }
          }
       }
-
    }
 
    private void renderRecipeBackground(MatrixStack matrixStack, int i, int j, int k, int l, int m) {
@@ -106,8 +105,8 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
    public boolean mouseClicked(double mouseX, double mouseY, int button) {
       this.mouseClicked = false;
       if (this.canCraft) {
-         int i = this.x + 52;
-         int j = this.y + 14;
+         int i = this.getX() + 52;
+         int j = this.getY() + 14;
          int k = this.scrollOffset + 12;
 
          for(int l = this.scrollOffset; l < k; ++l) {
@@ -121,8 +120,8 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
             }
          }
 
-         i = this.x + 119;
-         j = this.y + 9;
+         i = this.getX() + 119;
+         j = this.getY() + 9;
          if (mouseX >= (double)i && mouseX < (double)(i + 12) && mouseY >= (double)j && mouseY < (double)(j + 54)) {
             this.mouseClicked = true;
          }
@@ -133,7 +132,7 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
 
    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
       if (this.mouseClicked && this.shouldScroll()) {
-         int i = this.y + 14;
+         int i = this.getY() + 14;
          int j = i + 54;
          this.scrollAmount = ((float)mouseY - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
          this.scrollAmount = MathHelper.clamp(this.scrollAmount, 0.0F, 1.0F);
@@ -155,6 +154,16 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
       return true;
    }
 
+   // TODO: Use until yarn mappings are sensible
+   private int getX() {
+      return field_2776;
+   }
+
+   // TODO: Use until yarn mappings are sensible
+   private int getY() {
+      return field_2800;
+   }
+
    private boolean shouldScroll() {
       return this.canCraft && (this.handler).getAvailableRecipeCount() > 12;
    }
@@ -169,6 +178,5 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
          this.scrollAmount = 0.0F;
          this.scrollOffset = 0;
       }
-
    }
 }

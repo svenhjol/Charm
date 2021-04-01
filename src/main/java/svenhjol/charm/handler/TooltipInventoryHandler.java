@@ -72,7 +72,7 @@ public class TooltipInventoryHandler {
     }
 
     public static void renderTooltipBackground(MinecraftClient mc, MatrixStack matrix, int x, int y, int width, int height, int color) {
-        RenderSystem.setShader(GameRenderer::method_34540);
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
         RenderSystem.setShaderTexture(0, CharmResources.SLOT_WIDGET);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
