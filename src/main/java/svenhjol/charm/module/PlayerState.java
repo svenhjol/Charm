@@ -3,7 +3,7 @@ package svenhjol.charm.module;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
@@ -30,7 +30,7 @@ import java.util.function.BiConsumer;
 @Module(mod = Charm.MOD_ID, client = PlayerStateClient.class, description = "Synchronize additional state from server to client.", alwaysEnabled = true)
 public class PlayerState extends CharmModule {
     public static final Identifier MSG_SERVER_UPDATE_PLAYER_STATE = new Identifier(Charm.MOD_ID, "server_update_player_state");
-    public static List<BiConsumer<ServerPlayerEntity, CompoundTag>> listeners = new ArrayList<>();
+    public static List<BiConsumer<ServerPlayerEntity, NbtCompound>> listeners = new ArrayList<>();
 
     @Config(name = "Server state update interval", description = "Interval (in ticks) on which additional world state will be synchronised to the client.")
     public static int serverStateInverval = 120;
@@ -58,7 +58,7 @@ public class PlayerState extends CharmModule {
         ServerWorld world = player.getServerWorld();
         BlockPos pos = player.getBlockPos();
         long dayTime = world.getTimeOfDay() % 24000;
-        CompoundTag tag = new CompoundTag();
+        NbtCompound tag = new NbtCompound();
 
         tag.putBoolean("mineshaft", PosHelper.isInsideStructure(world, pos, StructureFeature.MINESHAFT));
         tag.putBoolean("stronghold", PosHelper.isInsideStructure(world, pos, StructureFeature.STRONGHOLD));

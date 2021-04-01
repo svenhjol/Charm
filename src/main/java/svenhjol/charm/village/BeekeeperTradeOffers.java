@@ -8,7 +8,7 @@ import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
@@ -119,8 +119,8 @@ public class BeekeeperTradeOffers {
                 blockEntity.tryEnterHive(bee, false, 0);
             }
 
-            CompoundTag beesTag = new CompoundTag();
-            CompoundTag honeyTag = new CompoundTag();
+            NbtCompound beesTag = new NbtCompound();
+            NbtCompound honeyTag = new NbtCompound();
             beesTag.put("Bees", blockEntity.getBees());
             honeyTag.putInt("honey_level", 0);
             out.putSubTag("BlockEntityTag", beesTag);
