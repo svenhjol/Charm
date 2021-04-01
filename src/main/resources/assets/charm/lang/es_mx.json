@@ -90,8 +90,6 @@
   "enchantment.charm.acquisition.desc": "Las herramientas recogen los ítems automáticamente",
   "enchantment.charm.aerial_affinity": "Afinidad aérea",
   "enchantment.charm.aerial_affinity.desc": "Aumenta la velocidad de minería al estar fuera de contacto con el suelo",
-  "enchantment.charm.tinted": "Tintado",
-  "enchantment.charm.tinted.desc": "Permite cambiar el color del destello de encantamiento combinando con tintes en un yunque",
   "entity.charm.coral_squid": "Calamar de coral",
   "entity.charm.moobloom": "Vaca moobloom",
   "entity.minecraft.villager.beekeeper": "Apicultor",

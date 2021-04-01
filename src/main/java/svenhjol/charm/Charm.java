@@ -78,7 +78,7 @@ public class Charm implements ModInitializer {
             StackableStews.class,
             StrayImprovements.class,
             TamedAnimalsNoDamage.class,
-            Tinted.class,
+            ColoredGlints.class,
             UseTotemFromInventory.class,
             VariantBarrels.class,
             VariantBookshelves.class,
