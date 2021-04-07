@@ -1,5 +1,6 @@
 package svenhjol.charm.module;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.DyeItem;
@@ -10,24 +11,16 @@ import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.base.helper.EnchantmentsHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.enchantment.TintedEnchantment;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.handler.ColoredGlintHandler;
 
-@Module(mod = Charm.MOD_ID, description = "When applied, this enchantment lets you change the color of the enchanted glint using dye on an anvil. Requires Core 'Enchantment glint override' to be true.")
-public class Tinted extends CharmModule {
-    public static TintedEnchantment TINTED;
+@Module(mod = Charm.MOD_ID, description = "When applied, you may use dyes on an anvil to change the item's enchantment color. Requires Core 'Enchantment glint override' to be true.")
+public class ColoredGlints extends CharmModule {
 
-    @Config(name = "XP cost", description = "Number of levels required to change a tinted item using dye on an anvil.")
+    @Config(name = "XP cost", description = "Number of levels of XP required to change an item's enchantment color using dye on an anvil.")
     public static int xpCost = 0;
-
-    @Override
-    public void register() {
-        TINTED = new TintedEnchantment(this);
-    }
 
     @Override
     public boolean depends() {
@@ -47,7 +40,6 @@ public class Tinted extends CharmModule {
      * Adds the enchantment and color directly to the input stack with no sanity checking.
      */
     public static void applyTint(ItemStack stack, String color) {
-        EnchantmentsHelper.apply(stack, TINTED, 1);
         stack.getOrCreateTag().putString(ColoredGlintHandler.GLINT_TAG, color);
     }
 
@@ -57,7 +49,7 @@ public class Tinted extends CharmModule {
         if (left.isEmpty() || right.isEmpty())
             return ActionResult.PASS;
 
-        if (!EnchantmentsHelper.has(left, TINTED) || !(right.getItem() instanceof DyeItem))
+        if (EnchantmentHelper.get(left).size() == 0 || !(right.getItem() instanceof DyeItem))
             return ActionResult.PASS;
 
         int cost = Math.max(0, xpCost);

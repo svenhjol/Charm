@@ -14,7 +14,7 @@ public class MapHelper {
         // generate the map
         ItemStack stack = FilledMapItem.createMap(world, pos.getX(), pos.getZ(), (byte) 2, true, true);
         FilledMapItem.fillExplorationMap(world, stack);
-        MapState.addDecorationsTag(stack, pos, "+", targetType);
+        MapState.addDecorationsNbt(stack, pos, "+", targetType);
         stack.setCustomName(mapName);
 
         // set map color based on structure
