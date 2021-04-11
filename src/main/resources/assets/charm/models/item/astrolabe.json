@@ -1,0 +1,55 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "charm:item/astrolabe"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "charm:aligned_x": 1
+      },
+      "model": "charm:item/astrolabe_aligned_x"
+    },
+    {
+      "predicate": {
+        "charm:aligned_x": 1,
+        "charm:aligned_y": 1
+      },
+      "model": "charm:item/astrolabe_aligned_xy"
+    },
+    {
+      "predicate": {
+        "charm:aligned_x": 1,
+        "charm:aligned_z": 1
+      },
+      "model": "charm:item/astrolabe_aligned_xz"
+    },
+    {
+      "predicate": {
+        "charm:aligned_y": 1
+      },
+      "model": "charm:item/astrolabe_aligned_y"
+    },
+    {
+      "predicate": {
+        "charm:aligned_y": 1,
+        "charm:aligned_z": 1
+      },
+      "model": "charm:item/astrolabe_aligned_yz"
+    },
+    {
+      "predicate": {
+        "charm:aligned_z": 1
+      },
+      "model": "charm:item/astrolabe_aligned_z"
+    },
+    {
+      "predicate": {
+        "charm:aligned_x": 1,
+        "charm:aligned_y": 1,
+        "charm:aligned_z": 1
+      },
+      "model": "charm:item/astrolabe_aligned_xyz"
+    }
+  ]
+}
