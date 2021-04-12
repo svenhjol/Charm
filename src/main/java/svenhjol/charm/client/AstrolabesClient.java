@@ -13,6 +13,7 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.item.AstrolabeItem;
 import svenhjol.charm.module.Astrolabes;
 
+import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class AstrolabesClient extends CharmClientModule {
@@ -28,19 +29,22 @@ public class AstrolabesClient extends CharmClientModule {
     }
 
     private float handleAlignX(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
-        return isAligned(stack, world, pos -> pos.getX() == entity.getBlockX()) ? 1 : 0;
+        return isAligned(stack, world, entity, pos
+            -> pos.getZ() == entity.getBlockZ()) ? 1 : 0;
     }
 
     private float handleAlignY(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
-        return isAligned(stack, world, pos -> pos.getY() == entity.getBlockY()) ? 1 : 0;
+        return isAligned(stack, world, entity, pos
+            -> pos.getY() == entity.getBlockY()) ? 1 : 0;
     }
 
     private float handleAlignZ(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
-        return isAligned(stack, world, pos -> pos.getZ() == entity.getBlockZ()) ? 1 : 0;
+        return isAligned(stack, world, entity, pos ->
+            pos.getX() == entity.getBlockX()) ? 1 : 0;
     }
 
-    private boolean isAligned(ItemStack stack, ClientWorld world, Predicate<BlockPos.Mutable> testPosition) {
-        if (world == null)
+    private boolean isAligned(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, Predicate<BlockPos.Mutable> testPosition) {
+        if (entity == null || entity.world == null)
             return false;
 
         Identifier dimension = AstrolabeItem.getDimension(stack);
@@ -53,7 +57,7 @@ public class AstrolabesClient extends CharmClientModule {
 
         if (dimension != null) {
             // if the astrolabe was set in the nether and the user is not in the nether, multiply X and Z
-            if (dimension.equals(World.NETHER.getValue()) && world.getRegistryKey() != World.NETHER) {
+            if (dimension.equals(World.NETHER.getValue()) && entity.world.getRegistryKey() != World.NETHER) {
                 int x = position.getX();
                 int y = position.getY();
                 int z = position.getZ();
@@ -62,7 +66,7 @@ public class AstrolabesClient extends CharmClientModule {
             }
 
             // if the astrolabe was set outside the nether and the user is in the nether, divide X and Z
-            if (!dimension.equals(World.NETHER.getValue()) && world.getRegistryKey() == World.NETHER) {
+            if (!dimension.equals(World.NETHER.getValue()) && entity.world.getRegistryKey() == World.NETHER) {
                 int x = position.getX();
                 int y = position.getY();
                 int z = position.getZ();
