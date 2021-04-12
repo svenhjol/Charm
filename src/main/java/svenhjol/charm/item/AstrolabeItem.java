@@ -7,7 +7,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.DyeColor;
@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.DimensionHelper;
 import svenhjol.charm.base.item.CharmItem;
+import svenhjol.charm.module.Astrolabes;
 
 import javax.annotation.Nullable;
 
@@ -42,13 +43,16 @@ public class AstrolabeItem extends CharmItem {
             setPosition(held, user.getBlockPos());
 
             world.playSound(null, user.getBlockPos(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+
+            if (world.isClient)
+                clientEffects((ClientWorld)world, user.getBlockPos(), user);
+
             return TypedActionResult.success(held);
         }
 
         BlockPos position = getPosition(held);
-        if (world.isClient && position != null) {
-            createAxisEffect((ClientWorld)world, position, user);
-        }
+        if (world.isClient && position != null)
+            clientEffects((ClientWorld)world, position, user);
 
         return TypedActionResult.pass(held);
     }
@@ -80,7 +84,7 @@ public class AstrolabeItem extends CharmItem {
     }
 
     @Environment(EnvType.CLIENT)
-    private void createAxisEffect(ClientWorld world, BlockPos pos, PlayerEntity player) {
+    private void clientEffects(ClientWorld world, BlockPos pos, PlayerEntity player) {
         int dist = 32;
 
         boolean alignedX = false;
@@ -113,18 +117,25 @@ public class AstrolabeItem extends CharmItem {
                 this.createAxisParticles(world, new BlockPos(pos.getX(), player.getY() + y, pos.getZ()), DyeColor.PURPLE);
             }
         }
+
+        // maybe have three alignments sounds in future
+        if (alignedX || alignedY || alignedZ)
+            world.playSound(player, player.getBlockPos(), SoundEvents.ITEM_SPYGLASS_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+
+
+        player.getItemCooldownManager().set(Astrolabes.ASTROLABE, 20);
     }
 
     private void createAxisParticles(ClientWorld world, BlockPos pos, DyeColor color) {
+        DefaultParticleType particleType = Astrolabes.AXIS_PARTICLE;
+
         float[] col = color.getColorComponents();
-        for (int i = 0; i < 3; i++) {
-            double d = (double) pos.getX() + 0.5D + (world.random.nextDouble() * 0.4D) - 0.2D;
-            double e = (double) pos.getY() + 0.25D;
-            double f = (double) pos.getZ() + 0.5D + (world.random.nextDouble() * 0.4D) - 0.2D;
+        for (int i = 0; i < 9; i++) {
+            double x = (double) pos.getX() + 0.5D;
+            double y = (double) pos.getY() + 0.5D;
+            double z = (double) pos.getZ() + 0.5D;
 
-            world.addImportantParticle(ParticleTypes.ENTITY_EFFECT, d, e, f, col[0], col[1], col[2]);
+            world.addImportantParticle(particleType, x, y, z, col[0], col[1], col[2]);
         }
-
-        world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 0, 0, 0);
     }
 }
