@@ -6,7 +6,7 @@ title: Mobs
 ## Mobs
 
 ### Beacons heal friendly mobs
-![Mobs affected by beacon](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Mobs affected by beacon](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/beacons_heal.png?raw=true)
 A beacon with the secondary effect of **Regeneration** will heal all tamed, friendly, and neutral mobs in the area around it.
 
 ### Beekeepers
@@ -16,25 +16,25 @@ Beekeepers are villagers that trade beekeeping items. Their job site is the beeh
 Villages have the chance to spawn with dedicated beekeeper houses.
 
 ### Cave Spiders drop cobwebs
-![Cave Spiders drop cobwebs](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Cave Spiders drop cobwebs](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/cave-spiders-web.png?raw=true)
 A cave spider has a chance to drop a cobweb when killed.
 
 ### Chickens drop feathers
-![Chickens drop feathers](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Chickens drop feathers](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/chickens-drop-feather.png?raw=true)
 Sometimes chickens drop a feather instead of laying an egg.  After dropping a feather, the amount of time until another egg or feather drops is reduced by half.
 
 *Vegan friendly!* 
 
 ### Coral Squid
-![Coral Squid](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-[COMING SOON]
+![Coral Squid](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/coral-squid.png?raw=true)
+Coral Squid hang out around coral in warm ocean biomes. They come in 5 different colors and have a chance to drop the corresponding coral color when killed - but you would never dream of killing such a cute little squidlet, right?
 
 ### Endermite Powder
-![Endermite Powder](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Endermite Powder](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/endermite-pwdr.png?raw=true)
 Endermite Powder has a chance of being dropped from **Endermites** when killed by a player.  Right-click while holding it in the End to help locate an **End City**.
 
 ### Husk improvements
-![Husk improvements](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Husk improvements](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/husk-improve.png?raw=true)
 Husks can now spawn underground in their biomes and also have a chance to drop sand when killed.
 
 ### Lumberjacks
@@ -44,31 +44,36 @@ Lumberjacks are villagers that trade wooden items. Their job site is the **Woodc
 Villages have the chance to spawn with dedicated lumberjack houses.
 
 ### Mooblooms
-![Mooblooms](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-[COMING SOON]
+![Mooblooms](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/mooblooms.png?raw=true)
+The Moobloom is a flower-covered variant of the mooshroom. They spawn in Flower Forest biomes and come in a number of colors and flower varieties.
+As they wander, they have a chance of planting a flower of the type they are covered with.
+
+Bees will try and pollinate nearby mooblooms, causing an additional flower to appear on the moobloom's head.
+Once pollinated, you may milk a moobloom using a bowl to obtain a suspicious stew of the type of flower that the moobloom is covered with.
 
 ### Parrots stay on shoulder
-![Parrots stay on shoulder](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Parrots stay on shoulder](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/parrots-stay..png?raw=true)
 Parrots now stay on the player's shoulder when jumping or falling. To remove a parrot, just crouch.
 
-### Potters
-![Potters](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-COMING SOON
-
 ### Remove Nitwits
-![Remove Nitwits](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Remove Nitwits](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/nitwits_no_more.png?raw=trueg)
 Prevents nitwits from spawning as new villagers.  It also converts any nitwits to unemployed villagers in nearby areas.
+
+### Sheared Sheep show their color
+![Sheared Sheep show their color](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/sheep_colors.png?raw=true)
+When a sheep is dyed and then sheared, the wool patches that are seen on the sheep show the actual wool color.  By default all sheared sheep appear white, regardless of their actual color.  
+This feature has been ported from Bedrock Edition. 
 
 ### Snow Golem derp faces
 ![Snow Golem derp faces](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/snow-golem-derp-faces.png?raw=true)
-[COMING SOON]
+This is part of the Variant Mob Textures feature.  Snow Golems can spawn with different "derp" faces, visible when you shear the pumpkin from their head.
 
 ### Stray improvements
-![Stray improvements](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Stray improvements](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/stray-improve.png?raw=true)
 Strays can now spawn underground in their biomes and also have a chance to drop blue ice when killed.
 
 ### Tamed animals no damage
-![Tamed animals no damage](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Tamed animals no damage](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/pets_no_damage.png?raw=true)
 Tamed animals no longer take direct damage from players. They still can suffer secondary effects, such as potion effects from a tipped arrow.
 
 If you are in Creative Mode, this feature is bypassed.
@@ -87,5 +92,5 @@ They also sell maps to structures and biomes.
 A configuration option is available to make Wandering Traders spawn more frequently.
 
 ### Witches drop luck
-![Witches drop luck](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Witches drop luck](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/witches-drop-luck.png?raw=true)
 A witch has a slight chance to drop a **Potion of Luck** when killed by a player.

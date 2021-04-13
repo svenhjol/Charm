@@ -19,6 +19,7 @@ public class Charm implements ModInitializer {
 
         new CharmLoader(MOD_ID, Arrays.asList(
             Acquisition.class,
+            AerialAffinity.class,
             AnvilImprovements.class,
             ArmorInvisibility.class,
             Atlas.class,
@@ -38,6 +39,7 @@ public class Charm implements ModInitializer {
             CoralSeaLanterns.class,
             CoralSquids.class,
             Core.class,
+            ExtraRecipes.class,
             Crates.class,
             DecreaseRepairCost.class,
             DirtToPath.class,
@@ -57,7 +59,6 @@ public class Charm implements ModInitializer {
             Lumberjacks.class,
             MapTooltips.class,
             MineshaftImprovements.class,
-            MobSoundCulling.class,
             Mooblooms.class,
             MorePortalFrames.class,
             MoreVillageBiomes.class,
@@ -65,6 +66,7 @@ public class Charm implements ModInitializer {
             NetheriteNuggets.class,
             ParrotsStayOnShoulder.class,
             PathToDirt.class,
+            PlayerPressurePlates.class,
             PlayerState.class,
             PortableCrafting.class,
             PortableEnderChest.class,

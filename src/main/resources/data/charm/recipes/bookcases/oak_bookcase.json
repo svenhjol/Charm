@@ -15,5 +15,11 @@
   },
   "result": {
     "item": "charm:oak_bookcase"
-  }
+  },
+  "conditions": [
+    {
+      "type": "charm:module_enabled",
+      "module": "charm:bookcases"
+    }
+  ]
 }

@@ -1,6 +1,0 @@
-{
-  "parent": "charm:block/bookcase/warped_bookcase_0",
-  "textures": {
-    "side": "charm:block/bookcase/warped_bookcase_4"
-  }
-}

@@ -15,7 +15,7 @@ public class VariantChestBlockEntity extends ChestBlockEntity {
         super(VariantChests.NORMAL_BLOCK_ENTITY);
     }
 
-    protected VariantChestBlockEntity(BlockEntityType<?> tile) {
+    public VariantChestBlockEntity(BlockEntityType<?> tile) {
         super(tile);
     }
 

@@ -6,13 +6,13 @@ title: Tweaks
 ## Tweaks
 
 ### Music improvements
-![Music improvements](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Music improvements](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/records.png?raw=true)
 When a music disc plays in a jukebox, background music will be stopped and prevented from playing so that you don't get two tracks playing at the same time.
 
 Creative background music may now play in survival mode.  In addition, the delay between ambient music tracks has been shortened.
 
 ### Armor invisibility
-![Armor invisibility](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Armor invisibility](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/armor-invisibility2.png?raw=true)
 Leather and chaimmail armor is now completely invisible and does not increase mob awareness when drinking a **Potion of Invisibility**, giving you a bit more protection while you ninja.
 
 ### Automatic recipe unlock
@@ -20,7 +20,7 @@ Leather and chaimmail armor is now completely invisible and does not increase mo
 All recipes will be available on login.  This was the first feature written for 1.14 before **Quark** was developed as I couldn't live without it.  Quark's implementation is better, so this feature will automatically disable itself if Quark is present. 
 
 ### Campfires no damage
-![Campfires no damage](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Campfires no damage](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/campfire-no-damage.png?raw=true)
 Campfires no longer damage mobs.
 By default, Soul Campfires still cause damage.
 
@@ -47,14 +47,8 @@ A button to automatically stack and tidy inventories.
 If **Quark** is present, this feature is disabled by default.
 
 ### Path to Dirt
-![Path to Dirt](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Path to Dirt](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/dirt-to-path.png?raw=true)
 Right-clicking on a grass path block with a hoe turns it back into dirt.
-
-### Placeable Glowstone Dust
-![Placeable Glowstone Dust](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-[COMING SOON] Right-click with glowstone dust to place it on the ground.  Placed glowstone dust has a light level of 8 and can be broken to pick up the item.
-
-If **Quark** is present, this feature is disabled by default.
 
 ### Portable Crafting
 ![Portable Crafting](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
@@ -63,6 +57,10 @@ If you have a crafting table in your inventory, you can open the 3x3 crafting gr
 ### Remove potion glint
 ![Remove potion glint](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Removes the enchanted glowing effect from potions, so you can actually see their true color.
+
+### Remove Spyglass scope
+![Remove Spyglass scope](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+[1.17 only] Removes the dark outer overlay when zooming in with the spyglass, giving you the full view.
 
 ### Shulker Box tooltips
 ![Shulker Box tooltips](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
@@ -87,5 +85,5 @@ Enchanted books of the same type can stack up to 16.
 Potions, water bottles, potion bases (mundane, awkward etc) and their splash/lingering varieties can stack up to 16, making them sortable and more convenient to carry around.
 
 ### Use Totem of Undying from inventory
-![Use totem of Undying from inventory](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Use totem of Undying from inventory](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/totem.png?raw=true)
 As long as a Totem of Undying is in your inventory (rather than specifically your main- or off-hand) it will be consumed to protect you from death.

@@ -10,7 +10,9 @@
     "AreaHelperMixin",
     "BarrelBlockEntityMixin",
     "BeaconBlockEntityMixin",
+    "BlockMixin",
     "CampfireBlockMixin",
+    "CartographyTableScreenHandlerMixin",
     "ChickenEntityMixin",
     "ChorusFruitItemMixin",
     "ComposterBlockMixin",
@@ -24,7 +26,6 @@
     "MinecraftDedicatedServerMixin",
     "MinecraftServerMixin",
     "MineshaftGeneratorMixin",
-    "MobEntityMixin",
     "MushroomStewItemMixin",
     "PistonBlockMixin",
     "PlayerEntityMixin",
@@ -40,6 +41,7 @@
     "StrayEntityMixin",
     "SuspiciousStewItemMixin",
     "ThrownEntityMixin",
+    "UtilMixin",
     "WanderingTraderManagerMixin",
     "accessor.AnvilScreenHandlerAccessor",
     "accessor.BarrelBlockEntityAccessor",
@@ -53,6 +55,7 @@
     "accessor.GoalSelectorAccessor",
     "accessor.ItemAccessor",
     "accessor.ItemEntityAccessor",
+    "accessor.ItemTagsAccessor",
     "accessor.MinecraftServerAccessor",
     "accessor.MineshaftGeneratorAccessor",
     "accessor.MobEntityAccessor",
@@ -65,6 +68,7 @@
     "accessor.SpawnSettingsAccessor",
     "accessor.StructurePieceAccessor",
     "accessor.StructurePoolAccessor",
+    "accessor.StructureProcessorListsAccessor",
     "accessor.VillagerEntityAccessor",
     "accessor.WorldSaveHandlerAccessor"
   ],
@@ -72,6 +76,7 @@
     "AnvilScreenMixin",
     "ArmorFeatureRendererMixin",
     "BuiltinModelItemRendererMixin",
+    "CartographyTableScreenMixin",
     "ClientPlayNetworkHandlerMixin",
     "ClientRecipeBookMixin",
     "ClientWorldMixin",
@@ -91,7 +96,10 @@
     "TexturedRenderLayersMixin",
     "WorldRendererMixin",
     "accessor.BufferBuilderStorageAccessor",
+    "accessor.EntityRenderDispatcherAccessor",
+    "accessor.FeatureRendererAccessor",
     "accessor.HandledScreenAccessor",
+    "accessor.LivingEntityRendererAccessor",
     "accessor.MinecraftClientAccessor",
     "accessor.MovingSoundInstanceAccessor",
     "accessor.RenderLayerAccessor",
@@ -101,5 +109,6 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "plugin": "svenhjol.charm.CharmMixinConfigPlugin"
 }

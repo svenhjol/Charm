@@ -1,0 +1,64 @@
+{
+  "template": {
+    "variants": {
+      "slots=0": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_0"
+      },
+      "slots=1": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_1"
+      },
+      "slots=2": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_1"
+      },
+      "slots=3": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_2"
+      },
+      "slots=4": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_2"
+      },
+      "slots=5": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_3"
+      },
+      "slots=6": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_3"
+      },
+      "slots=7": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_4"
+      },
+      "slots=8": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_4"
+      },
+      "slots=9": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_5"
+      },
+      "slots=10": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_5"
+      },
+      "slots=11": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_6"
+      },
+      "slots=12": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_6"
+      },
+      "slots=13": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_7"
+      },
+      "slots=14": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_7"
+      },
+      "slots=15": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_8"
+      },
+      "slots=16": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_8"
+      },
+      "slots=17": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_9"
+      },
+      "slots=18": {
+        "model": "charm:block/bookcase/VARIANT_bookcase_9"
+      }
+    }
+  },
+  "variants": "wood"
+}

@@ -1,5 +1,6 @@
 package svenhjol.charm.mixin;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,9 +12,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.PlayerDropInventoryCallback;
 import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.module.AerialAffinity;
 import svenhjol.charm.module.ParrotsStayOnShoulder;
 
 @Mixin(PlayerEntity.class)
@@ -53,5 +56,16 @@ public abstract class PlayerEntityMixin extends Entity {
         ActionResult result = PlayerDropInventoryCallback.EVENT.invoker().interact((PlayerEntity) (Object) this, this.inventory);
         if (result == ActionResult.SUCCESS)
             ci.cancel();
+    }
+
+    @Redirect(
+        method = "getBlockBreakingSpeed",
+        at = @At(
+            value = "FIELD",
+            target = "Lnet/minecraft/entity/player/PlayerEntity;onGround:Z"
+        )
+    )
+    private boolean hookDigSpeedOnGround(PlayerEntity player, BlockState state) {
+        return player.isOnGround() || AerialAffinity.digFast(player);
     }
 }

@@ -116,10 +116,10 @@ public class VariantMobTexturesClient extends CharmClientModule {
         for (int i = 1; i <= 1; i++)
             addCustomTextures(rareCows, MobType.COW, "rare_cow" + i);
 
-        for (int i = 1; i <= 5; i++)
+        for (int i = 1; i <= 4; i++)
             addCustomTextures(pigs, MobType.PIG, "pig" + i);
 
-        for (int i = 1; i <= 1; i++)
+        for (int i = 1; i <= 2; i++)
             addCustomTextures(rarePigs, MobType.PIG, "rare_pig" + i);
 
         for (int i = 1; i <= 5; i++)

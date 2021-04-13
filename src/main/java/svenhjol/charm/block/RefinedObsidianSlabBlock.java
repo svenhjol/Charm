@@ -16,6 +16,7 @@ public class RefinedObsidianSlabBlock extends SlabBlock implements ICharmBlock {
     }
 
     @Override
-    public boolean enabled() { return module.enabled;
-   }
+    public boolean enabled() {
+        return module.enabled;
+    }
 }

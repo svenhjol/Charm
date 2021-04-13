@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Module(mod = Charm.MOD_ID, client = VariantChestsClient.class, description = "Chests available in all types of vanilla wood.")
 public class VariantChests extends CharmModule {
-    public static final Identifier NORMAL_ID = new Identifier("variant_chest");
+    public static final Identifier NORMAL_ID = new Identifier("variant_chest"); // TODO: this must be changed for 1.17
     public static final Identifier TRAPPED_ID = new Identifier(Charm.MOD_ID, "trapped_chest");
 
     public static final Map<IVariantMaterial, VariantChestBlock> NORMAL_CHEST_BLOCKS = new HashMap<>();

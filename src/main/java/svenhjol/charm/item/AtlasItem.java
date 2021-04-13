@@ -2,7 +2,10 @@ package svenhjol.charm.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.map.MapState;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.tag.BlockTags;
@@ -11,9 +14,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.screenhandler.AtlasInventory;
 import svenhjol.charm.base.item.CharmItem;
 import svenhjol.charm.module.Atlas;
+import svenhjol.charm.screenhandler.AtlasInventory;
 
 public class AtlasItem extends CharmItem {
 
@@ -33,13 +36,8 @@ public class AtlasItem extends CharmItem {
             return TypedActionResult.pass(itemStack);
         }
         AtlasInventory inventory = Atlas.getInventory(world, itemStack);
-        for (int i = 0; i < inventory.size(); ++i) {
-            ItemStack item = inventory.getStack(i);
-            if (item.getItem() == Items.FILLED_MAP) {
-                Atlas.sendMapToClient((ServerPlayerEntity) player, item, i);
-            }
-        }
-        player.openHandledScreen(Atlas.getInventory(world, itemStack));
+        inventory.getCurrentDimensionMapInfos(world).values().forEach(it -> Atlas.sendMapToClient((ServerPlayerEntity) player, it.map, true));
+        player.openHandledScreen(inventory);
         return TypedActionResult.consume(itemStack);
     }
 
@@ -52,13 +50,9 @@ public class AtlasItem extends CharmItem {
                 PlayerEntity player = context.getPlayer();
                 if (player instanceof ServerPlayerEntity) {
                     AtlasInventory inventory = Atlas.getInventory(world, context.getStack());
-                    AtlasInventory.MapInfo info = inventory.updateActiveMap((ServerPlayerEntity) player);
-                    if (info != null) {
-                        ItemStack map = inventory.getStack(info.slot);
-                        MapState mapdata = FilledMapItem.getMapState(map, context.getWorld());
-                        if (mapdata != null) {
-                            mapdata.addBanner(context.getWorld(), context.getBlockPos());
-                        }
+                    MapState mapdata = inventory.getActiveMap(world);
+                    if (mapdata != null) {
+                        mapdata.addBanner(world, context.getBlockPos());
                     }
                 }
             }

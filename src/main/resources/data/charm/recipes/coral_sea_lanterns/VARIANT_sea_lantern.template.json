@@ -1,0 +1,23 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+      {
+        "item": "minecraft:sea_lantern"
+      },
+      {
+        "item": "minecraft:VARIANT_coral"
+      }
+    ],
+    "result": {
+      "item": "charm:VARIANT_sea_lantern"
+    },
+    "conditions": [
+      {
+        "type": "charm:module_enabled",
+        "module": "charm:coral_sea_lanterns"
+      }
+    ]
+  },
+  "variants": "coral"
+}

@@ -1,5 +1,56 @@
 # Changelog
 
+## 2.3.3
+* Restored 2x2 bread and paper recipes
+* Added missing terracotta firing recipe svenhjol/CharmForge#82
+* Added mixin blacklisting
+
+## 2.3.2
+* Fixes svenhjol/CharmForge#68, svenhjol/CharmForge#72, svenhjol/CharmForge#61, svenhjol/CharmForge#59
+* Support recipe button hidden by other mods svenhjol/CharmForge#24
+* Support for other mod renderlayers svenhjol/CharmForge#23
+* Crafting table tags svenhjol/CharmForge#47
+* Added zh_tw localization ([Pancakes0228](https://github.com/Pancakes0228)) #434
+* Improved Raid Horn model (Coranthes)
+* Woodcutter and kiln recipe namespaces are now "charm" not "minecraft"
+* Atlas renders properly left-handedly
+* Disabled oak bookshelf recipe
+* Extra filter step for recipe mixin for compatibility
+
+## 2.3.1
+* Acquisition compatibility fixes
+* Added missing tag for variant chests guarded by piglins
+* Prevent warnings in mineshaft mixin #42
+* Check trader has maps to trade #38
+* Fix some variant pig textures not being shown
+* Fix bookcase filter #32
+
+## 2.3.0
+* Added improved atlases (F43nd1r)
+* Added player pressure plates (F43nd1r)
+* Remove mod sound culling
+* Fix wandering trader spawn rate
+* Fix crate, shulker and map tooltips not showing item name
+
+## 2.2.3
+* Fix charm village buildings weight bug
+
+## 2.2.2
+* Show repair cost in item tooltip when on the anvil screen
+* Rework enchantment hook due to incompatible mods
+* Added configurable spawn weight for beekeepers and lumberjacks
+* Remove `charm-` prefix from before charm-based module configs
+* Translations provided by [BardinTheDwarf](https://github.com/BardinTheDwarf) and [ph0elyx](https://github.com/ph0elyx)
+
+## 2.2.1
+* Fix inventory buttons not working
+* Resolve crash with ATBYW
+* Add bookshelf compatibility for BetterEnd and ATBYW
+* Rework mixin for compatibility with enchantment table display #448
+* Remove custom name nbt from variant chests, barrels and crates
+* Added aerial affinity (F43nd1r)
+* Added extra recipes (Coranthes)
+
 ## 2.2.0
 * Fix Wandering Trader not spawning (F43nd1r)
 * Fix grindstone xp exploit (sven)

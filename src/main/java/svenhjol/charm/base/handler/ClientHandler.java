@@ -1,11 +1,7 @@
 package svenhjol.charm.base.handler;
 
-import com.google.common.collect.ImmutableList;
-import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm.base.CharmClientLoader;
 import svenhjol.charm.base.CharmClientModule;
-import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.StringHelper;
 import svenhjol.charm.event.ClientJoinCallback;
 import svenhjol.charm.handler.ColoredGlintHandler;
@@ -15,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.function.Consumer;
 
 public class ClientHandler {
     public static ClientHandler INSTANCE = new ClientHandler();
@@ -47,7 +42,7 @@ public class ClientHandler {
 
     @Nullable
     public static CharmClientModule getModule(String moduleName) {
-        return LOADED_MODULES.getOrDefault(StringHelper.snakeToUpperCamel(moduleName), null);
+        return LOADED_MODULES.getOrDefault(StringHelper.snakeToUpperCamel(moduleName + "_client"), null);
     }
 
     /**

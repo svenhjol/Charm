@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:firing",
+  "type": "charm:firing",
   "ingredient": {
     "tag": "minecraft:sand"
   },

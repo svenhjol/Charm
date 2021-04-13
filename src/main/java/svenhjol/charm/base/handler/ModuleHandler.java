@@ -1,11 +1,11 @@
 package svenhjol.charm.base.handler;
 
 import svenhjol.charm.Charm;
+import svenhjol.charm.CharmMixinConfigPlugin;
 import svenhjol.charm.base.CharmLoader;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.StringHelper;
 import svenhjol.charm.event.LoadWorldCallback;
-import svenhjol.charm.event.StructureSetupCallback;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -20,12 +20,10 @@ public class ModuleHandler {
     private ModuleHandler() {
         BiomeHandler.init();
 
-        // allow modules to modify structures via an event
-        StructureSetupCallback.EVENT.invoker().interact();
-
         // listen for server world loading events
         LoadWorldCallback.EVENT.register(server -> {
-            DecorationHandler.init(); // load late so that tags are populated at this point
+            // load late so that tags are populated at this point
+            DecorationHandler.init();
         });
     }
 
@@ -61,6 +59,19 @@ public class ModuleHandler {
 
         Charm.LOG.debug("[ModuleHandler] " + message);
         module.enabled = isEnabled && dependencyCheck;
+    }
+
+    public void mixins(CharmModule module) {
+        List<String> mixins = module.mixins();
+        if (!mixins.isEmpty()) {
+            for (String mixin : mixins) {
+                if (CharmMixinConfigPlugin.mixinsToDisable.contains(mixin.toLowerCase())) {
+                    module.enabled = false;
+                    Charm.LOG.warn("[ModuleHandler] Module " + module.getName() + " is disabled via mixin blacklist.");
+                    return;
+                }
+            }
+        }
     }
 
     public void init(CharmModule module) {

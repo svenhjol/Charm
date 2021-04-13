@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_column",
-  "textures": {
-    "end": "minecraft:block/crimson_planks",
-    "side": "charm:block/bookcase/crimson_bookcase_0"
-  }
-}

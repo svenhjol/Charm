@@ -12,17 +12,17 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.OrderedText;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmClientModule;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.base.helper.ItemHelper;
+import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.handler.TooltipInventoryHandler;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
-import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.ItemHelper;
-import svenhjol.charm.base.helper.ItemNBTHelper;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ShulkerBoxTooltipsClient extends CharmClientModule {
@@ -35,25 +35,22 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
-    private ActionResult handleRenderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+    private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
         if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
-            boolean result = renderTooltip(matrices, stack, lines, x, y);
-            if (result)
-                return ActionResult.SUCCESS;
+            renderTooltip(matrices, stack, lines, x, y);
         }
-        return ActionResult.PASS;
     }
 
-    private boolean renderTooltip(MatrixStack matrices, ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
+    private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
         final MinecraftClient mc = MinecraftClient.getInstance();
 
-        if (!stack.hasTag())
-            return false;
+        if (stack == null || !stack.hasTag())
+            return;
 
         CompoundTag tag = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
 
         if (tag == null)
-            return false;
+            return;
 
         if (!tag.contains("id", 8)) {
             tag = tag.copy();
@@ -62,14 +59,16 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         BlockItem blockItem = (BlockItem) stack.getItem();
         BlockEntity blockEntity = BlockEntity.createFromTag(blockItem.getBlock().getDefaultState(), tag);
         if (blockEntity == null)
-            return false;
+            return;
 
         ShulkerBoxBlockEntity shulkerbox = (ShulkerBoxBlockEntity) blockEntity;
         DefaultedList<ItemStack> items = ((ShulkerBoxBlockEntityAccessor)shulkerbox).getInventory();
         if (items.stream().allMatch(ItemStack::isEmpty))
-            return false;
+            return;
 
         int size = shulkerbox.size();
+
+        ty -= 48;
 
         int x = tx - 5;
         int y = ty - 35;
@@ -119,6 +118,5 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         RenderSystem.disableDepthTest();
         RenderSystem.disableRescaleNormal();
         RenderSystem.popMatrix();
-        return true;
     }
 }

@@ -2,7 +2,6 @@ package svenhjol.charm.base.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
@@ -10,24 +9,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.base.CharmResources;
 
-public class CharmHandledScreen<T extends ScreenHandler> extends HandledScreen<T> {
-    private final Identifier texture;
+public class CharmHandledScreen<T extends ScreenHandler> extends AbstractCharmContainerScreen<T> {
 
     public CharmHandledScreen(int rows, T handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
+        super(handler, inventory, title, getTextureFromRows(rows));
         this.passEvents = true;
         this.backgroundWidth = 175;
         this.backgroundHeight = 111 + 20 * rows;
-        switch (rows) {
-            case 1:
-                texture = CharmResources.GUI_9_TEXTURE;
-                break;
-            case 2:
-                texture = CharmResources.GUI_18_TEXTURE;
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported row count " + rows);
-        }
+
     }
 
     public static <T extends ScreenHandler> ScreenRegistry.Factory<T, CharmHandledScreen<T>> createFactory(int rows) {
@@ -57,6 +46,17 @@ public class CharmHandledScreen<T extends ScreenHandler> extends HandledScreen<T
             int x = (width - backgroundWidth) / 2;
             int y = (height - backgroundHeight) / 2;
             drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        }
+    }
+
+    private static Identifier getTextureFromRows(int rows) {
+        switch (rows) {
+            case 1:
+                return CharmResources.GUI_9_TEXTURE;
+            case 2:
+                return CharmResources.GUI_18_TEXTURE;
+            default:
+                throw new IllegalArgumentException("Unsupported row count " + rows);
         }
     }
 }

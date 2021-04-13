@@ -40,6 +40,7 @@ public class PortableEnderChest extends CharmModule {
     }
 
     public static void openContainer(ServerPlayerEntity player) {
+        player.closeHandledScreen();
         player.world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_ENDER_CHEST_OPEN, SoundCategory.PLAYERS, 0.4F, 1.08F);
         player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, inv, p) -> new PortableEnderChestScreenHandler(i, inv, p.getEnderChestInventory()), LABEL));
     }
