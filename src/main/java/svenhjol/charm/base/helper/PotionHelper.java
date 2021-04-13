@@ -26,5 +26,4 @@ public class PotionHelper {
     public static ItemStack getFilledWaterBottle(int amount) {
         return getPotionBottle(amount, Potions.WATER);
     }
-
 }
