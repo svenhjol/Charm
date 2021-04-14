@@ -48,6 +48,7 @@
     "accessor.BlocksAccessor",
     "accessor.BlockTagsAccessor",
     "accessor.BrewingRecipeRegistryAccessor",
+    "accessor.DefaultParticleTypeAccessor",
     "accessor.DispenserBlockAccessor",
     "accessor.FireBlockAccessor",
     "accessor.GenerationSettingsAccessor",
