@@ -52,8 +52,10 @@ public class AstrolabeItem extends CharmItem {
         }
 
         BlockPos position = getPosition(held);
-        if (world.isClient && position != null)
-            clientEffects((ClientWorld)world, position, user);
+        Identifier dimension = AstrolabeItem.getDimension(held);
+
+        if (world.isClient && position != null && dimension != null)
+            clientEffects((ClientWorld) world, Astrolabes.getDimensionPosition(world, position, dimension), user);
 
         return TypedActionResult.pass(held);
     }

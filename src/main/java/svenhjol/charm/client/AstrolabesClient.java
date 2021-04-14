@@ -6,7 +6,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
@@ -43,38 +42,16 @@ public class AstrolabesClient extends CharmClientModule {
             pos.getX() == entity.getBlockX()) ? 1 : 0;
     }
 
-    private boolean isAligned(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, Predicate<BlockPos.Mutable> testPosition) {
+    private boolean isAligned(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, Predicate<BlockPos.Mutable> on) {
         if (entity == null || entity.world == null)
             return false;
 
         Identifier dimension = AstrolabeItem.getDimension(stack);
-
-        BlockPos stackPos = AstrolabeItem.getPosition(stack);
-        if (stackPos == null)
+        BlockPos pos = AstrolabeItem.getPosition(stack);
+        if (pos == null)
             return false;
 
-        BlockPos.Mutable position = stackPos.mutableCopy();
-
-        if (dimension != null) {
-            // if the astrolabe was set in the nether and the user is not in the nether, multiply X and Z
-            if (dimension.equals(World.NETHER.getValue()) && entity.world.getRegistryKey() != World.NETHER) {
-                int x = position.getX();
-                int y = position.getY();
-                int z = position.getZ();
-
-                position.set(x * 8, y, z * 8);
-            }
-
-            // if the astrolabe was set outside the nether and the user is in the nether, divide X and Z
-            if (!dimension.equals(World.NETHER.getValue()) && entity.world.getRegistryKey() == World.NETHER) {
-                int x = position.getX();
-                int y = position.getY();
-                int z = position.getZ();
-
-                position.set(x / 8, y, z / 8);
-            }
-        }
-
-        return testPosition.test(position);
+        BlockPos.Mutable dimensionPos = Astrolabes.getDimensionPosition(entity.world, pos, dimension);
+        return on.test(dimensionPos);
     }
 }
