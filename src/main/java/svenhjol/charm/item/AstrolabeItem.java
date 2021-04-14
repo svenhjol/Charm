@@ -17,6 +17,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.CharmParticles;
 import svenhjol.charm.base.helper.DimensionHelper;
 import svenhjol.charm.base.item.CharmItem;
 import svenhjol.charm.module.Astrolabes;
@@ -51,8 +52,10 @@ public class AstrolabeItem extends CharmItem {
         }
 
         BlockPos position = getPosition(held);
-        if (world.isClient && position != null)
-            clientEffects((ClientWorld)world, position, user);
+        Identifier dimension = AstrolabeItem.getDimension(held);
+
+        if (world.isClient && position != null && dimension != null)
+            clientEffects((ClientWorld) world, Astrolabes.getDimensionPosition(world, position, dimension), user);
 
         return TypedActionResult.pass(held);
     }
@@ -122,12 +125,11 @@ public class AstrolabeItem extends CharmItem {
         if (alignedX || alignedY || alignedZ)
             world.playSound(player, player.getBlockPos(), SoundEvents.ITEM_SPYGLASS_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
-
         player.getItemCooldownManager().set(Astrolabes.ASTROLABE, 20);
     }
 
     private void createAxisParticles(ClientWorld world, BlockPos pos, DyeColor color) {
-        DefaultParticleType particleType = Astrolabes.AXIS_PARTICLE;
+        DefaultParticleType particleType = CharmParticles.AXIS_PARTICLE;
 
         float[] col = color.getColorComponents();
         for (int i = 0; i < 9; i++) {
