@@ -102,7 +102,7 @@ public class AstrolabeItem extends CharmItem {
             if (pz <= dist) {
                 alignedX = true;
                 for (int x = -dist; x < dist; x++) {
-                    this.createAxisParticles(world, new BlockPos(player.getX() + x, pos.getY(), pos.getZ()), DyeColor.RED);
+                    this.createAxisParticles(world, new BlockPos(player.getX() + x, pos.getY(), pos.getZ()), DyeColor.CYAN);
                 }
             }
 
