@@ -1,6 +1,5 @@
 package svenhjol.charm.client;
 
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
@@ -13,7 +12,6 @@ import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.item.AstrolabeItem;
 import svenhjol.charm.module.Astrolabes;
-import svenhjol.charm.particle.AxisParticle;
 
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
@@ -28,8 +26,6 @@ public class AstrolabesClient extends CharmClientModule {
         FabricModelPredicateProviderRegistry.register(Astrolabes.ASTROLABE, new Identifier(Charm.MOD_ID, "aligned_x"), this::handleAlignX);
         FabricModelPredicateProviderRegistry.register(Astrolabes.ASTROLABE, new Identifier(Charm.MOD_ID, "aligned_y"), this::handleAlignY);
         FabricModelPredicateProviderRegistry.register(Astrolabes.ASTROLABE, new Identifier(Charm.MOD_ID, "aligned_z"), this::handleAlignZ);
-
-        ParticleFactoryRegistry.getInstance().register(Astrolabes.AXIS_PARTICLE, AxisParticle.AxisFactory::new);
     }
 
     private float handleAlignX(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
