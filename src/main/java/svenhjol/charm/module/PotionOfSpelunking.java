@@ -38,6 +38,9 @@ public class PotionOfSpelunking extends CharmModule {
     @Config(name = "Duration", description = "Duration (in seconds) of the spelunking effect.")
     public static int duration = 30;
 
+    @Config(name = "Depth", description = "Depth (in blocks) below the player in which blocks will be revealed.")
+    public static int depth = 32;
+
     @Config(name = "Revealed blocks", description = "Block or tag IDs (and colors) that are revealed with the spelunking effect.")
     public static List<String> configBlocks = Arrays.asList(
         "#minecraft:coal_ores, black",
@@ -87,7 +90,7 @@ public class PotionOfSpelunking extends CharmModule {
 
     private void handlePlayerTick(PlayerEntity player) {
         if (!player.world.isClient
-            && player.world.getTime() % 10 == 0
+            && player.world.getTime() % 15 == 0
             && player.hasStatusEffect(SPELUNKING_EFFECT)
             && !blocks.isEmpty()
         ) {
@@ -97,7 +100,7 @@ public class PotionOfSpelunking extends CharmModule {
             Map<BlockPos, DyeColor> found = new WeakHashMap<>();
 
             blockTags.forEach((tag, color) -> {
-                Optional<BlockPos> closest = BlockPos.findClosest(playerPos.down(28), 8, 32, pos -> {
+                Optional<BlockPos> closest = BlockPos.findClosest(playerPos.down((depth/2) - 2), 8, depth / 2, pos -> {
                     return world.getBlockState(pos).isIn(tag);
                 });
 
@@ -105,7 +108,7 @@ public class PotionOfSpelunking extends CharmModule {
             });
 
             blocks.forEach((block, color) -> {
-                Optional<BlockPos> closest = BlockPos.findClosest(playerPos.down(28), 8, 32, pos -> {
+                Optional<BlockPos> closest = BlockPos.findClosest(playerPos.down(28), 8, depth / 2, pos -> {
                     return block.equals(world.getBlockState(pos).getBlock());
                 });
 
