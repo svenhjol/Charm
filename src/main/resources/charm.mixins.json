@@ -47,6 +47,7 @@
     "accessor.BlockAccessor",
     "accessor.BlocksAccessor",
     "accessor.BlockTagsAccessor",
+    "accessor.DefaultParticleTypeAccessor",
     "accessor.DispenserBlockAccessor",
     "accessor.FireBlockAccessor",
     "accessor.GenerationSettingsAccessor",
