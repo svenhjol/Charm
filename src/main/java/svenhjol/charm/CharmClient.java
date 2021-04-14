@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import svenhjol.charm.base.CharmClientLoader;
 import svenhjol.charm.base.CharmParticles;
 import svenhjol.charm.base.handler.LogHandler;
-import svenhjol.charm.base.particles.GlowParticle;
+import svenhjol.charm.base.particle.GlowParticle;
 
 public class CharmClient implements ClientModInitializer {
     public static LogHandler LOG = new LogHandler("CharmClient");
