@@ -60,12 +60,30 @@ public class GlowParticle extends SpriteBillboardParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType type, ClientWorld clientWorld, double x, double y, double z, double r, double g, double b) {
-            GlowParticle particle = new GlowParticle(clientWorld, x, y, z,
+        public Particle createParticle(DefaultParticleType type, ClientWorld world, double x, double y, double z, double r, double g, double b) {
+            GlowParticle particle = new GlowParticle(world, x, y, z,
                 0.4D - RANDOM.nextDouble(), 0.4D - RANDOM.nextDouble(), 0.4D - RANDOM.nextDouble(), this.spriteProvider);
-            particle.setMaxAge(90 + GlowParticle.RANDOM.nextInt(20));
+            particle.setMaxAge(90 + RANDOM.nextInt(20));
             particle.setColor((float) r, (float) g, (float) b);
             particle.setColorAlpha(0.82F);
+            return particle;
+        }
+    }
+
+    public static class OreGlowFactory implements ParticleFactory<DefaultParticleType> {
+        private final SpriteProvider spriteProvider;
+
+        public OreGlowFactory(SpriteProvider spriteProvider) {
+            this.spriteProvider = spriteProvider;
+        }
+
+        public Particle createParticle(DefaultParticleType type, ClientWorld world, double x, double y, double z, double r, double g, double b) {
+            GlowParticle particle = new GlowParticle(world, x, y, z, 0.06D, 0.6D - RANDOM.nextDouble(), 0.05D, this.spriteProvider);
+            particle.setMaxAge(25 + RANDOM.nextInt(2));
+            particle.setColor((float)r, (float)g, (float)b);
+            particle.setColorAlpha((RANDOM.nextFloat() * 0.2F) + 0.8F);
+            particle.field_28786 = 0.7F; // some multiplier for velocity, idk
+            particle.field_28787 = true;
             return particle;
         }
     }

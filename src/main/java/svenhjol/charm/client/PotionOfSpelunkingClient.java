@@ -7,11 +7,11 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.CharmParticles;
 import svenhjol.charm.module.PotionOfSpelunking;
 
 import java.util.Arrays;
@@ -51,10 +51,11 @@ public class PotionOfSpelunkingClient extends CharmClientModule {
                 BlockPos test = new BlockPos(foundPos.getX(), playerPos.getY(), foundPos.getZ());
 
                 for (int j = -10; j < 5; j++) {
-                    if (world.isAir(test.offset(Axis.Y, j)) && !world.isAir(test.offset(Axis.Y, j - 1))) {
-                        for (int k = 0; k < 3; k++) {
-                            int y = test.offset(Axis.Y, j - 1).getY() + k;
-                            world.addParticle(ParticleTypes.ENTITY_EFFECT, test.getX() + 0.5D, y + 0.5D, foundPos.getZ() + 0.5D, col[0], col[1], col[2]);
+                    BlockPos to = test.offset(Axis.Y, j);
+                    if (!world.getBlockState(to).isFullCube(world, to) && world.getBlockState(to.down()).isFullCube(world, to.down())) {
+                        for (int k = 0; k < 2; k++) {
+                            int y = to.getY() + k;
+                            world.addParticle(CharmParticles.ORE_GLOW_PARTICLE, test.getX() + 0.5D, y - (k * 0.7D), foundPos.getZ() + 0.5D, col[0], col[1], col[2]);
                         }
                     }
                 }
