@@ -6,13 +6,13 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Module(mod = Charm.MOD_ID, description = "Adds custom recipes.")
 public class ExtraRecipes extends CharmModule {
+    @Config(name = "Ore block from raw ore block", description = "If true, adds a blast furnace recipe for smelting raw ore blocks into ore blocks.")
+    public static boolean useRawOreBlocks = true;
+
     @Config(name = "Gilded Blackstone", description = "If true, adds a recipe for Gilded Blackstone using gold nuggets and blackstone.")
     public static boolean useGildedBlackstone = true;
 
@@ -41,19 +41,24 @@ public class ExtraRecipes extends CharmModule {
     public List<Identifier> getRecipesToRemove() {
         List<Identifier> removedRecipes = new ArrayList<>();
 
-        Map<Boolean, String> useRecipes = new HashMap<>();
-        useRecipes.put(useGildedBlackstone, "gilded_blackstone");
-        useRecipes.put(useTrident, "trident");
-        useRecipes.put(useCyanDye, "cyan_dye");
-        useRecipes.put(useGreenDye, "green_dye");
-        useRecipes.put(useSoulTorch, "soul_torch");
-        useRecipes.put(useBread, "bread");
-        useRecipes.put(usePaper, "paper");
-        useRecipes.put(useBundle, "bundle");
+        Map<Boolean, List<String>> useRecipes = new HashMap<>();
+        useRecipes.put(useRawOreBlocks, Arrays.asList(
+            "copper_block_from_blasting_raw_copper_block.json",
+            "gold_block_from_blasting_raw_gold_block",
+            "iron_block_from_blasting_raw_iron_block"
+        ));
+        useRecipes.put(useGildedBlackstone, Collections.singletonList("gilded_blackstone"));
+        useRecipes.put(useTrident, Collections.singletonList("trident"));
+        useRecipes.put(useCyanDye, Collections.singletonList("cyan_dye"));
+        useRecipes.put(useGreenDye, Collections.singletonList("green_dye"));
+        useRecipes.put(useSoulTorch, Collections.singletonList("soul_torch"));
+        useRecipes.put(useBread, Collections.singletonList("bread"));
+        useRecipes.put(usePaper, Collections.singletonList("paper"));
+        useRecipes.put(useBundle, Collections.singletonList("bundle"));
 
-        useRecipes.forEach((key, val) -> {
+        useRecipes.forEach((key, recipes) -> {
             if (!key) {
-                removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/" + val));
+                recipes.forEach(recipe -> removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/" + recipe)));
             }
         });
 
