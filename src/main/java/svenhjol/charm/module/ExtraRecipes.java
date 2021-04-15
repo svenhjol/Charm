@@ -41,22 +41,22 @@ public class ExtraRecipes extends CharmModule {
     public List<Identifier> getRecipesToRemove() {
         List<Identifier> removedRecipes = new ArrayList<>();
 
-        Map<Boolean, List<String>> useRecipes = new HashMap<>();
-        useRecipes.put(useRawOreBlocks, Arrays.asList(
+        Map<Boolean, List<String>> collect = new WeakHashMap<>();
+        collect.put(useRawOreBlocks, Arrays.asList(
             "copper_block_from_blasting_raw_copper_block.json",
             "gold_block_from_blasting_raw_gold_block",
             "iron_block_from_blasting_raw_iron_block"
         ));
-        useRecipes.put(useGildedBlackstone, Collections.singletonList("gilded_blackstone"));
-        useRecipes.put(useTrident, Collections.singletonList("trident"));
-        useRecipes.put(useCyanDye, Collections.singletonList("cyan_dye"));
-        useRecipes.put(useGreenDye, Collections.singletonList("green_dye"));
-        useRecipes.put(useSoulTorch, Collections.singletonList("soul_torch"));
-        useRecipes.put(useBread, Collections.singletonList("bread"));
-        useRecipes.put(usePaper, Collections.singletonList("paper"));
-        useRecipes.put(useBundle, Collections.singletonList("bundle"));
+        collect.put(useGildedBlackstone, Collections.singletonList("gilded_blackstone"));
+        collect.put(useTrident, Collections.singletonList("trident"));
+        collect.put(useCyanDye, Collections.singletonList("cyan_dye"));
+        collect.put(useGreenDye, Collections.singletonList("green_dye"));
+        collect.put(useSoulTorch, Collections.singletonList("soul_torch"));
+        collect.put(useBread, Collections.singletonList("bread"));
+        collect.put(usePaper, Collections.singletonList("paper"));
+        collect.put(useBundle, Collections.singletonList("bundle"));
 
-        useRecipes.forEach((key, recipes) -> {
+        collect.forEach((key, recipes) -> {
             if (!key) {
                 recipes.forEach(recipe -> removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/" + recipe)));
             }
