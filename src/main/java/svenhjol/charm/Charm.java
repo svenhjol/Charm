@@ -45,6 +45,7 @@ public class Charm implements ModInitializer {
             EntitySpawners.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
+            GentlePotionParticles.class,
             Glowballs.class,
             GoldBars.class,
             GoldChains.class,
