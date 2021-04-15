@@ -15,9 +15,6 @@ public class Core extends CharmModule {
     @Config(name = "Debug mode", description = "If true, routes additional debug messages into the standard game log.")
     public static boolean debug = false;
 
-    @Config(name = "Inventory button return", description = "If inventory crafting or inventory ender chest modules are enabled, pressing escape or inventory key returns you to the inventory rather than closing the window.")
-    public static boolean inventoryButtonReturn = false;
-
     public static boolean BETTER_END = false;
 
     @Override
