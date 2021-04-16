@@ -1,6 +1,5 @@
 package svenhjol.charm.module;
 
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
@@ -15,15 +14,6 @@ public class Core extends CharmModule {
 
     @Config(name = "Debug mode", description = "If true, routes additional debug messages into the standard game log.")
     public static boolean debug = false;
-
-    @Config(name = "Inventory button return", description = "If inventory crafting or inventory ender chest modules are enabled, pressing escape or inventory key returns you to the inventory rather than closing the window.")
-    public static boolean inventoryButtonReturn = false;
-
-    @Config(name = "Enchantment glint override", description = "If true, replaces vanilla glint color rendering with Charm's, allowing for multiple enchantment glint colors.")
-    public static boolean overrideGlint = true;
-
-    @Config(name = "Enchantment glint color", description = "Set the default glint color for all enchanted items.  Requires 'Enchantment glint override' to be true.")
-    public static String glintColor = DyeColor.PURPLE.getName();
 
     public static boolean BETTER_END = false;
 
