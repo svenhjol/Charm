@@ -18,6 +18,8 @@ public class CookingPots extends CharmModule {
     public static BlockEntityType<CookingPotBlockEntity> BLOCK_ENTITY;
     public static MixedStewItem MIXED_STEW;
 
+    public static final Identifier MSG_CLIENT_ADDED_TO_POT = new Identifier(Charm.MOD_ID, "client_added_to_pot");
+
     @Override
     public void register() {
         COOKING_POT = new CookingPotBlock(this);

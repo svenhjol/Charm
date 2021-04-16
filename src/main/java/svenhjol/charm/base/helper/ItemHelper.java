@@ -4,11 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import svenhjol.charm.mixin.accessor.ItemEntityAccessor;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class ItemHelper {
     public static Map<Item, Integer> ITEM_LIFETIME = new HashMap<>();
@@ -33,5 +32,13 @@ public class ItemHelper {
         }
 
         return true;
+    }
+
+    public static List<Item> getBowlFoodItems() {
+        return Arrays.asList(
+            Items.MUSHROOM_STEW,
+            Items.RABBIT_STEW,
+            Items.BEETROOT_SOUP
+        );
     }
 }

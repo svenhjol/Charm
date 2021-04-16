@@ -112,7 +112,7 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
             sync();
 
             food.decrement(1);
-            world.setBlockState(pos, state.with(CookingPotBlock.HAS_LIQUID, 2), 2);
+            world.setBlockState(pos, state.with(CookingPotBlock.LIQUID, 2), 2);
             return true;
         } else {
             return false;
@@ -170,7 +170,7 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
         this.hunger = 0;
         this.saturation = 0;
         this.portions = 0;
-        world.setBlockState(pos, state.with(CookingPotBlock.HAS_LIQUID, 0), 2);
+        world.setBlockState(pos, state.with(CookingPotBlock.LIQUID, 0), 2);
 
         markDirty();
         sync();

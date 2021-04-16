@@ -1,7 +1,9 @@
 package svenhjol.charm.block;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -9,7 +11,9 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -27,6 +31,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmBlockWithEntity;
+import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.blockentity.CookingPotBlockEntity;
 import svenhjol.charm.module.CookingPots;
@@ -38,7 +43,7 @@ public class CookingPotBlock extends CharmBlockWithEntity {
     private static final VoxelShape RAY_TRACE_SHAPE = createCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
     private static final VoxelShape OUTLINE_SHAPE;
 
-    public static IntProperty HAS_LIQUID = IntProperty.of("has_liquid", 0, 2);
+    public static IntProperty LIQUID = IntProperty.of("liquid", 0, 2);
     public static BooleanProperty HAS_FIRE = BooleanProperty.of("has_fire");
 
     public CookingPotBlock(CharmModule module) {
@@ -49,22 +54,23 @@ public class CookingPotBlock extends CharmBlockWithEntity {
 
         this.setDefaultState(this.getDefaultState()
             .with(HAS_FIRE, false)
-            .with(HAS_LIQUID, 0));
+            .with(LIQUID, 0));
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack held = player.getStackInHand(hand);
 
-        if (state.get(HAS_LIQUID) == 0 && held.getItem() == Items.WATER_BUCKET) {
+        if (state.get(LIQUID) == 0 && held.getItem() == Items.WATER_BUCKET) {
             if (!world.isClient) {
-                world.setBlockState(pos, state.with(HAS_LIQUID, 1), 3);
+                world.setBlockState(pos, state.with(LIQUID, 1), 3);
+                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
                 world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.8F, 1.0F);
             }
 
             return ActionResult.success(world.isClient);
         }
-        if (state.get(HAS_LIQUID) > 0 && state.get(HAS_FIRE)) {
+        if (state.get(LIQUID) > 0 && state.get(HAS_FIRE)) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof CookingPotBlockEntity) {
                 CookingPotBlockEntity pot = (CookingPotBlockEntity) blockEntity;
@@ -84,8 +90,18 @@ public class CookingPotBlock extends CharmBlockWithEntity {
 
                     } else if (held.isFood()) {
                         boolean result = pot.add(world, pos, state, held);
-                        if (result)
+                        if (result) {
                             world.playSound(null, pos, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.BLOCKS, 0.5F, 1.0F);
+
+                            // if the food has a bowl, give it back to the player
+                            if (ItemHelper.getBowlFoodItems().contains(held.getItem()) && !player.getAbilities().creativeMode)
+                                PlayerHelper.addOrDropStack(player, new ItemStack(Items.BOWL));
+
+                            // send message to client that an item was added
+                            PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+                            data.writeLong(pos.asLong());
+                            ServerPlayNetworking.send((ServerPlayerEntity) player, CookingPots.MSG_CLIENT_ADDED_TO_POT, data);
+                        }
                     }
                 }
 
@@ -120,15 +136,15 @@ public class CookingPotBlock extends CharmBlockWithEntity {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(HAS_LIQUID, HAS_FIRE);
+        builder.add(LIQUID, HAS_FIRE);
     }
 
     @Override
     @Environment(EnvType.CLIENT)
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         super.randomDisplayTick(state, world, pos, random);
-        if (state.get(HAS_FIRE) && state.get(HAS_LIQUID) > 0 && random.nextInt(2) == 0) {
-            world.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + 0.3D + (0.7D * random.nextDouble()), (double)pos.getY() + 1.0D, (double)pos.getZ() + 0.3D + (0.6D * random.nextDouble()), 0.0D, 0.0D, 0.0D);
+        if (state.get(HAS_FIRE) && state.get(LIQUID) > 0 && random.nextInt(2) == 0) {
+            world.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + 0.13D + (0.7D * random.nextDouble()), (double)pos.getY() + 0.92D, (double)pos.getZ() + 0.13D + (0.7D * random.nextDouble()), 0.0D, 0.0D, 0.0D);
         }
     }
 
