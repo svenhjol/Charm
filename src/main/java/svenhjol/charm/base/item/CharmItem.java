@@ -1,6 +1,8 @@
 package svenhjol.charm.base.item;
 
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmModule;
 

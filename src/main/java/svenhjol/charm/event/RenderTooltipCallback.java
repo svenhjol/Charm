@@ -2,9 +2,9 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
+import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.OrderedText;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -16,5 +16,5 @@ public interface RenderTooltipCallback {
         }
     });
 
-    void interact(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y);
+    void interact(MatrixStack matrices, @Nullable ItemStack stack, List<TooltipComponent> lines, int x, int y);
 }
