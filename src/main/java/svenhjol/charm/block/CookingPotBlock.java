@@ -81,7 +81,7 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                         if (out != null) {
                             PlayerHelper.addOrDropStack(player, out);
 
-                            if (pot.contents.size() > 0) {
+                            if (pot.portions > 0) {
                                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.5F, 1.0F);
                             } else {
                                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.5F, 1.0F);
