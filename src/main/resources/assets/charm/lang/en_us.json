@@ -141,5 +141,5 @@
   "structure.charm.swamp_hut": "Swamp Hut",
   "structure.charm.village": "Village",
   "chat.charm.sleep_list": "slept through the night",
-  "chat.charm.sleep_skip_credit": "Skip night functionality added by Charm"
+  "chat.charm.sleep_skip_info": "%s players must sleep to skip the night"
 }
