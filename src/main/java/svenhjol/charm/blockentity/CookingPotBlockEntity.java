@@ -90,10 +90,12 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
         if (foodComponent == null)
             return false;
 
-        if (portions == 0)
-            contents = new ArrayList<>();
-
         if (portions < 64) {
+
+            // reset contents if fresh pot
+            if (portions == 0)
+                contents = new ArrayList<>();
+
             portions++;
             int foodHunger = foodComponent.getHunger();
             float foodSaturation = foodComponent.getSaturationModifier();
@@ -114,9 +116,9 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
             food.decrement(1);
             world.setBlockState(pos, state.with(CookingPotBlock.LIQUID, 2), 2);
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     @Nullable
