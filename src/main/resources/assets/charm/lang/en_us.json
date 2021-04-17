@@ -139,5 +139,6 @@
   "structure.charm.ruined_portal": "Ruined Portal",
   "structure.charm.shipwreck": "Shipwreck",
   "structure.charm.swamp_hut": "Swamp Hut",
-  "structure.charm.village": "Village"
+  "structure.charm.village": "Village",
+  "chat.charm.sleep_list": "slept through the night"
 }
