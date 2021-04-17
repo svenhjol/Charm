@@ -19,9 +19,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.HoverEvent;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -69,12 +71,20 @@ public class SleepImprovements extends CharmModule {
             MutableText players = new LiteralText("");
             for (Iterator<ServerPlayerEntity> iterator = validPlayers.iterator(); iterator.hasNext(); ) {
                 ServerPlayerEntity player = iterator.next();
-                players.append(player.getDisplayName().copy().formatted(Formatting.GOLD));
+                Text text = player.getDisplayName();
+                players.append(text.copy()
+                                   .setStyle(text.getStyle()
+                                                 .withColor(TextColor.fromFormatting(Formatting.GOLD))
+                                                 .withHoverEvent(
+                                                         new HoverEvent(HoverEvent.Action.SHOW_ENTITY,
+                                                                 new HoverEvent.EntityContent(player.getType(), player.getUuid(), player.getDisplayName())))));
                 if(iterator.hasNext()) {
                     players.append(",");
                 }
             }
-            players.append(" ").append(new TranslatableText("chat.charm.sleep_list"));
+            players.append(" ")
+                   .append(new TranslatableText("chat.charm.sleep_list")
+                                   .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslatableText("chat.charm.sleep_skip_credit")))));
             for (ServerPlayerEntity player : validPlayers) {
                 player.sendMessage(players, false);
                 player.networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.MASTER, player.getX(), player.getY(), player.getZ(), .5f, 1f));
