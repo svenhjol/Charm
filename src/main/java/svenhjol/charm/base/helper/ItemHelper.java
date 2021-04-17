@@ -38,7 +38,8 @@ public class ItemHelper {
         return Arrays.asList(
             Items.MUSHROOM_STEW,
             Items.RABBIT_STEW,
-            Items.BEETROOT_SOUP
+            Items.BEETROOT_SOUP,
+            Items.SUSPICIOUS_STEW
         );
     }
 }
