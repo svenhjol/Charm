@@ -1,7 +1,9 @@
 package svenhjol.charm.module;
 
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.RegistryHandler;
@@ -10,6 +12,9 @@ import svenhjol.charm.block.CookingPotBlock;
 import svenhjol.charm.blockentity.CookingPotBlockEntity;
 import svenhjol.charm.client.CookingPotsClient;
 import svenhjol.charm.item.MixedStewItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Module(mod = Charm.MOD_ID, client = CookingPotsClient.class, description = "Cooking pots let you combine up to 64 food items, keeping an average of all hunger and saturation. Use wooden bowls to extract stew from the pot.")
 public class CookingPots extends CharmModule {
@@ -25,5 +30,15 @@ public class CookingPots extends CharmModule {
         COOKING_POT = new CookingPotBlock(this);
         BLOCK_ENTITY = RegistryHandler.blockEntity(ID, CookingPotBlockEntity::new, COOKING_POT);
         MIXED_STEW = new MixedStewItem(this);
+    }
+
+    public static List<Item> getResolvedItems(List<Identifier> ids) {
+        List<Item> items = new ArrayList<>();
+
+        for (Identifier id : ids) {
+            Registry.ITEM.getOrEmpty(id).ifPresent(items::add);
+        }
+
+        return items;
     }
 }

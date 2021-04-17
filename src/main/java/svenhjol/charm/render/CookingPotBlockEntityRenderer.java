@@ -1,5 +1,7 @@
 package svenhjol.charm.render;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -14,10 +16,11 @@ import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.blockentity.CookingPotBlockEntity;
-import svenhjol.charm.client.CookingPotsClient;
+import svenhjol.charm.module.CookingPots;
 
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> implements BlockEntityRenderer<T> {
     private int index = 0;
     private int ticks = 0;
@@ -37,7 +40,7 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
         if (world == null)
             return;
 
-        List<Item> items = CookingPotsClient.getResolvedItems(entity.contents);
+        List<Item> items = CookingPots.getResolvedItems(entity.contents);
         if (items.isEmpty())
             return;
 

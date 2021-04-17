@@ -21,7 +21,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
@@ -32,7 +31,10 @@ import svenhjol.charm.module.CookingPots;
 import svenhjol.charm.render.CookingPotBlockEntityRenderer;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.WeakHashMap;
 
 @Environment(EnvType.CLIENT)
 public class CookingPotsClient extends CharmClientModule {
@@ -48,16 +50,6 @@ public class CookingPotsClient extends CharmClientModule {
         ColorProviderRegistry.BLOCK.register(this::handleColorProvider, CookingPots.COOKING_POT);
         BlockEntityRendererRegistry.INSTANCE.register(CookingPots.BLOCK_ENTITY, CookingPotBlockEntityRenderer::new);
         ClientPlayNetworking.registerGlobalReceiver(CookingPots.MSG_CLIENT_ADDED_TO_POT, this::handleClientAddedToPot);
-    }
-
-    public static List<Item> getResolvedItems(List<Identifier> ids) {
-        List<Item> items = new ArrayList<>();
-
-        for (Identifier id : ids) {
-            Registry.ITEM.getOrEmpty(id).ifPresent(items::add);
-        }
-
-        return items;
     }
 
     private int handleColorProvider(BlockState state, @Nullable BlockRenderView world, @Nullable BlockPos pos, int tintIndex) {
@@ -79,7 +71,7 @@ public class CookingPotsClient extends CharmClientModule {
 
         if (!cachedItems.containsKey(contents)) {
             this.cachedItems.clear();
-            this.cachedItems.put(contents, getResolvedItems(contents));
+            this.cachedItems.put(contents, CookingPots.getResolvedItems(contents));
         }
 
         List<Item> items = this.cachedItems.get(contents);
