@@ -116,48 +116,52 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
             if (portions == 0)
                 this.effects = new ArrayList<>();
 
-            List<StatusEffectInstance> effects = potion.getEffects();
-            if (effects.isEmpty())
-                return false;
+            // water just dilutes the potion. process potion effects if not water
+            if (potion != Potions.WATER) {
 
-            effects.forEach(effect -> {
-                boolean higherAmplifier = false;
+                List<StatusEffectInstance> effects = potion.getEffects();
+                if (effects.isEmpty())
+                    return false;
 
-                int duration = effect.getDuration();
-                int amplifier = effect.getAmplifier();
+                effects.forEach(effect -> {
+                    boolean higherAmplifier = false;
 
-                StatusEffect type = effect.getEffectType();
-                Identifier effectId = Registry.STATUS_EFFECT.getId(type);
-                if (effectId == null)
-                    return;
+                    int duration = effect.getDuration();
+                    int amplifier = effect.getAmplifier();
 
-                if (!this.effects.contains(effectId))
-                    this.effects.add(effectId);
+                    StatusEffect type = effect.getEffectType();
+                    Identifier effectId = Registry.STATUS_EFFECT.getId(type);
+                    if (effectId == null)
+                        return;
 
-                if (this.amplifiers.containsKey(effectId)) {
-                    int existingAmplifier = this.amplifiers.get(effectId);
-                    higherAmplifier = amplifier > existingAmplifier;
-                    this.amplifiers.put(effectId, Math.max(amplifier, existingAmplifier));
-                } else {
-                    this.amplifiers.put(effectId, amplifier);
-                }
+                    if (!this.effects.contains(effectId))
+                        this.effects.add(effectId);
 
-                if (this.durations.containsKey(effectId)) {
-                    int existingDuration = this.durations.get(effectId);
-                    if (higherAmplifier) {
-                        this.durations.put(effectId, duration);
+                    if (this.amplifiers.containsKey(effectId)) {
+                        int existingAmplifier = this.amplifiers.get(effectId);
+                        higherAmplifier = amplifier > existingAmplifier;
+                        this.amplifiers.put(effectId, Math.max(amplifier, existingAmplifier));
                     } else {
-                        this.durations.put(effectId, Math.max(existingDuration, duration / 4));
+                        this.amplifiers.put(effectId, amplifier);
                     }
-                } else {
-                    this.durations.put(effectId, duration);
-                }
-            });
+
+                    if (this.durations.containsKey(effectId)) {
+                        int existingDuration = this.durations.get(effectId);
+                        if (higherAmplifier) {
+                            this.durations.put(effectId, duration);
+                        } else {
+                            this.durations.put(effectId, Math.max(existingDuration, duration / 4));
+                        }
+                    } else {
+                        this.durations.put(effectId, duration);
+                    }
+                });
+            }
 
             // weaken all durations
             this.effects.forEach(effectId -> {
                 int existingDuration = this.durations.get(effectId);
-                int scaled = Math.round(((64 - portions) / 64.0F) * existingDuration);
+                int scaled = Math.round(((64 - portions) / 64.0F) * (existingDuration - (float)(existingDuration / 6)));
                 this.durations.put(effectId, Math.max(200, scaled));
             });
 
