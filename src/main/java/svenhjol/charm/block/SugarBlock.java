@@ -13,6 +13,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmFallingBlock;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.module.Bumblezone;
 
@@ -61,7 +62,7 @@ public class SugarBlock extends CharmFallingBlock {
         if (waterBelow) {
             world.syncGlobalEvent(2001, pos, Block.getRawIdFromState(world.getBlockState(pos)));
 
-            if (ModHelper.isLoaded("bumblezone")) {
+            if (ModHelper.isLoaded("bumblezone") && ModuleHandler.enabled(Bumblezone.class)) {
                 if (Bumblezone.bumblezoneFluid == null) {
                     Bumblezone.bumblezoneFluid = Registry.BLOCK.get(Bumblezone.BUMBLEZONE_FLUID_ID);
                 }
