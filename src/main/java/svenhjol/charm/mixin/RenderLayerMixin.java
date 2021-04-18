@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.handler.ColoredGlintHandler;
-import svenhjol.charm.module.Core;
+import svenhjol.charm.module.ColoredGlints;
 
 /**
  * In Forge: RenderTypeMixin
@@ -19,7 +19,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetArmorGlint(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.overrideGlint)
+        if (ColoredGlints.enabled)
             cir.setReturnValue(ColoredGlintHandler.getArmorGlintRenderLayer());
     }
 
@@ -29,7 +29,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetArmorEntityGlint(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.overrideGlint)
+        if (ColoredGlints.enabled)
             cir.setReturnValue(ColoredGlintHandler.getArmorEntityGlintRenderLayer());
     }
 
@@ -39,7 +39,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetEntityGlint(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.overrideGlint)
+        if (ColoredGlints.enabled)
             cir.setReturnValue(ColoredGlintHandler.getEntityGlintRenderLayer());
     }
 
@@ -49,7 +49,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetEntityGlintDirect(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.overrideGlint)
+        if (ColoredGlints.enabled)
             cir.setReturnValue(ColoredGlintHandler.getDirectEntityGlintRenderLayer());
     }
 
@@ -59,7 +59,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetGlint(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.overrideGlint)
+        if (ColoredGlints.enabled)
             cir.setReturnValue(ColoredGlintHandler.getGlintRenderLayer());
     }
 
@@ -69,7 +69,7 @@ public class RenderLayerMixin {
         cancellable = true
     )
     private static void hookGetGlintDirect(CallbackInfoReturnable<RenderLayer> cir) {
-        if (Core.overrideGlint)
+        if (ColoredGlints.enabled)
             cir.setReturnValue(ColoredGlintHandler.getDirectGlintRenderLayer());
     }
 }
