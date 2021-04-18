@@ -36,10 +36,12 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
     public static final String EFFECTS_NBT = "Effects";
     public static final String DURATIONS_NBT = "Duration";
     public static final String AMPLIFIERS_NBT = "Amplifier";
+    public static final String DILUTIONS_NBT = "Dilutions";
 
     public int portions = 0;
     public Map<Identifier, Integer> durations = new HashMap<>();
     public Map<Identifier, Integer> amplifiers = new HashMap<>();
+    public Map<Identifier, Integer> dilutions = new HashMap<>();
     public List<Identifier> effects = new ArrayList<>();
 
     public CaskBlockEntity(BlockPos pos, BlockState state) {
@@ -54,6 +56,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
         this.effects = new ArrayList<>();
         this.durations = new HashMap<>();
         this.amplifiers = new HashMap<>();
+        this.dilutions = new HashMap<>();
 
         NbtList list = nbt.getList(EFFECTS_NBT, 8);
         list.stream()
@@ -63,9 +66,11 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
 
         NbtCompound durations = nbt.getCompound(DURATIONS_NBT);
         NbtCompound amplifiers = nbt.getCompound(AMPLIFIERS_NBT);
+        NbtCompound dilutions = nbt.getCompound(DILUTIONS_NBT);
         this.effects.forEach(effect -> {
             this.durations.put(effect, durations.getInt(effect.toString()));
             this.amplifiers.put(effect, amplifiers.getInt(effect.toString()));
+            this.dilutions.put(effect, dilutions.getInt(effect.toString()));
         });
     }
 
@@ -77,17 +82,20 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
 
         NbtCompound durations = new NbtCompound();
         NbtCompound amplifiers = new NbtCompound();
+        NbtCompound dilutions = new NbtCompound();
 
         NbtList effects = new NbtList();
         this.effects.forEach(effect -> {
             effects.add(NbtString.of(effect.toString()));
             durations.putInt(effect.toString(), this.durations.get(effect));
             amplifiers.putInt(effect.toString(), this.amplifiers.get(effect));
+            dilutions.putInt(effect.toString(), this.dilutions.get(effect));
         });
 
         nbt.put(EFFECTS_NBT, effects);
         nbt.put(DURATIONS_NBT, durations);
         nbt.put(AMPLIFIERS_NBT, amplifiers);
+        nbt.put(DILUTIONS_NBT, dilutions);
 
         return nbt;
     }
@@ -124,7 +132,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
                     return false;
 
                 effects.forEach(effect -> {
-                    boolean higherAmplifier = false;
+                    boolean changedAmplifier = false;
 
                     int duration = effect.getDuration();
                     int amplifier = effect.getAmplifier();
@@ -134,38 +142,39 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
                     if (effectId == null)
                         return;
 
-                    if (!this.effects.contains(effectId))
+                    if (!this.effects.contains(effectId)) {
                         this.effects.add(effectId);
+                    }
 
                     if (this.amplifiers.containsKey(effectId)) {
                         int existingAmplifier = this.amplifiers.get(effectId);
-                        higherAmplifier = amplifier > existingAmplifier;
-                        this.amplifiers.put(effectId, Math.max(amplifier, existingAmplifier));
-                    } else {
-                        this.amplifiers.put(effectId, amplifier);
+                        changedAmplifier = amplifier != existingAmplifier;
                     }
+                    this.amplifiers.put(effectId, amplifier);
 
-                    if (this.durations.containsKey(effectId)) {
+                    if (!this.durations.containsKey(effectId)) {
+                        this.durations.put(effectId, duration);
+                    } else {
                         int existingDuration = this.durations.get(effectId);
-                        if (higherAmplifier) {
+                        if (changedAmplifier) {
                             this.durations.put(effectId, duration);
                         } else {
-                            this.durations.put(effectId, Math.max(existingDuration, duration / 4));
+                            this.durations.put(effectId, existingDuration + duration);
                         }
-                    } else {
-                        this.durations.put(effectId, duration);
                     }
                 });
             }
 
-            // weaken all durations
-            this.effects.forEach(effectId -> {
-                int existingDuration = this.durations.get(effectId);
-                int scaled = Math.round(((64 - portions) / 64.0F) * (existingDuration - (float)(existingDuration / 6)));
-                this.durations.put(effectId, Math.max(200, scaled));
-            });
-
             this.portions++;
+
+            this.effects.forEach(effectId -> {
+                if (!this.dilutions.containsKey(effectId)) {
+                    this.dilutions.put(effectId, portions);
+                } else {
+                    int existingDilution = this.dilutions.get(effectId);
+                    this.dilutions.put(effectId, existingDilution + 1);
+                }
+            });
 
             markDirty();
             sync();
@@ -188,9 +197,17 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
             ItemStack bottle = PotionHelper.getFilledWaterBottle();
             List<StatusEffectInstance> effects = new ArrayList<>();
 
+            if (this.effects.isEmpty())
+                return null;
+
             for (Identifier effectId : this.effects) {
-                Registry.STATUS_EFFECT.getOrEmpty(effectId).ifPresent(statusEffect
-                    -> effects.add(new StatusEffectInstance(statusEffect, this.durations.get(effectId), this.amplifiers.get(effectId))));
+                Registry.STATUS_EFFECT.getOrEmpty(effectId).ifPresent(statusEffect -> {
+                    int duration = this.durations.get(effectId);
+                    int amplifier = this.amplifiers.get(effectId);
+                    int dilution = this.dilutions.get(effectId);
+
+                    effects.add(new StatusEffectInstance(statusEffect, duration / dilution, amplifier));
+                });
             }
 
             PotionUtil.setCustomPotionEffects(bottle, effects);
@@ -210,6 +227,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
     private void flush(World world, BlockPos pos, BlockState state) {
         this.effects = new ArrayList<>();
         this.durations = new HashMap<>();
+        this.dilutions = new HashMap<>();
         this.amplifiers = new HashMap<>();
         this.portions = 0;
 
