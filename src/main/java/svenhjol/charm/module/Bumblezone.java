@@ -11,6 +11,9 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Module(mod = Charm.MOD_ID, description = "Bumblezone integration.")
 public class Bumblezone extends CharmModule {
     public static final Identifier BUMBLEZONE_FLUID_ID = new Identifier("the_bumblezone", "sugar_water_block");
@@ -19,10 +22,11 @@ public class Bumblezone extends CharmModule {
     /**
      * Will recursively track down and replace touching water blocks with bumblezone fluid.
      * Do not set the maxDepth too high!
+     * @return - waterPos
      */
-    public static void recursiveReplaceWater(World world, BlockPos position, int depth, int maxDepth){
+    public static Set<BlockPos> recursiveReplaceWater(World world, BlockPos position, int depth, int maxDepth, HashSet<BlockPos> waterPos){
         // exit when we hit as far as we wanted
-        if(depth == maxDepth) return;
+        if(depth == maxDepth) return waterPos;
 
         // Find the touching water blocks, replace them, and call this method on those blocks
         BlockPos.Mutable neighborPos = new BlockPos.Mutable();
@@ -30,11 +34,13 @@ public class Bumblezone extends CharmModule {
             neighborPos.set(position).move(facing);
             BlockState neighborBlock = world.getBlockState(neighborPos);
 
-            // Found watery block to replace, replace and recurse
-            if (!neighborBlock.getBlock().is(bumblezoneFluid) && neighborBlock.getMaterial() == Material.WATER) {
-                world.setBlockState(neighborPos, bumblezoneFluid.getDefaultState(), 3);
-                recursiveReplaceWater(world, position, depth + 1, maxDepth);
+            // Found watery block to replace, store the position of the water
+            if (!neighborBlock.getBlock().is(bumblezoneFluid) && neighborBlock.getMaterial() == Material.WATER && neighborBlock.getFluidState().isStill()) {
+                waterPos.add(neighborPos.toImmutable());
+                recursiveReplaceWater(world, neighborPos, depth + 1, maxDepth, waterPos);
             }
         }
+
+        return waterPos;
     }
 }
