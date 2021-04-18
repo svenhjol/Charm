@@ -35,7 +35,7 @@ public class Bumblezone extends CharmModule {
             BlockState neighborBlock = world.getBlockState(neighborPos);
 
             // Found watery block to replace, store the position of the water
-            if (!neighborBlock.getBlock().is(bumblezoneFluid) && neighborBlock.getMaterial() == Material.WATER) {
+            if (!neighborBlock.getBlock().is(bumblezoneFluid) && neighborBlock.getMaterial() == Material.WATER && neighborBlock.getFluidState().isStill()) {
                 waterPos.add(neighborPos.toImmutable());
                 recursiveReplaceWater(world, neighborPos, depth + 1, maxDepth, waterPos);
             }
