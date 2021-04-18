@@ -9,9 +9,12 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmFallingBlock;
+import svenhjol.charm.base.helper.ModHelper;
+import svenhjol.charm.module.Bumblezone;
 
 public class SugarBlock extends CharmFallingBlock {
     public SugarBlock(CharmModule module) {
@@ -57,7 +60,17 @@ public class SugarBlock extends CharmFallingBlock {
 
         if (waterBelow) {
             world.syncGlobalEvent(2001, pos, Block.getRawIdFromState(world.getBlockState(pos)));
-            world.removeBlock(pos, true);
+
+            if (ModHelper.isLoaded("bumblezone")) {
+                if (Bumblezone.bumblezoneFluid == null) {
+                    Bumblezone.bumblezoneFluid = Registry.BLOCK.get(Bumblezone.BUMBLEZONE_FLUID_ID);
+                }
+
+                world.setBlockState(pos, Bumblezone.bumblezoneFluid.getDefaultState(), 3);
+                Bumblezone.recursiveReplaceWater(world, pos, 0, 3);
+            } else {
+                world.removeBlock(pos, true);
+            }
         }
 
         return waterBelow;
