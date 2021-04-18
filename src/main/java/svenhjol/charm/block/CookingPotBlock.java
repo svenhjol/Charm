@@ -140,6 +140,32 @@ public class CookingPotBlock extends CharmBlockWithEntity {
     }
 
     @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+        CookingPotBlockEntity pot = this.getBlockEntity(world, pos);
+        if (pot == null)
+            return 0;
+
+        if (pot.portions == 0)
+            return 0;
+
+        return Math.round((pot.portions / (float)CookingPotBlockEntity.MAX_PORTIONS) * 16);
+    }
+
+    @Nullable
+    public CookingPotBlockEntity getBlockEntity(World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof CookingPotBlockEntity)
+            return (CookingPotBlockEntity) blockEntity;
+
+        return null;
+    }
+
+    @Override
     @Environment(EnvType.CLIENT)
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         super.randomDisplayTick(state, world, pos, random);

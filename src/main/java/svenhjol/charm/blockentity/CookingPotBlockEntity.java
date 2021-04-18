@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CookingPotBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
+    public static final int MAX_PORTIONS = 64;
+
     public static final String PORTIONS_NBT = "Portions";
     public static final String HUNGER_NBT = "Hunger";
     public static final String SATURATION_NBT = "Saturation";
@@ -90,7 +92,7 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
         if (foodComponent == null)
             return false;
 
-        if (portions < 64) {
+        if (portions < MAX_PORTIONS) {
 
             // reset contents if fresh pot
             if (portions == 0)

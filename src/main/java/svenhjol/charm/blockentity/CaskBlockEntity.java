@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
+    public static final int MAX_PORTIONS = 64;
+
     public static final String PORTIONS_NBT = "Portions";
     public static final String EFFECTS_NBT = "Effects";
     public static final String DURATIONS_NBT = "Duration";
@@ -118,7 +120,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
         if (potion == Potions.EMPTY)
             return false;
 
-        if (portions < 64) {
+        if (portions < MAX_PORTIONS) {
 
             // reset effects if fresh cask
             if (portions == 0)
