@@ -44,7 +44,6 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-// TODO: comparator output
 public class CaskBlock extends CharmBlockWithEntity {
     public static final DirectionProperty FACING = Properties.FACING;
 
