@@ -7,11 +7,12 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.mixin.accessor.BufferBuilderStorageAccessor;
 import svenhjol.charm.mixin.accessor.MinecraftClientAccessor;
 import svenhjol.charm.mixin.accessor.RenderLayerAccessor;
 import svenhjol.charm.mixin.accessor.RenderPhaseAccessor;
-import svenhjol.charm.module.Core;
+import svenhjol.charm.module.ColoredGlints;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,7 +53,7 @@ public class ColoredGlintHandler {
         List<String> validColors = Arrays.stream(DyeColor.values()).map(DyeColor::asString).collect(Collectors.toList());
         validColors.add("rainbow");
 
-        defaultGlintColor = validColors.contains(Core.glintColor) ? Core.glintColor : DyeColor.PURPLE.asString();
+        defaultGlintColor = (ModuleHandler.enabled(ColoredGlints.class) && validColors.contains(ColoredGlints.glintColor)) ? ColoredGlints.glintColor : DyeColor.PURPLE.asString();
 
         hasInit = true;
     }

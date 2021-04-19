@@ -93,8 +93,6 @@
   "enchantment.charm.acquisition.desc": "Tools automatically pick up drops",
   "enchantment.charm.aerial_affinity": "Aerial Affinity",
   "enchantment.charm.aerial_affinity.desc": "Increases mining rate when not on the ground",
-  "enchantment.charm.tinted": "Tinted",
-  "enchantment.charm.tinted.desc": "Allows changing the color of the enchanted glint using dye on an anvil",
   "entity.charm.coral_squid": "Coral Squid",
   "entity.charm.moobloom": "Moobloom",
   "entity.minecraft.villager.beekeeper": "Beekeeper",

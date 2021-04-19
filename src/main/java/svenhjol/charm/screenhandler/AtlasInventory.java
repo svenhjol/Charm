@@ -324,7 +324,7 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
 
         public static MapInfo readFrom(NbtCompound nbt) {
             return new MapInfo(nbt.getInt(X), nbt.getInt(Z), nbt.getInt(ID), ItemStack.fromNbt(nbt.getCompound(MAP)),
-                DimensionType.worldFromDimensionTag(new Dynamic<>(NbtOps.INSTANCE, nbt.get(DIMENSION))).result().orElse(World.OVERWORLD));
+                DimensionType.worldFromDimensionNbt(new Dynamic<>(NbtOps.INSTANCE, nbt.get(DIMENSION))).result().orElse(World.OVERWORLD));
         }
 
         public void writeTo(NbtCompound nbt) {
