@@ -32,6 +32,7 @@ public class Charm implements ModInitializer {
             BlockOfGunpowder.class,
             BlockOfSugar.class,
             Bookcases.class,
+            Bumblezone.class,
             CampfiresNoDamage.class,
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
@@ -46,6 +47,7 @@ public class Charm implements ModInitializer {
             EntitySpawners.class,
             ExtractEnchantments.class,
             FeatherFallingCrops.class,
+            GentlePotionParticles.class,
             Glowballs.class,
             GoldBars.class,
             GoldChains.class,
@@ -79,7 +81,7 @@ public class Charm implements ModInitializer {
             StackableStews.class,
             StrayImprovements.class,
             TamedAnimalsNoDamage.class,
-            Tinted.class,
+            ColoredGlints.class,
             UseTotemFromInventory.class,
             VariantBarrels.class,
             VariantBookshelves.class,
@@ -93,6 +95,7 @@ public class Charm implements ModInitializer {
         ));
 
         CharmLoot.init();
+        CharmParticles.init();
         CharmStructures.init();
         CharmSounds.init();
         CharmTags.init();
