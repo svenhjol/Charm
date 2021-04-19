@@ -17,6 +17,9 @@ import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.module.Bumblezone;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class SugarBlock extends CharmFallingBlock {
     public SugarBlock(CharmModule module) {
         super(module, "sugar_block", FabricBlockSettings
@@ -68,7 +71,12 @@ public class SugarBlock extends CharmFallingBlock {
                 }
 
                 world.setBlockState(pos, Bumblezone.bumblezoneFluid.getDefaultState(), 3);
-                Bumblezone.recursiveReplaceWater(world, pos, 0, 3);
+
+                // Find all water blocks in contact recursively. Uses a set since we do not need duplicate positions
+                Set<BlockPos> positionsToChange = Bumblezone.recursiveReplaceWater(world, pos, 0, 3, new HashSet<>());
+
+                // Now change to sugar water after we found all water in range. Prevents weird shapes from being made when we delay this
+                positionsToChange.forEach(waterPos -> world.setBlockState(waterPos, Bumblezone.bumblezoneFluid.getDefaultState(), 3));
             } else {
                 world.removeBlock(pos, true);
             }
