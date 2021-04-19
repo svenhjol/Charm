@@ -7,6 +7,7 @@ import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
@@ -16,21 +17,22 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.handler.ColoredGlintHandler;
 
-@Module(mod = Charm.MOD_ID, description = "When applied, you may use dyes on an anvil to change the item's enchantment color. Requires Core 'Enchantment glint override' to be true.")
+@Module(mod = Charm.MOD_ID, description = "When applied, you may use dyes on an anvil to change the item's enchantment color.")
 public class ColoredGlints extends CharmModule {
+    public static boolean enabled;
+
+    @Config(name = "Default glint color", description = "Set the default glint color for all enchanted items.")
+    public static String glintColor = DyeColor.PURPLE.getName();
 
     @Config(name = "XP cost", description = "Number of levels of XP required to change an item's enchantment color using dye on an anvil.")
     public static int xpCost = 0;
 
     @Override
-    public boolean depends() {
-        return Core.overrideGlint;
-    }
-
-    @Override
     public void init() {
         if (!ModuleHandler.enabled("charm:anvil_improvements") && xpCost < 1)
             xpCost = 1;
+
+        enabled = ModuleHandler.enabled(ColoredGlints.class);
 
         // listen for anvil behavior
         UpdateAnvilCallback.EVENT.register(this::handleAnvilBehavior);

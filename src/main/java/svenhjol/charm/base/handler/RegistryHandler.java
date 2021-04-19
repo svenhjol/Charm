@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.loot.function.LootFunctionType;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -26,6 +27,7 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.poi.PointOfInterestType;
+import svenhjol.charm.mixin.accessor.DefaultParticleTypeAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,11 @@ public class RegistryHandler {
         RegistryKey<ConfiguredStructureFeature<?, ?>> key = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY, id);
         BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, key.getValue(), configuredFeature);
         return configuredFeature;
+    }
+
+    public static DefaultParticleType defaultParticleType(Identifier id) {
+        DefaultParticleType type = DefaultParticleTypeAccessor.invokeConstructor(false);
+        return Registry.register(Registry.PARTICLE_TYPE, id.toString(), type);
     }
 
     public static Enchantment enchantment(Identifier id, Enchantment enchantment) {
