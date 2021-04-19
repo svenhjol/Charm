@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistryAccessor;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
@@ -13,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.text.OrderedText;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
@@ -52,13 +52,13 @@ public class EnderBundlesClient extends CharmClientModule {
      * Handle message sent from the server containing updated ender inventory.
      */
     private void handleClientUpdateEnderInventory(PacketContext context, PacketByteBuf data) {
-        NbtCompound tag = data.readCompound();
+        NbtCompound tag = data.readNbt();
         context.getTaskQueue().execute(() ->
             ClientHelper.getPlayer().ifPresent(player -> {
                 if (tag != null && tag.contains("EnderItems", 9)) {
                     NbtList enderItems = tag.getList("EnderItems", 10);
                     EnderChestInventory inventory = ((PlayerEntityAccessor) player).getEnderChestInventory();
-                    inventory.readTags(enderItems);
+                    inventory.readNbtList(enderItems);
 
                     CACHED_AMOUNT_FILLED = (float)enderItems.size() / inventory.size();
                 }
@@ -82,7 +82,7 @@ public class EnderBundlesClient extends CharmClientModule {
      * Poll for enderinventory changes on the server at a faster rate
      * when the player is hovering over an ender bundle.
      */
-    private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+    private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<TooltipComponent> lines, int x, int y) {
         if (stack != null && stack.getItem() instanceof EnderBundleItem) {
             ClientHelper.getWorld().ifPresent(world -> {
                 if (world.getTime() % 10 == 0)
@@ -93,7 +93,7 @@ public class EnderBundlesClient extends CharmClientModule {
         }
     }
 
-    private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
+    private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<TooltipComponent> lines, int tx, int ty) {
         Optional<PlayerEntity> optional = ClientHelper.getPlayer();
         if (!optional.isPresent())
             return;

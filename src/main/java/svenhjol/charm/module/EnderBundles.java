@@ -31,10 +31,10 @@ public class EnderBundles extends CharmModule {
                     return;
 
                 NbtCompound tag = new NbtCompound();
-                tag.put("EnderItems", player.getEnderChestInventory().getTags());
+                tag.put("EnderItems", player.getEnderChestInventory().toNbtList());
 
                 PacketByteBuf buffer = new PacketByteBuf(Unpooled.buffer());
-                buffer.writeCompound(tag);
+                buffer.writeNbt(tag);
                 ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, MSG_CLIENT_UPDATE_ENDER_INVENTORY, buffer);
             });
         });
