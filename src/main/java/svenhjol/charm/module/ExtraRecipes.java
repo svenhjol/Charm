@@ -1,10 +1,16 @@
 package svenhjol.charm.module;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.GameRules;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.event.CheckAnvilRepairCallback;
 
 import java.util.*;
 
@@ -37,6 +43,14 @@ public class ExtraRecipes extends CharmModule {
     @Config(name = "Bundle from leather", description = "If true, adds a recipe for crafting bundles from leather.")
     public static boolean useBundle = true;
 
+    @Config(name = "Leather to repair elytra", description = "If true, leather can be used to repair elytra when insomnia is disabled.")
+    public static boolean useLeatherForElytra = true;
+
+    @Override
+    public void init() {
+        CheckAnvilRepairCallback.EVENT.register(this::handleCheckAnvilRepair);
+    }
+
     @Override
     public List<Identifier> getRecipesToRemove() {
         List<Identifier> removedRecipes = new ArrayList<>();
@@ -63,6 +77,17 @@ public class ExtraRecipes extends CharmModule {
         });
 
         return removedRecipes;
+    }
+
+    private boolean handleCheckAnvilRepair(AnvilScreenHandler handler, PlayerEntity player, ItemStack leftStack, ItemStack rightStack) {
+        if (!useLeatherForElytra || player == null || player.world == null)
+            return false;
+
+        // don't activate if insomnia is enabled
+        if (!player.world.isClient && player.world.getGameRules().getBoolean(GameRules.DO_INSOMNIA))
+            return false;
+
+        return leftStack.getItem() == Items.ELYTRA && rightStack.getItem() == Items.LEATHER;
     }
 }
 
