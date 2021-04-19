@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CTC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "charm:copper_nugget"
+    },
+    "T": {
+      "item": "minecraft:soul_torch"
+    }
+  },
+  "result": {
+    "item": "charm:copper_soul_lantern"
+  }
+}
