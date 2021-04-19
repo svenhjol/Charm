@@ -38,6 +38,7 @@ public class Charm implements ModInitializer {
             CampfiresNoDamage.class,
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
+            ColoredBundles.class,
             CoralSeaLanterns.class,
             CoralSquids.class,
             Core.class,
