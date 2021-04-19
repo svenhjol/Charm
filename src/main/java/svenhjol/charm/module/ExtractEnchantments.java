@@ -40,7 +40,12 @@ public class ExtractEnchantments extends CharmModule {
             @Override
             public boolean canInsert(ItemStack stack) {
                 boolean valid = stack.isDamageable() || stack.getItem() == Items.ENCHANTED_BOOK || stack.hasEnchantments();
-                return isEnabled() ? valid || stack.getItem() == Items.BOOK : valid;
+
+                // check for horse armor extraction
+                if (ModuleHandler.enabled("charm:extra_recipes") && ExtraRecipes.useHorseArmor)
+                    return ExtraRecipes.horseArmorRecipes.containsKey(stack.getItem());
+
+                return isExtractEnchantmentsEnabled() ? valid || stack.getItem() == Items.BOOK : valid;
             }
         };
     }
@@ -63,7 +68,7 @@ public class ExtractEnchantments extends CharmModule {
              * @return True if can take from output slot
              */
             public boolean canTakeItems(PlayerEntity player) {
-                if (!isEnabled())
+                if (!isExtractEnchantmentsEnabled())
                     return true;
 
                 List<ItemStack> stacks = getStacksFromInventory(inventory);
@@ -152,7 +157,7 @@ public class ExtractEnchantments extends CharmModule {
     }
 
     public static boolean tryUpdateResult(Inventory inputs, Inventory output, @Nullable PlayerEntity player) {
-        if (!isEnabled())
+        if (!isExtractEnchantmentsEnabled())
             return false;
 
         ItemStack out = tryGetEnchantedBook(inputs, player);
@@ -183,7 +188,7 @@ public class ExtractEnchantments extends CharmModule {
         return out;
     }
 
-    private static boolean isEnabled() {
+    private static boolean isExtractEnchantmentsEnabled() {
         return ModuleHandler.enabled(ExtractEnchantments.class);
     }
 
