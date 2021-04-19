@@ -10,8 +10,10 @@ import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
 import net.minecraft.loot.function.LootFunctionType;
+import net.minecraft.potion.Potion;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
@@ -28,6 +30,8 @@ import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.mixin.accessor.DefaultParticleTypeAccessor;
+import svenhjol.charm.mixin.accessor.BrewingRecipeRegistryAccessor;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +46,10 @@ public class RegistryHandler {
 
     public static <T extends BlockEntity> BlockEntityType<T> blockEntity(Identifier id, BlockEntityType.BlockEntityFactory<T> builder, Block... blocks) {
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, BlockEntityType.Builder.create(builder, blocks).build(null));
+    }
+
+    public static void brewingRecipe(Potion input, Item reagant, Potion output) {
+        BrewingRecipeRegistryAccessor.invokeRegisterPotionRecipe(input, reagant, output);
     }
 
     public static ConfiguredStructureFeature<?, ?> configuredFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
@@ -77,6 +85,10 @@ public class RegistryHandler {
         return Registry.register(Registry.POINT_OF_INTEREST_TYPE, id, poit);
     }
 
+    public static Potion potion(Identifier id, Potion potion) {
+        return Registry.register(Registry.POTION, id, potion);
+    }
+
     public static <T extends Recipe<?>> RecipeType<T> recipeType(String recipeId) {
         return RecipeType.register(recipeId);
     }
@@ -95,6 +107,10 @@ public class RegistryHandler {
 
     public static SoundEvent sound(Identifier id, SoundEvent sound) {
         return Registry.register(Registry.SOUND_EVENT, id, sound);
+    }
+
+    public static StatusEffect statusEffect(Identifier id, StatusEffect statusEffect) {
+        return Registry.register(Registry.STATUS_EFFECT, id, statusEffect);
     }
 
     public static StructurePieceType structurePiece(Identifier id, StructurePieceType structurePieceType) {

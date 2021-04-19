@@ -72,6 +72,7 @@ public class Charm implements ModInitializer {
             PathToDirt.class,
             PlayerPressurePlates.class,
             PlayerState.class,
+            PotionOfSpelunking.class,
             PortableCrafting.class,
             Quadrants.class,
             RaidHorns.class,
