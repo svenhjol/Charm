@@ -13,8 +13,8 @@ import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.map.MapState;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
@@ -74,7 +74,7 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
         scale = ItemNBTHelper.getInt(atlas, SCALE, Atlas.defaultScale);
         diameter = 128 * (1 << scale);
         Inventories.readNbt(ItemNBTHelper.getCompound(atlas, EMPTY_MAPS), emptyMaps);
-        ListTag listNBT = ItemNBTHelper.getList(atlas, FILLED_MAPS);
+        NbtList listNBT = ItemNBTHelper.getList(atlas, FILLED_MAPS);
         for (int i = 0; i < listNBT.size(); ++i) {
             putMapInfo(MapInfo.readFrom(listNBT.getCompound(i)));
         }
@@ -239,12 +239,12 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
     @Override
     public void markDirty() {
         ItemNBTHelper.setInt(atlas, SCALE, scale);
-        CompoundTag emptyMapNBT = new CompoundTag();
+        NbtCompound emptyMapNBT = new NbtCompound();
         Inventories.writeNbt(emptyMapNBT, emptyMaps, false);
         ItemNBTHelper.setCompound(atlas, EMPTY_MAPS, emptyMapNBT);
-        ListTag listNBT = new ListTag();
+        NbtList listNBT = new NbtList();
         for (MapInfo mapInfo : mapInfos.values()) {
-            CompoundTag nbt = new CompoundTag();
+            NbtCompound nbt = new NbtCompound();
             mapInfo.writeTo(nbt);
             listNBT.add(nbt);
         }
@@ -322,16 +322,16 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
             this.dimension = dimension;
         }
 
-        public static MapInfo readFrom(CompoundTag nbt) {
+        public static MapInfo readFrom(NbtCompound nbt) {
             return new MapInfo(nbt.getInt(X), nbt.getInt(Z), nbt.getInt(ID), ItemStack.fromNbt(nbt.getCompound(MAP)),
-                DimensionType.worldFromDimensionTag(new Dynamic<>(NbtOps.INSTANCE, nbt.get(DIMENSION))).result().orElse(World.OVERWORLD));
+                DimensionType.worldFromDimensionNbt(new Dynamic<>(NbtOps.INSTANCE, nbt.get(DIMENSION))).result().orElse(World.OVERWORLD));
         }
 
-        public void writeTo(CompoundTag nbt) {
+        public void writeTo(NbtCompound nbt) {
             nbt.putInt(X, x);
             nbt.putInt(Z, z);
             nbt.putInt(ID, id);
-            CompoundTag mapNBT = new CompoundTag();
+            NbtCompound mapNBT = new NbtCompound();
             map.writeNbt(mapNBT);
             nbt.put(MAP, mapNBT);
             Identifier.CODEC.encodeStart(NbtOps.INSTANCE, dimension.getValue()).result().ifPresent(it -> nbt.put(DIMENSION, it));

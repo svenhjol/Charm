@@ -10,21 +10,21 @@ title: Smithing
 A tool with the **Acquisition** enchantment adds block drops straight to your inventory.  This enchantment may also be added to shears.
 
 ### Anvil Improvements
-![Anvil Improvements](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Anvil Improvements](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/anvil-improvements.png?raw=true)
 Removes minimum and maximum XP costs on the anvil.  No more "Too Expensive."
 
 Anvils are also 50% less likely to become damaged when used.
 
 ### Decrease Repair Cost
-![Decrease Repair Cost](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Decrease Repair Cost](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/repair-cost-netherite.png?raw=true)
 Combine a tool or armor with a **Netherite nugget** on an anvil to reduce its repair cost.
 
 ### Extend Netherite
-![Extend Netherite](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Extend Netherite](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/netherite.png?raw=true)
 Increases the lifetime of Netherite-based items before they despawn.
 
 ### Extract Enchantments
-![Extract Enchantments](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+![Extract Enchantments](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/extractenchant.png?raw=true)
 Extract enchantments from any enchanted item into an empty book on a grindstone.
 The enchanted item will be destroyed in the process.
 

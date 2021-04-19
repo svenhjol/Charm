@@ -126,8 +126,8 @@ public class MineshaftImprovements extends CharmModule {
     }
 
     private static void corridor(MineshaftCorridor piece, StructureWorldAccess world, StructureAccessor accessor, ChunkGenerator chunkGenerator, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos) {
-        int bx = box.maxX - box.minX;
-        int bz = box.maxZ - box.minZ;
+        int bx = box.getMaxX() - box.getMinX();
+        int bz = box.getMaxZ() - box.getMinZ();
 
         if (generateCorridorBlocks) {
             if (bx <= 0) bx = 3;
@@ -136,10 +136,15 @@ public class MineshaftImprovements extends CharmModule {
                 if (x == 1 && rand.nextFloat() < 0.08F)
                     continue; // rarely, spawn some block in the middle of the corridor
                 for (int z = 0; z < bz; z++) {
-                    if (validFloorBlock(piece, world, x, 0, z, box) && rand.nextFloat() < floorBlockChance) {
+                    boolean validCeiling = ((MineshaftGeneratorAccessor) piece).invokeIsSolidCeiling(world, box, x, x, 2, z);
+                    boolean validFloor = validFloorBlock(piece, world, x, 0, z, box);
+
+                    if (!validCeiling)
+                        continue;
+
+                    if (validFloor && rand.nextFloat() < floorBlockChance) {
                         ((StructurePieceAccessor)piece).callAddBlock(world, getFloorBlock(rand), x, 0, z, box);
-                    }
-                    if (validCeilingBlock(piece, world, x, 2, z, box) && rand.nextFloat() < ceilingBlockChance) {
+                    } else if (rand.nextFloat() < ceilingBlockChance) {
                         ((StructurePieceAccessor)piece).callAddBlock(world, getCeilingBlock(rand), x, 2, z, box);
                     }
                 }
@@ -204,8 +209,8 @@ public class MineshaftImprovements extends CharmModule {
 
     private static void room(MineshaftRoom piece, ServerWorldAccess world, StructureAccessor accessor, ChunkGenerator chunkGenerator, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (generateRoomBlocks) {
-            int bx = box.maxX - box.minX;
-            int bz = box.maxZ - box.minZ;
+            int bx = box.getMaxX() - box.getMinX();
+            int bz = box.getMaxZ() - box.getMinZ();
 
             if (bx <= 0) bx = 15;
             if (bz <= 0) bz = 15;
@@ -223,7 +228,7 @@ public class MineshaftImprovements extends CharmModule {
                                 if (rand.nextFloat() < 0.5F) continue;
                                 state = getRandomBlockFromList(roomBlocks, rand);
                             }
-                            BlockPos pos = new BlockPos(((StructurePieceAccessor)piece).getBoundingBox().minX + x, ((StructurePieceAccessor)piece).getBoundingBox().minY + y, ((StructurePieceAccessor)piece).getBoundingBox().minZ + z);
+                            BlockPos pos = new BlockPos(((StructurePieceAccessor)piece).getBoundingBox().getMinX() + x, ((StructurePieceAccessor)piece).getBoundingBox().getMinY() + y, ((StructurePieceAccessor)piece).getBoundingBox().getMinZ() + z);
 
                             if (world.isAir(pos)
                                 && world.getBlockState(pos.down()).isFullCube(world, pos.down())

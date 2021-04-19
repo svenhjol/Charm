@@ -1,21 +1,25 @@
 package svenhjol.charm.module;
 
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
-import svenhjol.charm.base.helper.PlayerHelper;
-import svenhjol.charm.client.PortableCraftingClient;
-import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.client.PortableCraftingClient;
+import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
 
 @Module(mod = Charm.MOD_ID, client = PortableCraftingClient.class, description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
 public class PortableCrafting extends CharmModule {
@@ -28,19 +32,20 @@ public class PortableCrafting extends CharmModule {
     @Override
     public void init() {
         // listen for network requests to open the portable ender chest
-        ServerSidePacketRegistry.INSTANCE.register(MSG_SERVER_OPEN_CRAFTING, (context, data) -> {
-            context.getTaskQueue().execute(() -> {
-                ServerPlayerEntity player = (ServerPlayerEntity)context.getPlayer();
-                if (player == null || !PlayerHelper.getInventory(player).contains(new ItemStack(Blocks.CRAFTING_TABLE)))
-                    return;
-
-                PortableCrafting.openContainer(player);
-            });
-        });
+        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_OPEN_CRAFTING, this::handleServerOpenCrafting);
     }
 
     public static void openContainer(ServerPlayerEntity player) {
         player.closeHandledScreen();
         player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, inv, p) -> new PortableCraftingScreenHandler(i, inv, ScreenHandlerContext.create(p.world, p.getBlockPos())), LABEL));
+    }
+
+    private void handleServerOpenCrafting(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+        server.execute(() -> {
+            if (player == null || !PlayerHelper.getInventory(player).contains(new ItemStack(Blocks.CRAFTING_TABLE)))
+                return;
+
+            PortableCrafting.openContainer(player);
+        });
     }
 }

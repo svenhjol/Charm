@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.item.SuspiciousStewItem;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -59,7 +59,7 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     }
 
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
         entityData = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
 
         List<Type> types = Arrays.asList(Type.values());
@@ -126,14 +126,14 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     }
 
     @Override
-    public void writeCustomDataToNbt(CompoundTag tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         tag.putString(TYPE_TAG, this.getMoobloomType().name);
         tag.putBoolean(POLLINATED_TAG, this.dataTracker.get(POLLINATED));
     }
 
     @Override
-    public void readCustomDataFromNbt(CompoundTag tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
         this.setMoobloomType(Type.fromName(tag.getString(TYPE_TAG)));
 

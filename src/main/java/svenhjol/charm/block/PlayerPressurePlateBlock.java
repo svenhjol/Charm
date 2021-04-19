@@ -9,9 +9,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -23,12 +20,11 @@ import svenhjol.charm.base.block.ICharmBlock;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class PlayerPressurePlateBlock extends AbstractPressurePlateBlock implements ICharmBlock {
-    public static final BooleanProperty POWERED = Properties.POWERED;
+public class PlayerPressurePlateBlock extends PressurePlateBlock implements ICharmBlock {
     private final CharmModule module;
 
     public PlayerPressurePlateBlock(CharmModule module) {
-        super(FabricBlockSettings.of(Material.STONE, MapColor.BLACK)
+        super(null, FabricBlockSettings.of(Material.STONE, MapColor.BLACK)
             .requiresTool()
             .breakByTool(FabricToolTags.PICKAXES)
             .noCollision()
@@ -36,7 +32,6 @@ public class PlayerPressurePlateBlock extends AbstractPressurePlateBlock impleme
 
         this.module = module;
         register(module, "player_pressure_plate");
-        setDefaultState(getDefaultState().with(POWERED, false));
     }
 
     @Override
@@ -70,21 +65,5 @@ public class PlayerPressurePlateBlock extends AbstractPressurePlateBlock impleme
         Box bounds = BOX.offset(pos);
         List<? extends Entity> entities = worldIn.getNonSpectatingEntities(PlayerEntity.class, bounds);
         return entities.size() > 0 ? 15 : 0;
-    }
-
-    @Override
-    protected int getRedstoneOutput(@Nonnull BlockState state) {
-        return state.get(POWERED) ? 15 : 0;
-    }
-
-    @Nonnull
-    @Override
-    protected BlockState setRedstoneOutput(@Nonnull BlockState state, int strength) {
-        return state.with(POWERED, strength > 0);
-    }
-
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(POWERED);
     }
 }
