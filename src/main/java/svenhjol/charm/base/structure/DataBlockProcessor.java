@@ -199,7 +199,7 @@ public class DataBlockProcessor extends StructureProcessor {
         }
 
         protected void bookshelf() {
-            IVariantMaterial variantMaterial = DecorationHelper.getRandomVariantMaterial(fixedRandom);
+            IVariantMaterial variantMaterial = DecorationHelper.getRandomOverworldVariantMaterial(fixedRandom);
 
             String type = getValue("material", this.data, "");
             if (!type.isEmpty()) {
@@ -245,7 +245,7 @@ public class DataBlockProcessor extends StructureProcessor {
             if (!withChance(CHEST_CHANCE)) return;
 
             if (ModuleHandler.enabled("charm:variant_chests")) {
-                IVariantMaterial variantMaterial = DecorationHelper.getRandomVariantMaterial(random);
+                IVariantMaterial variantMaterial = DecorationHelper.getRandomOverworldVariantMaterial(random);
 
                 String type = getValue("material", this.data, "");
                 if (!type.isEmpty()) {
@@ -411,7 +411,7 @@ public class DataBlockProcessor extends StructureProcessor {
             if (!withChance(STORAGE_CHANCE)) return;
 
             LootableContainerBlockEntity blockEntity;
-            IVariantMaterial woodType = DecorationHelper.getRandomVariantMaterial(random);
+            IVariantMaterial woodType = DecorationHelper.getRandomOverworldVariantMaterial(random);
 
             if (ModuleHandler.enabled("charm:variant_barrels")) {
                 // get variant barrel
