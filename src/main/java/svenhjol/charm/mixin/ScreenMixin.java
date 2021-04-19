@@ -2,10 +2,10 @@ package svenhjol.charm.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -64,7 +64,7 @@ public abstract class ScreenMixin {
         method = "renderTooltipFromComponents",
         at = @At("HEAD")
     )
-    private void hookRenderOrderedTooltip(MatrixStack matrices, List<? extends OrderedText> lines, int x, int y, CallbackInfo ci) {
+    private void hookRenderOrderedTooltip(MatrixStack matrices, List<TooltipComponent> lines, int x, int y, CallbackInfo ci) {
         RenderTooltipCallback.EVENT.invoker().interact(matrices, itemStack, lines, x, y);
         itemStack = null;
     }

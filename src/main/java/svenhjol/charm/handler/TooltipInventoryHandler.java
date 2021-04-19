@@ -3,11 +3,11 @@ package svenhjol.charm.handler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.OrderedText;
 import svenhjol.charm.base.CharmResources;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class TooltipInventoryHandler {
     private static final int BUFFER = 1;
     private static final int EDGE = 18;
 
-    public static void renderOverlay(MatrixStack matrices, List<ItemStack> items, List<? extends OrderedText> lines, int tx, int ty) {
+    public static void renderOverlay(MatrixStack matrices, List<ItemStack> items, List<TooltipComponent> lines, int tx, int ty) {
         final MinecraftClient mc = MinecraftClient.getInstance();
 
         ty -= 48;
