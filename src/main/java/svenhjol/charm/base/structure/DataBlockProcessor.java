@@ -45,7 +45,7 @@ public class DataBlockProcessor extends StructureProcessor {
     @Override
     public StructureBlockInfo process(WorldView world, BlockPos pos, BlockPos blockPos, StructureBlockInfo unused, StructureBlockInfo blockInfo, StructurePlacementData placement) {
         if (blockInfo.state.getBlock() == Blocks.STRUCTURE_BLOCK) {
-            StructureBlockMode mode = StructureBlockMode.valueOf(blockInfo.tag.getString("mode"));
+            StructureBlockMode mode = StructureBlockMode.valueOf(blockInfo.nbt.getString("mode"));
             if (mode == StructureBlockMode.DATA) {
                 return resolver.replace(world, placement.getRotation(), blockInfo, new Random(pos.asLong()));
             }
@@ -110,7 +110,7 @@ public class DataBlockProcessor extends StructureProcessor {
         public float chance;
 
         public StructureBlockInfo replace(WorldView world, BlockRotation rotation, StructureBlockInfo blockInfo, Random random) {
-            String data = blockInfo.tag.getString("metadata");
+            String data = blockInfo.nbt.getString("metadata");
             this.world = world;
             this.fixedRandom = random;
             this.rotation = rotation;

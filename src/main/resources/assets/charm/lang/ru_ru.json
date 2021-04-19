@@ -89,8 +89,6 @@
   "enchantment.charm.acquisition.desc": "Добытое инструментами автоматически попадает в инвентарь.",
   "enchantment.charm.aerial_affinity": "Воздушник",
   "enchantment.charm.aerial_affinity.desc": "Увеличивает скорость добычи в воздухе.",
-  "enchantment.charm.tinted": "Окрашен",
-  "enchantment.charm.tinted.desc": "Позволяет изменить цвет свечения предмета при помощи красителя на наковальне.",
   "entity.charm.coral_squid": "Коралловый спрут",
   "entity.charm.moobloom": "Цветочная корова",
   "entity.minecraft.villager.beekeeper": "Пчеловод",
