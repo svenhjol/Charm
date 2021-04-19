@@ -7,11 +7,14 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.TrackedData;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.event.*;
 import svenhjol.charm.module.ArmorInvisibility;
+import svenhjol.charm.module.GentlePotionParticles;
 import svenhjol.charm.module.UseTotemFromInventory;
 import svenhjol.charm.module.VariantLadders;
 
@@ -36,6 +40,8 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Shadow
     public abstract Iterable<ItemStack> getArmorItems();
+
+    @Shadow @Final private static TrackedData<Integer> POTION_SWIRLS_COLOR;
 
     @Redirect(
         method = "tryUseTotem",
@@ -159,5 +165,18 @@ public abstract class LivingEntityMixin extends Entity {
         EquipmentSlot equipmentSlot, ItemStack itemStack3, ItemStack itemStack4
     ) {
         EntityEquipCallback.EVENT.invoker().interact((LivingEntity)(Object)this, equipmentSlot, itemStack3, itemStack4);
+    }
+
+    @Redirect(
+        method = "tickStatusEffects",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"
+        )
+    )
+    private void hookTickStatusEffects(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+        boolean result = GentlePotionParticles.tryRenderParticles(world, x, y, z, velocityX, velocityY, velocityZ);
+        if (!result)
+            world.addParticle(parameters, x, y, z, velocityX, velocityY, velocityZ); // vanilla behavior
     }
 }
