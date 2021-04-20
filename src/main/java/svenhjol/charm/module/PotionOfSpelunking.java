@@ -24,7 +24,7 @@ import svenhjol.charm.potion.SpelunkingPotion;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, client = PotionOfSpelunkingClient.class)
+@Module(mod = Charm.MOD_ID, client = PotionOfSpelunkingClient.class, description = "Shows particles at ground level to help locate ores below you.")
 public class PotionOfSpelunking extends CharmModule {
     private static final DyeColor DEFAULT_COLOR = DyeColor.WHITE;
 
