@@ -72,9 +72,9 @@ public class CaskBlock extends CharmBlockWithEntity {
 
                         if (cask.portions > 0) {
                             playCaskOpenSound(world, pos);
-                            world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.5F, 1.0F);
+                            world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.7F, 1.0F);
                         } else {
-                            world.playSound(null, pos, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                            world.playSound(null, pos, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.5F, 1.0F);
                         }
                     }
                 } else if (held.getItem() == Items.POTION) {
@@ -182,6 +182,6 @@ public class CaskBlock extends CharmBlockWithEntity {
     }
 
     private void playCaskOpenSound(World world, BlockPos pos) {
-        world.playSound(null, pos, SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.7F, 1.0F);
+        world.playSound(null, pos, SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.6F, 1.0F);
     }
 }
