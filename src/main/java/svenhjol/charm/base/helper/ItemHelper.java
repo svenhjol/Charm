@@ -11,6 +11,15 @@ import java.util.*;
 
 public class ItemHelper {
     public static Map<Item, Integer> ITEM_LIFETIME = new HashMap<>();
+    public static List<Item> BOWL_FOODS = Arrays.asList(
+        Items.MUSHROOM_STEW,
+        Items.RABBIT_STEW,
+        Items.BEETROOT_SOUP,
+        Items.SUSPICIOUS_STEW
+    );
+    public static List<Item> BOTTLE_FOODS = Arrays.asList(
+        Items.HONEY_BOTTLE
+    );
 
     public static Class<? extends Block> getBlockClass(ItemStack stack) {
         return Block.getBlockFromItem(stack.getItem()).getClass();
@@ -35,11 +44,10 @@ public class ItemHelper {
     }
 
     public static List<Item> getBowlFoodItems() {
-        return Arrays.asList(
-            Items.MUSHROOM_STEW,
-            Items.RABBIT_STEW,
-            Items.BEETROOT_SOUP,
-            Items.SUSPICIOUS_STEW
-        );
+        return BOWL_FOODS;
+    }
+
+    public static List<Item> getBottleFoodItems() {
+        return BOTTLE_FOODS;
     }
 }

@@ -88,13 +88,20 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                         }
 
                     } else if (held.isFood()) {
+                        ItemStack copy = held.copy(); // for checking if it's a bowl or bottle after adding to pot
                         boolean result = pot.add(world, pos, state, held);
                         if (result) {
                             world.playSound(null, pos, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.BLOCKS, 0.5F, 1.0F);
 
-                            // if the food has a bowl, give it back to the player
-                            if (ItemHelper.getBowlFoodItems().contains(held.getItem()) && !player.getAbilities().creativeMode)
-                                PlayerHelper.addOrDropStack(player, new ItemStack(Items.BOWL));
+                            if (!player.getAbilities().creativeMode) {
+                                // if the food has a bowl, give it back to the player
+                                if (ItemHelper.getBowlFoodItems().contains(copy.getItem()))
+                                    PlayerHelper.addOrDropStack(player, new ItemStack(Items.BOWL));
+
+                                // if the food has a bottle, give it back to the player
+                                if (ItemHelper.getBottleFoodItems().contains(copy.getItem()))
+                                    PlayerHelper.addOrDropStack(player, new ItemStack(Items.GLASS_BOTTLE));
+                            }
 
                             // send message to client that an item was added
                             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
