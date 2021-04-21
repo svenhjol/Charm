@@ -17,6 +17,8 @@ import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -39,8 +41,10 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
     public static final String DURATIONS_NBT = "Duration";
     public static final String AMPLIFIERS_NBT = "Amplifier";
     public static final String DILUTIONS_NBT = "Dilutions";
+    public static final String NAME_NBT = "Name";
 
     public int portions = 0;
+    public String name = "";
     public Map<Identifier, Integer> durations = new HashMap<>();
     public Map<Identifier, Integer> amplifiers = new HashMap<>();
     public Map<Identifier, Integer> dilutions = new HashMap<>();
@@ -54,6 +58,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
 
+        this.name = nbt.getString(NAME_NBT);
         this.portions = nbt.getInt(PORTIONS_NBT);
         this.effects = new ArrayList<>();
         this.durations = new HashMap<>();
@@ -80,6 +85,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
     public NbtCompound writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
 
+        nbt.putString(NAME_NBT, this.name);
         nbt.putInt(PORTIONS_NBT, this.portions);
 
         NbtCompound durations = new NbtCompound();
@@ -117,6 +123,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
             return false;
 
         Potion potion = PotionUtil.getPotion(input);
+        List<StatusEffectInstance> customEffects = PotionUtil.getCustomPotionEffects(input);
         if (potion == Potions.EMPTY)
             return false;
 
@@ -126,10 +133,10 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
             if (portions == 0)
                 this.effects = new ArrayList<>();
 
-            // water just dilutes the potion. process potion effects if not water
-            if (potion != Potions.WATER) {
+            // potions without effects just dilute the mix
+            if (potion != Potions.WATER || !customEffects.isEmpty()) {
 
-                List<StatusEffectInstance> effects = potion.getEffects();
+                List<StatusEffectInstance> effects = customEffects.isEmpty() && !potion.getEffects().isEmpty() ? potion.getEffects() : customEffects;
                 if (effects.isEmpty())
                     return false;
 
@@ -219,7 +226,15 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
             if (--portions <= 0)
                 this.flush(world, pos, state);
 
-            bottle.setCustomName(new TranslatableText("item.charm.home_brew"));
+            Text bottleName;
+
+            if (!name.isEmpty()) {
+                bottleName = new LiteralText(name);
+            } else {
+                bottleName = new TranslatableText("item.charm.home_brew");
+            }
+
+            bottle.setCustomName(bottleName);
             return bottle;
         }
 

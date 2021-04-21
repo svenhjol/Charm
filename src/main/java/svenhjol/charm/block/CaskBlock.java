@@ -9,6 +9,7 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -65,7 +66,15 @@ public class CaskBlock extends CharmBlockWithEntity {
             CaskBlockEntity cask = (CaskBlockEntity) blockEntity;
 
             if (!world.isClient) {
-                if (held.getItem() == Items.GLASS_BOTTLE) {
+                if (held.getItem() == Items.NAME_TAG && held.hasCustomName()) {
+                    cask.name = held.getName().asString();
+                    cask.markDirty();
+                    world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_HIT, SoundCategory.BLOCKS, 0.5F, 1.1F);
+
+                    if (!player.isCreative())
+                        held.decrement(1);
+
+                } else if (held.getItem() == Items.GLASS_BOTTLE) {
                     ItemStack out = cask.take(world, pos, state, held);
                     if (out != null) {
                         PlayerHelper.addOrDropStack(player, out);
@@ -104,6 +113,19 @@ public class CaskBlock extends CharmBlockWithEntity {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING);
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        if (itemStack.hasCustomName()) {
+            CaskBlockEntity cask = getBlockEntity(world, pos);
+            if (cask != null) {
+                cask.name = itemStack.getName().asString();
+                cask.markDirty();
+            }
+        }
+
+        super.onPlaced(world, pos, state, placer, itemStack);
     }
 
     @Override

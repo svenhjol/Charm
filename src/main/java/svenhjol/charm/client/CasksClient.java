@@ -1,6 +1,7 @@
 package svenhjol.charm.client;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -11,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.module.Casks;
+import svenhjol.charm.render.CaskBlockEntityRenderer;
 
 import java.util.Random;
 
@@ -22,6 +24,7 @@ public class CasksClient extends CharmClientModule {
     @Override
     public void register() {
         ClientPlayNetworking.registerGlobalReceiver(Casks.MSG_CLIENT_ADDED_TO_CASK, this::handleClientAddedToCask);
+        BlockEntityRendererRegistry.INSTANCE.register(Casks.BLOCK_ENTITY, CaskBlockEntityRenderer::new);
     }
 
     private void handleClientAddedToCask(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
