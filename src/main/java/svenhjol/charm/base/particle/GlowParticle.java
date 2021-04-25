@@ -64,7 +64,7 @@ public class GlowParticle extends SpriteBillboardParticle {
             GlowParticle particle = new GlowParticle(world, x, y, z, 0.5D, 0.5D, 0.5D, this.spriteProvider);
             particle.setMaxAge(80 + RANDOM.nextInt(20));
             particle.setColor((float) r, (float) g, (float) b);
-            particle.setColorAlpha(0.75F);
+            particle.setColorAlpha(0.81F);
             particle.field_28786 = 0.1F; // some multiplier for velocity, idk
             particle.field_28787 = true;
             return particle;
