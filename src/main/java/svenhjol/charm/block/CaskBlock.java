@@ -4,10 +4,7 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -32,6 +29,9 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.base.CharmModule;
@@ -47,6 +47,12 @@ import java.util.stream.Collectors;
 
 public class CaskBlock extends CharmBlockWithEntity {
     public static final DirectionProperty FACING = Properties.FACING;
+    public static final VoxelShape X1, X2, X3;
+    public static final VoxelShape Y1, Y2, Y3;
+    public static final VoxelShape Z1, Z2, Z3;
+    public static final VoxelShape X_SHAPE;
+    public static final VoxelShape Y_SHAPE;
+    public static final VoxelShape Z_SHAPE;
 
     public CaskBlock(CharmModule module) {
         super(module, "cask", Settings.of(Material.WOOD)
@@ -55,6 +61,32 @@ public class CaskBlock extends CharmBlockWithEntity {
 
         this.setDefaultState(this.getDefaultState()
             .with(FACING, Direction.NORTH));
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        switch((state.get(FACING)).getAxis()) {
+            case X:
+            default:
+                return X_SHAPE;
+            case Z:
+                return Z_SHAPE;
+            case Y:
+                return Y_SHAPE;
+        }
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        switch((state.get(FACING)).getAxis()) {
+            case X:
+            default:
+                return X_SHAPE;
+            case Z:
+                return Z_SHAPE;
+            case Y:
+                return Y_SHAPE;
+        }
     }
 
     @Override
@@ -205,5 +237,20 @@ public class CaskBlock extends CharmBlockWithEntity {
 
     private void playCaskOpenSound(World world, BlockPos pos) {
         world.playSound(null, pos, SoundEvents.BLOCK_BARREL_OPEN, SoundCategory.BLOCKS, 0.6F, 1.0F);
+    }
+
+    static {
+        X1 = Block.createCuboidShape(0.0D, 0.0D, 2.0D, 16.0D, 16.0D, 14.0D);
+        X2 = Block.createCuboidShape(0.0D, 1.0D, 1.0D, 16.0D, 15.0D, 15.0D);
+        X3 = Block.createCuboidShape(0.0D, 2.0D, 0.0D, 16.0D, 14.0D, 16.0D);
+        Y1 = Block.createCuboidShape(0.0D, 0.0D, 2.0D, 16.0D, 16.0D, 14.0D);
+        Y2 = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+        Y3 = Block.createCuboidShape(2.0D, 0.0D, 0.0D, 14.0D, 16.0D, 16.0D);
+        Z1 = Block.createCuboidShape(2.0D, 0.0D, 0.0D, 14.0D, 16.0D, 16.0D);
+        Z2 = Block.createCuboidShape(1.0D, 1.0D, 0.0D, 15.0D, 15.0D, 16.0D);
+        Z3 = Block.createCuboidShape(0.0D, 2.0D, 0.0D, 16.0D, 14.0D, 16.0D);
+        X_SHAPE = VoxelShapes.union(X1, X2, X3);
+        Y_SHAPE = VoxelShapes.union(Y1, Y2, Y3);
+        Z_SHAPE = VoxelShapes.union(Z1, Z2, Z3);
     }
 }
