@@ -190,7 +190,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
                     return ItemStack.EMPTY;
                 }
 
-                slot.onStackChanged(itemStack2, itemStack);
+                slot.onQuickTransfer(itemStack2, itemStack);
             } else if (index == 0) {
                 if (!this.insertItem(itemStack2, 2, 38, false)) {
                     return ItemStack.EMPTY;
