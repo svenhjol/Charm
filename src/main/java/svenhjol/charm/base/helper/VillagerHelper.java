@@ -3,9 +3,7 @@ package svenhjol.charm.base.helper;
 import com.google.common.collect.ImmutableSet;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.fabricmc.fabric.mixin.object.builder.PointOfInterestTypeAccessor;
 import net.fabricmc.fabric.mixin.object.builder.VillagerProfessionAccessor;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
@@ -24,7 +22,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static net.minecraft.village.TradeOffers.*;
+import static net.minecraft.village.TradeOffers.PROFESSION_TO_LEVELED_TRADE;
+import static net.minecraft.village.TradeOffers.WANDERING_TRADER_TRADES;
 
 public class VillagerHelper {
     public static VillagerProfession addProfession(Identifier id, PointOfInterestType poit, SoundEvent worksound) {
@@ -32,12 +31,6 @@ public class VillagerHelper {
         VillagerProfession registeredProfession = RegistryHandler.villagerProfession(id, profession);
         PROFESSION_TO_LEVELED_TRADE.put(profession, new Int2ObjectOpenHashMap<>());
         return registeredProfession;
-    }
-
-    public static PointOfInterestType addPointOfInterestType(Identifier id, Block block, int ticketCount) {
-        PointOfInterestType poit = PointOfInterestTypeAccessor.callCreate(id.toString(), ImmutableSet.copyOf(block.getStateManager().getStates()), ticketCount, 1);
-        RegistryHandler.pointOfInterestType(id, poit);
-        return PointOfInterestTypeAccessor.callSetup(poit);
     }
 
     public static void addTrade(VillagerProfession profession, int level, Factory trade) {
