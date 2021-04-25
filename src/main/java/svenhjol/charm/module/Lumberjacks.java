@@ -7,6 +7,7 @@ import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.VillagerHelper;
+import svenhjol.charm.base.helper.WorldHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.StructureSetupCallback.VillageType;
@@ -27,7 +28,7 @@ public class Lumberjacks extends CharmModule {
     @Override
     public void init() {
         // TODO dedicated sounds for woodcutter and jobsite
-        POIT = VillagerHelper.addPointOfInterestType(Woodcutters.BLOCK_ID, Woodcutters.WOODCUTTER, 1);
+        POIT = WorldHelper.addPointOfInterestType(Woodcutters.BLOCK_ID, Woodcutters.WOODCUTTER, 1);
         LUMBERJACK = VillagerHelper.addProfession(VILLAGER_ID, POIT, SoundEvents.ENTITY_VILLAGER_WORK_MASON);
 
         // register lumberjack trades
