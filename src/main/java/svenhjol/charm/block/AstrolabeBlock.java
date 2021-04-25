@@ -1,7 +1,9 @@
 package svenhjol.charm.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -12,6 +14,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.base.CharmModule;
@@ -24,7 +29,11 @@ import svenhjol.charm.module.Astrolabes;
 import java.util.Optional;
 
 public class AstrolabeBlock extends CharmBlockWithEntity {
-    private static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
+    public static final VoxelShape LEGS;
+    public static final VoxelShape ARMS1;
+    public static final VoxelShape ARMS2;
+    public static final VoxelShape CENTER;
+    public static final VoxelShape SHAPE;
 
     public AstrolabeBlock(CharmModule module) {
         super(module, "astrolabe", Settings.copy(Blocks.COPPER_BLOCK));
@@ -34,6 +43,16 @@ public class AstrolabeBlock extends CharmBlockWithEntity {
     public void createBlockItem(Identifier id) {
         AstrolabeBlockItem blockItem = new AstrolabeBlockItem(this);
         RegistryHandler.item(id, blockItem);
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return SHAPE;
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return SHAPE;
     }
 
     @Override
@@ -88,5 +107,13 @@ public class AstrolabeBlock extends CharmBlockWithEntity {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return world.isClient ? null : checkType(type, Astrolabes.BLOCK_ENTITY, AstrolabeBlockEntity::tick);
+    }
+
+    static {
+        LEGS = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D);
+        ARMS1 = Block.createCuboidShape(0.0D, 6.0D, 7.0D, 16.0D, 8.0D, 9.0D);
+        ARMS2 = Block.createCuboidShape(7.0D, 6.0D, 0.0D, 9.0D, 8.0D, 16.0D);
+        CENTER = Block.createCuboidShape(4.0D, 3.0D, 4.0D, 12.0D, 11.0D, 12.0D);
+        SHAPE = VoxelShapes.union(LEGS, ARMS1, ARMS2, CENTER);
     }
 }

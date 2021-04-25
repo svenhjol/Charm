@@ -1,6 +1,0 @@
-{
-  "parent": "charm:item/astrolabe",
-  "textures": {
-    "layer0": "charm:item/astrolabe_aligned_xy"
-  }
-}
