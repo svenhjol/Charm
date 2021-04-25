@@ -50,20 +50,20 @@ public class AstrolabesClient extends CharmClientModule {
                 if (py <= dist) {
                     if (pz <= dist) {
                         for (int x = -dist; x < dist; x++) {
-                            this.createAxisParticles(world, new BlockPos(player.getX() + x, pos.getY(), pos.getZ()), DyeColor.CYAN);
+                            this.createAxisParticle(world, new BlockPos(player.getX() + x, pos.getY(), pos.getZ()), DyeColor.CYAN);
                         }
                     }
 
                     if (px <= dist) {
                         for (int z = -dist; z < dist; z++) {
-                            this.createAxisParticles(world, new BlockPos(pos.getX(), pos.getY(), player.getZ() + z), DyeColor.BLUE);
+                            this.createAxisParticle(world, new BlockPos(pos.getX(), pos.getY(), player.getZ() + z), DyeColor.BLUE);
                         }
                     }
                 }
 
                 if (px <= dist && pz <= dist) {
                     for (int y = -dist; y < dist; y++) {
-                        this.createAxisParticles(world, new BlockPos(pos.getX(), player.getY() + y, pos.getZ()), DyeColor.PURPLE);
+                        this.createAxisParticle(world, new BlockPos(pos.getX(), player.getY() + y, pos.getZ()), DyeColor.PURPLE);
                     }
                 }
 
@@ -71,17 +71,15 @@ public class AstrolabesClient extends CharmClientModule {
         });
     }
 
-    private void createAxisParticles(ClientWorld world, BlockPos pos, DyeColor color) {
+    private void createAxisParticle(ClientWorld world, BlockPos pos, DyeColor color) {
         DefaultParticleType particleType = CharmParticles.AXIS_PARTICLE;
 
         float[] col = color.getColorComponents();
-        for (int i = 0; i < 4; i++) {
-            double x = (double) pos.getX() + 0.5D;
-            double y = (double) pos.getY() + 0.5D;
-            double z = (double) pos.getZ() + 0.5D;
+        double x = (double) pos.getX() + 0.5D;
+        double y = (double) pos.getY() + 0.5D;
+        double z = (double) pos.getZ() + 0.5D;
 
-            world.addImportantParticle(particleType, x, y, z, col[0], col[1], col[2]);
-        }
+        world.addImportantParticle(particleType, x, y, z, col[0], col[1], col[2]);
     }
 
 //    private float handleAlignX(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
