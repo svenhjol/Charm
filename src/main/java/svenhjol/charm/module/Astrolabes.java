@@ -34,7 +34,6 @@ public class Astrolabes extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "astrolabe");
     public static final Identifier MSG_CLIENT_SHOW_AXIS_PARTICLES = new Identifier(Charm.MOD_ID, "client_show_axis_particles");
 
-    public static AstrolabeBlockItem ASTROLABE_OLD;
     public static AstrolabeBlock ASTROLABE;
     public static BlockEntityType<AstrolabeBlockEntity> BLOCK_ENTITY;
     public static PointOfInterestType POIT;
