@@ -27,9 +27,6 @@ public class AstrolabesClient extends CharmClientModule {
     @Override
     public void register() {
         ClientPlayNetworking.registerGlobalReceiver(Astrolabes.MSG_CLIENT_SHOW_AXIS_PARTICLES, this::handleClientShowAxisParticles);
-//        FabricModelPredicateProviderRegistry.register(Astrolabes.ASTROLABE_OLD, new Identifier(Charm.MOD_ID, "aligned_x"), this::handleAlignX);
-//        FabricModelPredicateProviderRegistry.register(Astrolabes.ASTROLABE_OLD, new Identifier(Charm.MOD_ID, "aligned_y"), this::handleAlignY);
-//        FabricModelPredicateProviderRegistry.register(Astrolabes.ASTROLABE_OLD, new Identifier(Charm.MOD_ID, "aligned_z"), this::handleAlignZ);
     }
 
     private void handleClientShowAxisParticles(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
@@ -81,32 +78,4 @@ public class AstrolabesClient extends CharmClientModule {
 
         world.addImportantParticle(particleType, x, y, z, col[0], col[1], col[2]);
     }
-
-//    private float handleAlignX(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
-//        return isAligned(stack, world, entity, pos
-//            -> pos.getZ() == entity.getBlockZ()) ? 1 : 0;
-//    }
-//
-//    private float handleAlignY(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
-//        return isAligned(stack, world, entity, pos
-//            -> pos.getY() == entity.getBlockY()) ? 1 : 0;
-//    }
-//
-//    private float handleAlignZ(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
-//        return isAligned(stack, world, entity, pos ->
-//            pos.getX() == entity.getBlockX()) ? 1 : 0;
-//    }
-
-//    private boolean isAligned(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, Predicate<BlockPos.Mutable> on) {
-//        if (entity == null || entity.world == null)
-//            return false;
-//
-//        Identifier dimension = AstrolabeBlockItem.getDimension(stack);
-//        BlockPos pos = AstrolabeBlockItem.getPosition(stack);
-//        if (pos == null)
-//            return false;
-//
-//        BlockPos.Mutable dimensionPos = Astrolabes.getDimensionPosition(entity.world, pos, dimension);
-//        return on.test(dimensionPos);
-//    }
 }
