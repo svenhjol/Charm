@@ -77,7 +77,7 @@ public class Astrolabes extends CharmModule {
                 continue;
             }
 
-            positions.add(getDimensionPosition(world, pos, dim));
+            positions.add(getDimensionPosition(player.world, pos, dim));
         }
 
         if (!positions.isEmpty()) {

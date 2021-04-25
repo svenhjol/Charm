@@ -54,7 +54,7 @@ public class AstrolabeBlock extends CharmBlockWithEntity {
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         AstrolabeBlockEntity astrolabe = getBlockEntity(world, pos);
         if (astrolabe != null) {
-            if (!world.isClient && !player.isCreative()) {
+            if (!world.isClient) {
                 ItemStack out = new ItemStack(Astrolabes.ASTROLABE);
                 AstrolabeBlockItem.setDimension(out, astrolabe.dimension);
                 AstrolabeBlockItem.setPosition(out, astrolabe.position);
@@ -64,6 +64,8 @@ public class AstrolabeBlock extends CharmBlockWithEntity {
                 world.spawnEntity(entity);
             }
         }
+
+        super.onBreak(world, pos, state, player);
     }
 
     @Nullable
