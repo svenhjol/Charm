@@ -82,6 +82,7 @@ public class Astrolabes extends CharmModule {
 
         if (!positions.isEmpty()) {
             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+            data.writeBoolean(true); // play sound
             data.writeLongArray(positions.stream().distinct().map(BlockPos::asLong).mapToLong(Long::longValue).toArray());
             ServerPlayNetworking.send((ServerPlayerEntity) player, MSG_CLIENT_SHOW_AXIS_PARTICLES, data);
 

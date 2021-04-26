@@ -68,13 +68,15 @@ public class AstrolabeBlockEntity extends BlockEntity implements BlockEntityClie
             return;
 
         if (!world.isClient && astrolabe.position != BlockPos.ORIGIN) {
+            BlockPos position = Astrolabes.getDimensionPosition(world, astrolabe.position, astrolabe.dimension);
             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
-            data.writeLongArray(Stream.of(astrolabe.position).map(BlockPos::asLong).mapToLong(Long::longValue).toArray());
+            data.writeBoolean(false); // don't play sound
+            data.writeLongArray(Stream.of(position).map(BlockPos::asLong).mapToLong(Long::longValue).toArray());
 
             Box bb = (new Box(pos)).expand(16);
             List<PlayerEntity> list = world.getNonSpectatingEntities(PlayerEntity.class, bb);
             list.forEach(player -> {
-                ((ServerWorld)world).sendVibrationPacket(new Vibration(pos, new BlockPositionSource(astrolabe.position), 10));
+                ((ServerWorld)world).sendVibrationPacket(new Vibration(pos, new BlockPositionSource(position), 10));
                 ServerPlayNetworking.send((ServerPlayerEntity)player, Astrolabes.MSG_CLIENT_SHOW_AXIS_PARTICLES, data);
             });
         }

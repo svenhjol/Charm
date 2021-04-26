@@ -33,6 +33,7 @@ public class AstrolabesClient extends CharmClientModule {
     }
 
     private void handleClientShowAxisParticles(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+        boolean playSound = data.readBoolean();
         List<BlockPos> positions = Arrays.stream(data.readLongArray()).boxed().map(BlockPos::fromLong).collect(Collectors.toList());
         client.execute(() -> {
             ClientWorld world = client.world;
@@ -42,7 +43,7 @@ public class AstrolabesClient extends CharmClientModule {
 
             int dist = 32;
             Random random = world.random;
-            boolean shouldPlaySound = false;
+            boolean isClose = false;
 
             for (BlockPos pos : positions) {
                 double px = Math.abs(pos.getX() - player.getX());
@@ -54,14 +55,14 @@ public class AstrolabesClient extends CharmClientModule {
                         for (int x = -dist; x < dist; x++) {
                             this.createAxisParticle(world, new BlockPos(player.getX() + x, pos.getY(), pos.getZ()), DyeColor.CYAN);
                         }
-                        shouldPlaySound = true;
+                        isClose = true;
                     }
 
                     if (px <= dist) {
                         for (int z = -dist; z < dist; z++) {
                             this.createAxisParticle(world, new BlockPos(pos.getX(), pos.getY(), player.getZ() + z), DyeColor.BLUE);
                         }
-                        shouldPlaySound = true;
+                        isClose = true;
                     }
                 }
 
@@ -69,12 +70,12 @@ public class AstrolabesClient extends CharmClientModule {
                     for (int y = -dist; y < dist; y++) {
                         this.createAxisParticle(world, new BlockPos(pos.getX(), player.getY() + y, pos.getZ()), DyeColor.PURPLE);
                     }
-                    shouldPlaySound = true;
+                    isClose = true;
                 }
             }
 
-            if (shouldPlaySound)
-                world.playSound(player, player.getBlockPos(), CharmSounds.ASTROLABE, SoundCategory.PLAYERS, 0.2F, 0.8F + (0.4F * random.nextFloat()));
+            if (playSound && isClose)
+                world.playSound(player, player.getBlockPos(), CharmSounds.ASTROLABE, SoundCategory.PLAYERS, 0.27F, 0.8F + (0.4F * random.nextFloat()));
         });
     }
 
