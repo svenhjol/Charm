@@ -30,6 +30,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.block.CharmBlockWithEntity;
 import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.base.helper.PlayerHelper;
@@ -177,6 +178,10 @@ public class CookingPotBlock extends CharmBlockWithEntity {
         super.randomDisplayTick(state, world, pos, random);
         if (state.get(HAS_FIRE) && state.get(LIQUID) > 0 && random.nextInt(2) == 0) {
             world.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + 0.13D + (0.7D * random.nextDouble()), (double)pos.getY() + 0.92D, (double)pos.getZ() + 0.13D + (0.7D * random.nextDouble()), 0.0D, 0.0D, 0.0D);
+
+            if (random.nextInt(10) == 0) {
+                world.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, CharmSounds.COOKING_POT, SoundCategory.BLOCKS, 0.25F + (0.25F * random.nextFloat()), random.nextFloat() * 0.7F + 0.6F, false);
+            }
         }
     }
 

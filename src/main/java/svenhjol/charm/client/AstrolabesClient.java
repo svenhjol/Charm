@@ -8,15 +8,18 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.CharmParticles;
+import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.module.Astrolabes;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class AstrolabesClient extends CharmClientModule {
@@ -38,6 +41,8 @@ public class AstrolabesClient extends CharmClientModule {
                 return;
 
             int dist = 32;
+            Random random = world.random;
+            boolean shouldPlaySound = false;
 
             for (BlockPos pos : positions) {
                 double px = Math.abs(pos.getX() - player.getX());
@@ -49,12 +54,14 @@ public class AstrolabesClient extends CharmClientModule {
                         for (int x = -dist; x < dist; x++) {
                             this.createAxisParticle(world, new BlockPos(player.getX() + x, pos.getY(), pos.getZ()), DyeColor.CYAN);
                         }
+                        shouldPlaySound = true;
                     }
 
                     if (px <= dist) {
                         for (int z = -dist; z < dist; z++) {
                             this.createAxisParticle(world, new BlockPos(pos.getX(), pos.getY(), player.getZ() + z), DyeColor.BLUE);
                         }
+                        shouldPlaySound = true;
                     }
                 }
 
@@ -62,9 +69,12 @@ public class AstrolabesClient extends CharmClientModule {
                     for (int y = -dist; y < dist; y++) {
                         this.createAxisParticle(world, new BlockPos(pos.getX(), player.getY() + y, pos.getZ()), DyeColor.PURPLE);
                     }
+                    shouldPlaySound = true;
                 }
-
             }
+
+            if (shouldPlaySound)
+                world.playSound(player, player.getBlockPos(), CharmSounds.ASTROLABE, SoundCategory.PLAYERS, 0.2F, 0.8F + (0.4F * random.nextFloat()));
         });
     }
 

@@ -20,6 +20,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.EntityEquipCallback;
@@ -109,7 +110,7 @@ public class Quadrants extends CharmModule {
             Direction d = state.get(prop);
             world.setBlockState(pos, state.with(prop, d.rotateYClockwise()), 3);
             world.getBlockTickScheduler().schedule(pos, state.getBlock(), 4);
-            world.playSound(null, pos, SoundEvents.BLOCK_COPPER_PLACE, SoundCategory.BLOCKS, 1.0F, 0.9F);
+            world.playSound(null, pos, CharmSounds.QUADRANT, SoundCategory.BLOCKS, 0.2F + (0.25F * world.random.nextFloat()), 0.8F + (0.4F * world.random.nextFloat()));
 
             // damage the quadrant a bit
             held.damage(1, player, p -> p.sendToolBreakStatus(hand));
@@ -131,7 +132,7 @@ public class Quadrants extends CharmModule {
             lockedDirection.put(entity.getUuid(), direction);
             if (entity instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity) entity;
-                player.world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_SPYGLASS_USE, SoundCategory.PLAYERS, 1.12F, 0.9F);
+                player.world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_SPYGLASS_USE, SoundCategory.PLAYERS, 1.15F, 0.9F);
                 player.sendMessage(new TranslatableText("gui.charm.quadrants.locked", direction.getName()), true);
             }
         }
@@ -142,7 +143,7 @@ public class Quadrants extends CharmModule {
             lockedDirection.remove(entity.getUuid());
             if (entity instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity) entity;
-                player.world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_SPYGLASS_STOP_USING, SoundCategory.PLAYERS, 1.12F, 0.9F);
+                player.world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_SPYGLASS_STOP_USING, SoundCategory.PLAYERS, 1.2F, 0.9F);
                 player.sendMessage(new TranslatableText("gui.charm.quadrants.unlocked"), true);
             }
         }

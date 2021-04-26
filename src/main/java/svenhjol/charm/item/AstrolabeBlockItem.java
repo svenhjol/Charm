@@ -6,6 +6,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
@@ -43,6 +45,10 @@ public class AstrolabeBlockItem extends CharmBlockItem {
             // trying to link to another astrolabe
             AstrolabeBlockItem.setPosition(stack, pos);
             AstrolabeBlockItem.setDimension(stack, world.getRegistryKey());
+
+            if (!world.isClient)
+                world.playSound(null, pos, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
             return ActionResult.success(world.isClient);
         }
 

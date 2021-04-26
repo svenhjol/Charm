@@ -35,6 +35,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.CharmSounds;
 import svenhjol.charm.base.block.CharmBlockWithEntity;
 import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.blockentity.CaskBlockEntity;
@@ -231,6 +232,10 @@ public class CaskBlock extends CharmBlockWithEntity {
                     double b = (double) (color & 255) / 255.0D;
                     world.addParticle(ParticleTypes.ENTITY_EFFECT, (double) pos.getX() + 0.13D + (0.7D * random.nextDouble()), (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.13D + (0.7D * random.nextDouble()), r, g, b);
                 });
+
+                if (!effects.isEmpty() && random.nextInt(20) == 0) {
+                    world.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, CharmSounds.CASK, SoundCategory.BLOCKS, 0.1F + (0.2F * random.nextFloat()), random.nextFloat() * 0.7F + 0.6F, false);
+                }
             }
         }
     }
