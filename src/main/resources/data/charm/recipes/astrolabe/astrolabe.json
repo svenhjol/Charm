@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " C ",
-    "A#A",
+    "R#R",
     "###"
   ],
   "key": {
@@ -12,8 +12,8 @@
     "#": {
       "item": "minecraft:obsidian"
     },
-    "A": {
-      "item": "minecraft:amethyst_shard"
+    "R": {
+      "item": "minecraft:redstone"
     }
   },
   "result": {

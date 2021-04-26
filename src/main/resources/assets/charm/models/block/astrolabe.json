@@ -3,9 +3,9 @@
 	"textures": {
 		"0": "minecraft:block/cut_copper",
 		"1": "minecraft:block/obsidian",
-		"2": "minecraft:block/amethyst_block",
+		"2": "charm:block/redstone_sand",
 		"3": "minecraft:block/obsidian",
-		"particle": "minecraft:block/obsidian"
+		"particle": "minecraft:block/cut_copper"
 	},
 	"elements": [
 		{
@@ -134,7 +134,7 @@
 				"east": {"uv": [0, 0, 2, 2], "texture": "#2"},
 				"south": {"uv": [0, 0, 1, 2], "texture": "#2"},
 				"west": {"uv": [0, 0, 2, 2], "texture": "#2"},
-				"up": {"uv": [0, 0, 1, 2], "texture": "#2"},
+				"up": {"uv": [4, 3, 5, 5], "texture": "#2"},
 				"down": {"uv": [0, 0, 1, 2], "texture": "#2"}
 			}
 		},
@@ -147,7 +147,7 @@
 				"east": {"uv": [0, 0, 2, 2], "texture": "#2"},
 				"south": {"uv": [0, 0, 1, 2], "texture": "#2"},
 				"west": {"uv": [0, 0, 2, 2], "texture": "#2"},
-				"up": {"uv": [0, 0, 1, 2], "texture": "#2"},
+				"up": {"uv": [4, 3, 5, 5], "texture": "#2"},
 				"down": {"uv": [0, 0, 1, 2], "texture": "#2"}
 			}
 		},
@@ -160,7 +160,7 @@
 				"east": {"uv": [0, 0, 1, 2], "texture": "#2"},
 				"south": {"uv": [0, 0, 2, 2], "texture": "#2"},
 				"west": {"uv": [0, 0, 1, 2], "texture": "#2"},
-				"up": {"uv": [0, 0, 2, 1], "texture": "#2"},
+				"up": {"uv": [4, 3, 6, 4], "texture": "#2"},
 				"down": {"uv": [0, 0, 2, 1], "texture": "#2"}
 			}
 		},
@@ -173,7 +173,7 @@
 				"east": {"uv": [0, 0, 1, 2], "texture": "#2"},
 				"south": {"uv": [0, 0, 2, 2], "texture": "#2"},
 				"west": {"uv": [0, 0, 1, 2], "texture": "#2"},
-				"up": {"uv": [0, 0, 2, 1], "texture": "#2"},
+				"up": {"uv": [4, 3, 6, 4], "texture": "#2"},
 				"down": {"uv": [0, 0, 2, 1], "texture": "#2"}
 			}
 		}
