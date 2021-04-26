@@ -1,5 +1,5 @@
 {
-	"credit": "Made with Blockbench",
+	"parent": "block/block",
 	"ambientocclusion": false,
 	"textures": {
 		"0": "charm:block/cask_top",

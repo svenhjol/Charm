@@ -1,19 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " # ",
-    "#X#",
-    " # "
+    " C ",
+    "A#A",
+    "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:copper_ingot"
+    "C": {
+      "item": "minecraft:copper_block"
     },
-    "X": {
+    "#": {
+      "item": "minecraft:obsidian"
+    },
+    "A": {
       "item": "minecraft:amethyst_shard"
     }
   },
   "result": {
-    "item": "charm:astrolabe"
+    "item": "charm:astrolabe",
+    "count": 2
   }
 }

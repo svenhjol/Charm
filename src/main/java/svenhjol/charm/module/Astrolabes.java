@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Module(mod = Charm.MOD_ID, client = AstrolabesClient.class)
+@Module(mod = Charm.MOD_ID, client = AstrolabesClient.class, description = "Place an astrolabe and link another to it to help align builds.")
 public class Astrolabes extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "astrolabe");
     public static final Identifier MSG_CLIENT_SHOW_AXIS_PARTICLES = new Identifier(Charm.MOD_ID, "client_show_axis_particles");
@@ -79,7 +79,7 @@ public class Astrolabes extends CharmModule {
 
         if (!positions.isEmpty()) {
             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
-            data.writeLongArray(positions.stream().map(BlockPos::asLong).mapToLong(Long::longValue).toArray());
+            data.writeLongArray(positions.stream().distinct().map(BlockPos::asLong).mapToLong(Long::longValue).toArray());
             ServerPlayNetworking.send((ServerPlayerEntity) player, MSG_CLIENT_SHOW_AXIS_PARTICLES, data);
         }
     }

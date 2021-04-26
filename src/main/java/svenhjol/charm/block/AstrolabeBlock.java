@@ -29,14 +29,11 @@ import svenhjol.charm.module.Astrolabes;
 import java.util.Optional;
 
 public class AstrolabeBlock extends CharmBlockWithEntity {
-    public static final VoxelShape LEGS;
-    public static final VoxelShape ARMS1;
-    public static final VoxelShape ARMS2;
-    public static final VoxelShape CENTER;
+    public static final VoxelShape LEG1, LEG2, LEG3, LEG4, EDGE1, EDGE2, EDGE3, EDGE4, CENTER;
     public static final VoxelShape SHAPE;
 
     public AstrolabeBlock(CharmModule module) {
-        super(module, "astrolabe", Settings.copy(Blocks.COPPER_BLOCK));
+        super(module, "astrolabe", Settings.copy(Blocks.ENCHANTING_TABLE));
     }
 
     @Override
@@ -110,10 +107,15 @@ public class AstrolabeBlock extends CharmBlockWithEntity {
     }
 
     static {
-        LEGS = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D);
-        ARMS1 = Block.createCuboidShape(0.0D, 6.0D, 7.0D, 16.0D, 8.0D, 9.0D);
-        ARMS2 = Block.createCuboidShape(7.0D, 6.0D, 0.0D, 9.0D, 8.0D, 16.0D);
-        CENTER = Block.createCuboidShape(4.0D, 3.0D, 4.0D, 12.0D, 11.0D, 12.0D);
-        SHAPE = VoxelShapes.union(LEGS, ARMS1, ARMS2, CENTER);
+        LEG1 = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 3.0D, 8.0D, 3.0D);
+        LEG2 = Block.createCuboidShape(12.0D, 0.0D, 1.0D, 15.0D, 8.0D, 3.0D);
+        LEG3 = Block.createCuboidShape(1.0D, 0.0D, 12.0D, 3.0D, 8.0D, 15.0D);
+        LEG4 = Block.createCuboidShape(12.0D, 0.0D, 12.0D, 15.0D, 8.0D, 15.0D);
+        EDGE1 = Block.createCuboidShape(0.0D, 9.0D, 0.0D, 16.0D, 11.0D, 3.0D);
+        EDGE2 = Block.createCuboidShape(0.0D, 9.0D, 0.0D, 3.0D, 11.0D, 16.0D);
+        EDGE3 = Block.createCuboidShape(0.0D, 9.0D, 13.0D, 16.0D, 11.0D, 16.0D);
+        EDGE4 = Block.createCuboidShape(13.0D, 9.0D, 0.0D, 16.0D, 11.0D, 16.0D);
+        CENTER = Block.createCuboidShape(4.0D, 7.0D, 4.0D, 12.0D, 14.0D, 12.0D);
+        SHAPE = VoxelShapes.union(LEG1, LEG2, LEG3, LEG4, EDGE1, EDGE2, EDGE3, EDGE4, CENTER);
     }
 }
