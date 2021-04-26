@@ -108,13 +108,15 @@ public class Quadrants extends CharmModule {
 
         if (prop != null && exceptions.stream().noneMatch(exception -> exception.test(state))) {
             Direction d = state.get(prop);
-            world.setBlockState(pos, state.with(prop, d.rotateYClockwise()), 3);
-            world.getBlockTickScheduler().schedule(pos, state.getBlock(), 4);
-            world.playSound(null, pos, CharmSounds.QUADRANT, SoundCategory.BLOCKS, 0.2F + (0.25F * world.random.nextFloat()), 0.8F + (0.4F * world.random.nextFloat()));
+            if (d.getAxis() == Direction.Axis.X || d.getAxis() == Direction.Axis.Z) {
+                world.setBlockState(pos, state.with(prop, d.rotateYClockwise()), 3);
+                world.getBlockTickScheduler().schedule(pos, state.getBlock(), 4);
+                world.playSound(null, pos, CharmSounds.QUADRANT, SoundCategory.BLOCKS, 0.2F + (0.25F * world.random.nextFloat()), 0.8F + (0.4F * world.random.nextFloat()));
 
-            // damage the quadrant a bit
-            held.damage(1, player, p -> p.sendToolBreakStatus(hand));
-            player.getItemCooldownManager().set(QUADRANT, 5);
+                // damage the quadrant a bit
+                held.damage(1, player, p -> p.sendToolBreakStatus(hand));
+                player.getItemCooldownManager().set(QUADRANT, 5);
+            }
         }
 
         return ActionResult.SUCCESS;
