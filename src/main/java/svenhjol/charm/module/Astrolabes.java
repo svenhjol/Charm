@@ -12,7 +12,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.Vibration;
 import net.minecraft.world.World;
+import net.minecraft.world.event.BlockPositionSource;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
@@ -51,6 +53,7 @@ public class Astrolabes extends CharmModule {
         if (player.world.isClient || player.world.getTime() % 100 != 0)
             return;
 
+        ServerWorld serverWorld = (ServerWorld)player.world;
         List<BlockPos> positions = new ArrayList<>();
 
         for (Hand hand : Hand.values()) {
@@ -66,9 +69,9 @@ public class Astrolabes extends CharmModule {
 
             RegistryKey<World> dim = dimension.get();
             BlockPos pos = position.get();
-            ServerWorld world = ((ServerWorld) player.world).getServer().getWorld(dim);
+            ServerWorld dimWorld = serverWorld.getServer().getWorld(dim);
 
-            if (world == null || !world.getPointOfInterestStorage().hasTypeAt(Astrolabes.POIT, pos)) {
+            if (dimWorld == null || !dimWorld.getPointOfInterestStorage().hasTypeAt(Astrolabes.POIT, pos)) {
                 held.getOrCreateTag().remove(AstrolabeBlockItem.POSITION_NBT);
                 held.getOrCreateTag().remove(AstrolabeBlockItem.DIMENSION_NBT);
                 continue;
@@ -81,6 +84,9 @@ public class Astrolabes extends CharmModule {
             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
             data.writeLongArray(positions.stream().distinct().map(BlockPos::asLong).mapToLong(Long::longValue).toArray());
             ServerPlayNetworking.send((ServerPlayerEntity) player, MSG_CLIENT_SHOW_AXIS_PARTICLES, data);
+
+            // TODO: move to shared method
+            serverWorld.sendVibrationPacket(new Vibration(player.getBlockPos(), new BlockPositionSource(positions.get(0)), 20));
         }
     }
 
