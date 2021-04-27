@@ -12,6 +12,8 @@ public @interface Module {
 
     boolean enabledByDefault() default true;
 
+    int priority() default 0;
+
     String description() default "";
 
     String mod() default "";
