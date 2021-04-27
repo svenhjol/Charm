@@ -6,7 +6,7 @@
         "item": "minecraft:sea_lantern"
       },
       {
-        "item": "minecraft:VARIANT_coral"
+        "item": "NAMESPACE:VARIANT_coral"
       }
     ],
     "result": {

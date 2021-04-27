@@ -1,0 +1,19 @@
+{
+  "template": {
+    "variants": {
+      "axis=x": {
+        "model": "charm:block/stripped_VARIANT_wood",
+        "x": 90,
+        "y": 90
+      },
+      "axis=y": {
+        "model": "charm:block/stripped_VARIANT_wood"
+      },
+      "axis=z": {
+        "model": "charm:block/stripped_VARIANT_wood",
+        "x": 90
+      }
+    }
+  },
+  "variants": "charm_wood"
+}

@@ -1,0 +1,10 @@
+{
+  "template": {
+    "variants": {
+      "": {
+        "model": "charm:block/VARIANT_leaves"
+      }
+    }
+  },
+  "variants": "charm_wood"
+}

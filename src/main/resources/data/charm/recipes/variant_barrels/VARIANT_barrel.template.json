@@ -8,10 +8,10 @@
     ],
     "key": {
       "S": {
-        "item": "minecraft:VARIANT_slab"
+        "item": "NAMESPACE:VARIANT_slab"
       },
       "P": {
-        "item": "minecraft:VARIANT_planks"
+        "item": "NAMESPACE:VARIANT_planks"
       }
     },
     "result": {
