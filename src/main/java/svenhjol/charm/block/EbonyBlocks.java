@@ -2,7 +2,6 @@ package svenhjol.charm.block;
 
 import net.minecraft.block.MapColor;
 import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import org.jetbrains.annotations.Nullable;
@@ -82,11 +81,6 @@ public class EbonyBlocks {
     public static class EbonySignBlock extends CharmSignBlock {
         public EbonySignBlock(CharmModule module) {
             super(module, "ebony_sign", EbonyWood.SIGN_TYPE, MapColor.BLACK);
-        }
-
-        @Override
-        public void createBlockItem(Identifier id) {
-            // no don't
         }
     }
 

@@ -28,7 +28,7 @@ public abstract class CharmWallSignBlock extends WallSignBlock implements ICharm
 
     @Override
     public void createBlockItem(Identifier id) {
-        // no, because infinite loop
+        // no, because infinite loop. No need for item here
     }
 
     @Override

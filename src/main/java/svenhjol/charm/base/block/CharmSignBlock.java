@@ -4,6 +4,7 @@ import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.SignBlock;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
 import svenhjol.charm.base.CharmModule;
 
@@ -22,6 +23,11 @@ public abstract class CharmSignBlock extends SignBlock implements ICharmBlock {
             .noCollision()
             .strength(1.0F)
             .sounds(BlockSoundGroup.WOOD));
+    }
+
+    @Override
+    public void createBlockItem(Identifier id) {
+        // register sign item manually
     }
 
     @Override
