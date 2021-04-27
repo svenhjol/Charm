@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:block/template_orientable_trapdoor_top",
+    "textures": {
+      "texture": "NAMESPACE:block/VARIANT_trapdoor"
+    }
+  },
+  "variants": "charm_wood"
+}

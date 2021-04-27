@@ -66,6 +66,12 @@ public class EbonyBlocks {
         }
     }
 
+    public static class EbonyPressurePlateBlock extends CharmPressurePlate {
+        public EbonyPressurePlateBlock(CharmModule module) {
+            super(module, "ebony_pressure_plate", EbonyWood.PLANKS);
+        }
+    }
+
     public static class EbonySaplingBlock extends CharmSaplingBlock {
         public EbonySaplingBlock(CharmModule module) {
             super(module, "ebony_sapling", new SaplingGenerator() {
@@ -93,6 +99,12 @@ public class EbonyBlocks {
     public static class EbonyStairsBlock extends CharmStairsBlock {
         public EbonyStairsBlock(CharmModule module) {
             super(module, "ebony_stairs", EbonyWood.PLANKS);
+        }
+    }
+
+    public static class EbonyTrapdoorBlock extends CharmTrapdoorBlock {
+        public EbonyTrapdoorBlock(CharmModule module) {
+            super(module, "ebony_trapdoor", MapColor.BLACK);
         }
     }
 

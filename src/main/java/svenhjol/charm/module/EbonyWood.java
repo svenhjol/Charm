@@ -46,12 +46,14 @@ public class EbonyWood extends CharmModule {
     public static CharmLogBlock LOG;
     public static CharmLeavesBlock LEAVES;
     public static CharmPlanksBlock PLANKS;
+    public static CharmPressurePlate PRESSURE_PLATE;
     public static CharmSaplingBlock SAPLING;
     public static CharmSignBlock SIGN_BLOCK;
     public static CharmSlabBlock SLAB;
     public static CharmStairsBlock STAIRS;
     public static CharmLogBlock STRIPPED_LOG;
     public static CharmLogBlock STRIPPED_WOOD;
+    public static CharmTrapdoorBlock TRAPDOOR;
     public static CharmWallSignBlock WALL_SIGN_BLOCK;
     public static CharmLogBlock WOOD;
 
@@ -77,10 +79,12 @@ public class EbonyWood extends CharmModule {
         LOG = new EbonyLogBlock(this);
         STRIPPED_LOG = new StrippedEbonyLogBlock(this);
         LEAVES = new EbonyLeavesBlock(this);
+        PRESSURE_PLATE = new EbonyPressurePlateBlock(this);
         SAPLING = new EbonySaplingBlock(this);
         SIGN_BLOCK = new EbonySignBlock(this);
         SLAB = new EbonySlabBlock(this);
         STAIRS = new EbonyStairsBlock(this);
+        TRAPDOOR = new EbonyTrapdoorBlock(this);
         WALL_SIGN_BLOCK = new EbonyWallSignBlock(this);
         WOOD = new EbonyWoodBlock(this);
         STRIPPED_WOOD = new StrippedEbonyWoodBlock(this);

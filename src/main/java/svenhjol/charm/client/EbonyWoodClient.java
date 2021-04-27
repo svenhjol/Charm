@@ -28,6 +28,7 @@ public class EbonyWoodClient extends CharmClientModule {
         ColorProviderRegistry.ITEM.register(this::handleItemColor, EbonyWood.LEAVES);
         BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.TRAPDOOR, RenderLayer.getCutout());
     }
 
     private int handleBlockColor(BlockState state, @Nullable BlockRenderView world, @Nullable BlockPos pos, int tintIndex) {

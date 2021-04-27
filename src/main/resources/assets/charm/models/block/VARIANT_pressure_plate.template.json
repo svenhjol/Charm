@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:block/pressure_plate_up",
+    "textures": {
+      "texture": "NAMESPACE:block/VARIANT_planks"
+    }
+  },
+  "variants": "charm_wood"
+}
