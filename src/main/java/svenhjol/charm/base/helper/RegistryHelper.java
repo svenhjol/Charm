@@ -10,7 +10,12 @@ public class RegistryHelper {
     public static void addBlocksToBlockEntity(BlockEntityType<?> type, Block... blocks) {
         Set<Block> typeBlocks = ((BlockEntityTypeAccessor) type).getBlocks();
         List<Block> mutable = new ArrayList<>(typeBlocks);
-        mutable.addAll(Arrays.asList(blocks));
+
+        for (Block block : blocks) {
+            if (!mutable.contains(block))
+                mutable.add(block);
+        }
+
         ((BlockEntityTypeAccessor)type).setBlocks(new HashSet<>(mutable));
     }
 }
