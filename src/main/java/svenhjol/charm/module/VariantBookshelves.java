@@ -27,4 +27,10 @@ public class VariantBookshelves extends CharmModule {
     public void init() {
         OverrideHandler.changeBlockTranslationKey(Blocks.BOOKSHELF, "block.charm.oak_bookshelf");
     }
+
+    public static VariantBookshelfBlock registerBookshelf(CharmModule module, IVariantMaterial material) {
+        VariantBookshelfBlock bookshelf = new VariantBookshelfBlock(module, material);
+        BOOKSHELF_BLOCKS.put(material, bookshelf);
+        return bookshelf;
+    }
 }

@@ -24,7 +24,9 @@ import svenhjol.charm.base.helper.BiomeHelper;
 import svenhjol.charm.base.helper.RegistryHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.base.item.CharmSignItem;
+import svenhjol.charm.block.*;
 import svenhjol.charm.client.EbonyWoodClient;
+import svenhjol.charm.enums.CharmWoodMaterial;
 
 import java.util.OptionalInt;
 
@@ -53,6 +55,13 @@ public class EbonyWood extends CharmModule {
     public static CharmWallSignBlock WALL_SIGN_BLOCK;
     public static CharmLogBlock WOOD;
 
+    public static VariantBarrelBlock BARREL;
+    public static BookcaseBlock BOOKCASE;
+    public static VariantBookshelfBlock BOOKSHELF;
+    public static VariantChestBlock CHEST;
+    public static VariantLadderBlock LADDER;
+    public static VariantTrappedChestBlock TRAPPED_CHEST;
+
     public static CharmSignItem SIGN_ITEM;
 
     @Override
@@ -78,14 +87,21 @@ public class EbonyWood extends CharmModule {
 
         SIGN_ITEM = new EbonySignItem(this);
 
+        BARREL = VariantBarrels.registerBarrel(this, CharmWoodMaterial.EBONY);
+        BOOKCASE = Bookcases.registerBookcase(this, CharmWoodMaterial.EBONY);
+        BOOKSHELF = VariantBookshelves.registerBookshelf(this, CharmWoodMaterial.EBONY);
+        CHEST = VariantChests.registerChest(this, CharmWoodMaterial.EBONY);
+        LADDER = VariantLadders.registerLadder(this, CharmWoodMaterial.EBONY);
+        TRAPPED_CHEST = VariantChests.registerTrappedChest(this, CharmWoodMaterial.EBONY);
+
         ConfiguredFeature<?, ?> configuredFeature = Feature.TREE.configure(new TreeFeatureConfig.Builder(
             new SimpleBlockStateProvider(LOG.getDefaultState()),
             new LargeOakTrunkPlacer(3, 6, 0),
             new SimpleBlockStateProvider(LEAVES.getDefaultState()),
-            new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)
-        )).ignoreVines().build())
+            new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 3), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(3))
+        ).ignoreVines().build())
             .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER)
-            .decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(1, 0.07F, 1)));
+            .decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(1, 0.05F, 1)));
 
         TREE = RegistryHandler.configuredFeature(ID, configuredFeature);
     }

@@ -2,7 +2,7 @@
   "template": {
     "variants": {
       "": {
-        "model": "charm:block/VARIANT_planks"
+        "model": "NAMESPACE:block/VARIANT_planks"
       }
     }
   },
