@@ -14,7 +14,7 @@ import svenhjol.charm.structure.DungeonBuilds;
 import svenhjol.charm.structure.DungeonFeature;
 import svenhjol.charm.structure.DungeonGenerator;
 
-import static svenhjol.charm.base.handler.RegistryHandler.configuredFeature;
+import static svenhjol.charm.base.handler.RegistryHandler.configuredStructureFeature;
 import static svenhjol.charm.base.helper.BiomeHelper.addStructureToBiomeCategories;
 
 @Module(mod = Charm.MOD_ID)
@@ -55,16 +55,16 @@ public class BiomeDungeons extends CharmModule {
         SNOWY       = DUNGEON_FEATURE.configure(new StructurePoolFeatureConfig(() -> DungeonGenerator.SNOWY_POOL, dungeonSize));
         TAIGA       = DUNGEON_FEATURE.configure(new StructurePoolFeatureConfig(() -> DungeonGenerator.TAIGA_POOL, dungeonSize));
 
-        configuredFeature(new Identifier(Charm.MOD_ID, "dungeon_badlands"), BADLANDS);
-        configuredFeature(new Identifier(Charm.MOD_ID, "dungeon_desert"), DESERT);
-        configuredFeature(new Identifier(Charm.MOD_ID, "dungeon_forest"), FOREST);
-        configuredFeature(new Identifier(Charm.MOD_ID, "dungeon_jungle"), JUNGLE);
-        configuredFeature(new Identifier(Charm.MOD_ID, "dungeon_mountains"), MOUNTAINS);
-        configuredFeature(new Identifier(Charm.MOD_ID, "dungeon_nether"), NETHER);
-        configuredFeature(new Identifier(Charm.MOD_ID, "dungeon_plains"), PLAINS);
-        configuredFeature(new Identifier(Charm.MOD_ID, "dungeon_savanna"), SAVANNA);
-        configuredFeature(new Identifier(Charm.MOD_ID, "dungeon_snowy"), SNOWY);
-        configuredFeature(new Identifier(Charm.MOD_ID, "dungeon_taiga"), TAIGA);
+        configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_badlands"), BADLANDS);
+        configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_desert"), DESERT);
+        configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_forest"), FOREST);
+        configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_jungle"), JUNGLE);
+        configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_mountains"), MOUNTAINS);
+        configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_nether"), NETHER);
+        configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_plains"), PLAINS);
+        configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_savanna"), SAVANNA);
+        configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_snowy"), SNOWY);
+        configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_taiga"), TAIGA);
     }
 
     @Override
