@@ -62,7 +62,7 @@ public class SnowStorms extends CharmModule {
             BlockState downState = world.getBlockState(downPos);
             Biome biome = world.getBiome(pos);
 
-            if (biome.getTemperature(pos) < 0.15F && pos.getY() >= 0 && pos.getY() < 256) {
+            if (biome.getTemperature(pos) < 0.15F && pos.getY() >= world.getBottomY() && pos.getY() < world.getTopY()) {
                 BlockState state = world.getBlockState(pos);
                 Block block = state.getBlock();
 
