@@ -192,7 +192,7 @@ public class MoobloomEntity extends CowEntity implements Shearable {
             ((ServerWorld)this.world).spawnParticles(ParticleTypes.EXPLOSION, this.getX(), this.getBodyY(0.5D), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             this.discard();
             CowEntity cowEntity = EntityType.COW.create(this.world);
-            cowEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.yaw, this.pitch);
+            cowEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.method_36454(), this.method_36455());
             cowEntity.setHealth(this.getHealth());
             cowEntity.bodyYaw = this.bodyYaw;
             if (this.hasCustomName()) {

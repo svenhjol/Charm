@@ -70,7 +70,7 @@ public class CharmBoatItem extends CharmItem {
         if (hitResult.getType() == HitResult.Type.BLOCK) {
             CharmBoatEntity boatEntity = new CharmBoatEntity(world, hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z);
             boatEntity.setCharmBoatType(this.type);
-            boatEntity.yaw = user.yaw;
+            boatEntity.method_36456(user.method_36454());
             if (!world.isSpaceEmpty(boatEntity, boatEntity.getBoundingBox().expand(-0.1D))) {
                 return TypedActionResult.fail(itemStack);
             } else {
