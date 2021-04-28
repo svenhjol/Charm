@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "charm:block/astrolabe" }
+    "": { "model": "charm:block/astrolabe_placed" }
   }
 }
