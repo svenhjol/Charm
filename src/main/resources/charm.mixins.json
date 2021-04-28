@@ -49,6 +49,7 @@
     "accessor.BlockEntityTypeAccessor",
     "accessor.BlocksAccessor",
     "accessor.BlockTagsAccessor",
+    "accessor.BoatEntityAccessor",
     "accessor.BrewingRecipeRegistryAccessor",
     "accessor.DefaultParticleTypeAccessor",
     "accessor.DispenserBlockAccessor",
