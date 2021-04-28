@@ -54,6 +54,7 @@ public class Charm implements ModInitializer {
             EnderBundles.class,
             EndermitePowder.class,
             EntitySpawners.class,
+            ExtraBoats.class,
             ExtractEnchantments.class,
             ExtraRecipes.class,
             FeatherFallingCrops.class,

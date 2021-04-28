@@ -23,6 +23,7 @@ import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.BiomeHelper;
 import svenhjol.charm.base.helper.RegistryHelper;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.base.item.CharmBoatItem;
 import svenhjol.charm.base.item.CharmSignItem;
 import svenhjol.charm.block.*;
 import svenhjol.charm.client.EbonyWoodClient;
@@ -31,7 +32,7 @@ import svenhjol.charm.enums.CharmWoodMaterial;
 import java.util.OptionalInt;
 
 import static svenhjol.charm.block.EbonyBlocks.*;
-import static svenhjol.charm.item.EbonyItems.EbonySignItem;
+import static svenhjol.charm.item.EbonyItems.*;
 
 @Module(mod = Charm.MOD_ID, client = EbonyWoodClient.class)
 public class EbonyWood extends CharmModule {
@@ -64,6 +65,7 @@ public class EbonyWood extends CharmModule {
     public static VariantLadderBlock LADDER;
     public static VariantTrappedChestBlock TRAPPED_CHEST;
 
+    public static CharmBoatItem BOAT;
     public static CharmSignItem SIGN_ITEM;
 
     @Override
@@ -89,6 +91,7 @@ public class EbonyWood extends CharmModule {
         WOOD = new EbonyWoodBlock(this);
         STRIPPED_WOOD = new StrippedEbonyWoodBlock(this);
 
+        BOAT = new EbonyBoatItem(this);
         SIGN_ITEM = new EbonySignItem(this);
 
         BARREL = VariantBarrels.registerBarrel(this, CharmWoodMaterial.EBONY);
