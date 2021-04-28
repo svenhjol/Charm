@@ -42,7 +42,9 @@ public class EbonyWood extends CharmModule {
     public static int spawnChance = 4;
 
     public static Identifier ID = new Identifier(Charm.MOD_ID, "ebony");
+    public static Identifier DECORATION_ID = new Identifier(Charm.MOD_ID, "ebony_decoration");
     public static ConfiguredFeature<?, ?> TREE;
+    public static ConfiguredFeature<?, ?> TREE_DECORATION;
 
     public static SignType SIGN_TYPE;
 
@@ -112,16 +114,17 @@ public class EbonyWood extends CharmModule {
             new LargeOakTrunkPlacer(3, 6, 0),
             new SimpleBlockStateProvider(LEAVES.getDefaultState()),
             new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 3), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(3))
-        ).build())
-            .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER)
-            .decorate(Decorator.CHANCE.configure(new ChanceDecoratorConfig(spawnChance)));
+        ).build());
 
         TREE = RegistryHandler.configuredFeature(ID, configuredFeature);
+        TREE_DECORATION = RegistryHandler.configuredFeature(DECORATION_ID, TREE
+            .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER)
+            .decorate(Decorator.CHANCE.configure(new ChanceDecoratorConfig(spawnChance))));
     }
 
     @Override
     public void init() {
         RegistryHelper.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
-        BiomeHelper.addFeatureToBiomeCategories(TREE, Biome.Category.SAVANNA, GenerationStep.Feature.VEGETAL_DECORATION);
+        BiomeHelper.addFeatureToBiomeCategories(TREE_DECORATION, Biome.Category.SAVANNA, GenerationStep.Feature.VEGETAL_DECORATION);
     }
 }
