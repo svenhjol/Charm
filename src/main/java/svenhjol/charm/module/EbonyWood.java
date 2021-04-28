@@ -6,7 +6,7 @@ import net.minecraft.util.SignType;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
+import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
@@ -22,6 +22,7 @@ import svenhjol.charm.base.block.*;
 import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.BiomeHelper;
 import svenhjol.charm.base.helper.RegistryHelper;
+import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.base.item.CharmBoatItem;
 import svenhjol.charm.base.item.CharmSignItem;
@@ -32,12 +33,17 @@ import svenhjol.charm.enums.CharmWoodMaterial;
 import java.util.OptionalInt;
 
 import static svenhjol.charm.block.EbonyBlocks.*;
-import static svenhjol.charm.item.EbonyItems.*;
+import static svenhjol.charm.item.EbonyItems.EbonyBoatItem;
+import static svenhjol.charm.item.EbonyItems.EbonySignItem;
 
-@Module(mod = Charm.MOD_ID, client = EbonyWoodClient.class)
+@Module(mod = Charm.MOD_ID, client = EbonyWoodClient.class, description = "Ebony is a very dark grey wood. Ebony trees can be found in savanna biomes.")
 public class EbonyWood extends CharmModule {
+    @Config(name = "Spawn chance", description = "Chance (per number of chunks) of an ebony tree spawning.")
+    public static int spawnChance = 4;
+
     public static Identifier ID = new Identifier(Charm.MOD_ID, "ebony");
     public static ConfiguredFeature<?, ?> TREE;
+
     public static SignType SIGN_TYPE;
 
     public static CharmWoodenButtonBlock BUTTON;
@@ -106,9 +112,9 @@ public class EbonyWood extends CharmModule {
             new LargeOakTrunkPlacer(3, 6, 0),
             new SimpleBlockStateProvider(LEAVES.getDefaultState()),
             new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 3), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(3))
-        ).ignoreVines().build())
+        ).build())
             .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER)
-            .decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(1, 0.05F, 1)));
+            .decorate(Decorator.CHANCE.configure(new ChanceDecoratorConfig(spawnChance)));
 
         TREE = RegistryHandler.configuredFeature(ID, configuredFeature);
     }
