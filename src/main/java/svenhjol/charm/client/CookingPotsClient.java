@@ -1,8 +1,6 @@
 package svenhjol.charm.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -36,7 +34,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
 
-@Environment(EnvType.CLIENT)
 public class CookingPotsClient extends CharmClientModule {
     private final Map<List<Identifier>, List<Item>> cachedItems = new WeakHashMap<>();
 
