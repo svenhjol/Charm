@@ -1,0 +1,10 @@
+{
+  "template": {
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+      "end": "NAMESPACE:block/VARIANT_log",
+      "side": "NAMESPACE:block/VARIANT_log"
+    }
+  },
+  "variants": "charm_wood"
+}

@@ -1,0 +1,11 @@
+{
+  "template": {
+    "parent": "minecraft:block/outer_stairs",
+    "textures": {
+      "bottom": "NAMESPACE:block/VARIANT_planks",
+      "top": "NAMESPACE:block/VARIANT_planks",
+      "side": "NAMESPACE:block/VARIANT_planks"
+    }
+  },
+  "variants": "charm_wood"
+}

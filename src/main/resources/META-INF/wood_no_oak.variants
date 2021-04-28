@@ -1,7 +1,9 @@
-acacia
-birch
-crimson
-dark_oak
-jungle
-spruce
-warped
+NAMESPACE:VARIANT
+minecraft:acacia
+minecraft:birch
+minecraft:crimson
+minecraft:dark_oak
+minecraft:jungle
+minecraft:spruce
+minecraft:warped
+charm:ebony

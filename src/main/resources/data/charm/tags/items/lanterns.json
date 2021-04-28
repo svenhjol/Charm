@@ -3,6 +3,8 @@
   "values": [
     "minecraft:lantern",
     "minecraft:soul_lantern",
+    "charm:copper_lantern",
+    "charm:copper_soul_lantern",
     "charm:gold_lantern",
     "charm:gold_soul_lantern",
     "charm:redstone_lantern"

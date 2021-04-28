@@ -12,6 +12,7 @@ public abstract class CharmModule {
     public boolean alwaysEnabled = false;
     public String description = "";
     public String mod = "";
+    public int priority = 0;
     public Class<? extends CharmClientModule> client = null;
 
     public boolean depends() {

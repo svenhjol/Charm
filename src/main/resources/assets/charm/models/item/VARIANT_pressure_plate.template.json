@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/VARIANT_pressure_plate"
+  },
+  "variants": "charm_wood"
+}

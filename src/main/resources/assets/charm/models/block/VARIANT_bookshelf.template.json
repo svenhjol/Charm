@@ -2,7 +2,7 @@
   "template": {
     "parent": "minecraft:block/cube_column",
     "textures": {
-      "end": "minecraft:block/VARIANT_planks",
+      "end": "NAMESPACE:block/VARIANT_planks",
       "side": "charm:block/VARIANT_bookshelf"
     }
   },

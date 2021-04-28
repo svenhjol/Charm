@@ -1,0 +1,10 @@
+{
+  "template": {
+    "parent": "minecraft:block/door_top_rh",
+    "textures": {
+      "top": "NAMESPACE:block/VARIANT_door_top",
+      "bottom": "NAMESPACE:block/VARIANT_door_bottom"
+    }
+  },
+  "variants": "charm_wood"
+}

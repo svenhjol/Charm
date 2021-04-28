@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "charm:ebony_planks"
+    }
+  },
+  "result": {
+    "item": "charm:ebony_boat"
+  }
+}

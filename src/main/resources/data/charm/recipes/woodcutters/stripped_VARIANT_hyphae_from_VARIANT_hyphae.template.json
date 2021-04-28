@@ -2,9 +2,9 @@
   "template": {
     "type": "charm:woodcutting",
     "ingredient": {
-      "item": "minecraft:VARIANT_hyphae"
+      "item": "NAMESPACE:VARIANT_hyphae"
     },
-    "result": "minecraft:stripped_VARIANT_hyphae",
+    "result": "NAMESPACE:stripped_VARIANT_hyphae",
     "count": 1,
     "conditions": [
       {

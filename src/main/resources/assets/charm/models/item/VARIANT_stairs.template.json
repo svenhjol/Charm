@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/VARIANT_stairs"
+  },
+  "variants": "charm_wood"
+}

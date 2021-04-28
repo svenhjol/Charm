@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:block/button",
+    "textures": {
+      "texture": "NAMESPACE:block/VARIANT_planks"
+    }
+  },
+  "variants": "charm_wood"
+}

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "charm:gold_soul_lantern"
+    "charm:gold_soul_lantern",
+    "charm:copper_soul_lantern"
   ]
 }

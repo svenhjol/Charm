@@ -11,7 +11,7 @@
         "item": "minecraft:stick"
       },
       "P": {
-        "item": "minecraft:VARIANT_planks"
+        "item": "NAMESPACE:VARIANT_planks"
       }
     },
     "result": {

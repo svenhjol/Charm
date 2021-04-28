@@ -2,9 +2,9 @@
   "template": {
     "type": "charm:woodcutting",
     "ingredient": {
-      "item": "minecraft:VARIANT_planks"
+      "item": "NAMESPACE:VARIANT_planks"
     },
-    "result": "minecraft:VARIANT_slab",
+    "result": "NAMESPACE:VARIANT_slab",
     "count": 2,
     "conditions": [
       {

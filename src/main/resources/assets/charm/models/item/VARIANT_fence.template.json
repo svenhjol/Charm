@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/VARIANT_fence_inventory"
+  },
+  "variants": "charm_wood"
+}

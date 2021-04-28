@@ -25,10 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.event.*;
-import svenhjol.charm.module.ArmorInvisibility;
-import svenhjol.charm.module.GentlePotionParticles;
-import svenhjol.charm.module.UseTotemFromInventory;
-import svenhjol.charm.module.VariantLadders;
+import svenhjol.charm.module.*;
 
 import java.util.Map;
 
@@ -178,5 +175,23 @@ public abstract class LivingEntityMixin extends Entity {
         boolean result = GentlePotionParticles.tryRenderParticles(world, x, y, z, velocityX, velocityY, velocityZ);
         if (!result)
             world.addParticle(parameters, x, y, z, velocityX, velocityY, velocityZ); // vanilla behavior
+    }
+
+    /**
+     * After removing frozen ticks, check if environmental conditions are correct for adding frozen ticks.
+     * This is handled by the Snowstorms module.
+     */
+    @Inject(
+        method = "tickMovement",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/entity/LivingEntity;setFrozenTicks(I)V",
+            shift = At.Shift.AFTER,
+            ordinal = 1
+        )
+    )
+    private void hookTickMovementSetFrozenTicks(CallbackInfo ci) {
+        if (SnowStorms.shouldFreezeEntity((LivingEntity)(Object)this))
+            this.setFrozenTicks(Math.min(this.getMinFreezeDamageTicks(), this.getFrozenTicks() + 3));
     }
 }

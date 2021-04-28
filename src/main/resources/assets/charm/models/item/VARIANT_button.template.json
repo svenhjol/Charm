@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/VARIANT_button_inventory"
+  },
+  "variants": "charm_wood"
+}

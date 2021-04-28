@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:block/fence_side",
+    "textures": {
+      "texture": "NAMESPACE:block/VARIANT_planks"
+    }
+  },
+  "variants": "charm_wood"
+}

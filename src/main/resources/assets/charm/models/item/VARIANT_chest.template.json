@@ -2,7 +2,7 @@
     "template": {
         "parent": "builtin/entity",
         "textures": {
-            "particle": "block/VARIANT_planks"
+            "particle": "NAMESPACE:block/VARIANT_planks"
         },
         "display": {
             "gui": {

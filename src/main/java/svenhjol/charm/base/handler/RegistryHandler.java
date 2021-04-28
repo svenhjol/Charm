@@ -13,8 +13,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
 import net.minecraft.loot.function.LootFunctionType;
-import net.minecraft.potion.Potion;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.potion.Potion;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -23,15 +23,17 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.SignType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.village.VillagerProfession;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.poi.PointOfInterestType;
-import svenhjol.charm.mixin.accessor.DefaultParticleTypeAccessor;
 import svenhjol.charm.mixin.accessor.BrewingRecipeRegistryAccessor;
-
+import svenhjol.charm.mixin.accessor.DefaultParticleTypeAccessor;
+import svenhjol.charm.mixin.accessor.SignTypeAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +54,13 @@ public class RegistryHandler {
         BrewingRecipeRegistryAccessor.invokeRegisterPotionRecipe(input, reagant, output);
     }
 
-    public static ConfiguredStructureFeature<?, ?> configuredFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
+    public static ConfiguredFeature<?, ?> configuredFeature(Identifier id, ConfiguredFeature<?, ?> configuredFeature) {
+        RegistryKey<ConfiguredFeature<?, ?>> key = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, id);
+        BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_FEATURE, key.getValue(), configuredFeature);
+        return configuredFeature;
+    }
+
+    public static ConfiguredStructureFeature<?, ?> configuredStructureFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
         RegistryKey<ConfiguredStructureFeature<?, ?>> key = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY, id);
         BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, key.getValue(), configuredFeature);
         return configuredFeature;
@@ -79,6 +87,11 @@ public class RegistryHandler {
 
     public static LootFunctionType lootFunctionType(Identifier id, LootFunctionType lootFunctionType) {
         return Registry.register(Registry.LOOT_FUNCTION_TYPE, id, lootFunctionType);
+    }
+
+    public static SignType signType(Identifier id) {
+        // TODO: crashes when using fully qualified namespace, so just convert to underscore for now
+        return SignTypeAccessor.invokeRegister(SignTypeAccessor.invokeInit(id.toString().replace(":", "_")));
     }
 
     public static PointOfInterestType pointOfInterestType(Identifier id, PointOfInterestType poit) {
