@@ -70,7 +70,7 @@ public class CharmLoader {
         });
 
         // config for this module set
-        ConfigHandler.createConfig(MOD_ID, LOADED_MODULES);
+        ConfigHandler.createConfig(MOD_ID, loaded);
 
         // sort by module priority
         ArrayList<CharmModule> modList = new ArrayList<>(loaded.values());
