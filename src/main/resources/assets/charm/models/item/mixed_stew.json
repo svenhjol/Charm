@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:item/rabbit_stew"
+    "layer0": "charm:item/mixed_stew"
   }
 }
