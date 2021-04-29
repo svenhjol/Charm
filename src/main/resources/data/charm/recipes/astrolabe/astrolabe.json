@@ -1,19 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " C ",
-    "R#R",
+    "ABA",
     "###"
   ],
   "key": {
-    "C": {
+    "A": {
+      "item": "minecraft:amethyst_shart"
+    },
+    "B": {
       "item": "minecraft:copper_block"
     },
     "#": {
-      "item": "minecraft:obsidian"
-    },
-    "R": {
-      "item": "minecraft:redstone"
+      "item": "minecraft:copper_ingot"
     }
   },
   "result": {
