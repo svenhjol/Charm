@@ -257,8 +257,8 @@ public class CaskBlock extends CharmBlockWithEntity {
         Z2 = Block.createCuboidShape(2.0D, 1.0D, 1.0D, 14.0D, 15.0D, 15.0D);
         Z3 = Block.createCuboidShape(1.0D, 2.0D, 1.0D, 15.0D, 14.0D, 15.0D);
         Z4 = Block.createCuboidShape(0.0D, 4.0D, 1.0D, 16.0D, 12.0D, 15.0D);
-        X_SHAPE = VoxelShapes.union(X1, X2, X3);
-        Y_SHAPE = VoxelShapes.union(Y1, Y2, Y3);
-        Z_SHAPE = VoxelShapes.union(Z1, Z2, Z3);
+        X_SHAPE = VoxelShapes.union(X1, X2, X3, X4);
+        Y_SHAPE = VoxelShapes.union(Y1, Y2, Y3, Y4);
+        Z_SHAPE = VoxelShapes.union(Z1, Z2, Z3, Z4);
     }
 }
