@@ -13,7 +13,6 @@ public class ChainsClient extends CharmClientModule {
 
     @Override
     public void register() {
-
         BlockRenderLayerMap.INSTANCE.putBlock(Chains.GOLD_CHAIN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(Chains.COPPER_CHAIN, RenderLayer.getCutout());
     }

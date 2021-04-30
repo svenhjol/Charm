@@ -107,6 +107,7 @@ public class ConfigHandler {
             Writer buffer = Files.newBufferedWriter(path);
             tomlWriter.write(writeConfig, buffer);
             buffer.close();
+            Charm.LOG.debug("Written config to disk");
 
         } catch (Exception e) {
             Charm.LOG.error("Failed to write config: " + e.getMessage());

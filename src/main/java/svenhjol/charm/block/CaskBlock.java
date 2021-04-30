@@ -48,9 +48,9 @@ import java.util.stream.Collectors;
 
 public class CaskBlock extends CharmBlockWithEntity {
     public static final DirectionProperty FACING = Properties.FACING;
-    public static final VoxelShape X1, X2, X3;
-    public static final VoxelShape Y1, Y2, Y3;
-    public static final VoxelShape Z1, Z2, Z3;
+    public static final VoxelShape X1, X2, X3, X4;
+    public static final VoxelShape Y1, Y2, Y3, Y4;
+    public static final VoxelShape Z1, Z2, Z3, Z4;
     public static final VoxelShape X_SHAPE;
     public static final VoxelShape Y_SHAPE;
     public static final VoxelShape Z_SHAPE;
@@ -245,17 +245,20 @@ public class CaskBlock extends CharmBlockWithEntity {
     }
 
     static {
-        X1 = Block.createCuboidShape(0.0D, 0.0D, 2.0D, 16.0D, 16.0D, 14.0D);
-        X2 = Block.createCuboidShape(0.0D, 1.0D, 1.0D, 16.0D, 15.0D, 15.0D);
-        X3 = Block.createCuboidShape(0.0D, 2.0D, 0.0D, 16.0D, 14.0D, 16.0D);
-        Y1 = Block.createCuboidShape(0.0D, 0.0D, 2.0D, 16.0D, 16.0D, 14.0D);
-        Y2 = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
-        Y3 = Block.createCuboidShape(2.0D, 0.0D, 0.0D, 14.0D, 16.0D, 16.0D);
-        Z1 = Block.createCuboidShape(2.0D, 0.0D, 0.0D, 14.0D, 16.0D, 16.0D);
-        Z2 = Block.createCuboidShape(1.0D, 1.0D, 0.0D, 15.0D, 15.0D, 16.0D);
-        Z3 = Block.createCuboidShape(0.0D, 2.0D, 0.0D, 16.0D, 14.0D, 16.0D);
-        X_SHAPE = VoxelShapes.union(X1, X2, X3);
-        Y_SHAPE = VoxelShapes.union(Y1, Y2, Y3);
-        Z_SHAPE = VoxelShapes.union(Z1, Z2, Z3);
+        X1 = Block.createCuboidShape(1.0D, 0.0D, 4.0D, 15.0D, 16.0D, 12.0D);
+        X2 = Block.createCuboidShape(1.0D, 1.0D, 2.0D, 15.0D, 15.0D, 14.0D);
+        X3 = Block.createCuboidShape(1.0D, 2.0D, 1.0D, 15.0D, 14.0D, 15.0D);
+        X4 = Block.createCuboidShape(1.0D, 4.0D, 0.0D, 15.0D, 12.0D, 16.0D);
+        Y1 = Block.createCuboidShape(4.0D, 1.0D, 0.0D, 12.0D, 15.0D, 16.0D);
+        Y2 = Block.createCuboidShape(2.0D, 1.0D, 1.0D, 14.0D, 15.0D, 15.0D);
+        Y3 = Block.createCuboidShape(1.0D, 1.0D, 2.0D, 15.0D, 15.0D, 14.0D);
+        Y4 = Block.createCuboidShape(0.0D, 1.0D, 4.0D, 16.0D, 15.0D, 12.0D);
+        Z1 = Block.createCuboidShape(4.0D, 0.0D, 1.0D, 12.0D, 16.0D, 15.0D);
+        Z2 = Block.createCuboidShape(2.0D, 1.0D, 1.0D, 14.0D, 15.0D, 15.0D);
+        Z3 = Block.createCuboidShape(1.0D, 2.0D, 1.0D, 15.0D, 14.0D, 15.0D);
+        Z4 = Block.createCuboidShape(0.0D, 4.0D, 1.0D, 16.0D, 12.0D, 15.0D);
+        X_SHAPE = VoxelShapes.union(X1, X2, X3, X4);
+        Y_SHAPE = VoxelShapes.union(Y1, Y2, Y3, Y4);
+        Z_SHAPE = VoxelShapes.union(Z1, Z2, Z3, Z4);
     }
 }
