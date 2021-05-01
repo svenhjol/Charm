@@ -17,20 +17,20 @@ public interface PlayerLoadDataCallback {
     });
 
     static NbtCompound readFile(File file) {
-        NbtCompound tag;
+        NbtCompound nbt;
 
         if (file.exists()) {
             try {
-                tag = NbtIo.readCompressed(file);
+                nbt = NbtIo.readCompressed(file);
             } catch (Exception e) {
                 Charm.LOG.error("Failed to load player data from file: " + file.toString());
-                tag = new NbtCompound();
+                nbt = new NbtCompound();
             }
         } else {
-            tag = new NbtCompound();
+            nbt = new NbtCompound();
         }
 
-        return tag;
+        return nbt;
     }
 
     void interact(PlayerEntity player, File playerDataDir);

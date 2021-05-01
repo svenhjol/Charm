@@ -1,4 +1,4 @@
-package svenhjol.charm.base;
+package svenhjol.charm.init;
 
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;

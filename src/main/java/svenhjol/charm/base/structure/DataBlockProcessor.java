@@ -18,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.WorldView;
-import svenhjol.charm.base.CharmStructures;
+import svenhjol.charm.init.CharmStructures;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.handler.ModuleHandler;
@@ -104,7 +104,7 @@ public class DataBlockProcessor extends StructureProcessor {
         public BlockState state;
         public BlockPos pos;
         public WorldView world;
-        public NbtCompound tag;
+        public NbtCompound nbt;
         public Random fixedRandom; // fixed according to parent template
         public Random random; // random according to the replaced block hashcode
         public float chance;
@@ -116,7 +116,7 @@ public class DataBlockProcessor extends StructureProcessor {
             this.rotation = rotation;
             this.pos = blockInfo.pos;
             this.state = null;
-            this.tag = null;
+            this.nbt = null;
             this.random = new Random(blockInfo.hashCode());
 
             // pipe character acts as an OR. Data will use one of the definitions at random.
@@ -155,7 +155,7 @@ public class DataBlockProcessor extends StructureProcessor {
                     this.state = Blocks.AIR.getDefaultState();
             }
 
-            return new StructureBlockInfo(this.pos, this.state, this.tag);
+            return new StructureBlockInfo(this.pos, this.state, this.nbt);
         }
 
         protected void anvil() {
@@ -172,12 +172,12 @@ public class DataBlockProcessor extends StructureProcessor {
         protected void armorStand() {
             EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawners.ENTITY_SPAWNER.getDefaultState());
             if (blockEntity == null) return;
-            this.tag = new NbtCompound();
+            this.nbt = new NbtCompound();
 
             blockEntity.entity = new Identifier("minecraft:armor_stand");
             blockEntity.meta = this.data;
             blockEntity.rotation = this.rotation;
-            blockEntity.writeNbt(this.tag);
+            blockEntity.writeNbt(this.nbt);
 
             this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
@@ -219,8 +219,8 @@ public class DataBlockProcessor extends StructureProcessor {
                 Identifier lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_BOOKCASE_CHANCE ? RARE_BOOKCASE_LOOT_TABLES : BOOKCASE_LOOT_TABLES, random);
                 blockEntity.setLootTable(lootTable, random.nextLong());
 
-                this.tag = new NbtCompound();
-                blockEntity.writeNbt(this.tag);
+                this.nbt = new NbtCompound();
+                blockEntity.writeNbt(this.nbt);
             } else if (ModuleHandler.enabled("charm:variant_bookshelves") && variantMaterial != VanillaVariantMaterial.OAK) {
                 state = VariantBookshelves.BOOKSHELF_BLOCKS.get(variantMaterial).getDefaultState();
             } else {
@@ -271,8 +271,8 @@ public class DataBlockProcessor extends StructureProcessor {
 
             String loot = getValue("loot", data, "");
             blockEntity.setLootTable(LootHelper.getLootTable(loot, lootTable), random.nextLong());
-            tag = new NbtCompound();
-            blockEntity.writeNbt(tag);
+            nbt = new NbtCompound();
+            blockEntity.writeNbt(nbt);
         }
 
         protected void decoration() {
@@ -285,7 +285,7 @@ public class DataBlockProcessor extends StructureProcessor {
         protected void entity() {
             EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawners.ENTITY_SPAWNER.getDefaultState());
             if (blockEntity == null) return;
-            tag = new NbtCompound();
+            nbt = new NbtCompound();
 
             String type = getValue("type", this.data, "");
             if (type.isEmpty()) return;
@@ -298,7 +298,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.entity = typeId;
             blockEntity.meta = this.data;
             blockEntity.rotation = this.rotation;
-            blockEntity.writeNbt(this.tag);
+            blockEntity.writeNbt(this.nbt);
 
             this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
@@ -344,7 +344,7 @@ public class DataBlockProcessor extends StructureProcessor {
 
             String type = getValue("type", this.data, "");
             if (type.isEmpty()) return;
-            tag = new NbtCompound();
+            nbt = new NbtCompound();
 
             blockEntity.entity = new Identifier(type);
             blockEntity.health = getValue("health", this.data, 0.0D);
@@ -353,7 +353,7 @@ public class DataBlockProcessor extends StructureProcessor {
             blockEntity.effects = getValue("effects", this.data, "");
             blockEntity.count = getValue("count", this.data, 1);
             blockEntity.rotation = this.rotation;
-            blockEntity.writeNbt(this.tag);
+            blockEntity.writeNbt(this.nbt);
 
             this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
         }
@@ -407,8 +407,8 @@ public class DataBlockProcessor extends StructureProcessor {
             MobSpawnerBlockEntity blockEntity = BlockEntityType.MOB_SPAWNER.instantiate(BlockPos.ORIGIN, Blocks.SPAWNER.getDefaultState());
             if (blockEntity != null) {
                 blockEntity.getLogic().setEntityId(entity);
-                tag = new NbtCompound();
-                blockEntity.writeNbt(this.tag);
+                nbt = new NbtCompound();
+                blockEntity.writeNbt(this.nbt);
             }
         }
 
@@ -435,8 +435,8 @@ public class DataBlockProcessor extends StructureProcessor {
 
             String loot = getValue("loot", data, "");
             blockEntity.setLootTable(LootHelper.getLootTable(loot, lootTable), random.nextLong());
-            tag = new NbtCompound();
-            blockEntity.writeNbt(tag);
+            nbt = new NbtCompound();
+            blockEntity.writeNbt(nbt);
         }
 
         public boolean withChance(float chance) {

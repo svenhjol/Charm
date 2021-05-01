@@ -11,7 +11,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.CharmParticles;
+import svenhjol.charm.init.CharmParticles;
 import svenhjol.charm.module.PotionOfSpelunking;
 
 import java.util.Arrays;
@@ -27,10 +27,10 @@ public class PotionOfSpelunkingClient extends CharmClientModule {
 
     @Override
     public void register() {
-        ClientPlayNetworking.registerGlobalReceiver(PotionOfSpelunking.MSG_CLIENT_SET_PARTICLES, this::handleClientSetParticles);
+        ClientPlayNetworking.registerGlobalReceiver(PotionOfSpelunking.MSG_CLIENT_HAS_EFFECT, this::handleClientHasEffect);
     }
 
-    private void handleClientSetParticles(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+    private void handleClientHasEffect(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
         List<BlockPos> positions = Arrays.stream(data.readLongArray()).boxed().map(BlockPos::fromLong).collect(Collectors.toList());
         List<DyeColor> colors = Arrays.stream(data.readIntArray()).boxed().map(DyeColor::byId).collect(Collectors.toList());
 

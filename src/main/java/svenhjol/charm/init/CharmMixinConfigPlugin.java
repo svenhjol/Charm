@@ -1,4 +1,4 @@
-package svenhjol.charm;
+package svenhjol.charm.init;
 
 import org.apache.logging.log4j.LogManager;
 import org.objectweb.asm.tree.ClassNode;

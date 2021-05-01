@@ -5,10 +5,10 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegi
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.module.Casks;
@@ -29,16 +29,14 @@ public class CasksClient extends CharmClientModule {
 
     private void handleClientAddedToCask(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
         BlockPos pos = BlockPos.fromLong(data.readLong());
-        client.execute(() -> effectAddItem(pos));
+        client.execute(() -> {
+            if (client.world != null)
+                createParticles(client.world, pos);
+        });
     }
 
-    private void effectAddItem(BlockPos pos) {
-        ClientWorld world = MinecraftClient.getInstance().world;
-        if (world == null)
-            return;
-
+    private void createParticles(World world, BlockPos pos) {
         Random random = world.getRandom();
-
         for(int i = 0; i < 10; ++i) {
             double g = random.nextGaussian() * 0.02D;
             double h = random.nextGaussian() * 0.02D;

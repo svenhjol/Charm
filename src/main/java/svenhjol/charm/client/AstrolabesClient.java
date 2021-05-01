@@ -13,8 +13,8 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.CharmParticles;
-import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.init.CharmParticles;
+import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.module.Astrolabes;
 
 import java.util.Arrays;

@@ -14,7 +14,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.CharmParticles;
+import svenhjol.charm.init.CharmParticles;
 import svenhjol.charm.module.ClearItemFrames;
 
 public class ClearItemFramesClient extends CharmClientModule {

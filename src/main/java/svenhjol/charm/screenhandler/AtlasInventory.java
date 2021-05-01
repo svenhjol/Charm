@@ -29,7 +29,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
-import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.module.Atlas;
 

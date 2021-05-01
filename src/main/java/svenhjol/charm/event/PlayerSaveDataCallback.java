@@ -16,9 +16,9 @@ public interface PlayerSaveDataCallback {
         }
     });
 
-    static void writeFile(File file, NbtCompound tag) {
+    static void writeFile(File file, NbtCompound nbt) {
         try {
-            NbtIo.writeCompressed(tag, file);
+            NbtIo.writeCompressed(nbt, file);
         } catch (Exception e) {
             Charm.LOG.error("Failed to save player data to file: " + file.toString());
         }

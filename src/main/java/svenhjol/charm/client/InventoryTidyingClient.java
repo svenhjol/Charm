@@ -14,7 +14,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.base.helper.ScreenHelper;
 import svenhjol.charm.event.GuiSetupCallback;
 import svenhjol.charm.event.RenderGuiCallback;

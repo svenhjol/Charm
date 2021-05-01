@@ -1,7 +1,7 @@
 package svenhjol.charm.base.handler;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.CharmMixinConfigPlugin;
+import svenhjol.charm.init.CharmMixinConfigPlugin;
 import svenhjol.charm.base.CharmLoader;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.StringHelper;

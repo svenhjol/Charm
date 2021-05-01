@@ -59,35 +59,35 @@ public class EntitySpawnerBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void readNbt(NbtCompound tag) {
-        super.readNbt(tag);
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
 
-        this.entity = Identifier.tryParse(tag.getString(ENTITY));
-        this.persist = tag.getBoolean(PERSIST);
-        this.health = tag.getDouble(HEALTH);
-        this.count = tag.getInt(COUNT);
-        this.effects = tag.getString(EFFECTS);
-        this.armor = tag.getString(ARMOR);
-        this.meta = tag.getString(META);
+        this.entity = Identifier.tryParse(nbt.getString(ENTITY));
+        this.persist = nbt.getBoolean(PERSIST);
+        this.health = nbt.getDouble(HEALTH);
+        this.count = nbt.getInt(COUNT);
+        this.effects = nbt.getString(EFFECTS);
+        this.armor = nbt.getString(ARMOR);
+        this.meta = nbt.getString(META);
 
-        String rot = tag.getString(ROTATION);
+        String rot = nbt.getString(ROTATION);
         this.rotation = rot.isEmpty() ? BlockRotation.NONE : BlockRotation.valueOf(rot);
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
-        super.writeNbt(tag);
+    public NbtCompound writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
 
-        tag.putString(ENTITY, entity.toString());
-        tag.putString(ROTATION, rotation.name());
-        tag.putBoolean(PERSIST, persist);
-        tag.putDouble(HEALTH, health);
-        tag.putInt(COUNT, count);
-        tag.putString(EFFECTS, effects);
-        tag.putString(ARMOR, armor);
-        tag.putString(META, meta);
+        nbt.putString(ENTITY, entity.toString());
+        nbt.putString(ROTATION, rotation.name());
+        nbt.putBoolean(PERSIST, persist);
+        nbt.putDouble(HEALTH, health);
+        nbt.putInt(COUNT, count);
+        nbt.putString(EFFECTS, effects);
+        nbt.putString(ARMOR, armor);
+        nbt.putString(META, meta);
 
-        return tag;
+        return nbt;
     }
 
     public static <T extends EntitySpawnerBlockEntity> void tick(World world, BlockPos pos, BlockState state, T entitySpawner) {

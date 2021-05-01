@@ -11,7 +11,6 @@ import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -20,6 +19,7 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
+import net.minecraft.world.World;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.block.CookingPotBlock;
@@ -105,14 +105,13 @@ public class CookingPotsClient extends CharmClientModule {
 
     private void handleClientAddedToPot(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
         BlockPos pos = BlockPos.fromLong(data.readLong());
-        client.execute(() -> effectAddItem(pos));
+        client.execute(() -> {
+            if (client.world != null)
+                createParticles(client.world, pos);
+        });
     }
 
-    private void effectAddItem(BlockPos pos) {
-        ClientWorld world = MinecraftClient.getInstance().world;
-        if (world == null)
-            return;
-
+    private void createParticles(World world, BlockPos pos) {
         Random random = world.getRandom();
 
         for(int i = 0; i < 10; ++i) {

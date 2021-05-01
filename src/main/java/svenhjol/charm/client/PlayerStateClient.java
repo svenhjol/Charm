@@ -53,17 +53,17 @@ public class PlayerStateClient extends CharmClientModule {
     }
 
     private void handleClientUpdatePlayerState(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
-        NbtCompound tag = new NbtCompound();
+        NbtCompound nbt = new NbtCompound();
 
         try {
             byte[] byteData = Base64.getDecoder().decode(data.readString());
-            tag = NbtIo.readCompressed(new ByteArrayInputStream(byteData));
+            nbt = NbtIo.readCompressed(new ByteArrayInputStream(byteData));
         } catch (IOException e) {
             CharmClient.LOG.warn("Failed to decompress player state");
         }
 
-        NbtCompound finalTag = tag;
-        client.execute(() -> clientCallback(finalTag));
+        NbtCompound finalNbt = nbt;
+        client.execute(() -> clientCallback(finalNbt));
     }
 
     /**

@@ -35,7 +35,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.base.block.CharmBlockWithEntity;
 import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.blockentity.CaskBlockEntity;

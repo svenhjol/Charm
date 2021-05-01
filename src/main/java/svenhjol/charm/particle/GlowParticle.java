@@ -1,4 +1,4 @@
-package svenhjol.charm.base.particle;
+package svenhjol.charm.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

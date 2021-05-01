@@ -40,8 +40,8 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class MoobloomEntity extends CowEntity implements Shearable {
-    private static final String TYPE_TAG = "Type";
-    private static final String POLLINATED_TAG = "Pollinated";
+    private static final String TYPE_NBT = "Type";
+    private static final String POLLINATED_NBT = "Pollinated";
 
     private static final TrackedData<String> TYPE;
     private static final TrackedData<Boolean> POLLINATED;
@@ -126,19 +126,19 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound tag) {
-        super.writeCustomDataToNbt(tag);
-        tag.putString(TYPE_TAG, this.getMoobloomType().name);
-        tag.putBoolean(POLLINATED_TAG, this.dataTracker.get(POLLINATED));
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putString(TYPE_NBT, this.getMoobloomType().name);
+        nbt.putBoolean(POLLINATED_NBT, this.dataTracker.get(POLLINATED));
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound tag) {
-        super.readCustomDataFromNbt(tag);
-        this.setMoobloomType(Type.fromName(tag.getString(TYPE_TAG)));
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.setMoobloomType(Type.fromName(nbt.getString(TYPE_NBT)));
 
-        if (tag.contains(POLLINATED_TAG))
-            this.dataTracker.set(POLLINATED, tag.getBoolean(POLLINATED_TAG));
+        if (nbt.contains(POLLINATED_NBT))
+            this.dataTracker.set(POLLINATED, nbt.getBoolean(POLLINATED_NBT));
     }
 
     @Override

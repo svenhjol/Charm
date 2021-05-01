@@ -54,8 +54,8 @@ public class BatBuckets extends CharmModule {
                 return ActionResult.PASS;
 
             ItemStack batBucket = new ItemStack(BAT_BUCKET_ITEM);
-            NbtCompound tag = new NbtCompound();
-            ItemNBTHelper.setCompound(batBucket, BatBucketItem.STORED_BAT, bat.writeNbt(tag));
+            NbtCompound nbt = new NbtCompound();
+            ItemNBTHelper.setCompound(batBucket, BatBucketItem.STORED_BAT, bat.writeNbt(nbt));
 
             if (held.getCount() == 1) {
                 player.setStackInHand(hand, batBucket);

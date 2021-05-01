@@ -19,7 +19,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.PillagerSpawner;
 import net.minecraft.world.gen.Spawner;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.base.item.CharmItem;
 import svenhjol.charm.mixin.accessor.PillagerSpawnerAccessor;
 import svenhjol.charm.mixin.accessor.ServerWorldAccessor;

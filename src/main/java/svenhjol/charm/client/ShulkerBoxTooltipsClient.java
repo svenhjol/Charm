@@ -8,7 +8,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.OrderedText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
@@ -42,17 +41,17 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         if (stack == null || !stack.hasTag())
             return;
 
-        NbtCompound tag = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
+        NbtCompound nbt = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
 
-        if (tag == null)
+        if (nbt == null)
             return;
 
-        if (!tag.contains("id", 8)) {
-            tag = tag.copy();
-            tag.putString("id", "minecraft:shulker_box");
+        if (!nbt.contains("id", 8)) {
+            nbt = nbt.copy();
+            nbt.putString("id", "minecraft:shulker_box");
         }
         BlockItem blockItem = (BlockItem) stack.getItem();
-        BlockEntity blockEntity = BlockEntity.createFromNbt(BlockPos.ORIGIN, blockItem.getBlock().getDefaultState(), tag);
+        BlockEntity blockEntity = BlockEntity.createFromNbt(BlockPos.ORIGIN, blockItem.getBlock().getDefaultState(), nbt);
         if (blockEntity == null)
             return;
 

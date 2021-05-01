@@ -13,8 +13,6 @@ public class VariantLaddersClient extends CharmClientModule {
 
     @Override
     public void register() {
-        VariantLadders.LADDER_BLOCKS.values().forEach(ladder -> {
-            BlockRenderLayerMap.INSTANCE.putBlock(ladder, RenderLayer.getCutout());
-        });
+        VariantLadders.LADDER_BLOCKS.values().forEach(ladder -> BlockRenderLayerMap.INSTANCE.putBlock(ladder, RenderLayer.getCutout()));
     }
 }

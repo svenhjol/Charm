@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ColoredGlintHandler {
-    public static final String GLINT_TAG = "charm_glint";
+    public static final String GLINT_NBT = "charm_glint";
 
     public static Map<String, Identifier> TEXTURES = new HashMap<>();
     public static Map<String, RenderLayer> GLINT = new HashMap<>();
@@ -64,10 +64,10 @@ public class ColoredGlintHandler {
 
     public static String getStackColor(ItemStack stack) {
         if (stack != null && stack.hasTag()) {
-            NbtCompound tag = stack.getTag();
-            if (tag != null) {
-                if (tag.contains(GLINT_TAG))
-                    return tag.getString(GLINT_TAG);
+            NbtCompound nbt = stack.getTag();
+            if (nbt != null) {
+                if (nbt.contains(GLINT_NBT))
+                    return nbt.getString(GLINT_NBT);
             }
         }
 
