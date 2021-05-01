@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.event.PlayerLoadDataCallback;
 import svenhjol.charm.event.PlayerSaveDataCallback;
+import svenhjol.charm.event.ServerJoinCallback;
 import svenhjol.charm.mixin.accessor.WorldSaveHandlerAccessor;
-import svenhjol.charm.module.AutomaticRecipeUnlock;
 
 import java.io.File;
 
@@ -27,7 +27,7 @@ public class PlayerManagerMixin {
 
     @Inject(method = "onPlayerConnect", at = @At("RETURN"))
     private void hookOnPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
-        AutomaticRecipeUnlock.unlockRecipes(player);
+        ServerJoinCallback.EVENT.invoker().interact((PlayerManager)(Object)this, connection, player);
     }
 
     @Inject(
