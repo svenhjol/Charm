@@ -6,7 +6,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
-import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.init.CharmResources;
 
 public class BookcaseScreen extends HandledScreen<ScreenHandler> {
     public BookcaseScreen(ScreenHandler handler, PlayerInventory inventory, Text title) {

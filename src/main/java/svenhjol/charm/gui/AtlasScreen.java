@@ -22,7 +22,7 @@ import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.base.gui.AbstractCharmContainerScreen;
 import svenhjol.charm.base.gui.CharmImageButton;
 import svenhjol.charm.base.helper.MapRenderHelper;

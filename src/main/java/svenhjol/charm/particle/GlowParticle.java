@@ -1,4 +1,4 @@
-package svenhjol.charm.base.particle;
+package svenhjol.charm.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -85,6 +85,24 @@ public class GlowParticle extends SpriteBillboardParticle {
             particle.setColorAlpha((RANDOM.nextFloat() * 0.2F) + 0.8F);
             particle.field_28786 = 0.7F; // some multiplier for velocity, idk
             particle.field_28787 = true;
+            return particle;
+        }
+    }
+
+    public static class ApplyFactory implements ParticleFactory<DefaultParticleType> {
+        private final SpriteProvider spriteProvider;
+
+        public ApplyFactory(SpriteProvider spriteProvider) {
+            this.spriteProvider = spriteProvider;
+        }
+
+        public Particle createParticle(DefaultParticleType type, ClientWorld world, double x, double y, double z, double r, double g, double b) {
+            GlowParticle particle = new GlowParticle(world, x, y, z, 0.5D - RANDOM.nextDouble(), 0.5D - RANDOM.nextDouble(), 0.5D - RANDOM.nextDouble(), this.spriteProvider);
+            particle.setMaxAge(4 + RANDOM.nextInt(4));
+            particle.setColor((float)r, (float)g, (float)b);
+            particle.setColorAlpha((RANDOM.nextFloat() * 0.2F) + 0.8F);
+            particle.field_28786 = 0.8F; // some multiplier for velocity, idk
+            particle.field_28787 = true; // dunno
             return particle;
         }
     }

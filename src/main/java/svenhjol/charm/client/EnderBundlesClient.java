@@ -2,11 +2,12 @@ package svenhjol.charm.client;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistryAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
@@ -43,7 +44,7 @@ public class EnderBundlesClient extends CharmClientModule {
             -> EnderBundleItem.getAmountFilled());
 
         // register callbacks
-        ClientSidePacketRegistry.INSTANCE.register(EnderBundles.MSG_CLIENT_UPDATE_ENDER_INVENTORY, this::handleClientUpdateEnderInventory);
+        ClientPlayNetworking.registerGlobalReceiver(EnderBundles.MSG_CLIENT_UPDATE_ENDER_INVENTORY, this::handleClientUpdateEnderInventory);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
@@ -51,12 +52,12 @@ public class EnderBundlesClient extends CharmClientModule {
     /**
      * Handle message sent from the server containing updated ender inventory.
      */
-    private void handleClientUpdateEnderInventory(PacketContext context, PacketByteBuf data) {
-        NbtCompound tag = data.readNbt();
-        context.getTaskQueue().execute(() ->
+    private void handleClientUpdateEnderInventory(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+        NbtCompound nbt = data.readNbt();
+        client.execute(() ->
             ClientHelper.getPlayer().ifPresent(player -> {
-                if (tag != null && tag.contains("EnderItems", 9)) {
-                    NbtList enderItems = tag.getList("EnderItems", 10);
+                if (nbt != null && nbt.contains("EnderItems", 9)) {
+                    NbtList enderItems = nbt.getList("EnderItems", 10);
                     EnderChestInventory inventory = ((PlayerEntityAccessor) player).getEnderChestInventory();
                     inventory.readNbtList(enderItems);
 
@@ -74,7 +75,7 @@ public class EnderBundlesClient extends CharmClientModule {
 
         // do this sparingly
         if (client.world.getTime() % 60 == 0) {
-            ClientSidePacketRegistry.INSTANCE.sendToServer(EnderBundles.MSG_SERVER_UPDATE_ENDER_INVENTORY, new PacketByteBuf(Unpooled.buffer()));
+            ClientPlayNetworking.send(EnderBundles.MSG_SERVER_UPDATE_ENDER_INVENTORY, new PacketByteBuf(Unpooled.buffer()));
         }
     }
 
@@ -86,7 +87,7 @@ public class EnderBundlesClient extends CharmClientModule {
         if (stack != null && stack.getItem() instanceof EnderBundleItem) {
             ClientHelper.getWorld().ifPresent(world -> {
                 if (world.getTime() % 10 == 0)
-                    ClientSidePacketRegistry.INSTANCE.sendToServer(EnderBundles.MSG_SERVER_UPDATE_ENDER_INVENTORY, new PacketByteBuf(Unpooled.buffer()));
+                    ClientPlayNetworking.send(EnderBundles.MSG_SERVER_UPDATE_ENDER_INVENTORY, new PacketByteBuf(Unpooled.buffer()));
             });
 
             renderTooltip(matrices, stack, lines, x, y);

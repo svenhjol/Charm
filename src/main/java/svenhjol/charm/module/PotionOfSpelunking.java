@@ -30,7 +30,7 @@ public class PotionOfSpelunking extends CharmModule {
 
     public static SpelunkingEffect SPELUNKING_EFFECT;
     public static SpelunkingPotion SPELUNKING_POTION;
-    public static final Identifier MSG_CLIENT_SET_PARTICLES = new Identifier(Charm.MOD_ID, "client_set_particles");
+    public static final Identifier MSG_CLIENT_HAS_EFFECT = new Identifier(Charm.MOD_ID, "client_set_particles");
 
     public static Map<Block, DyeColor> blocks = new HashMap<>();
     public static Map<Tag<Block>, DyeColor> blockTags = new HashMap<>();
@@ -133,7 +133,7 @@ public class PotionOfSpelunking extends CharmModule {
                 .map(DyeColor::getId)
                 .mapToInt(Integer::intValue).toArray());
 
-            ServerPlayNetworking.send((ServerPlayerEntity)player, MSG_CLIENT_SET_PARTICLES, data);
+            ServerPlayNetworking.send((ServerPlayerEntity)player, MSG_CLIENT_HAS_EFFECT, data);
         }
     }
 }

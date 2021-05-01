@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootTables;
 import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.tag.BlockTags;
-import svenhjol.charm.base.CharmLoot;
+import svenhjol.charm.init.CharmLoot;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.helper.LootHelper;
 

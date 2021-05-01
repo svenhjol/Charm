@@ -18,9 +18,9 @@ public class MapHelper {
         stack.setCustomName(mapName);
 
         // set map color based on structure
-        NbtCompound tag = ItemNBTHelper.getCompound(stack, "display");
-        tag.putInt("MapColor", color);
-        ItemNBTHelper.setCompound(stack, "display", tag);
+        NbtCompound nbt = ItemNBTHelper.getCompound(stack, "display");
+        nbt.putInt("MapColor", color);
+        ItemNBTHelper.setCompound(stack, "display", nbt);
 
         return stack;
     }

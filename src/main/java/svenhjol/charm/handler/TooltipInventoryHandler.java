@@ -8,7 +8,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.init.CharmResources;
 
 import java.util.List;
 

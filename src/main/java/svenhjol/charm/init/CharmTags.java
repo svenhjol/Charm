@@ -1,4 +1,4 @@
-package svenhjol.charm.base;
+package svenhjol.charm.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

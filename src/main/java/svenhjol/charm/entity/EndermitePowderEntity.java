@@ -20,8 +20,8 @@ public class EndermitePowderEntity extends Entity {
 
     private static final TrackedData<Integer> TARGET_X = DataTracker.registerData(EndermitePowderEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> TARGET_Z = DataTracker.registerData(EndermitePowderEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final String TAG_TARGET_X = "targetX";
-    private static final String TAG_TARGET_Z = "targetZ";
+    private static final String TARGET_X_NBT = "targetX";
+    private static final String TARGET_Z_NBT = "targetZ";
 
     public EndermitePowderEntity(EntityType<? extends EndermitePowderEntity> type, World world) {
         super(type, world);
@@ -40,15 +40,15 @@ public class EndermitePowderEntity extends Entity {
     }
 
     @Override
-    protected void readCustomDataFromNbt(NbtCompound tag) {
-        dataTracker.set(TARGET_X, tag.getInt(TAG_TARGET_X));
-        dataTracker.set(TARGET_Z, tag.getInt(TAG_TARGET_Z));
+    protected void readCustomDataFromNbt(NbtCompound nbt) {
+        dataTracker.set(TARGET_X, nbt.getInt(TARGET_X_NBT));
+        dataTracker.set(TARGET_Z, nbt.getInt(TARGET_Z_NBT));
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound tag) {
-        tag.putInt(TAG_TARGET_X, dataTracker.get(TARGET_X));
-        tag.putInt(TAG_TARGET_Z, dataTracker.get(TARGET_Z));
+    protected void writeCustomDataToNbt(NbtCompound nbt) {
+        nbt.putInt(TARGET_X_NBT, dataTracker.get(TARGET_X));
+        nbt.putInt(TARGET_Z_NBT, dataTracker.get(TARGET_Z));
     }
 
     @Override

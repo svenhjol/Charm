@@ -21,11 +21,11 @@ public interface PlayerEntityAccessor {
     EnderChestInventory getEnderChestInventory();
 
     @Invoker()
-    void invokeSetShoulderEntityLeft(NbtCompound tag);
+    void invokeSetShoulderEntityLeft(NbtCompound nbt);
 
     @Invoker()
-    void invokeSetShoulderEntityRight(NbtCompound tag);
+    void invokeSetShoulderEntityRight(NbtCompound nbt);
 
     @Invoker()
-    void invokeDropShoulderEntity(NbtCompound tag);
+    void invokeDropShoulderEntity(NbtCompound nbt);
 }

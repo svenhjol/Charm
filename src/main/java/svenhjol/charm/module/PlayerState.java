@@ -58,17 +58,17 @@ public class PlayerState extends CharmModule {
         ServerWorld world = player.getServerWorld();
         BlockPos pos = player.getBlockPos();
         long dayTime = world.getTimeOfDay() % 24000;
-        NbtCompound tag = new NbtCompound();
+        NbtCompound nbt = new NbtCompound();
 
-        tag.putBoolean("mineshaft", PosHelper.isInsideStructure(world, pos, StructureFeature.MINESHAFT));
-        tag.putBoolean("stronghold", PosHelper.isInsideStructure(world, pos, StructureFeature.STRONGHOLD));
-        tag.putBoolean("fortress", PosHelper.isInsideStructure(world, pos, StructureFeature.FORTRESS));
-        tag.putBoolean("shipwreck", PosHelper.isInsideStructure(world, pos, StructureFeature.SHIPWRECK));
-        tag.putBoolean("village", world.isNearOccupiedPointOfInterest(pos));
-        tag.putBoolean("day", dayTime > 0 && dayTime < 12700);
+        nbt.putBoolean("mineshaft", PosHelper.isInsideStructure(world, pos, StructureFeature.MINESHAFT));
+        nbt.putBoolean("stronghold", PosHelper.isInsideStructure(world, pos, StructureFeature.STRONGHOLD));
+        nbt.putBoolean("fortress", PosHelper.isInsideStructure(world, pos, StructureFeature.FORTRESS));
+        nbt.putBoolean("shipwreck", PosHelper.isInsideStructure(world, pos, StructureFeature.SHIPWRECK));
+        nbt.putBoolean("village", world.isNearOccupiedPointOfInterest(pos));
+        nbt.putBoolean("day", dayTime > 0 && dayTime < 12700);
 
         // send updated player data to listeners
-        listeners.forEach(action -> action.accept(player, tag));
+        listeners.forEach(action -> action.accept(player, nbt));
 
         // send updated player data to client
         PacketByteBuf buffer = new PacketByteBuf(Unpooled.buffer());
@@ -76,7 +76,7 @@ public class PlayerState extends CharmModule {
 
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            NbtIo.writeCompressed(tag, out);
+            NbtIo.writeCompressed(nbt, out);
             serialized = Base64.getEncoder().encodeToString(out.toByteArray());
         } catch (IOException e) {
             Charm.LOG.warn("Failed to compress player state");
