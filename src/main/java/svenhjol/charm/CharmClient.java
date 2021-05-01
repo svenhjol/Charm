@@ -15,6 +15,7 @@ public class CharmClient implements ClientModInitializer {
         new CharmClientLoader(Charm.MOD_ID);
 
         // TODO: static init for particles
+        ParticleFactoryRegistry.getInstance().register(CharmParticles.APPLY_PARTICLE, GlowParticle.ApplyFactory::new);
         ParticleFactoryRegistry.getInstance().register(CharmParticles.AXIS_PARTICLE, GlowParticle.AxisFactory::new);
         ParticleFactoryRegistry.getInstance().register(CharmParticles.ORE_GLOW_PARTICLE, GlowParticle.OreGlowFactory::new);
     }

@@ -40,6 +40,7 @@ public class Charm implements ModInitializer {
             CaveSpidersDropCobwebs.class,
             Chains.class,
             ChickensDropFeathers.class,
+            ClearItemFrames.class,
             ColoredBundles.class,
             ColoredGlints.class,
             CookingPots.class,
