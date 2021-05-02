@@ -10,7 +10,7 @@ import svenhjol.charm.block.CaskBlock;
 import svenhjol.charm.blockentity.CaskBlockEntity;
 import svenhjol.charm.client.CasksClient;
 
-@Module(mod = Charm.MOD_ID, client = CasksClient.class)
+@Module(mod = Charm.MOD_ID, client = CasksClient.class, description = "Casks let you combine up to 64 potions, keeping an average of duration. Use glass bottles to extract home brew from the cask.")
 public class Casks extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "cask");
     public static CaskBlock CASK;
