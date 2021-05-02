@@ -113,6 +113,7 @@ public class Charm implements ModInitializer {
         CharmStructures.init();
         CharmSounds.init();
         CharmTags.init();
+        CharmAdvancements.init();
 
         hasRunFirst = true;
     }
