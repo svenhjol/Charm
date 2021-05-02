@@ -10,7 +10,7 @@ import svenhjol.charm.item.ColoredBundleItem;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, client = ColoredBundlesClient.class)
+@Module(mod = Charm.MOD_ID, client = ColoredBundlesClient.class, description = "Allows bundles to be dyed.")
 public class ColoredBundles extends CharmModule {
     public static final Map<DyeColor, ColoredBundleItem> COLORED_BUNDLES = new HashMap<>();
 
