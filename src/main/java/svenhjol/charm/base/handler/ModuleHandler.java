@@ -24,6 +24,7 @@ public class ModuleHandler {
         LoadWorldCallback.EVENT.register(server -> {
             // load late so that tags are populated at this point
             DecorationHandler.init();
+            AdvancementHandler.init();
         });
     }
 
@@ -34,6 +35,10 @@ public class ModuleHandler {
     @Nullable
     public CharmLoader getLoader(String modId) {
         return LOADER_INSTANCES.getOrDefault(modId, null);
+    }
+
+    public List<CharmLoader> getLoaders() {
+        return new ArrayList<>(LOADER_INSTANCES.values());
     }
 
     public void register(CharmModule module) {
