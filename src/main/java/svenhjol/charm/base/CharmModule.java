@@ -23,6 +23,11 @@ public abstract class CharmModule {
         return this.getClass().getSimpleName();
     }
 
+    /**
+     * Provide a list of recipe IDs to remove.
+     * This allows a module to conditionally remove recipes according to its config.
+     * @return Recipe IDs to remove.
+     */
     public List<Identifier> getRecipesToRemove() {
         return new ArrayList<>();
     }
@@ -40,10 +45,21 @@ public abstract class CharmModule {
     }
 
     /**
-     * Override to provide a list of required mixins.
+     * Provide a list of required mixins.
      * If any are blacklisted, this module will be disabled.
+     * Each string should be the class name not the fully qualified path.
+     * @return List of required mixins.
      */
     public List<String> mixins() {
+        return new ArrayList<>();
+    }
+
+    /**
+     * Provide a list of advancements associated with this module.
+     * If this module is disabled, all advancements will be removed.
+     * @return List of associated advancements.
+     */
+    public List<Identifier> advancements() {
         return new ArrayList<>();
     }
 }

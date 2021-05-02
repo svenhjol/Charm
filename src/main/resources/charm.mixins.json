@@ -43,6 +43,7 @@
     "ThrownEntityMixin",
     "UtilMixin",
     "WanderingTraderManagerMixin",
+    "AdvancementManagerMixin",
     "accessor.AnvilScreenHandlerAccessor",
     "accessor.BeeEntityAccessor",
     "accessor.BlockAccessor",

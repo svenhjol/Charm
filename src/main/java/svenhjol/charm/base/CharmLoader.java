@@ -111,11 +111,11 @@ public class CharmLoader {
         LoadWorldCallback.EVENT.register(server -> eachEnabledModule(m -> m.loadWorld(server)));
     }
 
-    protected void eachModule(Consumer<CharmModule> consumer) {
+    public void eachModule(Consumer<CharmModule> consumer) {
         LOADED_MODULES.values().forEach(consumer);
     }
 
-    protected void eachEnabledModule(Consumer<CharmModule> consumer) {
+    public void eachEnabledModule(Consumer<CharmModule> consumer) {
         LOADED_MODULES.values()
             .stream()
             .filter(m -> m.enabled)
