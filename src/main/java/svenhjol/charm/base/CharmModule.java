@@ -2,6 +2,7 @@ package svenhjol.charm.base;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
+import svenhjol.charm.base.helper.StringHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,10 @@ public abstract class CharmModule {
 
     public String getName() {
         return this.getClass().getSimpleName();
+    }
+
+    public Identifier getId() {
+        return new Identifier(this.mod, StringHelper.upperCamelToSnake(getName()));
     }
 
     /**
