@@ -1,4 +1,8 @@
 {
+  "advancements.charm.automation.root.title": "Charm automation",
+  "advancements.charm.automation.root.description": "TODO description",
+  "advancements.charm.automation.dissolve_sugar.title": "Sugar Block",
+  "advancements.charm.automation.dissolve_sugar.description": "Dissolve a block of sugar in water",
   "block.charm.acacia_barrel": "Acacia Barrel",
   "block.charm.acacia_bookcase": "Acacia Bookcase",
   "block.charm.acacia_bookshelf": "Acacia Bookshelf",
