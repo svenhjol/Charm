@@ -1,14 +1,14 @@
 {
-  "parent": "charm:automation/root",
+  "parent": "charm:root",
   "display": {
     "icon": {
       "item": "charm:sugar_block"
     },
     "title": {
-      "translate": "advancements.charm.automation.dissolve_sugar.title"
+      "translate": "advancements.charm.dissolve_sugar.title"
     },
     "description": {
-      "translate": "advancements.charm.automation.dissolve_sugar.description"
+      "translate": "advancements.charm.dissolve_sugar.description"
     },
     "frame": "task",
     "show_toast": true,

@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "charm:redstone_sand"
+      "item": "charm:ebony_chest"
     },
     "title": {
-      "translate": "advancements.charm.automation.root.title"
+      "translate": "advancements.charm.root.title"
     },
     "description": {
-      "translate": "advancements.charm.automation.root.description"
+      "translate": "advancements.charm.root.description"
     },
     "frame": "task",
     "show_toast": false,
