@@ -17,7 +17,7 @@ import svenhjol.charm.structure.DungeonGenerator;
 import static svenhjol.charm.base.handler.RegistryHandler.configuredStructureFeature;
 import static svenhjol.charm.base.helper.BiomeHelper.addStructureToBiomeCategories;
 
-@Module(mod = Charm.MOD_ID)
+@Module(mod = Charm.MOD_ID, description = "Dungeon variations with different themes according to the biome.")
 public class BiomeDungeons extends CharmModule {
     public static final Identifier DUNGEON_ID = new Identifier(Charm.MOD_ID, "dungeon");
     public static StructureFeature<StructurePoolFeatureConfig> DUNGEON_FEATURE;
