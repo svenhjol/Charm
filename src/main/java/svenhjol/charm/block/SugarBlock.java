@@ -5,13 +5,10 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -19,12 +16,10 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmFallingBlock;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.ModHelper;
-import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.module.BlockOfSugar;
 import svenhjol.charm.module.Bumblezone;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class SugarBlock extends CharmFallingBlock {
@@ -89,18 +84,9 @@ public class SugarBlock extends CharmFallingBlock {
             }
 
             if (!world.isClient)
-                triggerAdvancementForNearbyPlayers((ServerWorld) world, pos);
-
+                BlockOfSugar.triggerAdvancementForNearbyPlayers((ServerWorld) world, pos);
         }
 
         return waterBelow;
-    }
-
-    private void triggerAdvancementForNearbyPlayers(ServerWorld world, BlockPos pos) {
-        List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(pos).expand(8.0D));
-
-        players.forEach(player -> {
-            CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity)player, BlockOfSugar.TRIGGER_SUGAR_DISSOLVED);
-        });
     }
 }
