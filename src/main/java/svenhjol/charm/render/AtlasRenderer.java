@@ -20,7 +20,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3f;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.helper.MapRenderHelper;
-import svenhjol.charm.module.Atlas;
+import svenhjol.charm.module.Atlases;
 import svenhjol.charm.screenhandler.AtlasInventory;
 
 public class AtlasRenderer {
@@ -41,7 +41,7 @@ public class AtlasRenderer {
         ClientWorld world = minecraft.world;
         ClientPlayerEntity player = minecraft.player;
         if (player == null) return;
-        AtlasInventory inventory = Atlas.getInventory(world, stack);
+        AtlasInventory inventory = Atlases.getInventory(world, stack);
 
         matrixStack.push(); // needed so that parent renderer isn't affect by what we do here
 

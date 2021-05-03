@@ -6,7 +6,7 @@ import net.minecraft.item.map.MapState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.module.Atlas;
+import svenhjol.charm.module.Atlases;
 
 @Mixin(MapState.class)
 public class MapStateMixin {
@@ -18,6 +18,6 @@ public class MapStateMixin {
         )
     )
     private boolean hookContains(PlayerInventory inventory, ItemStack itemStack) {
-        return Atlas.inventoryContainsMap(inventory, itemStack);
+        return Atlases.inventoryContainsMap(inventory, itemStack);
     }
 }

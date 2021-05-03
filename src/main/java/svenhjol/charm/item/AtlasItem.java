@@ -15,7 +15,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.item.CharmItem;
-import svenhjol.charm.module.Atlas;
+import svenhjol.charm.module.Atlases;
 import svenhjol.charm.screenhandler.AtlasInventory;
 
 public class AtlasItem extends CharmItem {
@@ -32,11 +32,11 @@ public class AtlasItem extends CharmItem {
         if (world.isClient) {
             return TypedActionResult.consume(itemStack);
         }
-        if (hand == Hand.OFF_HAND && !Atlas.offHandOpen) {
+        if (hand == Hand.OFF_HAND && !Atlases.offHandOpen) {
             return TypedActionResult.pass(itemStack);
         }
-        AtlasInventory inventory = Atlas.getInventory(world, itemStack);
-        inventory.getCurrentDimensionMapInfos(world).values().forEach(it -> Atlas.sendMapToClient((ServerPlayerEntity) player, it.map, true));
+        AtlasInventory inventory = Atlases.getInventory(world, itemStack);
+        inventory.getCurrentDimensionMapInfos(world).values().forEach(it -> Atlases.sendMapToClient((ServerPlayerEntity) player, it.map, true));
         player.openHandledScreen(inventory);
         return TypedActionResult.consume(itemStack);
     }
@@ -49,7 +49,7 @@ public class AtlasItem extends CharmItem {
             if (!world.isClient) {
                 PlayerEntity player = context.getPlayer();
                 if (player instanceof ServerPlayerEntity) {
-                    AtlasInventory inventory = Atlas.getInventory(world, context.getStack());
+                    AtlasInventory inventory = Atlases.getInventory(world, context.getStack());
                     MapState mapdata = inventory.getActiveMap(world);
                     if (mapdata != null) {
                         mapdata.addBanner(world, context.getBlockPos());

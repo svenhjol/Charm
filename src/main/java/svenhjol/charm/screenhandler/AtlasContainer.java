@@ -7,7 +7,7 @@ import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.base.screenhandler.CharmScreenHandler;
 import svenhjol.charm.base.screenhandler.ConditionalSlot;
-import svenhjol.charm.module.Atlas;
+import svenhjol.charm.module.Atlases;
 
 import java.util.Objects;
 
@@ -15,7 +15,7 @@ public class AtlasContainer extends CharmScreenHandler {
     private final AtlasInventory atlasInventory;
 
     public AtlasContainer(int syncId, PlayerInventory player, AtlasInventory inventory) {
-        super(Atlas.CONTAINER, syncId, player, inventory);
+        super(Atlases.CONTAINER, syncId, player, inventory);
         this.atlasInventory = inventory;
         // container's inventory slots
         for (int r = 0; r < 3; ++r) {
@@ -35,7 +35,7 @@ public class AtlasContainer extends CharmScreenHandler {
             this.addSlot(new Slot(player, i, 8 + i * 18, 142) {
                 @Override
                 public boolean canTakeItems(PlayerEntity playerIn) {
-                    return getStack().getItem() != Atlas.ATLAS_ITEM || !Objects.equals(ItemNBTHelper.getUuid(getStack(), AtlasInventory.ID),
+                    return getStack().getItem() != Atlases.ATLAS_ITEM || !Objects.equals(ItemNBTHelper.getUuid(getStack(), AtlasInventory.ID),
                         ItemNBTHelper.getUuid(atlasInventory.getAtlasItem(), AtlasInventory.ID));
                 }
             });

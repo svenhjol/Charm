@@ -27,8 +27,9 @@ import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.client.AtlasClient;
+import svenhjol.charm.client.AtlasesClient;
 import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.AtlasItem;
 import svenhjol.charm.mixin.accessor.MapStateAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
@@ -37,11 +38,14 @@ import svenhjol.charm.screenhandler.AtlasInventory;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, client = AtlasClient.class, description = "Storage for maps that automatically updates the displayed map as you explore.")
-public class Atlas extends CharmModule {
+@Module(mod = Charm.MOD_ID, client = AtlasesClient.class, description = "Storage for maps that automatically updates the displayed map as you explore.")
+public class Atlases extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "atlas");
     public static final Identifier MSG_SERVER_ATLAS_TRANSFER = new Identifier(Charm.MOD_ID, "server_atlas_transfer");
     public static final Identifier MSG_CLIENT_UPDATE_ATLAS_INVENTORY = new Identifier(Charm.MOD_ID, "client_update_atlas_inventory");
+    public static final Identifier TRIGGER_MADE_ATLAS_MAPS = new Identifier(Charm.MOD_ID, "made_atlas_maps");
+
+    public static final int MAPS_FOR_ACHIEVEMENT = 10;
 
     // add items to this list to whitelist them in atlases
     public static final List<Item> VALID_ATLAS_ITEMS = new ArrayList<>();
@@ -75,10 +79,18 @@ public class Atlas extends CharmModule {
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_ATLAS_TRANSFER, this::handleServerAtlasTransfer);
     }
 
+    @Override
+    public List<Identifier> advancements() {
+        return Arrays.asList(
+            new Identifier(Charm.MOD_ID, "obtain_atlas"),
+            new Identifier(Charm.MOD_ID, "make_atlas_maps")
+        );
+    }
+
     public static boolean inventoryContainsMap(PlayerInventory inventory, ItemStack itemStack) {
         if (inventory.contains(itemStack)) {
             return true;
-        } else if (ModuleHandler.enabled(Atlas.class)) {
+        } else if (ModuleHandler.enabled(Atlases.class)) {
             for (Hand hand : Hand.values()) {
                 ItemStack atlasStack = inventory.player.getStackInHand(hand);
                 if (atlasStack.getItem() == ATLAS_ITEM) {
@@ -139,7 +151,7 @@ public class Atlas extends CharmModule {
     private static AtlasInventory findAtlas(PlayerInventory inventory) {
         for (Hand hand : Hand.values()) {
             ItemStack stack = inventory.player.getStackInHand(hand);
-            if (stack.getItem() == Atlas.ATLAS_ITEM) {
+            if (stack.getItem() == Atlases.ATLAS_ITEM) {
                 return getInventory(inventory.player.world, stack);
             }
         }
@@ -147,7 +159,7 @@ public class Atlas extends CharmModule {
     }
 
     public static void setupAtlasUpscale(PlayerInventory playerInventory, CartographyTableScreenHandler container) {
-        if (ModuleHandler.enabled(Atlas.class)) {
+        if (ModuleHandler.enabled(Atlases.class)) {
             Slot oldSlot = container.slots.get(0);
             container.slots.set(0, new Slot(oldSlot.inventory, ((SlotAccessor)oldSlot).getIndex(), oldSlot.x, oldSlot.y) {
                 @Override
@@ -160,8 +172,8 @@ public class Atlas extends CharmModule {
 
     public static boolean makeAtlasUpscaleOutput(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, World world,
         CraftingResultInventory craftResultInventory, CartographyTableScreenHandler cartographyContainer) {
-        if (ModuleHandler.enabled(Atlas.class) && topStack.getItem() == Atlas.ATLAS_ITEM) {
-            AtlasInventory inventory = Atlas.getInventory(world, topStack);
+        if (ModuleHandler.enabled(Atlases.class) && topStack.getItem() == Atlases.ATLAS_ITEM) {
+            AtlasInventory inventory = Atlases.getInventory(world, topStack);
             ItemStack output;
             if (inventory.getMapInfos().isEmpty() && bottomStack.getItem() == Items.MAP && inventory.getScale() < 4) {
                 output = topStack.copy();
@@ -179,6 +191,10 @@ public class Atlas extends CharmModule {
         return false;
     }
 
+    public static void triggerMadeMaps(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_MADE_ATLAS_MAPS);
+    }
+
     private void handlePlayerTick(PlayerEntity player) {
         if (!player.world.isClient) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
@@ -188,6 +204,9 @@ public class Atlas extends CharmModule {
                     AtlasInventory inventory = getInventory(serverPlayer.world, atlas);
                     if (inventory.updateActiveMap(serverPlayer)) {
                         updateClient(serverPlayer, getSlotFromHand(serverPlayer, hand));
+                        if (inventory.getMapInfos().size() >= MAPS_FOR_ACHIEVEMENT) {
+                            triggerMadeMaps((ServerPlayerEntity) player);
+                        }
                     }
                 }
             }
@@ -204,7 +223,7 @@ public class Atlas extends CharmModule {
             if (player == null)
                 return;
 
-            AtlasInventory inventory = Atlas.getInventory(player.world, PlayerHelper.getInventory(player).getStack(atlasSlot));
+            AtlasInventory inventory = Atlases.getInventory(player.world, PlayerHelper.getInventory(player).getStack(atlasSlot));
 
             switch (mode) {
                 case TO_HAND:

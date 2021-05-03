@@ -28,7 +28,7 @@ import svenhjol.charm.base.gui.CharmImageButton;
 import svenhjol.charm.base.helper.MapRenderHelper;
 import svenhjol.charm.mixin.accessor.MapStateAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
-import svenhjol.charm.module.Atlas;
+import svenhjol.charm.module.Atlases;
 import svenhjol.charm.screenhandler.AtlasContainer;
 import svenhjol.charm.screenhandler.AtlasInventory;
 
@@ -159,7 +159,7 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
     @Override
     protected void onMouseClick(Slot slotIn, int slotId, int mouseButton, SlotActionType type) {
         if (type == SlotActionType.QUICK_MOVE) {
-            sendAtlasTransfer(slot, ((SlotAccessor)slotIn).getIndex(), -1, Atlas.MoveMode.FROM_INVENTORY);
+            sendAtlasTransfer(slot, ((SlotAccessor)slotIn).getIndex(), -1, Atlases.MoveMode.FROM_INVENTORY);
         } else {
             super.onMouseClick(slotIn, slotId, mouseButton, type);
         }
@@ -199,13 +199,13 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
         }
     }
 
-    private void sendAtlasTransfer(int atlasSlot, int mapX, int mapZ, Atlas.MoveMode mode) {
+    private void sendAtlasTransfer(int atlasSlot, int mapX, int mapZ, Atlases.MoveMode mode) {
         PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
         data.writeInt(atlasSlot);
         data.writeInt(mapX);
         data.writeInt(mapZ);
         data.writeEnumConstant(mode);
-        ClientPlayNetworking.send(Atlas.MSG_SERVER_ATLAS_TRANSFER, data);
+        ClientPlayNetworking.send(Atlases.MSG_SERVER_ATLAS_TRANSFER, data);
     }
 
     // TODO: Use until yarn mappings are sensible
@@ -378,7 +378,7 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
             if (button == 0 && 0 <= normX && normX < 1 && 0 <= normY && normY < 1) {
                 ItemStack heldItem = handler.getCursorStack();
                 if (!heldItem.isEmpty()) {
-                    sendAtlasTransfer(slot, -1, -1, Atlas.MoveMode.FROM_HAND);
+                    sendAtlasTransfer(slot, -1, -1, Atlases.MoveMode.FROM_HAND);
                 } else {
                     if (updateExtremes()) {
                         Index currentMin = corner != null ? corner : extremes.min;
@@ -387,7 +387,7 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
                         MapInfo mapInfo = mapInfos.get(index);
                         if (mapInfo != null) {
                             if (isShiftClick()) {
-                                sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlas.MoveMode.TO_INVENTORY);
+                                sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_INVENTORY);
                             } else {
                                 changeGui(getSingleMap(mapInfo));
                             }
@@ -532,12 +532,12 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
             if (button == 0 && getX() + LEFT <= mouseX && mouseX < getX() + LEFT + SIZE && getY() + TOP <= mouseY && mouseY < getY() + TOP + SIZE) {
                 ItemStack heldItem = handler.getCursorStack();
                 if (!heldItem.isEmpty()) {
-                    sendAtlasTransfer(slot, -1, -1, Atlas.MoveMode.FROM_HAND);
+                    sendAtlasTransfer(slot, -1, -1, Atlases.MoveMode.FROM_HAND);
                 } else if (mapInfo != null) {
                     if (isShiftClick()) {
-                        sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlas.MoveMode.TO_INVENTORY);
+                        sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_INVENTORY);
                     } else {
-                        sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlas.MoveMode.TO_HAND);
+                        sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_HAND);
                     }
                     changeGui(getSingleMap(null));
                 }

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.Atlas;
+import svenhjol.charm.module.Atlases;
 
 @Mixin(CartographyTableScreenHandler.class)
 public class CartographyTableScreenHandlerMixin {
@@ -22,7 +22,7 @@ public class CartographyTableScreenHandlerMixin {
 
     @Inject(method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("TAIL"))
     private void hookConstructor(int syncId, PlayerInventory inventory, ScreenHandlerContext context, CallbackInfo ci) {
-        Atlas.setupAtlasUpscale(inventory, (CartographyTableScreenHandler) (Object) this);
+        Atlases.setupAtlasUpscale(inventory, (CartographyTableScreenHandler) (Object) this);
     }
 
     @Inject(
@@ -33,7 +33,7 @@ public class CartographyTableScreenHandlerMixin {
     private void hookUpdateResult(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, CallbackInfo ci) {
         World world = context.get((w, b) -> w).orElse(null);
         if (world == null) return;
-        if (Atlas.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, world, resultInventory, (CartographyTableScreenHandler) (Object) this)) {
+        if (Atlases.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, world, resultInventory, (CartographyTableScreenHandler) (Object) this)) {
             ci.cancel();
         }
     }
