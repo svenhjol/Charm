@@ -45,7 +45,7 @@ public class Atlases extends CharmModule {
     public static final Identifier MSG_CLIENT_UPDATE_ATLAS_INVENTORY = new Identifier(Charm.MOD_ID, "client_update_atlas_inventory");
     public static final Identifier TRIGGER_MADE_ATLAS_MAPS = new Identifier(Charm.MOD_ID, "made_atlas_maps");
 
-    public static final int MAPS_FOR_ACHIEVEMENT = 10;
+    public static final int NUMBER_OF_MAPS_FOR_ACHIEVEMENT = 10;
 
     // add items to this list to whitelist them in atlases
     public static final List<Item> VALID_ATLAS_ITEMS = new ArrayList<>();
@@ -204,7 +204,7 @@ public class Atlases extends CharmModule {
                     AtlasInventory inventory = getInventory(serverPlayer.world, atlas);
                     if (inventory.updateActiveMap(serverPlayer)) {
                         updateClient(serverPlayer, getSlotFromHand(serverPlayer, hand));
-                        if (inventory.getMapInfos().size() >= MAPS_FOR_ACHIEVEMENT) {
+                        if (inventory.getMapInfos().size() >= NUMBER_OF_MAPS_FOR_ACHIEVEMENT) {
                             triggerMadeMaps((ServerPlayerEntity) player);
                         }
                     }
