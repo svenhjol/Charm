@@ -40,10 +40,14 @@ public class Core extends CharmModule {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, ADVANCEMENT_PLAYER_JOINED);
     }
 
+    /**
+     * Specify root advancements here so that they can be cleaned up if the advancements are completely disabled.
+     * @return List of root advancements
+     */
     @Override
     public List<Identifier> advancements() {
         return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "automation/root")
+            new Identifier(Charm.MOD_ID, "root")
         );
     }
 }
