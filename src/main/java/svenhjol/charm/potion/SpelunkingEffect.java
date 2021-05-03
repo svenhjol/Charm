@@ -6,6 +6,6 @@ import svenhjol.charm.base.potion.CharmStatusEffect;
 
 public class SpelunkingEffect extends CharmStatusEffect {
     public SpelunkingEffect(CharmModule module) {
-        super(module, "spelunking", StatusEffectType.NEUTRAL, 0x00AADD);
+        super(module, "spelunking", StatusEffectType.NEUTRAL, 0xC09FDD);
     }
 }

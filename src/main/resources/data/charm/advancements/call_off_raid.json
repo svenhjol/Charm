@@ -10,9 +10,9 @@
     "description": {
       "translate": "advancements.charm.call_off_raid.description"
     },
-    "frame": "task",
+    "frame": "challenge",
     "show_toast": true,
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {

@@ -23,11 +23,16 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.ClearItemFramesClient;
+import svenhjol.charm.init.CharmAdvancements;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Module(mod = Charm.MOD_ID, client = ClearItemFramesClient.class, description = "Add amethyst shards to item frames to make them invisible.")
 public class ClearItemFrames extends CharmModule {
     public static final Identifier MSG_CLIENT_ADD_AMETHYST = new Identifier(Charm.MOD_ID, "client_add_amethyst");
     public static final Identifier MSG_CLIENT_REMOVE_AMETHYST = new Identifier(Charm.MOD_ID, "client_remove_amethyst");
+    public static final Identifier TRIGGER_USED_AMETHYST_ON_FRAME = new Identifier(Charm.MOD_ID, "used_amethyst_on_frame");
 
     @Override
     public void init() {
@@ -49,13 +54,13 @@ public class ClearItemFrames extends CharmModule {
                 return ActionResult.PASS;
 
             frame.setInvisible(true);
-
             held.decrement(1);
 
             if (!world.isClient) {
                 PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
                 data.writeLong(entity.getBlockPos().asLong());
                 ServerPlayNetworking.send((ServerPlayerEntity) player, MSG_CLIENT_ADD_AMETHYST, data);
+                CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity) player, TRIGGER_USED_AMETHYST_ON_FRAME);
             }
 
             return ActionResult.success(world.isClient);
@@ -64,7 +69,7 @@ public class ClearItemFrames extends CharmModule {
         return ActionResult.PASS;
     }
 
-    ActionResult handleAttackEntity(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
+    public ActionResult handleAttackEntity(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
         if (entity instanceof ItemFrameEntity) {
             ItemFrameEntity frame = (ItemFrameEntity) entity;
             BlockPos pos = entity.getBlockPos();
@@ -87,5 +92,12 @@ public class ClearItemFrames extends CharmModule {
         }
 
         return ActionResult.PASS;
+    }
+
+    @Override
+    public List<Identifier> advancements() {
+        return Arrays.asList(
+            new Identifier(Charm.MOD_ID, "make_clear_item_frame")
+        );
     }
 }

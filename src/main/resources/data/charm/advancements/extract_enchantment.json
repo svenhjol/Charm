@@ -1,14 +1,14 @@
 {
-  "parent": "charm:obtain_raid_horn",
+  "parent": "charm:obtain_book",
   "display": {
     "icon": {
-      "item": "charm:raid_horn"
+      "item": "minecraft:grindstone"
     },
     "title": {
-      "translate": "advancements.charm.summon_pillagers.title"
+      "translate": "advancements.charm.extract_enchantment.title"
     },
     "description": {
-      "translate": "advancements.charm.summon_pillagers.description"
+      "translate": "advancements.charm.extract_enchantment.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "summoned_pillagers": {
+    "extracted_enchantment": {
       "trigger": "charm:action_performed",
       "conditions": {
-        "action": "charm:summoned_pillagers"
+        "action": "charm:extracted_enchantment"
       }
     }
   },
   "requirements": [
     [
-      "summoned_pillagers"
+      "extracted_enchantment"
     ]
   ]
 }

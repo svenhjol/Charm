@@ -67,7 +67,7 @@ public class EndermitePowder extends CharmModule {
     @Override
     public List<Identifier> advancements() {
         return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "endermite_powder")
+            new Identifier(Charm.MOD_ID, "use_endermite_powder")
         );
     }
 

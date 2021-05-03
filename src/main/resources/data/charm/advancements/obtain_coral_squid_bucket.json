@@ -1,14 +1,14 @@
 {
-  "parent": "charm:root",
+  "parent": "charm:obtain_bucket",
   "display": {
     "icon": {
-      "item": "charm:raid_horn"
+      "item": "charm:coral_squid_bucket"
     },
     "title": {
-      "translate": "advancements.charm.obtain_raid_horn.title"
+      "translate": "advancements.charm.obtain_coral_squid_bucket.title"
     },
     "description": {
-      "translate": "advancements.charm.obtain_raid_horn.description"
+      "translate": "advancements.charm.obtain_coral_squid_bucket.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,12 +16,12 @@
     "hidden": false
   },
   "criteria": {
-    "obtain_raid_horn": {
+    "obtained_coral_squid": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "charm:raid_horn"
+            "item": "charm:coral_squid_bucket"
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "obtain_raid_horn"
+      "obtained_coral_squid"
     ]
   ]
 }

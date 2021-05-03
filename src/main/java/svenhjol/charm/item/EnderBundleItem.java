@@ -12,11 +12,14 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ClickType;
 import net.minecraft.util.math.MathHelper;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.item.CharmItem;
 import svenhjol.charm.client.EnderBundlesClient;
+import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.EnderBundles;
 
 import java.util.Optional;
 
@@ -102,6 +105,10 @@ public class EnderBundleItem extends CharmItem {
             EnderChestInventory inventory = player.getEnderChestInventory();
             ItemStack out = inventory.addStack(stack);
             inventory.markDirty();
+
+            if (!player.world.isClient)
+                CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity) player, EnderBundles.TRIGGER_USED_ENDER_BUNDLE);
+
             return out;
         }
 

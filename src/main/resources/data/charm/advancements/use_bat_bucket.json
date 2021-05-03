@@ -1,14 +1,14 @@
 {
-  "parent": "charm:root",
+  "parent": "charm:obtain_bucket",
   "display": {
     "icon": {
-      "item": "charm:sugar_block"
+      "item": "charm:bat_bucket"
     },
     "title": {
-      "translate": "advancements.charm.dissolve_sugar.title"
+      "translate": "advancements.charm.use_bat_bucket.title"
     },
     "description": {
-      "translate": "advancements.charm.dissolve_sugar.description"
+      "translate": "advancements.charm.use_bat_bucket.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "dissolved_sugar": {
+    "used_bat_bucket": {
       "trigger": "charm:action_performed",
       "conditions": {
-        "action": "charm:dissolved_sugar"
+        "action": "charm:used_bat_bucket"
       }
     }
   },
   "requirements": [
     [
-      "dissolved_sugar"
+      "used_bat_bucket"
     ]
   ]
 }

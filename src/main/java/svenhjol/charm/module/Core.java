@@ -48,8 +48,14 @@ public class Core extends CharmModule {
     public List<Identifier> advancements() {
         return Arrays.asList(
             new Identifier(Charm.MOD_ID, "root"),
+            new Identifier(Charm.MOD_ID, "obtain_amethyst_shard"),
+            new Identifier(Charm.MOD_ID, "obtain_book"),
+            new Identifier(Charm.MOD_ID, "obtain_bucket"),
+            new Identifier(Charm.MOD_ID, "obtain_bundle"),
+            new Identifier(Charm.MOD_ID, "obtain_copper_ingot"),
             new Identifier(Charm.MOD_ID, "obtain_ender_pearl"),
-            new Identifier(Charm.MOD_ID, "obtain_amethyst_shard")
+            new Identifier(Charm.MOD_ID, "obtain_hoe"),
+            new Identifier(Charm.MOD_ID, "obtain_redstone")
         );
     }
 }

@@ -1,5 +1,5 @@
 {
-  "parent": "charm:block_of_ender_pearls",
+  "parent": "charm:obtain_ender_pearl_block",
   "display": {
     "icon": {
       "item": "minecraft:chorus_fruit"
@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.charm.teleport_to_ender_pearl_block.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": false,
     "hidden": false

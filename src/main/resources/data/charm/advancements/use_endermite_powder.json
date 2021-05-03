@@ -10,9 +10,9 @@
     "description": {
       "translate": "advancements.charm.endermite_powder.description"
     },
-    "frame": "challenge",
+    "frame": "goal",
     "show_toast": true,
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "hidden": false
   },
   "criteria": {

@@ -19,6 +19,7 @@ import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.PotionOfSpelunkingClient;
 import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.potion.SpelunkingEffect;
 import svenhjol.charm.potion.SpelunkingPotion;
 
@@ -31,6 +32,7 @@ public class PotionOfSpelunking extends CharmModule {
     public static SpelunkingEffect SPELUNKING_EFFECT;
     public static SpelunkingPotion SPELUNKING_POTION;
     public static final Identifier MSG_CLIENT_HAS_EFFECT = new Identifier(Charm.MOD_ID, "client_set_particles");
+    public static final Identifier TRIGGER_HAS_SPELUNKING_EFFECT = new Identifier(Charm.MOD_ID, "has_spelunking_effect");
 
     public static Map<Block, DyeColor> blocks = new HashMap<>();
     public static Map<Tag<Block>, DyeColor> blockTags = new HashMap<>();
@@ -88,6 +90,11 @@ public class PotionOfSpelunking extends CharmModule {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 
+    @Override
+    public List<Identifier> advancements() {
+        return Arrays.asList(new Identifier(Charm.MOD_ID, "obtain_spelunking_effect"));
+    }
+
     private void handlePlayerTick(PlayerEntity player) {
         if (!player.world.isClient
             && player.world.getTime() % 15 == 0
@@ -95,7 +102,6 @@ public class PotionOfSpelunking extends CharmModule {
             && !blocks.isEmpty()
         ) {
             ServerWorld world = (ServerWorld)player.world;
-            Random random = world.random;
             BlockPos playerPos = player.getBlockPos();
             Map<BlockPos, DyeColor> found = new WeakHashMap<>();
 
@@ -134,6 +140,8 @@ public class PotionOfSpelunking extends CharmModule {
                 .mapToInt(Integer::intValue).toArray());
 
             ServerPlayNetworking.send((ServerPlayerEntity)player, MSG_CLIENT_HAS_EFFECT, data);
+
+            CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity) player, TRIGGER_HAS_SPELUNKING_EFFECT);
         }
     }
 }

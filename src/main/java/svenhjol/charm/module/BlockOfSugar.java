@@ -19,7 +19,7 @@ public class BlockOfSugar extends CharmModule {
     public static SugarBlock SUGAR_BLOCK;
 
     public static final Identifier ADVANCEMENT_DISSOLVE_SUGAR = new Identifier(Charm.MOD_ID, "automation/dissolve_sugar");
-    public static final Identifier TRIGGER_SUGAR_DISSOLVED = new Identifier(Charm.MOD_ID, "sugar_dissolved");
+    public static final Identifier TRIGGER_DISSOLVED_SUGAR = new Identifier(Charm.MOD_ID, "dissolved_sugar");
 
     @Override
     public void register() {
@@ -33,7 +33,7 @@ public class BlockOfSugar extends CharmModule {
 
     public static void triggerAdvancementForNearbyPlayers(ServerWorld world, BlockPos pos) {
         AdvancementHandler.getPlayersInRange(world, pos).forEach(player -> {
-            CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity)player, TRIGGER_SUGAR_DISSOLVED);
+            CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity)player, TRIGGER_DISSOLVED_SUGAR);
         });
     }
 }

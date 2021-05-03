@@ -2,26 +2,26 @@
   "parent": "charm:root",
   "display": {
     "icon": {
-      "item": "charm:raid_horn"
+      "item": "minecraft:book"
     },
     "title": {
-      "translate": "advancements.charm.obtain_raid_horn.title"
+      "translate": "advancements.charm.obtain_book.title"
     },
     "description": {
-      "translate": "advancements.charm.obtain_raid_horn.description"
+      "translate": "advancements.charm.obtain_book.description"
     },
     "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
+    "show_toast": false,
+    "announce_to_chat": false,
     "hidden": false
   },
   "criteria": {
-    "obtain_raid_horn": {
+    "obtained_book": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "charm:raid_horn"
+            "item": "minecraft:book"
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "obtain_raid_horn"
+      "obtained_book"
     ]
   ]
 }
