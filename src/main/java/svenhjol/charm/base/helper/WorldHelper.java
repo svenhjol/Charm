@@ -1,9 +1,15 @@
 package svenhjol.charm.base.helper;
 
+import com.google.common.collect.ImmutableSet;
+import net.fabricmc.fabric.mixin.object.builder.PointOfInterestTypeAccessor;
+import net.minecraft.block.Block;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.RegistryHandler;
 
 public class WorldHelper {
     public static boolean addForcedChunk(ServerWorld world, BlockPos pos) {
@@ -46,5 +52,11 @@ public class WorldHelper {
 
     public static void stormyWeather(ServerWorld world, int duration) {
         world.setWeather(0, duration, true, true);
+    }
+
+    public static PointOfInterestType addPointOfInterestType(Identifier id, Block block, int ticketCount) {
+        PointOfInterestType poit = PointOfInterestTypeAccessor.callCreate(id.toString(), ImmutableSet.copyOf(block.getStateManager().getStates()), ticketCount, 1);
+        RegistryHandler.pointOfInterestType(id, poit);
+        return PointOfInterestTypeAccessor.callSetup(poit);
     }
 }

@@ -11,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
@@ -20,6 +22,7 @@ import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.ExtractEnchantmentsClient;
+import svenhjol.charm.init.CharmAdvancements;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -27,6 +30,8 @@ import java.util.*;
 @SuppressWarnings({"unchecked", "rawtypes"})
 @Module(mod = Charm.MOD_ID, client = ExtractEnchantmentsClient.class, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.")
 public class ExtractEnchantments extends CharmModule {
+    public static final Identifier TRIGGER_EXTRACTED_ENCHANTMENT = new Identifier(Charm.MOD_ID, "extracted_enchantment");
+
     @Config(name = "Initial XP cost", description = "Initial XP cost before adding XP equivalent to the enchantment level(s) of the item.")
     public static int initialCost = 2;
 
@@ -35,12 +40,24 @@ public class ExtractEnchantments extends CharmModule {
         return !ModHelper.isLoaded("grindenchantments");
     }
 
+    @Override
+    public List<Identifier> advancements() {
+        return Arrays.asList(
+            new Identifier(Charm.MOD_ID, "extract_enchantment")
+        );
+    }
+
     public static Slot getGrindstoneInputSlot(int index, Inventory inputs) {
         return new Slot(inputs, index, 49, 19 + (index * 21)) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 boolean valid = stack.isDamageable() || stack.getItem() == Items.ENCHANTED_BOOK || stack.hasEnchantments();
-                return isEnabled() ? valid || stack.getItem() == Items.BOOK : valid;
+
+                // check for horse armor extraction
+                if (ModuleHandler.enabled("charm:extra_recipes") && ExtraRecipes.useHorseArmor)
+                    return ExtraRecipes.horseArmorRecipes.containsKey(stack.getItem());
+
+                return isExtractEnchantmentsEnabled() ? valid || stack.getItem() == Items.BOOK : valid;
             }
         };
     }
@@ -63,7 +80,7 @@ public class ExtractEnchantments extends CharmModule {
              * @return True if can take from output slot
              */
             public boolean canTakeItems(PlayerEntity player) {
-                if (!isEnabled())
+                if (!isExtractEnchantmentsEnabled())
                     return true;
 
                 List<ItemStack> stacks = getStacksFromInventory(inventory);
@@ -98,6 +115,9 @@ public class ExtractEnchantments extends CharmModule {
                         }
                     }
                     world.syncWorldEvent(1042, blockPos, 0);
+
+                    if (!world.isClient)
+                        CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity) player, TRIGGER_EXTRACTED_ENCHANTMENT);
                 });
 
                 // ---- CHARM: SNIP ----
@@ -152,7 +172,7 @@ public class ExtractEnchantments extends CharmModule {
     }
 
     public static boolean tryUpdateResult(Inventory inputs, Inventory output, @Nullable PlayerEntity player) {
-        if (!isEnabled())
+        if (!isExtractEnchantmentsEnabled())
             return false;
 
         ItemStack out = tryGetEnchantedBook(inputs, player);
@@ -183,7 +203,7 @@ public class ExtractEnchantments extends CharmModule {
         return out;
     }
 
-    private static boolean isEnabled() {
+    private static boolean isExtractEnchantmentsEnabled() {
         return ModuleHandler.enabled(ExtractEnchantments.class);
     }
 

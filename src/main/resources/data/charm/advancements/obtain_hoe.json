@@ -1,0 +1,36 @@
+{
+  "parent": "charm:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_hoe",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_hoe.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_hoe.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_hoe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "fabric:hoes"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_hoe"
+    ]
+  ]
+}

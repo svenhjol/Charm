@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "charm:crimson_boat",
+    "charm:ebony_boat",
+    "charm:warped_boat"
+  ]
+}

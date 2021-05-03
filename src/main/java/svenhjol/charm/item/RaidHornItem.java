@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
@@ -19,7 +20,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.PillagerSpawner;
 import net.minecraft.world.gen.Spawner;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.base.item.CharmItem;
 import svenhjol.charm.mixin.accessor.PillagerSpawnerAccessor;
 import svenhjol.charm.mixin.accessor.ServerWorldAccessor;
@@ -63,20 +64,27 @@ public class RaidHornItem extends CharmItem {
 
         BlockPos pos = user.getBlockPos();
         ServerWorld serverWorld = (ServerWorld)world;
+
+        if (!(user instanceof PlayerEntity))
+            return;
+
+        ServerPlayerEntity player = (ServerPlayerEntity) user;
+
         if (serverWorld.hasRaidAt(pos)) {
             Raid raid = serverWorld.getRaidAt(pos);
-            if (raid != null)
+            if (raid != null) {
                 raid.invalidate();
+                RaidHorns.triggerCalledOff(player);
+            }
         } else {
-            if (user instanceof PlayerEntity)
-                trySpawnPillagers(serverWorld, (PlayerEntity)user);
+            boolean result = trySpawnPillagers(serverWorld, (PlayerEntity) user);
+            if (result) {
+                RaidHorns.triggerSummoned(player);
+            }
         }
 
-        if (user instanceof PlayerEntity)
-            ((PlayerEntity)user).getItemCooldownManager().set(this, 100);
-
-
-        stack.damage(1, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+        player.getItemCooldownManager().set(this, 100);
+        stack.damage(1, player, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
     }
 
     @Override
@@ -94,7 +102,7 @@ public class RaidHornItem extends CharmItem {
         return f;
     }
 
-    private void trySpawnPillagers(ServerWorld world, PlayerEntity player) {
+    private boolean trySpawnPillagers(ServerWorld world, PlayerEntity player) {
         PillagerSpawner pillagerSpawner = null;
         List<Spawner> spawners = ((ServerWorldAccessor)world).getSpawners();
         for (Spawner spawner : spawners) {
@@ -105,7 +113,7 @@ public class RaidHornItem extends CharmItem {
         }
 
         if (pillagerSpawner == null)
-            return;
+            return false;
 
         Random random = world.getRandom();
 
@@ -114,12 +122,12 @@ public class RaidHornItem extends CharmItem {
         int k = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
         BlockPos.Mutable mutable = player.getBlockPos().mutableCopy().move(j, 0, k);
         if (!world.isRegionLoaded(mutable.getX() - 10, mutable.getY() - 10, mutable.getZ() - 10, mutable.getX() + 10, mutable.getY() + 10, mutable.getZ() + 10)) {
-            return;
+            return false;
         } else {
             Biome biome = world.getBiome(mutable);
             Biome.Category category = biome.getCategory();
             if (category == Biome.Category.MUSHROOM) {
-                return;
+                return false;
             } else {
                 int m = 0;
                 int n = (int)Math.ceil((double)world.getLocalDifficulty(mutable).getLocalDifficulty()) + 1;
@@ -141,7 +149,7 @@ public class RaidHornItem extends CharmItem {
 
                 // must reset the global pillager spawner timer after spawning these in
                 ((PillagerSpawnerAccessor)pillagerSpawner).setTicksUntilNextSpawn(12000);
-                return;
+                return true;
             }
         }
     }

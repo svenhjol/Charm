@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.inventory.EnderChestInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -16,12 +17,15 @@ public interface PlayerEntityAccessor {
     @Accessor
     PlayerAbilities getAbilities();
 
-    @Invoker()
-    void invokeSetShoulderEntityLeft(NbtCompound tag);
+    @Accessor
+    EnderChestInventory getEnderChestInventory();
 
     @Invoker()
-    void invokeSetShoulderEntityRight(NbtCompound tag);
+    void invokeSetShoulderEntityLeft(NbtCompound nbt);
 
     @Invoker()
-    void invokeDropShoulderEntity(NbtCompound tag);
+    void invokeSetShoulderEntityRight(NbtCompound nbt);
+
+    @Invoker()
+    void invokeDropShoulderEntity(NbtCompound nbt);
 }

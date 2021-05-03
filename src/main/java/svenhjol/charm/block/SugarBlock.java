@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -15,6 +16,7 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmFallingBlock;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.ModHelper;
+import svenhjol.charm.module.BlockOfSugar;
 import svenhjol.charm.module.Bumblezone;
 
 import java.util.HashSet;
@@ -80,6 +82,9 @@ public class SugarBlock extends CharmFallingBlock {
             } else {
                 world.removeBlock(pos, true);
             }
+
+            if (!world.isClient)
+                BlockOfSugar.triggerAdvancementForNearbyPlayers((ServerWorld) world, pos);
         }
 
         return waterBelow;

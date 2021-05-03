@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 public class CharmLoader {
     private final String MOD_ID;
     private final List<Class<? extends CharmModule>> CLASSES;
-    private final Map<String, CharmModule> LOADED_MODULES = new TreeMap<>();
+    private final Map<String, CharmModule> LOADED_MODULES = new LinkedHashMap<>();
 
     public CharmLoader(String modId, List<Class<? extends CharmModule>> classes) {
         MOD_ID = modId;
@@ -37,6 +37,8 @@ public class CharmLoader {
     }
 
     protected void register() {
+        Map<String, CharmModule> loaded = new HashMap<>();
+
         CLASSES.forEach(clazz -> {
             try {
                 CharmModule module = clazz.getDeclaredConstructor().newInstance();
@@ -48,6 +50,7 @@ public class CharmLoader {
                         throw new Exception("mod name must be defined");
 
                     module.mod = annotation.mod();
+                    module.priority = annotation.priority();
                     module.alwaysEnabled = annotation.alwaysEnabled();
                     module.enabledByDefault = annotation.enabledByDefault();
                     module.enabled = module.enabledByDefault;
@@ -55,7 +58,7 @@ public class CharmLoader {
                     module.client = annotation.client();
 
                     String moduleName = module.getName();
-                    LOADED_MODULES.put(moduleName, module);
+                    loaded.put(moduleName, module);
 
                 } else {
                     throw new RuntimeException("No module annotation for class " + clazz.toString());
@@ -67,7 +70,28 @@ public class CharmLoader {
         });
 
         // config for this module set
-        ConfigHandler.createConfig(MOD_ID, LOADED_MODULES);
+        ConfigHandler.createConfig(MOD_ID, loaded);
+
+        // sort by module priority
+        ArrayList<CharmModule> modList = new ArrayList<>(loaded.values());
+        modList.sort((mod1, mod2) -> {
+            if (mod1.priority == mod2.priority) {
+                // sort by name
+                return mod1.getName().compareTo(mod2.getName());
+            } else {
+                // sort by priority
+                return Integer.compare(mod2.priority, mod1.priority);
+            }
+        });
+
+        for (CharmModule mod : modList) {
+            for (Map.Entry<String, CharmModule> entry : loaded.entrySet()) {
+                if (entry.getValue().equals(mod)) {
+                    LOADED_MODULES.put(entry.getKey(), mod);
+                    break;
+                }
+            }
+        }
 
         // add and run register method for all loaded modules
         LOADED_MODULES.forEach((moduleName, module) -> ModuleHandler.INSTANCE.register(module));
@@ -87,11 +111,11 @@ public class CharmLoader {
         LoadWorldCallback.EVENT.register(server -> eachEnabledModule(m -> m.loadWorld(server)));
     }
 
-    protected void eachModule(Consumer<CharmModule> consumer) {
+    public void eachModule(Consumer<CharmModule> consumer) {
         LOADED_MODULES.values().forEach(consumer);
     }
 
-    protected void eachEnabledModule(Consumer<CharmModule> consumer) {
+    public void eachEnabledModule(Consumer<CharmModule> consumer) {
         LOADED_MODULES.values()
             .stream()
             .filter(m -> m.enabled)

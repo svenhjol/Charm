@@ -47,8 +47,8 @@ public class PlayerHelper {
             double x = pos.getX() + 0.5D;
             double y = pos.getY() + 0.25D;
             double z = pos.getZ() + 0.5D;
-            float yaw = player.yaw;
-            float pitch = player.pitch;
+            float yaw = player.method_36454();
+            float pitch = player.method_36455();
             Set<PlayerPositionLookS2CPacket.Flag> flags = EnumSet.noneOf(PlayerPositionLookS2CPacket.Flag.class);
 
             ChunkPos chunkPos = new ChunkPos(new BlockPos(x, y, z));

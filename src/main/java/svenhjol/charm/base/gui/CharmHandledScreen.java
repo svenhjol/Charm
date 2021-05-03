@@ -8,7 +8,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import svenhjol.charm.base.CharmResources;
+import svenhjol.charm.init.CharmResources;
 
 public class CharmHandledScreen<T extends ScreenHandler> extends AbstractCharmContainerScreen<T> {
 

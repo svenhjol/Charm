@@ -1,11 +1,21 @@
 package svenhjol.charm.module;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.screen.AnvilScreenHandler;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.GameRules;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.event.CheckAnvilRepairCallback;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 @Module(mod = Charm.MOD_ID, description = "Adds custom recipes.")
@@ -37,6 +47,24 @@ public class ExtraRecipes extends CharmModule {
     @Config(name = "Bundle from leather", description = "If true, adds a recipe for crafting bundles from leather.")
     public static boolean useBundle = true;
 
+    @Config(name = "Leather to repair elytra", description = "If true, leather can be used to repair elytra when insomnia is disabled.")
+    public static boolean useLeatherForElytra = true;
+
+    @Config(name = "Grindable horse armor", description = "If true, adds recipes for grinding horse armor.")
+    public static boolean useHorseArmor = true;
+
+    public static final Map<Item, Item> horseArmorRecipes = new HashMap<>();
+
+    @Override
+    public void init() {
+        horseArmorRecipes.put(Items.LEATHER_HORSE_ARMOR, Items.LEATHER);
+        horseArmorRecipes.put(Items.IRON_HORSE_ARMOR, Items.IRON_INGOT);
+        horseArmorRecipes.put(Items.GOLDEN_HORSE_ARMOR, Items.GOLD_INGOT);
+        horseArmorRecipes.put(Items.DIAMOND_HORSE_ARMOR, Items.DIAMOND);
+
+        CheckAnvilRepairCallback.EVENT.register(this::handleCheckAnvilRepair);
+    }
+
     @Override
     public List<Identifier> getRecipesToRemove() {
         List<Identifier> removedRecipes = new ArrayList<>();
@@ -63,6 +91,36 @@ public class ExtraRecipes extends CharmModule {
         });
 
         return removedRecipes;
+    }
+
+    public static boolean tryUpdateGrindstoneOutput(Inventory inputs, Inventory output, @Nullable PlayerEntity player) {
+        if (!isExtraRecipesEnabled())
+            return false;
+
+        Item slot0 = inputs.getStack(0).getItem();
+        Item slot1 = inputs.getStack(1).getItem();
+
+        if (horseArmorRecipes.containsKey(slot0)) {
+            output.setStack(0, new ItemStack(horseArmorRecipes.get(slot0)));
+        } else if (horseArmorRecipes.containsKey(slot1)) {
+            output.setStack(0, new ItemStack(horseArmorRecipes.get(slot1)));
+        }
+        return true;
+    }
+
+    private static boolean isExtraRecipesEnabled() {
+        return ModuleHandler.enabled(ExtraRecipes.class);
+    }
+
+    private boolean handleCheckAnvilRepair(AnvilScreenHandler handler, PlayerEntity player, ItemStack leftStack, ItemStack rightStack) {
+        if (!useLeatherForElytra || player == null || player.world == null)
+            return false;
+
+        // don't activate if insomnia is enabled
+        if (!player.world.isClient && player.world.getGameRules().getBoolean(GameRules.DO_INSOMNIA))
+            return false;
+
+        return leftStack.getItem() == Items.ELYTRA && rightStack.getItem() == Items.LEATHER;
     }
 }
 

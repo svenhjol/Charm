@@ -15,7 +15,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import svenhjol.charm.base.CharmSounds;
+import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.block.BookcaseBlock;
 import svenhjol.charm.module.Bookcases;
 import svenhjol.charm.screenhandler.BookcaseScreenHandler;
@@ -33,20 +33,20 @@ public class BookcaseBlockEntity extends LootableContainerBlockEntity implements
     }
 
     @Override
-    public void readNbt(NbtCompound tag) {
-        super.readNbt(tag);
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
         this.items = DefaultedList.ofSize(SIZE, ItemStack.EMPTY);
-        if (!this.deserializeLootTable(tag))
-            Inventories.readNbt(tag, this.items);
+        if (!this.deserializeLootTable(nbt))
+            Inventories.readNbt(nbt, this.items);
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
-        super.writeNbt(tag);
-        if (!this.serializeLootTable(tag))
-            Inventories.writeNbt(tag, this.items);
+    public NbtCompound writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
+        if (!this.serializeLootTable(nbt))
+            Inventories.writeNbt(nbt, this.items);
 
-        return tag;
+        return nbt;
     }
 
     @Override

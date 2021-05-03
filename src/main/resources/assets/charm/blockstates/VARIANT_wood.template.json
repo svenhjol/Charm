@@ -1,0 +1,19 @@
+{
+  "template": {
+    "variants": {
+      "axis=x": {
+        "model": "NAMESPACE:block/VARIANT_wood",
+        "x": 90,
+        "y": 90
+      },
+      "axis=y": {
+        "model": "NAMESPACE:block/VARIANT_wood"
+      },
+      "axis=z": {
+        "model": "NAMESPACE:block/VARIANT_wood",
+        "x": 90
+      }
+    }
+  },
+  "variants": "charm_wood"
+}

@@ -10,13 +10,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.AdvancementHandler;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.block.EnderPearlBlock;
 import svenhjol.charm.entity.goal.FormEndermiteGoal;
@@ -26,14 +29,16 @@ import svenhjol.charm.base.helper.MobHelper;
 import svenhjol.charm.base.helper.PosHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.init.CharmAdvancements;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Module(mod = Charm.MOD_ID, description = "Ender pearl storage. Eating a chorus fruit will teleport you to the nearest ender pearl block.")
 public class BlockOfEnderPearls extends CharmModule {
     public static EnderPearlBlock ENDER_PEARL_BLOCK;
+
+    public static final Identifier TRIGGER_CONVERTED_SILVERFISH = new Identifier(Charm.MOD_ID, "converted_silverfish");
+    public static final Identifier TRIGGER_TELEPORTED_TO_ENDER_PEARL_BLOCK = new Identifier(Charm.MOD_ID, "teleported_to_ender_pearl_block");
 
     @Config(name = "Chorus teleport range", description = "A chorus fruit will teleport you to an ender pearl block within this range (in blocks).")
     public static int teleportRange = 16;
@@ -116,6 +121,8 @@ public class BlockOfEnderPearls extends CharmModule {
         if (!player.isCreative())
             stack.decrement(1);
 
+        triggerTeleported(player);
+
         return true;
     }
 
@@ -133,5 +140,24 @@ public class BlockOfEnderPearls extends CharmModule {
             goalSelector.add(2, new FormEndermiteGoal(silverfish));
 
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public List<Identifier> advancements() {
+        return Arrays.asList(
+            new Identifier(Charm.MOD_ID, "obtain_ender_pearl_block"),
+            new Identifier(Charm.MOD_ID, "teleport_to_ender_pearl_block"),
+            new Identifier(Charm.MOD_ID, "convert_silverfish")
+        );
+    }
+
+    public static void triggerConvertedSilverfishForNearbyPlayers(ServerWorld world, BlockPos pos) {
+        AdvancementHandler.getPlayersInRange(world, pos).forEach(player -> {
+            CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity)player, TRIGGER_CONVERTED_SILVERFISH);
+        });
+    }
+
+    public static void triggerTeleported(ServerPlayerEntity playerEntity) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(playerEntity, TRIGGER_TELEPORTED_TO_ENDER_PEARL_BLOCK);
     }
 }

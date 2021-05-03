@@ -1,0 +1,23 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+      {
+        "tag": "c:bundles"
+      },
+      {
+        "item": "minecraft:VARIANT_dye"
+      }
+    ],
+    "result": {
+      "item": "charm:VARIANT_bundle"
+    },
+    "conditions": [
+      {
+        "type": "charm:module_enabled",
+        "module": "charm:colored_bundles"
+      }
+    ]
+  },
+  "variants": "color"
+}

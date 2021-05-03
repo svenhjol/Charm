@@ -3,11 +3,11 @@ package svenhjol.charm.client;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.OrderedText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.CharmClientModule;
@@ -31,27 +31,27 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
-    private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int x, int y) {
+    private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<TooltipComponent> lines, int x, int y) {
         if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
             renderTooltip(matrices, stack, lines, x, y);
         }
     }
 
-    private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<? extends OrderedText> lines, int tx, int ty) {
+    private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<TooltipComponent> lines, int tx, int ty) {
         if (stack == null || !stack.hasTag())
             return;
 
-        NbtCompound tag = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
+        NbtCompound nbt = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
 
-        if (tag == null)
+        if (nbt == null)
             return;
 
-        if (!tag.contains("id", 8)) {
-            tag = tag.copy();
-            tag.putString("id", "minecraft:shulker_box");
+        if (!nbt.contains("id", 8)) {
+            nbt = nbt.copy();
+            nbt.putString("id", "minecraft:shulker_box");
         }
         BlockItem blockItem = (BlockItem) stack.getItem();
-        BlockEntity blockEntity = BlockEntity.createFromNbt(BlockPos.ORIGIN, blockItem.getBlock().getDefaultState(), tag);
+        BlockEntity blockEntity = BlockEntity.createFromNbt(BlockPos.ORIGIN, blockItem.getBlock().getDefaultState(), nbt);
         if (blockEntity == null)
             return;
 

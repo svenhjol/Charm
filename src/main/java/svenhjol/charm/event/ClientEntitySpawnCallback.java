@@ -28,8 +28,8 @@ public interface ClientEntitySpawnCallback {
 
         entity.updateTrackedPosition(x, y, z);
         entity.refreshPositionAfterTeleport(x, y, z);
-        entity.pitch = (float)(packet.getPitch() * 360) / 256.0F;
-        entity.yaw = (float)(packet.getYaw() * 360) / 256.0F;
+        entity.method_36457((float)(packet.getPitch() * 360) / 256.0F);
+        entity.method_36456((float)(packet.getYaw() * 360) / 256.0F);
         entity.setEntityId(id);
         entity.setUuid(packet.getUuid());
         world.addEntity(id, entity);

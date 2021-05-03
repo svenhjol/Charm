@@ -4,11 +4,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SnowBlock;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
@@ -27,6 +30,24 @@ public class SnowStorms extends CharmModule {
     @Config(name = "Heavier snow texture", description = "If true, heavier snow textures are rendered during thunderstorms.")
     public static boolean heavierSnowTexture = true;
 
+    @Config(name = "Freezing damage", description = "If true, snowstorms inflict freezing damage to exposed players unless wearing appropriate gear.")
+    public static boolean freezingDamage = true;
+
+    public static boolean shouldFreezeEntity(LivingEntity entity) {
+        World world = entity.world;
+        BlockPos pos = entity.getBlockPos();
+
+        return ModuleHandler.enabled(SnowStorms.class)
+            && SnowStorms.freezingDamage
+            && !world.isClient
+            && world.isThundering()
+            && entity instanceof PlayerEntity // limit to players, all entities is too nasty
+            && !((PlayerEntity)entity).getAbilities().creativeMode
+            && world.isSkyVisible(pos)
+            && world.getBiome(pos) != null
+            && world.getBiome(pos).isCold(pos);
+    }
+
     public static boolean tryRandomTick(ServerWorld world) {
         return ModuleHandler.enabled(SnowStorms.class) && world.isThundering();
     }
@@ -41,7 +62,7 @@ public class SnowStorms extends CharmModule {
             BlockState downState = world.getBlockState(downPos);
             Biome biome = world.getBiome(pos);
 
-            if (biome.getTemperature(pos) < 0.15F && pos.getY() >= 0 && pos.getY() < 256) {
+            if (biome.getTemperature(pos) < 0.15F && pos.getY() >= world.getBottomY() && pos.getY() < world.getTopY()) {
                 BlockState state = world.getBlockState(pos);
                 Block block = state.getBlock();
 

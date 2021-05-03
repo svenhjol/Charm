@@ -1,4 +1,13 @@
 {
+  "astrolabe": {
+    "category": "players",
+    "sounds": [
+      {
+        "name": "charm:astrolabe",
+        "volume": 0.2
+      }
+    ]
+  },
   "bookshelf_open": {
     "category": "blocks",
     "sounds": [
@@ -11,6 +20,29 @@
     "sounds": [
       "charm:bookshelf_close1",
       "charm:bookshelf_close2"
+    ]
+  },
+  "cask": {
+    "category": "blocks",
+    "sounds": [
+      "charm:cask1",
+      "charm:cask2",
+      "charm:cask3",
+      "charm:cask4"
+    ]
+  },
+  "cooking_pot": {
+    "category": "blocks",
+    "sounds": [
+      "charm:cooking_pot1",
+      "charm:cooking_pot2"
+    ]
+  },
+  "quadrant": {
+    "category": "blocks",
+    "sounds": [
+      "charm:quadrant1",
+      "charm:quadrant2"
     ]
   },
   "raid_horn": {

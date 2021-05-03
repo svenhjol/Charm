@@ -1,0 +1,17 @@
+{
+  "template": {
+    "parent": "item/generated",
+    "textures": {
+      "layer0": "charm:item/VARIANT_bundle"
+    },
+    "overrides": [
+      {
+        "predicate": {
+          "colored_bundle_filled": 0.0000001
+        },
+        "model": "charm:item/VARIANT_bundle_filled"
+      }
+    ]
+  },
+  "variants": "color"
+}

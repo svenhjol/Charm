@@ -1,0 +1,35 @@
+{
+  "parent": "charm:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:bucket"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_bucket.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_bucket.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_bucket": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:bucket"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_bucket"
+    ]
+  ]
+}

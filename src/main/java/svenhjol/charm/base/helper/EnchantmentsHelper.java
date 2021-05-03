@@ -6,7 +6,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import svenhjol.charm.base.CharmTags;
+import svenhjol.charm.init.CharmTags;
 
 import java.util.Map;
 

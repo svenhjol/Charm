@@ -34,6 +34,12 @@ public class VariantLadders extends CharmModule {
         isEnabled = this.enabled;
     }
 
+    public static VariantLadderBlock registerLadder(CharmModule module, IVariantMaterial material) {
+        VariantLadderBlock ladder = new VariantLadderBlock(module, material);
+        LADDER_BLOCKS.put(material, ladder);
+        return ladder;
+    }
+
     public static boolean canEnterTrapdoor(World world, BlockPos pos, BlockState state) {
         if (isEnabled && state.get(TrapdoorBlock.OPEN)) {
             BlockState down = world.getBlockState(pos.down());

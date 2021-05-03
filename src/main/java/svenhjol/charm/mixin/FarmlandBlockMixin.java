@@ -1,5 +1,6 @@
 package svenhjol.charm.mixin;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +14,7 @@ import svenhjol.charm.module.FeatherFallingCrops;
 @Mixin(FarmlandBlock.class)
 public class FarmlandBlockMixin {
     @Inject(method = "onLandedUpon", at = @At("HEAD"), cancellable = true)
-    private void hookOnLandedUpon(World world, BlockPos pos, Entity entity, float distance, CallbackInfo ci) {
+    private void hookOnLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float distance, CallbackInfo ci) {
         if (FeatherFallingCrops.landedOnFarmlandBlock(entity))
             ci.cancel();
     }

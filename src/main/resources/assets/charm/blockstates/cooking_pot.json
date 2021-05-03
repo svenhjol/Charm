@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "has_fire=false,liquid=0": { "model": "charm:block/cooking_pot_empty" },
+    "has_fire=true,liquid=0": { "model": "charm:block/cooking_pot_empty" },
+    "has_fire=false,liquid=1": { "model": "charm:block/cooking_pot_full" },
+    "has_fire=true,liquid=1": { "model": "charm:block/cooking_pot_full" },
+    "has_fire=false,liquid=2": { "model": "charm:block/cooking_pot_full" },
+    "has_fire=true,liquid=2": { "model": "charm:block/cooking_pot_full" }
+  }
+}

@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import svenhjol.charm.module.ExtraRecipes;
 import svenhjol.charm.module.ExtractEnchantments;
 
 import javax.annotation.Nullable;
@@ -79,8 +80,8 @@ public abstract class GrindstoneScreenHandlerMixin {
         cancellable = true
     )
     private void hookUpdateResult(CallbackInfo ci) {
-        boolean result = ExtractEnchantments.tryUpdateResult(this.input, this.result, this.player);
-
+        // this might become a bit cumbersome if there are more grindstone recipes in future
+        boolean result = ExtraRecipes.tryUpdateGrindstoneOutput(this.input, this.result, this.player) || ExtractEnchantments.tryUpdateResult(this.input, this.result, this.player);
         if (result) {
             ((ScreenHandler) (Object) this).sendContentUpdates();
             ci.cancel();

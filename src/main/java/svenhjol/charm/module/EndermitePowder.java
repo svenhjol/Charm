@@ -5,6 +5,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.EndermiteEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -18,13 +19,18 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.EndermitePowderClient;
 import svenhjol.charm.entity.EndermitePowderEntity;
 import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.EndermitePowderItem;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Module(mod = Charm.MOD_ID, client = EndermitePowderClient.class, description = "Endermites drop endermite powder that can be used to locate an End City.")
 public class EndermitePowder extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "endermite_powder");
     public static EntityType<EndermitePowderEntity> ENTITY;
     public static EndermitePowderItem ENDERMITE_POWDER;
+
     public static double lootingBoost = 0.3D;
 
     @Config(name = "Maximum drops", description = "Maximum endermite powder dropped when endermite is killed.")
@@ -56,5 +62,16 @@ public class EndermitePowder extends CharmModule {
             world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ENDERMITE_POWDER, amount)));
         }
         return ActionResult.PASS;
+    }
+
+    @Override
+    public List<Identifier> advancements() {
+        return Arrays.asList(
+            new Identifier(Charm.MOD_ID, "use_endermite_powder")
+        );
+    }
+
+    public static void triggerAdvancement(ServerPlayerEntity playerEntity) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(playerEntity, new Identifier(Charm.MOD_ID, "used_endermite_powder"));
     }
 }

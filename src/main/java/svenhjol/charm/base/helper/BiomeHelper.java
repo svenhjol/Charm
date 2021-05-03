@@ -13,6 +13,8 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import svenhjol.charm.Charm;
 
@@ -48,9 +50,29 @@ public class BiomeHelper {
         return world.locateBiome(biome, pos, 6400, 8);
     }
 
-    public static void addStructureToBiomeCategories(ConfiguredStructureFeature<?, ?> configuredFeature, Biome.Category biomeCategory) {
+    public static void addFeatureToBiomeCategories(ConfiguredFeature<?, ?> feature, Biome.Category biomeCategory, GenerationStep.Feature generationStep) {
         List<RegistryKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
-        biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureToBiome(configuredFeature, biomeKey));
+        biomeKeys.forEach(biomeKey -> BiomeHelper.addFeatureToBiome(feature, biomeKey, generationStep));
+    }
+
+    public static void addFeatureToBiome(ConfiguredFeature<?, ?> feature, RegistryKey<Biome> biomeKey, GenerationStep.Feature generationStep) {
+        RegistryKey<ConfiguredFeature<?, ?>> featureKey;
+        Predicate<BiomeSelectionContext> biomeSelector;
+
+        try {
+            biomeSelector = BiomeSelectors.includeByKey(biomeKey);
+            featureKey = BuiltInRegistryKeys.get(feature);
+        } catch (Exception e) {
+            Charm.LOG.error("Failed to add feature to biome.");
+            return;
+        }
+
+        BiomeModifications.addFeature(biomeSelector, generationStep, featureKey);
+    }
+
+    public static void addStructureToBiomeCategories(ConfiguredStructureFeature<?, ?> structureFeature, Biome.Category biomeCategory) {
+        List<RegistryKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
+        biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureToBiome(structureFeature, biomeKey));
     }
 
     public static void addStructureToBiome(ConfiguredStructureFeature<?, ?> structureFeature, RegistryKey<Biome> biomeKey) {

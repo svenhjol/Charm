@@ -242,16 +242,6 @@ public class MineshaftImprovements extends CharmModule {
         }
     }
 
-    private static boolean validCeilingBlock(StructurePiece piece, ServerWorldAccess world, int x, int y, int z, BlockBox box) {
-        BlockPos blockpos = new BlockPos(
-            ((StructurePieceAccessor)piece).callApplyXTransform(x, z),
-            ((StructurePieceAccessor)piece).callApplyYTransform(y),
-            ((StructurePieceAccessor)piece).callApplyZTransform(x, z));
-        return box.contains(blockpos)
-            && world.getBlockState(blockpos.up()).isOpaque()
-            && world.isAir(blockpos.down());
-    }
-
     private static boolean validFloorBlock(StructurePiece piece, ServerWorldAccess world, int x, int y, int z, BlockBox box) {
         BlockPos blockpos = new BlockPos(
             ((StructurePieceAccessor)piece).callApplyXTransform(x, z),

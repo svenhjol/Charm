@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -18,6 +19,7 @@ import svenhjol.charm.entity.EndermitePowderEntity;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.DimensionHelper;
 import svenhjol.charm.base.item.CharmItem;
+import svenhjol.charm.module.EndermitePowder;
 
 public class EndermitePowderItem extends CharmItem {
     public EndermitePowderItem(CharmModule module) {
@@ -25,37 +27,39 @@ public class EndermitePowderItem extends CharmItem {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack stack = playerIn.getStackInHand(handIn);
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getStackInHand(hand);
 
-        if (!DimensionHelper.isDimension(worldIn, new Identifier("the_end")))
+        if (!DimensionHelper.isDimension(world, new Identifier("the_end")))
             return TypedActionResult.fail(stack);
 
-        if (!playerIn.isCreative())
+        if (!player.isCreative())
             stack.decrement(1);
 
-        int x = playerIn.getBlockPos().getX();
-        int y = playerIn.getBlockPos().getY();
-        int z = playerIn.getBlockPos().getZ();
+        int x = player.getBlockPos().getX();
+        int y = player.getBlockPos().getY();
+        int z = player.getBlockPos().getZ();
 
-        playerIn.getItemCooldownManager().set(this, 40);
+        player.getItemCooldownManager().set(this, 40);
 
         // client
-        if (worldIn.isClient) {
-            playerIn.swingHand(handIn);
-            worldIn.playSound(playerIn, x, y, z, SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        if (world.isClient) {
+            player.swingHand(hand);
+            world.playSound(player, x, y, z, SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.PLAYERS, 1.0F, 1.0F);
         }
 
         // server
-        if (!worldIn.isClient) {
-            ServerWorld serverWorld = (ServerWorld)worldIn;
-            BlockPos pos = serverWorld.locateStructure(StructureFeature.END_CITY, playerIn.getBlockPos(), 1500, false);
+        if (!world.isClient) {
+            ServerWorld serverWorld = (ServerWorld)world;
+            BlockPos pos = serverWorld.locateStructure(StructureFeature.END_CITY, player.getBlockPos(), 1500, false);
             if (pos != null) {
-                EndermitePowderEntity entity = new EndermitePowderEntity(worldIn, pos.getX(), pos.getZ());
-                Vec3d look = playerIn.getRotationVector();
+                EndermitePowderEntity entity = new EndermitePowderEntity(world, pos.getX(), pos.getZ());
+                Vec3d look = player.getRotationVector();
 
                 entity.setPos(x + look.x * 2, y + 0.5, z + look.z * 2);
-                worldIn.spawnEntity(entity);
+                world.spawnEntity(entity);
+
+                EndermitePowder.triggerAdvancement((ServerPlayerEntity) player);
                 return TypedActionResult.pass(stack);
             }
         }

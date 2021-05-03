@@ -2,7 +2,7 @@
   "template": {
     "type": "charm:woodcutting",
     "ingredient": {
-      "item": "minecraft:VARIANT_planks"
+      "item": "NAMESPACE:VARIANT_planks"
     },
     "result": "charm:VARIANT_ladder",
     "count": 4,

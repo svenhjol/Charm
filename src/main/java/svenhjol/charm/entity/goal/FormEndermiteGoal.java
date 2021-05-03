@@ -12,8 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import svenhjol.charm.module.BlockOfEnderPearls;
 import svenhjol.charm.base.helper.MobHelper;
+import svenhjol.charm.module.BlockOfEnderPearls;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -83,6 +83,7 @@ public class FormEndermiteGoal extends WanderAroundGoal {
                 silverfish.playSpawnEffects();
                 silverfish.discard();
                 world.spawnEntity(endermite);
+                BlockOfEnderPearls.triggerConvertedSilverfishForNearbyPlayers((ServerWorld)world, pos);
             }
         }
     }

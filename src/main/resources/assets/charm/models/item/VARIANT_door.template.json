@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "NAMESPACE:item/VARIANT_door"
+    }
+  },
+  "variants": "charm_wood"
+}

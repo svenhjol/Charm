@@ -42,8 +42,8 @@ public class JigsawVariableHeightFeature extends StructureFeature<StructurePoolF
         public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, StructurePoolFeatureConfig structurePoolFeatureConfig, HeightLimitView heightLimitView) {
 
             int v = jigsawFeature.variation;
-            int y = jigsawFeature.structureStartY;
-            y = y - v + random.next(v * 2);
+            int r = random.nextInt(v * 2);
+            int y = jigsawFeature.structureStartY + (v - r);
 
             BlockPos blockPos = new BlockPos(chunkPos.getStartX(), y, chunkPos.getStartZ());
             StructurePools.initDefaultPools();

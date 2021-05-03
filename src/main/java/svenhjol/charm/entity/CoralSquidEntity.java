@@ -54,8 +54,8 @@ import java.util.Random;
  * canSpawn() checks for coral.
  */
 public class CoralSquidEntity extends WaterCreatureEntity {
-    public static final String CORAL_SQUID_TYPE_TAG = "CoralSquidType";
-    public static final String CORAL_SQUID_FROM_BUCKET_TAG = "FromBucket";
+    public static final String CORAL_SQUID_TYPE_NBT = "CoralSquidType";
+    public static final String CORAL_SQUID_FROM_BUCKET_NBT = "FromBucket";
 
     private static final TrackedData<Boolean> FROM_BUCKET;
     private static final TrackedData<Integer> CORAL_SQUID_TYPE;
@@ -142,17 +142,17 @@ public class CoralSquidEntity extends WaterCreatureEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound tag) {
-        super.writeCustomDataToNbt(tag);
-        tag.putInt(CORAL_SQUID_TYPE_TAG, this.getCoralSquidType());
-        tag.putBoolean(CORAL_SQUID_FROM_BUCKET_TAG, this.isFromBucket());
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putInt(CORAL_SQUID_TYPE_NBT, this.getCoralSquidType());
+        nbt.putBoolean(CORAL_SQUID_FROM_BUCKET_NBT, this.isFromBucket());
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound tag) {
-        super.readCustomDataFromNbt(tag);
-        this.setCoralSquidType(tag.getInt(CORAL_SQUID_TYPE_TAG));
-        this.setFromBucket(tag.getBoolean(CORAL_SQUID_FROM_BUCKET_TAG));
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.setCoralSquidType(nbt.getInt(CORAL_SQUID_TYPE_NBT));
+        this.setFromBucket(nbt.getBoolean(CORAL_SQUID_FROM_BUCKET_NBT));
     }
 
     protected void initGoals() {
@@ -249,7 +249,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
             Vec3d vec3d = this.getVelocity();
             float g = MathHelper.sqrt(squaredHorizontalLength(vec3d));
             this.bodyYaw += (-((float)MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F - this.bodyYaw) * 0.1F;
-            this.yaw = this.bodyYaw;
+            this.method_36456(this.bodyYaw);
             this.rollAngle = (float)((double)this.rollAngle + 3.141592653589793D * (double)this.turningSpeed * 1.5D);
             this.tiltAngle += (-((float)MathHelper.atan2((double)g, vec3d.y)) * 57.295776F - this.tiltAngle) * 0.1F;
         } else {
@@ -305,8 +305,8 @@ public class CoralSquidEntity extends WaterCreatureEntity {
             held.decrement(1);
 
             ItemStack coralSquidBucket = new ItemStack(CoralSquids.CORAL_SQUID_BUCKET);
-            NbtCompound tag = new NbtCompound();
-            ItemNBTHelper.setCompound(coralSquidBucket, CoralSquidBucketItem.STORED_CORAL_SQUID, this.writeNbt(tag));
+            NbtCompound nbt = new NbtCompound();
+            ItemNBTHelper.setCompound(coralSquidBucket, CoralSquidBucketItem.STORED_CORAL_SQUID, this.writeNbt(nbt));
 
             if (this.hasCustomName())
                 coralSquidBucket.setCustomName(this.getCustomName());

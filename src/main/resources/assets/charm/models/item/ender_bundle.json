@@ -1,0 +1,9 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "charm:item/ender_bundle"
+    },
+    "overrides": [
+        { "predicate": { "ender_bundle_filled": 0.0000001 }, "model": "charm:item/ender_bundle_filled" }
+    ]
+}
