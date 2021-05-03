@@ -1,0 +1,44 @@
+{
+  "parent": "charm:convert_silverfish",
+  "display": {
+    "icon": {
+      "item": "charm:endermite_powder"
+    },
+    "title": {
+      "translate": "advancements.charm.endermite_powder.title"
+    },
+    "description": {
+      "translate": "advancements.charm.endermite_powder.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_endermite_powder": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "charm:endermite_powder"
+          }
+        ]
+      }
+    },
+    "use_endermite_powder": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:used_endermite_powder"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_endermite_powder"
+    ],
+    [
+      "use_endermite_powder"
+    ]
+  ]
+}
