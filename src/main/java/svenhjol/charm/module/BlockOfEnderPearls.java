@@ -145,7 +145,7 @@ public class BlockOfEnderPearls extends CharmModule {
     @Override
     public List<Identifier> advancements() {
         return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "block_of_ender_pearls"),
+            new Identifier(Charm.MOD_ID, "obtain_ender_pearl_block"),
             new Identifier(Charm.MOD_ID, "teleport_to_ender_pearl_block"),
             new Identifier(Charm.MOD_ID, "convert_silverfish")
         );

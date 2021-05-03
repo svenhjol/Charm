@@ -1,14 +1,14 @@
 {
-  "parent": "charm:root",
+  "parent": "charm:obtain_ender_pearl",
   "display": {
     "icon": {
       "item": "charm:ender_pearl_block"
     },
     "title": {
-      "translate": "advancements.charm.block_of_ender_pearls.title"
+      "translate": "advancements.charm.obtain_ender_pearl_block.title"
     },
     "description": {
-      "translate": "advancements.charm.block_of_ender_pearls.description"
+      "translate": "advancements.charm.obtain_ender_pearl_block.description"
     },
     "frame": "task",
     "show_toast": false,
@@ -16,7 +16,7 @@
     "hidden": false
   },
   "criteria": {
-    "ender_pearl_block": {
+    "obtained_ender_pearl_block": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "ender_pearl_block"
+      "obtained_ender_pearl_block"
     ]
   ]
 }
