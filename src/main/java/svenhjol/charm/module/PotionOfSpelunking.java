@@ -53,7 +53,8 @@ public class PotionOfSpelunking extends CharmModule {
         "#minecraft:lapis_ores, blue",
         "#minecraft:diamond_ores, cyan",
         "#minecraft:emerald_ores, lime",
-        "minecraft:ancient_debris, brown"
+        "minecraft:ancient_debris, brown",
+        "minecraft:amethyst_block, purple"
     );
 
     @Override
