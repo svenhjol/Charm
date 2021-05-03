@@ -118,7 +118,7 @@ public class CookingPotsClient extends CharmClientModule {
             double g = random.nextGaussian() * 0.02D;
             double h = random.nextGaussian() * 0.02D;
             double j = random.nextGaussian() * 0.02D;
-            world.addParticle(ParticleTypes.COMPOSTER, (double)pos.getX() + 0.13 + (0.73D * (double)random.nextFloat()), (double)pos.getY() + 0.8D + (double)random.nextFloat() * 0.3D, (double)pos.getZ() + 0.13D + (0.73 * (double)random.nextFloat()), g, h, j);
+            world.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + 0.13 + (0.73D * (double)random.nextFloat()), (double)pos.getY() + 0.8D + (double)random.nextFloat() * 0.3D, (double)pos.getZ() + 0.13D + (0.73 * (double)random.nextFloat()), g, h, j);
         }
     }
 }
