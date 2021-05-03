@@ -47,7 +47,9 @@ public class Core extends CharmModule {
     @Override
     public List<Identifier> advancements() {
         return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "root")
+            new Identifier(Charm.MOD_ID, "root"),
+            new Identifier(Charm.MOD_ID, "obtain_ender_pearl"),
+            new Identifier(Charm.MOD_ID, "obtain_amethyst_shard")
         );
     }
 }
