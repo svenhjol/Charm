@@ -32,6 +32,7 @@ public class VariantLanterns extends CharmModule {
     public List<Identifier> getRecipesToRemove() {
         List<Identifier> remove = new ArrayList<>();
 
+        // remove copper lantern recipes if copper nuggets module is disabled
         if (!ModuleHandler.enabled("charm:copper_nuggets")) {
             remove.addAll(Arrays.asList(
                 new Identifier(Charm.MOD_ID, "lanterns/copper_lantern"),
