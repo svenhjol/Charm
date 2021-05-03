@@ -25,8 +25,12 @@ public class StackableStews extends CharmModule {
         ((ItemAccessor) Items.MUSHROOM_STEW).setMaxCount(stackSize);
         ((ItemAccessor) Items.RABBIT_STEW).setMaxCount(stackSize);
         ((ItemAccessor) Items.BEETROOT_SOUP).setMaxCount(stackSize);
+
         if (suspiciousStew)
             ((ItemAccessor) Items.SUSPICIOUS_STEW).setMaxCount(stackSize);
+
+        if (ModuleHandler.enabled("charm:cooking_pots"))
+            ((ItemAccessor) CookingPots.MIXED_STEW).setMaxCount(stackSize);
     }
 
     public static boolean tryEatStewStack(LivingEntity entity, ItemStack stack) {
