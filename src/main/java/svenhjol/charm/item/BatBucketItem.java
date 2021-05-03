@@ -26,7 +26,6 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.base.helper.MobHelper;
 import svenhjol.charm.base.item.CharmItem;
-import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.module.BatBuckets;
 
 import java.util.List;
@@ -74,7 +73,7 @@ public class BatBucketItem extends CharmItem {
         player.swingHand(hand);
 
         if (!world.isClient) {
-            CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity) player, BatBuckets.TRIGGER_USED_BAT_BUCKET);
+            BatBuckets.triggerUsedBatBucket((ServerPlayerEntity) player);
             world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 
             Box box = player.getBoundingBox().expand(BatBuckets.glowingRange, BatBuckets.glowingRange / 2.0, BatBuckets.glowingRange);

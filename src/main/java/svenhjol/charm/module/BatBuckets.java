@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -18,6 +19,7 @@ import svenhjol.charm.base.helper.ItemNBTHelper;
 import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.BatBucketItem;
 
 import java.util.Arrays;
@@ -81,5 +83,9 @@ public class BatBuckets extends CharmModule {
         }
 
         return ActionResult.PASS;
+    }
+
+    public static void triggerUsedBatBucket(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, BatBuckets.TRIGGER_USED_BAT_BUCKET);
     }
 }

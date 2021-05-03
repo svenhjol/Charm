@@ -18,7 +18,6 @@ import net.minecraft.util.math.MathHelper;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.item.CharmItem;
 import svenhjol.charm.client.EnderBundlesClient;
-import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.module.EnderBundles;
 
 import java.util.Optional;
@@ -107,7 +106,7 @@ public class EnderBundleItem extends CharmItem {
             inventory.markDirty();
 
             if (!player.world.isClient)
-                CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity) player, EnderBundles.TRIGGER_USED_ENDER_BUNDLE);
+                EnderBundles.triggerUsedEnderBundle((ServerPlayerEntity) player);
 
             return out;
         }

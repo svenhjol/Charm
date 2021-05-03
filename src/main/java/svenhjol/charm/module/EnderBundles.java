@@ -13,6 +13,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.EnderBundlesClient;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.EnderBundleItem;
 
 import java.util.Arrays;
@@ -49,5 +50,9 @@ public class EnderBundles extends CharmModule {
 
             ServerPlayNetworking.send(player, MSG_CLIENT_UPDATE_ENDER_INVENTORY, buffer);
         });
+    }
+
+    public static void triggerUsedEnderBundle(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, EnderBundles.TRIGGER_USED_ENDER_BUNDLE);
     }
 }
