@@ -230,7 +230,7 @@ public class CaskBlock extends CharmBlockWithEntity {
                     double r = (double) (color >> 16 & 255) / 255.0D;
                     double g = (double) (color >> 8 & 255) / 255.0D;
                     double b = (double) (color & 255) / 255.0D;
-                    world.addParticle(ParticleTypes.ENTITY_EFFECT, (double) pos.getX() + 0.13D + (0.7D * random.nextDouble()), (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.13D + (0.7D * random.nextDouble()), r, g, b);
+                    world.addParticle(ParticleTypes.AMBIENT_ENTITY_EFFECT, (double) pos.getX() + 0.13D + (0.7D * random.nextDouble()), (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.13D + (0.7D * random.nextDouble()), r, g, b);
                 });
 
                 if (!effects.isEmpty() && random.nextInt(20) == 0) {
