@@ -7,14 +7,14 @@ import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.CopperLanternBlock;
 import svenhjol.charm.block.GoldLanternBlock;
-import svenhjol.charm.client.LanternsClient;
+import svenhjol.charm.client.VariantLanternsClient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, client = LanternsClient.class, description = "Gold version of the vanilla lanterns.")
-public class Lanterns extends CharmModule {
+@Module(mod = Charm.MOD_ID, client = VariantLanternsClient.class, description = "Gold version of the vanilla lanterns.")
+public class VariantLanterns extends CharmModule {
     public static GoldLanternBlock GOLD_LANTERN;
     public static GoldLanternBlock GOLD_SOUL_LANTERN;
     public static CopperLanternBlock COPPER_LANTERN;

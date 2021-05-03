@@ -5,10 +5,10 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.CopperChainBlock;
 import svenhjol.charm.block.GoldChainBlock;
-import svenhjol.charm.client.ChainsClient;
+import svenhjol.charm.client.VariantChainsClient;
 
-@Module(mod = Charm.MOD_ID, client = ChainsClient.class, description = "Gold and copper chains made from respective nuggets.")
-public class Chains extends CharmModule {
+@Module(mod = Charm.MOD_ID, client = VariantChainsClient.class, description = "Gold and copper chains made from respective nuggets.")
+public class VariantChains extends CharmModule {
     public static GoldChainBlock GOLD_CHAIN;
     public static CopperChainBlock COPPER_CHAIN;
 

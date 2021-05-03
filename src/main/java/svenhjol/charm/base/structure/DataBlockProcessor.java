@@ -319,9 +319,9 @@ public class DataBlockProcessor extends StructureProcessor {
 
             if (ModuleHandler.enabled("charm:lanterns") && random.nextFloat() < LANTERN_VARIANT_CHANCE) {
                 if (random.nextBoolean()) {
-                    state = Lanterns.GOLD_LANTERN.getDefaultState();
+                    state = VariantLanterns.GOLD_LANTERN.getDefaultState();
                 } else {
-                    state = Lanterns.COPPER_LANTERN.getDefaultState();
+                    state = VariantLanterns.COPPER_LANTERN.getDefaultState();
                 }
             }
 
