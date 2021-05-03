@@ -25,7 +25,7 @@ import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 import java.util.Random;
 
 public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig> {
-    public static final int DEFAULT_Y = 2;
+    public static final int MIN_Y = 2;
 
     public DungeonFeature(Codec<StructurePoolFeatureConfig> codec) {
         super(codec);
@@ -42,7 +42,7 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
 
         public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, StructurePoolFeatureConfig structurePoolFeatureConfig, HeightLimitView heightLimitView) {
             int x = chunkPos.getStartX();
-            int y = DEFAULT_Y + new Random().nextInt(32) + 8;
+            int y = MIN_Y + new Random().nextInt(44) + 4;
             int z = chunkPos.getStartZ();
             boolean found = false;
             BlockPos.Mutable blockPos = new BlockPos.Mutable(x, y, z);
@@ -65,30 +65,24 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
             VerticalBlockSample cornerSample3 = chunkGenerator.getColumnSample(corner3[0], corner3[1], heightLimitView);
             VerticalBlockSample cornerSample4 = chunkGenerator.getColumnSample(corner4[0], corner4[1], heightLimitView);
 
-            while (y > DEFAULT_Y && !found) {
-                BlockPos.Mutable mutable = new BlockPos.Mutable(box.getMinX(), y, box.getMinZ());
-                BlockState blockState = cornerSample1.getState(mutable);
-                y--;
+            do {
+                BlockPos pos1 = new BlockPos(corner1[0], y - 1, corner1[1]);
+                BlockPos pos2 = new BlockPos(corner2[0], y-1, corner2[1]);
+                BlockPos pos3 = new BlockPos(corner3[0], y-1, corner3[1]);
+                BlockPos pos4 = new BlockPos(corner4[0], y - 1, corner4[1]);
 
-                if (blockState.isAir()) {
-                    BlockPos pos1 = new BlockPos(corner1[0], y-1, corner1[1]);
-                    BlockPos pos2 = new BlockPos(corner2[0], y-1, corner2[1]);
-                    BlockPos pos3 = new BlockPos(corner3[0], y-1, corner3[1]);
-                    BlockPos pos4 = new BlockPos(corner4[0], y-1, corner4[1]);
+                BlockState state1 = cornerSample1.getState(pos1);
+                BlockState state2 = cornerSample2.getState(pos2);
+                BlockState state3 = cornerSample3.getState(pos3);
+                BlockState state4 = cornerSample4.getState(pos4);
 
-                    BlockState state1 = cornerSample1.getState(pos1);
-                    BlockState state2 = cornerSample2.getState(pos2);
-                    BlockState state3 = cornerSample3.getState(pos3);
-                    BlockState state4 = cornerSample4.getState(pos4);
-
-                    if (state1.isSolidBlock(EmptyBlockView.INSTANCE, pos1)
-                        && state2.isSolidBlock(EmptyBlockView.INSTANCE, pos2)
-                        && state3.isSolidBlock(EmptyBlockView.INSTANCE, pos3)
-                        && state4.isSolidBlock(EmptyBlockView.INSTANCE, pos4)) {
-                        found = true;
-                    }
+                if ((state1.isSolidBlock(EmptyBlockView.INSTANCE, pos1) || state1.isAir())
+                    && state2.isSolidBlock(EmptyBlockView.INSTANCE, pos2)
+                    && state3.isSolidBlock(EmptyBlockView.INSTANCE, pos3)
+                    && state4.isSolidBlock(EmptyBlockView.INSTANCE, pos4)) {
+                    found = true;
                 }
-            }
+            } while (--y > MIN_Y && !found);
 
             if (found) {
                 BlockPos foundPos = new BlockPos(x, y + 1, z);
