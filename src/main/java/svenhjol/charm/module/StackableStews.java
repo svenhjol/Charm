@@ -15,7 +15,7 @@ import svenhjol.charm.mixin.accessor.ItemAccessor;
 @Module(mod = Charm.MOD_ID, description = "Allows stews to stack.")
 public class StackableStews extends CharmModule {
     @Config(name = "Stack size", description = "Maximum stew stack size.")
-    public static int stackSize = 16;
+    public static int stackSize = 64;
 
     @Config(name = "Enable suspicious stew", description = "Also apply to suspicious stew.")
     public static boolean suspiciousStew = false;
