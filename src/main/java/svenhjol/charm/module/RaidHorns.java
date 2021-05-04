@@ -18,9 +18,6 @@ import svenhjol.charm.event.EntityDropsCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.RaidHornItem;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Module(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.")
 public class RaidHorns extends CharmModule {
     public static RaidHornItem RAID_HORN;
@@ -41,15 +38,6 @@ public class RaidHorns extends CharmModule {
         RAID_HORN = new RaidHornItem(this);
 
         EntityDropsCallback.AFTER.register(this::tryDrop);
-    }
-
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "call_off_raid"),
-            new Identifier(Charm.MOD_ID, "obtain_raid_horn"),
-            new Identifier(Charm.MOD_ID, "summon_pillagers")
-        );
     }
 
     public ActionResult tryDrop(LivingEntity entity, DamageSource source, int lootingLevel) {

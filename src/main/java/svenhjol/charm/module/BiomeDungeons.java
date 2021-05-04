@@ -14,9 +14,6 @@ import svenhjol.charm.structure.DungeonBuilds;
 import svenhjol.charm.structure.DungeonFeature;
 import svenhjol.charm.structure.DungeonGenerator;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static svenhjol.charm.base.handler.RegistryHandler.configuredStructureFeature;
 import static svenhjol.charm.base.helper.BiomeHelper.addStructureToBiomeCategories;
 
@@ -85,10 +82,5 @@ public class BiomeDungeons extends CharmModule {
         if (!DungeonGenerator.SAVANNA_DUNGEONS.isEmpty()) addStructureToBiomeCategories(SAVANNA, Biome.Category.SAVANNA);
         if (!DungeonGenerator.SNOWY_DUNGEONS.isEmpty()) addStructureToBiomeCategories(SNOWY, Biome.Category.ICY);
         if (!DungeonGenerator.TAIGA_DUNGEONS.isEmpty()) addStructureToBiomeCategories(TAIGA, Biome.Category.TAIGA);
-    }
-
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(new Identifier(Charm.MOD_ID, "find_biome_dungeon"));
     }
 }

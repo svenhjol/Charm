@@ -22,9 +22,6 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.BatBucketItem;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Module(mod = Charm.MOD_ID, description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
 public class BatBuckets extends CharmModule {
     public static final Identifier TRIGGER_USED_BAT_BUCKET = new Identifier(Charm.MOD_ID, "used_bat_bucket");
@@ -47,11 +44,6 @@ public class BatBuckets extends CharmModule {
     @Override
     public void init() {
         UseEntityCallback.EVENT.register(this::tryCapture);
-    }
-
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(new Identifier(Charm.MOD_ID, "use_bat_bucket"));
     }
 
     private ActionResult tryCapture(PlayerEntity player, World world, Hand hand, Entity entity, EntityHitResult hitResult) {

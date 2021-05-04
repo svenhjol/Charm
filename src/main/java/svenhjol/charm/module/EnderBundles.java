@@ -16,9 +16,6 @@ import svenhjol.charm.client.EnderBundlesClient;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.EnderBundleItem;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Module(mod = Charm.MOD_ID, client = EnderBundlesClient.class, description = "EnderBundles")
 public class EnderBundles extends CharmModule {
     public static final Identifier MSG_SERVER_UPDATE_ENDER_INVENTORY = new Identifier(Charm.MOD_ID, "server_update_ender_inventory");
@@ -33,11 +30,6 @@ public class EnderBundles extends CharmModule {
 
         // register server message handler to call the serverCallback
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_UPDATE_ENDER_INVENTORY, this::handleUpdateEnderInventory);
-    }
-
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(new Identifier(Charm.MOD_ID, "use_ender_bundle"));
     }
 
     private void handleUpdateEnderInventory(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {

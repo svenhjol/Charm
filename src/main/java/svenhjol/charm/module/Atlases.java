@@ -79,14 +79,6 @@ public class Atlases extends CharmModule {
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_ATLAS_TRANSFER, this::handleServerAtlasTransfer);
     }
 
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "obtain_atlas"),
-            new Identifier(Charm.MOD_ID, "make_atlas_maps")
-        );
-    }
-
     public static boolean inventoryContainsMap(PlayerInventory inventory, ItemStack itemStack) {
         if (inventory.contains(itemStack)) {
             return true;

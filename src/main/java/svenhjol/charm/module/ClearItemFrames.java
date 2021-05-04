@@ -25,9 +25,6 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.ClearItemFramesClient;
 import svenhjol.charm.init.CharmAdvancements;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Module(mod = Charm.MOD_ID, client = ClearItemFramesClient.class, description = "Add amethyst shards to item frames to make them invisible.")
 public class ClearItemFrames extends CharmModule {
     public static final Identifier MSG_CLIENT_ADD_AMETHYST = new Identifier(Charm.MOD_ID, "client_add_amethyst");
@@ -92,12 +89,5 @@ public class ClearItemFrames extends CharmModule {
         }
 
         return ActionResult.PASS;
-    }
-
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "make_clear_item_frame")
-        );
     }
 }

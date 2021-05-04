@@ -25,6 +25,7 @@ import svenhjol.charm.block.AstrolabeBlock;
 import svenhjol.charm.blockentity.AstrolabeBlockEntity;
 import svenhjol.charm.client.AstrolabesClient;
 import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.AstrolabeBlockItem;
 
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ import java.util.Optional;
 public class Astrolabes extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "astrolabe");
     public static final Identifier MSG_CLIENT_SHOW_AXIS_PARTICLES = new Identifier(Charm.MOD_ID, "client_show_axis_particles");
+    public static final Identifier TRIGGER_LINKED_ASTROLABE = new Identifier(Charm.MOD_ID, "linked_astrolabe");
+    public static final Identifier TRIGGER_LOCATED_ASTROLABE_LOCATION = new Identifier(Charm.MOD_ID, "located_astrolabe_location");
 
     public static AstrolabeBlock ASTROLABE;
     public static BlockEntityType<AstrolabeBlockEntity> BLOCK_ENTITY;
@@ -77,7 +80,12 @@ public class Astrolabes extends CharmModule {
                 continue;
             }
 
-            positions.add(getDimensionPosition(player.world, pos, dim));
+            BlockPos.Mutable dimensionPos = getDimensionPosition(player.world, pos, dim);
+            positions.add(dimensionPos);
+
+            // do the dimensional anchor advancement
+            if (player.getBlockPos().equals(dimensionPos) && !player.world.getRegistryKey().equals(dim))
+                triggerLocatedAstrolabeLocation((ServerPlayerEntity) player);
         }
 
         if (!positions.isEmpty()) {
@@ -115,5 +123,13 @@ public class Astrolabes extends CharmModule {
         }
 
         return position;
+    }
+
+    public static void triggerLinkedAstrolabe(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_LINKED_ASTROLABE);
+    }
+
+    public static void triggerLocatedAstrolabeLocation(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_LOCATED_ASTROLABE_LOCATION);
     }
 }

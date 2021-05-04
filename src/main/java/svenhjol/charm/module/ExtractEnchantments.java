@@ -40,13 +40,6 @@ public class ExtractEnchantments extends CharmModule {
         return !ModHelper.isLoaded("grindenchantments");
     }
 
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "extract_enchantment")
-        );
-    }
-
     public static Slot getGrindstoneInputSlot(int index, Inventory inputs) {
         return new Slot(inputs, index, 49, 19 + (index * 21)) {
             @Override

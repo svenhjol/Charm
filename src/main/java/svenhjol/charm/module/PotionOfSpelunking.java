@@ -91,11 +91,6 @@ public class PotionOfSpelunking extends CharmModule {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(new Identifier(Charm.MOD_ID, "obtain_spelunking_effect"));
-    }
-
     private void handlePlayerTick(PlayerEntity player) {
         if (!player.world.isClient
             && player.world.getTime() % 15 == 0

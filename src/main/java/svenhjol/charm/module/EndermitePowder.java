@@ -22,9 +22,6 @@ import svenhjol.charm.event.EntityDropsCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.EndermitePowderItem;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Module(mod = Charm.MOD_ID, client = EndermitePowderClient.class, description = "Endermites drop endermite powder that can be used to locate an End City.")
 public class EndermitePowder extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "endermite_powder");
@@ -62,13 +59,6 @@ public class EndermitePowder extends CharmModule {
             world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ENDERMITE_POWDER, amount)));
         }
         return ActionResult.PASS;
-    }
-
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "use_endermite_powder")
-        );
     }
 
     public static void triggerAdvancement(ServerPlayerEntity playerEntity) {

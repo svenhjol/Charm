@@ -142,15 +142,6 @@ public class BlockOfEnderPearls extends CharmModule {
         return ActionResult.SUCCESS;
     }
 
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "obtain_ender_pearl_block"),
-            new Identifier(Charm.MOD_ID, "teleport_to_ender_pearl_block"),
-            new Identifier(Charm.MOD_ID, "convert_silverfish")
-        );
-    }
-
     public static void triggerConvertedSilverfishForNearbyPlayers(ServerWorld world, BlockPos pos) {
         AdvancementHandler.getPlayersInRange(world, pos).forEach(player -> {
             CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity)player, TRIGGER_CONVERTED_SILVERFISH);

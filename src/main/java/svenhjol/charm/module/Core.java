@@ -13,9 +13,6 @@ import svenhjol.charm.client.CoreClient;
 import svenhjol.charm.event.ServerJoinCallback;
 import svenhjol.charm.init.CharmAdvancements;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Module(mod = Charm.MOD_ID, client = CoreClient.class, alwaysEnabled = true, description = "Core configuration values.")
 public class Core extends CharmModule {
     public static final Identifier ADVANCEMENT_PLAYER_JOINED = new Identifier(Charm.MOD_ID, "player_joined");
@@ -38,24 +35,5 @@ public class Core extends CharmModule {
 
     private void handleServerJoin(PlayerManager playerManager, ClientConnection connection, ServerPlayerEntity player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, ADVANCEMENT_PLAYER_JOINED);
-    }
-
-    /**
-     * Specify root advancements here so that they can be cleaned up if the advancements are completely disabled.
-     * @return List of root advancements
-     */
-    @Override
-    public List<Identifier> advancements() {
-        return Arrays.asList(
-            new Identifier(Charm.MOD_ID, "root"),
-            new Identifier(Charm.MOD_ID, "obtain_amethyst_shard"),
-            new Identifier(Charm.MOD_ID, "obtain_book"),
-            new Identifier(Charm.MOD_ID, "obtain_bucket"),
-            new Identifier(Charm.MOD_ID, "obtain_bundle"),
-            new Identifier(Charm.MOD_ID, "obtain_copper_ingot"),
-            new Identifier(Charm.MOD_ID, "obtain_ender_pearl"),
-            new Identifier(Charm.MOD_ID, "obtain_hoe"),
-            new Identifier(Charm.MOD_ID, "obtain_redstone")
-        );
     }
 }
