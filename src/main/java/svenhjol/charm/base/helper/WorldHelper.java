@@ -3,6 +3,7 @@ package svenhjol.charm.base.helper;
 import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.mixin.object.builder.PointOfInterestTypeAccessor;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -10,6 +11,10 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.handler.RegistryHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class WorldHelper {
     public static boolean addForcedChunk(ServerWorld world, BlockPos pos) {
@@ -58,5 +63,26 @@ public class WorldHelper {
         PointOfInterestType poit = PointOfInterestTypeAccessor.callCreate(id.toString(), ImmutableSet.copyOf(block.getStateManager().getStates()), ticketCount, 1);
         RegistryHandler.pointOfInterestType(id, poit);
         return PointOfInterestTypeAccessor.callSetup(poit);
+    }
+
+    public static void addBlockStatesToPointOfInterest(PointOfInterestType poit, List<BlockState> states) {
+        // we need to wrap the poit with charm's accessor so that we can get and set blockstates
+        svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor wrappedPoit = (svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor)poit;
+
+        Set<BlockState> existingStates = wrappedPoit.getBlockStates();
+        if (existingStates instanceof ImmutableSet) {
+            List<BlockState> mutable = new ArrayList<>(existingStates);
+            mutable.addAll(states);
+            wrappedPoit.setBlockStates(ImmutableSet.copyOf(mutable));
+        } else {
+            existingStates.addAll(states);
+            wrappedPoit.setBlockStates(existingStates);
+        }
+
+        svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor.getRegisteredStates().addAll(states);
+
+        states.forEach(state -> {
+            svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor.getBlockStateMap().put(state, poit);
+        });
     }
 }
