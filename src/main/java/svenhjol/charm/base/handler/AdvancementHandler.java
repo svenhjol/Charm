@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdvancementHandler {
-    public static final List<Identifier> advancementsToRemove = new ArrayList<>();
+    public static final List<Identifier> modulesToRemove = new ArrayList<>();
 
     public static void init() {
-        advancementsToRemove.clear();
+        modulesToRemove.clear();
 
         ModuleHandler.INSTANCE.getLoaders().forEach(loader -> loader.eachModule(m -> {
             if (!m.enabled || !Core.advancements)
-                advancementsToRemove.addAll(m.advancements());
+                modulesToRemove.add(m.getId());
         }));
     }
 

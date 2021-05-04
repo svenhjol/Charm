@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.base.handler.AdvancementHandler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Mixin(AdvancementManager.class)
@@ -24,6 +26,13 @@ public class AdvancementManagerMixin {
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void hookLoad(Map<Identifier, Advancement.Task> map, CallbackInfo ci, Map<Identifier, Advancement.Task> map2) {
-        AdvancementHandler.advancementsToRemove.forEach(map2::remove);
+        AdvancementHandler.modulesToRemove.forEach(mod -> {
+            List<Identifier> keys = new ArrayList<>(map2.keySet());
+
+            keys.stream()
+                .filter(a -> a.getNamespace().equals(mod.getNamespace()))
+                .filter(a -> a.getPath().startsWith(mod.getPath()))
+                .forEach(map2::remove);
+        });
     }
 }

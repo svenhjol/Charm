@@ -58,13 +58,4 @@ public abstract class CharmModule {
     public List<String> mixins() {
         return new ArrayList<>();
     }
-
-    /**
-     * Provide a list of advancements associated with this module.
-     * If this module is disabled, all advancements will be removed.
-     * @return List of associated advancements.
-     */
-    public List<Identifier> advancements() {
-        return new ArrayList<>();
-    }
 }
