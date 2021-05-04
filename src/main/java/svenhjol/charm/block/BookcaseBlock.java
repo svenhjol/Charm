@@ -13,7 +13,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -104,9 +103,7 @@ public class BookcaseBlock extends CharmBlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        BookcaseBlockEntity bookcase = new BookcaseBlockEntity(pos, state);
-        bookcase.setCustomName(new TranslatableText("block." + module.mod + "." + type.asString() + "_bookcase"));
-        return bookcase;
+        return new BookcaseBlockEntity(pos, state);
     }
 
     @Override
