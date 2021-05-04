@@ -1,0 +1,31 @@
+{
+  "parent": "charm:quadrants/obtain_quadrant",
+  "display": {
+    "icon": {
+      "item": "charm:quadrant"
+    },
+    "title": {
+      "translate": "advancements.charm.hold_to_align.title"
+    },
+    "description": {
+      "translate": "advancements.charm.hold_to_align.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "held_to_align": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:held_to_align"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "held_to_align"
+    ]
+  ]
+}

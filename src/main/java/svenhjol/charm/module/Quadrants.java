@@ -7,6 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
@@ -14,12 +15,14 @@ import net.minecraft.state.property.Property;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Module;
@@ -34,6 +37,8 @@ import java.util.function.Predicate;
 public class Quadrants extends CharmModule {
     public static QuadrantItem QUADRANT;
     public static Map<UUID, Direction> lockedDirection = new HashMap<>();
+    public static final Identifier TRIGGER_HELD_TO_ALIGN = new Identifier(Charm.MOD_ID, "held_to_align");
+    public static final Identifier TRIGGER_ROTATED_BLOCK = new Identifier(Charm.MOD_ID, "rotated_block");
 
     @Override
     public void register() {
@@ -113,6 +118,9 @@ public class Quadrants extends CharmModule {
                 world.getBlockTickScheduler().schedule(pos, state.getBlock(), 4);
                 world.playSound(null, pos, CharmSounds.QUADRANT, SoundCategory.BLOCKS, 0.35F + (0.25F * world.random.nextFloat()), 0.8F + (0.4F * world.random.nextFloat()));
 
+                if (!world.isClient)
+                    triggerRotatedBlock((ServerPlayerEntity) player);
+
                 // damage the quadrant a bit
                 held.damage(1, player, p -> p.sendToolBreakStatus(hand));
                 player.getItemCooldownManager().set(QUADRANT, 5);
@@ -136,6 +144,7 @@ public class Quadrants extends CharmModule {
                 PlayerEntity player = (PlayerEntity) entity;
                 player.world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_SPYGLASS_USE, SoundCategory.PLAYERS, 1.15F, 0.9F);
                 player.sendMessage(new TranslatableText("gui.charm.quadrants.locked", direction.getName()), true);
+                triggerHeldToAlign((ServerPlayerEntity) player);
             }
         }
         if (slot == EquipmentSlot.OFFHAND
@@ -149,5 +158,13 @@ public class Quadrants extends CharmModule {
                 player.sendMessage(new TranslatableText("gui.charm.quadrants.unlocked"), true);
             }
         }
+    }
+
+    public static void triggerHeldToAlign(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_HELD_TO_ALIGN);
+    }
+
+    public static void triggerRotatedBlock(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_ROTATED_BLOCK);
     }
 }
