@@ -1,9 +1,13 @@
 package svenhjol.charm.screenhandler;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import svenhjol.charm.base.screenhandler.CharmScreenHandler;
 import svenhjol.charm.blockentity.BookcaseBlockEntity;
 import svenhjol.charm.module.Bookcases;
@@ -39,5 +43,15 @@ public class BookcaseScreenHandler extends CharmScreenHandler {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(player, i, 8 + (i * 18), 126));
         }
+    }
+
+    @Override
+    public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
+        if (slotIndex > 0 && slotIndex < BookcaseBlockEntity.SIZE) {
+            ItemStack stack = this.getCursorStack();
+            if (!player.world.isClient && Bookcases.canContainItem(stack))
+                Bookcases.triggerAddedBookToBookcase((ServerPlayerEntity) player);
+        }
+        super.onSlotClick(slotIndex, button, actionType, player);
     }
 }
