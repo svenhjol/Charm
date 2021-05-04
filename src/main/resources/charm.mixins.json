@@ -4,6 +4,7 @@
   "package": "svenhjol.charm.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AdvancementManagerMixin",
     "AnimalEntityMixin",
     "AnvilBlockMixin",
     "AnvilScreenHandlerMixin",
@@ -42,7 +43,6 @@
     "ThrownEntityMixin",
     "UtilMixin",
     "WanderingTraderManagerMixin",
-    "AdvancementManagerMixin",
     "accessor.AnvilScreenHandlerAccessor",
     "accessor.BeeEntityAccessor",
     "accessor.BlockAccessor",
