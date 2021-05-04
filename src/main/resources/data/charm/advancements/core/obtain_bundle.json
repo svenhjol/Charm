@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:bundle"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_bundle.title"
+    },
+    "description": {
+      "translate": "advancements.charm.unlock_more.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_bundle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{"tag": "c:bundles"}]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_bundle"
+    ]
+  ]
+}

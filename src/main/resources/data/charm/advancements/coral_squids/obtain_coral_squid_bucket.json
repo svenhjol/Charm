@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/obtain_bucket",
+  "display": {
+    "icon": {
+      "item": "charm:coral_squid_bucket"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_coral_squid_bucket.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_coral_squid_bucket.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_coral_squid": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "charm:coral_squid_bucket"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_coral_squid"
+    ]
+  ]
+}

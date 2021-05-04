@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:redstone"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_redstone.title"
+    },
+    "description": {
+      "translate": "advancements.charm.unlock_more.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_redstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:redstone"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_redstone"
+    ]
+  ]
+}
