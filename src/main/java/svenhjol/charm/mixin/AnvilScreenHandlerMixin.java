@@ -23,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.event.CheckAnvilRepairCallback;
+import svenhjol.charm.event.TakeAnvilOutputCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.module.AnvilImprovements;
 import svenhjol.charm.module.StackableEnchantedBooks;
@@ -127,6 +128,14 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
     private void hookCanTakeOutput(PlayerEntity player, boolean unused, CallbackInfoReturnable<Boolean> cir) {
         if (AnvilImprovements.allowTakeWithoutXp(player, levelCost))
             cir.setReturnValue(true);
+    }
+
+    @Inject(
+        method = "onTakeOutput",
+        at = @At("HEAD")
+    )
+    private void hookOnTakeOutput(PlayerEntity player, ItemStack stack, CallbackInfo ci) {
+        TakeAnvilOutputCallback.EVENT.invoker().interact((AnvilScreenHandler)(Object)this, player, stack);
     }
 
     @Redirect(
