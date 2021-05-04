@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/obtain_anvil",
+  "display": {
+    "icon": {
+      "item": "minecraft:blue_dye"
+    },
+    "title": {
+      "translate": "advancements.charm.change_glint_color.title"
+    },
+    "description": {
+      "translate": "advancements.charm.change_glint_color.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "changed_glint_color": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:changed_glint_color"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "changed_glint_color"
+    ]
+  ]
+}
