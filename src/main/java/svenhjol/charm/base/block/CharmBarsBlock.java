@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmModule;
 
-public abstract class CharmBarsBlock extends PaneBlock implements ICharmBlock {
+public class CharmBarsBlock extends PaneBlock implements ICharmBlock {
     private final CharmModule module;
 
     public CharmBarsBlock(CharmModule module, String name, Settings settings) {

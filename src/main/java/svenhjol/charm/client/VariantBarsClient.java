@@ -13,7 +13,6 @@ public class VariantBarsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        BlockRenderLayerMap.INSTANCE.putBlock(VariantBars.GOLD_BARS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(VariantBars.COPPER_BARS, RenderLayer.getCutout());
+        VariantBars.BARS.forEach(bars -> BlockRenderLayerMap.INSTANCE.putBlock(bars, RenderLayer.getCutout()));
     }
 }

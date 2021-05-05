@@ -317,12 +317,8 @@ public class DataBlockProcessor extends StructureProcessor {
             if (!withChance(LANTERN_CHANCE)) return;
             state = Blocks.LANTERN.getDefaultState();
 
-            if (ModuleHandler.enabled("charm:lanterns") && random.nextFloat() < LANTERN_VARIANT_CHANCE) {
-                if (random.nextBoolean()) {
-                    state = VariantLanterns.GOLD_LANTERN.getDefaultState();
-                } else {
-                    state = VariantLanterns.COPPER_LANTERN.getDefaultState();
-                }
+            if (ModuleHandler.enabled("charm:variant_lanterns") && random.nextFloat() < LANTERN_VARIANT_CHANCE) {
+                state = VariantLanterns.getRandomLantern(random).getDefaultState();
             }
 
             if (data.contains("hanging"))

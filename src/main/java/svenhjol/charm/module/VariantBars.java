@@ -2,19 +2,21 @@ package svenhjol.charm.module;
 
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.CharmBarsBlock;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.block.CopperBarsBlock;
-import svenhjol.charm.block.GoldBarsBlock;
 import svenhjol.charm.client.VariantBarsClient;
 
-@Module(mod = Charm.MOD_ID, client = VariantBarsClient.class, description = "Gold and copper versions of the vanilla iron bars.")
+import java.util.ArrayList;
+import java.util.List;
+
+@Module(mod = Charm.MOD_ID, client = VariantBarsClient.class, description = "Variant bars crafted from vanilla metal ingots.")
 public class VariantBars extends CharmModule {
-    public static CopperBarsBlock COPPER_BARS;
-    public static GoldBarsBlock GOLD_BARS;
+    public static List<CharmBarsBlock> BARS = new ArrayList<>();
 
     @Override
     public void register() {
-        COPPER_BARS = new CopperBarsBlock(this);
-        GOLD_BARS = new GoldBarsBlock(this);
+        for (String material : new String[]{"copper", "gold", "netherite"}) {
+            BARS.add(new CharmBarsBlock(this, material + "_bars"));
+        }
     }
 }

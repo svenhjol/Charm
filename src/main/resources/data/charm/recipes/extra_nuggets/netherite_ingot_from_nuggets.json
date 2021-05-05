@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {"item": "charm:netherite_nugget"}
+  },
+  "result": {
+    "item": "minecraft:netherite_ingot"
+  }
+}

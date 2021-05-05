@@ -4,10 +4,10 @@
     "GGG", "GTG", "GGG"
   ],
   "key": {
-    "G": {"item": "charm:copper_nugget"},
+    "G": {"item": "charm:netherite_nugget"},
     "T": {"item": "minecraft:torch"}
   },
   "result": {
-    "item": "charm:copper_lantern"
+    "item": "charm:netherite_lantern"
   }
 }

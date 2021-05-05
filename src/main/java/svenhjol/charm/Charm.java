@@ -46,7 +46,7 @@ public class Charm implements ModInitializer {
             ColoredGlints.class,
             CookingPots.class,
             CopperRails.class,
-            CopperNuggets.class,
+            ExtraNuggets.class,
             CoralSeaLanterns.class,
             CoralSquids.class,
             Core.class,

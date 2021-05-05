@@ -40,7 +40,7 @@ public class VariantBarrels extends CharmModule {
         return barrel;
     }
 
-    public static VariantBarrelBlock getRandomBarrelBlock(Random rand) {
+    public static VariantBarrelBlock getRandomBarrel(Random rand) {
         List<VariantBarrelBlock> values = new ArrayList<>(BARREL_BLOCKS.values());
         return values.get(rand.nextInt(values.size()));
     }

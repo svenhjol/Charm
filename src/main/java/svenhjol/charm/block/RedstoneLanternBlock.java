@@ -12,10 +12,11 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.block.CharmLanternBlock;
 
 import java.util.Random;
 
-public class RedstoneLanternBlock extends BaseLanternBlock {
+public class RedstoneLanternBlock extends CharmLanternBlock {
     public static BooleanProperty LIT = Properties.LIT;
 
     public RedstoneLanternBlock(CharmModule module) {
