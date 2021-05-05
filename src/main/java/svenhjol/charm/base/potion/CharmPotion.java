@@ -11,7 +11,15 @@ public abstract class CharmPotion extends Potion implements ICharmPotion {
 
     public CharmPotion(CharmModule module, String name, StatusEffectInstance... effects) {
         super(effects);
+        this.setModuleAndName(module, name);
+    }
 
+    public CharmPotion(CharmModule module, String name, String basedOn, StatusEffectInstance... effects) {
+        super(basedOn, effects);
+        this.setModuleAndName(module, name);
+    }
+
+    protected void setModuleAndName(CharmModule module, String name) {
         this.module = module;
         this.register(module, name);
     }
