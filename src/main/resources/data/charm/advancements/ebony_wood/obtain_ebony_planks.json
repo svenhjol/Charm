@@ -1,27 +1,27 @@
 {
-  "parent": "charm:core/obtain_book",
+  "parent": "charm:core/root",
   "display": {
     "icon": {
-      "item": "charm:atlas"
+      "item": "charm:ebony_planks"
     },
     "title": {
-      "translate": "advancements.charm.obtain_atlas.title"
+      "translate": "advancements.charm.obtain_ebony_planks.title"
     },
     "description": {
-      "translate": "advancements.charm.obtain_atlas.description"
+      "translate": "advancements.charm.obtain_ebony_planks.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": false,
     "hidden": false
   },
   "criteria": {
-    "obtained_atlas": {
+    "obtained_ebony_planks": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "charm:atlas"
+            "item": "charm:ebony_planks"
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "obtained_atlas"
+      "obtained_ebony_planks"
     ]
   ]
 }

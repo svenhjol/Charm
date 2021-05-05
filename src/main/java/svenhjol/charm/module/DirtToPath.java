@@ -6,19 +6,24 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShovelItem;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.init.CharmAdvancements;
 
 @Module(mod = Charm.MOD_ID, description = "Right-clicking dirt with a shovel turns it into grass path.")
 public class DirtToPath extends CharmModule {
+    public static final Identifier TRIGGER_CONVERTED_DIRT = new Identifier(Charm.MOD_ID, "converted_dirt");
+
     @Override
     public void init() {
         UseBlockCallback.EVENT.register(this::convertDirt);
@@ -37,6 +42,8 @@ public class DirtToPath extends CharmModule {
                     world.setBlockState(pos, Blocks.DIRT_PATH.getDefaultState(), 11);
                     world.playSound(null, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
+                    triggerConvertedDirt((ServerPlayerEntity) player);
+
                     // damage the shovel a bit
                     stack.damage(1, player, p -> p.swingHand(hand));
                     return ActionResult.SUCCESS;
@@ -44,5 +51,9 @@ public class DirtToPath extends CharmModule {
             }
         }
         return ActionResult.PASS;
+    }
+
+    public static void triggerConvertedDirt(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_CONVERTED_DIRT);
     }
 }

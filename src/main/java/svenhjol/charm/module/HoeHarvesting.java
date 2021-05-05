@@ -16,18 +16,22 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.init.CharmAdvancements;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Module(mod = Charm.MOD_ID, description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.")
 public class HoeHarvesting extends CharmModule {
+    public static final Identifier TRIGGER_REPLANTED_CROPS = new Identifier(Charm.MOD_ID, "replanted_crops");
+
     private static final List<BlockState> harvestable = new ArrayList<>();
 
     @Override
@@ -83,6 +87,8 @@ public class HoeHarvesting extends CharmModule {
                 world.setBlockState(pos, newState);
                 world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
+                triggerReplantedCrops(serverPlayer);
+
                 // damage the hoe a bit
                 held.damage(1, player, p -> p.swingHand(hand));
 
@@ -109,5 +115,9 @@ public class HoeHarvesting extends CharmModule {
             state = Blocks.AIR.getDefaultState();
 
         harvestable.add(state);
+    }
+
+    public static void triggerReplantedCrops(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_REPLANTED_CROPS);
     }
 }

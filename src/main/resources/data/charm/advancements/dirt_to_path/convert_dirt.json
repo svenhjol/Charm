@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/obtain_shovel",
+  "display": {
+    "icon": {
+      "item": "minecraft:dirt_path"
+    },
+    "title": {
+      "translate": "advancements.charm.convert_dirt.title"
+    },
+    "description": {
+      "translate": "advancements.charm.convert_dirt.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "converted_dirt": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:converted_dirt"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "converted_dirt"
+    ]
+  ]
+}
