@@ -1,0 +1,13 @@
+{
+  "template": {
+    "variants": {
+      "hanging=true": {
+        "model": "charm:block/VARIANT_lantern_hanging"
+      },
+      "hanging=false": {
+        "model": "charm:block/VARIANT_lantern"
+      }
+    }
+  },
+  "variants": "metal"
+}

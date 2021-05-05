@@ -1,0 +1,11 @@
+{
+  "template": {
+    "parent": "minecraft:block/iron_bars_cap_alt",
+    "textures": {
+      "particle": "charm:block/VARIANT_bars",
+      "bars": "charm:block/VARIANT_bars",
+      "edge": "charm:block/VARIANT_bars"
+    }
+  },
+  "variants": "metal"
+}

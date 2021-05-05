@@ -1,0 +1,19 @@
+{
+  "template": {
+    "variants": {
+      "axis=x": {
+        "model": "charm:block/VARIANT_chain",
+        "x": 90,
+        "y": 90
+      },
+      "axis=y": {
+        "model": "charm:block/VARIANT_chain"
+      },
+      "axis=z": {
+        "model": "charm:block/VARIANT_chain",
+        "x": 90
+      }
+    }
+  },
+  "variants": "metal"
+}

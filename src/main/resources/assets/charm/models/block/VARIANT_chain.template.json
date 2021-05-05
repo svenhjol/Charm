@@ -1,0 +1,10 @@
+{
+  "template": {
+    "parent": "minecraft:block/chain",
+    "textures": {
+      "particle": "charm:block/VARIANT_chain",
+      "all": "charm:block/VARIANT_chain"
+    }
+  },
+  "variants": "metal"
+}

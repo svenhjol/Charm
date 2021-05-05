@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "charm:item/VARIANT_chain"
+    }
+  },
+  "variants": "metal"
+}

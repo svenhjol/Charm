@@ -1,0 +1,19 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "###",
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "NAMESPACE:VARIANT_ingot"
+      }
+    },
+    "result": {
+      "item": "charm:VARIANT_bars",
+      "count": 16
+    }
+  },
+  "variants": "metal"
+}

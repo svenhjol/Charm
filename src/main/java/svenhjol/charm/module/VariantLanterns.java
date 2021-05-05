@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, client = VariantLanternsClient.class, description = "Gold version of the vanilla lanterns.")
+@Module(mod = Charm.MOD_ID, client = VariantLanternsClient.class, description = "Gold and copper versions of the vanilla lanterns.")
 public class VariantLanterns extends CharmModule {
     public static GoldLanternBlock GOLD_LANTERN;
     public static GoldLanternBlock GOLD_SOUL_LANTERN;
