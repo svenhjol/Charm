@@ -106,7 +106,7 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
         if (mapId == null) return null;
 
         MapState mapData = FilledMapItem.getMapState(mapId, world);
-        return mapData != null ? new MapInfo(mapData.xCenter, mapData.zCenter, FilledMapItem.getMapId(map), map, mapData.dimension) : null;
+        return mapData != null ? new MapInfo(mapData.centerX, mapData.centerZ, FilledMapItem.getMapId(map), map, mapData.dimension) : null;
     }
 
     public boolean updateActiveMap(ServerPlayerEntity player) {

@@ -17,6 +17,10 @@ minecraft {
 	accessWidener = file("src/main/resources/charm.accesswidener")
 }
 
+runServer {
+	standardInput = System.in
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
