@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "charm:ebony_chest"
+      "item": "charm:acacia_barrel"
     },
     "title": {
       "translate": "advancements.charm.root.title"

@@ -5,7 +5,7 @@
       "item": "minecraft:anvil"
     },
     "title": {
-      "translate": "advancements.charm.obtain_anvil.title"
+      "translate": "block.minecraft.anvil"
     },
     "description": {
       "translate": "advancements.charm.unlock_more.description"

@@ -1,0 +1,47 @@
+{
+  "parent": "charm:core/obtain_sea_lantern",
+  "display": {
+    "icon": {
+      "item": "charm:brain_sea_lantern"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_all_coral_sea_lanterns.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_all_coral_sea_lanterns.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_brain_sea_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {"items": [{"item": "charm:brain_sea_lantern"}]}
+    },
+    "has_bubble_sea_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {"items": [{"item": "charm:bubble_sea_lantern"}]}
+    },
+    "has_fire_sea_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {"items": [{"item": "charm:fire_sea_lantern"}]}
+    },
+    "has_horn_sea_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {"items": [{"item": "charm:horn_sea_lantern"}]}
+    },
+    "has_tube_sea_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {"items": [{"item": "charm:tube_sea_lantern"}]}
+    }
+  },
+  "requirements": [
+    ["has_brain_sea_lantern"],
+    ["has_bubble_sea_lantern"],
+    ["has_fire_sea_lantern"],
+    ["has_horn_sea_lantern"],
+    ["has_tube_sea_lantern"]
+  ]
+}

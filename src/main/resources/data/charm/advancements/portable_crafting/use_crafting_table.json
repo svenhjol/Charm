@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:crafting_table"
+    },
+    "title": {
+      "translate": "advancements.charm.use_crafting_table.title"
+    },
+    "description": {
+      "translate": "advancements.charm.use_crafting_table.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "used_crafting_table": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:used_crafting_table"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "used_crafting_table"
+    ]
+  ]
+}

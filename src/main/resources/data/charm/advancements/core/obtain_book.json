@@ -5,7 +5,7 @@
       "item": "minecraft:book"
     },
     "title": {
-      "translate": "advancements.charm.obtain_book.title"
+      "translate": "item.minecraft.book"
     },
     "description": {
       "translate": "advancements.charm.unlock_more.description"

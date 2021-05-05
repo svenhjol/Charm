@@ -19,12 +19,14 @@ import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.PortableCraftingClient;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
 
 @Module(mod = Charm.MOD_ID, client = PortableCraftingClient.class, description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
 public class PortableCrafting extends CharmModule {
     private static final Text LABEL = new TranslatableText("container.charm.portable_crafting_table");
     public static final Identifier MSG_SERVER_OPEN_CRAFTING = new Identifier(Charm.MOD_ID, "server_open_crafting");
+    public static final Identifier TRIGGER_USED_CRAFTING_TABLE = new Identifier(Charm.MOD_ID, "used_crafting_table");
 
     @Config(name = "Enable keybind", description = "If true, sets a keybind for opening the portable crafting table (defaults to 'c').")
     public static boolean enableKeybind = true;
@@ -45,7 +47,12 @@ public class PortableCrafting extends CharmModule {
             if (player == null || !PlayerHelper.getInventory(player).contains(new ItemStack(Blocks.CRAFTING_TABLE)))
                 return;
 
+            triggerUsedCraftingTable(player);
             PortableCrafting.openContainer(player);
         });
+    }
+
+    public static void triggerUsedCraftingTable(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_USED_CRAFTING_TABLE);
     }
 }

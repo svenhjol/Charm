@@ -5,7 +5,7 @@
       "item": "minecraft:copper_ingot"
     },
     "title": {
-      "translate": "advancements.charm.obtain_copper_ingot.title"
+      "translate": "item.minecraft.copper_ingot"
     },
     "description": {
       "translate": "advancements.charm.unlock_more.description"

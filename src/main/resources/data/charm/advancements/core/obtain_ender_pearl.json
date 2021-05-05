@@ -5,7 +5,7 @@
       "item": "minecraft:ender_pearl"
     },
     "title": {
-      "translate": "advancements.charm.obtain_ender_pearl.title"
+      "translate": "item.minecraft.ender_pearl"
     },
     "description": {
       "translate": "advancements.charm.unlock_more.description"

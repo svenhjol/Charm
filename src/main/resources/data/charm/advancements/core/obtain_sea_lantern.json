@@ -2,10 +2,10 @@
   "parent": "charm:core/root",
   "display": {
     "icon": {
-      "item": "minecraft:bucket"
+      "item": "minecraft:sea_lantern"
     },
     "title": {
-      "translate": "item.minecraft.bucket"
+      "translate": "block.minecraft.sea_lantern"
     },
     "description": {
       "translate": "advancements.charm.unlock_more.description"
@@ -16,12 +16,12 @@
     "hidden": false
   },
   "criteria": {
-    "obtained_bucket": {
+    "obtained_sea_lantern": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:bucket"
+            "item": "minecraft:sea_lantern"
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "obtained_bucket"
+      "obtained_sea_lantern"
     ]
   ]
 }

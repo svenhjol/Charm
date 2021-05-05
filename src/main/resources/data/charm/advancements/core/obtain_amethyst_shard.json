@@ -5,7 +5,7 @@
       "item": "minecraft:amethyst_shard"
     },
     "title": {
-      "translate": "advancements.charm.obtain_amethyst_shard.title"
+      "translate": "item.minecraft.amethyst_shard"
     },
     "description": {
       "translate": "advancements.charm.unlock_more.description"
