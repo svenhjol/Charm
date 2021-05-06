@@ -5,17 +5,24 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.AnvilScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.event.TakeAnvilOutputCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.mixin.accessor.ForgingScreenHandlerAccessor;
 
 @Module(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.")
 public class DecreaseRepairCost extends CharmModule {
+    public static final Identifier TRIGGER_DECREASED_COST = new Identifier(Charm.MOD_ID, "decreased_cost");
+
     @Config(name = "XP cost", description = "Number of levels required to reduce repair cost on the anvil.")
     public static int xpCost = 0;
 
@@ -30,6 +37,9 @@ public class DecreaseRepairCost extends CharmModule {
 
         // register the anvil recipe for this operation
         UpdateAnvilCallback.EVENT.register(this::tryReduceRepairCost);
+
+        // listen for when player takes item from anvil
+        TakeAnvilOutputCallback.EVENT.register(this::handleTakeOutput);
     }
 
     private ActionResult tryReduceRepairCost(AnvilScreenHandler handler, PlayerEntity player, ItemStack left, ItemStack right, Inventory output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {
@@ -55,5 +65,21 @@ public class DecreaseRepairCost extends CharmModule {
         apply.accept(out, xpCost, 1); // item to output, the xp cost of this operation, and the amount of shards used.
 
         return ActionResult.SUCCESS;
+    }
+
+    private void handleTakeOutput(AnvilScreenHandler handler, PlayerEntity player, ItemStack stack) {
+        if (!player.world.isClient) {
+            Inventory input = ((ForgingScreenHandlerAccessor) handler).getInput();
+            if (!input.isEmpty()
+                && !input.getStack(0).isEmpty()
+                && input.getStack(0).getRepairCost() > stack.getRepairCost()
+            ) {
+                triggerDecreasedCost((ServerPlayerEntity) player);
+            }
+        }
+    }
+
+    public static void triggerDecreasedCost(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_DECREASED_COST);
     }
 }

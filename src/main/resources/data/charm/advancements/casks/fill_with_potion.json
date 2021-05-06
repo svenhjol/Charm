@@ -1,0 +1,31 @@
+{
+  "parent": "charm:casks/obtain_cask",
+  "display": {
+    "icon": {
+      "item": "minecraft:glass_bottle"
+    },
+    "title": {
+      "translate": "advancements.charm.fill_with_potion.title"
+    },
+    "description": {
+      "translate": "advancements.charm.fill_with_potion.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "filled_with_potion": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:filled_with_potion"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "filled_with_potion"
+    ]
+  ]
+}

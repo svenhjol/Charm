@@ -118,6 +118,11 @@ public class CaskBlock extends CharmBlockWithEntity {
                         } else {
                             world.playSound(null, pos, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.5F, 1.0F);
                         }
+
+                        // do advancement for taking brew
+                        if (cask.portions > 1 && cask.effects.size() > 1) {
+                            Casks.triggerTakenBrew((ServerPlayerEntity) player);
+                        }
                     }
                 } else if (held.getItem() == Items.POTION) {
                     boolean result = cask.add(world, pos, state, held);
@@ -133,6 +138,11 @@ public class CaskBlock extends CharmBlockWithEntity {
                         PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
                         data.writeLong(pos.asLong());
                         ServerPlayNetworking.send((ServerPlayerEntity) player, Casks.MSG_CLIENT_ADDED_TO_CASK, data);
+
+                        // do advancement for filling with potions
+                        if (cask.portions > 1 && cask.effects.size() > 1) {
+                            Casks.triggerFilledWithPotion((ServerPlayerEntity) player);
+                        }
                     }
                 }
             }

@@ -16,7 +16,7 @@
     "hidden": false
   },
   "criteria": {
-    "obtain_endermite_powder": {
+    "obtained_endermite_powder": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -26,7 +26,7 @@
         ]
       }
     },
-    "use_endermite_powder": {
+    "used_endermite_powder": {
       "trigger": "charm:action_performed",
       "conditions": {
         "action": "charm:used_endermite_powder"
@@ -35,10 +35,10 @@
   },
   "requirements": [
     [
-      "obtain_endermite_powder"
+      "obtained_endermite_powder"
     ],
     [
-      "use_endermite_powder"
+      "used_endermite_powder"
     ]
   ]
 }

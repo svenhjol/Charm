@@ -54,6 +54,7 @@
     "accessor.DefaultParticleTypeAccessor",
     "accessor.DispenserBlockAccessor",
     "accessor.FireBlockAccessor",
+    "accessor.ForgingScreenHandlerAccessor",
     "accessor.GenerationSettingsAccessor",
     "accessor.GoalSelectorAccessor",
     "accessor.HoglinBrainAccessor",

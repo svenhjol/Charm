@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/obtain_copper_ingot",
+  "display": {
+    "icon": {
+      "item": "charm:cask"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_cask.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_cask.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_cask": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "charm:cask"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_cask"
+    ]
+  ]
+}

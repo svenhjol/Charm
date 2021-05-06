@@ -1,0 +1,31 @@
+{
+  "parent": "charm:cooking_pots/prepare_cooking",
+  "display": {
+    "icon": {
+      "item": "charm:mixed_stew"
+    },
+    "title": {
+      "translate": "advancements.charm.take_food.title"
+    },
+    "description": {
+      "translate": "advancements.charm.take_food.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_taken_food": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:taken_food_from_pot"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_taken_food"
+    ]
+  ]
+}

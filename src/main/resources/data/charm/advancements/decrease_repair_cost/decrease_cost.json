@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/obtain_amethyst_shard",
+  "display": {
+    "icon": {
+      "item": "minecraft:anvil"
+    },
+    "title": {
+      "translate": "advancements.charm.decrease_cost.title"
+    },
+    "description": {
+      "translate": "advancements.charm.decrease_cost.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "decreased_cost": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:decreased_cost"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "decreased_cost"
+    ]
+  ]
+}

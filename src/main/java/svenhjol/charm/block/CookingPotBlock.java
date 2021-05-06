@@ -66,6 +66,7 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                 world.setBlockState(pos, state.with(LIQUID, 1), 3);
                 player.setStackInHand(hand, new ItemStack(Items.BUCKET));
                 world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.8F, 1.0F);
+                CookingPots.triggerFilledWater((ServerPlayerEntity) player);
             }
 
             return ActionResult.success(world.isClient);
@@ -85,6 +86,11 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.5F, 1.0F);
                             } else {
                                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.5F, 1.0F);
+                            }
+
+                            // do take food advancement
+                            if (pot.portions > 1 && pot.contents.size() > 1) {
+                                CookingPots.triggerTakenFood((ServerPlayerEntity) player);
                             }
                         }
 
@@ -108,8 +114,16 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
                             data.writeLong(pos.asLong());
                             ServerPlayNetworking.send((ServerPlayerEntity) player, CookingPots.MSG_CLIENT_ADDED_TO_POT, data);
+
+                            // do add items advancement
+                            if (pot.portions > 1 && pot.contents.size() > 1) {
+                                CookingPots.triggerAddedItem((ServerPlayerEntity) player);
+                            }
                         }
                     }
+
+                    // fire must be lit at this point so check the advancement
+                    CookingPots.triggerLitFire((ServerPlayerEntity) player);
                 }
 
                 return ActionResult.success(world.isClient);
