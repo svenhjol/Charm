@@ -19,6 +19,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -109,6 +110,8 @@ public class MoobloomEntity extends CowEntity implements Shearable {
                 ItemStack out = ItemUsage.exchangeStack(held, player, stew, false);
                 player.setStackInHand(hand, out);
                 this.dataTracker.set(POLLINATED, false);
+
+                Mooblooms.triggerMilkedMoobloom((ServerPlayerEntity) player);
             }
 
             return ActionResult.success(world.isClient);

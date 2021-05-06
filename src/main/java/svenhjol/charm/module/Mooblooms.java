@@ -8,6 +8,7 @@ import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.RegistryKey;
@@ -24,6 +25,7 @@ import svenhjol.charm.client.MoobloomsClient;
 import svenhjol.charm.entity.MoobloomEntity;
 import svenhjol.charm.entity.goal.BeeMoveToMoobloomGoal;
 import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.init.CharmAdvancements;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,8 +33,9 @@ import java.util.List;
 
 @Module(mod = Charm.MOD_ID, client = MoobloomsClient.class, description = "Mooblooms are cow-like mobs that come in a variety of flower types. They spawn flowers where they walk and can be milked for suspicious stew.")
 public class Mooblooms extends CharmModule {
-    public static Identifier ID = new Identifier(Charm.MOD_ID, "moobloom");
-    public static Identifier EGG_ID = new Identifier(Charm.MOD_ID, "moobloom_spawn_egg");
+    public static final Identifier ID = new Identifier(Charm.MOD_ID, "moobloom");
+    public static final Identifier EGG_ID = new Identifier(Charm.MOD_ID, "moobloom_spawn_egg");
+    public static final Identifier TRIGGER_MILKED_MOOBLOOM = new Identifier(Charm.MOD_ID, "milked_moobloom");
     public static EntityType<MoobloomEntity> MOOBLOOM;
     public static Item SPAWN_EGG;
 
@@ -72,5 +75,9 @@ public class Mooblooms extends CharmModule {
         }
 
         return ActionResult.PASS;
+    }
+
+    public static void triggerMilkedMoobloom(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_MILKED_MOOBLOOM);
     }
 }

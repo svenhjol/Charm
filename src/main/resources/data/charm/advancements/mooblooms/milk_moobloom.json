@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:suspicious_stew"
+    },
+    "title": {
+      "translate": "advancements.charm.milk_moobloom.title"
+    },
+    "description": {
+      "translate": "advancements.charm.milk_moobloom.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "milked_moobloom": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:milked_moobloom"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "milked_moobloom"
+    ]
+  ]
+}
