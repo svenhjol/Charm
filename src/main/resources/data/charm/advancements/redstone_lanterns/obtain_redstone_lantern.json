@@ -1,14 +1,14 @@
 {
-  "parent": "charm:core/root",
+  "parent": "charm:core/obtain_redstone",
   "display": {
     "icon": {
-      "item": "charm:raid_horn"
+      "item": "charm:redstone_lantern"
     },
     "title": {
-      "translate": "advancements.charm.obtain_raid_horn.title"
+      "translate": "advancements.charm.obtain_redstone_lantern.title"
     },
     "description": {
-      "translate": "advancements.charm.obtain_raid_horn.description"
+      "translate": "advancements.charm.obtain_redstone_lantern.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,12 +16,12 @@
     "hidden": false
   },
   "criteria": {
-    "obtained_raid_horn": {
+    "obtained_redstone_lantern": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "charm:raid_horn"
+            "item": "charm:redstone_lantern"
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "obtained_raid_horn"
+      "obtained_redstone_lantern"
     ]
   ]
 }
