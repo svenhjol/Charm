@@ -48,14 +48,4 @@ public abstract class CharmModule {
     public void loadWorld(MinecraftServer server) {
         // run on integrated server, only if module enabled
     }
-
-    /**
-     * Provide a list of required mixins.
-     * If any are blacklisted, this module will be disabled.
-     * Each string should be the class name not the fully qualified path.
-     * @return List of required mixins.
-     */
-    public List<String> mixins() {
-        return new ArrayList<>();
-    }
 }

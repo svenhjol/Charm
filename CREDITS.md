@@ -1,3 +1,10 @@
+# Credits
+
+## Code credits
+
+* Module loader inspired by the [Quark](https://github.com/Vazkii/Quark) mod.
+* Mixin annotations inspired by the [Fabrication](https://github.com/unascribed/Fabrication) mod.
+
 ## Sound samples
 
 The following sound samples from [Freesound](https://freesound.org) are used in Charm:

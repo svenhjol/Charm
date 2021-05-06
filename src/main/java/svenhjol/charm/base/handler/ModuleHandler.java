@@ -55,27 +55,21 @@ public class ModuleHandler {
 
         String message;
         if (!isEnabled) {
-            message = "Module " + name + " is not enabled.";
+            message = "Module " + name + " is not enabled ❌";
         } else if (!dependencyCheck) {
-            message = "Module " + name + " did not pass dependency check, disabling.";
+            message = "Module " + name + " did not pass dependency check, disabling ❌";
         } else {
-            message = "Module " + name + " is enabled.";
+            message = "Module " + name + " is enabled ✅";
         }
 
         Charm.LOG.debug("[ModuleHandler] " + message);
         module.enabled = isEnabled && dependencyCheck;
     }
 
-    public void mixins(CharmModule module) {
-        List<String> mixins = module.mixins();
-        if (!mixins.isEmpty()) {
-            for (String mixin : mixins) {
-                if (CharmMixinConfigPlugin.mixinsToDisable.contains(mixin.toLowerCase())) {
-                    module.enabled = false;
-                    Charm.LOG.warn("[ModuleHandler] Module " + module.getName() + " is disabled via mixin blacklist.");
-                    return;
-                }
-            }
+    public void checkMixins(CharmModule module) {
+        if (CharmMixinConfigPlugin.modulesDisabledViaMixin.contains(module.getId())) {
+            module.enabled = false;
+            Charm.LOG.warn("Disabled module " + module.getName() + " via mixin blacklist ❌");
         }
     }
 
