@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_copper_ingot",
+  "parent": "charm:core/decoration",
   "display": {
     "icon": {
       "item": "charm:quadrant"

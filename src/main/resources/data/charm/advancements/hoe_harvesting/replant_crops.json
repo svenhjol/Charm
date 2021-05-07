@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_hoe",
+  "parent": "charm:core/tweaks",
   "display": {
     "icon": {
       "item": "minecraft:wheat"

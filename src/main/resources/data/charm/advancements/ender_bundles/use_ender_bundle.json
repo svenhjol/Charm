@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_bundle",
+  "parent": "charm:core/tools",
   "display": {
     "icon": {
       "item": "charm:ender_bundle"

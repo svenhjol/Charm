@@ -1,14 +1,14 @@
 {
-  "parent": "charm:core/tools",
+  "parent": "charm:core/automation",
   "display": {
     "icon": {
-      "item": "minecraft:potion"
+      "item": "charm:gunpowder_block"
     },
     "title": {
-      "translate": "advancements.charm.obtain_spelunking_effect.title"
+      "translate": "advancements.charm.gunpowder_block.title"
     },
     "description": {
-      "translate": "advancements.charm.obtain_spelunking_effect.description"
+      "translate": "advancements.charm.gunpowder_block.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "has_spelunking_effect": {
+    "dissolved_gunpowder": {
       "trigger": "charm:action_performed",
       "conditions": {
-        "action": "charm:has_spelunking_effect"
+        "action": "charm:dissolved_gunpowder"
       }
     }
   },
   "requirements": [
     [
-      "has_spelunking_effect"
+      "dissolved_gunpowder"
     ]
   ]
 }

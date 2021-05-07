@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_ender_pearl",
+  "parent": "charm:core/decoration",
   "display": {
     "icon": {
       "item": "charm:ender_pearl_block"

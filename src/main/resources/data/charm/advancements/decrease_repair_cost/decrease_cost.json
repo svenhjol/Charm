@@ -1,8 +1,8 @@
 {
-  "parent": "charm:core/obtain_amethyst_shard",
+  "parent": "charm:core/smithing",
   "display": {
     "icon": {
-      "item": "minecraft:anvil"
+      "item": "minecraft:amethyst_shard"
     },
     "title": {
       "translate": "advancements.charm.decrease_cost.title"

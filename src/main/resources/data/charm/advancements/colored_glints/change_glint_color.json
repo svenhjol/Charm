@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_anvil",
+  "parent": "charm:core/smithing",
   "display": {
     "icon": {
       "item": "minecraft:blue_dye"

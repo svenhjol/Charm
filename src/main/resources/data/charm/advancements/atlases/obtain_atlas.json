@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_book",
+  "parent": "charm:core/tools",
   "display": {
     "icon": {
       "item": "charm:atlas"

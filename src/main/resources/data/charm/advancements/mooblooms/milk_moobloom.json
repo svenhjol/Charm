@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/root",
+  "parent": "charm:core/mobs",
   "display": {
     "icon": {
       "item": "minecraft:suspicious_stew"

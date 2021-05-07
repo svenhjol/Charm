@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_bucket",
+  "parent": "charm:core/mobs",
   "display": {
     "icon": {
       "item": "charm:coral_squid_bucket"

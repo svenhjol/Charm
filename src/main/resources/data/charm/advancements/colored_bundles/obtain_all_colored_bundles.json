@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_bundle",
+  "parent": "charm:core/decoration",
   "display": {
     "icon": {
       "item": "charm:red_bundle"

@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_redstone",
+  "parent": "charm:core/automation",
   "display": {
     "icon": {
       "item": "charm:redstone_lantern"

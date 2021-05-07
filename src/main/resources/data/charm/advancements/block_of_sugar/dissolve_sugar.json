@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/root",
+  "parent": "charm:core/automation",
   "display": {
     "icon": {
       "item": "charm:sugar_block"

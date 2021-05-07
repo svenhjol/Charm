@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_sea_lantern",
+  "parent": "charm:core/decoration",
   "display": {
     "icon": {
       "item": "charm:brain_sea_lantern"

@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/root",
+  "parent": "charm:core/tweaks",
   "display": {
     "icon": {
       "item": "minecraft:crafting_table"

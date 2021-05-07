@@ -2,14 +2,14 @@
   "parent": "charm:core/root",
   "display": {
     "icon": {
-      "item": "minecraft:iron_hoe",
+      "item": "minecraft:iron_pickaxe",
       "nbt": "{Damage:0}"
     },
     "title": {
-      "translate": "advancements.charm.obtain_hoe.title"
+      "translate": "advancements.charm.tools.title"
     },
     "description": {
-      "translate": "advancements.charm.unlock_more.description"
+      "translate": "advancements.charm.tools.description"
     },
     "frame": "task",
     "show_toast": false,
@@ -17,20 +17,16 @@
     "hidden": false
   },
   "criteria": {
-    "obtained_hoe": {
-      "trigger": "minecraft:inventory_changed",
+    "player_joined": {
+      "trigger": "charm:action_performed",
       "conditions": {
-        "items": [
-          {
-            "tag": "fabric:hoes"
-          }
-        ]
+        "action": "charm:player_joined"
       }
     }
   },
   "requirements": [
     [
-      "obtained_hoe"
+      "player_joined"
     ]
   ]
 }
