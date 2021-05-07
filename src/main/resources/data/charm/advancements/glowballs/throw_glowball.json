@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/tools",
+  "display": {
+    "icon": {
+      "item": "minecraft:snowball"
+    },
+    "title": {
+      "translate": "advancements.charm.throw_glowball.title"
+    },
+    "description": {
+      "translate": "advancements.charm.throw_glowball.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "thrown_glowball": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:thrown_glowball"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "thrown_glowball"
+    ]
+  ]
+}

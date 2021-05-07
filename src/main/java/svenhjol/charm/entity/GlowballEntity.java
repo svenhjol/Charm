@@ -16,6 +16,7 @@ import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
@@ -78,6 +79,10 @@ public class GlowballEntity extends ThrownItemEntity {
 
             world.setBlockState(offsetPos, placedState, 2);
             world.playSound(null, offsetPos, SoundEvents.BLOCK_NYLIUM_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+            if (this.getOwner() instanceof PlayerEntity && !world.isClient)
+                Glowballs.triggerThrownGlowball((ServerPlayerEntity) this.getOwner());
+
             return;
         }
 

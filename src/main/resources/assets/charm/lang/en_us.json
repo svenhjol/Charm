@@ -101,6 +101,8 @@
   "advancements.charm.take_food.description": "Cook stew in the pot and take a portion using a bowl",
   "advancements.charm.teleport_to_ender_pearl_block.title": "Blink of an Eye",
   "advancements.charm.teleport_to_ender_pearl_block.description": "Teleport to a nearby ender pearl block",
+  "advancements.charm.throw_glowball.title": "Enlightening",
+  "advancements.charm.throw_glowball.description": "Craft a glowball and throw it to create a light source",
   "advancements.charm.tidy_inventory.title": "Neat and Tidy",
   "advancements.charm.tidy_inventory.description": "Use the inventory button to tidy up items",
   "advancements.charm.use_crafting_table.title": "On The Go",
