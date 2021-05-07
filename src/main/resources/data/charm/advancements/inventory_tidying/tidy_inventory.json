@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/tweaks",
+  "display": {
+    "icon": {
+      "item": "minecraft:bundle"
+    },
+    "title": {
+      "translate": "advancements.charm.tidy_inventory.title"
+    },
+    "description": {
+      "translate": "advancements.charm.tidy_inventory.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "tidied_inventory": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:tidied_inventory"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "tidied_inventory"
+    ]
+  ]
+}
