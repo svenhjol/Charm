@@ -8,7 +8,7 @@
       "translate": "advancements.charm.obtain_bookcase.title"
     },
     "description": {
-      "translate": "advancements.charm.unlock_more.description"
+      "translate": "advancements.charm.obtain_bookcase.description"
     },
     "frame": "task",
     "show_toast": false,

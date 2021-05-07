@@ -7,6 +7,7 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.EnchantedBookItem;
+import net.minecraft.item.HorseArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -47,8 +48,8 @@ public class ExtractEnchantments extends CharmModule {
                 boolean valid = stack.isDamageable() || stack.getItem() == Items.ENCHANTED_BOOK || stack.hasEnchantments();
 
                 // check for horse armor extraction
-                if (ModuleHandler.enabled("charm:extra_recipes") && ExtraRecipes.useHorseArmor)
-                    return ExtraRecipes.horseArmorRecipes.containsKey(stack.getItem());
+                if (ModuleHandler.enabled("charm:grindable_horse_armor"))
+                    return GrindableHorseArmor.horseArmorRecipes.containsKey(stack.getItem());
 
                 return isExtractEnchantmentsEnabled() ? valid || stack.getItem() == Items.BOOK : valid;
             }
@@ -90,12 +91,21 @@ public class ExtractEnchantments extends CharmModule {
                 ItemStack out = tryGetEnchantedBook(inputs, player);
 
                 context.run((world, blockPos) -> {
-                    if (out != null && out.getItem() instanceof EnchantedBookItem) {
-
+                    if (inputs.getStack(0).getItem() instanceof HorseArmorItem || inputs.getStack(1).getItem() instanceof HorseArmorItem) {
+                        // handle advancement for grindable horse armor
+                        if (!world.isClient)
+                            GrindableHorseArmor.triggerRecycledHorseArmor((ServerPlayerEntity) player);
+                    }
+                    else if (out != null && out.getItem() instanceof EnchantedBookItem) {
+                        // deduct XP from player for extract enchantments
                         if (!PlayerHelper.getAbilities(player).creativeMode) {
                             int cost = getCost(stack);
                             player.addExperienceLevels(-cost);
                         }
+
+                        // handle advancement for extract enchantments
+                        if (!world.isClient)
+                            ExtractEnchantments.triggerExtractedEnchantment((ServerPlayerEntity) player);
 
                     } else {
                         /** vanilla */
@@ -108,9 +118,6 @@ public class ExtractEnchantments extends CharmModule {
                         }
                     }
                     world.syncWorldEvent(1042, blockPos, 0);
-
-                    if (!world.isClient)
-                        CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayerEntity) player, TRIGGER_EXTRACTED_ENCHANTMENT);
                 });
 
                 // ---- CHARM: SNIP ----
@@ -213,7 +220,7 @@ public class ExtractEnchantments extends CharmModule {
     }
 
     public static boolean hasEnoughXp(PlayerEntity player, int cost) {
-        return PlayerHelper.getAbilities(player).creativeMode || player.experienceLevel >= cost;
+        return player.getAbilities().creativeMode || player.experienceLevel >= cost;
     }
 
     public static int getCost(ItemStack stack) {
@@ -236,5 +243,9 @@ public class ExtractEnchantments extends CharmModule {
             cost += stack.getTag().getInt("RepairCost");
 
         return cost;
+    }
+
+    public static void triggerExtractedEnchantment(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_EXTRACTED_ENCHANTMENT);
     }
 }
