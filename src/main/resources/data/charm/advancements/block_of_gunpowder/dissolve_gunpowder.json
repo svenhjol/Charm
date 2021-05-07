@@ -5,10 +5,10 @@
       "item": "charm:gunpowder_block"
     },
     "title": {
-      "translate": "advancements.charm.gunpowder_block.title"
+      "translate": "advancements.charm.dissolve_gunpowder.title"
     },
     "description": {
-      "translate": "advancements.charm.gunpowder_block.description"
+      "translate": "advancements.charm.dissolve_gunpowder.description"
     },
     "frame": "goal",
     "show_toast": true,
