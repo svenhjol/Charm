@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/automation",
+  "parent": "charm:block_of_sugar/dissolve_sugar",
   "display": {
     "icon": {
       "item": "charm:gunpowder_block"

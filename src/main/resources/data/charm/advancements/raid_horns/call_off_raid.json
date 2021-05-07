@@ -1,5 +1,5 @@
 {
-  "parent": "charm:raid_horns/obtain_raid_horn",
+  "parent": "charm:raid_horns/summon_pillagers",
   "display": {
     "icon": {
       "item": "charm:raid_horn"

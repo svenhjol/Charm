@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/tweaks",
+  "parent": "charm:portable_crafting/use_crafting_table",
   "display": {
     "icon": {
       "item": "minecraft:bundle"

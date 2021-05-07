@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/smithing",
+  "parent": "charm:extract_enchantments/extract_enchantment",
   "display": {
     "icon": {
       "item": "minecraft:iron_horse_armor"
