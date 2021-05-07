@@ -85,6 +85,7 @@
     "ArmorFeatureRendererMixin",
     "BuiltinModelItemRendererMixin",
     "CartographyTableScreenMixin",
+    "ChestBlockEntityRendererMixin",
     "ClientPlayNetworkHandlerMixin",
     "ClientRecipeBookMixin",
     "ClientWorldMixin",
