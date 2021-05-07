@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/tools",
+  "parent": "charm:bat_buckets/capture_bat",
   "display": {
     "icon": {
       "item": "charm:bat_bucket"
@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.charm.use_bat_bucket.description"
     },
-    "frame": "goal",
+    "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
