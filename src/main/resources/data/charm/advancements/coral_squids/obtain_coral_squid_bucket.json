@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.charm.obtain_coral_squid_bucket.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

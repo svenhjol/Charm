@@ -2,7 +2,7 @@
   "parent": "charm:core/tools",
   "display": {
     "icon": {
-      "item": "charm:astrolabe"
+      "item": "minecraft:copper_block"
     },
     "title": {
       "translate": "advancements.charm.obtain_astrolabe.title"
