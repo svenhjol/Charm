@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/smithing",
+  "parent": "charm:kilns/obtain_kiln",
   "display": {
     "icon": {
       "item": "charm:kiln"
