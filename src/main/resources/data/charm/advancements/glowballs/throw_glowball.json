@@ -2,7 +2,7 @@
   "parent": "charm:core/tools",
   "display": {
     "icon": {
-      "item": "minecraft:snowball"
+      "item": "charm:glowball"
     },
     "title": {
       "translate": "advancements.charm.throw_glowball.title"

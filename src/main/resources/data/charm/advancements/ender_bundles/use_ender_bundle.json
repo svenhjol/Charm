@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/tools",
+  "parent": "charm:ender_bundles/obtain_ender_bundle",
   "display": {
     "icon": {
       "item": "charm:ender_bundle"
@@ -10,22 +10,12 @@
     "description": {
       "translate": "advancements.charm.use_ender_bundle.description"
     },
-    "frame": "goal",
+    "frame": "challenge",
     "show_toast": true,
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "obtain_ender_bundle": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "charm:ender_bundle"
-          }
-        ]
-      }
-    },
     "used_ender_bundle": {
       "trigger": "charm:action_performed",
       "conditions": {
@@ -34,9 +24,6 @@
     }
   },
   "requirements": [
-    [
-      "obtain_ender_bundle"
-    ],
     [
       "used_ender_bundle"
     ]
