@@ -4,6 +4,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.recipe.CookingRecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
@@ -13,13 +14,16 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.block.KilnBlock;
 import svenhjol.charm.blockentity.KilnBlockEntity;
 import svenhjol.charm.client.KilnsClient;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.recipe.FiringRecipe;
 import svenhjol.charm.screenhandler.KilnScreenHandler;
 
 @Module(mod = Charm.MOD_ID, client = KilnsClient.class, description = "A functional block that speeds up cooking of clay, glass, bricks and terracotta.")
 public class Kilns extends CharmModule {
-    public static Identifier RECIPE_ID = new Identifier(Charm.MOD_ID, "firing");
-    public static Identifier BLOCK_ID = new Identifier(Charm.MOD_ID, "kiln");
+    public static final Identifier RECIPE_ID = new Identifier(Charm.MOD_ID, "firing");
+    public static final Identifier BLOCK_ID = new Identifier(Charm.MOD_ID, "kiln");
+    public static final Identifier TRIGGER_FIRED_ITEM = new Identifier(Charm.MOD_ID, "fired_item");
+
     public static KilnBlock KILN;
     public static BlockEntityType<KilnBlockEntity> BLOCK_ENTITY;
     public static RecipeType<FiringRecipe> RECIPE_TYPE;
@@ -39,5 +43,9 @@ public class Kilns extends CharmModule {
     public void init() {
         DecorationHelper.DECORATION_BLOCKS.add(KILN);
         DecorationHelper.STATE_CALLBACK.put(KILN, facing -> KILN.getDefaultState().with(KilnBlock.FACING, facing));
+    }
+
+    public static void triggerFiredItem(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_FIRED_ITEM);
     }
 }

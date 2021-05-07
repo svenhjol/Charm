@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/root",
+  "display": {
+    "icon": {
+      "item": "charm:kiln"
+    },
+    "title": {
+      "translate": "advancements.charm.fired_item.title"
+    },
+    "description": {
+      "translate": "advancements.charm.fired_item.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "fired_item": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:fired_item"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "fired_item"
+    ]
+  ]
+}
