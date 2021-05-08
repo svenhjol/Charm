@@ -11,7 +11,6 @@ import java.util.Map;
 public class CharmSounds {
     public static Map<Identifier, SoundEvent> REGISTER = new HashMap<>();
 
-    public static final SoundEvent ASTROLABE = createSound("astrolabe");
     public static final SoundEvent BOOKSHELF_OPEN = createSound("bookshelf_open");
     public static final SoundEvent BOOKSHELF_CLOSE = createSound("bookshelf_close");
     public static final SoundEvent CASK = createSound("cask");
