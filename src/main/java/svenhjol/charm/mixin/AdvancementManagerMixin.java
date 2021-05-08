@@ -21,7 +21,8 @@ public class AdvancementManagerMixin {
         at = @At(
             value = "INVOKE_ASSIGN",
             target = "Lcom/google/common/collect/Maps;newHashMap(Ljava/util/Map;)Ljava/util/HashMap;",
-            shift = At.Shift.AFTER
+            shift = At.Shift.AFTER,
+            remap = false
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )

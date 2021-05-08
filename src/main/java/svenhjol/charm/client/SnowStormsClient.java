@@ -12,13 +12,10 @@ public class SnowStormsClient extends CharmClientModule {
         super(module);
     }
 
-    public static boolean tryHeavySnowTexture(ClientWorld world, float gradient) {
+    public static void tryHeavySnowTexture(ClientWorld world, float gradient) {
         float h = world.getThunderGradient(gradient);
         if (h > 0.0F && ClientHandler.enabled(SnowStormsClient.class) && SnowStorms.heavierSnowTexture) {
             RenderSystem.setShaderTexture(0, SnowStorms.HEAVY_SNOW);
-            return true;
         }
-
-        return false;
     }
 }
