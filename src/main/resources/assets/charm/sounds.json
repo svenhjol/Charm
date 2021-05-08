@@ -1,13 +1,4 @@
 {
-  "astrolabe": {
-    "category": "players",
-    "sounds": [
-      {
-        "name": "charm:astrolabe",
-        "volume": 0.2
-      }
-    ]
-  },
   "bookshelf_open": {
     "category": "blocks",
     "sounds": [
