@@ -29,6 +29,7 @@ public class WorldRendererMixin {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/client/render/BufferBuilder;begin(Lnet/minecraft/client/render/VertexFormat$DrawMode;Lnet/minecraft/client/render/VertexFormat;)V",
+            ordinal = 1,
             shift = At.Shift.BEFORE
         )
     )
