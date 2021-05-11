@@ -9,6 +9,8 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.LiteralText;
@@ -21,9 +23,24 @@ import svenhjol.charm.module.StorageLabels;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class LootableContainerLabelRenderer {
+public class LootableContainerBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
     private static final int REFRESH_NAME_TICKS = 60;
+    private final BlockEntityRendererFactory.Context context;
     public static Map<BlockPos, Long> cachedPos = new WeakHashMap<>();
+
+    public LootableContainerBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public boolean rendersOutsideBoundingBox(T blockEntity) {
+        return true;
+    }
+
+    @Override
+    public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        render(context.getRenderDispatcher(), entity, tickDelta, matrices, vertexConsumers, light, overlay);
+    }
 
     public static <T extends BlockEntity> void render(BlockEntityRenderDispatcher dispatcher, T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (!(entity instanceof LootableContainerBlockEntity))

@@ -1,6 +1,5 @@
 package svenhjol.charm.module;
 
-import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.poi.PointOfInterestType;
@@ -8,7 +7,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
-import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.RegistryHelper;
 import svenhjol.charm.base.helper.WorldHelper;
 import svenhjol.charm.base.iface.Module;
@@ -21,12 +19,8 @@ public class VariantBarrels extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "barrel");
     public static final Map<IVariantMaterial, VariantBarrelBlock> BARREL_BLOCKS = new HashMap<>();
 
-    public static BlockEntityType<BarrelBlockEntity> BLOCK_ENTITY;
-
     @Override
     public void register() {
-        BLOCK_ENTITY = RegistryHandler.blockEntity(ID, BarrelBlockEntity::new);
-
         for (VanillaVariantMaterial type : VanillaVariantMaterial.values()) {
             registerBarrel(this, type);
         }
@@ -35,7 +29,7 @@ public class VariantBarrels extends CharmModule {
     public static VariantBarrelBlock registerBarrel(CharmModule module, IVariantMaterial material) {
         VariantBarrelBlock barrel = new VariantBarrelBlock(module, material);
         BARREL_BLOCKS.put(material, barrel);
-        RegistryHelper.addBlocksToBlockEntity(BLOCK_ENTITY, barrel);
+        RegistryHelper.addBlocksToBlockEntity(BlockEntityType.BARREL, barrel);
         WorldHelper.addBlockStatesToPointOfInterest(PointOfInterestType.FISHERMAN, barrel.getStateManager().getStates());
         return barrel;
     }

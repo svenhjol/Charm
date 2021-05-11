@@ -1,7 +1,9 @@
 package svenhjol.charm.client;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -22,7 +24,7 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.ClientHelper;
 import svenhjol.charm.module.StorageLabels;
-import svenhjol.charm.render.LootableContainerLabelRenderer;
+import svenhjol.charm.render.LootableContainerBlockEntityRenderer;
 
 import java.util.Optional;
 
@@ -36,6 +38,9 @@ public class StorageLabelsClient extends CharmClientModule {
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_UPDATE_CUSTOM_NAME, this::handleUpdateCustomName);
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_HAS_NO_CUSTOM_NAME, this::handleHasNoCustomName);
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_CLEAR_CUSTOM_NAME, this::handleClearCustomName);
+
+        BlockEntityRendererRegistry.INSTANCE.register(BlockEntityType.BARREL, LootableContainerBlockEntityRenderer::new);
+//        BlockEntityRendererRegistry.INSTANCE.register(VariantBarrels.BLOCK_ENTITY, LootableContainerBlockEntityRenderer::new);
     }
 
     private void handleUpdateCustomName(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
@@ -53,7 +58,7 @@ public class StorageLabelsClient extends CharmClientModule {
 
         client.execute(() ->
             ClientHelper.getWorld()
-                .ifPresent(world -> LootableContainerLabelRenderer.cachedPos.put(pos, (long) -1)));
+                .ifPresent(world -> LootableContainerBlockEntityRenderer.cachedPos.put(pos, (long) -1)));
     }
 
     private void handleClearCustomName(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
@@ -61,7 +66,7 @@ public class StorageLabelsClient extends CharmClientModule {
 
         client.execute(() ->
             ClientHelper.getWorld()
-                .ifPresent(world -> LootableContainerLabelRenderer.cachedPos.remove(pos)));
+                .ifPresent(world -> LootableContainerBlockEntityRenderer.cachedPos.remove(pos)));
     }
 
     private Optional<LootableContainerBlockEntity> getLootableContainerBlockEntity(World world, BlockPos pos) {

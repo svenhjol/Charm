@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.render.LootableContainerLabelRenderer;
+import svenhjol.charm.render.LootableContainerBlockEntityRenderer;
 
 @Mixin(ChestBlockEntityRenderer.class)
 public class ChestBlockEntityRendererMixin<T extends BlockEntity & ChestAnimationProgress> {
@@ -29,6 +29,6 @@ public class ChestBlockEntityRendererMixin<T extends BlockEntity & ChestAnimatio
         at = @At("TAIL")
     )
     private void hookRender(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, CallbackInfo ci) {
-        LootableContainerLabelRenderer.render(this.context.get().getRenderDispatcher(), entity, tickDelta, matrices, vertexConsumers, light, overlay);
+        LootableContainerBlockEntityRenderer.render(this.context.get().getRenderDispatcher(), entity, tickDelta, matrices, vertexConsumers, light, overlay);
     }
 }
