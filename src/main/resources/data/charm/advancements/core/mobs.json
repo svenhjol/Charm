@@ -2,13 +2,13 @@
   "parent": "charm:core/root",
   "display": {
     "icon": {
-      "item": "minecraft:bundle"
+      "item": "minecraft:cow_spawn_egg"
     },
     "title": {
-      "translate": "item.minecraft.bundle"
+      "translate": "advancements.charm.mobs.title"
     },
     "description": {
-      "translate": "advancements.charm.unlock_more.description"
+      "translate": "advancements.charm.mobs.description"
     },
     "frame": "task",
     "show_toast": false,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "obtained_bundle": {
-      "trigger": "minecraft:inventory_changed",
+    "player_joined": {
+      "trigger": "charm:action_performed",
       "conditions": {
-        "items": [{"tag": "c:bundles"}]
+        "action": "charm:player_joined"
       }
     }
   },
   "requirements": [
     [
-      "obtained_bundle"
+      "player_joined"
     ]
   ]
 }

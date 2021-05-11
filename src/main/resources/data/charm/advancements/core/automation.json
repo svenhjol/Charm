@@ -5,10 +5,10 @@
       "item": "minecraft:redstone"
     },
     "title": {
-      "translate": "item.minecraft.redstone"
+      "translate": "advancements.charm.automation.title"
     },
     "description": {
-      "translate": "advancements.charm.unlock_more.description"
+      "translate": "advancements.charm.automation.description"
     },
     "frame": "task",
     "show_toast": false,
@@ -16,20 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "obtained_redstone": {
-      "trigger": "minecraft:inventory_changed",
+    "player_joined": {
+      "trigger": "charm:action_performed",
       "conditions": {
-        "items": [
-          {
-            "item": "minecraft:redstone"
-          }
-        ]
+        "action": "charm:player_joined"
       }
     }
   },
   "requirements": [
     [
-      "obtained_redstone"
+      "player_joined"
     ]
   ]
 }

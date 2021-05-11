@@ -1,0 +1,31 @@
+{
+  "parent": "charm:extract_enchantments/extract_enchantment",
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_horse_armor"
+    },
+    "title": {
+      "translate": "advancements.charm.recycle_horse_armor.title"
+    },
+    "description": {
+      "translate": "advancements.charm.recycle_horse_armor.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "recycled_horse_armor": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:recycled_horse_armor"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "recycled_horse_armor"
+    ]
+  ]
+}

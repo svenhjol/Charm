@@ -5,10 +5,10 @@
       "item": "minecraft:anvil"
     },
     "title": {
-      "translate": "block.minecraft.anvil"
+      "translate": "advancements.charm.smithing.title"
     },
     "description": {
-      "translate": "advancements.charm.unlock_more.description"
+      "translate": "advancements.charm.smithing.description"
     },
     "frame": "task",
     "show_toast": false,
@@ -16,20 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "obtained_anvil": {
-      "trigger": "minecraft:inventory_changed",
+    "player_joined": {
+      "trigger": "charm:action_performed",
       "conditions": {
-        "items": [
-          {
-            "item": "minecraft:anvil"
-          }
-        ]
+        "action": "charm:player_joined"
       }
     }
   },
   "requirements": [
     [
-      "obtained_anvil"
+      "player_joined"
     ]
   ]
 }

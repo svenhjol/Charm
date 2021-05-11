@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_ender_pearl",
+  "parent": "charm:core/decoration",
   "display": {
     "icon": {
       "item": "charm:ender_pearl_block"
@@ -8,7 +8,7 @@
       "translate": "advancements.charm.obtain_ender_pearl_block.title"
     },
     "description": {
-      "translate": "advancements.charm.unlock_more.description"
+      "translate": "advancements.charm.obtain_ender_pearl_block.description"
     },
     "frame": "task",
     "show_toast": false,

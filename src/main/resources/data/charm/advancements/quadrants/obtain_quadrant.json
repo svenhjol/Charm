@@ -1,8 +1,8 @@
 {
-  "parent": "charm:core/obtain_copper_ingot",
+  "parent": "charm:core/decoration",
   "display": {
     "icon": {
-      "item": "charm:quadrant"
+      "item": "minecraft:copper_ingot"
     },
     "title": {
       "translate": "advancements.charm.obtain_quadrant.title"

@@ -1,5 +1,5 @@
 {
-  "parent": "charm:block_of_ender_pearls/obtain_ender_pearl_block",
+  "parent": "charm:block_of_ender_pearls/teleport_to_ender_pearl_block",
   "display": {
     "icon": {
       "item": "minecraft:endermite_spawn_egg"

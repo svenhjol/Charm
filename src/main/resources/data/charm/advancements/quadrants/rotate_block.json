@@ -1,8 +1,8 @@
 {
-  "parent": "charm:quadrants/obtain_quadrant",
+  "parent": "charm:quadrants/hold_to_align",
   "display": {
     "icon": {
-      "item": "charm:quadrant"
+      "item": "charm:birch_chest"
     },
     "title": {
       "translate": "advancements.charm.rotate_block.title"
@@ -10,9 +10,9 @@
     "description": {
       "translate": "advancements.charm.rotate_block.description"
     },
-    "frame": "goal",
+    "frame": "challenge",
     "show_toast": true,
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {

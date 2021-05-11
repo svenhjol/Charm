@@ -16,6 +16,7 @@ import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.InventoryTidyingClient;
 import svenhjol.charm.handler.InventoryTidyingHandler;
+import svenhjol.charm.init.CharmAdvancements;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
 @Module(mod = Charm.MOD_ID, client = InventoryTidyingClient.class, description = "Button to automatically tidy inventories.")
 public class InventoryTidying extends CharmModule {
     public static final Identifier MSG_SERVER_TIDY_INVENTORY = new Identifier(Charm.MOD_ID, "server_tidy_inventory");
+    public static final Identifier TRIGGER_TIDIED_INVENTORY = new Identifier(Charm.MOD_ID, "tidied_inventory");
 
     @Override
     public void init() {
@@ -71,5 +73,12 @@ public class InventoryTidying extends CharmModule {
                 break;
             }
         }
+
+        // do advancement for tidying inventory
+        InventoryTidying.triggerTidiedInventory(player);
+    }
+
+    public static void triggerTidiedInventory(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_TIDIED_INVENTORY);
     }
 }

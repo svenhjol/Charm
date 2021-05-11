@@ -6,12 +6,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.CharmFallingBlock;
+import svenhjol.charm.module.BlockOfGunpowder;
 
 public class GunpowderBlock extends CharmFallingBlock {
     public GunpowderBlock(CharmModule module) {
@@ -59,6 +61,9 @@ public class GunpowderBlock extends CharmFallingBlock {
             world.syncGlobalEvent(2001, pos, Block.getRawIdFromState(world.getBlockState(pos)));
             world.removeBlock(pos, true);
         }
+
+        if (!world.isClient)
+            BlockOfGunpowder.triggerAdvancementForNearbyPlayers((ServerWorld) world, pos);
 
         return lavaBelow;
     }

@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_hoe",
+  "parent": "charm:dirt_to_path/convert_dirt",
   "display": {
     "icon": {
       "item": "minecraft:wheat"

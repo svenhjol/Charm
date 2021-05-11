@@ -32,13 +32,13 @@ public class VariantChests extends CharmModule {
 
     @Override
     public void register() {
-        for (VanillaVariantMaterial type : VanillaVariantMaterial.values()) {
-            NORMAL_CHEST_BLOCKS.put(type, new VariantChestBlock(this, type));
-            TRAPPED_CHEST_BLOCKS.put(type, new VariantTrappedChestBlock(this, type));
-        }
-
         NORMAL_BLOCK_ENTITY = RegistryHandler.blockEntity(NORMAL_ID, VariantChestBlockEntity::new, NORMAL_CHEST_BLOCKS.values().toArray(new Block[0]));
         TRAPPED_BLOCK_ENTITY = RegistryHandler.blockEntity(TRAPPED_ID, VariantTrappedChestBlockEntity::new, TRAPPED_CHEST_BLOCKS.values().toArray(new Block[0]));
+
+        for (VanillaVariantMaterial type : VanillaVariantMaterial.values()) {
+            registerChest(this, type);
+            registerTrappedChest(this, type);
+        }
     }
 
     public static VariantChestBlock registerChest(CharmModule module, IVariantMaterial material) {

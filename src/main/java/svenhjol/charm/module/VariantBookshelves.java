@@ -19,7 +19,7 @@ public class VariantBookshelves extends CharmModule {
     @Override
     public void register() {
         VanillaVariantMaterial.getTypesWithout(VanillaVariantMaterial.OAK).forEach(type -> {
-            BOOKSHELF_BLOCKS.put(type, new VariantBookshelfBlock(this, type));
+            registerBookshelf(this, type);
         });
     }
 

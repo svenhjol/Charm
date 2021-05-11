@@ -28,7 +28,7 @@ public class VariantLadders extends CharmModule {
     @Override
     public void register() {
         VanillaVariantMaterial.getTypes().forEach(type -> {
-            LADDER_BLOCKS.put(type, new VariantLadderBlock(this, type));
+            registerLadder(this, type);
         });
 
         isEnabled = this.enabled;

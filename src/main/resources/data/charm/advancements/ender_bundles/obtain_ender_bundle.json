@@ -1,27 +1,27 @@
 {
-  "parent": "charm:core/root",
+  "parent": "charm:core/tools",
   "display": {
     "icon": {
-      "item": "minecraft:bucket"
+      "item": "charm:ender_bundle"
     },
     "title": {
-      "translate": "item.minecraft.bucket"
+      "translate": "advancements.charm.obtain_ender_bundle.title"
     },
     "description": {
-      "translate": "advancements.charm.unlock_more.description"
+      "translate": "advancements.charm.obtain_ender_bundle.description"
     },
     "frame": "task",
-    "show_toast": false,
+    "show_toast": true,
     "announce_to_chat": false,
     "hidden": false
   },
   "criteria": {
-    "obtained_bucket": {
+    "obtain_ender_bundle": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:bucket"
+            "item": "charm:ender_bundle"
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "obtained_bucket"
+      "obtain_ender_bundle"
     ]
   ]
 }

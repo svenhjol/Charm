@@ -1,31 +1,21 @@
 {
-  "parent": "charm:block_of_ender_pearls/convert_silverfish",
+  "parent": "charm:endermite_powder/obtain_endermite_powder",
   "display": {
     "icon": {
       "item": "charm:endermite_powder"
     },
     "title": {
-      "translate": "advancements.charm.endermite_powder.title"
+      "translate": "advancements.charm.use_endermite_powder.title"
     },
     "description": {
-      "translate": "advancements.charm.endermite_powder.description"
+      "translate": "advancements.charm.use_endermite_powder.description"
     },
-    "frame": "goal",
+    "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": false,
     "hidden": false
   },
   "criteria": {
-    "obtained_endermite_powder": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "charm:endermite_powder"
-          }
-        ]
-      }
-    },
     "used_endermite_powder": {
       "trigger": "charm:action_performed",
       "conditions": {
@@ -34,9 +24,6 @@
     }
   },
   "requirements": [
-    [
-      "obtained_endermite_powder"
-    ],
     [
       "used_endermite_powder"
     ]

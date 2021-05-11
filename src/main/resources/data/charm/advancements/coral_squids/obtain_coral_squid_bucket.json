@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_bucket",
+  "parent": "charm:core/mobs",
   "display": {
     "icon": {
       "item": "charm:coral_squid_bucket"
@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.charm.obtain_coral_squid_bucket.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

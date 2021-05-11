@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/obtain_redstone",
+  "parent": "charm:core/automation",
   "display": {
     "icon": {
       "item": "charm:redstone_lantern"
@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.charm.obtain_redstone_lantern.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

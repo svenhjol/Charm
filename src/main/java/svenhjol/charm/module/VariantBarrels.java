@@ -28,7 +28,7 @@ public class VariantBarrels extends CharmModule {
         BLOCK_ENTITY = RegistryHandler.blockEntity(ID, BarrelBlockEntity::new);
 
         for (VanillaVariantMaterial type : VanillaVariantMaterial.values()) {
-            BARREL_BLOCKS.put(type, registerBarrel(this, type));
+            registerBarrel(this, type);
         }
     }
 

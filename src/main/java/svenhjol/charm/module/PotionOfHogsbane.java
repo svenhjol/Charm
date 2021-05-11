@@ -2,7 +2,9 @@ package svenhjol.charm.module;
 
 import net.minecraft.entity.mob.HoglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import svenhjol.charm.Charm;
@@ -10,6 +12,7 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.base.potion.CharmPotion;
 import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.mixin.accessor.HoglinBrainAccessor;
 import svenhjol.charm.potion.HogsbaneEffect;
 import svenhjol.charm.potion.HogsbanePotion;
@@ -22,6 +25,8 @@ public class PotionOfHogsbane extends CharmModule {
     public static HogsbaneEffect HOGSBANE_EFFECT;
     public static CharmPotion HOGSPANE_POTION;
     public static CharmPotion LONG_HOGSBANE_POTION;
+
+    public static final Identifier TRIGGER_SCARED_HOGLINS = new Identifier(Charm.MOD_ID, "scared_hoglins");
 
     @Override
     public void register() {
@@ -44,6 +49,13 @@ public class PotionOfHogsbane extends CharmModule {
             hoglins.forEach(hoglin -> {
                 HoglinBrainAccessor.invokeAvoid(hoglin, player);
             });
+
+            if (hoglins.size() >= 1)
+                PotionOfHogsbane.triggerScaredHoglins((ServerPlayerEntity) player);
         }
+    }
+
+    public static void triggerScaredHoglins(ServerPlayerEntity player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_SCARED_HOGLINS);
     }
 }
