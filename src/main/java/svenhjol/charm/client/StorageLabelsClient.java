@@ -40,7 +40,6 @@ public class StorageLabelsClient extends CharmClientModule {
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_CLEAR_CUSTOM_NAME, this::handleClearCustomName);
 
         BlockEntityRendererRegistry.INSTANCE.register(BlockEntityType.BARREL, LootableContainerBlockEntityRenderer::new);
-//        BlockEntityRendererRegistry.INSTANCE.register(VariantBarrels.BLOCK_ENTITY, LootableContainerBlockEntityRenderer::new);
     }
 
     private void handleUpdateCustomName(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {

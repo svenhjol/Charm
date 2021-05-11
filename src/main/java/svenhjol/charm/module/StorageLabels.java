@@ -32,6 +32,8 @@ public class StorageLabels extends CharmModule {
     public static final Identifier MSG_CLIENT_HAS_NO_CUSTOM_NAME = new Identifier(Charm.MOD_ID, "client_has_no_custom_name");
     public static final Identifier MSG_CLIENT_CLEAR_CUSTOM_NAME = new Identifier(Charm.MOD_ID, "client_clear_custom_name");
 
+    public static final int VIEW_DISTANCE = 32; // square distance between player and block entity at which label will be shown
+
     @Config(name = "Always show", description = "If true, floating labels will show even if the player is not sneaking.")
     public static boolean alwaysShow = false;
 

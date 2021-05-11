@@ -80,7 +80,7 @@ public class LootableContainerBlockEntityRenderer<T extends BlockEntity> impleme
         LiteralText text = (LiteralText) container.getDisplayName();
 
         double distance = ClientHelper.getBlockEntityDistance(player, container, camera);
-        if (distance < 32)
+        if (distance < StorageLabels.VIEW_DISTANCE)
             StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, text);
     }
 }
