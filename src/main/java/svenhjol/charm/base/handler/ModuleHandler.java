@@ -67,9 +67,19 @@ public class ModuleHandler {
     }
 
     public void checkMixins(CharmModule module) {
-        if (CharmMixinConfigPlugin.modulesDisabledViaMixin.contains(module.getId())) {
-            module.enabled = false;
-            Charm.LOG.warn("Disabled module " + module.getName() + " via mixin blacklist ❌");
+        // modules that depend on disabled mixin, warn in console and set module to disabled
+        for (String mixin : module.disabledIfMixinsDisabled) {
+            if (CharmMixinConfigPlugin.mixinsDisabledViaAnnotation.contains(mixin)) {
+                module.enabled = false;
+                Charm.LOG.warn("Module " + module.getName() + " is DISABLED via mixin blacklist ❌");
+            }
+        }
+
+        // modules that are limited if mixin disabled, just warn in console
+        for (String mixin : module.limitedIfMixinsDisabled) {
+            if (CharmMixinConfigPlugin.mixinsDisabledViaAnnotation.contains(mixin)) {
+                Charm.LOG.warn("Module " + module.getName() + " has REDUCED FUNCTIONALITY via mixin blacklist ℹ️");
+            }
         }
     }
 

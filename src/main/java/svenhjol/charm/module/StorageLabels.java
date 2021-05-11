@@ -24,7 +24,8 @@ import svenhjol.charm.client.StorageLabelsClient;
 
 import javax.annotation.Nullable;
 
-@Module(mod = Charm.MOD_ID, client = StorageLabelsClient.class, description = "Shows the custom name of a storage block as a floating label when the player is sneaking.")
+@Module(mod = Charm.MOD_ID, client = StorageLabelsClient.class, description = "Shows the custom name of a storage block as a floating label when the player is sneaking.",
+    limitedIfMixinsDisabled = {"ChestBlockEntityRendererMixin"})
 public class StorageLabels extends CharmModule {
     public static final Identifier MSG_SERVER_QUERY_CUSTOM_NAME = new Identifier(Charm.MOD_ID, "server_query_custom_name");
     public static final Identifier MSG_CLIENT_UPDATE_CUSTOM_NAME = new Identifier(Charm.MOD_ID, "client_update_custom_name");

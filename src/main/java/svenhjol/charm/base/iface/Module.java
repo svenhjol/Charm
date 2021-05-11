@@ -18,5 +18,9 @@ public @interface Module {
 
     String mod() default "";
 
+    String[] limitedIfMixinsDisabled() default {};
+
+    String[] disabledIfMixinsDisabled() default {};
+
     Class<? extends CharmClientModule> client() default CharmClientModule.class;
 }

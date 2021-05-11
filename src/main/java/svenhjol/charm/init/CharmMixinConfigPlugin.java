@@ -2,7 +2,6 @@ package svenhjol.charm.init;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
-import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.ClassReader;
@@ -12,6 +11,9 @@ import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import svenhjol.charm.base.helper.ModHelper;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -19,15 +21,35 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
     // these must match the annotation methods in CharmMixin
     private static final String CHARM_MIXIN = "CharmMixin";
     private static final String DISABLE_IF_MODS_PRESENT = "disableIfModsPresent";
-    private static final String USED_BY_MODULES = "usedByModules";
 
+    private String mixinPackage;
     public static final List<String> mixinsDisabledViaAnnotation = new ArrayList<>();
-    public static final List<Identifier> modulesDisabledViaMixin = new ArrayList<>();
 
     @Override
     public void onLoad(String mixinPackage) {
         Logger logger = LogManager.getLogger();
+        this.mixinPackage = mixinPackage;
 
+
+        // try and load the mixin blacklist
+        String configPath = "./config/charm-mixin-blacklist.txt";
+
+        try {
+            FileInputStream stream = new FileInputStream(configPath);
+            Scanner scanner = new Scanner(stream);
+            while (scanner.hasNextLine()) {
+                mixinsDisabledViaAnnotation.add(scanner.nextLine());
+            }
+            scanner.close();
+            stream.close();
+        } catch (FileNotFoundException e) {
+            // it doesn't matter
+        } catch (IOException e) {
+            LogManager.getLogger().warn("IO error when handling mixin blacklist: " + e.getMessage());
+        }
+
+
+        // fetch mixin annotations to remove when conflicting mods are present
         try {
             ImmutableSet<ClassPath.ClassInfo> classes = ClassPath.from(CharmMixinConfigPlugin.class.getClassLoader()).getTopLevelClassesRecursive(mixinPackage);
 
@@ -41,7 +63,12 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
                 boolean disabled = false;
 
-                if (node.visibleAnnotations != null && !node.visibleAnnotations.isEmpty()) {
+                if (mixinsDisabledViaAnnotation.contains(truncatedName)) {
+
+                    // already disabled in blacklist file
+                    disabled = true;
+
+                } else if (node.visibleAnnotations != null && !node.visibleAnnotations.isEmpty()) {
                     for (AnnotationNode annotation : node.visibleAnnotations) {
                         if (!annotation.desc.contains(CHARM_MIXIN) || annotation.values.isEmpty())
                             continue;
@@ -64,19 +91,13 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                         }
 
                         List<String> modsToCheck = new ArrayList<>();
-                        List<Identifier> usedByModules = new ArrayList<>();
 
                         if (config.containsKey(DISABLE_IF_MODS_PRESENT)) {
                             config.get(DISABLE_IF_MODS_PRESENT).forEach(m -> modsToCheck.add((String)m));
                         }
 
-                        if (config.containsKey(USED_BY_MODULES)) {
-                            config.get(USED_BY_MODULES).forEach(m -> usedByModules.add(new Identifier((String)m)));
-                        }
-
                         if (modsToCheck.stream().anyMatch(ModHelper::isLoaded)) {
-                            mixinsDisabledViaAnnotation.add(mixinClassName);
-                            modulesDisabledViaMixin.addAll(usedByModules);
+                            mixinsDisabledViaAnnotation.add(truncatedName);
                             disabled = true;
                         }
                     }
@@ -101,8 +122,9 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        // do the logic checking in getMixins. Fetching annotations here breaks everything
-        return !mixinsDisabledViaAnnotation.contains(mixinClassName);
+        // do the logic checking in onLoad. Fetching annotations here breaks everything
+        String truncatedName = mixinClassName.substring(mixinPackage.length() + 1);
+        return !mixinsDisabledViaAnnotation.contains(truncatedName);
     }
 
     @Override

@@ -14,6 +14,8 @@ public abstract class CharmModule {
     public String description = "";
     public String mod = "";
     public int priority = 0;
+    public List<String> limitedIfMixinsDisabled = new ArrayList<>();
+    public List<String> disabledIfMixinsDisabled = new ArrayList<>();
     public Class<? extends CharmClientModule> client = null;
 
     public boolean depends() {

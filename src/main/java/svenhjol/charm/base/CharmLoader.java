@@ -54,6 +54,8 @@ public class CharmLoader {
                     module.alwaysEnabled = annotation.alwaysEnabled();
                     module.enabledByDefault = annotation.enabledByDefault();
                     module.enabled = module.enabledByDefault;
+                    module.limitedIfMixinsDisabled = Arrays.asList(annotation.limitedIfMixinsDisabled());
+                    module.disabledIfMixinsDisabled = Arrays.asList(annotation.disabledIfMixinsDisabled());
                     module.description = annotation.description();
                     module.client = annotation.client();
 
