@@ -42,6 +42,8 @@ public class Bookcases extends CharmModule {
 
     @Override
     public void register() {
+        BLOCK_ENTITY = RegistryHandler.blockEntity(ID, BookcaseBlockEntity::new);
+
         validItems.addAll(Arrays.asList(
             Items.BOOK,
             Items.ENCHANTED_BOOK,
@@ -54,7 +56,7 @@ public class Bookcases extends CharmModule {
         ));
 
         VanillaVariantMaterial.getTypes().forEach(type -> {
-            BOOKCASE_BLOCKS.put(type, new BookcaseBlock(this, type));
+            registerBookcase(this, type);
         });
 
         configValidItems.forEach(string -> {
@@ -63,7 +65,6 @@ public class Bookcases extends CharmModule {
         });
 
         SCREEN_HANDLER = RegistryHandler.screenHandler(ID, BookcaseScreenHandler::new);
-        BLOCK_ENTITY = RegistryHandler.blockEntity(ID, BookcaseBlockEntity::new);
     }
 
     public static BookcaseBlock registerBookcase(CharmModule module, IVariantMaterial material) {
