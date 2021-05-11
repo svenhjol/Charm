@@ -1,8 +1,7 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "svenhjol.charm.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_14",
   "mixins": [
     "AdvancementManagerMixin",
     "AnimalEntityMixin",
@@ -85,7 +84,6 @@
     "ArmorFeatureRendererMixin",
     "BuiltinModelItemRendererMixin",
     "CartographyTableScreenMixin",
-    "ChestBlockEntityRendererMixin",
     "ClientPlayNetworkHandlerMixin",
     "ClientRecipeBookMixin",
     "ClientWorldMixin",
@@ -99,6 +97,7 @@
     "InGameHudMixin",
     "ItemRendererMixin",
     "MinecraftClientMixin",
+    "ChestBlockEntityRendererMixin",
     "MusicTrackerMixin",
     "RenderLayerMixin",
     "ScreenMixin",

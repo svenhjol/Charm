@@ -1,6 +1,7 @@
 package svenhjol.charm.mixin;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.block.ChestAnimationProgress;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
@@ -12,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.render.LootableContainerLabelRenderer;
 
 @Mixin(ChestBlockEntityRenderer.class)
-public class ChestBlockEntityRendererMixin<T extends BlockEntity> {
+public class ChestBlockEntityRendererMixin<T extends BlockEntity & ChestAnimationProgress> {
     private final ThreadLocal<BlockEntityRendererFactory.Context> context = new ThreadLocal<>();
 
     @Inject(
