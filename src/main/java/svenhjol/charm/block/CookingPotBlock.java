@@ -77,7 +77,15 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                 CookingPotBlockEntity pot = (CookingPotBlockEntity) blockEntity;
 
                 if (!world.isClient) {
-                    if (held.getItem() == Items.BOWL) {
+                    if (held.getItem() == Items.NAME_TAG && held.hasCustomName()) {
+                        pot.name = held.getName().asString();
+                        pot.markDirty();
+                        world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_HIT, SoundCategory.BLOCKS, 0.5F, 1.1F);
+
+                        if (!player.isCreative())
+                            held.decrement(1);
+
+                    } else if (held.getItem() == Items.BOWL) {
                         ItemStack out = pot.take(world, pos, state, held);
                         if (out != null) {
                             PlayerHelper.addOrDropStack(player, out);

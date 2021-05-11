@@ -13,6 +13,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -33,7 +34,9 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
     public static final String HUNGER_NBT = "Hunger";
     public static final String SATURATION_NBT = "Saturation";
     public static final String CONTENTS_NBT = "Contents";
+    public static final String NAME_NBT = "Name";
 
+    public String name = "";
     public int portions = 0;
     public float hunger = 0.0F;
     public float saturation = 0.0F;
@@ -47,6 +50,7 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
 
+        this.name = nbt.getString(NAME_NBT);
         this.portions = nbt.getInt(PORTIONS_NBT);
         this.hunger = nbt.getFloat(HUNGER_NBT);
         this.saturation = nbt.getFloat(SATURATION_NBT);
@@ -62,6 +66,7 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
     public NbtCompound writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
 
+        nbt.putString(NAME_NBT, this.name);
         nbt.putInt(PORTIONS_NBT, this.portions);
         nbt.putFloat(HUNGER_NBT, this.hunger);
         nbt.putFloat(SATURATION_NBT, this.saturation);
@@ -140,6 +145,10 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
             // if no more portions in the pot, flush out the pot data
             if (--portions <= 0)
                 this.flush(world, pos, state);
+
+            // match cooking pot name if set
+            if (!name.isEmpty())
+                stew.setCustomName(new LiteralText(name));
 
             return stew;
         }
