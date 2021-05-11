@@ -5,10 +5,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.Camera;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import svenhjol.charm.mixin.accessor.MinecraftClientAccessor;
@@ -37,31 +35,21 @@ public class ClientHelper {
     }
 
     public static Optional<MinecraftClient> getClient() {
-        final MinecraftClient mc = MinecraftClient.getInstance();
-        if (mc == null)
-            return Optional.empty();
-
-        return Optional.of(mc);
+        return Optional.ofNullable(MinecraftClient.getInstance());
     }
 
     public static Optional<World> getWorld() {
-        if (getClient().isPresent()) {
-            ClientWorld world = getClient().get().world;
-            if (world != null)
-                return Optional.of(world);
-        }
+        if (!getClient().isPresent())
+            return Optional.empty();
 
-        return Optional.empty();
+        return Optional.ofNullable(getClient().get().world);
     }
 
     public static Optional<PlayerEntity> getPlayer() {
-        if (getClient().isPresent()) {
-            ClientPlayerEntity player = getClient().get().player;
-            if (player != null)
-                return Optional.of(player);
-        }
+        if (!getClient().isPresent())
+            return Optional.empty();
 
-        return Optional.empty();
+        return Optional.ofNullable(getClient().get().player);
     }
 
     public static Optional<BlockColors> getBlockColors() {
