@@ -11,7 +11,6 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
-import net.minecraft.util.math.Direction;
 import svenhjol.charm.base.helper.ClientHelper;
 import svenhjol.charm.blockentity.CaskBlockEntity;
 import svenhjol.charm.client.StorageLabelsClient;
@@ -42,14 +41,13 @@ public class CaskBlockEntityRenderer<T extends CaskBlockEntity> implements Block
         if (player == null)
             return;
 
-        Direction facing = player.getHorizontalFacing();
         LiteralText text = new LiteralText(entity.name);
         BlockEntityRenderDispatcher dispatcher = context.getRenderDispatcher();
         Camera camera = dispatcher.camera;
 
         double distance = ClientHelper.getBlockEntityDistance(player, entity, camera);
 
-        if (distance < 32 && player.isSneaking())
-            StorageLabelsClient.renderLabel(matrices, vertexConsumers, camera, facing, text);
+        if (distance < 32)
+            StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, text);
     }
 }

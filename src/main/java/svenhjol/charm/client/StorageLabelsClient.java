@@ -2,7 +2,6 @@ package svenhjol.charm.client;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -11,17 +10,19 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.world.World;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.ClientHelper;
 import svenhjol.charm.module.StorageLabels;
+import svenhjol.charm.render.LootableContainerLabelRenderer;
 
 import java.util.Optional;
 
@@ -33,25 +34,45 @@ public class StorageLabelsClient extends CharmClientModule {
     @Override
     public void init() {
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_UPDATE_CUSTOM_NAME, this::handleUpdateCustomName);
+        ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_HAS_NO_CUSTOM_NAME, this::handleHasNoCustomName);
+        ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_CLEAR_CUSTOM_NAME, this::handleClearCustomName);
     }
 
     private void handleUpdateCustomName(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
         BlockPos pos = BlockPos.fromLong(data.readLong());
         String label = data.readString();
 
-        client.execute(() -> {
-            ClientHelper.getWorld().ifPresent(world -> {
-                BlockEntity blockEntity = world.getBlockEntity(pos);
-                if (blockEntity instanceof LootableContainerBlockEntity) {
-                    LootableContainerBlockEntity container = (LootableContainerBlockEntity) blockEntity;
-                    container.setCustomName(new LiteralText(label));
-                }
-            });
-        });
+        client.execute(() ->
+            ClientHelper.getWorld()
+                .ifPresent(world -> getLootableContainerBlockEntity(world, pos)
+                    .ifPresent(container -> container.setCustomName(new LiteralText(label)))));
     }
 
-    public static void renderLabel(MatrixStack matrices, VertexConsumerProvider vertexConsumers, Camera camera, Direction facing, Text text) {
+    private void handleHasNoCustomName(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+        BlockPos pos = BlockPos.fromLong(data.readLong());
+
+        client.execute(() ->
+            ClientHelper.getWorld()
+                .ifPresent(world -> LootableContainerLabelRenderer.cachedPos.put(pos, (long) -1)));
+    }
+
+    private void handleClearCustomName(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+        BlockPos pos = BlockPos.fromLong(data.readLong());
+
+        client.execute(() ->
+            ClientHelper.getWorld()
+                .ifPresent(world -> LootableContainerLabelRenderer.cachedPos.remove(pos)));
+    }
+
+    private Optional<LootableContainerBlockEntity> getLootableContainerBlockEntity(World world, BlockPos pos) {
+        return Optional.ofNullable((LootableContainerBlockEntity)world.getBlockEntity(pos));
+    }
+
+    public static void renderLabel(MatrixStack matrices, VertexConsumerProvider vertexConsumers, PlayerEntity player, Camera camera, Text text) {
         if (!ModuleHandler.enabled(StorageLabels.class))
+            return;
+
+        if (!StorageLabels.alwaysShow && !player.isSneaking())
             return;
 
         Optional<TextRenderer> optTextRenderer = ClientHelper.getTextRenderer();
@@ -66,7 +87,7 @@ public class StorageLabelsClient extends CharmClientModule {
         float xo = 0.0F;
         float zo = 0.0F;
 
-        switch (facing) {
+        switch (player.getHorizontalFacing()) {
             case EAST:
                 xo -= 0.65F;
                 break;
