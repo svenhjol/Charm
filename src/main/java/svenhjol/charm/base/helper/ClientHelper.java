@@ -1,11 +1,13 @@
 package svenhjol.charm.base.helper;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
@@ -25,6 +27,13 @@ public class ClientHelper {
             return;
 
         mc.openScreen(new InventoryScreen(mc.player));
+    }
+
+    public static <T extends BlockEntity> double getBlockEntityDistance(PlayerEntity player, T entity, Camera camera) {
+        int x = entity.getPos().getX();
+        int y = entity.getPos().getY();
+        int z = entity.getPos().getZ();
+        return camera.getPos().squaredDistanceTo(x, y, z);
     }
 
     public static Optional<MinecraftClient> getClient() {

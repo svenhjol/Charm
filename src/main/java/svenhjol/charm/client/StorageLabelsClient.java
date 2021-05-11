@@ -19,15 +19,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Matrix4f;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.ClientHelper;
 import svenhjol.charm.module.StorageLabels;
 
 import java.util.Optional;
 
 public class StorageLabelsClient extends CharmClientModule {
-    private static TextRenderer textRenderer;
-    private static int textRendererFetchTicks;
-
     public StorageLabelsClient(CharmModule module) {
         super(module);
     }
@@ -53,6 +51,9 @@ public class StorageLabelsClient extends CharmClientModule {
     }
 
     public static void renderLabel(MatrixStack matrices, VertexConsumerProvider vertexConsumers, Camera camera, Direction facing, Text text) {
+        if (!ModuleHandler.enabled(StorageLabels.class))
+            return;
+
         Optional<TextRenderer> optTextRenderer = ClientHelper.getTextRenderer();
         Optional<GameOptions> optGameOptions = ClientHelper.getGameOptions();
 
