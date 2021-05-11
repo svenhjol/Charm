@@ -1,20 +1,17 @@
 package svenhjol.charm.base;
 
-import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.base.handler.ClientHandler;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.event.ClientJoinCallback;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class CharmClientLoader {
     private final String MOD_ID;
     private final List<Class<? extends CharmModule>> CLASSES;
-    private final Map<String, CharmClientModule> LOADED_MODULES = new TreeMap<>();
+    private final Map<String, CharmClientModule> LOADED_MODULES = new LinkedHashMap<>();
 
     public CharmClientLoader(String modId) {
         CharmLoader loader = ModuleHandler.INSTANCE.getLoader(modId);
@@ -41,6 +38,8 @@ public class CharmClientLoader {
     }
 
     protected void register() {
+        Map<String, CharmClientModule> loaded = new HashMap<>();
+
         CLASSES.forEach(moduleClass -> {
             String name = moduleClass.getSimpleName();
 
@@ -60,10 +59,31 @@ public class CharmClientLoader {
                 }
 
                 String moduleName = module.getName();
-                LOADED_MODULES.put(moduleName, client);
+                loaded.put(moduleName, client);
                 ClientHandler.INSTANCE.register(client);
             }
         });
+
+        // sort by module priority
+        ArrayList<CharmClientModule> modList = new ArrayList<>(loaded.values());
+        modList.sort((mod1, mod2) -> {
+            if (mod1.module.priority == mod2.module.priority) {
+                // sort by name
+                return mod1.getName().compareTo(mod2.getName());
+            } else {
+                // sort by priority
+                return Integer.compare(mod2.module.priority, mod1.module.priority);
+            }
+        });
+
+        for (CharmClientModule mod : modList) {
+            for (Map.Entry<String, CharmClientModule> entry : loaded.entrySet()) {
+                if (entry.getValue().equals(mod)) {
+                    LOADED_MODULES.put(entry.getKey(), mod);
+                    break;
+                }
+            }
+        }
     }
 
     protected void init() {
