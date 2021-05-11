@@ -67,30 +67,15 @@ processResources {
 		File dir = it.relativePath.parent.getFile(file("$buildDir/resources/main"))
 		dir.mkdirs()
 		String name = it.name.replace(".template.json", ".json")
-
-		// F43nd1r send halp pls I just hacked it to work
-		String[] replacements
-		def first = variants.get(0)
-		if (first.contains(':')) {
-			replacements = first.split(':')
-			variants.remove(0)
-		}
-
+		String[] replacements = v instanceof String ? variants.remove(0).split(':') : ["VARIANT"]
 		for (variant in variants) {
-			if (replacements != null) {
-				Map<String, String> s = [replacements, variant.split(':', -1)].transpose().collectEntries()
-				def file = new File(dir, s.inject(name) { r, e -> r.replace(e.key, e.value) })
-				if (!file.exists()) {
-					file.createNewFile()
-					file.text = s.inject(template) { r, e -> r.replace(e.key, e.value) }
-				}
-			} else {
-				def file = new File(dir, name.replace("VARIANT", variant))
+			Map<String, String> s = [replacements, variant.split(':', -1)].transpose().collectEntries()
+			def file = new File(dir, s.inject(name) { r, e -> r.replace(e.key, e.value) })
+			if (!file.exists()) {
 				file.createNewFile()
-				file.text = template.replace("VARIANT", variant)
+				file.text = s.inject(template) { r, e -> r.replace(e.key, e.value) }
 			}
 		}
-
 		it.exclude()
 	}
 }
