@@ -10,20 +10,19 @@ import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.EnchantmentsHelper;
 import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.enchantment.AcquisitionEnchantment;
 
-@Module(mod = Charm.MOD_ID, description = "Tools with the Acquisition enchantment automatically pick up drops.")
-public class Acquisition extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Tools with the Collection enchantment automatically pick up drops.")
+public class CollectionEnchantment extends CharmModule {
     private static final ThreadLocal<PlayerEntity> breakingPlayer = new ThreadLocal<>();
-    public static AcquisitionEnchantment ACQUISITION;
+    public static svenhjol.charm.enchantment.CollectionEnchantment ENCHANTMENT;
 
     @Override
     public void register() {
-        ACQUISITION = new AcquisitionEnchantment(this);
+        ENCHANTMENT = new svenhjol.charm.enchantment.CollectionEnchantment(this);
     }
 
     public static void startBreaking(PlayerEntity player, ItemStack tool) {
-        if (ModuleHandler.enabled(Acquisition.class) && EnchantmentsHelper.has(tool, ACQUISITION)) {
+        if (ModuleHandler.enabled(CollectionEnchantment.class) && EnchantmentsHelper.has(tool, ENCHANTMENT)) {
             breakingPlayer.set(player);
         }
     }

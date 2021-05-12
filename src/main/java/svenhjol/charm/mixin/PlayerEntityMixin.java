@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.PlayerDropInventoryCallback;
 import svenhjol.charm.event.PlayerTickCallback;
-import svenhjol.charm.module.AerialAffinity;
+import svenhjol.charm.module.AerialAffinityEnchantment;
 import svenhjol.charm.module.ParrotsStayOnShoulder;
 
 @Mixin(PlayerEntity.class)
@@ -66,6 +66,6 @@ public abstract class PlayerEntityMixin extends Entity {
         )
     )
     private boolean hookDigSpeedOnGround(PlayerEntity player, BlockState state) {
-        return player.isOnGround() || AerialAffinity.digFast(player);
+        return player.isOnGround() || AerialAffinityEnchantment.digFast(player);
     }
 }
