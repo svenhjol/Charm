@@ -9,6 +9,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -151,6 +152,11 @@ public class CaskBlock extends CharmBlockWithEntity {
         }
 
         return ActionResult.PASS;
+    }
+
+    @Override
+    public ItemGroup getItemGroup() {
+        return ItemGroup.DECORATIONS;
     }
 
     @Override

@@ -9,6 +9,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
@@ -161,6 +162,11 @@ public class CookingPotBlock extends CharmBlockWithEntity {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return world.isClient ? null : checkType(type, CookingPots.BLOCK_ENTITY, CookingPotBlockEntity::tick);
+    }
+
+    @Override
+    public ItemGroup getItemGroup() {
+        return ItemGroup.DECORATIONS;
     }
 
     @Override
