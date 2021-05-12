@@ -19,7 +19,6 @@ public class Charm implements ModInitializer {
             return;
 
         new CharmLoader(MOD_ID, Arrays.asList(
-            CollectionEnchantment.class,
             AerialAffinityEnchantment.class,
             AnvilImprovements.class,
             ArmorInvisibility.class,
@@ -40,6 +39,7 @@ public class Charm implements ModInitializer {
             CaveSpidersDropCobwebs.class,
             ChickensDropFeathers.class,
             ClearItemFrames.class,
+            CollectionEnchantment.class,
             ColoredBundles.class,
             ColoredGlints.class,
             CookingPots.class,
