@@ -2,18 +2,26 @@ package svenhjol.charm.module;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
@@ -41,6 +49,29 @@ public class StorageLabels extends CharmModule {
     public void init() {
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_QUERY_CUSTOM_NAME, this::handleQueryCustomName);
         PlayerBlockBreakEvents.AFTER.register(this::handleBlockBreak);
+        UseBlockCallback.EVENT.register(this::handleUseBlock);
+    }
+
+    private ActionResult handleUseBlock(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
+        ItemStack held = player.getStackInHand(hand);
+
+        if (held.getItem() == Items.NAME_TAG && held.hasCustomName()) {
+            BlockPos pos = hitResult.getBlockPos();
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+
+            if (blockEntity instanceof LootableContainerBlockEntity) {
+                LootableContainerBlockEntity container = (LootableContainerBlockEntity)blockEntity;
+                container.setCustomName(held.getName());
+                world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 0.85F, 1.1F);
+
+                if (!player.isCreative())
+                    held.decrement(1);
+
+                return ActionResult.success(world.isClient);
+            }
+        }
+
+        return ActionResult.PASS;
     }
 
     private void handleBlockBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {

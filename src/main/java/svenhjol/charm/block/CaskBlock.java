@@ -102,7 +102,7 @@ public class CaskBlock extends CharmBlockWithEntity {
                 if (held.getItem() == Items.NAME_TAG && held.hasCustomName()) {
                     cask.name = held.getName().asString();
                     cask.markDirty();
-                    world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_HIT, SoundCategory.BLOCKS, 0.5F, 1.1F);
+                    world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 0.85F, 1.1F);
 
                     if (!player.isCreative())
                         held.decrement(1);

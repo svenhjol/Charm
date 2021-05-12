@@ -114,7 +114,7 @@ public class StorageLabelsClient extends CharmClientModule {
         matrices.multiply(camera.getRotation());
         matrices.scale(-0.014F, -0.014F, 0.014F);
         Matrix4f matrix4f = matrices.peek().getModel();
-        float g = gameOptions.getTextBackgroundOpacity(0.25F);
+        float g = gameOptions.getTextBackgroundOpacity(0.0F);
         int j = (int)(g * 255.0F) << 24;
         float h = (float)(-textRenderer.getWidth(text) / 2);
         textRenderer.draw(text, h, 0, 0xFFFFFF, false, matrix4f, vertexConsumers, false, j, 255);
