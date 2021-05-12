@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "svenhjol.charm.mixin",
-  "compatibilityLevel": "JAVA_14",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
     "AdvancementManagerMixin",
     "AnimalEntityMixin",
@@ -63,7 +63,6 @@
     "accessor.MapStateAccessor",
     "accessor.MinecraftServerAccessor",
     "accessor.MineshaftGeneratorAccessor",
-    "accessor.MiningToolItemAccessor",
     "accessor.MobEntityAccessor",
     "accessor.PillagerSpawnerAccessor",
     "accessor.PlayerEntityAccessor",

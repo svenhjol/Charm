@@ -208,14 +208,12 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
         ClientPlayNetworking.send(Atlases.MSG_SERVER_ATLAS_TRANSFER, data);
     }
 
-    // TODO: Use until yarn mappings are sensible
     private int getX() {
-        return field_2776;
+        return x;
     }
 
-    // TODO: Use until yarn mappings are sensible
     private int getY() {
-        return field_2800;
+        return y;
     }
 
     private enum ButtonDirection {

@@ -5,7 +5,26 @@ accessible class net/minecraft/recipe/CuttingRecipe$Serializer$RecipeFactory
 accessible class net/minecraft/recipe/CookingRecipeSerializer$RecipeFactory
 accessible class net/minecraft/block/entity/BlockEntityType$BlockEntityFactory
 
+accessible class net/minecraft/client/render/RenderPhase$Cull
+accessible class net/minecraft/client/render/RenderPhase$DepthTest
+accessible class net/minecraft/client/render/RenderPhase$Layering
+accessible class net/minecraft/client/render/RenderPhase$Shader
+accessible class net/minecraft/client/render/RenderPhase$Target
+accessible class net/minecraft/client/render/RenderPhase$Texture
+accessible class net/minecraft/client/render/RenderPhase$Texturing
+accessible class net/minecraft/client/render/RenderPhase$Transparency
+accessible class net/minecraft/client/render/RenderPhase$WriteMaskState
+
+accessible class net/minecraft/client/render/RenderLayer$MultiPhaseParameters
+accessible class net/minecraft/world/gen/feature/ConfiguredFeatures$Decorators
+
 accessible method net/minecraft/screen/ScreenHandlerType <init> (Lnet/minecraft/screen/ScreenHandlerType$Factory;)V
 accessible method net/minecraft/recipe/CuttingRecipe$Serializer <init> (Lnet/minecraft/recipe/CuttingRecipe$Serializer$RecipeFactory;)V
 accessible method net/minecraft/client/render/RenderLayer of (Ljava/lang/String;Lnet/minecraft/client/render/VertexFormat;Lnet/minecraft/client/render/VertexFormat$DrawMode;ILnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;)Lnet/minecraft/client/render/RenderLayer$MultiPhase;
 accessible method net/minecraft/client/render/RenderLayer of (Ljava/lang/String;Lnet/minecraft/client/render/VertexFormat;Lnet/minecraft/client/render/VertexFormat$DrawMode;IZZLnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;)Lnet/minecraft/client/render/RenderLayer$MultiPhase;
+
+mutable field net/minecraft/block/entity/BlockEntityType blocks Ljava/util/Set;
+mutable field net/minecraft/world/poi/PointOfInterestType blockStates Ljava/util/Set;
+mutable field net/minecraft/structure/pool/StructurePool elementCounts Ljava/util/List;
+mutable field net/minecraft/world/poi/PointOfInterestType ticketCount I
+mutable field net/minecraft/item/Item maxCount I

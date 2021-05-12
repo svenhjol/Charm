@@ -1,7 +1,6 @@
 package svenhjol.charm.module;
 
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -23,7 +22,6 @@ import svenhjol.charm.base.block.*;
 import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.BiomeHelper;
 import svenhjol.charm.base.helper.RegistryHelper;
-import svenhjol.charm.base.helper.ToolHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.base.item.CharmBoatItem;
@@ -128,10 +126,5 @@ public class EbonyWood extends CharmModule {
     public void init() {
         RegistryHelper.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
         BiomeHelper.addFeatureToBiomeCategories(TREE_DECORATION, Biome.Category.SAVANNA, GenerationStep.Feature.VEGETAL_DECORATION);
-    }
-
-    @Override
-    public void loadWorld(MinecraftServer server) {
-        ToolHelper.addHoeEffectiveBlocks(LEAVES);
     }
 }
