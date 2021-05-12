@@ -7,8 +7,8 @@ import net.minecraft.item.ShearsItem;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enchantment.CharmEnchantment;
 
-public class CollectionEnchantment extends CharmEnchantment {
-    public CollectionEnchantment(CharmModule module) {
+public class CollectionEnch extends CharmEnchantment {
+    public CollectionEnch(CharmModule module) {
         super(module, "collection", Rarity.UNCOMMON, EnchantmentTarget.DIGGER, new EquipmentSlot[] { EquipmentSlot.MAINHAND });
     }
 

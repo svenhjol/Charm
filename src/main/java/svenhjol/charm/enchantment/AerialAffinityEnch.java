@@ -5,8 +5,8 @@ import net.minecraft.entity.EquipmentSlot;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enchantment.CharmEnchantment;
 
-public class AerialAffinityEnchantment extends CharmEnchantment {
-    public AerialAffinityEnchantment(CharmModule module) {
+public class AerialAffinityEnch extends CharmEnchantment {
+    public AerialAffinityEnch(CharmModule module) {
         super(module, "aerial_affinity", Rarity.RARE, EnchantmentTarget.ARMOR_FEET, new EquipmentSlot[] { EquipmentSlot.FEET });
     }
 

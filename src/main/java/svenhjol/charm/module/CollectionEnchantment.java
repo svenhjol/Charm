@@ -10,15 +10,16 @@ import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.helper.EnchantmentsHelper;
 import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.enchantment.CollectionEnch;
 
 @Module(mod = Charm.MOD_ID, description = "Tools with the Collection enchantment automatically pick up drops.")
 public class CollectionEnchantment extends CharmModule {
     private static final ThreadLocal<PlayerEntity> breakingPlayer = new ThreadLocal<>();
-    public static svenhjol.charm.enchantment.CollectionEnchantment ENCHANTMENT;
+    public static CollectionEnch ENCHANTMENT;
 
     @Override
     public void register() {
-        ENCHANTMENT = new svenhjol.charm.enchantment.CollectionEnchantment(this);
+        ENCHANTMENT = new CollectionEnch(this);
     }
 
     public static void startBreaking(PlayerEntity player, ItemStack tool) {
