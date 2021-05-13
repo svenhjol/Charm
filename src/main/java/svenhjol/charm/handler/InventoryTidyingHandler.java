@@ -26,7 +26,7 @@ public class InventoryTidyingHandler {
         populate(inventory, stacks, startSlot, endSlot);
         mergeInventory(stacks);
         sortInventory(stacks);
-        setInventory(inventory, stacks, startSlot, endSlot); // TODO handle fail here
+        setInventory(inventory, stacks, startSlot, endSlot);
     }
 
     public static void populate(Inventory inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
@@ -77,7 +77,7 @@ public class InventoryTidyingHandler {
     }
 
     public static void sortInventory(List<ItemStack> stacks) {
-        stacks.sort(InventoryTidyingHandler::compare); // TODO world's crappiest sorting
+        stacks.sort(InventoryTidyingHandler::compare); // maybe improve this at some point in future
     }
 
     private static boolean setInventory(Inventory inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
@@ -85,11 +85,8 @@ public class InventoryTidyingHandler {
             int j = i - startSlot;
             ItemStack stack = j >= stacks.size() ? ItemStack.EMPTY : stacks.get(j);
             inventory.removeStack(i, inventory.getMaxCountPerStack());
-            if (!stack.isEmpty()) {
-                // this ended up being different from Forge's IItemHandler implementation.
-                // TODO May cause breakage... testme
+            if (!stack.isEmpty())
                 inventory.setStack(i, stack);
-            }
         }
 
         return true;

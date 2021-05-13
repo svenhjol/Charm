@@ -25,7 +25,6 @@ public abstract class AbstractCharmContainerScreen<T extends ScreenHandler> exte
         drawMouseoverTooltip(matrices, mouseX, mouseY);
     }
 
-    // TODO: field_29347 is the container title
     @Override
     protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
         this.textRenderer.draw(matrices, this.title.asOrderedText(), 8.0F, 6.0F, 4210752);
