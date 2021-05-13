@@ -50,8 +50,6 @@ public class TotemOfPreserving extends CharmModule {
         if (!preserveXp || !(entity instanceof PlayerEntity) || entity.world.isClient)
             return ActionResult.PASS;
 
-        // TODO: preserving XP isn't functional yet
-
         return ActionResult.SUCCESS;
     }
 
@@ -99,8 +97,8 @@ public class TotemOfPreserving extends CharmModule {
         double y = playerPos.getY() + 0.75D;
         double z = playerPos.getZ() + 0.25D;
 
-        if (y < 1)
-            y = 64; // fetching your totem from the void is sad
+        if (y < world.getBottomY())
+            y = world.getSeaLevel(); // fetching your totem from the void is sad
 
         // spawn totems
         for (ItemStack stack : totemsToSpawn) {
