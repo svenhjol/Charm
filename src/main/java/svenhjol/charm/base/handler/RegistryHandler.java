@@ -90,7 +90,7 @@ public class RegistryHandler {
     }
 
     public static SignType signType(Identifier id) {
-        // TODO: crashes when using fully qualified namespace, so just convert to underscore for now
+        // crashes when using fully qualified namespace, so convert colon to underscore
         return SignTypeAccessor.invokeRegister(SignTypeAccessor.invokeInit(id.toString().replace(":", "_")));
     }
 

@@ -154,12 +154,14 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
       return true;
    }
 
+   // TODO: Use until yarn mappings are sensible
    private int getX() {
-      return x;
+      return field_2776;
    }
 
+   // TODO: Use until yarn mappings are sensible
    private int getY() {
-      return y;
+      return field_2800;
    }
 
    private boolean shouldScroll() {

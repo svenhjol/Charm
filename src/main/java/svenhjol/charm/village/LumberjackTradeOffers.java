@@ -214,7 +214,6 @@ public class LumberjackTradeOffers {
     /**
      * @deprecated Log inputs can be reduced to 1, making this trade too OP.
      */
-    @Deprecated
     public static class PlanksForLogs implements TradeOffers.Factory {
         @Nullable
         @Override

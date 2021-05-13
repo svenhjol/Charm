@@ -1,6 +1,7 @@
 package svenhjol.charm.base.handler;
 
 import svenhjol.charm.Charm;
+import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.init.CharmMixinConfigPlugin;
 import svenhjol.charm.base.CharmLoader;
 import svenhjol.charm.base.CharmModule;
@@ -116,8 +117,11 @@ public class ModuleHandler {
      */
     public static boolean enabled(String moduleName) {
         String[] split = moduleName.split(":");
-        String modName = split[0]; // TODO: check module is running
+        String modName = split[0];
         String modModule = split[1];
+
+        if (!ModHelper.isLoaded(modName))
+            return false;
 
         CharmModule module = getModule(modModule);
         return module != null && module.enabled;

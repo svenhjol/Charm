@@ -77,8 +77,10 @@ public class Quadrants extends CharmModule {
             }
         }
 
-        if (properties.contains(Properties.AXIS))
+        if (properties.contains(Properties.AXIS)) {
+            triggerHeldToAlign((ServerPlayerEntity) player);
             return state.with(Properties.AXIS, direction.getAxis());
+        }
 
         return state;
     }
@@ -144,7 +146,6 @@ public class Quadrants extends CharmModule {
                 PlayerEntity player = (PlayerEntity) entity;
                 player.world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_SPYGLASS_USE, SoundCategory.PLAYERS, 1.15F, 0.9F);
                 player.sendMessage(new TranslatableText("gui.charm.quadrants.locked", direction.getName()), true);
-                triggerHeldToAlign((ServerPlayerEntity) player);
             }
         }
         if (slot == EquipmentSlot.OFFHAND
