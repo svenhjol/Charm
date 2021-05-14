@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.event.PlayerDropInventoryCallback;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.module.AerialAffinityEnchantment;
@@ -58,14 +58,28 @@ public abstract class PlayerEntityMixin extends Entity {
             ci.cancel();
     }
 
-    @Redirect(
+    // This is broken in Loom 0.8-SNAPSHOT because onGround doesn't obfuscate when in prod.
+    // Use the inject/cancel version until it is fixed.
+//    @Redirect(
+//        method = "getBlockBreakingSpeed",
+//        at = @At(
+//            value = "FIELD",
+//            target = "Lnet/minecraft/entity/player/PlayerEntity;onGround:Z"
+//        )
+//    )
+//    private boolean hookDigSpeedOnGround(PlayerEntity player, BlockState state) {
+//        return player.isOnGround() || AerialAffinityEnchantment.digFast(player);
+//    }
+    @Inject(
         method = "getBlockBreakingSpeed",
-        at = @At(
-            value = "FIELD",
-            target = "Lnet/minecraft/entity/player/PlayerEntity;onGround:Z"
-        )
+        at = @At("RETURN"),
+        cancellable = true
     )
-    private boolean hookDigSpeedOnGround(PlayerEntity player, BlockState state) {
-        return player.isOnGround() || AerialAffinityEnchantment.digFast(player);
+    private void hookDigSpeedOnGround(BlockState block, CallbackInfoReturnable<Float> cir) {
+        PlayerEntity player = (PlayerEntity)(Object)this;
+        if (!player.isOnGround() && AerialAffinityEnchantment.digFast(player)) {
+            Float f = cir.getReturnValue();
+            cir.setReturnValue(f * 5.0F);
+        }
     }
 }
