@@ -11,6 +11,7 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
@@ -29,6 +30,7 @@ import svenhjol.charm.render.LootableContainerBlockEntityRenderer;
 import java.util.Optional;
 
 public class StorageLabelsClient extends CharmClientModule {
+    public static final ThreadLocal<BlockEntityRendererFactory.Context> chestBlockEntityContext = new ThreadLocal<>();
     public StorageLabelsClient(CharmModule module) {
         super(module);
     }
