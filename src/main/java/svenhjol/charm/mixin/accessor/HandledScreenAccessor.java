@@ -6,9 +6,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(HandledScreen.class)
 public interface HandledScreenAccessor {
-    @Accessor("field_2776") // TODO: this will almost certainly be renamed to x
+    @Accessor("x")
     int getX();
 
-    @Accessor("field_2800") // TODO: this will alsmost certainly be renamed to y
+    @Accessor("y")
     int getY();
 }
