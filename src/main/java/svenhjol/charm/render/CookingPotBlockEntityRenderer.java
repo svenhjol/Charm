@@ -86,7 +86,7 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
             return;
 
         PlayerEntity player = optPlayer.get();
-        LiteralText text = new LiteralText(entity.name);
+        LiteralText text = new LiteralText(String.valueOf(entity.portions));
         BlockEntityRenderDispatcher dispatcher = context.getRenderDispatcher();
         Camera camera = dispatcher.camera;
 

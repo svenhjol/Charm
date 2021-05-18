@@ -35,15 +35,20 @@ public class CaskBlockEntityRenderer<T extends CaskBlockEntity> implements Block
         if (entity == null)
             return;
 
-        if (entity.name == null || entity.name.isEmpty())
-            return;
+        String label;
+
+        if (entity.name == null || entity.name.isEmpty()) {
+            label = String.valueOf(entity.portions);
+        } else {
+            label = entity.name;
+        }
 
         Optional<PlayerEntity> optPlayer = ClientHelper.getPlayer();
         if (!optPlayer.isPresent())
             return;
 
         PlayerEntity player = optPlayer.get();
-        LiteralText text = new LiteralText(entity.name);
+        LiteralText text = new LiteralText(label);
         BlockEntityRenderDispatcher dispatcher = context.getRenderDispatcher();
         Camera camera = dispatcher.camera;
 
