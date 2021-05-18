@@ -6,8 +6,6 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -21,6 +19,7 @@ import svenhjol.charm.base.handler.RegistryHandler;
 import svenhjol.charm.base.helper.BiomeHelper;
 import svenhjol.charm.base.helper.MobHelper;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.base.item.CharmSpawnEggItem;
 import svenhjol.charm.client.MoobloomsClient;
 import svenhjol.charm.entity.MoobloomEntity;
 import svenhjol.charm.entity.goal.BeeMoveToMoobloomGoal;
@@ -35,7 +34,6 @@ import java.util.List;
     requiresMixins = {"AddEntityCallback"})
 public class Mooblooms extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "moobloom");
-    public static final Identifier EGG_ID = new Identifier(Charm.MOD_ID, "moobloom_spawn_egg");
     public static final Identifier TRIGGER_MILKED_MOOBLOOM = new Identifier(Charm.MOD_ID, "milked_moobloom");
     public static EntityType<MoobloomEntity> MOOBLOOM;
     public static Item SPAWN_EGG;
@@ -50,7 +48,7 @@ public class Mooblooms extends CharmModule {
         SpawnRestrictionAccessor.callRegister(MOOBLOOM, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MoobloomEntity::canSpawn);
 
         // create a spawn egg for the moobloom
-        SPAWN_EGG = RegistryHandler.item(EGG_ID, new SpawnEggItem(MOOBLOOM, 0xFFFF00, 0xFFFFFF, (new Item.Settings()).group(ItemGroup.MISC)));
+        SPAWN_EGG = new CharmSpawnEggItem(this, "moobloom_spawn_egg", MOOBLOOM, 0xFFFF00, 0xFFFFFF);
 
         MobHelper.setEntityAttributes(MOOBLOOM, CowEntity.createCowAttributes());
     }

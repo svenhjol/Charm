@@ -7,8 +7,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Heightmap;
@@ -21,6 +19,7 @@ import svenhjol.charm.base.helper.BiomeHelper;
 import svenhjol.charm.base.helper.MobHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
+import svenhjol.charm.base.item.CharmSpawnEggItem;
 import svenhjol.charm.client.CoralSquidsClient;
 import svenhjol.charm.entity.CoralSquidEntity;
 import svenhjol.charm.item.CoralSquidBucketItem;
@@ -32,7 +31,6 @@ import java.util.List;
 @Module(mod = Charm.MOD_ID, client = CoralSquidsClient.class, description = "Coral Squids spawn near coral in warm oceans.")
 public class CoralSquids extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "coral_squid");
-    public static Identifier EGG_ID = new Identifier(Charm.MOD_ID, "coral_squid_spawn_egg");
 
     public static CoralSquidBucketItem CORAL_SQUID_BUCKET;
     public static EntityType<CoralSquidEntity> CORAL_SQUID;
@@ -54,7 +52,7 @@ public class CoralSquids extends CharmModule {
         SpawnRestrictionAccessor.callRegister(CORAL_SQUID, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CoralSquidEntity::canSpawn);
 
         // create a spawn egg for the squid
-        SPAWN_EGG = RegistryHandler.item(EGG_ID, new SpawnEggItem(CORAL_SQUID, 0x0000FF, 0xFF00FF, (new Item.Settings()).group(ItemGroup.MISC)));
+        SPAWN_EGG = new CharmSpawnEggItem(this, "coral_squid_spawn_egg", CORAL_SQUID, 0x0000FF, 0xFF00FF);
 
         // register the entity attributes
         MobHelper.setEntityAttributes(CORAL_SQUID, CoralSquidEntity.createSquidAttributes());
