@@ -39,14 +39,14 @@ public class ClientHelper {
     }
 
     public static Optional<World> getWorld() {
-        if (!getClient().isPresent())
+        if (getClient().isEmpty())
             return Optional.empty();
 
         return Optional.ofNullable(getClient().get().world);
     }
 
     public static Optional<PlayerEntity> getPlayer() {
-        if (!getClient().isPresent())
+        if (getClient().isEmpty())
             return Optional.empty();
 
         return Optional.ofNullable(getClient().get().player);

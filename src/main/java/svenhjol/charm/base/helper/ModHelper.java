@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModHelper {
-    private static Map<String, Boolean> cachedLoaded = new HashMap<>();
+    private static final Map<String, Boolean> cachedLoaded = new HashMap<>();
 
     public static boolean isLoaded(String mod) {
         boolean result;

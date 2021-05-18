@@ -33,9 +33,6 @@ public class RecipeHandler {
     /**
      * When crafting recipes are loaded in game, we want modded recipes to take precedence over vanilla.
      * Sort recipes so that all modded recipes are iterated before vanilla recipes.
-     *
-     * @param recipes
-     * @return
      */
     private static Stream<Map.Entry<Identifier, JsonElement>> sortRecipes(Map<Identifier, JsonElement> recipes) {
         return Stream.concat(
@@ -46,9 +43,6 @@ public class RecipeHandler {
 
     /**
      * Filter out recipes from Charm modules that have been disabled in config.
-     *
-     * @param recipe
-     * @return
      */
     private static boolean filterUnloadedCharmModules(Map.Entry<Identifier, JsonElement> recipe) {
         Identifier id = recipe.getKey();
@@ -64,9 +58,6 @@ public class RecipeHandler {
 
     /**
      * Filter out recipes where the recipe type refers to a module that isn't loaded.
-     *
-     * @param recipe
-     * @return
      */
     private static boolean filterUnloadedRecipeTypes(Map.Entry<Identifier, JsonElement> recipe) {
         Identifier type = new Identifier(JsonHelper.getString(recipe.getValue().getAsJsonObject(), "type"));
