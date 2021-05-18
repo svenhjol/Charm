@@ -2,7 +2,10 @@ package svenhjol.charm.base.block;
 
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmModule;
 
 public abstract class CharmPlanksBlock extends CharmBlock {
@@ -14,5 +17,11 @@ public abstract class CharmPlanksBlock extends CharmBlock {
         this(module, name, Settings.of(Material.WOOD, color)
             .strength(2.0F, 3.0F)
             .sounds(BlockSoundGroup.WOOD));
+    }
+
+    @Override
+    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+        if (enabled())
+            super.addStacksForDisplay(group, items);
     }
 }

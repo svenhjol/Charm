@@ -65,13 +65,13 @@ public class BiomeDungeons extends CharmModule {
         configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_savanna"), SAVANNA);
         configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_snowy"), SNOWY);
         configuredStructureFeature(new Identifier(Charm.MOD_ID, "dungeon_taiga"), TAIGA);
+
+        DungeonBuilds.init();
+        DungeonGenerator.init();
     }
 
     @Override
     public void init() {
-        DungeonBuilds.init();
-        DungeonGenerator.init();
-
         if (!DungeonGenerator.BADLANDS_DUNGEONS.isEmpty()) addStructureToBiomeCategories(BADLANDS, Biome.Category.MESA);
         if (!DungeonGenerator.DESERT_DUNGEONS.isEmpty()) addStructureToBiomeCategories(DESERT, Biome.Category.DESERT);
         if (!DungeonGenerator.FOREST_DUNGEONS.isEmpty()) addStructureToBiomeCategories(FOREST, Biome.Category.FOREST);

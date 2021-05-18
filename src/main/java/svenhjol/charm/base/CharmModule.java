@@ -1,6 +1,5 @@
 package svenhjol.charm.base;
 
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.base.helper.StringHelper;
 
@@ -15,7 +14,7 @@ public abstract class CharmModule {
     public String mod = "";
     public int priority = 0;
     public List<String> limitedIfMixinsDisabled = new ArrayList<>();
-    public List<String> disabledIfMixinsDisabled = new ArrayList<>();
+    public List<String> requiresMixins = new ArrayList<>();
     public Class<? extends CharmClientModule> client = null;
 
     public boolean depends() {
@@ -45,9 +44,5 @@ public abstract class CharmModule {
 
     public void init() {
         // run on both sides, only if module enabled
-    }
-
-    public void loadWorld(MinecraftServer server) {
-        // run on integrated server, only if module enabled
     }
 }

@@ -29,7 +29,8 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
-@Module(mod = Charm.MOD_ID, client = ExtractEnchantmentsClient.class, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.")
+@Module(mod = Charm.MOD_ID, client = ExtractEnchantmentsClient.class, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.",
+    requiresMixins = {"extract_enchantments.*"})
 public class ExtractEnchantments extends CharmModule {
     public static final Identifier TRIGGER_EXTRACTED_ENCHANTMENT = new Identifier(Charm.MOD_ID, "extracted_enchantment");
 
@@ -172,7 +173,7 @@ public class ExtractEnchantments extends CharmModule {
         };
     }
 
-    public static boolean tryUpdateResult(Inventory inputs, Inventory output, @Nullable PlayerEntity player) {
+    public static boolean tryUpdateGrindstoneOutput(Inventory inputs, Inventory output, @Nullable PlayerEntity player) {
         if (!isExtractEnchantmentsEnabled())
             return false;
 

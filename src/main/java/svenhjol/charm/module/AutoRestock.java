@@ -20,7 +20,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
-@Module(mod = Charm.MOD_ID, description = "Refills your hotbar from your inventory.")
+@Module(mod = Charm.MOD_ID, description = "Refills your hotbar from your inventory.",
+    requiresMixins = {"PlayerTickCallback"})
 public class AutoRestock extends CharmModule {
     //remember which items were in our hands and how often they were used
     private final Map<PlayerEntity, EnumMap<Hand, StackData>> handCache = new WeakHashMap<>();

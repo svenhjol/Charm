@@ -31,7 +31,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, client = MoobloomsClient.class, description = "Mooblooms are cow-like mobs that come in a variety of flower types. They spawn flowers where they walk and can be milked for suspicious stew.")
+@Module(mod = Charm.MOD_ID, client = MoobloomsClient.class, description = "Mooblooms are cow-like mobs that come in a variety of flower types. They spawn flowers where they walk and can be milked for suspicious stew.",
+    requiresMixins = {"AddEntityCallback"})
 public class Mooblooms extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "moobloom");
     public static final Identifier EGG_ID = new Identifier(Charm.MOD_ID, "moobloom_spawn_egg");

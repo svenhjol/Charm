@@ -18,11 +18,12 @@ import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.EndermitePowderClient;
 import svenhjol.charm.entity.EndermitePowderEntity;
-import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.EndermitePowderItem;
 
-@Module(mod = Charm.MOD_ID, client = EndermitePowderClient.class, description = "Endermites drop endermite powder that can be used to locate an End City.")
+@Module(mod = Charm.MOD_ID, client = EndermitePowderClient.class, description = "Endermites drop endermite powder that can be used to locate an End City.",
+    requiresMixins = {"EntityDropItemsCallback"})
 public class EndermitePowder extends CharmModule {
     public static Identifier ID = new Identifier(Charm.MOD_ID, "endermite_powder");
     public static EntityType<EndermitePowderEntity> ENTITY;
@@ -48,7 +49,7 @@ public class EndermitePowder extends CharmModule {
     @Override
     public void init() {
         // react to entity drops
-        EntityDropsCallback.AFTER.register(this::tryDrop);
+        EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 
     private ActionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {

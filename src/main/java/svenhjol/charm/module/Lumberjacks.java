@@ -10,11 +10,11 @@ import svenhjol.charm.base.helper.VillagerHelper;
 import svenhjol.charm.base.helper.WorldHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.event.StructureSetupCallback.VillageType;
+import svenhjol.charm.event.SetupStructureCallback.VillageType;
 import svenhjol.charm.village.LumberjackTradeOffers.*;
 
 import static svenhjol.charm.base.helper.VillagerHelper.addTrade;
-import static svenhjol.charm.event.StructureSetupCallback.addVillageHouse;
+import static svenhjol.charm.event.SetupStructureCallback.addVillageHouse;
 
 @Module(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.")
 public class Lumberjacks extends CharmModule {

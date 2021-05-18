@@ -10,7 +10,7 @@ import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.handler.ClientHandler;
 import svenhjol.charm.base.helper.ScreenHelper;
-import svenhjol.charm.event.GuiSetupCallback;
+import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.event.RenderGuiCallback;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class InventoryButtonClient extends CharmClientModule {
 
     @Override
     public void register() {
-        GuiSetupCallback.EVENT.register(this::handleGuiSetup);
+        SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
     }
 

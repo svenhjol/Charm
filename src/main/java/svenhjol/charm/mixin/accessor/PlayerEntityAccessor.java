@@ -8,8 +8,10 @@ import net.minecraft.inventory.EnderChestInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
+import svenhjol.charm.base.iface.CharmMixin;
 
 @Mixin(PlayerEntity.class)
+@CharmMixin(required = true)
 public interface PlayerEntityAccessor {
     @Accessor
     PlayerInventory getInventory();

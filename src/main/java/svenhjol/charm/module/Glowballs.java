@@ -23,7 +23,8 @@ import svenhjol.charm.entity.GlowballEntity;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.GlowballItem;
 
-@Module(mod = Charm.MOD_ID, client = GlowballsClient.class, description = "Glowballs can be thrown to produce a light source where they impact.")
+@Module(mod = Charm.MOD_ID, client = GlowballsClient.class, description = "Glowballs can be thrown to produce a light source where they impact.",
+    requiresMixins = {"ClientSpawnEntityCallback"})
 public class Glowballs extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "glowball");
     public static final Identifier TRIGGER_THROWN_GLOWBALL = new Identifier(Charm.MOD_ID, "thrown_glowball");

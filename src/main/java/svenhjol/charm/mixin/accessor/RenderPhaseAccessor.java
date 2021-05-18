@@ -3,8 +3,10 @@ package svenhjol.charm.mixin.accessor;
 import net.minecraft.client.render.RenderPhase;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import svenhjol.charm.base.iface.CharmMixin;
 
 @Mixin(RenderPhase.class)
+@CharmMixin(required = true)
 public interface RenderPhaseAccessor {
     @Accessor("COLOR_MASK")
     static RenderPhase.WriteMaskState getColorMask() {

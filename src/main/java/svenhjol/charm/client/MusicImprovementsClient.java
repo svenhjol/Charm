@@ -25,7 +25,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
@@ -61,7 +60,10 @@ public class MusicImprovementsClient extends CharmClientModule {
 
         if (MusicImprovements.playCreativeMusic)
             addCreativeMusicCondition();
+    }
 
+    @Override
+    public void init() {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
         PlaySoundCallback.EVENT.register(this::handlePlaySound);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);

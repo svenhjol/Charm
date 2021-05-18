@@ -10,7 +10,8 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.base.iface.Module;
 
-@Module(mod = Charm.MOD_ID, description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
+@Module(mod = Charm.MOD_ID, description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.",
+    requiresMixins = {"AddEntityCallback"})
 public class RemoveNitwits extends CharmModule {
     @Override
     public void init() {

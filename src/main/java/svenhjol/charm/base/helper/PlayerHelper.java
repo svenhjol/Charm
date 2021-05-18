@@ -11,8 +11,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldSaveHandler;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
+import svenhjol.charm.mixin.accessor.WorldSaveHandlerAccessor;
 
+import java.io.File;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -64,5 +67,9 @@ public class PlayerHelper {
                 ((ServerPlayerEntity)player).teleport(serverWorld, x, y, z, yaw, pitch);
             }
         }
+    }
+
+    public static File getPlayerDataDir(WorldSaveHandler saveHandler) {
+        return ((WorldSaveHandlerAccessor) saveHandler).getPlayerDataDir();
     }
 }

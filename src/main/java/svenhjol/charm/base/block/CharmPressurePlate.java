@@ -3,7 +3,10 @@ package svenhjol.charm.base.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.PressurePlateBlock;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmModule;
 
 public class CharmPressurePlate extends PressurePlateBlock implements ICharmBlock {
@@ -21,6 +24,12 @@ public class CharmPressurePlate extends PressurePlateBlock implements ICharmBloc
             .noCollision()
             .strength(0.5F)
             .sounds(BlockSoundGroup.WOOD));
+    }
+
+    @Override
+    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+        if (enabled())
+            super.addStacksForDisplay(group, items);
     }
 
     @Override

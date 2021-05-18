@@ -5,7 +5,9 @@ import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Direction;
 import svenhjol.charm.base.CharmModule;
 
@@ -33,6 +35,12 @@ public abstract class CharmLogBlock extends PillarBlock implements ICharmBlock {
     @Override
     public ItemGroup getItemGroup() {
         return ItemGroup.BUILDING_BLOCKS;
+    }
+
+    @Override
+    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+        if (enabled())
+            super.addStacksForDisplay(group, items);
     }
 
     @Override

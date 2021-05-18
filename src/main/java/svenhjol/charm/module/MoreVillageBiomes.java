@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Villages can spawn in swamps and jungles.")
+@Module(mod = Charm.MOD_ID, description = "Villages can spawn in swamps and jungles.",
+    requiresMixins = {"AddEntityCallback"})
 public class MoreVillageBiomes extends CharmModule {
     @Override
     public void init() {

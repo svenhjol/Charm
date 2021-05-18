@@ -21,7 +21,8 @@ import svenhjol.charm.init.CharmAdvancements;
 
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Villagers are attracted when the player holds a block of emeralds.")
+@Module(mod = Charm.MOD_ID, description = "Villagers are attracted when the player holds a block of emeralds.",
+    requiresMixins = {"AddEntityCallback", "PlayerTickCallback"})
 public class VillagersFollowEmeraldBlocks extends CharmModule {
     public static final Identifier TRIGGER_LURED_VILLAGER = new Identifier(Charm.MOD_ID, "lured_villager");
 

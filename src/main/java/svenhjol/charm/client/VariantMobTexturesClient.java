@@ -10,10 +10,11 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmClientModule;
+import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.ICharmEnum;
+import svenhjol.charm.event.ClientPlayerJoinCallback;
 import svenhjol.charm.module.VariantMobTextures;
 import svenhjol.charm.render.VariantMobRenderer;
-import svenhjol.charm.base.CharmModule;
 
 import java.util.*;
 
@@ -44,6 +45,8 @@ public class VariantMobTexturesClient extends CharmClientModule {
 
     @Override
     public void init() {
+        ClientPlayerJoinCallback.EVENT.register(this::handlePlayerJoin);
+
         if (VariantMobTextures.variantChickens)
             EntityRendererRegistry.INSTANCE.register(EntityType.CHICKEN, VariantMobRenderer.Chicken::new);
 
@@ -67,8 +70,7 @@ public class VariantMobTexturesClient extends CharmClientModule {
 
     }
 
-    @Override
-    public void loadWorld(MinecraftClient client) {
+    public void handlePlayerJoin(MinecraftClient client) {
         // reset
         chickens = new ArrayList<>();
         cows = new ArrayList<>();

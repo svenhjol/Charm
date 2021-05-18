@@ -3,6 +3,9 @@ package svenhjol.charm.base.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.StairsBlock;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmModule;
 
 public abstract class CharmStairsBlock extends StairsBlock implements ICharmBlock {
@@ -17,6 +20,12 @@ public abstract class CharmStairsBlock extends StairsBlock implements ICharmBloc
 
     public CharmStairsBlock(CharmModule module, String name, Block block) {
         this(module, name, block.getDefaultState(), Settings.copy(block));
+    }
+
+    @Override
+    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+        if (enabled())
+            super.addStacksForDisplay(group, items);
     }
 
     @Override

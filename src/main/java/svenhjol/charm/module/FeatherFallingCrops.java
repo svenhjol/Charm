@@ -11,7 +11,8 @@ import svenhjol.charm.base.helper.EnchantmentsHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 
-@Module(mod = Charm.MOD_ID, description = "A player wearing feather falling enchanted boots will not trample crops.")
+@Module(mod = Charm.MOD_ID, description = "A player wearing feather falling enchanted boots will not trample crops.",
+    requiresMixins = {"feather_falling_crops.*"})
 public class FeatherFallingCrops extends CharmModule {
 
     @Config(name = "Requires feather falling", description = "Set to false to prevent trampling even when the player does not wear feather falling boots.")

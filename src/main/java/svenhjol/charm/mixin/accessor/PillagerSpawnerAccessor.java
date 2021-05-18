@@ -6,10 +6,12 @@ import net.minecraft.world.gen.PillagerSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
+import svenhjol.charm.base.iface.CharmMixin;
 
 import java.util.Random;
 
 @Mixin(PillagerSpawner.class)
+@CharmMixin(required = true)
 public interface PillagerSpawnerAccessor {
     @Accessor
     void setTicksUntilNextSpawn(int ticks);

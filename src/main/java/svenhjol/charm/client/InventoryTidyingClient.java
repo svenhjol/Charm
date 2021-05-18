@@ -16,7 +16,7 @@ import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.base.helper.ScreenHelper;
-import svenhjol.charm.event.GuiSetupCallback;
+import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.gui.AtlasScreen;
 import svenhjol.charm.gui.BookcaseScreen;
@@ -65,9 +65,12 @@ public class InventoryTidyingClient extends CharmClientModule {
             BeaconScreen.class,
             AtlasScreen.class
         ));
+    }
 
+    @Override
+    public void init() {
         // set up client listeners
-        GuiSetupCallback.EVENT.register(this::handleGuiSetup);
+        SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
     }
 

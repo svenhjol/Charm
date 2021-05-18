@@ -3,7 +3,6 @@ package svenhjol.charm.base;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.base.handler.ClientHandler;
 import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.event.ClientJoinCallback;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -89,10 +88,6 @@ public class CharmClientLoader {
     protected void init() {
         // post init, only enabled modules are run
         eachEnabledModule(client -> ClientHandler.INSTANCE.init(client));
-
-        ClientJoinCallback.EVENT.register(client -> {
-            eachEnabledModule(m -> m.loadWorld(client));
-        });
     }
 
     protected void eachEnabledModule(Consumer<CharmClientModule> consumer) {

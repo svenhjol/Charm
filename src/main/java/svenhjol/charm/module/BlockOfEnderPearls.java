@@ -33,7 +33,8 @@ import svenhjol.charm.init.CharmAdvancements;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, description = "Ender pearl storage. Eating a chorus fruit will teleport you to the nearest ender pearl block.")
+@Module(mod = Charm.MOD_ID, description = "Ender pearl storage. Eating a chorus fruit will teleport you to the nearest ender pearl block.",
+    requiresMixins = {"AddEntityCallback"})
 public class BlockOfEnderPearls extends CharmModule {
     public static EnderPearlBlock ENDER_PEARL_BLOCK;
 

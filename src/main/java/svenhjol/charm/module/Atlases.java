@@ -38,7 +38,8 @@ import svenhjol.charm.screenhandler.AtlasInventory;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, client = AtlasesClient.class, description = "Storage for maps that automatically updates the displayed map as you explore.")
+@Module(mod = Charm.MOD_ID, client = AtlasesClient.class, description = "Storage for maps that automatically updates the displayed map as you explore.",
+    requiresMixins = {"PlayerTickCallback", "RenderHeldItemCallback", "ItemTooltipCallback"})
 public class Atlases extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "atlas");
     public static final Identifier MSG_SERVER_ATLAS_TRANSFER = new Identifier(Charm.MOD_ID, "server_atlas_transfer");

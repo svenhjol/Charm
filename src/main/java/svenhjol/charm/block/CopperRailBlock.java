@@ -3,7 +3,9 @@ package svenhjol.charm.block;
 import net.minecraft.block.Material;
 import net.minecraft.block.RailBlock;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.block.ICharmBlock;
 
@@ -19,6 +21,12 @@ public class CopperRailBlock extends RailBlock implements ICharmBlock {
     @Override
     public ItemGroup getItemGroup() {
         return ItemGroup.TRANSPORTATION;
+    }
+
+    @Override
+    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+        if (enabled())
+            super.addStacksForDisplay(group, items);
     }
 
     @Override

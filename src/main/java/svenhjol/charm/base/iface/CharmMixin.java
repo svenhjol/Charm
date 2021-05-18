@@ -6,8 +6,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface CharmMixin {
-
     String[] disableIfModsPresent() default { };
 
-    String[] usedByModules() default { };
+    boolean required() default false;
 }

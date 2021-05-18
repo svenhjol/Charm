@@ -22,7 +22,8 @@ import svenhjol.charm.client.PortableCraftingClient;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.screenhandler.PortableCraftingScreenHandler;
 
-@Module(mod = Charm.MOD_ID, client = PortableCraftingClient.class, description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
+@Module(mod = Charm.MOD_ID, client = PortableCraftingClient.class, description = "Allows crafting from inventory if the player has a crafting table in their inventory.",
+    requiresMixins = {"SetupGuiCallback", "RenderGuiCallback"})
 public class PortableCrafting extends CharmModule {
     private static final Text LABEL = new TranslatableText("container.charm.portable_crafting_table");
     public static final Identifier MSG_SERVER_OPEN_CRAFTING = new Identifier(Charm.MOD_ID, "server_open_crafting");

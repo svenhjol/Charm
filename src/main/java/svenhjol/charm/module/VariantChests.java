@@ -19,7 +19,8 @@ import svenhjol.charm.client.VariantChestsClient;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, priority = 10, client = VariantChestsClient.class, description = "Chests available in all types of vanilla wood.")
+@Module(mod = Charm.MOD_ID, priority = 10, client = VariantChestsClient.class, description = "Chests available in all types of vanilla wood.",
+    requiresMixins = {"StitchTextureCallback", "RenderBlockItemCallback"})
 public class VariantChests extends CharmModule {
     public static final Identifier NORMAL_ID = new Identifier(Charm.MOD_ID, "variant_chest");
     public static final Identifier TRAPPED_ID = new Identifier(Charm.MOD_ID, "trapped_chest");

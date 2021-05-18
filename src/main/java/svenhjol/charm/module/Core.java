@@ -6,7 +6,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.CoreClient;
@@ -24,13 +23,9 @@ public class Core extends CharmModule {
     @Config(name = "Advancements", description = "If true, Charm will add its own advancement tree.")
     public static boolean advancements = true;
 
-    public static boolean BETTER_END = false;
-
     @Override
     public void register() {
         ServerJoinCallback.EVENT.register(this::handleServerJoin);
-
-        BETTER_END = ModHelper.isLoaded("betterend");
     }
 
     private void handleServerJoin(PlayerManager playerManager, ClientConnection connection, ServerPlayerEntity player) {

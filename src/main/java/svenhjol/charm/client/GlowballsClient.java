@@ -10,7 +10,7 @@ import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.entity.GlowballEntity;
-import svenhjol.charm.event.ClientEntitySpawnCallback;
+import svenhjol.charm.event.ClientSpawnEntityCallback;
 import svenhjol.charm.module.Glowballs;
 
 public class GlowballsClient extends CharmClientModule {
@@ -23,13 +23,16 @@ public class GlowballsClient extends CharmClientModule {
         EntityRendererRegistry.INSTANCE.register(Glowballs.GLOWBALL, dispatcher
             -> new FlyingItemEntityRenderer<>(dispatcher, 1.0F, true));
 
-        ClientEntitySpawnCallback.EVENT.register(this::handleClientEntitySpawn);
         BlockRenderLayerMap.INSTANCE.putBlock(Glowballs.GLOWBALL_BLOCK, RenderLayer.getTranslucent());
     }
 
-    private void handleClientEntitySpawn(EntitySpawnS2CPacket packet, EntityType<?> entityType, ClientWorld world, double x, double y, double z) {
-        if (entityType == Glowballs.GLOWBALL) {
-            ClientEntitySpawnCallback.addEntity(packet, world, new GlowballEntity(world, x, y, z));
-        }
+    @Override
+    public void init() {
+        ClientSpawnEntityCallback.EVENT.register(this::handleClientSpawnEntity);
+    }
+
+    private void handleClientSpawnEntity(EntitySpawnS2CPacket packet, EntityType<?> entityType, ClientWorld world, double x, double y, double z) {
+        if (entityType == Glowballs.GLOWBALL)
+            ClientSpawnEntityCallback.addEntity(packet, world, new GlowballEntity(world, x, y, z));
     }
 }

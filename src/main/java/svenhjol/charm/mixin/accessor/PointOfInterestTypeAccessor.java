@@ -4,11 +4,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.world.poi.PointOfInterestType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import svenhjol.charm.base.iface.CharmMixin;
 
 import java.util.Map;
 import java.util.Set;
 
 @Mixin(PointOfInterestType.class)
+@CharmMixin(required = true)
 public interface PointOfInterestTypeAccessor {
     @Accessor
     void setTicketCount(int ticketCount);

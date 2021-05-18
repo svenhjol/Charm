@@ -15,8 +15,8 @@ import svenhjol.charm.block.VariantChestBlock;
 import svenhjol.charm.block.VariantTrappedChestBlock;
 import svenhjol.charm.blockentity.VariantChestBlockEntity;
 import svenhjol.charm.blockentity.VariantTrappedChestBlockEntity;
-import svenhjol.charm.event.BlockItemRenderCallback;
-import svenhjol.charm.event.TextureStitchCallback;
+import svenhjol.charm.event.RenderBlockItemCallback;
+import svenhjol.charm.event.StitchTextureCallback;
 import svenhjol.charm.module.VariantChests;
 import svenhjol.charm.render.VariantChestBlockEntityRenderer;
 
@@ -35,8 +35,8 @@ public class VariantChestsClient extends CharmClientModule {
         BlockEntityRendererRegistry.INSTANCE.register(VariantChests.NORMAL_BLOCK_ENTITY, VariantChestBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(VariantChests.TRAPPED_BLOCK_ENTITY, VariantChestBlockEntityRenderer::new);
 
-        TextureStitchCallback.EVENT.register(this::handleTextureStitch);
-        BlockItemRenderCallback.EVENT.register(this::handleBlockItemRender);
+        StitchTextureCallback.EVENT.register(this::handleTextureStitch);
+        RenderBlockItemCallback.EVENT.register(this::handleBlockItemRender);
     }
 
     private void handleTextureStitch(SpriteAtlasTexture atlas, Set<Identifier> textures) {

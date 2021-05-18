@@ -30,7 +30,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-@Module(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.")
+@Module(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.",
+    requiresMixins = {"mineshaft_pieces.*"})
 public class MineshaftImprovements extends CharmModule {
     public static List<BlockState> floorBlocks = new ArrayList<>();
     public static List<BlockState> ceilingBlocks = new ArrayList<>();

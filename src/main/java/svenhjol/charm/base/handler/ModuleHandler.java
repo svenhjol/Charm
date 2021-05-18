@@ -1,12 +1,12 @@
 package svenhjol.charm.base.handler;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.base.helper.ModHelper;
-import svenhjol.charm.init.CharmMixinConfigPlugin;
 import svenhjol.charm.base.CharmLoader;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.base.helper.StringHelper;
 import svenhjol.charm.event.LoadWorldCallback;
+import svenhjol.charm.init.CharmMixinConfigPlugin;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -52,36 +52,28 @@ public class ModuleHandler {
     public void depends(CharmModule module) {
         String name = module.getName();
         boolean isEnabled = module.enabled;
-        boolean dependencyCheck = module.depends();
+        boolean dependencyCheck = module.depends() && checkMixins(module);
 
-        String message;
         if (!isEnabled) {
-            message = "Module " + name + " is not enabled ❌";
+            Charm.LOG.info("❌ Module " + name + " is disabled");
         } else if (!dependencyCheck) {
-            message = "Module " + name + " did not pass dependency check, disabling ❌";
+            Charm.LOG.info("❌ Module " + name + " did not pass dependency check");
         } else {
-            message = "Module " + name + " is enabled ✅";
+            Charm.LOG.info("✅ Module " + name + " is enabled ");
         }
 
-        Charm.LOG.debug("[ModuleHandler] " + message);
         module.enabled = isEnabled && dependencyCheck;
     }
 
-    public void checkMixins(CharmModule module) {
-        // modules that depend on disabled mixin, warn in console and set module to disabled
-        for (String mixin : module.disabledIfMixinsDisabled) {
-            if (CharmMixinConfigPlugin.mixinsDisabledViaAnnotation.contains(mixin)) {
-                module.enabled = false;
-                Charm.LOG.warn("Module " + module.getName() + " is DISABLED via mixin blacklist ❌");
-            }
+    public boolean checkMixins(CharmModule module) {
+        for (String mixin : module.requiresMixins) {
+            boolean mixinDisabled = CharmMixinConfigPlugin.isMixinDisabled(mixin);
+            boolean moduleDisabled = CharmMixinConfigPlugin.isMixinDisabled(module.getId().getPath());
+            if (mixinDisabled || moduleDisabled)
+                return false;
         }
 
-        // modules that are limited if mixin disabled, just warn in console
-        for (String mixin : module.limitedIfMixinsDisabled) {
-            if (CharmMixinConfigPlugin.mixinsDisabledViaAnnotation.contains(mixin)) {
-                Charm.LOG.warn("Module " + module.getName() + " has REDUCED FUNCTIONALITY via mixin blacklist ℹ️");
-            }
-        }
+        return true;
     }
 
     public void init(CharmModule module) {

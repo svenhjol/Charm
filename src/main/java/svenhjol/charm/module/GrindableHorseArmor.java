@@ -17,7 +17,8 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, description = "Horse armor returns a single ingot or gem when used on the grindstone.")
+@Module(mod = Charm.MOD_ID, description = "Horse armor returns a single ingot or gem when used on the grindstone.",
+    requiresMixins = {"grindable_horse_armor.*"})
 public class GrindableHorseArmor extends CharmModule {
     public static final Identifier TRIGGER_RECYCLED_HORSE_ARMOR = new Identifier(Charm.MOD_ID, "recycled_horse_armor");
     public static final Map<Item, Item> horseArmorRecipes = new HashMap<>();

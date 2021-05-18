@@ -14,11 +14,12 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.RaidHornItem;
 
-@Module(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.")
+@Module(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.",
+    requiresMixins = {"EntityDropItemsCallback"})
 public class RaidHorns extends CharmModule {
     public static RaidHornItem RAID_HORN;
 
@@ -36,8 +37,11 @@ public class RaidHorns extends CharmModule {
     @Override
     public void register() {
         RAID_HORN = new RaidHornItem(this);
+    }
 
-        EntityDropsCallback.AFTER.register(this::tryDrop);
+    @Override
+    public void init() {
+        EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 
     public ActionResult tryDrop(LivingEntity entity, DamageSource source, int lootingLevel) {

@@ -18,7 +18,7 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.event.EntityDropsXpCallback;
+import svenhjol.charm.event.EntityDropXpCallback;
 import svenhjol.charm.event.PlayerDropInventoryCallback;
 import svenhjol.charm.item.TotemOfPreservingItem;
 
@@ -27,7 +27,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-@Module(mod = Charm.MOD_ID, description = "Items will be held in the Totem of Preserving if you die.")
+@Module(mod = Charm.MOD_ID, description = "Items will be held in the Totem of Preserving if you die.",
+    requiresMixins = {"PlayerDropInventoryCallback", "EntityDropXpCallback", "CheckItemDespawnMixin"})
 public class TotemOfPreserving extends CharmModule {
     public static TotemOfPreservingItem TOTEM_OF_PRESERVING;
 
@@ -43,7 +44,7 @@ public class TotemOfPreserving extends CharmModule {
     public void init() {
         ItemHelper.ITEM_LIFETIME.put(TOTEM_OF_PRESERVING, Integer.MAX_VALUE); // probably stupid
         PlayerDropInventoryCallback.EVENT.register(this::tryInterceptDropInventory);
-        EntityDropsXpCallback.BEFORE.register(this::tryInterceptDropXp);
+        EntityDropXpCallback.BEFORE.register(this::tryInterceptDropXp);
     }
 
     public ActionResult tryInterceptDropXp(LivingEntity entity) {

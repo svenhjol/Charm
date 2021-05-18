@@ -5,8 +5,10 @@ import net.minecraft.block.FireBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import svenhjol.charm.base.block.ICharmBlock;
+import svenhjol.charm.base.iface.CharmMixin;
 
 @Mixin(FireBlock.class)
+@CharmMixin(required = true)
 public interface FireBlockAccessor {
     /**
      * Used by abstract blocks to set flammability data.

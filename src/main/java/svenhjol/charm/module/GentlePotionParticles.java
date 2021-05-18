@@ -8,7 +8,8 @@ import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 
-@Module(mod = Charm.MOD_ID, description = "Potion effect particles are much less obtrusive by default and can optionally be entirely hidden.")
+@Module(mod = Charm.MOD_ID, description = "Potion effect particles are much less obtrusive by default and can optionally be entirely hidden.",
+    requiresMixins = {"gentle_potion_particles.*"})
 public class GentlePotionParticles extends CharmModule {
     @Config(name = "Translucent particles", description = "If true, faded/translucent particles will be rendered.  If false, no particles will be rendered.")
     public static boolean translucent = true;

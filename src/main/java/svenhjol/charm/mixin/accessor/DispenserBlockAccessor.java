@@ -5,10 +5,12 @@ import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import svenhjol.charm.base.iface.CharmMixin;
 
 import java.util.Map;
 
 @Mixin(DispenserBlock.class)
+@CharmMixin(required = true)
 public interface DispenserBlockAccessor {
     /**
      * Used by OverrideHandler to access the dispenser behaviors.

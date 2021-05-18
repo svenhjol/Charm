@@ -19,7 +19,8 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.mixin.accessor.ForgingScreenHandlerAccessor;
 
-@Module(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.")
+@Module(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.",
+    requiresMixins = {"UpdateAnvilCallback", "TakeAnvilOutputCallback"})
 public class DecreaseRepairCost extends CharmModule {
     public static final Identifier TRIGGER_DECREASED_COST = new Identifier(Charm.MOD_ID, "decreased_cost");
 

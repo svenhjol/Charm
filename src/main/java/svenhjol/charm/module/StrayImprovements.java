@@ -12,12 +12,13 @@ import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.event.EntityDropsCallback;
+import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 
-@Module(mod = Charm.MOD_ID, description = "Strays spawn anywhere within their biome and have a chance to drop blue ice.")
+@Module(mod = Charm.MOD_ID, description = "Strays spawn anywhere within their biome and have a chance to drop blue ice.",
+    requiresMixins = {"EntityDropItemsCallback"})
 public class StrayImprovements extends CharmModule {
     public static double lootingBoost = 0.3D;
 
@@ -32,7 +33,7 @@ public class StrayImprovements extends CharmModule {
 
     @Override
     public void init() {
-        EntityDropsCallback.AFTER.register(this::tryDrop);
+        EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 
     public static boolean canSpawn() {

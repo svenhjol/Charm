@@ -8,6 +8,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.Writer;
 import java.lang.reflect.Field;
@@ -16,8 +17,25 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class ConfigHandler {
+
+    @Nullable
+    public static Toml getConfig(String mod) {
+        String configPath = "./config/" + mod + ".toml";
+        Path path = Paths.get(configPath);
+        File file = path.toFile();
+
+        if (!file.exists())
+            return null;
+
+        return new Toml().read(path.toFile());
+    }
+
+    public static boolean isModuleDisabled(Toml config, String moduleName) {
+        String moduleEnabled = moduleName + " Enabled";
+        String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
+        return config.contains(moduleEnabledQuoted) && !config.getBoolean(moduleEnabledQuoted);
+    }
 
     public static void createConfig(String mod, Map<String, CharmModule> modules) {
         String configPath = "./config/" + mod + ".toml";

@@ -5,10 +5,12 @@ import net.minecraft.client.render.BufferBuilderStorage;
 import net.minecraft.client.render.RenderLayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import svenhjol.charm.base.iface.CharmMixin;
 
 import java.util.SortedMap;
 
 @Mixin(BufferBuilderStorage.class)
+@CharmMixin(required = true)
 public interface BufferBuilderStorageAccessor {
     @Accessor
     SortedMap<RenderLayer, BufferBuilder> getEntityBuilders();

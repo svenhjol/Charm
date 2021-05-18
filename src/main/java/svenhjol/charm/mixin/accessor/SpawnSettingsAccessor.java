@@ -5,11 +5,13 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.biome.SpawnSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import svenhjol.charm.base.iface.CharmMixin;
 
 import java.util.List;
 import java.util.Map;
 
 @Mixin(SpawnSettings.class)
+@CharmMixin(required = true)
 public interface SpawnSettingsAccessor {
     @Accessor
     Map<SpawnGroup, List<SpawnSettings.SpawnEntry>> getSpawners();

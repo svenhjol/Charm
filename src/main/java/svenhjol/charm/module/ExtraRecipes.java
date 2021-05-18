@@ -14,7 +14,8 @@ import svenhjol.charm.event.CheckAnvilRepairCallback;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, description = "Adds custom recipes.")
+@Module(mod = Charm.MOD_ID, description = "Adds custom recipes.",
+    requiresMixins = {"CheckAnvilRepairCallback"})
 public class ExtraRecipes extends CharmModule {
     @Config(name = "Ore block from raw ore block", description = "If true, adds a blast furnace recipe for smelting raw ore blocks into ore blocks.")
     public static boolean useRawOreBlocks = true;
@@ -71,9 +72,8 @@ public class ExtraRecipes extends CharmModule {
         collect.put(useBundle, Collections.singletonList("bundle"));
 
         collect.forEach((key, recipes) -> {
-            if (!key) {
+            if (!key)
                 recipes.forEach(recipe -> removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/" + recipe)));
-            }
         });
 
         return removedRecipes;

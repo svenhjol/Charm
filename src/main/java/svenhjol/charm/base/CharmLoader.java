@@ -4,7 +4,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.base.handler.ConfigHandler;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.event.LoadWorldCallback;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -54,8 +53,7 @@ public class CharmLoader {
                     module.alwaysEnabled = annotation.alwaysEnabled();
                     module.enabledByDefault = annotation.enabledByDefault();
                     module.enabled = module.enabledByDefault;
-                    module.limitedIfMixinsDisabled = Arrays.asList(annotation.limitedIfMixinsDisabled());
-                    module.disabledIfMixinsDisabled = Arrays.asList(annotation.disabledIfMixinsDisabled());
+                    module.requiresMixins = Arrays.asList(annotation.requiresMixins());
                     module.description = annotation.description();
                     module.client = annotation.client();
 
@@ -100,17 +98,11 @@ public class CharmLoader {
     }
 
     protected void init() {
-        // test each module's required mixins
-        eachModule(ModuleHandler.INSTANCE::checkMixins);
-
         // run dependency check on each module
         eachModule(ModuleHandler.INSTANCE::depends);
 
         // init, only enabled modules are run
         eachEnabledModule(ModuleHandler.INSTANCE::init);
-
-        // listen for server world loading events
-        LoadWorldCallback.EVENT.register(server -> eachEnabledModule(m -> m.loadWorld(server)));
     }
 
     public void eachModule(Consumer<CharmModule> consumer) {

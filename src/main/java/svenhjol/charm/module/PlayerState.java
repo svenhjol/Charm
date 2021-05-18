@@ -27,7 +27,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-@Module(mod = Charm.MOD_ID, client = PlayerStateClient.class, description = "Synchronize additional state from server to client.", alwaysEnabled = true)
+@Module(mod = Charm.MOD_ID, alwaysEnabled = true, client = PlayerStateClient.class, description = "Synchronize additional state from server to client.")
 public class PlayerState extends CharmModule {
     public static final Identifier MSG_SERVER_UPDATE_PLAYER_STATE = new Identifier(Charm.MOD_ID, "server_update_player_state");
     public static List<BiConsumer<ServerPlayerEntity, NbtCompound>> listeners = new ArrayList<>();

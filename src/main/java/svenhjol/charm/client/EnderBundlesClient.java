@@ -46,6 +46,10 @@ public class EnderBundlesClient extends CharmClientModule {
         // register callbacks
         ClientPlayNetworking.registerGlobalReceiver(EnderBundles.MSG_CLIENT_UPDATE_ENDER_INVENTORY, this::handleClientUpdateEnderInventory);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
+    }
+
+    @Override
+    public void init() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 

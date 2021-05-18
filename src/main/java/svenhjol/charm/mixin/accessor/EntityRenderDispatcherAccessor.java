@@ -5,10 +5,12 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.entity.EntityType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import svenhjol.charm.base.iface.CharmMixin;
 
 import java.util.Map;
 
 @Mixin(EntityRenderDispatcher.class)
+@CharmMixin(required = true)
 public interface EntityRenderDispatcherAccessor {
     @Accessor
     Map<EntityType<?>, EntityRenderer<?>> getRenderers();

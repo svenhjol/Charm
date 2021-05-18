@@ -1,7 +1,5 @@
 package svenhjol.charm.base;
 
-import net.minecraft.client.MinecraftClient;
-
 public abstract class CharmClientModule {
     protected CharmModule module;
 
@@ -22,10 +20,6 @@ public abstract class CharmClientModule {
     }
 
     public void init() {
-        // run on client side, only if module enabled
-    }
-
-    public void loadWorld(MinecraftClient client) {
         // run on client side, only if module enabled
     }
 }

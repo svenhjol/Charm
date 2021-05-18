@@ -12,7 +12,8 @@ import svenhjol.charm.base.helper.PlayerHelper;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.enchantment.CollectionEnch;
 
-@Module(mod = Charm.MOD_ID, description = "Tools with the Collection enchantment automatically pick up drops.")
+@Module(mod = Charm.MOD_ID, description = "Tools with the Collection enchantment automatically pick up drops.",
+    requiresMixins = {"collection_enchantment.*"})
 public class CollectionEnchantment extends CharmModule {
     private static final ThreadLocal<PlayerEntity> breakingPlayer = new ThreadLocal<>();
     public static CollectionEnch ENCHANTMENT;

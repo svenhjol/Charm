@@ -8,7 +8,8 @@ import svenhjol.charm.init.CharmTags;
 import svenhjol.charm.base.handler.ModuleHandler;
 import svenhjol.charm.base.iface.Module;
 
-@Module(mod = Charm.MOD_ID, description = "Crying obsidian and refined obsidian can be used to construct nether portal frames.")
+@Module(mod = Charm.MOD_ID, description = "Crying obsidian and refined obsidian can be used to construct nether portal frames.",
+    requiresMixins = {"more_portal_frames.*"})
 public class MorePortalFrames extends CharmModule {
     public static boolean isValidBlock(BlockState blockState) {
         if (!ModuleHandler.enabled(MorePortalFrames.class))

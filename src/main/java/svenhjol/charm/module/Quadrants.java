@@ -33,7 +33,8 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-@Module(mod = Charm.MOD_ID, description = "A tool that rotates blocks. When held in offhand it locks block orientation when placing.")
+@Module(mod = Charm.MOD_ID, description = "A tool that rotates blocks. When held in offhand it locks block orientation when placing.",
+    requiresMixins = {"EntityEquipCallback"})
 public class Quadrants extends CharmModule {
     public static QuadrantItem QUADRANT;
     public static Map<UUID, Direction> lockedDirection = new HashMap<>();

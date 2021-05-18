@@ -8,7 +8,8 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 
-@Module(mod = Charm.MOD_ID, description = "Campfires no longer damage mobs.")
+@Module(mod = Charm.MOD_ID, description = "Campfires no longer damage mobs.",
+    requiresMixins = {"campfires_no_damage.*"})
 public class CampfiresNoDamage extends CharmModule {
     @Config(name = "Soul campfires cause damage", description = "If true, soul campfires will still cause damage to mobs.")
     public static boolean soulCampfiresDamage = true;

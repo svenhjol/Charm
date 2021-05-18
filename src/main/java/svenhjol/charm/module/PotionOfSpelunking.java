@@ -25,7 +25,8 @@ import svenhjol.charm.potion.SpelunkingPotion;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, client = PotionOfSpelunkingClient.class, description = "Shows particles at ground level to help locate ores below you.")
+@Module(mod = Charm.MOD_ID, client = PotionOfSpelunkingClient.class, description = "Shows particles at ground level to help locate ores below you.",
+    requiresMixins = {"PlayerTickCallback"})
 public class PotionOfSpelunking extends CharmModule {
     private static final DyeColor DEFAULT_COLOR = DyeColor.WHITE;
 
@@ -88,7 +89,10 @@ public class PotionOfSpelunking extends CharmModule {
                 Registry.BLOCK.getOrEmpty(id).ifPresent(block -> blocks.put(block, color));
             }
         });
+    }
 
+    @Override
+    public void init() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 

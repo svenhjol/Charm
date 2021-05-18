@@ -11,16 +11,17 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.HurtEntityCallback;
+import svenhjol.charm.event.EntityHurtCallback;
 import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.iface.Module;
 
-@Module(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.")
+@Module(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.",
+    requiresMixins = {"EntityHurtCallback"})
 public class TamedAnimalsNoDamage extends CharmModule {
     @Override
     public void init() {
         AttackEntityCallback.EVENT.register(this::tryIgnoreAttack);
-        HurtEntityCallback.EVENT.register(this::tryIgnoreDamage);
+        EntityHurtCallback.EVENT.register(this::tryIgnoreDamage);
     }
 
     private ActionResult tryIgnoreAttack(PlayerEntity player, World world, Hand hand, Entity entity, EntityHitResult hitResult) {

@@ -20,7 +20,8 @@ import svenhjol.charm.potion.LongHogsbanePotion;
 
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Causes all hoglins in the vicinity to run away from you.")
+@Module(mod = Charm.MOD_ID, description = "Causes all hoglins in the vicinity to run away from you.",
+    requiresMixins = {"PlayerTickCallback"})
 public class PotionOfHogsbane extends CharmModule {
     public static HogsbaneEffect HOGSBANE_EFFECT;
     public static CharmPotion HOGSPANE_POTION;
@@ -33,7 +34,10 @@ public class PotionOfHogsbane extends CharmModule {
         HOGSBANE_EFFECT = new HogsbaneEffect(this);
         HOGSPANE_POTION = new HogsbanePotion(this);
         LONG_HOGSBANE_POTION = new LongHogsbanePotion(this);
+    }
 
+    @Override
+    public void init() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 

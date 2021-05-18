@@ -42,14 +42,17 @@ public class PlayerStateClient extends CharmClientModule {
 
     @Override
     public void register() {
+        // register client message handler to call the clientCallback
+        ClientPlayNetworking.registerGlobalReceiver(MSG_CLIENT_UPDATE_PLAYER_STATE, this::handleClientUpdatePlayerState);
+    }
+
+    @Override
+    public void init() {
         // send a state update request on a heartbeat (serverStateInterval)
         PlayerTickCallback.EVENT.register((player -> {
             if (player.world.isClient && player.world.getTime() % PlayerState.serverStateInverval == 0)
                 ClientPlayNetworking.send(PlayerState.MSG_SERVER_UPDATE_PLAYER_STATE, new PacketByteBuf(Unpooled.buffer()));
         }));
-
-        // register client message handler to call the clientCallback
-        ClientPlayNetworking.registerGlobalReceiver(MSG_CLIENT_UPDATE_PLAYER_STATE, this::handleClientUpdatePlayerState);
     }
 
     private void handleClientUpdatePlayerState(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {

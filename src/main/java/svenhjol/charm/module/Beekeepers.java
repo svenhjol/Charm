@@ -9,12 +9,12 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.VillagerHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
-import svenhjol.charm.event.StructureSetupCallback.VillageType;
+import svenhjol.charm.event.SetupStructureCallback.VillageType;
 import svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor;
 import svenhjol.charm.village.BeekeeperTradeOffers;
 
 import static svenhjol.charm.base.helper.VillagerHelper.addTrade;
-import static svenhjol.charm.event.StructureSetupCallback.addVillageHouse;
+import static svenhjol.charm.event.SetupStructureCallback.addVillageHouse;
 
 @Module(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
 public class Beekeepers extends CharmModule {

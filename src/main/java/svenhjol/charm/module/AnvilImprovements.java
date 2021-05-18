@@ -36,7 +36,7 @@ public class AnvilImprovements extends CharmModule {
     @Config(name = "Show item repair cost", description = "If true, items show their repair cost in their tooltip when looking at the anvil screen.")
     public static boolean showRepairCost = true;
 
-    public static boolean allowTooExpensive() {
+    public static boolean removeTooExpensive() {
         return ModuleHandler.enabled("charm:anvil_improvements") && AnvilImprovements.removeTooExpensive;
     }
 
@@ -74,6 +74,9 @@ public class AnvilImprovements extends CharmModule {
     }
 
     public static List<Text> addRepairCostToTooltip(ItemStack stack, List<Text> tooltip) {
+        if (!AnvilImprovements.showRepairCost)
+            return tooltip;
+
         int repairCost = stack.getRepairCost();
         if (repairCost > 0) {
             tooltip.add(LiteralText.EMPTY); // a new line

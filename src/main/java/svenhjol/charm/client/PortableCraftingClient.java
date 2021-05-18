@@ -19,7 +19,7 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.init.CharmTags;
 import svenhjol.charm.base.helper.ScreenHelper;
-import svenhjol.charm.event.GuiSetupCallback;
+import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
 import svenhjol.charm.module.PortableCrafting;
@@ -38,7 +38,7 @@ public class PortableCraftingClient extends CharmClientModule {
     @Override
     public void init() {
         // set up client listeners
-        GuiSetupCallback.EVENT.register(this::handleGuiSetup);
+        SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
 
         if (PortableCrafting.enableKeybind) {

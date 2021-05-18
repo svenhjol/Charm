@@ -16,7 +16,8 @@ import svenhjol.charm.client.EnderBundlesClient;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.EnderBundleItem;
 
-@Module(mod = Charm.MOD_ID, client = EnderBundlesClient.class, description = "EnderBundles")
+@Module(mod = Charm.MOD_ID, client = EnderBundlesClient.class, description = "Ender bundles allow transfer of items to and from your ender chest.",
+    requiresMixins = {"RenderTooltipCallback"})
 public class EnderBundles extends CharmModule {
     public static final Identifier MSG_SERVER_UPDATE_ENDER_INVENTORY = new Identifier(Charm.MOD_ID, "server_update_ender_inventory");
     public static final Identifier MSG_CLIENT_UPDATE_ENDER_INVENTORY = new Identifier(Charm.MOD_ID, "server_client_ender_inventory");

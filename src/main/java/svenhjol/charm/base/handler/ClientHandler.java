@@ -3,7 +3,7 @@ package svenhjol.charm.base.handler;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.helper.StringHelper;
-import svenhjol.charm.event.ClientJoinCallback;
+import svenhjol.charm.event.ClientPlayerJoinCallback;
 import svenhjol.charm.handler.ColoredGlintHandler;
 
 import javax.annotation.Nullable;
@@ -19,7 +19,7 @@ public class ClientHandler {
     private final static List<Class<? extends CharmClientModule>> ENABLED_MODULES = new ArrayList<>(); // this is a cache of enabled classes
 
     private ClientHandler() {
-        ClientJoinCallback.EVENT.register(client -> {
+        ClientPlayerJoinCallback.EVENT.register(client -> {
             ColoredGlintHandler.init();
             DecorationHandler.init();
         });

@@ -2,6 +2,7 @@ package svenhjol.charm.init;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
+import com.moandjiezana.toml.Toml;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.ClassReader;
@@ -9,21 +10,27 @@ import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+import svenhjol.charm.Charm;
+import svenhjol.charm.base.handler.ConfigHandler;
 import svenhjol.charm.base.helper.ModHelper;
+import svenhjol.charm.base.helper.StringHelper;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("UnstableApiUsage")
 public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
     // these must match the annotation methods in CharmMixin
     private static final String CHARM_MIXIN = "CharmMixin";
     private static final String DISABLE_IF_MODS_PRESENT = "disableIfModsPresent";
+    private static final String REQUIRED = "required";
 
     private String mixinPackage;
-    public static final List<String> mixinsDisabledViaAnnotation = new ArrayList<>();
+    public static final Map<String, Boolean> disabledMixins = new HashMap<>();
+    public static final Map<String, Boolean> requiredMixins = new HashMap<>();
 
     @Override
     public void onLoad(String mixinPackage) {
@@ -32,13 +39,13 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
 
         // try and load the mixin blacklist
-        String configPath = "./config/charm-mixin-blacklist.txt";
+        String blacklistPath = "./config/charm-mixin-blacklist.txt";
 
         try {
-            FileInputStream stream = new FileInputStream(configPath);
+            FileInputStream stream = new FileInputStream(blacklistPath);
             Scanner scanner = new Scanner(stream);
             while (scanner.hasNextLine()) {
-                mixinsDisabledViaAnnotation.add(scanner.nextLine());
+                disabledMixins.put(scanner.nextLine(), true);
             }
             scanner.close();
             stream.close();
@@ -49,11 +56,20 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
         }
 
 
-        // fetch mixin annotations to remove when conflicting mods are present
-        try {
-            ImmutableSet<ClassPath.ClassInfo> classes = ClassPath.from(CharmMixinConfigPlugin.class.getClassLoader()).getTopLevelClassesRecursive(mixinPackage);
+        // try and load existing config to scan for disabled modules
+        Toml config = ConfigHandler.getConfig(Charm.MOD_ID);
 
-            for (ClassPath.ClassInfo c : classes) {
+
+        // fetch mixin annotations to remove when conflicting mods are present
+        ImmutableSet<ClassPath.ClassInfo> classes;
+        try {
+            classes = ClassPath.from(CharmMixinConfigPlugin.class.getClassLoader()).getTopLevelClassesRecursive(mixinPackage);
+        } catch (Exception e) {
+            throw new IllegalStateException("Could not fetch mixin classes, giving up");
+        }
+
+        for (ClassPath.ClassInfo c : classes) {
+            try {
                 String mixinClassName = c.getName();
                 String truncatedName = mixinClassName.substring(mixinPackage.length() + 1);
 
@@ -62,56 +78,82 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                 classReader.accept(node, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
 
                 boolean disabled = false;
+                boolean required = false;
 
-                if (mixinsDisabledViaAnnotation.contains(truncatedName)) {
+                String moduleName = StringHelper.snakeToUpperCamel(truncatedName.substring(0, truncatedName.indexOf(".")));
 
-                    // already disabled in blacklist file
-                    disabled = true;
+                if (config != null
+                    && !moduleName.isEmpty()
+                    && ConfigHandler.isModuleDisabled(config, moduleName)
+                ) {
+                    disabledMixins.put(truncatedName, true);
+                }
 
-                } else if (node.visibleAnnotations != null && !node.visibleAnnotations.isEmpty()) {
+                if (node.visibleAnnotations != null && !node.visibleAnnotations.isEmpty()) {
                     for (AnnotationNode annotation : node.visibleAnnotations) {
                         if (!annotation.desc.contains(CHARM_MIXIN) || annotation.values.isEmpty())
                             continue;
 
                         // iterate key values
                         List<String> keys = new ArrayList<>();
-                        List<ArrayList<?>> values = new ArrayList<>();
+                        List<Object> values = new ArrayList<>();
                         for (int i = 0; i < annotation.values.size(); i++) {
                             if (i % 2 == 0) {
-                                keys.add((String)annotation.values.get(i));
+                                keys.add((String) annotation.values.get(i));
                             } else {
-                                values.add((ArrayList<?>)annotation.values.get(i));
+                                values.add(annotation.values.get(i));
                             }
                         }
 
                         // wire together
-                        Map<String, ArrayList<?>> config = new HashMap<>();
+                        Map<String, Object> annotations = new HashMap<>();
                         for (int i = 0; i < keys.size(); i++) {
-                            config.put(keys.get(i), values.get(i));
+                            annotations.put(keys.get(i), values.get(i));
                         }
 
-                        List<String> modsToCheck = new ArrayList<>();
+                        // handle required
+                        required = annotations.containsKey(REQUIRED) && ((Boolean)annotations.get(REQUIRED));
 
-                        if (config.containsKey(DISABLE_IF_MODS_PRESENT)) {
-                            config.get(DISABLE_IF_MODS_PRESENT).forEach(m -> modsToCheck.add((String)m));
+                        if (required) {
+                            disabledMixins.remove(truncatedName);
+                            requiredMixins.put(truncatedName, true);
                         }
 
-                        if (modsToCheck.stream().anyMatch(ModHelper::isLoaded)) {
-                            mixinsDisabledViaAnnotation.add(truncatedName);
-                            disabled = true;
+                        if (!required) {
+                            List<String> modsToCheck = new ArrayList<>();
+
+                            if (annotations.containsKey(DISABLE_IF_MODS_PRESENT)) {
+                                ((ArrayList<?>) annotations.get(DISABLE_IF_MODS_PRESENT)).forEach(m -> modsToCheck.add((String) m));
+                            }
+
+                            if (modsToCheck.stream().anyMatch(ModHelper::isLoaded)) {
+                                disabledMixins.put(truncatedName, true);
+                                disabled = true;
+                            }
                         }
                     }
                 }
 
-                if (disabled) {
-                    logger.warn("Mixin " + truncatedName + " did not pass checks and will be skipped ✋");
-                } else {
-                    logger.info("Mixin " + truncatedName + " passed checks \uD83D\uDC4D");
-                }
-            }
+                if (!disabled && !required && isMixinDisabled(truncatedName)) {
+                    disabled = true;
 
-        } catch (Exception e) {
-            logger.error("Bad things happened: " + e.getMessage());
+                    // expand the list of disabled mixins
+                    if (truncatedName.contains(".") && !disabledMixins.containsKey(truncatedName))
+                        disabledMixins.put(truncatedName, true);
+                }
+
+                if (required) {
+                    logger.info("✅ Mixin " + truncatedName + " is required");
+                } else if (disabled) {
+                    logger.warn("❌ Mixin " + truncatedName + " will not be added");
+                } else {
+                    logger.info("✅ Mixin " + truncatedName + " will be added");
+                }
+
+
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+            }
         }
     }
 
@@ -124,7 +166,8 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         // do the logic checking in onLoad. Fetching annotations here breaks everything
         String truncatedName = mixinClassName.substring(mixinPackage.length() + 1);
-        return !mixinsDisabledViaAnnotation.contains(truncatedName);
+        boolean shouldApply = requiredMixins.containsKey(truncatedName) || !isMixinDisabled(truncatedName);
+        return shouldApply;
     }
 
     @Override
@@ -145,5 +188,16 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
         // no op
+    }
+
+    public static boolean isMixinDisabled(String truncatedName) {
+        boolean matches = disabledMixins.keySet().stream().anyMatch(s
+            -> (s.equalsIgnoreCase("ALL")
+                || Pattern.matches(s, truncatedName)
+                || Pattern.matches(truncatedName, s)
+                || s.contains(truncatedName)
+                || truncatedName.contains(s)));
+
+        return matches;
     }
 }

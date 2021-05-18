@@ -14,7 +14,8 @@ import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.event.ApplyBeaconEffectsCallback;
 
 import java.util.List;
-@Module(mod = Charm.MOD_ID, description = "Passive and friendly mobs will heal themselves within range of a beacon with the regeneration effect.")
+@Module(mod = Charm.MOD_ID, description = "Passive and friendly mobs will heal themselves within range of a beacon with the regeneration effect.",
+    requiresMixins = {"ApplyBeaconEffectsCallback"})
 public class BeaconsHealMobs extends CharmModule {
     @Override
     public void init() {

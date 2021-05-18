@@ -6,7 +6,9 @@ import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
 import svenhjol.charm.client.VariantMobTexturesClient;
 
-@Module(mod = Charm.MOD_ID, client = VariantMobTexturesClient.class, description = "Mobs may spawn with different textures.")
+@Module(mod = Charm.MOD_ID, client = VariantMobTexturesClient.class, description = "Mobs may spawn with different textures.",
+    requiresMixins = {"ClientPlayerJoinCallbackMixin"}
+)
 public class VariantMobTextures extends CharmModule {
     @Config(name = "Variant cows", description = "If true, cows may spawn with different textures.")
     public static boolean variantCows = true;

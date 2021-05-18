@@ -13,7 +13,8 @@ import svenhjol.charm.event.ServerJoinCallback;
 
 import java.util.Collection;
 
-@Module(mod = Charm.MOD_ID, description = "Unlocks all vanilla recipes.")
+@Module(mod = Charm.MOD_ID, description = "Unlocks all vanilla recipes.",
+    requiresMixins = "ServerJoinCallback")
 public class AutomaticRecipeUnlock extends CharmModule {
     @Override
     public void init() {

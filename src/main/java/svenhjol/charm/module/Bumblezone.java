@@ -9,6 +9,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.base.CharmModule;
+import svenhjol.charm.base.helper.ModHelper;
 import svenhjol.charm.base.iface.Module;
 
 import java.util.HashSet;
@@ -18,6 +19,11 @@ import java.util.Set;
 public class Bumblezone extends CharmModule {
     public static final Identifier BUMBLEZONE_FLUID_ID = new Identifier("the_bumblezone", "sugar_water_block");
     public static Block bumblezoneFluid = null;
+
+    @Override
+    public boolean depends() {
+        return ModHelper.isLoaded("bumblezone");
+    }
 
     /**
      * Will recursively track down and replace touching water blocks with bumblezone fluid.
