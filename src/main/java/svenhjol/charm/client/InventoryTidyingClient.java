@@ -5,8 +5,8 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.*;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.PacketByteBuf;
@@ -14,12 +14,12 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.base.helper.ScreenHelper;
-import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.event.RenderGuiCallback;
+import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.gui.AtlasScreen;
 import svenhjol.charm.gui.BookcaseScreen;
+import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.InventoryTidying;
@@ -74,7 +74,7 @@ public class InventoryTidyingClient extends CharmClientModule {
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
     }
 
-    private void handleGuiSetup(MinecraftClient client, int width, int height, List<AbstractButtonWidget> buttons, Consumer<AbstractButtonWidget> addButton) {
+    private void handleGuiSetup(MinecraftClient client, int width, int height, List<ClickableWidget> buttons, Consumer<ClickableWidget> addButton) {
         if (client.player == null)
             return;
 

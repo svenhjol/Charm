@@ -3,7 +3,7 @@ package svenhjol.charm.gui;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
@@ -27,6 +27,7 @@ import svenhjol.charm.base.gui.AbstractCharmContainerScreen;
 import svenhjol.charm.base.gui.CharmImageButton;
 import svenhjol.charm.base.helper.MapRenderHelper;
 import svenhjol.charm.mixin.accessor.MapStateAccessor;
+import svenhjol.charm.mixin.accessor.ScreenAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.Atlases;
 import svenhjol.charm.screenhandler.AtlasContainer;
@@ -136,16 +137,17 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
             button.visible = mapGui.buttonVisible(direction);
             if (button.visible) {
                 button.active = mapGui.buttonEnabled(direction);
-                if (!super.buttons.contains(button)) addButton(button);
+                if (!((ScreenAccessor)this).getButtons().contains(button))
+                    addChild(button);
             } else {
                 removeButton(button);
             }
         });
     }
 
-    private void removeButton(AbstractButtonWidget button) {
-        super.buttons.remove(button);
-        super.children.remove(button);
+    private void removeButton(ClickableWidget button) {
+        ((ScreenAccessor)this).getButtons().remove(button);
+        ((ScreenAccessor)this).getChildren().remove(button);
     }
 
     @Override

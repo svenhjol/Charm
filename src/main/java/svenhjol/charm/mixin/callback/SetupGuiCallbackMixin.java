@@ -1,8 +1,10 @@
 package svenhjol.charm.mixin.callback;
 
+import net.minecraft.class_6379;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,10 +19,9 @@ import java.util.List;
 public abstract class SetupGuiCallbackMixin {
     @Shadow
     @Final
-    protected List<AbstractButtonWidget> buttons;
+    private List<ClickableWidget> field_33815;
 
-    @Shadow
-    protected abstract <T extends AbstractButtonWidget> T addButton(T button);
+    @Shadow protected abstract <T extends Element & class_6379> T addChild(T element);
 
     /**
      * Fires the {@link SetupGuiCallback} event.
@@ -35,6 +36,6 @@ public abstract class SetupGuiCallbackMixin {
         at = @At("RETURN")
     )
     private void hookConstructor(MinecraftClient client, int width, int height, CallbackInfo ci) {
-        SetupGuiCallback.EVENT.invoker().interact(client, width, height, this.buttons, this::addButton);
+        SetupGuiCallback.EVENT.invoker().interact(client, width, height, this.field_33815, this::addChild);
     }
 }
