@@ -12,7 +12,7 @@ import svenhjol.charm.client.CoreClient;
 import svenhjol.charm.event.ServerJoinCallback;
 import svenhjol.charm.init.CharmAdvancements;
 
-@Module(mod = Charm.MOD_ID, client = CoreClient.class, alwaysEnabled = true, description = "Core configuration values.")
+@Module(mod = Charm.MOD_ID, priority = 100, client = CoreClient.class, alwaysEnabled = true, description = "Core configuration values.")
 public class Core extends CharmModule {
     public static final Identifier ADVANCEMENT_PLAYER_JOINED = new Identifier(Charm.MOD_ID, "player_joined");
     public static final Identifier MSG_SERVER_OPEN_INVENTORY = new Identifier(Charm.MOD_ID, "server_open_inventory");
