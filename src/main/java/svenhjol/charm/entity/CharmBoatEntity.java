@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.BoatEntityAccessor;
+import svenhjol.charm.module.AzaleaWood;
 import svenhjol.charm.module.EbonyWood;
 import svenhjol.charm.module.ExtraBoats;
 
@@ -63,6 +64,8 @@ public class CharmBoatEntity extends BoatEntity {
     @Override
     public Item asItem() {
         switch (getCharmBoatType()) {
+            case AZALEA:
+                return AzaleaWood.BOAT;
             case CRIMSON:
                 return ExtraBoats.CRIMSON_BOAT;
             case EBONY:
@@ -75,6 +78,7 @@ public class CharmBoatEntity extends BoatEntity {
     }
 
     public enum BoatType {
+        AZALEA("azalea"),
         CRIMSON("crimson"),
         EBONY("ebony"),
         WARPED("warped");
