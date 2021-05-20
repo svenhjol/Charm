@@ -25,6 +25,7 @@ public class Charm implements ModInitializer {
             Atlases.class,
             AutoRestock.class,
             AutomaticRecipeUnlock.class,
+            AzaleaWood.class,
             BatBuckets.class,
             BeaconsHealMobs.class,
             Beekeepers.class,
