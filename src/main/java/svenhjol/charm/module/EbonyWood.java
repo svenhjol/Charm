@@ -39,7 +39,7 @@ import static svenhjol.charm.item.EbonyItems.EbonySignItem;
 @Module(mod = Charm.MOD_ID, client = EbonyWoodClient.class, description = "Ebony is a very dark grey wood. Ebony trees can be found in savanna biomes.")
 public class EbonyWood extends CharmModule {
     @Config(name = "Spawn chance", description = "Chance (per number of chunks) of an ebony tree spawning.")
-    public static int spawnChance = 4;
+    public static int spawnChance = 3;
 
     public static Identifier ID = new Identifier(Charm.MOD_ID, "ebony");
     public static Identifier DECORATION_ID = new Identifier(Charm.MOD_ID, "ebony_decoration");
