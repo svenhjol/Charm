@@ -36,7 +36,7 @@ public class InventoryButtonClient extends CharmClientModule {
         portableCraftingClient = (PortableCraftingClient) ClientHandler.getModule("portable_crafting");
     }
 
-    private void handleGuiSetup(MinecraftClient client, int width, int height, List<ClickableWidget> buttons, Consumer<ClickableWidget> addButton) {
+    private void handleGuiSetup(MinecraftClient client, int width, int height, List<ClickableWidget> buttons) {
         Screen currentScreen = client.currentScreen;
 
         if (!(currentScreen instanceof InventoryScreen))

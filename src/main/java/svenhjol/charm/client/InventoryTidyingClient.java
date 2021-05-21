@@ -21,6 +21,7 @@ import svenhjol.charm.gui.AtlasScreen;
 import svenhjol.charm.gui.BookcaseScreen;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
+import svenhjol.charm.mixin.accessor.ScreenAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.InventoryTidying;
 
@@ -74,7 +75,7 @@ public class InventoryTidyingClient extends CharmClientModule {
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
     }
 
-    private void handleGuiSetup(MinecraftClient client, int width, int height, List<ClickableWidget> buttons, Consumer<ClickableWidget> addButton) {
+    private void handleGuiSetup(MinecraftClient client, int width, int height, List<ClickableWidget> buttons) {
         if (client.player == null)
             return;
 
@@ -113,7 +114,7 @@ public class InventoryTidyingClient extends CharmClientModule {
             }
         }
 
-        sortingButtons.forEach(addButton);
+        sortingButtons.forEach(((ScreenAccessor) screen)::invokeAddButton);
     }
 
     private void handleRenderGui(MinecraftClient client, MatrixStack matrices, int mouseX, int mouseY, float delta) {

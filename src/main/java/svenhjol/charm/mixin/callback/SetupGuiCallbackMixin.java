@@ -21,8 +21,6 @@ public abstract class SetupGuiCallbackMixin {
     @Final
     private List<ClickableWidget> field_33815;
 
-    @Shadow protected abstract <T extends Element & class_6379> T addChild(T element);
-
     /**
      * Fires the {@link SetupGuiCallback} event.
      *
@@ -36,6 +34,6 @@ public abstract class SetupGuiCallbackMixin {
         at = @At("RETURN")
     )
     private void hookConstructor(MinecraftClient client, int width, int height, CallbackInfo ci) {
-        SetupGuiCallback.EVENT.invoker().interact(client, width, height, this.field_33815, this::addChild);
+        SetupGuiCallback.EVENT.invoker().interact(client, width, height, this.field_33815);
     }
 }

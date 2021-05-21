@@ -22,6 +22,7 @@ import svenhjol.charm.base.helper.ScreenHelper;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
+import svenhjol.charm.mixin.accessor.ScreenAccessor;
 import svenhjol.charm.module.PortableCrafting;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class PortableCraftingClient extends CharmClientModule {
         }
     }
 
-    private void handleGuiSetup(MinecraftClient client, int width, int height, List<ClickableWidget> buttons, Consumer<ClickableWidget> addButton) {
+    private void handleGuiSetup(MinecraftClient client, int width, int height, List<ClickableWidget> buttons) {
         if (client.player == null)
             return;
 
@@ -75,7 +76,7 @@ public class PortableCraftingClient extends CharmClientModule {
         });
 
         this.craftingButton.visible = hasCrafting(client.player);
-        addButton.accept(this.craftingButton);
+        ((ScreenAccessor)screen).invokeAddButton(this.craftingButton);
     }
 
     private void handleRenderGui(MinecraftClient client, MatrixStack matrices, int mouseX, int mouseY, float delta) {

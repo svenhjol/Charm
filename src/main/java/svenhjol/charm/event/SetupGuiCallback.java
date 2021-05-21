@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public interface SetupGuiCallback {
-    Event<SetupGuiCallback> EVENT = EventFactory.createArrayBacked(SetupGuiCallback.class, (listeners) -> (client, width, height, buttons, addButton) -> {
+    Event<SetupGuiCallback> EVENT = EventFactory.createArrayBacked(SetupGuiCallback.class, (listeners) -> (client, width, height, buttons) -> {
         for (SetupGuiCallback listener : listeners) {
-            listener.interact(client, width, height, buttons, addButton);
+            listener.interact(client, width, height, buttons);
         }
     });
 
-    void interact(MinecraftClient client, int width, int height, List<ClickableWidget> buttons, Consumer<ClickableWidget> addButton);
+    void interact(MinecraftClient client, int width, int height, List<ClickableWidget> buttons);
 }
