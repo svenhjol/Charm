@@ -19,7 +19,7 @@ public class EntityEquipCallbackMixin {
      * Fires the {@link EntityEquipCallback} event.
      */
     @Inject(
-        method = "method_30129",
+        method = "getEquipment",
         at = @At(
             value = "INVOKE",
             target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
