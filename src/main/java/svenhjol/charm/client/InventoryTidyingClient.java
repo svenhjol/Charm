@@ -3,6 +3,7 @@ package svenhjol.charm.client;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.*;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -26,7 +27,6 @@ import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.InventoryTidying;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 import static svenhjol.charm.handler.InventoryTidyingHandler.BE;
 import static svenhjol.charm.handler.InventoryTidyingHandler.PLAYER;
@@ -75,7 +75,7 @@ public class InventoryTidyingClient extends CharmClientModule {
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
     }
 
-    private void handleGuiSetup(MinecraftClient client, int width, int height, List<ClickableWidget> buttons) {
+    private void handleGuiSetup(MinecraftClient client, int width, int height, List<Selectable> buttons) {
         if (client.player == null)
             return;
 
@@ -114,7 +114,7 @@ public class InventoryTidyingClient extends CharmClientModule {
             }
         }
 
-        sortingButtons.forEach(((ScreenAccessor) screen)::invokeAddButton);
+        sortingButtons.forEach(((ScreenAccessor) screen)::invokeAddDrawableChild);
     }
 
     private void handleRenderGui(MinecraftClient client, MatrixStack matrices, int mouseX, int mouseY, float delta) {

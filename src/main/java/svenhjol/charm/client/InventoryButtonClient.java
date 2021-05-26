@@ -1,6 +1,7 @@
 package svenhjol.charm.client;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -36,7 +37,7 @@ public class InventoryButtonClient extends CharmClientModule {
         portableCraftingClient = (PortableCraftingClient) ClientHandler.getModule("portable_crafting");
     }
 
-    private void handleGuiSetup(MinecraftClient client, int width, int height, List<ClickableWidget> buttons) {
+    private void handleGuiSetup(MinecraftClient client, int width, int height, List<Selectable> buttons) {
         Screen currentScreen = client.currentScreen;
 
         if (!(currentScreen instanceof InventoryScreen))

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
@@ -26,7 +27,6 @@ import svenhjol.charm.mixin.accessor.ScreenAccessor;
 import svenhjol.charm.module.PortableCrafting;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class PortableCraftingClient extends CharmClientModule {
     public TexturedButtonWidget craftingButton;
@@ -61,7 +61,7 @@ public class PortableCraftingClient extends CharmClientModule {
         }
     }
 
-    private void handleGuiSetup(MinecraftClient client, int width, int height, List<ClickableWidget> buttons) {
+    private void handleGuiSetup(MinecraftClient client, int width, int height, List<Selectable> buttons) {
         if (client.player == null)
             return;
 
@@ -76,7 +76,7 @@ public class PortableCraftingClient extends CharmClientModule {
         });
 
         this.craftingButton.visible = hasCrafting(client.player);
-        ((ScreenAccessor)screen).invokeAddButton(this.craftingButton);
+        ((ScreenAccessor)screen).invokeAddDrawableChild(this.craftingButton);
     }
 
     private void handleRenderGui(MinecraftClient client, MatrixStack matrices, int mouseX, int mouseY, float delta) {

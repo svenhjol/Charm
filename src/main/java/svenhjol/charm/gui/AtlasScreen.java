@@ -137,8 +137,8 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
             button.visible = mapGui.buttonVisible(direction);
             if (button.visible) {
                 button.active = mapGui.buttonEnabled(direction);
-                if (!((ScreenAccessor)this).getButtons().contains(button))
-                    addChild(button);
+                if (!((ScreenAccessor)this).getSelectables().contains(button))
+                    addDrawableChild(button);
             } else {
                 removeButton(button);
             }
@@ -146,7 +146,7 @@ public class AtlasScreen extends AbstractCharmContainerScreen<AtlasContainer> {
     }
 
     private void removeButton(ClickableWidget button) {
-        ((ScreenAccessor)this).getButtons().remove(button);
+        ((ScreenAccessor)this).getSelectables().remove(button);
         ((ScreenAccessor)this).getChildren().remove(button);
     }
 

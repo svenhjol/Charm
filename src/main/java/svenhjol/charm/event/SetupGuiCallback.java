@@ -3,6 +3,7 @@ package svenhjol.charm.event;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.widget.ClickableWidget;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public interface SetupGuiCallback {
         }
     });
 
-    void interact(MinecraftClient client, int width, int height, List<ClickableWidget> buttons);
+    void interact(MinecraftClient client, int width, int height, List<Selectable> buttons);
 }
