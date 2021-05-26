@@ -84,7 +84,7 @@ public class TotemOfPreservingItem extends CharmItem {
 
         if (!items.isEmpty()) {
             int size = items.getSize();
-            String str = size == 1 ? "totem.strange.preserving.item" : "totem.strange.preserving.items";
+            String str = size == 1 ? "totem.charm.preserving.item" : "totem.charm.preserving.items";
             tooltip.add(new LiteralText(I18n.translate(str, size)));
         }
 
