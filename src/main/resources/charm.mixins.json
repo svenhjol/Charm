@@ -53,6 +53,7 @@
     "auto_restock.AddStatWhenAnimalConsumedMixin",
     "auto_restock.AddStatWhenCompostedMixin",
     "block_of_ender_pearls.PreventRandomTeleportMixin",
+    "callback.AddEntityCallbackManagerMixin",
     "callback.AddEntityCallbackServerMixin",
     "callback.ApplyBeaconEffectsCallbackMixin",
     "callback.CheckAnvilRepairCallbackMixin",

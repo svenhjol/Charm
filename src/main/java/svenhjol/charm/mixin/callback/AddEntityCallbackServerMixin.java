@@ -10,6 +10,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.event.AddEntityCallback;
 
+/**
+ * Be aware that this event is also fired on the server side
+ * by the {@link AddEntityCallbackManagerMixin}.
+ */
 @Mixin(ServerWorld.class)
 public class AddEntityCallbackServerMixin {
 
