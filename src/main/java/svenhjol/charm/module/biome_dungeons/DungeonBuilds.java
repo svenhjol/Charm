@@ -1,8 +1,6 @@
 package svenhjol.charm.module.biome_dungeons;
 
-import svenhjol.charm.module.biome_dungeons.builds.ForestDungeons;
-import svenhjol.charm.module.biome_dungeons.builds.MountainsDungeons;
-import svenhjol.charm.module.biome_dungeons.builds.PlainsDungeons;
+import svenhjol.charm.module.biome_dungeons.builds.*;
 
 public class DungeonBuilds {
     public static void init() {
