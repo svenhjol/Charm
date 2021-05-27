@@ -8,10 +8,10 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ConfigHelper;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.helper.ConfigHelper;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -55,13 +55,14 @@ public class CharmLoader {
             }
         }
 
-        Charm.LOG.info("Setting up a new Charm-based module '" + modId + "'");
+        this.launch();
+    }
 
-        ModuleHandler.INSTANCE.addLoader(this);
-        register();
-        init();
+    public CharmLoader(String modId, List<Class<? extends CharmModule>> classes) {
+        MOD_ID = modId;
+        CLASSES = classes;
 
-        Charm.LOG.info("Done setting up '" + modId + "'");
+        this.launch();
     }
 
     public String getModId() {
@@ -70,6 +71,16 @@ public class CharmLoader {
 
     public List<Class<? extends CharmModule>> getClasses() {
         return CLASSES;
+    }
+
+    protected void launch() {
+        Charm.LOG.info("Setting up a new Charm-based module '" + MOD_ID + "'");
+
+        ModuleHandler.INSTANCE.addLoader(this);
+        register();
+        init();
+
+        Charm.LOG.info("Done setting up '" + MOD_ID + "'");
     }
 
     protected void register() {
