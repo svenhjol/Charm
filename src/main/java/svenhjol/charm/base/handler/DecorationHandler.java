@@ -1,5 +1,6 @@
 package svenhjol.charm.base.handler;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootTables;
@@ -25,11 +26,21 @@ public class DecorationHandler {
         if (hasInit)
             return;
 
+        List<Block> filteredFlowers = BlockTags.FLOWERS.values().stream()
+            .filter(b -> b != Blocks.WITHER_ROSE
+                && b != Blocks.AZALEA_LEAVES_FLOWERS
+                && b != Blocks.FLOWERING_AZALEA
+            ).collect(Collectors.toList());
+
+        List<Block> filteredSaplings = BlockTags.SAPLINGS.values().stream()
+            .filter(b -> b != Blocks.AZALEA
+                && b != Blocks.FLOWERING_AZALEA
+            ).collect(Collectors.toList());
+
         CARPETS.addAll(BlockTags.CARPETS.values());
-        FLOWERS.addAll(BlockTags.FLOWERS.values().stream()
-            .filter(b -> b != Blocks.WITHER_ROSE).collect(Collectors.toList()));
-        FLOWER_POTS.addAll(BlockTags.FLOWER_POTS.values());
-        SAPLINGS.addAll(BlockTags.SAPLINGS.values());
+        FLOWERS.addAll(filteredFlowers);
+        FLOWER_POTS.addAll(filteredFlowers);
+        SAPLINGS.addAll(filteredSaplings);
         WOOL.addAll(BlockTags.WOOL.values());
 
         VARIANT_MATERIALS.addAll(VanillaVariantMaterial.getTypes());
@@ -64,6 +75,7 @@ public class DecorationHandler {
 
         COMMON_ORES.addAll(Arrays.asList(
             Blocks.IRON_ORE,
+            Blocks.COPPER_ORE,
             Blocks.COAL_ORE,
             Blocks.REDSTONE_ORE
         ));
