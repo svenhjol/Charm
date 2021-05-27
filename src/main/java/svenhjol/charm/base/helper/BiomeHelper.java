@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings({"UnstableApiUsage", "unused", "deprecation"})
 public class BiomeHelper {
-    public static final boolean USE_FABRIC_BIOME_API = false;
+    public static final boolean USE_FABRIC_BIOME_API = true;
     public static Map<Biome.Category, List<RegistryKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
 
     public static Biome getBiome(ServerWorld world, BlockPos pos) {
