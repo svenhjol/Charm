@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.AerialAffinityEnchantment;
+import svenhjol.charm.module.aerial_affinity_enchantment.AerialAffinityEnchantment;
 
 @Mixin(PlayerEntity.class)
 public class AllowBlockBreakMixin {

@@ -5,8 +5,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.handler.ColoredGlintHandler;
-import svenhjol.charm.module.ColoredGlints;
+import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
+import svenhjol.charm.module.colored_glints.ColoredGlints;
 
 /**
  * In Forge: RenderTypeMixin

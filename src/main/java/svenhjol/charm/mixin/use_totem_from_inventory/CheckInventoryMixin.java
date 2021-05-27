@@ -6,7 +6,7 @@ import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.module.UseTotemFromInventory;
+import svenhjol.charm.module.use_totem_from_inventory.UseTotemFromInventory;
 
 @Mixin(LivingEntity.class)
 public class CheckInventoryMixin {

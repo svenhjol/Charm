@@ -5,7 +5,7 @@ import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import svenhjol.charm.base.iface.CharmMixin;
+import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public interface DispenserBlockAccessor {
     /**
      * Used by OverrideHandler to access the dispenser behaviors.
      *
-     * {@link svenhjol.charm.base.helper.OverrideHandler#changeDispenserBehavior(Item, Item)}
+     * {@link svenhjol.charm.helper.OverrideHandler#changeDispenserBehavior(Item, Item)}
      */
     @Accessor("BEHAVIORS")
     static Map<Item, DispenserBehavior> getDispenseBehaviorRegistry() {

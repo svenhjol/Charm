@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.base.handler.DecorationHandler;
-import svenhjol.charm.base.iface.CharmMixin;
+import svenhjol.charm.init.CharmDecoration;
+import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(SinglePoolElement.class)
 @CharmMixin(required = true)
@@ -29,6 +29,6 @@ public class AddCustomDecorationProcessorsMixin {
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void hookCreatePlacementData(BlockRotation blockRotation, BlockBox blockBox, boolean keepJigsaws, CallbackInfoReturnable<StructurePlacementData> cir, StructurePlacementData placement) {
-        DecorationHandler.SINGLE_POOL_ELEMENT_PROCESSORS.forEach(placement::addProcessor);
+        CharmDecoration.SINGLE_POOL_ELEMENT_PROCESSORS.forEach(placement::addProcessor);
     }
 }

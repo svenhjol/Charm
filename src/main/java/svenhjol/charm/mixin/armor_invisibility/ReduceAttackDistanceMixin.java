@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.module.ArmorInvisibility;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.module.armor_invisibility.ArmorInvisibility;
 
 @Mixin(LivingEntity.class)
 public abstract class ReduceAttackDistanceMixin {

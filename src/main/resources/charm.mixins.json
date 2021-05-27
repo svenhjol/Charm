@@ -151,5 +151,5 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "svenhjol.charm.init.CharmMixinConfigPlugin"
+  "plugin": "svenhjol.charm.mixin.CharmMixinConfigPlugin"
 }

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.ExtractEnchantments;
+import svenhjol.charm.module.extract_enchantments.ExtractEnchantments;
 
 import javax.annotation.Nullable;
 

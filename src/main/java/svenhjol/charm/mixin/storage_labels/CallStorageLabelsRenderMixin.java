@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.client.StorageLabelsClient;
-import svenhjol.charm.render.LootableContainerBlockEntityRenderer;
+import svenhjol.charm.module.storage_labels.StorageLabelsClient;
+import svenhjol.charm.module.storage_labels.LootableContainerBlockEntityRenderer;
 
 @Mixin(BlockEntityRenderDispatcher.class)
 public class CallStorageLabelsRenderMixin {

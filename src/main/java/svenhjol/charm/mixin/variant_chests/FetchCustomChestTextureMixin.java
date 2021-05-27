@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.render.VariantChestBlockEntityRenderer;
+import svenhjol.charm.module.variant_chests.VariantChestBlockEntityRenderer;
 
 @Mixin(TexturedRenderLayers.class)
 public class FetchCustomChestTextureMixin {

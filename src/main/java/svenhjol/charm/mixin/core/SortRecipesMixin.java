@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.base.handler.RecipeHandler;
-import svenhjol.charm.base.iface.CharmMixin;
+import svenhjol.charm.handler.RecipeHandler;
+import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.Iterator;
 import java.util.Map;

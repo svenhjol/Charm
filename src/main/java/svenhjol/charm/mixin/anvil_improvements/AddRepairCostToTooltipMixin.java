@@ -8,7 +8,7 @@ import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
-import svenhjol.charm.module.AnvilImprovements;
+import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 import java.util.List;
 

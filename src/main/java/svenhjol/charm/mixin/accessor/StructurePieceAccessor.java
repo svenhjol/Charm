@@ -7,7 +7,7 @@ import net.minecraft.world.StructureWorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.base.iface.CharmMixin;
+import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(StructurePiece.class)
 @CharmMixin(required = true)

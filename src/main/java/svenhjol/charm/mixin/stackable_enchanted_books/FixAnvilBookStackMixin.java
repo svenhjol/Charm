@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
-import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.module.StackableEnchantedBooks;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.module.stackable_enchanted_books.StackableEnchantedBooks;
 
 @Mixin(AnvilScreenHandler.class)
 public class FixAnvilBookStackMixin {

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.SnowStorms;
+import svenhjol.charm.module.snow_storms.SnowStorms;
 
 @Mixin(LivingEntity.class)
 public abstract class SetEntityFreezingMixin extends Entity {

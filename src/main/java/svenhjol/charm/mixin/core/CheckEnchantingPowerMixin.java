@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.base.helper.EnchantmentsHelper;
-import svenhjol.charm.base.iface.CharmMixin;
+import svenhjol.charm.helper.EnchantmentsHelper;
+import svenhjol.charm.annotation.CharmMixin;
 
 import javax.annotation.Nullable;
 import java.util.List;

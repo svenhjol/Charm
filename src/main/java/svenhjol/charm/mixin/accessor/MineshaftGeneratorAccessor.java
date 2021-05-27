@@ -6,7 +6,7 @@ import net.minecraft.world.gen.feature.MineshaftFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.base.iface.CharmMixin;
+import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(targets = {"net/minecraft/structure/MineshaftGenerator$MineshaftPart"})
 @CharmMixin(required = true)

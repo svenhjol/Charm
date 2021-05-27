@@ -3,7 +3,7 @@ package svenhjol.charm.mixin.accessor;
 import net.minecraft.util.SignType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.base.iface.CharmMixin;
+import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(SignType.class)
 @CharmMixin(required = true)

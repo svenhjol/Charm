@@ -4,7 +4,7 @@ import net.minecraft.world.WanderingTraderManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.module.WanderingTraderImprovements;
+import svenhjol.charm.module.wandering_trader_improvements.WanderingTraderImprovements;
 
 import java.util.Random;
 

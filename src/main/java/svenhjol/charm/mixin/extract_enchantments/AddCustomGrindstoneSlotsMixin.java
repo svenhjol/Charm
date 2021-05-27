@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import svenhjol.charm.module.ExtractEnchantments;
+import svenhjol.charm.module.extract_enchantments.ExtractEnchantments;
 
 @Mixin(value = GrindstoneScreenHandler.class, priority = 1)
 public class AddCustomGrindstoneSlotsMixin {

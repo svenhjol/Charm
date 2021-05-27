@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.module.StackableStews;
+import svenhjol.charm.module.stackable_stews.StackableStews;
 
 @Mixin(MushroomStewItem.class)
 public class FinishEatingMushroomStewMixin {

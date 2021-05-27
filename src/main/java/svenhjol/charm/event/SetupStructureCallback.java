@@ -11,7 +11,7 @@ import net.minecraft.structure.processor.StructureProcessorLists;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import svenhjol.charm.mixin.accessor.StructurePoolAccessor;
-import svenhjol.charm.base.enums.ICharmEnum;
+import svenhjol.charm.enums.ICharmEnum;
 
 import java.util.ArrayList;
 import java.util.HashMap;

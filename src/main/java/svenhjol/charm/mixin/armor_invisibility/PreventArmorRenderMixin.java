@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.handler.ColoredGlintHandler;
-import svenhjol.charm.module.ArmorInvisibility;
+import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
+import svenhjol.charm.module.armor_invisibility.ArmorInvisibility;
 
 @Mixin(ArmorFeatureRenderer.class)
 public class PreventArmorRenderMixin<T extends LivingEntity, M extends BipedEntityModel<T>, A extends BipedEntityModel<T>> {

@@ -12,8 +12,8 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.base.handler.ModuleHandler;
-import svenhjol.charm.module.AnvilImprovements;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 import java.util.Map;
 

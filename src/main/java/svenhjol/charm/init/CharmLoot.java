@@ -2,7 +2,7 @@ package svenhjol.charm.init;
 
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
-import svenhjol.charm.base.helper.LootHelper;
+import svenhjol.charm.helper.LootHelper;
 
 public class CharmLoot {
     public static Identifier VILLAGE_LUMBERJACK = new Identifier(Charm.MOD_ID, "chests/village/village_lumberjack_house");

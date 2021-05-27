@@ -4,8 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.FireBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.base.block.ICharmBlock;
-import svenhjol.charm.base.iface.CharmMixin;
+import svenhjol.charm.block.ICharmBlock;
+import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(FireBlock.class)
 @CharmMixin(required = true)

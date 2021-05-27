@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.module.AutoRestock;
+import svenhjol.charm.module.auto_restock.AutoRestock;
 
 @Mixin(ComposterBlock.class)
 public class AddStatWhenCompostedMixin {

@@ -4,7 +4,7 @@ import net.minecraft.client.gui.screen.ingame.CartographyTableScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import svenhjol.charm.client.AtlasesClient;
+import svenhjol.charm.module.atlases.AtlasesClient;
 
 @Mixin(CartographyTableScreen.class)
 public class DrawAtlasOnCartographyTableMixin {

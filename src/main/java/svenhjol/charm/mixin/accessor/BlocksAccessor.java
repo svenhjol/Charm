@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import svenhjol.charm.base.iface.CharmMixin;
+import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(Blocks.class)
 @CharmMixin(required = true)

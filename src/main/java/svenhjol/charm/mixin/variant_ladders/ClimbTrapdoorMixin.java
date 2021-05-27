@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.VariantLadders;
+import svenhjol.charm.module.variant_ladders.VariantLadders;
 
 @Mixin(LivingEntity.class)
 public abstract class ClimbTrapdoorMixin extends Entity {

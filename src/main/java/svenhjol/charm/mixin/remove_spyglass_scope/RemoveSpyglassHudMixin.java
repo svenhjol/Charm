@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.module.RemoveSpyglassScope;
+import svenhjol.charm.module.remove_spyglass_scope.RemoveSpyglassScope;
 
 @Mixin(InGameHud.class)
 public abstract class RemoveSpyglassHudMixin {

@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.module.GentlePotionParticles;
+import svenhjol.charm.module.gentle_potion_particles.GentlePotionParticles;
 
 @Mixin(LivingEntity.class)
 public class RenderTranslucentParticleMixin {

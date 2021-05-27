@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.ParrotsStayOnShoulder;
+import svenhjol.charm.module.parrots_stay_on_shoulder.ParrotsStayOnShoulder;
 
 @Mixin(PlayerEntity.class)
 public abstract class KeepShoulderEntitiesMixin extends Entity {

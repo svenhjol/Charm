@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.AnvilImprovements;
+import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 @Mixin(AnvilScreenHandler.class)
 public class AllowTakeWithoutXpMixin {

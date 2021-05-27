@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.CollectionEnchantment;
+import svenhjol.charm.module.collection_enchantment.CollectionEnchantment;
 
 @Mixin(Block.class)
 public class AddDroppedItemToInventoryMixin {

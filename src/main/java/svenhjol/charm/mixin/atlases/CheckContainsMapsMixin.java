@@ -6,7 +6,7 @@ import net.minecraft.item.map.MapState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.module.Atlases;
+import svenhjol.charm.module.atlases.Atlases;
 
 @Mixin(MapState.class)
 public class CheckContainsMapsMixin {

@@ -5,7 +5,7 @@ import net.minecraft.screen.AnvilScreenHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.module.AnvilImprovements;
+import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 @Mixin(AnvilScreenHandler.class)
 public class RemoveTooExpensiveMixin {

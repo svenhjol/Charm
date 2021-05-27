@@ -1,8 +1,8 @@
 package svenhjol.charm;
 
 import net.fabricmc.api.ClientModInitializer;
-import svenhjol.charm.base.CharmClientLoader;
-import svenhjol.charm.base.handler.LogHandler;
+import svenhjol.charm.init.CharmClientLoader;
+import svenhjol.charm.handler.LogHandler;
 import svenhjol.charm.init.CharmClientParticles;
 
 public class CharmClient implements ClientModInitializer {

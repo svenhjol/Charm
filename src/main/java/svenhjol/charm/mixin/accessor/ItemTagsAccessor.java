@@ -5,7 +5,7 @@ import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.base.iface.CharmMixin;
+import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(ItemTags.class)
 @CharmMixin(required = true)

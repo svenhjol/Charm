@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.client.ExtractEnchantmentsClient;
+import svenhjol.charm.module.extract_enchantments.ExtractEnchantmentsClient;
 
 @Mixin(GrindstoneScreen.class)
 public abstract class ShowGrindstoneCostMixin<T extends ScreenHandler> extends HandledScreen<T> {

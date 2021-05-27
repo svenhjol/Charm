@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.Atlases;
+import svenhjol.charm.module.atlases.Atlases;
 
 @Mixin(CartographyTableScreenHandler.class)
 public class ScaleAtlasesOnCartographyTableMixin {

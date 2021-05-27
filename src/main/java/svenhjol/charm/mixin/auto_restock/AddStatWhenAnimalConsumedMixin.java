@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.AutoRestock;
+import svenhjol.charm.module.auto_restock.AutoRestock;
 
 @Mixin(AnimalEntity.class)
 public class AddStatWhenAnimalConsumedMixin {

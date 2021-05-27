@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.handler.ColoredGlintHandler;
+import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
 
 @Mixin(ArmorFeatureRenderer.class)
 public class GetArmorStackMixin<T extends LivingEntity, M extends BipedEntityModel<T>, A extends BipedEntityModel<T>> {

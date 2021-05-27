@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.client.StorageLabelsClient;
+import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 
 @Mixin(ChestBlockEntityRenderer.class)
 public abstract class GetChestBlockEntityContextMixin {
