@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "charm:ender_pearl_block"
+            "items": ["charm:ender_pearl_block"]
           }
         ]
       }

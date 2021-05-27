@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "charm:cooking_pot"
+            "items": ["charm:cooking_pot"]
           }
         ]
       }

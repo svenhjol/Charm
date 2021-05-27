@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "charm:endermite_powder"
+            "items": ["charm:endermite_powder"]
           }
         ]
       }

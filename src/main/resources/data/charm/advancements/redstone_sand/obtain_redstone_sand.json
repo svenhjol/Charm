@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "charm:redstone_sand"
+            "items": ["charm:redstone_sand"]
           }
         ]
       }

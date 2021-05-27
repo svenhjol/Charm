@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "charm:kiln"
+            "items": ["charm:kiln"]
           }
         ]
       }

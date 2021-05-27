@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "charm:ender_bundle"
+            "items": ["charm:ender_bundle"]
           }
         ]
       }

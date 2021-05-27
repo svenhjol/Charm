@@ -121,6 +121,7 @@ public class EbonyWood extends CharmModule {
             new SimpleBlockStateProvider(LOG.getDefaultState()),
             new LargeOakTrunkPlacer(3, 6, 0),
             new SimpleBlockStateProvider(LEAVES.getDefaultState()),
+            new SimpleBlockStateProvider(SAPLING.getDefaultState()),
             new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 3), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(3))
         ).build());
 

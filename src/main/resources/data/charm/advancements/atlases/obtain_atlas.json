@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "charm:atlas"
+            "items": ["charm:atlas"]
           }
         ]
       }

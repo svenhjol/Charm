@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "charm:coral_squid_bucket"
+            "items": ["charm:coral_squid_bucket"]
           }
         ]
       }

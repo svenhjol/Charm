@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "charm:raid_horn"
+            "items": ["charm:raid_horn"]
           }
         ]
       }

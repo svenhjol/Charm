@@ -245,11 +245,11 @@ public class CoralSquidEntity extends WaterCreatureEntity {
             }
 
             Vec3d vec3d = this.getVelocity();
-            float g = MathHelper.sqrt(squaredHorizontalLength(vec3d));
+            double d = vec3d.method_37267();
             this.bodyYaw += (-((float)MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F - this.bodyYaw) * 0.1F;
             this.setYaw(this.bodyYaw);
             this.rollAngle = (float)((double)this.rollAngle + 3.141592653589793D * (double)this.turningSpeed * 1.5D);
-            this.tiltAngle += (-((float)MathHelper.atan2((double)g, vec3d.y)) * 57.295776F - this.tiltAngle) * 0.1F;
+            this.tiltAngle += (-((float)MathHelper.atan2(d, vec3d.y)) * 57.295776F - this.tiltAngle) * 0.1F;
         } else {
             this.tentacleAngle = MathHelper.abs(MathHelper.sin(this.thrustTimer)) * 3.1415927F * 0.25F;
             if (!this.world.isClient) {
