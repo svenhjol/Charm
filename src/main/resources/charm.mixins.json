@@ -30,6 +30,7 @@
     "accessor.PillagerSpawnerAccessor",
     "accessor.PlayerEntityAccessor",
     "accessor.PointOfInterestTypeAccessor",
+    "accessor.PoolAccessor",
     "accessor.ServerWorldAccessor",
     "accessor.ShulkerBoxBlockEntityAccessor",
     "accessor.SignTypeAccessor",
