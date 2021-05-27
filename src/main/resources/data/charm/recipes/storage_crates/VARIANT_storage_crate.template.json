@@ -1,0 +1,22 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:copper_ingot"
+      },
+      "X": {
+        "item": "charm:VARIANT_chest"
+      }
+    },
+    "result": {
+      "item": "charm:VARIANT_storage_crate"
+    }
+  },
+  "variants": "wood"
+}

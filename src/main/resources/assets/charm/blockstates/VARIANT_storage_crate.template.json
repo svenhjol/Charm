@@ -1,0 +1,33 @@
+{
+  "template": {
+    "variants": {
+      "facing=down": {
+        "x": 180,
+        "model": "charm:block/VARIANT_storage_crate"
+      },
+      "facing=east": {
+        "x": 90,
+        "y": 90,
+        "model": "charm:block/VARIANT_storage_crate"
+      },
+      "facing=north": {
+        "x": 90,
+        "model": "charm:block/VARIANT_storage_crate"
+      },
+      "facing=south": {
+        "x": 90,
+        "y": 180,
+        "model": "charm:block/VARIANT_storage_crate"
+      },
+      "facing=up": {
+        "model": "charm:block/VARIANT_storage_crate"
+      },
+      "facing=west": {
+        "x": 90,
+        "y": 270,
+        "model": "charm:block/VARIANT_storage_crate"
+      }
+    }
+  },
+  "variants": "wood"
+}
