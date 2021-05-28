@@ -12,17 +12,16 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
-import svenhjol.charm.module.atlases.AtlasScreen;
-import svenhjol.charm.module.bookcases.BookcaseScreen;
+import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
-import svenhjol.charm.mixin.accessor.ScreenAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
+import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.module.atlases.AtlasScreen;
+import svenhjol.charm.module.bookcases.BookcaseScreen;
 
 import java.util.*;
 
@@ -112,7 +111,7 @@ public class InventoryTidyingClient extends CharmClientModule {
             }
         }
 
-        sortingButtons.forEach(((ScreenAccessor) screen)::invokeAddDrawableChild);
+        sortingButtons.forEach(screen::addDrawableChild);
     }
 
     private void handleRenderGui(MinecraftClient client, MatrixStack matrices, int mouseX, int mouseY, float delta) {

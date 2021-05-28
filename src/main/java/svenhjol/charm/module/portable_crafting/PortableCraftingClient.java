@@ -14,15 +14,14 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import org.lwjgl.glfw.GLFW;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.event.RenderGuiCallback;
+import svenhjol.charm.event.SetupGuiCallback;
+import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.init.CharmTags;
-import svenhjol.charm.helper.ScreenHelper;
-import svenhjol.charm.event.SetupGuiCallback;
-import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
-import svenhjol.charm.mixin.accessor.ScreenAccessor;
+import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.List;
 
@@ -74,7 +73,7 @@ public class PortableCraftingClient extends CharmClientModule {
         });
 
         this.craftingButton.visible = hasCrafting(client.player);
-        ((ScreenAccessor)screen).invokeAddDrawableChild(this.craftingButton);
+        screen.addDrawableChild(this.craftingButton);
     }
 
     private void handleRenderGui(MinecraftClient client, MatrixStack matrices, int mouseX, int mouseY, float delta) {
