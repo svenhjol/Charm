@@ -1,9 +1,15 @@
 $green: #b5e853;
 $blue: #53d8c5;
-$red: #ff4f20;
+$red: #ff8080;
 $yellow: #f8f055;
-$border-color: $red;
-$link-color: darken($red, 5%);
-$header-color: lighten($red, 5%);
+$white: #e0e4e8;
+$gray1: #a0a4a8;
+$gray2: #808488;
+$gray3: rgb(52, 58, 62);
+
+$border-color: $gray2;
+$link-color: darken($blue, 5%);
+$header-color: $white;
 $tag-color: $yellow;
 $tag-background-color: black;
+$font-family: 'OpenSansRegular', "Helvetica Neue", Helvetica, Arial, sans-serif;

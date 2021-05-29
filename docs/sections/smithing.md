@@ -1,5 +1,5 @@
 ---
-layout: vanillachanges
+layout: section
 title: Smithing
 ---
 

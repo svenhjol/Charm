@@ -20,6 +20,11 @@ baseurl: "/Charm" # the subpath of your site, e.g. /blog
 url: "https://svenhjol.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 mastodon_username: "svenhjol@mastodon.social"
 github_username: svenhjol
+lang: "en-US"
+minecraft_version: 1.17
+modloader: Fabric
+download_modrinth: https://todo
+download_curseforge: https://www.curseforge.com/minecraft/mc-mods/charm
 
 # Build settings
 sass:

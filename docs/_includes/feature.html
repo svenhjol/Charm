@@ -1,7 +1,6 @@
-<div class="card">
-    <img class="card-img-left" src="{{ include.image }}" alt="{{ include.title }}" />
+<div class="card bg-dark text-white {{ include.id }}">
     <div class="card-body">
-        <h5 class="card-title">{{ include.title }}</h5>
+        <h3 class="card-title"><a href="{{ site.baseurl }}/sections/{{ include.id }}">{{ include.title }}</a></h3>
         <p class="card-text">{{ include.content }}</p>
     </div>
 </div>
