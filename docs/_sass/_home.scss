@@ -1,0 +1,78 @@
+@import 'mixins';
+@import 'variables';
+
+.home-header {
+  border-bottom: 1px dashed $border-color;
+
+  h1 {
+    text-align: center;
+    font-size: 8em;
+    color: #e0e0e0;
+    padding-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .nav-buttons {
+    .card {
+      background-color: rgba(52, 58, 62, 0.5) !important;
+      margin-bottom: 25px;
+
+      .card-header {
+        text-align: center;
+        color: $gray1;
+      }
+
+      .card-body {
+        font-size: 0.9em;
+        ul {
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+.home-content {
+  min-height: 480px;
+  margin-top: 50px;
+
+  h1 {
+    margin-top: 50px;
+    font-size: 3.7em;
+    text-align: center;
+  }
+
+  h2 {
+    margin-top: 70px;
+    text-align: center;
+    clear: both;
+    font-size: 2.5em;
+    color: lighten($header-color, 2%);
+
+    &:not(:first-child) {
+      padding-top: 50px;
+    }
+    padding-bottom: 30px;
+  }
+
+  h3 {
+    font-size: 1.2em;
+    clear: both;
+  }
+
+  p {
+  }
+}
+
+.home-features {
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  .home-feature {
+    margin-bottom: 25px;
+
+    .card-title {
+      text-align: center;
+    }
+  }
+}

@@ -1,8 +1,13 @@
 @import 'variables';
 @import 'mixins';
 
+body {
+    font-family: $font-family;
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: $header-color;
+    font-family: $font-family !important;
 
     a, a:focus, a:visited {
         color: $header-color;
@@ -18,8 +23,8 @@ ul li {
     list-style-image: none;
 }
 
-a, a:link, a:visited {
-    color: $link-color;
+a, a:link, a:visited, a:focus {
+    color: $link-color !important;
     text-shadow: none;
     text-decoration: none;
 }
@@ -85,26 +90,6 @@ header {
     }
 }
 
-footer {
-    border-top: 1px dashed $border-color;
-    background-color: rgba(0, 0, 0, 0.3);
-    clear: both;
-    padding: 30px 0;
-    margin-top: 100px;
-    text-align: left;
-
-    h2 {
-        color: white;
-        font-size: 1.7em;
-    }
-    a, a:hover, a:visited, a:focus {
-        text-decoration: none;
-        color: white;
-    }
-    
-    color: white;
-}
-
 .center-image {
     margin: 0 auto;
     display: block;
@@ -115,5 +100,11 @@ footer {
     text-align: center;
     a:hover {
         color: white;
+    }
+}
+
+.card {
+    .card-title {
+        margin-bottom: 0;
     }
 }

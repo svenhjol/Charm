@@ -1,10 +1,19 @@
 ---
-layout: page
+layout: section
 title: Credits
 ---
 
-## Charmonium sound credits
+## Authors
+* **Svenhjol**: development, music and game design
+* **Coranthes**: graphic design
+* **Ridjack**: game design
+* **WarlordWossman**: game design
+* **F43nd1r**: 1.16 development
+* **Sokyran**: 1.12 development
+* **ClintDK**: playtesting and ideas
+* **Inpaladin**: playtesting and ideas
 
+## Freesound credits
 Sounds from **[Freesound](https://freesound.org)** were included as part of the ambient sounds of the [Charmonium mod](https://www.curseforge.com/minecraft/mc-mods/charmonium):
 
 * [https://freesound.org/people/felix.blume/sounds/376829/](https://freesound.org/people/felix.blume/sounds/376829/)
