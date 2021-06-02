@@ -5,8 +5,10 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(TreeFeatureConfig.class)
+@CharmMixin(required = true)
 public interface TreeFeatureConfigAccessor {
     @Mutable
     @Accessor
