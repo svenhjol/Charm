@@ -1,8 +1,6 @@
 ---
 ---
 @import "{{ site.theme }}";
-@import 'layouts';
-@import 'footer';
-@import 'overrides';
+@import 'common';
 @import 'home';
 @import 'section';

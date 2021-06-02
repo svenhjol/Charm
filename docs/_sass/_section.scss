@@ -13,7 +13,7 @@
 .section-content {
   h2 {
     clear: both;
-    font-size: 2.5em;
+    font-size: 3.0em !important; // overridden by theme
     color: lighten($header-color, 2%);
     text-align: center;
 
@@ -24,7 +24,7 @@
   }
 
   h3 {
-    font-size: 1.8em;
+    font-size: 1.8em !important; // overridden by theme
     margin-left: 10px;
     clear: both;
     border-bottom: 1px dashed $border-color;
@@ -41,7 +41,7 @@
     height: 120px;
     float: right;
     margin-left: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 60px;
     border: 1px solid #303030;
     border-radius: 5px;
     box-shadow: 1px 3px 4px #000000;
@@ -56,14 +56,14 @@
 
 .section-menu {
   padding: 0;
-  margin-bottom: 40px;
 
   li {
     min-width: 14.28%;
   }
 
   a {
-    $bgcolor: #202224;
+    $bgcolor: $gray4;
+    color: white !important;
     background-color: $bgcolor;
     padding: 16px 12px;
     text-align: center;
