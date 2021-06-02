@@ -5,8 +5,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CommandItemSlot;
 import net.minecraft.inventory.EnderChestInventory;
+import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -15,8 +15,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ClickType;
 import net.minecraft.util.math.MathHelper;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.item.CharmItem;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.Optional;
 
@@ -77,7 +77,7 @@ public class EnderBundleItem extends CharmItem {
     }
 
     @Override
-    public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, CommandItemSlot commandItemSlot) {
+    public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference stackReference) {
         if (player.currentScreenHandler instanceof GenericContainerScreenHandler
             && !(slot.inventory instanceof PlayerInventory)
         ) {
@@ -86,7 +86,7 @@ public class EnderBundleItem extends CharmItem {
             return false; // TODO: why is creative contains wack?
         } else if (clickType == ClickType.RIGHT && slot.canTakePartial(player)) {
             if (otherStack.isEmpty()) {
-                removeLastStack(player).ifPresent(commandItemSlot::set);
+                removeLastStack(player).ifPresent(stackReference::set);
             } else {
                 ItemStack out = addToBundle(player, otherStack);
                 otherStack.setCount(out.getCount());

@@ -28,7 +28,7 @@ public abstract class CharmHandledScreen<T extends ScreenHandler> extends Handle
     @Override
     protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
         this.textRenderer.draw(matrices, this.title.asOrderedText(), 8.0F, 6.0F, 4210752);
-        this.textRenderer.draw(matrices, this.displayName.asOrderedText(), 8.0F, (float) backgroundHeight - 94, 4210752);
+        this.textRenderer.draw(matrices, this.playerInventoryTitle.asOrderedText(), 8.0F, (float) backgroundHeight - 94, 4210752);
     }
 
     @Override

@@ -6,7 +6,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootTables;
 import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.tag.BlockTags;
-import svenhjol.charm.init.CharmLoot;
 import svenhjol.charm.enums.VanillaVariantMaterial;
 import svenhjol.charm.helper.LootHelper;
 
@@ -28,7 +27,7 @@ public class CharmDecoration {
 
         List<Block> filteredFlowers = BlockTags.FLOWERS.values().stream()
             .filter(b -> b != Blocks.WITHER_ROSE
-                && b != Blocks.AZALEA_LEAVES_FLOWERS
+                && b != Blocks.FLOWERING_AZALEA_LEAVES
                 && b != Blocks.FLOWERING_AZALEA
             ).collect(Collectors.toList());
 

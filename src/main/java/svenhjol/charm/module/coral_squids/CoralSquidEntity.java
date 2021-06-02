@@ -17,6 +17,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
+import net.minecraft.entity.passive.SquidEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
@@ -200,10 +201,9 @@ public class CoralSquidEntity extends WaterCreatureEntity {
         return 1.25F;
     }
 
-    protected boolean canClimb() {
-        return false;
-    }
-
+    /**
+     * Copypasta from {@link SquidEntity#tickMovement()}
+     */
     public void tickMovement() {
         super.tickMovement();
         this.prevTiltAngle = this.tiltAngle;
@@ -245,7 +245,7 @@ public class CoralSquidEntity extends WaterCreatureEntity {
             }
 
             Vec3d vec3d = this.getVelocity();
-            double d = vec3d.method_37267();
+            double d = vec3d.horizontalLength();
             this.bodyYaw += (-((float)MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F - this.bodyYaw) * 0.1F;
             this.setYaw(this.bodyYaw);
             this.rollAngle = (float)((double)this.rollAngle + 3.141592653589793D * (double)this.turningSpeed * 1.5D);
