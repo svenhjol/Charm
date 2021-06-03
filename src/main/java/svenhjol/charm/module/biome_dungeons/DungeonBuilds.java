@@ -11,6 +11,7 @@ public class DungeonBuilds {
 
         DungeonGenerator.FOREST_DUNGEONS.add(new ForestDungeons.LittleGarden());
         DungeonGenerator.FOREST_DUNGEONS.add(new ForestDungeons.LittleTree());
+        DungeonGenerator.FOREST_DUNGEONS.add(new ForestDungeons.Shelves());
 
         DungeonGenerator.MOUNTAINS_DUNGEONS.add(new MountainsDungeons.Pillar());
         DungeonGenerator.MOUNTAINS_DUNGEONS.add(new MountainsDungeons.Shelves());

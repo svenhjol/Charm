@@ -17,4 +17,11 @@ public class ForestDungeons {
             addStart("forest_little_garden", 1);
         }
     }
+
+    public static class Shelves extends CharmStructure {
+        public Shelves() {
+            super(Charm.MOD_ID, "dungeons", "forest_shelves");
+            addStart("forest_shelves", 1);
+        }
+    }
 }
