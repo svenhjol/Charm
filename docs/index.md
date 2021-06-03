@@ -10,5 +10,5 @@ Browse the features of the mod by clicking the section headings below.
 {% include home-features.html %}
 
 Looking for older versions of Charm? 
-* [Documentation for 1.16](https://todo)
-* [Documentation for 1.12](https://todo)
+* [Documentation for 1.16](116)
+* [Documentation for 1.12](112)
