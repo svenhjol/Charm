@@ -15,8 +15,12 @@ The block will obey gravity like sand and gravel, and if it touches lava, it wil
 Craft a Sugar Block from 9 sugar.
 The block will obey gravity like sand and gravel, and if it touches water, it will dissolve into air.
 
-### Redstone Lantern
-![Redstone Lantern](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/redstone-lantern.png?raw=true)
+### Player pressure plates
+![Player pressure plates](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+A pressure plate that is only activated when the player stands on it.  It is crafted from gilded blackstone.
+
+### Redstone Lanterns
+![Redstone Lanterns](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/redstone-lantern.png?raw=true)
 Craft iron nuggets around a redstone torch to create a Redstone Lantern.
 The lantern lights when it receives a redstone signal from neighbouring blocks.
 

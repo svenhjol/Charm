@@ -5,90 +5,104 @@ title: Decoration
 
 ## Decoration
 
+### Azalea Wood
+![Azalea Wood](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.  It can be used to make the same blocks and items as ordinary vanilla woods.
+
+`New for 1.17!`
+
 ### Block of Ender Pearls
 ![Block of Ender Pearls](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/ender-pearl-block.png?raw=true)
 Craft a Block of Ender Pearls from 9 ender pearls.  If a silverfish burrows into an Ender Pearl Block, it will turn into an Endermite.  Eating a Chorus Fruit will teleport you to the nearest Ender Pearl Block rather than a random location.  Both features are configurable.
 
-### Bookcases
-![Bookcases](https://github.com/svenhjol/Charm-Assets/blob/87b93c3ddf9d4332cc7c8e0b3fb65ae2baa99dae/web/charm-features/bookcases-retextured.png?raw=true)
-A bookshelf that has 18 inventory slots for storing books.
-It provides the same enchanting power as a normal bookshelf and can be crafted from each of the 8 vanilla wood types.
+### Clear Item Frames
+![Clear Item Frames](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Add amethyst shards to item frames to make them invisible.
 
-The texture will change as books are added or removed.
+`New for 1.17!`
 
-Contents can be measured using a comparator, outputting a signal based on the number of filled slots rather than the quantity of items.
+### Colored Bundles
+![Colored Bundles](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Allows bundles to be dyed.
 
-### Candles
-![Candles](https://raw.githubusercontent.com/svenhjol/Charm-Assets/a32af33ebf6f5e3bad8d42564a8bde659f8aac42/web/charm-features/candles.png)
-Candles are made from beeswax and have a lower ambient light than torches.
-By default, candles must be lit using a flint and steel.
+`New for 1.17!`
 
-**Beeswax** is produced by smelting Honey combs. 
+### Colored Glints
+![Colored Glints](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Use dye on an anvil to change an item's enchantment color.
+
+A configuration option is also provided that lets you change the default color for all enchanted items.
+
+### Copper Rails
+![Copper Rails](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Copper ingots can be used to craft rails.
+
+`New for 1.17!`
 
 ### Coral Sea Lanterns
 ![Coral Sea Lanterns](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/coral-lanterns.png?raw=true)
 Craft a sea lantern with coral to create a sea lantern of the coral's color.
 
-### Crates
-![Crates](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/variant-crates.png?raw=true)
-Crates offer a smaller storage solution than a chest or barrel with the benefit of being transportable, making it an early-game alternative to shulkerboxes. 
+### Ebony Wood
+![Ebony Wood](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Ebony is a very dark grey wood that can be used to make the same blocks and items as ordinary vanilla woods. Ebony trees can be found in savanna biomes.
 
-Crates are also available in all vanilla wood variants.
+`New for 1.17!`
 
-The contents can be measured using a comparator, like a vanilla chest.
+### Extra Boats
+![Extra Boats](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Adds crimson and warped wood boats.  Although these boats are crafted from non-flammable planks, it is inadvisable to try sailing across lava.
 
-### Gold Bars
-![Gold Bars](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/gold-bars.png?raw=true)
-Gold bars are crafted with gold ingots in the same shape as the vanilla iron bars recipe.
+`New for 1.17!`
 
-If **Quark** is present, this feature is disabled by default.
+### Extra Nuggets
+![Extra Nuggets](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Adds copper and netherite nuggets for lantern and chain recipes.
 
-### Gold Chains
-![Gold Chains](https://github.com/svenhjol/Charm-Assets/blob/87b93c3ddf9d4332cc7c8e0b3fb65ae2baa99dae/web/charm-features/gold-chains.png?raw=true)
-Gold chains are crafted with gold ingots and nuggets in the same shape as the vanilla iron chains recipe.
-
-### Gold Lanterns
-![Gold Lanterns](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/golden-lanterns.png?raw=true)
-A **Gold Lantern** is crafted with gold nuggets around a torch.
-
-The **Gold Soul Lantern** can be crafted using gold nuggets around a soul torch.
+`New for 1.17!`
 
 ### Random animal textures
 ![Random animal textures](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/variant-animals.png?raw=true)
 Chickens, Cows, Pigs, Squids and Wolves may spawn with alternate textures.
 Some of the wolf textures were kindly contributed by [jupiter1930](https://www.reddit.com/user/jupiter1390) and [All_My_Own_Trash](https://www.reddit.com/user/All_My_Own_Trash).
 
-If **Quark** is present, chickens, cows, and pigs are disabled by default.
-
-### Smooth Glowstone
-![Smooth Glowstone](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/smoother_glowstone.png?raw=true)
-Smooth Glowstone.
-
 ### Variant Barrels
 ![Variant Barrels](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/new-variant-barrels.png?raw=true)
-Barrels of each type of vanilla wood can be crafted using the respective wood planks and slabs.  These extra barrels work with **Quark**'s drop-off and sort features.
+Barrels of each type of vanilla wood can be crafted using the respective wood planks and slabs.
 
-**Vanilla Barrels** are still available, crafted with a mix of wood types.
-Only vanilla barrels work as a Fisherman villager job site.
+The vanilla barrel is still available and is crafted with a mix of wood types.
+
+### Variant Bars
+![Variant Bars](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/gold-bars.png?raw=true)
+Copper, Gold and Netherite bars are crafted with their respective ingots in the same shape as the vanilla iron bars recipe.
 
 ### Variant Bookshelves
 ![Variant Bookshelves](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/bookshelves.png?raw=true)
 Bookshelves of each type of vanilla wood can be crafted using the respective wood planks and a bookshelf.
 The variants provide the same enchanting power as a normal bookshelf.
 
-If **Quark** is present, this feature is disabled by default.
-
 ### Variant Chests
 ![Variant Chests](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/variant-chests.png?raw=true)
 Chests of each type of vanilla wood can be crafted using the respective wood planks.
 
-**Vanilla Chests** are still available, crafted with a mix of wood types.
+Vanilla Chests are still available and are crafted with a mix of wood types.
 
-If **Quark** is present, this feature is disabled by default.
+### Variant Chains
+![Variant Chains](https://github.com/svenhjol/Charm-Assets/blob/87b93c3ddf9d4332cc7c8e0b3fb65ae2baa99dae/web/charm-features/gold-chains.png?raw=true)
+Copper, Gold and Netherite chains are crafted with their respective ingots and nuggets in the same shape as the vanilla iron chain recipe.
+
+The **Extra Nuggets** feature must be enabled for this to function.
 
 ### Variant Ladders
 ![Variant Ladders](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/variant-ladders.png?raw=true)
 Ladders of each type of vanilla wood can be crafted using the respective wood plank with sticks.
+
 The vanilla ladder is still available using the default vanilla recipe.
 
-If **Quark** is present, this feature is disabled by default.
+### Variant Lanterns
+![Variant Lanterns](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/golden-lanterns.png?raw=true)
+Copper, Gold and Netherite lanterns are craftable from their respective nuggets around a torch.
+
+Soul Lantern variants can be crafted using nuggets around a soul torch.
+
+The **Extra Nuggets** feature must be enabled for this to function.

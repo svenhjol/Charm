@@ -86,8 +86,7 @@ If **Quark** is present, this feature is disabled by default.
 
 ### Wandering Trader Improvements
 ![Wandering Trader Improvements](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/improved-traders.png?raw=true)
-Wandering Traders only spawn when there is a signal fire (i.e., a campfire with a hay bale beneath) nearby.
-They also sell maps to structures and biomes.
+Wandering traders sell maps to structures and biomes.
 
 A configuration option is available to make Wandering Traders spawn more frequently.
 
