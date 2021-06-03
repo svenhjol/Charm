@@ -20,7 +20,7 @@ import svenhjol.charm.event.TakeAnvilOutputCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.init.CharmAdvancements;
 
-@Module(mod = Charm.MOD_ID, description = "When applied, you may use dyes on an anvil to change the item's enchantment color.",
+@Module(mod = Charm.MOD_ID, description = "Use dye on an anvil to change an item's enchantment color.",
     requiresMixins = {"TakeAnvilOutputCallback", "UpdateAnvilCallback"})
 public class ColoredGlints extends CharmModule {
     public static final Identifier TRIGGER_CHANGED_GLINT_COLOR = new Identifier(Charm.MOD_ID, "changed_glint_color");

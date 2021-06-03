@@ -30,7 +30,7 @@ import svenhjol.charm.enums.CharmWoodMaterial;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, priority = 10, client = StorageCratesClient.class)
+@Module(mod = Charm.MOD_ID, priority = 10, client = StorageCratesClient.class, description = "A **Storage crate** has the equivalent capacity of a double-chest for a single item or block type.")
 public class StorageCrates extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "storage_crate");
     public static final Identifier MSG_CLIENT_UPDATED_CRATE = new Identifier(Charm.MOD_ID, "client_interacted_with_crate");
