@@ -11,10 +11,10 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.List;
 
@@ -61,20 +61,30 @@ public class InventoryTidying extends CharmModule {
         }
 
         List<Slot> slots = useContainer.slots;
+        slots.stream().findFirst().ifPresent(slot -> {
+
+        });
+
+        boolean hasItemsInInventory = false;
+
         for (Slot slot : slots) {
             Inventory inventory = slot.inventory;
 
             if (type == PLAYER && slot.inventory == PlayerHelper.getInventory(player)) {
                 InventoryTidyingHandler.sort(PlayerHelper.getInventory(player), 9, 36);
+                hasItemsInInventory = !slot.inventory.isEmpty();
                 break;
             } else if (type == BE) {
                 InventoryTidyingHandler.sort(inventory, 0, inventory.size());
+                hasItemsInInventory = !slot.inventory.isEmpty();
                 break;
             }
         }
 
-        // do advancement for tidying inventory
-        InventoryTidying.triggerTidiedInventory(player);
+        if (hasItemsInInventory) {
+            // do advancement for tidying inventory
+            InventoryTidying.triggerTidiedInventory(player);
+        }
     }
 
     public static void triggerTidiedInventory(ServerPlayerEntity player) {
