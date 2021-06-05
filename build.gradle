@@ -35,8 +35,8 @@ dependencies {
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
 	// REI
-//	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
-//	modCompile "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
+	modApi "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 
 	implementation "com.moandjiezana.toml:toml4j:${project.toml4j_version}"
 	implementation "com.electronwill.night-config:core:${project.tomlnc_version}"
@@ -123,4 +123,8 @@ publishing {
 		// uncomment to publish to the local maven
 		// mavenLocal()
 	}
+}
+
+repositories {
+	maven { url "https://maven.shedaniel.me" }
 }
