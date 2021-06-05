@@ -19,6 +19,9 @@ public class Core extends CharmModule {
     @Config(name = "Debug mode", description = "If true, routes additional debug messages into the standard game log.")
     public static boolean debug = false;
 
+    @Config(name = "Use built-in biome hacks", description = "If true, uses Charm's biome hacks to add world features instead of Fabric's biome API.\nIt's very unlikely you want to enable this.")
+    public static boolean useBiomeHacks = false;
+
     @Config(name = "Advancements", description = "If true, Charm will add its own advancement tree.")
     public static boolean advancements = true;
 

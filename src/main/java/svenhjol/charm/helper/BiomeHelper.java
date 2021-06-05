@@ -24,6 +24,7 @@ import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.GenerationSettingsAccessor;
 import svenhjol.charm.mixin.accessor.SpawnSettingsAccessor;
+import svenhjol.charm.module.core.Core;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -32,7 +33,6 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings({"UnstableApiUsage", "unused", "deprecation"})
 public class BiomeHelper {
-    public static final boolean USE_FABRIC_BIOME_API = true;
     public static Map<Biome.Category, List<RegistryKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
 
     public static Biome getBiome(ServerWorld world, BlockPos pos) {
@@ -63,7 +63,11 @@ public class BiomeHelper {
     }
 
     public static void addFeatureToBiome(ConfiguredFeature<?, ?> feature, RegistryKey<Biome> biomeKey, GenerationStep.Feature generationStep) {
-        if (USE_FABRIC_BIOME_API) {
+        if (Core.useBiomeHacks) {
+            GenerationSettings settings = getBiomeFromBiomeKey(biomeKey).getGenerationSettings();
+            makeGenerationSettingsMutable(settings);
+            ((GenerationSettingsAccessor) settings).getFeatures().get(generationStep.ordinal()).add(() -> feature);
+        } else {
             RegistryKey<ConfiguredFeature<?, ?>> featureKey;
             Predicate<BiomeSelectionContext> biomeSelector;
 
@@ -76,11 +80,6 @@ public class BiomeHelper {
             }
 
             BiomeModifications.addFeature(biomeSelector, generationStep, featureKey);
-        } else {
-            // Charm's biome hack
-            GenerationSettings settings = getBiomeFromBiomeKey(biomeKey).getGenerationSettings();
-            makeGenerationSettingsMutable(settings);
-            ((GenerationSettingsAccessor) settings).getFeatures().get(generationStep.ordinal()).add(() -> feature);
         }
     }
 
@@ -90,7 +89,11 @@ public class BiomeHelper {
     }
 
     public static void addStructureToBiome(ConfiguredStructureFeature<?, ?> structureFeature, RegistryKey<Biome> biomeKey) {
-        if (USE_FABRIC_BIOME_API) {
+        if (Core.useBiomeHacks) {
+            GenerationSettings settings = getBiomeFromBiomeKey(biomeKey).getGenerationSettings();
+            makeGenerationSettingsMutable(settings);
+            ((GenerationSettingsAccessor) settings).getStructureFeatures().add(() -> structureFeature);
+        } else {
             RegistryKey<ConfiguredStructureFeature<?, ?>> structureKey;
             Predicate<BiomeSelectionContext> biomeSelector;
 
@@ -104,24 +107,11 @@ public class BiomeHelper {
             }
 
             BiomeModifications.addStructure(biomeSelector, structureKey);
-        } else {
-            // Charm's biome hack
-            GenerationSettings settings = getBiomeFromBiomeKey(biomeKey).getGenerationSettings();
-            makeGenerationSettingsMutable(settings);
-            ((GenerationSettingsAccessor) settings).getStructureFeatures().add(() -> structureFeature);
         }
     }
 
     public static void addSpawnEntry(RegistryKey<Biome> biomeKey, SpawnGroup group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
-        if (USE_FABRIC_BIOME_API) {
-            try {
-                Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
-                BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
-            } catch (Exception e) {
-                Charm.LOG.error("Failed to add entity to biome spawn. This may cause crashes when trying to spawn the entity.");
-            }
-        } else {
-            // Charm's biome hack
+        if (Core.useBiomeHacks) {
             SpawnSettings spawnSettings = getBiomeFromBiomeKey(biomeKey).getSpawnSettings();
             makeSpawnSettingsMutable(spawnSettings);
 
@@ -129,6 +119,13 @@ public class BiomeHelper {
             CollectionHelper.addPoolEntry(spawners.get(group), new SpawnSettings.SpawnEntry(entity, weight, minGroupSize, maxGroupSize));
 
             ((SpawnSettingsAccessor)spawnSettings).setSpawners(spawners);
+        } else {
+            try {
+                Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
+                BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
+            } catch (Exception e) {
+                Charm.LOG.error("Failed to add entity to biome spawn. This may cause crashes when trying to spawn the entity.");
+            }
         }
     }
 
