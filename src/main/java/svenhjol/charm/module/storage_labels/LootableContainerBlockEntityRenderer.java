@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import svenhjol.charm.helper.ClientHelper;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -79,6 +80,6 @@ public class LootableContainerBlockEntityRenderer<T extends BlockEntity> impleme
 
         double distance = ClientHelper.getBlockEntityDistance(player, container, camera);
         if (distance < StorageLabels.VIEW_DISTANCE)
-            StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, text);
+            StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, Collections.singletonList(text));
     }
 }

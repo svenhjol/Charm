@@ -18,7 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
@@ -27,6 +27,7 @@ import net.minecraft.world.World;
 import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.Random;
 
 import static net.minecraft.util.math.Direction.DOWN;
@@ -206,8 +207,8 @@ public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> 
         }
 
         if (player != null && !crate.isEmpty()) {
-            LiteralText text = new LiteralText(String.valueOf(crate.getTotalNumberOfItems()));
-            StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, text);
+            TranslatableText text = new TranslatableText("gui.charm.storage_crate_capacity", String.valueOf(crate.getTotalNumberOfItems()));
+            StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, Collections.singletonList(text));
         }
     }
 

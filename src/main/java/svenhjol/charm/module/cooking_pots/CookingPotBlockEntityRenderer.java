@@ -14,14 +14,15 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 import svenhjol.charm.module.storage_labels.StorageLabels;
+import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,13 +85,13 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
             return;
 
         PlayerEntity player = optPlayer.get();
-        LiteralText text = new LiteralText(String.valueOf(entity.portions));
+        TranslatableText text = new TranslatableText("gui.charm.cooking_pot_capacity", String.valueOf(entity.portions));
         BlockEntityRenderDispatcher dispatcher = context.getRenderDispatcher();
         Camera camera = dispatcher.camera;
 
         double distance = ClientHelper.getBlockEntityDistance(player, entity, camera);
 
         if (distance < StorageLabels.VIEW_DISTANCE)
-            StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, text);
+            StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, Collections.singletonList(text));
     }
 }

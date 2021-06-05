@@ -20,11 +20,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.world.World;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.ClientHelper;
+import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
 
+import java.util.List;
 import java.util.Optional;
 
 public class StorageLabelsClient extends CharmClientModule {
@@ -72,7 +73,7 @@ public class StorageLabelsClient extends CharmClientModule {
         return Optional.ofNullable((LootableContainerBlockEntity)world.getBlockEntity(pos));
     }
 
-    public static void renderLabel(MatrixStack matrices, VertexConsumerProvider vertexConsumers, PlayerEntity player, Camera camera, Text text) {
+    public static void renderLabel(MatrixStack matrices, VertexConsumerProvider vertexConsumers, PlayerEntity player, Camera camera, List<Text> text) {
         if (!ModuleHandler.enabled(StorageLabels.class))
             return;
 
@@ -116,8 +117,13 @@ public class StorageLabelsClient extends CharmClientModule {
         Matrix4f matrix4f = matrices.peek().getModel();
         float g = gameOptions.getTextBackgroundOpacity(0.0F);
         int j = (int)(g * 255.0F) << 24;
-        float h = (float)(-textRenderer.getWidth(text) / 2);
-        textRenderer.draw(text, h, 0, 0xFFFFFF, false, matrix4f, vertexConsumers, false, j, 255);
+
+        for (int i = 0; i < text.size(); i++) {
+            Text t = text.get(i);
+            float h = (float)(-textRenderer.getWidth(t) / 2);
+            textRenderer.draw(t, h, i * 10, 0xFFFFFF, false, matrix4f, vertexConsumers, false, j, 255);
+        }
+
         matrices.pop();
     }
 }
