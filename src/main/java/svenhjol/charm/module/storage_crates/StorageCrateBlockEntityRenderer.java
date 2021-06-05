@@ -65,18 +65,18 @@ public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> 
             return;
 
         PlayerEntity player = client.player;
-
         int count = Math.min(Math.max(1, crate.filledStacks()), PER_ROW * 3);
 
         stack = crate.getItemType();
         if (stack == null || stack.isEmpty())
             return;
 
+        boolean fabulous = MinecraftClient.isFabulousGraphicsOrBetter();
+        int distCutoffRender = fabulous ? 768 : 256;
+        int distFullRender = fabulous ? 96 : 32;
+
         itemRenderer = client.getItemRenderer();
         textRenderer = client.textRenderer;
-
-        int distCutoffRender = 84;
-        int distFullRender = 32;
 
         BlockPos pos = crate.getPos();
         int x = pos.getX();
