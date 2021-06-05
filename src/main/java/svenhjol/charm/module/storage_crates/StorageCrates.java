@@ -70,7 +70,6 @@ public class StorageCrates extends CharmModule {
             return ActionResult.PASS;
 
         ItemStack held = player.getStackInHand(hand);
-        boolean isCreative = player.getAbilities().creativeMode;
         boolean isSneaking = player.isSneaking();
 
         BlockEntity blockEntity = world.getBlockEntity(hitResult.getBlockPos());
@@ -78,28 +77,21 @@ public class StorageCrates extends CharmModule {
             StorageCrateBlockEntity crate = (StorageCrateBlockEntity) blockEntity;
 
             if (!world.isClient) {
-
                 if (!crate.isEmpty() && (isSneaking || held.isEmpty())) {
                     ItemStack stack = crate.takeStack();
-
-                    if (!isCreative)
-                        PlayerHelper.addOrDropStack(player, stack);
+                    PlayerHelper.addOrDropStack(player, stack);
 
                 } else if (crate.isEmpty() && isSneaking) {
                     return ActionResult.PASS;
 
                 } else if (!held.isEmpty()) {
-
                     // slot doesn't matter here, we're just checking the item type
                     if (crate.isEmpty() || crate.canInsert(0, held, Direction.UP)) {
                         if (crate.isFull()) {
                             sendClientEffects(world, pos, ActionType.FILLED);
-
                         } else {
-
-                            if (!isCreative)
-                                player.setStackInHand(hand, crate.addStack(held));
-//                            crate.setStack(0, held);
+                            ItemStack added = crate.addStack(held);
+                            player.setStackInHand(hand, added);
                         }
                     }
                 }

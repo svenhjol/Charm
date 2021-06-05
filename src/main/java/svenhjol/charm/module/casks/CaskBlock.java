@@ -102,9 +102,7 @@ public class CaskBlock extends CharmBlockWithEntity {
                     cask.name = held.getName().asString();
                     cask.markDirty();
                     world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 0.85F, 1.1F);
-
-                    if (!player.isCreative())
-                        held.decrement(1);
+                    held.decrement(1);
 
                 } else if (held.getItem() == Items.GLASS_BOTTLE) {
                     ItemStack out = cask.take(world, pos, state, held);
@@ -130,8 +128,7 @@ public class CaskBlock extends CharmBlockWithEntity {
                         world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 0.9F, 0.9F);
 
                         // give the glass bottle back to the player
-                        if (!player.getAbilities().creativeMode)
-                            PlayerHelper.addOrDropStack(player, new ItemStack(Items.GLASS_BOTTLE));
+                        PlayerHelper.addOrDropStack(player, new ItemStack(Items.GLASS_BOTTLE));
 
                         // send message to client that an item was added
                         PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
@@ -139,9 +136,8 @@ public class CaskBlock extends CharmBlockWithEntity {
                         ServerPlayNetworking.send((ServerPlayerEntity) player, Casks.MSG_CLIENT_ADDED_TO_CASK, data);
 
                         // do advancement for filling with potions
-                        if (cask.portions > 1 && cask.effects.size() > 1) {
+                        if (cask.portions > 1 && cask.effects.size() > 1)
                             Casks.triggerFilledWithPotion((ServerPlayerEntity) player);
-                        }
                     }
                 }
             }
