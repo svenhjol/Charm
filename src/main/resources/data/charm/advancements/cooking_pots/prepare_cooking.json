@@ -27,12 +27,6 @@
       "conditions": {
         "action": "charm:filled_pot_with_water"
       }
-    },
-    "has_added_item": {
-      "trigger": "charm:action_performed",
-      "conditions": {
-        "action": "charm:added_item_to_pot"
-      }
     }
   },
   "requirements": [
@@ -41,9 +35,6 @@
     ],
     [
       "has_filled_water"
-    ],
-    [
-      "has_added_item"
     ]
   ]
 }

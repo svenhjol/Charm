@@ -16,6 +16,12 @@
     "hidden": false
   },
   "criteria": {
+    "has_added_item": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:added_item_to_pot"
+      }
+    },
     "has_taken_food": {
       "trigger": "charm:action_performed",
       "conditions": {
@@ -24,6 +30,9 @@
     }
   },
   "requirements": [
+    [
+      "has_added_item"
+    ],
     [
       "has_taken_food"
     ]
