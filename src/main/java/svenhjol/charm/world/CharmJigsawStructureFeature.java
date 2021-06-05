@@ -18,13 +18,13 @@ import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 public class CharmJigsawStructureFeature extends StructureFeature<StructurePoolFeatureConfig> {
     private final int structureStartY;
     private final int variation;
-    private final boolean surface;
+    private final boolean relativeToBottom;
 
-    public CharmJigsawStructureFeature(Codec<StructurePoolFeatureConfig> codec, int structureStartY, int variation, boolean surface) {
+    public CharmJigsawStructureFeature(Codec<StructurePoolFeatureConfig> codec, int structureStartY, int variation, boolean relativeToBottom) {
         super(codec);
         this.structureStartY = structureStartY;
         this.variation = variation;
-        this.surface = surface;
+        this.relativeToBottom = relativeToBottom;
     }
 
     public StructureFeature.StructureStartFactory<StructurePoolFeatureConfig> getStructureStartFactory() {
@@ -42,12 +42,18 @@ public class CharmJigsawStructureFeature extends StructureFeature<StructurePoolF
         public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, StructurePoolFeatureConfig structurePoolFeatureConfig, HeightLimitView heightLimitView) {
 
             int v = jigsawFeature.variation;
-            int r = random.nextInt(v * 2);
-            int y = jigsawFeature.structureStartY + (v - r);
+            int r = v > 0 ? random.nextInt(v * 2) : 0;
+            int y;
+
+            if (jigsawFeature.relativeToBottom) {
+                y = chunkGenerator.getMinimumY() + jigsawFeature.structureStartY + (v - r);
+            } else {
+                y = jigsawFeature.structureStartY + (v - r);
+            }
 
             BlockPos blockPos = new BlockPos(chunkPos.getStartX(), y, chunkPos.getStartZ());
             StructurePools.initDefaultPools();
-            StructurePoolBasedGenerator.method_30419(dynamicRegistryManager, structurePoolFeatureConfig, PoolStructurePiece::new, chunkGenerator, structureManager, blockPos, this, this.random, false, this.jigsawFeature.surface, heightLimitView);
+            StructurePoolBasedGenerator.method_30419(dynamicRegistryManager, structurePoolFeatureConfig, PoolStructurePiece::new, chunkGenerator, structureManager, blockPos, this, random, false, false, heightLimitView);
             this.setBoundingBoxFromChildren();
         }
     }
