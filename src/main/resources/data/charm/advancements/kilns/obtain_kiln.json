@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/smithing",
+  "parent": "charm:core/tools",
   "display": {
     "icon": {
       "item": "minecraft:bricks"

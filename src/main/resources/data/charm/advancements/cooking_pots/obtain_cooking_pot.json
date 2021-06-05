@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/decoration",
+  "parent": "charm:core/tools",
   "display": {
     "icon": {
       "item": "charm:cooking_pot"
