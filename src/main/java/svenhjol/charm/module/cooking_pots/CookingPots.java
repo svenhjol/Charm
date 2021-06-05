@@ -6,6 +6,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.annotation.Module;
@@ -27,6 +28,9 @@ public class CookingPots extends CharmModule {
     public static MixedStewItem MIXED_STEW;
 
     public static final Identifier MSG_CLIENT_ADDED_TO_POT = new Identifier(Charm.MOD_ID, "client_added_to_pot");
+
+    @Config(name = "Show label", description = "If true, cooking pots show their custom name and capacity as a hovering label. Requires the 'Storage Labels' feature to be enabled.")
+    public static boolean showLabel = true;
 
     @Override
     public void register() {

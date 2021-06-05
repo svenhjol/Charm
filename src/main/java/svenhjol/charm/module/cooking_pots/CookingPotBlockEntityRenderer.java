@@ -14,6 +14,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
@@ -22,7 +24,7 @@ import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.module.storage_labels.StorageLabels;
 import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +47,9 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();
         if (world == null)
+            return;
+
+        if (!CookingPots.showLabel)
             return;
 
         List<Item> items = CookingPots.getResolvedItems(entity.contents);
@@ -85,13 +90,21 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
             return;
 
         PlayerEntity player = optPlayer.get();
-        TranslatableText text = new TranslatableText("gui.charm.cooking_pot_capacity", String.valueOf(entity.portions));
         BlockEntityRenderDispatcher dispatcher = context.getRenderDispatcher();
         Camera camera = dispatcher.camera;
 
         double distance = ClientHelper.getBlockEntityDistance(player, entity, camera);
+        List<Text> text = new ArrayList<>();
 
-        if (distance < StorageLabels.VIEW_DISTANCE)
-            StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, Collections.singletonList(text));
+        if (entity.name != null && entity.name.isEmpty()) {
+            text.add(new LiteralText(entity.name));
+        }
+        if (entity.portions > 0) {
+            text.add(new TranslatableText("gui.charm.cooking_pot_capacity", entity.portions));
+        }
+
+        if (distance < StorageLabels.viewDistance && !text.isEmpty()) {
+            StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, text);
+        }
     }
 }

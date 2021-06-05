@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class StorageLabelsClient extends CharmClientModule {
+    private static final float SCALE = 0.011F;
     public static final ThreadLocal<BlockEntityRendererFactory.Context> chestBlockEntityContext = new ThreadLocal<>();
     public StorageLabelsClient(CharmModule module) {
         super(module);
@@ -113,7 +114,7 @@ public class StorageLabelsClient extends CharmClientModule {
         matrices.push();
         matrices.translate(0.5F + xo, 0.85F, 0.5F + zo);
         matrices.multiply(camera.getRotation());
-        matrices.scale(-0.014F, -0.014F, 0.014F);
+        matrices.scale(-SCALE, -SCALE, SCALE);
         Matrix4f matrix4f = matrices.peek().getModel();
         float g = gameOptions.getTextBackgroundOpacity(0.0F);
         int j = (int)(g * 255.0F) << 24;

@@ -38,14 +38,16 @@ public class CaskBlockEntityRenderer<T extends CaskBlockEntity> implements Block
         if (entity == null)
             return;
 
-        List<Text> text = new ArrayList<>();
-        TranslatableText portionsText = new TranslatableText("gui.charm.cask_capacity", entity.portions);
+        if (!Casks.showLabel)
+            return;
 
-        if (entity.name == null || entity.name.isEmpty()) {
-            text.add(portionsText);
-        } else {
+        List<Text> text = new ArrayList<>();
+
+        if (entity.name != null && entity.name.isEmpty()) {
             text.add(new LiteralText(entity.name));
-            text.add(portionsText);
+        }
+        if (entity.portions > 0) {
+            text.add(new TranslatableText("gui.charm.cask_capacity", entity.portions));
         }
 
         Optional<PlayerEntity> optPlayer = ClientHelper.getPlayer();
@@ -59,7 +61,7 @@ public class CaskBlockEntityRenderer<T extends CaskBlockEntity> implements Block
 
         double distance = ClientHelper.getBlockEntityDistance(player, entity, camera);
 
-        if (distance < StorageLabels.VIEW_DISTANCE) {
+        if (distance < StorageLabels.viewDistance && !text.isEmpty()) {
             StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, text);
         }
     }

@@ -6,7 +6,6 @@ import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
@@ -14,10 +13,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import svenhjol.charm.module.storage_crates.StorageCrates;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class StorageCrateBlockEntity extends LootableContainerBlockEntity implements BlockEntityClientSerializable, SidedInventory {
@@ -135,9 +132,8 @@ public class StorageCrateBlockEntity extends LootableContainerBlockEntity implem
     }
 
     @Nullable
-    public Item getItemType() {
-        Optional<ItemStack> first = getInvStackList().stream().filter(s -> !s.isEmpty()).findFirst();
-        return first.map(ItemStack::getItem).orElse(null);
+    public ItemStack getItemType() {
+        return getInvStackList().stream().filter(s -> !s.isEmpty()).findFirst().orElse(null);
     }
 
     public int filledStacks() {
@@ -167,11 +163,12 @@ public class StorageCrateBlockEntity extends LootableContainerBlockEntity implem
     }
 
     public ItemStack takeStack() {
-        Item itemType = getItemType();
-        if (itemType == null)
+        ItemStack stack = getItemType();
+        if (stack == null)
             return ItemStack.EMPTY;
 
-        int c = itemType.getMaxCount();
+        int maxCount = stack.getItem().getMaxCount();
+        int c = maxCount;
 
         for (int i = 0; i < getInvStackList().size(); i++) {
             ItemStack stackInSlot = super.getStack(i); // call super so we don't get particle effects
@@ -189,7 +186,8 @@ public class StorageCrateBlockEntity extends LootableContainerBlockEntity implem
 
         doClientRemoveEffect();
 
-        return new ItemStack(itemType, itemType.getMaxCount() - c);
+        stack.setCount(maxCount - c);
+        return stack;
     }
 
     public int getTotalNumberOfItems() {

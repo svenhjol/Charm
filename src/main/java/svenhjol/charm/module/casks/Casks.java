@@ -4,6 +4,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.annotation.Module;
@@ -14,6 +15,9 @@ public class Casks extends CharmModule {
     public static final Identifier ID = new Identifier(Charm.MOD_ID, "cask");
     public static final Identifier TRIGGER_FILLED_WITH_POTION = new Identifier(Charm.MOD_ID, "filled_with_potion");
     public static final Identifier TRIGGER_TAKEN_BREW = new Identifier(Charm.MOD_ID, "taken_brew");
+
+    @Config(name = "Show label", description = "If true, casks show their custom name and capacity as a hovering label. Requires the 'Storage Labels' feature to be enabled.")
+    public static boolean showLabel = true;
 
     public static CaskBlock CASK;
     public static BlockEntityType<CaskBlockEntity> BLOCK_ENTITY;

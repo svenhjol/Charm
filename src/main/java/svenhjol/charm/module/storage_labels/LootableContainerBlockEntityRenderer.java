@@ -2,7 +2,9 @@ package svenhjol.charm.module.storage_labels;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -52,6 +54,12 @@ public class LootableContainerBlockEntityRenderer<T extends BlockEntity> impleme
         if (world == null)
             return;
 
+        if (entity instanceof BarrelBlockEntity && !StorageLabels.showBarrelLabels)
+            return;
+
+        if (entity instanceof ChestBlockEntity && !StorageLabels.showChestLabels)
+            return;
+
         if (!container.hasCustomName()) {
             // ask the server to update this container with a custom name
             if (!cachedPos.containsKey(pos)) {
@@ -79,7 +87,7 @@ public class LootableContainerBlockEntityRenderer<T extends BlockEntity> impleme
         LiteralText text = (LiteralText) container.getDisplayName();
 
         double distance = ClientHelper.getBlockEntityDistance(player, container, camera);
-        if (distance < StorageLabels.VIEW_DISTANCE)
+        if (distance < StorageLabels.viewDistance)
             StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, Collections.singletonList(text));
     }
 }

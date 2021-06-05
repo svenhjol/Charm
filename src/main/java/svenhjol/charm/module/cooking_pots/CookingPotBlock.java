@@ -68,6 +68,9 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                 CookingPots.triggerFilledWater((ServerPlayerEntity) player);
             }
 
+            if (state.get(HAS_FIRE))
+                CookingPots.triggerLitFire((ServerPlayerEntity) player);
+
             return ActionResult.success(world.isClient);
         }
         if (state.get(LIQUID) > 0 && state.get(HAS_FIRE)) {
@@ -96,7 +99,7 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                             }
 
                             // do take food advancement
-                            if (pot.portions > 1 && pot.contents.size() > 1) {
+                            if (pot.portions > 0) {
                                 CookingPots.triggerTakenFood((ServerPlayerEntity) player);
                             }
                         }
@@ -123,7 +126,7 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                             ServerPlayNetworking.send((ServerPlayerEntity) player, CookingPots.MSG_CLIENT_ADDED_TO_POT, data);
 
                             // do add items advancement
-                            if (pot.portions > 1 && pot.contents.size() > 1) {
+                            if (pot.portions > 0) {
                                 CookingPots.triggerAddedItem((ServerPlayerEntity) player);
                             }
                         }

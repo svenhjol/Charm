@@ -40,6 +40,9 @@ public class StorageCrates extends CharmModule {
     @Config(name = "Maximum stacks", description = "Number of stacks of a single item or block that a storage crate will hold.")
     public static int maximumStacks = 54;
 
+    @Config(name = "Show label", description = "If true, storage crates show their type and capacity as a hovering label. Requires the 'Storage Labels' feature to be enabled.")
+    public static boolean showLabel = true;
+
     @Override
     public void register() {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
