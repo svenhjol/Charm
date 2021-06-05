@@ -51,7 +51,7 @@ public class StorageLabels extends CharmModule {
     public static boolean showChestLabels = true;
 
     @Config(name = "View distance", description = "Maximum squared distance at which label will be shown. Lower = player closer, Higher = player further.")
-    public static int viewDistance = 24;
+    public static int viewDistance = 10;
 
     @Override
     public void init() {
