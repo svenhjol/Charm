@@ -38,6 +38,9 @@ public class StorageLabels extends CharmModule {
     public static final Identifier MSG_CLIENT_HAS_NO_CUSTOM_NAME = new Identifier(Charm.MOD_ID, "client_has_no_custom_name");
     public static final Identifier MSG_CLIENT_CLEAR_CUSTOM_NAME = new Identifier(Charm.MOD_ID, "client_clear_custom_name");
 
+    // hovering text scale factor
+    public static final float SCALE = 0.010F;
+
     @Config(name = "Always show", description = "If true, floating labels will show even if the player is not sneaking.")
     public static boolean alwaysShow = false;
 
@@ -48,7 +51,7 @@ public class StorageLabels extends CharmModule {
     public static boolean showChestLabels = true;
 
     @Config(name = "View distance", description = "Maximum squared distance at which label will be shown. Lower = player closer, Higher = player further.")
-    public static int viewDistance = 32;
+    public static int viewDistance = 24;
 
     @Override
     public void init() {
