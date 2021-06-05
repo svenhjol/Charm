@@ -43,7 +43,7 @@ public class CaskBlockEntityRenderer<T extends CaskBlockEntity> implements Block
 
         List<Text> text = new ArrayList<>();
 
-        if (entity.name != null && entity.name.isEmpty()) {
+        if (entity.name != null && !entity.name.isEmpty()) {
             text.add(new LiteralText(entity.name));
         }
         if (entity.portions > 0) {

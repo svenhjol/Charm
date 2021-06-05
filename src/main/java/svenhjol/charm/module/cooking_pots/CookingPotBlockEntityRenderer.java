@@ -32,7 +32,7 @@ import java.util.Optional;
 public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> implements BlockEntityRenderer<T> {
     private BlockEntityRendererFactory.Context context;
     private int index = 0;
-    private int ticks = 0;
+    private float ticks = 0.0F;
 
     public CookingPotBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
         this.context = context;
@@ -77,9 +77,9 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
         }
 
         matrices.translate(0, 0.52 + (((ticks > 180 ? (360 - ticks) : ticks) / 180.0F) * 0.39F), 0);
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((float)ticks));
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(ticks));
 
-        ticks++;
+        ticks += 0.5F;
 
         MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.hashCode());
         matrices.pop();
@@ -96,7 +96,7 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
         double distance = ClientHelper.getBlockEntityDistance(player, entity, camera);
         List<Text> text = new ArrayList<>();
 
-        if (entity.name != null && entity.name.isEmpty()) {
+        if (entity.name != null && !entity.name.isEmpty()) {
             text.add(new LiteralText(entity.name));
         }
         if (entity.portions > 0) {
