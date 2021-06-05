@@ -66,10 +66,10 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                 player.setStackInHand(hand, new ItemStack(Items.BUCKET));
                 world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.8F, 1.0F);
                 CookingPots.triggerFilledWater((ServerPlayerEntity) player);
-            }
 
-            if (state.get(HAS_FIRE))
-                CookingPots.triggerLitFire((ServerPlayerEntity) player);
+                if (state.get(HAS_FIRE))
+                    CookingPots.triggerLitFire((ServerPlayerEntity) player);
+            }
 
             return ActionResult.success(world.isClient);
         }
@@ -83,9 +83,7 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                         pot.name = held.getName().asString();
                         pot.markDirty();
                         world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 0.85F, 1.1F);
-
-                        if (!player.isCreative())
-                            held.decrement(1);
+                        held.decrement(1);
 
                     } else if (held.getItem() == Items.BOWL) {
                         ItemStack out = pot.take(world, pos, state, held);
@@ -99,9 +97,8 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                             }
 
                             // do take food advancement
-                            if (pot.portions > 0) {
+                            if (pot.portions > 0)
                                 CookingPots.triggerTakenFood((ServerPlayerEntity) player);
-                            }
                         }
 
                     } else if (held.isFood()) {
@@ -110,15 +107,13 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                         if (result) {
                             world.playSound(null, pos, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.BLOCKS, 0.5F, 1.0F);
 
-                            if (!player.getAbilities().creativeMode) {
-                                // if the food has a bowl, give it back to the player
-                                if (ItemHelper.getBowlFoodItems().contains(copy.getItem()))
-                                    PlayerHelper.addOrDropStack(player, new ItemStack(Items.BOWL));
+                            // if the food has a bowl, give it back to the player
+                            if (ItemHelper.getBowlFoodItems().contains(copy.getItem()))
+                                PlayerHelper.addOrDropStack(player, new ItemStack(Items.BOWL));
 
-                                // if the food has a bottle, give it back to the player
-                                if (ItemHelper.getBottleFoodItems().contains(copy.getItem()))
-                                    PlayerHelper.addOrDropStack(player, new ItemStack(Items.GLASS_BOTTLE));
-                            }
+                            // if the food has a bottle, give it back to the player
+                            if (ItemHelper.getBottleFoodItems().contains(copy.getItem()))
+                                PlayerHelper.addOrDropStack(player, new ItemStack(Items.GLASS_BOTTLE));
 
                             // send message to client that an item was added
                             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());

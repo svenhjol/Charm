@@ -71,10 +71,8 @@ public class MixedStewItem extends CharmItem {
                 Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity)player, stack);
             }
 
-            if (!player.getAbilities().creativeMode) {
-                stack.decrement(1);
-                player.giveItemStack(new ItemStack(Items.BOWL));
-            }
+            stack.decrement(1);
+            player.giveItemStack(new ItemStack(Items.BOWL));
 
             user.emitGameEvent(GameEvent.EAT);
         }
