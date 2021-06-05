@@ -48,7 +48,7 @@ public class CookingPotsClient extends CharmClientModule {
     private int handleColorProvider(BlockState state, @Nullable BlockRenderView world, @Nullable BlockPos pos, int tintIndex) {
         if (world != null) {
             if (state.getBlock() == CookingPots.COOKING_POT && state.get(CookingPotBlock.LIQUID) == 2) {
-                return 0x804300;
+                return 0x602A00;
             }
         }
         return 0x0088CC;
