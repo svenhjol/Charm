@@ -9,6 +9,7 @@ import net.minecraft.structure.MineshaftGenerator.MineshaftCorridor;
 import net.minecraft.structure.MineshaftGenerator.MineshaftRoom;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -19,11 +20,14 @@ import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.MineshaftFeature;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
-import svenhjol.charm.mixin.accessor.MineshaftGeneratorAccessor;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.mixin.accessor.MineshaftCorridorAccessor;
+import svenhjol.charm.mixin.accessor.MineshaftPartAccessor;
 import svenhjol.charm.mixin.accessor.StructurePieceAccessor;
+import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.module.copper_rails.CopperRails;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,12 +39,12 @@ import java.util.Random;
 public class MineshaftImprovements extends CharmModule {
     public static List<BlockState> floorBlocks = new ArrayList<>();
     public static List<BlockState> ceilingBlocks = new ArrayList<>();
-    public static List<BlockState> pileBlocks = new ArrayList<>();
+    public static List<Pair<BlockState, BlockState>> pileBlocks = new ArrayList<>();
     public static List<BlockState> roomBlocks = new ArrayList<>();
     public static List<BlockState> roomDecoration = new ArrayList<>();
     public static List<Identifier> minecartLootTables = new ArrayList<>();
 
-    public static float floorBlockChance = 0.003F;
+    public static float floorBlockChance = 0.019F;
     public static float ceilingBlockChance = 0.01F;
     public static float roomBlockChance = 0.25F;
     public static float blockPileChance = 0.2F;
@@ -68,18 +72,22 @@ public class MineshaftImprovements extends CharmModule {
             Blocks.TNT.getDefaultState(),
             Blocks.IRON_ORE.getDefaultState(),
             Blocks.GOLD_ORE.getDefaultState(),
-            Blocks.LANTERN.getDefaultState()
+            Blocks.COPPER_ORE.getDefaultState(),
+            Blocks.LANTERN.getDefaultState(),
+            Blocks.CAMPFIRE.getDefaultState().with(CampfireBlock.LIT, false)
         ));
 
         pileBlocks.addAll(Arrays.asList(
-            Blocks.IRON_ORE.getDefaultState(),
-            Blocks.COAL_ORE.getDefaultState(),
-            Blocks.REDSTONE_ORE.getDefaultState(),
-            Blocks.GOLD_ORE.getDefaultState(),
-            Blocks.LAPIS_ORE.getDefaultState(),
-            Blocks.COBBLESTONE.getDefaultState(),
-            Blocks.COARSE_DIRT.getDefaultState(),
-            Blocks.GRAVEL.getDefaultState()
+            new Pair<>(Blocks.IRON_ORE.getDefaultState(), Blocks.RAW_IRON_BLOCK.getDefaultState()),
+            new Pair<>(Blocks.COPPER_ORE.getDefaultState(), Blocks.RAW_COPPER_BLOCK.getDefaultState()),
+            new Pair<>(Blocks.GOLD_ORE.getDefaultState(), Blocks.RAW_GOLD_BLOCK.getDefaultState()),
+            new Pair<>(Blocks.LAPIS_ORE.getDefaultState(), Blocks.COAL_ORE.getDefaultState()),
+            new Pair<>(Blocks.REDSTONE_ORE.getDefaultState(), Blocks.COBBLESTONE.getDefaultState()),
+            new Pair<>(Blocks.GRAVEL.getDefaultState(), Blocks.COAL_ORE.getDefaultState()),
+            new Pair<>(Blocks.COARSE_DIRT.getDefaultState(), Blocks.DIRT.getDefaultState()),
+            new Pair<>(Blocks.DEEPSLATE.getDefaultState(), Blocks.DEEPSLATE_COAL_ORE.getDefaultState()),
+            new Pair<>(Blocks.DEEPSLATE.getDefaultState(), Blocks.DEEPSLATE_IRON_ORE.getDefaultState()),
+            new Pair<>(Blocks.DEEPSLATE.getDefaultState(), Blocks.DEEPSLATE_GOLD_ORE.getDefaultState())
         ));
 
         ceilingBlocks.addAll(Arrays.asList(
@@ -91,7 +99,11 @@ public class MineshaftImprovements extends CharmModule {
             Blocks.DIAMOND_ORE.getDefaultState(),
             Blocks.EMERALD_ORE.getDefaultState(),
             Blocks.GOLD_ORE.getDefaultState(),
-            Blocks.LAPIS_ORE.getDefaultState()
+            Blocks.LAPIS_ORE.getDefaultState(),
+            Blocks.DEEPSLATE_DIAMOND_ORE.getDefaultState(),
+            Blocks.DEEPSLATE_EMERALD_ORE.getDefaultState(),
+            Blocks.DEEPSLATE_GOLD_ORE.getDefaultState(),
+            Blocks.DEEPSLATE_LAPIS_ORE.getDefaultState()
         ));
 
         roomDecoration.addAll(Arrays.asList(
@@ -109,6 +121,22 @@ public class MineshaftImprovements extends CharmModule {
             LootTables.VILLAGE_TOOLSMITH_CHEST,
             LootTables.VILLAGE_WEAPONSMITH_CHEST
         ));
+
+        // add candles to floor blocks
+        List<Block> candles = new ArrayList<>(Arrays.asList(
+            Blocks.BLACK_CANDLE, Blocks.BROWN_CANDLE, Blocks.GRAY_CANDLE
+        ));
+
+        candles.forEach(candle -> {
+            for (int i = 1; i <= 4; i++) {
+                floorBlocks.add(candle.getDefaultState().with(CandleBlock.LIT, true).with(CandleBlock.CANDLES, i));
+            }
+        });
+
+        if (ModuleHandler.enabled("charm:copper_rails")) {
+            floorBlocks.add(CopperRails.COPPER_RAIL.getDefaultState().with(RailBlock.SHAPE, RailShape.EAST_WEST));
+            floorBlocks.add(CopperRails.COPPER_RAIL.getDefaultState().with(RailBlock.SHAPE, RailShape.NORTH_SOUTH));
+        }
     }
 
     public static void generatePiece(StructurePiece piece, StructureWorldAccess world, StructureAccessor accessor, ChunkGenerator chunkGenerator, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos) {
@@ -116,7 +144,7 @@ public class MineshaftImprovements extends CharmModule {
             return;
 
         // don't add any decoration to mesa mineshafts
-        if (((MineshaftGeneratorAccessor)piece).getMineshaftType() == MineshaftFeature.Type.MESA)
+        if (((MineshaftPartAccessor)piece).getMineshaftType() == MineshaftFeature.Type.MESA)
             return;
 
         if (piece instanceof MineshaftCorridor) {
@@ -127,25 +155,20 @@ public class MineshaftImprovements extends CharmModule {
     }
 
     private static void corridor(MineshaftCorridor piece, StructureWorldAccess world, StructureAccessor accessor, ChunkGenerator chunkGenerator, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos) {
-        int bx = box.getMaxX() - box.getMinX();
-        int bz = box.getMaxZ() - box.getMinZ();
-
         if (generateCorridorBlocks) {
-            if (bx <= 0) bx = 3;
-            if (bz <= 0) bz = 7;
-            for (int x = 0; x < bx; x++) {
+            for (int x = 0; x < 3; x++) {
                 if (x == 1 && rand.nextFloat() < 0.08F)
                     continue; // rarely, spawn some block in the middle of the corridor
-                for (int z = 0; z < bz; z++) {
-                    boolean validCeiling = ((MineshaftGeneratorAccessor) piece).invokeIsSolidCeiling(world, box, x, x, 2, z);
+                for (int z = 0; z < 7; z++) {
+                    boolean validCeiling = ((MineshaftPartAccessor) piece).invokeIsSolidCeiling(world, box, x, x, 2, z);
                     boolean validFloor = validFloorBlock(piece, world, x, 0, z, box);
 
                     if (!validCeiling)
                         continue;
 
-                    if (validFloor && rand.nextFloat() < floorBlockChance) {
+                    if (validFloor && rand.nextFloat() < floorBlockChance && ((MineshaftCorridorAccessor)piece).invokePositionChecker(world, box, x, 0, z, 2)) {
                         ((StructurePieceAccessor)piece).callAddBlock(world, getFloorBlock(rand), x, 0, z, box);
-                    } else if (rand.nextFloat() < ceilingBlockChance) {
+                    } else if (rand.nextFloat() < ceilingBlockChance && ((MineshaftCorridorAccessor)piece).invokePositionChecker(world, box, x, 2, z, 2)) {
                         ((StructurePieceAccessor)piece).callAddBlock(world, getCeilingBlock(rand), x, 2, z, box);
                     }
                 }
@@ -153,19 +176,18 @@ public class MineshaftImprovements extends CharmModule {
         }
 
         if (generateCorridorPiles && rand.nextFloat() < blockPileChance) {
-            int z = rand.nextInt(bz);
+            int z = rand.nextInt(7);
             if (validFloorBlock(piece, world, 1, 0, z, box)) {
 
                 // select two block states to render in the pile
-                BlockState block1 = getRandomBlockFromList(pileBlocks, rand);
-                BlockState block2 = getRandomBlockFromList(pileBlocks, rand);
+                Pair<BlockState, BlockState> pair = getRandomPairFromList(pileBlocks, rand);
 
                 for (int iy = 0; iy < 3; iy++) {
                     for (int ix = 0; ix <= 2; ix++) {
                         for (int iz = -1; iz <= 1; iz++) {
                             boolean valid = validFloorBlock(piece, world, ix, iy, iz, box);
                             if (valid && rand.nextFloat() < 0.7F)
-                                ((StructurePieceAccessor)piece).callAddBlock(world, rand.nextFloat() < 0.5 ? block1 : block2, ix, iy, iz, box);
+                                ((StructurePieceAccessor)piece).callAddBlock(world, rand.nextFloat() < 0.5 ? pair.getLeft() : pair.getRight(), ix, iy, iz, box);
                         }
                     }
                 }
@@ -223,11 +245,11 @@ public class MineshaftImprovements extends CharmModule {
                             BlockState state;
                             if (y == 1) {
                                 state = rand.nextFloat() < 0.5F
-                                    ? getRandomBlockFromList(roomBlocks, rand)
-                                    : getRandomBlockFromList(roomDecoration, rand);
+                                    ? getRandomFromList(roomBlocks, rand)
+                                    : getRandomFromList(roomDecoration, rand);
                             } else {
                                 if (rand.nextFloat() < 0.5F) continue;
-                                state = getRandomBlockFromList(roomBlocks, rand);
+                                state = getRandomFromList(roomBlocks, rand);
                             }
                             BlockPos pos = new BlockPos(((StructurePieceAccessor)piece).getBoundingBox().getMinX() + x, ((StructurePieceAccessor)piece).getBoundingBox().getMinY() + y, ((StructurePieceAccessor)piece).getBoundingBox().getMinZ() + z);
 
@@ -261,14 +283,18 @@ public class MineshaftImprovements extends CharmModule {
     }
 
     private static BlockState getFloorBlock(Random rand) {
-        return getRandomBlockFromList(floorBlocks, rand);
+        return getRandomFromList(floorBlocks, rand);
     }
 
     private static BlockState getCeilingBlock(Random rand) {
-        return getRandomBlockFromList(ceilingBlocks, rand);
+        return getRandomFromList(ceilingBlocks, rand);
     }
 
-    private static BlockState getRandomBlockFromList(List<BlockState> blocks, Random rand) {
+    private static BlockState getRandomFromList(List<BlockState> blocks, Random rand) {
+        return blocks.get(rand.nextInt(blocks.size()));
+    }
+
+    private static Pair<BlockState, BlockState> getRandomPairFromList(List<Pair<BlockState, BlockState>> blocks, Random rand) {
         return blocks.get(rand.nextInt(blocks.size()));
     }
 }

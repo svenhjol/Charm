@@ -10,7 +10,7 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(targets = {"net/minecraft/structure/MineshaftGenerator$MineshaftPart"})
 @CharmMixin(required = true)
-public interface MineshaftGeneratorAccessor {
+public interface MineshaftPartAccessor {
     @Accessor
     MineshaftFeature.Type getMineshaftType();
 

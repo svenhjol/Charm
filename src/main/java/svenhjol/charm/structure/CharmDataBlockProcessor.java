@@ -18,21 +18,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.WorldView;
-import svenhjol.charm.init.CharmStructures;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.DecorationHelper;
 import svenhjol.charm.helper.LootHelper;
+import svenhjol.charm.init.CharmStructures;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
 import svenhjol.charm.module.bookcases.BookcaseBlockEntity;
-import svenhjol.charm.module.entity_spawners.EntitySpawnerBlockEntity;
 import svenhjol.charm.module.bookcases.Bookcases;
+import svenhjol.charm.module.entity_spawners.EntitySpawnerBlockEntity;
 import svenhjol.charm.module.entity_spawners.EntitySpawners;
 import svenhjol.charm.module.variant_barrels.VariantBarrels;
 import svenhjol.charm.module.variant_bookshelves.VariantBookshelves;
 import svenhjol.charm.module.variant_chests.VariantChests;
-import svenhjol.charm.module.variant_lanterns.VariantLanterns;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -321,10 +320,6 @@ public class CharmDataBlockProcessor extends StructureProcessor {
         protected void lantern() {
             if (!withChance(LANTERN_CHANCE)) return;
             state = Blocks.LANTERN.getDefaultState();
-
-            if (ModuleHandler.enabled("charm:variant_lanterns") && random.nextFloat() < LANTERN_VARIANT_CHANCE) {
-                state = VariantLanterns.getRandomLantern(random).getDefaultState();
-            }
 
             if (data.contains("hanging"))
                 state = state.with(LanternBlock.HANGING, true);
