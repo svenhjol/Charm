@@ -67,22 +67,25 @@ public class Quadrants extends CharmModule {
         Direction direction = lockedDirection.get(player.getUUID());
         Collection<Property<?>> properties = state.getProperties();
         Block block = state.getBlock();
+        boolean heldRotate = false;
 
-        if (properties.contains(BlockStateProperties.FACING))
-            return state.setValue(BlockStateProperties.FACING, direction);
-
-        if (properties.contains(BlockStateProperties.HORIZONTAL_FACING)) {
+        if (properties.contains(BlockStateProperties.FACING)) {
+            state = state.setValue(BlockStateProperties.FACING, direction);
+            heldRotate = true;
+        } else if (properties.contains(BlockStateProperties.HORIZONTAL_FACING)) {
             if (block instanceof StairBlock) {
-                return state.setValue(BlockStateProperties.HORIZONTAL_FACING, direction.getOpposite());
+                state = state.setValue(BlockStateProperties.HORIZONTAL_FACING, direction.getOpposite());
             } else {
-                return state.setValue(BlockStateProperties.HORIZONTAL_FACING, direction);
+                state = state.setValue(BlockStateProperties.HORIZONTAL_FACING, direction);
             }
+            heldRotate = true;
+        } else if (properties.contains(BlockStateProperties.AXIS)) {
+            state = state.setValue(BlockStateProperties.AXIS, direction.getAxis());
+            heldRotate = true;
         }
 
-        if (properties.contains(BlockStateProperties.AXIS)) {
+        if (!player.level.isClientSide && heldRotate)
             triggerHeldToAlign((ServerPlayer) player);
-            return state.setValue(BlockStateProperties.AXIS, direction.getAxis());
-        }
 
         return state;
     }
@@ -122,7 +125,7 @@ public class Quadrants extends CharmModule {
                 world.getBlockTicks().scheduleTick(pos, state.getBlock(), 4);
                 world.playSound(null, pos, CharmSounds.QUADRANT, SoundSource.BLOCKS, 0.35F + (0.25F * world.random.nextFloat()), 0.8F + (0.4F * world.random.nextFloat()));
 
-                if (!world.isClientSide && state.getBlock() instanceof AbstractChestBlock)
+                if (!world.isClientSide)
                     triggerRotatedBlock((ServerPlayer) player);
 
                 // damage the quadrant a bit
