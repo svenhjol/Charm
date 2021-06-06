@@ -1,25 +1,25 @@
 package svenhjol.charm.module.totem_of_preserving;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.EntityDropXpCallback;
 import svenhjol.charm.event.PlayerDropInventoryCallback;
+import svenhjol.charm.helper.ItemHelper;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,23 +46,23 @@ public class TotemOfPreserving extends CharmModule {
         EntityDropXpCallback.BEFORE.register(this::tryInterceptDropXp);
     }
 
-    public ActionResult tryInterceptDropXp(LivingEntity entity) {
-        if (!preserveXp || !(entity instanceof PlayerEntity) || entity.world.isClient)
-            return ActionResult.PASS;
+    public InteractionResult tryInterceptDropXp(LivingEntity entity) {
+        if (!preserveXp || !(entity instanceof Player) || entity.level.isClientSide)
+            return InteractionResult.PASS;
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
-    public ActionResult tryInterceptDropInventory(PlayerEntity player, PlayerInventory inventory) {
-        if (player.world.isClient)
-            return ActionResult.PASS;
+    public InteractionResult tryInterceptDropInventory(Player player, Inventory inventory) {
+        if (player.level.isClientSide)
+            return InteractionResult.PASS;
 
-        ServerWorld world = (ServerWorld)player.world;
+        ServerLevel world = (ServerLevel)player.level;
         Random random = world.getRandom();
         ItemStack totem = new ItemStack(TOTEM_OF_PRESERVING);
-        NbtCompound serialized = new NbtCompound();
+        CompoundTag serialized = new CompoundTag();
         List<ItemStack> holdable = new ArrayList<>();
-        List<DefaultedList<ItemStack>> combined = ImmutableList.of(inventory.main, inventory.armor, inventory.offHand);
+        List<NonNullList<ItemStack>> combined = ImmutableList.of(inventory.items, inventory.armor, inventory.offhand);
 
         combined.forEach(list
             -> list.stream().filter(Objects::nonNull).filter(stack -> !stack.isEmpty()).forEach(holdable::add));
@@ -79,11 +79,11 @@ public class TotemOfPreserving extends CharmModule {
                 continue;
             }
 
-            serialized.put(Integer.toString(i), holdable.get(i).writeNbt(new NbtCompound()));
+            serialized.put(Integer.toString(i), holdable.get(i).save(new CompoundTag()));
         }
 
         TotemOfPreservingItem.setItems(totem, serialized);
-        TotemOfPreservingItem.setMessage(totem, player.getEntityName());
+        TotemOfPreservingItem.setMessage(totem, player.getScoreboardName());
 
         if (preserveXp)
             TotemOfPreservingItem.setXp(totem, player.totalExperience);
@@ -91,13 +91,13 @@ public class TotemOfPreserving extends CharmModule {
         if (!TotemOfPreservingItem.getItems(totem).isEmpty())
             totemsToSpawn.add(totem);
 
-        BlockPos playerPos = player.getBlockPos();
+        BlockPos playerPos = player.blockPosition();
 
         double x = playerPos.getX() + 0.25D;
         double y = playerPos.getY() + 0.75D;
         double z = playerPos.getZ() + 0.25D;
 
-        if (y < world.getBottomY())
+        if (y < world.getMinBuildHeight())
             y = world.getSeaLevel(); // fetching your totem from the void is sad
 
         // spawn totems
@@ -108,25 +108,25 @@ public class TotemOfPreserving extends CharmModule {
 
             ItemEntity totemEntity = new ItemEntity(world, x, y, z, stack);
             totemEntity.setNoGravity(true);
-            totemEntity.setVelocity(0, 0, 0);
-            totemEntity.setPos(tx, ty, tz);
-            totemEntity.setCovetedItem();
-            totemEntity.setGlowing(true);
+            totemEntity.setDeltaMovement(0, 0, 0);
+            totemEntity.setPosRaw(tx, ty, tz);
+            totemEntity.setExtendedLifetime();
+            totemEntity.setGlowingTag(true);
             totemEntity.setInvulnerable(true);
 
-            world.spawnEntity(totemEntity);
+            world.addFreshEntity(totemEntity);
         }
 
-        Criteria.USED_TOTEM.trigger((ServerPlayerEntity)player, totem);
+        CriteriaTriggers.USED_TOTEM.trigger((ServerPlayer)player, totem);
         Charm.LOG.info("Totem of Preserving spawned at " + new BlockPos(x, y, z));
 
         // clear player's inventory
-        for (DefaultedList<ItemStack> inv : combined) {
+        for (NonNullList<ItemStack> inv : combined) {
             for (int i = 0; i < inv.size(); i++) {
                 inv.set(i, ItemStack.EMPTY);
             }
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

@@ -1,27 +1,28 @@
 package svenhjol.charm.module.snow_storms;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SnowBlock;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SnowLayerBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.module.snow_storms.SnowStormsClient;
 
 @Module(mod = Charm.MOD_ID, client = SnowStormsClient.class, description = "Increases snow layers in cold biomes during thunderstorms.")
 public class SnowStorms extends CharmModule {
-    public static final Identifier HEAVY_SNOW = new Identifier(Charm.MOD_ID, "textures/environment/heavy_snow.png");
+    public static final ResourceLocation HEAVY_SNOW = new ResourceLocation(Charm.MOD_ID, "textures/environment/heavy_snow.png");
 
     @Config(name = "Snow layer chance", description = "Chance (out of 1.0) every tick of snow increasing by one layer during a thunderstorm.")
     public static double snowLayerChance = 0.15D;
@@ -33,57 +34,57 @@ public class SnowStorms extends CharmModule {
     public static boolean freezingDamage = true;
 
     public static boolean shouldFreezeEntity(LivingEntity entity) {
-        World world = entity.world;
-        BlockPos pos = entity.getBlockPos();
+        Level world = entity.level;
+        BlockPos pos = entity.blockPosition();
 
         return ModuleHandler.enabled(SnowStorms.class)
             && SnowStorms.freezingDamage
-            && !world.isClient
+            && !world.isClientSide
             && world.isThundering()
-            && entity instanceof PlayerEntity // limit to players, all entities is too nasty
-            && !((PlayerEntity)entity).getAbilities().creativeMode
-            && world.isSkyVisible(pos)
+            && entity instanceof Player // limit to players, all entities is too nasty
+            && !((Player)entity).getAbilities().instabuild
+            && world.canSeeSky(pos)
             && world.getBiome(pos) != null
-            && world.getBiome(pos).isCold(pos);
+            && world.getBiome(pos).isColdEnoughToSnow(pos);
     }
 
-    public static boolean tryRandomTick(ServerWorld world) {
+    public static boolean tryRandomTick(ServerLevel world) {
         return ModuleHandler.enabled(SnowStorms.class) && world.isThundering();
     }
 
-    public static void tryPlaceSnow(ServerWorld world, int chunkX, int chunkZ) {
+    public static void tryPlaceSnow(ServerLevel world, int chunkX, int chunkZ) {
         if (!ModuleHandler.enabled(SnowStorms.class) || !world.isThundering())
             return;
 
         if (world.random.nextDouble() < snowLayerChance) {
-            BlockPos pos = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, world.getRandomPosInChunk(chunkX, 0, chunkZ, 15));
-            BlockPos downPos = pos.down();
+            BlockPos pos = world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, world.getBlockRandomPos(chunkX, 0, chunkZ, 15));
+            BlockPos downPos = pos.below();
             BlockState downState = world.getBlockState(downPos);
             Biome biome = world.getBiome(pos);
 
-            if (biome.getTemperature(pos) < 0.15F && pos.getY() >= world.getBottomY() && pos.getY() < world.getTopY()) {
+            if (biome.getTemperature(pos) < 0.15F && pos.getY() >= world.getMinBuildHeight() && pos.getY() < world.getMaxBuildHeight()) {
                 BlockState state = world.getBlockState(pos);
                 Block block = state.getBlock();
 
                 if (state.isAir()) {
-                    if (!downState.isOf(Blocks.ICE)
-                        && !downState.isOf(Blocks.PACKED_ICE)
-                        && !downState.isOf(Blocks.BARRIER)
-                        && !downState.isOf(Blocks.HONEY_BLOCK)
-                        && !downState.isOf(Blocks.SOUL_SAND)
-                        && !downState.isOf(Blocks.SNOW)
-                        && Block.isFaceFullSquare(downState.getCollisionShape(world, downPos), Direction.UP)
+                    if (!downState.is(Blocks.ICE)
+                        && !downState.is(Blocks.PACKED_ICE)
+                        && !downState.is(Blocks.BARRIER)
+                        && !downState.is(Blocks.HONEY_BLOCK)
+                        && !downState.is(Blocks.SOUL_SAND)
+                        && !downState.is(Blocks.SNOW)
+                        && Block.isFaceFull(downState.getCollisionShape(world, downPos), Direction.UP)
                     ) {
-                        world.setBlockState(pos, Blocks.SNOW.getDefaultState());
+                        world.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
                         return;
                     }
                 }
 
                 if (block == Blocks.SNOW) {
-                    int layers = state.get(SnowBlock.LAYERS);
+                    int layers = state.getValue(SnowLayerBlock.LAYERS);
                     if (layers < 8) {
-                        state = state.with(SnowBlock.LAYERS, ++layers);
-                        world.setBlockState(pos, state);
+                        state = state.setValue(SnowLayerBlock.LAYERS, ++layers);
+                        world.setBlockAndUpdate(pos, state);
                     }
                 }
             }

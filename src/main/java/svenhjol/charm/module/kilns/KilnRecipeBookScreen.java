@@ -2,23 +2,22 @@ package svenhjol.charm.module.kilns;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.client.gui.screen.recipebook.AbstractFurnaceRecipeBookScreen;
-import net.minecraft.item.Item;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-
+import net.minecraft.client.gui.screens.recipebook.AbstractFurnaceRecipeBookComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import java.util.Set;
 
 @Environment(EnvType.CLIENT)
-public class KilnRecipeBookScreen extends AbstractFurnaceRecipeBookScreen {
-    private static final Text text = new TranslatableText("gui.charm.recipebook.toggleRecipes.fireable");
+public class KilnRecipeBookScreen extends AbstractFurnaceRecipeBookComponent {
+    private static final Component text = new TranslatableComponent("gui.charm.recipebook.toggleRecipes.fireable");
 
-    protected Text getToggleCraftableButtonText() {
+    protected Component getRecipeFilterName() {
         return text;
     }
 
-    protected Set<Item> getAllowedFuels() {
-        return AbstractFurnaceBlockEntity.createFuelTimeMap().keySet();
+    protected Set<Item> getFuelItems() {
+        return AbstractFurnaceBlockEntity.getFuel().keySet();
     }
 }

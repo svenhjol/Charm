@@ -1,7 +1,7 @@
 package svenhjol.charm.mixin.armor_invisibility;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,18 +20,17 @@ public abstract class ReduceAttackDistanceMixin {
      * This means that mobs will not detect an invisible player wearing armor that
      * turns invisible e.g. leather and chainmail.
      */
-    @Shadow
-    public abstract Iterable<ItemStack> getArmorItems();
+    @Shadow public abstract Iterable<ItemStack> getArmorSlots();
 
     @Inject(
-        method = "getArmorVisibility",
+        method = "getArmorCoverPercentage",
         at = @At(value = "HEAD"),
         cancellable = true
     )
     private void hookGetArmorVisibility(CallbackInfoReturnable<Float> cir) {
         if (ModuleHandler.enabled("charm:armor_invisibility")) {
             LivingEntity entity = (LivingEntity) (Object) this;
-            Iterable<ItemStack> armorItems = this.getArmorItems();
+            Iterable<ItemStack> armorItems = this.getArmorSlots();
 
             int i = 0;
             int j = 0;

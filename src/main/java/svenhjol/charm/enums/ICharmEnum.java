@@ -1,18 +1,18 @@
 package svenhjol.charm.enums;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.Locale;
 
-@SuppressWarnings({"NullableProblems", "rawtypes"})
-public interface ICharmEnum extends StringIdentifiable {
+@SuppressWarnings({"NullableProblems", "rawtypes", "unused"})
+public interface ICharmEnum extends StringRepresentable {
     @Override
-    default String asString() {
+    default String getSerializedName() {
         return ((Enum)this).name().toLowerCase(Locale.ENGLISH);
     }
 
     default String getCapitalizedName() {
-        String name = asString();
+        String name = getSerializedName();
         return name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 }

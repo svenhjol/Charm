@@ -1,12 +1,11 @@
 package svenhjol.charm.module.inventory_tidying;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
 import java.util.*;
 import java.util.function.Predicate;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class InventoryTidyingHandler {
     public static final int BE = 0;
@@ -20,7 +19,7 @@ public class InventoryTidyingHandler {
         testCompare.put(clazzTest(BlockItem.class), blockCompare());
     }
 
-    public static void sort(Inventory inventory, int startSlot, int endSlot) {
+    public static void sort(Container inventory, int startSlot, int endSlot) {
         List<ItemStack> stacks = new ArrayList<>();
 
         populate(inventory, stacks, startSlot, endSlot);
@@ -29,9 +28,9 @@ public class InventoryTidyingHandler {
         setInventory(inventory, stacks, startSlot, endSlot);
     }
 
-    public static void populate(Inventory inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
+    public static void populate(Container inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
         for (int i = startSlot; i < endSlot; i++) {
-            ItemStack stackInSlot = inventory.getStack(i);
+            ItemStack stackInSlot = inventory.getItem(i);
 
             if (!stackInSlot.isEmpty())
                 stacks.add(stackInSlot.copy());
@@ -56,16 +55,16 @@ public class InventoryTidyingHandler {
                 if (stack1.isEmpty())
                     continue;
 
-                if (stack1.getCount() < stack1.getMaxCount()
-                    && ItemStack.areItemsEqual(stack, stack1)
-                    && ItemStack.areTagsEqual(stack, stack1)
+                if (stack1.getCount() < stack1.getMaxStackSize()
+                    && ItemStack.isSameIgnoreDurability(stack, stack1)
+                    && ItemStack.tagMatches(stack, stack1)
                 ) {
                     int setSize = stack1.getCount() + stack.getCount();
-                    int carryover = Math.max(0, setSize - stack1.getMaxCount());
+                    int carryover = Math.max(0, setSize - stack1.getMaxStackSize());
                     stack1.setCount(carryover);
                     stack.setCount(setSize - carryover);
 
-                    if (stack.getCount() == stack.getMaxCount())
+                    if (stack.getCount() == stack.getMaxStackSize())
                         break;
                 }
             }
@@ -80,13 +79,13 @@ public class InventoryTidyingHandler {
         stacks.sort(InventoryTidyingHandler::compare); // maybe improve this at some point in future
     }
 
-    private static boolean setInventory(Inventory inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
+    private static boolean setInventory(Container inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
         for (int i = startSlot; i < endSlot; i++) {
             int j = i - startSlot;
             ItemStack stack = j >= stacks.size() ? ItemStack.EMPTY : stacks.get(j);
-            inventory.removeStack(i, inventory.getMaxCountPerStack());
+            inventory.removeItem(i, inventory.getMaxStackSize());
             if (!stack.isEmpty())
-                inventory.setStack(i, stack);
+                inventory.setItem(i, stack);
         }
 
         return true;
@@ -119,13 +118,13 @@ public class InventoryTidyingHandler {
     }
 
     private static Comparator<ItemStack> blockCompare() {
-        return compare(Comparator.comparing(s -> Item.getRawId(s.getItem())),
+        return compare(Comparator.comparing(s -> Item.getId(s.getItem())),
             (ItemStack s1, ItemStack s2) -> s2.getCount() - s1.getCount(),
             (ItemStack s1, ItemStack s2) -> s2.hashCode() - s1.hashCode());
     }
 
     private static Comparator<ItemStack> anyCompare() {
-        return compare(Comparator.comparing(s -> Item.getRawId(s.getItem())),
+        return compare(Comparator.comparing(s -> Item.getId(s.getItem())),
             (ItemStack s1, ItemStack s2) -> s2.getCount() - s1.getCount(),
             (ItemStack s1, ItemStack s2) -> s2.hashCode() - s1.hashCode());
     }

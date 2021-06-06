@@ -1,6 +1,7 @@
 package svenhjol.charm.integration.rei;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.vertex.PoseStack;
 import it.unimi.dsi.fastutil.ints.IntList;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -14,10 +15,9 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.text.DecimalFormat;
 import java.util.Collections;
@@ -36,14 +36,14 @@ public class FiringCategory implements TransferDisplayCategory<FiringDisplay> {
     }
 
     @Override
-    public void renderRedSlots(MatrixStack matrices, List<Widget> widgets, Rectangle bounds, FiringDisplay display, IntList redSlots) {
+    public void renderRedSlots(PoseStack matrices, List<Widget> widgets, Rectangle bounds, FiringDisplay display, IntList redSlots) {
         Point startPoint = new Point(bounds.getCenterX() - 41, bounds.y + 10);
-        matrices.push();
+        matrices.pushPose();
         matrices.translate(0, 0, 400);
         if (redSlots.contains(0)) {
-            DrawableHelper.fill(matrices, startPoint.x + 1, startPoint.y + 1, startPoint.x + 1 + 16, startPoint.y + 1 + 16, 1090453504);
+            GuiComponent.fill(matrices, startPoint.x + 1, startPoint.y + 1, startPoint.x + 1 + 16, startPoint.y + 1 + 16, 1090453504);
         }
-        matrices.pop();
+        matrices.popPose();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class FiringCategory implements TransferDisplayCategory<FiringDisplay> {
         widgets.add(Widgets.createBurningFire(new Point(startPoint.x + 1, startPoint.y + 20))
             .animationDurationMS(10000));
         widgets.add(Widgets.createLabel(new Point(bounds.x + bounds.width - 5, bounds.y + 5),
-            new TranslatableText("category.rei.cooking.time&xp", df.format(display.getXp()), df.format(cookingTime / 20d))).noShadow().rightAligned().color(0xFF404040, 0xFFBBBBBB));
+            new TranslatableComponent("category.rei.cooking.time&xp", df.format(display.getXp()), df.format(cookingTime / 20d))).noShadow().rightAligned().color(0xFF404040, 0xFFBBBBBB));
         widgets.add(Widgets.createArrow(new Point(startPoint.x + 24, startPoint.y + 8))
             .animationDurationTicks(cookingTime));
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 61, startPoint.y + 9))
@@ -91,7 +91,7 @@ public class FiringCategory implements TransferDisplayCategory<FiringDisplay> {
     }
 
     @Override
-    public Text getTitle() {
-        return new TranslatableText(categoryName);
+    public Component getTitle() {
+        return new TranslatableComponent(categoryName);
     }
 }

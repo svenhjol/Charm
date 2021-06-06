@@ -1,9 +1,9 @@
 package svenhjol.charm.module.woodcutters;
 
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.RegistryHelper;
@@ -11,10 +11,10 @@ import svenhjol.charm.annotation.Module;
 
 @Module(mod = Charm.MOD_ID, client = WoodcuttersClient.class, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
 public class Woodcutters extends CharmModule {
-    public static Identifier RECIPE_ID = new Identifier(Charm.MOD_ID, "woodcutting");
-    public static Identifier BLOCK_ID = new Identifier(Charm.MOD_ID, "woodcutter");
+    public static ResourceLocation RECIPE_ID = new ResourceLocation(Charm.MOD_ID, "woodcutting");
+    public static ResourceLocation BLOCK_ID = new ResourceLocation(Charm.MOD_ID, "woodcutter");
     public static WoodcutterBlock WOODCUTTER;
-    public static ScreenHandlerType<WoodcutterScreenHandler> SCREEN_HANDLER;
+    public static MenuType<WoodcutterScreenHandler> SCREEN_HANDLER;
     public static RecipeType<WoodcuttingRecipe> RECIPE_TYPE;
     public static RecipeSerializer<WoodcuttingRecipe> RECIPE_SERIALIZER;
 

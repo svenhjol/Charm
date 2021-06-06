@@ -5,6 +5,7 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.CharmBarsBlock;
 import svenhjol.charm.init.CharmDecoration;
 import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.module.variant_bars.VariantBarsClient;
 
 import java.util.HashMap;
 import java.util.Map;

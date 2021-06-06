@@ -1,9 +1,9 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.EntityType;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.world.entity.EntityType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.event.ClientSpawnEntityCallback;
 
-@Mixin(ClientPlayNetworkHandler.class)
+@Mixin(ClientPacketListener.class)
 public class ClientSpawnEntityCallbackMixin {
-    @Shadow private ClientWorld world;
+    @Shadow private ClientLevel level;
 
     /**
      * Fires the {@link ClientSpawnEntityCallback} event.
@@ -28,11 +28,11 @@ public class ClientSpawnEntityCallbackMixin {
      * rather than the network packet.
      */
     @Inject(
-        method = "onEntitySpawn",
+        method = "handleAddEntity",
         at = @At("RETURN"),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookOnEntitySpawn(EntitySpawnS2CPacket packet, CallbackInfo ci, EntityType<?> entityType) {
-        ClientSpawnEntityCallback.EVENT.invoker().interact(packet, entityType, world, packet.getX(), packet.getY(), packet.getZ());
+    private void hookOnEntitySpawn(ClientboundAddEntityPacket packet, CallbackInfo ci, EntityType<?> entityType) {
+        ClientSpawnEntityCallback.EVENT.invoker().interact(packet, entityType, level, packet.getX(), packet.getY(), packet.getZ());
     }
 }

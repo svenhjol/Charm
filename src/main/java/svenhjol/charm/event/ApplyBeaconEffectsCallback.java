@@ -2,9 +2,9 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.level.Level;
 
 public interface ApplyBeaconEffectsCallback {
     Event<ApplyBeaconEffectsCallback> EVENT = EventFactory.createArrayBacked(ApplyBeaconEffectsCallback.class, (listeners) -> (world, level, pos, primary, secondary) -> {
@@ -13,5 +13,5 @@ public interface ApplyBeaconEffectsCallback {
         }
     });
 
-    void interact(World world, BlockPos pos, int level, StatusEffect primary, StatusEffect secondary);
+    void interact(Level world, BlockPos pos, int level, MobEffect primary, MobEffect secondary);
 }

@@ -1,9 +1,5 @@
 package svenhjol.charm.module.lumberjacks;
 
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
-import net.minecraft.village.VillagerProfession;
-import net.minecraft.world.poi.PointOfInterestType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.VillagerHelper;
@@ -15,13 +11,19 @@ import svenhjol.charm.module.woodcutters.Woodcutters;
 import svenhjol.charm.module.lumberjacks.LumberjackTradeOffers.*;
 
 import static svenhjol.charm.helper.VillagerHelper.addTrade;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.npc.VillagerProfession;
+
 import static svenhjol.charm.event.SetupStructureCallback.addVillageHouse;
 
 @Module(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.")
 public class Lumberjacks extends CharmModule {
-    public static Identifier VILLAGER_ID = new Identifier(Charm.MOD_ID, "lumberjack");
+    public static ResourceLocation VILLAGER_ID = new ResourceLocation(Charm.MOD_ID, "lumberjack");
     public static VillagerProfession LUMBERJACK;
-    public static PointOfInterestType POIT;
+    public static PoiType POIT;
 
     @Config(name = "Lumberjack house weight", description = "Chance of a custom building to spawn. For reference, a vanilla library is 5.")
     public static int buildingWeight = 5;
@@ -30,7 +32,7 @@ public class Lumberjacks extends CharmModule {
     public void init() {
         // TODO dedicated sounds for woodcutter and jobsite
         POIT = WorldHelper.addPointOfInterestType(Woodcutters.BLOCK_ID, Woodcutters.WOODCUTTER, 1);
-        LUMBERJACK = VillagerHelper.addProfession(VILLAGER_ID, POIT, SoundEvents.ENTITY_VILLAGER_WORK_MASON);
+        LUMBERJACK = VillagerHelper.addProfession(VILLAGER_ID, POIT, SoundEvents.VILLAGER_WORK_MASON);
 
         // register lumberjack trades
         addTrade(LUMBERJACK, 1, new EmeraldsForOverworldLogs());
@@ -49,11 +51,11 @@ public class Lumberjacks extends CharmModule {
         addTrade(LUMBERJACK, 5, new WorkstationForEmeralds());
 
         // register lumberjack structures
-        addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_1"), buildingWeight);
-        addVillageHouse(VillageType.DESERT, new Identifier("charm:village/desert/houses/desert_lumberjack_2"), buildingWeight);
-        addVillageHouse(VillageType.PLAINS, new Identifier("charm:village/plains/houses/plains_lumberjack_1"), buildingWeight);
-        addVillageHouse(VillageType.SAVANNA, new Identifier("charm:village/savanna/houses/savanna_lumberjack_1"), buildingWeight);
-        addVillageHouse(VillageType.TAIGA, new Identifier("charm:village/taiga/houses/taiga_lumberjack_1"), buildingWeight);
-        addVillageHouse(VillageType.SNOWY, new Identifier("charm:village/snowy/houses/snowy_lumberjack_2"), buildingWeight);
+        addVillageHouse(VillageType.DESERT, new ResourceLocation("charm:village/desert/houses/desert_lumberjack_1"), buildingWeight);
+        addVillageHouse(VillageType.DESERT, new ResourceLocation("charm:village/desert/houses/desert_lumberjack_2"), buildingWeight);
+        addVillageHouse(VillageType.PLAINS, new ResourceLocation("charm:village/plains/houses/plains_lumberjack_1"), buildingWeight);
+        addVillageHouse(VillageType.SAVANNA, new ResourceLocation("charm:village/savanna/houses/savanna_lumberjack_1"), buildingWeight);
+        addVillageHouse(VillageType.TAIGA, new ResourceLocation("charm:village/taiga/houses/taiga_lumberjack_1"), buildingWeight);
+        addVillageHouse(VillageType.SNOWY, new ResourceLocation("charm:village/snowy/houses/snowy_lumberjack_2"), buildingWeight);
     }
 }

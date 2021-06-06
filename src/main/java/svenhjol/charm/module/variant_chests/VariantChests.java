@@ -1,8 +1,5 @@
 package svenhjol.charm.module.variant_chests;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.enums.IVariantMaterial;
@@ -12,18 +9,21 @@ import svenhjol.charm.annotation.Module;
 
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 @Module(mod = Charm.MOD_ID, priority = 10, client = VariantChestsClient.class, description = "Chests available in all types of vanilla wood.",
     requiresMixins = {"StitchTextureCallback", "RenderBlockItemCallback"})
 public class VariantChests extends CharmModule {
-    public static final Identifier NORMAL_ID = new Identifier(Charm.MOD_ID, "variant_chest");
-    public static final Identifier TRAPPED_ID = new Identifier(Charm.MOD_ID, "trapped_chest");
+    public static final ResourceLocation NORMAL_ID = new ResourceLocation(Charm.MOD_ID, "variant_chest");
+    public static final ResourceLocation TRAPPED_ID = new ResourceLocation(Charm.MOD_ID, "trapped_chest");
 
     public static final Map<IVariantMaterial, VariantChestBlock> NORMAL_CHEST_BLOCKS = new HashMap<>();
     public static final Map<IVariantMaterial, VariantTrappedChestBlock> TRAPPED_CHEST_BLOCKS = new HashMap<>();
 
-    public static BlockEntityType<VariantChestBlockEntity> NORMAL_BLOCK_ENTITY;
-    public static BlockEntityType<VariantTrappedChestBlockEntity> TRAPPED_BLOCK_ENTITY;
+    public static BlockEntityType<svenhjol.charm.module.variant_chests.VariantChestBlockEntity> NORMAL_BLOCK_ENTITY;
+    public static BlockEntityType<svenhjol.charm.module.variant_chests.VariantTrappedChestBlockEntity> TRAPPED_BLOCK_ENTITY;
 
     @Override
     public void register() {

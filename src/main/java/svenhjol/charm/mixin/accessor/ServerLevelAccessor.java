@@ -1,7 +1,7 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.gen.Spawner;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.CustomSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -9,15 +9,15 @@ import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.List;
 
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 @CharmMixin(required = true)
-public interface ServerWorldAccessor {
+public interface ServerLevelAccessor {
     @Accessor
-    List<Spawner> getSpawners();
+    List<CustomSpawner> getCustomSpawners();
 
     @Invoker
-    void callWakeSleepingPlayers();
+    void invokeWakeUpAllPlayers();
 
     @Invoker
-    void callResetWeather();
+    void invokeStopWeather();
 }

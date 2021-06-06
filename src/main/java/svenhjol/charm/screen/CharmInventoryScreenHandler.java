@@ -1,17 +1,17 @@
 package svenhjol.charm.screen;
 
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.Slot;
-
 import java.util.function.Predicate;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.screen.CharmScreenHandler;
 
 public class CharmInventoryScreenHandler extends CharmScreenHandler {
 
-    public CharmInventoryScreenHandler(int rows, Predicate<ItemStack> condition, ScreenHandlerType<? extends CharmInventoryScreenHandler> type, int syncId,
-                                       PlayerInventory player, Inventory inventory) {
+    public CharmInventoryScreenHandler(int rows, Predicate<ItemStack> condition, MenuType<? extends CharmInventoryScreenHandler> type, int syncId,
+                                       Inventory player, Container inventory) {
         super(type, syncId, player, inventory);
 
         // container's inventory slots
@@ -37,13 +37,13 @@ public class CharmInventoryScreenHandler extends CharmScreenHandler {
     private static class ConditionalSlot extends Slot {
         private final Predicate<ItemStack> condition;
 
-        public ConditionalSlot(Predicate<ItemStack> condition, Inventory inventoryIn, int index, int xPosition, int yPosition) {
+        public ConditionalSlot(Predicate<ItemStack> condition, Container inventoryIn, int index, int xPosition, int yPosition) {
             super(inventoryIn, index, xPosition, yPosition);
             this.condition = condition;
         }
 
         @Override
-        public boolean canInsert(ItemStack stack) {
+        public boolean mayPlace(ItemStack stack) {
             return condition.test(stack);
         }
     }

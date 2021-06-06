@@ -1,23 +1,23 @@
 package svenhjol.charm.event;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
 
 public interface RenderHeldItemCallback {
     Event<RenderHeldItemCallback> EVENT = EventFactory.createArrayBacked(RenderHeldItemCallback.class, (listeners) -> (tickDelta, pitch, hand, swingProgress, stack, equipProgress, matrices, vertexConsumers, light) -> {
         for (RenderHeldItemCallback listener : listeners) {
-            ActionResult result = listener.interact(tickDelta, pitch, hand, swingProgress, stack, equipProgress, matrices, vertexConsumers, light);
-            if (result != ActionResult.PASS)
+            InteractionResult result = listener.interact(tickDelta, pitch, hand, swingProgress, stack, equipProgress, matrices, vertexConsumers, light);
+            if (result != InteractionResult.PASS)
                 return result;
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     });
 
-    ActionResult interact(float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light);
+    InteractionResult interact(float tickDelta, float pitch, InteractionHand hand, float swingProgress, ItemStack stack, float equipProgress, PoseStack matrices, MultiBufferSource vertexConsumers, int light);
 }

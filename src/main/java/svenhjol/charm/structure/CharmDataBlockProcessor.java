@@ -1,23 +1,28 @@
 package svenhjol.charm.structure;
 
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.block.entity.MobSpawnerBlockEntity;
-import net.minecraft.block.enums.StructureBlockMode;
-import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.structure.Structure.StructureBlockInfo;
-import net.minecraft.structure.StructurePlacementData;
-import net.minecraft.structure.processor.StructureProcessor;
-import net.minecraft.structure.processor.StructureProcessorType;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.LanternBlock;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.StructureMode;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
 import svenhjol.charm.handler.ModuleHandler;
@@ -47,10 +52,10 @@ public class CharmDataBlockProcessor extends StructureProcessor {
 
     @Nullable
     @Override
-    public StructureBlockInfo process(WorldView world, BlockPos pos, BlockPos blockPos, StructureBlockInfo unused, StructureBlockInfo blockInfo, StructurePlacementData placement) {
+    public StructureBlockInfo processBlock(LevelReader world, BlockPos pos, BlockPos blockPos, StructureBlockInfo unused, StructureBlockInfo blockInfo, StructurePlaceSettings placement) {
         if (blockInfo.state.getBlock() == Blocks.STRUCTURE_BLOCK) {
-            StructureBlockMode mode = StructureBlockMode.valueOf(blockInfo.nbt.getString("mode"));
-            if (mode == StructureBlockMode.DATA) {
+            StructureMode mode = StructureMode.valueOf(blockInfo.nbt.getString("mode"));
+            if (mode == StructureMode.DATA) {
                 return resolver.replace(world, placement.getRotation(), blockInfo, new Random(pos.asLong()));
             }
         }
@@ -104,16 +109,16 @@ public class CharmDataBlockProcessor extends StructureProcessor {
         public static float STORAGE_CHANCE = 0.7F;
 
         public String data;
-        public BlockRotation rotation;
+        public Rotation rotation;
         public BlockState state;
         public BlockPos pos;
-        public WorldView world;
-        public NbtCompound nbt;
+        public LevelReader world;
+        public CompoundTag nbt;
         public Random fixedRandom; // fixed according to parent template
         public Random random; // random according to the replaced block hashcode
         public float chance;
 
-        public StructureBlockInfo replace(WorldView world, BlockRotation rotation, StructureBlockInfo blockInfo, Random random) {
+        public StructureBlockInfo replace(LevelReader world, Rotation rotation, StructureBlockInfo blockInfo, Random random) {
             String data = blockInfo.nbt.getString("metadata");
             this.world = world;
             this.fixedRandom = random;
@@ -156,7 +161,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
                     entry.getValue().accept(this));
 
                 if (this.state == null)
-                    this.state = Blocks.AIR.getDefaultState();
+                    this.state = Blocks.AIR.defaultBlockState();
             }
 
             return new StructureBlockInfo(this.pos, this.state, this.nbt);
@@ -165,25 +170,25 @@ public class CharmDataBlockProcessor extends StructureProcessor {
         protected void anvil() {
             float f = random.nextFloat();
             if (f < 0.33F) {
-                this.state = Blocks.ANVIL.getDefaultState();
+                this.state = Blocks.ANVIL.defaultBlockState();
             } else if (f < 0.66F) {
-                this.state = Blocks.CHIPPED_ANVIL.getDefaultState();
+                this.state = Blocks.CHIPPED_ANVIL.defaultBlockState();
             } else if (f < 1.0F) {
-                this.state = Blocks.DAMAGED_ANVIL.getDefaultState();
+                this.state = Blocks.DAMAGED_ANVIL.defaultBlockState();
             }
         }
 
         protected void armorStand() {
-            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawners.ENTITY_SPAWNER.getDefaultState());
+            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.create(BlockPos.ZERO, EntitySpawners.ENTITY_SPAWNER.defaultBlockState());
             if (blockEntity == null) return;
-            this.nbt = new NbtCompound();
+            this.nbt = new CompoundTag();
 
-            blockEntity.entity = new Identifier("minecraft:armor_stand");
+            blockEntity.entity = new ResourceLocation("minecraft:armor_stand");
             blockEntity.meta = this.data;
             blockEntity.rotation = this.rotation;
-            blockEntity.writeNbt(this.nbt);
+            blockEntity.save(this.nbt);
 
-            this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
+            this.state = EntitySpawners.ENTITY_SPAWNER.defaultBlockState();
         }
 
         protected void block() {
@@ -192,14 +197,14 @@ public class CharmDataBlockProcessor extends StructureProcessor {
             String type = getValue("type", this.data, "");
             if (type.isEmpty()) return;
 
-            Identifier typeId = new Identifier(type);
-            Optional<Block> optionalBlock = Registry.BLOCK.getOrEmpty(typeId);
+            ResourceLocation typeId = new ResourceLocation(type);
+            Optional<Block> optionalBlock = Registry.BLOCK.getOptional(typeId);
 
             if (!optionalBlock.isPresent())
                 return;
 
             Block block = optionalBlock.get();
-            this.state = block.getDefaultState();
+            this.state = block.defaultBlockState();
         }
 
         protected void bookshelf() {
@@ -213,22 +218,22 @@ public class CharmDataBlockProcessor extends StructureProcessor {
             }
 
             if (ModuleHandler.enabled("charm:bookcases") && withChance(BOOKCASE_CHANCE)) {
-                state = Bookcases.BOOKCASE_BLOCKS.get(variantMaterial).getDefaultState()
-                    .with(BookcaseBlock.SLOTS, BookcaseBlockEntity.SIZE); // make it have the "full" texture
+                state = Bookcases.BOOKCASE_BLOCKS.get(variantMaterial).defaultBlockState()
+                    .setValue(BookcaseBlock.SLOTS, BookcaseBlockEntity.SIZE); // make it have the "full" texture
 
-                BookcaseBlockEntity blockEntity = Bookcases.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, Bookcases.BOOKCASE_BLOCKS.get(variantMaterial).getDefaultState());
+                BookcaseBlockEntity blockEntity = Bookcases.BLOCK_ENTITY.create(BlockPos.ZERO, Bookcases.BOOKCASE_BLOCKS.get(variantMaterial).defaultBlockState());
                 if (blockEntity == null)
                     return;
 
-                Identifier lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_BOOKCASE_CHANCE ? RARE_BOOKCASE_LOOT_TABLES : BOOKCASE_LOOT_TABLES, random);
+                ResourceLocation lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_BOOKCASE_CHANCE ? RARE_BOOKCASE_LOOT_TABLES : BOOKCASE_LOOT_TABLES, random);
                 blockEntity.setLootTable(lootTable, random.nextLong());
 
-                this.nbt = new NbtCompound();
-                blockEntity.writeNbt(this.nbt);
+                this.nbt = new CompoundTag();
+                blockEntity.save(this.nbt);
             } else if (ModuleHandler.enabled("charm:variant_bookshelves") && variantMaterial != VanillaVariantMaterial.OAK) {
-                state = VariantBookshelves.BOOKSHELF_BLOCKS.get(variantMaterial).getDefaultState();
+                state = VariantBookshelves.BOOKSHELF_BLOCKS.get(variantMaterial).defaultBlockState();
             } else {
-                state = Blocks.BOOKSHELF.getDefaultState();
+                state = Blocks.BOOKSHELF.defaultBlockState();
             }
         }
 
@@ -238,11 +243,11 @@ public class CharmDataBlockProcessor extends StructureProcessor {
 
             int type = getValue("type", this.data, 0);
             if (type > types.size()) type = 0;
-            state = types.get(type).getDefaultState();
+            state = types.get(type).defaultBlockState();
         }
 
         protected void cauldron() {
-            state = Blocks.CAULDRON.getDefaultState();
+            state = Blocks.CAULDRON.defaultBlockState();
         }
 
         protected void chest() {
@@ -259,24 +264,24 @@ public class CharmDataBlockProcessor extends StructureProcessor {
                 }
 
                 state = random.nextFloat() < 0.05F ?
-                    VariantChests.TRAPPED_CHEST_BLOCKS.get(variantMaterial).getDefaultState() :
-                    VariantChests.NORMAL_CHEST_BLOCKS.get(variantMaterial).getDefaultState();
+                    VariantChests.TRAPPED_CHEST_BLOCKS.get(variantMaterial).defaultBlockState() :
+                    VariantChests.NORMAL_CHEST_BLOCKS.get(variantMaterial).defaultBlockState();
 
             } else {
-                state = Blocks.CHEST.getDefaultState();
+                state = Blocks.CHEST.defaultBlockState();
             }
 
             state = setFacing(state, ChestBlock.FACING, getValue("facing", data, "north"));
 
-            Identifier lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_CHEST_CHANCE ? RARE_CHEST_LOOT_TABLES : CHEST_LOOT_TABLES, random);
-            ChestBlockEntity blockEntity = BlockEntityType.CHEST.instantiate(BlockPos.ORIGIN, Blocks.CHEST.getDefaultState());
+            ResourceLocation lootTable = DecorationHelper.getRandomLootTable(random.nextFloat() < RARE_CHEST_CHANCE ? RARE_CHEST_LOOT_TABLES : CHEST_LOOT_TABLES, random);
+            ChestBlockEntity blockEntity = BlockEntityType.CHEST.create(BlockPos.ZERO, Blocks.CHEST.defaultBlockState());
             if (blockEntity == null)
                 return;
 
             String loot = getValue("loot", data, "");
             blockEntity.setLootTable(LootHelper.getLootTable(loot, lootTable), random.nextLong());
-            nbt = new NbtCompound();
-            blockEntity.writeNbt(nbt);
+            nbt = new CompoundTag();
+            blockEntity.save(nbt);
         }
 
         protected void decoration() {
@@ -287,24 +292,24 @@ public class CharmDataBlockProcessor extends StructureProcessor {
         }
 
         protected void entity() {
-            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawners.ENTITY_SPAWNER.getDefaultState());
+            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.create(BlockPos.ZERO, EntitySpawners.ENTITY_SPAWNER.defaultBlockState());
             if (blockEntity == null) return;
-            nbt = new NbtCompound();
+            nbt = new CompoundTag();
 
             String type = getValue("type", this.data, "");
             if (type.isEmpty()) return;
 
-            Identifier typeId = new Identifier(type);
+            ResourceLocation typeId = new ResourceLocation(type);
 
-            if (!Registry.ENTITY_TYPE.getOrEmpty(typeId).isPresent())
+            if (!Registry.ENTITY_TYPE.getOptional(typeId).isPresent())
                 return;
 
             blockEntity.entity = typeId;
             blockEntity.meta = this.data;
             blockEntity.rotation = this.rotation;
-            blockEntity.writeNbt(this.nbt);
+            blockEntity.save(this.nbt);
 
-            this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
+            this.state = EntitySpawners.ENTITY_SPAWNER.defaultBlockState();
         }
 
         protected void flower() {
@@ -319,39 +324,39 @@ public class CharmDataBlockProcessor extends StructureProcessor {
 
         protected void lantern() {
             if (!withChance(LANTERN_CHANCE)) return;
-            state = Blocks.LANTERN.getDefaultState();
+            state = Blocks.LANTERN.defaultBlockState();
 
             if (data.contains("hanging"))
-                state = state.with(LanternBlock.HANGING, true);
+                state = state.setValue(LanternBlock.HANGING, true);
         }
 
         protected void lava() {
-            state = Blocks.MAGMA_BLOCK.getDefaultState();
+            state = Blocks.MAGMA_BLOCK.defaultBlockState();
 
             if (fixedRandom.nextFloat() < LAVA_CHANCE)
-                state = Blocks.LAVA.getDefaultState();
+                state = Blocks.LAVA.defaultBlockState();
         }
 
         protected void mob() {
             if (!withChance(MOB_CHANCE)) return;
 
-            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.instantiate(BlockPos.ORIGIN, EntitySpawners.ENTITY_SPAWNER.getDefaultState());
+            EntitySpawnerBlockEntity blockEntity = EntitySpawners.BLOCK_ENTITY.create(BlockPos.ZERO, EntitySpawners.ENTITY_SPAWNER.defaultBlockState());
             if (blockEntity == null) return;
 
             String type = getValue("type", this.data, "");
             if (type.isEmpty()) return;
-            nbt = new NbtCompound();
+            nbt = new CompoundTag();
 
-            blockEntity.entity = new Identifier(type);
+            blockEntity.entity = new ResourceLocation(type);
             blockEntity.health = getValue("health", this.data, 0.0D);
             blockEntity.persist = getValue("persist", this.data, true);
             blockEntity.armor = getValue("armor", this.data, "");
             blockEntity.effects = getValue("effects", this.data, "");
             blockEntity.count = getValue("count", this.data, 1);
             blockEntity.rotation = this.rotation;
-            blockEntity.writeNbt(this.nbt);
+            blockEntity.save(this.nbt);
 
-            this.state = EntitySpawners.ENTITY_SPAWNER.getDefaultState();
+            this.state = EntitySpawners.ENTITY_SPAWNER.defaultBlockState();
         }
 
         protected void ore() {
@@ -359,12 +364,12 @@ public class CharmDataBlockProcessor extends StructureProcessor {
 
             String type = getValue("type", this.data, "");
             if (!type.isEmpty()) {
-                Identifier typeId = new Identifier(type);
-                if (!Registry.ENTITY_TYPE.getOrEmpty(typeId).isPresent())
+                ResourceLocation typeId = new ResourceLocation(type);
+                if (!Registry.ENTITY_TYPE.getOptional(typeId).isPresent())
                     return;
 
                 Block ore = Registry.BLOCK.get(typeId);
-                state = ore.getDefaultState();
+                state = ore.defaultBlockState();
                 return;
             }
 
@@ -388,8 +393,8 @@ public class CharmDataBlockProcessor extends StructureProcessor {
                 entity = SPAWNER_MOBS.size() > 0 ? SPAWNER_MOBS.get(random.nextInt(SPAWNER_MOBS.size())) : null;
             } else {
                 // try and use the specified entity
-                Identifier typeId = new Identifier(type);
-                if (!Registry.ENTITY_TYPE.getOrEmpty(typeId).isPresent())
+                ResourceLocation typeId = new ResourceLocation(type);
+                if (!Registry.ENTITY_TYPE.getOptional(typeId).isPresent())
                     return;
 
                 entity = Registry.ENTITY_TYPE.get(typeId);
@@ -398,41 +403,41 @@ public class CharmDataBlockProcessor extends StructureProcessor {
             if (entity == null)
                 return;
 
-            state = Blocks.SPAWNER.getDefaultState();
+            state = Blocks.SPAWNER.defaultBlockState();
 
-            MobSpawnerBlockEntity blockEntity = BlockEntityType.MOB_SPAWNER.instantiate(BlockPos.ORIGIN, Blocks.SPAWNER.getDefaultState());
+            SpawnerBlockEntity blockEntity = BlockEntityType.MOB_SPAWNER.create(BlockPos.ZERO, Blocks.SPAWNER.defaultBlockState());
             if (blockEntity != null) {
-                blockEntity.getLogic().setEntityId(entity);
-                nbt = new NbtCompound();
-                blockEntity.writeNbt(this.nbt);
+                blockEntity.getSpawner().setEntityId(entity);
+                nbt = new CompoundTag();
+                blockEntity.save(this.nbt);
             }
         }
 
         protected void storage() {
             if (!withChance(STORAGE_CHANCE)) return;
 
-            LootableContainerBlockEntity blockEntity;
+            RandomizableContainerBlockEntity blockEntity;
             IVariantMaterial woodType = DecorationHelper.getRandomOverworldVariantMaterial(random);
 
             if (ModuleHandler.enabled("charm:variant_barrels")) {
                 // get variant barrel
-                state = VariantBarrels.BARREL_BLOCKS.get(woodType).getDefaultState();
+                state = VariantBarrels.BARREL_BLOCKS.get(woodType).defaultBlockState();
             } else {
                 // get vanilla barrel
-                state = Blocks.BARREL.getDefaultState();
+                state = Blocks.BARREL.defaultBlockState();
             }
-            state = state.with(BarrelBlock.FACING, Direction.UP);
-            blockEntity = BlockEntityType.BARREL.instantiate(BlockPos.ORIGIN, Blocks.BARREL.getDefaultState());
+            state = state.setValue(BarrelBlock.FACING, Direction.UP);
+            blockEntity = BlockEntityType.BARREL.create(BlockPos.ZERO, Blocks.BARREL.defaultBlockState());
 
             if (blockEntity == null)
                 return;
 
-            Identifier lootTable = DecorationHelper.getRandomLootTable(COMMON_LOOT_TABLES, random);
+            ResourceLocation lootTable = DecorationHelper.getRandomLootTable(COMMON_LOOT_TABLES, random);
 
             String loot = getValue("loot", data, "");
             blockEntity.setLootTable(LootHelper.getLootTable(loot, lootTable), random.nextLong());
-            nbt = new NbtCompound();
-            blockEntity.writeNbt(nbt);
+            nbt = new CompoundTag();
+            blockEntity.save(nbt);
         }
 
         public boolean withChance(float chance) {

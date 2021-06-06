@@ -1,22 +1,22 @@
 package svenhjol.charm.module.variant_barrels;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BarrelBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.helper.ModHelper;
 
 import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,33 +26,33 @@ public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
     private final List<String> loadedMods;
 
     public VariantBarrelBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
-        this(module, type, AbstractBlock.Settings.copy(Blocks.BARREL), loadedMods);
+        this(module, type, BlockBehaviour.Properties.copy(Blocks.BARREL), loadedMods);
     }
 
-    public VariantBarrelBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings, String... loadedMods) {
+    public VariantBarrelBlock(CharmModule module, IVariantMaterial type, BlockBehaviour.Properties settings, String... loadedMods) {
         super(settings);
 
         this.module = module;
         this.type = type;
         this.loadedMods = Arrays.asList(loadedMods);
 
-        this.register(module, type.asString() + "_barrel");
-        this.setDefaultState(this.getStateManager()
-            .getDefaultState()
-            .with(FACING, Direction.NORTH)
-            .with(OPEN, false)
+        this.register(module, type.getSerializedName() + "_barrel");
+        this.registerDefaultState(this.getStateDefinition()
+            .any()
+            .setValue(FACING, Direction.NORTH)
+            .setValue(OPEN, false)
         );
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.DECORATIONS;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_DECORATIONS;
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> list) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> list) {
         if (enabled())
-            super.addStacksForDisplay(group, list);
+            super.fillItemCategory(group, list);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BarrelBlockEntity(pos, state);
     }
 }

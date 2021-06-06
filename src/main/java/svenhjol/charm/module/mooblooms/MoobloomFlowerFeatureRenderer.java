@@ -1,71 +1,71 @@
 package svenhjol.charm.module.mooblooms;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.BlockRenderManager;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.CowEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Vec3f;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.CowModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.module.mooblooms.MoobloomEntity;
 
-public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends FeatureRenderer<T, CowEntityModel<T>> {
-    public MoobloomFlowerFeatureRenderer(FeatureRendererContext<T, CowEntityModel<T>> context) {
+public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends RenderLayer<T, CowModel<T>> {
+    public MoobloomFlowerFeatureRenderer(RenderLayerParent<T, CowModel<T>> context) {
         super(context);
     }
 
     // copypasta from MooshroomMushroomFeatureRenderer with adjustments to scale and another flower added
     @Override
-    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+    public void render(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         if (!entity.isBaby() && !entity.isInvisible()) {
-            BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
+            BlockRenderDispatcher blockRenderManager = Minecraft.getInstance().getBlockRenderer();
             BlockState state = entity.getMoobloomType().getFlower();
-            int m = LivingEntityRenderer.getOverlay(entity, 0.0F);
+            int m = LivingEntityRenderer.getOverlayCoords(entity, 0.0F);
 
 
-            matrixStack.push();
+            matrixStack.pushPose();
             matrixStack.translate(0.2D, -0.35D, 0.5D);
-            matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
+            matrixStack.mulPose(Vector3f.YP.rotationDegrees(-48.0F));
             matrixStack.scale(-0.75F, -0.75F, 0.75F);
             matrixStack.translate(-0.5D, -0.65D, -0.5D);
-            blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
-            matrixStack.pop();
+            blockRenderManager.renderSingleBlock(state, matrixStack, vertexConsumerProvider, light, m);
+            matrixStack.popPose();
 
 
-            matrixStack.push();
+            matrixStack.pushPose();
             matrixStack.translate(0.2D, -0.35D, 0.5D);
-            matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(42.0F));
+            matrixStack.mulPose(Vector3f.YP.rotationDegrees(42.0F));
             matrixStack.translate(0.4D, 0.0D, -0.6D);
-            matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
+            matrixStack.mulPose(Vector3f.YP.rotationDegrees(-48.0F));
             matrixStack.scale(-0.75F, -0.75F, 0.75F);
             matrixStack.translate(-0.5D, -0.65D, -0.5D);
-            blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
-            matrixStack.pop();
+            blockRenderManager.renderSingleBlock(state, matrixStack, vertexConsumerProvider, light, m);
+            matrixStack.popPose();
 
 
-            matrixStack.push();
+            matrixStack.pushPose();
             matrixStack.translate(0.2D, -0.35D, 0.5D);
-            matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(42.0F));
+            matrixStack.mulPose(Vector3f.YP.rotationDegrees(42.0F));
             matrixStack.translate(-0.05, 0.0D, -0.4D);
-            matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-48.0F));
+            matrixStack.mulPose(Vector3f.YP.rotationDegrees(-48.0F));
             matrixStack.scale(-0.75F, -0.75F, 0.75F);
             matrixStack.translate(-0.5D, -0.65D, -0.5D);
-            blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
-            matrixStack.pop();
+            blockRenderManager.renderSingleBlock(state, matrixStack, vertexConsumerProvider, light, m);
+            matrixStack.popPose();
 
 
             if (entity.isPollinated()) {
-                matrixStack.push();
-                (this.getContextModel()).getHead().rotate(matrixStack);
+                matrixStack.pushPose();
+                (this.getParentModel()).getHead().translateAndRotate(matrixStack);
                 matrixStack.translate(0.0D, -0.699999988079071D, -0.20000000298023224D);
-                matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-78.0F));
+                matrixStack.mulPose(Vector3f.YP.rotationDegrees(-78.0F));
                 matrixStack.scale(-0.75F, -0.75F, 0.75F);
                 matrixStack.translate(-0.5D, -0.65D, -0.5D);
-                blockRenderManager.renderBlockAsEntity(state, matrixStack, vertexConsumerProvider, light, m);
-                matrixStack.pop();
+                blockRenderManager.renderSingleBlock(state, matrixStack, vertexConsumerProvider, light, m);
+                matrixStack.popPose();
             }
         }
     }

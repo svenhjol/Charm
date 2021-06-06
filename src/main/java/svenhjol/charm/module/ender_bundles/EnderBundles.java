@@ -3,23 +3,23 @@ package svenhjol.charm.module.ender_bundles;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, client = EnderBundlesClient.class, description = "Ender bundles allow transfer of items to and from your ender chest.",
     requiresMixins = {"RenderTooltipCallback"})
 public class EnderBundles extends CharmModule {
-    public static final Identifier MSG_SERVER_UPDATE_ENDER_INVENTORY = new Identifier(Charm.MOD_ID, "server_update_ender_inventory");
-    public static final Identifier MSG_CLIENT_UPDATE_ENDER_INVENTORY = new Identifier(Charm.MOD_ID, "server_client_ender_inventory");
-    public static final Identifier TRIGGER_USED_ENDER_BUNDLE = new Identifier(Charm.MOD_ID, "used_ender_bundle");
+    public static final ResourceLocation MSG_SERVER_UPDATE_ENDER_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_update_ender_inventory");
+    public static final ResourceLocation MSG_CLIENT_UPDATE_ENDER_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_client_ender_inventory");
+    public static final ResourceLocation TRIGGER_USED_ENDER_BUNDLE = new ResourceLocation(Charm.MOD_ID, "used_ender_bundle");
 
     public static EnderBundleItem ENDER_BUNDLE;
 
@@ -31,19 +31,19 @@ public class EnderBundles extends CharmModule {
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_UPDATE_ENDER_INVENTORY, this::handleUpdateEnderInventory);
     }
 
-    private void handleUpdateEnderInventory(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+    private void handleUpdateEnderInventory(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf data, PacketSender sender) {
         server.execute(() -> {
-            NbtCompound nbt = new NbtCompound();
-            nbt.put("EnderItems", player.getEnderChestInventory().toNbtList());
+            CompoundTag nbt = new CompoundTag();
+            nbt.put("EnderItems", player.getEnderChestInventory().createTag());
 
-            PacketByteBuf buffer = new PacketByteBuf(Unpooled.buffer());
+            FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
             buffer.writeNbt(nbt);
 
             ServerPlayNetworking.send(player, MSG_CLIENT_UPDATE_ENDER_INVENTORY, buffer);
         });
     }
 
-    public static void triggerUsedEnderBundle(ServerPlayerEntity player) {
+    public static void triggerUsedEnderBundle(ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, EnderBundles.TRIGGER_USED_ENDER_BUNDLE);
     }
 }

@@ -1,25 +1,25 @@
 package svenhjol.charm.module.storage_labels;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Matrix4f;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.world.World;
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.module.CharmClientModule;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class StorageLabelsClient extends CharmClientModule {
-    public static final ThreadLocal<BlockEntityRendererFactory.Context> chestBlockEntityContext = new ThreadLocal<>();
+    public static final ThreadLocal<BlockEntityRendererProvider.Context> chestBlockEntityContext = new ThreadLocal<>();
     public StorageLabelsClient(CharmModule module) {
         super(module);
     }
@@ -43,56 +43,56 @@ public class StorageLabelsClient extends CharmClientModule {
         BlockEntityRendererRegistry.INSTANCE.register(BlockEntityType.BARREL, LootableContainerBlockEntityRenderer::new);
     }
 
-    private void handleUpdateCustomName(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
-        BlockPos pos = BlockPos.fromLong(data.readLong());
-        String label = data.readString();
+    private void handleUpdateCustomName(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
+        BlockPos pos = BlockPos.of(data.readLong());
+        String label = data.readUtf();
 
         client.execute(() ->
             ClientHelper.getWorld()
                 .ifPresent(world -> getLootableContainerBlockEntity(world, pos)
-                    .ifPresent(container -> container.setCustomName(new LiteralText(label)))));
+                    .ifPresent(container -> container.setCustomName(new TextComponent(label)))));
     }
 
-    private void handleHasNoCustomName(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
-        BlockPos pos = BlockPos.fromLong(data.readLong());
+    private void handleHasNoCustomName(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
+        BlockPos pos = BlockPos.of(data.readLong());
 
         client.execute(() ->
             ClientHelper.getWorld()
                 .ifPresent(world -> LootableContainerBlockEntityRenderer.cachedPos.put(pos, (long) -1)));
     }
 
-    private void handleClearCustomName(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
-        BlockPos pos = BlockPos.fromLong(data.readLong());
+    private void handleClearCustomName(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
+        BlockPos pos = BlockPos.of(data.readLong());
 
         client.execute(() ->
             ClientHelper.getWorld()
                 .ifPresent(world -> LootableContainerBlockEntityRenderer.cachedPos.remove(pos)));
     }
 
-    private Optional<LootableContainerBlockEntity> getLootableContainerBlockEntity(World world, BlockPos pos) {
-        return Optional.ofNullable((LootableContainerBlockEntity)world.getBlockEntity(pos));
+    private Optional<RandomizableContainerBlockEntity> getLootableContainerBlockEntity(Level world, BlockPos pos) {
+        return Optional.ofNullable((RandomizableContainerBlockEntity)world.getBlockEntity(pos));
     }
 
-    public static void renderLabel(MatrixStack matrices, VertexConsumerProvider vertexConsumers, PlayerEntity player, Camera camera, List<Text> text) {
+    public static void renderLabel(PoseStack matrices, MultiBufferSource vertexConsumers, Player player, Camera camera, List<Component> text) {
         if (!ModuleHandler.enabled(StorageLabels.class))
             return;
 
-        if (!StorageLabels.alwaysShow && !player.isSneaking())
+        if (!StorageLabels.alwaysShow && !player.isShiftKeyDown())
             return;
 
-        Optional<TextRenderer> optTextRenderer = ClientHelper.getTextRenderer();
-        Optional<GameOptions> optGameOptions = ClientHelper.getGameOptions();
+        Optional<Font> optTextRenderer = ClientHelper.getTextRenderer();
+        Optional<Options> optGameOptions = ClientHelper.getGameOptions();
 
         if (!optTextRenderer.isPresent() || !optGameOptions.isPresent())
             return;
 
-        TextRenderer textRenderer = optTextRenderer.get();
-        GameOptions gameOptions = optGameOptions.get();
+        Font textRenderer = optTextRenderer.get();
+        Options gameOptions = optGameOptions.get();
 
         float xo = 0.0F;
         float zo = 0.0F;
 
-        switch (player.getHorizontalFacing()) {
+        switch (player.getDirection()) {
             case EAST:
                 xo -= 0.65F;
                 break;
@@ -110,20 +110,20 @@ public class StorageLabelsClient extends CharmClientModule {
                 break;
         }
 
-        matrices.push();
+        matrices.pushPose();
         matrices.translate(0.5F + xo, 0.85F, 0.5F + zo);
-        matrices.multiply(camera.getRotation());
+        matrices.mulPose(camera.rotation());
         matrices.scale(-StorageLabels.SCALE, -StorageLabels.SCALE, StorageLabels.SCALE);
-        Matrix4f matrix4f = matrices.peek().getModel();
-        float g = gameOptions.getTextBackgroundOpacity(0.0F);
+        Matrix4f matrix4f = matrices.last().pose();
+        float g = gameOptions.getBackgroundOpacity(0.0F);
         int j = (int)(g * 255.0F) << 24;
 
         for (int i = 0; i < text.size(); i++) {
-            Text t = text.get(i);
-            float h = (float)(-textRenderer.getWidth(t) / 2);
-            textRenderer.draw(t, h, i * 10, 0xFFFFFF, false, matrix4f, vertexConsumers, false, j, 255);
+            Component t = text.get(i);
+            float h = (float)(-textRenderer.width(t) / 2);
+            textRenderer.drawInBatch(t, h, i * 10, 0xFFFFFF, false, matrix4f, vertexConsumers, false, j, 255);
         }
 
-        matrices.pop();
+        matrices.popPose();
     }
 }

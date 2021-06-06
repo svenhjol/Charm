@@ -4,6 +4,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.module.variant_mob_textures.VariantMobTexturesClient;
 
 @Module(mod = Charm.MOD_ID, client = VariantMobTexturesClient.class, description = "Mobs may spawn with different textures.",
     requiresMixins = {"ClientPlayerJoinCallbackMixin"}

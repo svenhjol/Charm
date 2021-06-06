@@ -5,32 +5,32 @@ import com.google.common.collect.Table;
 import com.mojang.serialization.Dynamic;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.FilledMapItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.map.MapState;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
-import svenhjol.charm.init.CharmSounds;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.init.CharmSounds;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,15 +39,15 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
+public class AtlasInventory implements MenuProvider, Container {
     public static final String EMPTY_MAPS = "empty_maps";
     public static final String FILLED_MAPS = "filled_maps";
     public static final String ACTIVE_MAP = "active_map";
     public static final String SCALE = "scale";
     public static final String ID = "id";
     private static final int EMPTY_MAP_SLOTS = 3;
-    private final Table<RegistryKey<World>, Index, MapInfo> mapInfos;
-    private final DefaultedList<ItemStack> emptyMaps;
+    private final Table<ResourceKey<Level>, Index, MapInfo> mapInfos;
+    private final NonNullList<ItemStack> emptyMaps;
     private int diameter;
     private ItemStack atlas;
     private int scale;
@@ -57,7 +57,7 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
         this.atlas = atlas;
         this.scale = Atlases.defaultScale;
         this.diameter = 128;
-        this.emptyMaps = DefaultedList.ofSize(EMPTY_MAP_SLOTS, ItemStack.EMPTY);
+        this.emptyMaps = NonNullList.withSize(EMPTY_MAP_SLOTS, ItemStack.EMPTY);
         this.mapInfos = HashBasedTable.create();
         load();
     }
@@ -72,8 +72,8 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
     private void load() {
         scale = ItemNBTHelper.getInt(atlas, SCALE, Atlases.defaultScale);
         diameter = 128 * (1 << scale);
-        Inventories.readNbt(ItemNBTHelper.getCompound(atlas, EMPTY_MAPS), emptyMaps);
-        NbtList listNBT = ItemNBTHelper.getList(atlas, FILLED_MAPS);
+        ContainerHelper.loadAllItems(ItemNBTHelper.getCompound(atlas, EMPTY_MAPS), emptyMaps);
+        ListTag listNBT = ItemNBTHelper.getList(atlas, FILLED_MAPS);
         for (int i = 0; i < listNBT.size(); ++i) {
             putMapInfo(MapInfo.readFrom(listNBT.getCompound(i)));
         }
@@ -87,7 +87,7 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
         mapInfos.put(mapInfo.dimension, convertCoordsToIndex(mapInfo.x, mapInfo.z), mapInfo);
     }
 
-    public Index getIndexOf(PlayerEntity player) {
+    public Index getIndexOf(Player player) {
         return convertCoordsToIndex((int) player.getX() + 64,(int) player.getZ() + 64);
     }
 
@@ -100,16 +100,16 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
     }
 
     @Nullable
-    private static MapInfo createMapInfo(World world, ItemStack map) {
-        Integer mapId = FilledMapItem.getMapId(map);
+    private static MapInfo createMapInfo(Level world, ItemStack map) {
+        Integer mapId = MapItem.getMapId(map);
         if (mapId == null) return null;
 
-        MapState mapData = FilledMapItem.getMapState(mapId, world);
-        return mapData != null ? new MapInfo(mapData.centerX, mapData.centerZ, FilledMapItem.getMapId(map), map, mapData.dimension) : null;
+        MapItemSavedData mapData = MapItem.getSavedData(mapId, world);
+        return mapData != null ? new MapInfo(mapData.x, mapData.z, MapItem.getMapId(map), map, mapData.dimension) : null;
     }
 
-    public boolean updateActiveMap(ServerPlayerEntity player) {
-        MapInfo activeMap = mapInfos.get(player.world.getRegistryKey(), getIndexOf(player));
+    public boolean updateActiveMap(ServerPlayer player) {
+        MapInfo activeMap = mapInfos.get(player.level.dimension(), getIndexOf(player));
         boolean madeNewMap = false;
         if (activeMap == null && !isOpen) {
             activeMap = makeNewMap(player, (int) player.getX(), (int) player.getZ());
@@ -124,19 +124,19 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
         return madeNewMap;
     }
 
-    private MapInfo makeNewMap(ServerPlayerEntity player, int x, int z) {
+    private MapInfo makeNewMap(ServerPlayer player, int x, int z) {
         for (int i = 0; i < EMPTY_MAP_SLOTS; ++i) {
             ItemStack stack = emptyMaps.get(i);
             if (stack.getItem() == Items.MAP) {
                 if (!player.isCreative()) {
-                    removeStack(i, 1);
+                    removeItem(i, 1);
                 }
-                ItemStack map = FilledMapItem.createMap(player.world, x, z, (byte) scale, true, true);
-                MapInfo mapInfo = createMapInfo(player.world, map);
+                ItemStack map = MapItem.create(player.level, x, z, (byte) scale, true, true);
+                MapInfo mapInfo = createMapInfo(player.level, map);
                 putMapInfo(mapInfo);
-                markDirty();
-                player.world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundCategory.BLOCKS, 0.5f,
-                    player.world.random.nextFloat() * 0.1F + 0.9F);
+                setChanged();
+                player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundSource.BLOCKS, 0.5f,
+                    player.level.random.nextFloat() * 0.1F + 0.9F);
                 return mapInfo;
             }
         }
@@ -144,17 +144,17 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
     }
 
     @Nullable
-    public int getActiveMapId(World world) {
+    public int getActiveMapId(Level world) {
         return ItemNBTHelper.getInt(atlas, ACTIVE_MAP, -1);
     }
 
     @Nullable
-    public MapState getActiveMap(World world) {
+    public MapItemSavedData getActiveMap(Level world) {
         int mapId = getActiveMapId(world);
         if (mapId == -1)
             return null;
 
-        return world.getMapState(FilledMapItem.getMapName(mapId));
+        return world.getMapData(MapItem.makeKey(mapId));
     }
 
     @Nullable
@@ -166,18 +166,18 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
 
     @Override
     @Nonnull
-    public Text getDisplayName() {
-        return atlas.getName();
+    public Component getDisplayName() {
+        return atlas.getHoverName();
     }
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int syncId, @Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int syncId, @Nonnull Inventory playerInventory, @Nonnull Player player) {
         return new AtlasContainer(syncId, playerInventory, this);
     }
 
     @Override
-    public int size() {
+    public int getContainerSize() {
         return EMPTY_MAP_SLOTS;
     }
 
@@ -191,59 +191,59 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
 
     @Nonnull
     @Override
-    public ItemStack getStack(int index) {
+    public ItemStack getItem(int index) {
         return emptyMaps.get(index);
     }
 
     @Nonnull
     @Override
-    public ItemStack removeStack(int index, int count) {
-        ItemStack itemstack = Inventories.splitStack(emptyMaps, index, count);
-        markDirty();
+    public ItemStack removeItem(int index, int count) {
+        ItemStack itemstack = ContainerHelper.removeItem(emptyMaps, index, count);
+        setChanged();
         return itemstack;
     }
 
     @Nonnull
     @Override
-    public ItemStack removeStack(int index) {
-        ItemStack itemStack = Inventories.removeStack(emptyMaps, index);
-        markDirty();
+    public ItemStack removeItemNoUpdate(int index) {
+        ItemStack itemStack = ContainerHelper.takeItem(emptyMaps, index);
+        setChanged();
         return itemStack;
     }
 
-    public MapInfo removeMapByCoords(World world, int x, int z) {
-        MapInfo info = mapInfos.remove(world.getRegistryKey(), convertCoordsToIndex(x, z));
-        markDirty();
+    public MapInfo removeMapByCoords(Level world, int x, int z) {
+        MapInfo info = mapInfos.remove(world.dimension(), convertCoordsToIndex(x, z));
+        setChanged();
         return info;
     }
 
-    public void addToInventory(World world, ItemStack itemStack) {
+    public void addToInventory(Level world, ItemStack itemStack) {
         if (itemStack.getItem() == Items.FILLED_MAP) {
             putMapInfo(createMapInfo(world, itemStack));
-            markDirty();
+            setChanged();
         }
     }
 
     @Override
-    public void setStack(int index, @Nonnull ItemStack stack) {
+    public void setItem(int index, @Nonnull ItemStack stack) {
         if (!emptyMaps.get(index).equals(stack)) { // WARNING: doesn't match Forge
             emptyMaps.set(index, stack);
-            if (stack.getCount() > getMaxCountPerStack()) {
-                stack.setCount(getMaxCountPerStack());
+            if (stack.getCount() > getMaxStackSize()) {
+                stack.setCount(getMaxStackSize());
             }
-            markDirty();
+            setChanged();
         }
     }
 
     @Override
-    public void markDirty() {
+    public void setChanged() {
         ItemNBTHelper.setInt(atlas, SCALE, scale);
-        NbtCompound emptyMapNBT = new NbtCompound();
-        Inventories.writeNbt(emptyMapNBT, emptyMaps, false);
+        CompoundTag emptyMapNBT = new CompoundTag();
+        ContainerHelper.saveAllItems(emptyMapNBT, emptyMaps, false);
         ItemNBTHelper.setCompound(atlas, EMPTY_MAPS, emptyMapNBT);
-        NbtList listNBT = new NbtList();
+        ListTag listNBT = new ListTag();
         for (MapInfo mapInfo : mapInfos.values()) {
-            NbtCompound nbt = new NbtCompound();
+            CompoundTag nbt = new CompoundTag();
             mapInfo.writeTo(nbt);
             listNBT.add(nbt);
         }
@@ -251,50 +251,50 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
     }
 
     @Override
-    public boolean canPlayerUse(@Nonnull PlayerEntity player) {
-        for (Hand hand : Hand.values()) {
-            ItemStack heldItem = player.getStackInHand(hand);
+    public boolean stillValid(@Nonnull Player player) {
+        for (InteractionHand hand : InteractionHand.values()) {
+            ItemStack heldItem = player.getItemInHand(hand);
             if (heldItem.getItem() == Atlases.ATLAS_ITEM && Objects.equals(ItemNBTHelper.getUuid(atlas, ID), ItemNBTHelper.getUuid(heldItem, ID))) return true;
         }
         return false;
     }
 
     @Override
-    public void clear() {
+    public void clearContent() {
         emptyMaps.clear();
         mapInfos.clear();
     }
 
     @Override
-    public void onOpen(PlayerEntity player) {
+    public void startOpen(Player player) {
         isOpen = true;
-        if(!player.world.isClient) {
-            player.playSound(CharmSounds.BOOKSHELF_OPEN, SoundCategory.BLOCKS, 0.5f, player.world.random.nextFloat() * 0.1F + 0.9F);
+        if(!player.level.isClientSide) {
+            player.playNotifySound(CharmSounds.BOOKSHELF_OPEN, SoundSource.BLOCKS, 0.5f, player.level.random.nextFloat() * 0.1F + 0.9F);
         }
     }
 
     @Override
-    public void onClose(PlayerEntity player) {
+    public void stopOpen(Player player) {
         isOpen = false;
-        if(!player.world.isClient) {
-            player.playSound(CharmSounds.BOOKSHELF_CLOSE, SoundCategory.BLOCKS, 0.5f, player.world.random.nextFloat() * 0.1F + 0.9F);
+        if(!player.level.isClientSide) {
+            player.playNotifySound(CharmSounds.BOOKSHELF_CLOSE, SoundSource.BLOCKS, 0.5f, player.level.random.nextFloat() * 0.1F + 0.9F);
         }
     }
 
     public boolean hasItemStack(ItemStack stack) {
-        return Stream.concat(emptyMaps.stream(), mapInfos.values().stream().map(it -> it.map)).anyMatch(it -> !it.isEmpty() && it.isItemEqual(stack));
+        return Stream.concat(emptyMaps.stream(), mapInfos.values().stream().map(it -> it.map)).anyMatch(it -> !it.isEmpty() && it.sameItemStackIgnoreDurability(stack));
     }
 
     public ItemStack getAtlasItem() {
         return atlas;
     }
 
-    public Table<RegistryKey<World>, Index, MapInfo> getMapInfos() {
+    public Table<ResourceKey<Level>, Index, MapInfo> getMapInfos() {
         return mapInfos;
     }
 
-    public Map<Index, MapInfo> getCurrentDimensionMapInfos(World world) {
-        return mapInfos.row(world.getRegistryKey());
+    public Map<Index, MapInfo> getCurrentDimensionMapInfos(Level world) {
+        return mapInfos.row(world.dimension());
     }
 
     public int getScale() {
@@ -311,9 +311,9 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
         public final int z;
         public final int id;
         public final ItemStack map;
-        public final RegistryKey<World> dimension;
+        public final ResourceKey<Level> dimension;
 
-        private MapInfo(int x, int z, int id, ItemStack map, RegistryKey<World> dimension) {
+        private MapInfo(int x, int z, int id, ItemStack map, ResourceKey<Level> dimension) {
             this.x = x;
             this.z = z;
             this.id = id;
@@ -321,19 +321,19 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
             this.dimension = dimension;
         }
 
-        public static MapInfo readFrom(NbtCompound nbt) {
-            return new MapInfo(nbt.getInt(X), nbt.getInt(Z), nbt.getInt(ID), ItemStack.fromNbt(nbt.getCompound(MAP)),
-                DimensionType.worldFromDimensionNbt(new Dynamic<>(NbtOps.INSTANCE, nbt.get(DIMENSION))).result().orElse(World.OVERWORLD));
+        public static MapInfo readFrom(CompoundTag nbt) {
+            return new MapInfo(nbt.getInt(X), nbt.getInt(Z), nbt.getInt(ID), ItemStack.of(nbt.getCompound(MAP)),
+                DimensionType.parseLegacy(new Dynamic<>(NbtOps.INSTANCE, nbt.get(DIMENSION))).result().orElse(Level.OVERWORLD));
         }
 
-        public void writeTo(NbtCompound nbt) {
+        public void writeTo(CompoundTag nbt) {
             nbt.putInt(X, x);
             nbt.putInt(Z, z);
             nbt.putInt(ID, id);
-            NbtCompound mapNBT = new NbtCompound();
-            map.writeNbt(mapNBT);
+            CompoundTag mapNBT = new CompoundTag();
+            map.save(mapNBT);
             nbt.put(MAP, mapNBT);
-            Identifier.CODEC.encodeStart(NbtOps.INSTANCE, dimension.getValue()).result().ifPresent(it -> nbt.put(DIMENSION, it));
+            ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, dimension.location()).result().ifPresent(it -> nbt.put(DIMENSION, it));
         }
     }
 
@@ -372,7 +372,7 @@ public class AtlasInventory implements NamedScreenHandlerFactory, Inventory {
         }
 
         public Index clamp(Index min, Index max) {
-            return transform(it -> MathHelper.clamp(it.apply(this), it.apply(min), it.apply(max)));
+            return transform(it -> Mth.clamp(it.apply(this), it.apply(min), it.apply(max)));
         }
 
         private Index transform(Function<Function<Index, Integer>, Integer> transformer) {

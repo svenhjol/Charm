@@ -1,24 +1,25 @@
 package svenhjol.charm.helper;
 
-import net.minecraft.item.FilledMapItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.map.MapIcon;
-import net.minecraft.item.map.MapState;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.saveddata.maps.MapDecoration;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import svenhjol.charm.helper.ItemNBTHelper;
 
 public class MapHelper {
-    public static ItemStack getMap(ServerWorld world, BlockPos pos, TranslatableText mapName, MapIcon.Type targetType, int color) {
+    public static ItemStack getMap(ServerLevel world, BlockPos pos, TranslatableComponent mapName, MapDecoration.Type targetType, int color) {
         // generate the map
-        ItemStack stack = FilledMapItem.createMap(world, pos.getX(), pos.getZ(), (byte) 2, true, true);
-        FilledMapItem.fillExplorationMap(world, stack);
-        MapState.addDecorationsNbt(stack, pos, "+", targetType);
-        stack.setCustomName(mapName);
+        ItemStack stack = MapItem.create(world, pos.getX(), pos.getZ(), (byte) 2, true, true);
+        MapItem.renderBiomePreviewMap(world, stack);
+        MapItemSavedData.addTargetDecoration(stack, pos, "+", targetType);
+        stack.setHoverName(mapName);
 
         // set map color based on structure
-        NbtCompound nbt = ItemNBTHelper.getCompound(stack, "display");
+        CompoundTag nbt = svenhjol.charm.helper.ItemNBTHelper.getCompound(stack, "display");
         nbt.putInt("MapColor", color);
         ItemNBTHelper.setCompound(stack, "display", nbt);
 

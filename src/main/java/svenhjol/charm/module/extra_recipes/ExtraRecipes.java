@@ -1,11 +1,5 @@
 package svenhjol.charm.module.extra_recipes;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.GameRules;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
@@ -13,6 +7,12 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.CheckAnvilRepairCallback;
 
 import java.util.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameRules;
 
 @Module(mod = Charm.MOD_ID, description = "Adds custom recipes.",
     requiresMixins = {"CheckAnvilRepairCallback"})
@@ -53,8 +53,8 @@ public class ExtraRecipes extends CharmModule {
     }
 
     @Override
-    public List<Identifier> getRecipesToRemove() {
-        List<Identifier> removedRecipes = new ArrayList<>();
+    public List<ResourceLocation> getRecipesToRemove() {
+        List<ResourceLocation> removedRecipes = new ArrayList<>();
 
         Map<Boolean, List<String>> collect = new WeakHashMap<>();
         collect.put(useRawOreBlocks, Arrays.asList(
@@ -73,18 +73,18 @@ public class ExtraRecipes extends CharmModule {
 
         collect.forEach((key, recipes) -> {
             if (!key)
-                recipes.forEach(recipe -> removedRecipes.add(new Identifier(Charm.MOD_ID, "extra_recipes/" + recipe)));
+                recipes.forEach(recipe -> removedRecipes.add(new ResourceLocation(Charm.MOD_ID, "extra_recipes/" + recipe)));
         });
 
         return removedRecipes;
     }
 
-    private boolean handleCheckAnvilRepair(AnvilScreenHandler handler, PlayerEntity player, ItemStack leftStack, ItemStack rightStack) {
-        if (!useLeatherForElytra || player == null || player.world == null)
+    private boolean handleCheckAnvilRepair(AnvilMenu handler, Player player, ItemStack leftStack, ItemStack rightStack) {
+        if (!useLeatherForElytra || player == null || player.level == null)
             return false;
 
         // don't activate if insomnia is enabled
-        if (!player.world.isClient && player.world.getGameRules().getBoolean(GameRules.DO_INSOMNIA))
+        if (!player.level.isClientSide && player.level.getGameRules().getBoolean(GameRules.RULE_DOINSOMNIA))
             return false;
 
         return leftStack.getItem() == Items.ELYTRA && rightStack.getItem() == Items.LEATHER;

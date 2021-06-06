@@ -1,32 +1,34 @@
 package svenhjol.charm.module.quadrants;
 
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.block.*;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.piston.PistonBaseBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.init.CharmSounds;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.EntityEquipCallback;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.init.CharmSounds;
+import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -37,8 +39,8 @@ import java.util.function.Predicate;
 public class Quadrants extends CharmModule {
     public static QuadrantItem QUADRANT;
     public static Map<UUID, Direction> lockedDirection = new HashMap<>();
-    public static final Identifier TRIGGER_HELD_TO_ALIGN = new Identifier(Charm.MOD_ID, "held_to_align");
-    public static final Identifier TRIGGER_ROTATED_BLOCK = new Identifier(Charm.MOD_ID, "rotated_block");
+    public static final ResourceLocation TRIGGER_HELD_TO_ALIGN = new ResourceLocation(Charm.MOD_ID, "held_to_align");
+    public static final ResourceLocation TRIGGER_ROTATED_BLOCK = new ResourceLocation(Charm.MOD_ID, "rotated_block");
 
     @Override
     public void register() {
@@ -51,121 +53,121 @@ public class Quadrants extends CharmModule {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
     }
 
-    public static BlockState getRotatedBlockState(BlockState state, ItemPlacementContext context) {
+    public static BlockState getRotatedBlockState(BlockState state, BlockPlaceContext context) {
         if (!ModuleHandler.enabled(Quadrants.class))
             return state;
 
-        PlayerEntity player = context.getPlayer();
-        if (player == null || !lockedDirection.containsKey(player.getUuid()))
+        Player player = context.getPlayer();
+        if (player == null || !lockedDirection.containsKey(player.getUUID()))
             return state;
 
         if (state == null || state.getProperties() == null)
             return null;
 
-        Direction direction = lockedDirection.get(player.getUuid());
+        Direction direction = lockedDirection.get(player.getUUID());
         Collection<Property<?>> properties = state.getProperties();
         Block block = state.getBlock();
 
-        if (properties.contains(Properties.FACING))
-            return state.with(Properties.FACING, direction);
+        if (properties.contains(BlockStateProperties.FACING))
+            return state.setValue(BlockStateProperties.FACING, direction);
 
-        if (properties.contains(Properties.HORIZONTAL_FACING)) {
-            if (block instanceof StairsBlock) {
-                return state.with(Properties.HORIZONTAL_FACING, direction.getOpposite());
+        if (properties.contains(BlockStateProperties.HORIZONTAL_FACING)) {
+            if (block instanceof StairBlock) {
+                return state.setValue(BlockStateProperties.HORIZONTAL_FACING, direction.getOpposite());
             } else {
-                return state.with(Properties.HORIZONTAL_FACING, direction);
+                return state.setValue(BlockStateProperties.HORIZONTAL_FACING, direction);
             }
         }
 
-        if (properties.contains(Properties.AXIS)) {
-            triggerHeldToAlign((ServerPlayerEntity) player);
-            return state.with(Properties.AXIS, direction.getAxis());
+        if (properties.contains(BlockStateProperties.AXIS)) {
+            triggerHeldToAlign((ServerPlayer) player);
+            return state.setValue(BlockStateProperties.AXIS, direction.getAxis());
         }
 
         return state;
     }
 
-    private ActionResult handleUseBlock(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
-        ItemStack held = player.getStackInHand(hand);
+    private InteractionResult handleUseBlock(Player player, Level world, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack held = player.getItemInHand(hand);
 
-        if (!held.isOf(QUADRANT))
-            return ActionResult.PASS;
+        if (!held.is(QUADRANT))
+            return InteractionResult.PASS;
 
-        if (player.getItemCooldownManager().isCoolingDown(QUADRANT))
-            return ActionResult.SUCCESS;
+        if (player.getCooldowns().isOnCooldown(QUADRANT))
+            return InteractionResult.SUCCESS;
 
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = world.getBlockState(pos);
         Collection<Property<?>> properties = state.getProperties();
         Property<Direction> prop = null;
 
-        if (properties.contains(Properties.FACING)) {
-            prop = Properties.FACING;
-        } else if (properties.contains(Properties.HORIZONTAL_FACING)) {
-            prop = Properties.HORIZONTAL_FACING;
+        if (properties.contains(BlockStateProperties.FACING)) {
+            prop = BlockStateProperties.FACING;
+        } else if (properties.contains(BlockStateProperties.HORIZONTAL_FACING)) {
+            prop = BlockStateProperties.HORIZONTAL_FACING;
         }
 
         List<Predicate<BlockState>> exceptions = Arrays.asList(
             s -> s.getBlock() instanceof DoorBlock,
-            s -> s.getBlock() instanceof TallPlantBlock,
+            s -> s.getBlock() instanceof DoublePlantBlock,
             s -> s.getBlock() instanceof TallFlowerBlock,
-            s -> s.getBlock() instanceof ChestBlock && ChestBlock.getDoubleBlockType(s) != DoubleBlockProperties.Type.SINGLE,
-            s -> s.getBlock() instanceof PistonBlock && state.get(PistonBlock.EXTENDED)
+            s -> s.getBlock() instanceof ChestBlock && ChestBlock.getBlockType(s) != DoubleBlockCombiner.BlockType.SINGLE,
+            s -> s.getBlock() instanceof PistonBaseBlock && state.getValue(PistonBaseBlock.EXTENDED)
         );
 
         if (prop != null && exceptions.stream().noneMatch(exception -> exception.test(state))) {
-            Direction d = state.get(prop);
+            Direction d = state.getValue(prop);
             if (d.getAxis() == Direction.Axis.X || d.getAxis() == Direction.Axis.Z) {
-                world.setBlockState(pos, state.with(prop, d.rotateYClockwise()), 3);
-                world.getBlockTickScheduler().schedule(pos, state.getBlock(), 4);
-                world.playSound(null, pos, CharmSounds.QUADRANT, SoundCategory.BLOCKS, 0.35F + (0.25F * world.random.nextFloat()), 0.8F + (0.4F * world.random.nextFloat()));
+                world.setBlock(pos, state.setValue(prop, d.getClockWise()), 3);
+                world.getBlockTicks().scheduleTick(pos, state.getBlock(), 4);
+                world.playSound(null, pos, CharmSounds.QUADRANT, SoundSource.BLOCKS, 0.35F + (0.25F * world.random.nextFloat()), 0.8F + (0.4F * world.random.nextFloat()));
 
-                if (!world.isClient && state.getBlock() instanceof AbstractChestBlock)
-                    triggerRotatedBlock((ServerPlayerEntity) player);
+                if (!world.isClientSide && state.getBlock() instanceof AbstractChestBlock)
+                    triggerRotatedBlock((ServerPlayer) player);
 
                 // damage the quadrant a bit
-                held.damage(1, player, p -> p.sendToolBreakStatus(hand));
-                player.getItemCooldownManager().set(QUADRANT, 5);
+                held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+                player.getCooldowns().addCooldown(QUADRANT, 5);
             }
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     private void handleEntityEquip(LivingEntity entity, EquipmentSlot slot, @Nullable ItemStack from, @Nullable ItemStack to) {
-        if (entity.world.isClient)
+        if (entity.level.isClientSide)
             return;
 
         if (slot == EquipmentSlot.OFFHAND
             && to != null
-            && to.isOf(QUADRANT)
+            && to.is(QUADRANT)
         ) {
-            Direction direction = entity.getHorizontalFacing();
-            lockedDirection.put(entity.getUuid(), direction);
-            if (entity instanceof PlayerEntity) {
-                PlayerEntity player = (PlayerEntity) entity;
-                player.world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_SPYGLASS_USE, SoundCategory.PLAYERS, 1.15F, 0.9F);
-                player.sendMessage(new TranslatableText("gui.charm.quadrants.locked", direction.getName()), true);
+            Direction direction = entity.getDirection();
+            lockedDirection.put(entity.getUUID(), direction);
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
+                player.level.playSound(null, player.blockPosition(), SoundEvents.SPYGLASS_USE, SoundSource.PLAYERS, 1.15F, 0.9F);
+                player.displayClientMessage(new TranslatableComponent("gui.charm.quadrants.locked", direction.getName()), true);
             }
         }
         if (slot == EquipmentSlot.OFFHAND
-            && from != null && from.isOf(QUADRANT)
-            && to != null && !to.isOf(QUADRANT)
+            && from != null && from.is(QUADRANT)
+            && to != null && !to.is(QUADRANT)
         ) {
-            lockedDirection.remove(entity.getUuid());
-            if (entity instanceof PlayerEntity) {
-                PlayerEntity player = (PlayerEntity) entity;
-                player.world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_SPYGLASS_STOP_USING, SoundCategory.PLAYERS, 1.2F, 0.9F);
-                player.sendMessage(new TranslatableText("gui.charm.quadrants.unlocked"), true);
+            lockedDirection.remove(entity.getUUID());
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
+                player.level.playSound(null, player.blockPosition(), SoundEvents.SPYGLASS_STOP_USING, SoundSource.PLAYERS, 1.2F, 0.9F);
+                player.displayClientMessage(new TranslatableComponent("gui.charm.quadrants.unlocked"), true);
             }
         }
     }
 
-    public static void triggerHeldToAlign(ServerPlayerEntity player) {
+    public static void triggerHeldToAlign(ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_HELD_TO_ALIGN);
     }
 
-    public static void triggerRotatedBlock(ServerPlayerEntity player) {
+    public static void triggerRotatedBlock(ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_ROTATED_BLOCK);
     }
 }

@@ -1,14 +1,14 @@
 package svenhjol.charm.mixin.atlases;
 
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.map.MapState;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import svenhjol.charm.module.atlases.Atlases;
 
-@Mixin(MapState.class)
+@Mixin(MapItemSavedData.class)
 public class CheckContainsMapsMixin {
 
     /**
@@ -16,13 +16,13 @@ public class CheckContainsMapsMixin {
      * also check for atlases containing maps.
      */
     @Redirect(
-        method = "update",
+        method = "tickCarriedBy",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/PlayerInventory;contains(Lnet/minecraft/item/ItemStack;)Z"
+            target = "Lnet/minecraft/world/entity/player/Inventory;contains(Lnet/minecraft/world/item/ItemStack;)Z"
         )
     )
-    private boolean hookContains(PlayerInventory inventory, ItemStack itemStack) {
+    private boolean hookContains(Inventory inventory, ItemStack itemStack) {
         return Atlases.inventoryContainsMap(inventory, itemStack);
     }
 }

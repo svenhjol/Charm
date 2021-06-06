@@ -2,19 +2,19 @@ package svenhjol.charm.module.clear_item_frames;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.DyeColor;
+import svenhjol.charm.init.CharmParticles;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.init.CharmParticles;
 
 public class ClearItemFramesClient extends CharmClientModule {
     public ClearItemFramesClient(CharmModule module) {
@@ -27,17 +27,17 @@ public class ClearItemFramesClient extends CharmClientModule {
         ClientPlayNetworking.registerGlobalReceiver(ClearItemFrames.MSG_CLIENT_REMOVE_AMETHYST, this::handleClientBreakItemFrame);
     }
 
-    private void handleClientMakeInvisible(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
-        BlockPos pos = BlockPos.fromLong(data.readLong());
+    private void handleClientMakeInvisible(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
+        BlockPos pos = BlockPos.of(data.readLong());
 
         client.execute(() -> {
-            ClientWorld world = client.world;
-            ClientPlayerEntity player = client.player;
+            ClientLevel world = client.level;
+            LocalPlayer player = client.player;
 
             if (world == null || player == null)
                 return;
 
-            world.playSound(player, pos, SoundEvents.BLOCK_SMALL_AMETHYST_BUD_PLACE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            world.playSound(player, pos, SoundEvents.SMALL_AMETHYST_BUD_PLACE, SoundSource.PLAYERS, 1.0F, 1.0F);
 
             for (int i = 0; i < 3; i++) {
                 createParticle(world, pos);
@@ -45,17 +45,17 @@ public class ClearItemFramesClient extends CharmClientModule {
         });
     }
 
-    private void handleClientBreakItemFrame(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
-        BlockPos pos = BlockPos.fromLong(data.readLong());
+    private void handleClientBreakItemFrame(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
+        BlockPos pos = BlockPos.of(data.readLong());
 
         client.execute(() -> {
-            ClientWorld world = client.world;
-            ClientPlayerEntity player = client.player;
+            ClientLevel world = client.level;
+            LocalPlayer player = client.player;
 
             if (world == null || player == null)
                 return;
 
-            world.playSound(player, pos, SoundEvents.BLOCK_SMALL_AMETHYST_BUD_BREAK, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            world.playSound(player, pos, SoundEvents.SMALL_AMETHYST_BUD_BREAK, SoundSource.PLAYERS, 1.0F, 1.0F);
 
             for (int i = 0; i < 3; i++) {
                 createParticle(world, pos);
@@ -63,14 +63,14 @@ public class ClearItemFramesClient extends CharmClientModule {
         });
     }
 
-    private void createParticle(ClientWorld world, BlockPos pos) {
-        DefaultParticleType particleType = CharmParticles.APPLY_PARTICLE;
+    private void createParticle(ClientLevel world, BlockPos pos) {
+        SimpleParticleType particleType = CharmParticles.APPLY_PARTICLE;
 
-        float[] col = DyeColor.PURPLE.getColorComponents();
+        float[] col = DyeColor.PURPLE.getTextureDiffuseColors();
         double x = (double) pos.getX() + 0.5D;
         double y = (double) pos.getY() + 0.5D;
         double z = (double) pos.getZ() + 0.5D;
 
-        world.addImportantParticle(particleType, x, y, z, col[0], col[1], col[2]);
+        world.addAlwaysVisibleParticle(particleType, x, y, z, col[0], col[1], col[2]);
     }
 }

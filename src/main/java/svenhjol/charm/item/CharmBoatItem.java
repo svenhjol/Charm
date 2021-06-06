@@ -1,96 +1,95 @@
 package svenhjol.charm.item;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.module.extra_boats.CharmBoatEntity;
+import svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType;
-
 public class CharmBoatItem extends CharmItem {
     private static final Predicate<Entity> RIDERS;
     private final BoatType type;
 
-    public CharmBoatItem(CharmModule module, String name, BoatType type, Settings settings) {
+    public CharmBoatItem(CharmModule module, String name, BoatType type, Properties settings) {
         super(module, name, settings);
         this.type = type;
     }
 
     public CharmBoatItem(CharmModule module, String name, BoatType type) {
-        this(module, name, type, new Item.Settings()
-            .maxCount(1)
-            .group(ItemGroup.TRANSPORTATION));
+        this(module, name, type, new Item.Properties()
+            .stacksTo(1)
+            .tab(CreativeModeTab.TAB_TRANSPORTATION));
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
 
         // copypasta from BoatItem
-        ItemStack itemStack = user.getStackInHand(hand);
-        BlockHitResult hitResult = raycast(world, user, RaycastContext.FluidHandling.ANY);
+        ItemStack itemStack = user.getItemInHand(hand);
+        BlockHitResult hitResult = getPlayerPOVHitResult(world, user, ClipContext.Fluid.ANY);
 
         if (hitResult.getType() == HitResult.Type.MISS) {
-            return TypedActionResult.pass(itemStack);
+            return InteractionResultHolder.pass(itemStack);
         }
 
-        Vec3d vec3d = user.getRotationVec(1.0F);
-        List<Entity> list = world.getOtherEntities(user, user.getBoundingBox().stretch(vec3d.multiply(5.0D)).expand(1.0D), RIDERS);
+        Vec3 vec3d = user.getViewVector(1.0F);
+        List<Entity> list = world.getEntities(user, user.getBoundingBox().expandTowards(vec3d.scale(5.0D)).inflate(1.0D), RIDERS);
         if (!list.isEmpty()) {
-            Vec3d vec3d2 = user.getEyePos();
+            Vec3 vec3d2 = user.getEyePosition();
             Iterator var11 = list.iterator();
 
             while(var11.hasNext()) {
                 Entity entity = (Entity)var11.next();
-                Box box = entity.getBoundingBox().expand((double)entity.getTargetingMargin());
+                AABB box = entity.getBoundingBox().inflate((double)entity.getPickRadius());
                 if (box.contains(vec3d2)) {
-                    return TypedActionResult.pass(itemStack);
+                    return InteractionResultHolder.pass(itemStack);
                 }
             }
         }
 
         if (hitResult.getType() == HitResult.Type.BLOCK) {
-            CharmBoatEntity boatEntity = new CharmBoatEntity(world, hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z);
+            CharmBoatEntity boatEntity = new CharmBoatEntity(world, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
             boatEntity.setCharmBoatType(this.type);
-            boatEntity.setYaw(user.getYaw());
-            if (!world.isSpaceEmpty(boatEntity, boatEntity.getBoundingBox().expand(-0.1D))) {
-                return TypedActionResult.fail(itemStack);
+            boatEntity.setYRot(user.getYRot());
+            if (!world.noCollision(boatEntity, boatEntity.getBoundingBox().inflate(-0.1D))) {
+                return InteractionResultHolder.fail(itemStack);
             } else {
-                if (!world.isClient) {
-                    world.spawnEntity(boatEntity);
-                    world.emitGameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos(hitResult.getPos()));
-                    if (!user.getAbilities().creativeMode) {
-                        itemStack.decrement(1);
+                if (!world.isClientSide) {
+                    world.addFreshEntity(boatEntity);
+                    world.gameEvent(user, GameEvent.ENTITY_PLACE, new BlockPos(hitResult.getLocation()));
+                    if (!user.getAbilities().instabuild) {
+                        itemStack.shrink(1);
                     }
                 }
 
-                user.incrementStat(Stats.USED.getOrCreateStat(this));
-                return TypedActionResult.success(itemStack, world.isClient());
+                user.awardStat(Stats.ITEM_USED.get(this));
+                return InteractionResultHolder.sidedSuccess(itemStack, world.isClientSide());
             }
         } else {
-            return TypedActionResult.pass(itemStack);
+            return InteractionResultHolder.pass(itemStack);
         }
     }
 
     static {
-        RIDERS = EntityPredicates.EXCEPT_SPECTATOR.and(Entity::collides);
+        RIDERS = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
     }
 }

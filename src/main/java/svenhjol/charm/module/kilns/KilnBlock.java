@@ -2,26 +2,28 @@ package svenhjol.charm.module.kilns;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.AbstractFurnaceBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.ICharmBlock;
+import svenhjol.charm.module.kilns.KilnBlockEntity;
+import svenhjol.charm.module.kilns.Kilns;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -30,10 +32,10 @@ public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
     protected CharmModule module;
 
     public KilnBlock(CharmModule module) {
-        super(AbstractBlock.Settings
+        super(BlockBehaviour.Properties
             .of(Material.STONE)
             .strength(3.5F)
-            .luminance(l -> l.get(Properties.LIT) ? 13 : 0));
+            .lightLevel(l -> l.getValue(BlockStateProperties.LIT) ? 13 : 0));
 
         this.module = module;
         this.register(module, "kiln");
@@ -41,33 +43,33 @@ public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(world, type, Kilns.BLOCK_ENTITY);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        return createFurnaceTicker(world, type, Kilns.BLOCK_ENTITY);
     }
 
     @Override
-    protected void openScreen(World world, BlockPos pos, PlayerEntity player) {
+    protected void openContainer(Level world, BlockPos pos, Player player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof KilnBlockEntity) {
-            player.openHandledScreen((NamedScreenHandlerFactory)blockEntity);
+        if (blockEntity instanceof svenhjol.charm.module.kilns.KilnBlockEntity) {
+            player.openMenu((MenuProvider)blockEntity);
         }
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.DECORATIONS;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_DECORATIONS;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new KilnBlockEntity(pos, state);
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override
@@ -76,13 +78,13 @@ public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
     }
 
     @Environment(EnvType.CLIENT)
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if (state.get(LIT)) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, Random random) {
+        if (state.getValue(LIT)) {
             double x = pos.getX() + 0.5D;
             double y = pos.getY();
             double z = pos.getZ() + 0.5D;
             if (random.nextDouble() < 0.1D)
-                world.playSound(x, y, z, SoundEvents.BLOCK_SMOKER_SMOKE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                world.playLocalSound(x, y, z, SoundEvents.SMOKER_SMOKE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
 
             world.addParticle(ParticleTypes.SMOKE, x, y + 1.1D, z, 0.0D, 0.0D, 0.0D);
         }

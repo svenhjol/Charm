@@ -1,28 +1,32 @@
 package svenhjol.charm.module.variant_chests;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stat.Stat;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.BlockView;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.helper.ModHelper;
 
 import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.stats.Stat;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.module.variant_chests.IVariantChestBlock;
+import svenhjol.charm.module.variant_chests.VariantChests;
+import svenhjol.charm.module.variant_chests.VariantTrappedChestBlockEntity;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
@@ -34,28 +38,28 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
     private final List<String> loadedMods;
 
     public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
-        this(module, type, Settings.copy(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_BLOCK_ENTITY);
+        this(module, type, Properties.copy(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_BLOCK_ENTITY);
     }
 
-    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
+    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
         super(settings, supplier);
 
         this.module = module;
         this.type = type;
         this.loadedMods = Arrays.asList(loadedMods);
 
-        this.register(module, type.asString() + "_trapped_chest");
+        this.register(module, type.getSerializedName() + "_trapped_chest");
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.REDSTONE;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_REDSTONE;
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override
@@ -65,18 +69,18 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new VariantTrappedChestBlockEntity(pos, state);
     }
 
     @Override
-    public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-        return MathHelper.clamp(ChestBlockEntity.getPlayersLookingInChestCount(world, pos), 0, 15);
+    public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
+        return Mth.clamp(ChestBlockEntity.getOpenCount(world, pos), 0, 15);
     }
 
     @Override
-    public int getStrongRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-        return direction == Direction.UP ? state.getWeakRedstonePower(world, pos, direction) : 0;
+    public int getDirectSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
+        return direction == Direction.UP ? state.getSignal(world, pos, direction) : 0;
     }
 
     @Override
@@ -85,14 +89,14 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
     }
 
     @Override
-    public boolean emitsRedstonePower(BlockState state) {
+    public boolean isSignalSource(BlockState state) {
         return true;
     }
 
     /**
-     * Copypasta from {@link net.minecraft.block.TrappedChestBlock}
+     * Copypasta from {@link net.minecraft.world.level.block.TrappedChestBlock}
      */
-    protected Stat<Identifier> getOpenStat() {
-        return Stats.CUSTOM.getOrCreateStat(Stats.TRIGGER_TRAPPED_CHEST);
+    protected Stat<ResourceLocation> getOpenChestStat() {
+        return Stats.CUSTOM.get(Stats.TRIGGER_TRAPPED_CHEST);
     }
 }

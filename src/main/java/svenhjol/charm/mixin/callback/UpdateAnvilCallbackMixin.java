@@ -1,9 +1,13 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.*;
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.ItemCombinerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,18 +18,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.event.UpdateAnvilCallback;
 
-@Mixin(AnvilScreenHandler.class)
-public abstract class UpdateAnvilCallbackMixin extends ForgingScreenHandler {
-
+@Mixin(AnvilMenu.class)
+public abstract class UpdateAnvilCallbackMixin extends ItemCombinerMenu {
     @Shadow
-    private String newItemName;
+    private String itemName;
 
     @Shadow @Final
-    private Property levelCost;
+    private DataSlot cost;
 
-    @Shadow private int repairItemUsage;
+    @Shadow private int repairItemCountCost;
 
-    public UpdateAnvilCallbackMixin(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+    public UpdateAnvilCallbackMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(type, syncId, playerInventory, context);
     }
 
@@ -34,10 +37,10 @@ public abstract class UpdateAnvilCallbackMixin extends ForgingScreenHandler {
      * for full control over anvil output slot.
      */
     @Inject(
-        method = "updateResult",
+        method = "createResult",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/item/ItemStack;isDamageable()Z",
+            target = "Lnet/minecraft/world/item/ItemStack;isDamageableItem()Z",
             ordinal = 0,
             shift = At.Shift.BEFORE
         ),
@@ -45,14 +48,14 @@ public abstract class UpdateAnvilCallbackMixin extends ForgingScreenHandler {
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void hookUpdateResultUpdateAnvil(CallbackInfo ci, ItemStack left, int i, int baseCost, int k, ItemStack itemStack2, ItemStack right) {
-        ActionResult result = UpdateAnvilCallback.EVENT.invoker().interact((AnvilScreenHandler)(Object)this, this.player, left, right, this.output, this.newItemName, baseCost, this::applyUpdateAnvil);
-        if (result == ActionResult.SUCCESS)
+        InteractionResult result = UpdateAnvilCallback.EVENT.invoker().interact((AnvilMenu)(Object)this, this.player, left, right, this.resultSlots, this.itemName, baseCost, this::applyUpdateAnvil);
+        if (result == InteractionResult.SUCCESS)
             ci.cancel();
     }
 
     private void applyUpdateAnvil(ItemStack out, int xpCost, int materialCost) {
-        output.setStack(0, out);
-        this.levelCost.set(5);
-        repairItemUsage = materialCost;
+        resultSlots.setItem(0, out);
+        this.cost.set(5);
+        repairItemCountCost = materialCost;
     }
 }

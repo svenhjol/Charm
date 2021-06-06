@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.snow_storms;
 
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -10,9 +10,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.module.snow_storms.SnowStorms;
 
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public class PlaceMoreSnowMixin {
-
     /**
      * Call {@link SnowStorms#tryPlaceSnow} each tick to add
      * more snow during a thunderstorm.
@@ -21,12 +20,12 @@ public class PlaceMoreSnowMixin {
         method = "tickChunk",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/util/profiler/Profiler;swap(Ljava/lang/String;)V",
+            target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V",
             ordinal = 0
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookTryPlaceSnow(WorldChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos, boolean isRaining, int chunkX, int chunkZ) {
-        SnowStorms.tryPlaceSnow((ServerWorld)(Object)this, chunkX, chunkZ);
+    private void hookTryPlaceSnow(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos, boolean isRaining, int chunkX, int chunkZ) {
+        SnowStorms.tryPlaceSnow((ServerLevel)(Object)this, chunkX, chunkZ);
     }
 }

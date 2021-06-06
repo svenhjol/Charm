@@ -1,10 +1,5 @@
 package svenhjol.charm.module.automatic_recipe_unlock;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.ClientConnection;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeManager;
-import net.minecraft.server.PlayerManager;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ModuleHandler;
@@ -12,6 +7,11 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.ServerJoinCallback;
 
 import java.util.Collection;
+import net.minecraft.network.Connection;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeManager;
 
 @Module(mod = Charm.MOD_ID, description = "Unlocks all vanilla recipes.",
     requiresMixins = "ServerJoinCallback")
@@ -21,14 +21,14 @@ public class AutomaticRecipeUnlock extends CharmModule {
         ServerJoinCallback.EVENT.register(this::handleServerJoin);
     }
 
-    private void handleServerJoin(PlayerManager playerManager, ClientConnection connection, PlayerEntity player) {
+    private void handleServerJoin(PlayerList playerManager, Connection connection, Player player) {
         if (!ModuleHandler.enabled("charm:automatic_recipe_unlock"))
             return;
 
         if (player != null) {
-            RecipeManager recipeManager = player.world.getRecipeManager();
-            Collection<Recipe<?>> allRecipes = recipeManager.values();
-            player.unlockRecipes(allRecipes);
+            RecipeManager recipeManager = player.level.getRecipeManager();
+            Collection<Recipe<?>> allRecipes = recipeManager.getRecipes();
+            player.awardRecipes(allRecipes);
         }
     }
 }

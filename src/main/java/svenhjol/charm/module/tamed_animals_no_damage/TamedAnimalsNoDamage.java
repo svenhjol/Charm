@@ -1,15 +1,15 @@
 package svenhjol.charm.module.tamed_animals_no_damage;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.EntityHurtCallback;
 import svenhjol.charm.module.CharmModule;
@@ -24,32 +24,32 @@ public class TamedAnimalsNoDamage extends CharmModule {
         EntityHurtCallback.EVENT.register(this::tryIgnoreDamage);
     }
 
-    private ActionResult tryIgnoreAttack(PlayerEntity player, World world, Hand hand, Entity entity, EntityHitResult hitResult) {
-        if (entity instanceof TameableEntity
-            && ((TameableEntity)entity).isTamed()
+    private InteractionResult tryIgnoreAttack(Player player, Level world, InteractionHand hand, Entity entity, EntityHitResult hitResult) {
+        if (entity instanceof TamableAnimal
+            && ((TamableAnimal)entity).isTame()
             && !player.isCreative()
         ) {
-            return ActionResult.FAIL;
+            return InteractionResult.FAIL;
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
-    private ActionResult tryIgnoreDamage(LivingEntity entity, DamageSource damageSource, float amount) {
-        if (!(entity instanceof PlayerEntity)) {
-            Entity attacker = damageSource.getAttacker();
-            Entity source = damageSource.getSource();
+    private InteractionResult tryIgnoreDamage(LivingEntity entity, DamageSource damageSource, float amount) {
+        if (!(entity instanceof Player)) {
+            Entity attacker = damageSource.getEntity();
+            Entity source = damageSource.getDirectEntity();
 
-            PlayerEntity player = null;
+            Player player = null;
 
-            if (source instanceof PlayerEntity) player = (PlayerEntity) source;
-            if (attacker instanceof PlayerEntity) player = (PlayerEntity) attacker;
+            if (source instanceof Player) player = (Player) source;
+            if (attacker instanceof Player) player = (Player) attacker;
 
             if (player != null && !player.isCreative())
-                if (entity instanceof TameableEntity && ((TameableEntity) entity).isTamed())
-                    return ActionResult.FAIL; // the positive outcome!
+                if (entity instanceof TamableAnimal && ((TamableAnimal) entity).isTame())
+                    return InteractionResult.FAIL; // the positive outcome!
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 }

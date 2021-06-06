@@ -1,9 +1,9 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.structure.StructurePiece;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -13,17 +13,17 @@ import svenhjol.charm.annotation.CharmMixin;
 @CharmMixin(required = true)
 public interface StructurePieceAccessor {
     @Accessor()
-    BlockBox getBoundingBox();
+    BoundingBox getBoundingBox();
 
     @Invoker
-    void callAddBlock(StructureWorldAccess worldIn, BlockState blockstateIn, int x, int y, int z, BlockBox boundingboxIn);
+    void invokePlaceBlock(WorldGenLevel worldIn, BlockState blockstateIn, int x, int y, int z, BoundingBox boundingboxIn);
 
     @Invoker
-    int callApplyXTransform(int x, int z);
+    int invokeGetWorldX(int x, int z);
 
     @Invoker
-    int callApplyYTransform(int y);
+    int invokeGetWorldY(int y);
 
     @Invoker
-    int callApplyZTransform(int x, int z);
+    int invokeGetWorldZ(int x, int z);
 }

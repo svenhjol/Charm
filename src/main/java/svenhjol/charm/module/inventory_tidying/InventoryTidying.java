@@ -2,14 +2,14 @@ package svenhjol.charm.module.inventory_tidying;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.helper.PlayerHelper;
@@ -24,8 +24,8 @@ import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PL
 @Module(mod = Charm.MOD_ID, client = InventoryTidyingClient.class, description = "Button to automatically tidy inventories.",
     requiresMixins = {"SetupGuiCallback", "RenderGuiCallback"})
 public class InventoryTidying extends CharmModule {
-    public static final Identifier MSG_SERVER_TIDY_INVENTORY = new Identifier(Charm.MOD_ID, "server_tidy_inventory");
-    public static final Identifier TRIGGER_TIDIED_INVENTORY = new Identifier(Charm.MOD_ID, "tidied_inventory");
+    public static final ResourceLocation MSG_SERVER_TIDY_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_tidy_inventory");
+    public static final ResourceLocation TRIGGER_TIDIED_INVENTORY = new ResourceLocation(Charm.MOD_ID, "tidied_inventory");
 
     @Override
     public void init() {
@@ -35,7 +35,7 @@ public class InventoryTidying extends CharmModule {
         InventoryTidyingHandler.init();
     }
 
-    private void handleServerTidyInventory(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+    private void handleServerTidyInventory(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf data, PacketSender sender) {
         int type = data.readInt();
 
         server.execute(() -> {
@@ -46,16 +46,16 @@ public class InventoryTidying extends CharmModule {
         });
     }
 
-    public static void serverCallback(ServerPlayerEntity player, int type) {
-        ScreenHandler useContainer;
+    public static void serverCallback(ServerPlayer player, int type) {
+        AbstractContainerMenu useContainer;
 
         if (player.isSpectator())
             return;
 
-        if (type == PLAYER && player.playerScreenHandler != null) {
-            useContainer = player.playerScreenHandler;
-        } else if (type == BE && player.currentScreenHandler != null) {
-            useContainer = player.currentScreenHandler;
+        if (type == PLAYER && player.inventoryMenu != null) {
+            useContainer = player.inventoryMenu;
+        } else if (type == BE && player.containerMenu != null) {
+            useContainer = player.containerMenu;
         } else {
             return;
         }
@@ -68,15 +68,15 @@ public class InventoryTidying extends CharmModule {
         boolean hasItemsInInventory = false;
 
         for (Slot slot : slots) {
-            Inventory inventory = slot.inventory;
+            Container inventory = slot.container;
 
-            if (type == PLAYER && slot.inventory == PlayerHelper.getInventory(player)) {
+            if (type == PLAYER && slot.container == PlayerHelper.getInventory(player)) {
                 InventoryTidyingHandler.sort(PlayerHelper.getInventory(player), 9, 36);
-                hasItemsInInventory = !slot.inventory.isEmpty();
+                hasItemsInInventory = !slot.container.isEmpty();
                 break;
             } else if (type == BE) {
-                InventoryTidyingHandler.sort(inventory, 0, inventory.size());
-                hasItemsInInventory = !slot.inventory.isEmpty();
+                InventoryTidyingHandler.sort(inventory, 0, inventory.getContainerSize());
+                hasItemsInInventory = !slot.container.isEmpty();
                 break;
             }
         }
@@ -87,7 +87,7 @@ public class InventoryTidying extends CharmModule {
         }
     }
 
-    public static void triggerTidiedInventory(ServerPlayerEntity player) {
+    public static void triggerTidiedInventory(ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_TIDIED_INVENTORY);
     }
 }

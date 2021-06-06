@@ -1,17 +1,16 @@
 package svenhjol.charm.module.endermite_powder;
 
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.util.Identifier;
-import svenhjol.charm.module.endermite_powder.EndermitePowderEntity;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 
 public class EndermitePowderEntityRenderer extends EntityRenderer<EndermitePowderEntity> {
-    public EndermitePowderEntityRenderer(EntityRendererFactory.Context context) {
+    public EndermitePowderEntityRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public Identifier getTexture(EndermitePowderEntity entity) {
+    public ResourceLocation getTextureLocation(EndermitePowderEntity entity) {
         return null;
     }
 }

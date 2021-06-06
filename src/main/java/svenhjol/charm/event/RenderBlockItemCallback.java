@@ -2,9 +2,8 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import javax.annotation.Nullable;
 
 public interface RenderBlockItemCallback {

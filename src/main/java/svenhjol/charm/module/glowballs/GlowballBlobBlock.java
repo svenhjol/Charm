@@ -1,65 +1,71 @@
 package svenhjol.charm.module.glowballs;
 
-import net.minecraft.block.*;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.CharmBlock;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class GlowballBlobBlock extends CharmBlock implements Waterloggable {
+public class GlowballBlobBlock extends CharmBlock implements SimpleWaterloggedBlock {
     public static final Map<Direction, VoxelShape> SHAPE = new HashMap<>();
-    public static final DirectionProperty FACING = FacingBlock.FACING;
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final DirectionProperty FACING = DirectionalBlock.FACING;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public GlowballBlobBlock(CharmModule module) {
-        super(module, "glowball_blob", Settings.of(Material.REPLACEABLE_PLANT)
-            .noCollision()
-            .breakInstantly()
-            .luminance(l -> 12));
+        super(module, "glowball_blob", Properties.of(Material.REPLACEABLE_PLANT)
+            .noCollission()
+            .instabreak()
+            .lightLevel(l -> 12));
 
-        this.setDefaultState(getDefaultState().with(WATERLOGGED, false));
+        this.registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return SHAPE.get(state.get(FACING));
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return SHAPE.get(state.getValue(FACING));
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext context) {
-        BlockState state = this.getDefaultState();
-        World world = context.getWorld();
-        BlockPos pos = context.getBlockPos();
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState state = this.defaultBlockState();
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
 
-        FluidState fluidstate = context.getWorld().getFluidState(context.getBlockPos());
-        boolean isWaterlogged = fluidstate.getFluid() == Fluids.WATER;
+        FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
+        boolean isWaterlogged = fluidstate.getType() == Fluids.WATER;
 
-        Direction[] directions = context.getPlacementDirections();
+        Direction[] directions = context.getNearestLookingDirections();
         for (Direction direction : directions) {
             Direction opposite = direction.getOpposite();
-            state = state.with(FACING, opposite);
+            state = state.setValue(FACING, opposite);
 
-            if (state.canPlaceAt(world, pos)) {
-                return state.with(WATERLOGGED, isWaterlogged);
+            if (state.canSurvive(world, pos)) {
+                return state.setValue(WATERLOGGED, isWaterlogged);
             }
         }
 
@@ -67,18 +73,18 @@ public class GlowballBlobBlock extends CharmBlock implements Waterloggable {
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
-        if (state.get(WATERLOGGED))
-            world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+    public BlockState updateShape(BlockState state, Direction direction, BlockState newState, LevelAccessor world, BlockPos pos, BlockPos posFrom) {
+        if (state.getValue(WATERLOGGED))
+            world.getLiquidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 
-        return direction.getOpposite() == state.get(FACING) && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : state;
+        return direction.getOpposite() == state.getValue(FACING) && !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : state;
     }
 
     @Override
-    public boolean tryFillWithFluid(WorldAccess worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
-        if (!state.get(Properties.WATERLOGGED) && fluidStateIn.getFluid() == Fluids.WATER) {
-            worldIn.setBlockState(pos, state.with(WATERLOGGED, true), 3);
-            worldIn.getFluidTickScheduler().schedule(pos, fluidStateIn.getFluid(), fluidStateIn.getFluid().getTickRate(worldIn));
+    public boolean placeLiquid(LevelAccessor worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) {
+        if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidStateIn.getType() == Fluids.WATER) {
+            worldIn.setBlock(pos, state.setValue(WATERLOGGED, true), 3);
+            worldIn.getLiquidTicks().scheduleTick(pos, fluidStateIn.getType(), fluidStateIn.getType().getTickDelay(worldIn));
             return true;
         } else {
             return false;
@@ -86,39 +92,39 @@ public class GlowballBlobBlock extends CharmBlock implements Waterloggable {
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        Direction direction = state.get(FACING);
-        BlockPos blockPos = pos.offset(direction.getOpposite());
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        Direction direction = state.getValue(FACING);
+        BlockPos blockPos = pos.relative(direction.getOpposite());
         BlockState blockState = world.getBlockState(blockPos);
-        return blockState.isSideSolidFullSquare(world, blockPos, direction);
+        return blockState.isFaceSturdy(world, blockPos, direction);
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, WATERLOGGED);
     }
 
     @Override
-    public void createBlockItem(Identifier id) {
+    public void createBlockItem(ResourceLocation id) {
         // don't
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         // don't
     }
 
     static {
-        SHAPE.put(Direction.UP, Block.createCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 1.0D, 13.0D));
-        SHAPE.put(Direction.DOWN, Block.createCuboidShape(3.0D, 15.0D, 3.0D, 13.0D, 16.0D, 13.0D));
-        SHAPE.put(Direction.EAST, Block.createCuboidShape(0.0D, 3.0D, 3.0D, 1.0D, 13.0D, 13.0D));
-        SHAPE.put(Direction.SOUTH, Block.createCuboidShape(3.0D, 3.0D, 0.0D, 13.0D, 13.0D, 1.0D));
-        SHAPE.put(Direction.WEST, Block.createCuboidShape(15.0D, 3.0D, 3.0D, 16.0D, 13.0D, 13.0D));
-        SHAPE.put(Direction.NORTH, Block.createCuboidShape(3.0D, 3.0D, 15.0D, 13.0D, 13.0D, 16.0D));
+        SHAPE.put(Direction.UP, Block.box(3.0D, 0.0D, 3.0D, 13.0D, 1.0D, 13.0D));
+        SHAPE.put(Direction.DOWN, Block.box(3.0D, 15.0D, 3.0D, 13.0D, 16.0D, 13.0D));
+        SHAPE.put(Direction.EAST, Block.box(0.0D, 3.0D, 3.0D, 1.0D, 13.0D, 13.0D));
+        SHAPE.put(Direction.SOUTH, Block.box(3.0D, 3.0D, 0.0D, 13.0D, 13.0D, 1.0D));
+        SHAPE.put(Direction.WEST, Block.box(15.0D, 3.0D, 3.0D, 16.0D, 13.0D, 13.0D));
+        SHAPE.put(Direction.NORTH, Block.box(3.0D, 3.0D, 15.0D, 13.0D, 13.0D, 16.0D));
     }
 }

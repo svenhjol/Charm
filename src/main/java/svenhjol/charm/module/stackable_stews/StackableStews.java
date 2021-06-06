@@ -1,9 +1,9 @@
 package svenhjol.charm.module.stackable_stews;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ModuleHandler;
@@ -23,25 +23,25 @@ public class StackableStews extends CharmModule {
 
     @Override
     public void init() {
-        ((ItemAccessor) Items.MUSHROOM_STEW).setMaxCount(stackSize);
-        ((ItemAccessor) Items.RABBIT_STEW).setMaxCount(stackSize);
-        ((ItemAccessor) Items.BEETROOT_SOUP).setMaxCount(stackSize);
+        ((ItemAccessor) Items.MUSHROOM_STEW).setMaxStackSize(stackSize);
+        ((ItemAccessor) Items.RABBIT_STEW).setMaxStackSize(stackSize);
+        ((ItemAccessor) Items.BEETROOT_SOUP).setMaxStackSize(stackSize);
 
         if (suspiciousStew)
-            ((ItemAccessor) Items.SUSPICIOUS_STEW).setMaxCount(stackSize);
+            ((ItemAccessor) Items.SUSPICIOUS_STEW).setMaxStackSize(stackSize);
 
         if (ModuleHandler.enabled("charm:cooking_pots"))
-            ((ItemAccessor) CookingPots.MIXED_STEW).setMaxCount(stackSize);
+            ((ItemAccessor) CookingPots.MIXED_STEW).setMaxStackSize(stackSize);
     }
 
     public static boolean tryEatStewStack(LivingEntity entity, ItemStack stack) {
-        if (!ModuleHandler.enabled(StackableStews.class) || stack.getMaxCount() == 1)
+        if (!ModuleHandler.enabled(StackableStews.class) || stack.getMaxStackSize() == 1)
             return false;
 
-        if (entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entity;
-            if (!PlayerHelper.getAbilities(player).creativeMode)
-                player.giveItemStack(new ItemStack(Items.BOWL));
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+            if (!PlayerHelper.getAbilities(player).instabuild)
+                player.addItem(new ItemStack(Items.BOWL));
         }
 
         return true;

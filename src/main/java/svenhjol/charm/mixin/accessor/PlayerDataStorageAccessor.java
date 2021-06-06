@@ -1,14 +1,15 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.entity.ai.goal.GoalSelector;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.world.level.storage.PlayerDataStorage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(MobEntity.class)
+import java.io.File;
+
+@Mixin(PlayerDataStorage.class)
 @CharmMixin(required = true)
-public interface MobEntityAccessor {
-    @Accessor()
-    GoalSelector getGoalSelector();
+public interface PlayerDataStorageAccessor {
+    @Accessor
+    File getPlayerDir();
 }

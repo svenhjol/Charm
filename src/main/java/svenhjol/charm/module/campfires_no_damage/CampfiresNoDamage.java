@@ -1,7 +1,7 @@
 package svenhjol.charm.module.campfires_no_damage;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.CharmModule;

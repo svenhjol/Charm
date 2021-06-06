@@ -1,13 +1,5 @@
 package svenhjol.charm.module.bookcases;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.enums.IVariantMaterial;
@@ -18,14 +10,22 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.init.CharmAdvancements;
 
 import java.util.*;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 @Module(mod = Charm.MOD_ID, priority = 10, client = BookcasesClient.class, description = "Bookshelves that can hold up to 9 stacks of books and maps.")
 public class Bookcases extends CharmModule {
-    public static final Identifier ID = new Identifier(Charm.MOD_ID, "bookcase");
-    public static final Identifier TRIGGER_ADDED_BOOK_TO_BOOKCASE = new Identifier(Charm.MOD_ID, "added_book_to_bookcase");
+    public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "bookcase");
+    public static final ResourceLocation TRIGGER_ADDED_BOOK_TO_BOOKCASE = new ResourceLocation(Charm.MOD_ID, "added_book_to_bookcase");
     public static final Map<IVariantMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
 
-    public static ScreenHandlerType<BookcaseScreenHandler> SCREEN_HANDLER;
+    public static MenuType<BookcaseScreenHandler> SCREEN_HANDLER;
     public static BlockEntityType<BookcaseBlockEntity> BLOCK_ENTITY;
 
     public static List<Item> validItems = new ArrayList<>();
@@ -55,7 +55,7 @@ public class Bookcases extends CharmModule {
         });
 
         configValidItems.forEach(string -> {
-            Item item = Registry.ITEM.get(new Identifier(string));
+            Item item = Registry.ITEM.get(new ResourceLocation(string));
             validItems.add(item);
         });
 
@@ -73,7 +73,7 @@ public class Bookcases extends CharmModule {
         return validItems.contains(stack.getItem());
     }
 
-    public static void triggerAddedBookToBookcase(ServerPlayerEntity player) {
+    public static void triggerAddedBookToBookcase(ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_ADDED_BOOK_TO_BOOKCASE);
     }
 }

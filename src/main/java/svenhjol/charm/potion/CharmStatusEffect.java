@@ -1,21 +1,22 @@
 package svenhjol.charm.potion;
 
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.potion.ICharmStatusEffect;
 
-public abstract class CharmStatusEffect extends StatusEffect implements ICharmStatusEffect {
+public abstract class CharmStatusEffect extends MobEffect implements ICharmStatusEffect {
     protected CharmModule module;
 
-    protected CharmStatusEffect(CharmModule module, String name, StatusEffectType type, int color) {
+    protected CharmStatusEffect(CharmModule module, String name, MobEffectCategory type, int color) {
         super(type, color);
         this.module = module;
         this.register(module, name);
     }
 
-    protected void addStatusEffect(StatusEffect effect) {
+    protected void addStatusEffect(MobEffect effect) {
         effect.getAttributeModifiers().forEach((attribute, modifier) -> {
-            this.addAttributeModifier(attribute, modifier.getId().toString(), modifier.getValue(), modifier.getOperation());
+            this.addAttributeModifier(attribute, modifier.getId().toString(), modifier.getAmount(), modifier.getOperation());
         });
     }
 }

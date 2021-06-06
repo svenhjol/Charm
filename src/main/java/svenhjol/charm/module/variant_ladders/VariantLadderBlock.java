@@ -1,12 +1,12 @@
 package svenhjol.charm.module.variant_ladders;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LadderBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.module.CharmModule;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LadderBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.enums.IVariantMaterial;
 
@@ -14,8 +14,8 @@ public class VariantLadderBlock extends LadderBlock implements ICharmBlock {
     private final CharmModule module;
 
     public VariantLadderBlock(CharmModule module, IVariantMaterial type) {
-        super(AbstractBlock.Settings.copy(Blocks.LADDER));
-        register(module, type.asString() + "_ladder");
+        super(BlockBehaviour.Properties.copy(Blocks.LADDER));
+        register(module, type.getSerializedName() + "_ladder");
 
         /** @see net.minecraft.block.entity.AbstractFurnaceBlockEntity#createFuelTimeMap */
         this.setBurnTime(300);
@@ -24,9 +24,9 @@ public class VariantLadderBlock extends LadderBlock implements ICharmBlock {
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> list) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> list) {
         if (enabled())
-            super.addStacksForDisplay(group, list);
+            super.fillItemCategory(group, list);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package svenhjol.charm.module.feather_falling_crops;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.Charm;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.CharmModule;
@@ -23,10 +23,10 @@ public class FeatherFallingCrops extends CharmModule {
 
     public static boolean landedOnFarmlandBlock(Entity entity) {
         if (ModuleHandler.enabled("charm:feather_falling_crops") && entity instanceof LivingEntity) {
-            if (entity instanceof PlayerEntity && (!requiresFeatherFalling || EnchantmentsHelper.hasFeatherFalling((LivingEntity) entity)))
+            if (entity instanceof Player && (!requiresFeatherFalling || EnchantmentsHelper.hasFeatherFalling((LivingEntity) entity)))
                 return true;
 
-            if (entity instanceof VillagerEntity && villagersNeverTrampleCrops)
+            if (entity instanceof Villager && villagersNeverTrampleCrops)
                 return true;
         }
         return false;

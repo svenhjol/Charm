@@ -1,18 +1,5 @@
 package svenhjol.charm.module.wandering_trader_improvements;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.map.MapIcon;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOffers;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeKeys;
-import net.minecraft.world.gen.feature.StructureFeature;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ModuleHandler;
@@ -26,6 +13,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.saveddata.maps.MapDecoration;
 
 @Module(mod = Charm.MOD_ID, description = "Wandering traders only appear near signal campfires and sell maps to biomes and structures.")
 public class WanderingTraderImprovements extends CharmModule {
@@ -52,23 +52,23 @@ public class WanderingTraderImprovements extends CharmModule {
                 new StructureMap(StructureFeature.PILLAGER_OUTPOST, false), // pillager outpost
                 new StructureMap(StructureFeature.MINESHAFT, false), // mineshaft
                 new StructureMap(StructureFeature.IGLOO, false), // igloo
-                new StructureMap(StructureFeature.JUNGLE_PYRAMID, true), // jungle temple
+                new StructureMap(StructureFeature.JUNGLE_TEMPLE, true), // jungle temple
                 new StructureMap(StructureFeature.DESERT_PYRAMID, true) // desert pyramid
             ));
         }
 
         if (tradeBiomeMaps) {
             traderMaps.addAll(Arrays.asList(
-                new BiomeMap(BiomeKeys.WARM_OCEAN, false),
-                new BiomeMap(BiomeKeys.SNOWY_TUNDRA, false),
-                new BiomeMap(BiomeKeys.DESERT, false),
-                new BiomeMap(BiomeKeys.SUNFLOWER_PLAINS, false),
-                new BiomeMap(BiomeKeys.FROZEN_OCEAN, false),
-                new BiomeMap(BiomeKeys.BADLANDS, true),
-                new BiomeMap(BiomeKeys.FLOWER_FOREST, true),
-                new BiomeMap(BiomeKeys.MUSHROOM_FIELDS, true),
-                new BiomeMap(BiomeKeys.BAMBOO_JUNGLE, true),
-                new BiomeMap(BiomeKeys.ICE_SPIKES, true)
+                new BiomeMap(Biomes.WARM_OCEAN, false),
+                new BiomeMap(Biomes.SNOWY_TUNDRA, false),
+                new BiomeMap(Biomes.DESERT, false),
+                new BiomeMap(Biomes.SUNFLOWER_PLAINS, false),
+                new BiomeMap(Biomes.FROZEN_OCEAN, false),
+                new BiomeMap(Biomes.BADLANDS, true),
+                new BiomeMap(Biomes.FLOWER_FOREST, true),
+                new BiomeMap(Biomes.MUSHROOM_FIELDS, true),
+                new BiomeMap(Biomes.BAMBOO_JUNGLE, true),
+                new BiomeMap(Biomes.ICE_SPIKES, true)
             ));
         }
 
@@ -80,16 +80,16 @@ public class WanderingTraderImprovements extends CharmModule {
         return ModuleHandler.enabled("charm:wandering_trader_improvements") && frequentSpawn;
     }
 
-    public static class StructureMapForEmeraldsTrade implements TradeOffers.Factory {
+    public static class StructureMapForEmeraldsTrade implements VillagerTrades.ItemListing {
         @Override
-        public TradeOffer create(Entity trader, Random rand) {
-            if (!trader.world.isClient && !traderMaps.isEmpty()) {
+        public MerchantOffer getOffer(Entity trader, Random rand) {
+            if (!trader.level.isClientSide && !traderMaps.isEmpty()) {
                 TraderMap traderMap = traderMaps.get(rand.nextInt(traderMaps.size()));
-                ItemStack map = traderMap.getMap((ServerWorld) trader.world, trader.getBlockPos());
+                ItemStack map = traderMap.getMap((ServerLevel) trader.level, trader.blockPosition());
                 if (map != null) {
                     ItemStack in1 = new ItemStack(Items.EMERALD, traderMap.getCost(rand));
                     ItemStack in2 = new ItemStack(Items.COMPASS);
-                    return new TradeOffer(in1, in2, map, 1, 5, 0.2F);
+                    return new MerchantOffer(in1, in2, map, 1, 5, 0.2F);
                 }
             }
 
@@ -98,7 +98,7 @@ public class WanderingTraderImprovements extends CharmModule {
     }
 
     public interface TraderMap {
-        ItemStack getMap(ServerWorld world, BlockPos pos);
+        ItemStack getMap(ServerLevel world, BlockPos pos);
 
         int getCost(Random rand);
     }
@@ -113,15 +113,15 @@ public class WanderingTraderImprovements extends CharmModule {
         }
 
         @Override
-        public ItemStack getMap(ServerWorld world, BlockPos pos) {
+        public ItemStack getMap(ServerLevel world, BlockPos pos) {
             int color = 0x662200;
-            BlockPos nearestStructure = world.locateStructure(structure, pos, 2000, true);
+            BlockPos nearestStructure = world.findNearestMapFeature(structure, pos, 2000, true);
             if (nearestStructure == null)
                 return null;
 
-            TranslatableText structureName = new TranslatableText("structure.charm." + structure.getName());
-            TranslatableText mapName = new TranslatableText("filled_map.charm.trader_map", structureName);
-            return MapHelper.getMap(world, nearestStructure, mapName, MapIcon.Type.TARGET_X, color);
+            TranslatableComponent structureName = new TranslatableComponent("structure.charm." + structure.getFeatureName());
+            TranslatableComponent mapName = new TranslatableComponent("filled_map.charm.trader_map", structureName);
+            return MapHelper.getMap(world, nearestStructure, mapName, MapDecoration.Type.TARGET_X, color);
         }
 
         @Override
@@ -131,26 +131,26 @@ public class WanderingTraderImprovements extends CharmModule {
     }
 
     public static class BiomeMap implements TraderMap {
-        public RegistryKey<Biome> biomeKey;
+        public ResourceKey<Biome> biomeKey;
         public boolean rare;
 
-        public BiomeMap(RegistryKey<Biome> biomeKey, boolean rare) {
+        public BiomeMap(ResourceKey<Biome> biomeKey, boolean rare) {
             this.biomeKey = biomeKey;
             this.rare = rare;
         }
 
         @Override
-        public ItemStack getMap(ServerWorld world, BlockPos pos) {
+        public ItemStack getMap(ServerLevel world, BlockPos pos) {
             int color = 0x002266;
 
             BlockPos nearestBiome = BiomeHelper.locateBiome(biomeKey, world, pos);
-            String biomeName = biomeKey.getValue().getPath();
+            String biomeName = biomeKey.location().getPath();
 
             if (nearestBiome == null)
                 return null;
 
-            TranslatableText mapName = new TranslatableText("filled_map.charm.trader_map", new TranslatableText("biome.minecraft." + biomeName));
-            return MapHelper.getMap(world, nearestBiome, mapName, MapIcon.Type.TARGET_X, color);
+            TranslatableComponent mapName = new TranslatableComponent("filled_map.charm.trader_map", new TranslatableComponent("biome.minecraft." + biomeName));
+            return MapHelper.getMap(world, nearestBiome, mapName, MapDecoration.Type.TARGET_X, color);
         }
 
         @Override

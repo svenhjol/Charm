@@ -1,39 +1,36 @@
 package svenhjol.charm.module.coral_squids;
 
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3f;
-import svenhjol.charm.module.coral_squids.CoralSquidsClient;
-import svenhjol.charm.module.coral_squids.CoralSquidEntity;
-import svenhjol.charm.module.coral_squids.CoralSquidEntityModel;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
-public class CoralSquidEntityRenderer extends MobEntityRenderer<CoralSquidEntity, CoralSquidEntityModel<CoralSquidEntity>> {
-    public CoralSquidEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new CoralSquidEntityModel<>(context.getPart(CoralSquidsClient.LAYER)), 0.7F);
+public class CoralSquidEntityRenderer extends MobRenderer<CoralSquidEntity, CoralSquidEntityModel<CoralSquidEntity>> {
+    public CoralSquidEntityRenderer(EntityRendererProvider.Context context) {
+        super(context, new CoralSquidEntityModel<>(context.bakeLayer(CoralSquidsClient.LAYER)), 0.7F);
     }
 
     @Override
-    public Identifier getTexture(CoralSquidEntity entity) {
+    public ResourceLocation getTextureLocation(CoralSquidEntity entity) {
         return entity.getTexture();
     }
 
     /**
      * Copypasta from SquidEntityRenderer.
      */
-    protected void setupTransforms(CoralSquidEntity squidEntity, MatrixStack matrixStack, float f, float g, float h) {
-        float i = MathHelper.lerp(h, squidEntity.prevTiltAngle, squidEntity.tiltAngle);
-        float j = MathHelper.lerp(h, squidEntity.prevRollAngle, squidEntity.rollAngle);
+    protected void setupTransforms(CoralSquidEntity squidEntity, PoseStack matrixStack, float f, float g, float h) {
+        float i = Mth.lerp(h, squidEntity.prevTiltAngle, squidEntity.tiltAngle);
+        float j = Mth.lerp(h, squidEntity.prevRollAngle, squidEntity.rollAngle);
         matrixStack.translate(0.0D, 0.25D, 0.0D);
-        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F - g));
-        matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(i));
-        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(j));
+        matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - g));
+        matrixStack.mulPose(Vector3f.XP.rotationDegrees(i));
+        matrixStack.mulPose(Vector3f.YP.rotationDegrees(j));
         matrixStack.translate(0.0D, -1.2000000476837158D, 0.0D);
     }
 
     protected float getAnimationProgress(CoralSquidEntity squidEntity, float f) {
-        return MathHelper.lerp(f, squidEntity.prevTentacleAngle, squidEntity.tentacleAngle);
+        return Mth.lerp(f, squidEntity.prevTentacleAngle, squidEntity.tentacleAngle);
     }
 }

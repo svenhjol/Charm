@@ -1,13 +1,15 @@
 package svenhjol.charm.block;
 
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.*;
-import net.minecraft.util.Identifier;
-import svenhjol.charm.module.CharmModule;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.mixin.accessor.*;
+import svenhjol.charm.mixin.accessor.FireBlockAccessor;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.function.BiConsumer;
 
@@ -15,29 +17,29 @@ public interface ICharmBlock {
     boolean enabled();
 
     default void register(CharmModule module, String name) {
-        Identifier id = new Identifier(module.mod, name);
+        ResourceLocation id = new ResourceLocation(module.mod, name);
         RegistryHelper.block(id, (Block)this);
         createBlockItem(id);
     }
 
-    default ItemGroup getItemGroup() {
-        return ItemGroup.BUILDING_BLOCKS;
+    default CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_BUILDING_BLOCKS;
     }
 
     default int getMaxStackSize() {
         return 64;
     }
 
-    default void createBlockItem(Identifier id) {
-        Item.Settings settings = new Item.Settings();
+    default void createBlockItem(ResourceLocation id) {
+        Item.Properties settings = new Item.Properties();
 
-        ItemGroup itemGroup = getItemGroup();
+        CreativeModeTab itemGroup = getItemGroup();
         if (itemGroup != null)
-            settings.group(itemGroup);
+            settings.tab(itemGroup);
 
-        settings.maxCount(getMaxStackSize());
+        settings.stacksTo(getMaxStackSize());
 
-        CharmBlockItem blockItem = new CharmBlockItem(this, settings);
+        svenhjol.charm.block.CharmBlockItem blockItem = new CharmBlockItem(this, settings);
         RegistryHelper.item(id, blockItem);
     }
 
@@ -50,6 +52,6 @@ public interface ICharmBlock {
     }
 
     default void setFireInfo(int encouragement, int flammability) {
-        ((FireBlockAccessor) Blocks.FIRE).invokeRegisterFlammableBlock((Block)this, encouragement, flammability);
+        ((FireBlockAccessor) Blocks.FIRE).invokeSetFlammable((Block)this, encouragement, flammability);
     }
 }

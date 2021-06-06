@@ -1,21 +1,21 @@
 package svenhjol.charm.module.azalea_wood;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.SignType;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.block.*;
-import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.block.*;
+import svenhjol.charm.enums.CharmWoodMaterial;
+import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
-import svenhjol.charm.enums.CharmWoodMaterial;
-import svenhjol.charm.mixin.accessor.ConfiguredFeaturesAccessor;
-import svenhjol.charm.mixin.accessor.TreeFeatureConfigAccessor;
+import svenhjol.charm.mixin.accessor.FeaturesAccessor;
+import svenhjol.charm.mixin.accessor.TreeConfigurationAccessor;
+import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
 import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
@@ -30,9 +30,9 @@ import svenhjol.charm.module.variant_ladders.VariantLadders;
 
 @Module(mod = Charm.MOD_ID, client = AzaleaWoodClient.class, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
 public class AzaleaWood extends CharmModule {
-    public static Identifier ID = new Identifier(Charm.MOD_ID, "azalea");
+    public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "azalea");
 
-    public static SignType SIGN_TYPE;
+    public static WoodType SIGN_TYPE;
 
     public static CharmWoodenButtonBlock BUTTON;
     public static CharmDoorBlock DOOR;
@@ -94,9 +94,9 @@ public class AzaleaWood extends CharmModule {
 
     @Override
     public void init() {
-        ConfiguredFeature<TreeFeatureConfig, ?> feature = ConfiguredFeaturesAccessor.getAzaleaTree();
-        TreeFeatureConfig config = feature.getConfig();
-        ((TreeFeatureConfigAccessor)config).setTrunkProvider(new SimpleBlockStateProvider(AzaleaWood.LOG.getDefaultState()));
+        ConfiguredFeature<TreeConfiguration, ?> feature = FeaturesAccessor.getAzaleaTree();
+        TreeConfiguration config = feature.config();
+        ((TreeConfigurationAccessor)config).setTrunkProvider(new SimpleStateProvider(AzaleaWood.LOG.defaultBlockState()));
         RegistryHelper.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
     }
 }

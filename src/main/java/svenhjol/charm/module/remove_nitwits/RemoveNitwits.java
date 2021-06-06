@@ -1,10 +1,10 @@
 package svenhjol.charm.module.remove_nitwits;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.village.VillagerData;
-import net.minecraft.village.VillagerProfession;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.event.AddEntityCallback;
@@ -18,19 +18,19 @@ public class RemoveNitwits extends CharmModule {
         AddEntityCallback.EVENT.register(this::changeNitwitProfession);
     }
 
-    private ActionResult changeNitwitProfession(Entity entity) {
-        if (!entity.world.isClient
-            && entity instanceof VillagerEntity
+    private InteractionResult changeNitwitProfession(Entity entity) {
+        if (!entity.level.isClientSide
+            && entity instanceof Villager
         ) {
-            VillagerEntity villager = (VillagerEntity) entity;
+            Villager villager = (Villager) entity;
             VillagerData data = villager.getVillagerData();
 
             if (data.getProfession() == VillagerProfession.NITWIT) {
-                villager.setVillagerData(data.withProfession(VillagerProfession.NONE));
-                Charm.LOG.debug("Changed nitwit's profession to NONE: " + villager.getUuidAsString());
+                villager.setVillagerData(data.setProfession(VillagerProfession.NONE));
+                Charm.LOG.debug("Changed nitwit's profession to NONE: " + villager.getStringUUID());
             }
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 }

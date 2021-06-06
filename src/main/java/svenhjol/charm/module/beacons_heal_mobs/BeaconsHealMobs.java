@@ -1,12 +1,5 @@
 package svenhjol.charm.module.beacons_heal_mobs;
 
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.CharmModule;
@@ -14,6 +7,13 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.ApplyBeaconEffectsCallback;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 @Module(mod = Charm.MOD_ID, description = "Passive and friendly mobs will heal themselves within range of a beacon with the regeneration effect.",
     requiresMixins = {"ApplyBeaconEffectsCallback"})
 public class BeaconsHealMobs extends CharmModule {
@@ -22,17 +22,17 @@ public class BeaconsHealMobs extends CharmModule {
         ApplyBeaconEffectsCallback.EVENT.register(this::handleApplyBeaconEffects);
     }
 
-    private void handleApplyBeaconEffects(World world, BlockPos pos, int levels, StatusEffect primaryEffect, StatusEffect secondaryEffect) {
+    private void handleApplyBeaconEffects(Level world, BlockPos pos, int levels, MobEffect primaryEffect, MobEffect secondaryEffect) {
         if (!ModuleHandler.enabled("charm:beacons_heal_mobs"))
             return;
 
-        if (!world.isClient) {
+        if (!world.isClientSide) {
             double d0 = levels * 10 + 10;
-            Box bb = (new Box(pos)).expand(d0).expand(0.0D, world.getTopY(), 0.0D);
+            AABB bb = (new AABB(pos)).inflate(d0).inflate(0.0D, world.getMaxBuildHeight(), 0.0D);
 
-            if (primaryEffect == StatusEffects.REGENERATION || secondaryEffect == StatusEffects.REGENERATION) {
-                List<PassiveEntity> list = world.getNonSpectatingEntities(PassiveEntity.class, bb);
-                list.forEach(mob -> mob.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 4 * 20, 1)));
+            if (primaryEffect == MobEffects.REGENERATION || secondaryEffect == MobEffects.REGENERATION) {
+                List<AgeableMob> list = world.getEntitiesOfClass(AgeableMob.class, bb);
+                list.forEach(mob -> mob.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 4 * 20, 1)));
             }
         }
     }

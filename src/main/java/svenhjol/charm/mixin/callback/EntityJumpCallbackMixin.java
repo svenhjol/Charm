@@ -1,6 +1,6 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,7 +14,7 @@ public class EntityJumpCallbackMixin {
      * Fires the {@link EntityJumpCallback} event when the entity jumps.
      */
     @Inject(
-        method = "jump",
+        method = "jumpFromGround",
         at = @At("TAIL")
     )
     private void hookJump(CallbackInfo ci) {

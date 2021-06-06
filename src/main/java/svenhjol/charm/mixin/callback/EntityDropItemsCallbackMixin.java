@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,17 +11,16 @@ import svenhjol.charm.event.EntityDropItemsCallback;
 
 @Mixin(LivingEntity.class)
 public class EntityDropItemsCallbackMixin {
-
     /**
      * Fires the {@link EntityDropItemsCallback} event.
      */
     @Inject(
-        method = "drop",
+        method = "dropAllDeathLoot",
         at = @At("TAIL")
     )
     private void hookDrop(DamageSource source, CallbackInfo ci) {
         LivingEntity entity = (LivingEntity)(Object)this;
-        int lootingLevel = EnchantmentHelper.getLooting(entity);
+        int lootingLevel = EnchantmentHelper.getMobLooting(entity);
 
         EntityDropItemsCallback.AFTER.invoker().interact(entity, source, lootingLevel);
     }

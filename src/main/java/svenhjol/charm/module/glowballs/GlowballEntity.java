@@ -2,42 +2,42 @@ package svenhjol.charm.module.glowballs;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 
-public class GlowballEntity extends ThrownItemEntity {
-    public GlowballEntity(EntityType<? extends GlowballEntity> entityType, World world) {
+public class GlowballEntity extends ThrowableItemProjectile {
+    public GlowballEntity(EntityType<? extends GlowballEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    public GlowballEntity(World world, LivingEntity owner) {
+    public GlowballEntity(Level world, LivingEntity owner) {
         super(Glowballs.GLOWBALL, owner, world);
     }
 
     @Environment(EnvType.CLIENT)
-    public GlowballEntity(World world, double x, double y, double z) {
+    public GlowballEntity(Level world, double x, double y, double z) {
         super(Glowballs.GLOWBALL, x, y, z, world);
     }
 
@@ -47,55 +47,55 @@ public class GlowballEntity extends ThrownItemEntity {
     }
 
     @Override
-    protected void onCollision(HitResult hitResult) {
-        super.onCollision(hitResult);
+    protected void onHit(HitResult hitResult) {
+        super.onHit(hitResult);
         this.discard();
 
-        if (!world.isClient) {
+        if (!level.isClientSide) {
             if (hitResult.getType() == HitResult.Type.BLOCK) {
-                tryPlaceBlob(world, (BlockHitResult)hitResult);
+                tryPlaceBlob(level, (BlockHitResult)hitResult);
             } else if (hitResult.getType() == HitResult.Type.ENTITY) {
                 tryHitEntity((EntityHitResult)hitResult);
             }
         }
     }
 
-    private void tryPlaceBlob(World world, BlockHitResult hitResult) {
+    private void tryPlaceBlob(Level world, BlockHitResult hitResult) {
         BlockPos pos = hitResult.getBlockPos();
-        Direction side = hitResult.getSide();
+        Direction side = hitResult.getDirection();
         BlockState state = world.getBlockState(pos);
-        BlockPos offsetPos = pos.offset(side);
+        BlockPos offsetPos = pos.relative(side);
         BlockState offsetState = world.getBlockState(offsetPos);
 
-        if (state.isSideSolidFullSquare(world, pos, side)
-            && (world.isAir(offsetPos) || (offsetState.getMaterial() == Material.WATER && offsetState.get(FluidBlock.LEVEL) == 0))) {
-            BlockState placedState = Glowballs.GLOWBALL_BLOCK.getDefaultState()
-                .with(GlowballBlobBlock.FACING, side);
+        if (state.isFaceSturdy(world, pos, side)
+            && (world.isEmptyBlock(offsetPos) || (offsetState.getMaterial() == Material.WATER && offsetState.getValue(LiquidBlock.LEVEL) == 0))) {
+            BlockState placedState = Glowballs.GLOWBALL_BLOCK.defaultBlockState()
+                .setValue(GlowballBlobBlock.FACING, side);
 
             if (offsetState.getBlock() == Blocks.WATER)
-                placedState = placedState.with(Properties.WATERLOGGED, true);
+                placedState = placedState.setValue(BlockStateProperties.WATERLOGGED, true);
 
-            world.setBlockState(offsetPos, placedState, 2);
-            world.playSound(null, offsetPos, SoundEvents.BLOCK_NYLIUM_PLACE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            world.setBlock(offsetPos, placedState, 2);
+            world.playSound(null, offsetPos, SoundEvents.NYLIUM_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
 
-            if (this.getOwner() instanceof PlayerEntity && !world.isClient)
-                Glowballs.triggerThrownGlowball((ServerPlayerEntity) this.getOwner());
+            if (this.getOwner() instanceof Player && !world.isClientSide)
+                Glowballs.triggerThrownGlowball((ServerPlayer) this.getOwner());
 
             return;
         }
 
-        if (this.getOwner() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity)this.getOwner();
+        if (this.getOwner() instanceof Player) {
+            Player player = (Player)this.getOwner();
 
             if (!player.isCreative()) {
-                world.playSound(null, pos, SoundEvents.BLOCK_NYLIUM_PLACE, SoundCategory.PLAYERS, 0.7F, 1.0F);
-                world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Items.GLOWSTONE_DUST, 1)));
+                world.playSound(null, pos, SoundEvents.NYLIUM_PLACE, SoundSource.PLAYERS, 0.7F, 1.0F);
+                world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Items.GLOWSTONE_DUST, 1)));
             }
         }
     }
 
     private void tryHitEntity(EntityHitResult hitResult) {
         Entity entity = hitResult.getEntity();
-        entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 1);
+        entity.hurt(DamageSource.thrown(this, this.getOwner()), 1);
     }
 }

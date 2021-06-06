@@ -2,53 +2,53 @@ package svenhjol.charm.module.block_of_gunpowder;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import svenhjol.charm.module.CharmModule;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import svenhjol.charm.block.CharmFallingBlock;
+import svenhjol.charm.module.CharmModule;
 
 public class GunpowderBlock extends CharmFallingBlock {
     public GunpowderBlock(CharmModule module) {
         super(module, "gunpowder_block", FabricBlockSettings
-            .of(Material.AGGREGATE)
-            .sounds(BlockSoundGroup.SAND)
+            .of(Material.SAND)
+            .sounds(SoundType.SAND)
             .breakByTool(FabricToolTags.SHOVELS)
             .strength(0.5F)
         );
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.BUILDING_BLOCKS;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_BUILDING_BLOCKS;
     }
 
     @Override
-    public void neighborUpdate(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (!tryTouchLava(worldIn, pos, state)) {
-            super.neighborUpdate(state, worldIn, pos, blockIn, fromPos, isMoving);
+            super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
         }
     }
 
     @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (!tryTouchLava(worldIn, pos, state)) {
-            super.onBlockAdded(state, worldIn, pos, oldState, isMoving);
+            super.onPlace(state, worldIn, pos, oldState, isMoving);
         }
     }
 
-    protected boolean tryTouchLava(World world, BlockPos pos, BlockState state) {
+    protected boolean tryTouchLava(Level world, BlockPos pos, BlockState state) {
         boolean lavaBelow = false;
 
         for (Direction facing : Direction.values()) {
             if (facing != Direction.DOWN) {
-                BlockPos below = pos.offset(facing);
+                BlockPos below = pos.relative(facing);
                 if (world.getBlockState(below).getMaterial() == Material.LAVA) {
                     lavaBelow = true;
                     break;
@@ -57,12 +57,12 @@ public class GunpowderBlock extends CharmFallingBlock {
         }
 
         if (lavaBelow) {
-            world.syncGlobalEvent(2001, pos, Block.getRawIdFromState(world.getBlockState(pos)));
+            world.globalLevelEvent(2001, pos, Block.getId(world.getBlockState(pos)));
             world.removeBlock(pos, true);
         }
 
-        if (!world.isClient)
-            BlockOfGunpowder.triggerAdvancementForNearbyPlayers((ServerWorld) world, pos);
+        if (!world.isClientSide)
+            BlockOfGunpowder.triggerAdvancementForNearbyPlayers((ServerLevel) world, pos);
 
         return lavaBelow;
     }

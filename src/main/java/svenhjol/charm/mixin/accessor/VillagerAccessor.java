@@ -1,19 +1,19 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(VillagerEntity.class)
+@Mixin(Villager.class)
 @CharmMixin(required = true)
-public interface VillagerEntityAccessor {
+public interface VillagerAccessor {
     @Invoker
-    void invokeSayNo();
+    void invokeSetUnhappy();
 
     @Invoker
-    boolean invokeCanLevelUp();
+    boolean invokeShouldIncreaseLevel();
 
     @Invoker
-    void invokeLevelUp();
+    void invokeIncreaseMerchantCareer();
 }

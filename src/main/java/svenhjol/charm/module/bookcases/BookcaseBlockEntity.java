@@ -1,117 +1,121 @@
 package svenhjol.charm.module.bookcases;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import svenhjol.charm.init.CharmSounds;
 
 import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.module.bookcases.BookcaseBlock;
+import svenhjol.charm.module.bookcases.BookcaseScreenHandler;
+import svenhjol.charm.module.bookcases.Bookcases;
+
 import java.util.stream.IntStream;
 
-public class BookcaseBlockEntity extends LootableContainerBlockEntity implements SidedInventory {
+public class BookcaseBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     public static int SIZE = 18;
     private static final int[] SLOTS = IntStream.range(0, SIZE).toArray();
-    private DefaultedList<ItemStack> items = DefaultedList.ofSize(SIZE, ItemStack.EMPTY);
+    private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 
     public BookcaseBlockEntity(BlockPos pos, BlockState state) {
-        super(Bookcases.BLOCK_ENTITY, pos, state);
+        super(svenhjol.charm.module.bookcases.Bookcases.BLOCK_ENTITY, pos, state);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        this.items = DefaultedList.ofSize(SIZE, ItemStack.EMPTY);
-        if (!this.deserializeLootTable(nbt))
-            Inventories.readNbt(nbt, this.items);
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
+        this.items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
+        if (!this.tryLoadLootTable(nbt))
+            ContainerHelper.loadAllItems(nbt, this.items);
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        if (!this.serializeLootTable(nbt))
-            Inventories.writeNbt(nbt, this.items);
+    public CompoundTag save(CompoundTag nbt) {
+        super.save(nbt);
+        if (!this.trySaveLootTable(nbt))
+            ContainerHelper.saveAllItems(nbt, this.items);
 
         return nbt;
     }
 
     @Override
-    protected DefaultedList<ItemStack> getInvStackList() {
+    protected NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
     @Override
-    protected void setInvStackList(DefaultedList<ItemStack> list) {
+    protected void setItems(NonNullList<ItemStack> list) {
         this.items = list;
     }
 
     @Nullable
     @Override
-    public Text getCustomName() {
-        return new TranslatableText("container.charm.bookcase");
+    public Component getCustomName() {
+        return new TranslatableComponent("container.charm.bookcase");
     }
 
     @Override
-    protected Text getContainerName() {
-        return new TranslatableText("container.charm.bookcase");
+    protected Component getDefaultName() {
+        return new TranslatableComponent("container.charm.bookcase");
     }
 
     @Override
-    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+    protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
         return new BookcaseScreenHandler(syncId, playerInventory, this);
     }
 
     @Override
-    public void setStack(int slot, ItemStack stack) {
-        super.setStack(slot, stack);
+    public void setItem(int slot, ItemStack stack) {
+        super.setItem(slot, stack);
         updateBlockState();
     }
 
     @Override
-    public int[] getAvailableSlots(Direction side) {
+    public int[] getSlotsForFace(Direction side) {
         return SLOTS;
     }
 
     @Override
-    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction dir) {
         return Bookcases.canContainItem(stack);
     }
 
     @Override
-    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction dir) {
         return true;
     }
 
     @Override
-    public int size() {
+    public int getContainerSize() {
         return SIZE;
     }
 
     @Override
-    public void onOpen(PlayerEntity player) {
-        player.world.playSound(null, pos, CharmSounds.BOOKSHELF_OPEN, SoundCategory.BLOCKS, 0.5f, player.world.random.nextFloat() * 0.1F + 0.9F);
+    public void startOpen(Player player) {
+        player.level.playSound(null, worldPosition, CharmSounds.BOOKSHELF_OPEN, SoundSource.BLOCKS, 0.5f, player.level.random.nextFloat() * 0.1F + 0.9F);
     }
 
     @Override
-    public void onClose(PlayerEntity player) {
-        player.world.playSound(null, pos, CharmSounds.BOOKSHELF_CLOSE, SoundCategory.BLOCKS, 0.5f, player.world.random.nextFloat() * 0.1F + 0.9F);
+    public void stopOpen(Player player) {
+        player.level.playSound(null, worldPosition, CharmSounds.BOOKSHELF_CLOSE, SoundSource.BLOCKS, 0.5f, player.level.random.nextFloat() * 0.1F + 0.9F);
     }
 
     @Override
-    public void markDirty() {
+    public void setChanged() {
         updateBlockState();
-        super.markDirty();
+        super.setChanged();
     }
 
     @Override
@@ -127,15 +131,15 @@ public class BookcaseBlockEntity extends LootableContainerBlockEntity implements
         int filled = 0;
 
         for (int i = 0; i < SIZE; i++) {
-            if (world == null)
+            if (level == null)
                 continue;
 
-            ItemStack stack = getStack(i);
+            ItemStack stack = getItem(i);
             if (stack == null || !stack.isEmpty())
                 filled++;
         }
 
-        if (world != null && world.getBlockState(pos).getBlock() instanceof BookcaseBlock)
-            world.setBlockState(pos, world.getBlockState(pos).with(BookcaseBlock.SLOTS, filled), 2);
+        if (level != null && level.getBlockState(worldPosition).getBlock() instanceof svenhjol.charm.module.bookcases.BookcaseBlock)
+            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(BookcaseBlock.SLOTS, filled), 2);
     }
 }

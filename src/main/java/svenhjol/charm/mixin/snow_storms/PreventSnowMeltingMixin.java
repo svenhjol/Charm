@@ -1,9 +1,9 @@
 package svenhjol.charm.mixin.snow_storms;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SnowBlock;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.SnowLayerBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,9 +12,8 @@ import svenhjol.charm.module.snow_storms.SnowStorms;
 
 import java.util.Random;
 
-@Mixin(SnowBlock.class)
+@Mixin(SnowLayerBlock.class)
 public class PreventSnowMeltingMixin {
-
     /**
      * Cancels snowblock randomtick melting of snow if there's a storm in progress.
      * @see SnowStorms#tryRandomTick
@@ -24,7 +23,7 @@ public class PreventSnowMeltingMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private void hookRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void hookRandomTick(BlockState state, ServerLevel world, BlockPos pos, Random random, CallbackInfo ci) {
         if (SnowStorms.tryRandomTick(world))
             ci.cancel();
     }

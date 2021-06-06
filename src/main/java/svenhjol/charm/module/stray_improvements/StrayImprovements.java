@@ -1,14 +1,14 @@
 package svenhjol.charm.module.stray_improvements;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.StrayEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Stray;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.CharmModule;
@@ -40,16 +40,16 @@ public class StrayImprovements extends CharmModule {
         return ModuleHandler.enabled("charm:stray_improvements") && spawnAnywhere;
     }
 
-    private ActionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {
+    private InteractionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {
         if (dropIce
-            && !entity.world.isClient
-            && entity instanceof StrayEntity
+            && !entity.level.isClientSide
+            && entity instanceof Stray
         ) {
-            World world = entity.getEntityWorld();
-            BlockPos pos = entity.getBlockPos();
+            Level world = entity.getCommandSenderWorld();
+            BlockPos pos = entity.blockPosition();
             int amount = ItemHelper.getAmountWithLooting(world.random, (int)maxDrops, lootingLevel, (float)lootingBoost);
-            world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.BLUE_ICE, amount)));
+            world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.BLUE_ICE, amount)));
         }
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 }

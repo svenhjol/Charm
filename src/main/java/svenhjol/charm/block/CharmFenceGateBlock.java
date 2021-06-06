@@ -1,18 +1,19 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.Material;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmFenceGateBlock extends FenceGateBlock implements ICharmBlock {
     private final CharmModule module;
 
-    public CharmFenceGateBlock(CharmModule module, String name, Settings settings) {
+    public CharmFenceGateBlock(CharmModule module, String name, Properties settings) {
         super(settings);
 
         this.register(module, name);
@@ -20,15 +21,15 @@ public abstract class CharmFenceGateBlock extends FenceGateBlock implements ICha
     }
 
     public CharmFenceGateBlock(CharmModule module, String name, Block block) {
-        this(module, name, Settings.of(Material.WOOD, block.getDefaultMapColor())
+        this(module, name, Properties.of(Material.WOOD, block.defaultMaterialColor())
             .strength(2.0F, 3.0F)
-            .sounds(BlockSoundGroup.WOOD));
+            .sound(SoundType.WOOD));
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

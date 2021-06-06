@@ -1,15 +1,15 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(DefaultParticleType.class)
+@Mixin(SimpleParticleType.class)
 @CharmMixin(required = true)
-public interface DefaultParticleTypeAccessor {
+public interface SimpleParticleTypeAccessor {
     @Invoker("<init>")
-    static DefaultParticleType invokeConstructor(boolean alwaysShow) {
+    static SimpleParticleType invokeConstructor(boolean alwaysShow) {
         throw new IllegalStateException();
     }
 }

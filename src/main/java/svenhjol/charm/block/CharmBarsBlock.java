@@ -1,16 +1,16 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PaneBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.IronBarsBlock;
 import svenhjol.charm.module.CharmModule;
 
-public class CharmBarsBlock extends PaneBlock implements ICharmBlock {
+public class CharmBarsBlock extends IronBarsBlock implements ICharmBlock {
     private final CharmModule module;
 
-    public CharmBarsBlock(CharmModule module, String name, Settings settings) {
+    public CharmBarsBlock(CharmModule module, String name, Properties settings) {
         super(settings);
 
         this.module = module;
@@ -18,18 +18,18 @@ public class CharmBarsBlock extends PaneBlock implements ICharmBlock {
     }
 
     public CharmBarsBlock(CharmModule module, String name) {
-        this(module, name, Settings.copy(Blocks.IRON_BARS));
+        this(module, name, Properties.copy(Blocks.IRON_BARS));
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.DECORATIONS;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_DECORATIONS;
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

@@ -1,31 +1,32 @@
 package svenhjol.charm.item;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
+import svenhjol.charm.item.ICharmItem;
 import svenhjol.charm.module.CharmModule;
 
 public class CharmSpawnEggItem extends SpawnEggItem implements ICharmItem {
     private final CharmModule module;
 
-    public CharmSpawnEggItem(CharmModule module, String name, EntityType<? extends MobEntity> type, int primaryColor, int secondaryColor, Settings settings) {
+    public CharmSpawnEggItem(CharmModule module, String name, EntityType<? extends Mob> type, int primaryColor, int secondaryColor, Properties settings) {
         super(type, primaryColor, secondaryColor, settings);
         this.module = module;
         this.register(module, name);
     }
 
-    public CharmSpawnEggItem(CharmModule module, String name, EntityType<? extends MobEntity> type, int primaryColor, int secondaryColor) {
-        this(module, name, type, primaryColor, secondaryColor, (new Item.Settings()).group(ItemGroup.MISC));
+    public CharmSpawnEggItem(CharmModule module, String name, EntityType<? extends Mob> type, int primaryColor, int secondaryColor) {
+        this(module, name, type, primaryColor, secondaryColor, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC));
     }
 
     @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> stacks) {
         if (enabled())
-            super.appendStacks(group, stacks);
+            super.fillItemCategory(group, stacks);
     }
 
     @Override

@@ -1,16 +1,16 @@
 package svenhjol.charm.module.variant_ladders;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LadderBlock;
-import net.minecraft.block.TrapdoorBlock;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LadderBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.annotation.Module;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,17 +38,17 @@ public class VariantLadders extends CharmModule {
         return ladder;
     }
 
-    public static boolean canEnterTrapdoor(World world, BlockPos pos, BlockState state) {
-        if (isEnabled && state.get(TrapdoorBlock.OPEN)) {
-            BlockState down = world.getBlockState(pos.down());
-            return LADDER_BLOCKS.values().stream().anyMatch(b -> b == down.getBlock()) && down.get(LadderBlock.FACING) == state.get(TrapdoorBlock.FACING);
+    public static boolean canEnterTrapdoor(Level world, BlockPos pos, BlockState state) {
+        if (isEnabled && state.getValue(TrapDoorBlock.OPEN)) {
+            BlockState down = world.getBlockState(pos.below());
+            return LADDER_BLOCKS.values().stream().anyMatch(b -> b == down.getBlock()) && down.getValue(LadderBlock.FACING) == state.getValue(TrapDoorBlock.FACING);
         }
 
         return false;
     }
 
     @Override
-    public List<Identifier> getRecipesToRemove() {
-        return Arrays.asList(new Identifier(Charm.MOD_ID, "woodcutters/vanilla_ladder_from_planks"));
+    public List<ResourceLocation> getRecipesToRemove() {
+        return Arrays.asList(new ResourceLocation(Charm.MOD_ID, "woodcutters/vanilla_ladder_from_planks"));
     }
 }

@@ -1,10 +1,10 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.TooltipComponent;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,7 +16,6 @@ import java.util.List;
 
 @Mixin(Screen.class)
 public class RenderTooltipCallbackMixin {
-
     protected ItemStack itemStack;
 
     /**
@@ -24,10 +23,10 @@ public class RenderTooltipCallbackMixin {
      * Modules can hook into the tooltip before it is rendered.
      */
     @Inject(
-        method = "renderTooltipFromComponents",
+        method = "renderTooltipInternal",
         at = @At("HEAD")
     )
-    private void hookRenderOrderedTooltip(MatrixStack matrices, List<TooltipComponent> lines, int x, int y, CallbackInfo ci) {
+    private void hookRenderOrderedTooltip(PoseStack matrices, List<ClientTooltipComponent> lines, int x, int y, CallbackInfo ci) {
         RenderTooltipCallback.EVENT.invoker().interact(matrices, itemStack, lines, x, y);
         itemStack = null;
     }
@@ -40,7 +39,7 @@ public class RenderTooltipCallbackMixin {
         method = "getTooltipFromItem",
         at = @At("HEAD")
     )
-    private void hookGetTooltipFromItem(ItemStack stack, CallbackInfoReturnable<List<Text>> cir) {
+    private void hookGetTooltipFromItem(ItemStack stack, CallbackInfoReturnable<List<Component>> cir) {
         itemStack = stack;
     }
 }

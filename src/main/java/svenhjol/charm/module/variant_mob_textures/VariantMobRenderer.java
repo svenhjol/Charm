@@ -1,114 +1,122 @@
 package svenhjol.charm.module.variant_mob_textures;
 
-import net.minecraft.client.render.entity.*;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.SquidEntityModel;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.*;
-import net.minecraft.util.Identifier;
-import svenhjol.charm.module.variant_mob_textures.VariantMobTexturesClient;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.SquidModel;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.entity.ChickenRenderer;
+import net.minecraft.client.renderer.entity.CowRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.PigRenderer;
+import net.minecraft.client.renderer.entity.SheepRenderer;
+import net.minecraft.client.renderer.entity.SnowGolemRenderer;
+import net.minecraft.client.renderer.entity.SquidRenderer;
+import net.minecraft.client.renderer.entity.WolfRenderer;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.*;
 import svenhjol.charm.mixin.accessor.EntityRenderDispatcherAccessor;
-import svenhjol.charm.mixin.accessor.FeatureRendererAccessor;
+import svenhjol.charm.mixin.accessor.RenderLayerAccessor;
 import svenhjol.charm.mixin.accessor.LivingEntityRendererAccessor;
 
 import java.util.List;
 
 public class VariantMobRenderer {
-    private static <T extends LivingEntity, M extends EntityModel<T>> void fillLayersFromOld(EntityRendererFactory.Context context, LivingEntityRenderer<T, M> renderer, EntityType<T> type) {
-        EntityRenderer<?> old = ((EntityRenderDispatcherAccessor)context.getRenderDispatcher()).getRenderers().get(type);
+    private static <T extends LivingEntity, M extends EntityModel<T>> void fillLayersFromOld(EntityRendererProvider.Context context, LivingEntityRenderer<T, M> renderer, EntityType<T> type) {
+        EntityRenderer<?> old = ((EntityRenderDispatcherAccessor)context.getEntityRenderDispatcher()).getRenderers().get(type);
         if (old != null) {
-            List<FeatureRenderer<T, M>> layerRenderers = ((LivingEntityRendererAccessor<T, M>) renderer).getFeatures();
+            List<RenderLayer<T, M>> layerRenderers = ((LivingEntityRendererAccessor<T, M>) renderer).getLayers();
             layerRenderers.clear();
-            ((LivingEntityRendererAccessor<T, M>) old).getFeatures()
+            ((LivingEntityRendererAccessor<T, M>) old).getLayers()
                 .stream()
-                .peek(it -> ((FeatureRendererAccessor<T, M>)it).setContext(renderer))
+                .peek(it -> ((RenderLayerAccessor<T, M>)it).setRenderer(renderer))
                 .forEach(layerRenderers::add);
         }
     }
 
-    public static class Chicken extends ChickenEntityRenderer {
-        public Chicken(EntityRendererFactory.Context context) {
+    public static class RenderChicken extends ChickenRenderer {
+        public RenderChicken(EntityRendererProvider.Context context) {
             super(context);
             fillLayersFromOld(context, this, EntityType.CHICKEN);
         }
 
         @Override
-        public Identifier getTexture(ChickenEntity entity) {
+        public ResourceLocation getTextureLocation(Chicken entity) {
             return VariantMobTexturesClient.getChickenTexture(entity);
         }
     }
 
-    public static class Cow extends CowEntityRenderer {
-        public Cow(EntityRendererFactory.Context context) {
+    public static class RenderCow extends CowRenderer {
+        public RenderCow(EntityRendererProvider.Context context) {
             super(context);
             fillLayersFromOld(context, this, EntityType.COW);
         }
 
         @Override
-        public Identifier getTexture(CowEntity entity) {
+        public ResourceLocation getTextureLocation(Cow entity) {
             return VariantMobTexturesClient.getCowTexture(entity);
         }
     }
 
-    public static class Pig extends PigEntityRenderer {
-        public Pig(EntityRendererFactory.Context context) {
+    public static class RenderPig extends PigRenderer {
+        public RenderPig(EntityRendererProvider.Context context) {
             super(context);
             fillLayersFromOld(context, this, EntityType.PIG);
         }
 
         @Override
-        public Identifier getTexture(PigEntity entity) {
+        public ResourceLocation getTextureLocation(Pig entity) {
             return VariantMobTexturesClient.getPigTexture(entity);
         }
     }
 
-    public static class Sheep extends SheepEntityRenderer {
-        public Sheep(EntityRendererFactory.Context context) {
+    public static class RenderSheep extends SheepRenderer {
+        public RenderSheep(EntityRendererProvider.Context context) {
             super(context);
             fillLayersFromOld(context, this, EntityType.SHEEP);
         }
 
         @Override
-        public Identifier getTexture(SheepEntity entity) {
+        public ResourceLocation getTextureLocation(Sheep entity) {
             return VariantMobTexturesClient.getSheepTexture(entity);
         }
     }
 
-    public static class SnowGolem extends SnowGolemEntityRenderer {
-        public SnowGolem(EntityRendererFactory.Context context) {
+    public static class RenderSnowGolem extends SnowGolemRenderer {
+        public RenderSnowGolem(EntityRendererProvider.Context context) {
             super(context);
             fillLayersFromOld(context, this, EntityType.SNOW_GOLEM);
         }
 
         @Override
-        public Identifier getTexture(SnowGolemEntity entity) {
+        public ResourceLocation getTextureLocation(SnowGolem entity) {
             return VariantMobTexturesClient.getSnowGolemTexture(entity);
         }
     }
 
-    public static class Squid extends SquidEntityRenderer {
-        public Squid(EntityRendererFactory.Context context) {
-            super(context, new SquidEntityModel(context.getPart(EntityModelLayers.SQUID)));
+    public static class RenderSquid extends SquidRenderer {
+        public RenderSquid(EntityRendererProvider.Context context) {
+            super(context, new SquidModel(context.bakeLayer(ModelLayers.SQUID)));
             fillLayersFromOld(context, this, EntityType.SQUID);
         }
 
         @Override
-        public Identifier getTexture(SquidEntity entity) {
+        public ResourceLocation getTextureLocation(Squid entity) {
             return VariantMobTexturesClient.getSquidTexture(entity);
         }
     }
 
-    public static class Wolf extends WolfEntityRenderer {
-        public Wolf(EntityRendererFactory.Context context) {
+    public static class RenderWolf extends WolfRenderer {
+        public RenderWolf(EntityRendererProvider.Context context) {
             super(context);
             fillLayersFromOld(context, this, EntityType.WOLF);
         }
 
         @Override
-        public Identifier getTexture(WolfEntity entity) {
+        public ResourceLocation getTextureLocation(Wolf entity) {
             return VariantMobTexturesClient.getWolfTexture(entity);
         }
     }

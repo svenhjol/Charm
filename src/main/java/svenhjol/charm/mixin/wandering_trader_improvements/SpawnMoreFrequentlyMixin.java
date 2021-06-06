@@ -1,6 +1,6 @@
 package svenhjol.charm.mixin.wandering_trader_improvements;
 
-import net.minecraft.world.WanderingTraderManager;
+import net.minecraft.world.entity.npc.WanderingTraderSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -8,9 +8,8 @@ import svenhjol.charm.module.wandering_trader_improvements.WanderingTraderImprov
 
 import java.util.Random;
 
-@Mixin(WanderingTraderManager.class)
+@Mixin(WanderingTraderSpawner.class)
 public class SpawnMoreFrequentlyMixin {
-
     /**
      * Checks {@link WanderingTraderImprovements#shouldSpawnFrequently()} to
      * determine if a trader should spawn more frequently.

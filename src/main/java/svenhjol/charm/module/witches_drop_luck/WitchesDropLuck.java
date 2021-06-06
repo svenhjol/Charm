@@ -1,14 +1,14 @@
 package svenhjol.charm.module.witches_drop_luck;
 
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.WitchEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potions;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Witch;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potions;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.module.CharmModule;
@@ -29,16 +29,16 @@ public class WitchesDropLuck extends CharmModule {
         EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 
-    public ActionResult tryDrop(LivingEntity entity, DamageSource damageSource, int lootingLevel) {
-        if (!entity.world.isClient
-            && entity instanceof WitchEntity
-            && damageSource.getAttacker() instanceof PlayerEntity
-            && entity.world.random.nextFloat() <= (dropChance + lootingBoost * lootingLevel)
+    public InteractionResult tryDrop(LivingEntity entity, DamageSource damageSource, int lootingLevel) {
+        if (!entity.level.isClientSide
+            && entity instanceof Witch
+            && damageSource.getEntity() instanceof Player
+            && entity.level.random.nextFloat() <= (dropChance + lootingBoost * lootingLevel)
         ) {
-            BlockPos pos = entity.getBlockPos();
+            BlockPos pos = entity.blockPosition();
             ItemStack potion = PotionHelper.getPotionItemStack(Potions.LUCK, 1);
-            entity.world.spawnEntity(new ItemEntity(entity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), potion));
+            entity.level.addFreshEntity(new ItemEntity(entity.getCommandSenderWorld(), pos.getX(), pos.getY(), pos.getZ(), potion));
         }
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 }

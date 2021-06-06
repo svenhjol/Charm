@@ -1,15 +1,5 @@
 package svenhjol.charm.module.shulker_box_tooltips;
 
-import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.client.gui.tooltip.TooltipComponent;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ItemHelper;
@@ -19,6 +9,16 @@ import svenhjol.charm.helper.TooltipHelper;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
 
 import javax.annotation.Nullable;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.List;
 
 public class ShulkerBoxTooltipsClient extends CharmClientModule {
@@ -31,17 +31,17 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
-    private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<TooltipComponent> lines, int x, int y) {
+    private void handleRenderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
         if (stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
             renderTooltip(matrices, stack, lines, x, y);
         }
     }
 
-    private void renderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<TooltipComponent> lines, int tx, int ty) {
+    private void renderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int tx, int ty) {
         if (stack == null || !stack.hasTag())
             return;
 
-        NbtCompound nbt = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
+        CompoundTag nbt = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
 
         if (nbt == null)
             return;
@@ -51,12 +51,12 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
             nbt.putString("id", "minecraft:shulker_box");
         }
         BlockItem blockItem = (BlockItem) stack.getItem();
-        BlockEntity blockEntity = BlockEntity.createFromNbt(BlockPos.ORIGIN, blockItem.getBlock().getDefaultState(), nbt);
+        BlockEntity blockEntity = BlockEntity.loadStatic(BlockPos.ZERO, blockItem.getBlock().defaultBlockState(), nbt);
         if (blockEntity == null)
             return;
 
         ShulkerBoxBlockEntity shulkerbox = (ShulkerBoxBlockEntity) blockEntity;
-        DefaultedList<ItemStack> items = ((ShulkerBoxBlockEntityAccessor)shulkerbox).getInventory();
+        NonNullList<ItemStack> items = ((ShulkerBoxBlockEntityAccessor)shulkerbox).getItemStacks();
         if (items.stream().allMatch(ItemStack::isEmpty))
             return;
 

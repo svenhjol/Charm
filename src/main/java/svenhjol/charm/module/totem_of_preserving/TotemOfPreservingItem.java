@@ -1,22 +1,5 @@
 package svenhjol.charm.module.totem_of_preserving;
 
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Rarity;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ItemNBTHelper;
@@ -24,6 +7,23 @@ import svenhjol.charm.helper.TotemHelper;
 import svenhjol.charm.item.CharmItem;
 
 import javax.annotation.Nullable;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class TotemOfPreservingItem extends CharmItem {
@@ -32,11 +32,11 @@ public class TotemOfPreservingItem extends CharmItem {
     public static final String XP_TAG = "xp";
 
     public TotemOfPreservingItem(CharmModule module) {
-        super(module, "totem_of_preserving", new Settings()
-            .group(ItemGroup.MISC)
+        super(module, "totem_of_preserving", new Properties()
+            .tab(CreativeModeTab.TAB_MISC)
             .rarity(Rarity.UNCOMMON)
-            .fireproof()
-            .maxCount(1));
+            .fireResistant()
+            .stacksTo(1));
     }
 
     @Override
@@ -45,29 +45,29 @@ public class TotemOfPreservingItem extends CharmItem {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack totem = user.getStackInHand(hand);
-        NbtCompound items = getItems(totem);
+    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+        ItemStack totem = user.getItemInHand(hand);
+        CompoundTag items = getItems(totem);
         int xp = getXp(totem);
         if (xp > 0) {
-            world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 0.8F, 1.0F);
-            user.addExperience(xp);
+            world.playSound(null, user.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.8F, 1.0F);
+            user.giveExperiencePoints(xp);
         }
 
         TotemHelper.destroy(user, totem);
 
-        if (!world.isClient) {
-            for (int i = 0; i < items.getSize(); i++) {
-                NbtElement tag = items.get(String.valueOf(i));
+        if (!world.isClientSide) {
+            for (int i = 0; i < items.size(); i++) {
+                Tag tag = items.get(String.valueOf(i));
                 if (tag == null) {
                     Charm.LOG.warn("Item tag missing from totem");
                     continue;
                 }
 
-                ItemStack stack = ItemStack.fromNbt((NbtCompound) tag);
-                BlockPos pos = user.getBlockPos();
+                ItemStack stack = ItemStack.of((CompoundTag) tag);
+                BlockPos pos = user.blockPosition();
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY() + 0.5D, pos.getZ(), stack);
-                world.spawnEntity(itemEntity);
+                world.addFreshEntity(itemEntity);
             }
         }
 
@@ -75,27 +75,27 @@ public class TotemOfPreservingItem extends CharmItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
         String message = getMessage(stack);
-        NbtCompound items = getItems(stack);
+        CompoundTag items = getItems(stack);
 
         if (!message.isEmpty())
-            tooltip.add(new LiteralText(message));
+            tooltip.add(new TextComponent(message));
 
         if (!items.isEmpty()) {
-            int size = items.getSize();
+            int size = items.size();
             String str = size == 1 ? "totem.charm.preserving.item" : "totem.charm.preserving.items";
-            tooltip.add(new LiteralText(I18n.translate(str, size)));
+            tooltip.add(new TextComponent(I18n.get(str, size)));
         }
 
-        super.appendTooltip(stack, world, tooltip, context);
+        super.appendHoverText(stack, world, tooltip, context);
     }
 
     public static void setMessage(ItemStack totem, String message) {
         ItemNBTHelper.setString(totem, MESSAGE_TAG, message);
     }
 
-    public static void setItems(ItemStack totem, NbtCompound items) {
+    public static void setItems(ItemStack totem, CompoundTag items) {
         ItemNBTHelper.setCompound(totem, ITEMS_TAG, items);
     }
 
@@ -107,7 +107,7 @@ public class TotemOfPreservingItem extends CharmItem {
         return ItemNBTHelper.getString(totem, MESSAGE_TAG, "");
     }
 
-    public static NbtCompound getItems(ItemStack totem) {
+    public static CompoundTag getItems(ItemStack totem) {
         return ItemNBTHelper.getCompound(totem, ITEMS_TAG);
     }
 

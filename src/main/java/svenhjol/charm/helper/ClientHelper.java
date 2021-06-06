@@ -1,51 +1,51 @@
 package svenhjol.charm.helper;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.render.Camera;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
-import svenhjol.charm.mixin.accessor.MinecraftClientAccessor;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import svenhjol.charm.mixin.accessor.MinecraftAccessor;
 
 import java.util.Optional;
 
 public class ClientHelper {
-    public static GameOptions gameOptions;
-    public static TextRenderer textRenderer;
+    public static Options gameOptions;
+    public static Font textRenderer;
     public static BlockColors blockColors;
 
     public static void openPlayerInventory() {
-        MinecraftClient mc = MinecraftClient.getInstance();
+        Minecraft mc = Minecraft.getInstance();
 
         if (mc.player == null)
             return;
 
-        mc.openScreen(new InventoryScreen(mc.player));
+        mc.setScreen(new InventoryScreen(mc.player));
     }
 
-    public static <T extends BlockEntity> double getBlockEntityDistance(PlayerEntity player, T entity, Camera camera) {
-        int x = entity.getPos().getX();
-        int y = entity.getPos().getY();
-        int z = entity.getPos().getZ();
-        return camera.getPos().squaredDistanceTo(x, y, z);
+    public static <T extends BlockEntity> double getBlockEntityDistance(Player player, T entity, Camera camera) {
+        int x = entity.getBlockPos().getX();
+        int y = entity.getBlockPos().getY();
+        int z = entity.getBlockPos().getZ();
+        return camera.getPosition().distanceToSqr(x, y, z);
     }
 
-    public static Optional<MinecraftClient> getClient() {
-        return Optional.ofNullable(MinecraftClient.getInstance());
+    public static Optional<Minecraft> getClient() {
+        return Optional.ofNullable(Minecraft.getInstance());
     }
 
-    public static Optional<World> getWorld() {
+    public static Optional<Level> getWorld() {
         if (getClient().isEmpty())
             return Optional.empty();
 
-        return Optional.ofNullable(getClient().get().world);
+        return Optional.ofNullable(getClient().get().level);
     }
 
-    public static Optional<PlayerEntity> getPlayer() {
+    public static Optional<Player> getPlayer() {
         if (getClient().isEmpty())
             return Optional.empty();
 
@@ -55,27 +55,27 @@ public class ClientHelper {
     public static Optional<BlockColors> getBlockColors() {
         if (getClient().isPresent()) {
             if (blockColors == null)
-                blockColors = ((MinecraftClientAccessor) MinecraftClient.getInstance()).getBlockColors();
+                blockColors = ((MinecraftAccessor) Minecraft.getInstance()).getBlockColors();
 
             return Optional.of(blockColors);
         }
         return Optional.empty();
     }
 
-    public static Optional<TextRenderer> getTextRenderer() {
+    public static Optional<Font> getTextRenderer() {
         if (getClient().isPresent()) {
             if (textRenderer == null)
-                textRenderer = MinecraftClient.getInstance().textRenderer;
+                textRenderer = Minecraft.getInstance().font;
 
             return Optional.of(textRenderer);
         }
         return Optional.empty();
     }
 
-    public static Optional<GameOptions> getGameOptions() {
+    public static Optional<Options> getGameOptions() {
         if (getClient().isPresent()) {
             if (gameOptions == null)
-                gameOptions = MinecraftClient.getInstance().options;
+                gameOptions = Minecraft.getInstance().options;
 
             return Optional.of(gameOptions);
         }

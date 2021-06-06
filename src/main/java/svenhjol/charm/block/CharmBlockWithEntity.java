@@ -1,22 +1,23 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
+import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ModHelper;
 
 import java.util.Arrays;
 import java.util.List;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class CharmBlockWithEntity extends BlockWithEntity implements ICharmBlock {
+public abstract class CharmBlockWithEntity extends BaseEntityBlock implements ICharmBlock {
     public CharmModule module;
     private final List<String> loadedMods;
 
-    protected CharmBlockWithEntity(CharmModule module, String name, Settings props, String... loadedMods) {
+    protected CharmBlockWithEntity(CharmModule module, String name, Properties props, String... loadedMods) {
         super(props);
         this.module = module;
         this.loadedMods = Arrays.asList(loadedMods);
@@ -24,9 +25,9 @@ public abstract class CharmBlockWithEntity extends BlockWithEntity implements IC
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> list) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> list) {
         if (enabled())
-            super.addStacksForDisplay(group, list);
+            super.fillItemCategory(group, list);
     }
 
     @Override
@@ -35,7 +36,7 @@ public abstract class CharmBlockWithEntity extends BlockWithEntity implements IC
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 }

@@ -1,17 +1,18 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.Material;
-import net.minecraft.block.WoodenButtonBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.WoodButtonBlock;
+import net.minecraft.world.level.material.Material;
+import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
-public abstract class CharmWoodenButtonBlock extends WoodenButtonBlock implements ICharmBlock {
+public abstract class CharmWoodenButtonBlock extends WoodButtonBlock implements ICharmBlock {
     private final CharmModule module;
 
-    public CharmWoodenButtonBlock(CharmModule module, String name, Settings settings) {
+    public CharmWoodenButtonBlock(CharmModule module, String name, Properties settings) {
         super(settings);
 
         this.register(module, name);
@@ -19,16 +20,16 @@ public abstract class CharmWoodenButtonBlock extends WoodenButtonBlock implement
     }
 
     public CharmWoodenButtonBlock(CharmModule module, String name) {
-        this(module, name, Settings.of(Material.DECORATION)
+        this(module, name, Properties.of(Material.DECORATION)
             .strength(0.5F)
-            .noCollision()
-            .sounds(BlockSoundGroup.WOOD));
+            .noCollission()
+            .sound(SoundType.WOOD));
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

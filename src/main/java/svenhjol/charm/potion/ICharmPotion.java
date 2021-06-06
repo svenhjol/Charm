@@ -1,13 +1,13 @@
 package svenhjol.charm.potion;
 
-import net.minecraft.potion.Potion;
-import net.minecraft.util.Identifier;
 import svenhjol.charm.module.CharmModule;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.alchemy.Potion;
 import svenhjol.charm.helper.RegistryHelper;
 
 public interface ICharmPotion {
     default void register(CharmModule module, String name) {
-        Identifier id = new Identifier(module.mod, name);
+        ResourceLocation id = new ResourceLocation(module.mod, name);
         RegistryHelper.potion(id, (Potion)this);
     }
 }

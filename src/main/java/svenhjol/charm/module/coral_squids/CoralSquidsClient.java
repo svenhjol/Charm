@@ -1,13 +1,13 @@
 package svenhjol.charm.module.coral_squids;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import svenhjol.charm.module.CharmModule;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import svenhjol.charm.helper.EntityHelper;
 import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
 
 public class CoralSquidsClient extends CharmClientModule {
-    public static EntityModelLayer LAYER;
+    public static ModelLayerLocation LAYER;
 
     public CoralSquidsClient(CharmModule module) {
         super(module);
@@ -15,7 +15,7 @@ public class CoralSquidsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        LAYER = EntityHelper.registerEntityModelLayer(CoralSquids.ID, CoralSquidEntityModel.getTexturedModelData().createModel());
+        LAYER = EntityHelper.registerEntityModelLayer(CoralSquids.ID, CoralSquidEntityModel.getTexturedModelData().bakeRoot());
         EntityRendererRegistry.INSTANCE.register(CoralSquids.CORAL_SQUID, CoralSquidEntityRenderer::new);
     }
 }

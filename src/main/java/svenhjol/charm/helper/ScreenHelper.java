@@ -1,14 +1,14 @@
 package svenhjol.charm.helper;
 
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import svenhjol.charm.mixin.accessor.HandledScreenAccessor;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import svenhjol.charm.mixin.accessor.AbstractContainerScreenAccessor;
 
 public class ScreenHelper {
-    public static int getX(HandledScreen<?> screen) {
-        return ((HandledScreenAccessor)screen).getX();
+    public static int getX(AbstractContainerScreen<?> screen) {
+        return ((AbstractContainerScreenAccessor)screen).getX();
     }
 
-    public static int getY(HandledScreen<?> screen) {
-        return ((HandledScreenAccessor)screen).getY();
+    public static int getY(AbstractContainerScreen<?> screen) {
+        return ((AbstractContainerScreenAccessor)screen).getY();
     }
 }

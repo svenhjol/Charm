@@ -2,23 +2,23 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.item.ItemStack;
 import org.apache.logging.log4j.util.TriConsumer;
 
 public interface UpdateAnvilCallback {
     Event<UpdateAnvilCallback> EVENT = EventFactory.createArrayBacked(UpdateAnvilCallback.class, (listeners) -> (handler, player, left, right, output, name, baseCost, apply) -> {
         for (UpdateAnvilCallback listener : listeners) {
-            ActionResult result = listener.interact(handler, player, left, right, output, name, baseCost, apply);
-            if (result == ActionResult.SUCCESS)
+            InteractionResult result = listener.interact(handler, player, left, right, output, name, baseCost, apply);
+            if (result == InteractionResult.SUCCESS)
                 return result;
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     });
 
-    ActionResult interact(AnvilScreenHandler handler, PlayerEntity player, ItemStack left, ItemStack right, Inventory output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply);
+    InteractionResult interact(AnvilMenu handler, Player player, ItemStack left, ItemStack right, Container output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply);
 }

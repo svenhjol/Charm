@@ -1,6 +1,6 @@
 package svenhjol.charm.module;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.helper.StringHelper;
 
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ public abstract class CharmModule {
     public String description = "";
     public String mod = "";
     public int priority = 0;
-    public List<String> limitedIfMixinsDisabled = new ArrayList<>();
     public List<String> requiresMixins = new ArrayList<>();
     public Class<? extends CharmClientModule> client = null;
 
@@ -25,8 +24,8 @@ public abstract class CharmModule {
         return this.getClass().getSimpleName();
     }
 
-    public Identifier getId() {
-        return new Identifier(this.mod, StringHelper.upperCamelToSnake(getName()));
+    public ResourceLocation getId() {
+        return new ResourceLocation(this.mod, StringHelper.upperCamelToSnake(getName()));
     }
 
     /**
@@ -34,7 +33,7 @@ public abstract class CharmModule {
      * This allows a module to conditionally remove recipes according to its config.
      * @return Recipe IDs to remove.
      */
-    public List<Identifier> getRecipesToRemove() {
+    public List<ResourceLocation> getRecipesToRemove() {
         return new ArrayList<>();
     }
 

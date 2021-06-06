@@ -2,21 +2,21 @@ package svenhjol.charm.module.ebony_wood;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.color.world.FoliageColors;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.model.BoatEntityModel;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockRenderView;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.EntityHelper;
+import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nullable;
 
@@ -32,20 +32,20 @@ public class EbonyWoodClient extends CharmClientModule {
         ColorProviderRegistry.ITEM.register(this::handleItemColor, EbonyWood.LEAVES);
 
         // cut-out the transparent areas of the blocks
-        BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.SAPLING, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.DOOR, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.TRAPDOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.SAPLING, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.DOOR, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.TRAPDOOR, RenderType.cutout());
 
         // register boat model
-        EntityHelper.registerEntityModelLayer(new Identifier(Charm.MOD_ID, "boat/ebony"), BoatEntityModel.getTexturedModelData().createModel());
+        EntityHelper.registerEntityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/ebony"), BoatModel.createBodyModel().bakeRoot());
     }
 
-    private int handleBlockColor(BlockState state, @Nullable BlockRenderView world, @Nullable BlockPos pos, int tintIndex) {
-        return world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
+    private int handleBlockColor(BlockState state, @Nullable BlockAndTintGetter world, @Nullable BlockPos pos, int tintIndex) {
+        return world != null && pos != null ? BiomeColors.getAverageFoliageColor(world, pos) : FoliageColor.getDefaultColor();
     }
 
     private int handleItemColor(ItemStack stack, int tintIndex) {
-        BlockState blockState = ((BlockItem)stack.getItem()).getBlock().getDefaultState();
+        BlockState blockState = ((BlockItem)stack.getItem()).getBlock().defaultBlockState();
         return ClientHelper.getBlockColors()
             .map(colors -> colors.getColor(blockState, null, null, tintIndex))
             .orElse(0);

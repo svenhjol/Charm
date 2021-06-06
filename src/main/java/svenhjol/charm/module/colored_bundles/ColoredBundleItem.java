@@ -1,27 +1,27 @@
 package svenhjol.charm.module.colored_bundles;
 
-import net.minecraft.item.BundleItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.module.CharmModule;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.BundleItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.item.ICharmItem;
 
 public class ColoredBundleItem extends BundleItem implements ICharmItem {
     private final CharmModule module;
 
     public ColoredBundleItem(CharmModule module, DyeColor color) {
-        super((new Item.Settings()).maxCount(1).group(ItemGroup.TOOLS));
+        super((new Item.Properties()).stacksTo(1).tab(CreativeModeTab.TAB_TOOLS));
         this.register(module, color.getName() + "_bundle");
         this.module = module;
     }
 
     @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.appendStacks(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

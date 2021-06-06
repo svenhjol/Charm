@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.music_improvements;
 
-import net.minecraft.client.sound.MusicTracker;
-import net.minecraft.client.sound.SoundInstance;
-import net.minecraft.sound.MusicSound;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.sounds.MusicManager;
+import net.minecraft.sounds.Music;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.module.music_improvements.MusicImprovementsClient;
 
-@Mixin(MusicTracker.class)
+@Mixin(MusicManager.class)
 public class MusicTrackerMixin {
-    @Shadow private SoundInstance current;
+    @Shadow private SoundInstance currentMusic;
 
     @Inject(
         method = "tick",
@@ -21,12 +21,12 @@ public class MusicTrackerMixin {
         cancellable = true
     )
     private void hookTick(CallbackInfo ci) {
-        if (MusicImprovementsClient.isEnabled && MusicImprovementsClient.handleTick(this.current))
+        if (MusicImprovementsClient.isEnabled && MusicImprovementsClient.handleTick(this.currentMusic))
             ci.cancel();
     }
 
     @Inject(
-        method = "stop",
+        method = "stopPlaying",
         at = @At("HEAD"),
         cancellable = true
     )
@@ -36,11 +36,11 @@ public class MusicTrackerMixin {
     }
 
     @Inject(
-        method = "isPlayingType",
+        method = "isPlayingMusic",
         at = @At("HEAD"),
         cancellable = true
     )
-    private void hookIsPlayingType(MusicSound music, CallbackInfoReturnable<Boolean> cir) {
+    private void hookIsPlayingType(Music music, CallbackInfoReturnable<Boolean> cir) {
         if (MusicImprovementsClient.isEnabled && MusicImprovementsClient.handlePlaying(music))
             cir.setReturnValue(true);
     }

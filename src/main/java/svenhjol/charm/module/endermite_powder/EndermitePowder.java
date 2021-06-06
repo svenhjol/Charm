@@ -1,28 +1,32 @@
 package svenhjol.charm.module.endermite_powder;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.entity.*;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.EndermiteEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.EntityDropItemsCallback;
+import svenhjol.charm.helper.ItemHelper;
+import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, client = EndermitePowderClient.class, description = "Endermites drop endermite powder that can be used to locate an End City.",
     requiresMixins = {"EntityDropItemsCallback"})
 public class EndermitePowder extends CharmModule {
-    public static Identifier ID = new Identifier(Charm.MOD_ID, "endermite_powder");
+    public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "endermite_powder");
     public static EntityType<EndermitePowderEntity> ENTITY;
     public static EndermitePowderItem ENDERMITE_POWDER;
 
@@ -37,7 +41,7 @@ public class EndermitePowder extends CharmModule {
 
         // setup and register the entity
         ENTITY = RegistryHelper.entity(ID, FabricEntityTypeBuilder
-            .<EndermitePowderEntity>create(SpawnGroup.MISC, EndermitePowderEntity::new)
+            .<EndermitePowderEntity>create(MobCategory.MISC, EndermitePowderEntity::new)
             .trackRangeBlocks(80)
             .trackedUpdateRate(10)
             .dimensions(EntityDimensions.fixed(2.0F, 2.0F)));
@@ -49,17 +53,17 @@ public class EndermitePowder extends CharmModule {
         EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 
-    private ActionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {
-        if (!entity.world.isClient && entity instanceof EndermiteEntity) {
-            World world = entity.getEntityWorld();
-            BlockPos pos = entity.getBlockPos();
+    private InteractionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {
+        if (!entity.level.isClientSide && entity instanceof Endermite) {
+            Level world = entity.getCommandSenderWorld();
+            BlockPos pos = entity.blockPosition();
             int amount = ItemHelper.getAmountWithLooting(world.random, maxDrops, lootingLevel, (float)lootingBoost);
-            world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ENDERMITE_POWDER, amount)));
+            world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ENDERMITE_POWDER, amount)));
         }
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
-    public static void triggerAdvancement(ServerPlayerEntity playerEntity) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(playerEntity, new Identifier(Charm.MOD_ID, "used_endermite_powder"));
+    public static void triggerAdvancement(ServerPlayer playerEntity) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(playerEntity, new ResourceLocation(Charm.MOD_ID, "used_endermite_powder"));
     }
 }

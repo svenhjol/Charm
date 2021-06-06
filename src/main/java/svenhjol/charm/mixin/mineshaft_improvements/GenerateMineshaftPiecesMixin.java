@@ -1,13 +1,13 @@
 package svenhjol.charm.mixin.mineshaft_improvements;
 
-import net.minecraft.structure.MineshaftGenerator;
-import net.minecraft.structure.StructurePiece;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.MineShaftPieces;
+import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,8 +17,8 @@ import svenhjol.charm.module.mineshaft_improvements.MineshaftImprovements;
 import java.util.Random;
 
 @Mixin(value = {
-    MineshaftGenerator.MineshaftCorridor.class,
-    MineshaftGenerator.MineshaftRoom.class
+    MineShaftPieces.MineShaftCorridor.class,
+    MineShaftPieces.MineShaftRoom.class
 })
 public class GenerateMineshaftPiecesMixin {
 
@@ -27,10 +27,10 @@ public class GenerateMineshaftPiecesMixin {
      * This allows the MineshaftImprovements module to hack at the piece.
      */
     @Inject(
-        method = "generate(Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/world/gen/StructureAccessor;Lnet/minecraft/world/gen/chunk/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/BlockBox;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/util/math/BlockPos;)Z",
+        method = "postProcess",
         at = @At("RETURN")
     )
-    private void hookGenerate(StructureWorldAccess world, StructureAccessor structure, ChunkGenerator gen, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos, CallbackInfoReturnable<Boolean> cir) {
+    private void hookGenerate(WorldGenLevel world, StructureFeatureManager structure, ChunkGenerator gen, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos, CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValue()) // if a piece did generate
             MineshaftImprovements.generatePiece((StructurePiece)(Object)this, world, structure, gen, rand, box, chunkPos, blockPos);
     }

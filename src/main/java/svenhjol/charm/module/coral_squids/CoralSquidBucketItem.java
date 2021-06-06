@@ -1,25 +1,27 @@
 package svenhjol.charm.module.coral_squids;
 
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ItemNBTHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.item.ICharmItem;
 
 import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.material.Fluids;
+import svenhjol.charm.module.coral_squids.CoralSquidEntity;
+import svenhjol.charm.module.coral_squids.CoralSquids;
 
 public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
     public static final String STORED_CORAL_SQUID = "stored_coral_squid";
@@ -27,9 +29,9 @@ public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
     private CharmModule module;
 
     public CoralSquidBucketItem(CharmModule module) {
-        super(Fluids.WATER, new Item.Settings()
-            .group(ItemGroup.MISC)
-            .maxCount(1));
+        super(Fluids.WATER, new Item.Properties()
+            .tab(CreativeModeTab.TAB_MISC)
+            .stacksTo(1));
 
         this.module = module;
         register(module, "coral_squid_bucket");
@@ -41,24 +43,24 @@ public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
     }
 
     @Override
-    public void onEmptied(@Nullable PlayerEntity playerEntity, World world, ItemStack stack, BlockPos pos) {
-        if (world instanceof ServerWorld) {
-            CoralSquidEntity coralSquid = MobHelper.spawn(CoralSquids.CORAL_SQUID, (ServerWorld) world, pos, SpawnReason.BUCKET);
+    public void checkExtraContent(@Nullable Player playerEntity, Level world, ItemStack stack, BlockPos pos) {
+        if (world instanceof ServerLevel) {
+            CoralSquidEntity coralSquid = MobHelper.spawn(CoralSquids.CORAL_SQUID, (ServerLevel) world, pos, MobSpawnType.BUCKET);
             if (coralSquid != null) {
-                NbtCompound data = ItemNBTHelper.getCompound(stack, STORED_CORAL_SQUID);
+                CompoundTag data = ItemNBTHelper.getCompound(stack, STORED_CORAL_SQUID);
                 if (!data.isEmpty())
-                    coralSquid.readCustomDataFromNbt(data);
+                    coralSquid.readAdditionalSaveData(data);
 
-                if (stack.hasCustomName())
-                    coralSquid.setCustomName(stack.getName());
+                if (stack.hasCustomHoverName())
+                    coralSquid.setCustomName(stack.getHoverName());
 
-                world.spawnEntity(coralSquid);
+                world.addFreshEntity(coralSquid);
             }
         }
     }
 
     @Override
-    protected void playEmptyingSound(@Nullable PlayerEntity player, WorldAccess world, BlockPos pos) {
-        world.playSound(player, pos, SoundEvents.ITEM_BUCKET_EMPTY_FISH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+    protected void playEmptySound(@Nullable Player player, LevelAccessor world, BlockPos pos) {
+        world.playSound(player, pos, SoundEvents.BUCKET_EMPTY_FISH, SoundSource.NEUTRAL, 1.0F, 1.0F);
     }
 }

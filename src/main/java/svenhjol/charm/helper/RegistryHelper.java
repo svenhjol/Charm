@@ -2,39 +2,39 @@ package svenhjol.charm.helper;
 
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.item.Item;
-import net.minecraft.loot.function.LootFunctionType;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.potion.Potion;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.structure.StructurePieceType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.SignType;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.village.VillagerProfession;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.MenuAccess;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.feature.StructurePieceType;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import svenhjol.charm.mixin.accessor.BlockEntityTypeAccessor;
-import svenhjol.charm.mixin.accessor.BrewingRecipeRegistryAccessor;
-import svenhjol.charm.mixin.accessor.DefaultParticleTypeAccessor;
-import svenhjol.charm.mixin.accessor.SignTypeAccessor;
+import svenhjol.charm.mixin.accessor.PotionBrewingAccessor;
+import svenhjol.charm.mixin.accessor.SimpleParticleTypeAccessor;
+import svenhjol.charm.mixin.accessor.WoodTypeAccessor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,63 +45,63 @@ import java.util.Set;
 public class RegistryHelper {
     public static List<String> SUPPRESS_DATA_FIXER_ERROR = new ArrayList<>();
 
-    public static Block block(Identifier id, Block block) {
+    public static Block block(ResourceLocation id, Block block) {
         return Registry.register(Registry.BLOCK, id, block);
     }
 
-    public static <T extends BlockEntity> BlockEntityType<T> blockEntity(Identifier id, BlockEntityType.BlockEntityFactory<T> builder, Block... blocks) {
-        return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, BlockEntityType.Builder.create(builder, blocks).build(null));
+    public static <T extends BlockEntity> BlockEntityType<T> blockEntity(ResourceLocation id, BlockEntityType.BlockEntitySupplier<T> builder, Block... blocks) {
+        return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, BlockEntityType.Builder.of(builder, blocks).build(null));
     }
 
     public static void brewingRecipe(Potion input, Item reagant, Potion output) {
-        BrewingRecipeRegistryAccessor.invokeRegisterPotionRecipe(input, reagant, output);
+        PotionBrewingAccessor.invokeAddMix(input, reagant, output);
     }
 
-    public static ConfiguredFeature<?, ?> configuredFeature(Identifier id, ConfiguredFeature<?, ?> configuredFeature) {
-        RegistryKey<ConfiguredFeature<?, ?>> key = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, id);
-        BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_FEATURE, key.getValue(), configuredFeature);
+    public static ConfiguredFeature<?, ?> configuredFeature(ResourceLocation id, ConfiguredFeature<?, ?> configuredFeature) {
+        ResourceKey<ConfiguredFeature<?, ?>> key = ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, id);
+        BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_FEATURE, key.location(), configuredFeature);
         return configuredFeature;
     }
 
-    public static ConfiguredStructureFeature<?, ?> configuredStructureFeature(Identifier id, ConfiguredStructureFeature<?, ?> configuredFeature) {
-        RegistryKey<ConfiguredStructureFeature<?, ?>> key = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY, id);
-        BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, key.getValue(), configuredFeature);
+    public static ConfiguredStructureFeature<?, ?> configuredStructureFeature(ResourceLocation id, ConfiguredStructureFeature<?, ?> configuredFeature) {
+        ResourceKey<ConfiguredStructureFeature<?, ?>> key = ResourceKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, id);
+        BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, key.location(), configuredFeature);
         return configuredFeature;
     }
 
-    public static DefaultParticleType defaultParticleType(Identifier id) {
-        DefaultParticleType type = DefaultParticleTypeAccessor.invokeConstructor(false);
+    public static SimpleParticleType defaultParticleType(ResourceLocation id) {
+        SimpleParticleType type = SimpleParticleTypeAccessor.invokeConstructor(false);
         return Registry.register(Registry.PARTICLE_TYPE, id.toString(), type);
     }
 
-    public static Enchantment enchantment(Identifier id, Enchantment enchantment) {
+    public static Enchantment enchantment(ResourceLocation id, Enchantment enchantment) {
         return Registry.register(Registry.ENCHANTMENT, id, enchantment);
     }
 
-    public static <T extends Entity> EntityType<T> entity(Identifier id, FabricEntityTypeBuilder<T> build) {
+    public static <T extends Entity> EntityType<T> entity(ResourceLocation id, FabricEntityTypeBuilder<T> build) {
         SUPPRESS_DATA_FIXER_ERROR.add(id.toString());
         EntityType<T> entityType = build.build();
         return Registry.register(Registry.ENTITY_TYPE, id, entityType);
     }
 
-    public static Item item(Identifier id, Item item) {
+    public static Item item(ResourceLocation id, Item item) {
         return Registry.register(Registry.ITEM, id, item);
     }
 
-    public static LootFunctionType lootFunctionType(Identifier id, LootFunctionType lootFunctionType) {
+    public static LootItemFunctionType lootFunctionType(ResourceLocation id, LootItemFunctionType lootFunctionType) {
         return Registry.register(Registry.LOOT_FUNCTION_TYPE, id, lootFunctionType);
     }
 
-    public static SignType signType(Identifier id) {
+    public static WoodType signType(ResourceLocation id) {
         // crashes when using fully qualified namespace, so convert colon to underscore
-        return SignTypeAccessor.invokeRegister(SignTypeAccessor.invokeInit(id.toString().replace(":", "_")));
+        return WoodTypeAccessor.invokeRegister(WoodTypeAccessor.invokeInit(id.toString().replace(":", "_")));
     }
 
-    public static PointOfInterestType pointOfInterestType(Identifier id, PointOfInterestType poit) {
+    public static PoiType pointOfInterestType(ResourceLocation id, PoiType poit) {
         return Registry.register(Registry.POINT_OF_INTEREST_TYPE, id, poit);
     }
 
-    public static Potion potion(Identifier id, Potion potion) {
+    public static Potion potion(ResourceLocation id, Potion potion) {
         return Registry.register(Registry.POTION, id, potion);
     }
 
@@ -113,32 +113,32 @@ public class RegistryHelper {
         return RecipeSerializer.register(recipeId, serializer);
     }
 
-    public static <T extends ScreenHandler> ScreenHandlerType<T> screenHandler(Identifier id, ScreenHandlerType.Factory<T> factory) {
-        return Registry.register(Registry.SCREEN_HANDLER, id, new ScreenHandlerType<>(factory));
+    public static <T extends AbstractContainerMenu> MenuType<T> screenHandler(ResourceLocation id, MenuType.MenuSupplier<T> factory) {
+        return Registry.register(Registry.MENU, id, new MenuType<>(factory));
     }
 
-    public static <H extends ScreenHandler, S extends Screen & ScreenHandlerProvider<H>> void screenHandlerClient(ScreenHandlerType<H> screenHandler, ScreenRegistry.Factory<H, S> screen) {
+    public static <H extends AbstractContainerMenu, S extends Screen & MenuAccess<H>> void screenHandlerClient(MenuType<H> screenHandler, ScreenRegistry.Factory<H, S> screen) {
         ScreenRegistry.register(screenHandler, screen);
     }
 
-    public static SoundEvent sound(Identifier id, SoundEvent sound) {
+    public static SoundEvent sound(ResourceLocation id, SoundEvent sound) {
         return Registry.register(Registry.SOUND_EVENT, id, sound);
     }
 
-    public static StatusEffect statusEffect(Identifier id, StatusEffect statusEffect) {
-        return Registry.register(Registry.STATUS_EFFECT, id, statusEffect);
+    public static MobEffect statusEffect(ResourceLocation id, MobEffect statusEffect) {
+        return Registry.register(Registry.MOB_EFFECT, id, statusEffect);
     }
 
-    public static StructurePieceType structurePiece(Identifier id, StructurePieceType structurePieceType) {
+    public static StructurePieceType structurePiece(ResourceLocation id, StructurePieceType structurePieceType) {
         return Registry.register(Registry.STRUCTURE_PIECE, id, structurePieceType);
     }
 
-    public static VillagerProfession villagerProfession(Identifier id, VillagerProfession profession) {
+    public static VillagerProfession villagerProfession(ResourceLocation id, VillagerProfession profession) {
         return Registry.register(Registry.VILLAGER_PROFESSION, id, profession);
     }
 
     public static void addBlocksToBlockEntity(BlockEntityType<?> type, Block... blocks) {
-        Set<Block> typeBlocks = ((BlockEntityTypeAccessor) type).getBlocks();
+        Set<Block> typeBlocks = ((BlockEntityTypeAccessor) type).getValidBlocks();
         List<Block> mutable = new ArrayList<>(typeBlocks);
 
         for (Block block : blocks) {
@@ -146,6 +146,6 @@ public class RegistryHelper {
                 mutable.add(block);
         }
 
-        ((BlockEntityTypeAccessor)type).setBlocks(new HashSet<>(mutable));
+        ((BlockEntityTypeAccessor)type).setValidBlocks(new HashSet<>(mutable));
     }
 }

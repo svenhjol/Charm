@@ -1,10 +1,10 @@
 package svenhjol.charm.module.player_pressure_plates;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, description = "Player-only pressure plates.")
 public class PlayerPressurePlates extends CharmModule {

@@ -2,20 +2,20 @@ package svenhjol.charm.module.kilns;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import svenhjol.charm.module.kilns.Kilns;
 
 public class FiringRecipe extends AbstractCookingRecipe {
-    public FiringRecipe(Identifier id, String group, Ingredient input, ItemStack output, float experience, int cookTime) {
+    public FiringRecipe(ResourceLocation id, String group, Ingredient input, ItemStack output, float experience, int cookTime) {
         super(Kilns.RECIPE_TYPE, id, group, input, output, experience, cookTime);
     }
 
     public Ingredient getInput() {
-        return this.input;
+        return this.ingredient;
     }
 
     @Environment(EnvType.CLIENT)

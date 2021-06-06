@@ -1,15 +1,15 @@
 package svenhjol.charm.enchantment;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmEnchantment extends Enchantment implements ICharmEnchantment {
     protected CharmModule module;
 
-    public CharmEnchantment(CharmModule module, String name, Rarity rarity, EnchantmentTarget target, EquipmentSlot[] slotTypes) {
+    public CharmEnchantment(CharmModule module, String name, Rarity rarity, EnchantmentCategory target, EquipmentSlot[] slotTypes) {
         super(rarity, target, slotTypes);
         this.register(module, name);
         this.module = module;
@@ -20,17 +20,17 @@ public abstract class CharmEnchantment extends Enchantment implements ICharmEnch
     }
 
     @Override
-    public boolean isAcceptableItem(ItemStack stack) {
-        return module.enabled && super.isAcceptableItem(stack);
+    public boolean canEnchant(ItemStack stack) {
+        return module.enabled && super.canEnchant(stack);
     }
 
     @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return module.enabled && super.isAvailableForEnchantedBookOffer();
+    public boolean isTradeable() {
+        return module.enabled && super.isTradeable();
     }
 
     @Override
-    public boolean isAvailableForRandomSelection() {
-        return module.enabled && super.isAvailableForRandomSelection();
+    public boolean isDiscoverable() {
+        return module.enabled && super.isDiscoverable();
     }
 }

@@ -1,14 +1,14 @@
 package svenhjol.charm.module.husk_improvements;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.HuskEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.CharmModule;
@@ -40,16 +40,16 @@ public class HuskImprovements extends CharmModule {
         return ModuleHandler.enabled("charm:husk_improvements") && spawnAnywhere;
     }
 
-    private ActionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {
+    private InteractionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {
         if (dropSand
-            && !entity.world.isClient
-            && entity instanceof HuskEntity
+            && !entity.level.isClientSide
+            && entity instanceof Husk
         ) {
-            World world = entity.getEntityWorld();
-            BlockPos pos = entity.getBlockPos();
+            Level world = entity.getCommandSenderWorld();
+            BlockPos pos = entity.blockPosition();
             int amount = ItemHelper.getAmountWithLooting(world.random, maxDrops, lootingLevel, (float)lootingBoost);
-            world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.SAND, amount)));
+            world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.SAND, amount)));
         }
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 }

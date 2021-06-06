@@ -1,17 +1,17 @@
 package svenhjol.charm.module.bookcases;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.module.bookcases.Bookcases;
 
 public class BookcaseSlot extends Slot {
-    public BookcaseSlot(Inventory inventory, int slotIndex, int x, int y) {
+    public BookcaseSlot(Container inventory, int slotIndex, int x, int y) {
         super(inventory, slotIndex, x, y);
     }
 
     @Override
-    public boolean canInsert(ItemStack stack) {
+    public boolean mayPlace(ItemStack stack) {
         return Bookcases.canContainItem(stack);
     }
 }

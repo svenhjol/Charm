@@ -4,22 +4,22 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ClientHelper;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -32,26 +32,26 @@ public class StorageCratesClient extends CharmClientModule {
     @Override
     public void register() {
         StorageCrates.STORAGE_CRATE_BLOCKS.forEach((material, block) -> {
-            BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
+            BlockRenderLayerMap.INSTANCE.putBlock(block, RenderType.cutout());
         });
 
         BlockEntityRendererRegistry.INSTANCE.register(StorageCrates.BLOCK_ENTITY, StorageCrateBlockEntityRenderer::new);
         ClientPlayNetworking.registerGlobalReceiver(StorageCrates.MSG_CLIENT_UPDATED_CRATE, this::handleInteractedWithCrate);
     }
 
-    private void handleInteractedWithCrate(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
-        StorageCrates.ActionType actionType = data.readEnumConstant(StorageCrates.ActionType.class);
-        BlockPos pos = BlockPos.fromLong(data.readLong());
+    private void handleInteractedWithCrate(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
+        StorageCrates.ActionType actionType = data.readEnum(StorageCrates.ActionType.class);
+        BlockPos pos = BlockPos.of(data.readLong());
 
         client.execute(() -> {
             ClientHelper.getWorld().ifPresent(world -> {
                 switch (actionType) {
                     case ADDED:
-                        createEffect(world, pos, ParticleTypes.COMPOSTER, SoundEvents.BLOCK_COMPOSTER_FILL);
+                        createEffect(world, pos, ParticleTypes.COMPOSTER, SoundEvents.COMPOSTER_FILL);
                         break;
 
                     case REMOVED:
-                        createEffect(world, pos, ParticleTypes.SMOKE, SoundEvents.ENTITY_ITEM_PICKUP);
+                        createEffect(world, pos, ParticleTypes.SMOKE, SoundEvents.ITEM_PICKUP);
                         break;
 
                     case FILLED:
@@ -62,14 +62,14 @@ public class StorageCratesClient extends CharmClientModule {
         });
     }
 
-    private void createEffect(World world, BlockPos pos, ParticleEffect effect, @Nullable SoundEvent sound) {
+    private void createEffect(Level world, BlockPos pos, ParticleOptions effect, @Nullable SoundEvent sound) {
         if (sound != null)
-            world.playSound(pos.getX(), pos.getY(), pos.getZ(), sound, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+            world.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), sound, SoundSource.BLOCKS, 1.0F, 1.0F, false);
 
         Direction.Axis axis;
         BlockState state = world.getBlockState(pos);
         if (state.getBlock() instanceof StorageCrateBlock) {
-            axis = state.get(StorageCrateBlock.FACING).getAxis();
+            axis = state.getValue(StorageCrateBlock.FACING).getAxis();
         } else {
             axis = Direction.Axis.Y;
         }

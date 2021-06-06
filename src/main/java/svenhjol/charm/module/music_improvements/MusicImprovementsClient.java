@@ -2,35 +2,36 @@ package svenhjol.charm.module.music_improvements;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.JukeboxBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.sound.SoundInstance;
-import net.minecraft.client.sound.SoundManager;
-import net.minecraft.client.sound.SoundSystem;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.MusicDiscItem;
-import net.minecraft.sound.MusicSound;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.sounds.SoundEngine;
+import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.Music;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.JukeboxBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.DimensionHelper;
 import svenhjol.charm.helper.SoundHelper;
 import svenhjol.charm.event.PlaySoundCallback;
+import svenhjol.charm.module.music_improvements.MusicImprovements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class MusicImprovementsClient extends CharmClientModule {
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;
     private static SoundInstance currentMusic;
-    private static Identifier currentDim = null;
+    private static ResourceLocation currentDim = null;
     private static int timeUntilNextMusic = 100;
     private static MusicCondition lastCondition;
     private static final List<MusicCondition> musicConditions = new ArrayList<>();
@@ -68,16 +69,16 @@ public class MusicImprovementsClient extends CharmClientModule {
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
     }
 
-    private ActionResult handleUseBlock(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
-        stopRecord(player, hitResult.getBlockPos(), player.getStackInHand(hand));
-        return ActionResult.PASS;
+    private InteractionResult handleUseBlock(Player player, Level world, InteractionHand hand, BlockHitResult hitResult) {
+        stopRecord(player, hitResult.getBlockPos(), player.getItemInHand(hand));
+        return InteractionResult.PASS;
     }
 
-    private void handlePlaySound(SoundSystem soundSystem, SoundInstance sound) {
+    private void handlePlaySound(SoundEngine soundSystem, SoundInstance sound) {
         checkShouldStopMusic(sound);
     }
 
-    private void handleClientTick(MinecraftClient client) {
+    private void handleClientTick(Minecraft client) {
         checkActuallyStopMusic();
     }
 
@@ -85,27 +86,27 @@ public class MusicImprovementsClient extends CharmClientModule {
         musicConditions.add(new MusicCondition(
             SoundEvents.MUSIC_CREATIVE, 1200, 3600, mc -> mc.player != null
                 && (!mc.player.isCreative() || !mc.player.isSpectator())
-                && DimensionHelper.isDimension(mc.player.world, World.OVERWORLD)
+                && DimensionHelper.isDimension(mc.player.level, Level.OVERWORLD)
                 && new Random().nextFloat() < 0.25F
         ));
     }
 
     public void stopRecord(Entity entity, BlockPos pos, ItemStack stack) {
-        if (entity.world.isClient
-            && entity instanceof PlayerEntity
-            && stack.getItem() instanceof MusicDiscItem
+        if (entity.level.isClientSide
+            && entity instanceof Player
+            && stack.getItem() instanceof RecordItem
         ) {
-            BlockState state = entity.world.getBlockState(pos);
-            if (state.getBlock() == Blocks.JUKEBOX && !state.get(JukeboxBlock.HAS_RECORD))
-                SoundHelper.getSoundManager().stopSounds(null, SoundCategory.MUSIC);
+            BlockState state = entity.level.getBlockState(pos);
+            if (state.getBlock() == Blocks.JUKEBOX && !state.getValue(JukeboxBlock.HAS_RECORD))
+                SoundHelper.getSoundManager().stop(null, SoundSource.MUSIC);
         }
     }
 
     public void checkShouldStopMusic(SoundInstance sound) {
-        if (sound.getCategory() == SoundCategory.MUSIC) {
+        if (sound.getSource() == SoundSource.MUSIC) {
             // check if there are any records playing
             SoundHelper.getPlayingSounds().forEach((category, s) -> {
-                if (category == SoundCategory.RECORDS) {
+                if (category == SoundSource.RECORDS) {
                     musicToStop = sound;
                     CharmClient.LOG.debug("[Music Improvements] Triggered background music while music disc playing");
                 }
@@ -124,22 +125,22 @@ public class MusicImprovementsClient extends CharmClientModule {
     }
 
     public static boolean handleTick(SoundInstance current) {
-        MinecraftClient mc = MinecraftClient.getInstance();
+        Minecraft mc = Minecraft.getInstance();
 
-        if (mc.world == null) return false;
+        if (mc.level == null) return false;
         if (lastCondition == null)
             lastCondition = getMusicCondition();
 
         if (currentMusic != null) {
-            if (!DimensionHelper.isDimension(mc.world, currentDim)) {
+            if (!DimensionHelper.isDimension(mc.level, currentDim)) {
                 CharmClient.LOG.debug("[Music Improvements] Stopping music as the dimension is no longer correct");
                 forceStop();
                 currentMusic = null;
             }
 
-            if (currentMusic != null && !mc.getSoundManager().isPlaying(currentMusic)) {
+            if (currentMusic != null && !mc.getSoundManager().isActive(currentMusic)) {
                 CharmClient.LOG.debug("[Music Improvements] Music has finished, setting currentMusic to null");
-                timeUntilNextMusic = Math.min(MathHelper.nextInt(new Random(), lastCondition.getMinDelay(), 3600), timeUntilNextMusic);
+                timeUntilNextMusic = Math.min(Mth.nextInt(new Random(), lastCondition.getMinDelay(), 3600), timeUntilNextMusic);
                 currentMusic = null;
             }
         }
@@ -148,13 +149,13 @@ public class MusicImprovementsClient extends CharmClientModule {
 
         if (currentMusic == null && timeUntilNextMusic-- <= 0) {
             MusicCondition condition = getMusicCondition();
-            CharmClient.LOG.debug("[Music Improvements] Selected music condition with sound: " + condition.getSound().getId());
+            CharmClient.LOG.debug("[Music Improvements] Selected music condition with sound: " + condition.getSound().getLocation());
             forceStop();
 
-            currentDim = DimensionHelper.getDimension(mc.world);
-            currentMusic = PositionedSoundInstance.music(condition.getSound());
+            currentDim = DimensionHelper.getDimension(mc.level);
+            currentMusic = SimpleSoundInstance.forMusic(condition.getSound());
 
-            if (currentMusic.getSound() != SoundManager.MISSING_SOUND) {
+            if (currentMusic.getSound() != SoundManager.EMPTY_SOUND) {
                 mc.getSoundManager().play(currentMusic);
                 lastCondition = condition;
                 timeUntilNextMusic = Integer.MAX_VALUE;
@@ -166,7 +167,7 @@ public class MusicImprovementsClient extends CharmClientModule {
 
     public static boolean handleStop() {
         if (currentMusic != null) {
-            MinecraftClient.getInstance().getSoundManager().stop(currentMusic);
+            Minecraft.getInstance().getSoundManager().stop(currentMusic);
             currentMusic = null;
             timeUntilNextMusic = lastCondition != null ? new Random().nextInt(Math.min(lastCondition.getMinDelay(), 3600)) + 1200 : timeUntilNextMusic + 100;
             CharmClient.LOG.debug("[Music Improvements] Stop was called, setting timeout to " + timeUntilNextMusic);
@@ -174,12 +175,12 @@ public class MusicImprovementsClient extends CharmClientModule {
         return true;
     }
 
-    public static boolean handlePlaying(MusicSound music) {
-        return currentMusic != null && music.getSound().getId().equals(currentMusic.getId());
+    public static boolean handlePlaying(Music music) {
+        return currentMusic != null && music.getEvent().getLocation().equals(currentMusic.getLocation());
     }
 
     public static void forceStop() {
-        MinecraftClient.getInstance().getSoundManager().stop(currentMusic);
+        Minecraft.getInstance().getSoundManager().stop(currentMusic);
         currentMusic = null;
         timeUntilNextMusic = 3600;
     }
@@ -197,7 +198,7 @@ public class MusicImprovementsClient extends CharmClientModule {
 
         // if none available, just play a default background track
         if (condition == null)
-            condition = new MusicCondition(MinecraftClient.getInstance().getMusicType());
+            condition = new MusicCondition(Minecraft.getInstance().getSituationalMusic());
 
         return condition;
     }
@@ -210,24 +211,24 @@ public class MusicImprovementsClient extends CharmClientModule {
         private final SoundEvent sound;
         private final int minDelay;
         private final int maxDelay;
-        private Predicate<MinecraftClient> condition;
+        private Predicate<Minecraft> condition;
 
-        public MusicCondition(SoundEvent sound, int minDelay, int maxDelay, Predicate<MinecraftClient> condition) {
+        public MusicCondition(SoundEvent sound, int minDelay, int maxDelay, Predicate<Minecraft> condition) {
             this.sound = sound;
             this.minDelay = minDelay;
             this.maxDelay = maxDelay;
             this.condition = condition;
         }
 
-        public MusicCondition(MusicSound music) {
-            this.sound = music.getSound();
+        public MusicCondition(Music music) {
+            this.sound = music.getEvent();
             this.minDelay = music.getMinDelay();
             this.maxDelay = music.getMaxDelay();
         }
 
         public boolean handle() {
             if (condition == null) return false;
-            return condition.test(MinecraftClient.getInstance());
+            return condition.test(Minecraft.getInstance());
         }
 
         public SoundEvent getSound() {

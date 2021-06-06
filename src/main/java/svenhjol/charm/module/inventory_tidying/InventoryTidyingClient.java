@@ -1,22 +1,22 @@
 package svenhjol.charm.module.inventory_tidying;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.Selectable;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.*;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.TexturedButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.*;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
-import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
+import svenhjol.charm.mixin.accessor.PlayerAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
@@ -31,7 +31,7 @@ import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PL
 public class InventoryTidyingClient extends CharmClientModule {
     public static final int LEFT = 159;
     public static final int TOP = 12;
-    public static final List<TexturedButtonWidget> sortingButtons = new ArrayList<>();
+    public static final List<ImageButton> sortingButtons = new ArrayList<>();
 
     public final List<Class<? extends Screen>> blockEntityScreens = new ArrayList<>();
     public final List<Class<? extends Screen>> blacklistScreens = new ArrayList<>();
@@ -51,15 +51,15 @@ public class InventoryTidyingClient extends CharmClientModule {
         screenTweaks.put(InventoryScreen.class, new HashMap<Integer, Integer>() {{ put(0, 76); }});
 
         blockEntityScreens.addAll(Arrays.asList(
-            GenericContainerScreen.class,
+            ContainerScreen.class,
             HopperScreen.class,
             ShulkerBoxScreen.class,
             BookcaseScreen.class,
-            Generic3x3ContainerScreen.class
+            DispenserScreen.class
         ));
 
         blacklistScreens.addAll(Arrays.asList(
-            CreativeInventoryScreen.class,
+            CreativeModeInventoryScreen.class,
             BeaconScreen.class,
             AtlasScreen.class
         ));
@@ -72,21 +72,21 @@ public class InventoryTidyingClient extends CharmClientModule {
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
     }
 
-    private void handleGuiSetup(MinecraftClient client, int width, int height, List<Selectable> buttons) {
+    private void handleGuiSetup(Minecraft client, int width, int height, List<NarratableEntry> buttons) {
         if (client.player == null)
             return;
 
-        if (!(client.currentScreen instanceof HandledScreen))
+        if (!(client.screen instanceof AbstractContainerScreen))
             return;
 
-        if (blacklistScreens.contains(client.currentScreen.getClass()))
+        if (blacklistScreens.contains(client.screen.getClass()))
             return;
 
         sortingButtons.clear();
 
-        HandledScreen<?> screen = (HandledScreen<?>)client.currentScreen;
-        Class<? extends HandledScreen> clazz = screen.getClass();
-        ScreenHandler screenHandler = screen.getScreenHandler();
+        AbstractContainerScreen<?> screen = (AbstractContainerScreen<?>)client.screen;
+        Class<? extends AbstractContainerScreen> clazz = screen.getClass();
+        AbstractContainerMenu screenHandler = screen.getMenu();
 
         int x = ScreenHelper.getX(screen) + LEFT;
         int y = ScreenHelper.getY(screen) - TOP;
@@ -105,32 +105,32 @@ public class InventoryTidyingClient extends CharmClientModule {
                 this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(BE));
             }
 
-            if (slot.inventory == ((PlayerEntityAccessor)client.player).getInventory()) {
+            if (slot.container == ((PlayerAccessor)client.player).getInventory()) {
                 this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(PLAYER));
                 break;
             }
         }
 
-        sortingButtons.forEach(screen::addDrawableChild);
+        sortingButtons.forEach(screen::addRenderableWidget);
     }
 
-    private void handleRenderGui(MinecraftClient client, MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        if (client.currentScreen instanceof InventoryScreen
-            && !blacklistScreens.contains(client.currentScreen.getClass())
+    private void handleRenderGui(Minecraft client, PoseStack matrices, int mouseX, int mouseY, float delta) {
+        if (client.screen instanceof InventoryScreen
+            && !blacklistScreens.contains(client.screen.getClass())
         ) {
             // handles the recipe being open/closed
-            InventoryScreen screen = (InventoryScreen)client.currentScreen;
+            InventoryScreen screen = (InventoryScreen)client.screen;
             int x = ScreenHelper.getX(screen);
-            sortingButtons.forEach(button -> button.setPos(x + LEFT, button.y));
+            sortingButtons.forEach(button -> button.setPosition(x + LEFT, button.y));
         }
     }
 
-    private void addSortingButton(Screen screen, int x, int y, ButtonWidget.PressAction onPress) {
-        sortingButtons.add(new TexturedButtonWidget(x, y, 10, 10, 40, 0, 10, CharmResources.INVENTORY_BUTTONS, onPress));
+    private void addSortingButton(Screen screen, int x, int y, Button.OnPress onPress) {
+        sortingButtons.add(new ImageButton(x, y, 10, 10, 40, 0, 10, CharmResources.INVENTORY_BUTTONS, onPress));
     }
 
     private void sendSortMessage(int type) {
-        PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+        FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
         data.writeInt(type);
         ClientPlayNetworking.send(InventoryTidying.MSG_SERVER_TIDY_INVENTORY, data);
     }

@@ -1,10 +1,9 @@
 package svenhjol.charm.helper;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
-
 import java.util.UUID;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.world.item.ItemStack;
 
 @SuppressWarnings("unused")
 public class ItemNBTHelper {
@@ -28,21 +27,21 @@ public class ItemNBTHelper {
         return nbtExists(stack, nbt) ? getNBT(stack).getString(nbt) : defaultExpected;
     }
 
-    public static NbtCompound getCompound(ItemStack stack, String nbt) {
+    public static CompoundTag getCompound(ItemStack stack, String nbt) {
         return getCompound(stack, nbt, false);
     }
 
-    public static NbtCompound getCompound(ItemStack stack, String nbt, boolean nullify) {
-        return nbtExists(stack, nbt) ? getNBT(stack).getCompound(nbt) : (nullify ? null : new NbtCompound());
+    public static CompoundTag getCompound(ItemStack stack, String nbt, boolean nullify) {
+        return nbtExists(stack, nbt) ? getNBT(stack).getCompound(nbt) : (nullify ? null : new CompoundTag());
     }
 
     public static UUID getUuid(ItemStack stack, String nbtName) {
-        NbtCompound nbt = getNBT(stack);
-        return nbt.containsUuid(nbtName) ? nbt.getUuid(nbtName) : null;
+        CompoundTag nbt = getNBT(stack);
+        return nbt.hasUUID(nbtName) ? nbt.getUUID(nbtName) : null;
     }
 
-    public static NbtList getList(ItemStack stack, String nbt) {
-        return nbtExists(stack, nbt) ? getNBT(stack).getList(nbt, 10) : new NbtList();
+    public static ListTag getList(ItemStack stack, String nbt) {
+        return nbtExists(stack, nbt) ? getNBT(stack).getList(nbt, 10) : new ListTag();
     }
 
     public static void setInt(ItemStack stack, String nbt, int i) {
@@ -53,7 +52,7 @@ public class ItemNBTHelper {
         getNBT(stack).putBoolean(nbt, b);
     }
 
-    public static void setCompound(ItemStack stack, String nbt, NbtCompound cmp) {
+    public static void setCompound(ItemStack stack, String nbt, CompoundTag cmp) {
         getNBT(stack).put(nbt, cmp);
     }
 
@@ -70,10 +69,10 @@ public class ItemNBTHelper {
     }
 
     public static void setUuid(ItemStack stack, String nbt, UUID uuid) {
-        getNBT(stack).putUuid(nbt, uuid);
+        getNBT(stack).putUUID(nbt, uuid);
     }
 
-    public static void setList(ItemStack stack, String nbt, NbtList list) {
+    public static void setList(ItemStack stack, String nbt, ListTag list) {
         getNBT(stack).put(nbt, list);
     }
 
@@ -82,9 +81,9 @@ public class ItemNBTHelper {
         return !stack.isEmpty() && stack.hasTag() && getNBT(stack).contains(nbt);
     }
 
-    public static NbtCompound getNBT(ItemStack stack) {
+    public static CompoundTag getNBT(ItemStack stack) {
         if (!stack.hasTag()) {
-            stack.setTag(new NbtCompound());
+            stack.setTag(new CompoundTag());
         }
         return stack.getTag();
     }
