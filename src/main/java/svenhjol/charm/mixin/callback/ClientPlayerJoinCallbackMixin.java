@@ -10,7 +10,6 @@ import svenhjol.charm.event.ClientPlayerJoinCallback;
 
 @Mixin(Minecraft.class)
 public class ClientPlayerJoinCallbackMixin {
-
     /**
      * Fires the {@link ClientPlayerJoinCallback} event.
      *
@@ -19,7 +18,7 @@ public class ClientPlayerJoinCallbackMixin {
      * module to perform its own init when a client player enters the world.
      */
     @Inject(
-        method = "joinWorld",
+        method = "setLevel",
         at = @At("RETURN")
     )
     private void hookJoinWorld(ClientLevel world, CallbackInfo ci) {

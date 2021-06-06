@@ -14,13 +14,12 @@ import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
 
 @Mixin(HumanoidArmorLayer.class)
 public class GetArmorStackMixin<T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> {
-
     /**
      * Fetches the entity's armor so that the colored glint handler can modify its color.
      * Makes no runtime modification to this class.
      */
     @Inject(
-        method = "renderArmor",
+        method = "renderArmorPiece",
         at = @At("HEAD")
     )
     private void hookRenderArmor(PoseStack matrices, MultiBufferSource vertexConsumers, T livingEntity, EquipmentSlot equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci) {

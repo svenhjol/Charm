@@ -16,24 +16,27 @@ import svenhjol.charm.module.atlases.Atlases;
 
 @Mixin(CartographyTableMenu.class)
 public class ScaleAtlasesOnCartographyTableMixin {
-    @Shadow @Final private ContainerLevelAccess context;
+    @Shadow @Final private ContainerLevelAccess access;
 
-    @Shadow @Final private ResultContainer resultInventory;
+    @Shadow @Final private ResultContainer resultContainer;
 
-    @Inject(method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("TAIL"))
+    @Inject(
+        method = "<init>(ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/inventory/ContainerLevelAccess;)V",
+        at = @At("TAIL")
+    )
     private void hookConstructor(int syncId, Inventory inventory, ContainerLevelAccess context, CallbackInfo ci) {
         Atlases.setupAtlasUpscale(inventory, (CartographyTableMenu) (Object) this);
     }
 
     @Inject(
-        method = "updateResult",
+        method = "setupResultSlot",
         at = @At("HEAD"),
         cancellable = true
     )
     private void hookUpdateResult(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, CallbackInfo ci) {
-        Level world = context.evaluate((w, b) -> w).orElse(null);
+        Level world = access.evaluate((w, b) -> w).orElse(null);
         if (world == null) return;
-        if (Atlases.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, world, resultInventory, (CartographyTableMenu) (Object) this)) {
+        if (Atlases.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, world, resultContainer, (CartographyTableMenu) (Object) this)) {
             ci.cancel();
         }
     }

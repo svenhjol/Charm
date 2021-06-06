@@ -8,13 +8,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
 import svenhjol.charm.module.colored_glints.ColoredGlints;
 
-/**
- * In Forge: RenderTypeMixin
- */
 @Mixin(RenderType.class)
 public class GetCustomRenderLayersMixin {
     @Inject(
-        method = "getArmorGlint",
+        method = "armorGlint",
         at = @At("HEAD"),
         cancellable = true
     )
@@ -24,7 +21,7 @@ public class GetCustomRenderLayersMixin {
     }
 
     @Inject(
-        method = "getArmorEntityGlint",
+        method = "armorEntityGlint",
         at = @At("HEAD"),
         cancellable = true
     )
@@ -34,7 +31,7 @@ public class GetCustomRenderLayersMixin {
     }
 
     @Inject(
-        method = "getEntityGlint",
+        method = "entityGlint",
         at = @At("HEAD"),
         cancellable = true
     )
@@ -44,7 +41,7 @@ public class GetCustomRenderLayersMixin {
     }
 
     @Inject(
-        method = "getDirectEntityGlint",
+        method = "entityGlintDirect",
         at = @At("HEAD"),
         cancellable = true
     )
@@ -54,7 +51,7 @@ public class GetCustomRenderLayersMixin {
     }
 
     @Inject(
-        method = "getGlint",
+        method = "glint",
         at = @At("HEAD"),
         cancellable = true
     )
@@ -64,7 +61,7 @@ public class GetCustomRenderLayersMixin {
     }
 
     @Inject(
-        method = "getDirectGlint",
+        method = "glintDirect",
         at = @At("HEAD"),
         cancellable = true
     )

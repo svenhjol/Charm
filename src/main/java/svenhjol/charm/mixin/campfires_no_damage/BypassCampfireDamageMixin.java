@@ -13,13 +13,12 @@ import svenhjol.charm.module.campfires_no_damage.CampfiresNoDamage;
 
 @Mixin(CampfireBlock.class)
 public abstract class BypassCampfireDamageMixin {
-
     /**
      * Defer entity collision blockstate to the bypassDamage check.
      * If the check passes, return early from the vanilla method.
      */
     @Inject(
-        method = "onEntityCollision",
+        method = "entityInside",
         at = @At("HEAD"),
         cancellable = true
     )

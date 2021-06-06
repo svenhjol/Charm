@@ -10,12 +10,11 @@ import svenhjol.charm.event.EntityKillCallback;
 
 @Mixin(LivingEntity.class)
 public class EntityKillCallbackMixin {
-
     /**
      * Fires the {@link EntityKillCallback} event when an entity is killed.
      */
     @Inject(
-        method = "onDeath",
+        method = "die",
         at = @At("HEAD")
     )
     private void hookOnDeath(DamageSource source, CallbackInfo ci) {

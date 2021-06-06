@@ -14,7 +14,6 @@ import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
 
 @Mixin(ItemRenderer.class)
 public class GetItemMixin {
-
     /**
      * Fetches the itemstack in the current context (such as player inventory) so that
      * the glint handler can modify its color.
@@ -22,7 +21,7 @@ public class GetItemMixin {
      * Makes no runtime modification to this class.
      */
     @Inject(
-        method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformation$Mode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
+        method = "render",
         at = @At(
             value = "HEAD"
         )

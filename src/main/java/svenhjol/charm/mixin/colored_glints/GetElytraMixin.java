@@ -13,7 +13,6 @@ import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
 
 @Mixin(ElytraLayer.class)
 public class GetElytraMixin<T extends LivingEntity> {
-
     /**
      * Fetches the entity's elytra so that the colored glint handler can modify its color.
      * Makes no runtime modification to this class.

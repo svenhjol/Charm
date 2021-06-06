@@ -1,6 +1,5 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.screen.*;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AnvilMenu;
@@ -21,14 +20,13 @@ import svenhjol.charm.event.UpdateAnvilCallback;
 
 @Mixin(AnvilMenu.class)
 public abstract class UpdateAnvilCallbackMixin extends ItemCombinerMenu {
-
     @Shadow
-    private String newItemName;
+    private String itemName;
 
     @Shadow @Final
-    private DataSlot levelCost;
+    private DataSlot cost;
 
-    @Shadow private int repairItemUsage;
+    @Shadow private int repairItemCountCost;
 
     public UpdateAnvilCallbackMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(type, syncId, playerInventory, context);
@@ -39,10 +37,10 @@ public abstract class UpdateAnvilCallbackMixin extends ItemCombinerMenu {
      * for full control over anvil output slot.
      */
     @Inject(
-        method = "updateResult",
+        method = "createResult",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/item/ItemStack;isDamageable()Z",
+            target = "Lnet/minecraft/world/item/ItemStack;isDamageableItem()Z",
             ordinal = 0,
             shift = At.Shift.BEFORE
         ),
@@ -50,14 +48,14 @@ public abstract class UpdateAnvilCallbackMixin extends ItemCombinerMenu {
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void hookUpdateResultUpdateAnvil(CallbackInfo ci, ItemStack left, int i, int baseCost, int k, ItemStack itemStack2, ItemStack right) {
-        InteractionResult result = UpdateAnvilCallback.EVENT.invoker().interact((AnvilMenu)(Object)this, this.player, left, right, this.resultSlots, this.newItemName, baseCost, this::applyUpdateAnvil);
+        InteractionResult result = UpdateAnvilCallback.EVENT.invoker().interact((AnvilMenu)(Object)this, this.player, left, right, this.resultSlots, this.itemName, baseCost, this::applyUpdateAnvil);
         if (result == InteractionResult.SUCCESS)
             ci.cancel();
     }
 
     private void applyUpdateAnvil(ItemStack out, int xpCost, int materialCost) {
         resultSlots.setItem(0, out);
-        this.levelCost.set(5);
-        repairItemUsage = materialCost;
+        this.cost.set(5);
+        repairItemCountCost = materialCost;
     }
 }

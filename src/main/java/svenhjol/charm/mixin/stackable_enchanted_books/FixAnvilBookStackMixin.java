@@ -13,7 +13,6 @@ import svenhjol.charm.module.stackable_enchanted_books.StackableEnchantedBooks;
 
 @Mixin(AnvilMenu.class)
 public class FixAnvilBookStackMixin {
-
     /**
      * When adding a stack of enchanted books to an item on the anvil,
      * the entire stack is lost.  The vanilla logic does not take into
@@ -22,16 +21,16 @@ public class FixAnvilBookStackMixin {
      * back to the slot.
      */
     @Redirect(
-        method = "onTakeOutput",
+        method = "onTake",
         slice = @Slice(
             from = @At(
                 value = "INVOKE",
-                target = "Lnet/minecraft/item/ItemStack;decrement(I)V"
+                target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"
             )
         ),
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/inventory/Inventory;setStack(ILnet/minecraft/item/ItemStack;)V",
+            target = "Lnet/minecraft/world/Container;setItem(ILnet/minecraft/world/item/ItemStack;)V",
             opcode = Opcodes.INVOKEINTERFACE,
             ordinal = 2
         )

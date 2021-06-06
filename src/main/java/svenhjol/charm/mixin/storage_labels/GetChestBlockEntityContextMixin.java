@@ -10,7 +10,6 @@ import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 
 @Mixin(ChestRenderer.class)
 public abstract class GetChestBlockEntityContextMixin {
-
     /**
      * Fetches the vanilla chest block entity context so that the
      * storage label renderer can use it.

@@ -7,11 +7,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.AddEntityCallback;
-import svenhjol.charm.mixin.callback.AddEntityCallbackServerMixin;
 
 @Mixin(ClientLevel.class)
 public class AddEntityCallbackClientMixin {
-
     /**
      * Fires the {@link AddEntityCallback} event when an entity (e.g. the player)
      * is added to the *client* world.
@@ -27,7 +25,7 @@ public class AddEntityCallbackClientMixin {
      * in the code, except allows it to be cancellable.
      */
     @Inject(
-        method = "addEntityPrivate",
+        method = "addEntity",
         at = @At("HEAD")
     )
     private void hookAddEntityPrivate(int id, Entity entity, CallbackInfo ci) {

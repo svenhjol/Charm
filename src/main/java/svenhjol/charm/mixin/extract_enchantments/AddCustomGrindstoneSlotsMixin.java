@@ -13,47 +13,45 @@ import svenhjol.charm.module.extract_enchantments.ExtractEnchantments;
 
 @Mixin(value = GrindstoneMenu.class, priority = 1)
 public class AddCustomGrindstoneSlotsMixin {
-    @Shadow
-    @Final
-    Container input;
+    @Shadow @Final Container repairSlots;
 
-    @Shadow @Final private ContainerLevelAccess context;
+    @Shadow @Final private ContainerLevelAccess access;
 
-    @Shadow @Final private Container result;
+    @Shadow @Final private Container resultSlots;
 
     @ModifyArg(
-        method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V",
+        method = "<init>(ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/inventory/ContainerLevelAccess;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/screen/GrindstoneScreenHandler;addSlot(Lnet/minecraft/screen/slot/Slot;)Lnet/minecraft/screen/slot/Slot;",
+            target = "Lnet/minecraft/world/inventory/GrindstoneMenu;addSlot(Lnet/minecraft/world/inventory/Slot;)Lnet/minecraft/world/inventory/Slot;",
             ordinal = 0
         )
     )
     private Slot hookAddSlot0(Slot slot) {
-        return ExtractEnchantments.getGrindstoneInputSlot(0, this.input);
+        return ExtractEnchantments.getGrindstoneInputSlot(0, this.repairSlots);
     }
 
     @ModifyArg(
-        method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V",
+        method = "<init>(ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/inventory/ContainerLevelAccess;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/screen/GrindstoneScreenHandler;addSlot(Lnet/minecraft/screen/slot/Slot;)Lnet/minecraft/screen/slot/Slot;",
+            target = "Lnet/minecraft/world/inventory/GrindstoneMenu;addSlot(Lnet/minecraft/world/inventory/Slot;)Lnet/minecraft/world/inventory/Slot;",
             ordinal = 1
         )
     )
     private Slot hookAddSlot1(Slot slot) {
-        return ExtractEnchantments.getGrindstoneInputSlot(1, this.input);
+        return ExtractEnchantments.getGrindstoneInputSlot(1, this.repairSlots);
     }
 
     @ModifyArg(
-        method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V",
+        method = "<init>(ILnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/inventory/ContainerLevelAccess;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/screen/GrindstoneScreenHandler;addSlot(Lnet/minecraft/screen/slot/Slot;)Lnet/minecraft/screen/slot/Slot;",
+            target = "Lnet/minecraft/world/inventory/GrindstoneMenu;addSlot(Lnet/minecraft/world/inventory/Slot;)Lnet/minecraft/world/inventory/Slot;",
             ordinal = 2
         )
     )
     private Slot hookAddSlot2(Slot slot) {
-        return ExtractEnchantments.getGrindstoneOutputSlot(this.context, this.input, this.result);
+        return ExtractEnchantments.getGrindstoneOutputSlot(this.access, this.repairSlots, this.resultSlots);
     }
 }

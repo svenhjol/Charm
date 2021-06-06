@@ -12,14 +12,13 @@ import svenhjol.charm.module.block_of_ender_pearls.BlockOfEnderPearls;
 
 @Mixin(ChorusFruitItem.class)
 public class PreventRandomTeleportMixin {
-
     /**
      * Defer to {@link BlockOfEnderPearls#tryChorusTeleport} when the player has finished eating a chorus fruit.
      * If the check is successful, return early from the vanilla method.
      * This prevents the vanilla random teleport behavior.
      */
     @Inject(
-        method = "finishUsing",
+        method = "finishUsingItem",
         at = @At("HEAD"),
         cancellable = true
     )

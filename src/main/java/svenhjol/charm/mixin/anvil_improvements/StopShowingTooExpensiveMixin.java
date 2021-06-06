@@ -6,7 +6,6 @@ import net.minecraft.world.entity.player.Abilities;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.mixin.anvil_improvements.RemoveTooExpensiveMixin;
 import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 @Mixin(AnvilScreen.class)
@@ -21,10 +20,10 @@ public class StopShowingTooExpensiveMixin {
      * @see RemoveTooExpensiveMixin for the server side.
      */
     @Redirect(
-        method = "drawForeground",
+        method = "renderLabels",
         at = @At(
             value = "FIELD",
-            target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z"
+            target = "Lnet/minecraft/world/entity/player/Abilities;instabuild:Z"
         )
     )
     private boolean hookMaximumCostCheck(Abilities abilities, PoseStack matrix, int x, int y) {

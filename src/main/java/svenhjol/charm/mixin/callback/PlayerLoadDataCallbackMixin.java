@@ -10,23 +10,22 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.event.PlayerLoadDataCallback;
+import svenhjol.charm.helper.PlayerHelper;
 
 @Mixin(PlayerList.class)
 public class PlayerLoadDataCallbackMixin {
-    @Shadow
-    @Final
-    private PlayerDataStorage saveHandler;
+    @Shadow @Final
+    private PlayerDataStorage playerIo;
 
     /**
      * Fires the {@link PlayerLoadDataCallback} event.
      */
     @Inject(
-        method = "loadPlayerData",
+        method = "load",
         at = @At("HEAD")
     )
-    private void hookLoadPlayerData(ServerPlayer playerEntity, CallbackInfoReturnable<CompoundTag> cir) {
-        PlayerLoadDataCallback.EVENT.invoker().interact(playerEntity, PlayerHelper.getPlayerDataDir(saveHandler));
+    private void hookLoadPlayerData(ServerPlayer serverPlayer, CallbackInfoReturnable<CompoundTag> cir) {
+        PlayerLoadDataCallback.EVENT.invoker().interact(serverPlayer, PlayerHelper.getPlayerDataDir(playerIo));
     }
 }

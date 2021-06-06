@@ -14,19 +14,18 @@ import svenhjol.charm.module.collection_enchantment.CollectionEnchantment;
 
 @Mixin(ServerPlayerGameMode.class)
 public class TryBreakBlockMixin {
-    @Final
-    @Shadow
+    @Final @Shadow
     protected ServerPlayer player;
 
     @Shadow
-    protected ServerLevel world;
+    protected ServerLevel level;
 
-    @Inject(method = "tryBreakBlock", at = @At("HEAD"))
+    @Inject(method = "destroyBlock", at = @At("HEAD"))
     private void hookTryBreakBlockBegin(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         CollectionEnchantment.startBreaking(player, player.getMainHandItem());
     }
 
-    @Inject(method = "tryBreakBlock", at = @At("TAIL"))
+    @Inject(method = "destroyBlock", at = @At("TAIL"))
     private void hookTryBreakBlockEnd(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         CollectionEnchantment.stopBreaking();
     }

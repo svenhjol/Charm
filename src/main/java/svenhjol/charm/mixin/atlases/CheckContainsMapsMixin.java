@@ -16,10 +16,10 @@ public class CheckContainsMapsMixin {
      * also check for atlases containing maps.
      */
     @Redirect(
-        method = "update",
+        method = "tickCarriedBy",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/PlayerInventory;contains(Lnet/minecraft/item/ItemStack;)Z"
+            target = "Lnet/minecraft/world/entity/player/Inventory;contains(Lnet/minecraft/world/item/ItemStack;)Z"
         )
     )
     private boolean hookContains(Inventory inventory, ItemStack itemStack) {

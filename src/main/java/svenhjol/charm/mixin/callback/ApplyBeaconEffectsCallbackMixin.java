@@ -24,7 +24,7 @@ public class ApplyBeaconEffectsCallbackMixin extends BlockEntity {
      * This allows Charm modules to add additional effects to entities in range.
      */
     @Inject(
-        method = "applyPlayerEffects",
+        method = "applyEffects",
         at = @At("HEAD")
     )
     private static void hookAddEffects(Level world, BlockPos pos, int level, MobEffect primary, MobEffect secondary, CallbackInfo ci) {

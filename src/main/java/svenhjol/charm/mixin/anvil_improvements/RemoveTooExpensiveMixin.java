@@ -5,7 +5,6 @@ import net.minecraft.world.inventory.AnvilMenu;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.mixin.anvil_improvements.StopShowingTooExpensiveMixin;
 import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 @Mixin(AnvilMenu.class)
@@ -20,10 +19,10 @@ public class RemoveTooExpensiveMixin {
      * @see StopShowingTooExpensiveMixin for the client side.
      */
     @Redirect(
-        method = "updateResult",
+        method = "createResult",
         at = @At(
             value = "FIELD",
-            target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z",
+            target = "Lnet/minecraft/world/entity/player/Abilities;instabuild:Z",
             ordinal = 1
         )
     )

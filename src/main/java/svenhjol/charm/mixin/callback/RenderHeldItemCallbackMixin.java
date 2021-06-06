@@ -15,14 +15,13 @@ import svenhjol.charm.event.RenderHeldItemCallback;
 
 @Mixin(ItemInHandRenderer.class)
 public class RenderHeldItemCallbackMixin {
-
     /**
      * Fires the {@link RenderHeldItemCallback} event.
      *
      * This allows custom rendering of the item that appears in the player's hand.
      */
     @Inject(
-        method = "renderFirstPersonItem",
+        method = "renderArmWithItem",
         at = @At("HEAD"),
         cancellable = true
     )

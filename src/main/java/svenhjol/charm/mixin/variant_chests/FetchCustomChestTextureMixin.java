@@ -12,7 +12,6 @@ import svenhjol.charm.module.variant_chests.VariantChestBlockEntityRenderer;
 
 @Mixin(Sheets.class)
 public class FetchCustomChestTextureMixin {
-
     /**
      * Defers to {@link VariantChestBlockEntityRenderer#getMaterial} to fetch
      * a custom chest texture according to the provided block entity.
@@ -20,7 +19,7 @@ public class FetchCustomChestTextureMixin {
      * If the returned texture is null, use vanilla texture.
      */
     @Inject(
-        method = "getChestTexture(Lnet/minecraft/block/entity/BlockEntity;Lnet/minecraft/block/enums/ChestType;Z)Lnet/minecraft/client/util/SpriteIdentifier;",
+        method = "chooseMaterial(Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/level/block/state/properties/ChestType;Z)Lnet/minecraft/client/resources/model/Material;",
         at = @At("HEAD"),
         cancellable = true
     )

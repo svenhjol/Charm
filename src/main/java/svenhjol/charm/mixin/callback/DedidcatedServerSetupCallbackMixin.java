@@ -10,20 +10,21 @@ import svenhjol.charm.event.DedicatedServerSetupCallback;
 
 @Mixin(DedicatedServer.class)
 public class DedidcatedServerSetupCallbackMixin {
-
     /**
      * Fires the {@link DedicatedServerSetupCallback} event.
      *
      * This can be used by any Charm module to perform init when
      * the dedicated server starts.
      */
-    @Inject(method = "setupServer", at = @At(
-        value = "INVOKE",
-        target = "Lorg/apache/logging/log4j/Logger;info(Ljava/lang/String;)V",
-        shift = At.Shift.AFTER,
-        ordinal = 0,
-        remap = false
-    ))
+    @Inject(method = "initServer",
+        at = @At(
+            value = "INVOKE",
+            target = "Lorg/apache/logging/log4j/Logger;info(Ljava/lang/String;)V",
+            shift = At.Shift.AFTER,
+            ordinal = 0,
+            remap = false
+        )
+    )
     private void hookSetupServer(CallbackInfoReturnable<Boolean> cir) {
         DedicatedServerSetupCallback.EVENT.invoker().interact((MinecraftServer)(Object)this);
     }

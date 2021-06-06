@@ -17,7 +17,7 @@ import svenhjol.charm.module.armor_invisibility.ArmorInvisibility;
 @Mixin(HumanoidArmorLayer.class)
 public class PreventArmorRenderMixin<T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> {
     @Inject(
-        method = "renderArmor",
+        method = "renderArmorPiece",
         at = @At("HEAD"),
         cancellable = true
     )

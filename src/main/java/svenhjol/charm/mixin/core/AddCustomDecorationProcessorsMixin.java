@@ -15,16 +15,15 @@ import svenhjol.charm.annotation.CharmMixin;
 @Mixin(SinglePoolElement.class)
 @CharmMixin(required = true)
 public class AddCustomDecorationProcessorsMixin {
-
     /**
      * Adds all the structure processors defined in StructureHelper.SINGLE_POOL_ELEMENT_PROCESSORS
      * to the SinglePoolElement when the placement is being initialized.
      */
     @Inject(
-        method = "createPlacementData",
+        method = "getSettings",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/structure/StructurePlacementData;addProcessor(Lnet/minecraft/structure/processor/StructureProcessor;)Lnet/minecraft/structure/StructurePlacementData;"
+            target = "Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings;addProcessor(Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructureProcessor;)Lnet/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings;"
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )

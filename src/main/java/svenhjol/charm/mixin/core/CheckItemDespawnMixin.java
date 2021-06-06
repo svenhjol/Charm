@@ -9,7 +9,6 @@ import svenhjol.charm.helper.ItemHelper;
 
 @Mixin(ItemEntity.class)
 public class CheckItemDespawnMixin {
-
     /**
      * Defer to shouldItemDespawn.
      * If the check is false (the item should NOT despawn), then
@@ -19,7 +18,7 @@ public class CheckItemDespawnMixin {
         method = "tick",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/entity/ItemEntity;discard()V",
+            target = "Lnet/minecraft/world/entity/item/ItemEntity;discard()V",
             ordinal = 1
         ),
         cancellable = true

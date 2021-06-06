@@ -12,7 +12,6 @@ import svenhjol.charm.module.snow_storms.SnowStorms;
 
 @Mixin(LivingEntity.class)
 public abstract class SetEntityFreezingMixin extends Entity {
-
     public SetEntityFreezingMixin(EntityType<?> type, Level world) {
         super(type, world);
     }
@@ -22,10 +21,10 @@ public abstract class SetEntityFreezingMixin extends Entity {
      * This is handled by the Snowstorms module.
      */
     @Inject(
-        method = "tickMovement",
+        method = "aiStep",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/entity/LivingEntity;setFrozenTicks(I)V",
+            target = "Lnet/minecraft/world/entity/LivingEntity;setTicksFrozen(I)V",
             shift = At.Shift.AFTER,
             ordinal = 1
         )

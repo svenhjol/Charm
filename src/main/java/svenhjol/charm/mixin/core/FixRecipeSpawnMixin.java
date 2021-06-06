@@ -12,12 +12,11 @@ import svenhjol.charm.module.woodcutters.Woodcutters;
 
 @Mixin(ClientRecipeBook.class)
 public class FixRecipeSpawnMixin {
-
     /**
      * Prevents log spam from the recipe book when custom recipe types cannot be found.
      */
     @Inject(
-        method = "getGroupForRecipe",
+        method = "getCategory",
         at = @At("HEAD"),
         cancellable = true
     )

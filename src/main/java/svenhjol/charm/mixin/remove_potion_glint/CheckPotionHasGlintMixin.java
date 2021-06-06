@@ -16,7 +16,7 @@ public class CheckPotionHasGlintMixin {
      * If check passes, return early from this method.
      */
     @Inject(
-        method = "hasGlint",
+        method = "isFoil",
         at = @At("HEAD"),
         cancellable = true
     )

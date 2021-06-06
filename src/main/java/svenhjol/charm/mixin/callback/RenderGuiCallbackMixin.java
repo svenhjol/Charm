@@ -23,7 +23,7 @@ public class RenderGuiCallbackMixin {
         method = "render",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/screen/ingame/HandledScreen;drawForeground(Lnet/minecraft/client/util/math/MatrixStack;II)V"
+            target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;renderLabels(Lcom/mojang/blaze3d/vertex/PoseStack;II)V"
         )
     )
     private void hookRender(PoseStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {

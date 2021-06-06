@@ -10,14 +10,14 @@ import svenhjol.charm.module.chickens_drop_feathers.ChickensDropFeathers;
 
 @Mixin(Chicken.class)
 public class DropFeatherMixin {
-    @Shadow public int eggLayTime;
+    @Shadow public int eggTime;
 
     /**
      * Defers to tryDropFeather when the vanilla egg-laying ticks are zero.
      */
-    @Inject(method = "tickMovement", at = @At("RETURN"))
+    @Inject(method = "aiStep", at = @At("RETURN"))
     private void hookTickMovement(CallbackInfo ci) {
-        if (this.eggLayTime <= 1)
+        if (this.eggTime <= 1)
             ChickensDropFeathers.tryDropFeather((Chicken)(Object)this);
     }
 }

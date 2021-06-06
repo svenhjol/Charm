@@ -17,7 +17,7 @@ public class ReduceAnvilDamageMixin {
      * return early from this method.
      */
     @Inject(
-        method = "getLandingState",
+        method = "damage",
         at = @At("HEAD"),
         cancellable = true
     )

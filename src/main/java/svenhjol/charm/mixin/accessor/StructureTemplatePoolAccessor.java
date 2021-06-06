@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElement;
 import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import svenhjol.charm.annotation.CharmMixin;
 
@@ -18,6 +19,6 @@ public interface StructureTemplatePoolAccessor {
     @Accessor
     List<Pair<StructurePoolElement, Integer>> getRawTemplates();
 
-    @Accessor
+    @Mutable @Accessor
     void setRawTemplates(List<Pair<StructurePoolElement, Integer>> list);
 }

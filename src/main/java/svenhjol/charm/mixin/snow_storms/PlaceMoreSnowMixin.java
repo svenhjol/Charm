@@ -12,7 +12,6 @@ import svenhjol.charm.module.snow_storms.SnowStorms;
 
 @Mixin(ServerLevel.class)
 public class PlaceMoreSnowMixin {
-
     /**
      * Call {@link SnowStorms#tryPlaceSnow} each tick to add
      * more snow during a thunderstorm.
@@ -21,7 +20,7 @@ public class PlaceMoreSnowMixin {
         method = "tickChunk",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/util/profiler/Profiler;swap(Ljava/lang/String;)V",
+            target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V",
             ordinal = 0
         ),
         locals = LocalCapture.CAPTURE_FAILHARD

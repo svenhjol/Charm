@@ -13,7 +13,7 @@ import svenhjol.charm.module.parrots_stay_on_shoulder.ParrotsStayOnShoulder;
 
 @Mixin(Player.class)
 public abstract class KeepShoulderEntitiesMixin extends Entity {
-    @Shadow private long shoulderEntityAddedTime;
+    @Shadow private long timeEntitySatOnShoulder;
 
     public KeepShoulderEntitiesMixin(EntityType<?> type, Level world) {
         super(type, world);
@@ -24,12 +24,12 @@ public abstract class KeepShoulderEntitiesMixin extends Entity {
      * If check passes, return early so that entities do not dismount.
      */
     @Inject(
-        method = "dropShoulderEntities",
+        method = "removeEntitiesOnShoulder",
         at = @At("HEAD"),
         cancellable = true
     )
     private void hookSpawnShoulderEntities(CallbackInfo ci) {
-        if (ParrotsStayOnShoulder.shouldParrotStayMounted(this.level, this.shoulderEntityAddedTime))
+        if (ParrotsStayOnShoulder.shouldParrotStayMounted(this.level, this.timeEntitySatOnShoulder))
             ci.cancel();
     }
 

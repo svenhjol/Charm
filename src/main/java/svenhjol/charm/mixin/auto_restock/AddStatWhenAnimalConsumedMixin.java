@@ -16,7 +16,10 @@ public class AddStatWhenAnimalConsumedMixin {
     /**
      * Allows autorestock of an item fed to an animal.
      */
-    @Inject(method = "eat", at = @At("HEAD"))
+    @Inject(
+        method = "usePlayerItem",
+        at = @At("HEAD")
+    )
     public void hookConsumeItemFromStack(Player player, InteractionHand hand, ItemStack stack, CallbackInfo callbackInfo) {
         AutoRestock.addItemUsedStat(player, stack);
     }

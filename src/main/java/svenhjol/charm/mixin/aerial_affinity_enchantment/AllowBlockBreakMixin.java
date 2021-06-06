@@ -24,14 +24,13 @@ public class AllowBlockBreakMixin {
 //        return player.isOnGround() || AerialAffinityEnchantment.digFast(player);
 //    }
 
-
     /**
      * Defer to digFast.
      * If the check passes and the player is not touching the ground, undo
      * the /= 5.0 dig speed penality that vanilla applies.
      */
     @Inject(
-        method = "getBlockBreakingSpeed",
+        method = "getDestroySpeed",
         at = @At("RETURN"),
         cancellable = true
     )

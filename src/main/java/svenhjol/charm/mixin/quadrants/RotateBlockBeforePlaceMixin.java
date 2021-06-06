@@ -19,10 +19,10 @@ public abstract class RotateBlockBeforePlaceMixin {
      * so it can change the rotation before it is placed.
      */
     @Redirect(
-        method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;",
+        method = "place",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/item/BlockItem;getPlacementState(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/block/BlockState;"
+            target = "Lnet/minecraft/world/item/BlockItem;getPlacementState(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;"
         )
     )
     private BlockState hookPlace(BlockItem blockItem, BlockPlaceContext context) {

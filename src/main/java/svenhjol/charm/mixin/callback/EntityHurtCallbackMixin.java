@@ -11,14 +11,13 @@ import svenhjol.charm.event.EntityHurtCallback;
 
 @Mixin(LivingEntity.class)
 public class EntityHurtCallbackMixin {
-
     /**
      * Fires the {@link EntityHurtCallback} when entity is hurt.
      *
      * Cancellable with ActionResult == FAIL.
      */
     @Inject(
-        method = "applyDamage",
+        method = "actuallyHurt",
         at = @At("HEAD"),
         cancellable = true
     )

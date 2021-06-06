@@ -11,13 +11,12 @@ import svenhjol.charm.event.TakeAnvilOutputCallback;
 
 @Mixin(AnvilMenu.class)
 public class TakeAnvilOutputCallbackMixin {
-
     /**
      * Fires the {@link TakeAnvilOutputCallback} event when an item is taken from the anvil.
      * This event is useful for anvil-related advancements.
      */
     @Inject(
-        method = "onTakeOutput",
+        method = "onTake",
         at = @At("HEAD")
     )
     private void hookOnTakeOutput(Player player, ItemStack stack, CallbackInfo ci) {

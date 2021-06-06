@@ -2,6 +2,7 @@ package svenhjol.charm.mixin.accessor;
 
 import net.minecraft.world.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import svenhjol.charm.annotation.CharmMixin;
 
@@ -11,7 +12,7 @@ public interface ItemAccessor {
     @Accessor
     int getMaxStackSize();
 
-    @Accessor
+    @Mutable @Accessor
     void setMaxStackSize(int maxCount);
 
     @Accessor()

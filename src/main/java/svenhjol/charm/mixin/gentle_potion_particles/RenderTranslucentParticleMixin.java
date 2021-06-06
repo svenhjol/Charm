@@ -10,7 +10,6 @@ import svenhjol.charm.module.gentle_potion_particles.GentlePotionParticles;
 
 @Mixin(LivingEntity.class)
 public class RenderTranslucentParticleMixin {
-
     /**
      * Defer to tryRenderParticles.
      *
@@ -18,10 +17,10 @@ public class RenderTranslucentParticleMixin {
      * were rendered and so use the vanilla behavior.
      */
     @Redirect(
-        method = "tickStatusEffects",
+        method = "tickEffects",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"
+            target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"
         )
     )
     private void hookTickStatusEffects(Level world, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {

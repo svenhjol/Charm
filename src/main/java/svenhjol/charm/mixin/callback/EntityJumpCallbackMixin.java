@@ -14,7 +14,7 @@ public class EntityJumpCallbackMixin {
      * Fires the {@link EntityJumpCallback} event when the entity jumps.
      */
     @Inject(
-        method = "jump",
+        method = "jumpFromGround",
         at = @At("TAIL")
     )
     private void hookJump(CallbackInfo ci) {

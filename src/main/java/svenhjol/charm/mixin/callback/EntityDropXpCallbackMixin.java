@@ -10,14 +10,13 @@ import svenhjol.charm.event.EntityDropXpCallback;
 
 @Mixin(LivingEntity.class)
 public class EntityDropXpCallbackMixin {
-
     /**
      * Fires the {@link EntityDropXpCallback} event before entity has dropped XP.
      *
      * Cancellable with ActionResult != PASS.
      */
     @Inject(
-        method = "dropXp",
+        method = "dropExperience",
         at = @At("HEAD"),
         cancellable = true
     )

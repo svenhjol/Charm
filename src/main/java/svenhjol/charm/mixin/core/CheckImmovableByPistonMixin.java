@@ -13,14 +13,13 @@ import svenhjol.charm.init.CharmTags;
 
 @Mixin(PistonBaseBlock.class)
 public class CheckImmovableByPistonMixin {
-
     /**
      * When checking if a block can be moved by a piston, also check
      * Charm's IMMOVABLE_BY_PISTONS tag. If the block is in the tag,
      * then return false early so that the piston does not move it.
      */
     @Inject(
-        method = "isMovable",
+        method = "isPushable",
         at = @At("HEAD"),
         cancellable = true
     )

@@ -9,7 +9,6 @@ import svenhjol.charm.event.LoadWorldCallback;
 
 @Mixin(MinecraftServer.class)
 public class LoadWorldCallbackMixin {
-
     /**
      * Fires the {@link LoadWorldCallback} event.
      *
@@ -18,10 +17,10 @@ public class LoadWorldCallbackMixin {
      * to perform its own init when a world has finished loading.
      */
     @Inject(
-        method = "createWorlds",
+        method = "createLevels",
         at = @At(
             value = "INVOKE_ASSIGN",
-            target = "Lnet/minecraft/server/world/ServerWorld;getPersistentStateManager()Lnet/minecraft/world/PersistentStateManager;"
+            target = "Lnet/minecraft/server/level/ServerLevel;getDataStorage()Lnet/minecraft/world/level/storage/DimensionDataStorage;"
         )
     )
     private void hookCreateWorlds(CallbackInfo ci) {

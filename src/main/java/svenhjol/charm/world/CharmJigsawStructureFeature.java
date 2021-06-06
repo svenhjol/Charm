@@ -39,7 +39,8 @@ public class CharmJigsawStructureFeature extends StructureFeature<JigsawConfigur
             this.jigsawFeature = feature;
         }
 
-        public void init(RegistryAccess dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, JigsawConfiguration structurePoolFeatureConfig, LevelHeightAccessor heightLimitView) {
+        @Override
+        public void generatePieces(RegistryAccess dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, JigsawConfiguration structurePoolFeatureConfig, LevelHeightAccessor heightLimitView) {
 
             int v = jigsawFeature.variation;
             int r = v > 0 ? random.nextInt(v * 2) : 0;

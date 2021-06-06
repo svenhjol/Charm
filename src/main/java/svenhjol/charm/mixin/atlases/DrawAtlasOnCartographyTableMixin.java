@@ -14,10 +14,10 @@ public class DrawAtlasOnCartographyTableMixin {
      * when placed on the table.
      */
     @ModifyArg(
-        method = "drawBackground",
+        method = "renderBg",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/screen/ingame/CartographyTableScreen;drawMap(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/Integer;Lnet/minecraft/item/map/MapState;ZZZZ)V"
+            target = "Lnet/minecraft/client/gui/screens/inventory/CartographyTableScreen;renderResultingMap(Lcom/mojang/blaze3d/vertex/PoseStack;Ljava/lang/Integer;Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData;ZZZZ)V"
         ),
         index = 3
     )

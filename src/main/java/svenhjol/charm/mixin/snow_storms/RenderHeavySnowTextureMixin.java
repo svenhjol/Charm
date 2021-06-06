@@ -12,12 +12,12 @@ import svenhjol.charm.module.snow_storms.SnowStormsClient;
 
 @Mixin(LevelRenderer.class)
 public class RenderHeavySnowTextureMixin {
-    @Shadow private ClientLevel world;
+    @Shadow private ClientLevel level;
 
     private float gradient;
 
     @Inject(
-        method = "renderWeather",
+        method = "renderSnowAndRain",
         at = @At("HEAD")
     )
     private void hookRenderWeather(LightTexture manager, float f, double d, double e, double g, CallbackInfo ci) {
@@ -29,15 +29,15 @@ public class RenderHeavySnowTextureMixin {
      * a custom one when the weather renderer tries to render snow.
      */
     @Inject(
-        method = "renderWeather",
+        method = "renderSnowAndRain",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/render/BufferBuilder;begin(Lnet/minecraft/client/render/VertexFormat$DrawMode;Lnet/minecraft/client/render/VertexFormat;)V",
+            target = "Lcom/mojang/blaze3d/vertex/BufferBuilder;begin(Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;Lcom/mojang/blaze3d/vertex/VertexFormat;)V",
             ordinal = 1,
             shift = At.Shift.BEFORE
         )
     )
     private void hookRenderWeatherTexture(LightTexture manager, float f, double d, double e, double g, CallbackInfo ci) {
-        SnowStormsClient.tryHeavySnowTexture(world, gradient);
+        SnowStormsClient.tryHeavySnowTexture(level, gradient);
     }
 }

@@ -13,7 +13,6 @@ import svenhjol.charm.module.stackable_stews.StackableStews;
 
 @Mixin(SuspiciousStewItem.class)
 public class FinishEatingSuspiciousStewMixin {
-
     /**
      * Defer to tryEatStewStack when suspicious stew is eaten.
      * If the check passes, return the decremented stack.
@@ -22,7 +21,7 @@ public class FinishEatingSuspiciousStewMixin {
      * entire stack of stew to a single bowl.
      */
     @Inject(
-        method = "finishUsing",
+        method = "finishUsingItem",
         at = @At(value = "TAIL"),
         cancellable = true,
         locals = LocalCapture.CAPTURE_FAILHARD

@@ -21,7 +21,6 @@ import java.util.concurrent.Executor;
 
 @Mixin(ServerLevel.class)
 public class ServerWorldInitCallbackMixin {
-
     /**
      * Fires the {@link ServerWorldInitCallback} event.
      *

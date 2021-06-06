@@ -9,7 +9,6 @@ import svenhjol.charm.annotation.CharmMixin;
 @Mixin(ServerPlayer.class)
 @CharmMixin(required = true)
 public interface ServerPlayerAccessor {
-    @Mutable
-    @Accessor
+    @Mutable @Accessor
     void setIsChangingDimension(boolean flag);
 }

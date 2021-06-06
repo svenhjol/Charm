@@ -1,6 +1,5 @@
 package svenhjol.charm.structure;
 
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;

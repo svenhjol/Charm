@@ -14,7 +14,6 @@ import svenhjol.charm.module.variant_ladders.VariantLadders;
 
 @Mixin(LivingEntity.class)
 public abstract class ClimbTrapdoorMixin extends Entity {
-
     public ClimbTrapdoorMixin(EntityType<?> type, Level world) {
         super(type, world);
     }
@@ -27,7 +26,7 @@ public abstract class ClimbTrapdoorMixin extends Entity {
      * at the top of a ladder.
      */
     @Inject(
-        method = "canEnterTrapdoor",
+        method = "trapdoorUsableAsLadder",
         at = @At("HEAD"),
         cancellable = true
     )

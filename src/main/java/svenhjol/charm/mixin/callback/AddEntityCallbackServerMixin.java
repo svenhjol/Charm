@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.event.AddEntityCallback;
-import svenhjol.charm.mixin.callback.AddEntityCallbackManagerMixin;
 
 /**
  * Be aware that this event is also fired on the server side
@@ -17,7 +16,6 @@ import svenhjol.charm.mixin.callback.AddEntityCallbackManagerMixin;
  */
 @Mixin(ServerLevel.class)
 public class AddEntityCallbackServerMixin {
-
     /**
      * Fires the {@link AddEntityCallback} event when any entity
      * is added to the server world.
@@ -26,7 +24,7 @@ public class AddEntityCallbackServerMixin {
         method = "addEntity",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/server/world/ServerEntityManager;addEntity(Lnet/minecraft/world/entity/EntityLike;)Z"
+            target = "Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;addNewEntity(Lnet/minecraft/world/level/entity/EntityAccess;)Z"
         )
     )
     private void hookAddEntity(Entity entity, CallbackInfoReturnable<Boolean> cir) {

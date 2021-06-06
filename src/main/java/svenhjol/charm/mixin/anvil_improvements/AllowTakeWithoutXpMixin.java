@@ -13,9 +13,8 @@ import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 @Mixin(AnvilMenu.class)
 public class AllowTakeWithoutXpMixin {
-    @Shadow
-    @Final
-    private DataSlot levelCost;
+    @Shadow @Final
+    private DataSlot cost;
 
     /**
      * Vanilla doesn't allow taking an item from the anvil with a zero XP cost.
@@ -24,12 +23,12 @@ public class AllowTakeWithoutXpMixin {
      * This hook checks the AnvilImprovements module config option and returns true if set.
      */
     @Inject(
-        method = "canTakeOutput",
+        method = "mayPickup",
         at = @At("HEAD"),
         cancellable = true
     )
     private void hookCanTakeOutput(Player player, boolean unused, CallbackInfoReturnable<Boolean> cir) {
-        if (AnvilImprovements.allowTakeWithoutXp(player, levelCost))
+        if (AnvilImprovements.allowTakeWithoutXp(player, cost))
             cir.setReturnValue(true);
     }
 }

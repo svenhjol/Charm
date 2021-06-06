@@ -1,21 +1,21 @@
 package svenhjol.charm.mixin.callback;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.event.RenderTooltipCallback;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import java.util.List;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 
 @Mixin(Screen.class)
 public class RenderTooltipCallbackMixin {
-
     protected ItemStack itemStack;
 
     /**
@@ -23,7 +23,7 @@ public class RenderTooltipCallbackMixin {
      * Modules can hook into the tooltip before it is rendered.
      */
     @Inject(
-        method = "renderTooltipFromComponents",
+        method = "renderTooltipInternal",
         at = @At("HEAD")
     )
     private void hookRenderOrderedTooltip(PoseStack matrices, List<ClientTooltipComponent> lines, int x, int y, CallbackInfo ci) {

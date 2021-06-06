@@ -1,24 +1,23 @@
 package svenhjol.charm.mixin.core;
 
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementList;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.handler.AdvancementHandler;
 import svenhjol.charm.annotation.CharmMixin;
+import svenhjol.charm.handler.AdvancementHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementList;
-import net.minecraft.resources.ResourceLocation;
 
 @Mixin(AdvancementList.class)
 @CharmMixin(required = true)
 public class RemoveConditionalAdvancementsMixin {
-
     /**
      * Conditionally remove advancements from the map if their
      * corresponding Charm module is disabled.
@@ -28,7 +27,7 @@ public class RemoveConditionalAdvancementsMixin {
      * some advancements may not be completable.
      */
     @Inject(
-        method = "load",
+        method = "add",
         at = @At(
             value = "INVOKE_ASSIGN",
             target = "Lcom/google/common/collect/Maps;newHashMap(Ljava/util/Map;)Ljava/util/HashMap;",

@@ -11,16 +11,15 @@ import svenhjol.charm.event.AddEntityCallback;
 
 @Mixin(PersistentEntitySectionManager.class)
 public class AddEntityCallbackManagerMixin<T extends EntityAccess> {
-
     /**
      * Fires the {@link AddEntityCallback} event when an entity
      * is registered and before tracking is applied.
      */
     @Inject(
-        method = "addEntity(Lnet/minecraft/world/entity/EntityLike;Z)Z",
+        method = "addEntity",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/util/math/ChunkSectionPos;toLong(Lnet/minecraft/util/math/BlockPos;)J"
+            target = "Lnet/minecraft/core/SectionPos;asLong(Lnet/minecraft/core/BlockPos;)J"
         )
     )
     private void hookLoadEntity(T entity, boolean existing, CallbackInfoReturnable<Boolean> cir) {

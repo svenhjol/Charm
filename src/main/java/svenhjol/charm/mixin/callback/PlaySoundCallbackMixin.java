@@ -11,10 +11,10 @@ import svenhjol.charm.event.PlaySoundCallback;
 @Mixin(SoundEngine.class)
 public class PlaySoundCallbackMixin {
     @Inject(
-        method = "play(Lnet/minecraft/client/sound/SoundInstance;)V",
+        method = "play",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/sound/SoundLoader;loadStatic(Lnet/minecraft/util/Identifier;)Ljava/util/concurrent/CompletableFuture;"
+            target = "Lnet/minecraft/client/sounds/SoundBufferLibrary;getCompleteBuffer(Lnet/minecraft/resources/ResourceLocation;)Ljava/util/concurrent/CompletableFuture;"
         )
     )
     private void hookPlayStatic(SoundInstance soundInstance, CallbackInfo ci) {
@@ -22,10 +22,10 @@ public class PlaySoundCallbackMixin {
     }
 
     @Inject(
-        method = "play(Lnet/minecraft/client/sound/SoundInstance;)V",
+        method = "play",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/sound/SoundLoader;loadStreamed(Lnet/minecraft/util/Identifier;Z)Ljava/util/concurrent/CompletableFuture;"
+            target = "Lnet/minecraft/client/sounds/SoundBufferLibrary;getStream(Lnet/minecraft/resources/ResourceLocation;Z)Ljava/util/concurrent/CompletableFuture;"
         )
     )
     private void hookPlayStreamed(SoundInstance soundInstance, CallbackInfo ci) {

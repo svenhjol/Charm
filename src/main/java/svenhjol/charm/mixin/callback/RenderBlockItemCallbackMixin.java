@@ -27,7 +27,7 @@ public class RenderBlockItemCallbackMixin {
      * their own blockItem entity renderers to show in the player's inventory.
      */
     @Inject(
-        method = "render",
+        method = "renderByItem",
         at = @At(value = "HEAD"),
         cancellable = true
     )

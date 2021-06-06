@@ -13,9 +13,7 @@ import svenhjol.charm.event.PlayerDropInventoryCallback;
 
 @Mixin(Player.class)
 public abstract class PlayerDropInventoryCallbackMixin {
-
-    @Shadow
-    @Final
+    @Shadow @Final
     private Inventory inventory;
 
     /**
@@ -24,10 +22,10 @@ public abstract class PlayerDropInventoryCallbackMixin {
      * Cancellable with ActionResult == SUCCESS.
      */
     @Inject(
-        method = "dropInventory",
+        method = "dropEquipment",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/entity/player/PlayerInventory;dropAll()V"
+            target = "Lnet/minecraft/world/entity/player/Inventory;dropAll()V"
         ),
         cancellable = true
     )

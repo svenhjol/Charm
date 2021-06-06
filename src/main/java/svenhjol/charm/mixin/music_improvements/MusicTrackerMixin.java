@@ -13,7 +13,7 @@ import svenhjol.charm.module.music_improvements.MusicImprovementsClient;
 
 @Mixin(MusicManager.class)
 public class MusicTrackerMixin {
-    @Shadow private SoundInstance current;
+    @Shadow private SoundInstance currentMusic;
 
     @Inject(
         method = "tick",
@@ -21,12 +21,12 @@ public class MusicTrackerMixin {
         cancellable = true
     )
     private void hookTick(CallbackInfo ci) {
-        if (MusicImprovementsClient.isEnabled && MusicImprovementsClient.handleTick(this.current))
+        if (MusicImprovementsClient.isEnabled && MusicImprovementsClient.handleTick(this.currentMusic))
             ci.cancel();
     }
 
     @Inject(
-        method = "stop",
+        method = "stopPlaying",
         at = @At("HEAD"),
         cancellable = true
     )
@@ -36,7 +36,7 @@ public class MusicTrackerMixin {
     }
 
     @Inject(
-        method = "isPlayingType",
+        method = "isPlayingMusic",
         at = @At("HEAD"),
         cancellable = true
     )

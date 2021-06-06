@@ -11,12 +11,11 @@ import svenhjol.charm.event.EntityDropItemsCallback;
 
 @Mixin(LivingEntity.class)
 public class EntityDropItemsCallbackMixin {
-
     /**
      * Fires the {@link EntityDropItemsCallback} event.
      */
     @Inject(
-        method = "drop",
+        method = "dropAllDeathLoot",
         at = @At("TAIL")
     )
     private void hookDrop(DamageSource source, CallbackInfo ci) {

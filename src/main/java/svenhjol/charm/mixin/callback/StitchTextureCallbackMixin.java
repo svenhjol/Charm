@@ -1,5 +1,9 @@
 package svenhjol.charm.mixin.callback;
 
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -9,14 +13,9 @@ import svenhjol.charm.event.StitchTextureCallback;
 
 import java.util.Set;
 import java.util.stream.Stream;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.util.profiling.ProfilerFiller;
 
 @Mixin(TextureAtlas.class)
 public class StitchTextureCallbackMixin {
-
     /**
      * Fires the {@link StitchTextureCallback} event.
      *
@@ -26,10 +25,10 @@ public class StitchTextureCallbackMixin {
      * by other modules for adding custom textures to the sprite atlas.
      */
     @Inject(
-        method = "stitch",
+        method = "prepareToStitch",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/util/profiler/Profiler;swap(Ljava/lang/String;)V",
+            target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V",
             ordinal = 0
         ),
         locals = LocalCapture.CAPTURE_FAILHARD

@@ -15,7 +15,7 @@ import svenhjol.charm.event.ClientSpawnEntityCallback;
 
 @Mixin(ClientPacketListener.class)
 public class ClientSpawnEntityCallbackMixin {
-    @Shadow private ClientLevel world;
+    @Shadow private ClientLevel level;
 
     /**
      * Fires the {@link ClientSpawnEntityCallback} event.
@@ -28,11 +28,11 @@ public class ClientSpawnEntityCallbackMixin {
      * rather than the network packet.
      */
     @Inject(
-        method = "onEntitySpawn",
+        method = "handleAddEntity",
         at = @At("RETURN"),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void hookOnEntitySpawn(ClientboundAddEntityPacket packet, CallbackInfo ci, EntityType<?> entityType) {
-        ClientSpawnEntityCallback.EVENT.invoker().interact(packet, entityType, world, packet.getX(), packet.getY(), packet.getZ());
+        ClientSpawnEntityCallback.EVENT.invoker().interact(packet, entityType, level, packet.getX(), packet.getY(), packet.getZ());
     }
 }

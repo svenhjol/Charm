@@ -18,7 +18,6 @@ import svenhjol.charm.module.storage_labels.LootableContainerBlockEntityRenderer
 
 @Mixin(BlockEntityRenderDispatcher.class)
 public class CallStorageLabelsRenderMixin {
-
     /**
      * After rendering vanilla block entities, call the storage labels render
      * if the block entity is of type chest.
@@ -27,7 +26,7 @@ public class CallStorageLabelsRenderMixin {
      * intermittent method desc match failure.
      */
     @Inject(
-        method = "render(Lnet/minecraft/client/render/block/entity/BlockEntityRenderer;Lnet/minecraft/block/entity/BlockEntity;FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;)V",
+        method = "setupAndRender",
         at = @At("TAIL"),
         locals = LocalCapture.CAPTURE_FAILHARD
     )

@@ -23,8 +23,11 @@ public class AddStatWhenCompostedMixin {
      * Allows autorestock of a composted item.
      */
     @Inject(
-        method = "onUse",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;syncWorldEvent(ILnet/minecraft/util/math/BlockPos;I)V"),
+        method = "use",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V"
+        ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     public void hookOnUse(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit,

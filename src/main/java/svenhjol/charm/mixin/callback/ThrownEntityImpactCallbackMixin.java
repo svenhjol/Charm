@@ -12,7 +12,6 @@ import svenhjol.charm.event.ThrownEntityImpactCallback;
 
 @Mixin(ThrowableProjectile.class)
 public class ThrownEntityImpactCallbackMixin {
-
     /**
      * Fires the {@link ThrownEntityImpactCallback} event when
      * the entity collides with something.
@@ -21,7 +20,7 @@ public class ThrownEntityImpactCallbackMixin {
         method = "tick",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/entity/projectile/thrown/ThrownEntity;onCollision(Lnet/minecraft/util/hit/HitResult;)V"
+            target = "Lnet/minecraft/world/entity/projectile/ThrowableProjectile;onHit(Lnet/minecraft/world/phys/HitResult;)V"
         ),
         cancellable = true,
         locals = LocalCapture.CAPTURE_FAILHARD

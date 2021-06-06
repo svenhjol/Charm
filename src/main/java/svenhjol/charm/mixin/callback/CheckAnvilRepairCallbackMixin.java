@@ -15,7 +15,6 @@ import svenhjol.charm.event.CheckAnvilRepairCallback;
 
 @Mixin(AnvilMenu.class)
 public abstract class CheckAnvilRepairCallbackMixin extends ItemCombinerMenu {
-
     public CheckAnvilRepairCallbackMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(type, syncId, playerInventory, context);
     }
@@ -33,10 +32,10 @@ public abstract class CheckAnvilRepairCallbackMixin extends ItemCombinerMenu {
      * there is no world reference.
      */
     @Redirect(
-        method = "updateResult",
+        method = "createResult",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/item/Item;canRepair(Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z"
+            target = "Lnet/minecraft/world/item/Item;isValidRepairItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z"
         )
     )
     private boolean hookUpdateResultCanRepair(Item leftItem, ItemStack leftStack, ItemStack rightStack) {

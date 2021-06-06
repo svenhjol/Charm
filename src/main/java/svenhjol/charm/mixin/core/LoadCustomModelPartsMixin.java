@@ -13,12 +13,11 @@ import svenhjol.charm.annotation.CharmMixin;
 @Mixin(EntityModelSet.class)
 @CharmMixin(required = true)
 public class LoadCustomModelPartsMixin {
-
     /**
      * Looks for custom entity layers before attempting to look for vanilla layers.
      */
     @Inject(
-        method = "getModelPart",
+        method = "bakeLayer",
         at = @At("HEAD"),
         cancellable = true
     )

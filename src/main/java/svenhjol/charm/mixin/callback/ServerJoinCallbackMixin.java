@@ -11,11 +11,10 @@ import svenhjol.charm.event.ServerJoinCallback;
 
 @Mixin(PlayerList.class)
 public class ServerJoinCallbackMixin {
-
     /**
      * Fires the {@link ServerJoinCallback} event.
      */
-    @Inject(method = "onPlayerConnect", at = @At("RETURN"))
+    @Inject(method = "placeNewPlayer", at = @At("RETURN"))
     private void hookOnPlayerConnect(Connection connection, ServerPlayer player, CallbackInfo ci) {
         ServerJoinCallback.EVENT.invoker().interact((PlayerList)(Object)this, connection, player);
     }
