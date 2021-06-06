@@ -1,24 +1,13 @@
 package svenhjol.charm.module.mineshaft_improvements;
 
-import net.minecraft.block.*;
-import net.minecraft.block.enums.RailShape;
-import net.minecraft.entity.vehicle.*;
-import net.minecraft.loot.LootTables;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.structure.MineshaftGenerator.MineshaftCorridor;
-import net.minecraft.structure.MineshaftGenerator.MineshaftRoom;
-import net.minecraft.structure.StructurePiece;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.feature.MineshaftFeature;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.RailShape;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
@@ -42,7 +31,7 @@ public class MineshaftImprovements extends CharmModule {
     public static List<Pair<BlockState, BlockState>> pileBlocks = new ArrayList<>();
     public static List<BlockState> roomBlocks = new ArrayList<>();
     public static List<BlockState> roomDecoration = new ArrayList<>();
-    public static List<Identifier> minecartLootTables = new ArrayList<>();
+    public static List<ResourceLocation> minecartLootTables = new ArrayList<>();
 
     public static float floorBlockChance = 0.019F;
     public static float ceilingBlockChance = 0.01F;
@@ -69,57 +58,57 @@ public class MineshaftImprovements extends CharmModule {
         isEnabled = true;
 
         floorBlocks.addAll(Arrays.asList(
-            Blocks.TNT.getDefaultState(),
-            Blocks.IRON_ORE.getDefaultState(),
-            Blocks.GOLD_ORE.getDefaultState(),
-            Blocks.COPPER_ORE.getDefaultState(),
-            Blocks.LANTERN.getDefaultState(),
-            Blocks.CAMPFIRE.getDefaultState().with(CampfireBlock.LIT, false)
+            Blocks.TNT.defaultBlockState(),
+            Blocks.IRON_ORE.defaultBlockState(),
+            Blocks.GOLD_ORE.defaultBlockState(),
+            Blocks.COPPER_ORE.defaultBlockState(),
+            Blocks.LANTERN.defaultBlockState(),
+            Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false)
         ));
 
         pileBlocks.addAll(Arrays.asList(
-            new Pair<>(Blocks.IRON_ORE.getDefaultState(), Blocks.RAW_IRON_BLOCK.getDefaultState()),
-            new Pair<>(Blocks.COPPER_ORE.getDefaultState(), Blocks.RAW_COPPER_BLOCK.getDefaultState()),
-            new Pair<>(Blocks.GOLD_ORE.getDefaultState(), Blocks.RAW_GOLD_BLOCK.getDefaultState()),
-            new Pair<>(Blocks.LAPIS_ORE.getDefaultState(), Blocks.COAL_ORE.getDefaultState()),
-            new Pair<>(Blocks.REDSTONE_ORE.getDefaultState(), Blocks.COBBLESTONE.getDefaultState()),
-            new Pair<>(Blocks.GRAVEL.getDefaultState(), Blocks.COAL_ORE.getDefaultState()),
-            new Pair<>(Blocks.COARSE_DIRT.getDefaultState(), Blocks.DIRT.getDefaultState()),
-            new Pair<>(Blocks.DEEPSLATE.getDefaultState(), Blocks.DEEPSLATE_COAL_ORE.getDefaultState()),
-            new Pair<>(Blocks.DEEPSLATE.getDefaultState(), Blocks.DEEPSLATE_IRON_ORE.getDefaultState()),
-            new Pair<>(Blocks.DEEPSLATE.getDefaultState(), Blocks.DEEPSLATE_GOLD_ORE.getDefaultState())
+            new Pair<>(Blocks.IRON_ORE.defaultBlockState(), Blocks.RAW_IRON_BLOCK.defaultBlockState()),
+            new Pair<>(Blocks.COPPER_ORE.defaultBlockState(), Blocks.RAW_COPPER_BLOCK.defaultBlockState()),
+            new Pair<>(Blocks.GOLD_ORE.defaultBlockState(), Blocks.RAW_GOLD_BLOCK.defaultBlockState()),
+            new Pair<>(Blocks.LAPIS_ORE.defaultBlockState(), Blocks.COAL_ORE.defaultBlockState()),
+            new Pair<>(Blocks.REDSTONE_ORE.defaultBlockState(), Blocks.COBBLESTONE.defaultBlockState()),
+            new Pair<>(Blocks.GRAVEL.defaultBlockState(), Blocks.COAL_ORE.defaultBlockState()),
+            new Pair<>(Blocks.COARSE_DIRT.defaultBlockState(), Blocks.DIRT.defaultBlockState()),
+            new Pair<>(Blocks.DEEPSLATE.defaultBlockState(), Blocks.DEEPSLATE_COAL_ORE.defaultBlockState()),
+            new Pair<>(Blocks.DEEPSLATE.defaultBlockState(), Blocks.DEEPSLATE_IRON_ORE.defaultBlockState()),
+            new Pair<>(Blocks.DEEPSLATE.defaultBlockState(), Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState())
         ));
 
         ceilingBlocks.addAll(Arrays.asList(
-            Blocks.LANTERN.getDefaultState().with(LanternBlock.HANGING, true),
-            Blocks.CHAIN.getDefaultState().with(ChainBlock.AXIS, Direction.Axis.Y)
+            Blocks.LANTERN.defaultBlockState().setValue(LanternBlock.HANGING, true),
+            Blocks.CHAIN.defaultBlockState().setValue(ChainBlock.AXIS, Direction.Axis.Y)
         ));
 
         roomBlocks.addAll(Arrays.asList(
-            Blocks.DIAMOND_ORE.getDefaultState(),
-            Blocks.EMERALD_ORE.getDefaultState(),
-            Blocks.GOLD_ORE.getDefaultState(),
-            Blocks.LAPIS_ORE.getDefaultState(),
-            Blocks.DEEPSLATE_DIAMOND_ORE.getDefaultState(),
-            Blocks.DEEPSLATE_EMERALD_ORE.getDefaultState(),
-            Blocks.DEEPSLATE_GOLD_ORE.getDefaultState(),
-            Blocks.DEEPSLATE_LAPIS_ORE.getDefaultState()
+            Blocks.DIAMOND_ORE.defaultBlockState(),
+            Blocks.EMERALD_ORE.defaultBlockState(),
+            Blocks.GOLD_ORE.defaultBlockState(),
+            Blocks.LAPIS_ORE.defaultBlockState(),
+            Blocks.DEEPSLATE_DIAMOND_ORE.defaultBlockState(),
+            Blocks.DEEPSLATE_EMERALD_ORE.defaultBlockState(),
+            Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState(),
+            Blocks.DEEPSLATE_LAPIS_ORE.defaultBlockState()
         ));
 
         roomDecoration.addAll(Arrays.asList(
-            Blocks.MOSSY_COBBLESTONE.getDefaultState(),
-            Blocks.MOSSY_COBBLESTONE_SLAB.getDefaultState(),
-            Blocks.DIRT.getDefaultState()
+            Blocks.MOSSY_COBBLESTONE.defaultBlockState(),
+            Blocks.MOSSY_COBBLESTONE_SLAB.defaultBlockState(),
+            Blocks.DIRT.defaultBlockState()
         ));
 
         minecartLootTables.addAll(Arrays.asList(
-            LootTables.SIMPLE_DUNGEON_CHEST,
-            LootTables.ABANDONED_MINESHAFT_CHEST,
-            LootTables.VILLAGE_TEMPLE_CHEST,
-            LootTables.VILLAGE_CARTOGRAPHER_CHEST,
-            LootTables.VILLAGE_MASON_CHEST,
-            LootTables.VILLAGE_TOOLSMITH_CHEST,
-            LootTables.VILLAGE_WEAPONSMITH_CHEST
+            BuiltInLootTables.SIMPLE_DUNGEON,
+            BuiltInLootTables.ABANDONED_MINESHAFT,
+            BuiltInLootTables.VILLAGE_TEMPLE,
+            BuiltInLootTables.VILLAGE_CARTOGRAPHER,
+            BuiltInLootTables.VILLAGE_MASON,
+            BuiltInLootTables.VILLAGE_TOOLSMITH,
+            BuiltInLootTables.VILLAGE_WEAPONSMITH
         ));
 
         // add candles to floor blocks
@@ -129,13 +118,13 @@ public class MineshaftImprovements extends CharmModule {
 
         candles.forEach(candle -> {
             for (int i = 1; i <= 4; i++) {
-                floorBlocks.add(candle.getDefaultState().with(CandleBlock.LIT, true).with(CandleBlock.CANDLES, i));
+                floorBlocks.add(candle.defaultBlockState().setValue(CandleBlock.LIT, true).with(CandleBlock.CANDLES, i));
             }
         });
 
         if (ModuleHandler.enabled("charm:copper_rails")) {
-            floorBlocks.add(CopperRails.COPPER_RAIL.getDefaultState().with(RailBlock.SHAPE, RailShape.EAST_WEST));
-            floorBlocks.add(CopperRails.COPPER_RAIL.getDefaultState().with(RailBlock.SHAPE, RailShape.NORTH_SOUTH));
+            floorBlocks.add(CopperRails.COPPER_RAIL.defaultBlockState().with(RailBlock.SHAPE, RailShape.EAST_WEST));
+            floorBlocks.add(CopperRails.COPPER_RAIL.defaultBlockState().with(RailBlock.SHAPE, RailShape.NORTH_SOUTH));
         }
     }
 
@@ -200,10 +189,10 @@ public class MineshaftImprovements extends CharmModule {
             int z = ((StructurePieceAccessor)piece).callApplyZTransform(1, 0);
 
             BlockPos cartPos = new BlockPos(x, y, z);
-            Identifier loot = minecartLootTables.get(rand.nextInt(minecartLootTables.size()));
+            ResourceLocation loot = minecartLootTables.get(rand.nextInt(minecartLootTables.size()));
 
             if (box.contains(cartPos) && world.getBlockState(cartPos).isAir() && !world.getBlockState(cartPos.down()).isAir()) {
-                BlockState blockState = Blocks.RAIL.getDefaultState().with(RailBlock.SHAPE, rand.nextBoolean() ? RailShape.NORTH_SOUTH : RailShape.EAST_WEST);
+                BlockState blockState = Blocks.RAIL.defaultBlockState().with(RailBlock.SHAPE, rand.nextBoolean() ? RailShape.NORTH_SOUTH : RailShape.EAST_WEST);
                 ((StructurePieceAccessor)piece).callAddBlock(world, blockState, x, y, z, box);
 
                 AbstractMinecartEntity minecartEntity;
