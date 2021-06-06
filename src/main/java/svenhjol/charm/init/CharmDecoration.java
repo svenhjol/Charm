@@ -17,6 +17,10 @@ import java.util.stream.Collectors;
 import static svenhjol.charm.helper.DecorationHelper.*;
 
 public class CharmDecoration {
+    public static final String COPPER_VARIANT = "copper";
+    public static final String GOLD_VARIANT = "gold";
+    public static final String NETHERITE_VARIANT = "netherite";
+
     public static List<StructureProcessor> SINGLE_POOL_ELEMENT_PROCESSORS = new ArrayList<>();
 
     private static boolean hasInit = false;

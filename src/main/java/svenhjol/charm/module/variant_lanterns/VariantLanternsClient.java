@@ -12,6 +12,6 @@ public class VariantLanternsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        VariantLanterns.LANTERNS.forEach(lantern -> BlockRenderLayerMap.INSTANCE.putBlock(lantern, RenderLayer.getCutout()));
+        VariantLanterns.LANTERNS.values().forEach(lantern -> BlockRenderLayerMap.INSTANCE.putBlock(lantern, RenderLayer.getCutout()));
     }
 }

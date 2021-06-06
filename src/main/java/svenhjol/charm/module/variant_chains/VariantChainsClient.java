@@ -12,6 +12,6 @@ public class VariantChainsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        VariantChains.CHAINS.forEach(chain -> BlockRenderLayerMap.INSTANCE.putBlock(chain, RenderLayer.getCutout()));
+        VariantChains.CHAINS.values().forEach(chain -> BlockRenderLayerMap.INSTANCE.putBlock(chain, RenderLayer.getCutout()));
     }
 }

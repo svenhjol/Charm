@@ -12,6 +12,6 @@ public class VariantBarsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        VariantBars.BARS.forEach(bars -> BlockRenderLayerMap.INSTANCE.putBlock(bars, RenderLayer.getCutout()));
+        VariantBars.BARS.values().forEach(bars -> BlockRenderLayerMap.INSTANCE.putBlock(bars, RenderLayer.getCutout()));
     }
 }

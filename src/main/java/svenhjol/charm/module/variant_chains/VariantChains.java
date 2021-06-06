@@ -2,23 +2,22 @@ package svenhjol.charm.module.variant_chains;
 
 import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.CharmChainBlock;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.init.CharmDecoration;
+import svenhjol.charm.module.CharmModule;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Module(mod = Charm.MOD_ID, client = VariantChainsClient.class, description = "Variant chains crafted from vanilla metal ingots and nuggets.")
 public class VariantChains extends CharmModule {
-    public static List<CharmChainBlock> CHAINS = new ArrayList<>();
+    public static Map<String, CharmChainBlock> CHAINS = new HashMap<>();
 
     @Override
     public void register() {
-        for (String material : new String[]{"copper", "gold", "netherite"}) {
-            CHAINS.add(new CharmChainBlock(this, material + "_chain"));
+        for (String material : new String[]{CharmDecoration.COPPER_VARIANT, CharmDecoration.GOLD_VARIANT, CharmDecoration.NETHERITE_VARIANT}) {
+            CHAINS.put(material, new CharmChainBlock(this, material + "_chain"));
         }
     }
 
