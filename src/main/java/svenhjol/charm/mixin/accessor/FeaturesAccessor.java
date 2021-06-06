@@ -9,7 +9,7 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(Features.class)
 @CharmMixin(required = true)
-public interface ConfiguredFeaturesAccessor {
+public interface FeaturesAccessor {
     @Accessor("AZALEA_TREE")
     static ConfiguredFeature<TreeConfiguration, ?> getAzaleaTree() {
         throw new IllegalStateException();

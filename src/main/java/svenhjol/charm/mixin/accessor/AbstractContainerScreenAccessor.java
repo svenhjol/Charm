@@ -7,10 +7,10 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(AbstractContainerScreen.class)
 @CharmMixin(required = true)
-public interface HandledScreenAccessor {
-    @Accessor("x")
+public interface AbstractContainerScreenAccessor {
+    @Accessor("snapbackStartX")
     int getX();
 
-    @Accessor("y")
+    @Accessor("snapbackStartY")
     int getY();
 }

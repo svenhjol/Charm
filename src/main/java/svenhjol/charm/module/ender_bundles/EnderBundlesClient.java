@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.TooltipHelper;
-import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
+import svenhjol.charm.mixin.accessor.PlayerAccessor;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
 
@@ -60,7 +60,7 @@ public class EnderBundlesClient extends CharmClientModule {
             ClientHelper.getPlayer().ifPresent(player -> {
                 if (nbt != null && nbt.contains("EnderItems", 9)) {
                     ListTag enderItems = nbt.getList("EnderItems", 10);
-                    PlayerEnderChestContainer inventory = ((PlayerEntityAccessor) player).getEnderChestInventory();
+                    PlayerEnderChestContainer inventory = ((PlayerAccessor) player).getEnderChestInventory();
                     inventory.fromTag(enderItems);
 
                     CACHED_AMOUNT_FILLED = (float)enderItems.size() / inventory.getContainerSize();

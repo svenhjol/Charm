@@ -9,9 +9,9 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(PotionBrewing.class)
 @CharmMixin(required = true)
-public interface BrewingRecipeRegistryAccessor {
+public interface PotionBrewingAccessor {
     @Invoker
-    static void invokeRegisterPotionRecipe(Potion input, Item item, Potion output) {
+    static void invokeAddMix(Potion input, Item item, Potion output) {
         throw new IllegalStateException();
     }
 }

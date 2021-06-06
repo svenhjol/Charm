@@ -12,6 +12,6 @@ import svenhjol.charm.annotation.CharmMixin;
 @Mixin(ItemRenderer.class)
 @CharmMixin(required = true)
 public interface ItemRendererAccessor {
-    @Invoker("renderBakedItemModel")
-    void invokeRenderBakedItemModel(BakedModel model, ItemStack stack, int light, int overlay, PoseStack matrices, VertexConsumer vertices);
+    @Invoker
+    void invokeRenderModelLists(BakedModel model, ItemStack stack, int light, int overlay, PoseStack matrices, VertexConsumer vertices);
 }

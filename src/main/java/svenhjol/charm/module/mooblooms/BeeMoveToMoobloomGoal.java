@@ -1,7 +1,6 @@
 package svenhjol.charm.module.mooblooms;
 
-import svenhjol.charm.module.mooblooms.MoobloomEntity;
-import svenhjol.charm.mixin.accessor.BeeEntityAccessor;
+import svenhjol.charm.mixin.accessor.BeeAccessor;
 import svenhjol.charm.module.core.Core;
 
 import java.util.List;
@@ -81,7 +80,7 @@ public class BeeMoveToMoobloomGoal extends Goal {
         if (moveTicks > MAX_MOVE_TICKS) {
             moobloom = null;
         } else if (!bee.getNavigation().isInProgress()) {
-            ((BeeEntityAccessor) bee).invokeStartMovingTo(moobloom.blockPosition());
+            ((BeeAccessor) bee).invokePathfindRandomlyTowards(moobloom.blockPosition());
 
             if (Core.debug)
                 bee.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100));
@@ -89,11 +88,11 @@ public class BeeMoveToMoobloomGoal extends Goal {
 
             // update bee tracking to take into account a moving moobloom
             if (moveTicks % 50 == 0)
-                ((BeeEntityAccessor) bee).invokeStartMovingTo(moobloom.blockPosition());
+                ((BeeAccessor) bee).invokePathfindRandomlyTowards(moobloom.blockPosition());
 
             double dist = bee.position().distanceTo(moobloom.position());
             if (dist < 2.2) {
-                ((BeeEntityAccessor)bee).invokeSetHasNectar(false);
+                ((BeeAccessor)bee).invokeSetHasNectar(false);
 
                 if (Core.debug)
                     bee.removeEffect(MobEffects.GLOWING);

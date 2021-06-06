@@ -19,7 +19,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.*;
 import svenhjol.charm.mixin.accessor.EntityRenderDispatcherAccessor;
-import svenhjol.charm.mixin.accessor.FeatureRendererAccessor;
+import svenhjol.charm.mixin.accessor.RenderLayerAccessor;
 import svenhjol.charm.mixin.accessor.LivingEntityRendererAccessor;
 
 import java.util.List;
@@ -28,11 +28,11 @@ public class VariantMobRenderer {
     private static <T extends LivingEntity, M extends EntityModel<T>> void fillLayersFromOld(EntityRendererProvider.Context context, LivingEntityRenderer<T, M> renderer, EntityType<T> type) {
         EntityRenderer<?> old = ((EntityRenderDispatcherAccessor)context.getEntityRenderDispatcher()).getRenderers().get(type);
         if (old != null) {
-            List<RenderLayer<T, M>> layerRenderers = ((LivingEntityRendererAccessor<T, M>) renderer).getFeatures();
+            List<RenderLayer<T, M>> layerRenderers = ((LivingEntityRendererAccessor<T, M>) renderer).getLayers();
             layerRenderers.clear();
-            ((LivingEntityRendererAccessor<T, M>) old).getFeatures()
+            ((LivingEntityRendererAccessor<T, M>) old).getLayers()
                 .stream()
-                .peek(it -> ((FeatureRendererAccessor<T, M>)it).setContext(renderer))
+                .peek(it -> ((RenderLayerAccessor<T, M>)it).setRenderer(renderer))
                 .forEach(layerRenderers::add);
         }
     }

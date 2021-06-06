@@ -10,8 +10,8 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(ProcessorLists.class)
 @CharmMixin(required = true)
-public interface StructureProcessorListsAccessor {
-    @Invoker("register")
+public interface ProcessorListsAccessor {
+    @Invoker
     static StructureProcessorList invokeRegister(String id, ImmutableList<StructureProcessor> processorList) {
         throw new IllegalStateException();
     }

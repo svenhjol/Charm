@@ -16,14 +16,14 @@ public interface StructurePieceAccessor {
     BoundingBox getBoundingBox();
 
     @Invoker
-    void callAddBlock(WorldGenLevel worldIn, BlockState blockstateIn, int x, int y, int z, BoundingBox boundingboxIn);
+    void invokePlaceBlock(WorldGenLevel worldIn, BlockState blockstateIn, int x, int y, int z, BoundingBox boundingboxIn);
 
     @Invoker
-    int callApplyXTransform(int x, int z);
+    int invokeGetWorldX(int x, int z);
 
     @Invoker
-    int callApplyYTransform(int y);
+    int invokeGetWorldY(int y);
 
     @Invoker
-    int callApplyZTransform(int x, int z);
+    int invokeGetWorldZ(int x, int z);
 }

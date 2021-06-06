@@ -29,7 +29,7 @@ import svenhjol.charm.client.CharmHandledScreen;
 import svenhjol.charm.client.CharmImageButton;
 import svenhjol.charm.helper.MapRenderHelper;
 import svenhjol.charm.init.CharmResources;
-import svenhjol.charm.mixin.accessor.MapStateAccessor;
+import svenhjol.charm.mixin.accessor.MapItemSavedDataAccessor;
 import svenhjol.charm.mixin.accessor.ScreenAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.atlases.AtlasInventory.Index;
@@ -136,7 +136,7 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
             button.visible = mapGui.buttonVisible(direction);
             if (button.visible) {
                 button.active = mapGui.buttonEnabled(direction);
-                if (!((ScreenAccessor)this).getSelectables().contains(button))
+                if (!((ScreenAccessor)this).getNarratables().contains(button))
                     addRenderableWidget(button);
             } else {
                 removeButton(button);
@@ -145,7 +145,7 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
     }
 
     private void removeButton(AbstractWidget button) {
-        ((ScreenAccessor)this).getSelectables().remove(button);
+        ((ScreenAccessor)this).getNarratables().remove(button);
         ((ScreenAccessor)this).getChildren().remove(button);
     }
 
@@ -173,7 +173,7 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
     private void renderDecorations(PoseStack matrices, MultiBufferSource buffer, MapItemSavedData mapData, float relativeScale, Predicate<MapDecoration> filter) {
         int k = 0;
 
-        for (MapDecoration mapdecoration : ((MapStateAccessor)mapData).getIcons().values()) {
+        for (MapDecoration mapdecoration : ((MapItemSavedDataAccessor)mapData).getDecorations().values()) {
             if (!filter.test(mapdecoration))
                 continue;
 

@@ -9,9 +9,9 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(HoglinAi.class)
 @CharmMixin(required = true)
-public interface HoglinBrainAccessor {
-    @Invoker("avoid")
-    static void invokeAvoid(Hoglin hoglin, LivingEntity target) {
+public interface HoglinAiAccessor {
+    @Invoker
+    static void invokeSetAvoidTarget(Hoglin hoglin, LivingEntity target) {
         throw new IllegalStateException();
     }
 }

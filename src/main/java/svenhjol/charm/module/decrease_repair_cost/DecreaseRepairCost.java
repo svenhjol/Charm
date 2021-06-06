@@ -17,7 +17,7 @@ import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.mixin.accessor.ForgingScreenHandlerAccessor;
+import svenhjol.charm.mixin.accessor.ItemCombinerMenuAccessor;
 
 @Module(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.",
     requiresMixins = {"UpdateAnvilCallback", "TakeAnvilOutputCallback"})
@@ -70,7 +70,7 @@ public class DecreaseRepairCost extends CharmModule {
 
     private void handleTakeOutput(AnvilMenu handler, Player player, ItemStack stack) {
         if (!player.level.isClientSide) {
-            Container input = ((ForgingScreenHandlerAccessor) handler).getInput();
+            Container input = ((ItemCombinerMenuAccessor) handler).getInputSlots();
             if (!input.isEmpty()
                 && !input.getItem(0).isEmpty()
                 && input.getItem(0).getBaseRepairCost() > stack.getBaseRepairCost()

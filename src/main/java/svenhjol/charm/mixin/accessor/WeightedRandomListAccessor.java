@@ -8,20 +8,16 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(WeightedRandomList.class)
-public interface PoolAccessor<E extends WeightedEntry> {
-    @Mutable
-    @Accessor
-    ImmutableList<E> getEntries();
+public interface WeightedRandomListAccessor<E extends WeightedEntry> {
+    @Mutable @Accessor
+    ImmutableList<E> getItems();
 
-    @Mutable
-    @Accessor
-    void setEntries(ImmutableList<E> entries);
+    @Mutable @Accessor
+    void setItems(ImmutableList<E> items);
 
-    @Mutable
-    @Accessor
+    @Mutable @Accessor
     int getTotalWeight();
 
-    @Mutable
-    @Accessor
+    @Mutable @Accessor
     void setTotalWeight(int totalWeight);
 }

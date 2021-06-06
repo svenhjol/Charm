@@ -9,11 +9,11 @@ import svenhjol.charm.annotation.CharmMixin;
 @CharmMixin(required = true)
 public interface ItemAccessor {
     @Accessor
-    int getMaxCount();
+    int getMaxStackSize();
 
     @Accessor
-    void setMaxCount(int maxCount);
+    void setMaxStackSize(int maxCount);
 
     @Accessor()
-    void setTranslationKey(String key);
+    void setDescriptionId(String key);
 }

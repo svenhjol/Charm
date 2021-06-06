@@ -7,7 +7,7 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(WoodType.class)
 @CharmMixin(required = true)
-public interface SignTypeAccessor {
+public interface WoodTypeAccessor {
     @Invoker("<init>")
     static WoodType invokeInit(String name) {
         throw new IllegalStateException();

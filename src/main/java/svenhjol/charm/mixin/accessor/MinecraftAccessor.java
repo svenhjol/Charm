@@ -9,9 +9,9 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(Minecraft.class)
 @CharmMixin(required = true)
-public interface MinecraftClientAccessor {
+public interface MinecraftAccessor {
     @Accessor
-    RenderBuffers getBufferBuilders();
+    RenderBuffers getRenderBuffers();
 
     @Accessor
     BlockColors getBlockColors();

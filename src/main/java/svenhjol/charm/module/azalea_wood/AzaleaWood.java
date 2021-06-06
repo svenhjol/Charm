@@ -13,8 +13,8 @@ import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
-import svenhjol.charm.mixin.accessor.ConfiguredFeaturesAccessor;
-import svenhjol.charm.mixin.accessor.TreeFeatureConfigAccessor;
+import svenhjol.charm.mixin.accessor.FeaturesAccessor;
+import svenhjol.charm.mixin.accessor.TreeConfigurationAccessor;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
 import svenhjol.charm.module.bookcases.Bookcases;
@@ -94,9 +94,9 @@ public class AzaleaWood extends CharmModule {
 
     @Override
     public void init() {
-        ConfiguredFeature<TreeConfiguration, ?> feature = ConfiguredFeaturesAccessor.getAzaleaTree();
+        ConfiguredFeature<TreeConfiguration, ?> feature = FeaturesAccessor.getAzaleaTree();
         TreeConfiguration config = feature.config();
-        ((TreeFeatureConfigAccessor)config).setTrunkProvider(new SimpleStateProvider(AzaleaWood.LOG.defaultBlockState()));
+        ((TreeConfigurationAccessor)config).setTrunkProvider(new SimpleStateProvider(AzaleaWood.LOG.defaultBlockState()));
         RegistryHelper.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
     }
 }

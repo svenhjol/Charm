@@ -10,7 +10,7 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(SoundEngine.class)
 @CharmMixin(required = true)
-public interface SoundSystemAccessor {
+public interface SoundEngineAccessor {
     @Accessor
-    Multimap<SoundSource, SoundInstance> getSounds();
+    Multimap<SoundSource, SoundInstance> getInstanceBySource();
 }

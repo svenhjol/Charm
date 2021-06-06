@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.feature.structures.LegacySinglePoolEle
 import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElement;
 import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
-import svenhjol.charm.mixin.accessor.StructurePoolAccessor;
+import svenhjol.charm.mixin.accessor.StructureTemplatePoolAccessor;
 import svenhjol.charm.enums.ICharmEnum;
 
 import java.util.ArrayList;
@@ -33,11 +33,11 @@ public interface SetupStructureCallback {
             StructureTemplatePool pool = BuiltinRegistries.TEMPLATE_POOL.get(id);
 
             // convert elementCounts to mutable list
-            List<Pair<StructurePoolElement, Integer>> elementCounts = ((StructurePoolAccessor) pool).getElementCounts();
-            ((StructurePoolAccessor)pool).setElementCounts(new ArrayList<>(elementCounts));
+            List<Pair<StructurePoolElement, Integer>> elementCounts = ((StructureTemplatePoolAccessor) pool).getRawTemplates();
+            ((StructureTemplatePoolAccessor)pool).setRawTemplates(new ArrayList<>(elementCounts));
 
             if (false) { // DELETES ALL IN POOL, DO NOT USE!
-                ((StructurePoolAccessor) pool).setElementCounts(new ArrayList<>());
+                ((StructureTemplatePoolAccessor) pool).setRawTemplates(new ArrayList<>());
             }
 
             vanillaPools.put(id, pool);
@@ -54,11 +54,11 @@ public interface SetupStructureCallback {
         StructureTemplatePool pool = getVanillaPool(poolId);
         
         // add custom piece to the element counts
-        ((StructurePoolAccessor)pool).getElementCounts().add(Pair.of(element, count));
+        ((StructureTemplatePoolAccessor)pool).getRawTemplates().add(Pair.of(element, count));
         
         // add custom piece to the elements
         for (int i = 0; i < count; i++) {
-            ((StructurePoolAccessor)pool).getElements().add(element);
+            ((StructureTemplatePoolAccessor)pool).getTemplates().add(element);
         }
     }
 

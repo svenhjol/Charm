@@ -12,7 +12,7 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(Player.class)
 @CharmMixin(required = true)
-public interface PlayerEntityAccessor {
+public interface PlayerAccessor {
     @Accessor
     Inventory getInventory();
 
@@ -29,5 +29,5 @@ public interface PlayerEntityAccessor {
     void invokeSetShoulderEntityRight(CompoundTag nbt);
 
     @Invoker()
-    void invokeDropShoulderEntity(CompoundTag nbt);
+    void invokeRespawnEntityOnShoulder(CompoundTag nbt);
 }

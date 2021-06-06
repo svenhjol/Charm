@@ -1,17 +1,19 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.npc.Villager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(Bee.class)
+@Mixin(Villager.class)
 @CharmMixin(required = true)
-public interface BeeEntityAccessor {
+public interface VillagerAccessor {
     @Invoker
-    void invokeSetHasNectar(boolean hasNectar);
+    void invokeSetUnhappy();
 
     @Invoker
-    void invokeStartMovingTo(BlockPos pos);
+    boolean invokeShouldIncreaseLevel();
+
+    @Invoker
+    void invokeIncreaseMerchantCareer();
 }

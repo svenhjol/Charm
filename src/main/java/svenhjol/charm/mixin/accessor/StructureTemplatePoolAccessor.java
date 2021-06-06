@@ -1,0 +1,23 @@
+package svenhjol.charm.mixin.accessor;
+
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElement;
+import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
+import svenhjol.charm.annotation.CharmMixin;
+
+import java.util.List;
+
+@Mixin(StructureTemplatePool.class)
+@CharmMixin(required = true)
+public interface StructureTemplatePoolAccessor {
+    @Accessor
+    List<StructurePoolElement> getTemplates();
+
+    @Accessor
+    List<Pair<StructurePoolElement, Integer>> getRawTemplates();
+
+    @Accessor
+    void setRawTemplates(List<Pair<StructurePoolElement, Integer>> list);
+}

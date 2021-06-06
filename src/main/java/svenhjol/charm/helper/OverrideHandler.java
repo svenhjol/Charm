@@ -32,7 +32,7 @@ public class OverrideHandler {
     }
 
     public static void changeDispenserBehavior(Item existingItem, Item newItem) {
-        DispenseItemBehavior splashBehavior = DispenserBlockAccessor.getDispenseBehaviorRegistry().get(existingItem);
+        DispenseItemBehavior splashBehavior = DispenserBlockAccessor.getDispenserRegistry().get(existingItem);
         DispenserBlock.registerBehavior(newItem, splashBehavior);
     }
 
@@ -45,7 +45,7 @@ public class OverrideHandler {
         if (newKey == null)
             newKey = defaultItemKeys.get(item);
 
-        ((ItemAccessor)item).setTranslationKey(newKey);
+        ((ItemAccessor)item).setDescriptionId(newKey);
     }
 
     public static void changeBlockTranslationKey(Block block, String newKey) {
@@ -57,6 +57,6 @@ public class OverrideHandler {
         if (newKey == null)
             newKey = defaultBlockKeys.get(block);
 
-        ((BlockAccessor)block).setTranslationKey(newKey);
+        ((BlockAccessor)block).setDescriptionId(newKey);
     }
 }

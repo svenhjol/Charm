@@ -11,7 +11,7 @@ import svenhjol.charm.annotation.CharmMixin;
 @CharmMixin(required = true)
 public interface BlockTagsAccessor {
     @Invoker()
-    static Tag.Named<Block> invokeRegister(String id) {
+    static Tag.Named<Block> invokeBind(String id) {
         throw new IllegalStateException();
     }
 }

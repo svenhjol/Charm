@@ -56,7 +56,7 @@ public class ShulkerBoxTooltipsClient extends CharmClientModule {
             return;
 
         ShulkerBoxBlockEntity shulkerbox = (ShulkerBoxBlockEntity) blockEntity;
-        NonNullList<ItemStack> items = ((ShulkerBoxBlockEntityAccessor)shulkerbox).getInventory();
+        NonNullList<ItemStack> items = ((ShulkerBoxBlockEntityAccessor)shulkerbox).getItemStacks();
         if (items.stream().allMatch(ItemStack::isEmpty))
             return;
 

@@ -7,10 +7,10 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(AbstractTickableSoundInstance.class)
 @CharmMixin(required = true)
-public interface MovingSoundInstanceAccessor {
+public interface AbstractTickableSoundInstanceAccessor {
     @Accessor
-    void setDone(boolean done);
+    void setStopped(boolean flag);
 
     @Accessor
-    boolean getDone();
+    boolean getStopped();
 }

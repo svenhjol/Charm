@@ -1,20 +1,20 @@
 accessWidener v1 named
 
-# Inaccessible interfaces
+# Inaccessible classes and interfaces
 accessible class net/minecraft/world/inventory/MenuType$MenuSupplier
 accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 accessible class net/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker
 accessible class net/minecraft/world/item/crafting/SimpleCookingSerializer$CookieBaker
 
-accessible class net/minecraft/client/renderer/RenderStateShard$Cull
-accessible class net/minecraft/client/renderer/RenderStateShard$DepthTest
-accessible class net/minecraft/client/renderer/RenderStateShard$Layering
-accessible class net/minecraft/client/renderer/RenderStateShard$Shader
-accessible class net/minecraft/client/renderer/RenderStateShard$Target
+accessible class net/minecraft/client/renderer/RenderStateShard$CullStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$DepthTestStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$LayeringStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$ShaderStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$OutputStateShard
 accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
-accessible class net/minecraft/client/renderer/RenderStateShard$Texturing
-accessible class net/minecraft/client/renderer/RenderStateShard$Transparency
-accessible class net/minecraft/client/renderer/RenderStateShard$WriteMaskState
+accessible class net/minecraft/client/renderer/RenderStateShard$TexturingStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$TransparencyStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$WriteMaskStateShard
 
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
 accessible class net/minecraft/data/worldgen/Features$Decorators

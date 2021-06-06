@@ -21,8 +21,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
 import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.mixin.accessor.PillagerSpawnerAccessor;
-import svenhjol.charm.mixin.accessor.ServerWorldAccessor;
+import svenhjol.charm.mixin.accessor.PatrolSpawnerAccessor;
+import svenhjol.charm.mixin.accessor.ServerLevelAccessor;
 import svenhjol.charm.module.CharmModule;
 
 import java.util.List;
@@ -103,7 +103,7 @@ public class RaidHornItem extends CharmItem {
 
     private boolean trySpawnPillagers(ServerLevel world, Player player) {
         PatrolSpawner pillagerSpawner = null;
-        List<CustomSpawner> spawners = ((ServerWorldAccessor)world).getSpawners();
+        List<CustomSpawner> spawners = ((ServerLevelAccessor)world).getCustomSpawners();
         for (CustomSpawner spawner : spawners) {
             if (spawner instanceof PatrolSpawner) {
                 pillagerSpawner = (PatrolSpawner)spawner;
@@ -135,11 +135,11 @@ public class RaidHornItem extends CharmItem {
                     ++m;
                     mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, mutable).getY());
                     if (o == 0) {
-                        if (!((PillagerSpawnerAccessor)pillagerSpawner).invokeSpawnPillager(world, mutable, random, true)) {
+                        if (!((PatrolSpawnerAccessor)pillagerSpawner).invokeSpawnPatrolMember(world, mutable, random, true)) {
                             break;
                         }
                     } else {
-                        ((PillagerSpawnerAccessor)pillagerSpawner).invokeSpawnPillager(world, mutable, random, false);
+                        ((PatrolSpawnerAccessor)pillagerSpawner).invokeSpawnPatrolMember(world, mutable, random, false);
                     }
 
                     mutable.setX(mutable.getX() + random.nextInt(5) - random.nextInt(5));
@@ -147,7 +147,7 @@ public class RaidHornItem extends CharmItem {
                 }
 
                 // must reset the global pillager spawner timer after spawning these in
-                ((PillagerSpawnerAccessor)pillagerSpawner).setTicksUntilNextSpawn(12000);
+                ((PatrolSpawnerAccessor)pillagerSpawner).setTicksUntilNextSpawn(12000);
                 return true;
             }
         }

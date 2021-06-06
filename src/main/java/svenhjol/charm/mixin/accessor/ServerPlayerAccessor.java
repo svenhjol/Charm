@@ -1,15 +1,15 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(Boat.class)
+@Mixin(ServerPlayer.class)
 @CharmMixin(required = true)
-public interface BoatEntityAccessor {
+public interface ServerPlayerAccessor {
     @Mutable
     @Accessor
-    void setPaddlePhases(float[] paddlePhases);
+    void setIsChangingDimension(boolean flag);
 }

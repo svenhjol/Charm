@@ -10,7 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charm.mixin.accessor.BoatEntityAccessor;
+import svenhjol.charm.mixin.accessor.BoatAccessor;
 import svenhjol.charm.module.azalea_wood.AzaleaWood;
 import svenhjol.charm.module.ebony_wood.EbonyWood;
 
@@ -21,7 +21,7 @@ public class CharmBoatEntity extends Boat {
 
     public CharmBoatEntity(EntityType<? extends CharmBoatEntity> entityType, Level world) {
         super(entityType, world);
-        ((BoatEntityAccessor)this).setPaddlePhases(new float[2]);
+        ((BoatAccessor)this).setPaddlePositions(new float[2]);
         this.blocksBuilding = true;
     }
 

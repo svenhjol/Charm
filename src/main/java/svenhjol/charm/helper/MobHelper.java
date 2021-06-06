@@ -13,7 +13,7 @@ import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.mixin.accessor.GoalSelectorAccessor;
-import svenhjol.charm.mixin.accessor.MobEntityAccessor;
+import svenhjol.charm.mixin.accessor.MobAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,11 @@ import static svenhjol.charm.helper.PosHelper.isLikeSolid;
 
 public class MobHelper {
     public static Set<WrappedGoal> getGoals(Mob mob) {
-        return ((GoalSelectorAccessor)getGoalSelector(mob)).getGoals();
+        return ((GoalSelectorAccessor)getGoalSelector(mob)).getAvailableGoals();
     }
 
     public static GoalSelector getGoalSelector(Mob mob) {
-        return ((MobEntityAccessor)mob).getGoalSelector();
+        return ((MobAccessor)mob).getGoalSelector();
     }
 
     public static <T extends Entity> T spawn(EntityType<T> type, ServerLevel world, BlockPos pos, MobSpawnType reason) {

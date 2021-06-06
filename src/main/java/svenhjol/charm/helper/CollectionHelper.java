@@ -1,7 +1,7 @@
 package svenhjol.charm.helper;
 
 import com.google.common.collect.ImmutableList;
-import svenhjol.charm.mixin.accessor.PoolAccessor;
+import svenhjol.charm.mixin.accessor.WeightedRandomListAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,12 @@ public class CollectionHelper {
      * Don't add an entry using the accessor unless you also set the pool entry weight.
      */
     public static <E extends WeightedEntry> void addPoolEntry(WeightedRandomList<E> pool, E entry) {
-        PoolAccessor<E> p = (PoolAccessor) pool;
-        List<E> entries = new ArrayList<>(p.getEntries());
+        WeightedRandomListAccessor<E> p = (WeightedRandomListAccessor) pool;
+        List<E> entries = new ArrayList<>(p.getItems());
 
         entries.add(entry);
 
-        p.setEntries(ImmutableList.copyOf(entries));
+        p.setItems(ImmutableList.copyOf(entries));
         p.setTotalWeight(WeightedRandom.getTotalWeight(entries));
     }
 }

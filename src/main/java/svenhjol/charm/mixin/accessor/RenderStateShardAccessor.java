@@ -7,14 +7,14 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(RenderStateShard.class)
 @CharmMixin(required = true)
-public interface RenderPhaseAccessor {
-    @Accessor("COLOR_MASK")
-    static RenderStateShard.WriteMaskStateShard getColorMask() {
+public interface RenderStateShardAccessor {
+    @Accessor("COLOR_WRITE")
+    static RenderStateShard.WriteMaskStateShard getColorWrite() {
         throw new IllegalStateException();
     }
 
-    @Accessor("DISABLE_CULLING")
-    static RenderStateShard.CullStateShard getDisableCulling() {
+    @Accessor("NO_CULL")
+    static RenderStateShard.CullStateShard getNoCull() {
         throw new IllegalStateException();
     }
 
@@ -38,8 +38,8 @@ public interface RenderPhaseAccessor {
         throw new IllegalStateException();
     }
 
-    @Accessor("ITEM_TARGET")
-    static RenderStateShard.OutputStateShard getItemTarget() {
+    @Accessor("ITEM_ENTITY_TARGET")
+    static RenderStateShard.OutputStateShard getItemEntityTarget() {
         throw new IllegalStateException();
     }
 
@@ -48,22 +48,22 @@ public interface RenderPhaseAccessor {
         throw new IllegalStateException();
     }
 
-    @Accessor("GLINT_SHADER")
+    @Accessor("RENDERTYPE_GLINT_SHADER")
     static RenderStateShard.ShaderStateShard getGlintShader() { throw new IllegalStateException(); }
 
-    @Accessor("ENTITY_GLINT_SHADER")
+    @Accessor("RENDERTYPE_ENTITY_GLINT_SHADER")
     static RenderStateShard.ShaderStateShard getEntityGlintShader() { throw new IllegalStateException(); }
 
-    @Accessor("ARMOR_GLINT_SHADER")
+    @Accessor("RENDERTYPE_ARMOR_GLINT_SHADER")
     static RenderStateShard.ShaderStateShard getArmorGlintShader() { throw new IllegalStateException(); }
 
-    @Accessor("ARMOR_ENTITY_GLINT_SHADER")
+    @Accessor("RENDERTYPE_ARMOR_ENTITY_GLINT_SHADER")
     static RenderStateShard.ShaderStateShard getArmorEntityGlintShader() { throw new IllegalStateException(); }
 
-    @Accessor("DIRECT_GLINT_SHADER")
-    static RenderStateShard.ShaderStateShard getDirectGlintShader() { throw new IllegalStateException(); }
+    @Accessor("RENDERTYPE_GLINT_DIRECT_SHADER")
+    static RenderStateShard.ShaderStateShard getGlintDirectShader() { throw new IllegalStateException(); }
 
-    @Accessor("DIRECT_ENTITY_GLINT_SHADER")
-    static RenderStateShard.ShaderStateShard getDirectEntityGlintShader() { throw new IllegalStateException(); }
+    @Accessor("RENDERTYPE_ENTITY_GLINT_DIRECT_SHADER")
+    static RenderStateShard.ShaderStateShard getEntityGlintDirectShader() { throw new IllegalStateException(); }
 
 }

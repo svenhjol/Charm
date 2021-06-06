@@ -19,10 +19,9 @@ import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.init.CharmTags;
-import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
+import svenhjol.charm.mixin.accessor.PlayerAccessor;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.module.portable_crafting.PortableCrafting;
 
 import java.util.List;
 
@@ -90,7 +89,7 @@ public class PortableCraftingClient extends CharmClientModule {
     }
 
     private boolean hasCrafting(Player player) {
-        return ((PlayerEntityAccessor)player).getInventory().contains(CharmTags.CRAFTING_TABLES);
+        return ((PlayerAccessor)player).getInventory().contains(CharmTags.CRAFTING_TABLES);
     }
 
     private void triggerOpenCraftingTable() {

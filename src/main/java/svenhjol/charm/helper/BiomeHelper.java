@@ -22,9 +22,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import svenhjol.charm.Charm;
-import svenhjol.charm.helper.CollectionHelper;
-import svenhjol.charm.mixin.accessor.GenerationSettingsAccessor;
-import svenhjol.charm.mixin.accessor.SpawnSettingsAccessor;
+import svenhjol.charm.mixin.accessor.BiomeGenerationSettingsAccessor;
+import svenhjol.charm.mixin.accessor.MobSpawnSettingsAccessor;
 import svenhjol.charm.module.core.Core;
 
 import java.util.*;
@@ -67,7 +66,7 @@ public class BiomeHelper {
         if (Core.useBiomeHacks) {
             BiomeGenerationSettings settings = getBiomeFromBiomeKey(biomeKey).getGenerationSettings();
             makeGenerationSettingsMutable(settings);
-            ((GenerationSettingsAccessor) settings).getFeatures().get(generationStep.ordinal()).add(() -> feature);
+            ((BiomeGenerationSettingsAccessor) settings).getFeatures().get(generationStep.ordinal()).add(() -> feature);
         } else {
             ResourceKey<ConfiguredFeature<?, ?>> featureKey;
             Predicate<BiomeSelectionContext> biomeSelector;
@@ -93,7 +92,7 @@ public class BiomeHelper {
         if (Core.useBiomeHacks) {
             BiomeGenerationSettings settings = getBiomeFromBiomeKey(biomeKey).getGenerationSettings();
             makeGenerationSettingsMutable(settings);
-            ((GenerationSettingsAccessor) settings).getStructureFeatures().add(() -> structureFeature);
+            ((BiomeGenerationSettingsAccessor) settings).getStructureStarts().add(() -> structureFeature);
         } else {
             ResourceKey<ConfiguredStructureFeature<?, ?>> structureKey;
             Predicate<BiomeSelectionContext> biomeSelector;
@@ -116,10 +115,10 @@ public class BiomeHelper {
             MobSpawnSettings spawnSettings = getBiomeFromBiomeKey(biomeKey).getMobSettings();
             makeSpawnSettingsMutable(spawnSettings);
 
-            Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners = ((SpawnSettingsAccessor) spawnSettings).getSpawners();
+            Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners = ((MobSpawnSettingsAccessor) spawnSettings).getSpawners();
             CollectionHelper.addPoolEntry(spawners.get(group), new MobSpawnSettings.SpawnerData(entity, weight, minGroupSize, maxGroupSize));
 
-            ((SpawnSettingsAccessor)spawnSettings).setSpawners(spawners);
+            ((MobSpawnSettingsAccessor)spawnSettings).setSpawners(spawners);
         } else {
             try {
                 Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
@@ -134,27 +133,27 @@ public class BiomeHelper {
      * Charm's biome gen settings mutability hack, don't use unless fabric's biome API is b0rk
      */
     private static void makeGenerationSettingsMutable(BiomeGenerationSettings settings) {
-        List<List<Supplier<ConfiguredFeature<?, ?>>>> features = ((GenerationSettingsAccessor) settings).getFeatures();
+        List<List<Supplier<ConfiguredFeature<?, ?>>>> features = ((BiomeGenerationSettingsAccessor) settings).getFeatures();
         if (features instanceof ImmutableList) {
             List<List<Supplier<ConfiguredFeature<?, ?>>>> collect = features.stream().map(ArrayList::new).collect(Collectors.toList());
-            ((GenerationSettingsAccessor) settings).setFeatures(collect);
+            ((BiomeGenerationSettingsAccessor) settings).setFeatures(collect);
         }
 
-        List<Supplier<ConfiguredStructureFeature<?, ?>>> structureFeatures = ((GenerationSettingsAccessor)settings).getStructureFeatures();
+        List<Supplier<ConfiguredStructureFeature<?, ?>>> structureFeatures = ((BiomeGenerationSettingsAccessor)settings).getStructureStarts();
         if (structureFeatures instanceof ImmutableList)
-            ((GenerationSettingsAccessor)settings).setStructureFeatures(new ArrayList<>(structureFeatures));
+            ((BiomeGenerationSettingsAccessor)settings).setStructureStarts(new ArrayList<>(structureFeatures));
     }
 
     /**
      * Charm's biome spawn settings mutability hack, don't use unless fabric's biome API is b0rk
      */
     private static void makeSpawnSettingsMutable(MobSpawnSettings settings) {
-        Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners = ((SpawnSettingsAccessor) settings).getSpawners();
+        Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners = ((MobSpawnSettingsAccessor) settings).getSpawners();
         if (spawners instanceof ImmutableMap)
-            ((SpawnSettingsAccessor)settings).setSpawners(new HashMap<>(spawners));
+            ((MobSpawnSettingsAccessor)settings).setSpawners(new HashMap<>(spawners));
 
-        Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> spawnCosts = ((SpawnSettingsAccessor) settings).getSpawnCosts();
+        Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> spawnCosts = ((MobSpawnSettingsAccessor) settings).getMobSpawnCosts();
         if (spawnCosts instanceof ImmutableMap)
-            ((SpawnSettingsAccessor)settings).setSpawnCosts(new HashMap<>(spawnCosts));
+            ((MobSpawnSettingsAccessor)settings).setMobSpawnCosts(new HashMap<>(spawnCosts));
     }
 }

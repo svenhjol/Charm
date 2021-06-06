@@ -33,7 +33,7 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.mixin.accessor.MapStateAccessor;
+import svenhjol.charm.mixin.accessor.MapItemSavedDataAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 
 import java.util.*;
@@ -125,7 +125,7 @@ public class Atlases extends CharmModule {
                     return;
                 }
 
-                ((MapStateAccessor)mapState).invokeMarkDirty(0, 0);
+                ((MapItemSavedDataAccessor)mapState).invokeSetColorsDirty(0, 0);
             }
             map.getItem().inventoryTick(map, player.level, player, -1, true);
             Packet<?> packet = ((ComplexItem) map.getItem()).getUpdatePacket(map, player.level, player);

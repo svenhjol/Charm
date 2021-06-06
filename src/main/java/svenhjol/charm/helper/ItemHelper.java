@@ -36,7 +36,7 @@ public class ItemHelper {
     public static boolean shouldItemDespawn(ItemEntity itemEntity) {
         Item item = itemEntity.getItem().getItem();
         if (ItemHelper.ITEM_LIFETIME.containsKey(item)) {
-            if (((ItemEntityAccessor)itemEntity).getItemAge() < ItemHelper.ITEM_LIFETIME.get(item))
+            if (((ItemEntityAccessor)itemEntity).getAge() < ItemHelper.ITEM_LIFETIME.get(item))
                 return false;
         }
 

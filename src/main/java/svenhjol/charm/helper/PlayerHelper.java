@@ -1,7 +1,7 @@
 package svenhjol.charm.helper;
 
-import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
-import svenhjol.charm.mixin.accessor.WorldSaveHandlerAccessor;
+import svenhjol.charm.mixin.accessor.PlayerAccessor;
+import svenhjol.charm.mixin.accessor.PlayerDataStorageAccessor;
 
 import java.io.File;
 import java.util.EnumSet;
@@ -36,11 +36,11 @@ public class PlayerHelper {
     }
 
     public static Inventory getInventory(Player player) {
-        return ((PlayerEntityAccessor)player).getInventory();
+        return ((PlayerAccessor)player).getInventory();
     }
 
     public static Abilities getAbilities(Player player) {
-        return ((PlayerEntityAccessor)player).getAbilities();
+        return ((PlayerAccessor)player).getAbilities();
     }
 
     public static void teleport(Level world, BlockPos pos, Player player) {
@@ -70,6 +70,6 @@ public class PlayerHelper {
     }
 
     public static File getPlayerDataDir(PlayerDataStorage saveHandler) {
-        return ((WorldSaveHandlerAccessor) saveHandler).getPlayerDataDir();
+        return ((PlayerDataStorageAccessor) saveHandler).getPlayerDir();
     }
 }

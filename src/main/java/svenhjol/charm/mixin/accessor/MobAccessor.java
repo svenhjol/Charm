@@ -8,7 +8,7 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(Mob.class)
 @CharmMixin(required = true)
-public interface MobEntityAccessor {
+public interface MobAccessor {
     @Accessor()
     GoalSelector getGoalSelector();
 }

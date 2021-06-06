@@ -8,7 +8,7 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(ItemCombinerMenu.class)
 @CharmMixin(required = true)
-public interface ForgingScreenHandlerAccessor {
+public interface ItemCombinerMenuAccessor {
     @Accessor
-    Container getInput();
+    Container getInputSlots();
 }

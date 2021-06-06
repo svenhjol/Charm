@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import svenhjol.charm.mixin.accessor.MinecraftClientAccessor;
+import svenhjol.charm.mixin.accessor.MinecraftAccessor;
 
 import java.util.Optional;
 
@@ -55,7 +55,7 @@ public class ClientHelper {
     public static Optional<BlockColors> getBlockColors() {
         if (getClient().isPresent()) {
             if (blockColors == null)
-                blockColors = ((MinecraftClientAccessor) Minecraft.getInstance()).getBlockColors();
+                blockColors = ((MinecraftAccessor) Minecraft.getInstance()).getBlockColors();
 
             return Optional.of(blockColors);
         }

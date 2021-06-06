@@ -10,5 +10,5 @@ import svenhjol.charm.annotation.CharmMixin;
 @CharmMixin(required = true)
 public interface MinecraftServerAccessor {
     @Accessor
-    ServerResources getServerResourceManager();
+    ServerResources getResources();
 }

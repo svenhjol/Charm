@@ -7,7 +7,7 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(SimpleParticleType.class)
 @CharmMixin(required = true)
-public interface DefaultParticleTypeAccessor {
+public interface SimpleParticleTypeAccessor {
     @Invoker("<init>")
     static SimpleParticleType invokeConstructor(boolean alwaysShow) {
         throw new IllegalStateException();

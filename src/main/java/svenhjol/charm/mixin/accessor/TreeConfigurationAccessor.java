@@ -9,7 +9,7 @@ import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(TreeConfiguration.class)
 @CharmMixin(required = true)
-public interface TreeFeatureConfigAccessor {
+public interface TreeConfigurationAccessor {
     @Mutable
     @Accessor
     void setTrunkProvider(BlockStateProvider provider);

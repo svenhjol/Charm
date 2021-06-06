@@ -32,9 +32,9 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructurePieceType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import svenhjol.charm.mixin.accessor.BlockEntityTypeAccessor;
-import svenhjol.charm.mixin.accessor.BrewingRecipeRegistryAccessor;
-import svenhjol.charm.mixin.accessor.DefaultParticleTypeAccessor;
-import svenhjol.charm.mixin.accessor.SignTypeAccessor;
+import svenhjol.charm.mixin.accessor.PotionBrewingAccessor;
+import svenhjol.charm.mixin.accessor.SimpleParticleTypeAccessor;
+import svenhjol.charm.mixin.accessor.WoodTypeAccessor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -54,7 +54,7 @@ public class RegistryHelper {
     }
 
     public static void brewingRecipe(Potion input, Item reagant, Potion output) {
-        BrewingRecipeRegistryAccessor.invokeRegisterPotionRecipe(input, reagant, output);
+        PotionBrewingAccessor.invokeAddMix(input, reagant, output);
     }
 
     public static ConfiguredFeature<?, ?> configuredFeature(ResourceLocation id, ConfiguredFeature<?, ?> configuredFeature) {
@@ -70,7 +70,7 @@ public class RegistryHelper {
     }
 
     public static SimpleParticleType defaultParticleType(ResourceLocation id) {
-        SimpleParticleType type = DefaultParticleTypeAccessor.invokeConstructor(false);
+        SimpleParticleType type = SimpleParticleTypeAccessor.invokeConstructor(false);
         return Registry.register(Registry.PARTICLE_TYPE, id.toString(), type);
     }
 
@@ -94,7 +94,7 @@ public class RegistryHelper {
 
     public static WoodType signType(ResourceLocation id) {
         // crashes when using fully qualified namespace, so convert colon to underscore
-        return SignTypeAccessor.invokeRegister(SignTypeAccessor.invokeInit(id.toString().replace(":", "_")));
+        return WoodTypeAccessor.invokeRegister(WoodTypeAccessor.invokeInit(id.toString().replace(":", "_")));
     }
 
     public static PoiType pointOfInterestType(ResourceLocation id, PoiType poit) {
@@ -138,7 +138,7 @@ public class RegistryHelper {
     }
 
     public static void addBlocksToBlockEntity(BlockEntityType<?> type, Block... blocks) {
-        Set<Block> typeBlocks = ((BlockEntityTypeAccessor) type).getBlocks();
+        Set<Block> typeBlocks = ((BlockEntityTypeAccessor) type).getValidBlocks();
         List<Block> mutable = new ArrayList<>(typeBlocks);
 
         for (Block block : blocks) {
@@ -146,6 +146,6 @@ public class RegistryHelper {
                 mutable.add(block);
         }
 
-        ((BlockEntityTypeAccessor)type).setBlocks(new HashSet<>(mutable));
+        ((BlockEntityTypeAccessor)type).setValidBlocks(new HashSet<>(mutable));
     }
 }

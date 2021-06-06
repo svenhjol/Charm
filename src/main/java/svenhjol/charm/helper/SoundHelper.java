@@ -7,7 +7,7 @@ import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.sounds.SoundSource;
 import svenhjol.charm.mixin.accessor.SoundManagerAccessor;
-import svenhjol.charm.mixin.accessor.SoundSystemAccessor;
+import svenhjol.charm.mixin.accessor.SoundEngineAccessor;
 
 public class SoundHelper {
     public static SoundManager getSoundManager() {
@@ -15,7 +15,7 @@ public class SoundHelper {
     }
 
     public static Multimap<SoundSource, SoundInstance> getPlayingSounds() {
-        SoundEngine soundSystem = ((SoundManagerAccessor) getSoundManager()).getSoundSystem();
-        return ((SoundSystemAccessor)soundSystem).getSounds();
+        SoundEngine soundSystem = ((SoundManagerAccessor) getSoundManager()).getSoundEngine();
+        return ((SoundEngineAccessor)soundSystem).getInstanceBySource();
     }
 }

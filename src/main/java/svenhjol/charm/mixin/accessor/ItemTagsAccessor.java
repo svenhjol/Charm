@@ -10,8 +10,8 @@ import svenhjol.charm.annotation.CharmMixin;
 @Mixin(ItemTags.class)
 @CharmMixin(required = true)
 public interface ItemTagsAccessor {
-    @Invoker()
-    static Tag.Named<Item> invokeRegister(String id) {
+    @Invoker
+    static Tag.Named<Item> invokeBind(String id) {
         throw new IllegalStateException();
     }
 }

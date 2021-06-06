@@ -9,5 +9,5 @@ import svenhjol.charm.annotation.CharmMixin;
 @CharmMixin(required = true)
 public interface ItemEntityAccessor {
     @Accessor
-    int getItemAge();
+    int getAge();
 }

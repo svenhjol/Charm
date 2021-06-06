@@ -9,6 +9,6 @@ import svenhjol.charm.annotation.CharmMixin;
 @Mixin(SoundManager.class)
 @CharmMixin(required = true)
 public interface SoundManagerAccessor {
-    @Accessor()
-    SoundEngine getSoundSystem();
+    @Accessor
+    SoundEngine getSoundEngine();
 }

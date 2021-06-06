@@ -15,7 +15,7 @@ public class StackableEnchantedBooks extends CharmModule {
 
     @Override
     public void init() {
-        ((ItemAccessor)Items.ENCHANTED_BOOK).setMaxCount(stackSize);
+        ((ItemAccessor)Items.ENCHANTED_BOOK).setMaxStackSize(stackSize);
     }
 
     public static ItemStack getReducedStack(ItemStack stack) {

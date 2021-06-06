@@ -10,6 +10,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
+import svenhjol.charm.mixin.accessor.PoiTypeAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,22 +67,22 @@ public class WorldHelper {
 
     public static void addBlockStatesToPointOfInterest(PoiType poit, List<BlockState> states) {
         // we need to wrap the poit with charm's accessor so that we can get and set blockstates
-        svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor wrappedPoit = (svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor)poit;
+        PoiTypeAccessor wrappedPoit = (PoiTypeAccessor)poit;
 
-        Set<BlockState> existingStates = wrappedPoit.getBlockStates();
+        Set<BlockState> existingStates = wrappedPoit.getMatchingStates();
         if (existingStates instanceof ImmutableSet) {
             List<BlockState> mutable = new ArrayList<>(existingStates);
             mutable.addAll(states);
-            wrappedPoit.setBlockStates(ImmutableSet.copyOf(mutable));
+            wrappedPoit.setMatchingStates(ImmutableSet.copyOf(mutable));
         } else {
             existingStates.addAll(states);
-            wrappedPoit.setBlockStates(existingStates);
+            wrappedPoit.setMatchingStates(existingStates);
         }
 
-        svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor.getRegisteredStates().addAll(states);
+        PoiTypeAccessor.getAllStates().addAll(states);
 
         states.forEach(state -> {
-            svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor.getBlockStateMap().put(state, poit);
+            PoiTypeAccessor.getTypeByState().put(state, poit);
         });
     }
 }

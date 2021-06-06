@@ -143,7 +143,7 @@ public class MineshaftImprovements extends CharmModule {
             return;
 
         // don't add any decoration to mesa mineshafts
-        if (((MineshaftPartAccessor)piece).getMineshaftType() == MineshaftFeature.Type.MESA)
+        if (((MineshaftPartAccessor)piece).getType() == MineshaftFeature.Type.MESA)
             return;
 
         if (piece instanceof MineShaftPieces.MineShaftCorridor) {
@@ -159,16 +159,16 @@ public class MineshaftImprovements extends CharmModule {
                 if (x == 1 && rand.nextFloat() < 0.08F)
                     continue; // rarely, spawn some block in the middle of the corridor
                 for (int z = 0; z < 7; z++) {
-                    boolean validCeiling = ((MineshaftPartAccessor) piece).invokeIsSolidCeiling(world, box, x, x, 2, z);
+                    boolean validCeiling = ((MineshaftPartAccessor) piece).invokeIsSupportingBox(world, box, x, x, 2, z);
                     boolean validFloor = validFloorBlock(piece, world, x, 0, z, box);
 
                     if (!validCeiling)
                         continue;
 
-                    if (validFloor && rand.nextFloat() < floorBlockChance && ((MineshaftCorridorAccessor)piece).invokePositionChecker(world, box, x, 0, z, 2)) {
-                        ((StructurePieceAccessor)piece).callAddBlock(world, getFloorBlock(rand), x, 0, z, box);
-                    } else if (rand.nextFloat() < ceilingBlockChance && ((MineshaftCorridorAccessor)piece).invokePositionChecker(world, box, x, 2, z, 2)) {
-                        ((StructurePieceAccessor)piece).callAddBlock(world, getCeilingBlock(rand), x, 2, z, box);
+                    if (validFloor && rand.nextFloat() < floorBlockChance && ((MineshaftCorridorAccessor)piece).invokeHasSturdyNeighbours(world, box, x, 0, z, 2)) {
+                        ((StructurePieceAccessor)piece).invokePlaceBlock(world, getFloorBlock(rand), x, 0, z, box);
+                    } else if (rand.nextFloat() < ceilingBlockChance && ((MineshaftCorridorAccessor)piece).invokeHasSturdyNeighbours(world, box, x, 2, z, 2)) {
+                        ((StructurePieceAccessor)piece).invokePlaceBlock(world, getCeilingBlock(rand), x, 2, z, box);
                     }
                 }
             }
@@ -186,7 +186,7 @@ public class MineshaftImprovements extends CharmModule {
                         for (int iz = -1; iz <= 1; iz++) {
                             boolean valid = validFloorBlock(piece, world, ix, iy, iz, box);
                             if (valid && rand.nextFloat() < 0.7F)
-                                ((StructurePieceAccessor)piece).callAddBlock(world, rand.nextFloat() < 0.5 ? pair.getFirst() : pair.getSecond(), ix, iy, iz, box);
+                                ((StructurePieceAccessor)piece).invokePlaceBlock(world, rand.nextFloat() < 0.5 ? pair.getFirst() : pair.getSecond(), ix, iy, iz, box);
                         }
                     }
                 }
@@ -194,16 +194,16 @@ public class MineshaftImprovements extends CharmModule {
         }
 
         if (generateMinecarts && rand.nextFloat() < minecartChance) {
-            int y = ((StructurePieceAccessor)piece).callApplyYTransform(0);
-            int x = ((StructurePieceAccessor)piece).callApplyXTransform(1, 0);
-            int z = ((StructurePieceAccessor)piece).callApplyZTransform(1, 0);
+            int y = ((StructurePieceAccessor)piece).invokeGetWorldY(0);
+            int x = ((StructurePieceAccessor)piece).invokeGetWorldX(1, 0);
+            int z = ((StructurePieceAccessor)piece).invokeGetWorldZ(1, 0);
 
             BlockPos cartPos = new BlockPos(x, y, z);
             ResourceLocation loot = minecartLootTables.get(rand.nextInt(minecartLootTables.size()));
 
             if (box.isInside(cartPos) && world.getBlockState(cartPos).isAir() && !world.getBlockState(cartPos.below()).isAir()) {
                 BlockState blockState = Blocks.RAIL.defaultBlockState().setValue(RailBlock.SHAPE, rand.nextBoolean() ? RailShape.NORTH_SOUTH : RailShape.EAST_WEST);
-                ((StructurePieceAccessor)piece).callAddBlock(world, blockState, x, y, z, box);
+                ((StructurePieceAccessor)piece).invokePlaceBlock(world, blockState, x, y, z, box);
 
                 AbstractMinecart minecartEntity;
                 ServerLevel serverWorld = world.getLevel();
@@ -266,9 +266,9 @@ public class MineshaftImprovements extends CharmModule {
 
     private static boolean validFloorBlock(StructurePiece piece, WorldGenLevel world, int x, int y, int z, BoundingBox box) {
         BlockPos blockpos = new BlockPos(
-            ((StructurePieceAccessor)piece).callApplyXTransform(x, z),
-            ((StructurePieceAccessor)piece).callApplyYTransform(y),
-            ((StructurePieceAccessor)piece).callApplyZTransform(x, z)
+            ((StructurePieceAccessor)piece).invokeGetWorldX(x, z),
+            ((StructurePieceAccessor)piece).invokeGetWorldY(y),
+            ((StructurePieceAccessor)piece).invokeGetWorldZ(x, z)
         );
 
         boolean vecInside = box.isInside(blockpos);

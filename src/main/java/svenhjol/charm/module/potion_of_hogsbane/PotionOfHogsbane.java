@@ -3,13 +3,10 @@ package svenhjol.charm.module.potion_of_hogsbane;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Module;
-import svenhjol.charm.module.potion_of_hogsbane.HogsbaneEffect;
-import svenhjol.charm.module.potion_of_hogsbane.HogsbanePotion;
-import svenhjol.charm.module.potion_of_hogsbane.LongHogsbanePotion;
 import svenhjol.charm.potion.CharmPotion;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.mixin.accessor.HoglinBrainAccessor;
+import svenhjol.charm.mixin.accessor.HoglinAiAccessor;
 
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -51,7 +48,7 @@ public class PotionOfHogsbane extends CharmModule {
             List<Hoglin> hoglins = world.getEntitiesOfClass(Hoglin.class, new AABB(pos).inflate(12.0D));
 
             hoglins.forEach(hoglin -> {
-                HoglinBrainAccessor.invokeAvoid(hoglin, player);
+                HoglinAiAccessor.invokeSetAvoidTarget(hoglin, player);
             });
 
             if (hoglins.size() >= 1)

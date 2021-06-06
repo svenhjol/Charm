@@ -11,5 +11,5 @@ import svenhjol.charm.annotation.CharmMixin;
 @CharmMixin(required = true)
 public interface ShulkerBoxBlockEntityAccessor {
     @Accessor
-    NonNullList<ItemStack> getInventory();
+    NonNullList<ItemStack> getItemStacks();
 }

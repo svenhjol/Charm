@@ -9,7 +9,7 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.SetupStructureCallback.VillageType;
 import svenhjol.charm.helper.VillagerHelper;
-import svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor;
+import svenhjol.charm.mixin.accessor.PoiTypeAccessor;
 import svenhjol.charm.module.CharmModule;
 
 import static svenhjol.charm.event.SetupStructureCallback.addVillageHouse;
@@ -28,7 +28,7 @@ public class Beekeepers extends CharmModule {
         BEEKEEPER = VillagerHelper.addProfession(ID, PoiType.BEEHIVE, SoundEvents.BEEHIVE_WORK);
 
         // HACK: set ticketCount so that villager can use it as job site
-        ((PointOfInterestTypeAccessor)PoiType.BEEHIVE).setTicketCount(1);
+        ((PoiTypeAccessor)PoiType.BEEHIVE).setMaxTickets(1);
 
         // register beekeeper trades
         addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.EmeraldsForFlowers());

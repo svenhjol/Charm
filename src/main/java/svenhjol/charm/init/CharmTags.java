@@ -14,10 +14,10 @@ public class CharmTags {
     public static Tag.Named<Item> CRAFTING_TABLES;
 
     public static void init() {
-        BARRELS = BlockTagsAccessor.invokeRegister("charm:barrels");
-        IMMOVABLE_BY_PISTONS = BlockTagsAccessor.invokeRegister("charm:immovable_by_pistons");
-        NETHER_PORTAL_FRAMES = BlockTagsAccessor.invokeRegister("charm:nether_portal_frames");
-        PROVIDE_ENCHANTING_POWER = BlockTagsAccessor.invokeRegister("charm:provide_enchanting_power");
-        CRAFTING_TABLES = ItemTagsAccessor.invokeRegister("charm:crafting_tables");
+        BARRELS = BlockTagsAccessor.invokeBind("charm:barrels");
+        IMMOVABLE_BY_PISTONS = BlockTagsAccessor.invokeBind("charm:immovable_by_pistons");
+        NETHER_PORTAL_FRAMES = BlockTagsAccessor.invokeBind("charm:nether_portal_frames");
+        PROVIDE_ENCHANTING_POWER = BlockTagsAccessor.invokeBind("charm:provide_enchanting_power");
+        CRAFTING_TABLES = ItemTagsAccessor.invokeBind("charm:crafting_tables");
     }
 }

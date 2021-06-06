@@ -8,11 +8,6 @@ import svenhjol.charm.annotation.CharmMixin;
 @Mixin(Block.class)
 @CharmMixin(required = true)
 public interface BlockAccessor {
-    /**
-     * Used by OverrideHandler to change translation key of a registered Block.
-     *
-     * {@link svenhjol.charm.helper.OverrideHandler#changeBlockTranslationKey(Block, String)}
-     */
     @Accessor()
-    void setTranslationKey(String key);
+    void setDescriptionId(String key);
 }

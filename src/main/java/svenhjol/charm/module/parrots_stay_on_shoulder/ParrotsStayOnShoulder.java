@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.PlayerTickCallback;
-import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
+import svenhjol.charm.mixin.accessor.PlayerAccessor;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Module;
 
@@ -31,12 +31,12 @@ public class ParrotsStayOnShoulder extends CharmModule {
         ) {
             final ServerPlayer serverPlayer = (ServerPlayer)player;
             if (!serverPlayer.getShoulderEntityLeft().isEmpty()) {
-                ((PlayerEntityAccessor)serverPlayer).invokeDropShoulderEntity(serverPlayer.getShoulderEntityLeft());
-                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityLeft(new CompoundTag());
+                ((PlayerAccessor)serverPlayer).invokeRespawnEntityOnShoulder(serverPlayer.getShoulderEntityLeft());
+                ((PlayerAccessor)serverPlayer).invokeSetShoulderEntityLeft(new CompoundTag());
             }
             if (!serverPlayer.getShoulderEntityRight().isEmpty()) {
-                ((PlayerEntityAccessor)serverPlayer).invokeDropShoulderEntity(serverPlayer.getShoulderEntityRight());
-                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityRight(new CompoundTag());
+                ((PlayerAccessor)serverPlayer).invokeRespawnEntityOnShoulder(serverPlayer.getShoulderEntityRight());
+                ((PlayerAccessor)serverPlayer).invokeSetShoulderEntityRight(new CompoundTag());
             }
         }
     }

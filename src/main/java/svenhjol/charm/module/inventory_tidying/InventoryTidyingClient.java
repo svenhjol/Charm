@@ -16,7 +16,7 @@ import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
-import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
+import svenhjol.charm.mixin.accessor.PlayerAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
@@ -105,7 +105,7 @@ public class InventoryTidyingClient extends CharmClientModule {
                 this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(BE));
             }
 
-            if (slot.container == ((PlayerEntityAccessor)client.player).getInventory()) {
+            if (slot.container == ((PlayerAccessor)client.player).getInventory()) {
                 this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(PLAYER));
                 break;
             }
