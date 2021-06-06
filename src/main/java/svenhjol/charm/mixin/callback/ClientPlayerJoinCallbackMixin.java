@@ -1,14 +1,14 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.ClientPlayerJoinCallback;
 
-@Mixin(MinecraftClient.class)
+@Mixin(Minecraft.class)
 public class ClientPlayerJoinCallbackMixin {
 
     /**
@@ -22,8 +22,8 @@ public class ClientPlayerJoinCallbackMixin {
         method = "joinWorld",
         at = @At("RETURN")
     )
-    private void hookJoinWorld(ClientWorld world, CallbackInfo ci) {
-        ClientPlayerJoinCallback.EVENT.invoker().interact((MinecraftClient)(Object)this);
+    private void hookJoinWorld(ClientLevel world, CallbackInfo ci) {
+        ClientPlayerJoinCallback.EVENT.invoker().interact((Minecraft)(Object)this);
     }
 }
 

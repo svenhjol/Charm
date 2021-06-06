@@ -2,20 +2,20 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
 
 public interface EntityHurtCallback {
     Event<EntityHurtCallback> EVENT = EventFactory.createArrayBacked(EntityHurtCallback.class, (listeners) -> (entity, source, amount) -> {
         for (EntityHurtCallback listener : listeners) {
-            ActionResult result = listener.interact(entity, source, amount);
-            if (result != ActionResult.PASS)
+            InteractionResult result = listener.interact(entity, source, amount);
+            if (result != InteractionResult.PASS)
                 return result;
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     });
 
-    ActionResult interact(LivingEntity entity, DamageSource source, float amount);
+    InteractionResult interact(LivingEntity entity, DamageSource source, float amount);
 }

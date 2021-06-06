@@ -2,24 +2,24 @@ package svenhjol.charm.module.hoe_harvesting;
 
 import com.mojang.brigadier.StringReader;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.command.argument.BlockArgumentParser;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.commands.arguments.blocks.BlockStateParser;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Module;
@@ -30,7 +30,7 @@ import java.util.List;
 
 @Module(mod = Charm.MOD_ID, description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.")
 public class HoeHarvesting extends CharmModule {
-    public static final Identifier TRIGGER_REPLANTED_CROPS = new Identifier(Charm.MOD_ID, "replanted_crops");
+    public static final ResourceLocation TRIGGER_REPLANTED_CROPS = new ResourceLocation(Charm.MOD_ID, "replanted_crops");
 
     private static final List<BlockState> harvestable = new ArrayList<>();
 
@@ -45,10 +45,10 @@ public class HoeHarvesting extends CharmModule {
         UseBlockCallback.EVENT.register(this::tryHarvest);
     }
 
-    public ActionResult tryHarvest(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
+    public InteractionResult tryHarvest(Player player, Level world, InteractionHand hand, BlockHitResult hitResult) {
         // event is broken in fabric? hand is always mainhand
-        ItemStack mainhand = player.getMainHandStack();
-        ItemStack offhand = player.getOffHandStack();
+        ItemStack mainhand = player.getMainHandItem();
+        ItemStack offhand = player.getOffhandItem();
         ItemStack held;
 
         if (mainhand.getItem() instanceof HoeItem) {
@@ -65,59 +65,59 @@ public class HoeHarvesting extends CharmModule {
             Block block = state.getBlock();
 
             if (!harvestable.contains(state))
-                return ActionResult.PASS;
+                return InteractionResult.PASS;
 
             Item blockItem = block.asItem();
-            BlockState newState = block.getDefaultState();
+            BlockState newState = block.defaultBlockState();
 
-            if (!world.isClient) {
-                ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
-                ServerWorld serverWorld = (ServerWorld)serverPlayer.world;
+            if (!world.isClientSide) {
+                ServerPlayer serverPlayer = (ServerPlayer)player;
+                ServerLevel serverWorld = (ServerLevel)serverPlayer.level;
 
-                List<ItemStack> drops = Block.getDroppedStacks(state, serverWorld, pos, null, player, ItemStack.EMPTY);
+                List<ItemStack> drops = Block.getDrops(state, serverWorld, pos, null, player, ItemStack.EMPTY);
                 for (ItemStack drop : drops) {
                     if (drop.getItem() == blockItem)
-                        drop.decrement(1);
+                        drop.shrink(1);
 
                     if (!drop.isEmpty())
-                        Block.dropStack(world, pos, drop);
+                        Block.popResource(world, pos, drop);
                 }
 
-                world.syncGlobalEvent(2001, pos, Block.getRawIdFromState(newState));
-                world.setBlockState(pos, newState);
-                world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.globalLevelEvent(2001, pos, Block.getId(newState));
+                world.setBlockAndUpdate(pos, newState);
+                world.playSound(null, pos, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 
                 triggerReplantedCrops(serverPlayer);
 
                 // damage the hoe a bit
-                held.damage(1, player, p -> p.swingHand(hand));
+                held.hurtAndBreak(1, player, p -> p.swing(hand));
 
-                return ActionResult.CONSUME;
+                return InteractionResult.CONSUME;
             }
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
     public static void addHarvestable(String blockState) {
         BlockState state;
 
         try {
-            BlockArgumentParser parser = new BlockArgumentParser(new StringReader(blockState), false).parse(false);
-            state = parser.getBlockState();
+            BlockStateParser parser = new BlockStateParser(new StringReader(blockState), false).parse(false);
+            state = parser.getState();
         } catch (Exception e) {
             state = null;
         }
 
         if (state == null)
-            state = Blocks.AIR.getDefaultState();
+            state = Blocks.AIR.defaultBlockState();
 
         harvestable.add(state);
     }
 
-    public static void triggerReplantedCrops(ServerPlayerEntity player) {
+    public static void triggerReplantedCrops(ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_REPLANTED_CROPS);
     }
 }

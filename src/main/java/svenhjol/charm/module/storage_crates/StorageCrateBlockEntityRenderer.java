@@ -2,28 +2,28 @@ package svenhjol.charm.module.storage_crates;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3f;
-import net.minecraft.world.World;
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.module.storage_crates.StorageCrateBlock;
+import svenhjol.charm.module.storage_crates.StorageCrateBlockEntity;
+import svenhjol.charm.module.storage_crates.StorageCrates;
 import svenhjol.charm.module.storage_labels.StorageLabels;
 import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 
@@ -32,19 +32,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static net.minecraft.util.math.Direction.DOWN;
+import static net.minecraft.core.Direction.DOWN;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> implements BlockEntityRenderer<T> {
     private static final int PER_ROW = 6;
 
-    protected World world;
+    protected Level world;
     protected ItemStack stack;
     protected ItemRenderer itemRenderer;
-    protected TextRenderer textRenderer;
-    protected BlockEntityRendererFactory.Context context;
+    protected Font textRenderer;
+    protected BlockEntityRendererProvider.Context context;
 
-    public StorageCrateBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+    public StorageCrateBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         this.context = context;
     }
 
@@ -54,46 +58,46 @@ public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> 
     }
 
     @Override
-    public void render(T crate, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        MinecraftClient client = MinecraftClient.getInstance();
+    public void render(T crate, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+        Minecraft client = Minecraft.getInstance();
 
         if (!StorageCrates.showLabel)
             return;
 
-        world = crate.getWorld();
+        world = crate.getLevel();
         if (world == null)
             return;
 
-        PlayerEntity player = client.player;
+        Player player = client.player;
         int count = Math.min(Math.max(1, crate.filledStacks()), PER_ROW * 3);
 
         stack = crate.getItemType();
         if (stack == null || stack.isEmpty())
             return;
 
-        boolean fabulous = MinecraftClient.isFabulousGraphicsOrBetter();
+        boolean fabulous = Minecraft.useShaderTransparency();
         int distCutoffRender = fabulous ? 768 : 256;
         int distFullRender = fabulous ? 96 : 32;
 
         itemRenderer = client.getItemRenderer();
-        textRenderer = client.textRenderer;
+        textRenderer = client.font;
 
-        BlockPos pos = crate.getPos();
+        BlockPos pos = crate.getBlockPos();
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
 
         BlockState state = world.getBlockState(pos);
-        if (!(state.getBlock() instanceof StorageCrateBlock))
+        if (!(state.getBlock() instanceof svenhjol.charm.module.storage_crates.StorageCrateBlock))
             return;
 
-        boolean isSolidBlock = stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock().getDefaultState().isSolidBlock(world, BlockPos.ORIGIN);
-        Direction facing = state.get(StorageCrateBlock.FACING);
+        boolean isSolidBlock = stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock().defaultBlockState().isRedstoneConductor(world, BlockPos.ZERO);
+        Direction facing = state.getValue(StorageCrateBlock.FACING);
 
-        BlockEntityRenderDispatcher dispatcher = this.context.getRenderDispatcher();
+        BlockEntityRenderDispatcher dispatcher = this.context.getBlockEntityRenderDispatcher();
         Camera camera = dispatcher.camera;
 
-        double distance = camera.getPos().squaredDistanceTo(x, y, z);
+        double distance = camera.getPosition().distanceToSqr(x, y, z);
         if (distance > distCutoffRender)
             return;
 
@@ -171,7 +175,7 @@ public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> 
                             zo = coords[i] * scaleMultiplier;
                             yo = (i * overlap) + depth;
                             if (!isSolidBlock)
-                                rotation = Vec3f.POSITIVE_X.getDegreesQuaternion(90);
+                                rotation = Vector3f.XP.rotationDegrees(90);
 
                             if (facing == DOWN)
                                 yo = 2.2D - yo;
@@ -190,13 +194,13 @@ public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> 
                                     yo = 0.01D + coords[i] * scaleMultiplier;
                                     xo = (i * overlap) + depth;
                                     if (!isSolidBlock)
-                                        rotation = Vec3f.POSITIVE_Y.getDegreesQuaternion(90);
+                                        rotation = Vector3f.YP.rotationDegrees(90);
                                     break;
                                 case WEST:
                                     yo = 0.01D + coords[i] * scaleMultiplier;
                                     xo = 2.2D - (i * overlap) - depth;
                                     if (!isSolidBlock)
-                                        rotation = Vec3f.POSITIVE_Y.getDegreesQuaternion(90);
+                                        rotation = Vector3f.YP.rotationDegrees(90);
                                     break;
                             }
                         }
@@ -210,27 +214,27 @@ public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> 
         }
 
         if (distance < StorageLabels.viewDistance && player != null && !crate.isEmpty()) {
-            List<Text> text = new ArrayList<>();
-            text.add(new TranslatableText(crate.getItemType().getTranslationKey()));
+            List<Component> text = new ArrayList<>();
+            text.add(new TranslatableComponent(crate.getItemType().getDescriptionId()));
 
             if (crate.getTotalNumberOfItems() > 0)
-                text.add(new TranslatableText("gui.charm.storage_crate_capacity", String.valueOf(crate.getTotalNumberOfItems())));
+                text.add(new TranslatableComponent("gui.charm.storage_crate_capacity", String.valueOf(crate.getTotalNumberOfItems())));
 
             StorageLabelsClient.renderLabel(matrices, vertexConsumers, player, camera, text);
         }
     }
 
-    private void renderItemStack(MatrixStack matrices, VertexConsumerProvider vertexConsumers, @Nullable Quaternion rotation, double x, double y, double z, float scale, int light) {
-        matrices.push();
+    private void renderItemStack(PoseStack matrices, MultiBufferSource vertexConsumers, @Nullable Quaternion rotation, double x, double y, double z, float scale, int light) {
+        matrices.pushPose();
         matrices.scale(scale, scale, scale);
 
         matrices.translate(x, y, z);
 
         if (rotation != null)
-            matrices.multiply(rotation);
+            matrices.mulPose(rotation);
 
-        itemRenderer.renderItem(stack, ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, stack.hashCode());
-        matrices.pop();
+        itemRenderer.renderStatic(stack, ItemTransforms.TransformType.FIXED, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, stack.hashCode());
+        matrices.popPose();
     }
 }
 

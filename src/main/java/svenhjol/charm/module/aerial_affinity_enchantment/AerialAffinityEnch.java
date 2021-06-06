@@ -1,27 +1,27 @@
 package svenhjol.charm.module.aerial_affinity_enchantment;
 
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
 import svenhjol.charm.module.CharmModule;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import svenhjol.charm.enchantment.CharmEnchantment;
 
 public class AerialAffinityEnch extends CharmEnchantment {
     public AerialAffinityEnch(CharmModule module) {
-        super(module, "aerial_affinity", Rarity.RARE, EnchantmentTarget.ARMOR_FEET, new EquipmentSlot[] { EquipmentSlot.FEET });
+        super(module, "aerial_affinity", Rarity.RARE, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[] { EquipmentSlot.FEET });
     }
 
     @Override
-    public int getMinPower(int level) {
+    public int getMinCost(int level) {
         return 1;
     }
 
     @Override
-    public int getMaxPower(int enchantmentLevel) {
-        return this.getMinPower(enchantmentLevel) + 40;
+    public int getMaxCost(int enchantmentLevel) {
+        return this.getMinCost(enchantmentLevel) + 40;
     }
 
     @Override
-    public boolean isTreasure() {
+    public boolean isTreasureOnly() {
         return false;
     }
 }

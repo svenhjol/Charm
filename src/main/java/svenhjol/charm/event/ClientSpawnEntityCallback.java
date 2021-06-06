@@ -2,10 +2,10 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 
 /**
  * Lets entities be created on the client when spawned on the server.
@@ -17,21 +17,21 @@ public interface ClientSpawnEntityCallback {
         }
     });
 
-    void interact(EntitySpawnS2CPacket packet, EntityType<?> entityType, ClientWorld world, double x, double y, double z);
+    void interact(ClientboundAddEntityPacket packet, EntityType<?> entityType, ClientLevel world, double x, double y, double z);
 
-    static void addEntity(EntitySpawnS2CPacket packet, ClientWorld world, Entity entity) {
+    static void addEntity(ClientboundAddEntityPacket packet, ClientLevel world, Entity entity) {
         int id = packet.getId();
 
         double x = packet.getX();
         double y = packet.getY();
         double z = packet.getZ();
 
-        entity.updateTrackedPosition(x, y, z);
-        entity.refreshPositionAfterTeleport(x, y, z);
-        entity.setPitch((float)(packet.getPitch() * 360) / 256.0F);
-        entity.setYaw((float)(packet.getYaw() * 360) / 256.0F);
-        entity.setEntityId(id);
-        entity.setUuid(packet.getUuid());
-        world.addEntity(id, entity);
+        entity.setPacketCoordinates(x, y, z);
+        entity.moveTo(x, y, z);
+        entity.setXRot((float)(packet.getxRot() * 360) / 256.0F);
+        entity.setYRot((float)(packet.getyRot() * 360) / 256.0F);
+        entity.setId(id);
+        entity.setUUID(packet.getUUID());
+        world.putNonPlayerEntity(id, entity);
     }
 }

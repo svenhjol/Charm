@@ -1,13 +1,13 @@
 package svenhjol.charm.mixin.storage_labels;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.util.math.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -31,10 +31,10 @@ public class CallStorageLabelsRenderMixin {
         at = @At("TAIL"),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private static <T extends BlockEntity> void hookExtraRender(BlockEntityRenderer<T> renderer, T blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, CallbackInfo ci, int j) {
+    private static <T extends BlockEntity> void hookExtraRender(BlockEntityRenderer<T> renderer, T blockEntity, float tickDelta, PoseStack matrices, MultiBufferSource vertexConsumers, CallbackInfo ci, int j) {
         if (blockEntity instanceof ChestBlockEntity) {
-            BlockEntityRendererFactory.Context context = StorageLabelsClient.chestBlockEntityContext.get();
-            LootableContainerBlockEntityRenderer.render(context.getRenderDispatcher(), blockEntity, tickDelta, matrices, vertexConsumers, j, OverlayTexture.DEFAULT_UV);
+            BlockEntityRendererProvider.Context context = StorageLabelsClient.chestBlockEntityContext.get();
+            LootableContainerBlockEntityRenderer.render(context.getBlockEntityRenderDispatcher(), blockEntity, tickDelta, matrices, vertexConsumers, j, OverlayTexture.NO_OVERLAY);
         }
     }
 }

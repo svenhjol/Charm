@@ -2,7 +2,7 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 public interface PlayerTickCallback {
     Event<PlayerTickCallback> EVENT = EventFactory.createArrayBacked(PlayerTickCallback.class, (listeners) -> (player) -> {
@@ -11,5 +11,5 @@ public interface PlayerTickCallback {
         }
     });
 
-    void interact(PlayerEntity player);
+    void interact(Player player);
 }

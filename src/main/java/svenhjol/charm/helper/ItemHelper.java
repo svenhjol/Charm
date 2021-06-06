@@ -1,13 +1,13 @@
 package svenhjol.charm.helper;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import svenhjol.charm.mixin.accessor.ItemEntityAccessor;
 
 import java.util.*;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 
 public class ItemHelper {
     public static Map<Item, Integer> ITEM_LIFETIME = new HashMap<>();
@@ -22,7 +22,7 @@ public class ItemHelper {
     );
 
     public static Class<? extends Block> getBlockClass(ItemStack stack) {
-        return Block.getBlockFromItem(stack.getItem()).getClass();
+        return Block.byItem(stack.getItem()).getClass();
     }
 
     public static int getAmountWithLooting(Random rand, int maxDrops, int lootingLevel, float lootingBoost) {
@@ -34,7 +34,7 @@ public class ItemHelper {
     }
 
     public static boolean shouldItemDespawn(ItemEntity itemEntity) {
-        Item item = itemEntity.getStack().getItem();
+        Item item = itemEntity.getItem().getItem();
         if (ItemHelper.ITEM_LIFETIME.containsKey(item)) {
             if (((ItemEntityAccessor)itemEntity).getItemAge() < ItemHelper.ITEM_LIFETIME.get(item))
                 return false;

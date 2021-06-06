@@ -1,20 +1,21 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.mixin.callback.AddEntityCallbackManagerMixin;
 
 /**
  * Be aware that this event is also fired on the server side
  * by the {@link AddEntityCallbackManagerMixin}.
  */
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public class AddEntityCallbackServerMixin {
 
     /**
@@ -40,7 +41,7 @@ public class AddEntityCallbackServerMixin {
         method = "addPlayer",
         at = @At("HEAD")
     )
-    private void hookAddPlayer(ServerPlayerEntity player, CallbackInfo ci) {
+    private void hookAddPlayer(ServerPlayer player, CallbackInfo ci) {
         AddEntityCallback.EVENT.invoker().interact(player);
     }
 }

@@ -1,16 +1,16 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(FeatureRenderer.class)
+@Mixin(RenderLayer.class)
 @CharmMixin(required = true)
 public interface FeatureRendererAccessor<T extends Entity, M extends EntityModel<T>> {
     @Accessor
-    void setContext(FeatureRendererContext<T, M> renderer);
+    void setContext(RenderLayerParent<T, M> renderer);
 }

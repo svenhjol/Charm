@@ -1,32 +1,32 @@
 package svenhjol.charm.module.copper_rails;
 
-import net.minecraft.block.Material;
-import net.minecraft.block.RailBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.collection.DefaultedList;
 import svenhjol.charm.module.CharmModule;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.RailBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
 import svenhjol.charm.block.ICharmBlock;
 
 public class CopperRailBlock extends RailBlock implements ICharmBlock {
     private final CharmModule module;
 
     public CopperRailBlock(CharmModule module) {
-        super(Settings.of(Material.DECORATION).noCollision().strength(0.7F).sounds(BlockSoundGroup.METAL));
+        super(Properties.of(Material.DECORATION).noCollission().strength(0.7F).sound(SoundType.METAL));
         this.module = module;
         this.register(module, "copper_rail");
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.TRANSPORTATION;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_TRANSPORTATION;
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

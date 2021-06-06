@@ -1,58 +1,59 @@
 package svenhjol.charm.module.endermite_powder;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import svenhjol.charm.module.endermite_powder.EndermitePowder;
 
 @SuppressWarnings("EntityConstructor")
 public class EndermitePowderEntity extends Entity {
     public int ticks = 0;
 
-    private static final TrackedData<Integer> TARGET_X = DataTracker.registerData(EndermitePowderEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Integer> TARGET_Z = DataTracker.registerData(EndermitePowderEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final EntityDataAccessor<Integer> TARGET_X = SynchedEntityData.defineId(EndermitePowderEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> TARGET_Z = SynchedEntityData.defineId(EndermitePowderEntity.class, EntityDataSerializers.INT);
     private static final String TARGET_X_NBT = "targetX";
     private static final String TARGET_Z_NBT = "targetZ";
 
-    public EndermitePowderEntity(EntityType<? extends EndermitePowderEntity> type, World world) {
+    public EndermitePowderEntity(EntityType<? extends EndermitePowderEntity> type, Level world) {
         super(type, world);
     }
 
-    public EndermitePowderEntity(World world, int x, int z) {
+    public EndermitePowderEntity(Level world, int x, int z) {
         this(EndermitePowder.ENTITY, world);
-        dataTracker.set(TARGET_X, x);
-        dataTracker.set(TARGET_Z, z);
+        entityData.set(TARGET_X, x);
+        entityData.set(TARGET_Z, z);
     }
 
     @Override
-    protected void initDataTracker() {
-        dataTracker.startTracking(TARGET_X, 0);
-        dataTracker.startTracking(TARGET_Z, 0);
+    protected void defineSynchedData() {
+        entityData.define(TARGET_X, 0);
+        entityData.define(TARGET_Z, 0);
     }
 
     @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
-        dataTracker.set(TARGET_X, nbt.getInt(TARGET_X_NBT));
-        dataTracker.set(TARGET_Z, nbt.getInt(TARGET_Z_NBT));
+    protected void readAdditionalSaveData(CompoundTag nbt) {
+        entityData.set(TARGET_X, nbt.getInt(TARGET_X_NBT));
+        entityData.set(TARGET_Z, nbt.getInt(TARGET_Z_NBT));
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.putInt(TARGET_X_NBT, dataTracker.get(TARGET_X));
-        nbt.putInt(TARGET_Z_NBT, dataTracker.get(TARGET_Z));
+    protected void addAdditionalSaveData(CompoundTag nbt) {
+        nbt.putInt(TARGET_X_NBT, entityData.get(TARGET_X));
+        nbt.putInt(TARGET_Z_NBT, entityData.get(TARGET_Z));
     }
 
     @Override
-    public Packet<?> createSpawnPacket() {
-        return new EntitySpawnS2CPacket(this);
+    public Packet<?> getAddEntityPacket() {
+        return new ClientboundAddEntityPacket(this);
     }
 
     @Override
@@ -64,23 +65,23 @@ public class EndermitePowderEntity extends Entity {
         double rise = 0.03;
         int maxLiveTime = 1000;
         int particles = 18;
-        int x = getBlockPos().getX();
-        int y = getBlockPos().getY();
-        int z = getBlockPos().getZ();
+        int x = blockPosition().getX();
+        int y = blockPosition().getY();
+        int z = blockPosition().getZ();
 
-        Vec3d vec = new Vec3d((double) dataTracker.get(TARGET_X), y, (double) dataTracker.get(TARGET_Z))
-            .subtract(x, y, z).normalize().multiply(scale);
+        Vec3 vec = new Vec3((double) entityData.get(TARGET_X), y, (double) entityData.get(TARGET_Z))
+            .subtract(x, y, z).normalize().scale(scale);
 
         double bpx = x + vec.x * ticks;
         double bpy = y + vec.y * ticks + ticks * rise;
         double bpz = z + vec.z * ticks;
 
-        if (!world.isClient) {
+        if (!level.isClientSide) {
             for (int i = 0; i < particles; i++) {
                 double px = bpx + (Math.random() - 0.5) * posSpread;
                 double py = bpy + (Math.random() - 0.5) * posSpread;
                 double pz = bpz + (Math.random() - 0.5) * posSpread;
-                ((ServerWorld) world).spawnParticles(ParticleTypes.PORTAL, px, py, pz, 1, 0.2D, 0.12D, 0.1D, 0.06D);
+                ((ServerLevel) level).sendParticles(ParticleTypes.PORTAL, px, py, pz, 1, 0.2D, 0.12D, 0.1D, 0.06D);
             }
         }
 

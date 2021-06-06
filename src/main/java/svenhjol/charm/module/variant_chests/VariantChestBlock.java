@@ -1,22 +1,26 @@
 package svenhjol.charm.module.variant_chests;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.helper.ModHelper;
 
 import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.module.variant_chests.IVariantChestBlock;
+import svenhjol.charm.module.variant_chests.VariantChestBlockEntity;
+import svenhjol.charm.module.variant_chests.VariantChests;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
@@ -27,28 +31,28 @@ public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVaria
     private final List<String> loadedMods;
 
     public VariantChestBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
-        this(module, type, Settings.copy(Blocks.CHEST), () -> VariantChests.NORMAL_BLOCK_ENTITY, loadedMods);
+        this(module, type, Properties.copy(Blocks.CHEST), () -> VariantChests.NORMAL_BLOCK_ENTITY, loadedMods);
     }
 
-    public VariantChestBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
+    public VariantChestBlock(CharmModule module, IVariantMaterial type, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
         super(settings, supplier);
 
         this.module = module;
         this.type = type;
         this.loadedMods = Arrays.asList(loadedMods);
 
-        this.register(module, type.asString() + "_chest");
+        this.register(module, type.getSerializedName() + "_chest");
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.DECORATIONS;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_DECORATIONS;
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override
@@ -58,7 +62,7 @@ public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVaria
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new VariantChestBlockEntity(pos, state);
     }
 

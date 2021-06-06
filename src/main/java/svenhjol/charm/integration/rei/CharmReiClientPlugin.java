@@ -8,6 +8,11 @@ import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import svenhjol.charm.integration.rei.CharmReiCategories;
+import svenhjol.charm.integration.rei.FiringCategory;
+import svenhjol.charm.integration.rei.FiringDisplay;
+import svenhjol.charm.integration.rei.WoodcuttingCategory;
+import svenhjol.charm.integration.rei.WoodcuttingDisplay;
 import svenhjol.charm.module.kilns.FiringRecipe;
 import svenhjol.charm.module.kilns.KilnScreen;
 import svenhjol.charm.module.kilns.Kilns;
@@ -27,11 +32,11 @@ public class CharmReiClientPlugin implements REIClientPlugin {
     public void registerCategories(CategoryRegistry registry) {
         registry.add(
             new WoodcuttingCategory(),
-            new FiringCategory(CharmReiCategories.FIRING, EntryStacks.of(Kilns.KILN), "rei.charm.category.firing")
+            new FiringCategory(svenhjol.charm.integration.rei.CharmReiCategories.FIRING, EntryStacks.of(Kilns.KILN), "rei.charm.category.firing")
         );
 
-        registry.addWorkstations(CharmReiCategories.WOODCUTTING, EntryStacks.of(Woodcutters.WOODCUTTER));
-        registry.addWorkstations(CharmReiCategories.FIRING, EntryStacks.of(Kilns.KILN));
+        registry.addWorkstations(svenhjol.charm.integration.rei.CharmReiCategories.WOODCUTTING, EntryStacks.of(Woodcutters.WOODCUTTER));
+        registry.addWorkstations(svenhjol.charm.integration.rei.CharmReiCategories.FIRING, EntryStacks.of(Kilns.KILN));
     }
 
     @Override

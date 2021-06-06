@@ -1,27 +1,30 @@
 package svenhjol.charm.module.bookcases;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.module.bookcases.BookcaseBlockEntity;
+import svenhjol.charm.module.bookcases.BookcaseSlot;
+import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.screen.CharmScreenHandler;
 
 public class BookcaseScreenHandler extends CharmScreenHandler {
-    public BookcaseScreenHandler(int syncId, PlayerInventory player) {
-        this(syncId, player, new SimpleInventory(BookcaseBlockEntity.SIZE));
+    public BookcaseScreenHandler(int syncId, Inventory player) {
+        this(syncId, player, new SimpleContainer(svenhjol.charm.module.bookcases.BookcaseBlockEntity.SIZE));
     }
 
-    public BookcaseScreenHandler(int syncId, PlayerInventory player, Inventory inventory) {
-        super(Bookcases.SCREEN_HANDLER, syncId, player, inventory);
+    public BookcaseScreenHandler(int syncId, Inventory player, Container inventory) {
+        super(svenhjol.charm.module.bookcases.Bookcases.SCREEN_HANDLER, syncId, player, inventory);
         int index = 0;
 
         // container's inventory slots
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new BookcaseSlot(inventory, index++, 8 + (i * 18), 18));
+            this.addSlot(new svenhjol.charm.module.bookcases.BookcaseSlot(inventory, index++, 8 + (i * 18), 18));
         }
 
         for (int i = 0; i < 9; ++i) {
@@ -44,12 +47,12 @@ public class BookcaseScreenHandler extends CharmScreenHandler {
     }
 
     @Override
-    public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
+    public void clicked(int slotIndex, int button, ClickType actionType, Player player) {
         if (slotIndex > 0 && slotIndex < BookcaseBlockEntity.SIZE) {
-            ItemStack stack = this.getCursorStack();
-            if (!player.world.isClient && Bookcases.canContainItem(stack))
-                Bookcases.triggerAddedBookToBookcase((ServerPlayerEntity) player);
+            ItemStack stack = this.getCarried();
+            if (!player.level.isClientSide && svenhjol.charm.module.bookcases.Bookcases.canContainItem(stack))
+                Bookcases.triggerAddedBookToBookcase((ServerPlayer) player);
         }
-        super.onSlotClick(slotIndex, button, actionType, player);
+        super.clicked(slotIndex, button, actionType, player);
     }
 }

@@ -1,42 +1,43 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
-import net.minecraft.block.SignBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.SignType;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StandingSignBlock;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
-public abstract class CharmSignBlock extends SignBlock implements ICharmBlock {
+public abstract class CharmSignBlock extends StandingSignBlock implements ICharmBlock {
     private final CharmModule module;
 
-    public CharmSignBlock(CharmModule module, String name, SignType signType, Settings settings) {
+    public CharmSignBlock(CharmModule module, String name, WoodType signType, Properties settings) {
         super(settings, signType);
 
         this.register(module, name);
         this.module = module;
     }
 
-    public CharmSignBlock(CharmModule module, String name, SignType signType, MapColor color) {
-        this(module, name, signType, Settings.of(Material.WOOD, color)
-            .noCollision()
+    public CharmSignBlock(CharmModule module, String name, WoodType signType, MaterialColor color) {
+        this(module, name, signType, Properties.of(Material.WOOD, color)
+            .noCollission()
             .strength(1.0F)
-            .sounds(BlockSoundGroup.WOOD));
+            .sound(SoundType.WOOD));
     }
 
     @Override
-    public void createBlockItem(Identifier id) {
+    public void createBlockItem(ResourceLocation id) {
         // register sign item manually
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

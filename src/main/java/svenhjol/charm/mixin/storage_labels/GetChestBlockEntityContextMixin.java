@@ -1,14 +1,14 @@
 package svenhjol.charm.mixin.storage_labels;
 
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.ChestRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 
-@Mixin(ChestBlockEntityRenderer.class)
+@Mixin(ChestRenderer.class)
 public abstract class GetChestBlockEntityContextMixin {
 
     /**
@@ -21,7 +21,7 @@ public abstract class GetChestBlockEntityContextMixin {
         method = "<init>",
         at = @At("TAIL")
     )
-    private void hookInit(BlockEntityRendererFactory.Context ctx, CallbackInfo ci) {
+    private void hookInit(BlockEntityRendererProvider.Context ctx, CallbackInfo ci) {
         StorageLabelsClient.chestBlockEntityContext.set(ctx);
     }
 }

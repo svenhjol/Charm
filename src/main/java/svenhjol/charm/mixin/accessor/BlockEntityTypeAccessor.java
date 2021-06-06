@@ -1,12 +1,12 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.Set;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 @Mixin(BlockEntityType.class)
 @CharmMixin(required = true)

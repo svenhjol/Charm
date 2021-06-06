@@ -1,24 +1,29 @@
 package svenhjol.charm.module.cooking_pots;
 
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.item.CharmItem;
@@ -32,57 +37,57 @@ public class MixedStewItem extends CharmItem {
     public static final String SATURATION_NBT = "Saturation";
 
     public MixedStewItem(CharmModule module) {
-        super(module, "mixed_stew", (new Item.Settings())
-            .maxCount(64)
-            .group(ItemGroup.FOOD));
+        super(module, "mixed_stew", (new Item.Properties())
+            .stacksTo(64)
+            .tab(CreativeModeTab.TAB_FOOD));
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack held = user.getStackInHand(hand);
-        if (user.canConsume(false)) {
-            user.setCurrentHand(hand);
-            return TypedActionResult.consume(held);
+    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+        ItemStack held = user.getItemInHand(hand);
+        if (user.canEat(false)) {
+            user.startUsingItem(hand);
+            return InteractionResultHolder.consume(held);
         }
-        return TypedActionResult.pass(held);
+        return InteractionResultHolder.pass(held);
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.EAT;
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.EAT;
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack) {
+    public int getUseDuration(ItemStack stack) {
         return 32; // vanilla non-snack ticks
     }
 
     @Override
-    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        world.emitGameEvent(user, GameEvent.EAT, user.getCameraBlockPos());
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), user.getEatSound(stack), SoundCategory.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
+        world.gameEvent(user, GameEvent.EAT, user.eyeBlockPosition());
+        world.playSound(null, user.getX(), user.getY(), user.getZ(), user.getEatingSound(stack), SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
 
-        if (user instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) user;
-            player.getHungerManager().add((int)getHunger(stack), getSaturation(stack));
-            player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
+        if (user instanceof Player) {
+            Player player = (Player) user;
+            player.getFoodData().eat((int)getHunger(stack), getSaturation(stack));
+            player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 
-            if (!world.isClient) {
-                Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity)player, stack);
+            if (!world.isClientSide) {
+                CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, stack);
             }
 
-            stack.decrement(1);
-            player.giveItemStack(new ItemStack(Items.BOWL));
+            stack.shrink(1);
+            player.addItem(new ItemStack(Items.BOWL));
 
-            user.emitGameEvent(GameEvent.EAT);
+            user.gameEvent(GameEvent.EAT);
         }
 
         return stack;
     }
 
-    public static List<Identifier> getContents(ItemStack stack) {
-        NbtList list = stack.getOrCreateTag().getList(CONTENTS_NBT, 8);
-        return list.stream().map(NbtElement::asString).map(Identifier::new).collect(Collectors.toList());
+    public static List<ResourceLocation> getContents(ItemStack stack) {
+        ListTag list = stack.getOrCreateTag().getList(CONTENTS_NBT, 8);
+        return list.stream().map(Tag::getAsString).map(ResourceLocation::new).collect(Collectors.toList());
     }
 
     public static float getHunger(ItemStack stack) {
@@ -93,9 +98,9 @@ public class MixedStewItem extends CharmItem {
         return stack.getOrCreateTag().getFloat(SATURATION_NBT);
     }
 
-    public static void setContents(ItemStack stack, List<Identifier> contents) {
-        NbtList list = new NbtList();
-        list.addAll(contents.stream().map(Identifier::toString).map(NbtString::of).collect(Collectors.toList()));
+    public static void setContents(ItemStack stack, List<ResourceLocation> contents) {
+        ListTag list = new ListTag();
+        list.addAll(contents.stream().map(ResourceLocation::toString).map(StringTag::valueOf).collect(Collectors.toList()));
         stack.getOrCreateTag().put(CONTENTS_NBT, list);
     }
 
@@ -108,8 +113,8 @@ public class MixedStewItem extends CharmItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(new TranslatableText("item.charm.mixed_stew.hunger", getHunger(stack)).formatted(Formatting.YELLOW));
-        tooltip.add(new TranslatableText("item.charm.mixed_stew.saturation", getSaturation(stack)).formatted(Formatting.GOLD));
+    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
+        tooltip.add(new TranslatableComponent("item.charm.mixed_stew.hunger", getHunger(stack)).withStyle(ChatFormatting.YELLOW));
+        tooltip.add(new TranslatableComponent("item.charm.mixed_stew.saturation", getSaturation(stack)).withStyle(ChatFormatting.GOLD));
     }
 }

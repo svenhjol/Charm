@@ -1,17 +1,18 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.Material;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmLeavesBlock extends LeavesBlock implements ICharmBlock {
     private final CharmModule module;
 
-    public CharmLeavesBlock(CharmModule module, String name, Settings settings) {
+    public CharmLeavesBlock(CharmModule module, String name, Properties settings) {
         super(settings);
 
         this.register(module, name);
@@ -19,20 +20,20 @@ public abstract class CharmLeavesBlock extends LeavesBlock implements ICharmBloc
     }
 
     public CharmLeavesBlock(CharmModule module, String name) {
-        this(module, name, Settings.of(Material.LEAVES)
+        this(module, name, Properties.of(Material.LEAVES)
             .strength(0.2F)
-            .ticksRandomly()
-            .sounds(BlockSoundGroup.GRASS)
-            .nonOpaque()
-            .allowsSpawning((state, world, pos, type) -> false)
-            .suffocates((state, world, pos) -> false)
-            .blockVision((state, world, pos) -> false));
+            .randomTicks()
+            .sound(SoundType.GRASS)
+            .noOcclusion()
+            .isValidSpawn((state, world, pos, type) -> false)
+            .isSuffocating((state, world, pos) -> false)
+            .isViewBlocking((state, world, pos) -> false));
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

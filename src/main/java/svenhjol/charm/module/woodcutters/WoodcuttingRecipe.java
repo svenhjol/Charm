@@ -2,29 +2,29 @@ package svenhjol.charm.module.woodcutters;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.CuttingRecipe;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SingleItemRecipe;
+import net.minecraft.world.level.Level;
 import svenhjol.charm.module.woodcutters.Woodcutters;
 
-public class WoodcuttingRecipe extends CuttingRecipe {
-   public WoodcuttingRecipe(Identifier id, String group, Ingredient input, ItemStack output) {
+public class WoodcuttingRecipe extends SingleItemRecipe {
+   public WoodcuttingRecipe(ResourceLocation id, String group, Ingredient input, ItemStack output) {
       super(Woodcutters.RECIPE_TYPE, Woodcutters.RECIPE_SERIALIZER, id, group, input, output);
    }
 
    public Ingredient getInput() {
-      return this.input;
+      return this.ingredient;
    }
 
-   public ItemStack getOutput() {
-      return this.output.copy();
+   public ItemStack getResultItem() {
+      return this.result.copy();
    }
 
-   public boolean matches(Inventory inv, World world) {
-      return this.input.test(inv.getStack(0));
+   public boolean matches(Container inv, Level world) {
+      return this.ingredient.test(inv.getItem(0));
    }
 
    @Environment(EnvType.CLIENT)

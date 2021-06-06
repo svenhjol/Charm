@@ -1,7 +1,7 @@
 package svenhjol.charm.mixin.anvil_improvements;
 
-import net.minecraft.block.AnvilBlock;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.AnvilBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

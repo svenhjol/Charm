@@ -240,7 +240,7 @@ public class MineshaftImprovements extends CharmModule {
                                 if (rand.nextFloat() < 0.5F) continue;
                                 state = getRandomFromList(roomBlocks, rand);
                             }
-                            BlockPos pos = new BlockPos(((StructurePieceAccessor)piece).getBoundingBox().getMinX() + x, ((StructurePieceAccessor)piece).getBoundingBox().getMinY() + y, ((StructurePieceAccessor)piece).getBoundingBox().getMinZ() + z);
+                            BlockPos pos = new BlockPos(((StructurePieceAccessor)piece).getBoundingBox().minX() + x, ((StructurePieceAccessor)piece).getBoundingBox().minY() + y, ((StructurePieceAccessor)piece).getBoundingBox().minZ() + z);
 
                             if (world.isAir(pos)
                                 && world.getBlockState(pos.down()).isFullCube(world, pos.down())

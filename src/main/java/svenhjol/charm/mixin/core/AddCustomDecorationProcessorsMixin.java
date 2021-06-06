@@ -1,9 +1,9 @@
 package svenhjol.charm.mixin.core;
 
-import net.minecraft.structure.StructurePlacementData;
-import net.minecraft.structure.pool.SinglePoolElement;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.math.BlockBox;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.levelgen.feature.structures.SinglePoolElement;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,7 +28,7 @@ public class AddCustomDecorationProcessorsMixin {
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookCreatePlacementData(BlockRotation blockRotation, BlockBox blockBox, boolean keepJigsaws, CallbackInfoReturnable<StructurePlacementData> cir, StructurePlacementData placement) {
+    private void hookCreatePlacementData(Rotation blockRotation, BoundingBox blockBox, boolean keepJigsaws, CallbackInfoReturnable<StructurePlaceSettings> cir, StructurePlaceSettings placement) {
         CharmDecoration.SINGLE_POOL_ELEMENT_PROCESSORS.forEach(placement::addProcessor);
     }
 }

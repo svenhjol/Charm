@@ -1,26 +1,26 @@
 package svenhjol.charm.module.mooblooms;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.module.mooblooms.MoobloomEntity;
 
 public class MoobloomPlantFlowerGoal extends Goal {
     private final MoobloomEntity mob;
-    private final World world;
+    private final Level world;
     private boolean planting;
 
     public MoobloomPlantFlowerGoal(MoobloomEntity mob) {
         this.mob = mob;
-        this.world = mob.world;
+        this.world = mob.level;
     }
 
     @Override
-    public boolean canStart() {
-        if (!world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING))
+    public boolean canUse() {
+        if (!world.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
             return false;
 
         if (planting)
@@ -32,8 +32,8 @@ public class MoobloomPlantFlowerGoal extends Goal {
         if (mob.getRandom().nextInt(1000) != 0)
             return false;
 
-        BlockPos pos = mob.getBlockPos();
-        return world.getBlockState(pos).isAir() && world.getBlockState(pos.down()).isOf(Blocks.GRASS_BLOCK);
+        BlockPos pos = mob.blockPosition();
+        return world.getBlockState(pos).isAir() && world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK);
     }
 
     @Override
@@ -49,10 +49,10 @@ public class MoobloomPlantFlowerGoal extends Goal {
     @Override
     public void tick() {
         if (planting) {
-            BlockPos pos = mob.getBlockPos();
-            if (world.getBlockState(pos).isAir() && world.getBlockState(pos.down()).isOf(Blocks.GRASS_BLOCK)) {
-                world.syncWorldEvent(2001, pos, Block.getRawIdFromState(Blocks.GRASS_BLOCK.getDefaultState()));
-                world.setBlockState(pos, mob.getMoobloomType().getFlower(), 2);
+            BlockPos pos = mob.blockPosition();
+            if (world.getBlockState(pos).isAir() && world.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) {
+                world.levelEvent(2001, pos, Block.getId(Blocks.GRASS_BLOCK.defaultBlockState()));
+                world.setBlock(pos, mob.getMoobloomType().getFlower(), 2);
             }
             planting = false;
         }

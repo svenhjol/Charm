@@ -1,22 +1,22 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.screen.ForgingScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.ItemCombinerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import svenhjol.charm.event.CheckAnvilRepairCallback;
 
-@Mixin(AnvilScreenHandler.class)
-public abstract class CheckAnvilRepairCallbackMixin extends ForgingScreenHandler {
+@Mixin(AnvilMenu.class)
+public abstract class CheckAnvilRepairCallbackMixin extends ItemCombinerMenu {
 
-    public CheckAnvilRepairCallbackMixin(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+    public CheckAnvilRepairCallbackMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(type, syncId, playerInventory, context);
     }
 
@@ -40,6 +40,6 @@ public abstract class CheckAnvilRepairCallbackMixin extends ForgingScreenHandler
         )
     )
     private boolean hookUpdateResultCanRepair(Item leftItem, ItemStack leftStack, ItemStack rightStack) {
-        return CheckAnvilRepairCallback.EVENT.invoker().interact((AnvilScreenHandler)(Object) this, this.player, leftStack, rightStack);
+        return CheckAnvilRepairCallback.EVENT.invoker().interact((AnvilMenu)(Object) this, this.player, leftStack, rightStack);
     }
 }

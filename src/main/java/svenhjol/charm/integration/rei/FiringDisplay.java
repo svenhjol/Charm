@@ -6,10 +6,11 @@ import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.registry.RecipeManagerContext;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.Recipe;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.ApiStatus;
+import svenhjol.charm.integration.rei.CharmReiCategories;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,11 +22,11 @@ public class FiringDisplay extends BasicDisplay implements SimpleGridMenuDisplay
     private double cookTime;
 
     public FiringDisplay(AbstractCookingRecipe recipe) {
-        this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getOutput())),
-            recipe, recipe.getExperience(), recipe.getCookTime());
+        this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getResultItem())),
+            recipe, recipe.getExperience(), recipe.getCookingTime());
     }
 
-    public FiringDisplay(List<EntryIngredient> input, List<EntryIngredient> output, NbtCompound tag) {
+    public FiringDisplay(List<EntryIngredient> input, List<EntryIngredient> output, CompoundTag tag) {
         this(input, output, RecipeManagerContext.getInstance().byId(tag, "location"),
             tag.getFloat("xp"), tag.getDouble("cookTime"));
     }

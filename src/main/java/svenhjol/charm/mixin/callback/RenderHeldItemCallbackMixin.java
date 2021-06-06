@@ -1,19 +1,19 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.item.HeldItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.ItemInHandRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.RenderHeldItemCallback;
 
-@Mixin(HeldItemRenderer.class)
+@Mixin(ItemInHandRenderer.class)
 public class RenderHeldItemCallbackMixin {
 
     /**
@@ -26,9 +26,9 @@ public class RenderHeldItemCallbackMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private void hookRenderFirstPersonItem(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-        ActionResult result = RenderHeldItemCallback.EVENT.invoker().interact(tickDelta, pitch, hand, swingProgress, item, equipProgress, matrices, vertexConsumers, light);
-        if (result != ActionResult.PASS)
+    private void hookRenderFirstPersonItem(AbstractClientPlayer player, float tickDelta, float pitch, InteractionHand hand, float swingProgress, ItemStack item, float equipProgress, PoseStack matrices, MultiBufferSource vertexConsumers, int light, CallbackInfo ci) {
+        InteractionResult result = RenderHeldItemCallback.EVENT.invoker().interact(tickDelta, pitch, hand, swingProgress, item, equipProgress, matrices, vertexConsumers, light);
+        if (result != InteractionResult.PASS)
             ci.cancel();
     }
 }

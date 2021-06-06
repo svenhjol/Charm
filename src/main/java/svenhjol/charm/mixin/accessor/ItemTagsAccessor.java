@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.item.Item;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.Tag;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import svenhjol.charm.annotation.CharmMixin;
@@ -11,7 +11,7 @@ import svenhjol.charm.annotation.CharmMixin;
 @CharmMixin(required = true)
 public interface ItemTagsAccessor {
     @Invoker()
-    static Tag.Identified<Item> invokeRegister(String id) {
+    static Tag.Named<Item> invokeRegister(String id) {
         throw new IllegalStateException();
     }
 }

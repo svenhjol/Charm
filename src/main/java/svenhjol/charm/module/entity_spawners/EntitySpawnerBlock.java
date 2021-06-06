@@ -1,58 +1,65 @@
 package svenhjol.charm.module.entity_spawners;
 
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.CharmBlockWithEntity;
+import svenhjol.charm.module.entity_spawners.EntitySpawnerBlockEntity;
+import svenhjol.charm.module.entity_spawners.EntitySpawners;
 
 import javax.annotation.Nullable;
 
 public class EntitySpawnerBlock extends CharmBlockWithEntity {
     public EntitySpawnerBlock(CharmModule module) {
-        super(module, "entity_spawner", AbstractBlock.Settings
+        super(module, "entity_spawner", BlockBehaviour.Properties
             .of(Material.AIR)
-            .noCollision()
-            .dropsNothing());
+            .noCollission()
+            .noDrops());
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new EntitySpawnerBlockEntity(pos, state);
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new svenhjol.charm.module.entity_spawners.EntitySpawnerBlockEntity(pos, state);
     }
 
     @Override
     @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return world.isClient ? null : checkType(blockEntityType, EntitySpawners.BLOCK_ENTITY, EntitySpawnerBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockState, BlockEntityType<T> blockEntityType) {
+        return world.isClientSide ? null : createTickerHelper(blockEntityType, EntitySpawners.BLOCK_ENTITY, EntitySpawnerBlockEntity::tick);
     }
 
     @Override
-    public void createBlockItem(Identifier id) {
+    public void createBlockItem(ResourceLocation id) {
         // don't
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> list) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> list) {
         // don't
     }
 
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.INVISIBLE;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.INVISIBLE;
     }
 
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.empty();
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return Shapes.empty();
     }
 }

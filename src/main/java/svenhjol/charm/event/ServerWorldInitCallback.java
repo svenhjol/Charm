@@ -2,7 +2,7 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 public interface ServerWorldInitCallback {
     Event<ServerWorldInitCallback> EVENT = EventFactory.createArrayBacked(ServerWorldInitCallback.class, (listeners) -> world -> {
@@ -11,5 +11,5 @@ public interface ServerWorldInitCallback {
         }
     });
 
-    void interact(ServerWorld world);
+    void interact(ServerLevel world);
 }

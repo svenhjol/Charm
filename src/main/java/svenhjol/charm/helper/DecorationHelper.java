@@ -1,9 +1,20 @@
 package svenhjol.charm.helper;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.BlastFurnaceBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.CarvedPumpkinBlock;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.FurnaceBlock;
+import net.minecraft.world.level.block.LecternBlock;
+import net.minecraft.world.level.block.ObserverBlock;
+import net.minecraft.world.level.block.SmokerBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
 
@@ -13,16 +24,16 @@ import java.util.function.Function;
 
 public class DecorationHelper {
     public static List<Block> BARK = new ArrayList<>();
-    public static List<Identifier> BOOKCASE_LOOT_TABLES = new ArrayList<>();
+    public static List<ResourceLocation> BOOKCASE_LOOT_TABLES = new ArrayList<>();
     public static List<Block> CARPETS = new ArrayList<>();
-    public static List<Identifier> CHEST_LOOT_TABLES = new ArrayList<>();
-    public static List<Identifier> COMMON_LOOT_TABLES = new ArrayList<>();
+    public static List<ResourceLocation> CHEST_LOOT_TABLES = new ArrayList<>();
+    public static List<ResourceLocation> COMMON_LOOT_TABLES = new ArrayList<>();
     public static List<Block> COMMON_ORES = new ArrayList<>();
     public static List<Block> DECORATION_BLOCKS = new ArrayList<>();
     public static List<Block> FLOWERS = new ArrayList<>();
     public static List<Block> FLOWER_POTS = new ArrayList<>();
-    public static List<Identifier> RARE_BOOKCASE_LOOT_TABLES = new ArrayList<>();
-    public static List<Identifier> RARE_CHEST_LOOT_TABLES = new ArrayList<>();
+    public static List<ResourceLocation> RARE_BOOKCASE_LOOT_TABLES = new ArrayList<>();
+    public static List<ResourceLocation> RARE_CHEST_LOOT_TABLES = new ArrayList<>();
     public static List<Block> RARE_ORES = new ArrayList<>();
     public static List<Block> SAPLINGS = new ArrayList<>();
     public static List<EntityType<?>> SPAWNER_MOBS = new ArrayList<>();
@@ -33,7 +44,7 @@ public class DecorationHelper {
 
     public static Map<Block, Function<Direction, BlockState>> STATE_CALLBACK = new HashMap<>();
 
-    public static Identifier getRandomLootTable(List<Identifier> lootTables, Random random) {
+    public static ResourceLocation getRandomLootTable(List<ResourceLocation> lootTables, Random random) {
         return lootTables.get(random.nextInt(lootTables.size()));
     }
 
@@ -43,35 +54,35 @@ public class DecorationHelper {
 
     public static BlockState getRandomBlock(List<Block> blocks, Random random, @Nullable Direction facing) {
         if (blocks.size() == 0)
-            return Blocks.AIR.getDefaultState();
+            return Blocks.AIR.defaultBlockState();
 
         Block block = blocks.get(random.nextInt(blocks.size()));
-        BlockState state = block.getDefaultState();
+        BlockState state = block.defaultBlockState();
 
         if (blocks == DECORATION_BLOCKS) {
             // sort out orientation
             if (facing != null) {
                 if (block == Blocks.BLAST_FURNACE)
-                    state = state.with(BlastFurnaceBlock.FACING, facing);
+                    state = state.setValue(BlastFurnaceBlock.FACING, facing);
                 if (block == Blocks.CARVED_PUMPKIN)
-                    state = state.with(CarvedPumpkinBlock.FACING, facing);
+                    state = state.setValue(CarvedPumpkinBlock.FACING, facing);
                 if (block == Blocks.DISPENSER)
-                    state = state.with(DispenserBlock.FACING, facing);
+                    state = state.setValue(DispenserBlock.FACING, facing);
                 if (block == Blocks.FURNACE)
-                    state = state.with(FurnaceBlock.FACING, facing);
+                    state = state.setValue(FurnaceBlock.FACING, facing);
                 if (block == Blocks.LECTERN)
-                    state = state.with(LecternBlock.FACING, facing);
+                    state = state.setValue(LecternBlock.FACING, facing);
                 if (block == Blocks.OBSERVER)
-                    state = state.with(ObserverBlock.FACING, facing);
+                    state = state.setValue(ObserverBlock.FACING, facing);
                 if (block == Blocks.SMOKER)
-                    state = state.with(SmokerBlock.FACING, facing);
+                    state = state.setValue(SmokerBlock.FACING, facing);
             }
 
             // some blocks have custom state, randomize it here
             if (block == Blocks.CAMPFIRE)
-                state = state.with(CampfireBlock.LIT, false);
+                state = state.setValue(CampfireBlock.LIT, false);
             if (block == Blocks.COMPOSTER)
-                state = state.with(ComposterBlock.LEVEL, random.nextInt(7));
+                state = state.setValue(ComposterBlock.LEVEL, random.nextInt(7));
         }
 
         if (STATE_CALLBACK.containsKey(block))
@@ -92,7 +103,7 @@ public class DecorationHelper {
     @Nullable
     public static IVariantMaterial getVariantMaterial(String string) {
         for (IVariantMaterial material : VARIANT_MATERIALS) {
-            if (material.asString().equals(string))
+            if (material.getSerializedName().equals(string))
                 return material;
         }
 

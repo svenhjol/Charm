@@ -1,6 +1,6 @@
 package svenhjol.charm.module.stackable_potions;
 
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.ItemAccessor;
 import svenhjol.charm.module.CharmModule;

@@ -1,30 +1,31 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.FallingBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.FallingBlock;
+import svenhjol.charm.block.ICharmFallingBlock;
 import svenhjol.charm.module.CharmModule;
 
 @SuppressWarnings({"NullableProblems", "unused"})
 public abstract class CharmFallingBlock extends FallingBlock implements ICharmFallingBlock {
     protected CharmModule module;
 
-    public CharmFallingBlock(CharmModule module, String name, Settings props) {
+    public CharmFallingBlock(CharmModule module, String name, Properties props) {
         super(props);
         this.module = module;
         register(module, name);
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.BUILDING_BLOCKS;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_BUILDING_BLOCKS;
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

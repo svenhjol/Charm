@@ -2,29 +2,30 @@ package svenhjol.charm.module.casks;
 
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.potion.Potions;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.helper.PotionHelper;
+import svenhjol.charm.module.casks.Casks;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -44,18 +45,18 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
 
     public int portions = 0;
     public String name = "";
-    public Map<Identifier, Integer> durations = new HashMap<>();
-    public Map<Identifier, Integer> amplifiers = new HashMap<>();
-    public Map<Identifier, Integer> dilutions = new HashMap<>();
-    public List<Identifier> effects = new ArrayList<>();
+    public Map<ResourceLocation, Integer> durations = new HashMap<>();
+    public Map<ResourceLocation, Integer> amplifiers = new HashMap<>();
+    public Map<ResourceLocation, Integer> dilutions = new HashMap<>();
+    public List<ResourceLocation> effects = new ArrayList<>();
 
     public CaskBlockEntity(BlockPos pos, BlockState state) {
         super(Casks.BLOCK_ENTITY, pos, state);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
 
         this.name = nbt.getString(NAME_NBT);
         this.portions = nbt.getInt(PORTIONS_NBT);
@@ -64,15 +65,15 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
         this.amplifiers = new HashMap<>();
         this.dilutions = new HashMap<>();
 
-        NbtList list = nbt.getList(EFFECTS_NBT, 8);
+        ListTag list = nbt.getList(EFFECTS_NBT, 8);
         list.stream()
-            .map(NbtElement::asString)
+            .map(Tag::getAsString)
             .map(i -> i.replace("\"", "")) // madness
-            .forEach(item -> this.effects.add(new Identifier(item)));
+            .forEach(item -> this.effects.add(new ResourceLocation(item)));
 
-        NbtCompound durations = nbt.getCompound(DURATIONS_NBT);
-        NbtCompound amplifiers = nbt.getCompound(AMPLIFIERS_NBT);
-        NbtCompound dilutions = nbt.getCompound(DILUTIONS_NBT);
+        CompoundTag durations = nbt.getCompound(DURATIONS_NBT);
+        CompoundTag amplifiers = nbt.getCompound(AMPLIFIERS_NBT);
+        CompoundTag dilutions = nbt.getCompound(DILUTIONS_NBT);
         this.effects.forEach(effect -> {
             this.durations.put(effect, durations.getInt(effect.toString()));
             this.amplifiers.put(effect, amplifiers.getInt(effect.toString()));
@@ -81,19 +82,19 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
+    public CompoundTag save(CompoundTag nbt) {
+        super.save(nbt);
 
         nbt.putString(NAME_NBT, this.name);
         nbt.putInt(PORTIONS_NBT, this.portions);
 
-        NbtCompound durations = new NbtCompound();
-        NbtCompound amplifiers = new NbtCompound();
-        NbtCompound dilutions = new NbtCompound();
+        CompoundTag durations = new CompoundTag();
+        CompoundTag amplifiers = new CompoundTag();
+        CompoundTag dilutions = new CompoundTag();
 
-        NbtList effects = new NbtList();
+        ListTag effects = new ListTag();
         this.effects.forEach(effect -> {
-            effects.add(NbtString.of(effect.toString()));
+            effects.add(StringTag.valueOf(effect.toString()));
             durations.putInt(effect.toString(), this.durations.get(effect));
             amplifiers.putInt(effect.toString(), this.amplifiers.get(effect));
             dilutions.putInt(effect.toString(), this.dilutions.get(effect));
@@ -108,21 +109,21 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
     }
 
     @Override
-    public void fromClientTag(NbtCompound nbt) {
-        readNbt(nbt);
+    public void fromClientTag(CompoundTag nbt) {
+        load(nbt);
     }
 
     @Override
-    public NbtCompound toClientTag(NbtCompound nbtCompound) {
-        return writeNbt(nbtCompound);
+    public CompoundTag toClientTag(CompoundTag nbtCompound) {
+        return save(nbtCompound);
     }
 
-    public boolean add(World world, BlockPos pos, BlockState state, ItemStack input) {
+    public boolean add(Level world, BlockPos pos, BlockState state, ItemStack input) {
         if (input.getItem() != Items.POTION)
             return false;
 
-        Potion potion = PotionUtil.getPotion(input);
-        List<StatusEffectInstance> customEffects = PotionUtil.getCustomPotionEffects(input);
+        Potion potion = PotionUtils.getPotion(input);
+        List<MobEffectInstance> customEffects = PotionUtils.getCustomEffects(input);
         if (potion == Potions.EMPTY)
             return false;
 
@@ -135,7 +136,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
             // potions without effects just dilute the mix
             if (potion != Potions.WATER || !customEffects.isEmpty()) {
 
-                List<StatusEffectInstance> effects = customEffects.isEmpty() && !potion.getEffects().isEmpty() ? potion.getEffects() : customEffects;
+                List<MobEffectInstance> effects = customEffects.isEmpty() && !potion.getEffects().isEmpty() ? potion.getEffects() : customEffects;
                 if (effects.isEmpty())
                     return false;
 
@@ -145,8 +146,8 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
                     int duration = effect.getDuration();
                     int amplifier = effect.getAmplifier();
 
-                    StatusEffect type = effect.getEffectType();
-                    Identifier effectId = Registry.STATUS_EFFECT.getId(type);
+                    MobEffect type = effect.getEffect();
+                    ResourceLocation effectId = Registry.MOB_EFFECT.getKey(type);
                     if (effectId == null)
                         return;
 
@@ -184,10 +185,10 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
                 }
             });
 
-            markDirty();
+            setChanged();
             sync();
 
-            input.decrement(1);
+            input.shrink(1);
             return true;
         }
 
@@ -195,7 +196,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
     }
 
     @Nullable
-    public ItemStack take(World world, BlockPos pos, BlockState state, ItemStack container) {
+    public ItemStack take(Level world, BlockPos pos, BlockState state, ItemStack container) {
         // might support other containers in future
         if (container.getItem() != Items.GLASS_BOTTLE)
             return null;
@@ -203,63 +204,63 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
         if (this.portions > 0) {
             // create a potion from the cask's contents
             ItemStack bottle = PotionHelper.getFilledWaterBottle();
-            List<StatusEffectInstance> effects = new ArrayList<>();
+            List<MobEffectInstance> effects = new ArrayList<>();
 
             if (this.effects.isEmpty())
                 return null;
 
-            for (Identifier effectId : this.effects) {
-                Registry.STATUS_EFFECT.getOrEmpty(effectId).ifPresent(statusEffect -> {
+            for (ResourceLocation effectId : this.effects) {
+                Registry.MOB_EFFECT.getOptional(effectId).ifPresent(statusEffect -> {
                     int duration = this.durations.get(effectId);
                     int amplifier = this.amplifiers.get(effectId);
                     int dilution = this.dilutions.get(effectId);
 
-                    effects.add(new StatusEffectInstance(statusEffect, duration / dilution, amplifier));
+                    effects.add(new MobEffectInstance(statusEffect, duration / dilution, amplifier));
                 });
             }
 
-            PotionUtil.setCustomPotionEffects(bottle, effects);
-            container.decrement(1);
+            PotionUtils.setCustomEffects(bottle, effects);
+            container.shrink(1);
 
             // if no more portions in the cask, flush out the cask data
             if (--portions <= 0)
                 this.flush(world, pos, state);
 
-            Text bottleName;
+            Component bottleName;
 
             if (!name.isEmpty()) {
-                bottleName = new LiteralText(name);
+                bottleName = new TextComponent(name);
             } else {
-                bottleName = new TranslatableText("item.charm.home_brew");
+                bottleName = new TranslatableComponent("item.charm.home_brew");
             }
 
-            bottle.setCustomName(bottleName);
+            bottle.setHoverName(bottleName);
             return bottle;
         }
 
         return null;
     }
 
-    private void flush(World world, BlockPos pos, BlockState state) {
+    private void flush(Level world, BlockPos pos, BlockState state) {
         this.effects = new ArrayList<>();
         this.durations = new HashMap<>();
         this.dilutions = new HashMap<>();
         this.amplifiers = new HashMap<>();
         this.portions = 0;
 
-        markDirty();
+        setChanged();
         sync();
     }
 
     @Override
-    public void markDirty() {
-        super.markDirty();
-        if (world != null && !world.isClient) {
-            for (ServerPlayerEntity player : PlayerLookup.around((ServerWorld)world, pos, 5)) {
-                player.networkHandler.sendPacket(this.toUpdatePacket());
+    public void setChanged() {
+        super.setChanged();
+        if (level != null && !level.isClientSide) {
+            for (ServerPlayer player : PlayerLookup.around((ServerLevel)level, worldPosition, 5)) {
+                player.connection.send(this.getUpdatePacket());
             }
-            BlockState state = world.getBlockState(pos);
-            world.updateListeners(pos, state, state, 1);
+            BlockState state = level.getBlockState(worldPosition);
+            level.sendBlockUpdated(worldPosition, state, state, 1);
         }
     }
 }

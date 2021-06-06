@@ -1,9 +1,11 @@
 package svenhjol.charm.module;
 
-public abstract class CharmClientModule {
-    protected CharmModule module;
+import svenhjol.charm.module.CharmModule;
 
-    public CharmClientModule(CharmModule module) {
+public abstract class CharmClientModule {
+    protected svenhjol.charm.module.CharmModule module;
+
+    public CharmClientModule(svenhjol.charm.module.CharmModule module) {
         this.module = module;
     }
 

@@ -1,17 +1,16 @@
 package svenhjol.charm.helper;
 
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.util.Identifier;
-
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.resources.ResourceLocation;
 
 public class EntityHelper {
-    public static Map<EntityModelLayer, ModelPart> LAYERS = new HashMap<>();
+    public static Map<ModelLayerLocation, ModelPart> LAYERS = new HashMap<>();
 
-    public static EntityModelLayer registerEntityModelLayer(Identifier id, ModelPart modelPart) {
-        EntityModelLayer layer = new EntityModelLayer(id, "main");
+    public static ModelLayerLocation registerEntityModelLayer(ResourceLocation id, ModelPart modelPart) {
+        ModelLayerLocation layer = new ModelLayerLocation(id, "main");
         LAYERS.put(layer, modelPart);
         return layer;
     }

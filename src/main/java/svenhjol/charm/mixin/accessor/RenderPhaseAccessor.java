@@ -1,69 +1,69 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.client.render.RenderPhase;
+import net.minecraft.client.renderer.RenderStateShard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(RenderPhase.class)
+@Mixin(RenderStateShard.class)
 @CharmMixin(required = true)
 public interface RenderPhaseAccessor {
     @Accessor("COLOR_MASK")
-    static RenderPhase.WriteMaskState getColorMask() {
+    static RenderStateShard.WriteMaskStateShard getColorMask() {
         throw new IllegalStateException();
     }
 
     @Accessor("DISABLE_CULLING")
-    static RenderPhase.Cull getDisableCulling() {
+    static RenderStateShard.CullStateShard getDisableCulling() {
         throw new IllegalStateException();
     }
 
     @Accessor("EQUAL_DEPTH_TEST")
-    static RenderPhase.DepthTest getEqualDepthTest() {
+    static RenderStateShard.DepthTestStateShard getEqualDepthTest() {
         throw new IllegalStateException();
     }
 
     @Accessor("GLINT_TRANSPARENCY")
-    static RenderPhase.Transparency getGlintTransparency() {
+    static RenderStateShard.TransparencyStateShard getGlintTransparency() {
         throw new IllegalStateException();
     }
 
     @Accessor("GLINT_TEXTURING")
-    static RenderPhase.Texturing getGlintTexturing() {
+    static RenderStateShard.TexturingStateShard getGlintTexturing() {
         throw new IllegalStateException();
     }
 
     @Accessor("ENTITY_GLINT_TEXTURING")
-    static RenderPhase.Texturing getEntityGlintTexturing() {
+    static RenderStateShard.TexturingStateShard getEntityGlintTexturing() {
         throw new IllegalStateException();
     }
 
     @Accessor("ITEM_TARGET")
-    static RenderPhase.Target getItemTarget() {
+    static RenderStateShard.OutputStateShard getItemTarget() {
         throw new IllegalStateException();
     }
 
     @Accessor("VIEW_OFFSET_Z_LAYERING")
-    static RenderPhase.Layering getViewOffsetZLayering() {
+    static RenderStateShard.LayeringStateShard getViewOffsetZLayering() {
         throw new IllegalStateException();
     }
 
     @Accessor("GLINT_SHADER")
-    static RenderPhase.Shader getGlintShader() { throw new IllegalStateException(); }
+    static RenderStateShard.ShaderStateShard getGlintShader() { throw new IllegalStateException(); }
 
     @Accessor("ENTITY_GLINT_SHADER")
-    static RenderPhase.Shader getEntityGlintShader() { throw new IllegalStateException(); }
+    static RenderStateShard.ShaderStateShard getEntityGlintShader() { throw new IllegalStateException(); }
 
     @Accessor("ARMOR_GLINT_SHADER")
-    static RenderPhase.Shader getArmorGlintShader() { throw new IllegalStateException(); }
+    static RenderStateShard.ShaderStateShard getArmorGlintShader() { throw new IllegalStateException(); }
 
     @Accessor("ARMOR_ENTITY_GLINT_SHADER")
-    static RenderPhase.Shader getArmorEntityGlintShader() { throw new IllegalStateException(); }
+    static RenderStateShard.ShaderStateShard getArmorEntityGlintShader() { throw new IllegalStateException(); }
 
     @Accessor("DIRECT_GLINT_SHADER")
-    static RenderPhase.Shader getDirectGlintShader() { throw new IllegalStateException(); }
+    static RenderStateShard.ShaderStateShard getDirectGlintShader() { throw new IllegalStateException(); }
 
     @Accessor("DIRECT_ENTITY_GLINT_SHADER")
-    static RenderPhase.Shader getDirectEntityGlintShader() { throw new IllegalStateException(); }
+    static RenderStateShard.ShaderStateShard getDirectEntityGlintShader() { throw new IllegalStateException(); }
 
 }

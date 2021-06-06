@@ -1,24 +1,5 @@
 package svenhjol.charm.module.raid_horns;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.village.raid.Raid;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.PillagerSpawner;
-import net.minecraft.world.gen.Spawner;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.item.CharmItem;
@@ -27,67 +8,87 @@ import svenhjol.charm.mixin.accessor.ServerWorldAccessor;
 
 import java.util.List;
 import java.util.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.CustomSpawner;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.PatrolSpawner;
+import svenhjol.charm.module.raid_horns.RaidHorns;
 
 public class RaidHornItem extends CharmItem {
     public RaidHornItem(CharmModule module) {
-        super(module, "raid_horn", new Item.Settings()
-            .maxCount(1)
-            .maxDamage(16)
-            .group(ItemGroup.MISC));
+        super(module, "raid_horn", new Item.Properties()
+            .stacksTo(1)
+            .durability(16)
+            .tab(CreativeModeTab.TAB_MISC));
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack horn = user.getStackInHand(hand);
+    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+        ItemStack horn = user.getItemInHand(hand);
 
-        if (!world.isClient) {
-            world.playSound(null, user.getBlockPos(), CharmSounds.RAID_HORN, SoundCategory.PLAYERS, (float)RaidHorns.volume, 1.0F);
-            user.setCurrentHand(hand);
+        if (!world.isClientSide) {
+            world.playSound(null, user.blockPosition(), CharmSounds.RAID_HORN, SoundSource.PLAYERS, (float) svenhjol.charm.module.raid_horns.RaidHorns.volume, 1.0F);
+            user.startUsingItem(hand);
         }
 
-        return TypedActionResult.consume(horn);
+        return InteractionResultHolder.consume(horn);
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.BOW;
     }
 
     @Override
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if (world.isClient)
+    public void releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
+        if (world.isClientSide)
             return;
 
-        if (getPullProgress(getMaxUseTime(stack) - remainingUseTicks) < 1.0F)
+        if (getPullProgress(getUseDuration(stack) - remainingUseTicks) < 1.0F)
             return;
 
-        BlockPos pos = user.getBlockPos();
-        ServerWorld serverWorld = (ServerWorld)world;
+        BlockPos pos = user.blockPosition();
+        ServerLevel serverWorld = (ServerLevel)world;
 
-        if (!(user instanceof PlayerEntity))
+        if (!(user instanceof Player))
             return;
 
-        ServerPlayerEntity player = (ServerPlayerEntity) user;
+        ServerPlayer player = (ServerPlayer) user;
 
-        if (serverWorld.hasRaidAt(pos)) {
+        if (serverWorld.isRaided(pos)) {
             Raid raid = serverWorld.getRaidAt(pos);
             if (raid != null) {
-                raid.invalidate();
-                RaidHorns.triggerCalledOff(player);
+                raid.stop();
+                svenhjol.charm.module.raid_horns.RaidHorns.triggerCalledOff(player);
             }
         } else {
-            boolean result = trySpawnPillagers(serverWorld, (PlayerEntity) user);
+            boolean result = trySpawnPillagers(serverWorld, (Player) user);
             if (result) {
                 RaidHorns.triggerSummoned(player);
             }
         }
 
-        player.getItemCooldownManager().set(this, 100);
-        stack.damage(1, player, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+        player.getCooldowns().addCooldown(this, 100);
+        stack.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(EquipmentSlot.MAINHAND));
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack) {
+    public int getUseDuration(ItemStack stack) {
         return 72000;
     }
 
@@ -101,12 +102,12 @@ public class RaidHornItem extends CharmItem {
         return f;
     }
 
-    private boolean trySpawnPillagers(ServerWorld world, PlayerEntity player) {
-        PillagerSpawner pillagerSpawner = null;
-        List<Spawner> spawners = ((ServerWorldAccessor)world).getSpawners();
-        for (Spawner spawner : spawners) {
-            if (spawner instanceof PillagerSpawner) {
-                pillagerSpawner = (PillagerSpawner)spawner;
+    private boolean trySpawnPillagers(ServerLevel world, Player player) {
+        PatrolSpawner pillagerSpawner = null;
+        List<CustomSpawner> spawners = ((ServerWorldAccessor)world).getSpawners();
+        for (CustomSpawner spawner : spawners) {
+            if (spawner instanceof PatrolSpawner) {
+                pillagerSpawner = (PatrolSpawner)spawner;
                 break;
             }
         }
@@ -119,21 +120,21 @@ public class RaidHornItem extends CharmItem {
         // copypasta from PillagerSpawner
         int j = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
         int k = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
-        BlockPos.Mutable mutable = player.getBlockPos().mutableCopy().move(j, 0, k);
-        if (!world.isRegionLoaded(mutable.getX() - 10, mutable.getY() - 10, mutable.getZ() - 10, mutable.getX() + 10, mutable.getY() + 10, mutable.getZ() + 10)) {
+        BlockPos.MutableBlockPos mutable = player.blockPosition().mutable().move(j, 0, k);
+        if (!world.hasChunksAt(mutable.getX() - 10, mutable.getY() - 10, mutable.getZ() - 10, mutable.getX() + 10, mutable.getY() + 10, mutable.getZ() + 10)) {
             return false;
         } else {
             Biome biome = world.getBiome(mutable);
-            Biome.Category category = biome.getCategory();
-            if (category == Biome.Category.MUSHROOM) {
+            Biome.BiomeCategory category = biome.getBiomeCategory();
+            if (category == Biome.BiomeCategory.MUSHROOM) {
                 return false;
             } else {
                 int m = 0;
-                int n = (int)Math.ceil((double)world.getLocalDifficulty(mutable).getLocalDifficulty()) + 1;
+                int n = (int)Math.ceil((double)world.getCurrentDifficultyAt(mutable).getEffectiveDifficulty()) + 1;
 
                 for(int o = 0; o < n; ++o) {
                     ++m;
-                    mutable.setY(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, mutable).getY());
+                    mutable.setY(world.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, mutable).getY());
                     if (o == 0) {
                         if (!((PillagerSpawnerAccessor)pillagerSpawner).invokeSpawnPillager(world, mutable, random, true)) {
                             break;

@@ -1,12 +1,12 @@
 package svenhjol.charm.helper;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import svenhjol.charm.helper.LootHelper;
 
 public class DataBlockHelper {
     public static Direction getFacing(String direction) {
@@ -17,14 +17,14 @@ public class DataBlockHelper {
     }
 
     public static BlockState setFacing(BlockState state, DirectionProperty prop, String direction) {
-        if (direction.equals("north")) state = state.with(prop, Direction.NORTH);
-        if (direction.equals("east")) state = state.with(prop, Direction.EAST);
-        if (direction.equals("south")) state = state.with(prop, Direction.SOUTH);
-        if (direction.equals("west")) state = state.with(prop, Direction.WEST);
+        if (direction.equals("north")) state = state.setValue(prop, Direction.NORTH);
+        if (direction.equals("east")) state = state.setValue(prop, Direction.EAST);
+        if (direction.equals("south")) state = state.setValue(prop, Direction.SOUTH);
+        if (direction.equals("west")) state = state.setValue(prop, Direction.WEST);
         return state;
     }
 
-    public static Identifier getLootTable(String data, Identifier fallback) {
+    public static ResourceLocation getLootTable(String data, ResourceLocation fallback) {
         String loot = DataBlockHelper.getValue("loot", data, "");
         return LootHelper.getLootTable(loot, fallback);
     }

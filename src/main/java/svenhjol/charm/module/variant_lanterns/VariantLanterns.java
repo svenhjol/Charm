@@ -1,6 +1,5 @@
 package svenhjol.charm.module.variant_lanterns;
 
-import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.CharmLanternBlock;
@@ -9,6 +8,8 @@ import svenhjol.charm.init.CharmDecoration;
 import svenhjol.charm.module.CharmModule;
 
 import java.util.*;
+import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.module.variant_lanterns.VariantLanternsClient;
 
 @Module(mod = Charm.MOD_ID, client = VariantLanternsClient.class, description = "Variants lanterns crafted from vanilla metal nuggets and torches.")
 public class VariantLanterns extends CharmModule {
@@ -23,16 +24,16 @@ public class VariantLanterns extends CharmModule {
     }
 
     @Override
-    public List<Identifier> getRecipesToRemove() {
-        List<Identifier> remove = new ArrayList<>();
+    public List<ResourceLocation> getRecipesToRemove() {
+        List<ResourceLocation> remove = new ArrayList<>();
 
         // remove lantern recipes if nuggets module is disabled
         if (!ModuleHandler.enabled("charm:extra_nuggets")) {
             remove.addAll(Arrays.asList(
-                new Identifier(Charm.MOD_ID, "variant_lanterns/copper_lantern"),
-                new Identifier(Charm.MOD_ID, "variant_lanterns/copper_soul_lantern"),
-                new Identifier(Charm.MOD_ID, "variant_lanterns/netherite_lantern"),
-                new Identifier(Charm.MOD_ID, "variant_lanterns/netherite_soul_lantern")
+                new ResourceLocation(Charm.MOD_ID, "variant_lanterns/copper_lantern"),
+                new ResourceLocation(Charm.MOD_ID, "variant_lanterns/copper_soul_lantern"),
+                new ResourceLocation(Charm.MOD_ID, "variant_lanterns/netherite_lantern"),
+                new ResourceLocation(Charm.MOD_ID, "variant_lanterns/netherite_soul_lantern")
             ));
         }
 

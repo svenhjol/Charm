@@ -1,15 +1,5 @@
 package svenhjol.charm.module.anvil_improvements;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.EnchantedBookItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.Property;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.PlayerHelper;
@@ -21,6 +11,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.item.EnchantedBookItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 @Module(mod = Charm.MOD_ID, description = "Removes minimum and maximum XP costs on the anvil. Anvils are also less likely to break.")
 public class AnvilImprovements extends CharmModule {
@@ -40,9 +40,9 @@ public class AnvilImprovements extends CharmModule {
         return ModuleHandler.enabled("charm:anvil_improvements") && AnvilImprovements.removeTooExpensive;
     }
 
-    public static boolean allowTakeWithoutXp(PlayerEntity player, Property levelCost) {
+    public static boolean allowTakeWithoutXp(Player player, DataSlot levelCost) {
         return ModuleHandler.enabled("charm:anvil_improvements")
-            && (PlayerHelper.getAbilities(player).creativeMode || ((player.experienceLevel >= levelCost.get()) && levelCost.get() > -1));
+            && (PlayerHelper.getAbilities(player).instabuild || ((player.experienceLevel >= levelCost.get()) && levelCost.get() > -1));
     }
 
     public static void setEnchantmentsAllowHighLevel(Map<Enchantment, Integer> enchantments, ItemStack book, ItemStack output) {
@@ -51,7 +51,7 @@ public class AnvilImprovements extends CharmModule {
 
         if (ModuleHandler.enabled(AnvilImprovements.class) && book.getItem() instanceof EnchantedBookItem) {
             Map<Enchantment, Integer> reset = new HashMap<>();
-            Map<Enchantment, Integer> bookEnchants = EnchantmentHelper.get(book);
+            Map<Enchantment, Integer> bookEnchants = EnchantmentHelper.getEnchantments(book);
 
             bookEnchants.forEach((e, l) -> {
                 if (l > e.getMaxLevel())
@@ -64,7 +64,7 @@ public class AnvilImprovements extends CharmModule {
             });
         }
 
-        EnchantmentHelper.set(enchantments, output);
+        EnchantmentHelper.setEnchantments(enchantments, output);
     }
 
     public static boolean tryDamageAnvil() {
@@ -73,14 +73,14 @@ public class AnvilImprovements extends CharmModule {
             && new Random().nextFloat() < 0.5F;
     }
 
-    public static List<Text> addRepairCostToTooltip(ItemStack stack, List<Text> tooltip) {
+    public static List<Component> addRepairCostToTooltip(ItemStack stack, List<Component> tooltip) {
         if (!AnvilImprovements.showRepairCost)
             return tooltip;
 
-        int repairCost = stack.getRepairCost();
+        int repairCost = stack.getBaseRepairCost();
         if (repairCost > 0) {
-            tooltip.add(LiteralText.EMPTY); // a new line
-            tooltip.add(new TranslatableText("item.charm.repair_cost", repairCost).formatted(Formatting.GRAY));
+            tooltip.add(TextComponent.EMPTY); // a new line
+            tooltip.add(new TranslatableComponent("item.charm.repair_cost", repairCost).withStyle(ChatFormatting.GRAY));
         }
 
         return tooltip;

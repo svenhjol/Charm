@@ -1,35 +1,35 @@
 package svenhjol.charm.module.mooblooms;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.BeeEntity;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
 import svenhjol.charm.module.mooblooms.MoobloomEntity;
 import svenhjol.charm.mixin.accessor.BeeEntityAccessor;
 import svenhjol.charm.module.core.Core;
 
 import java.util.List;
 import java.util.function.Predicate;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 public class BeeMoveToMoobloomGoal extends Goal {
     private static final int MAX_MOVE_TICKS = 1200;
     private static final int RANGE = 24;
 
-    private final BeeEntity bee;
-    private final World world;
+    private final Bee bee;
+    private final Level world;
     private MoobloomEntity moobloom = null;
     private int moveTicks;
     private int lastTried = 0;
 
-    public BeeMoveToMoobloomGoal(BeeEntity bee) {
+    public BeeMoveToMoobloomGoal(Bee bee) {
         this.bee = bee;
-        this.world = bee.world;
+        this.world = bee.level;
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (bee.hasNectar()) {
             if (--lastTried <= 0)
                 return true;
@@ -42,15 +42,15 @@ public class BeeMoveToMoobloomGoal extends Goal {
     public void start() {
         moobloom = null;
         moveTicks = 0;
-        bee.resetPollinationTicks();
+        bee.resetTicksWithoutNectarSinceExitingHive();
 
-        Box box = bee.getBoundingBox().expand(RANGE, RANGE / 2.0, RANGE);
+        AABB box = bee.getBoundingBox().inflate(RANGE, RANGE / 2.0, RANGE);
         Predicate<MoobloomEntity> selector = entity -> !entity.isPollinated() && entity.isAlive();
-        List<MoobloomEntity> entities = world.getEntitiesByClass(MoobloomEntity.class, box, selector);
+        List<MoobloomEntity> entities = world.getEntitiesOfClass(MoobloomEntity.class, box, selector);
 
         if (entities.size() > 0) {
             moobloom = entities.get(world.random.nextInt(entities.size()));
-            bee.setCannotEnterHiveTicks(MAX_MOVE_TICKS);
+            bee.setStayOutOfHiveCountdown(MAX_MOVE_TICKS);
         } else {
             lastTried = 200;
         }
@@ -63,11 +63,11 @@ public class BeeMoveToMoobloomGoal extends Goal {
         moveTicks = 0;
         moobloom = null;
         bee.getNavigation().stop();
-        bee.getNavigation().resetRangeMultiplier();
+        bee.getNavigation().resetMaxVisitedNodesMultiplier();
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         return moobloom != null && moobloom.isAlive() && moveTicks < MAX_MOVE_TICKS;
     }
 
@@ -80,23 +80,23 @@ public class BeeMoveToMoobloomGoal extends Goal {
 
         if (moveTicks > MAX_MOVE_TICKS) {
             moobloom = null;
-        } else if (!bee.getNavigation().isFollowingPath()) {
-            ((BeeEntityAccessor) bee).invokeStartMovingTo(moobloom.getBlockPos());
+        } else if (!bee.getNavigation().isInProgress()) {
+            ((BeeEntityAccessor) bee).invokeStartMovingTo(moobloom.blockPosition());
 
             if (Core.debug)
-                bee.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100));
+                bee.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100));
         } else {
 
             // update bee tracking to take into account a moving moobloom
             if (moveTicks % 50 == 0)
-                ((BeeEntityAccessor) bee).invokeStartMovingTo(moobloom.getBlockPos());
+                ((BeeEntityAccessor) bee).invokeStartMovingTo(moobloom.blockPosition());
 
-            double dist = bee.getPos().distanceTo(moobloom.getPos());
+            double dist = bee.position().distanceTo(moobloom.position());
             if (dist < 2.2) {
                 ((BeeEntityAccessor)bee).invokeSetHasNectar(false);
 
                 if (Core.debug)
-                    bee.removeStatusEffect(StatusEffects.GLOWING);
+                    bee.removeEffect(MobEffects.GLOWING);
 
                 moobloom.pollinate();
                 moobloom = null;

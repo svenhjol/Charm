@@ -1,21 +1,5 @@
 package svenhjol.charm.module.ebony_wood;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.SignType;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
-import net.minecraft.world.gen.foliage.LargeOakFoliagePlacer;
-import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.*;
@@ -27,6 +11,7 @@ import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
 import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
+import svenhjol.charm.module.ebony_wood.EbonyWoodClient;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
 import svenhjol.charm.module.variant_barrels.VariantBarrels;
 import svenhjol.charm.module.variant_bookshelves.VariantBookshelfBlock;
@@ -37,8 +22,42 @@ import svenhjol.charm.module.variant_chests.VariantTrappedChestBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadders;
 import svenhjol.charm.module.bookcases.Bookcases;
-
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyButtonBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyDoorBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyFenceBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyFenceGateBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyLeavesBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyLogBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyPlanksBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyPressurePlateBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonySaplingBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonySignBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonySlabBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyStairsBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyTrapdoorBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyWallSignBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyWoodBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.StrippedEbonyLogBlock;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.StrippedEbonyWoodBlock;
+import svenhjol.charm.module.ebony_wood.EbonyItems.EbonyBoatItem;
+import svenhjol.charm.module.ebony_wood.EbonyItems.EbonySignItem;
 import java.util.OptionalInt;
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
+import net.minecraft.world.level.levelgen.placement.ChanceDecoratorConfiguration;
+import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
 
 import static svenhjol.charm.module.ebony_wood.EbonyBlocks.*;
 import static svenhjol.charm.module.ebony_wood.EbonyItems.EbonyBoatItem;
@@ -49,12 +68,12 @@ public class EbonyWood extends CharmModule {
     @Config(name = "Spawn chance", description = "Chance (per number of chunks) of an ebony tree spawning.")
     public static int spawnChance = 3;
 
-    public static Identifier ID = new Identifier(Charm.MOD_ID, "ebony");
-    public static Identifier DECORATION_ID = new Identifier(Charm.MOD_ID, "ebony_decoration");
+    public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "ebony");
+    public static ResourceLocation DECORATION_ID = new ResourceLocation(Charm.MOD_ID, "ebony_decoration");
     public static ConfiguredFeature<?, ?> TREE;
     public static ConfiguredFeature<?, ?> TREE_DECORATION;
 
-    public static SignType SIGN_TYPE;
+    public static WoodType SIGN_TYPE;
 
     public static CharmWoodenButtonBlock BUTTON;
     public static CharmDoorBlock DOOR;
@@ -117,23 +136,23 @@ public class EbonyWood extends CharmModule {
         LADDER = VariantLadders.registerLadder(this, CharmWoodMaterial.EBONY);
         TRAPPED_CHEST = VariantChests.registerTrappedChest(this, CharmWoodMaterial.EBONY);
 
-        ConfiguredFeature<?, ?> configuredFeature = Feature.TREE.configure(new TreeFeatureConfig.Builder(
-            new SimpleBlockStateProvider(LOG.getDefaultState()),
-            new LargeOakTrunkPlacer(3, 6, 0),
-            new SimpleBlockStateProvider(LEAVES.getDefaultState()),
-            new SimpleBlockStateProvider(SAPLING.getDefaultState()),
-            new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 3), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(3))
+        ConfiguredFeature<?, ?> configuredFeature = Feature.TREE.configured(new TreeConfiguration.TreeConfigurationBuilder(
+            new SimpleStateProvider(LOG.defaultBlockState()),
+            new FancyTrunkPlacer(3, 6, 0),
+            new SimpleStateProvider(LEAVES.defaultBlockState()),
+            new SimpleStateProvider(SAPLING.defaultBlockState()),
+            new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 3), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(3))
         ).build());
 
         TREE = RegistryHelper.configuredFeature(ID, configuredFeature);
         TREE_DECORATION = RegistryHelper.configuredFeature(DECORATION_ID, TREE
-            .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER)
-            .decorate(Decorator.CHANCE.configure(new ChanceDecoratorConfig(spawnChance))));
+            .decorated(Features.Decorators.HEIGHTMAP_WITH_TREE_THRESHOLD_SQUARED)
+            .decorated(FeatureDecorator.CHANCE.configured(new ChanceDecoratorConfiguration(spawnChance))));
     }
 
     @Override
     public void init() {
         RegistryHelper.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
-        BiomeHelper.addFeatureToBiomeCategories(TREE_DECORATION, Biome.Category.SAVANNA, GenerationStep.Feature.VEGETAL_DECORATION);
+        BiomeHelper.addFeatureToBiomeCategories(TREE_DECORATION, Biome.BiomeCategory.SAVANNA, GenerationStep.Decoration.VEGETAL_DECORATION);
     }
 }

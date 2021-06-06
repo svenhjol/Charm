@@ -6,22 +6,23 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.collection.Pool;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.biome.source.BiomeAccess;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeManager;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import svenhjol.charm.Charm;
+import svenhjol.charm.helper.CollectionHelper;
 import svenhjol.charm.mixin.accessor.GenerationSettingsAccessor;
 import svenhjol.charm.mixin.accessor.SpawnSettingsAccessor;
 import svenhjol.charm.module.core.Core;
@@ -33,42 +34,42 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings({"UnstableApiUsage", "unused", "deprecation"})
 public class BiomeHelper {
-    public static Map<Biome.Category, List<RegistryKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
+    public static Map<Biome.BiomeCategory, List<ResourceKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
 
-    public static Biome getBiome(ServerWorld world, BlockPos pos) {
-        BiomeAccess biomeAccess = world.getBiomeAccess();
+    public static Biome getBiome(ServerLevel world, BlockPos pos) {
+        BiomeManager biomeAccess = world.getBiomeManager();
         return biomeAccess.getBiome(pos);
     }
 
-    public static Biome getBiomeFromBiomeKey(RegistryKey<Biome> biomeKey) {
+    public static Biome getBiomeFromBiomeKey(ResourceKey<Biome> biomeKey) {
         return BuiltinRegistries.BIOME.get(biomeKey);
     }
 
-    public static Optional<RegistryKey<Biome>> getBiomeKeyAtPosition(ServerWorld world, BlockPos pos) {
-        return world.getBiomeKey(pos);
+    public static Optional<ResourceKey<Biome>> getBiomeKeyAtPosition(ServerLevel world, BlockPos pos) {
+        return world.getBiomeName(pos);
     }
 
-    public static BlockPos locateBiome(RegistryKey<Biome> biomeKey, ServerWorld world, BlockPos pos) {
-        Biome biome = world.getRegistryManager().get(Registry.BIOME_KEY).get(biomeKey);
+    public static BlockPos locateBiome(ResourceKey<Biome> biomeKey, ServerLevel world, BlockPos pos) {
+        Biome biome = world.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).get(biomeKey);
         return locateBiome(biome, world, pos);
     }
 
-    public static BlockPos locateBiome(Biome biome, ServerWorld world, BlockPos pos) {
-        return world.locateBiome(biome, pos, 6400, 8);
+    public static BlockPos locateBiome(Biome biome, ServerLevel world, BlockPos pos) {
+        return world.findNearestBiome(biome, pos, 6400, 8);
     }
 
-    public static void addFeatureToBiomeCategories(ConfiguredFeature<?, ?> feature, Biome.Category biomeCategory, GenerationStep.Feature generationStep) {
-        List<RegistryKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
+    public static void addFeatureToBiomeCategories(ConfiguredFeature<?, ?> feature, Biome.BiomeCategory biomeCategory, GenerationStep.Decoration generationStep) {
+        List<ResourceKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
         biomeKeys.forEach(biomeKey -> BiomeHelper.addFeatureToBiome(feature, biomeKey, generationStep));
     }
 
-    public static void addFeatureToBiome(ConfiguredFeature<?, ?> feature, RegistryKey<Biome> biomeKey, GenerationStep.Feature generationStep) {
+    public static void addFeatureToBiome(ConfiguredFeature<?, ?> feature, ResourceKey<Biome> biomeKey, GenerationStep.Decoration generationStep) {
         if (Core.useBiomeHacks) {
-            GenerationSettings settings = getBiomeFromBiomeKey(biomeKey).getGenerationSettings();
+            BiomeGenerationSettings settings = getBiomeFromBiomeKey(biomeKey).getGenerationSettings();
             makeGenerationSettingsMutable(settings);
             ((GenerationSettingsAccessor) settings).getFeatures().get(generationStep.ordinal()).add(() -> feature);
         } else {
-            RegistryKey<ConfiguredFeature<?, ?>> featureKey;
+            ResourceKey<ConfiguredFeature<?, ?>> featureKey;
             Predicate<BiomeSelectionContext> biomeSelector;
 
             try {
@@ -83,18 +84,18 @@ public class BiomeHelper {
         }
     }
 
-    public static void addStructureToBiomeCategories(ConfiguredStructureFeature<?, ?> structureFeature, Biome.Category biomeCategory) {
-        List<RegistryKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
+    public static void addStructureToBiomeCategories(ConfiguredStructureFeature<?, ?> structureFeature, Biome.BiomeCategory biomeCategory) {
+        List<ResourceKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
         biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureToBiome(structureFeature, biomeKey));
     }
 
-    public static void addStructureToBiome(ConfiguredStructureFeature<?, ?> structureFeature, RegistryKey<Biome> biomeKey) {
+    public static void addStructureToBiome(ConfiguredStructureFeature<?, ?> structureFeature, ResourceKey<Biome> biomeKey) {
         if (Core.useBiomeHacks) {
-            GenerationSettings settings = getBiomeFromBiomeKey(biomeKey).getGenerationSettings();
+            BiomeGenerationSettings settings = getBiomeFromBiomeKey(biomeKey).getGenerationSettings();
             makeGenerationSettingsMutable(settings);
             ((GenerationSettingsAccessor) settings).getStructureFeatures().add(() -> structureFeature);
         } else {
-            RegistryKey<ConfiguredStructureFeature<?, ?>> structureKey;
+            ResourceKey<ConfiguredStructureFeature<?, ?>> structureKey;
             Predicate<BiomeSelectionContext> biomeSelector;
 
             try {
@@ -110,13 +111,13 @@ public class BiomeHelper {
         }
     }
 
-    public static void addSpawnEntry(RegistryKey<Biome> biomeKey, SpawnGroup group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
+    public static void addSpawnEntry(ResourceKey<Biome> biomeKey, MobCategory group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
         if (Core.useBiomeHacks) {
-            SpawnSettings spawnSettings = getBiomeFromBiomeKey(biomeKey).getSpawnSettings();
+            MobSpawnSettings spawnSettings = getBiomeFromBiomeKey(biomeKey).getMobSettings();
             makeSpawnSettingsMutable(spawnSettings);
 
-            Map<SpawnGroup, Pool<SpawnSettings.SpawnEntry>> spawners = ((SpawnSettingsAccessor) spawnSettings).getSpawners();
-            CollectionHelper.addPoolEntry(spawners.get(group), new SpawnSettings.SpawnEntry(entity, weight, minGroupSize, maxGroupSize));
+            Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners = ((SpawnSettingsAccessor) spawnSettings).getSpawners();
+            CollectionHelper.addPoolEntry(spawners.get(group), new MobSpawnSettings.SpawnerData(entity, weight, minGroupSize, maxGroupSize));
 
             ((SpawnSettingsAccessor)spawnSettings).setSpawners(spawners);
         } else {
@@ -132,7 +133,7 @@ public class BiomeHelper {
     /**
      * Charm's biome gen settings mutability hack, don't use unless fabric's biome API is b0rk
      */
-    private static void makeGenerationSettingsMutable(GenerationSettings settings) {
+    private static void makeGenerationSettingsMutable(BiomeGenerationSettings settings) {
         List<List<Supplier<ConfiguredFeature<?, ?>>>> features = ((GenerationSettingsAccessor) settings).getFeatures();
         if (features instanceof ImmutableList) {
             List<List<Supplier<ConfiguredFeature<?, ?>>>> collect = features.stream().map(ArrayList::new).collect(Collectors.toList());
@@ -147,12 +148,12 @@ public class BiomeHelper {
     /**
      * Charm's biome spawn settings mutability hack, don't use unless fabric's biome API is b0rk
      */
-    private static void makeSpawnSettingsMutable(SpawnSettings settings) {
-        Map<SpawnGroup, Pool<SpawnSettings.SpawnEntry>> spawners = ((SpawnSettingsAccessor) settings).getSpawners();
+    private static void makeSpawnSettingsMutable(MobSpawnSettings settings) {
+        Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners = ((SpawnSettingsAccessor) settings).getSpawners();
         if (spawners instanceof ImmutableMap)
             ((SpawnSettingsAccessor)settings).setSpawners(new HashMap<>(spawners));
 
-        Map<EntityType<?>, SpawnSettings.SpawnDensity> spawnCosts = ((SpawnSettingsAccessor) settings).getSpawnCosts();
+        Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> spawnCosts = ((SpawnSettingsAccessor) settings).getSpawnCosts();
         if (spawnCosts instanceof ImmutableMap)
             ((SpawnSettingsAccessor)settings).setSpawnCosts(new HashMap<>(spawnCosts));
     }

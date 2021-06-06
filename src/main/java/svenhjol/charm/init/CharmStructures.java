@@ -2,15 +2,16 @@ package svenhjol.charm.init;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Blocks;
-import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
-import net.minecraft.structure.processor.StructureProcessorType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import svenhjol.charm.Charm;
+import svenhjol.charm.init.CharmDecoration;
 import svenhjol.charm.structure.CharmDataBlockProcessor;
 
 import java.util.Arrays;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 
 public class CharmStructures {
     private static final CharmDataBlockProcessor DATA_BLOCK_PROCESSOR = new CharmDataBlockProcessor();
@@ -19,9 +20,9 @@ public class CharmStructures {
 
     public static void init() {
         CharmDecoration.SINGLE_POOL_ELEMENT_PROCESSORS.addAll(Arrays.asList(
-            new BlockIgnoreStructureProcessor(ImmutableList.of(Blocks.GRAY_STAINED_GLASS)),
+            new BlockIgnoreProcessor(ImmutableList.of(Blocks.GRAY_STAINED_GLASS)),
             DATA_BLOCK_PROCESSOR
         ));
-        Registry.register(Registry.STRUCTURE_PROCESSOR, new Identifier(Charm.MOD_ID, "data_block_processor"), DATA_BLOCK_PROCESSOR_TYPE);
+        Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(Charm.MOD_ID, "data_block_processor"), DATA_BLOCK_PROCESSOR_TYPE);
     }
 }

@@ -1,8 +1,5 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.Selectable;
-import net.minecraft.client.gui.screen.Screen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,12 +9,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.SetupGuiCallback;
 
 import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.screens.Screen;
 
 @Mixin(Screen.class)
 public abstract class SetupGuiCallbackMixin {
     @Shadow
     @Final
-    private List<Selectable> selectables;
+    private List<NarratableEntry> selectables;
 
     /**
      * Fires the {@link SetupGuiCallback} event.
@@ -31,7 +31,7 @@ public abstract class SetupGuiCallbackMixin {
         method = "init(Lnet/minecraft/client/MinecraftClient;II)V",
         at = @At("RETURN")
     )
-    private void hookConstructor(MinecraftClient client, int width, int height, CallbackInfo ci) {
+    private void hookConstructor(Minecraft client, int width, int height, CallbackInfo ci) {
         SetupGuiCallback.EVENT.invoker().interact(client, width, height, this.selectables);
     }
 }

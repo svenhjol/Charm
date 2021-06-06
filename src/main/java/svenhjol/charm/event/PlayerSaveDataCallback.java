@@ -2,9 +2,9 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
+import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.Charm;
 
 import java.io.File;
@@ -16,7 +16,7 @@ public interface PlayerSaveDataCallback {
         }
     });
 
-    static void writeFile(File file, NbtCompound nbt) {
+    static void writeFile(File file, CompoundTag nbt) {
         try {
             NbtIo.writeCompressed(nbt, file);
         } catch (Exception e) {
@@ -24,5 +24,5 @@ public interface PlayerSaveDataCallback {
         }
     }
 
-    void interact(PlayerEntity player, File playerDataDir);
+    void interact(Player player, File playerDataDir);
 }

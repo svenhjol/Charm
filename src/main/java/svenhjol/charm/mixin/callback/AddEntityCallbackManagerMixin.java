@@ -1,16 +1,16 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.server.world.ServerEntityManager;
-import net.minecraft.world.entity.EntityLike;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.entity.EntityAccess;
+import net.minecraft.world.level.entity.PersistentEntitySectionManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.event.AddEntityCallback;
 
-@Mixin(ServerEntityManager.class)
-public class AddEntityCallbackManagerMixin<T extends EntityLike> {
+@Mixin(PersistentEntitySectionManager.class)
+public class AddEntityCallbackManagerMixin<T extends EntityAccess> {
 
     /**
      * Fires the {@link AddEntityCallback} event when an entity

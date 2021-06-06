@@ -1,17 +1,18 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
-public abstract class CharmStairsBlock extends StairsBlock implements ICharmBlock {
+public abstract class CharmStairsBlock extends StairBlock implements ICharmBlock {
     private final CharmModule module;
 
-    public CharmStairsBlock(CharmModule module, String name, BlockState state, Settings settings) {
+    public CharmStairsBlock(CharmModule module, String name, BlockState state, Properties settings) {
         super(state, settings);
 
         this.register(module, name);
@@ -19,13 +20,13 @@ public abstract class CharmStairsBlock extends StairsBlock implements ICharmBloc
     }
 
     public CharmStairsBlock(CharmModule module, String name, Block block) {
-        this(module, name, block.getDefaultState(), Settings.copy(block));
+        this(module, name, block.defaultBlockState(), Properties.copy(block));
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

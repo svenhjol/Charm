@@ -1,11 +1,12 @@
 package svenhjol.charm.mixin.anvil_improvements;
 
-import net.minecraft.client.gui.screen.ingame.AnvilScreen;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerAbilities;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.inventory.AnvilScreen;
+import net.minecraft.world.entity.player.Abilities;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import svenhjol.charm.mixin.anvil_improvements.RemoveTooExpensiveMixin;
 import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 @Mixin(AnvilScreen.class)
@@ -26,7 +27,7 @@ public class StopShowingTooExpensiveMixin {
             target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z"
         )
     )
-    private boolean hookMaximumCostCheck(PlayerAbilities abilities, MatrixStack matrix, int x, int y) {
-        return AnvilImprovements.removeTooExpensive() || abilities.creativeMode;
+    private boolean hookMaximumCostCheck(Abilities abilities, PoseStack matrix, int x, int y) {
+        return AnvilImprovements.removeTooExpensive() || abilities.instabuild;
     }
 }

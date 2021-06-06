@@ -1,12 +1,12 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.entity.passive.BeeEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.animal.Bee;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(BeeEntity.class)
+@Mixin(Bee.class)
 @CharmMixin(required = true)
 public interface BeeEntityAccessor {
     @Invoker

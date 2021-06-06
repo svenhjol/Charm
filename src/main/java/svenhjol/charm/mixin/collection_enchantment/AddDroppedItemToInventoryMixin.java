@@ -1,9 +1,9 @@
 package svenhjol.charm.mixin.collection_enchantment;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,7 +19,7 @@ public class AddDroppedItemToInventoryMixin {
      * method is cancelled (the itementity does not spawn).
      */
     @Inject(method = "dropStack", at = @At("HEAD"), cancellable = true)
-    private static void hookDropStack(World world, BlockPos pos, ItemStack stack, CallbackInfo ci) {
+    private static void hookDropStack(Level world, BlockPos pos, ItemStack stack, CallbackInfo ci) {
         if (CollectionEnchantment.trySpawnToInventory(world, stack))
             ci.cancel();
     }

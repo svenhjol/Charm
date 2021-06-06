@@ -1,14 +1,15 @@
 package svenhjol.charm.module.ebony_wood;
 
-import net.minecraft.block.MapColor;
-import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.*;
 
 import java.util.Random;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.material.MaterialColor;
+import svenhjol.charm.module.ebony_wood.EbonyWood;
 
 public class EbonyBlocks {
     public static class EbonyButtonBlock extends CharmWoodenButtonBlock {
@@ -19,19 +20,19 @@ public class EbonyBlocks {
 
     public static class EbonyDoorBlock extends CharmDoorBlock {
         public EbonyDoorBlock(CharmModule module) {
-            super(module, "ebony_door", EbonyWood.PLANKS);
+            super(module, "ebony_door", svenhjol.charm.module.ebony_wood.EbonyWood.PLANKS);
         }
     }
 
     public static class EbonyFenceBlock extends CharmFenceBlock {
         public EbonyFenceBlock(CharmModule module) {
-            super(module, "ebony_fence", EbonyWood.PLANKS);
+            super(module, "ebony_fence", svenhjol.charm.module.ebony_wood.EbonyWood.PLANKS);
         }
     }
 
     public static class EbonyFenceGateBlock extends CharmFenceGateBlock {
         public EbonyFenceGateBlock(CharmModule module) {
-            super(module, "ebony_fence_gate", EbonyWood.PLANKS);
+            super(module, "ebony_fence_gate", svenhjol.charm.module.ebony_wood.EbonyWood.PLANKS);
         }
     }
 
@@ -43,41 +44,41 @@ public class EbonyBlocks {
 
     public static class EbonyLogBlock extends CharmLogBlock {
         public EbonyLogBlock(CharmModule module) {
-            super(module, "ebony_log", MapColor.BLACK, MapColor.STONE_GRAY);
+            super(module, "ebony_log", MaterialColor.COLOR_BLACK, MaterialColor.STONE);
         }
     }
 
     public static class StrippedEbonyLogBlock extends CharmLogBlock {
         public StrippedEbonyLogBlock(CharmModule module) {
-            super(module, "stripped_ebony_log", MapColor.BLACK, MapColor.BLACK);
+            super(module, "stripped_ebony_log", MaterialColor.COLOR_BLACK, MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class StrippedEbonyWoodBlock extends CharmLogBlock {
         public StrippedEbonyWoodBlock(CharmModule module) {
-            super(module, "stripped_ebony_wood", MapColor.BLACK, MapColor.BLACK);
+            super(module, "stripped_ebony_wood", MaterialColor.COLOR_BLACK, MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonyPlanksBlock extends CharmPlanksBlock {
         public EbonyPlanksBlock(CharmModule module) {
-            super(module, "ebony_planks", MapColor.BLACK);
+            super(module, "ebony_planks", MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonyPressurePlateBlock extends CharmPressurePlate {
         public EbonyPressurePlateBlock(CharmModule module) {
-            super(module, "ebony_pressure_plate", EbonyWood.PLANKS);
+            super(module, "ebony_pressure_plate", svenhjol.charm.module.ebony_wood.EbonyWood.PLANKS);
         }
     }
 
     public static class EbonySaplingBlock extends CharmSaplingBlock {
         public EbonySaplingBlock(CharmModule module) {
-            super(module, "ebony_sapling", new SaplingGenerator() {
+            super(module, "ebony_sapling", new AbstractTreeGrower() {
                 @Nullable
                 @Override
-                protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bees) {
-                    return (ConfiguredFeature<TreeFeatureConfig, ?>) EbonyWood.TREE;
+                protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredFeature(Random random, boolean bees) {
+                    return (ConfiguredFeature<TreeConfiguration, ?>) svenhjol.charm.module.ebony_wood.EbonyWood.TREE;
                 }
             });
         }
@@ -85,37 +86,37 @@ public class EbonyBlocks {
 
     public static class EbonySignBlock extends CharmSignBlock {
         public EbonySignBlock(CharmModule module) {
-            super(module, "ebony_sign", EbonyWood.SIGN_TYPE, MapColor.BLACK);
+            super(module, "ebony_sign", svenhjol.charm.module.ebony_wood.EbonyWood.SIGN_TYPE, MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonySlabBlock extends CharmSlabBlock {
         public EbonySlabBlock(CharmModule module) {
-            super(module, "ebony_slab", MapColor.BLACK);
+            super(module, "ebony_slab", MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonyStairsBlock extends CharmStairsBlock {
         public EbonyStairsBlock(CharmModule module) {
-            super(module, "ebony_stairs", EbonyWood.PLANKS);
+            super(module, "ebony_stairs", svenhjol.charm.module.ebony_wood.EbonyWood.PLANKS);
         }
     }
 
     public static class EbonyTrapdoorBlock extends CharmTrapdoorBlock {
         public EbonyTrapdoorBlock(CharmModule module) {
-            super(module, "ebony_trapdoor", MapColor.BLACK);
+            super(module, "ebony_trapdoor", MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonyWallSignBlock extends CharmWallSignBlock {
         public EbonyWallSignBlock(CharmModule module) {
-            super(module, "ebony_wall_sign", EbonyWood.SIGN_BLOCK, EbonyWood.SIGN_TYPE, MapColor.BLACK);
+            super(module, "ebony_wall_sign", svenhjol.charm.module.ebony_wood.EbonyWood.SIGN_BLOCK, EbonyWood.SIGN_TYPE, MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonyWoodBlock extends CharmLogBlock {
         public EbonyWoodBlock(CharmModule module) {
-            super(module, "ebony_wood", MapColor.BROWN);
+            super(module, "ebony_wood", MaterialColor.COLOR_BROWN);
         }
     }
 }

@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.anvil_improvements;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.screen.Property;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.inventory.DataSlot;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -11,11 +11,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
-@Mixin(AnvilScreenHandler.class)
+@Mixin(AnvilMenu.class)
 public class AllowTakeWithoutXpMixin {
     @Shadow
     @Final
-    private Property levelCost;
+    private DataSlot levelCost;
 
     /**
      * Vanilla doesn't allow taking an item from the anvil with a zero XP cost.
@@ -28,7 +28,7 @@ public class AllowTakeWithoutXpMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private void hookCanTakeOutput(PlayerEntity player, boolean unused, CallbackInfoReturnable<Boolean> cir) {
+    private void hookCanTakeOutput(Player player, boolean unused, CallbackInfoReturnable<Boolean> cir) {
         if (AnvilImprovements.allowTakeWithoutXp(player, levelCost))
             cir.setReturnValue(true);
     }

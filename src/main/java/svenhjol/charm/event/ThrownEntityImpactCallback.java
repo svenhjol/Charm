@@ -2,20 +2,20 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.phys.HitResult;
 
 public interface ThrownEntityImpactCallback {
     Event<ThrownEntityImpactCallback> EVENT = EventFactory.createArrayBacked(ThrownEntityImpactCallback.class, (listeners) -> (entity, hitResult) -> {
         for (ThrownEntityImpactCallback listener : listeners) {
-            ActionResult result = listener.interact(entity, hitResult);
-            if (result != ActionResult.PASS)
+            InteractionResult result = listener.interact(entity, hitResult);
+            if (result != InteractionResult.PASS)
                 return result;
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     });
 
-    ActionResult interact(ThrownEntity entity, HitResult hitResult);
+    InteractionResult interact(ThrowableProjectile entity, HitResult hitResult);
 }

@@ -1,44 +1,44 @@
 package svenhjol.charm.module.bookcases;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.text.Text;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import svenhjol.charm.init.CharmResources;
 
-public class BookcaseScreen extends HandledScreen<ScreenHandler> {
-    public BookcaseScreen(ScreenHandler handler, PlayerInventory inventory, Text title) {
+public class BookcaseScreen extends AbstractContainerScreen<AbstractContainerMenu> {
+    public BookcaseScreen(AbstractContainerMenu handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
         this.passEvents = true;
-        this.backgroundWidth = 175;
-        this.backgroundHeight = 151;
+        this.imageWidth = 175;
+        this.imageHeight = 151;
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
-        drawMouseoverTooltip(matrices, mouseX, mouseY);
+        renderTooltip(matrices, mouseX, mouseY);
     }
 
     @Override
-    protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
-        this.textRenderer.draw(matrices, this.title.asOrderedText(), 8.0F, 6.0F, 4210752);
-        this.textRenderer.draw(matrices, this.playerInventoryTitle.asOrderedText(), 8.0F, (float)backgroundHeight - 94, 4210752);
+    protected void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
+        this.font.draw(matrices, this.title.getVisualOrderText(), 8.0F, 6.0F, 4210752);
+        this.font.draw(matrices, this.playerInventoryTitle.getVisualOrderText(), 8.0F, (float)imageHeight - 94, 4210752);
     }
 
     @Override
-    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+    protected void renderBg(PoseStack matrices, float delta, int mouseX, int mouseY) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-        if (client != null) {
+        if (minecraft != null) {
             RenderSystem.setShaderTexture(0, CharmResources.GUI_18_TEXTURE);
 
-            int x = (width - backgroundWidth) / 2;
-            int y = (height - backgroundHeight) / 2;
-            drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
+            int x = (width - imageWidth) / 2;
+            int y = (height - imageHeight) / 2;
+            blit(matrices, x, y, 0, 0, imageWidth, imageHeight);
         }
     }
 }

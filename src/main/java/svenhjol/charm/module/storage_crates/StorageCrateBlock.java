@@ -1,92 +1,93 @@
 package svenhjol.charm.module.storage_crates;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.CharmBlockWithEntity;
 import svenhjol.charm.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Containers;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import svenhjol.charm.module.storage_crates.StorageCrateBlockEntity;
 
 public class StorageCrateBlock extends CharmBlockWithEntity {
-    public static final DirectionProperty FACING = Properties.FACING;
-    private static final VoxelShape SHAPE = createCuboidShape(1.0D, 1.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    private static final VoxelShape SHAPE = box(1.0D, 1.0D, 1.0D, 15.0D, 16.0D, 15.0D);
 
     public StorageCrateBlock(CharmModule module, IVariantMaterial material) {
-        super(module, material.asString() + "_storage_crate",
-            Settings.copy(Blocks.COMPOSTER)
+        super(module, material.getSerializedName() + "_storage_crate",
+            Properties.copy(Blocks.COMPOSTER)
         );
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public VoxelShape getRaycastShape(BlockState state, BlockView world, BlockPos pos) {
+    public VoxelShape getInteractionShape(BlockState state, BlockGetter world, BlockPos pos) {
         return SHAPE;
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        StorageCrateBlockEntity crate = getBlockEntity(world, pos);
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
+        svenhjol.charm.module.storage_crates.StorageCrateBlockEntity crate = getBlockEntity(world, pos);
 
-        if (!world.isClient && crate != null && !crate.isEmpty()) {
-            ItemScatterer.spawn(world, pos, crate.getInvStackList());
+        if (!world.isClientSide && crate != null && !crate.isEmpty()) {
+            Containers.dropContents(world, pos, crate.getItems());
         }
 
-        super.onStateReplaced(state, world, pos, newState, moved);
+        super.onRemove(state, world, pos, newState, moved);
     }
 
     @Nullable
-    public StorageCrateBlockEntity getBlockEntity(World world, BlockPos pos) {
+    public svenhjol.charm.module.storage_crates.StorageCrateBlockEntity getBlockEntity(Level world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof StorageCrateBlockEntity)
-            return (StorageCrateBlockEntity) blockEntity;
+        if (blockEntity instanceof svenhjol.charm.module.storage_crates.StorageCrateBlockEntity)
+            return (svenhjol.charm.module.storage_crates.StorageCrateBlockEntity) blockEntity;
 
         return null;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StorageCrateBlockEntity(pos, state);
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.DECORATIONS;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_DECORATIONS;
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerLookDirection().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(FACING, ctx.getNearestLookingDirection().getOpposite());
     }
 
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 }

@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.gentle_potion_particles;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -24,7 +24,7 @@ public class RenderTranslucentParticleMixin {
             target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"
         )
     )
-    private void hookTickStatusEffects(World world, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+    private void hookTickStatusEffects(Level world, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
         boolean result = GentlePotionParticles.tryRenderParticles(world, x, y, z, velocityX, velocityY, velocityZ);
         if (!result)
             world.addParticle(parameters, x, y, z, velocityX, velocityY, velocityZ); // vanilla behavior

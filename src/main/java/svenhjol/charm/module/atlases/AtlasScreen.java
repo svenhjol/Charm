@@ -2,25 +2,24 @@ package svenhjol.charm.module.atlases;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.MapRenderer;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.render.*;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.FilledMapItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.map.MapIcon;
-import net.minecraft.item.map.MapState;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3f;
-import net.minecraft.world.World;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.saveddata.maps.MapDecoration;
+import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.client.CharmHandledScreen;
@@ -29,7 +28,10 @@ import svenhjol.charm.helper.MapRenderHelper;
 import svenhjol.charm.mixin.accessor.MapStateAccessor;
 import svenhjol.charm.mixin.accessor.ScreenAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
-
+import svenhjol.charm.module.atlases.AtlasContainer;
+import svenhjol.charm.module.atlases.AtlasInventory;
+import svenhjol.charm.module.atlases.AtlasInventory.Index;
+import svenhjol.charm.module.atlases.AtlasInventory.MapInfo;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
@@ -40,13 +42,20 @@ import java.util.stream.Collector;
 import static svenhjol.charm.module.atlases.AtlasInventory.Index;
 import static svenhjol.charm.module.atlases.AtlasInventory.MapInfo;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
+import svenhjol.charm.module.atlases.Atlases;
+
 /**
  * @author Lukas
  * @since 28.12.2020
  */
-public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
-    private static final Identifier CONTAINER_BACKGROUND = new Identifier(Charm.MOD_ID, "textures/gui/atlas_container.png");
-    private static final RenderLayer MAP_DECORATIONS = RenderLayer.getText(new Identifier("textures/map/map_icons.png"));
+public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlases.AtlasContainer> {
+    private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(Charm.MOD_ID, "textures/gui/atlas_container.png");
+    private static final RenderType MAP_DECORATIONS = RenderType.text(new ResourceLocation("textures/map/map_icons.png"));
     private static final int SIZE = 48;
     private static final int LEFT = 74;
     private static final int TOP = 16;
@@ -64,23 +73,23 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
     private MapGui mapGui;
     private int lastSize;
     private final MapRenderer mapItemRenderer;
-    private final PlayerEntity player;
+    private final Player player;
 
-    public AtlasScreen(AtlasContainer screenContainer, PlayerInventory inv, Text titleIn) {
+    public AtlasScreen(AtlasContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn, CONTAINER_BACKGROUND);
-        this.backgroundWidth = 175;
-        this.backgroundHeight = 168;
+        this.imageWidth = 175;
+        this.imageHeight = 168;
         this.player = inv.player;
-        AtlasInventory atlasInventory = screenContainer.getAtlasInventory();
-        this.slot = inv.getSlotWithStack(atlasInventory.getAtlasItem());
-        Map<Index, MapInfo> mapInfos = atlasInventory.getCurrentDimensionMapInfos(MinecraftClient.getInstance().world);
+        svenhjol.charm.module.atlases.AtlasInventory atlasInventory = screenContainer.getAtlasInventory();
+        this.slot = inv.findSlotMatchingItem(atlasInventory.getAtlasItem());
+        Map<Index, MapInfo> mapInfos = atlasInventory.getCurrentDimensionMapInfos(Minecraft.getInstance().level);
         lastSize = mapInfos.size();
         mapGui = lastSize > 1 ? getWorldMap() : getSingleMap(lastSize == 0 ? null : mapInfos.values().iterator().next());
         buttons = new EnumMap<>(ButtonDirection.class);
         for (ButtonDirection direction : ButtonDirection.values()) {
             buttons.put(direction, createButton(direction));
         }
-        mapItemRenderer = MinecraftClient.getInstance().gameRenderer.getMapRenderer();
+        mapItemRenderer = Minecraft.getInstance().gameRenderer.getMapRenderer();
     }
 
     private CharmImageButton createButton(ButtonDirection dir) {
@@ -89,8 +98,8 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
     }
 
     private static boolean isShiftClick() {
-        long handle = MinecraftClient.getInstance().getWindow().getHandle();
-        return InputUtil.isKeyPressed(handle, 340) || InputUtil.isKeyPressed(handle, 344);
+        long handle = Minecraft.getInstance().getWindow().getWindow();
+        return InputConstants.isKeyDown(handle, 340) || InputConstants.isKeyDown(handle, 344);
     }
 
     private WorldMap getWorldMap() {
@@ -104,20 +113,20 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         super.render(matrices, mouseX, mouseY, delta);
         updateGui();
         updateButtonState();
     }
 
     @Override
-    protected void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
-        super.drawForeground(matrices, mouseX, mouseY);
+    protected void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
+        super.renderLabels(matrices, mouseX, mouseY);
         MapRenderHelper.renderMapWithBackground(matrices, LEFT, TOP, 0, BASE_SCALE, LIGHT, bufferSource -> mapGui.render(matrices, bufferSource, mouseX, mouseY));
     }
 
     private void updateGui() {
-        Map<Index, MapInfo> mapInfos = handler.getAtlasInventory().getCurrentDimensionMapInfos(MinecraftClient.getInstance().world);
+        Map<Index, MapInfo> mapInfos = menu.getAtlasInventory().getCurrentDimensionMapInfos(Minecraft.getInstance().level);
         int size = mapInfos.size();
         if (mapGui instanceof WorldMap) {
             if (mapInfos.size() <= 1) {
@@ -135,14 +144,14 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
             if (button.visible) {
                 button.active = mapGui.buttonEnabled(direction);
                 if (!((ScreenAccessor)this).getSelectables().contains(button))
-                    addDrawableChild(button);
+                    addRenderableWidget(button);
             } else {
                 removeButton(button);
             }
         });
     }
 
-    private void removeButton(ClickableWidget button) {
+    private void removeButton(AbstractWidget button) {
         ((ScreenAccessor)this).getSelectables().remove(button);
         ((ScreenAccessor)this).getChildren().remove(button);
     }
@@ -156,11 +165,11 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
     }
 
     @Override
-    protected void onMouseClick(Slot slotIn, int slotId, int mouseButton, SlotActionType type) {
-        if (type == SlotActionType.QUICK_MOVE) {
-            sendAtlasTransfer(slot, ((SlotAccessor)slotIn).getIndex(), -1, Atlases.MoveMode.FROM_INVENTORY);
+    protected void slotClicked(Slot slotIn, int slotId, int mouseButton, ClickType type) {
+        if (type == ClickType.QUICK_MOVE) {
+            sendAtlasTransfer(slot, ((SlotAccessor)slotIn).getIndex(), -1, svenhjol.charm.module.atlases.Atlases.MoveMode.FROM_INVENTORY);
         } else {
-            super.onMouseClick(slotIn, slotId, mouseButton, type);
+            super.slotClicked(slotIn, slotId, mouseButton, type);
         }
     }
 
@@ -168,51 +177,51 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
         mapGui = gui;
     }
 
-    private void renderDecorations(MatrixStack matrices, VertexConsumerProvider buffer, MapState mapData, float relativeScale, Predicate<MapIcon> filter) {
+    private void renderDecorations(PoseStack matrices, MultiBufferSource buffer, MapItemSavedData mapData, float relativeScale, Predicate<MapDecoration> filter) {
         int k = 0;
 
-        for (MapIcon mapdecoration : ((MapStateAccessor)mapData).getIcons().values()) {
+        for (MapDecoration mapdecoration : ((MapStateAccessor)mapData).getIcons().values()) {
             if (!filter.test(mapdecoration))
                 continue;
 
-            matrices.push();
-            matrices.translate(mapdecoration.getX() / 2f + 64, mapdecoration.getZ() / 2f + 64, 0.02);
-            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(mapdecoration.getRotation() * 22.5f));
+            matrices.pushPose();
+            matrices.translate(mapdecoration.getX() / 2f + 64, mapdecoration.getY() / 2f + 64, 0.02);
+            matrices.mulPose(Vector3f.ZP.rotationDegrees(mapdecoration.getRot() * 22.5f));
             matrices.scale(relativeScale * 4, relativeScale * 4, 3);
             matrices.translate(-0.125, 0.125, 0);
-            byte b0 = mapdecoration.getTypeId();
+            byte b0 = mapdecoration.getImage();
             float f1 = (float) (b0 % 16) / 16f;
             float f2 = (float) (b0 / 16) / 16f;
             float f3 = (float) (b0 % 16 + 1) / 16f;
             float f4 = (float) (b0 / 16 + 1) / 16f;
-            Matrix4f matrix4f = matrices.peek().getModel();
+            Matrix4f matrix4f = matrices.last().pose();
             VertexConsumer builder = buffer.getBuffer(MAP_DECORATIONS);
             float z = k * 0.001f;
-            builder.vertex(matrix4f, -1, 1, z).color(255, 255, 255, 255).texture(f1, f2).light(LIGHT).next();
-            builder.vertex(matrix4f, 1, 1, z).color(255, 255, 255, 255).texture(f3, f2).light(LIGHT).next();
-            builder.vertex(matrix4f, 1, -1, z).color(255, 255, 255, 255).texture(f3, f4).light(LIGHT).next();
-            builder.vertex(matrix4f, -1, -1, z).color(255, 255, 255, 255).texture(f1, f4).light(LIGHT).next();
-            matrices.pop();
+            builder.vertex(matrix4f, -1, 1, z).color(255, 255, 255, 255).uv(f1, f2).uv2(LIGHT).endVertex();
+            builder.vertex(matrix4f, 1, 1, z).color(255, 255, 255, 255).uv(f3, f2).uv2(LIGHT).endVertex();
+            builder.vertex(matrix4f, 1, -1, z).color(255, 255, 255, 255).uv(f3, f4).uv2(LIGHT).endVertex();
+            builder.vertex(matrix4f, -1, -1, z).color(255, 255, 255, 255).uv(f1, f4).uv2(LIGHT).endVertex();
+            matrices.popPose();
 
             ++k;
         }
     }
 
-    private void sendAtlasTransfer(int atlasSlot, int mapX, int mapZ, Atlases.MoveMode mode) {
-        PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+    private void sendAtlasTransfer(int atlasSlot, int mapX, int mapZ, svenhjol.charm.module.atlases.Atlases.MoveMode mode) {
+        FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
         data.writeInt(atlasSlot);
         data.writeInt(mapX);
         data.writeInt(mapZ);
-        data.writeEnumConstant(mode);
-        ClientPlayNetworking.send(Atlases.MSG_SERVER_ATLAS_TRANSFER, data);
+        data.writeEnum(mode);
+        ClientPlayNetworking.send(svenhjol.charm.module.atlases.Atlases.MSG_SERVER_ATLAS_TRANSFER, data);
     }
 
     private int getX() {
-        return x;
+        return leftPos;
     }
 
     private int getY() {
-        return y;
+        return topPos;
     }
 
     private enum ButtonDirection {
@@ -241,7 +250,7 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
     }
 
     private interface MapGui {
-        void render(MatrixStack matrices, VertexConsumerProvider.Immediate bufferSource, int mouseX, int mouseY);
+        void render(PoseStack matrices, MultiBufferSource.BufferSource bufferSource, int mouseX, int mouseY);
 
         default boolean mouseClicked(double mouseX, double mouseY, int button) {
             return false;
@@ -296,8 +305,8 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
         private boolean fixedMapDistance = false;
 
         private boolean updateExtremes() {
-            AtlasInventory inventory = handler.getAtlasInventory();
-            Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(MinecraftClient.getInstance().world);
+            svenhjol.charm.module.atlases.AtlasInventory inventory = menu.getAtlasInventory();
+            Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(Minecraft.getInstance().level);
             if (mapInfos.isEmpty()) {
                 return false;
             }
@@ -318,17 +327,17 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
         }
 
         @Override
-        public void render(MatrixStack matrices, VertexConsumerProvider.Immediate bufferSource, int mouseX, int mouseY) {
-            final MinecraftClient mc = MinecraftClient.getInstance();
-            final World world = mc.world;
+        public void render(PoseStack matrices, MultiBufferSource.BufferSource bufferSource, int mouseX, int mouseY) {
+            final Minecraft mc = Minecraft.getInstance();
+            final Level world = mc.level;
             if (world == null || !updateExtremes()) {
                 return;
             }
             float mapSize = (float) NORMAL_SIZE / mapDistance;
             float mapScale = 1f / mapDistance;
             Index currentMin = corner != null ? corner : extremes.min;
-            AtlasInventory inventory = handler.getAtlasInventory();
-            Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(MinecraftClient.getInstance().world);
+            svenhjol.charm.module.atlases.AtlasInventory inventory = menu.getAtlasInventory();
+            Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(Minecraft.getInstance().level);
             Index playerIndex = inventory.getIndexOf(player);
             for (Map.Entry<Index, MapInfo> mapInfo : mapInfos.entrySet()) {
                 Index key = mapInfo.getKey();
@@ -336,36 +345,36 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
                     continue;
                 }
                 int mapId = mapInfo.getValue().id;
-                MapState mapData = world.getMapState(FilledMapItem.getMapName(mapId));
+                MapItemSavedData mapData = world.getMapData(MapItem.makeKey(mapId));
                 if (mapData != null) {
-                    matrices.push();
+                    matrices.pushPose();
                     matrices.translate(mapSize * (key.x - currentMin.x), mapSize * (key.y - currentMin.y), 0.1);
                     matrices.scale(mapScale, mapScale, 1);
-                    mapItemRenderer.draw(matrices, bufferSource, mapId, mapData, false, LIGHT);
+                    mapItemRenderer.render(matrices, bufferSource, mapId, mapData, false, LIGHT);
                     matrices.translate(0, 0, 0.2);
                     renderDecorations(matrices, bufferSource, mapData, 1.5f * mapDistance,
-                            it -> it.getType() != MapIcon.Type.PLAYER_OFF_MAP && it.getType() != MapIcon.Type.PLAYER_OFF_LIMITS &&
-                                    (it.getType() != MapIcon.Type.PLAYER || key.equals(playerIndex)));
-                    matrices.pop();
+                            it -> it.getType() != MapDecoration.Type.PLAYER_OFF_MAP && it.getType() != MapDecoration.Type.PLAYER_OFF_LIMITS &&
+                                    (it.getType() != MapDecoration.Type.PLAYER || key.equals(playerIndex)));
+                    matrices.popPose();
                 }
             }
             drawLines(matrices);
         }
 
-        private void drawLines(MatrixStack matrices) {
-            matrices.push();
+        private void drawLines(PoseStack matrices) {
+            matrices.pushPose();
             matrices.translate(0, 0, 0.2);
             // need to revert the base scale to avoid some lines being to thin to be drawn
             matrices.scale(0.5f / BASE_SCALE, 0.5f / BASE_SCALE, 1);
 
 
             for (int xLine = 1; xLine < mapDistance; ++xLine) {
-                drawVerticalLine(matrices, xLine * 2 * SIZE / mapDistance, 0, 2 * SIZE, -1);
+                vLine(matrices, xLine * 2 * SIZE / mapDistance, 0, 2 * SIZE, -1);
             }
             for (int yLine = 1; yLine < mapDistance; ++yLine) {
-                drawHorizontalLine(matrices, 0, 2 * SIZE, yLine * 2 * SIZE / mapDistance, -1);
+                hLine(matrices, 0, 2 * SIZE, yLine * 2 * SIZE / mapDistance, -1);
             }
-            matrices.pop();
+            matrices.popPose();
         }
 
         @Override
@@ -373,18 +382,18 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
             double normX = normalizeForMapArea(LEFT + getX(), mouseX);
             double normY = normalizeForMapArea(TOP + getY(), mouseY);
             if (button == 0 && 0 <= normX && normX < 1 && 0 <= normY && normY < 1) {
-                ItemStack heldItem = handler.getCursorStack();
+                ItemStack heldItem = menu.getCarried();
                 if (!heldItem.isEmpty()) {
-                    sendAtlasTransfer(slot, -1, -1, Atlases.MoveMode.FROM_HAND);
+                    sendAtlasTransfer(slot, -1, -1, svenhjol.charm.module.atlases.Atlases.MoveMode.FROM_HAND);
                 } else {
                     if (updateExtremes()) {
                         Index currentMin = corner != null ? corner : extremes.min;
                         Index index = Index.of((int) (normX * mapDistance), (int) (normY * mapDistance)).plus(currentMin);
-                        Map<Index, MapInfo> mapInfos = handler.getAtlasInventory().getCurrentDimensionMapInfos(MinecraftClient.getInstance().world);
+                        Map<Index, MapInfo> mapInfos = menu.getAtlasInventory().getCurrentDimensionMapInfos(Minecraft.getInstance().level);
                         MapInfo mapInfo = mapInfos.get(index);
                         if (mapInfo != null) {
                             if (isShiftClick()) {
-                                sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_INVENTORY);
+                                sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, svenhjol.charm.module.atlases.Atlases.MoveMode.TO_INVENTORY);
                             } else {
                                 changeGui(getSingleMap(mapInfo));
                             }
@@ -399,23 +408,23 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
         @Override
         public void buttonClick(ButtonDirection direction) {
             switch (direction) {
-                case LEFT:
-                case TOP:
-                case RIGHT:
-                case BOTTOM:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.LEFT:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.TOP:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.RIGHT:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.BOTTOM:
                     if (corner != null) {
                         corner = corner.plus(direction.vector.multiply(mapDistance)).clamp(extremes.min, extremes.max.plus(1 - mapDistance));
                     }
                     break;
-                case IN:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.IN:
                     fixedMapDistance = true;
                     --mapDistance;
                     if (mapDistance == 1) {
-                        Map<Index, MapInfo> mapInfos = handler.getAtlasInventory().getCurrentDimensionMapInfos(MinecraftClient.getInstance().world);
+                        Map<Index, MapInfo> mapInfos = menu.getAtlasInventory().getCurrentDimensionMapInfos(Minecraft.getInstance().level);
                         changeGui(getSingleMap(mapInfos.get(corner != null ? corner : extremes.min)));
                     }
                     break;
-                case OUT:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.OUT:
                     fixedMapDistance = true;
                     ++mapDistance;
                     break;
@@ -425,13 +434,13 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
         @Override
         public boolean buttonVisible(ButtonDirection direction) {
             switch (direction) {
-                case LEFT:
-                case TOP:
-                case RIGHT:
-                case BOTTOM:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.LEFT:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.TOP:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.RIGHT:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.BOTTOM:
                     return corner != null;
-                case IN:
-                case OUT:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.IN:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.OUT:
                     return true;
                 default:
                     return false;
@@ -441,17 +450,17 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
         @Override
         public boolean buttonEnabled(ButtonDirection direction) {
             switch (direction) {
-                case LEFT:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.LEFT:
                     return corner != null && corner.x > extremes.min.x;
-                case TOP:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.TOP:
                     return corner != null && corner.y > extremes.min.y;
-                case RIGHT:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.RIGHT:
                     return corner != null && corner.x + mapDistance <= extremes.max.x;
-                case BOTTOM:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.BOTTOM:
                     return corner != null && corner.y + mapDistance <= extremes.max.y;
-                case IN:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.IN:
                     return mapDistance > 1;
-                case OUT:
+                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.OUT:
                     return mapDistance < maxMapDistance;
                 default:
                     return false;
@@ -473,21 +482,21 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
         }
 
         @Override
-        public void render(MatrixStack matrices, VertexConsumerProvider.Immediate bufferSource, int mouseX, int mouseY) {
-            final MinecraftClient mc = MinecraftClient.getInstance();
-            final World world = mc.world;
+        public void render(PoseStack matrices, MultiBufferSource.BufferSource bufferSource, int mouseX, int mouseY) {
+            final Minecraft mc = Minecraft.getInstance();
+            final Level world = mc.level;
             if (world == null) {
                 return;
             }
             if (mapInfo != null) {
                 int mapId = mapInfo.id;
-                MapState mapData = world.getMapState(FilledMapItem.getMapName(mapId));
+                MapItemSavedData mapData = world.getMapData(MapItem.makeKey(mapId));
                 if (mapData != null) {
-                    matrices.push();
+                    matrices.pushPose();
                     matrices.translate(0, 0, 1);
-                    mapItemRenderer.draw(matrices, bufferSource, mapId, mapData, true, LIGHT);
+                    mapItemRenderer.render(matrices, bufferSource, mapId, mapData, true, LIGHT);
                     renderDecorations(matrices, bufferSource, mapData, 2f, it -> true);
-                    matrices.pop();
+                    matrices.popPose();
                 }
             }
         }
@@ -497,8 +506,8 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
             if (direction == ButtonDirection.BACK) {
                 changeGui(getWorldMap());
             } else {
-                AtlasInventory inventory = handler.getAtlasInventory();
-                Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(MinecraftClient.getInstance().world);
+                svenhjol.charm.module.atlases.AtlasInventory inventory = menu.getAtlasInventory();
+                Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(Minecraft.getInstance().level);
                 MapInfo mapInfo1 = mapInfos.get(inventory.convertCoordsToIndex(mapInfo.x, mapInfo.z).plus(direction.vector));
                 if (mapInfo1 != null) {
                     changeGui(getSingleMap(mapInfo1));
@@ -513,8 +522,8 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
 
         @Override
         public boolean buttonEnabled(ButtonDirection direction) {
-            AtlasInventory inventory = handler.getAtlasInventory();
-            Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(MinecraftClient.getInstance().world);
+            AtlasInventory inventory = menu.getAtlasInventory();
+            Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(Minecraft.getInstance().level);
             if (direction == ButtonDirection.BACK) {
                 return mapInfo == null && !mapInfos.isEmpty() || mapInfos.size() > 1;
             }
@@ -527,12 +536,12 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
             if (button == 0 && getX() + LEFT <= mouseX && mouseX < getX() + LEFT + SIZE && getY() + TOP <= mouseY && mouseY < getY() + TOP + SIZE) {
-                ItemStack heldItem = handler.getCursorStack();
+                ItemStack heldItem = menu.getCarried();
                 if (!heldItem.isEmpty()) {
-                    sendAtlasTransfer(slot, -1, -1, Atlases.MoveMode.FROM_HAND);
+                    sendAtlasTransfer(slot, -1, -1, svenhjol.charm.module.atlases.Atlases.MoveMode.FROM_HAND);
                 } else if (mapInfo != null) {
                     if (isShiftClick()) {
-                        sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_INVENTORY);
+                        sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, svenhjol.charm.module.atlases.Atlases.MoveMode.TO_INVENTORY);
                     } else {
                         sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_HAND);
                     }

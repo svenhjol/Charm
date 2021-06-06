@@ -2,9 +2,9 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.AnvilScreenHandler;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.item.ItemStack;
 
 public interface CheckAnvilRepairCallback {
     Event<CheckAnvilRepairCallback> EVENT = EventFactory.createArrayBacked(CheckAnvilRepairCallback.class, (listeners) -> (handler, player, leftStack, rightStack) -> {
@@ -17,5 +17,5 @@ public interface CheckAnvilRepairCallback {
         return result;
     });
 
-    boolean interact(AnvilScreenHandler handler, PlayerEntity player, ItemStack leftStack, ItemStack rightStack);
+    boolean interact(AnvilMenu handler, Player player, ItemStack leftStack, ItemStack rightStack);
 }

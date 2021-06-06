@@ -1,6 +1,7 @@
 package svenhjol.charm.init;
 
 import svenhjol.charm.CharmClient;
+import svenhjol.charm.init.CharmLoader;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ClientHandler;

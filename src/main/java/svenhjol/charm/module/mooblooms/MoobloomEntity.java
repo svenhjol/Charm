@@ -1,65 +1,72 @@
 package svenhjol.charm.module.mooblooms;
 
 import com.google.common.collect.Maps;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerBlock;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.entity.*;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.item.Items;
-import net.minecraft.item.SuspiciousStewItem;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SuspiciousStewItem;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Pair;
 import svenhjol.charm.Charm;
+import svenhjol.charm.module.mooblooms.MoobloomPlantFlowerGoal;
+import svenhjol.charm.module.mooblooms.Mooblooms;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class MoobloomEntity extends CowEntity implements Shearable {
+public class MoobloomEntity extends Cow implements Shearable {
     private static final String TYPE_NBT = "Type";
     private static final String POLLINATED_NBT = "Pollinated";
 
-    private static final TrackedData<String> TYPE;
-    private static final TrackedData<Boolean> POLLINATED;
-    public static Map<Type, Identifier> TEXTURES = new HashMap<>();
+    private static final EntityDataAccessor<String> TYPE;
+    private static final EntityDataAccessor<Boolean> POLLINATED;
+    public static Map<Type, ResourceLocation> TEXTURES = new HashMap<>();
 
-    public MoobloomEntity(EntityType<? extends CowEntity> entityType, World world) {
+    public MoobloomEntity(EntityType<? extends Cow> entityType, Level world) {
         super(entityType, world);
 
         // set up the textures for each moobloom type
         TEXTURES = Util.make(Maps.newHashMap(), map -> {
             for (Type type : Type.values()) {
-                map.put(type, new Identifier(Charm.MOD_ID, "textures/entity/moobloom/" + type.name + ".png"));
+                map.put(type, new ResourceLocation(Charm.MOD_ID, "textures/entity/moobloom/" + type.name + ".png"));
             }
         });
     }
 
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
-        entityData = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityTag) {
+        entityData = super.finalizeSpawn(world, difficulty, spawnReason, entityData, entityTag);
 
         List<Type> types = Arrays.asList(Type.values());
         Type type = types.get(random.nextInt(types.size()));
@@ -69,81 +76,81 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(TYPE, Type.ALLIUM.name());
-        this.dataTracker.startTracking(POLLINATED, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TYPE, Type.ALLIUM.name());
+        this.entityData.define(POLLINATED, false);
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
-        this.goalSelector.add(3, new MoobloomPlantFlowerGoal(this));
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(3, new MoobloomPlantFlowerGoal(this));
     }
 
     @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        ItemStack held = player.getStackInHand(hand);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack held = player.getItemInHand(hand);
 
         if (held.getItem() == Items.BOWL && !isBaby()) {
-            if (!world.isClient && isPollinated()) {
+            if (!level.isClientSide && isPollinated()) {
                 ItemStack stew;
 
-                Optional<Pair<StatusEffect, Integer>> optionalFlower = getEffectFromFlower(this.getMoobloomType().flower);
+                Optional<Pair<MobEffect, Integer>> optionalFlower = getEffectFromFlower(this.getMoobloomType().flower);
 
                 if (optionalFlower.isPresent()) {
-                    Pair<StatusEffect, Integer> effectFromFlower = optionalFlower.get();
+                    Pair<MobEffect, Integer> effectFromFlower = optionalFlower.get();
 
-                    StatusEffect effect = effectFromFlower.getLeft();
+                    MobEffect effect = effectFromFlower.getLeft();
                     int duration = effectFromFlower.getRight() * 2;
 
                     stew = new ItemStack(Items.SUSPICIOUS_STEW);
-                    playSound(SoundEvents.ENTITY_MOOSHROOM_SUSPICIOUS_MILK, 1.0F, 1.0F);
-                    SuspiciousStewItem.addEffectToStew(stew, effect, duration);
+                    playSound(SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY, 1.0F, 1.0F);
+                    SuspiciousStewItem.saveMobEffect(stew, effect, duration);
                 } else {
                     stew = new ItemStack(Items.MUSHROOM_STEW);
-                    playSound(SoundEvents.ENTITY_MOOSHROOM_MILK, 1.0F, 1.0F);
+                    playSound(SoundEvents.MOOSHROOM_MILK, 1.0F, 1.0F);
                 }
 
-                ItemStack out = ItemUsage.exchangeStack(held, player, stew, false);
-                player.setStackInHand(hand, out);
-                this.dataTracker.set(POLLINATED, false);
+                ItemStack out = ItemUtils.createFilledResult(held, player, stew, false);
+                player.setItemInHand(hand, out);
+                this.entityData.set(POLLINATED, false);
 
-                Mooblooms.triggerMilkedMoobloom((ServerPlayerEntity) player);
+                svenhjol.charm.module.mooblooms.Mooblooms.triggerMilkedMoobloom((ServerPlayer) player);
             }
 
-            return ActionResult.success(world.isClient);
+            return InteractionResult.sidedSuccess(level.isClientSide);
 
-        } else if (held.getItem() == Items.SHEARS && isShearable()) {
+        } else if (held.getItem() == Items.SHEARS && readyForShearing()) {
 
-            this.sheared(SoundCategory.PLAYERS);
-            if (!world.isClient)
-                held.damage(1, player, playerEntity -> playerEntity.sendToolBreakStatus(hand));
+            this.shear(SoundSource.PLAYERS);
+            if (!level.isClientSide)
+                held.hurtAndBreak(1, player, playerEntity -> playerEntity.broadcastBreakEvent(hand));
 
-            return ActionResult.success(world.isClient);
+            return InteractionResult.sidedSuccess(level.isClientSide);
         }
 
-        return super.interactMob(player, hand);
+        return super.mobInteract(player, hand);
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
+    public void addAdditionalSaveData(CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
         nbt.putString(TYPE_NBT, this.getMoobloomType().name);
-        nbt.putBoolean(POLLINATED_NBT, this.dataTracker.get(POLLINATED));
+        nbt.putBoolean(POLLINATED_NBT, this.entityData.get(POLLINATED));
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
+    public void readAdditionalSaveData(CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
         this.setMoobloomType(Type.fromName(nbt.getString(TYPE_NBT)));
 
         if (nbt.contains(POLLINATED_NBT))
-            this.dataTracker.set(POLLINATED, nbt.getBoolean(POLLINATED_NBT));
+            this.entityData.set(POLLINATED, nbt.getBoolean(POLLINATED_NBT));
     }
 
     @Override
-    public MoobloomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
+    public MoobloomEntity getBreedOffspring(ServerLevel serverWorld, AgeableMob passiveEntity) {
         MoobloomEntity entity = Mooblooms.MOOBLOOM.create(serverWorld);
         Type childType = serverWorld.random.nextFloat() < 0.5F ? this.getMoobloomType() : ((MoobloomEntity)passiveEntity).getMoobloomType();
         entity.setMoobloomType(childType);
@@ -151,87 +158,87 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     }
 
     public void pollinate() {
-        world.playSound(null, getBlockPos(), SoundEvents.ENTITY_BEE_POLLINATE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-        this.dataTracker.set(POLLINATED, true);
+        level.playSound(null, blockPosition(), SoundEvents.BEE_POLLINATE, SoundSource.NEUTRAL, 1.0F, 1.0F);
+        this.entityData.set(POLLINATED, true);
     }
 
     public boolean isPollinated() {
-        return this.dataTracker.get(POLLINATED);
+        return this.entityData.get(POLLINATED);
     }
 
     public Type getMoobloomType() {
-        return Type.fromName(this.dataTracker.get(TYPE));
+        return Type.fromName(this.entityData.get(TYPE));
     }
 
     public void setMoobloomType(Type type) {
-        this.dataTracker.set(TYPE, type.name);
+        this.entityData.set(TYPE, type.name);
     }
 
-    public Identifier getMoobloomTexture() {
+    public ResourceLocation getMoobloomTexture() {
         return TEXTURES.getOrDefault(this.getMoobloomType(), TEXTURES.get(Type.ALLIUM));
     }
 
-    public Optional<Pair<StatusEffect, Integer>> getEffectFromFlower(BlockState flower) {
+    public Optional<Pair<MobEffect, Integer>> getEffectFromFlower(BlockState flower) {
         Block block = flower.getBlock();
         if (block instanceof FlowerBlock) {
             FlowerBlock flowerBlock = (FlowerBlock)block;
-            return Optional.of(Pair.of(flowerBlock.getEffectInStew(), flowerBlock.getEffectInStewDuration()));
+            return Optional.of(Pair.of(flowerBlock.getSuspiciousStewEffect(), flowerBlock.getEffectDuration()));
         }
 
         return Optional.empty();
     }
 
-    public static boolean canSpawn(EntityType<MoobloomEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getBaseLightLevel(pos, 0) > 8;
+    public static boolean canSpawn(EntityType<MoobloomEntity> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, Random random) {
+        return world.getRawBrightness(pos, 0) > 8;
     }
 
     // copypasta from MooshroomEntity
     @Override
-    public void sheared(SoundCategory shearedSoundCategory) {
-        this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_MOOSHROOM_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
-        if (!this.world.isClient) {
-            ((ServerWorld)this.world).spawnParticles(ParticleTypes.EXPLOSION, this.getX(), this.getBodyY(0.5D), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+    public void shear(SoundSource shearedSoundCategory) {
+        this.level.playSound(null, this, SoundEvents.MOOSHROOM_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
+        if (!this.level.isClientSide) {
+            ((ServerLevel)this.level).sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(0.5D), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             this.discard();
-            CowEntity cowEntity = EntityType.COW.create(this.world);
-            cowEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
+            Cow cowEntity = EntityType.COW.create(this.level);
+            cowEntity.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
             cowEntity.setHealth(this.getHealth());
-            cowEntity.bodyYaw = this.bodyYaw;
+            cowEntity.yBodyRot = this.yBodyRot;
             if (this.hasCustomName()) {
                 cowEntity.setCustomName(this.getCustomName());
                 cowEntity.setCustomNameVisible(this.isCustomNameVisible());
             }
 
-            if (this.isPersistent()) {
-                cowEntity.setPersistent();
+            if (this.isPersistenceRequired()) {
+                cowEntity.setPersistenceRequired();
             }
 
             cowEntity.setInvulnerable(this.isInvulnerable());
-            this.world.spawnEntity(cowEntity);
+            this.level.addFreshEntity(cowEntity);
 
             for(int i = 0; i < 5; ++i) {
-                this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getBodyY(1.0D), this.getZ(), new ItemStack(this.getMoobloomType().flower.getBlock())));
+                this.level.addFreshEntity(new ItemEntity(this.level, this.getX(), this.getY(1.0D), this.getZ(), new ItemStack(this.getMoobloomType().flower.getBlock())));
             }
         }
     }
 
     @Override
-    public boolean isShearable() {
+    public boolean readyForShearing() {
         return isAlive() && !this.isBaby();
     }
 
     public enum Type {
-        ALLIUM("allium", Blocks.ALLIUM.getDefaultState()),
-        AZURE_BLUET("azure_bluet", Blocks.AZURE_BLUET.getDefaultState()),
-        BLUE_ORCHID("blue_orchid", Blocks.BLUE_ORCHID.getDefaultState()),
-        CORNFLOWER("cornflower", Blocks.CORNFLOWER.getDefaultState()),
-        DANDELION("dandelion", Blocks.DANDELION.getDefaultState()),
-        LILY_OF_THE_VALLEY("lily_of_the_valley", Blocks.LILY_OF_THE_VALLEY.getDefaultState()),
-        ORANGE_TULIP("orange_tulip", Blocks.ORANGE_TULIP.getDefaultState()),
-        PINK_TULIP("pink_tulip", Blocks.PINK_TULIP.getDefaultState()),
-        RED_TULIP("red_tulip", Blocks.RED_TULIP.getDefaultState()),
-        WHITE_TULIP("white_tulip", Blocks.WHITE_TULIP.getDefaultState()),
-        OXEYE_DAISY("oxeye_daisy", Blocks.OXEYE_DAISY.getDefaultState()),
-        POPPY("poppy", Blocks.POPPY.getDefaultState());
+        ALLIUM("allium", Blocks.ALLIUM.defaultBlockState()),
+        AZURE_BLUET("azure_bluet", Blocks.AZURE_BLUET.defaultBlockState()),
+        BLUE_ORCHID("blue_orchid", Blocks.BLUE_ORCHID.defaultBlockState()),
+        CORNFLOWER("cornflower", Blocks.CORNFLOWER.defaultBlockState()),
+        DANDELION("dandelion", Blocks.DANDELION.defaultBlockState()),
+        LILY_OF_THE_VALLEY("lily_of_the_valley", Blocks.LILY_OF_THE_VALLEY.defaultBlockState()),
+        ORANGE_TULIP("orange_tulip", Blocks.ORANGE_TULIP.defaultBlockState()),
+        PINK_TULIP("pink_tulip", Blocks.PINK_TULIP.defaultBlockState()),
+        RED_TULIP("red_tulip", Blocks.RED_TULIP.defaultBlockState()),
+        WHITE_TULIP("white_tulip", Blocks.WHITE_TULIP.defaultBlockState()),
+        OXEYE_DAISY("oxeye_daisy", Blocks.OXEYE_DAISY.defaultBlockState()),
+        POPPY("poppy", Blocks.POPPY.defaultBlockState());
 
         private final String name;
         private final BlockState flower;
@@ -257,7 +264,7 @@ public class MoobloomEntity extends CowEntity implements Shearable {
     }
 
     static {
-        TYPE = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.STRING);
-        POLLINATED = DataTracker.registerData(MoobloomEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        TYPE = SynchedEntityData.defineId(MoobloomEntity.class, EntityDataSerializers.STRING);
+        POLLINATED = SynchedEntityData.defineId(MoobloomEntity.class, EntityDataSerializers.BOOLEAN);
     }
 }

@@ -2,20 +2,21 @@ package svenhjol.charm.module.block_of_sugar;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.CharmFallingBlock;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.ModHelper;
+import svenhjol.charm.module.block_of_sugar.BlockOfSugar;
 import svenhjol.charm.module.bumblezone.Bumblezone;
 
 import java.util.HashSet;
@@ -24,38 +25,38 @@ import java.util.Set;
 public class SugarBlock extends CharmFallingBlock {
     public SugarBlock(CharmModule module) {
         super(module, "sugar_block", FabricBlockSettings
-            .of(Material.AGGREGATE)
-            .sounds(BlockSoundGroup.SAND)
+            .of(Material.SAND)
+            .sound(SoundType.SAND)
             .breakByTool(FabricToolTags.SHOVELS)
             .strength(0.5F)
         );
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.BUILDING_BLOCKS;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_BUILDING_BLOCKS;
     }
 
     @Override
-    public void neighborUpdate(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (!tryTouchWater(worldIn, pos, state)) {
-            super.neighborUpdate(state, worldIn, pos, blockIn, fromPos, isMoving);
+            super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
         }
     }
 
     @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (!tryTouchWater(worldIn, pos, state)) {
-            super.onBlockAdded(state, worldIn, pos, oldState, isMoving);
+            super.onPlace(state, worldIn, pos, oldState, isMoving);
         }
     }
 
-    protected boolean tryTouchWater(World world, BlockPos pos, BlockState state) {
+    protected boolean tryTouchWater(Level world, BlockPos pos, BlockState state) {
         boolean waterBelow = false;
 
         for (Direction facing : Direction.values()) {
             if (facing != Direction.DOWN) {
-                BlockPos below = pos.offset(facing);
+                BlockPos below = pos.relative(facing);
                 if (world.getBlockState(below).getMaterial() == Material.WATER) {
                     waterBelow = true;
                     break;
@@ -64,26 +65,26 @@ public class SugarBlock extends CharmFallingBlock {
         }
 
         if (waterBelow) {
-            world.syncGlobalEvent(2001, pos, Block.getRawIdFromState(world.getBlockState(pos)));
+            world.globalLevelEvent(2001, pos, Block.getId(world.getBlockState(pos)));
 
             if (ModHelper.isLoaded("bumblezone") && ModuleHandler.enabled(Bumblezone.class)) {
                 if (Bumblezone.bumblezoneFluid == null) {
                     Bumblezone.bumblezoneFluid = Registry.BLOCK.get(Bumblezone.BUMBLEZONE_FLUID_ID);
                 }
 
-                world.setBlockState(pos, Bumblezone.bumblezoneFluid.getDefaultState(), 3);
+                world.setBlock(pos, Bumblezone.bumblezoneFluid.defaultBlockState(), 3);
 
                 // Find all water blocks in contact recursively. Uses a set since we do not need duplicate positions
                 Set<BlockPos> positionsToChange = Bumblezone.recursiveReplaceWater(world, pos, 0, 3, new HashSet<>());
 
                 // Now change to sugar water after we found all water in range. Prevents weird shapes from being made when we delay this
-                positionsToChange.forEach(waterPos -> world.setBlockState(waterPos, Bumblezone.bumblezoneFluid.getDefaultState(), 3));
+                positionsToChange.forEach(waterPos -> world.setBlock(waterPos, Bumblezone.bumblezoneFluid.defaultBlockState(), 3));
             } else {
                 world.removeBlock(pos, true);
             }
 
-            if (!world.isClient)
-                BlockOfSugar.triggerAdvancementForNearbyPlayers((ServerWorld) world, pos);
+            if (!world.isClientSide)
+                BlockOfSugar.triggerAdvancementForNearbyPlayers((ServerLevel) world, pos);
         }
 
         return waterBelow;

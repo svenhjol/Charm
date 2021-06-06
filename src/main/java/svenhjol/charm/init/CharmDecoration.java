@@ -1,11 +1,5 @@
 package svenhjol.charm.init;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.loot.LootTables;
-import net.minecraft.structure.processor.StructureProcessor;
-import net.minecraft.tag.BlockTags;
 import svenhjol.charm.enums.VanillaVariantMaterial;
 import svenhjol.charm.helper.LootHelper;
 
@@ -13,6 +7,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import svenhjol.charm.init.CharmLoot;
 
 import static svenhjol.charm.helper.DecorationHelper.*;
 
@@ -29,43 +30,43 @@ public class CharmDecoration {
         if (hasInit)
             return;
 
-        List<Block> filteredFlowers = BlockTags.FLOWERS.values().stream()
+        List<Block> filteredFlowers = BlockTags.FLOWERS.getValues().stream()
             .filter(b -> b != Blocks.WITHER_ROSE
                 && b != Blocks.FLOWERING_AZALEA_LEAVES
                 && b != Blocks.FLOWERING_AZALEA
             ).collect(Collectors.toList());
 
-        List<Block> filteredSaplings = BlockTags.SAPLINGS.values().stream()
+        List<Block> filteredSaplings = BlockTags.SAPLINGS.getValues().stream()
             .filter(b -> b != Blocks.AZALEA
                 && b != Blocks.FLOWERING_AZALEA
             ).collect(Collectors.toList());
 
-        CARPETS.addAll(BlockTags.CARPETS.values());
+        CARPETS.addAll(BlockTags.CARPETS.getValues());
         FLOWERS.addAll(filteredFlowers);
         FLOWER_POTS.addAll(filteredFlowers);
         SAPLINGS.addAll(filteredSaplings);
-        WOOL.addAll(BlockTags.WOOL.values());
+        WOOL.addAll(BlockTags.WOOL.getValues());
 
         VARIANT_MATERIALS.addAll(VanillaVariantMaterial.getTypes());
 
         CHEST_LOOT_TABLES = Arrays.asList(
-            LootTables.ABANDONED_MINESHAFT_CHEST,
-            LootTables.DESERT_PYRAMID_CHEST,
-            LootTables.JUNGLE_TEMPLE_CHEST,
-            LootTables.SIMPLE_DUNGEON_CHEST,
-            LootTables.SHIPWRECK_TREASURE_CHEST
+            BuiltInLootTables.ABANDONED_MINESHAFT,
+            BuiltInLootTables.DESERT_PYRAMID,
+            BuiltInLootTables.JUNGLE_TEMPLE,
+            BuiltInLootTables.SIMPLE_DUNGEON,
+            BuiltInLootTables.SHIPWRECK_TREASURE
         );
 
         COMMON_LOOT_TABLES.addAll(Arrays.asList(
-            LootTables.JUNGLE_TEMPLE_DISPENSER_CHEST,
-            LootTables.IGLOO_CHEST_CHEST
+            BuiltInLootTables.JUNGLE_TEMPLE_DISPENSER,
+            BuiltInLootTables.IGLOO_CHEST
         ));
 
         COMMON_LOOT_TABLES.addAll(LootHelper.getVanillaVillageLootTables());
 
         RARE_CHEST_LOOT_TABLES.addAll(Arrays.asList(
-            LootTables.RUINED_PORTAL_CHEST,
-            LootTables.END_CITY_TREASURE_CHEST
+            BuiltInLootTables.RUINED_PORTAL,
+            BuiltInLootTables.END_CITY_TREASURE
         ));
 
         BOOKCASE_LOOT_TABLES.addAll(Arrays.asList(
@@ -73,7 +74,7 @@ public class CharmDecoration {
         ));
 
         RARE_BOOKCASE_LOOT_TABLES.addAll(Arrays.asList(
-            LootTables.STRONGHOLD_LIBRARY_CHEST
+            BuiltInLootTables.STRONGHOLD_LIBRARY
         ));
 
         COMMON_ORES.addAll(Arrays.asList(

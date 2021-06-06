@@ -1,29 +1,30 @@
 package svenhjol.charm.module.raid_horns;
 
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.PatrolEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.PatrollingMonster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.raid_horns.RaidHornItem;
 
 @Module(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.",
     requiresMixins = {"EntityDropItemsCallback"})
 public class RaidHorns extends CharmModule {
-    public static RaidHornItem RAID_HORN;
+    public static svenhjol.charm.module.raid_horns.RaidHornItem RAID_HORN;
 
-    public static final Identifier TRIGGER_SUMMONED_PILLAGERS = new Identifier(Charm.MOD_ID, "summoned_pillagers");
-    public static final Identifier TRIGGER_CALLED_OFF_RAID = new Identifier(Charm.MOD_ID, "called_off_raid");
+    public static final ResourceLocation TRIGGER_SUMMONED_PILLAGERS = new ResourceLocation(Charm.MOD_ID, "summoned_pillagers");
+    public static final ResourceLocation TRIGGER_CALLED_OFF_RAID = new ResourceLocation(Charm.MOD_ID, "called_off_raid");
 
     public static double lootingBoost = 0.25D;
 
@@ -43,27 +44,27 @@ public class RaidHorns extends CharmModule {
         EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 
-    public ActionResult tryDrop(LivingEntity entity, DamageSource source, int lootingLevel) {
-        if (!entity.world.isClient
-            && entity instanceof PatrolEntity
-            && source.getAttacker() instanceof PlayerEntity
-            && entity.world.random.nextFloat() <= (dropChance + lootingBoost * lootingLevel)
+    public InteractionResult tryDrop(LivingEntity entity, DamageSource source, int lootingLevel) {
+        if (!entity.level.isClientSide
+            && entity instanceof PatrollingMonster
+            && source.getEntity() instanceof Player
+            && entity.level.random.nextFloat() <= (dropChance + lootingBoost * lootingLevel)
         ) {
-            if (((PatrolEntity)entity).isPatrolLeader()) {
-                BlockPos pos = entity.getBlockPos();
+            if (((PatrollingMonster)entity).isPatrolLeader()) {
+                BlockPos pos = entity.blockPosition();
                 ItemStack potion = new ItemStack(RAID_HORN);
-                entity.world.spawnEntity(new ItemEntity(entity.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ(), potion));
+                entity.level.addFreshEntity(new ItemEntity(entity.getCommandSenderWorld(), pos.getX(), pos.getY(), pos.getZ(), potion));
             }
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
-    public static void triggerSummoned(ServerPlayerEntity playerEntity) {
+    public static void triggerSummoned(ServerPlayer playerEntity) {
         CharmAdvancements.ACTION_PERFORMED.trigger(playerEntity, TRIGGER_SUMMONED_PILLAGERS);
     }
 
-    public static void triggerCalledOff(ServerPlayerEntity playerEntity) {
+    public static void triggerCalledOff(ServerPlayer playerEntity) {
         CharmAdvancements.ACTION_PERFORMED.trigger(playerEntity, TRIGGER_CALLED_OFF_RAID);
     }
 }

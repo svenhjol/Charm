@@ -1,20 +1,5 @@
 package svenhjol.charm.module.extract_enchantments;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentLevelEntry;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.EnchantedBookItem;
-import net.minecraft.item.HorseArmorItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ModuleHandler;
@@ -23,16 +8,32 @@ import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.extract_enchantments.ExtractEnchantmentsClient;
 import svenhjol.charm.module.grindable_horse_armor.GrindableHorseArmor;
 
 import javax.annotation.Nullable;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.EnchantedBookItem;
+import net.minecraft.world.item.HorseArmorItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.level.Level;
 import java.util.*;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 @Module(mod = Charm.MOD_ID, client = ExtractEnchantmentsClient.class, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.",
     requiresMixins = {"extract_enchantments.*"})
 public class ExtractEnchantments extends CharmModule {
-    public static final Identifier TRIGGER_EXTRACTED_ENCHANTMENT = new Identifier(Charm.MOD_ID, "extracted_enchantment");
+    public static final ResourceLocation TRIGGER_EXTRACTED_ENCHANTMENT = new ResourceLocation(Charm.MOD_ID, "extracted_enchantment");
 
     @Config(name = "Initial XP cost", description = "Initial XP cost before adding XP equivalent to the enchantment level(s) of the item.")
     public static int initialCost = 2;
@@ -42,11 +43,11 @@ public class ExtractEnchantments extends CharmModule {
         return !ModHelper.isLoaded("grindenchantments");
     }
 
-    public static Slot getGrindstoneInputSlot(int index, Inventory inputs) {
+    public static Slot getGrindstoneInputSlot(int index, Container inputs) {
         return new Slot(inputs, index, 49, 19 + (index * 21)) {
             @Override
-            public boolean canInsert(ItemStack stack) {
-                boolean valid = stack.isDamageable() || stack.getItem() == Items.ENCHANTED_BOOK || stack.hasEnchantments();
+            public boolean mayPlace(ItemStack stack) {
+                boolean valid = stack.isDamageableItem() || stack.getItem() == Items.ENCHANTED_BOOK || stack.isEnchanted();
 
                 // check for horse armor extraction
                 if (ModuleHandler.enabled("charm:grindable_horse_armor") && GrindableHorseArmor.horseArmorRecipes.containsKey(stack.getItem())) {
@@ -58,7 +59,7 @@ public class ExtractEnchantments extends CharmModule {
         };
     }
 
-    public static Slot getGrindstoneOutputSlot(ScreenHandlerContext context, Inventory inputs, Inventory output) {
+    public static Slot getGrindstoneOutputSlot(ContainerLevelAccess context, Container inputs, Container output) {
 
         /**
          * Copypasta from GrindstoneScreenHandler 52-100 with Charm changes as marked.
@@ -66,7 +67,7 @@ public class ExtractEnchantments extends CharmModule {
         return new Slot(output, 2, 129, 34) {
 
             /** vanilla **/
-            public boolean canInsert(ItemStack stack) {
+            public boolean mayPlace(ItemStack stack) {
                 return false;
             }
 
@@ -75,11 +76,11 @@ public class ExtractEnchantments extends CharmModule {
              * @param player Player
              * @return True if can take from output slot
              */
-            public boolean canTakeItems(PlayerEntity player) {
+            public boolean mayPickup(Player player) {
                 if (!isExtractEnchantmentsEnabled())
                     return true;
 
-                List<ItemStack> stacks = getStacksFromInventory(inventory);
+                List<ItemStack> stacks = getStacksFromInventory(container);
 
                 if (shouldExtract(stacks)) {
                     int cost = getEnchantedItemFromStacks(stacks).map(ExtractEnchantments::getCost).orElse(0);
@@ -89,62 +90,62 @@ public class ExtractEnchantments extends CharmModule {
                 return true;
             }
 
-            public void onTakeItem(PlayerEntity player, ItemStack stack) {
+            public void onTake(Player player, ItemStack stack) {
                 ItemStack out = tryGetEnchantedBook(inputs, player);
 
-                context.run((world, blockPos) -> {
-                    if (inputs.getStack(0).getItem() instanceof HorseArmorItem || inputs.getStack(1).getItem() instanceof HorseArmorItem) {
+                context.execute((world, blockPos) -> {
+                    if (inputs.getItem(0).getItem() instanceof HorseArmorItem || inputs.getItem(1).getItem() instanceof HorseArmorItem) {
                         // handle advancement for grindable horse armor
-                        if (!world.isClient)
-                            GrindableHorseArmor.triggerRecycledHorseArmor((ServerPlayerEntity) player);
+                        if (!world.isClientSide)
+                            GrindableHorseArmor.triggerRecycledHorseArmor((ServerPlayer) player);
                     }
                     else if (out != null && out.getItem() instanceof EnchantedBookItem) {
                         // deduct XP from player for extract enchantments
-                        if (!PlayerHelper.getAbilities(player).creativeMode) {
+                        if (!PlayerHelper.getAbilities(player).instabuild) {
                             int cost = getCost(stack);
-                            player.addExperienceLevels(-cost);
+                            player.giveExperienceLevels(-cost);
                         }
 
                         // handle advancement for extract enchantments
-                        if (!world.isClient)
-                            ExtractEnchantments.triggerExtractedEnchantment((ServerPlayerEntity) player);
+                        if (!world.isClientSide)
+                            ExtractEnchantments.triggerExtractedEnchantment((ServerPlayer) player);
 
                     } else {
                         /** vanilla */
                         int i = this.getExperience(world);
 
                         while (i > 0) {
-                            int j = ExperienceOrbEntity.roundToOrbSize(i);
+                            int j = ExperienceOrb.getExperienceValue(i);
                             i -= j;
-                            world.spawnEntity(new ExperienceOrbEntity(world, (double) blockPos.getX(), (double) blockPos.getY() + 0.5D, (double) blockPos.getZ() + 0.5D, j));
+                            world.addFreshEntity(new ExperienceOrb(world, (double) blockPos.getX(), (double) blockPos.getY() + 0.5D, (double) blockPos.getZ() + 0.5D, j));
                         }
                     }
-                    world.syncWorldEvent(1042, blockPos, 0);
+                    world.levelEvent(1042, blockPos, 0);
                 });
 
                 // ---- CHARM: SNIP ----
-                ItemStack slot0 = inputs.getStack(0);
-                ItemStack slot1 = inputs.getStack(1);
+                ItemStack slot0 = inputs.getItem(0);
+                ItemStack slot1 = inputs.getItem(1);
 
                 if (slot0.getCount() > 1) {
-                    slot0.decrement(1);
+                    slot0.shrink(1);
                 } else if (slot1.getCount() > 1) {
-                    slot1.decrement(1);
+                    slot1.shrink(1);
                 }
 
                 if (slot0.getCount() <= 1)
-                    inputs.setStack(0, ItemStack.EMPTY);
+                    inputs.setItem(0, ItemStack.EMPTY);
 
                 if (slot1.getCount() <= 1)
-                    inputs.setStack(1, ItemStack.EMPTY);
+                    inputs.setItem(1, ItemStack.EMPTY);
                 // ---- CHARM: SNIP ----
             }
 
             /** vanilla */
-            private int getExperience(World world) {
+            private int getExperience(Level world) {
                 int ix = 0;
-                int i = ix + this.getExperience(inputs.getStack(0));
-                i += this.getExperience(inputs.getStack(1));
+                int i = ix + this.getExperience(inputs.getItem(0));
+                i += this.getExperience(inputs.getItem(1));
                 if (i > 0) {
                     int j = (int)Math.ceil((double)i / 2.0D);
                     return j + world.random.nextInt(j);
@@ -156,15 +157,15 @@ public class ExtractEnchantments extends CharmModule {
             /** vanilla */
             private int getExperience(ItemStack stack) {
                 int i = 0;
-                Map<Enchantment, Integer> map = EnchantmentHelper.get(stack);
+                Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
                 Iterator var4 = map.entrySet().iterator();
 
                 while(var4.hasNext()) {
                     Map.Entry<Enchantment, Integer> entry = (Map.Entry)var4.next();
                     Enchantment enchantment = (Enchantment)entry.getKey();
                     Integer integer = (Integer)entry.getValue();
-                    if (!enchantment.isCursed()) {
-                        i += enchantment.getMinPower(integer);
+                    if (!enchantment.isCurse()) {
+                        i += enchantment.getMinCost(integer);
                     }
                 }
 
@@ -173,7 +174,7 @@ public class ExtractEnchantments extends CharmModule {
         };
     }
 
-    public static boolean tryUpdateGrindstoneOutput(Inventory inputs, Inventory output, @Nullable PlayerEntity player) {
+    public static boolean tryUpdateGrindstoneOutput(Container inputs, Container output, @Nullable Player player) {
         if (!isExtractEnchantmentsEnabled())
             return false;
 
@@ -181,12 +182,12 @@ public class ExtractEnchantments extends CharmModule {
         if (out == null)
             return false;
 
-        output.setStack(0, out);
+        output.setItem(0, out);
         return true;
     }
 
     @Nullable
-    private static ItemStack tryGetEnchantedBook(Inventory inputs, @Nullable PlayerEntity player) {
+    private static ItemStack tryGetEnchantedBook(Container inputs, @Nullable Player player) {
         List<ItemStack> stacks = getStacksFromInventory(inputs);
         if (!shouldExtract(stacks))
             return null;
@@ -200,8 +201,8 @@ public class ExtractEnchantments extends CharmModule {
             return null;
 
         ItemStack out = new ItemStack(Items.ENCHANTED_BOOK);
-        Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(in);
-        enchantments.forEach((e, level) -> EnchantedBookItem.addEnchantment(out, new EnchantmentLevelEntry(e, level)));
+        Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(in);
+        enchantments.forEach((e, level) -> EnchantedBookItem.addEnchantment(out, new EnchantmentInstance(e, level)));
         return out;
     }
 
@@ -209,25 +210,25 @@ public class ExtractEnchantments extends CharmModule {
         return ModuleHandler.enabled(ExtractEnchantments.class);
     }
 
-    public static List<ItemStack> getStacksFromInventory(Inventory inventory) {
-        return Arrays.asList(inventory.getStack(0), inventory.getStack(1));
+    public static List<ItemStack> getStacksFromInventory(Container inventory) {
+        return Arrays.asList(inventory.getItem(0), inventory.getItem(1));
     }
 
     public static Optional<ItemStack> getEnchantedItemFromStacks(List<ItemStack> stacks) {
-        return stacks.stream().filter(ItemStack::hasEnchantments).findFirst();
+        return stacks.stream().filter(ItemStack::isEnchanted).findFirst();
     }
 
     public static boolean shouldExtract(List<ItemStack> stacks) {
         return getEnchantedItemFromStacks(stacks).isPresent() && stacks.stream().anyMatch(i -> i.getItem() == Items.BOOK);
     }
 
-    public static boolean hasEnoughXp(PlayerEntity player, int cost) {
-        return player.getAbilities().creativeMode || player.experienceLevel >= cost;
+    public static boolean hasEnoughXp(Player player, int cost) {
+        return player.getAbilities().instabuild || player.experienceLevel >= cost;
     }
 
     public static int getCost(ItemStack stack) {
         int cost = initialCost;
-        Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(stack);
+        Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
 
         // get all enchantments from the left item and create a map of enchantments for the output
         for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
@@ -236,7 +237,7 @@ public class ExtractEnchantments extends CharmModule {
                 return 0;
 
             int level = entry.getValue();
-            if (level > 0 && ench.isAvailableForEnchantedBookOffer())
+            if (level > 0 && ench.isTradeable())
                 cost += level;
         }
 
@@ -247,7 +248,7 @@ public class ExtractEnchantments extends CharmModule {
         return cost;
     }
 
-    public static void triggerExtractedEnchantment(ServerPlayerEntity player) {
+    public static void triggerExtractedEnchantment(ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_EXTRACTED_ENCHANTMENT);
     }
 }

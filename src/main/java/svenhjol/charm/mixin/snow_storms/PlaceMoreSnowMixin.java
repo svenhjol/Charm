@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.snow_storms;
 
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.module.snow_storms.SnowStorms;
 
-@Mixin(ServerWorld.class)
+@Mixin(ServerLevel.class)
 public class PlaceMoreSnowMixin {
 
     /**
@@ -26,7 +26,7 @@ public class PlaceMoreSnowMixin {
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookTryPlaceSnow(WorldChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos, boolean isRaining, int chunkX, int chunkZ) {
-        SnowStorms.tryPlaceSnow((ServerWorld)(Object)this, chunkX, chunkZ);
+    private void hookTryPlaceSnow(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos, boolean isRaining, int chunkX, int chunkZ) {
+        SnowStorms.tryPlaceSnow((ServerLevel)(Object)this, chunkX, chunkZ);
     }
 }

@@ -1,14 +1,15 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.mixin.callback.AddEntityCallbackServerMixin;
 
-@Mixin(ClientWorld.class)
+@Mixin(ClientLevel.class)
 public class AddEntityCallbackClientMixin {
 
     /**

@@ -1,13 +1,14 @@
 package svenhjol.charm.mixin.anvil_improvements;
 
-import net.minecraft.entity.player.PlayerAbilities;
-import net.minecraft.screen.AnvilScreenHandler;
+import net.minecraft.world.entity.player.Abilities;
+import net.minecraft.world.inventory.AnvilMenu;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import svenhjol.charm.mixin.anvil_improvements.StopShowingTooExpensiveMixin;
 import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
-@Mixin(AnvilScreenHandler.class)
+@Mixin(AnvilMenu.class)
 public class RemoveTooExpensiveMixin {
 
     /**
@@ -26,7 +27,7 @@ public class RemoveTooExpensiveMixin {
             ordinal = 1
         )
     )
-    private boolean hookUpdateResultTooExpensive(PlayerAbilities abilities) {
-        return AnvilImprovements.removeTooExpensive() || abilities.creativeMode;
+    private boolean hookUpdateResultTooExpensive(Abilities abilities) {
+        return AnvilImprovements.removeTooExpensive() || abilities.instabuild;
     }
 }

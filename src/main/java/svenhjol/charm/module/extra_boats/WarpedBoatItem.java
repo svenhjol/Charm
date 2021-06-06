@@ -1,15 +1,16 @@
 package svenhjol.charm.module.extra_boats;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import svenhjol.charm.module.CharmModule;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import svenhjol.charm.item.CharmBoatItem;
+import svenhjol.charm.module.extra_boats.CharmBoatEntity;
 
 public class WarpedBoatItem extends CharmBoatItem {
     public WarpedBoatItem(CharmModule module) {
-        super(module, "warped_boat", CharmBoatEntity.BoatType.WARPED, new Item.Settings()
-            .maxCount(1)
-            .fireproof()
-            .group(ItemGroup.TRANSPORTATION));
+        super(module, "warped_boat", CharmBoatEntity.BoatType.WARPED, new Item.Properties()
+            .stacksTo(1)
+            .fireResistant()
+            .tab(CreativeModeTab.TAB_TRANSPORTATION));
     }
 }

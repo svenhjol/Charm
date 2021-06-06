@@ -1,11 +1,5 @@
 package svenhjol.charm.module.variant_ladders;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LadderBlock;
-import net.minecraft.block.TrapdoorBlock;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.enums.IVariantMaterial;
@@ -16,10 +10,18 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LadderBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
+import svenhjol.charm.module.variant_ladders.VariantLaddersClient;
 
 @Module(mod = Charm.MOD_ID, client = VariantLaddersClient.class, description = "Ladders available in all types of vanilla wood.")
 public class VariantLadders extends CharmModule {
-    public static final Map<IVariantMaterial, VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, svenhjol.charm.module.variant_ladders.VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
 
     public static boolean isEnabled = false;
 
@@ -32,23 +34,23 @@ public class VariantLadders extends CharmModule {
         isEnabled = this.enabled;
     }
 
-    public static VariantLadderBlock registerLadder(CharmModule module, IVariantMaterial material) {
-        VariantLadderBlock ladder = new VariantLadderBlock(module, material);
+    public static svenhjol.charm.module.variant_ladders.VariantLadderBlock registerLadder(CharmModule module, IVariantMaterial material) {
+        svenhjol.charm.module.variant_ladders.VariantLadderBlock ladder = new VariantLadderBlock(module, material);
         LADDER_BLOCKS.put(material, ladder);
         return ladder;
     }
 
-    public static boolean canEnterTrapdoor(World world, BlockPos pos, BlockState state) {
-        if (isEnabled && state.get(TrapdoorBlock.OPEN)) {
-            BlockState down = world.getBlockState(pos.down());
-            return LADDER_BLOCKS.values().stream().anyMatch(b -> b == down.getBlock()) && down.get(LadderBlock.FACING) == state.get(TrapdoorBlock.FACING);
+    public static boolean canEnterTrapdoor(Level world, BlockPos pos, BlockState state) {
+        if (isEnabled && state.getValue(TrapDoorBlock.OPEN)) {
+            BlockState down = world.getBlockState(pos.below());
+            return LADDER_BLOCKS.values().stream().anyMatch(b -> b == down.getBlock()) && down.getValue(LadderBlock.FACING) == state.getValue(TrapDoorBlock.FACING);
         }
 
         return false;
     }
 
     @Override
-    public List<Identifier> getRecipesToRemove() {
-        return Arrays.asList(new Identifier(Charm.MOD_ID, "woodcutters/vanilla_ladder_from_planks"));
+    public List<ResourceLocation> getRecipesToRemove() {
+        return Arrays.asList(new ResourceLocation(Charm.MOD_ID, "woodcutters/vanilla_ladder_from_planks"));
     }
 }

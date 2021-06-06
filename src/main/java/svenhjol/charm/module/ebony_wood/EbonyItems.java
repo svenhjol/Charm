@@ -3,6 +3,7 @@ package svenhjol.charm.module.ebony_wood;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
+import svenhjol.charm.module.ebony_wood.EbonyWood;
 import svenhjol.charm.module.extra_boats.CharmBoatEntity;
 
 public class EbonyItems {
@@ -14,7 +15,7 @@ public class EbonyItems {
 
     public static class EbonySignItem extends CharmSignItem {
         public EbonySignItem(CharmModule module) {
-            super(module, "ebony_sign", EbonyWood.SIGN_BLOCK, EbonyWood.WALL_SIGN_BLOCK);
+            super(module, "ebony_sign", svenhjol.charm.module.ebony_wood.EbonyWood.SIGN_BLOCK, EbonyWood.WALL_SIGN_BLOCK);
         }
     }
 }

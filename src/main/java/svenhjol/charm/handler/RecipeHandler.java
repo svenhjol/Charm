@@ -1,8 +1,7 @@
 package svenhjol.charm.handler;
 
 import com.google.gson.JsonElement;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
+import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.helper.StringHelper;
@@ -10,11 +9,13 @@ import svenhjol.charm.helper.StringHelper;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Stream;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 
 public class RecipeHandler {
-    private static final Map<String, CharmModule> loadedModules = ModuleHandler.getLoadedModules();
+    private static final Map<String, CharmModule> loadedModules = svenhjol.charm.handler.ModuleHandler.getLoadedModules();
 
-    public static void prepareCharmModulesFilter(Map<Identifier, JsonElement> recipes) {
+    public static void prepareCharmModulesFilter(Map<ResourceLocation, JsonElement> recipes) {
         Map<String, CharmModule> loadedModules = ModuleHandler.getLoadedModules();
 
         // remove recipes specified by enabled modules
@@ -23,7 +24,7 @@ public class RecipeHandler {
         });
     }
 
-    public static Iterator<Map.Entry<Identifier, JsonElement>> sortAndFilterRecipes(Map<Identifier, JsonElement> recipes) {
+    public static Iterator<Map.Entry<ResourceLocation, JsonElement>> sortAndFilterRecipes(Map<ResourceLocation, JsonElement> recipes) {
         return sortRecipes(recipes)
             .filter(RecipeHandler::filterUnloadedRecipeTypes)
             .filter(RecipeHandler::filterUnloadedCharmModules)
@@ -34,7 +35,7 @@ public class RecipeHandler {
      * When crafting recipes are loaded in game, we want modded recipes to take precedence over vanilla.
      * Sort recipes so that all modded recipes are iterated before vanilla recipes.
      */
-    private static Stream<Map.Entry<Identifier, JsonElement>> sortRecipes(Map<Identifier, JsonElement> recipes) {
+    private static Stream<Map.Entry<ResourceLocation, JsonElement>> sortRecipes(Map<ResourceLocation, JsonElement> recipes) {
         return Stream.concat(
             recipes.entrySet().stream().filter(r -> !r.getKey().getNamespace().equals("minecraft")),
             recipes.entrySet().stream().filter(r -> r.getKey().getNamespace().equals("minecraft"))
@@ -44,8 +45,8 @@ public class RecipeHandler {
     /**
      * Filter out recipes from Charm modules that have been disabled in config.
      */
-    private static boolean filterUnloadedCharmModules(Map.Entry<Identifier, JsonElement> recipe) {
-        Identifier id = recipe.getKey();
+    private static boolean filterUnloadedCharmModules(Map.Entry<ResourceLocation, JsonElement> recipe) {
+        ResourceLocation id = recipe.getKey();
         if (id.getNamespace().equals("minecraft"))
             return true;
 
@@ -59,8 +60,8 @@ public class RecipeHandler {
     /**
      * Filter out recipes where the recipe type refers to a module that isn't loaded.
      */
-    private static boolean filterUnloadedRecipeTypes(Map.Entry<Identifier, JsonElement> recipe) {
-        Identifier type = new Identifier(JsonHelper.getString(recipe.getValue().getAsJsonObject(), "type"));
+    private static boolean filterUnloadedRecipeTypes(Map.Entry<ResourceLocation, JsonElement> recipe) {
+        ResourceLocation type = new ResourceLocation(GsonHelper.getAsString(recipe.getValue().getAsJsonObject(), "type"));
         return type.getNamespace().equals("minecraft") || ModHelper.isLoaded(type.getNamespace());
     }
 }

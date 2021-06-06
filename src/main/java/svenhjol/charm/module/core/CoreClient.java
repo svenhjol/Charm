@@ -2,12 +2,13 @@ package svenhjol.charm.module.core;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.FriendlyByteBuf;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ClientHelper;
+import svenhjol.charm.module.core.Core;
 import svenhjol.charm.module.inventory_tidying.InventoryButtonClient;
 
 public class CoreClient extends CharmClientModule {
@@ -33,7 +34,7 @@ public class CoreClient extends CharmClientModule {
         this.inventoryButtonClient.init();
     }
 
-    private void handleServerOpenInventory(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+    private void handleServerOpenInventory(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
         client.execute(ClientHelper::openPlayerInventory);
     }
 }

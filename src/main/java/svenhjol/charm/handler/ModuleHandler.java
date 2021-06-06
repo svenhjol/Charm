@@ -1,6 +1,7 @@
 package svenhjol.charm.handler;
 
 import svenhjol.charm.Charm;
+import svenhjol.charm.handler.AdvancementHandler;
 import svenhjol.charm.init.CharmBiomes;
 import svenhjol.charm.init.CharmDecoration;
 import svenhjol.charm.init.CharmLoader;

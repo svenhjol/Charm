@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.core;
 
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelPart;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.helper.EntityHelper;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(EntityModelLoader.class)
+@Mixin(EntityModelSet.class)
 @CharmMixin(required = true)
 public class LoadCustomModelPartsMixin {
 
@@ -22,7 +22,7 @@ public class LoadCustomModelPartsMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    public void hookGetModelPart(EntityModelLayer layer, CallbackInfoReturnable<ModelPart> cir) {
+    public void hookGetModelPart(ModelLayerLocation layer, CallbackInfoReturnable<ModelPart> cir) {
         if (EntityHelper.LAYERS.containsKey(layer))
             cir.setReturnValue(EntityHelper.LAYERS.get(layer));
     }

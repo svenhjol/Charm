@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.snow_storms;
 
-import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.module.snow_storms.SnowStormsClient;
 
-@Mixin(WorldRenderer.class)
+@Mixin(LevelRenderer.class)
 public class RenderHeavySnowTextureMixin {
-    @Shadow private ClientWorld world;
+    @Shadow private ClientLevel world;
 
     private float gradient;
 
@@ -20,7 +20,7 @@ public class RenderHeavySnowTextureMixin {
         method = "renderWeather",
         at = @At("HEAD")
     )
-    private void hookRenderWeather(LightmapTextureManager manager, float f, double d, double e, double g, CallbackInfo ci) {
+    private void hookRenderWeather(LightTexture manager, float f, double d, double e, double g, CallbackInfo ci) {
         gradient = f;
     }
 
@@ -37,7 +37,7 @@ public class RenderHeavySnowTextureMixin {
             shift = At.Shift.BEFORE
         )
     )
-    private void hookRenderWeatherTexture(LightmapTextureManager manager, float f, double d, double e, double g, CallbackInfo ci) {
+    private void hookRenderWeatherTexture(LightTexture manager, float f, double d, double e, double g, CallbackInfo ci) {
         SnowStormsClient.tryHeavySnowTexture(world, gradient);
     }
 }

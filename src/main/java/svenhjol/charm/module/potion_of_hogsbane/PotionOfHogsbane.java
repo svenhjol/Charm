@@ -1,30 +1,33 @@
 package svenhjol.charm.module.potion_of_hogsbane;
 
-import net.minecraft.entity.mob.HoglinEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.module.potion_of_hogsbane.HogsbaneEffect;
+import svenhjol.charm.module.potion_of_hogsbane.HogsbanePotion;
+import svenhjol.charm.module.potion_of_hogsbane.LongHogsbanePotion;
 import svenhjol.charm.potion.CharmPotion;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.mixin.accessor.HoglinBrainAccessor;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.monster.hoglin.Hoglin;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
 
 @Module(mod = Charm.MOD_ID, description = "Causes all hoglins in the vicinity to run away from you.",
     requiresMixins = {"PlayerTickCallback"})
 public class PotionOfHogsbane extends CharmModule {
-    public static HogsbaneEffect HOGSBANE_EFFECT;
+    public static svenhjol.charm.module.potion_of_hogsbane.HogsbaneEffect HOGSBANE_EFFECT;
     public static CharmPotion HOGSPANE_POTION;
     public static CharmPotion LONG_HOGSBANE_POTION;
 
-    public static final Identifier TRIGGER_SCARED_HOGLINS = new Identifier(Charm.MOD_ID, "scared_hoglins");
+    public static final ResourceLocation TRIGGER_SCARED_HOGLINS = new ResourceLocation(Charm.MOD_ID, "scared_hoglins");
 
     @Override
     public void register() {
@@ -38,25 +41,25 @@ public class PotionOfHogsbane extends CharmModule {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 
-    private void handlePlayerTick(PlayerEntity player) {
-        if (!player.world.isClient
-            && player.world.getTime() % 20 == 0
-            && player.hasStatusEffect(HOGSBANE_EFFECT)
+    private void handlePlayerTick(Player player) {
+        if (!player.level.isClientSide
+            && player.level.getGameTime() % 20 == 0
+            && player.hasEffect(HOGSBANE_EFFECT)
         ) {
-            ServerWorld world = (ServerWorld)player.world;
-            BlockPos pos = player.getBlockPos();
-            List<HoglinEntity> hoglins = world.getNonSpectatingEntities(HoglinEntity.class, new Box(pos).expand(12.0D));
+            ServerLevel world = (ServerLevel)player.level;
+            BlockPos pos = player.blockPosition();
+            List<Hoglin> hoglins = world.getEntitiesOfClass(Hoglin.class, new AABB(pos).inflate(12.0D));
 
             hoglins.forEach(hoglin -> {
                 HoglinBrainAccessor.invokeAvoid(hoglin, player);
             });
 
             if (hoglins.size() >= 1)
-                PotionOfHogsbane.triggerScaredHoglins((ServerPlayerEntity) player);
+                PotionOfHogsbane.triggerScaredHoglins((ServerPlayer) player);
         }
     }
 
-    public static void triggerScaredHoglins(ServerPlayerEntity player) {
+    public static void triggerScaredHoglins(ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_SCARED_HOGLINS);
     }
 }

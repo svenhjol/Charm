@@ -2,7 +2,7 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 
 public interface EntityJumpCallback {
     Event<EntityJumpCallback> EVENT = EventFactory.createArrayBacked(EntityJumpCallback.class, (listeners) -> entity -> {

@@ -1,14 +1,14 @@
 package svenhjol.charm.mixin.accessor;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.util.collection.Pool;
-import net.minecraft.util.collection.Weighted;
+import net.minecraft.util.random.WeightedEntry;
+import net.minecraft.util.random.WeightedRandomList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(Pool.class)
-public interface PoolAccessor<E extends Weighted> {
+@Mixin(WeightedRandomList.class)
+public interface PoolAccessor<E extends WeightedEntry> {
     @Mutable
     @Accessor
     ImmutableList<E> getEntries();

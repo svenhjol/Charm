@@ -1,11 +1,16 @@
 package svenhjol.charm.mixin.core;
 
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentLevelEntry;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.Registry;
 import net.minecraft.screen.*;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.EnchantmentMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,14 +24,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-@Mixin(EnchantmentScreenHandler.class)
+@Mixin(EnchantmentMenu.class)
 @CharmMixin(disableIfModsPresent = {"betterend"})
-public abstract class CheckEnchantingPowerMixin extends ScreenHandler {
-    @Shadow @Final private ScreenHandlerContext context;
+public abstract class CheckEnchantingPowerMixin extends AbstractContainerMenu {
+    @Shadow @Final private ContainerLevelAccess context;
 
     @Shadow @Final private Random random;
 
-    @Shadow @Final private Property seed;
+    @Shadow @Final private DataSlot seed;
 
     @Shadow @Final public int[] enchantmentPower;
 
@@ -34,13 +39,13 @@ public abstract class CheckEnchantingPowerMixin extends ScreenHandler {
 
     @Shadow @Final public int[] enchantmentLevel;
 
-    protected CheckEnchantingPowerMixin(@Nullable ScreenHandlerType<?> type, int syncId) {
+    protected CheckEnchantingPowerMixin(@Nullable MenuType<?> type, int syncId) {
         super(type, syncId);
     }
 
-    @Shadow protected abstract List<EnchantmentLevelEntry> generateEnchantments(ItemStack stack, int slot, int level);
+    @Shadow protected abstract List<EnchantmentInstance> generateEnchantments(ItemStack stack, int slot, int level);
 
-    @Shadow @Final private Inventory inventory;
+    @Shadow @Final private Container inventory;
 
     // TODO try and hook isOf()
     /**
@@ -52,40 +57,40 @@ public abstract class CheckEnchantingPowerMixin extends ScreenHandler {
         at = @At("HEAD"),
         cancellable = true
     )
-    private void hookOnContentChanged(Inventory inventory, CallbackInfo ci) {
+    private void hookOnContentChanged(Container inventory, CallbackInfo ci) {
         /** Copypasta from {@link EnchantmentScreenHandler#onContentChanged(Inventory) */
         if (inventory == this.inventory) {
-            ItemStack itemStack = inventory.getStack(0);
+            ItemStack itemStack = inventory.getItem(0);
             if (!itemStack.isEmpty() && itemStack.isEnchantable()) {
-                this.context.run((world, blockPos) -> {
+                this.context.execute((world, blockPos) -> {
                     int i = 0;
 
                     int j;
                     for(j = -1; j <= 1; ++j) {
                         for(int k = -1; k <= 1; ++k) {
-                            if ((j != 0 || k != 0) && world.isAir(blockPos.add(k, 0, j)) && world.isAir(blockPos.add(k, 1, j))) {
-                                if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.add(k * 2, 0, j * 2)))) {
+                            if ((j != 0 || k != 0) && world.isEmptyBlock(blockPos.offset(k, 0, j)) && world.isEmptyBlock(blockPos.offset(k, 1, j))) {
+                                if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k * 2, 0, j * 2)))) {
                                     ++i;
                                 }
 
-                                if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.add(k * 2, 1, j * 2)))) {
+                                if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k * 2, 1, j * 2)))) {
                                     ++i;
                                 }
 
                                 if (k != 0 && j != 0) {
-                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.add(k * 2, 0, j)))) {
+                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k * 2, 0, j)))) {
                                         ++i;
                                     }
 
-                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.add(k * 2, 1, j)))) {
+                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k * 2, 1, j)))) {
                                         ++i;
                                     }
 
-                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.add(k, 0, j * 2)))) {
+                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k, 0, j * 2)))) {
                                         ++i;
                                     }
 
-                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.add(k, 1, j * 2)))) {
+                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k, 1, j * 2)))) {
                                         ++i;
                                     }
                                 }
@@ -96,7 +101,7 @@ public abstract class CheckEnchantingPowerMixin extends ScreenHandler {
                     this.random.setSeed((long)this.seed.get());
 
                     for(j = 0; j < 3; ++j) {
-                        this.enchantmentPower[j] = EnchantmentHelper.calculateRequiredExperienceLevel(this.random, j, i, itemStack);
+                        this.enchantmentPower[j] = EnchantmentHelper.getEnchantmentCost(this.random, j, i, itemStack);
                         this.enchantmentId[j] = -1;
                         this.enchantmentLevel[j] = -1;
                         if (this.enchantmentPower[j] < j + 1) {
@@ -106,16 +111,16 @@ public abstract class CheckEnchantingPowerMixin extends ScreenHandler {
 
                     for(j = 0; j < 3; ++j) {
                         if (this.enchantmentPower[j] > 0) {
-                            List<EnchantmentLevelEntry> list = this.generateEnchantments(itemStack, j, this.enchantmentPower[j]);
+                            List<EnchantmentInstance> list = this.generateEnchantments(itemStack, j, this.enchantmentPower[j]);
                             if (list != null && !list.isEmpty()) {
-                                EnchantmentLevelEntry enchantmentLevelEntry = (EnchantmentLevelEntry)list.get(this.random.nextInt(list.size()));
-                                this.enchantmentId[j] = Registry.ENCHANTMENT.getRawId(enchantmentLevelEntry.enchantment);
+                                EnchantmentInstance enchantmentLevelEntry = (EnchantmentInstance)list.get(this.random.nextInt(list.size()));
+                                this.enchantmentId[j] = Registry.ENCHANTMENT.getId(enchantmentLevelEntry.enchantment);
                                 this.enchantmentLevel[j] = enchantmentLevelEntry.level;
                             }
                         }
                     }
 
-                    this.sendContentUpdates();
+                    this.broadcastChanges();
                 });
             } else {
                 for(int i = 0; i < 3; ++i) {

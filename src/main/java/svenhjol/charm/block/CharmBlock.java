@@ -1,21 +1,22 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
+import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ModHelper;
 
 import java.util.Arrays;
 import java.util.List;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public abstract class CharmBlock extends Block implements ICharmBlock {
     public CharmModule module;
     private final List<String> loadedMods;
 
-    public CharmBlock(CharmModule module, String name, AbstractBlock.Settings props, String... loadedMods) {
+    public CharmBlock(CharmModule module, String name, BlockBehaviour.Properties props, String... loadedMods) {
         super(props);
         this.module = module;
         this.loadedMods = Arrays.asList(loadedMods);
@@ -23,9 +24,9 @@ public abstract class CharmBlock extends Block implements ICharmBlock {
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

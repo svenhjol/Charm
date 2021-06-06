@@ -1,9 +1,9 @@
 package svenhjol.charm.module.parrots_stay_on_shoulder;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
@@ -20,23 +20,23 @@ public class ParrotsStayOnShoulder extends CharmModule {
         PlayerTickCallback.EVENT.register(this::tryDismountParrot);
     }
 
-    public static boolean shouldParrotStayMounted(World world, long shoulderTime) {
-        return shoulderTime + 20L < world.getTime() && isEnabled;
+    public static boolean shouldParrotStayMounted(Level world, long shoulderTime) {
+        return shoulderTime + 20L < world.getGameTime() && isEnabled;
     }
 
-    public void tryDismountParrot(PlayerEntity player) {
-        if (!player.world.isClient
-            && player.world.getTime() % 10 == 0
-            && player.isSneaking()
+    public void tryDismountParrot(Player player) {
+        if (!player.level.isClientSide
+            && player.level.getGameTime() % 10 == 0
+            && player.isShiftKeyDown()
         ) {
-            final ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
+            final ServerPlayer serverPlayer = (ServerPlayer)player;
             if (!serverPlayer.getShoulderEntityLeft().isEmpty()) {
                 ((PlayerEntityAccessor)serverPlayer).invokeDropShoulderEntity(serverPlayer.getShoulderEntityLeft());
-                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityLeft(new NbtCompound());
+                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityLeft(new CompoundTag());
             }
             if (!serverPlayer.getShoulderEntityRight().isEmpty()) {
                 ((PlayerEntityAccessor)serverPlayer).invokeDropShoulderEntity(serverPlayer.getShoulderEntityRight());
-                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityRight(new NbtCompound());
+                ((PlayerEntityAccessor)serverPlayer).invokeSetShoulderEntityRight(new CompoundTag());
             }
         }
     }

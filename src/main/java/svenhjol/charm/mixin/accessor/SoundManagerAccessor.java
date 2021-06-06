@@ -1,7 +1,7 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.client.sound.SoundManager;
-import net.minecraft.client.sound.SoundSystem;
+import net.minecraft.client.sounds.SoundEngine;
+import net.minecraft.client.sounds.SoundManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import svenhjol.charm.annotation.CharmMixin;
@@ -10,5 +10,5 @@ import svenhjol.charm.annotation.CharmMixin;
 @CharmMixin(required = true)
 public interface SoundManagerAccessor {
     @Accessor()
-    SoundSystem getSoundSystem();
+    SoundEngine getSoundSystem();
 }

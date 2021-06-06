@@ -1,12 +1,12 @@
 package svenhjol.charm.mixin.callback;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BeaconBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,7 +27,7 @@ public class ApplyBeaconEffectsCallbackMixin extends BlockEntity {
         method = "applyPlayerEffects",
         at = @At("HEAD")
     )
-    private static void hookAddEffects(World world, BlockPos pos, int level, StatusEffect primary, StatusEffect secondary, CallbackInfo ci) {
+    private static void hookAddEffects(Level world, BlockPos pos, int level, MobEffect primary, MobEffect secondary, CallbackInfo ci) {
         if (world != null)
             ApplyBeaconEffectsCallback.EVENT.invoker().interact(world, pos, level, primary, secondary);
     }

@@ -1,33 +1,33 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.entity.player.PlayerAbilities;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.inventory.EnderChestInventory;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Abilities;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 @CharmMixin(required = true)
 public interface PlayerEntityAccessor {
     @Accessor
-    PlayerInventory getInventory();
+    Inventory getInventory();
 
     @Accessor
-    PlayerAbilities getAbilities();
+    Abilities getAbilities();
 
     @Accessor
-    EnderChestInventory getEnderChestInventory();
+    PlayerEnderChestContainer getEnderChestInventory();
 
     @Invoker()
-    void invokeSetShoulderEntityLeft(NbtCompound nbt);
+    void invokeSetShoulderEntityLeft(CompoundTag nbt);
 
     @Invoker()
-    void invokeSetShoulderEntityRight(NbtCompound nbt);
+    void invokeSetShoulderEntityRight(CompoundTag nbt);
 
     @Invoker()
-    void invokeDropShoulderEntity(NbtCompound nbt);
+    void invokeDropShoulderEntity(CompoundTag nbt);
 }

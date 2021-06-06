@@ -1,28 +1,32 @@
 package svenhjol.charm.module.cooking_pots;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.tooltip.TooltipComponent;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.text.OrderedText;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockRenderView;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.event.RenderTooltipCallback;
+import svenhjol.charm.module.cooking_pots.CookingPotBlock;
+import svenhjol.charm.module.cooking_pots.CookingPotBlockEntityRenderer;
+import svenhjol.charm.module.cooking_pots.CookingPots;
+import svenhjol.charm.module.cooking_pots.MixedStewItem;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -31,7 +35,7 @@ import java.util.Random;
 import java.util.WeakHashMap;
 
 public class CookingPotsClient extends CharmClientModule {
-    private final Map<List<Identifier>, List<Item>> cachedItems = new WeakHashMap<>();
+    private final Map<List<ResourceLocation>, List<Item>> cachedItems = new WeakHashMap<>();
 
     public CookingPotsClient(CharmModule module) {
         super(module);
@@ -40,25 +44,25 @@ public class CookingPotsClient extends CharmClientModule {
     @Override
     public void register() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
-        ColorProviderRegistry.BLOCK.register(this::handleColorProvider, CookingPots.COOKING_POT);
-        BlockEntityRendererRegistry.INSTANCE.register(CookingPots.BLOCK_ENTITY, CookingPotBlockEntityRenderer::new);
-        ClientPlayNetworking.registerGlobalReceiver(CookingPots.MSG_CLIENT_ADDED_TO_POT, this::handleClientAddedToPot);
+        ColorProviderRegistry.BLOCK.register(this::handleColorProvider, svenhjol.charm.module.cooking_pots.CookingPots.COOKING_POT);
+        BlockEntityRendererRegistry.INSTANCE.register(svenhjol.charm.module.cooking_pots.CookingPots.BLOCK_ENTITY, CookingPotBlockEntityRenderer::new);
+        ClientPlayNetworking.registerGlobalReceiver(svenhjol.charm.module.cooking_pots.CookingPots.MSG_CLIENT_ADDED_TO_POT, this::handleClientAddedToPot);
     }
 
-    private int handleColorProvider(BlockState state, @Nullable BlockRenderView world, @Nullable BlockPos pos, int tintIndex) {
+    private int handleColorProvider(BlockState state, @Nullable BlockAndTintGetter world, @Nullable BlockPos pos, int tintIndex) {
         if (world != null) {
-            if (state.getBlock() == CookingPots.COOKING_POT && state.get(CookingPotBlock.LIQUID) == 2) {
+            if (state.getBlock() == svenhjol.charm.module.cooking_pots.CookingPots.COOKING_POT && state.getValue(CookingPotBlock.LIQUID) == 2) {
                 return 0x602A00;
             }
         }
         return 0x0088CC;
     }
 
-    private void handleRenderTooltip(MatrixStack matrices, @Nullable ItemStack stack, List<TooltipComponent> lines, int x, int y) {
-        if (stack == null || stack.getItem() != CookingPots.MIXED_STEW)
+    private void handleRenderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
+        if (stack == null || stack.getItem() != svenhjol.charm.module.cooking_pots.CookingPots.MIXED_STEW)
             return;
 
-        List<Identifier> contents = MixedStewItem.getContents(stack);
+        List<ResourceLocation> contents = MixedStewItem.getContents(stack);
         if (contents.isEmpty())
             return;
 
@@ -71,43 +75,43 @@ public class CookingPotsClient extends CharmClientModule {
         if (items.isEmpty())
             return;
 
-        final MinecraftClient mc = MinecraftClient.getInstance();
+        final Minecraft mc = Minecraft.getInstance();
         ItemRenderer itemRenderer = mc.getItemRenderer();
 
-        matrices.push();
+        matrices.pushPose();
         RenderSystem.enableDepthTest();
         matrices.translate(0, 0, 400);
 
-        float oldZOffset = itemRenderer.zOffset;
-        itemRenderer.zOffset = 400.0F; // hack to get front layer working
+        float oldZOffset = itemRenderer.blitOffset;
+        itemRenderer.blitOffset = 400.0F; // hack to get front layer working
 
         int ox = 0;
         for (int i = 0; i < Math.min(14, items.size()); i++) {
             ItemStack itemStack = new ItemStack(items.get(i));
             if (!itemStack.isEmpty()) {
-                itemRenderer.renderInGui(itemStack, x + 8 + (ox++ * (items.size() < 7 ? 13 : 6)), y + 22);
+                itemRenderer.renderAndDecorateFakeItem(itemStack, x + 8 + (ox++ * (items.size() < 7 ? 13 : 6)), y + 22);
             }
         }
 
         // add a couple of blank lines below for the items to render into
         for (int i = 0; i < 2; i++) {
-            lines.add(TooltipComponent.of(OrderedText.EMPTY));
+            lines.add(ClientTooltipComponent.create(FormattedCharSequence.EMPTY));
         }
 
-        itemRenderer.zOffset = oldZOffset;
+        itemRenderer.blitOffset = oldZOffset;
         RenderSystem.disableDepthTest();
-        matrices.pop();
+        matrices.popPose();
     }
 
-    private void handleClientAddedToPot(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
-        BlockPos pos = BlockPos.fromLong(data.readLong());
+    private void handleClientAddedToPot(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
+        BlockPos pos = BlockPos.of(data.readLong());
         client.execute(() -> {
-            if (client.world != null)
-                createParticles(client.world, pos);
+            if (client.level != null)
+                createParticles(client.level, pos);
         });
     }
 
-    private void createParticles(World world, BlockPos pos) {
+    private void createParticles(Level world, BlockPos pos) {
         Random random = world.getRandom();
 
         for(int i = 0; i < 10; ++i) {

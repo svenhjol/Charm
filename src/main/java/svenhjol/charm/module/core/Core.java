@@ -1,20 +1,21 @@
 package svenhjol.charm.module.core;
 
-import net.minecraft.network.ClientConnection;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.Connection;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.ServerJoinCallback;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.core.CoreClient;
 
 @Module(mod = Charm.MOD_ID, priority = 100, client = CoreClient.class, alwaysEnabled = true, description = "Core configuration values.")
 public class Core extends CharmModule {
-    public static final Identifier ADVANCEMENT_PLAYER_JOINED = new Identifier(Charm.MOD_ID, "player_joined");
-    public static final Identifier MSG_SERVER_OPEN_INVENTORY = new Identifier(Charm.MOD_ID, "server_open_inventory");
+    public static final ResourceLocation ADVANCEMENT_PLAYER_JOINED = new ResourceLocation(Charm.MOD_ID, "player_joined");
+    public static final ResourceLocation MSG_SERVER_OPEN_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_open_inventory");
 
     @Config(name = "Debug mode", description = "If true, routes additional debug messages into the standard game log.")
     public static boolean debug = false;
@@ -30,7 +31,7 @@ public class Core extends CharmModule {
         ServerJoinCallback.EVENT.register(this::handleServerJoin);
     }
 
-    private void handleServerJoin(PlayerManager playerManager, ClientConnection connection, ServerPlayerEntity player) {
+    private void handleServerJoin(PlayerList playerManager, Connection connection, ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, ADVANCEMENT_PLAYER_JOINED);
     }
 }

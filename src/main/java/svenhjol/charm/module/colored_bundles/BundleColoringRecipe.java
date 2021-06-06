@@ -1,24 +1,29 @@
 package svenhjol.charm.module.colored_bundles;
 
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.*;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.BundleItem;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import svenhjol.charm.module.colored_bundles.ColoredBundles;
 
-public class BundleColoringRecipe extends SpecialCraftingRecipe {
-   public BundleColoringRecipe(Identifier identifier) {
+public class BundleColoringRecipe extends CustomRecipe {
+   public BundleColoringRecipe(ResourceLocation identifier) {
       super(identifier);
    }
 
-   public boolean matches(CraftingInventory craftingInventory, World world) {
+   public boolean matches(CraftingContainer craftingInventory, Level world) {
       int i = 0;
       int j = 0;
 
-      for(int k = 0; k < craftingInventory.size(); ++k) {
-         ItemStack itemStack = craftingInventory.getStack(k);
+      for(int k = 0; k < craftingInventory.getContainerSize(); ++k) {
+         ItemStack itemStack = craftingInventory.getItem(k);
          if (!itemStack.isEmpty()) {
             if (itemStack.getItem() instanceof BundleItem) {
                ++i;
@@ -39,12 +44,12 @@ public class BundleColoringRecipe extends SpecialCraftingRecipe {
       return i == 1 && j == 1;
    }
 
-   public ItemStack craft(CraftingInventory craftingInventory) {
+   public ItemStack craft(CraftingContainer craftingInventory) {
       ItemStack itemStack = ItemStack.EMPTY;
       DyeItem dyeItem = (DyeItem)Items.WHITE_DYE;
 
-      for(int i = 0; i < craftingInventory.size(); ++i) {
-         ItemStack itemStack2 = craftingInventory.getStack(i);
+      for(int i = 0; i < craftingInventory.getContainerSize(); ++i) {
+         ItemStack itemStack2 = craftingInventory.getItem(i);
          if (!itemStack2.isEmpty()) {
             Item item = itemStack2.getItem();
             if (item instanceof BundleItem) {
@@ -55,7 +60,7 @@ public class BundleColoringRecipe extends SpecialCraftingRecipe {
          }
       }
 
-      ItemStack itemStack3 = new ItemStack(ColoredBundles.COLORED_BUNDLES.get(dyeItem.getColor()));
+      ItemStack itemStack3 = new ItemStack(ColoredBundles.COLORED_BUNDLES.get(dyeItem.getDyeColor()));
       if (itemStack.hasTag()) {
          itemStack3.setTag(itemStack.getTag().copy());
       }
@@ -63,7 +68,7 @@ public class BundleColoringRecipe extends SpecialCraftingRecipe {
       return itemStack3;
    }
 
-   public boolean fits(int width, int height) {
+   public boolean canCraftInDimensions(int width, int height) {
       return width * height >= 2;
    }
 

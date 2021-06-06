@@ -1,13 +1,5 @@
 package svenhjol.charm.mixin.anvil_improvements;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.screen.ForgingScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,10 +8,18 @@ import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 import java.util.Map;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.ItemCombinerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
-@Mixin(AnvilScreenHandler.class)
-public abstract class AllowHigherEnchantmentLevelMixin extends ForgingScreenHandler {
-    public AllowHigherEnchantmentLevelMixin(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+@Mixin(AnvilMenu.class)
+public abstract class AllowHigherEnchantmentLevelMixin extends ItemCombinerMenu {
+    public AllowHigherEnchantmentLevelMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(type, syncId, playerInventory, context);
     }
 
@@ -40,11 +40,11 @@ public abstract class AllowHigherEnchantmentLevelMixin extends ForgingScreenHand
     )
     private void hookUpdateResultAllowHigherLevel(Map<Enchantment, Integer> enchantments, ItemStack outputStack) {
         if (!ModuleHandler.enabled(AnvilImprovements.class) || !AnvilImprovements.higherEnchantmentLevels) {
-            EnchantmentHelper.set(enchantments, outputStack); // vanilla behavior
+            EnchantmentHelper.setEnchantments(enchantments, outputStack); // vanilla behavior
             return;
         }
 
-        ItemStack inputStack = this.input.getStack(1);
+        ItemStack inputStack = this.inputSlots.getItem(1);
         AnvilImprovements.setEnchantmentsAllowHighLevel(enchantments, inputStack, outputStack);
     }
 }

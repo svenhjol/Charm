@@ -1,69 +1,68 @@
 package svenhjol.charm.module.biome_dungeons;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.structure.MarginedStructureStart;
-import net.minecraft.structure.PoolStructurePiece;
-import net.minecraft.structure.StructureManager;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.pool.StructurePoolBasedGenerator;
-import net.minecraft.structure.pool.StructurePoolElement;
-import net.minecraft.structure.pool.StructurePools;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.registry.DynamicRegistryManager;
-import net.minecraft.world.EmptyBlockView;
-import net.minecraft.world.HeightLimitView;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.VerticalBlockSample;
-import net.minecraft.world.gen.feature.StructureFeature;
-import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
-
 import java.util.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.data.worldgen.Pools;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.EmptyBlockGetter;
+import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.world.level.NoiseColumn;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
+import net.minecraft.world.level.levelgen.feature.structures.JigsawPlacement;
+import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElement;
+import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.NoiseAffectingStructureStart;
+import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 
-public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig> {
+public class DungeonFeature extends StructureFeature<JigsawConfiguration> {
     public static final int MIN_Y = 2;
 
-    public DungeonFeature(Codec<StructurePoolFeatureConfig> codec) {
+    public DungeonFeature(Codec<JigsawConfiguration> codec) {
         super(codec);
     }
 
-    public StructureFeature.StructureStartFactory<StructurePoolFeatureConfig> getStructureStartFactory() {
+    public StructureFeature.StructureStartFactory<JigsawConfiguration> getStartFactory() {
         return (feature, chunkPos, i, l) -> new Start(this, chunkPos, i, l);
     }
 
-    public static class Start extends MarginedStructureStart<StructurePoolFeatureConfig> {
+    public static class Start extends NoiseAffectingStructureStart<JigsawConfiguration> {
         public Start(DungeonFeature feature, ChunkPos chunkPos, int i, long l) {
             super(feature, chunkPos, i, l);
         }
 
-        public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, StructurePoolFeatureConfig structurePoolFeatureConfig, HeightLimitView heightLimitView) {
-            int x = chunkPos.getStartX();
+        public void init(RegistryAccess dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, JigsawConfiguration structurePoolFeatureConfig, LevelHeightAccessor heightLimitView) {
+            int x = chunkPos.getMinBlockX();
             int y = MIN_Y + new Random().nextInt(44) + 4;
-            int z = chunkPos.getStartZ();
+            int z = chunkPos.getMinBlockZ();
             boolean found = false;
-            BlockPos.Mutable blockPos = new BlockPos.Mutable(x, y, z);
+            BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos(x, y, z);
 
             Random random = new Random(blockPos.asLong());
             Random random1 = new Random(blockPos.asLong()); // this gets passed to the generator and must be the same seed as the one used here.
 
-            BlockRotation blockRotation = BlockRotation.random(random);
-            StructurePool structurePool = structurePoolFeatureConfig.getStartPool().get();
-            StructurePoolElement structurePoolElement = structurePool.getRandomElement(new Random());
-            BlockBox box = structurePoolElement.getBoundingBox(structureManager, blockPos, blockRotation);
+            Rotation blockRotation = Rotation.getRandom(random);
+            StructureTemplatePool structurePool = structurePoolFeatureConfig.startPool().get();
+            StructurePoolElement structurePoolElement = structurePool.getRandomTemplate(new Random());
+            BoundingBox box = structurePoolElement.getBoundingBox(structureManager, blockPos, blockRotation);
 
-            int[] corner1 = new int[]{box.getMinX(), box.getMinZ()};
-            int[] corner2 = new int[]{box.getMaxX(), box.getMinZ()};
-            int[] corner3 = new int[]{box.getMinX(), box.getMaxZ()};
-            int[] corner4 = new int[]{box.getMaxX(), box.getMaxZ()};
+            int[] corner1 = new int[]{box.minX(), box.minZ()};
+            int[] corner2 = new int[]{box.maxX(), box.minZ()};
+            int[] corner3 = new int[]{box.minX(), box.maxZ()};
+            int[] corner4 = new int[]{box.maxX(), box.maxZ()};
 
-            VerticalBlockSample cornerSample1 = chunkGenerator.getColumnSample(corner1[0], corner1[1], heightLimitView);
-            VerticalBlockSample cornerSample2 = chunkGenerator.getColumnSample(corner2[0], corner2[1], heightLimitView);
-            VerticalBlockSample cornerSample3 = chunkGenerator.getColumnSample(corner3[0], corner3[1], heightLimitView);
-            VerticalBlockSample cornerSample4 = chunkGenerator.getColumnSample(corner4[0], corner4[1], heightLimitView);
+            NoiseColumn cornerSample1 = chunkGenerator.getBaseColumn(corner1[0], corner1[1], heightLimitView);
+            NoiseColumn cornerSample2 = chunkGenerator.getBaseColumn(corner2[0], corner2[1], heightLimitView);
+            NoiseColumn cornerSample3 = chunkGenerator.getBaseColumn(corner3[0], corner3[1], heightLimitView);
+            NoiseColumn cornerSample4 = chunkGenerator.getBaseColumn(corner4[0], corner4[1], heightLimitView);
 
             do {
                 BlockPos pos1 = new BlockPos(corner1[0], y - 1, corner1[1]);
@@ -71,24 +70,24 @@ public class DungeonFeature extends StructureFeature<StructurePoolFeatureConfig>
                 BlockPos pos3 = new BlockPos(corner3[0], y-1, corner3[1]);
                 BlockPos pos4 = new BlockPos(corner4[0], y - 1, corner4[1]);
 
-                BlockState state1 = cornerSample1.getState(pos1);
-                BlockState state2 = cornerSample2.getState(pos2);
-                BlockState state3 = cornerSample3.getState(pos3);
-                BlockState state4 = cornerSample4.getState(pos4);
+                BlockState state1 = cornerSample1.getBlockState(pos1);
+                BlockState state2 = cornerSample2.getBlockState(pos2);
+                BlockState state3 = cornerSample3.getBlockState(pos3);
+                BlockState state4 = cornerSample4.getBlockState(pos4);
 
-                if ((state1.isSolidBlock(EmptyBlockView.INSTANCE, pos1) || state1.isAir())
-                    && state2.isSolidBlock(EmptyBlockView.INSTANCE, pos2)
-                    && state3.isSolidBlock(EmptyBlockView.INSTANCE, pos3)
-                    && state4.isSolidBlock(EmptyBlockView.INSTANCE, pos4)) {
+                if ((state1.isRedstoneConductor(EmptyBlockGetter.INSTANCE, pos1) || state1.isAir())
+                    && state2.isRedstoneConductor(EmptyBlockGetter.INSTANCE, pos2)
+                    && state3.isRedstoneConductor(EmptyBlockGetter.INSTANCE, pos3)
+                    && state4.isRedstoneConductor(EmptyBlockGetter.INSTANCE, pos4)) {
                     found = true;
                 }
             } while (--y > MIN_Y && !found);
 
             if (found) {
                 BlockPos foundPos = new BlockPos(x, y + 1, z);
-                StructurePools.initDefaultPools();
-                StructurePoolBasedGenerator.method_30419(dynamicRegistryManager, structurePoolFeatureConfig, PoolStructurePiece::new, chunkGenerator, structureManager, foundPos, this, random1, true, false, heightLimitView);
-                this.setBoundingBoxFromChildren();
+                Pools.bootstrap();
+                JigsawPlacement.addPieces(dynamicRegistryManager, structurePoolFeatureConfig, PoolElementStructurePiece::new, chunkGenerator, structureManager, foundPos, this, random1, true, false, heightLimitView);
+                this.getBoundingBox();
             }
         }
     }

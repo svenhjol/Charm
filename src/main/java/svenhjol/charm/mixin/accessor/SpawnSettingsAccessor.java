@@ -1,32 +1,32 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.util.collection.Pool;
-import net.minecraft.world.biome.SpawnSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.Map;
+import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
-@Mixin(SpawnSettings.class)
+@Mixin(MobSpawnSettings.class)
 @CharmMixin(required = true)
 public interface SpawnSettingsAccessor {
     @Mutable
     @Accessor
-    Map<SpawnGroup, Pool<SpawnSettings.SpawnEntry>> getSpawners();
+    Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> getSpawners();
 
     @Mutable
     @Accessor
-    Map<EntityType<?>, SpawnSettings.SpawnDensity> getSpawnCosts();
+    Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> getSpawnCosts();
 
     @Mutable
     @Accessor
-    void setSpawners(Map<SpawnGroup, Pool<SpawnSettings.SpawnEntry>> spawners);
+    void setSpawners(Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners);
 
     @Mutable
     @Accessor
-    void setSpawnCosts(Map<EntityType<?>, SpawnSettings.SpawnDensity> spawnCosts);
+    void setSpawnCosts(Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> spawnCosts);
 }

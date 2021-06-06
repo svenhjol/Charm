@@ -1,24 +1,25 @@
 package svenhjol.charm.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.item.ICharmItem;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmItem extends Item implements ICharmItem {
     protected CharmModule module;
 
-    public CharmItem(CharmModule module, String name, Item.Settings props) {
+    public CharmItem(CharmModule module, String name, Item.Properties props) {
         super(props);
         this.module = module;
         register(module, name);
     }
 
     @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.appendStacks(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

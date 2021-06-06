@@ -1,8 +1,5 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -10,8 +7,11 @@ import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.List;
 import java.util.function.Supplier;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 
-@Mixin(GenerationSettings.class)
+@Mixin(BiomeGenerationSettings.class)
 @CharmMixin(required = true)
 public interface GenerationSettingsAccessor {
     @Mutable

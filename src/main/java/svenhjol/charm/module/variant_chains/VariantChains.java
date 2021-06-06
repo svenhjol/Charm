@@ -1,6 +1,5 @@
 package svenhjol.charm.module.variant_chains;
 
-import net.minecraft.util.Identifier;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.CharmChainBlock;
@@ -9,6 +8,8 @@ import svenhjol.charm.init.CharmDecoration;
 import svenhjol.charm.module.CharmModule;
 
 import java.util.*;
+import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.module.variant_chains.VariantChainsClient;
 
 @Module(mod = Charm.MOD_ID, client = VariantChainsClient.class, description = "Variant chains crafted from vanilla metal ingots and nuggets.")
 public class VariantChains extends CharmModule {
@@ -22,14 +23,14 @@ public class VariantChains extends CharmModule {
     }
 
     @Override
-    public List<Identifier> getRecipesToRemove() {
-        List<Identifier> remove = new ArrayList<>();
+    public List<ResourceLocation> getRecipesToRemove() {
+        List<ResourceLocation> remove = new ArrayList<>();
 
         // remove chain recipes if nuggets module is disabled
         if (!ModuleHandler.enabled("charm:extra_nuggets")) {
             remove.addAll(Arrays.asList(
-                new Identifier(Charm.MOD_ID, "variant_chains/copper_chain"),
-                new Identifier(Charm.MOD_ID, "variant_chains/netherite_chain")
+                new ResourceLocation(Charm.MOD_ID, "variant_chains/copper_chain"),
+                new ResourceLocation(Charm.MOD_ID, "variant_chains/netherite_chain")
             ));
         }
 

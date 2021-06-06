@@ -1,8 +1,10 @@
 package svenhjol.charm.module.variant_chests;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.module.variant_chests.VariantChestBlockEntity;
+import svenhjol.charm.module.variant_chests.VariantChests;
 
 public class VariantTrappedChestBlockEntity extends VariantChestBlockEntity {
     public VariantTrappedChestBlockEntity(BlockPos pos, BlockState state) {

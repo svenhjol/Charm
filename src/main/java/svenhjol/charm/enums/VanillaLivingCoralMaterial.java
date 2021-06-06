@@ -1,10 +1,12 @@
 package svenhjol.charm.enums;
 
+import svenhjol.charm.enums.ICoralMaterial;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum VanillaLivingCoralMaterial implements ICoralMaterial {
+public enum VanillaLivingCoralMaterial implements svenhjol.charm.enums.ICoralMaterial {
     TUBE,
     BRAIN,
     BUBBLE,

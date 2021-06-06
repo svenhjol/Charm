@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.gen.feature.MineshaftFeature;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.levelgen.feature.MineshaftFeature;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -15,5 +15,5 @@ public interface MineshaftPartAccessor {
     MineshaftFeature.Type getMineshaftType();
 
     @Invoker
-    boolean invokeIsSolidCeiling(BlockView world, BlockBox boundingBox, int minX, int maxX, int y, int z);
+    boolean invokeIsSolidCeiling(BlockGetter world, BoundingBox boundingBox, int minX, int maxX, int y, int z);
 }

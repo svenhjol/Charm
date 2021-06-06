@@ -1,9 +1,9 @@
 package svenhjol.charm.mixin.stackable_stews;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SuspiciousStewItem;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SuspiciousStewItem;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,7 +27,7 @@ public class FinishEatingSuspiciousStewMixin {
         cancellable = true,
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookFinishUsing(ItemStack stack, World world, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir, ItemStack eatenStack) {
+    private void hookFinishUsing(ItemStack stack, Level world, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir, ItemStack eatenStack) {
         boolean result = StackableStews.tryEatStewStack(entity, eatenStack);
         if (result)
             cir.setReturnValue(eatenStack);

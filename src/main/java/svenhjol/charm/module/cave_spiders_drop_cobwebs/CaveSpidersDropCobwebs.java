@@ -1,14 +1,14 @@
 package svenhjol.charm.module.cave_spiders_drop_cobwebs;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.CaveSpiderEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.CaveSpider;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.module.CharmModule;
@@ -29,17 +29,17 @@ public class CaveSpidersDropCobwebs extends CharmModule {
         EntityDropItemsCallback.AFTER.register((this::tryDropCobweb));
     }
 
-    public ActionResult tryDropCobweb(LivingEntity entity, DamageSource source, int lootingLevel) {
-        if (!entity.world.isClient
-            && entity instanceof CaveSpiderEntity
+    public InteractionResult tryDropCobweb(LivingEntity entity, DamageSource source, int lootingLevel) {
+        if (!entity.level.isClientSide
+            && entity instanceof CaveSpider
         ) {
-            World world = entity.getEntityWorld();
-            BlockPos pos = entity.getBlockPos();
+            Level world = entity.getCommandSenderWorld();
+            BlockPos pos = entity.blockPosition();
 
             int amount = ItemHelper.getAmountWithLooting(world.random, maxDrops, lootingLevel, (float)lootingBoost);
-            world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.COBWEB, amount)));
+            world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.COBWEB, amount)));
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 }

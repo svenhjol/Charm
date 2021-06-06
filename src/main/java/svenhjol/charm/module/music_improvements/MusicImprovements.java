@@ -4,6 +4,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.module.music_improvements.MusicImprovementsClient;
 
 @Module(mod = Charm.MOD_ID, client = MusicImprovementsClient.class, description = "Playing a record in a jukebox stops background music from playing at the same.\n" +
     "Creative music tracks may also play in survival mode.",

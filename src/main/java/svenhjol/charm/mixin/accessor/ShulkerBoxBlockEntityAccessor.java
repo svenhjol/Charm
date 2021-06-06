@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.block.entity.ShulkerBoxBlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import svenhjol.charm.annotation.CharmMixin;
@@ -11,5 +11,5 @@ import svenhjol.charm.annotation.CharmMixin;
 @CharmMixin(required = true)
 public interface ShulkerBoxBlockEntityAccessor {
     @Accessor
-    DefaultedList<ItemStack> getInventory();
+    NonNullList<ItemStack> getInventory();
 }

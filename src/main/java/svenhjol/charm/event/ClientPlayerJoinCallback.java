@@ -2,7 +2,7 @@ package svenhjol.charm.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 
 public interface ClientPlayerJoinCallback {
     Event<ClientPlayerJoinCallback> EVENT = EventFactory.createArrayBacked(ClientPlayerJoinCallback.class, (listeners) -> (client) -> {
@@ -11,5 +11,5 @@ public interface ClientPlayerJoinCallback {
         }
     });
 
-    void interact(MinecraftClient client);
+    void interact(Minecraft client);
 }

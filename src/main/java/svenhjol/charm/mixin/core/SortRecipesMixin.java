@@ -1,10 +1,6 @@
 package svenhjol.charm.mixin.core;
 
 import com.google.gson.JsonElement;
-import net.minecraft.recipe.RecipeManager;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.profiler.Profiler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,11 +13,15 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.item.crafting.RecipeManager;
 
 @Mixin(value = RecipeManager.class)
 @CharmMixin(required = true)
 public class SortRecipesMixin {
-    private Map<Identifier, JsonElement> map2 = new TreeMap<>();
+    private Map<ResourceLocation, JsonElement> map2 = new TreeMap<>();
 
     /**
      * Creates map of Charm modules to remove from registered recipes.
@@ -34,7 +34,7 @@ public class SortRecipesMixin {
         method = "apply",
         at = @At("HEAD")
     )
-    private void hookApply(Map<Identifier, JsonElement> map, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
+    private void hookApply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler, CallbackInfo ci) {
         RecipeHandler.prepareCharmModulesFilter(map);
         map2 = new TreeMap<>(map);
     }

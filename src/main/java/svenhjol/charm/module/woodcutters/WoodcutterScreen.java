@@ -1,48 +1,50 @@
 package svenhjol.charm.module.woodcutters;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Inventory;
+import svenhjol.charm.module.woodcutters.WoodcutterScreenHandler;
+import svenhjol.charm.module.woodcutters.WoodcuttingRecipe;
 
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
-   private static final Identifier TEXTURE = new Identifier("textures/gui/container/stonecutter.png");
+public class WoodcutterScreen extends AbstractContainerScreen<svenhjol.charm.module.woodcutters.WoodcutterScreenHandler> {
+   private static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/container/stonecutter.png");
    private float scrollAmount;
    private boolean mouseClicked;
    private int scrollOffset;
    private boolean canCraft;
 
-   public WoodcutterScreen(WoodcutterScreenHandler handler, PlayerInventory inventory, Text title) {
+   public WoodcutterScreen(WoodcutterScreenHandler handler, Inventory inventory, Component title) {
       super(handler, inventory, title);
       handler.setContentsChangedListener(this::onInventoryChange);
-      --this.titleY;
+      --this.titleLabelY;
    }
 
-   public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+   public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
       super.render(matrices, mouseX, mouseY, delta);
-      this.drawMouseoverTooltip(matrices, mouseX, mouseY);
+      this.renderTooltip(matrices, mouseX, mouseY);
    }
 
-   protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+   protected void renderBg(PoseStack matrices, float delta, int mouseX, int mouseY) {
       this.renderBackground(matrices);
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       RenderSystem.setShaderTexture(0, TEXTURE);
       int i = this.getX();
       int j = this.getY();
-      this.drawTexture(matrices, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
+      this.blit(matrices, i, j, 0, 0, this.imageWidth, this.imageHeight);
       int k = (int)(41.0F * this.scrollAmount);
-      this.drawTexture(matrices, i + 119, j + 15 + k, 176 + (this.shouldScroll() ? 0 : 12), 0, 12, 15);
+      this.blit(matrices, i + 119, j + 15 + k, 176 + (this.shouldScroll() ? 0 : 12), 0, 12, 15);
       int l = this.getX() + 52;
       int m = this.getY() + 14;
       int n = this.scrollOffset + 12;
@@ -50,52 +52,52 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
       this.renderRecipeIcons(l, m, n);
    }
 
-   protected void drawMouseoverTooltip(MatrixStack matrices, int x, int y) {
-      super.drawMouseoverTooltip(matrices, x, y);
+   protected void renderTooltip(PoseStack matrices, int x, int y) {
+      super.renderTooltip(matrices, x, y);
       if (this.canCraft) {
          int i = this.getX() + 52;
          int j = this.getY() + 14;
          int k = this.scrollOffset + 12;
-         List<WoodcuttingRecipe> list = (this.handler).getAvailableRecipes();
+         List<svenhjol.charm.module.woodcutters.WoodcuttingRecipe> list = (this.menu).getAvailableRecipes();
 
-         for(int l = this.scrollOffset; l < k && l < (this.handler).getAvailableRecipeCount(); ++l) {
+         for(int l = this.scrollOffset; l < k && l < (this.menu).getAvailableRecipeCount(); ++l) {
             int m = l - this.scrollOffset;
             int n = i + m % 4 * 16;
             int o = j + m / 4 * 18 + 2;
             if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-               this.renderTooltip(matrices, list.get(l).getOutput(), x, y);
+               this.renderTooltip(matrices, list.get(l).getResultItem(), x, y);
             }
          }
       }
    }
 
-   private void renderRecipeBackground(MatrixStack matrixStack, int i, int j, int k, int l, int m) {
-      for(int n = this.scrollOffset; n < m && n < (this.handler).getAvailableRecipeCount(); ++n) {
+   private void renderRecipeBackground(PoseStack matrixStack, int i, int j, int k, int l, int m) {
+      for(int n = this.scrollOffset; n < m && n < (this.menu).getAvailableRecipeCount(); ++n) {
          int o = n - this.scrollOffset;
          int p = k + o % 4 * 16;
          int q = o / 4;
          int r = l + q * 18 + 2;
-         int s = this.backgroundHeight;
-         if (n == (this.handler).getSelectedRecipe()) {
+         int s = this.imageHeight;
+         if (n == (this.menu).getSelectedRecipe()) {
             s += 18;
          } else if (i >= p && j >= r && i < p + 16 && j < r + 18) {
             s += 36;
          }
 
-         this.drawTexture(matrixStack, p, r - 1, 0, s, 16, 18);
+         this.blit(matrixStack, p, r - 1, 0, s, 16, 18);
       }
 
    }
 
    private void renderRecipeIcons(int x, int y, int scrollOffset) {
-      List<WoodcuttingRecipe> list = (this.handler).getAvailableRecipes();
+      List<WoodcuttingRecipe> list = (this.menu).getAvailableRecipes();
 
-      for(int i = this.scrollOffset; i < scrollOffset && i < (this.handler).getAvailableRecipeCount(); ++i) {
+      for(int i = this.scrollOffset; i < scrollOffset && i < (this.menu).getAvailableRecipeCount(); ++i) {
          int j = i - this.scrollOffset;
          int k = x + j % 4 * 16;
          int l = j / 4;
          int m = y + l * 18 + 2;
-         this.client.getItemRenderer().renderInGuiWithOverrides((list.get(i)).getOutput(), k, m);
+         this.minecraft.getItemRenderer().renderAndDecorateItem((list.get(i)).getResultItem(), k, m);
       }
 
    }
@@ -111,9 +113,9 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
             int m = l - this.scrollOffset;
             double d = mouseX - (double)(i + m % 4 * 16);
             double e = mouseY - (double)(j + m / 4 * 18);
-            if (d >= 0.0D && e >= 0.0D && d < 16.0D && e < 18.0D && (this.handler).onButtonClick(this.client.player, l)) {
-               MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
-               this.client.interactionManager.clickButton((this.handler).syncId, l);
+            if (d >= 0.0D && e >= 0.0D && d < 16.0D && e < 18.0D && (this.menu).clickMenuButton(this.minecraft.player, l)) {
+               Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+               this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, l);
                return true;
             }
          }
@@ -133,7 +135,7 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
          int i = this.getY() + 14;
          int j = i + 54;
          this.scrollAmount = ((float)mouseY - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
-         this.scrollAmount = MathHelper.clamp(this.scrollAmount, 0.0F, 1.0F);
+         this.scrollAmount = Mth.clamp(this.scrollAmount, 0.0F, 1.0F);
          this.scrollOffset = (int)((double)(this.scrollAmount * (float)this.getMaxScroll()) + 0.5D) * 4;
          return true;
       } else {
@@ -145,7 +147,7 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
       if (this.shouldScroll()) {
          int i = this.getMaxScroll();
          this.scrollAmount = (float)((double)this.scrollAmount - amount / (double)i);
-         this.scrollAmount = MathHelper.clamp(this.scrollAmount, 0.0F, 1.0F);
+         this.scrollAmount = Mth.clamp(this.scrollAmount, 0.0F, 1.0F);
          this.scrollOffset = (int)((double)(this.scrollAmount * (float)i) + 0.5D) * 4;
       }
 
@@ -153,23 +155,23 @@ public class WoodcutterScreen extends HandledScreen<WoodcutterScreenHandler> {
    }
 
    private int getX() {
-      return x;
+      return leftPos;
    }
 
    private int getY() {
-      return y;
+      return topPos;
    }
 
    private boolean shouldScroll() {
-      return this.canCraft && (this.handler).getAvailableRecipeCount() > 12;
+      return this.canCraft && (this.menu).getAvailableRecipeCount() > 12;
    }
 
    protected int getMaxScroll() {
-      return ((this.handler).getAvailableRecipeCount() + 4 - 1) / 4 - 3;
+      return ((this.menu).getAvailableRecipeCount() + 4 - 1) / 4 - 3;
    }
 
    private void onInventoryChange() {
-      this.canCraft = (this.handler).canCraft();
+      this.canCraft = (this.menu).canCraft();
       if (!this.canCraft) {
          this.scrollAmount = 0.0F;
          this.scrollOffset = 0;

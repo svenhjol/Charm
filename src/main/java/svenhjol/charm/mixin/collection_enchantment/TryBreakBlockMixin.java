@@ -1,9 +1,9 @@
 package svenhjol.charm.mixin.collection_enchantment;
 
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.network.ServerPlayerInteractionManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayerGameMode;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,18 +12,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.module.collection_enchantment.CollectionEnchantment;
 
-@Mixin(ServerPlayerInteractionManager.class)
+@Mixin(ServerPlayerGameMode.class)
 public class TryBreakBlockMixin {
     @Final
     @Shadow
-    protected ServerPlayerEntity player;
+    protected ServerPlayer player;
 
     @Shadow
-    protected ServerWorld world;
+    protected ServerLevel world;
 
     @Inject(method = "tryBreakBlock", at = @At("HEAD"))
     private void hookTryBreakBlockBegin(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        CollectionEnchantment.startBreaking(player, player.getMainHandStack());
+        CollectionEnchantment.startBreaking(player, player.getMainHandItem());
     }
 
     @Inject(method = "tryBreakBlock", at = @At("TAIL"))

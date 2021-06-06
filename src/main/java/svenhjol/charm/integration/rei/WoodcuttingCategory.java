@@ -11,16 +11,18 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import svenhjol.charm.integration.rei.CharmReiCategories;
+import svenhjol.charm.integration.rei.WoodcuttingDisplay;
 import svenhjol.charm.module.woodcutters.Woodcutters;
 
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class WoodcuttingCategory implements DisplayCategory<WoodcuttingDisplay> {
+public class WoodcuttingCategory implements DisplayCategory<svenhjol.charm.integration.rei.WoodcuttingDisplay> {
     @Override
-    public CategoryIdentifier<? extends WoodcuttingDisplay> getCategoryIdentifier() {
+    public CategoryIdentifier<? extends svenhjol.charm.integration.rei.WoodcuttingDisplay> getCategoryIdentifier() {
         return CharmReiCategories.WOODCUTTING;
     }
 
@@ -30,8 +32,8 @@ public class WoodcuttingCategory implements DisplayCategory<WoodcuttingDisplay> 
     }
 
     @Override
-    public Text getTitle() {
-        return new TranslatableText("rei.charm.category.woodcutting");
+    public Component getTitle() {
+        return new TranslatableComponent("rei.charm.category.woodcutting");
     }
 
     @Override

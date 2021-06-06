@@ -1,7 +1,7 @@
 package svenhjol.charm.module.stackable_enchanted_books;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.ItemAccessor;
 import svenhjol.charm.module.CharmModule;
@@ -20,7 +20,7 @@ public class StackableEnchantedBooks extends CharmModule {
 
     public static ItemStack getReducedStack(ItemStack stack) {
         if (stack.getItem() == Items.ENCHANTED_BOOK) {
-            stack.decrement(1);
+            stack.shrink(1);
             return stack;
         }
         return ItemStack.EMPTY;

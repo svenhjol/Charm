@@ -1,17 +1,18 @@
 package svenhjol.charm.handler;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
+import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.core.Core;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 public class AdvancementHandler {
-    public static final List<Identifier> modulesToRemove = new ArrayList<>();
+    public static final List<ResourceLocation> modulesToRemove = new ArrayList<>();
 
     public static void init() {
         modulesToRemove.clear();
@@ -22,7 +23,7 @@ public class AdvancementHandler {
         }));
     }
 
-    public static List<PlayerEntity> getPlayersInRange(World world, BlockPos pos) {
-        return world.getNonSpectatingEntities(PlayerEntity.class, new Box(pos).expand(8.0D));
+    public static List<Player> getPlayersInRange(Level world, BlockPos pos) {
+        return world.getEntitiesOfClass(Player.class, new AABB(pos).inflate(8.0D));
     }
 }

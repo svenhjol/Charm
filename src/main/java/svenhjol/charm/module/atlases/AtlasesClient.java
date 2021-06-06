@@ -4,34 +4,38 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.CartographyTableScreen;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FilledMapItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.CartographyTableScreen;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.MapItem;
+import net.minecraft.world.item.TooltipFlag;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.event.RenderHeldItemCallback;
+import com.mojang.blaze3d.vertex.PoseStack;
+import svenhjol.charm.module.atlases.AtlasInventory;
+import svenhjol.charm.module.atlases.AtlasRenderer;
+import svenhjol.charm.module.atlases.AtlasScreen;
+import svenhjol.charm.module.atlases.Atlases;
 
 import java.util.List;
 
 public class AtlasesClient extends CharmClientModule {
-    private AtlasRenderer renderer;
+    private svenhjol.charm.module.atlases.AtlasRenderer renderer;
 
     public AtlasesClient(CharmModule module) {
         super(module);
@@ -39,65 +43,65 @@ public class AtlasesClient extends CharmClientModule {
 
     @Override
     public void register() {
-        ScreenRegistry.register(Atlases.CONTAINER, AtlasScreen::new);
+        ScreenRegistry.register(svenhjol.charm.module.atlases.Atlases.CONTAINER, AtlasScreen::new);
     }
 
     @Override
     public void init() {
         RenderHeldItemCallback.EVENT.register(this::handleRenderItem);
         ItemTooltipCallback.EVENT.register(this::handleItemTooltip);
-        ClientPlayNetworking.registerGlobalReceiver(Atlases.MSG_CLIENT_UPDATE_ATLAS_INVENTORY, this::handleClientUpdateAtlas);
+        ClientPlayNetworking.registerGlobalReceiver(svenhjol.charm.module.atlases.Atlases.MSG_CLIENT_UPDATE_ATLAS_INVENTORY, this::handleClientUpdateAtlas);
     }
 
-    public void handleClientUpdateAtlas(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf data, PacketSender sender) {
+    public void handleClientUpdateAtlas(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
         int atlasSlot = data.readInt();
         client.execute(() -> updateInventory(atlasSlot));
     }
 
-    public ActionResult handleRenderItem(float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack itemStack, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        if (itemStack.getItem() == Atlases.ATLAS_ITEM) {
+    public InteractionResult handleRenderItem(float tickDelta, float pitch, InteractionHand hand, float swingProgress, ItemStack itemStack, float equipProgress, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
+        if (itemStack.getItem() == svenhjol.charm.module.atlases.Atlases.ATLAS_ITEM) {
             if (renderer == null) {
                 renderer = new AtlasRenderer();
             }
             renderer.renderAtlas(matrices, vertexConsumers, light, hand, equipProgress, swingProgress, itemStack);
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
-    public void handleItemTooltip(ItemStack stack, TooltipContext context, List<Text> lines) {
-        if (stack == null || stack.isEmpty() || stack.getItem() != Atlases.ATLAS_ITEM)
+    public void handleItemTooltip(ItemStack stack, TooltipFlag context, List<Component> lines) {
+        if (stack == null || stack.isEmpty() || stack.getItem() != svenhjol.charm.module.atlases.Atlases.ATLAS_ITEM)
             return;
 
-        PlayerEntity player = MinecraftClient.getInstance().player;
+        Player player = Minecraft.getInstance().player;
         if (player == null)
             return;
 
-        AtlasInventory inventory = Atlases.getInventory(player.world, stack);
+        AtlasInventory inventory = svenhjol.charm.module.atlases.Atlases.getInventory(player.level, stack);
 
         ItemStack map = inventory.getLastActiveMapItem();
         if (map == null)
             return;
 
-        lines.add(new LiteralText("Scale " + inventory.getScale()).formatted(Formatting.GRAY));
+        lines.add(new TextComponent("Scale " + inventory.getScale()).withStyle(ChatFormatting.GRAY));
 
-        MutableText name = map.hasCustomName() ? map.getName().copy()
-            : map.getName().copy().append(new LiteralText(" #" + FilledMapItem.getMapId(map)));
-        lines.add(name.formatted(Formatting.GRAY, Formatting.ITALIC));
+        MutableComponent name = map.hasCustomHoverName() ? map.getHoverName().plainCopy()
+            : map.getHoverName().plainCopy().append(new TextComponent(" #" + MapItem.getMapId(map)));
+        lines.add(name.withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
     }
 
     public static void updateInventory(int atlasSlot) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        ClientPlayerEntity player = mc.player;
+        Minecraft mc = Minecraft.getInstance();
+        LocalPlayer player = mc.player;
         if (player == null) return;
-        ItemStack atlas = PlayerHelper.getInventory(player).getStack(atlasSlot);
-        Atlases.getInventory(mc.world, atlas).reload(atlas);
+        ItemStack atlas = PlayerHelper.getInventory(player).getItem(atlasSlot);
+        svenhjol.charm.module.atlases.Atlases.getInventory(mc.level, atlas).reload(atlas);
     }
 
     public static boolean shouldDrawAtlasCopy(CartographyTableScreen screen) {
-        return ModuleHandler.enabled(Atlases.class) && screen.getScreenHandler().getSlot(0).getStack().getItem() == Atlases.ATLAS_ITEM
-            && screen.getScreenHandler().getSlot(1).getStack().getItem() == Items.MAP;
+        return ModuleHandler.enabled(svenhjol.charm.module.atlases.Atlases.class) && screen.getMenu().getSlot(0).getItem().getItem() == Atlases.ATLAS_ITEM
+            && screen.getMenu().getSlot(1).getItem().getItem() == Items.MAP;
     }
 }
 

@@ -1,9 +1,9 @@
 package svenhjol.charm.mixin.extract_enchantments;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.screen.GrindstoneScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.GrindstoneMenu;
+import net.minecraft.world.inventory.Slot;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -11,15 +11,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import svenhjol.charm.module.extract_enchantments.ExtractEnchantments;
 
-@Mixin(value = GrindstoneScreenHandler.class, priority = 1)
+@Mixin(value = GrindstoneMenu.class, priority = 1)
 public class AddCustomGrindstoneSlotsMixin {
     @Shadow
     @Final
-    Inventory input;
+    Container input;
 
-    @Shadow @Final private ScreenHandlerContext context;
+    @Shadow @Final private ContainerLevelAccess context;
 
-    @Shadow @Final private Inventory result;
+    @Shadow @Final private Container result;
 
     @ModifyArg(
         method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V",

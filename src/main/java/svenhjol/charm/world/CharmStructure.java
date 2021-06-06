@@ -2,24 +2,23 @@ package svenhjol.charm.world;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.pool.StructurePoolElement;
-import net.minecraft.structure.pool.StructurePools;
-import net.minecraft.structure.processor.StructureProcessorList;
-import net.minecraft.structure.processor.StructureProcessorLists;
-import net.minecraft.util.Identifier;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import net.minecraft.data.worldgen.Pools;
+import net.minecraft.data.worldgen.ProcessorLists;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElement;
+import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
 @SuppressWarnings("SameParameterValue")
 public abstract class CharmStructure {
     private final String modId;
     private final String mainFolder;
     private final String structureName;
-    private final List<Pair<Function<StructurePool.Projection, ? extends StructurePoolElement>, Integer>> starts = new ArrayList<>();
+    private final List<Pair<Function<StructureTemplatePool.Projection, ? extends StructurePoolElement>, Integer>> starts = new ArrayList<>();
 
     public CharmStructure(String modId, String mainFolder, String structureName) {
         this.modId = modId;
@@ -27,25 +26,25 @@ public abstract class CharmStructure {
         this.structureName = structureName;
     }
 
-    public List<Pair<Function<StructurePool.Projection, ? extends StructurePoolElement>, Integer>> getStarts() {
+    public List<Pair<Function<StructureTemplatePool.Projection, ? extends StructurePoolElement>, Integer>> getStarts() {
         return starts;
     }
 
     protected void addStart(String pieceName, int weight) {
-        addStart(pieceName, weight, StructureProcessorLists.EMPTY);
+        addStart(pieceName, weight, ProcessorLists.EMPTY);
     }
 
     protected void addStart(String pieceName, int weight, StructureProcessorList processors) {
-        starts.add(Pair.of(StructurePoolElement.method_30435(getPiecePath(pieceName), processors), weight));
+        starts.add(Pair.of(StructurePoolElement.single(getPiecePath(pieceName), processors), weight));
     }
 
-    protected void registerPool(String poolName, Map<String, Integer> elements, StructurePool.Projection projection, StructureProcessorList processors) {
-        final List<Pair<Function<StructurePool.Projection, ? extends StructurePoolElement>, Integer>> pieces = new ArrayList<>();
+    protected void registerPool(String poolName, Map<String, Integer> elements, StructureTemplatePool.Projection projection, StructureProcessorList processors) {
+        final List<Pair<Function<StructureTemplatePool.Projection, ? extends StructurePoolElement>, Integer>> pieces = new ArrayList<>();
 
         elements.forEach((piece, weight) ->
-            pieces.add(Pair.of(StructurePoolElement.method_30435(getPiecePath(piece), processors), weight)));
+            pieces.add(Pair.of(StructurePoolElement.single(getPiecePath(piece), processors), weight)));
 
-        StructurePools.register(new StructurePool(
+        Pools.register(new StructureTemplatePool(
             getPoolPath(poolName),
             getPoolPath("ends"),
             ImmutableList.copyOf(pieces),
@@ -54,14 +53,14 @@ public abstract class CharmStructure {
     }
 
     protected void registerPool(String poolName, Map<String, Integer> elements) {
-        registerPool(poolName, elements, StructurePool.Projection.RIGID, StructureProcessorLists.EMPTY);
+        registerPool(poolName, elements, StructureTemplatePool.Projection.RIGID, ProcessorLists.EMPTY);
     }
 
     protected String getPiecePath(String piece) {
         return modId + ":" + mainFolder + "/" + structureName + "/" + piece;
     }
 
-    protected Identifier getPoolPath(String pool) {
-        return new Identifier(modId, mainFolder + "/" + structureName + "/" + pool);
+    protected ResourceLocation getPoolPath(String pool) {
+        return new ResourceLocation(modId, mainFolder + "/" + structureName + "/" + pool);
     }
 }

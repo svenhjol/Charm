@@ -1,17 +1,24 @@
 package svenhjol.charm.module.colored_glints;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.*;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.RenderBuffers;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.mixin.accessor.BufferBuilderStorageAccessor;
 import svenhjol.charm.mixin.accessor.MinecraftClientAccessor;
 import svenhjol.charm.mixin.accessor.RenderLayerAccessor;
 import svenhjol.charm.mixin.accessor.RenderPhaseAccessor;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import svenhjol.charm.module.colored_glints.ColoredGlints;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,13 +26,13 @@ import java.util.stream.Collectors;
 public class ColoredGlintHandler {
     public static final String GLINT_NBT = "charm_glint";
 
-    public static Map<String, Identifier> TEXTURES = new HashMap<>();
-    public static Map<String, RenderLayer> GLINT = new HashMap<>();
-    public static Map<String, RenderLayer> ENTITY_GLINT = new HashMap<>();
-    public static Map<String, RenderLayer> DIRECT_GLINT = new HashMap<>();
-    public static Map<String, RenderLayer> DIRECT_ENTITY_GLINT = new HashMap<>();
-    public static Map<String, RenderLayer> ARMOR_GLINT = new HashMap<>();
-    public static Map<String, RenderLayer> ARMOR_ENTITY_GLINT = new HashMap<>();
+    public static Map<String, ResourceLocation> TEXTURES = new HashMap<>();
+    public static Map<String, RenderType> GLINT = new HashMap<>();
+    public static Map<String, RenderType> ENTITY_GLINT = new HashMap<>();
+    public static Map<String, RenderType> DIRECT_GLINT = new HashMap<>();
+    public static Map<String, RenderType> DIRECT_ENTITY_GLINT = new HashMap<>();
+    public static Map<String, RenderType> ARMOR_GLINT = new HashMap<>();
+    public static Map<String, RenderType> ARMOR_ENTITY_GLINT = new HashMap<>();
 
     public static String defaultGlintColor;
     public static ItemStack targetStack;
@@ -37,8 +44,8 @@ public class ColoredGlintHandler {
             return;
 
         for (DyeColor dyeColor : DyeColor.values()) {
-            String color = dyeColor.asString();
-            TEXTURES.put(color, new Identifier(Charm.MOD_ID, "textures/misc/" + color + "_glint.png"));
+            String color = dyeColor.getSerializedName();
+            TEXTURES.put(color, new ResourceLocation(Charm.MOD_ID, "textures/misc/" + color + "_glint.png"));
 
             GLINT.put(color, createGlint(color, TEXTURES.get(color)));
             ENTITY_GLINT.put(color, createEntityGlint(color, TEXTURES.get(color)));
@@ -49,10 +56,10 @@ public class ColoredGlintHandler {
         }
 
         // check that the configured glint color is valid
-        List<String> validColors = Arrays.stream(DyeColor.values()).map(DyeColor::asString).collect(Collectors.toList());
+        List<String> validColors = Arrays.stream(DyeColor.values()).map(DyeColor::getSerializedName).collect(Collectors.toList());
         validColors.add("rainbow");
 
-        defaultGlintColor = (ModuleHandler.enabled(ColoredGlints.class) && validColors.contains(ColoredGlints.glintColor)) ? ColoredGlints.glintColor : DyeColor.PURPLE.asString();
+        defaultGlintColor = (ModuleHandler.enabled(svenhjol.charm.module.colored_glints.ColoredGlints.class) && validColors.contains(svenhjol.charm.module.colored_glints.ColoredGlints.glintColor)) ? ColoredGlints.glintColor : DyeColor.PURPLE.getSerializedName();
 
         hasInit = true;
     }
@@ -63,7 +70,7 @@ public class ColoredGlintHandler {
 
     public static String getStackColor(ItemStack stack) {
         if (stack != null && stack.hasTag()) {
-            NbtCompound nbt = stack.getTag();
+            CompoundTag nbt = stack.getTag();
             if (nbt != null) {
                 if (nbt.contains(GLINT_NBT))
                     return nbt.getString(GLINT_NBT);
@@ -73,126 +80,126 @@ public class ColoredGlintHandler {
         return getDefaultGlintColor();
     }
 
-    public static RenderLayer getArmorGlintRenderLayer() {
+    public static RenderType getArmorGlintRenderLayer() {
         return ARMOR_GLINT.getOrDefault(getStackColor(targetStack), RenderLayerAccessor.getArmorGlint());
     }
 
-    public static RenderLayer getArmorEntityGlintRenderLayer() {
+    public static RenderType getArmorEntityGlintRenderLayer() {
         return ARMOR_ENTITY_GLINT.getOrDefault(getStackColor(targetStack), RenderLayerAccessor.getArmorEntityGlint());
     }
 
-    public static RenderLayer getDirectGlintRenderLayer() {
+    public static RenderType getDirectGlintRenderLayer() {
         return DIRECT_GLINT.getOrDefault(getStackColor(targetStack), RenderLayerAccessor.getDirectGlint());
     }
 
-    public static RenderLayer getDirectEntityGlintRenderLayer() {
+    public static RenderType getDirectEntityGlintRenderLayer() {
         return DIRECT_ENTITY_GLINT.getOrDefault(getStackColor(targetStack), RenderLayerAccessor.getDirectEntityGlint());
     }
 
-    public static RenderLayer getEntityGlintRenderLayer() {
+    public static RenderType getEntityGlintRenderLayer() {
         return ENTITY_GLINT.getOrDefault(getStackColor(targetStack), RenderLayerAccessor.getEntityGlint());
     }
 
-    public static RenderLayer getGlintRenderLayer() {
+    public static RenderType getGlintRenderLayer() {
         return GLINT.getOrDefault(getStackColor(targetStack), RenderLayerAccessor.getGlint());
     }
 
-    private static RenderLayer createGlint(String color, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("glint_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .shader(RenderPhaseAccessor.getGlintShader())
-            .texture(new RenderPhase.Texture(texture, true, false))
-            .writeMaskState(RenderPhaseAccessor.getColorMask())
-            .cull(RenderPhaseAccessor.getDisableCulling())
-            .depthTest(RenderPhaseAccessor.getEqualDepthTest())
-            .transparency(RenderPhaseAccessor.getGlintTransparency())
-            .texturing(RenderPhaseAccessor.getGlintTexturing())
-            .build(false));
+    private static RenderType createGlint(String color, ResourceLocation texture) {
+        RenderType renderLayer = RenderType.create("glint_" + color, DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 256, RenderType.CompositeState.builder()
+            .setShaderState(RenderPhaseAccessor.getGlintShader())
+            .setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
+            .setWriteMaskState(RenderPhaseAccessor.getColorMask())
+            .setCullState(RenderPhaseAccessor.getDisableCulling())
+            .setDepthTestState(RenderPhaseAccessor.getEqualDepthTest())
+            .setTransparencyState(RenderPhaseAccessor.getGlintTransparency())
+            .setTexturingState(RenderPhaseAccessor.getGlintTexturing())
+            .createCompositeState(false));
 
-        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.getExpectedBufferSize()));
+        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
-    private static RenderLayer createEntityGlint(String color, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("entity_glint_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .shader(RenderPhaseAccessor.getEntityGlintShader())
-            .texture(new RenderPhase.Texture(texture, true, false))
-            .writeMaskState(RenderPhaseAccessor.getColorMask())
-            .cull(RenderPhaseAccessor.getDisableCulling())
-            .depthTest(RenderPhaseAccessor.getEqualDepthTest())
-            .transparency(RenderPhaseAccessor.getGlintTransparency())
-            .texturing(RenderPhaseAccessor.getEntityGlintTexturing())
-            .target(RenderPhaseAccessor.getItemTarget())
-            .build(false));
+    private static RenderType createEntityGlint(String color, ResourceLocation texture) {
+        RenderType renderLayer = RenderType.create("entity_glint_" + color, DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 256, RenderType.CompositeState.builder()
+            .setShaderState(RenderPhaseAccessor.getEntityGlintShader())
+            .setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
+            .setWriteMaskState(RenderPhaseAccessor.getColorMask())
+            .setCullState(RenderPhaseAccessor.getDisableCulling())
+            .setDepthTestState(RenderPhaseAccessor.getEqualDepthTest())
+            .setTransparencyState(RenderPhaseAccessor.getGlintTransparency())
+            .setTexturingState(RenderPhaseAccessor.getEntityGlintTexturing())
+            .setOutputState(RenderPhaseAccessor.getItemTarget())
+            .createCompositeState(false));
 
-        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.getExpectedBufferSize()));
+        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
-    private static RenderLayer createArmorGlint(String color, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("armor_glint_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .shader(RenderPhaseAccessor.getArmorGlintShader())
-            .texture(new RenderPhase.Texture(texture, true, false))
-            .writeMaskState(RenderPhaseAccessor.getColorMask())
-            .cull(RenderPhaseAccessor.getDisableCulling())
-            .depthTest(RenderPhaseAccessor.getEqualDepthTest())
-            .transparency(RenderPhaseAccessor.getGlintTransparency())
-            .texturing(RenderPhaseAccessor.getGlintTexturing())
-            .layering(RenderPhaseAccessor.getViewOffsetZLayering())
-            .build(false));
+    private static RenderType createArmorGlint(String color, ResourceLocation texture) {
+        RenderType renderLayer = RenderType.create("armor_glint_" + color, DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 256, RenderType.CompositeState.builder()
+            .setShaderState(RenderPhaseAccessor.getArmorGlintShader())
+            .setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
+            .setWriteMaskState(RenderPhaseAccessor.getColorMask())
+            .setCullState(RenderPhaseAccessor.getDisableCulling())
+            .setDepthTestState(RenderPhaseAccessor.getEqualDepthTest())
+            .setTransparencyState(RenderPhaseAccessor.getGlintTransparency())
+            .setTexturingState(RenderPhaseAccessor.getGlintTexturing())
+            .setLayeringState(RenderPhaseAccessor.getViewOffsetZLayering())
+            .createCompositeState(false));
 
-        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.getExpectedBufferSize()));
+        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
-    private static RenderLayer createArmorEntityGlint(String color, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("armor_entity_glint_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .shader(RenderPhaseAccessor.getArmorEntityGlintShader())
-            .texture(new RenderPhase.Texture(texture, true, false))
-            .writeMaskState(RenderPhaseAccessor.getColorMask())
-            .cull(RenderPhaseAccessor.getDisableCulling())
-            .depthTest(RenderPhaseAccessor.getEqualDepthTest())
-            .transparency(RenderPhaseAccessor.getGlintTransparency())
-            .texturing(RenderPhaseAccessor.getEntityGlintTexturing())
-            .layering(RenderPhaseAccessor.getViewOffsetZLayering())
-            .build(false));
+    private static RenderType createArmorEntityGlint(String color, ResourceLocation texture) {
+        RenderType renderLayer = RenderType.create("armor_entity_glint_" + color, DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 256, RenderType.CompositeState.builder()
+            .setShaderState(RenderPhaseAccessor.getArmorEntityGlintShader())
+            .setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
+            .setWriteMaskState(RenderPhaseAccessor.getColorMask())
+            .setCullState(RenderPhaseAccessor.getDisableCulling())
+            .setDepthTestState(RenderPhaseAccessor.getEqualDepthTest())
+            .setTransparencyState(RenderPhaseAccessor.getGlintTransparency())
+            .setTexturingState(RenderPhaseAccessor.getEntityGlintTexturing())
+            .setLayeringState(RenderPhaseAccessor.getViewOffsetZLayering())
+            .createCompositeState(false));
 
-        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.getExpectedBufferSize()));
+        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
-    private static RenderLayer createDirectGlint(String color, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("glint_direct_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .shader(RenderPhaseAccessor.getDirectGlintShader())
-            .texture(new RenderPhase.Texture(texture, true, false))
-            .writeMaskState(RenderPhaseAccessor.getColorMask())
-            .cull(RenderPhaseAccessor.getDisableCulling())
-            .depthTest(RenderPhaseAccessor.getEqualDepthTest())
-            .transparency(RenderPhaseAccessor.getGlintTransparency())
-            .texturing(RenderPhaseAccessor.getGlintTexturing())
-            .build(false));
+    private static RenderType createDirectGlint(String color, ResourceLocation texture) {
+        RenderType renderLayer = RenderType.create("glint_direct_" + color, DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 256, RenderType.CompositeState.builder()
+            .setShaderState(RenderPhaseAccessor.getDirectGlintShader())
+            .setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
+            .setWriteMaskState(RenderPhaseAccessor.getColorMask())
+            .setCullState(RenderPhaseAccessor.getDisableCulling())
+            .setDepthTestState(RenderPhaseAccessor.getEqualDepthTest())
+            .setTransparencyState(RenderPhaseAccessor.getGlintTransparency())
+            .setTexturingState(RenderPhaseAccessor.getGlintTexturing())
+            .createCompositeState(false));
 
-        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.getExpectedBufferSize()));
+        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
-    private static RenderLayer createDirectEntityGlint(String color, Identifier texture) {
-        RenderLayer renderLayer = RenderLayer.of("entity_glint_direct_" + color, VertexFormats.POSITION_TEXTURE, VertexFormat.DrawMode.QUADS, 256, RenderLayer.MultiPhaseParameters.builder()
-            .shader(RenderPhaseAccessor.getDirectEntityGlintShader())
-            .texture(new RenderPhase.Texture(texture, true, false))
-            .writeMaskState(RenderPhaseAccessor.getColorMask())
-            .cull(RenderPhaseAccessor.getDisableCulling())
-            .depthTest(RenderPhaseAccessor.getEqualDepthTest())
-            .transparency(RenderPhaseAccessor.getGlintTransparency())
-            .texturing(RenderPhaseAccessor.getEntityGlintTexturing())
-            .target(RenderPhaseAccessor.getItemTarget())
-            .build(false));
+    private static RenderType createDirectEntityGlint(String color, ResourceLocation texture) {
+        RenderType renderLayer = RenderType.create("entity_glint_direct_" + color, DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 256, RenderType.CompositeState.builder()
+            .setShaderState(RenderPhaseAccessor.getDirectEntityGlintShader())
+            .setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
+            .setWriteMaskState(RenderPhaseAccessor.getColorMask())
+            .setCullState(RenderPhaseAccessor.getDisableCulling())
+            .setDepthTestState(RenderPhaseAccessor.getEqualDepthTest())
+            .setTransparencyState(RenderPhaseAccessor.getGlintTransparency())
+            .setTexturingState(RenderPhaseAccessor.getEntityGlintTexturing())
+            .setOutputState(RenderPhaseAccessor.getItemTarget())
+            .createCompositeState(false));
 
-        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.getExpectedBufferSize()));
+        getEntityBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
-    private static SortedMap<RenderLayer, BufferBuilder> getEntityBuilders() {
-        BufferBuilderStorage bufferBuilders = ((MinecraftClientAccessor) MinecraftClient.getInstance()).getBufferBuilders();
+    private static SortedMap<RenderType, BufferBuilder> getEntityBuilders() {
+        RenderBuffers bufferBuilders = ((MinecraftClientAccessor) Minecraft.getInstance()).getBufferBuilders();
         return ((BufferBuilderStorageAccessor)bufferBuilders).getEntityBuilders();
     }
 }

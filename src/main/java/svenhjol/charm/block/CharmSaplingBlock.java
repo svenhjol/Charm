@@ -1,36 +1,37 @@
 package svenhjol.charm.block;
 
-import net.minecraft.block.Material;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.material.Material;
+import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmSaplingBlock extends SaplingBlock implements ICharmBlock {
     private final CharmModule module;
 
-    public CharmSaplingBlock(CharmModule module, String name, SaplingGenerator generator, Settings settings) {
+    public CharmSaplingBlock(CharmModule module, String name, AbstractTreeGrower generator, Properties settings) {
         super(generator, settings);
 
         this.register(module, name);
         this.module = module;
     }
 
-    public CharmSaplingBlock(CharmModule module, String name, SaplingGenerator generator) {
-        this(module, name, generator, Settings.of(Material.PLANT)
-            .noCollision()
-            .ticksRandomly()
-            .breakInstantly()
-            .sounds(BlockSoundGroup.GRASS));
+    public CharmSaplingBlock(CharmModule module, String name, AbstractTreeGrower generator) {
+        this(module, name, generator, Properties.of(Material.PLANT)
+            .noCollission()
+            .randomTicks()
+            .instabreak()
+            .sound(SoundType.GRASS));
     }
 
     @Override
-    public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (enabled())
-            super.addStacksForDisplay(group, items);
+            super.fillItemCategory(group, items);
     }
 
     @Override

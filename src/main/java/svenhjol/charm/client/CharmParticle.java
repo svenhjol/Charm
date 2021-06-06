@@ -2,38 +2,37 @@ package svenhjol.charm.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
-
+import net.minecraft.core.particles.SimpleParticleType;
 import java.util.Random;
 
 @Environment(EnvType.CLIENT)
-public class CharmParticle extends SpriteBillboardParticle {
+public class CharmParticle extends TextureSheetParticle {
     private static final Random RANDOM = new Random();
-    private final SpriteProvider spriteProvider;
+    private final SpriteSet spriteProvider;
 
     // copypasta from GlowParticle#<init>
-    public CharmParticle(ClientWorld world, double x, double y, double z, double vx, double vy, double vz, SpriteProvider spriteProvider) {
+    public CharmParticle(ClientLevel world, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteProvider) {
         super(world, x, y, z, vx, vy, vz);
-        this.field_28786 = 0.6F;
-        this.field_28787 = false;
+        this.friction = 0.6F;
+        this.speedUpWhenYMotionIsBlocked = false;
         this.spriteProvider = spriteProvider;
-        this.scale *= 0.78F;
-        this.collidesWithWorld = false;
-        this.setSpriteForAge(spriteProvider);
+        this.quadSize *= 0.78F;
+        this.hasPhysics = false;
+        this.setSpriteFromAge(spriteProvider);
     }
 
     @Override
-    public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
     // copypasta from PortalParticle#getBrightness
     @Override
-    public int getBrightness(float tint) {
-        int i = super.getBrightness(tint);
-        float f = (float) this.age / (float) this.maxAge;
+    public int getLightColor(float tint) {
+        int i = super.getLightColor(tint);
+        float f = (float) this.age / (float) this.lifetime;
         f *= f;
         f *= f;
         int j = i & 255;
@@ -50,59 +49,59 @@ public class CharmParticle extends SpriteBillboardParticle {
     @Override
     public void tick() {
         super.tick();
-        this.setSpriteForAge(this.spriteProvider);
+        this.setSpriteFromAge(this.spriteProvider);
     }
 
-    public static class AxisFactory implements ParticleFactory<DefaultParticleType> {
-        private final SpriteProvider spriteProvider;
+    public static class AxisFactory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteProvider;
 
-        public AxisFactory(SpriteProvider spriteProvider) {
+        public AxisFactory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType type, ClientWorld world, double x, double y, double z, double r, double g, double b) {
+        public Particle createParticle(SimpleParticleType type, ClientLevel world, double x, double y, double z, double r, double g, double b) {
             CharmParticle particle = new CharmParticle(world, x, y, z, 0.5D, 0.5D, 0.5D, this.spriteProvider);
-            particle.setMaxAge(80 + RANDOM.nextInt(20));
+            particle.setLifetime(80 + RANDOM.nextInt(20));
             particle.setColor((float) r, (float) g, (float) b);
-            particle.setColorAlpha(0.81F);
-            particle.field_28786 = 0.1F; // some multiplier for velocity, idk
-            particle.field_28787 = true;
+            particle.setAlpha(0.81F);
+            particle.friction = 0.1F; // some multiplier for velocity, idk
+            particle.speedUpWhenYMotionIsBlocked = true;
             return particle;
         }
     }
 
-    public static class OreGlowFactory implements ParticleFactory<DefaultParticleType> {
-        private final SpriteProvider spriteProvider;
+    public static class OreGlowFactory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteProvider;
 
-        public OreGlowFactory(SpriteProvider spriteProvider) {
+        public OreGlowFactory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType type, ClientWorld world, double x, double y, double z, double r, double g, double b) {
+        public Particle createParticle(SimpleParticleType type, ClientLevel world, double x, double y, double z, double r, double g, double b) {
             CharmParticle particle = new CharmParticle(world, x, y, z, 0.06D, 0.6D - RANDOM.nextDouble(), 0.05D, this.spriteProvider);
-            particle.setMaxAge(25 + RANDOM.nextInt(2));
+            particle.setLifetime(25 + RANDOM.nextInt(2));
             particle.setColor((float)r, (float)g, (float)b);
-            particle.setColorAlpha((RANDOM.nextFloat() * 0.2F) + 0.8F);
-            particle.field_28786 = 0.7F; // some multiplier for velocity, idk
-            particle.field_28787 = true;
+            particle.setAlpha((RANDOM.nextFloat() * 0.2F) + 0.8F);
+            particle.friction = 0.7F; // some multiplier for velocity, idk
+            particle.speedUpWhenYMotionIsBlocked = true;
             return particle;
         }
     }
 
-    public static class ApplyFactory implements ParticleFactory<DefaultParticleType> {
-        private final SpriteProvider spriteProvider;
+    public static class ApplyFactory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteProvider;
 
-        public ApplyFactory(SpriteProvider spriteProvider) {
+        public ApplyFactory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType type, ClientWorld world, double x, double y, double z, double r, double g, double b) {
+        public Particle createParticle(SimpleParticleType type, ClientLevel world, double x, double y, double z, double r, double g, double b) {
             CharmParticle particle = new CharmParticle(world, x, y, z, 0.5D - RANDOM.nextDouble(), 0.5D - RANDOM.nextDouble(), 0.5D - RANDOM.nextDouble(), this.spriteProvider);
-            particle.setMaxAge(4 + RANDOM.nextInt(4));
+            particle.setLifetime(4 + RANDOM.nextInt(4));
             particle.setColor((float)r, (float)g, (float)b);
-            particle.setColorAlpha((RANDOM.nextFloat() * 0.2F) + 0.8F);
-            particle.field_28786 = 0.8F; // some multiplier for velocity, idk
-            particle.field_28787 = true; // dunno
+            particle.setAlpha((RANDOM.nextFloat() * 0.2F) + 0.8F);
+            particle.friction = 0.8F; // some multiplier for velocity, idk
+            particle.speedUpWhenYMotionIsBlocked = true; // dunno
             return particle;
         }
     }

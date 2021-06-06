@@ -1,107 +1,108 @@
 package svenhjol.charm.module.bookcases;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.CharmBlockWithEntity;
 import svenhjol.charm.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.BlockHitResult;
+import svenhjol.charm.module.bookcases.BookcaseBlockEntity;
 
 public class BookcaseBlock extends CharmBlockWithEntity {
-    public static final IntProperty SLOTS = IntProperty.of("slots", 0, BookcaseBlockEntity.SIZE);
+    public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, svenhjol.charm.module.bookcases.BookcaseBlockEntity.SIZE);
 
     protected CharmModule module;
     protected IVariantMaterial type;
 
     public BookcaseBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
-        this(module, type, AbstractBlock.Settings.copy(Blocks.BOOKSHELF), loadedMods);
+        this(module, type, BlockBehaviour.Properties.copy(Blocks.BOOKSHELF), loadedMods);
     }
 
-    public BookcaseBlock(CharmModule module, IVariantMaterial type, AbstractBlock.Settings settings, String... loadedMods) {
-        super(module, type.asString() + "_bookcase", settings, loadedMods);
+    public BookcaseBlock(CharmModule module, IVariantMaterial type, BlockBehaviour.Properties settings, String... loadedMods) {
+        super(module, type.getSerializedName() + "_bookcase", settings, loadedMods);
 
         this.module = module;
         this.type = type;
 
-        setDefaultState(getDefaultState().with(SLOTS, 0));
+        registerDefaultState(defaultBlockState().setValue(SLOTS, 0));
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient && !player.isSpectator()) {
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!world.isClientSide && !player.isSpectator()) {
 
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof BookcaseBlockEntity) {
-                BookcaseBlockEntity bookcase = (BookcaseBlockEntity)blockEntity;
-                bookcase.checkLootInteraction(player);
-                player.openHandledScreen(bookcase);
+            if (blockEntity instanceof svenhjol.charm.module.bookcases.BookcaseBlockEntity) {
+                svenhjol.charm.module.bookcases.BookcaseBlockEntity bookcase = (svenhjol.charm.module.bookcases.BookcaseBlockEntity)blockEntity;
+                bookcase.unpackLootTable(player);
+                player.openMenu(bookcase);
             }
         }
-        return ActionResult.CONSUME;
+        return InteractionResult.CONSUME;
     }
 
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tile = world.getBlockEntity(pos);
-            if (tile instanceof BookcaseBlockEntity) {
-                ItemScatterer.spawn(world, pos, (Inventory) tile);
-                world.updateComparators(pos, this);
+            if (tile instanceof svenhjol.charm.module.bookcases.BookcaseBlockEntity) {
+                Containers.dropContents(world, pos, (Container) tile);
+                world.updateNeighbourForOutputSignal(pos, this);
             }
         }
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        if (stack.hasCustomName()) {
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if (stack.hasCustomHoverName()) {
             BlockEntity tile = world.getBlockEntity(pos);
-            if (tile instanceof BookcaseBlockEntity)
-                ((BookcaseBlockEntity) tile).setCustomName(stack.getName());
+            if (tile instanceof svenhjol.charm.module.bookcases.BookcaseBlockEntity)
+                ((svenhjol.charm.module.bookcases.BookcaseBlockEntity) tile).setCustomName(stack.getHoverName());
         }
     }
 
     @Override
-    public PistonBehavior getPistonBehavior(BlockState state) {
-        return PistonBehavior.NORMAL;
+    public PushReaction getPistonPushReaction(BlockState state) {
+        return PushReaction.NORMAL;
     }
 
     @Override
-    public ItemGroup getItemGroup() {
-        return ItemGroup.DECORATIONS;
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_DECORATIONS;
     }
 
     @Override
-    public boolean hasComparatorOutput(BlockState state) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
     @Override
-    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        return state.get(SLOTS);
+    public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+        return state.getValue(SLOTS);
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BookcaseBlockEntity(pos, state);
     }
 
@@ -111,8 +112,8 @@ public class BookcaseBlock extends CharmBlockWithEntity {
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(SLOTS);
     }
 }

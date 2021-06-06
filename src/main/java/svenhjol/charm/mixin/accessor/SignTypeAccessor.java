@@ -1,20 +1,20 @@
 package svenhjol.charm.mixin.accessor;
 
-import net.minecraft.util.SignType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import svenhjol.charm.annotation.CharmMixin;
 
-@Mixin(SignType.class)
+@Mixin(WoodType.class)
 @CharmMixin(required = true)
 public interface SignTypeAccessor {
     @Invoker("<init>")
-    static SignType invokeInit(String name) {
+    static WoodType invokeInit(String name) {
         throw new IllegalStateException();
     }
 
     @Invoker
-    static SignType invokeRegister(SignType type) {
+    static WoodType invokeRegister(WoodType type) {
         throw new IllegalStateException();
     }
 }

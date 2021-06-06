@@ -1,10 +1,11 @@
 package svenhjol.charm.module;
 
-import net.minecraft.util.Identifier;
 import svenhjol.charm.helper.StringHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.module.CharmClientModule;
 
 public abstract class CharmModule {
     public boolean enabled = true;
@@ -25,8 +26,8 @@ public abstract class CharmModule {
         return this.getClass().getSimpleName();
     }
 
-    public Identifier getId() {
-        return new Identifier(this.mod, StringHelper.upperCamelToSnake(getName()));
+    public ResourceLocation getId() {
+        return new ResourceLocation(this.mod, StringHelper.upperCamelToSnake(getName()));
     }
 
     /**
@@ -34,7 +35,7 @@ public abstract class CharmModule {
      * This allows a module to conditionally remove recipes according to its config.
      * @return Recipe IDs to remove.
      */
-    public List<Identifier> getRecipesToRemove() {
+    public List<ResourceLocation> getRecipesToRemove() {
         return new ArrayList<>();
     }
 

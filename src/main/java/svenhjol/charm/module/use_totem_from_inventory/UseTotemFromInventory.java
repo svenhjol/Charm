@@ -1,11 +1,11 @@
 package svenhjol.charm.module.use_totem_from_inventory;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.Hand;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.CharmModule;
@@ -14,22 +14,22 @@ import svenhjol.charm.annotation.Module;
 
 @Module(mod = Charm.MOD_ID, description = "As long as a Totem of Undying is in your inventory, it will be consumed to protect you from death.")
 public class UseTotemFromInventory extends CharmModule {
-    public static ItemStack tryFromInventory(LivingEntity entity, Hand hand) {
+    public static ItemStack tryFromInventory(LivingEntity entity, InteractionHand hand) {
         ItemStack totem = new ItemStack(Items.TOTEM_OF_UNDYING);
 
-        if (ModuleHandler.enabled("charm:use_totem_from_inventory") && entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity)entity;
-            PlayerInventory inventory = PlayerHelper.getInventory(player);
+        if (ModuleHandler.enabled("charm:use_totem_from_inventory") && entity instanceof Player) {
+            Player player = (Player)entity;
+            Inventory inventory = PlayerHelper.getInventory(player);
 
             if (inventory.contains(totem)) {
-                if (player.getOffHandStack().getItem() == Items.TOTEM_OF_UNDYING) {
-                    return player.getOffHandStack();
+                if (player.getOffhandItem().getItem() == Items.TOTEM_OF_UNDYING) {
+                    return player.getOffhandItem();
                 } else {
-                    return inventory.getStack(inventory.getSlotWithStack(totem));
+                    return inventory.getItem(inventory.findSlotMatchingItem(totem));
                 }
             }
         }
 
-        return entity.getStackInHand(hand);
+        return entity.getItemInHand(hand);
     }
 }
