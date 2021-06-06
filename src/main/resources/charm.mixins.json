@@ -31,6 +31,7 @@
     "accessor.PlayerEntityAccessor",
     "accessor.PointOfInterestTypeAccessor",
     "accessor.PoolAccessor",
+    "accessor.ServerPlayerEntityAccessor",
     "accessor.ServerWorldAccessor",
     "accessor.ShulkerBoxBlockEntityAccessor",
     "accessor.SignTypeAccessor",
