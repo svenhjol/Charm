@@ -1,7 +1,6 @@
 package svenhjol.charm.helper;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.*;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;

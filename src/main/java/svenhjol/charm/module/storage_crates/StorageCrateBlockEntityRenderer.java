@@ -1,5 +1,8 @@
 package svenhjol.charm.module.storage_crates;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
@@ -21,9 +24,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.module.storage_crates.StorageCrateBlock;
-import svenhjol.charm.module.storage_crates.StorageCrateBlockEntity;
-import svenhjol.charm.module.storage_crates.StorageCrates;
 import svenhjol.charm.module.storage_labels.StorageLabels;
 import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 
@@ -33,10 +33,6 @@ import java.util.List;
 import java.util.Random;
 
 import static net.minecraft.core.Direction.DOWN;
-
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> implements BlockEntityRenderer<T> {
@@ -53,8 +49,8 @@ public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> 
     }
 
     @Override
-    public boolean rendersOutsideBoundingBox(T blockEntity) {
-        return false;
+    public boolean shouldRenderOffScreen(T blockEntity) {
+        return true;
     }
 
     @Override
@@ -88,7 +84,7 @@ public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> 
         int z = pos.getZ();
 
         BlockState state = world.getBlockState(pos);
-        if (!(state.getBlock() instanceof svenhjol.charm.module.storage_crates.StorageCrateBlock))
+        if (!(state.getBlock() instanceof StorageCrateBlock))
             return;
 
         boolean isSolidBlock = stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock().defaultBlockState().isRedstoneConductor(world, BlockPos.ZERO);
@@ -237,127 +233,3 @@ public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> 
         matrices.popPose();
     }
 }
-
-
-//        BakedModel model = itemRenderer.getHeldItemModel(stack, world, null, 1414);
-//
-//        if (mippedBlocks == null) {
-//            mippedBlocks = new AbstractTexture() {
-//
-//                @Override
-//                public void load(ResourceManager manager) throws IOException {
-//                    clearGlId();
-//                    SpriteAtlasTexture atlas = MinecraftClient.getInstance().getBakedModelManager().getAtlas(new Identifier("textures/atlas/blocks.png"));
-//                    GlStateManager._bindTexture(atlas.getGlId());
-//                    int maxLevel = GL11.glGetTexParameteri(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL);
-//                    if (maxLevel == 0 || !GL.getCapabilities().GL_ARB_copy_image) {
-//                        int w = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
-//                        int h = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
-//                        ByteBuffer dest = MemoryUtil.memAlloc(w*h*4);
-//                        try {
-//                            GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, NativeImage.Format.ABGR.getPixelDataFormat(), GL11.GL_UNSIGNED_BYTE, MemoryUtil.memAddress(dest));
-//                        } catch (Error | RuntimeException e) {
-//                            MemoryUtil.memFree(dest);
-//                            throw e;
-//                        }
-//                        NativeImage img = NativeImageAccessor.invokeConstructor(NativeImage.Format.ABGR, w, h, false, MemoryUtil.memAddress(dest));
-//                        try {
-//                            NativeImage mipped = MipmapHelper.getMipmapLevelsImages(img, 0)[0];
-//                            try {
-//                                TextureUtil.prepareImage(getGlId(), mipped.getWidth(), mipped.getHeight());
-//                                GlStateManager._bindTexture(getGlId());
-//                                mipped.upload(0, 0, 0, true);
-//                            } finally {
-//                                mipped.close();
-//                            }
-//                        } finally {
-//                            img.close();
-//                        }
-//                    } else {
-//                        int w = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 1, GL11.GL_TEXTURE_WIDTH);
-//                        int h = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 1, GL11.GL_TEXTURE_HEIGHT);
-//                        TextureUtil.prepareImage(getGlId(), w, h);
-//                        ARBCopyImage.glCopyImageSubData(
-//                            atlas.getGlId(), GL11.GL_TEXTURE_2D, 1, 0, 0, 0,
-//                            getGlId(), GL11.GL_TEXTURE_2D, 0, 0, 0, 0,
-//                            w, h, 1);
-//                    }
-//                }
-//            };
-//            MinecraftClient.getInstance().getTextureManager().registerTexture(new Identifier("fabrication", "textures/atlas/blocks-mip.png"), mippedBlocks);
-//        }
-//
-//
-//        matrices.push();
-//        matrices.scale(0.55F, 0.55F, 0.55F);
-//        RenderLayer defLayer = RenderLayers.getItemLayer(stack, true);
-//        RenderLayer layer = defLayer == TexturedRenderLayers.getEntityCutout() ?
-//            RenderLayer.getEntityCutout(new Identifier("fabrication", "textures/atlas/blocks-mip.png")) :
-//            RenderLayer.getEntityTranslucent(new Identifier("fabrication", "textures/atlas/blocks-mip.png"));
-//        VertexConsumer vertices = vertexConsumers.getBuffer(layer);
-//
-//        ((ItemRendererAccessor)itemRenderer).invokeRenderBakedItemModel(model, stack, light, overlay, matrices, vertices);
-//        matrices.pop();
-
-//
-//        boolean isBlockItem = item instanceof BlockItem && ((BlockItem)item).getBlock().getDefaultState().isSolidBlock(world, BlockPos.ORIGIN);
-//        float scaleSize = isBlockItem ? 0.55F : 0.44F;
-//        double scaleLayerHeight = isBlockItem ? 0.17D : 0.15D;
-//
-//
-//        if (d < distCutoffRender) {
-//            ItemStack stack = new ItemStack(item);
-//
-//            int maxLayers = isBlockItem ? 4 : 2;
-//            int itemsPerLayer = isBlockItem ? 4 : 8;
-//
-//            int t = maxLayers * itemsPerLayer;
-//            boolean firstpass = count <= t;
-//
-//            int maxCount = firstpass ? count : (t + 1 - itemsPerLayer) + ((count - 1) % itemsPerLayer);
-//
-//            int layer = 0;
-//            int seed = 0;
-//
-//            ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-//            Random random = new Random();
-//
-//            for (int i = 0; i < t; i++) {
-//                if (i % itemsPerLayer == 0) {
-//                    layer = layer + 1;
-//                }
-//
-//                seed = firstpass ? layer : layer + (int) Math.ceil(((double) (count - t) / itemsPerLayer));
-//                random.setSeed((long) entity.hashCode() * (seed + 1));
-//
-//                int layerLight = (light >> (firstpass ? ((count - 1) / itemsPerLayer) / layer : maxLayers - layer)) - 1;
-//
-//                matrices.push();
-//                matrices.translate(0.0F, 0.1D + (layer * scaleLayerHeight), 0.0F);
-//
-//                int f = maxCount - i;
-////                int k = (firstpass || layer >= maxLayers - 2) ? 1 : 2;
-//
-//
-//                int k = 1;
-//                if (d > distFullRender && !firstpass && layer < maxLayers)
-//                    k = 4;
-//
-//                float s = scaleSize - (0.02F * (maxLayers - layer));
-//
-//                for (int j = 0; j < Math.min(itemsPerLayer, f); j = j + k) {
-//                    matrices.push();
-//                    matrices.translate(0.2D + random.nextDouble() * 0.6D, 0.0D, 0.2D + random.nextDouble() * 0.6D);
-//                    matrices.scale(s, s, s);
-//                    matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
-//                    matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-30 + (random.nextFloat() * 60)));
-//                    matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(-180 + (random.nextFloat() * 360)));
-//                    itemRenderer.renderItem(stack, ModelTransformation.Mode.FIXED, layerLight, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.hashCode());
-//                    matrices.pop();
-//                }
-//
-//                MatrixStack.Entry peek = matrices.peek();
-//
-//                matrices.pop();
-//            }
-//        }

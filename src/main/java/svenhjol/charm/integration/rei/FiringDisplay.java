@@ -10,7 +10,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.ApiStatus;
-import svenhjol.charm.integration.rei.CharmReiCategories;
 
 import java.util.Collections;
 import java.util.List;

@@ -13,11 +13,10 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.EntityHelper;
-import svenhjol.charm.module.ebony_wood.EbonyWood;
+import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nullable;
 
@@ -29,12 +28,12 @@ public class EbonyWoodClient extends CharmClientModule {
     @Override
     public void register() {
         // recolor the leaves block and item according to biome
-        ColorProviderRegistry.BLOCK.register(this::handleBlockColor, svenhjol.charm.module.ebony_wood.EbonyWood.LEAVES);
-        ColorProviderRegistry.ITEM.register(this::handleItemColor, svenhjol.charm.module.ebony_wood.EbonyWood.LEAVES);
+        ColorProviderRegistry.BLOCK.register(this::handleBlockColor, EbonyWood.LEAVES);
+        ColorProviderRegistry.ITEM.register(this::handleItemColor, EbonyWood.LEAVES);
 
         // cut-out the transparent areas of the blocks
-        BlockRenderLayerMap.INSTANCE.putBlock(svenhjol.charm.module.ebony_wood.EbonyWood.SAPLING, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(svenhjol.charm.module.ebony_wood.EbonyWood.DOOR, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.SAPLING, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.DOOR, RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.TRAPDOOR, RenderType.cutout());
 
         // register boat model

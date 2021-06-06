@@ -1,13 +1,5 @@
 package svenhjol.charm.module.raid_horns;
 
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.init.CharmSounds;
-import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.mixin.accessor.PillagerSpawnerAccessor;
-import svenhjol.charm.mixin.accessor.ServerWorldAccessor;
-
-import java.util.List;
-import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,7 +19,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
-import svenhjol.charm.module.raid_horns.RaidHorns;
+import svenhjol.charm.init.CharmSounds;
+import svenhjol.charm.item.CharmItem;
+import svenhjol.charm.mixin.accessor.PillagerSpawnerAccessor;
+import svenhjol.charm.mixin.accessor.ServerWorldAccessor;
+import svenhjol.charm.module.CharmModule;
+
+import java.util.List;
+import java.util.Random;
 
 public class RaidHornItem extends CharmItem {
     public RaidHornItem(CharmModule module) {
@@ -42,7 +41,7 @@ public class RaidHornItem extends CharmItem {
         ItemStack horn = user.getItemInHand(hand);
 
         if (!world.isClientSide) {
-            world.playSound(null, user.blockPosition(), CharmSounds.RAID_HORN, SoundSource.PLAYERS, (float) svenhjol.charm.module.raid_horns.RaidHorns.volume, 1.0F);
+            world.playSound(null, user.blockPosition(), CharmSounds.RAID_HORN, SoundSource.PLAYERS, (float) RaidHorns.volume, 1.0F);
             user.startUsingItem(hand);
         }
 
@@ -74,7 +73,7 @@ public class RaidHornItem extends CharmItem {
             Raid raid = serverWorld.getRaidAt(pos);
             if (raid != null) {
                 raid.stop();
-                svenhjol.charm.module.raid_horns.RaidHorns.triggerCalledOff(player);
+                RaidHorns.triggerCalledOff(player);
             }
         } else {
             boolean result = trySpawnPillagers(serverWorld, (Player) user);

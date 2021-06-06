@@ -18,19 +18,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import svenhjol.charm.module.bookcases.BookcaseBlock;
-import svenhjol.charm.module.bookcases.BookcaseBlockEntity;
-import svenhjol.charm.module.bookcases.BookcaseScreenHandler;
-import svenhjol.charm.module.bookcases.BookcasesClient;
 
 @Module(mod = Charm.MOD_ID, priority = 10, client = BookcasesClient.class, description = "Bookshelves that can hold up to 9 stacks of books and maps.")
 public class Bookcases extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "bookcase");
     public static final ResourceLocation TRIGGER_ADDED_BOOK_TO_BOOKCASE = new ResourceLocation(Charm.MOD_ID, "added_book_to_bookcase");
-    public static final Map<IVariantMaterial, svenhjol.charm.module.bookcases.BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
 
-    public static MenuType<svenhjol.charm.module.bookcases.BookcaseScreenHandler> SCREEN_HANDLER;
-    public static BlockEntityType<svenhjol.charm.module.bookcases.BookcaseBlockEntity> BLOCK_ENTITY;
+    public static MenuType<BookcaseScreenHandler> SCREEN_HANDLER;
+    public static BlockEntityType<BookcaseBlockEntity> BLOCK_ENTITY;
 
     public static List<Item> validItems = new ArrayList<>();
 
@@ -66,8 +62,8 @@ public class Bookcases extends CharmModule {
         SCREEN_HANDLER = RegistryHelper.screenHandler(ID, BookcaseScreenHandler::new);
     }
 
-    public static svenhjol.charm.module.bookcases.BookcaseBlock registerBookcase(CharmModule module, IVariantMaterial material) {
-        svenhjol.charm.module.bookcases.BookcaseBlock bookcase = new BookcaseBlock(module, material);
+    public static BookcaseBlock registerBookcase(CharmModule module, IVariantMaterial material) {
+        BookcaseBlock bookcase = new BookcaseBlock(module, material);
         BOOKCASE_BLOCKS.put(material, bookcase);
         RegistryHelper.addBlocksToBlockEntity(BLOCK_ENTITY, bookcase);
         return bookcase;

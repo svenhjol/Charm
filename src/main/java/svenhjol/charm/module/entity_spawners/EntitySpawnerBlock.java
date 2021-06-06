@@ -1,6 +1,5 @@
 package svenhjol.charm.module.entity_spawners;
 
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -18,10 +17,8 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.CharmBlockWithEntity;
-import svenhjol.charm.module.entity_spawners.EntitySpawnerBlockEntity;
-import svenhjol.charm.module.entity_spawners.EntitySpawners;
+import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nullable;
 
@@ -36,7 +33,7 @@ public class EntitySpawnerBlock extends CharmBlockWithEntity {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new svenhjol.charm.module.entity_spawners.EntitySpawnerBlockEntity(pos, state);
+        return new EntitySpawnerBlockEntity(pos, state);
     }
 
     @Override

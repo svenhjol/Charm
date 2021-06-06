@@ -18,9 +18,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.module.cooking_pots.CookingPotBlock;
-import svenhjol.charm.module.cooking_pots.CookingPots;
-import svenhjol.charm.module.cooking_pots.MixedStewItem;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -43,7 +40,7 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
     public List<ResourceLocation> contents = new ArrayList<>();
 
     public CookingPotBlockEntity(BlockPos pos, BlockState state) {
-        super(svenhjol.charm.module.cooking_pots.CookingPots.BLOCK_ENTITY, pos, state);
+        super(CookingPots.BLOCK_ENTITY, pos, state);
     }
 
     @Override
@@ -121,7 +118,7 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
             sync();
 
             food.shrink(1);
-            world.setBlock(pos, state.setValue(svenhjol.charm.module.cooking_pots.CookingPotBlock.LIQUID, 2), 2);
+            world.setBlock(pos, state.setValue(CookingPotBlock.LIQUID, 2), 2);
             return true;
         }
 
@@ -137,8 +134,8 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
         if (portions > 0) {
             // create a stew from the pot's contents
             ItemStack stew = new ItemStack(CookingPots.MIXED_STEW);
-            svenhjol.charm.module.cooking_pots.MixedStewItem.setHunger(stew, hunger);
-            svenhjol.charm.module.cooking_pots.MixedStewItem.setSaturation(stew, saturation);
+            MixedStewItem.setHunger(stew, hunger);
+            MixedStewItem.setSaturation(stew, saturation);
             MixedStewItem.setContents(stew, contents.stream().distinct().collect(Collectors.toList()));
             container.shrink(1);
 
@@ -168,12 +165,12 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
             || (belowBlock == Blocks.CAMPFIRE && belowState.getValue(CampfireBlock.LIT))
             || (belowBlock == Blocks.SOUL_CAMPFIRE && belowState.getValue(CampfireBlock.LIT))
         ) {
-            if (!state.getValue(svenhjol.charm.module.cooking_pots.CookingPotBlock.HAS_FIRE)) {
-                world.setBlock(pos, state.setValue(svenhjol.charm.module.cooking_pots.CookingPotBlock.HAS_FIRE, true), 3);
+            if (!state.getValue(CookingPotBlock.HAS_FIRE)) {
+                world.setBlock(pos, state.setValue(CookingPotBlock.HAS_FIRE, true), 3);
             }
         } else {
-            if (state.getValue(svenhjol.charm.module.cooking_pots.CookingPotBlock.HAS_FIRE)) {
-                world.setBlock(pos, state.setValue(svenhjol.charm.module.cooking_pots.CookingPotBlock.HAS_FIRE, false), 3);
+            if (state.getValue(CookingPotBlock.HAS_FIRE)) {
+                world.setBlock(pos, state.setValue(CookingPotBlock.HAS_FIRE, false), 3);
             }
         }
     }

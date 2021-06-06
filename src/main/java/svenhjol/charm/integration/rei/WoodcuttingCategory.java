@@ -13,16 +13,14 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import svenhjol.charm.integration.rei.CharmReiCategories;
-import svenhjol.charm.integration.rei.WoodcuttingDisplay;
 import svenhjol.charm.module.woodcutters.Woodcutters;
 
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class WoodcuttingCategory implements DisplayCategory<svenhjol.charm.integration.rei.WoodcuttingDisplay> {
+public class WoodcuttingCategory implements DisplayCategory<WoodcuttingDisplay> {
     @Override
-    public CategoryIdentifier<? extends svenhjol.charm.integration.rei.WoodcuttingDisplay> getCategoryIdentifier() {
+    public CategoryIdentifier<? extends WoodcuttingDisplay> getCategoryIdentifier() {
         return CharmReiCategories.WOODCUTTING;
     }
 

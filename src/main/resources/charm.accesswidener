@@ -1,29 +1,34 @@
 accessWidener v1 named
 
-accessible class net/minecraft/screen/ScreenHandlerType$Factory
-accessible class net/minecraft/recipe/CuttingRecipe$Serializer$RecipeFactory
-accessible class net/minecraft/recipe/CookingRecipeSerializer$RecipeFactory
-accessible class net/minecraft/block/entity/BlockEntityType$BlockEntityFactory
+# Inaccessible interfaces
+accessible class net/minecraft/world/inventory/MenuType$MenuSupplier
+accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
+accessible class net/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker
+accessible class net/minecraft/world/item/crafting/SimpleCookingSerializer$CookieBaker
 
-accessible class net/minecraft/client/render/RenderPhase$Cull
-accessible class net/minecraft/client/render/RenderPhase$DepthTest
-accessible class net/minecraft/client/render/RenderPhase$Layering
-accessible class net/minecraft/client/render/RenderPhase$Shader
-accessible class net/minecraft/client/render/RenderPhase$Target
-accessible class net/minecraft/client/render/RenderPhase$Texture
-accessible class net/minecraft/client/render/RenderPhase$Texturing
-accessible class net/minecraft/client/render/RenderPhase$Transparency
-accessible class net/minecraft/client/render/RenderPhase$WriteMaskState
+accessible class net/minecraft/client/renderer/RenderStateShard$Cull
+accessible class net/minecraft/client/renderer/RenderStateShard$DepthTest
+accessible class net/minecraft/client/renderer/RenderStateShard$Layering
+accessible class net/minecraft/client/renderer/RenderStateShard$Shader
+accessible class net/minecraft/client/renderer/RenderStateShard$Target
+accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$Texturing
+accessible class net/minecraft/client/renderer/RenderStateShard$Transparency
+accessible class net/minecraft/client/renderer/RenderStateShard$WriteMaskState
 
-accessible class net/minecraft/client/render/RenderLayer$MultiPhaseParameters
-accessible class net/minecraft/world/gen/feature/ConfiguredFeatures$Decorators
+accessible class net/minecraft/client/renderer/RenderType$CompositeState
+accessible class net/minecraft/data/worldgen/Features$Decorators
 
-accessible method net/minecraft/screen/ScreenHandlerType <init> (Lnet/minecraft/screen/ScreenHandlerType$Factory;)V
-accessible method net/minecraft/recipe/CuttingRecipe$Serializer <init> (Lnet/minecraft/recipe/CuttingRecipe$Serializer$RecipeFactory;)V
-accessible method net/minecraft/client/render/RenderLayer of (Ljava/lang/String;Lnet/minecraft/client/render/VertexFormat;Lnet/minecraft/client/render/VertexFormat$DrawMode;ILnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;)Lnet/minecraft/client/render/RenderLayer$MultiPhase;
-accessible method net/minecraft/client/render/RenderLayer of (Ljava/lang/String;Lnet/minecraft/client/render/VertexFormat;Lnet/minecraft/client/render/VertexFormat$DrawMode;IZZLnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;)Lnet/minecraft/client/render/RenderLayer$MultiPhase;
-accessible method net/minecraft/client/gui/screen/Screen addDrawableChild (Lnet/minecraft/client/gui/Element;)Lnet/minecraft/client/gui/Element;
+# Inaccessible constructors
+accessible method net/minecraft/world/inventory/MenuType <init> (Lnet/minecraft/world/inventory/MenuType$MenuSupplier;)V
+accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer <init> (Lnet/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker;)V
 
+# Inaccessible methods
+accessible method net/minecraft/client/renderer/RenderType create (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;ILnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
+accessible method net/minecraft/client/renderer/RenderType create (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;IZZLnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
+accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
+
+# Immutable class fields
 mutable field net/minecraft/block/entity/BlockEntityType blocks Ljava/util/Set;
 mutable field net/minecraft/world/poi/PointOfInterestType blockStates Ljava/util/Set;
 mutable field net/minecraft/structure/pool/StructurePool elementCounts Ljava/util/List;

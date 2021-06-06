@@ -1,18 +1,6 @@
 package svenhjol.charm.module.totem_of_preserving;
 
 import com.google.common.collect.ImmutableList;
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ItemHelper;
-import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.event.EntityDropXpCallback;
-import svenhjol.charm.event.PlayerDropInventoryCallback;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -25,19 +13,30 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.module.totem_of_preserving.TotemOfPreservingItem;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.event.EntityDropXpCallback;
+import svenhjol.charm.event.PlayerDropInventoryCallback;
+import svenhjol.charm.helper.ItemHelper;
+import svenhjol.charm.module.CharmModule;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 @Module(mod = Charm.MOD_ID, description = "Items will be held in the Totem of Preserving if you die.",
     requiresMixins = {"PlayerDropInventoryCallback", "EntityDropXpCallback", "CheckItemDespawnMixin"})
 public class TotemOfPreserving extends CharmModule {
-    public static svenhjol.charm.module.totem_of_preserving.TotemOfPreservingItem TOTEM_OF_PRESERVING;
+    public static TotemOfPreservingItem TOTEM_OF_PRESERVING;
 
     @Config(name = "Preserve XP", description = "If true, the totem will preserve the player's experience and restore when broken.")
     public static boolean preserveXp = false;
 
     @Override
     public void register() {
-        TOTEM_OF_PRESERVING = new svenhjol.charm.module.totem_of_preserving.TotemOfPreservingItem(this);
+        TOTEM_OF_PRESERVING = new TotemOfPreservingItem(this);
     }
 
     @Override
@@ -75,7 +74,7 @@ public class TotemOfPreserving extends CharmModule {
             ItemStack stack = holdable.get(i);
 
             // if there's already a filled totem in the inventory, spawn this separately
-            if (stack.getItem() == TOTEM_OF_PRESERVING && !svenhjol.charm.module.totem_of_preserving.TotemOfPreservingItem.getItems(stack).isEmpty()) {
+            if (stack.getItem() == TOTEM_OF_PRESERVING && !TotemOfPreservingItem.getItems(stack).isEmpty()) {
                 totemsToSpawn.add(stack);
                 continue;
             }
@@ -83,11 +82,11 @@ public class TotemOfPreserving extends CharmModule {
             serialized.put(Integer.toString(i), holdable.get(i).save(new CompoundTag()));
         }
 
-        svenhjol.charm.module.totem_of_preserving.TotemOfPreservingItem.setItems(totem, serialized);
-        svenhjol.charm.module.totem_of_preserving.TotemOfPreservingItem.setMessage(totem, player.getScoreboardName());
+        TotemOfPreservingItem.setItems(totem, serialized);
+        TotemOfPreservingItem.setMessage(totem, player.getScoreboardName());
 
         if (preserveXp)
-            svenhjol.charm.module.totem_of_preserving.TotemOfPreservingItem.setXp(totem, player.totalExperience);
+            TotemOfPreservingItem.setXp(totem, player.totalExperience);
 
         if (!TotemOfPreservingItem.getItems(totem).isEmpty())
             totemsToSpawn.add(totem);

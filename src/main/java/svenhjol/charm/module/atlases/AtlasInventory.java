@@ -29,10 +29,8 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
-import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.helper.ItemNBTHelper;
-import svenhjol.charm.module.atlases.AtlasContainer;
-import svenhjol.charm.module.atlases.Atlases;
+import svenhjol.charm.init.CharmSounds;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -57,7 +55,7 @@ public class AtlasInventory implements MenuProvider, Container {
 
     public AtlasInventory(ItemStack atlas) {
         this.atlas = atlas;
-        this.scale = svenhjol.charm.module.atlases.Atlases.defaultScale;
+        this.scale = Atlases.defaultScale;
         this.diameter = 128;
         this.emptyMaps = NonNullList.withSize(EMPTY_MAP_SLOTS, ItemStack.EMPTY);
         this.mapInfos = HashBasedTable.create();
@@ -72,7 +70,7 @@ public class AtlasInventory implements MenuProvider, Container {
     }
 
     private void load() {
-        scale = ItemNBTHelper.getInt(atlas, SCALE, svenhjol.charm.module.atlases.Atlases.defaultScale);
+        scale = ItemNBTHelper.getInt(atlas, SCALE, Atlases.defaultScale);
         diameter = 128 * (1 << scale);
         ContainerHelper.loadAllItems(ItemNBTHelper.getCompound(atlas, EMPTY_MAPS), emptyMaps);
         ListTag listNBT = ItemNBTHelper.getList(atlas, FILLED_MAPS);
@@ -118,7 +116,7 @@ public class AtlasInventory implements MenuProvider, Container {
             madeNewMap = activeMap != null;
         }
         if (activeMap != null) {
-            svenhjol.charm.module.atlases.Atlases.sendMapToClient(player, activeMap.map, false);
+            Atlases.sendMapToClient(player, activeMap.map, false);
             ItemNBTHelper.setInt(atlas, ACTIVE_MAP, activeMap.id);
         } else {
             ItemNBTHelper.setInt(atlas, ACTIVE_MAP, -1);

@@ -1,7 +1,9 @@
 package svenhjol.charm.module.colored_glints;
 
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.*;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
@@ -15,10 +17,6 @@ import svenhjol.charm.mixin.accessor.BufferBuilderStorageAccessor;
 import svenhjol.charm.mixin.accessor.MinecraftClientAccessor;
 import svenhjol.charm.mixin.accessor.RenderLayerAccessor;
 import svenhjol.charm.mixin.accessor.RenderPhaseAccessor;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import svenhjol.charm.module.colored_glints.ColoredGlints;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -59,7 +57,7 @@ public class ColoredGlintHandler {
         List<String> validColors = Arrays.stream(DyeColor.values()).map(DyeColor::getSerializedName).collect(Collectors.toList());
         validColors.add("rainbow");
 
-        defaultGlintColor = (ModuleHandler.enabled(svenhjol.charm.module.colored_glints.ColoredGlints.class) && validColors.contains(svenhjol.charm.module.colored_glints.ColoredGlints.glintColor)) ? ColoredGlints.glintColor : DyeColor.PURPLE.getSerializedName();
+        defaultGlintColor = (ModuleHandler.enabled(ColoredGlints.class) && validColors.contains(ColoredGlints.glintColor)) ? ColoredGlints.glintColor : DyeColor.PURPLE.getSerializedName();
 
         hasInit = true;
     }

@@ -1,11 +1,10 @@
 package svenhjol.charm.module;
 
+import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.helper.StringHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.module.CharmClientModule;
 
 public abstract class CharmModule {
     public boolean enabled = true;
@@ -14,7 +13,6 @@ public abstract class CharmModule {
     public String description = "";
     public String mod = "";
     public int priority = 0;
-    public List<String> limitedIfMixinsDisabled = new ArrayList<>();
     public List<String> requiresMixins = new ArrayList<>();
     public Class<? extends CharmClientModule> client = null;
 

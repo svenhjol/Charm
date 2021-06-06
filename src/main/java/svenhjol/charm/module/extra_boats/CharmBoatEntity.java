@@ -1,11 +1,5 @@
 package svenhjol.charm.module.extra_boats;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.mixin.accessor.BoatEntityAccessor;
-import svenhjol.charm.module.azalea_wood.AzaleaWood;
-import svenhjol.charm.module.ebony_wood.EbonyWood;
-
-import java.util.Locale;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,7 +9,12 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.module.extra_boats.ExtraBoats;
+import svenhjol.charm.Charm;
+import svenhjol.charm.mixin.accessor.BoatEntityAccessor;
+import svenhjol.charm.module.azalea_wood.AzaleaWood;
+import svenhjol.charm.module.ebony_wood.EbonyWood;
+
+import java.util.Locale;
 
 public class CharmBoatEntity extends Boat {
     private static final EntityDataAccessor<Integer> BOAT_TYPE;
@@ -27,7 +26,7 @@ public class CharmBoatEntity extends Boat {
     }
 
     public CharmBoatEntity(Level world, double x, double y, double z) {
-        this(svenhjol.charm.module.extra_boats.ExtraBoats.CHARM_BOAT, world);
+        this(ExtraBoats.CHARM_BOAT, world);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;
@@ -64,13 +63,13 @@ public class CharmBoatEntity extends Boat {
     @Override
     public Item getDropItem() {
         switch (getCharmBoatType()) {
-            case svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType.AZALEA:
+            case AZALEA:
                 return AzaleaWood.BOAT;
-            case svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType.CRIMSON:
-                return svenhjol.charm.module.extra_boats.ExtraBoats.CRIMSON_BOAT;
-            case svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType.EBONY:
+            case CRIMSON:
+                return ExtraBoats.CRIMSON_BOAT;
+            case EBONY:
                 return EbonyWood.BOAT;
-            case svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType.WARPED:
+            case WARPED:
                 return ExtraBoats.WARPED_BOAT;
             default:
                 return Items.OAK_BOAT; // lol

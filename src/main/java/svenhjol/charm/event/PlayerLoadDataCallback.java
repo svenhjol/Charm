@@ -23,7 +23,7 @@ public interface PlayerLoadDataCallback {
             try {
                 nbt = NbtIo.readCompressed(file);
             } catch (Exception e) {
-                Charm.LOG.error("Failed to load player data from file: " + file.toString());
+                Charm.LOG.error("Failed to load player data from file: " + file);
                 nbt = new CompoundTag();
             }
         } else {

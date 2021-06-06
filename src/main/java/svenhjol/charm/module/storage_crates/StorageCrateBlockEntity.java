@@ -13,23 +13,22 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.module.storage_crates.StorageCrates;
 
 import javax.annotation.Nullable;
 import java.util.stream.IntStream;
 
 public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity implements BlockEntityClientSerializable, WorldlyContainer {
-    private static final int[] SLOTS = IntStream.range(0, svenhjol.charm.module.storage_crates.StorageCrates.maximumStacks).toArray();
-    private NonNullList<ItemStack> items = NonNullList.withSize(svenhjol.charm.module.storage_crates.StorageCrates.maximumStacks, ItemStack.EMPTY);
+    private static final int[] SLOTS = IntStream.range(0, StorageCrates.maximumStacks).toArray();
+    private NonNullList<ItemStack> items = NonNullList.withSize(StorageCrates.maximumStacks, ItemStack.EMPTY);
 
     public StorageCrateBlockEntity(BlockPos pos, BlockState state) {
-        super(svenhjol.charm.module.storage_crates.StorageCrates.BLOCK_ENTITY, pos, state);
+        super(StorageCrates.BLOCK_ENTITY, pos, state);
     }
 
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
-        this.items = NonNullList.withSize(svenhjol.charm.module.storage_crates.StorageCrates.maximumStacks, ItemStack.EMPTY);
+        this.items = NonNullList.withSize(StorageCrates.maximumStacks, ItemStack.EMPTY);
         if (!this.tryLoadLootTable(nbt))
             ContainerHelper.loadAllItems(nbt, this.items);
     }
@@ -75,7 +74,7 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
 
     @Override
     public int getContainerSize() {
-        return svenhjol.charm.module.storage_crates.StorageCrates.maximumStacks;
+        return StorageCrates.maximumStacks;
     }
 
     @Override
@@ -211,11 +210,11 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
 
     private void doClientAddEffect() {
         if (this.level != null)
-            svenhjol.charm.module.storage_crates.StorageCrates.sendClientEffects(this.level, this.worldPosition, svenhjol.charm.module.storage_crates.StorageCrates.ActionType.ADDED);
+            StorageCrates.sendClientEffects(this.level, this.worldPosition, StorageCrates.ActionType.ADDED);
     }
 
     private void doClientRemoveEffect() {
         if (this.level != null)
-            svenhjol.charm.module.storage_crates.StorageCrates.sendClientEffects(this.level, this.worldPosition, StorageCrates.ActionType.REMOVED);
+            StorageCrates.sendClientEffects(this.level, this.worldPosition, StorageCrates.ActionType.REMOVED);
     }
 }

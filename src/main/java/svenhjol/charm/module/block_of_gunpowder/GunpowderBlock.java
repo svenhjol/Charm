@@ -11,15 +11,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.CharmFallingBlock;
-import svenhjol.charm.module.block_of_gunpowder.BlockOfGunpowder;
+import svenhjol.charm.module.CharmModule;
 
 public class GunpowderBlock extends CharmFallingBlock {
     public GunpowderBlock(CharmModule module) {
         super(module, "gunpowder_block", FabricBlockSettings
             .of(Material.SAND)
-            .sound(SoundType.SAND)
+            .sounds(SoundType.SAND)
             .breakByTool(FabricToolTags.SHOVELS)
             .strength(0.5F)
         );

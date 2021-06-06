@@ -19,8 +19,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.storage_labels.StorageLabels;
-import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 
 import java.util.Collections;
 import java.util.Map;
@@ -56,10 +54,10 @@ public class LootableContainerBlockEntityRenderer<T extends BlockEntity> impleme
         if (world == null)
             return;
 
-        if (entity instanceof BarrelBlockEntity && !svenhjol.charm.module.storage_labels.StorageLabels.showBarrelLabels)
+        if (entity instanceof BarrelBlockEntity && !StorageLabels.showBarrelLabels)
             return;
 
-        if (entity instanceof ChestBlockEntity && !svenhjol.charm.module.storage_labels.StorageLabels.showChestLabels)
+        if (entity instanceof ChestBlockEntity && !StorageLabels.showChestLabels)
             return;
 
         if (!container.hasCustomName()) {
@@ -72,7 +70,7 @@ public class LootableContainerBlockEntityRenderer<T extends BlockEntity> impleme
             } else if (world.getGameTime() - cachedPos.get(pos) > REFRESH_NAME_TICKS) {
                 FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
                 data.writeLong(pos.asLong());
-                ClientPlayNetworking.send(svenhjol.charm.module.storage_labels.StorageLabels.MSG_SERVER_QUERY_CUSTOM_NAME, data);
+                ClientPlayNetworking.send(StorageLabels.MSG_SERVER_QUERY_CUSTOM_NAME, data);
                 cachedPos.remove(pos);
             }
             return;

@@ -13,16 +13,13 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.helper.BiomeHelper;
-import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.helper.BiomeHelper;
+import svenhjol.charm.helper.MobHelper;
+import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.item.CharmSpawnEggItem;
-import svenhjol.charm.module.coral_squids.CoralSquidBucketItem;
-import svenhjol.charm.module.coral_squids.CoralSquidEntity;
-import svenhjol.charm.module.coral_squids.CoralSquidsClient;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,8 +29,8 @@ import java.util.List;
 public class CoralSquids extends CharmModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "coral_squid");
 
-    public static svenhjol.charm.module.coral_squids.CoralSquidBucketItem CORAL_SQUID_BUCKET;
-    public static EntityType<svenhjol.charm.module.coral_squids.CoralSquidEntity> CORAL_SQUID;
+    public static CoralSquidBucketItem CORAL_SQUID_BUCKET;
+    public static EntityType<CoralSquidEntity> CORAL_SQUID;
     public static Item SPAWN_EGG;
 
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a coral squid dropping coral when killed by the player.")
@@ -46,10 +43,10 @@ public class CoralSquids extends CharmModule {
     public void register() {
         // register to MC registry
         CORAL_SQUID = RegistryHelper.entity(ID, FabricEntityTypeBuilder
-            .create(MobCategory.WATER_AMBIENT, svenhjol.charm.module.coral_squids.CoralSquidEntity::new)
+            .create(MobCategory.WATER_AMBIENT, CoralSquidEntity::new)
             .dimensions(EntityDimensions.fixed(0.54F, 0.54F)));
 
-        SpawnRestrictionAccessor.callRegister(CORAL_SQUID, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, svenhjol.charm.module.coral_squids.CoralSquidEntity::canSpawn);
+        SpawnRestrictionAccessor.callRegister(CORAL_SQUID, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CoralSquidEntity::canSpawn);
 
         // create a spawn egg for the squid
         SPAWN_EGG = new CharmSpawnEggItem(this, "coral_squid_spawn_egg", CORAL_SQUID, 0x0000FF, 0xFF00FF);

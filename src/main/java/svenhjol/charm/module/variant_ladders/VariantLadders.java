@@ -1,27 +1,25 @@
 package svenhjol.charm.module.variant_ladders;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.enums.VanillaVariantMaterial;
-import svenhjol.charm.annotation.Module;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LadderBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
-import svenhjol.charm.module.variant_ladders.VariantLaddersClient;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.enums.VanillaVariantMaterial;
+import svenhjol.charm.module.CharmModule;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Module(mod = Charm.MOD_ID, client = VariantLaddersClient.class, description = "Ladders available in all types of vanilla wood.")
 public class VariantLadders extends CharmModule {
-    public static final Map<IVariantMaterial, svenhjol.charm.module.variant_ladders.VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
 
     public static boolean isEnabled = false;
 
@@ -34,8 +32,8 @@ public class VariantLadders extends CharmModule {
         isEnabled = this.enabled;
     }
 
-    public static svenhjol.charm.module.variant_ladders.VariantLadderBlock registerLadder(CharmModule module, IVariantMaterial material) {
-        svenhjol.charm.module.variant_ladders.VariantLadderBlock ladder = new VariantLadderBlock(module, material);
+    public static VariantLadderBlock registerLadder(CharmModule module, IVariantMaterial material) {
+        VariantLadderBlock ladder = new VariantLadderBlock(module, material);
         LADDER_BLOCKS.put(material, ladder);
         return ladder;
     }

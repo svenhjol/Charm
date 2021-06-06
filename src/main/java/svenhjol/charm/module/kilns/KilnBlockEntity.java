@@ -8,12 +8,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.module.kilns.KilnScreenHandler;
-import svenhjol.charm.module.kilns.Kilns;
 
 public class KilnBlockEntity extends AbstractFurnaceBlockEntity {
     public KilnBlockEntity(BlockPos pos, BlockState state) {
-        super(svenhjol.charm.module.kilns.Kilns.BLOCK_ENTITY, pos, state, Kilns.RECIPE_TYPE);
+        super(Kilns.BLOCK_ENTITY, pos, state, Kilns.RECIPE_TYPE);
     }
 
     @Override

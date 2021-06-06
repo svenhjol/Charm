@@ -1,6 +1,5 @@
 package svenhjol.charm.module.colored_bundles;
 
-import net.minecraft.item.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BundleItem;
@@ -11,7 +10,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.module.colored_bundles.ColoredBundles;
 
 public class BundleColoringRecipe extends CustomRecipe {
    public BundleColoringRecipe(ResourceLocation identifier) {
@@ -44,7 +42,8 @@ public class BundleColoringRecipe extends CustomRecipe {
       return i == 1 && j == 1;
    }
 
-   public ItemStack craft(CraftingContainer craftingInventory) {
+   @Override
+   public ItemStack assemble(CraftingContainer craftingInventory) {
       ItemStack itemStack = ItemStack.EMPTY;
       DyeItem dyeItem = (DyeItem)Items.WHITE_DYE;
 

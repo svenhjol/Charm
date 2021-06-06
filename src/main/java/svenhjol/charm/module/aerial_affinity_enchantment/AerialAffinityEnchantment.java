@@ -9,7 +9,7 @@ import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, description = "Aerial Affinity is a boots enchantment that increases mining rate when not on the ground.")
 public class AerialAffinityEnchantment extends CharmModule {
-    public static svenhjol.charm.module.aerial_affinity_enchantment.AerialAffinityEnch ENCHANTMENT;
+    public static AerialAffinityEnch ENCHANTMENT;
 
     @Override
     public void register() {

@@ -1,17 +1,5 @@
 package svenhjol.charm.module.extract_enchantments;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.extract_enchantments.ExtractEnchantmentsClient;
-import svenhjol.charm.module.grindable_horse_armor.GrindableHorseArmor;
-
-import javax.annotation.Nullable;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -27,6 +15,17 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.helper.ModHelper;
+import svenhjol.charm.helper.PlayerHelper;
+import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.module.grindable_horse_armor.GrindableHorseArmor;
+
+import javax.annotation.Nullable;
 import java.util.*;
 
 @SuppressWarnings({"unchecked", "rawtypes"})

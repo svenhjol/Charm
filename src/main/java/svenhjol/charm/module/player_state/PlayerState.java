@@ -14,11 +14,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.PosHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
-import svenhjol.charm.module.player_state.PlayerStateClient;
+import svenhjol.charm.helper.PosHelper;
+import svenhjol.charm.module.CharmModule;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -27,7 +26,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-@Module(mod = Charm.MOD_ID, alwaysEnabled = true, client = svenhjol.charm.module.player_state.PlayerStateClient.class, description = "Synchronize additional state from server to client.")
+@Module(mod = Charm.MOD_ID, alwaysEnabled = true, client = PlayerStateClient.class, description = "Synchronize additional state from server to client.")
 public class PlayerState extends CharmModule {
     public static final ResourceLocation MSG_SERVER_UPDATE_PLAYER_STATE = new ResourceLocation(Charm.MOD_ID, "server_update_player_state");
     public static List<BiConsumer<ServerPlayer, CompoundTag>> listeners = new ArrayList<>();

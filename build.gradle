@@ -3,10 +3,11 @@ import groovy.json.JsonSlurper
 
 plugins {
 	id 'maven-publish'
-	id 'dev.architectury.loom' version("0.7.2-SNAPSHOT") apply false
+	id 'fabric-loom' version '0.8-SNAPSHOT'
+//	id 'dev.architectury.loom' version("0.7.2-SNAPSHOT") apply false
 }
 
-apply plugin: "dev.architectury.loom"
+//apply plugin: "dev.architectury.loom"
 
 sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
@@ -23,9 +24,9 @@ runServer {
 	standardInput = System.in
 }
 
-loom {
-	silentMojangMappingsLicense()
-}
+//loom {
+//	silentMojangMappingsLicense()
+//}
 
 dependencies {
 	//to change the versions see the gradle.properties file

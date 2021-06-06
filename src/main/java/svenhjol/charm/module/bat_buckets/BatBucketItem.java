@@ -1,12 +1,5 @@
 package svenhjol.charm.module.bat_buckets;
 
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ItemNBTHelper;
-import svenhjol.charm.helper.MobHelper;
-import svenhjol.charm.item.CharmItem;
-
-import java.util.List;
-import java.util.function.Predicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -29,7 +22,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import svenhjol.charm.module.bat_buckets.BatBuckets;
+import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.helper.MobHelper;
+import svenhjol.charm.item.CharmItem;
+import svenhjol.charm.module.CharmModule;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 public class BatBucketItem extends CharmItem {
     public static final String STORED_BAT_NBT = "StoredBat";
@@ -62,7 +61,7 @@ public class BatBucketItem extends CharmItem {
 
                 world.addFreshEntity(bat);
 
-                if (svenhjol.charm.module.bat_buckets.BatBuckets.damageBat) {
+                if (BatBuckets.damageBat) {
                     // damage the bat :(
                     float health = bat.getHealth();
                     bat.setHealth(health - 1.0F);
@@ -73,10 +72,10 @@ public class BatBucketItem extends CharmItem {
         player.swing(hand);
 
         if (!world.isClientSide) {
-            svenhjol.charm.module.bat_buckets.BatBuckets.triggerUsedBatBucket((ServerPlayer) player);
+            BatBuckets.triggerUsedBatBucket((ServerPlayer) player);
             world.playSound(null, player.blockPosition(), SoundEvents.BAT_TAKEOFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
 
-            AABB box = player.getBoundingBox().inflate(svenhjol.charm.module.bat_buckets.BatBuckets.glowingRange, svenhjol.charm.module.bat_buckets.BatBuckets.glowingRange / 2.0, svenhjol.charm.module.bat_buckets.BatBuckets.glowingRange);
+            AABB box = player.getBoundingBox().inflate(BatBuckets.glowingRange, BatBuckets.glowingRange / 2.0, BatBuckets.glowingRange);
             Predicate<LivingEntity> selector = entity -> true;
             MobEffectInstance effect = new MobEffectInstance(MobEffects.GLOWING, BatBuckets.glowingTime * 20);
             List<LivingEntity> entities = player.level.getEntitiesOfClass(LivingEntity.class, box, selector);

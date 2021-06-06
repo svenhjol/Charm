@@ -3,7 +3,6 @@ package svenhjol.charm.module.atlases;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.item.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
@@ -36,10 +35,6 @@ import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.mixin.accessor.MapStateAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
-import svenhjol.charm.module.atlases.AtlasContainer;
-import svenhjol.charm.module.atlases.AtlasInventory;
-import svenhjol.charm.module.atlases.AtlasItem;
-import svenhjol.charm.module.atlases.AtlasesClient;
 
 import java.util.*;
 
@@ -55,8 +50,8 @@ public class Atlases extends CharmModule {
 
     // add items to this list to whitelist them in atlases
     public static final List<Item> VALID_ATLAS_ITEMS = new ArrayList<>();
-    private static final Map<UUID, svenhjol.charm.module.atlases.AtlasInventory> serverCache = new HashMap<>();
-    private static final Map<UUID, svenhjol.charm.module.atlases.AtlasInventory> clientCache = new HashMap<>();
+    private static final Map<UUID, AtlasInventory> serverCache = new HashMap<>();
+    private static final Map<UUID, AtlasInventory> clientCache = new HashMap<>();
 
     @Config(name = "Open in off hand", description = "Allow opening the atlas while it is in the off hand.")
     public static boolean offHandOpen = false;
@@ -64,8 +59,8 @@ public class Atlases extends CharmModule {
     @Config(name = "Map scale", description = "Map scale used in atlases by default.")
     public static int defaultScale = 0;
 
-    public static svenhjol.charm.module.atlases.AtlasItem ATLAS_ITEM;
-    public static MenuType<svenhjol.charm.module.atlases.AtlasContainer> CONTAINER;
+    public static AtlasItem ATLAS_ITEM;
+    public static MenuType<AtlasContainer> CONTAINER;
 
     @Override
     public void register() {
@@ -92,7 +87,7 @@ public class Atlases extends CharmModule {
             for (InteractionHand hand : InteractionHand.values()) {
                 ItemStack atlasStack = inventory.player.getItemInHand(hand);
                 if (atlasStack.getItem() == ATLAS_ITEM) {
-                    svenhjol.charm.module.atlases.AtlasInventory inv = getInventory(inventory.player.level, atlasStack);
+                    AtlasInventory inv = getInventory(inventory.player.level, atlasStack);
                     if (inv.hasItemStack(itemStack)) {
                         return true;
                     }
@@ -102,16 +97,16 @@ public class Atlases extends CharmModule {
         return false;
     }
 
-    public static svenhjol.charm.module.atlases.AtlasInventory getInventory(Level world, ItemStack stack) {
-        UUID id = ItemNBTHelper.getUuid(stack, svenhjol.charm.module.atlases.AtlasInventory.ID);
+    public static AtlasInventory getInventory(Level world, ItemStack stack) {
+        UUID id = ItemNBTHelper.getUuid(stack, AtlasInventory.ID);
         if (id == null) {
             id = UUID.randomUUID();
-            ItemNBTHelper.setUuid(stack, svenhjol.charm.module.atlases.AtlasInventory.ID, id);
+            ItemNBTHelper.setUuid(stack, AtlasInventory.ID, id);
         }
-        Map<UUID, svenhjol.charm.module.atlases.AtlasInventory> cache = world.isClientSide ? clientCache : serverCache;
-        svenhjol.charm.module.atlases.AtlasInventory inventory = cache.get(id);
+        Map<UUID, AtlasInventory> cache = world.isClientSide ? clientCache : serverCache;
+        AtlasInventory inventory = cache.get(id);
         if (inventory == null) {
-            inventory = new svenhjol.charm.module.atlases.AtlasInventory(stack);
+            inventory = new AtlasInventory(stack);
             cache.put(id, inventory);
         }
         if(inventory.getAtlasItem() != stack) {
@@ -146,10 +141,10 @@ public class Atlases extends CharmModule {
         ServerPlayNetworking.send(player, MSG_CLIENT_UPDATE_ATLAS_INVENTORY, data);
     }
 
-    private static svenhjol.charm.module.atlases.AtlasInventory findAtlas(Inventory inventory) {
+    private static AtlasInventory findAtlas(Inventory inventory) {
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack stack = inventory.player.getItemInHand(hand);
-            if (stack.getItem() == Atlases.ATLAS_ITEM) {
+            if (stack.getItem() == ATLAS_ITEM) {
                 return getInventory(inventory.player.level, stack);
             }
         }
@@ -170,13 +165,13 @@ public class Atlases extends CharmModule {
 
     public static boolean makeAtlasUpscaleOutput(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, Level world,
         ResultContainer craftResultInventory, CartographyTableMenu cartographyContainer) {
-        if (ModuleHandler.enabled(Atlases.class) && topStack.getItem() == Atlases.ATLAS_ITEM) {
-            svenhjol.charm.module.atlases.AtlasInventory inventory = Atlases.getInventory(world, topStack);
+        if (ModuleHandler.enabled(Atlases.class) && topStack.getItem() == ATLAS_ITEM) {
+            AtlasInventory inventory = getInventory(world, topStack);
             ItemStack output;
             if (inventory.getMapInfos().isEmpty() && bottomStack.getItem() == Items.MAP && inventory.getScale() < 4) {
                 output = topStack.copy();
-                ItemNBTHelper.setUuid(output, svenhjol.charm.module.atlases.AtlasInventory.ID, UUID.randomUUID());
-                ItemNBTHelper.setInt(output, svenhjol.charm.module.atlases.AtlasInventory.SCALE, inventory.getScale() + 1);
+                ItemNBTHelper.setUuid(output, AtlasInventory.ID, UUID.randomUUID());
+                ItemNBTHelper.setInt(output, AtlasInventory.SCALE, inventory.getScale() + 1);
             } else {
                 output = ItemStack.EMPTY;
             }
@@ -199,7 +194,7 @@ public class Atlases extends CharmModule {
             for (InteractionHand hand : InteractionHand.values()) {
                 ItemStack atlas = serverPlayer.getItemInHand(hand);
                 if (atlas.getItem() == ATLAS_ITEM) {
-                    svenhjol.charm.module.atlases.AtlasInventory inventory = getInventory(serverPlayer.level, atlas);
+                    AtlasInventory inventory = getInventory(serverPlayer.level, atlas);
                     if (inventory.updateActiveMap(serverPlayer)) {
                         updateClient(serverPlayer, getSlotFromHand(serverPlayer, hand));
                         if (inventory.getMapInfos().size() >= NUMBER_OF_MAPS_FOR_ACHIEVEMENT) {
@@ -221,18 +216,18 @@ public class Atlases extends CharmModule {
             if (player == null)
                 return;
 
-            AtlasInventory inventory = Atlases.getInventory(player.level, PlayerHelper.getInventory(player).getItem(atlasSlot));
+            AtlasInventory inventory = getInventory(player.level, PlayerHelper.getInventory(player).getItem(atlasSlot));
 
             switch (mode) {
-                case svenhjol.charm.module.atlases.Atlases.MoveMode.TO_HAND:
+                case TO_HAND:
                     player.containerMenu.setCarried(inventory.removeMapByCoords(player.level, mapX, mapZ).map);
                     updateClient(player, atlasSlot);
                     break;
-                case svenhjol.charm.module.atlases.Atlases.MoveMode.TO_INVENTORY:
+                case TO_INVENTORY:
                     player.addItem(inventory.removeMapByCoords(player.level, mapX, mapZ).map);
                     updateClient(player, atlasSlot);
                     break;
-                case svenhjol.charm.module.atlases.Atlases.MoveMode.FROM_HAND:
+                case FROM_HAND:
                     ItemStack heldItem = player.containerMenu.getCarried();
                     if (heldItem.getItem() == Items.FILLED_MAP) {
                         Integer mapId = MapItem.getMapId(heldItem);
@@ -244,7 +239,7 @@ public class Atlases extends CharmModule {
                         }
                     }
                     break;
-                case svenhjol.charm.module.atlases.Atlases.MoveMode.FROM_INVENTORY:
+                case FROM_INVENTORY:
                     ItemStack stack = PlayerHelper.getInventory(player).getItem(mapX);
                     if (stack.getItem() == Items.FILLED_MAP) {
                         Integer mapId = MapItem.getMapId(stack);

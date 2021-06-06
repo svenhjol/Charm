@@ -1,7 +1,6 @@
 package svenhjol.charm.module.quadrants;
 
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -17,27 +16,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractChestBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.DoubleBlockCombiner;
-import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.init.CharmSounds;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.EntityEquipCallback;
-import svenhjol.charm.module.quadrants.QuadrantItem;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.init.CharmSounds;
+import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -46,7 +37,7 @@ import java.util.function.Predicate;
 @Module(mod = Charm.MOD_ID, description = "A tool that rotates blocks. When held in offhand it locks block orientation when placing.",
     requiresMixins = {"EntityEquipCallback"})
 public class Quadrants extends CharmModule {
-    public static svenhjol.charm.module.quadrants.QuadrantItem QUADRANT;
+    public static QuadrantItem QUADRANT;
     public static Map<UUID, Direction> lockedDirection = new HashMap<>();
     public static final ResourceLocation TRIGGER_HELD_TO_ALIGN = new ResourceLocation(Charm.MOD_ID, "held_to_align");
     public static final ResourceLocation TRIGGER_ROTATED_BLOCK = new ResourceLocation(Charm.MOD_ID, "rotated_block");

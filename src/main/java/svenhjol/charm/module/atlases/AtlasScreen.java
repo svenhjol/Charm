@@ -1,11 +1,15 @@
 package svenhjol.charm.module.atlases;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.MapRenderer;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.render.*;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.FriendlyByteBuf;
@@ -21,17 +25,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
-import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.client.CharmHandledScreen;
 import svenhjol.charm.client.CharmImageButton;
 import svenhjol.charm.helper.MapRenderHelper;
+import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.mixin.accessor.MapStateAccessor;
 import svenhjol.charm.mixin.accessor.ScreenAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
-import svenhjol.charm.module.atlases.AtlasContainer;
-import svenhjol.charm.module.atlases.AtlasInventory;
 import svenhjol.charm.module.atlases.AtlasInventory.Index;
 import svenhjol.charm.module.atlases.AtlasInventory.MapInfo;
+
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
@@ -39,21 +42,11 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 
-import static svenhjol.charm.module.atlases.AtlasInventory.Index;
-import static svenhjol.charm.module.atlases.AtlasInventory.MapInfo;
-
-import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
-import svenhjol.charm.module.atlases.Atlases;
-
 /**
  * @author Lukas
  * @since 28.12.2020
  */
-public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlases.AtlasContainer> {
+public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
     private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(Charm.MOD_ID, "textures/gui/atlas_container.png");
     private static final RenderType MAP_DECORATIONS = RenderType.text(new ResourceLocation("textures/map/map_icons.png"));
     private static final int SIZE = 48;
@@ -80,7 +73,7 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
         this.imageWidth = 175;
         this.imageHeight = 168;
         this.player = inv.player;
-        svenhjol.charm.module.atlases.AtlasInventory atlasInventory = screenContainer.getAtlasInventory();
+        AtlasInventory atlasInventory = screenContainer.getAtlasInventory();
         this.slot = inv.findSlotMatchingItem(atlasInventory.getAtlasItem());
         Map<Index, MapInfo> mapInfos = atlasInventory.getCurrentDimensionMapInfos(Minecraft.getInstance().level);
         lastSize = mapInfos.size();
@@ -167,7 +160,7 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
     @Override
     protected void slotClicked(Slot slotIn, int slotId, int mouseButton, ClickType type) {
         if (type == ClickType.QUICK_MOVE) {
-            sendAtlasTransfer(slot, ((SlotAccessor)slotIn).getIndex(), -1, svenhjol.charm.module.atlases.Atlases.MoveMode.FROM_INVENTORY);
+            sendAtlasTransfer(slot, ((SlotAccessor)slotIn).getIndex(), -1, Atlases.MoveMode.FROM_INVENTORY);
         } else {
             super.slotClicked(slotIn, slotId, mouseButton, type);
         }
@@ -207,13 +200,13 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
         }
     }
 
-    private void sendAtlasTransfer(int atlasSlot, int mapX, int mapZ, svenhjol.charm.module.atlases.Atlases.MoveMode mode) {
+    private void sendAtlasTransfer(int atlasSlot, int mapX, int mapZ, Atlases.MoveMode mode) {
         FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
         data.writeInt(atlasSlot);
         data.writeInt(mapX);
         data.writeInt(mapZ);
         data.writeEnum(mode);
-        ClientPlayNetworking.send(svenhjol.charm.module.atlases.Atlases.MSG_SERVER_ATLAS_TRANSFER, data);
+        ClientPlayNetworking.send(Atlases.MSG_SERVER_ATLAS_TRANSFER, data);
     }
 
     private int getX() {
@@ -305,7 +298,7 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
         private boolean fixedMapDistance = false;
 
         private boolean updateExtremes() {
-            svenhjol.charm.module.atlases.AtlasInventory inventory = menu.getAtlasInventory();
+            AtlasInventory inventory = menu.getAtlasInventory();
             Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(Minecraft.getInstance().level);
             if (mapInfos.isEmpty()) {
                 return false;
@@ -336,7 +329,7 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
             float mapSize = (float) NORMAL_SIZE / mapDistance;
             float mapScale = 1f / mapDistance;
             Index currentMin = corner != null ? corner : extremes.min;
-            svenhjol.charm.module.atlases.AtlasInventory inventory = menu.getAtlasInventory();
+            AtlasInventory inventory = menu.getAtlasInventory();
             Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(Minecraft.getInstance().level);
             Index playerIndex = inventory.getIndexOf(player);
             for (Map.Entry<Index, MapInfo> mapInfo : mapInfos.entrySet()) {
@@ -384,7 +377,7 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
             if (button == 0 && 0 <= normX && normX < 1 && 0 <= normY && normY < 1) {
                 ItemStack heldItem = menu.getCarried();
                 if (!heldItem.isEmpty()) {
-                    sendAtlasTransfer(slot, -1, -1, svenhjol.charm.module.atlases.Atlases.MoveMode.FROM_HAND);
+                    sendAtlasTransfer(slot, -1, -1, Atlases.MoveMode.FROM_HAND);
                 } else {
                     if (updateExtremes()) {
                         Index currentMin = corner != null ? corner : extremes.min;
@@ -393,7 +386,7 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
                         MapInfo mapInfo = mapInfos.get(index);
                         if (mapInfo != null) {
                             if (isShiftClick()) {
-                                sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, svenhjol.charm.module.atlases.Atlases.MoveMode.TO_INVENTORY);
+                                sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_INVENTORY);
                             } else {
                                 changeGui(getSingleMap(mapInfo));
                             }
@@ -408,15 +401,15 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
         @Override
         public void buttonClick(ButtonDirection direction) {
             switch (direction) {
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.LEFT:
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.TOP:
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.RIGHT:
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.BOTTOM:
+                case LEFT:
+                case TOP:
+                case RIGHT:
+                case BOTTOM:
                     if (corner != null) {
                         corner = corner.plus(direction.vector.multiply(mapDistance)).clamp(extremes.min, extremes.max.plus(1 - mapDistance));
                     }
                     break;
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.IN:
+                case IN:
                     fixedMapDistance = true;
                     --mapDistance;
                     if (mapDistance == 1) {
@@ -424,7 +417,7 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
                         changeGui(getSingleMap(mapInfos.get(corner != null ? corner : extremes.min)));
                     }
                     break;
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.OUT:
+                case OUT:
                     fixedMapDistance = true;
                     ++mapDistance;
                     break;
@@ -434,13 +427,13 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
         @Override
         public boolean buttonVisible(ButtonDirection direction) {
             switch (direction) {
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.LEFT:
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.TOP:
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.RIGHT:
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.BOTTOM:
+                case LEFT:
+                case TOP:
+                case RIGHT:
+                case BOTTOM:
                     return corner != null;
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.IN:
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.OUT:
+                case IN:
+                case OUT:
                     return true;
                 default:
                     return false;
@@ -450,17 +443,17 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
         @Override
         public boolean buttonEnabled(ButtonDirection direction) {
             switch (direction) {
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.LEFT:
+                case LEFT:
                     return corner != null && corner.x > extremes.min.x;
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.TOP:
+                case TOP:
                     return corner != null && corner.y > extremes.min.y;
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.RIGHT:
+                case RIGHT:
                     return corner != null && corner.x + mapDistance <= extremes.max.x;
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.BOTTOM:
+                case BOTTOM:
                     return corner != null && corner.y + mapDistance <= extremes.max.y;
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.IN:
+                case IN:
                     return mapDistance > 1;
-                case svenhjol.charm.module.atlases.AtlasScreen.ButtonDirection.OUT:
+                case OUT:
                     return mapDistance < maxMapDistance;
                 default:
                     return false;
@@ -506,7 +499,7 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
             if (direction == ButtonDirection.BACK) {
                 changeGui(getWorldMap());
             } else {
-                svenhjol.charm.module.atlases.AtlasInventory inventory = menu.getAtlasInventory();
+                AtlasInventory inventory = menu.getAtlasInventory();
                 Map<Index, MapInfo> mapInfos = inventory.getCurrentDimensionMapInfos(Minecraft.getInstance().level);
                 MapInfo mapInfo1 = mapInfos.get(inventory.convertCoordsToIndex(mapInfo.x, mapInfo.z).plus(direction.vector));
                 if (mapInfo1 != null) {
@@ -538,10 +531,10 @@ public class AtlasScreen extends CharmHandledScreen<svenhjol.charm.module.atlase
             if (button == 0 && getX() + LEFT <= mouseX && mouseX < getX() + LEFT + SIZE && getY() + TOP <= mouseY && mouseY < getY() + TOP + SIZE) {
                 ItemStack heldItem = menu.getCarried();
                 if (!heldItem.isEmpty()) {
-                    sendAtlasTransfer(slot, -1, -1, svenhjol.charm.module.atlases.Atlases.MoveMode.FROM_HAND);
+                    sendAtlasTransfer(slot, -1, -1, Atlases.MoveMode.FROM_HAND);
                 } else if (mapInfo != null) {
                     if (isShiftClick()) {
-                        sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, svenhjol.charm.module.atlases.Atlases.MoveMode.TO_INVENTORY);
+                        sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_INVENTORY);
                     } else {
                         sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_HAND);
                     }

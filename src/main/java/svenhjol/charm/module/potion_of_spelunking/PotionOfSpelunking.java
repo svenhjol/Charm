@@ -14,14 +14,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.potion_of_spelunking.PotionOfSpelunkingClient;
-import svenhjol.charm.module.potion_of_spelunking.SpelunkingEffect;
-import svenhjol.charm.module.potion_of_spelunking.SpelunkingPotion;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.*;
 
@@ -30,8 +27,8 @@ import java.util.*;
 public class PotionOfSpelunking extends CharmModule {
     private static final DyeColor DEFAULT_COLOR = DyeColor.WHITE;
 
-    public static svenhjol.charm.module.potion_of_spelunking.SpelunkingEffect SPELUNKING_EFFECT;
-    public static svenhjol.charm.module.potion_of_spelunking.SpelunkingPotion SPELUNKING_POTION;
+    public static SpelunkingEffect SPELUNKING_EFFECT;
+    public static SpelunkingPotion SPELUNKING_POTION;
     public static final ResourceLocation MSG_CLIENT_HAS_EFFECT = new ResourceLocation(Charm.MOD_ID, "client_set_particles");
     public static final ResourceLocation TRIGGER_HAS_SPELUNKING_EFFECT = new ResourceLocation(Charm.MOD_ID, "has_spelunking_effect");
 

@@ -6,9 +6,6 @@ import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.module.mooblooms.MoobloomsClient;
-import svenhjol.charm.module.mooblooms.MoobloomEntity;
-import svenhjol.charm.module.mooblooms.MoobloomFlowerFeatureRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MoobloomEntityRenderer extends MobRenderer<MoobloomEntity, CowModel<MoobloomEntity>> {
@@ -18,7 +15,7 @@ public class MoobloomEntityRenderer extends MobRenderer<MoobloomEntity, CowModel
     }
 
     @Override
-    public ResourceLocation getTexture(MoobloomEntity entity) {
+    public ResourceLocation getTextureLocation(MoobloomEntity entity) {
         return entity.getMoobloomTexture();
     }
 }

@@ -3,25 +3,16 @@ package svenhjol.charm.module.variant_mob_textures;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.passive.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.animal.Pig;
-import net.minecraft.world.entity.animal.Sheep;
-import net.minecraft.world.entity.animal.SnowGolem;
-import net.minecraft.world.entity.animal.Squid;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.enums.ICharmEnum;
 import svenhjol.charm.event.ClientPlayerJoinCallback;
-import svenhjol.charm.module.variant_mob_textures.VariantMobRenderer;
-import svenhjol.charm.module.variant_mob_textures.VariantMobTextures;
+import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.*;
 
@@ -54,26 +45,26 @@ public class VariantMobTexturesClient extends CharmClientModule {
     public void init() {
         ClientPlayerJoinCallback.EVENT.register(this::handlePlayerJoin);
 
-        if (svenhjol.charm.module.variant_mob_textures.VariantMobTextures.variantChickens)
-            EntityRendererRegistry.INSTANCE.register(EntityType.CHICKEN, svenhjol.charm.module.variant_mob_textures.VariantMobRenderer.Chicken::new);
+        if (VariantMobTextures.variantChickens)
+            EntityRendererRegistry.INSTANCE.register(EntityType.CHICKEN, VariantMobRenderer.RenderChicken::new);
 
-        if (svenhjol.charm.module.variant_mob_textures.VariantMobTextures.variantCows)
-            EntityRendererRegistry.INSTANCE.register(EntityType.COW, svenhjol.charm.module.variant_mob_textures.VariantMobRenderer.Cow::new);
+        if (VariantMobTextures.variantCows)
+            EntityRendererRegistry.INSTANCE.register(EntityType.COW, VariantMobRenderer.RenderCow::new);
 
-        if (svenhjol.charm.module.variant_mob_textures.VariantMobTextures.variantPigs)
-            EntityRendererRegistry.INSTANCE.register(EntityType.PIG, svenhjol.charm.module.variant_mob_textures.VariantMobRenderer.Pig::new);
+        if (VariantMobTextures.variantPigs)
+            EntityRendererRegistry.INSTANCE.register(EntityType.PIG, VariantMobRenderer.RenderPig::new);
 
-        if (svenhjol.charm.module.variant_mob_textures.VariantMobTextures.variantSheep)
-            EntityRendererRegistry.INSTANCE.register(EntityType.SHEEP, svenhjol.charm.module.variant_mob_textures.VariantMobRenderer.Sheep::new);
+        if (VariantMobTextures.variantSheep)
+            EntityRendererRegistry.INSTANCE.register(EntityType.SHEEP, VariantMobRenderer.RenderSheep::new);
 
-        if (svenhjol.charm.module.variant_mob_textures.VariantMobTextures.variantSnowGolems)
-            EntityRendererRegistry.INSTANCE.register(EntityType.SNOW_GOLEM, svenhjol.charm.module.variant_mob_textures.VariantMobRenderer.SnowGolem::new);
+        if (VariantMobTextures.variantSnowGolems)
+            EntityRendererRegistry.INSTANCE.register(EntityType.SNOW_GOLEM, VariantMobRenderer.RenderSnowGolem::new);
 
-        if (svenhjol.charm.module.variant_mob_textures.VariantMobTextures.variantSquids)
-            EntityRendererRegistry.INSTANCE.register(EntityType.SQUID, svenhjol.charm.module.variant_mob_textures.VariantMobRenderer.Squid::new);
+        if (VariantMobTextures.variantSquids)
+            EntityRendererRegistry.INSTANCE.register(EntityType.SQUID, VariantMobRenderer.RenderSquid::new);
 
-        if (svenhjol.charm.module.variant_mob_textures.VariantMobTextures.variantWolves)
-            EntityRendererRegistry.INSTANCE.register(EntityType.WOLF, VariantMobRenderer.Wolf::new);
+        if (VariantMobTextures.variantWolves)
+            EntityRendererRegistry.INSTANCE.register(EntityType.WOLF, VariantMobRenderer.RenderWolf::new);
 
     }
 
@@ -201,7 +192,7 @@ public class VariantMobTexturesClient extends CharmClientModule {
 
     public static ResourceLocation getRandomTexture(Entity entity, List<ResourceLocation> normalSet, List<ResourceLocation> rareSet) {
         UUID id = entity.getUUID();
-        boolean isRare = svenhjol.charm.module.variant_mob_textures.VariantMobTextures.rareVariants && !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % VariantMobTextures.rarity == 0;
+        boolean isRare = VariantMobTextures.rareVariants && !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % VariantMobTextures.rarity == 0;
 
         List<ResourceLocation> set = isRare ? rareSet : normalSet;
         int choice = Math.abs((int)(id.getMostSignificantBits() % set.size()));

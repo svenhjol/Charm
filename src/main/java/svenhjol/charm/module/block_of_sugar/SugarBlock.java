@@ -12,11 +12,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.CharmFallingBlock;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.module.block_of_sugar.BlockOfSugar;
+import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.module.bumblezone.Bumblezone;
 
 import java.util.HashSet;
@@ -26,7 +25,7 @@ public class SugarBlock extends CharmFallingBlock {
     public SugarBlock(CharmModule module) {
         super(module, "sugar_block", FabricBlockSettings
             .of(Material.SAND)
-            .sound(SoundType.SAND)
+            .sounds(SoundType.SAND)
             .breakByTool(FabricToolTags.SHOVELS)
             .strength(0.5F)
         );

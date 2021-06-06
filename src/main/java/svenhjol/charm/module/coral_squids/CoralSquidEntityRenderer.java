@@ -1,14 +1,11 @@
 package svenhjol.charm.module.coral_squids;
 
-import svenhjol.charm.module.coral_squids.CoralSquidsClient;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import svenhjol.charm.module.coral_squids.CoralSquidEntity;
-import svenhjol.charm.module.coral_squids.CoralSquidEntityModel;
 
 public class CoralSquidEntityRenderer extends MobRenderer<CoralSquidEntity, CoralSquidEntityModel<CoralSquidEntity>> {
     public CoralSquidEntityRenderer(EntityRendererProvider.Context context) {
@@ -16,7 +13,7 @@ public class CoralSquidEntityRenderer extends MobRenderer<CoralSquidEntity, Cora
     }
 
     @Override
-    public ResourceLocation getTexture(CoralSquidEntity entity) {
+    public ResourceLocation getTextureLocation(CoralSquidEntity entity) {
         return entity.getTexture();
     }
 

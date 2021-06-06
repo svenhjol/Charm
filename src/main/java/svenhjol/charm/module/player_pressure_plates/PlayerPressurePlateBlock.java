@@ -2,7 +2,6 @@ package svenhjol.charm.module.player_pressure_plates;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
@@ -17,8 +16,8 @@ import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.ICharmBlock;
+import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -28,7 +27,7 @@ public class PlayerPressurePlateBlock extends PressurePlateBlock implements ICha
 
     public PlayerPressurePlateBlock(CharmModule module) {
         super(null, FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_BLACK)
-            .requiresCorrectToolForDrops()
+            .requiresTool()
             .breakByTool(FabricToolTags.PICKAXES)
             .noCollission()
             .strength(2F, 1200.0F));

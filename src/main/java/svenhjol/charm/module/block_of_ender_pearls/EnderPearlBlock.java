@@ -11,8 +11,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.block.CharmBlock;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.Random;
 
@@ -20,7 +20,7 @@ public class EnderPearlBlock extends CharmBlock {
     public EnderPearlBlock(CharmModule module) {
         super(module, "ender_pearl_block", FabricBlockSettings
             .of(Material.GLASS)
-            .sound(SoundType.GLASS)
+            .sounds(SoundType.GLASS)
             .breakByTool(FabricToolTags.PICKAXES)
             .strength(2.0F)
         );

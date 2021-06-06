@@ -26,9 +26,6 @@ import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.enums.CharmWoodMaterial;
-import svenhjol.charm.module.storage_crates.StorageCrateBlock;
-import svenhjol.charm.module.storage_crates.StorageCrateBlockEntity;
-import svenhjol.charm.module.storage_crates.StorageCratesClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,8 +34,8 @@ import java.util.Map;
 public class StorageCrates extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "storage_crate");
     public static final ResourceLocation MSG_CLIENT_UPDATED_CRATE = new ResourceLocation(Charm.MOD_ID, "client_interacted_with_crate");
-    public static Map<IVariantMaterial, svenhjol.charm.module.storage_crates.StorageCrateBlock> STORAGE_CRATE_BLOCKS = new HashMap<>();
-    public static BlockEntityType<svenhjol.charm.module.storage_crates.StorageCrateBlockEntity> BLOCK_ENTITY;
+    public static Map<IVariantMaterial, StorageCrateBlock> STORAGE_CRATE_BLOCKS = new HashMap<>();
+    public static BlockEntityType<StorageCrateBlockEntity> BLOCK_ENTITY;
 
     @Config(name = "Maximum stacks", description = "Number of stacks of a single item or block that a storage crate will hold.")
     public static int maximumStacks = 54;
@@ -49,7 +46,7 @@ public class StorageCrates extends CharmModule {
     @Override
     public void register() {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
-        BLOCK_ENTITY = RegistryHelper.blockEntity(ID, svenhjol.charm.module.storage_crates.StorageCrateBlockEntity::new);
+        BLOCK_ENTITY = RegistryHelper.blockEntity(ID, StorageCrateBlockEntity::new);
 
         VanillaVariantMaterial.getTypes().forEach(material -> {
             registerStorageCrate(this, material);
@@ -60,8 +57,8 @@ public class StorageCrates extends CharmModule {
         }
     }
 
-    public static svenhjol.charm.module.storage_crates.StorageCrateBlock registerStorageCrate(CharmModule module, IVariantMaterial material) {
-        svenhjol.charm.module.storage_crates.StorageCrateBlock crate = new svenhjol.charm.module.storage_crates.StorageCrateBlock(module, material);
+    public static StorageCrateBlock registerStorageCrate(CharmModule module, IVariantMaterial material) {
+        StorageCrateBlock crate = new StorageCrateBlock(module, material);
         STORAGE_CRATE_BLOCKS.put(material, crate);
         RegistryHelper.addBlocksToBlockEntity(BLOCK_ENTITY, crate);
         return crate;
@@ -76,8 +73,8 @@ public class StorageCrates extends CharmModule {
         boolean isSneaking = player.isShiftKeyDown();
 
         BlockEntity blockEntity = world.getBlockEntity(hitResult.getBlockPos());
-        if (blockEntity instanceof svenhjol.charm.module.storage_crates.StorageCrateBlockEntity) {
-            svenhjol.charm.module.storage_crates.StorageCrateBlockEntity crate = (StorageCrateBlockEntity) blockEntity;
+        if (blockEntity instanceof StorageCrateBlockEntity) {
+            StorageCrateBlockEntity crate = (StorageCrateBlockEntity) blockEntity;
 
             if (!world.isClientSide) {
                 if (!crate.isEmpty() && (isSneaking || held.isEmpty())) {

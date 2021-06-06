@@ -1,8 +1,5 @@
 package svenhjol.charm.module.variant_chests;
 
-import svenhjol.charm.enums.IVariantMaterial;
-
-import javax.annotation.Nullable;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.ChestRenderer;
@@ -11,13 +8,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import svenhjol.charm.module.variant_chests.VariantChestBlockEntity;
-import svenhjol.charm.module.variant_chests.VariantTrappedChestBlockEntity;
+import svenhjol.charm.enums.IVariantMaterial;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VariantChestBlockEntityRenderer<T extends svenhjol.charm.module.variant_chests.VariantChestBlockEntity & LidBlockEntity> extends ChestRenderer<T> {
+public class VariantChestBlockEntityRenderer<T extends VariantChestBlockEntity & LidBlockEntity> extends ChestRenderer<T> {
     private static final Map<IVariantMaterial, Map<ChestType, Material>> normalTextures = new HashMap<>();
     private static final Map<IVariantMaterial, Map<ChestType, Material>> trappedTextures = new HashMap<>();
 
@@ -38,7 +35,7 @@ public class VariantChestBlockEntityRenderer<T extends svenhjol.charm.module.var
 
     @Nullable
     public static Material getMaterial(BlockEntity blockEntity, ChestType chestType) {
-        if (!(blockEntity instanceof svenhjol.charm.module.variant_chests.VariantChestBlockEntity))
+        if (!(blockEntity instanceof VariantChestBlockEntity))
             return null;
 
         Map<IVariantMaterial, Map<ChestType, Material>> textures = blockEntity instanceof VariantTrappedChestBlockEntity

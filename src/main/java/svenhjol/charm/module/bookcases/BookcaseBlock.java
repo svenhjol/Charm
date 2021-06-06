@@ -1,10 +1,5 @@
 package svenhjol.charm.module.bookcases;
 
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.block.CharmBlockWithEntity;
-import svenhjol.charm.enums.IVariantMaterial;
-
-import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
@@ -24,10 +19,14 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
-import svenhjol.charm.module.bookcases.BookcaseBlockEntity;
+import svenhjol.charm.block.CharmBlockWithEntity;
+import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.module.CharmModule;
+
+import javax.annotation.Nullable;
 
 public class BookcaseBlock extends CharmBlockWithEntity {
-    public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, svenhjol.charm.module.bookcases.BookcaseBlockEntity.SIZE);
+    public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, BookcaseBlockEntity.SIZE);
 
     protected CharmModule module;
     protected IVariantMaterial type;
@@ -50,8 +49,8 @@ public class BookcaseBlock extends CharmBlockWithEntity {
         if (!world.isClientSide && !player.isSpectator()) {
 
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof svenhjol.charm.module.bookcases.BookcaseBlockEntity) {
-                svenhjol.charm.module.bookcases.BookcaseBlockEntity bookcase = (svenhjol.charm.module.bookcases.BookcaseBlockEntity)blockEntity;
+            if (blockEntity instanceof BookcaseBlockEntity) {
+                BookcaseBlockEntity bookcase = (BookcaseBlockEntity)blockEntity;
                 bookcase.unpackLootTable(player);
                 player.openMenu(bookcase);
             }
@@ -64,7 +63,7 @@ public class BookcaseBlock extends CharmBlockWithEntity {
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tile = world.getBlockEntity(pos);
-            if (tile instanceof svenhjol.charm.module.bookcases.BookcaseBlockEntity) {
+            if (tile instanceof BookcaseBlockEntity) {
                 Containers.dropContents(world, pos, (Container) tile);
                 world.updateNeighbourForOutputSignal(pos, this);
             }
@@ -75,8 +74,8 @@ public class BookcaseBlock extends CharmBlockWithEntity {
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if (stack.hasCustomHoverName()) {
             BlockEntity tile = world.getBlockEntity(pos);
-            if (tile instanceof svenhjol.charm.module.bookcases.BookcaseBlockEntity)
-                ((svenhjol.charm.module.bookcases.BookcaseBlockEntity) tile).setCustomName(stack.getHoverName());
+            if (tile instanceof BookcaseBlockEntity)
+                ((BookcaseBlockEntity) tile).setCustomName(stack.getHoverName());
         }
     }
 

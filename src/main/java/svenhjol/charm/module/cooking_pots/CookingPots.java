@@ -14,10 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import svenhjol.charm.module.cooking_pots.CookingPotBlock;
-import svenhjol.charm.module.cooking_pots.CookingPotBlockEntity;
-import svenhjol.charm.module.cooking_pots.CookingPotsClient;
-import svenhjol.charm.module.cooking_pots.MixedStewItem;
 
 @Module(mod = Charm.MOD_ID, client = CookingPotsClient.class, description = "Cooking pots let you combine up to 64 food items, keeping an average of all hunger and saturation. Use wooden bowls to extract stew from the pot.")
 public class CookingPots extends CharmModule {
@@ -27,9 +23,9 @@ public class CookingPots extends CharmModule {
     public static final ResourceLocation TRIGGER_ADDED_ITEM = new ResourceLocation(Charm.MOD_ID, "added_item_to_pot");
     public static final ResourceLocation TRIGGER_TAKEN_FOOD = new ResourceLocation(Charm.MOD_ID, "taken_food_from_pot");
 
-    public static svenhjol.charm.module.cooking_pots.CookingPotBlock COOKING_POT;
-    public static BlockEntityType<svenhjol.charm.module.cooking_pots.CookingPotBlockEntity> BLOCK_ENTITY;
-    public static svenhjol.charm.module.cooking_pots.MixedStewItem MIXED_STEW;
+    public static CookingPotBlock COOKING_POT;
+    public static BlockEntityType<CookingPotBlockEntity> BLOCK_ENTITY;
+    public static MixedStewItem MIXED_STEW;
 
     public static final ResourceLocation MSG_CLIENT_ADDED_TO_POT = new ResourceLocation(Charm.MOD_ID, "client_added_to_pot");
 

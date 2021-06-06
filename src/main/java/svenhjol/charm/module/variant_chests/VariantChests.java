@@ -12,11 +12,6 @@ import java.util.Map;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import svenhjol.charm.module.variant_chests.VariantChestBlock;
-import svenhjol.charm.module.variant_chests.VariantChestBlockEntity;
-import svenhjol.charm.module.variant_chests.VariantChestsClient;
-import svenhjol.charm.module.variant_chests.VariantTrappedChestBlock;
-import svenhjol.charm.module.variant_chests.VariantTrappedChestBlockEntity;
 
 @Module(mod = Charm.MOD_ID, priority = 10, client = VariantChestsClient.class, description = "Chests available in all types of vanilla wood.",
     requiresMixins = {"StitchTextureCallback", "RenderBlockItemCallback"})
@@ -24,8 +19,8 @@ public class VariantChests extends CharmModule {
     public static final ResourceLocation NORMAL_ID = new ResourceLocation(Charm.MOD_ID, "variant_chest");
     public static final ResourceLocation TRAPPED_ID = new ResourceLocation(Charm.MOD_ID, "trapped_chest");
 
-    public static final Map<IVariantMaterial, svenhjol.charm.module.variant_chests.VariantChestBlock> NORMAL_CHEST_BLOCKS = new HashMap<>();
-    public static final Map<IVariantMaterial, svenhjol.charm.module.variant_chests.VariantTrappedChestBlock> TRAPPED_CHEST_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, VariantChestBlock> NORMAL_CHEST_BLOCKS = new HashMap<>();
+    public static final Map<IVariantMaterial, VariantTrappedChestBlock> TRAPPED_CHEST_BLOCKS = new HashMap<>();
 
     public static BlockEntityType<svenhjol.charm.module.variant_chests.VariantChestBlockEntity> NORMAL_BLOCK_ENTITY;
     public static BlockEntityType<svenhjol.charm.module.variant_chests.VariantTrappedChestBlockEntity> TRAPPED_BLOCK_ENTITY;
@@ -41,15 +36,15 @@ public class VariantChests extends CharmModule {
         }
     }
 
-    public static svenhjol.charm.module.variant_chests.VariantChestBlock registerChest(CharmModule module, IVariantMaterial material) {
-        svenhjol.charm.module.variant_chests.VariantChestBlock chest = new VariantChestBlock(module, material);
+    public static VariantChestBlock registerChest(CharmModule module, IVariantMaterial material) {
+        VariantChestBlock chest = new VariantChestBlock(module, material);
         NORMAL_CHEST_BLOCKS.put(material, chest);
         RegistryHelper.addBlocksToBlockEntity(NORMAL_BLOCK_ENTITY, chest);
         return chest;
     }
 
-    public static svenhjol.charm.module.variant_chests.VariantTrappedChestBlock registerTrappedChest(CharmModule module, IVariantMaterial material) {
-        svenhjol.charm.module.variant_chests.VariantTrappedChestBlock chest = new VariantTrappedChestBlock(module, material);
+    public static VariantTrappedChestBlock registerTrappedChest(CharmModule module, IVariantMaterial material) {
+        VariantTrappedChestBlock chest = new VariantTrappedChestBlock(module, material);
         TRAPPED_CHEST_BLOCKS.put(material, chest);
         RegistryHelper.addBlocksToBlockEntity(TRAPPED_BLOCK_ENTITY, chest);
         return chest;

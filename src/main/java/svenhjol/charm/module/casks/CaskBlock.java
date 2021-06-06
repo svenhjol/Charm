@@ -4,7 +4,6 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -24,11 +23,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -40,12 +35,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.block.CharmBlockWithEntity;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.module.casks.CaskBlockEntity;
-import svenhjol.charm.module.casks.Casks;
+import svenhjol.charm.init.CharmSounds;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.List;
 import java.util.Objects;
@@ -101,8 +94,8 @@ public class CaskBlock extends CharmBlockWithEntity {
         ItemStack held = player.getItemInHand(hand);
 
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof svenhjol.charm.module.casks.CaskBlockEntity) {
-            svenhjol.charm.module.casks.CaskBlockEntity cask = (svenhjol.charm.module.casks.CaskBlockEntity) blockEntity;
+        if (blockEntity instanceof CaskBlockEntity) {
+            CaskBlockEntity cask = (CaskBlockEntity) blockEntity;
 
             if (!world.isClientSide) {
                 if (held.getItem() == Items.NAME_TAG && held.hasCustomHoverName()) {
@@ -125,7 +118,7 @@ public class CaskBlock extends CharmBlockWithEntity {
 
                         // do advancement for taking brew
                         if (cask.portions > 1 && cask.effects.size() > 1) {
-                            svenhjol.charm.module.casks.Casks.triggerTakenBrew((ServerPlayer) player);
+                            Casks.triggerTakenBrew((ServerPlayer) player);
                         }
                     }
                 } else if (held.getItem() == Items.POTION) {
@@ -140,7 +133,7 @@ public class CaskBlock extends CharmBlockWithEntity {
                         // send message to client that an item was added
                         FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
                         data.writeLong(pos.asLong());
-                        ServerPlayNetworking.send((ServerPlayer) player, svenhjol.charm.module.casks.Casks.MSG_CLIENT_ADDED_TO_CASK, data);
+                        ServerPlayNetworking.send((ServerPlayer) player, Casks.MSG_CLIENT_ADDED_TO_CASK, data);
 
                         // do advancement for filling with potions
                         if (cask.portions > 1 && cask.effects.size() > 1)
@@ -168,7 +161,7 @@ public class CaskBlock extends CharmBlockWithEntity {
     @Override
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         if (itemStack.hasCustomHoverName()) {
-            svenhjol.charm.module.casks.CaskBlockEntity cask = getBlockEntity(world, pos);
+            CaskBlockEntity cask = getBlockEntity(world, pos);
             if (cask != null) {
                 cask.name = itemStack.getHoverName().getContents();
                 cask.setChanged();
@@ -201,7 +194,7 @@ public class CaskBlock extends CharmBlockWithEntity {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new svenhjol.charm.module.casks.CaskBlockEntity(pos, state);
+        return new CaskBlockEntity(pos, state);
     }
 
     @Override
@@ -211,21 +204,21 @@ public class CaskBlock extends CharmBlockWithEntity {
 
     @Override
     public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-        svenhjol.charm.module.casks.CaskBlockEntity cask = this.getBlockEntity(world, pos);
+        CaskBlockEntity cask = this.getBlockEntity(world, pos);
         if (cask == null)
             return 0;
 
         if (cask.portions == 0)
             return 0;
 
-        return Math.round((cask.portions / (float) svenhjol.charm.module.casks.CaskBlockEntity.MAX_PORTIONS) * 16);
+        return Math.round((cask.portions / (float) CaskBlockEntity.MAX_PORTIONS) * 16);
     }
 
     @Nullable
-    public svenhjol.charm.module.casks.CaskBlockEntity getBlockEntity(Level world, BlockPos pos) {
+    public CaskBlockEntity getBlockEntity(Level world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof svenhjol.charm.module.casks.CaskBlockEntity)
-            return (svenhjol.charm.module.casks.CaskBlockEntity) blockEntity;
+        if (blockEntity instanceof CaskBlockEntity)
+            return (CaskBlockEntity) blockEntity;
 
         return null;
     }
@@ -235,7 +228,7 @@ public class CaskBlock extends CharmBlockWithEntity {
     public void animateTick(BlockState state, Level world, BlockPos pos, Random random) {
         if (random.nextInt(2) == 0) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof svenhjol.charm.module.casks.CaskBlockEntity) {
+            if (blockEntity instanceof CaskBlockEntity) {
                 List<MobEffect> effects = ((CaskBlockEntity) blockEntity).effects
                     .stream()
                     .map(Registry.MOB_EFFECT::get)

@@ -16,14 +16,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.event.RenderTooltipCallback;
+import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.TooltipHelper;
 import svenhjol.charm.mixin.accessor.PlayerEntityAccessor;
-import svenhjol.charm.module.ender_bundles.EnderBundleItem;
-import svenhjol.charm.module.ender_bundles.EnderBundles;
+import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -41,10 +39,10 @@ public class EnderBundlesClient extends CharmClientModule {
     public void register() {
         // set up scroll item model predicate
         ModelPredicateProviderRegistryAccessor.callRegister(new ResourceLocation("ender_bundle_filled"), (stack, world, entity, i)
-            -> svenhjol.charm.module.ender_bundles.EnderBundleItem.getAmountFilled());
+            -> EnderBundleItem.getAmountFilled());
 
         // register callbacks
-        ClientPlayNetworking.registerGlobalReceiver(svenhjol.charm.module.ender_bundles.EnderBundles.MSG_CLIENT_UPDATE_ENDER_INVENTORY, this::handleClientUpdateEnderInventory);
+        ClientPlayNetworking.registerGlobalReceiver(EnderBundles.MSG_CLIENT_UPDATE_ENDER_INVENTORY, this::handleClientUpdateEnderInventory);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
     }
 
@@ -79,7 +77,7 @@ public class EnderBundlesClient extends CharmClientModule {
 
         // do this sparingly
         if (client.level.getGameTime() % 60 == 0) {
-            ClientPlayNetworking.send(svenhjol.charm.module.ender_bundles.EnderBundles.MSG_SERVER_UPDATE_ENDER_INVENTORY, new FriendlyByteBuf(Unpooled.buffer()));
+            ClientPlayNetworking.send(EnderBundles.MSG_SERVER_UPDATE_ENDER_INVENTORY, new FriendlyByteBuf(Unpooled.buffer()));
         }
     }
 

@@ -1,22 +1,14 @@
 package svenhjol.charm.module.inventory_tidying;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.narration.NarratableEntry;
-import net.minecraft.client.gui.screen.ingame.*;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.BeaconScreen;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
-import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
-import net.minecraft.client.gui.screens.inventory.DispenserScreen;
-import net.minecraft.client.gui.screens.inventory.HopperScreen;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.client.gui.screens.inventory.MerchantScreen;
-import net.minecraft.client.gui.screens.inventory.ShulkerBoxScreen;
+import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
@@ -35,9 +27,6 @@ import java.util.*;
 
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.BE;
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PLAYER;
-
-import com.mojang.blaze3d.vertex.PoseStack;
-import svenhjol.charm.module.inventory_tidying.InventoryTidying;
 
 public class InventoryTidyingClient extends CharmClientModule {
     public static final int LEFT = 159;

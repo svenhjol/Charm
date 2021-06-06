@@ -1,7 +1,6 @@
 package svenhjol.charm.module.biome_dungeons;
 
 import com.mojang.serialization.Codec;
-import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.Pools;
@@ -23,6 +22,8 @@ import net.minecraft.world.level.levelgen.structure.NoiseAffectingStructureStart
 import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 
+import java.util.Random;
+
 public class DungeonFeature extends StructureFeature<JigsawConfiguration> {
     public static final int MIN_Y = 2;
 
@@ -39,7 +40,8 @@ public class DungeonFeature extends StructureFeature<JigsawConfiguration> {
             super(feature, chunkPos, i, l);
         }
 
-        public void init(RegistryAccess dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, JigsawConfiguration structurePoolFeatureConfig, LevelHeightAccessor heightLimitView) {
+        @Override
+        public void generatePieces(RegistryAccess dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, JigsawConfiguration structurePoolFeatureConfig, LevelHeightAccessor heightLimitView) {
             int x = chunkPos.getMinBlockX();
             int y = MIN_Y + new Random().nextInt(44) + 4;
             int z = chunkPos.getMinBlockZ();

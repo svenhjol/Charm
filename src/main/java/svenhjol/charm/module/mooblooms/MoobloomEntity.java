@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -18,11 +17,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.Shearable;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -39,8 +34,6 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Pair;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.mooblooms.MoobloomPlantFlowerGoal;
-import svenhjol.charm.module.mooblooms.Mooblooms;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -116,7 +109,7 @@ public class MoobloomEntity extends Cow implements Shearable {
                 player.setItemInHand(hand, out);
                 this.entityData.set(POLLINATED, false);
 
-                svenhjol.charm.module.mooblooms.Mooblooms.triggerMilkedMoobloom((ServerPlayer) player);
+                Mooblooms.triggerMilkedMoobloom((ServerPlayer) player);
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide);

@@ -7,7 +7,6 @@ import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -23,15 +22,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -51,8 +42,6 @@ import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ItemNBTHelper;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.module.coral_squids.CoralSquidBucketItem;
-import svenhjol.charm.module.coral_squids.CoralSquids;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -174,7 +163,7 @@ public class CoralSquidEntity extends WaterAnimal {
         super.dropCustomDeathLoot(source, lootingMultiplier, allowDrops);
         Entity attacker = source.getEntity();
 
-        if (attacker instanceof Player && random.nextFloat() < svenhjol.charm.module.coral_squids.CoralSquids.dropChance)
+        if (attacker instanceof Player && random.nextFloat() < CoralSquids.dropChance)
             this.spawnAtLocation(DROPS.get(getCoralSquidType()));
     }
 

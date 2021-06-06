@@ -20,13 +20,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.event.RenderTooltipCallback;
-import svenhjol.charm.module.cooking_pots.CookingPotBlock;
-import svenhjol.charm.module.cooking_pots.CookingPotBlockEntityRenderer;
-import svenhjol.charm.module.cooking_pots.CookingPots;
-import svenhjol.charm.module.cooking_pots.MixedStewItem;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -44,14 +40,14 @@ public class CookingPotsClient extends CharmClientModule {
     @Override
     public void register() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
-        ColorProviderRegistry.BLOCK.register(this::handleColorProvider, svenhjol.charm.module.cooking_pots.CookingPots.COOKING_POT);
-        BlockEntityRendererRegistry.INSTANCE.register(svenhjol.charm.module.cooking_pots.CookingPots.BLOCK_ENTITY, CookingPotBlockEntityRenderer::new);
-        ClientPlayNetworking.registerGlobalReceiver(svenhjol.charm.module.cooking_pots.CookingPots.MSG_CLIENT_ADDED_TO_POT, this::handleClientAddedToPot);
+        ColorProviderRegistry.BLOCK.register(this::handleColorProvider, CookingPots.COOKING_POT);
+        BlockEntityRendererRegistry.INSTANCE.register(CookingPots.BLOCK_ENTITY, CookingPotBlockEntityRenderer::new);
+        ClientPlayNetworking.registerGlobalReceiver(CookingPots.MSG_CLIENT_ADDED_TO_POT, this::handleClientAddedToPot);
     }
 
     private int handleColorProvider(BlockState state, @Nullable BlockAndTintGetter world, @Nullable BlockPos pos, int tintIndex) {
         if (world != null) {
-            if (state.getBlock() == svenhjol.charm.module.cooking_pots.CookingPots.COOKING_POT && state.getValue(CookingPotBlock.LIQUID) == 2) {
+            if (state.getBlock() == CookingPots.COOKING_POT && state.getValue(CookingPotBlock.LIQUID) == 2) {
                 return 0x602A00;
             }
         }
@@ -59,7 +55,7 @@ public class CookingPotsClient extends CharmClientModule {
     }
 
     private void handleRenderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
-        if (stack == null || stack.getItem() != svenhjol.charm.module.cooking_pots.CookingPots.MIXED_STEW)
+        if (stack == null || stack.getItem() != CookingPots.MIXED_STEW)
             return;
 
         List<ResourceLocation> contents = MixedStewItem.getContents(stack);

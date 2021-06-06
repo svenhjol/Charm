@@ -14,14 +14,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.glowballs.GlowballBlobBlock;
-import svenhjol.charm.module.glowballs.GlowballEntity;
-import svenhjol.charm.module.glowballs.GlowballItem;
-import svenhjol.charm.module.glowballs.GlowballsClient;
+import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, client = GlowballsClient.class, description = "Glowballs can be thrown to produce a light source where they impact.",
     requiresMixins = {"ClientSpawnEntityCallback"})
@@ -29,9 +25,9 @@ public class Glowballs extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "glowball");
     public static final ResourceLocation TRIGGER_THROWN_GLOWBALL = new ResourceLocation(Charm.MOD_ID, "thrown_glowball");
 
-    public static svenhjol.charm.module.glowballs.GlowballItem GLOWBALL_ITEM;
-    public static svenhjol.charm.module.glowballs.GlowballBlobBlock GLOWBALL_BLOCK;
-    public static EntityType<svenhjol.charm.module.glowballs.GlowballEntity> GLOWBALL;
+    public static GlowballItem GLOWBALL_ITEM;
+    public static GlowballBlobBlock GLOWBALL_BLOCK;
+    public static EntityType<GlowballEntity> GLOWBALL;
 
     @Override
     public void register() {
@@ -39,7 +35,7 @@ public class Glowballs extends CharmModule {
         GLOWBALL_ITEM = new GlowballItem(this);
 
         GLOWBALL = RegistryHelper.entity(ID, FabricEntityTypeBuilder
-            .<svenhjol.charm.module.glowballs.GlowballEntity>create(MobCategory.MISC, svenhjol.charm.module.glowballs.GlowballEntity::new)
+            .<GlowballEntity>create(MobCategory.MISC, GlowballEntity::new)
             .trackRangeBlocks(4)
             .trackedUpdateRate(10)
             .dimensions(EntityDimensions.fixed(0.25F, 0.25F)));

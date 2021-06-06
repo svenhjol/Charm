@@ -18,26 +18,25 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import svenhjol.charm.integration.rei.FiringDisplay;
 
 import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class FiringCategory implements TransferDisplayCategory<svenhjol.charm.integration.rei.FiringDisplay> {
-    private CategoryIdentifier<? extends svenhjol.charm.integration.rei.FiringDisplay> identifier;
+public class FiringCategory implements TransferDisplayCategory<FiringDisplay> {
+    private CategoryIdentifier<? extends FiringDisplay> identifier;
     private EntryStack<?> logo;
     private String categoryName;
 
-    public FiringCategory(CategoryIdentifier<? extends svenhjol.charm.integration.rei.FiringDisplay> identifier, EntryStack<?> logo, String categoryName) {
+    public FiringCategory(CategoryIdentifier<? extends FiringDisplay> identifier, EntryStack<?> logo, String categoryName) {
         this.identifier = identifier;
         this.logo = logo;
         this.categoryName = categoryName;
     }
 
     @Override
-    public void renderRedSlots(PoseStack matrices, List<Widget> widgets, Rectangle bounds, svenhjol.charm.integration.rei.FiringDisplay display, IntList redSlots) {
+    public void renderRedSlots(PoseStack matrices, List<Widget> widgets, Rectangle bounds, FiringDisplay display, IntList redSlots) {
         Point startPoint = new Point(bounds.getCenterX() - 41, bounds.y + 10);
         matrices.pushPose();
         matrices.translate(0, 0, 400);
@@ -48,7 +47,7 @@ public class FiringCategory implements TransferDisplayCategory<svenhjol.charm.in
     }
 
     @Override
-    public List<Widget> setupDisplay(svenhjol.charm.integration.rei.FiringDisplay display, Rectangle bounds) {
+    public List<Widget> setupDisplay(FiringDisplay display, Rectangle bounds) {
         Point startPoint = new Point(bounds.getCenterX() - 41, bounds.y + 10);
         double cookingTime = display.getCookingTime();
         DecimalFormat df = new DecimalFormat("###.##");
@@ -72,7 +71,7 @@ public class FiringCategory implements TransferDisplayCategory<svenhjol.charm.in
     }
 
     @Override
-    public DisplayRenderer getDisplayRenderer(svenhjol.charm.integration.rei.FiringDisplay display) {
+    public DisplayRenderer getDisplayRenderer(FiringDisplay display) {
         return SimpleDisplayRenderer.from(Collections.singletonList(display.getInputEntries().get(0)), display.getOutputEntries());
     }
 

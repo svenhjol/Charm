@@ -10,7 +10,6 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
-import svenhjol.charm.helper.RegistryHelper;
 
 import java.util.ArrayList;
 import java.util.List;

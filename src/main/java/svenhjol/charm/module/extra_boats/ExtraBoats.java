@@ -6,18 +6,14 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.item.CharmBoatItem;
-import svenhjol.charm.module.extra_boats.CharmBoatEntity;
-import svenhjol.charm.module.extra_boats.CrimsonBoatItem;
-import svenhjol.charm.module.extra_boats.ExtraBoatsClient;
-import svenhjol.charm.module.extra_boats.WarpedBoatItem;
+import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, priority = 5, client = ExtraBoatsClient.class, description = "Adds crimson and warped wood boats.")
 public class ExtraBoats extends CharmModule {
-    public static EntityType<svenhjol.charm.module.extra_boats.CharmBoatEntity> CHARM_BOAT;
+    public static EntityType<CharmBoatEntity> CHARM_BOAT;
 
     public static CharmBoatItem CRIMSON_BOAT;
     public static CharmBoatItem WARPED_BOAT;
@@ -25,7 +21,7 @@ public class ExtraBoats extends CharmModule {
     @Override
     public void register() {
         CHARM_BOAT = RegistryHelper.entity(new ResourceLocation(Charm.MOD_ID, "boat"), FabricEntityTypeBuilder
-            .<svenhjol.charm.module.extra_boats.CharmBoatEntity>create(MobCategory.MISC, CharmBoatEntity::new)
+            .<CharmBoatEntity>create(MobCategory.MISC, CharmBoatEntity::new)
             .dimensions(EntityDimensions.fixed(1.375F, 0.5625F))
             .trackRangeBlocks(10));
 

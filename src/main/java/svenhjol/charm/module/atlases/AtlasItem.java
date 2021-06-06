@@ -1,6 +1,5 @@
 package svenhjol.charm.module.atlases;
 
-import svenhjol.charm.module.CharmModule;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
@@ -15,8 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.module.atlases.AtlasInventory;
-import svenhjol.charm.module.atlases.Atlases;
+import svenhjol.charm.module.CharmModule;
 
 public class AtlasItem extends CharmItem {
 
@@ -32,11 +30,11 @@ public class AtlasItem extends CharmItem {
         if (world.isClientSide) {
             return InteractionResultHolder.consume(itemStack);
         }
-        if (hand == InteractionHand.OFF_HAND && !svenhjol.charm.module.atlases.Atlases.offHandOpen) {
+        if (hand == InteractionHand.OFF_HAND && !Atlases.offHandOpen) {
             return InteractionResultHolder.pass(itemStack);
         }
-        svenhjol.charm.module.atlases.AtlasInventory inventory = svenhjol.charm.module.atlases.Atlases.getInventory(world, itemStack);
-        inventory.getCurrentDimensionMapInfos(world).values().forEach(it -> svenhjol.charm.module.atlases.Atlases.sendMapToClient((ServerPlayer) player, it.map, true));
+        AtlasInventory inventory = Atlases.getInventory(world, itemStack);
+        inventory.getCurrentDimensionMapInfos(world).values().forEach(it -> Atlases.sendMapToClient((ServerPlayer) player, it.map, true));
         player.openMenu(inventory);
         return InteractionResultHolder.consume(itemStack);
     }

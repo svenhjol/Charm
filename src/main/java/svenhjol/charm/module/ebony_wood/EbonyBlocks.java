@@ -1,15 +1,14 @@
 package svenhjol.charm.module.ebony_wood;
 
-import org.jetbrains.annotations.Nullable;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.block.*;
-
-import java.util.Random;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.module.ebony_wood.EbonyWood;
+import org.jetbrains.annotations.Nullable;
+import svenhjol.charm.block.*;
+import svenhjol.charm.module.CharmModule;
+
+import java.util.Random;
 
 public class EbonyBlocks {
     public static class EbonyButtonBlock extends CharmWoodenButtonBlock {
@@ -20,19 +19,19 @@ public class EbonyBlocks {
 
     public static class EbonyDoorBlock extends CharmDoorBlock {
         public EbonyDoorBlock(CharmModule module) {
-            super(module, "ebony_door", svenhjol.charm.module.ebony_wood.EbonyWood.PLANKS);
+            super(module, "ebony_door", EbonyWood.PLANKS);
         }
     }
 
     public static class EbonyFenceBlock extends CharmFenceBlock {
         public EbonyFenceBlock(CharmModule module) {
-            super(module, "ebony_fence", svenhjol.charm.module.ebony_wood.EbonyWood.PLANKS);
+            super(module, "ebony_fence", EbonyWood.PLANKS);
         }
     }
 
     public static class EbonyFenceGateBlock extends CharmFenceGateBlock {
         public EbonyFenceGateBlock(CharmModule module) {
-            super(module, "ebony_fence_gate", svenhjol.charm.module.ebony_wood.EbonyWood.PLANKS);
+            super(module, "ebony_fence_gate", EbonyWood.PLANKS);
         }
     }
 
@@ -68,7 +67,7 @@ public class EbonyBlocks {
 
     public static class EbonyPressurePlateBlock extends CharmPressurePlate {
         public EbonyPressurePlateBlock(CharmModule module) {
-            super(module, "ebony_pressure_plate", svenhjol.charm.module.ebony_wood.EbonyWood.PLANKS);
+            super(module, "ebony_pressure_plate", EbonyWood.PLANKS);
         }
     }
 
@@ -78,7 +77,7 @@ public class EbonyBlocks {
                 @Nullable
                 @Override
                 protected ConfiguredFeature<TreeConfiguration, ?> getConfiguredFeature(Random random, boolean bees) {
-                    return (ConfiguredFeature<TreeConfiguration, ?>) svenhjol.charm.module.ebony_wood.EbonyWood.TREE;
+                    return (ConfiguredFeature<TreeConfiguration, ?>) EbonyWood.TREE;
                 }
             });
         }
@@ -86,7 +85,7 @@ public class EbonyBlocks {
 
     public static class EbonySignBlock extends CharmSignBlock {
         public EbonySignBlock(CharmModule module) {
-            super(module, "ebony_sign", svenhjol.charm.module.ebony_wood.EbonyWood.SIGN_TYPE, MaterialColor.COLOR_BLACK);
+            super(module, "ebony_sign", EbonyWood.SIGN_TYPE, MaterialColor.COLOR_BLACK);
         }
     }
 
@@ -98,7 +97,7 @@ public class EbonyBlocks {
 
     public static class EbonyStairsBlock extends CharmStairsBlock {
         public EbonyStairsBlock(CharmModule module) {
-            super(module, "ebony_stairs", svenhjol.charm.module.ebony_wood.EbonyWood.PLANKS);
+            super(module, "ebony_stairs", EbonyWood.PLANKS);
         }
     }
 
@@ -110,7 +109,7 @@ public class EbonyBlocks {
 
     public static class EbonyWallSignBlock extends CharmWallSignBlock {
         public EbonyWallSignBlock(CharmModule module) {
-            super(module, "ebony_wall_sign", svenhjol.charm.module.ebony_wood.EbonyWood.SIGN_BLOCK, EbonyWood.SIGN_TYPE, MaterialColor.COLOR_BLACK);
+            super(module, "ebony_wall_sign", EbonyWood.SIGN_BLOCK, EbonyWood.SIGN_TYPE, MaterialColor.COLOR_BLACK);
         }
     }
 

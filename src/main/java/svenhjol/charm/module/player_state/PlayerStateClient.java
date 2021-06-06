@@ -13,10 +13,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
+import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.event.PlayerTickCallback;
-import svenhjol.charm.module.player_state.PlayerState;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class PlayerStateClient extends CharmClientModule {
     public void init() {
         // send a state update request on a heartbeat (serverStateInterval)
         PlayerTickCallback.EVENT.register((player -> {
-            if (player.level.isClientSide && player.level.getGameTime() % svenhjol.charm.module.player_state.PlayerState.serverStateInverval == 0)
+            if (player.level.isClientSide && player.level.getGameTime() % PlayerState.serverStateInverval == 0)
                 ClientPlayNetworking.send(PlayerState.MSG_SERVER_UPDATE_PLAYER_STATE, new FriendlyByteBuf(Unpooled.buffer()));
         }));
     }

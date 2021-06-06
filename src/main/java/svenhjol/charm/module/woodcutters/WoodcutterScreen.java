@@ -12,13 +12,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-import svenhjol.charm.module.woodcutters.WoodcutterScreenHandler;
-import svenhjol.charm.module.woodcutters.WoodcuttingRecipe;
 
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class WoodcutterScreen extends AbstractContainerScreen<svenhjol.charm.module.woodcutters.WoodcutterScreenHandler> {
+public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterScreenHandler> {
    private static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/container/stonecutter.png");
    private float scrollAmount;
    private boolean mouseClicked;
@@ -58,7 +56,7 @@ public class WoodcutterScreen extends AbstractContainerScreen<svenhjol.charm.mod
          int i = this.getX() + 52;
          int j = this.getY() + 14;
          int k = this.scrollOffset + 12;
-         List<svenhjol.charm.module.woodcutters.WoodcuttingRecipe> list = (this.menu).getAvailableRecipes();
+         List<WoodcuttingRecipe> list = (this.menu).getAvailableRecipes();
 
          for(int l = this.scrollOffset; l < k && l < (this.menu).getAvailableRecipeCount(); ++l) {
             int m = l - this.scrollOffset;

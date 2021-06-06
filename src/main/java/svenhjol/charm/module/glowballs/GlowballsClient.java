@@ -7,11 +7,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.EntityType;
+import svenhjol.charm.event.ClientSpawnEntityCallback;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.event.ClientSpawnEntityCallback;
-import svenhjol.charm.module.glowballs.GlowballEntity;
-import svenhjol.charm.module.glowballs.Glowballs;
 
 public class GlowballsClient extends CharmClientModule {
     public GlowballsClient(CharmModule module) {
@@ -20,10 +18,10 @@ public class GlowballsClient extends CharmClientModule {
 
     @Override
     public void register() {
-        EntityRendererRegistry.INSTANCE.register(svenhjol.charm.module.glowballs.Glowballs.GLOWBALL, dispatcher
+        EntityRendererRegistry.INSTANCE.register(Glowballs.GLOWBALL, dispatcher
             -> new ThrownItemRenderer<>(dispatcher, 1.0F, true));
 
-        BlockRenderLayerMap.INSTANCE.putBlock(svenhjol.charm.module.glowballs.Glowballs.GLOWBALL_BLOCK, RenderType.translucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(Glowballs.GLOWBALL_BLOCK, RenderType.translucent());
     }
 
     @Override

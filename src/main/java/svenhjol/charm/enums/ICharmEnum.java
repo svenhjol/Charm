@@ -1,9 +1,10 @@
 package svenhjol.charm.enums;
 
-import java.util.Locale;
 import net.minecraft.util.StringRepresentable;
 
-@SuppressWarnings({"NullableProblems", "rawtypes"})
+import java.util.Locale;
+
+@SuppressWarnings({"NullableProblems", "rawtypes", "unused"})
 public interface ICharmEnum extends StringRepresentable {
     @Override
     default String getSerializedName() {

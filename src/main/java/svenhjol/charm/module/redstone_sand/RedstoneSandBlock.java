@@ -16,7 +16,7 @@ public class RedstoneSandBlock extends CharmFallingBlock {
     public RedstoneSandBlock(CharmModule module) {
         super(module, "redstone_sand", FabricBlockSettings
             .of(Material.SAND)
-            .sound(SoundType.SAND)
+            .sounds(SoundType.SAND)
             .breakByTool(FabricToolTags.SHOVELS)
             .strength(0.5F)
         );

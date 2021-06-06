@@ -1,22 +1,19 @@
 package svenhjol.charm.module.beekeepers;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.VillagerHelper;
-import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.event.SetupStructureCallback.VillageType;
-import svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor;
-
-import static svenhjol.charm.helper.VillagerHelper.addTrade;
-
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import svenhjol.charm.module.beekeepers.BeekeeperTradeOffers;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.event.SetupStructureCallback.VillageType;
+import svenhjol.charm.helper.VillagerHelper;
+import svenhjol.charm.mixin.accessor.PointOfInterestTypeAccessor;
+import svenhjol.charm.module.CharmModule;
 
 import static svenhjol.charm.event.SetupStructureCallback.addVillageHouse;
+import static svenhjol.charm.helper.VillagerHelper.addTrade;
 
 @Module(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
 public class Beekeepers extends CharmModule {
@@ -34,13 +31,13 @@ public class Beekeepers extends CharmModule {
         ((PointOfInterestTypeAccessor)PoiType.BEEHIVE).setTicketCount(1);
 
         // register beekeeper trades
-        addTrade(BEEKEEPER, 1, new svenhjol.charm.module.beekeepers.BeekeeperTradeOffers.EmeraldsForFlowers());
-        addTrade(BEEKEEPER, 1, new svenhjol.charm.module.beekeepers.BeekeeperTradeOffers.BottlesForEmerald());
-        addTrade(BEEKEEPER, 2, new svenhjol.charm.module.beekeepers.BeekeeperTradeOffers.EmeraldsForCharcoal());
-        addTrade(BEEKEEPER, 2, new svenhjol.charm.module.beekeepers.BeekeeperTradeOffers.CandlesForEmeralds());
-        addTrade(BEEKEEPER, 3, new svenhjol.charm.module.beekeepers.BeekeeperTradeOffers.EmeraldsForHoneycomb());
-        addTrade(BEEKEEPER, 3, new svenhjol.charm.module.beekeepers.BeekeeperTradeOffers.CampfireForEmerald());
-        addTrade(BEEKEEPER, 4, new svenhjol.charm.module.beekeepers.BeekeeperTradeOffers.LeadForEmeralds());
+        addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.EmeraldsForFlowers());
+        addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.BottlesForEmerald());
+        addTrade(BEEKEEPER, 2, new BeekeeperTradeOffers.EmeraldsForCharcoal());
+        addTrade(BEEKEEPER, 2, new BeekeeperTradeOffers.CandlesForEmeralds());
+        addTrade(BEEKEEPER, 3, new BeekeeperTradeOffers.EmeraldsForHoneycomb());
+        addTrade(BEEKEEPER, 3, new BeekeeperTradeOffers.CampfireForEmerald());
+        addTrade(BEEKEEPER, 4, new BeekeeperTradeOffers.LeadForEmeralds());
         addTrade(BEEKEEPER, 5, new BeekeeperTradeOffers.PopulatedBeehiveForEmeralds());
 
         // register beekeeper structures

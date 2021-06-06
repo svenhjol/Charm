@@ -4,7 +4,6 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
@@ -35,13 +34,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.block.CharmBlockWithEntity;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.module.cooking_pots.CookingPotBlockEntity;
-import svenhjol.charm.module.cooking_pots.CookingPots;
+import svenhjol.charm.init.CharmSounds;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.Random;
 
@@ -72,18 +69,18 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                 world.setBlock(pos, state.setValue(LIQUID, 1), 3);
                 player.setItemInHand(hand, new ItemStack(Items.BUCKET));
                 world.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 0.8F, 1.0F);
-                svenhjol.charm.module.cooking_pots.CookingPots.triggerFilledWater((ServerPlayer) player);
+                CookingPots.triggerFilledWater((ServerPlayer) player);
 
                 if (state.getValue(HAS_FIRE))
-                    svenhjol.charm.module.cooking_pots.CookingPots.triggerLitFire((ServerPlayer) player);
+                    CookingPots.triggerLitFire((ServerPlayer) player);
             }
 
             return InteractionResult.sidedSuccess(world.isClientSide);
         }
         if (state.getValue(LIQUID) > 0 && state.getValue(HAS_FIRE)) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof svenhjol.charm.module.cooking_pots.CookingPotBlockEntity) {
-                svenhjol.charm.module.cooking_pots.CookingPotBlockEntity pot = (svenhjol.charm.module.cooking_pots.CookingPotBlockEntity) blockEntity;
+            if (blockEntity instanceof CookingPotBlockEntity) {
+                svenhjol.charm.module.cooking_pots.CookingPotBlockEntity pot = (CookingPotBlockEntity) blockEntity;
 
                 if (!world.isClientSide) {
                     if (held.getItem() == Items.NAME_TAG && held.hasCustomHoverName()) {
@@ -105,7 +102,7 @@ public class CookingPotBlock extends CharmBlockWithEntity {
 
                             // do take food advancement
                             if (pot.portions > 0)
-                                svenhjol.charm.module.cooking_pots.CookingPots.triggerTakenFood((ServerPlayer) player);
+                                CookingPots.triggerTakenFood((ServerPlayer) player);
                         }
 
                     } else if (held.isEdible()) {
@@ -125,17 +122,17 @@ public class CookingPotBlock extends CharmBlockWithEntity {
                             // send message to client that an item was added
                             FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
                             data.writeLong(pos.asLong());
-                            ServerPlayNetworking.send((ServerPlayer) player, svenhjol.charm.module.cooking_pots.CookingPots.MSG_CLIENT_ADDED_TO_POT, data);
+                            ServerPlayNetworking.send((ServerPlayer) player, CookingPots.MSG_CLIENT_ADDED_TO_POT, data);
 
                             // do add items advancement
                             if (pot.portions > 0) {
-                                svenhjol.charm.module.cooking_pots.CookingPots.triggerAddedItem((ServerPlayer) player);
+                                CookingPots.triggerAddedItem((ServerPlayer) player);
                             }
                         }
                     }
 
                     // fire must be lit at this point so check the advancement
-                    svenhjol.charm.module.cooking_pots.CookingPots.triggerLitFire((ServerPlayer) player);
+                    CookingPots.triggerLitFire((ServerPlayer) player);
                 }
 
                 return InteractionResult.sidedSuccess(world.isClientSide);
@@ -158,13 +155,13 @@ public class CookingPotBlock extends CharmBlockWithEntity {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new svenhjol.charm.module.cooking_pots.CookingPotBlockEntity(pos, state);
+        return new CookingPotBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return world.isClientSide ? null : createTickerHelper(type, CookingPots.BLOCK_ENTITY, svenhjol.charm.module.cooking_pots.CookingPotBlockEntity::tick);
+        return world.isClientSide ? null : createTickerHelper(type, CookingPots.BLOCK_ENTITY, CookingPotBlockEntity::tick);
     }
 
     @Override
@@ -184,20 +181,20 @@ public class CookingPotBlock extends CharmBlockWithEntity {
 
     @Override
     public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
-        svenhjol.charm.module.cooking_pots.CookingPotBlockEntity pot = this.getBlockEntity(world, pos);
+        CookingPotBlockEntity pot = this.getBlockEntity(world, pos);
         if (pot == null)
             return 0;
 
         if (pot.portions == 0)
             return 0;
 
-        return Math.round((pot.portions / (float) svenhjol.charm.module.cooking_pots.CookingPotBlockEntity.MAX_PORTIONS) * 16);
+        return Math.round((pot.portions / (float) CookingPotBlockEntity.MAX_PORTIONS) * 16);
     }
 
     @Nullable
-    public svenhjol.charm.module.cooking_pots.CookingPotBlockEntity getBlockEntity(Level world, BlockPos pos) {
+    public CookingPotBlockEntity getBlockEntity(Level world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof svenhjol.charm.module.cooking_pots.CookingPotBlockEntity)
+        if (blockEntity instanceof CookingPotBlockEntity)
             return (CookingPotBlockEntity) blockEntity;
 
         return null;

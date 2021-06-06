@@ -1,5 +1,7 @@
 package svenhjol.charm.module.cooking_pots;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
@@ -19,12 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.cooking_pots.CookingPotBlockEntity;
-import svenhjol.charm.module.cooking_pots.CookingPots;
 import svenhjol.charm.module.storage_labels.StorageLabels;
 import svenhjol.charm.module.storage_labels.StorageLabelsClient;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +39,7 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
     }
 
     @Override
-    public boolean rendersOutsideBoundingBox(T blockEntity) {
+    public boolean shouldRenderOffScreen(T blockEntity) {
         return true;
     }
 

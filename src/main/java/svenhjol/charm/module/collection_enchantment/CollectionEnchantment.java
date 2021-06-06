@@ -5,18 +5,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.annotation.Module;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.EnchantmentsHelper;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.module.collection_enchantment.CollectionEnch;
+import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, description = "Tools with the Collection enchantment automatically pick up drops.",
     requiresMixins = {"collection_enchantment.*"})
 public class CollectionEnchantment extends CharmModule {
     private static final ThreadLocal<Player> breakingPlayer = new ThreadLocal<>();
-    public static svenhjol.charm.module.collection_enchantment.CollectionEnch ENCHANTMENT;
+    public static CollectionEnch ENCHANTMENT;
 
     @Override
     public void register() {

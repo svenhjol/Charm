@@ -4,9 +4,19 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.vehicle.*;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.feature.MineshaftFeature;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.MineShaftPieces;
+import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
@@ -118,17 +128,17 @@ public class MineshaftImprovements extends CharmModule {
 
         candles.forEach(candle -> {
             for (int i = 1; i <= 4; i++) {
-                floorBlocks.add(candle.defaultBlockState().setValue(CandleBlock.LIT, true).with(CandleBlock.CANDLES, i));
+                floorBlocks.add(candle.defaultBlockState().setValue(CandleBlock.LIT, true).setValue(CandleBlock.CANDLES, i));
             }
         });
 
         if (ModuleHandler.enabled("charm:copper_rails")) {
-            floorBlocks.add(CopperRails.COPPER_RAIL.defaultBlockState().with(RailBlock.SHAPE, RailShape.EAST_WEST));
-            floorBlocks.add(CopperRails.COPPER_RAIL.defaultBlockState().with(RailBlock.SHAPE, RailShape.NORTH_SOUTH));
+            floorBlocks.add(CopperRails.COPPER_RAIL.defaultBlockState().setValue(RailBlock.SHAPE, RailShape.EAST_WEST));
+            floorBlocks.add(CopperRails.COPPER_RAIL.defaultBlockState().setValue(RailBlock.SHAPE, RailShape.NORTH_SOUTH));
         }
     }
 
-    public static void generatePiece(StructurePiece piece, StructureWorldAccess world, StructureAccessor accessor, ChunkGenerator chunkGenerator, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos) {
+    public static void generatePiece(StructurePiece piece, WorldGenLevel world, StructureFeatureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (!isEnabled)
             return;
 
@@ -136,14 +146,14 @@ public class MineshaftImprovements extends CharmModule {
         if (((MineshaftPartAccessor)piece).getMineshaftType() == MineshaftFeature.Type.MESA)
             return;
 
-        if (piece instanceof MineshaftCorridor) {
-            corridor((MineshaftCorridor)piece, world, accessor, chunkGenerator, rand, box, chunkPos, blockPos);
-        } else if (piece instanceof MineshaftRoom) {
-            room((MineshaftRoom)piece, world, accessor, chunkGenerator, rand, box, chunkPos, blockPos);
+        if (piece instanceof MineShaftPieces.MineShaftCorridor) {
+            corridor((MineShaftPieces.MineShaftCorridor)piece, world, accessor, chunkGenerator, rand, box, chunkPos, blockPos);
+        } else if (piece instanceof MineShaftPieces.MineShaftRoom) {
+            room((MineShaftPieces.MineShaftRoom)piece, world, accessor, chunkGenerator, rand, box, chunkPos, blockPos);
         }
     }
 
-    private static void corridor(MineshaftCorridor piece, StructureWorldAccess world, StructureAccessor accessor, ChunkGenerator chunkGenerator, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos) {
+    private static void corridor(MineShaftPieces.MineShaftCorridor piece, WorldGenLevel world, StructureFeatureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (generateCorridorBlocks) {
             for (int x = 0; x < 3; x++) {
                 if (x == 1 && rand.nextFloat() < 0.08F)
@@ -176,7 +186,7 @@ public class MineshaftImprovements extends CharmModule {
                         for (int iz = -1; iz <= 1; iz++) {
                             boolean valid = validFloorBlock(piece, world, ix, iy, iz, box);
                             if (valid && rand.nextFloat() < 0.7F)
-                                ((StructurePieceAccessor)piece).callAddBlock(world, rand.nextFloat() < 0.5 ? pair.getLeft() : pair.getRight(), ix, iy, iz, box);
+                                ((StructurePieceAccessor)piece).callAddBlock(world, rand.nextFloat() < 0.5 ? pair.getFirst() : pair.getSecond(), ix, iy, iz, box);
                         }
                     }
                 }
@@ -191,38 +201,38 @@ public class MineshaftImprovements extends CharmModule {
             BlockPos cartPos = new BlockPos(x, y, z);
             ResourceLocation loot = minecartLootTables.get(rand.nextInt(minecartLootTables.size()));
 
-            if (box.contains(cartPos) && world.getBlockState(cartPos).isAir() && !world.getBlockState(cartPos.down()).isAir()) {
-                BlockState blockState = Blocks.RAIL.defaultBlockState().with(RailBlock.SHAPE, rand.nextBoolean() ? RailShape.NORTH_SOUTH : RailShape.EAST_WEST);
+            if (box.isInside(cartPos) && world.getBlockState(cartPos).isAir() && !world.getBlockState(cartPos.below()).isAir()) {
+                BlockState blockState = Blocks.RAIL.defaultBlockState().setValue(RailBlock.SHAPE, rand.nextBoolean() ? RailShape.NORTH_SOUTH : RailShape.EAST_WEST);
                 ((StructurePieceAccessor)piece).callAddBlock(world, blockState, x, y, z, box);
 
-                AbstractMinecartEntity minecartEntity;
-                ServerWorld serverWorld = world.toServerWorld();
+                AbstractMinecart minecartEntity;
+                ServerLevel serverWorld = world.getLevel();
                 double cartX = (double) cartPos.getX() + 0.5D;
                 double cartY = (double) cartPos.getY() + 0.5D;
                 double cartZ = (double) cartPos.getZ() + 0.5D;
 
                 if (rand.nextFloat() < 0.4F) {
-                    minecartEntity = new ChestMinecartEntity(serverWorld, cartX, cartY, cartZ);
-                    ((ChestMinecartEntity)minecartEntity).setLootTable(loot, rand.nextLong());
+                    minecartEntity = new MinecartChest(serverWorld, cartX, cartY, cartZ);
+                    ((MinecartChest)minecartEntity).setLootTable(loot, rand.nextLong());
                 } else if (rand.nextFloat() < 0.4F) {
-                    minecartEntity = new TntMinecartEntity(serverWorld, cartX, cartY, cartZ);
+                    minecartEntity = new MinecartTNT(serverWorld, cartX, cartY, cartZ);
                 } else if (rand.nextFloat() < 0.4F) {
-                    minecartEntity = new HopperMinecartEntity(serverWorld, cartX, cartY, cartZ);
+                    minecartEntity = new MinecartHopper(serverWorld, cartX, cartY, cartZ);
                 } else if (rand.nextFloat() < 0.4F) {
-                    minecartEntity = new FurnaceMinecartEntity(serverWorld, cartX, cartY, cartZ);
+                    minecartEntity = new MinecartFurnace(serverWorld, cartX, cartY, cartZ);
                 } else {
-                    minecartEntity = new MinecartEntity(serverWorld, cartX, cartY, cartZ);
+                    minecartEntity = new Minecart(serverWorld, cartX, cartY, cartZ);
                 }
 
-                world.spawnEntity(minecartEntity);
+                world.addFreshEntity(minecartEntity);
             }
         }
     }
 
-    private static void room(MineshaftRoom piece, ServerWorldAccess world, StructureAccessor accessor, ChunkGenerator chunkGenerator, Random rand, BlockBox box, ChunkPos chunkPos, BlockPos blockPos) {
+    private static void room(MineShaftPieces.MineShaftRoom piece, WorldGenLevel world, StructureFeatureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (generateRoomBlocks) {
-            int bx = box.getMaxX() - box.getMinX();
-            int bz = box.getMaxZ() - box.getMinZ();
+            int bx = box.maxX() - box.minX();
+            int bz = box.maxZ() - box.minZ();
 
             if (bx <= 0) bx = 15;
             if (bz <= 0) bz = 15;
@@ -242,10 +252,10 @@ public class MineshaftImprovements extends CharmModule {
                             }
                             BlockPos pos = new BlockPos(((StructurePieceAccessor)piece).getBoundingBox().minX() + x, ((StructurePieceAccessor)piece).getBoundingBox().minY() + y, ((StructurePieceAccessor)piece).getBoundingBox().minZ() + z);
 
-                            if (world.isAir(pos)
-                                && world.getBlockState(pos.down()).isFullCube(world, pos.down())
-                                && !world.isSkyVisibleAllowingSea(pos)) {
-                                world.setBlockState(pos, state, 11);
+                            if (world.isEmptyBlock(pos)
+                                && world.getBlockState(pos.below()).isCollisionShapeFullBlock(world, pos.below())
+                                && !world.canSeeSky(pos)) {
+                                world.setBlock(pos, state, 11);
                             }
                         }
                     }
@@ -254,17 +264,17 @@ public class MineshaftImprovements extends CharmModule {
         }
     }
 
-    private static boolean validFloorBlock(StructurePiece piece, ServerWorldAccess world, int x, int y, int z, BlockBox box) {
+    private static boolean validFloorBlock(StructurePiece piece, WorldGenLevel world, int x, int y, int z, BoundingBox box) {
         BlockPos blockpos = new BlockPos(
             ((StructurePieceAccessor)piece).callApplyXTransform(x, z),
             ((StructurePieceAccessor)piece).callApplyYTransform(y),
             ((StructurePieceAccessor)piece).callApplyZTransform(x, z)
         );
 
-        boolean vecInside = box.contains(blockpos);
-        boolean solidBelow = world.getBlockState(blockpos.down()).isOpaque();
-        boolean notSlabBelow = !(world.getBlockState(blockpos.down()).getBlock() instanceof SlabBlock);
-        boolean airAbove = world.isAir(blockpos.up());
+        boolean vecInside = box.isInside(blockpos);
+        boolean solidBelow = world.getBlockState(blockpos.below()).canOcclude();
+        boolean notSlabBelow = !(world.getBlockState(blockpos.below()).getBlock() instanceof SlabBlock);
+        boolean airAbove = world.isEmptyBlock(blockpos.above());
         return vecInside
             && solidBelow
             && notSlabBelow

@@ -1,12 +1,5 @@
 package svenhjol.charm.item;
 
-import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.module.extra_boats.CharmBoatEntity;
-import svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType;
-import java.util.Iterator;
-import java.util.List;
-import java.util.function.Predicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -24,8 +17,13 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.module.extra_boats.CharmBoatEntity;
+import svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType;
 
-import static svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class CharmBoatItem extends CharmItem {
     private static final Predicate<Entity> RIDERS;

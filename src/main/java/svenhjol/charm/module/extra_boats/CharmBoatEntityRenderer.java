@@ -18,26 +18,25 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.extra_boats.CharmBoatEntity;
 
 import java.util.Map;
 import java.util.stream.Stream;
 
 @Environment(EnvType.CLIENT)
-public class CharmBoatEntityRenderer extends EntityRenderer<svenhjol.charm.module.extra_boats.CharmBoatEntity> {
-   private final Map<svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType, Pair<ResourceLocation, BoatModel>> texturesAndModels;
+public class CharmBoatEntityRenderer extends EntityRenderer<CharmBoatEntity> {
+   private final Map<CharmBoatEntity.BoatType, Pair<ResourceLocation, BoatModel>> texturesAndModels;
 
    public CharmBoatEntityRenderer(EntityRendererProvider.Context context) {
       super(context);
       this.shadowRadius = 0.8F;
-      this.texturesAndModels = Stream.of(svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType.values()).collect(ImmutableMap.toImmutableMap((type) -> {
+      this.texturesAndModels = Stream.of(CharmBoatEntity.BoatType.values()).collect(ImmutableMap.toImmutableMap((type) -> {
          return type;
       }, (type) -> {
          return Pair.of(new ResourceLocation(Charm.MOD_ID, "textures/entity/boat/" + type.asString() + ".png"), new BoatModel(context.bakeLayer(new ModelLayerLocation(new ResourceLocation(Charm.MOD_ID, "boat/" + type.asString()), "main"))));
       }));
    }
 
-   public void render(svenhjol.charm.module.extra_boats.CharmBoatEntity boatEntity, float f, float g, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i) {
+   public void render(CharmBoatEntity boatEntity, float f, float g, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i) {
       matrixStack.pushPose();
       matrixStack.translate(0.0D, 0.375D, 0.0D);
       matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - f));
@@ -73,7 +72,8 @@ public class CharmBoatEntityRenderer extends EntityRenderer<svenhjol.charm.modul
       super.render(boatEntity, f, g, matrixStack, vertexConsumerProvider, i);
    }
 
-   public ResourceLocation getTexture(CharmBoatEntity boatEntity) {
+   @Override
+   public ResourceLocation getTextureLocation(CharmBoatEntity boatEntity) {
       return this.texturesAndModels.get(boatEntity.getCharmBoatType()).getFirst();
    }
 }

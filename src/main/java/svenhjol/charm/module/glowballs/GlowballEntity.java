@@ -26,8 +26,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import svenhjol.charm.module.glowballs.GlowballBlobBlock;
-import svenhjol.charm.module.glowballs.Glowballs;
 
 public class GlowballEntity extends ThrowableItemProjectile {
     public GlowballEntity(EntityType<? extends GlowballEntity> entityType, Level world) {
@@ -35,17 +33,17 @@ public class GlowballEntity extends ThrowableItemProjectile {
     }
 
     public GlowballEntity(Level world, LivingEntity owner) {
-        super(svenhjol.charm.module.glowballs.Glowballs.GLOWBALL, owner, world);
+        super(Glowballs.GLOWBALL, owner, world);
     }
 
     @Environment(EnvType.CLIENT)
     public GlowballEntity(Level world, double x, double y, double z) {
-        super(svenhjol.charm.module.glowballs.Glowballs.GLOWBALL, x, y, z, world);
+        super(Glowballs.GLOWBALL, x, y, z, world);
     }
 
     @Override
     protected Item getDefaultItem() {
-        return svenhjol.charm.module.glowballs.Glowballs.GLOWBALL_ITEM;
+        return Glowballs.GLOWBALL_ITEM;
     }
 
     @Override
@@ -71,7 +69,7 @@ public class GlowballEntity extends ThrowableItemProjectile {
 
         if (state.isFaceSturdy(world, pos, side)
             && (world.isEmptyBlock(offsetPos) || (offsetState.getMaterial() == Material.WATER && offsetState.getValue(LiquidBlock.LEVEL) == 0))) {
-            BlockState placedState = svenhjol.charm.module.glowballs.Glowballs.GLOWBALL_BLOCK.defaultBlockState()
+            BlockState placedState = Glowballs.GLOWBALL_BLOCK.defaultBlockState()
                 .setValue(GlowballBlobBlock.FACING, side);
 
             if (offsetState.getBlock() == Blocks.WATER)

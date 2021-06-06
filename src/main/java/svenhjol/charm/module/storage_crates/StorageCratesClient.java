@@ -17,12 +17,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.storage_crates.StorageCrateBlock;
-import svenhjol.charm.module.storage_crates.StorageCrateBlockEntityRenderer;
-import svenhjol.charm.module.storage_crates.StorageCrates;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -34,16 +31,16 @@ public class StorageCratesClient extends CharmClientModule {
 
     @Override
     public void register() {
-        svenhjol.charm.module.storage_crates.StorageCrates.STORAGE_CRATE_BLOCKS.forEach((material, block) -> {
+        StorageCrates.STORAGE_CRATE_BLOCKS.forEach((material, block) -> {
             BlockRenderLayerMap.INSTANCE.putBlock(block, RenderType.cutout());
         });
 
-        BlockEntityRendererRegistry.INSTANCE.register(svenhjol.charm.module.storage_crates.StorageCrates.BLOCK_ENTITY, StorageCrateBlockEntityRenderer::new);
-        ClientPlayNetworking.registerGlobalReceiver(svenhjol.charm.module.storage_crates.StorageCrates.MSG_CLIENT_UPDATED_CRATE, this::handleInteractedWithCrate);
+        BlockEntityRendererRegistry.INSTANCE.register(StorageCrates.BLOCK_ENTITY, StorageCrateBlockEntityRenderer::new);
+        ClientPlayNetworking.registerGlobalReceiver(StorageCrates.MSG_CLIENT_UPDATED_CRATE, this::handleInteractedWithCrate);
     }
 
     private void handleInteractedWithCrate(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
-        svenhjol.charm.module.storage_crates.StorageCrates.ActionType actionType = data.readEnum(StorageCrates.ActionType.class);
+        StorageCrates.ActionType actionType = data.readEnum(StorageCrates.ActionType.class);
         BlockPos pos = BlockPos.of(data.readLong());
 
         client.execute(() -> {
@@ -71,7 +68,7 @@ public class StorageCratesClient extends CharmClientModule {
 
         Direction.Axis axis;
         BlockState state = world.getBlockState(pos);
-        if (state.getBlock() instanceof svenhjol.charm.module.storage_crates.StorageCrateBlock) {
+        if (state.getBlock() instanceof StorageCrateBlock) {
             axis = state.getValue(StorageCrateBlock.FACING).getAxis();
         } else {
             axis = Direction.Axis.Y;

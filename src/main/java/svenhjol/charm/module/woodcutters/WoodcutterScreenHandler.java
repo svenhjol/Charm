@@ -9,17 +9,10 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.DataSlot;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.ResultContainer;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.module.woodcutters.Woodcutters;
-import svenhjol.charm.module.woodcutters.WoodcuttingRecipe;
 
 import java.util.List;
 
@@ -27,7 +20,7 @@ public class WoodcutterScreenHandler extends AbstractContainerMenu {
     private final ContainerLevelAccess context;
     private final DataSlot selectedRecipe;
     private final Level world;
-    private List<svenhjol.charm.module.woodcutters.WoodcuttingRecipe> availableRecipes;
+    private List<WoodcuttingRecipe> availableRecipes;
     private ItemStack inputStack;
     private long lastTakeTime;
     final Slot inputSlot;
@@ -41,7 +34,7 @@ public class WoodcutterScreenHandler extends AbstractContainerMenu {
     }
 
     public WoodcutterScreenHandler(int syncId, Inventory playerInventory, final ContainerLevelAccess context) {
-        super(svenhjol.charm.module.woodcutters.Woodcutters.SCREEN_HANDLER, syncId);
+        super(Woodcutters.SCREEN_HANDLER, syncId);
         this.selectedRecipe = DataSlot.standalone();
         this.availableRecipes = Lists.newArrayList();
         this.inputStack = ItemStack.EMPTY;
@@ -102,7 +95,7 @@ public class WoodcutterScreenHandler extends AbstractContainerMenu {
     }
 
     @Environment(EnvType.CLIENT)
-    public List<svenhjol.charm.module.woodcutters.WoodcuttingRecipe> getAvailableRecipes() {
+    public List<WoodcuttingRecipe> getAvailableRecipes() {
         return this.availableRecipes;
     }
 
@@ -117,7 +110,7 @@ public class WoodcutterScreenHandler extends AbstractContainerMenu {
     }
 
     public boolean stillValid(Player player) {
-        return stillValid(this.context, player, svenhjol.charm.module.woodcutters.Woodcutters.WOODCUTTER);
+        return stillValid(this.context, player, Woodcutters.WOODCUTTER);
     }
 
     public boolean clickMenuButton(Player player, int id) {
@@ -147,7 +140,7 @@ public class WoodcutterScreenHandler extends AbstractContainerMenu {
         this.selectedRecipe.set(-1);
         this.outputSlot.set(ItemStack.EMPTY);
         if (!stack.isEmpty()) {
-            this.availableRecipes = this.world.getRecipeManager().getRecipesFor(svenhjol.charm.module.woodcutters.Woodcutters.RECIPE_TYPE, input, this.world);
+            this.availableRecipes = this.world.getRecipeManager().getRecipesFor(Woodcutters.RECIPE_TYPE, input, this.world);
         }
 
     }
@@ -165,7 +158,7 @@ public class WoodcutterScreenHandler extends AbstractContainerMenu {
     }
 
     public MenuType<?> getType() {
-        return svenhjol.charm.module.woodcutters.Woodcutters.SCREEN_HANDLER;
+        return Woodcutters.SCREEN_HANDLER;
     }
 
     @Environment(EnvType.CLIENT)

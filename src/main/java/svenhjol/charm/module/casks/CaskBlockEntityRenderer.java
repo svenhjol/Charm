@@ -1,5 +1,6 @@
 package svenhjol.charm.module.casks;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
@@ -12,11 +13,9 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.casks.CaskBlockEntity;
-import svenhjol.charm.module.casks.Casks;
 import svenhjol.charm.module.storage_labels.StorageLabels;
 import svenhjol.charm.module.storage_labels.StorageLabelsClient;
-import com.mojang.blaze3d.vertex.PoseStack;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +29,7 @@ public class CaskBlockEntityRenderer<T extends CaskBlockEntity> implements Block
     }
 
     @Override
-    public boolean rendersOutsideBoundingBox(T blockEntity) {
+    public boolean shouldRenderOffScreen(T blockEntity) {
         return true;
     }
 

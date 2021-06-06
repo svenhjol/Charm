@@ -4,7 +4,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import svenhjol.charm.enchantment.ICharmEnchantment;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmEnchantment extends Enchantment implements ICharmEnchantment {

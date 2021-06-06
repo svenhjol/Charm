@@ -2,7 +2,6 @@ package svenhjol.charm.module.endermite_powder;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -16,23 +15,20 @@ import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.EntityDropItemsCallback;
+import svenhjol.charm.helper.ItemHelper;
+import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.endermite_powder.EndermitePowderClient;
-import svenhjol.charm.module.endermite_powder.EndermitePowderEntity;
-import svenhjol.charm.module.endermite_powder.EndermitePowderItem;
+import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, client = EndermitePowderClient.class, description = "Endermites drop endermite powder that can be used to locate an End City.",
     requiresMixins = {"EntityDropItemsCallback"})
 public class EndermitePowder extends CharmModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "endermite_powder");
-    public static EntityType<svenhjol.charm.module.endermite_powder.EndermitePowderEntity> ENTITY;
-    public static svenhjol.charm.module.endermite_powder.EndermitePowderItem ENDERMITE_POWDER;
+    public static EntityType<EndermitePowderEntity> ENTITY;
+    public static EndermitePowderItem ENDERMITE_POWDER;
 
     public static double lootingBoost = 0.3D;
 
@@ -45,7 +41,7 @@ public class EndermitePowder extends CharmModule {
 
         // setup and register the entity
         ENTITY = RegistryHelper.entity(ID, FabricEntityTypeBuilder
-            .<svenhjol.charm.module.endermite_powder.EndermitePowderEntity>create(MobCategory.MISC, EndermitePowderEntity::new)
+            .<EndermitePowderEntity>create(MobCategory.MISC, EndermitePowderEntity::new)
             .trackRangeBlocks(80)
             .trackedUpdateRate(10)
             .dimensions(EntityDimensions.fixed(2.0F, 2.0F)));

@@ -10,11 +10,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.ender_bundles.EnderBundleItem;
-import svenhjol.charm.module.ender_bundles.EnderBundlesClient;
+import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, client = EnderBundlesClient.class, description = "Ender bundles allow transfer of items to and from your ender chest.",
     requiresMixins = {"RenderTooltipCallback"})
@@ -23,7 +21,7 @@ public class EnderBundles extends CharmModule {
     public static final ResourceLocation MSG_CLIENT_UPDATE_ENDER_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_client_ender_inventory");
     public static final ResourceLocation TRIGGER_USED_ENDER_BUNDLE = new ResourceLocation(Charm.MOD_ID, "used_ender_bundle");
 
-    public static svenhjol.charm.module.ender_bundles.EnderBundleItem ENDER_BUNDLE;
+    public static EnderBundleItem ENDER_BUNDLE;
 
     @Override
     public void register() {

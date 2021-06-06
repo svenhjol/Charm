@@ -1,5 +1,7 @@
 package svenhjol.charm.module.storage_labels;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Matrix4f;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -22,10 +24,6 @@ import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Matrix4f;
-import svenhjol.charm.module.storage_labels.LootableContainerBlockEntityRenderer;
-import svenhjol.charm.module.storage_labels.StorageLabels;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,11 +36,11 @@ public class StorageLabelsClient extends CharmClientModule {
 
     @Override
     public void init() {
-        ClientPlayNetworking.registerGlobalReceiver(svenhjol.charm.module.storage_labels.StorageLabels.MSG_CLIENT_UPDATE_CUSTOM_NAME, this::handleUpdateCustomName);
-        ClientPlayNetworking.registerGlobalReceiver(svenhjol.charm.module.storage_labels.StorageLabels.MSG_CLIENT_HAS_NO_CUSTOM_NAME, this::handleHasNoCustomName);
-        ClientPlayNetworking.registerGlobalReceiver(svenhjol.charm.module.storage_labels.StorageLabels.MSG_CLIENT_CLEAR_CUSTOM_NAME, this::handleClearCustomName);
+        ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_UPDATE_CUSTOM_NAME, this::handleUpdateCustomName);
+        ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_HAS_NO_CUSTOM_NAME, this::handleHasNoCustomName);
+        ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_CLEAR_CUSTOM_NAME, this::handleClearCustomName);
 
-        BlockEntityRendererRegistry.INSTANCE.register(BlockEntityType.BARREL, svenhjol.charm.module.storage_labels.LootableContainerBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(BlockEntityType.BARREL, LootableContainerBlockEntityRenderer::new);
     }
 
     private void handleUpdateCustomName(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
@@ -60,7 +58,7 @@ public class StorageLabelsClient extends CharmClientModule {
 
         client.execute(() ->
             ClientHelper.getWorld()
-                .ifPresent(world -> svenhjol.charm.module.storage_labels.LootableContainerBlockEntityRenderer.cachedPos.put(pos, (long) -1)));
+                .ifPresent(world -> LootableContainerBlockEntityRenderer.cachedPos.put(pos, (long) -1)));
     }
 
     private void handleClearCustomName(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
@@ -76,10 +74,10 @@ public class StorageLabelsClient extends CharmClientModule {
     }
 
     public static void renderLabel(PoseStack matrices, MultiBufferSource vertexConsumers, Player player, Camera camera, List<Component> text) {
-        if (!ModuleHandler.enabled(svenhjol.charm.module.storage_labels.StorageLabels.class))
+        if (!ModuleHandler.enabled(StorageLabels.class))
             return;
 
-        if (!svenhjol.charm.module.storage_labels.StorageLabels.alwaysShow && !player.isShiftKeyDown())
+        if (!StorageLabels.alwaysShow && !player.isShiftKeyDown())
             return;
 
         Optional<Font> optTextRenderer = ClientHelper.getTextRenderer();
@@ -115,7 +113,7 @@ public class StorageLabelsClient extends CharmClientModule {
         matrices.pushPose();
         matrices.translate(0.5F + xo, 0.85F, 0.5F + zo);
         matrices.mulPose(camera.rotation());
-        matrices.scale(-svenhjol.charm.module.storage_labels.StorageLabels.SCALE, -svenhjol.charm.module.storage_labels.StorageLabels.SCALE, StorageLabels.SCALE);
+        matrices.scale(-StorageLabels.SCALE, -StorageLabels.SCALE, StorageLabels.SCALE);
         Matrix4f matrix4f = matrices.last().pose();
         float g = gameOptions.getBackgroundOpacity(0.0F);
         int j = (int)(g * 255.0F) << 24;

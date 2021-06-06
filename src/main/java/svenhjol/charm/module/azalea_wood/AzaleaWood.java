@@ -7,18 +7,15 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.block.*;
-import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.block.*;
+import svenhjol.charm.enums.CharmWoodMaterial;
+import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
-import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.mixin.accessor.ConfiguredFeaturesAccessor;
 import svenhjol.charm.mixin.accessor.TreeFeatureConfigAccessor;
-import svenhjol.charm.module.azalea_wood.AzaleaBlocks;
-import svenhjol.charm.module.azalea_wood.AzaleaItems;
-import svenhjol.charm.module.azalea_wood.AzaleaWoodClient;
+import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
 import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
@@ -67,24 +64,24 @@ public class AzaleaWood extends CharmModule {
     public void register() {
         // must init these first, other blocks depend on them being registered
         SIGN_TYPE = RegistryHelper.signType(ID);
-        PLANKS = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaPlanksBlock(this);
+        PLANKS = new AzaleaBlocks.AzaleaPlanksBlock(this);
 
-        BUTTON = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaButtonBlock(this);
-        DOOR = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaDoorBlock(this);
-        FENCE = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaFenceBlock(this);
-        FENCE_GATE = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaFenceGateBlock(this);
-        LOG = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaLogBlock(this);
-        STRIPPED_LOG = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.StrippedAzaleaLogBlock(this);
-        PRESSURE_PLATE = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaPressurePlateBlock(this);
-        SIGN_BLOCK = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaSignBlock(this);
-        SLAB = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaSlabBlock(this);
-        STAIRS = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaStairsBlock(this);
-        TRAPDOOR = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaTrapdoorBlock(this);
-        WALL_SIGN_BLOCK = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaWallSignBlock(this);
-        WOOD = new svenhjol.charm.module.azalea_wood.AzaleaBlocks.AzaleaWoodBlock(this);
+        BUTTON = new AzaleaBlocks.AzaleaButtonBlock(this);
+        DOOR = new AzaleaBlocks.AzaleaDoorBlock(this);
+        FENCE = new AzaleaBlocks.AzaleaFenceBlock(this);
+        FENCE_GATE = new AzaleaBlocks.AzaleaFenceGateBlock(this);
+        LOG = new AzaleaBlocks.AzaleaLogBlock(this);
+        STRIPPED_LOG = new AzaleaBlocks.StrippedAzaleaLogBlock(this);
+        PRESSURE_PLATE = new AzaleaBlocks.AzaleaPressurePlateBlock(this);
+        SIGN_BLOCK = new AzaleaBlocks.AzaleaSignBlock(this);
+        SLAB = new AzaleaBlocks.AzaleaSlabBlock(this);
+        STAIRS = new AzaleaBlocks.AzaleaStairsBlock(this);
+        TRAPDOOR = new AzaleaBlocks.AzaleaTrapdoorBlock(this);
+        WALL_SIGN_BLOCK = new AzaleaBlocks.AzaleaWallSignBlock(this);
+        WOOD = new AzaleaBlocks.AzaleaWoodBlock(this);
         STRIPPED_WOOD = new AzaleaBlocks.StrippedAzaleaWoodBlock(this);
 
-        BOAT = new svenhjol.charm.module.azalea_wood.AzaleaItems.AzaleaBoatItem(this);
+        BOAT = new AzaleaItems.AzaleaBoatItem(this);
         SIGN_ITEM = new AzaleaItems.AzaleaSignItem(this);
 
         BARREL = VariantBarrels.registerBarrel(this, CharmWoodMaterial.AZALEA);

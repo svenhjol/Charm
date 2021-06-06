@@ -1,17 +1,15 @@
 package svenhjol.charm.block;
 
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.item.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import svenhjol.charm.block.CharmBlockItem;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.mixin.accessor.*;
+import svenhjol.charm.mixin.accessor.FireBlockAccessor;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.function.BiConsumer;
 

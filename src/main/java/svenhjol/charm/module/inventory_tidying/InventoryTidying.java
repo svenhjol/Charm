@@ -15,8 +15,6 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.module.inventory_tidying.InventoryTidyingClient;
-import svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler;
 
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class InventoryTidying extends CharmModule {
         // listen for network requests to run the server callback
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_TIDY_INVENTORY, this::handleServerTidyInventory);
 
-        svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.init();
+        InventoryTidyingHandler.init();
     }
 
     private void handleServerTidyInventory(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf data, PacketSender sender) {
@@ -73,7 +71,7 @@ public class InventoryTidying extends CharmModule {
             Container inventory = slot.container;
 
             if (type == PLAYER && slot.container == PlayerHelper.getInventory(player)) {
-                svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.sort(PlayerHelper.getInventory(player), 9, 36);
+                InventoryTidyingHandler.sort(PlayerHelper.getInventory(player), 9, 36);
                 hasItemsInInventory = !slot.container.isEmpty();
                 break;
             } else if (type == BE) {

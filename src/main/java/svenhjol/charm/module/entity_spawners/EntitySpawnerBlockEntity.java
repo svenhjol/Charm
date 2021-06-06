@@ -3,18 +3,12 @@ package svenhjol.charm.module.entity_spawners;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
-import net.minecraft.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -36,7 +30,6 @@ import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
 import svenhjol.charm.helper.DataBlockHelper;
 import svenhjol.charm.helper.LootHelper;
-import svenhjol.charm.module.entity_spawners.EntitySpawners;
 
 import java.util.*;
 
@@ -60,7 +53,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity {
     public String meta = "";
 
     public EntitySpawnerBlockEntity(BlockPos pos, BlockState state) {
-        super(svenhjol.charm.module.entity_spawners.EntitySpawners.BLOCK_ENTITY, pos, state);
+        super(EntitySpawners.BLOCK_ENTITY, pos, state);
     }
 
     @Override

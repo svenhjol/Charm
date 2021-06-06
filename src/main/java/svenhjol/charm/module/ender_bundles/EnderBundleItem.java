@@ -17,8 +17,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.module.ender_bundles.EnderBundles;
-import svenhjol.charm.module.ender_bundles.EnderBundlesClient;
 
 import java.util.Optional;
 
@@ -33,13 +31,13 @@ public class EnderBundleItem extends CharmItem {
 
     @Environment(EnvType.CLIENT)
     public static float getAmountFilled() {
-        return svenhjol.charm.module.ender_bundles.EnderBundlesClient.CACHED_AMOUNT_FILLED;
+        return EnderBundlesClient.CACHED_AMOUNT_FILLED;
     }
 
     @Environment(EnvType.CLIENT)
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        return svenhjol.charm.module.ender_bundles.EnderBundlesClient.CACHED_AMOUNT_FILLED > 0;
+        return EnderBundlesClient.CACHED_AMOUNT_FILLED > 0;
     }
 
     @Environment(EnvType.CLIENT)

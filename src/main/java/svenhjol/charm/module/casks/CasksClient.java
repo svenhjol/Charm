@@ -11,8 +11,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.module.casks.CaskBlockEntityRenderer;
-import svenhjol.charm.module.casks.Casks;
 
 import java.util.Random;
 
@@ -23,7 +21,7 @@ public class CasksClient extends CharmClientModule {
 
     @Override
     public void register() {
-        ClientPlayNetworking.registerGlobalReceiver(svenhjol.charm.module.casks.Casks.MSG_CLIENT_ADDED_TO_CASK, this::handleClientAddedToCask);
+        ClientPlayNetworking.registerGlobalReceiver(Casks.MSG_CLIENT_ADDED_TO_CASK, this::handleClientAddedToCask);
         BlockEntityRendererRegistry.INSTANCE.register(Casks.BLOCK_ENTITY, CaskBlockEntityRenderer::new);
     }
 
