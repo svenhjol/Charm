@@ -27,10 +27,3 @@ accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer 
 accessible method net/minecraft/client/renderer/RenderType create (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;ILnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
 accessible method net/minecraft/client/renderer/RenderType create (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;IZZLnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
 accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
-
-# Immutable class fields
-mutable field net/minecraft/block/entity/BlockEntityType blocks Ljava/util/Set;
-mutable field net/minecraft/world/poi/PointOfInterestType blockStates Ljava/util/Set;
-mutable field net/minecraft/structure/pool/StructurePool elementCounts Ljava/util/List;
-mutable field net/minecraft/world/poi/PointOfInterestType ticketCount I
-mutable field net/minecraft/item/Item maxCount I

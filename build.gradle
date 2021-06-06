@@ -24,10 +24,6 @@ runServer {
 	standardInput = System.in
 }
 
-//loom {
-//	silentMojangMappingsLicense()
-//}
-
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -133,5 +129,6 @@ publishing {
 }
 
 repositories {
+	flatDir { dirs "libs" }
 	maven { url "https://maven.shedaniel.me" }
 }
