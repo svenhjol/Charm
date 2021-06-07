@@ -8,9 +8,9 @@ import svenhjol.charm.annotation.CharmMixin;
 @Mixin(AbstractContainerScreen.class)
 @CharmMixin(required = true)
 public interface AbstractContainerScreenAccessor {
-    @Accessor("snapbackStartX")
+    @Accessor("leftPos")
     int getX();
 
-    @Accessor("snapbackStartY")
+    @Accessor("topPos")
     int getY();
 }
