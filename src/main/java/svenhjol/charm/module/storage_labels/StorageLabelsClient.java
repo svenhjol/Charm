@@ -111,7 +111,7 @@ public class StorageLabelsClient extends CharmClientModule {
         }
 
         matrices.pushPose();
-        matrices.translate(0.5F + xo, 0.85F, 0.5F + zo);
+        matrices.translate(0.5F + xo, 0.75F, 0.5F + zo);
         matrices.mulPose(camera.rotation());
         matrices.scale(-StorageLabels.SCALE, -StorageLabels.SCALE, StorageLabels.SCALE);
         Matrix4f matrix4f = matrices.last().pose();
