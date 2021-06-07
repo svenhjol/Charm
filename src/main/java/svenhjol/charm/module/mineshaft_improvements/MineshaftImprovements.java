@@ -254,7 +254,7 @@ public class MineshaftImprovements extends CharmModule {
 
                             if (world.isEmptyBlock(pos)
                                 && world.getBlockState(pos.below()).isCollisionShapeFullBlock(world, pos.below())
-                                && !world.canSeeSky(pos)) {
+                                && !world.canSeeSkyFromBelowWater(pos)) {
                                 world.setBlock(pos, state, 11);
                             }
                         }
