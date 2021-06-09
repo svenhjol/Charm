@@ -1,7 +1,5 @@
 package svenhjol.charm.mixin;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.reflect.ClassPath;
 import com.moandjiezana.toml.Toml;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -61,19 +59,23 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
 
         // fetch mixin annotations to remove when conflicting mods are present
-        ImmutableSet<ClassPath.ClassInfo> classes;
+        List<String> classes;
         try {
-            classes = ClassPath.from(CharmMixinConfigPlugin.class.getClassLoader()).getTopLevelClassesRecursive(mixinPackage);
+            //classes = ClassPath.from(CharmMixinConfigPlugin.class.getClassLoader()).getTopLevelClassesRecursive(mixinPackage);
+            classes = ConfigHelper.getClasses(mixinPackage);
         } catch (Exception e) {
             throw new IllegalStateException("Could not fetch mixin classes, giving up");
         }
 
-        for (ClassPath.ClassInfo c : classes) {
+        if (classes.isEmpty()) {
+            throw new IllegalStateException("No mixin classes found, this is wrong, all kinds of wrong.");
+        }
+
+        for (String mixinClassName : classes) {
             try {
-                String mixinClassName = c.getName();
                 String truncatedName = mixinClassName.substring(mixinPackage.length() + 1);
 
-                ClassReader classReader = new ClassReader(c.asByteSource().read());
+                ClassReader classReader = new ClassReader(mixinClassName);
                 ClassNode node = new ClassNode();
                 classReader.accept(node, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
 
@@ -155,6 +157,8 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                 logger.error(e.getMessage());
             }
         }
+
+        Charm.LOG.info("here");
     }
 
     @Override

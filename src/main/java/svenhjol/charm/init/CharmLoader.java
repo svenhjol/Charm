@@ -1,7 +1,5 @@
 package svenhjol.charm.init;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.reflect.ClassPath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.ClassReader;
@@ -28,19 +26,22 @@ public class CharmLoader {
         CLASSES = new ArrayList<>(); // populate this with discovered classes
 
         Logger logger = LogManager.getLogger();
-        ImmutableSet<ClassPath.ClassInfo> classes;
+        List<String> classes;
         String basePackage = "svenhjol." + modId + ".module";
 
         try {
-            classes = ClassPath.from(CharmLoader.class.getClassLoader()).getTopLevelClassesRecursive(basePackage);
+            classes = ConfigHelper.getClasses(basePackage);
         } catch (Exception e) {
             throw new IllegalStateException("Could not fetch module classes, giving up");
         }
 
-        for (ClassPath.ClassInfo c : classes) {
+        if (classes.isEmpty()) {
+            Charm.LOG.warn("No modules found in this mod, this is probably not right.");
+        }
+
+        for (String moduleClassName : classes) {
             try {
-                String moduleClassName = c.getName();
-                ClassReader classReader = new ClassReader(c.asByteSource().read());
+                ClassReader classReader = new ClassReader(moduleClassName);
                 ClassNode node = new ClassNode();
                 classReader.accept(node, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
 
