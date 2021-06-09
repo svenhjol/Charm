@@ -1,8 +1,8 @@
 package svenhjol.charm.module.atlases;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -21,16 +21,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.item.TooltipFlag;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.event.RenderHeldItemCallback;
 import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.event.RenderHeldItemCallback;
-import com.mojang.blaze3d.vertex.PoseStack;
-import svenhjol.charm.module.atlases.AtlasInventory;
-import svenhjol.charm.module.atlases.AtlasRenderer;
-import svenhjol.charm.module.atlases.AtlasScreen;
-import svenhjol.charm.module.atlases.Atlases;
+import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.List;
 
@@ -43,14 +39,14 @@ public class AtlasesClient extends CharmClientModule {
 
     @Override
     public void register() {
-        ScreenRegistry.register(svenhjol.charm.module.atlases.Atlases.CONTAINER, AtlasScreen::new);
+        RegistryHelper.clientScreenHandler(Atlases.CONTAINER, AtlasScreen::new);
     }
 
     @Override
     public void init() {
         RenderHeldItemCallback.EVENT.register(this::handleRenderItem);
         ItemTooltipCallback.EVENT.register(this::handleItemTooltip);
-        ClientPlayNetworking.registerGlobalReceiver(svenhjol.charm.module.atlases.Atlases.MSG_CLIENT_UPDATE_ATLAS_INVENTORY, this::handleClientUpdateAtlas);
+        ClientPlayNetworking.registerGlobalReceiver(Atlases.MSG_CLIENT_UPDATE_ATLAS_INVENTORY, this::handleClientUpdateAtlas);
     }
 
     public void handleClientUpdateAtlas(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
@@ -59,7 +55,7 @@ public class AtlasesClient extends CharmClientModule {
     }
 
     public InteractionResult handleRenderItem(float tickDelta, float pitch, InteractionHand hand, float swingProgress, ItemStack itemStack, float equipProgress, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
-        if (itemStack.getItem() == svenhjol.charm.module.atlases.Atlases.ATLAS_ITEM) {
+        if (itemStack.getItem() == Atlases.ATLAS_ITEM) {
             if (renderer == null) {
                 renderer = new AtlasRenderer();
             }
@@ -71,14 +67,14 @@ public class AtlasesClient extends CharmClientModule {
     }
 
     public void handleItemTooltip(ItemStack stack, TooltipFlag context, List<Component> lines) {
-        if (stack == null || stack.isEmpty() || stack.getItem() != svenhjol.charm.module.atlases.Atlases.ATLAS_ITEM)
+        if (stack == null || stack.isEmpty() || stack.getItem() != Atlases.ATLAS_ITEM)
             return;
 
         Player player = Minecraft.getInstance().player;
         if (player == null)
             return;
 
-        AtlasInventory inventory = svenhjol.charm.module.atlases.Atlases.getInventory(player.level, stack);
+        AtlasInventory inventory = Atlases.getInventory(player.level, stack);
 
         ItemStack map = inventory.getLastActiveMapItem();
         if (map == null)
@@ -96,11 +92,11 @@ public class AtlasesClient extends CharmClientModule {
         LocalPlayer player = mc.player;
         if (player == null) return;
         ItemStack atlas = PlayerHelper.getInventory(player).getItem(atlasSlot);
-        svenhjol.charm.module.atlases.Atlases.getInventory(mc.level, atlas).reload(atlas);
+        Atlases.getInventory(mc.level, atlas).reload(atlas);
     }
 
     public static boolean shouldDrawAtlasCopy(CartographyTableScreen screen) {
-        return ModuleHandler.enabled(svenhjol.charm.module.atlases.Atlases.class) && screen.getMenu().getSlot(0).getItem().getItem() == Atlases.ATLAS_ITEM
+        return ModuleHandler.enabled(Atlases.class) && screen.getMenu().getSlot(0).getItem().getItem() == Atlases.ATLAS_ITEM
             && screen.getMenu().getSlot(1).getItem().getItem() == Items.MAP;
     }
 }

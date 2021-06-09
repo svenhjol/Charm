@@ -57,6 +57,10 @@ public class RegistryHelper {
         PotionBrewingAccessor.invokeAddMix(input, reagant, output);
     }
 
+    public static <H extends AbstractContainerMenu, S extends Screen & MenuAccess<H>> void clientScreenHandler(MenuType<H> screenHandler, ScreenRegistry.Factory<H, S> screen) {
+        ScreenRegistry.register(screenHandler, screen);
+    }
+
     public static ConfiguredFeature<?, ?> configuredFeature(ResourceLocation id, ConfiguredFeature<?, ?> configuredFeature) {
         ResourceKey<ConfiguredFeature<?, ?>> key = ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, id);
         BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_FEATURE, key.location(), configuredFeature);
@@ -117,10 +121,6 @@ public class RegistryHelper {
         return Registry.register(Registry.MENU, id, new MenuType<>(factory));
     }
 
-    public static <H extends AbstractContainerMenu, S extends Screen & MenuAccess<H>> void screenHandlerClient(MenuType<H> screenHandler, ScreenRegistry.Factory<H, S> screen) {
-        ScreenRegistry.register(screenHandler, screen);
-    }
-
     public static SoundEvent sound(ResourceLocation id, SoundEvent sound) {
         return Registry.register(Registry.SOUND_EVENT, id, sound);
     }
@@ -148,4 +148,5 @@ public class RegistryHelper {
 
         ((BlockEntityTypeAccessor)type).setValidBlocks(new HashSet<>(mutable));
     }
+
 }
