@@ -30,6 +30,11 @@ public class VariantLadderBlock extends LadderBlock implements ICharmBlock {
     }
 
     @Override
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_DECORATIONS;
+    }
+
+    @Override
     public boolean enabled() {
         return module.enabled;
     }
