@@ -30,6 +30,11 @@ public class VariantLadderBlock extends LadderBlock implements ICharmBlock {
     }
 
     @Override
+    public ItemGroup getItemGroup() {
+        return ItemGroup.DECORATIONS;
+    }
+
+    @Override
     public boolean enabled() {
         return module.enabled;
     }
