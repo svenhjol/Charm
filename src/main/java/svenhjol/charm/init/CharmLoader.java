@@ -32,7 +32,7 @@ public class CharmLoader {
         try {
             classes = ConfigHelper.getClasses(basePackage);
         } catch (Exception e) {
-            throw new IllegalStateException("Could not fetch module classes, giving up");
+            throw new IllegalStateException("Could not fetch module classes, giving up: " + e.getMessage());
         }
 
         if (classes.isEmpty()) {

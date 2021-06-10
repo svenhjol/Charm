@@ -64,7 +64,7 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
             //classes = ClassPath.from(CharmMixinConfigPlugin.class.getClassLoader()).getTopLevelClassesRecursive(mixinPackage);
             classes = ConfigHelper.getClasses(mixinPackage);
         } catch (Exception e) {
-            throw new IllegalStateException("Could not fetch mixin classes, giving up");
+            throw new IllegalStateException("Could not fetch mixin classes, giving up: " + e.getMessage());
         }
 
         if (classes.isEmpty()) {
