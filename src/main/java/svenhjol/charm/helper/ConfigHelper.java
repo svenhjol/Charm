@@ -5,6 +5,7 @@ import com.electronwill.nightconfig.toml.TomlFormat;
 import com.electronwill.nightconfig.toml.TomlWriter;
 import com.moandjiezana.toml.Toml;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.module.CharmModule;
@@ -12,11 +13,14 @@ import svenhjol.charm.module.CharmModule;
 import javax.annotation.Nullable;
 import java.io.*;
 import java.lang.reflect.Field;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
 
 public class ConfigHelper {
 
@@ -141,32 +145,67 @@ public class ConfigHelper {
      * @param packageName The base package
      * @return fully qualified class name strings
      */
-    public static List<String> getClasses(String packageName) throws IOException {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    public static List<String> getClasses(ClassLoader classLoader, String packageName) throws IOException, URISyntaxException {
+        Logger logger = LogManager.getLogger();
         assert classLoader != null;
-        String path = packageName.replace(".", File.separator);
-//        Enumeration<URL> resources = classLoader.getResources(path);
-        LogManager.getLogger().info("path: " + path);
+        String path = packageName.replace(".", "/");
 
-        InputStream stream = classLoader.getResourceAsStream(path);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        List<File> dirs = new ArrayList<>();
+
+
+        ArrayList classes = new ArrayList ();
+
+
+        URL resource = classLoader.getResource(path);
+//        logger.info("resource: " + resource);
+//        File dir = new File(resource.toURI());
+//
+//        ArrayList<String> classes = new ArrayList<String>();
+//        classes.addAll(findClasses(dir, packageName));
+//
+//        return classes.stream().distinct().collect(Collectors.toList());
+
+
+        packageName = packageName.replaceAll("\\." , "/");
+        try{
+            JarInputStream jarFile = new JarInputStream
+                    (new FileInputStream(jarName));
+            JarEntry jarEntry;
+
+            while(true) {
+                jarEntry=jarFile.getNextJarEntry ();
+                if(jarEntry == null){
+                    break;
+                }
+                if((jarEntry.getName ().startsWith (packageName)) &&
+                        (jarEntry.getName ().endsWith(".class")) ) {
+                    classes.add (jarEntry.getName().replaceAll("/", "\\."));
+                }
+            }
+        }
+        catch( Exception e){
+            e.printStackTrace ();
+        }
+        return classes;
+
+        logger.info("path: " + path);
+        InputStream i = classLoader.getResourceAsStream(path);
+        BufferedReader r = new BufferedReader(new InputStreamReader(i));
+
+        List<String> s = new ArrayList<>();
 
         String l;
-        while ((l = reader.readLine()) != null) {
-            dirs.add(new File(path + File.separator + l));
+        while ((l = r.readLine()) != null) {
+            s.add(l);
         }
+        r.close();
 
-//        while (resources.hasMoreElements()) {
-//            URL resource = resources.nextElement();
-//            dirs.add(new File(resource.toURI()));
-//        }
-        ArrayList<String> classes = new ArrayList<String>();
-        for (File directory : dirs) {
-            classes.addAll(findClasses(directory, packageName));
-        }
+        logger.info("s: " + s.size());
 
-        return classes.stream().distinct().collect(Collectors.toList());
+        s.forEach(e -> {
+            logger.info("e: " + e);
+        });
+
+        throw new RuntimeException("Bailing");
     }
 
     /**

@@ -30,7 +30,8 @@ public class CharmLoader {
         String basePackage = "svenhjol." + modId + ".module";
 
         try {
-            classes = ConfigHelper.getClasses(basePackage);
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            classes = ConfigHelper.getClasses(classLoader, basePackage);
         } catch (Exception e) {
             throw new IllegalStateException("Could not fetch module classes, giving up: " + e.getMessage());
         }
