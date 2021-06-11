@@ -3,19 +3,29 @@ package svenhjol.charm.helper;
 import com.electronwill.nightconfig.core.CommentedConfig;
 import com.electronwill.nightconfig.toml.TomlFormat;
 import com.electronwill.nightconfig.toml.TomlWriter;
+import com.google.common.collect.Lists;
+import com.google.common.reflect.ClassPath;
 import com.moandjiezana.toml.Toml;
-import org.apache.logging.log4j.LogManager;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nullable;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.Writer;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.net.JarURLConnection;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
 import java.util.stream.Collectors;
 
 public class ConfigHelper {
@@ -141,29 +151,47 @@ public class ConfigHelper {
      * @param packageName The base package
      * @return fully qualified class name strings
      */
-    public static List<String> getClasses(String packageName) throws IOException {
+    public static List<String> getClassesInPackage(String packageName) throws IOException, URISyntaxException {
+        String path = packageName.replace(".", "/");
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
-        String path = packageName.replace(".", File.separator);
-//        Enumeration<URL> resources = classLoader.getResources(path);
-        LogManager.getLogger().info("path: " + path);
 
-        InputStream stream = classLoader.getResourceAsStream(path);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        List<File> dirs = new ArrayList<>();
+        ArrayList<String> classes = new ArrayList<>();
 
-        String l;
-        while ((l = reader.readLine()) != null) {
-            dirs.add(new File(path + File.separator + l));
-        }
+        URL url = new URL(classLoader.getResource(path).toString());
 
-//        while (resources.hasMoreElements()) {
-//            URL resource = resources.nextElement();
-//            dirs.add(new File(resource.toURI()));
-//        }
-        ArrayList<String> classes = new ArrayList<String>();
-        for (File directory : dirs) {
-            classes.addAll(findClasses(directory, packageName));
+        if (url.toString().startsWith("jar:")) {
+            try {
+                JarURLConnection connection = (JarURLConnection) url.openConnection();
+                File file = new File(connection.getJarFileURL().toURI());
+
+                packageName = packageName.replaceAll("\\.", "/");
+                try {
+                    JarInputStream jarFile = new JarInputStream(new FileInputStream(file));
+                    JarEntry jarEntry;
+
+                    while (true) {
+                        jarEntry = jarFile.getNextJarEntry();
+                        if (jarEntry == null) {
+                            break;
+                        }
+                        if (jarEntry.getName().startsWith(packageName) && jarEntry.getName().endsWith(".class")) {
+                            classes.add(jarEntry.getName()
+                                .replaceAll("/", "\\.")
+                                .replace(".class", ""));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+
+            }
+
+        } else {
+            URL resource = classLoader.getResource(path);
+            File dir = new File(resource.toURI());
+            classes.addAll(findClasses(dir, packageName));
         }
 
         return classes.stream().distinct().collect(Collectors.toList());
@@ -192,5 +220,29 @@ public class ConfigHelper {
             }
         }
         return classes;
+    }
+
+    /**
+     * Inspired by getClassesInPackage from Fabrication.
+     */
+    public static Iterable<ClassPath.ClassInfo> getClassesInPackage(ClassLoader classLoader, String packageName) {
+        try {
+            List<String> classes = getClassesInPackage(packageName);
+
+            Constructor<ClassPath.ClassInfo> cons = ClassPath.ClassInfo.class.getDeclaredConstructor(String.class, ClassLoader.class);
+            cons.setAccessible(true);
+            List<ClassPath.ClassInfo> rtrn = Lists.newArrayList();
+
+            for (String c : classes) {
+                if (c.startsWith(packageName)) {
+                    String resource = c.replace('.', '/') + ".class";
+                    rtrn.add(cons.newInstance(resource, classLoader));
+                }
+            }
+
+            return rtrn;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

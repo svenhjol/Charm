@@ -1,5 +1,6 @@
 package svenhjol.charm.init;
 
+import com.google.common.reflect.ClassPath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.ClassReader;
@@ -26,34 +27,43 @@ public class CharmLoader {
         CLASSES = new ArrayList<>(); // populate this with discovered classes
 
         Logger logger = LogManager.getLogger();
-        List<String> classes;
+        Iterable<ClassPath.ClassInfo> classes;
         String basePackage = "svenhjol." + modId + ".module";
 
         try {
-            classes = ConfigHelper.getClasses(basePackage);
+            ClassLoader classLoader = CharmLoader.class.getClassLoader();
+            classes = ConfigHelper.getClassesInPackage(classLoader, basePackage);
         } catch (Exception e) {
             throw new IllegalStateException("Could not fetch module classes, giving up: " + e.getMessage());
         }
 
-        if (classes.isEmpty()) {
-            Charm.LOG.warn("No modules found in this mod, this is probably not right.");
-        }
 
-        for (String moduleClassName : classes) {
+        int count = 0;
+
+        for (ClassPath.ClassInfo c : classes) {
+            String className = c.getName();
+            String truncatedName = className.substring(basePackage.length() + 1);
             try {
-                ClassReader classReader = new ClassReader(moduleClassName);
+                ClassReader classReader = new ClassReader(c.asByteSource().read());
                 ClassNode node = new ClassNode();
                 classReader.accept(node, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
 
                 if (node.visibleAnnotations != null && !node.visibleAnnotations.isEmpty()) {
                     for (AnnotationNode annotation : node.visibleAnnotations) {
                         if (annotation.desc.equals(MODULE_ANNOTATION))
-                            CLASSES.add((Class<? extends CharmModule>) Class.forName(moduleClassName));
+                            CLASSES.add((Class<? extends CharmModule>) Class.forName(c.getName()));
                     }
                 }
+
+                count++;
+
             } catch (Exception e) {
-                logger.error(e.getMessage());
+                Charm.LOG.error("Error occurred while processing module " + truncatedName + ": " + e.getMessage());
             }
+        }
+
+        if (count == 0) {
+            Charm.LOG.warn("Seems no module classes were processed... this is probably bad.");
         }
 
         this.launch();

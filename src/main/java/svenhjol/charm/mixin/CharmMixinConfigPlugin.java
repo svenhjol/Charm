@@ -1,5 +1,6 @@
 package svenhjol.charm.mixin;
 
+import com.google.common.reflect.ClassPath;
 import com.moandjiezana.toml.Toml;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,23 +60,21 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
 
         // fetch mixin annotations to remove when conflicting mods are present
-        List<String> classes;
+        Iterable<ClassPath.ClassInfo> classes;
         try {
-            //classes = ClassPath.from(CharmMixinConfigPlugin.class.getClassLoader()).getTopLevelClassesRecursive(mixinPackage);
-            classes = ConfigHelper.getClasses(mixinPackage);
+            ClassLoader classLoader = CharmMixinConfigPlugin.class.getClassLoader();
+            classes = ConfigHelper.getClassesInPackage(classLoader, mixinPackage);
         } catch (Exception e) {
             throw new IllegalStateException("Could not fetch mixin classes, giving up: " + e.getMessage());
         }
 
-        if (classes.isEmpty()) {
-            throw new IllegalStateException("No mixin classes found, this is wrong, all kinds of wrong.");
-        }
+        int count = 0;
 
-        for (String mixinClassName : classes) {
+        for (ClassPath.ClassInfo c : classes) {
+            String className = c.getName();
+            String truncatedName = className.substring(mixinPackage.length() + 1);
             try {
-                String truncatedName = mixinClassName.substring(mixinPackage.length() + 1);
-
-                ClassReader classReader = new ClassReader(mixinClassName);
+                ClassReader classReader = new ClassReader(c.asByteSource().read());
                 ClassNode node = new ClassNode();
                 classReader.accept(node, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
 
@@ -91,47 +90,49 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                     disabledMixins.put(truncatedName, true);
                 }
 
-                if (node.visibleAnnotations != null && !node.visibleAnnotations.isEmpty()) {
-                    for (AnnotationNode annotation : node.visibleAnnotations) {
-                        if (!annotation.desc.contains(CHARM_MIXIN) || annotation.values.isEmpty())
-                            continue;
+                if (node.visibleAnnotations == null || node.visibleAnnotations.isEmpty()) {
+                    continue;
+                }
 
-                        // iterate key values
-                        List<String> keys = new ArrayList<>();
-                        List<Object> values = new ArrayList<>();
-                        for (int i = 0; i < annotation.values.size(); i++) {
-                            if (i % 2 == 0) {
-                                keys.add((String) annotation.values.get(i));
-                            } else {
-                                values.add(annotation.values.get(i));
-                            }
+                for (AnnotationNode annotation : node.visibleAnnotations) {
+                    if (!annotation.desc.contains(CHARM_MIXIN) || annotation.values.isEmpty())
+                        continue;
+
+                    // iterate key values
+                    List<String> keys = new ArrayList<>();
+                    List<Object> values = new ArrayList<>();
+                    for (int i = 0; i < annotation.values.size(); i++) {
+                        if (i % 2 == 0) {
+                            keys.add((String) annotation.values.get(i));
+                        } else {
+                            values.add(annotation.values.get(i));
+                        }
+                    }
+
+                    // wire together
+                    Map<String, Object> annotations = new HashMap<>();
+                    for (int i = 0; i < keys.size(); i++) {
+                        annotations.put(keys.get(i), values.get(i));
+                    }
+
+                    // handle required
+                    required = annotations.containsKey(REQUIRED) && ((Boolean)annotations.get(REQUIRED));
+
+                    if (required) {
+                        disabledMixins.remove(truncatedName);
+                        requiredMixins.put(truncatedName, true);
+                    }
+
+                    if (!required) {
+                        List<String> modsToCheck = new ArrayList<>();
+
+                        if (annotations.containsKey(DISABLE_IF_MODS_PRESENT)) {
+                            ((ArrayList<?>) annotations.get(DISABLE_IF_MODS_PRESENT)).forEach(m -> modsToCheck.add((String) m));
                         }
 
-                        // wire together
-                        Map<String, Object> annotations = new HashMap<>();
-                        for (int i = 0; i < keys.size(); i++) {
-                            annotations.put(keys.get(i), values.get(i));
-                        }
-
-                        // handle required
-                        required = annotations.containsKey(REQUIRED) && ((Boolean)annotations.get(REQUIRED));
-
-                        if (required) {
-                            disabledMixins.remove(truncatedName);
-                            requiredMixins.put(truncatedName, true);
-                        }
-
-                        if (!required) {
-                            List<String> modsToCheck = new ArrayList<>();
-
-                            if (annotations.containsKey(DISABLE_IF_MODS_PRESENT)) {
-                                ((ArrayList<?>) annotations.get(DISABLE_IF_MODS_PRESENT)).forEach(m -> modsToCheck.add((String) m));
-                            }
-
-                            if (modsToCheck.stream().anyMatch(ModHelper::isLoaded)) {
-                                disabledMixins.put(truncatedName, true);
-                                disabled = true;
-                            }
+                        if (modsToCheck.stream().anyMatch(ModHelper::isLoaded)) {
+                            disabledMixins.put(truncatedName, true);
+                            disabled = true;
                         }
                     }
                 }
@@ -152,13 +153,16 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                     logger.info("✅ Mixin " + truncatedName + " will be added");
                 }
 
+                count++;
 
             } catch (Exception e) {
-                logger.error(e.getMessage());
+                logger.error("Error occurred while processing mixin " + truncatedName + ": " + e.getMessage());
             }
         }
 
-        Charm.LOG.info("here");
+        if (count == 0) {
+            logger.warn("Seems no mixin classes were processed... this might be bad.");
+        }
     }
 
     @Override
