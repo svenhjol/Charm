@@ -22,6 +22,8 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings("UnstableApiUsage")
 public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
+    private static final String MIXIN = "Mixin"; // all valid mixin classes have this annotation
+
     // these must match the annotation methods in CharmMixin
     private static final String CHARM_MIXIN = "CharmMixin";
     private static final String DISABLE_IF_MODS_PRESENT = "disableIfModsPresent";
@@ -73,6 +75,9 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
         for (ClassPath.ClassInfo c : classes) {
             String className = c.getName();
             String truncatedName = className.substring(mixinPackage.length() + 1);
+            if (this.getClass().getName().equals(className))
+                continue; // don't try and process this class as a mixin
+
             try {
                 ClassReader classReader = new ClassReader(c.asByteSource().read());
                 ClassNode node = new ClassNode();
@@ -90,49 +95,47 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                     disabledMixins.put(truncatedName, true);
                 }
 
-                if (node.visibleAnnotations == null || node.visibleAnnotations.isEmpty()) {
-                    continue;
-                }
+                if (node.visibleAnnotations != null && !node.visibleAnnotations.isEmpty()) {
+                    for (AnnotationNode annotation : node.visibleAnnotations) {
+                        if (!annotation.desc.contains(MIXIN) || annotation.values.isEmpty())
+                            continue;
 
-                for (AnnotationNode annotation : node.visibleAnnotations) {
-                    if (!annotation.desc.contains(CHARM_MIXIN) || annotation.values.isEmpty())
-                        continue;
-
-                    // iterate key values
-                    List<String> keys = new ArrayList<>();
-                    List<Object> values = new ArrayList<>();
-                    for (int i = 0; i < annotation.values.size(); i++) {
-                        if (i % 2 == 0) {
-                            keys.add((String) annotation.values.get(i));
-                        } else {
-                            values.add(annotation.values.get(i));
-                        }
-                    }
-
-                    // wire together
-                    Map<String, Object> annotations = new HashMap<>();
-                    for (int i = 0; i < keys.size(); i++) {
-                        annotations.put(keys.get(i), values.get(i));
-                    }
-
-                    // handle required
-                    required = annotations.containsKey(REQUIRED) && ((Boolean)annotations.get(REQUIRED));
-
-                    if (required) {
-                        disabledMixins.remove(truncatedName);
-                        requiredMixins.put(truncatedName, true);
-                    }
-
-                    if (!required) {
-                        List<String> modsToCheck = new ArrayList<>();
-
-                        if (annotations.containsKey(DISABLE_IF_MODS_PRESENT)) {
-                            ((ArrayList<?>) annotations.get(DISABLE_IF_MODS_PRESENT)).forEach(m -> modsToCheck.add((String) m));
+                        // iterate key values
+                        List<String> keys = new ArrayList<>();
+                        List<Object> values = new ArrayList<>();
+                        for (int i = 0; i < annotation.values.size(); i++) {
+                            if (i % 2 == 0) {
+                                keys.add((String) annotation.values.get(i));
+                            } else {
+                                values.add(annotation.values.get(i));
+                            }
                         }
 
-                        if (modsToCheck.stream().anyMatch(ModHelper::isLoaded)) {
-                            disabledMixins.put(truncatedName, true);
-                            disabled = true;
+                        // wire together
+                        Map<String, Object> annotations = new HashMap<>();
+                        for (int i = 0; i < keys.size(); i++) {
+                            annotations.put(keys.get(i), values.get(i));
+                        }
+
+                        // handle required
+                        required = annotations.containsKey(REQUIRED) && ((Boolean) annotations.get(REQUIRED));
+
+                        if (required) {
+                            disabledMixins.remove(truncatedName);
+                            requiredMixins.put(truncatedName, true);
+                        }
+
+                        if (!required) {
+                            List<String> modsToCheck = new ArrayList<>();
+
+                            if (annotations.containsKey(DISABLE_IF_MODS_PRESENT)) {
+                                ((ArrayList<?>) annotations.get(DISABLE_IF_MODS_PRESENT)).forEach(m -> modsToCheck.add((String) m));
+                            }
+
+                            if (modsToCheck.stream().anyMatch(ModHelper::isLoaded)) {
+                                disabledMixins.put(truncatedName, true);
+                                disabled = true;
+                            }
                         }
                     }
                 }
@@ -146,17 +149,17 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                 }
 
                 if (required) {
-                    logger.info("✅ Mixin " + truncatedName + " is required");
+                    logger.debug("> Mixin " + truncatedName + " is required");
                 } else if (disabled) {
-                    logger.warn("❌ Mixin " + truncatedName + " will not be added");
+                    logger.warn(" > Mixin " + truncatedName + " will not be added");
                 } else {
-                    logger.info("✅ Mixin " + truncatedName + " will be added");
+                    logger.debug(" > Mixin " + truncatedName + " will be added");
                 }
 
                 count++;
 
             } catch (Exception e) {
-                logger.error("Error occurred while processing mixin " + truncatedName + ": " + e.getMessage());
+                logger.error(" > Error occurred while processing mixin " + truncatedName + ": " + e.getMessage());
             }
         }
 
