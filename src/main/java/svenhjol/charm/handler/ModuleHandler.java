@@ -1,15 +1,14 @@
 package svenhjol.charm.handler;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.AdvancementHandler;
+import svenhjol.charm.event.LoadWorldCallback;
+import svenhjol.charm.helper.ModHelper;
+import svenhjol.charm.helper.StringHelper;
 import svenhjol.charm.init.CharmBiomes;
 import svenhjol.charm.init.CharmDecoration;
 import svenhjol.charm.init.CharmLoader;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.helper.StringHelper;
-import svenhjol.charm.event.LoadWorldCallback;
 import svenhjol.charm.mixin.CharmMixinConfigPlugin;
+import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -58,11 +57,11 @@ public class ModuleHandler {
         boolean dependencyCheck = module.depends() && checkMixins(module);
 
         if (!isEnabled) {
-            Charm.LOG.info("❌ Module " + name + " is disabled");
+            Charm.LOG.debug(" > Module " + name + " is disabled");
         } else if (!dependencyCheck) {
-            Charm.LOG.info("❌ Module " + name + " did not pass dependency check");
+            Charm.LOG.debug(" > Module " + name + " did not pass dependency check");
         } else {
-            Charm.LOG.info("✅ Module " + name + " is enabled ");
+            Charm.LOG.debug(" > Module " + name + " is enabled ");
         }
 
         module.enabled = isEnabled && dependencyCheck;

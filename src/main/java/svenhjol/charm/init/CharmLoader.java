@@ -58,7 +58,7 @@ public class CharmLoader {
                 count++;
 
             } catch (Exception e) {
-                Charm.LOG.error("Error occurred while processing module " + truncatedName + ": " + e.getMessage());
+                Charm.LOG.error("> Error occurred while processing module " + truncatedName + ": " + e.getMessage());
             }
         }
 

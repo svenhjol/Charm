@@ -8,7 +8,7 @@ import svenhjol.charm.module.core.Core;
 
 public class LogHandler {
     public String name;
-    public static final Marker INTERNAL = MarkerManager.getMarker("INTERNAL");
+    public static final Marker INTERNAL = MarkerManager.getMarker("CHARM");
 
     public LogHandler(String name) {
         this.name = name;
