@@ -42,6 +42,7 @@ public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
             .with(FACING, Direction.NORTH)
             .with(OPEN, false)
         );
+        this.setBurnTime(300);
     }
 
     @Override

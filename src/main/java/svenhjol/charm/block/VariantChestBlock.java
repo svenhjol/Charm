@@ -39,6 +39,7 @@ public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVaria
         this.loadedMods = Arrays.asList(loadedMods);
 
         this.register(module, type.asString() + "_chest");
+        this.setBurnTime(300);
     }
 
     @Override

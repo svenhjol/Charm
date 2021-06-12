@@ -45,6 +45,7 @@ public class BookcaseBlock extends CharmBlockWithEntity {
         this.type = type;
 
         setDefaultState(getDefaultState().with(SLOTS, 0));
+        this.setBurnTime(300);
     }
 
     @Override

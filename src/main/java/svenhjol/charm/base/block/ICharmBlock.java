@@ -45,6 +45,9 @@ public interface ICharmBlock {
         return null;
     }
 
+    /**
+     * {@link net.minecraft.block.entity.AbstractFurnaceBlockEntity#createFuelTimeMap}
+     */
     default void setBurnTime(int burnTime) {
         FuelRegistry.INSTANCE.add((Block)this, burnTime);
     }
