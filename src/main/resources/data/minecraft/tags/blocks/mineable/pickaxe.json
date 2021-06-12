@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "charm:cooking_pot",
+    "charm:copper_bars",
+    "charm:copper_chain",
+    "charm:copper_lantern",
+    "charm:gold_bars",
+    "charm:gold_chain",
+    "charm:gold_lantern",
+    "charm:netherite_bars",
+    "charm:netherite_chain",
+    "charm:netherite_lantern"
+  ]
+}
