@@ -3,3 +3,7 @@
     -webkit-transition: $prop $duration $mode;
     transition: $prop $duration $mode;
 }
+
+@mixin textShadow($col, $x, $y, $fuzz) {
+    text-shadow: $col $x $y $fuzz;
+}

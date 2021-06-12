@@ -3,13 +3,18 @@
 
 .home-header {
   border-bottom: 1px dashed $border-color;
+  background-image: url("https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/splash-1.17.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 
   h1 {
     text-align: center;
-    font-size: 8em;
-    color: #e0e0e0;
+    font-size: 8.5em;
+    color: #efefef;
+    @include textShadow(#3e3c3a, 0px, 0px, 9px);
     padding-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
   }
 
   .nav-buttons {
@@ -20,6 +25,7 @@
       .card-header {
         text-align: center;
         color: $gray1;
+        font-size: 1.3em;
       }
 
       .card-body {

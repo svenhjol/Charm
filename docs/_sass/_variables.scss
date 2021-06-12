@@ -6,7 +6,7 @@ $white: #e8e4e0;
 $gray1: #a8a4a0;
 $gray2: #888480;
 $gray3: rgb(60, 58, 56);
-$gray3a: rgba(60, 58, 56, 0.5);
+$gray3a: darken(rgba(60, 58, 56, 0.86), 3);
 $gray4: rgb(48, 46, 44);
 
 $border-color: $gray3;
