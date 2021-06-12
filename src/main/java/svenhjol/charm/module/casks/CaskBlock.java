@@ -4,6 +4,7 @@ import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -55,7 +56,7 @@ public class CaskBlock extends CharmBlockWithEntity {
     public static final VoxelShape Z_SHAPE;
 
     public CaskBlock(CharmModule module) {
-        super(module, "cask", Properties.of(Material.WOOD)
+        super(module, "cask", FabricBlockSettings.of(Material.WOOD)
             .strength(2.5F)
             .sound(SoundType.WOOD));
 
