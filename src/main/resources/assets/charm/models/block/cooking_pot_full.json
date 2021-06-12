@@ -148,7 +148,7 @@
 			"from": [2, 4, 2],
 			"to": [14, 15, 14],
 			"faces": {
-				"up": {"uv": [2, 2, 14, 14], "texture": "#content", "cullface": "up", "tintindex": 0}
+				"up": {"uv": [2, 2, 14, 14], "texture": "#content", "cullface": "up", "tintindex": 1}
 			}
 		}
 	]
