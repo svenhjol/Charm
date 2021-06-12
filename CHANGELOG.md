@@ -3,7 +3,7 @@
 ### 3.0.5 (beta)
 * Fixed issue with extra recipe config not being applied properly
 * Equipping armor from hand no longer returns it back to your hand
-* Axes are now optimal tool for variant barrels, chests and trapped chests
+* Axes are now optimal tool for variant barrels, bookcases, bookshelves, chests and trapped chests
 
 ### 3.0.4 (beta)
 * Fix Totem of Preserving advancement using wrong trigger
