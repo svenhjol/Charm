@@ -29,6 +29,7 @@ public class DecorationHelper {
     public static List<Block> STRIPPED_LOGS = new ArrayList<>();
     public static List<Block> STRIPPED_WOOD = new ArrayList<>();
     public static List<IVariantMaterial> VARIANT_MATERIALS = new ArrayList<>();
+    public static List<IVariantMaterial> OVERWORLD_VARIANT_MATERIALS = new ArrayList<>();
     public static List<Block> WOOL = new ArrayList<>();
 
     public static Map<Block, Function<Direction, BlockState>> STATE_CALLBACK = new HashMap<>();
@@ -84,6 +85,10 @@ public class DecorationHelper {
 
     public static IVariantMaterial getRandomVariantMaterial(Random random) {
         return VARIANT_MATERIALS.get(random.nextInt(VARIANT_MATERIALS.size()));
+    }
+
+    public static IVariantMaterial getRandomOverworldVariantMaterial(Random random) {
+        return OVERWORLD_VARIANT_MATERIALS.get(random.nextInt(OVERWORLD_VARIANT_MATERIALS.size()));
     }
 
     @Nullable

@@ -11,6 +11,7 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.enums.IVariantMaterial;
 import svenhjol.charm.base.enums.VanillaVariantMaterial;
 import svenhjol.charm.base.handler.RegistryHandler;
+import svenhjol.charm.base.helper.DecorationHelper;
 import svenhjol.charm.base.helper.ItemHelper;
 import svenhjol.charm.base.iface.Config;
 import svenhjol.charm.base.iface.Module;
@@ -63,7 +64,7 @@ public class Crates extends CharmModule {
     }
 
     public static CrateBlock getRandomCrateBlock(Random rand) {
-        List<CrateBlock> values = new ArrayList<>(Crates.CRATE_BLOCKS.values());
-        return values.get(rand.nextInt(values.size()));
+        IVariantMaterial material = DecorationHelper.getRandomOverworldVariantMaterial(rand);
+        return CRATE_BLOCKS.get(material);
     }
 }

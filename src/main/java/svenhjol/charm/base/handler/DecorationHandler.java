@@ -33,6 +33,10 @@ public class DecorationHandler {
         WOOL.addAll(BlockTags.WOOL.values());
 
         VARIANT_MATERIALS.addAll(VanillaVariantMaterial.getTypes());
+        OVERWORLD_VARIANT_MATERIALS.addAll(VanillaVariantMaterial.getTypesWithout(
+            VanillaVariantMaterial.CRIMSON,
+            VanillaVariantMaterial.WARPED
+        ));
 
         CHEST_LOOT_TABLES = Arrays.asList(
             LootTables.ABANDONED_MINESHAFT_CHEST,
