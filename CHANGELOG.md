@@ -2,6 +2,8 @@
 
 ### 3.0.4 (beta)
 * Fix Totem of Preserving advancement using wrong trigger
+* Mineshafts now have hanging lanterns on chains in corridors
+* Pickaxes are now optimal tool for cooking pots and all metal variant things
 * Added more wood blocks as fuel source. svenhjol/Charm#549
 * New candidate method for handling items mined with Collection/Acquisition.  svenhjol/Charm#566
 

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum VanillaVariantMaterial implements svenhjol.charm.enums.IVariantMaterial {
+public enum VanillaVariantMaterial implements IVariantMaterial {
     OAK,
     SPRUCE,
     BIRCH,
@@ -15,11 +15,11 @@ public enum VanillaVariantMaterial implements svenhjol.charm.enums.IVariantMater
     CRIMSON,
     WARPED;
 
-    public static List<svenhjol.charm.enums.IVariantMaterial> getTypes() {
+    public static List<IVariantMaterial> getTypes() {
         return Arrays.stream(values()).collect(Collectors.toList());
     }
 
-    public static List<svenhjol.charm.enums.IVariantMaterial> getTypesWithout(svenhjol.charm.enums.IVariantMaterial... types) {
+    public static List<IVariantMaterial> getTypesWithout(IVariantMaterial... types) {
         List<IVariantMaterial> typesList = new ArrayList<>(Arrays.asList(types));
         return Arrays.stream(values()).filter(t -> !typesList.contains(t)).collect(Collectors.toList());
     }

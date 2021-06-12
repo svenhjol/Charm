@@ -1,5 +1,11 @@
 package svenhjol.charm.init;
 
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import svenhjol.charm.enums.VanillaVariantMaterial;
 import svenhjol.charm.helper.LootHelper;
 
@@ -7,13 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import svenhjol.charm.init.CharmLoot;
 
 import static svenhjol.charm.helper.DecorationHelper.*;
 
@@ -48,6 +47,10 @@ public class CharmDecoration {
         WOOL.addAll(BlockTags.WOOL.getValues());
 
         VARIANT_MATERIALS.addAll(VanillaVariantMaterial.getTypes());
+        OVERWORLD_VARIANT_MATERIALS.addAll(VanillaVariantMaterial.getTypesWithout(
+            VanillaVariantMaterial.CRIMSON,
+            VanillaVariantMaterial.WARPED
+        ));
 
         CHEST_LOOT_TABLES = Arrays.asList(
             BuiltInLootTables.ABANDONED_MINESHAFT,

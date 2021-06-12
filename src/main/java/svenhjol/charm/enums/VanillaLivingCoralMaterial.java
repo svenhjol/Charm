@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum VanillaLivingCoralMaterial implements svenhjol.charm.enums.ICoralMaterial {
+public enum VanillaLivingCoralMaterial implements ICoralMaterial {
     TUBE,
     BRAIN,
     BUBBLE,
