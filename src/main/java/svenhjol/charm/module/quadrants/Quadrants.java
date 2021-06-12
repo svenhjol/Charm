@@ -115,7 +115,8 @@ public class Quadrants extends CharmModule {
             s -> s.getBlock() instanceof DoublePlantBlock,
             s -> s.getBlock() instanceof TallFlowerBlock,
             s -> s.getBlock() instanceof ChestBlock && ChestBlock.getBlockType(s) != DoubleBlockCombiner.BlockType.SINGLE,
-            s -> s.getBlock() instanceof PistonBaseBlock && state.getValue(PistonBaseBlock.EXTENDED)
+            s -> s.getBlock() instanceof PistonBaseBlock && state.getValue(PistonBaseBlock.EXTENDED),
+            s -> s.getBlock() instanceof BedBlock
         );
 
         if (prop != null && exceptions.stream().noneMatch(exception -> exception.test(state))) {
