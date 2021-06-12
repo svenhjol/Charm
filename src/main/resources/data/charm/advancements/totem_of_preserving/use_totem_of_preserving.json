@@ -17,10 +17,10 @@
   },
   "criteria": {
     "used_totem_of_preserving": {
-      "trigger": "minecraft:used_totem",
+      "trigger": "charm:action_performed",
       "conditions": {
-        "item": {
-          "item": "charm:totem_of_preserving"
+        "conditions": {
+          "action": "charm:used_totem_of_preserving"
         }
       }
     }

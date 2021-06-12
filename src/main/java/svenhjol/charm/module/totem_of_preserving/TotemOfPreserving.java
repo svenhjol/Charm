@@ -1,10 +1,10 @@
 package svenhjol.charm.module.totem_of_preserving;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -19,6 +19,7 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.EntityDropXpCallback;
 import svenhjol.charm.event.PlayerDropInventoryCallback;
 import svenhjol.charm.helper.ItemHelper;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.module.CharmModule;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import java.util.Random;
     requiresMixins = {"PlayerDropInventoryCallback", "EntityDropXpCallback", "CheckItemDespawnMixin"})
 public class TotemOfPreserving extends CharmModule {
     public static TotemOfPreservingItem TOTEM_OF_PRESERVING;
+    public static final ResourceLocation TRIGGER_USED_TOTEM_OF_PRESERVING = new ResourceLocation(Charm.MOD_ID, "used_totem_of_preserving");
 
     @Config(name = "Preserve XP", description = "If true, the totem will preserve the player's experience and restore when broken.")
     public static boolean preserveXp = false;
@@ -117,7 +119,7 @@ public class TotemOfPreserving extends CharmModule {
             world.addFreshEntity(totemEntity);
         }
 
-        CriteriaTriggers.USED_TOTEM.trigger((ServerPlayer)player, totem);
+        triggerUsedTotemOfPreserving((ServerPlayer) player);
         Charm.LOG.info("Totem of Preserving spawned at " + new BlockPos(x, y, z));
 
         // clear player's inventory
@@ -128,5 +130,9 @@ public class TotemOfPreserving extends CharmModule {
         }
 
         return InteractionResult.SUCCESS;
+    }
+
+    public static void triggerUsedTotemOfPreserving(ServerPlayer player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_USED_TOTEM_OF_PRESERVING);
     }
 }
