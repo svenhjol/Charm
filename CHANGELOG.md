@@ -5,7 +5,8 @@
 * Added missing terracotta firing recipe svenhjol/CharmForge#82
 * Added mixin blacklisting
 * Added Bumblezone compatibility for sugar block when touching water
-* Ladders should display in decorations tab.  svenhjol/Charm#521
+* Ladders should display in decorations tab.  svenhjol/Charm#521 
+* Added more wood blocks as fuel source. svenhjol/Charm#549
 
 ## 2.3.2
 * Fixes svenhjol/CharmForge#68, svenhjol/CharmForge#72, svenhjol/CharmForge#61, svenhjol/CharmForge#59
