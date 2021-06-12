@@ -168,7 +168,13 @@ public class MineshaftImprovements extends CharmModule {
                     if (validFloor && rand.nextFloat() < floorBlockChance && ((MineshaftCorridorAccessor)piece).invokeHasSturdyNeighbours(world, box, x, 0, z, 2)) {
                         ((StructurePieceAccessor)piece).invokePlaceBlock(world, getFloorBlock(rand), x, 0, z, box);
                     } else if (rand.nextFloat() < ceilingBlockChance && ((MineshaftCorridorAccessor)piece).invokeHasSturdyNeighbours(world, box, x, 2, z, 2)) {
-                        ((StructurePieceAccessor)piece).invokePlaceBlock(world, getCeilingBlock(rand), x, 2, z, box);
+                        BlockState ceilingBlock = getCeilingBlock(rand);
+
+                        // if the ceiling block is a chain then attach a hanging lantern to it
+                        if (ceilingBlock.getBlock() == Blocks.CHAIN)
+                            ((StructurePieceAccessor)piece).invokePlaceBlock(world, Blocks.LANTERN.defaultBlockState().setValue(LanternBlock.HANGING, true), x, 1, z, box);
+
+                        ((StructurePieceAccessor)piece).invokePlaceBlock(world, ceilingBlock, x, 2, z, box);
                     }
                 }
             }
