@@ -1,5 +1,10 @@
 # Changelog
 
+### 3.0.4 (beta)
+* Fix Totem of Preserving advancement using wrong trigger
+* Added more wood blocks as fuel source. svenhjol/Charm#549
+* New candidate method for handling items mined with Collection/Acquisition.  svenhjol/Charm#566
+
 ### 3.0.3 (beta)
 * Fix infinite loop when reloading textures
 * Axes are the optimal tool to break casks
