@@ -7,6 +7,7 @@
 * Added Bumblezone compatibility for sugar block when touching water
 * Ladders should display in decorations tab.  svenhjol/Charm#521 
 * Added more wood blocks as fuel source. svenhjol/Charm#549
+* New candidate method for handling items mined with Collection/Acquisition.  svenhjol/Charm#566
 
 ## 2.3.2
 * Fixes svenhjol/CharmForge#68, svenhjol/CharmForge#72, svenhjol/CharmForge#61, svenhjol/CharmForge#59

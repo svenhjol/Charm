@@ -14,7 +14,7 @@ import svenhjol.charm.module.Acquisition;
 public class BlockMixin {
     @Inject(method = "dropStack", at = @At("HEAD"), cancellable = true)
     private static void hookSpawnAsEntity(World worldIn, BlockPos pos, ItemStack stack, CallbackInfo info) {
-        if (Acquisition.trySpawnToInventory(worldIn, stack)) {
+        if (Acquisition.trySpawnToInventory(worldIn, pos, stack)) {
             info.cancel();
         }
     }

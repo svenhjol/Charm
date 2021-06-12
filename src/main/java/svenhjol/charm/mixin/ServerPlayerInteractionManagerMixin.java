@@ -19,11 +19,11 @@ public class ServerPlayerInteractionManagerMixin {
 
     @Inject(method = "tryBreakBlock", at = @At("HEAD"))
     private void hookTryBreakBlockBegin(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        Acquisition.startBreaking(player, player.getMainHandStack());
+        Acquisition.startBreaking(player, pos);
     }
 
     @Inject(method = "tryBreakBlock", at = @At("TAIL"))
     private void hookTryBreakBlockEnd(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        Acquisition.stopBreaking();
+        Acquisition.stopBreaking(pos);
     }
 }
