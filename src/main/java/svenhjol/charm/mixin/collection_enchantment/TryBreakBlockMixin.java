@@ -22,11 +22,11 @@ public class TryBreakBlockMixin {
 
     @Inject(method = "destroyBlock", at = @At("HEAD"))
     private void hookTryBreakBlockBegin(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        CollectionEnchantment.startBreaking(player, player.getMainHandItem());
+        CollectionEnchantment.startBreaking(player, pos);
     }
 
     @Inject(method = "destroyBlock", at = @At("TAIL"))
     private void hookTryBreakBlockEnd(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        CollectionEnchantment.stopBreaking();
+        CollectionEnchantment.stopBreaking(pos);
     }
 }
