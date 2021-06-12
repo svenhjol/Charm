@@ -4,9 +4,9 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.server.MinecraftServer;
 
-public interface LoadWorldCallback {
-    Event<LoadWorldCallback> EVENT = EventFactory.createArrayBacked(LoadWorldCallback.class, (listeners) -> (server) -> {
-        for (LoadWorldCallback listener : listeners) {
+public interface LoadServerFinishCallback {
+    Event<LoadServerFinishCallback> EVENT = EventFactory.createArrayBacked(LoadServerFinishCallback.class, (listeners) -> (server) -> {
+        for (LoadServerFinishCallback listener : listeners) {
             listener.interact(server);
         }
     });

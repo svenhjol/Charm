@@ -1,8 +1,6 @@
 package svenhjol.charm.init;
 
 import com.google.common.reflect.ClassPath;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
@@ -26,7 +24,6 @@ public class CharmLoader {
         MOD_ID = modId;
         CLASSES = new ArrayList<>(); // populate this with discovered classes
 
-        Logger logger = LogManager.getLogger();
         Iterable<ClassPath.ClassInfo> classes;
         String basePackage = "svenhjol." + modId + ".module";
 

@@ -5,16 +5,16 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.event.LoadWorldCallback;
+import svenhjol.charm.event.LoadServerFinishCallback;
 
 @Mixin(MinecraftServer.class)
-public class LoadWorldCallbackMixin {
+public class LoadServerFinishCallbackMixin {
     /**
-     * Fires the {@link LoadWorldCallback} event.
+     * Fires the {@link LoadServerFinishCallback} event.
      *
      * This is used by the Charm loader to initialize decorations
      * and custom advancements.  It can be used by any Charm module
-     * to perform its own init when a world has finished loading.
+     * to perform its own init when a server world has finished loading.
      */
     @Inject(
         method = "createLevels",
@@ -24,6 +24,6 @@ public class LoadWorldCallbackMixin {
         )
     )
     private void hookCreateWorlds(CallbackInfo ci) {
-        LoadWorldCallback.EVENT.invoker().interact((MinecraftServer)(Object)this);
+        LoadServerFinishCallback.EVENT.invoker().interact((MinecraftServer)(Object)this);
     }
 }
