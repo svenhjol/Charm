@@ -3,20 +3,9 @@ package svenhjol.charm.helper;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.block.BlastFurnaceBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.CarvedPumpkinBlock;
-import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.FurnaceBlock;
-import net.minecraft.world.level.block.LecternBlock;
-import net.minecraft.world.level.block.ObserverBlock;
-import net.minecraft.world.level.block.SmokerBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.enums.VanillaVariantMaterial;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -40,6 +29,7 @@ public class DecorationHelper {
     public static List<Block> STRIPPED_LOGS = new ArrayList<>();
     public static List<Block> STRIPPED_WOOD = new ArrayList<>();
     public static List<IVariantMaterial> VARIANT_MATERIALS = new ArrayList<>();
+    public static List<IVariantMaterial> OVERWORLD_VARIANT_MATERIALS = new ArrayList<>();
     public static List<Block> WOOL = new ArrayList<>();
 
     public static Map<Block, Function<Direction, BlockState>> STATE_CALLBACK = new HashMap<>();
@@ -96,8 +86,7 @@ public class DecorationHelper {
     }
 
     public static IVariantMaterial getRandomOverworldVariantMaterial(Random random) {
-        List<IVariantMaterial> types = VanillaVariantMaterial.getTypesWithout(VanillaVariantMaterial.CRIMSON, VanillaVariantMaterial.WARPED);
-        return types.get(random.nextInt(types.size()));
+        return OVERWORLD_VARIANT_MATERIALS.get(random.nextInt(OVERWORLD_VARIANT_MATERIALS.size()));
     }
 
     @Nullable
