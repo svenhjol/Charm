@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.mixin.accessor.FireBlockAccessor;
 import svenhjol.charm.module.CharmModule;
@@ -47,6 +48,9 @@ public interface ICharmBlock {
         return null;
     }
 
+    /**
+     * {@link AbstractFurnaceBlockEntity#getFuel()} for vanilla fuel burn times
+     */
     default void setBurnTime(int burnTime) {
         FuelRegistry.INSTANCE.add((Block)this, burnTime);
     }

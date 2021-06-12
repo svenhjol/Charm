@@ -1,11 +1,5 @@
 package svenhjol.charm.module.variant_chests;
 
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.block.ICharmBlock;
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.helper.ModHelper;
-
-import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
@@ -17,10 +11,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.module.variant_chests.IVariantChestBlock;
-import svenhjol.charm.module.variant_chests.VariantChestBlockEntity;
-import svenhjol.charm.module.variant_chests.VariantChests;
+import svenhjol.charm.block.ICharmBlock;
+import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.helper.ModHelper;
+import svenhjol.charm.module.CharmModule;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
@@ -42,6 +38,7 @@ public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVaria
         this.loadedMods = Arrays.asList(loadedMods);
 
         this.register(module, type.getSerializedName() + "_chest");
+        this.setBurnTime(300);
     }
 
     @Override

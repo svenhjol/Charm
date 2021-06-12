@@ -1,11 +1,5 @@
 package svenhjol.charm.module.variant_barrels;
 
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.block.ICharmBlock;
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.helper.ModHelper;
-
-import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -17,6 +11,12 @@ import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.block.ICharmBlock;
+import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.helper.ModHelper;
+import svenhjol.charm.module.CharmModule;
+
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,6 +42,7 @@ public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
             .setValue(FACING, Direction.NORTH)
             .setValue(OPEN, false)
         );
+        this.setBurnTime(300);
     }
 
     @Override

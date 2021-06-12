@@ -17,9 +17,7 @@ public class VariantLadderBlock extends LadderBlock implements ICharmBlock {
         super(BlockBehaviour.Properties.copy(Blocks.LADDER));
         register(module, type.getSerializedName() + "_ladder");
 
-        /** @see net.minecraft.block.entity.AbstractFurnaceBlockEntity#createFuelTimeMap */
         this.setBurnTime(300);
-
         this.module = module;
     }
 

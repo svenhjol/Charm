@@ -10,7 +10,6 @@ public class VariantBookshelfBlock extends CharmBlock {
     public VariantBookshelfBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
         super(module, type.getSerializedName() + "_bookshelf", BlockBehaviour.Properties.copy(Blocks.BOOKSHELF), loadedMods);
 
-        /** @see net.minecraft.block.FireBlock */
         if (type.isFlammable())
             this.setFireInfo(30, 20);
 

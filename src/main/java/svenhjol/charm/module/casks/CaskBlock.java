@@ -62,6 +62,8 @@ public class CaskBlock extends CharmBlockWithEntity {
 
         this.registerDefaultState(this.defaultBlockState()
             .setValue(FACING, Direction.NORTH));
+
+        this.setBurnTime(300);
     }
 
     @Override
