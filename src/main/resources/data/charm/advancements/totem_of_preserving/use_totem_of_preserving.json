@@ -19,9 +19,7 @@
     "used_totem_of_preserving": {
       "trigger": "charm:action_performed",
       "conditions": {
-        "conditions": {
-          "action": "charm:used_totem_of_preserving"
-        }
+        "action": "charm:used_totem_of_preserving"
       }
     }
   },
