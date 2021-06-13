@@ -2,15 +2,15 @@ package svenhjol.charm.helper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import svenhjol.charm.init.CharmResources;
-
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.init.CharmResources;
+
+import java.util.List;
 
 /**
  * Originally from Quark ShulkerBoxTooltips#renderTooltipBackground()
@@ -20,6 +20,7 @@ public class TooltipHelper {
     private static final int CORNER = 5;
     private static final int BUFFER = 1;
     private static final int EDGE = 18;
+    private static final float FRONT = 400F;
 
     public static void renderOverlay(PoseStack matrices, List<ItemStack> items, List<ClientTooltipComponent> lines, int tx, int ty) {
         final Minecraft mc = Minecraft.getInstance();
@@ -39,15 +40,17 @@ public class TooltipHelper {
             y = ty + lines.size() * 10 + 5;
 
         matrices.pushPose();
+        matrices.translate(0, 0, FRONT);
+        RenderSystem.enableBlend();
+        RenderSystem.enableTexture();
         RenderSystem.enableDepthTest();
-        matrices.translate(0, 0, 400);
 
         TooltipHelper.renderTooltipBackground(mc, matrices, x, y, 9, 3, -1);
 
         ItemRenderer render = mc.getItemRenderer();
 
         float old = render.blitOffset;
-        render.blitOffset = 400.0F;
+        render.blitOffset = FRONT;
         for (int i = 0; i < items.size(); i++) {
             ItemStack itemstack;
 
@@ -68,6 +71,8 @@ public class TooltipHelper {
         render.blitOffset = old;
 
         RenderSystem.disableDepthTest();
+        RenderSystem.disableTexture();
+        RenderSystem.disableBlend();
         matrices.popPose();
     }
 
