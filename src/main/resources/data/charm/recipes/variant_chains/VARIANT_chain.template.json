@@ -1,0 +1,22 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "N",
+      "I",
+      "N"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:VARIANT_ingot"
+      },
+      "N": {
+        "item": "charm:VARIANT_nugget"
+      }
+    },
+    "result": {
+      "item": "charm:VARIANT_chain"
+    }
+  },
+  "variants": "metal"
+}
