@@ -1,5 +1,9 @@
 # Changelog
 
+### 3.0.6 (beta)
+* Fix issue that prevented advancements from loading conditionally
+* Restored oak bookshelf, craft a vanilla bookshelf using mixed wood planks
+
 ### 3.0.5 (beta)
 * Fixed issue with extra recipe config not being applied properly
 * Equipping armor from hand no longer returns it back to your hand
