@@ -1,5 +1,10 @@
 # Changelog
 
+### 3.0.7 (beta)
+* Fix accessor and loot table issues when mixins are disabled
+* Fix fuel and flammability for charm wood blocks and items
+* Configurable cask and cooking pot capacity
+
 ### 3.0.6 (beta)
 * Fix issue that prevented advancements from loading conditionally
 * Restored oak bookshelf, craft a vanilla bookshelf using mixed wood planks
