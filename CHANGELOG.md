@@ -3,6 +3,7 @@
 ### 3.0.6 (beta)
 * Fix issue that prevented advancements from loading conditionally
 * Restored oak bookshelf, craft a vanilla bookshelf using mixed wood planks
+* Azalea and ebony wood and logs can now be stripped
 
 ### 3.0.5 (beta)
 * Fixed issue with extra recipe config not being applied properly
