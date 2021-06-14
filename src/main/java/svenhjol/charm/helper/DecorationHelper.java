@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import svenhjol.charm.enums.IVariantMaterial;
 
 import javax.annotation.Nullable;
@@ -35,7 +36,7 @@ public class DecorationHelper {
     public static Map<Block, Function<Direction, BlockState>> STATE_CALLBACK = new HashMap<>();
 
     public static ResourceLocation getRandomLootTable(List<ResourceLocation> lootTables, Random random) {
-        return lootTables.get(random.nextInt(lootTables.size()));
+        return lootTables.isEmpty() ? BuiltInLootTables.SIMPLE_DUNGEON : lootTables.get(random.nextInt(lootTables.size()));
     }
 
     public static BlockState getRandomBlock(List<Block> blocks, Random random) {
