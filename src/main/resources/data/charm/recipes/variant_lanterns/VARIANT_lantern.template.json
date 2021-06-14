@@ -8,7 +8,7 @@
     ],
     "key": {
       "G": {
-        "item": "charm:VARIANT_nugget"
+        "item": "NUGGETSOURCE:VARIANT_nugget"
       },
       "T": {
         "item": "minecraft:torch"

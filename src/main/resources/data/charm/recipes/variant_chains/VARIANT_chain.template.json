@@ -8,10 +8,10 @@
     ],
     "key": {
       "I": {
-        "item": "minecraft:VARIANT_ingot"
+        "item": "INGOTSOURCE:VARIANT_ingot"
       },
       "N": {
-        "item": "charm:VARIANT_nugget"
+        "item": "NUGGETSOURCE:VARIANT_nugget"
       }
     },
     "result": {

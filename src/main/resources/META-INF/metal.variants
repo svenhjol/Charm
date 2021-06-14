@@ -1,4 +1,4 @@
-NAMESPACE:VARIANT
-minecraft:copper
-minecraft:gold
-minecraft:netherite
+INGOTSOURCE:NUGGETSOURCE:VARIANT
+minecraft:charm:copper
+minecraft:minecraft:gold
+minecraft:charm:netherite
