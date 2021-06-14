@@ -1,47 +1,5 @@
 package svenhjol.charm.module.ebony_wood;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.block.*;
-import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.helper.BiomeHelper;
-import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.item.CharmBoatItem;
-import svenhjol.charm.item.CharmSignItem;
-import svenhjol.charm.enums.CharmWoodMaterial;
-import svenhjol.charm.module.bookcases.BookcaseBlock;
-import svenhjol.charm.module.ebony_wood.EbonyWoodClient;
-import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
-import svenhjol.charm.module.variant_barrels.VariantBarrels;
-import svenhjol.charm.module.variant_bookshelves.VariantBookshelfBlock;
-import svenhjol.charm.module.variant_bookshelves.VariantBookshelves;
-import svenhjol.charm.module.variant_chests.VariantChestBlock;
-import svenhjol.charm.module.variant_chests.VariantChests;
-import svenhjol.charm.module.variant_chests.VariantTrappedChestBlock;
-import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
-import svenhjol.charm.module.variant_ladders.VariantLadders;
-import svenhjol.charm.module.bookcases.Bookcases;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyButtonBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyDoorBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyFenceBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyFenceGateBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyLeavesBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyLogBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyPlanksBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyPressurePlateBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonySaplingBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonySignBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonySlabBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyStairsBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyTrapdoorBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyWallSignBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.EbonyWoodBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.StrippedEbonyLogBlock;
-import svenhjol.charm.module.ebony_wood.EbonyBlocks.StrippedEbonyWoodBlock;
-import svenhjol.charm.module.ebony_wood.EbonyItems.EbonyBoatItem;
-import svenhjol.charm.module.ebony_wood.EbonyItems.EbonySignItem;
-import java.util.OptionalInt;
 import net.minecraft.data.worldgen.Features;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -58,10 +16,33 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProv
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.ChanceDecoratorConfiguration;
 import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.block.*;
+import svenhjol.charm.enums.CharmWoodMaterial;
+import svenhjol.charm.helper.BiomeHelper;
+import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.helper.ToolHelper;
+import svenhjol.charm.item.CharmBoatItem;
+import svenhjol.charm.item.CharmSignItem;
+import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.module.bookcases.BookcaseBlock;
+import svenhjol.charm.module.bookcases.Bookcases;
+import svenhjol.charm.module.ebony_wood.EbonyBlocks.*;
+import svenhjol.charm.module.ebony_wood.EbonyItems.EbonyBoatItem;
+import svenhjol.charm.module.ebony_wood.EbonyItems.EbonySignItem;
+import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
+import svenhjol.charm.module.variant_barrels.VariantBarrels;
+import svenhjol.charm.module.variant_bookshelves.VariantBookshelfBlock;
+import svenhjol.charm.module.variant_bookshelves.VariantBookshelves;
+import svenhjol.charm.module.variant_chests.VariantChestBlock;
+import svenhjol.charm.module.variant_chests.VariantChests;
+import svenhjol.charm.module.variant_chests.VariantTrappedChestBlock;
+import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
+import svenhjol.charm.module.variant_ladders.VariantLadders;
 
-import static svenhjol.charm.module.ebony_wood.EbonyBlocks.*;
-import static svenhjol.charm.module.ebony_wood.EbonyItems.EbonyBoatItem;
-import static svenhjol.charm.module.ebony_wood.EbonyItems.EbonySignItem;
+import java.util.OptionalInt;
 
 @Module(mod = Charm.MOD_ID, client = EbonyWoodClient.class, description = "Ebony is a very dark grey wood. Ebony trees can be found in savanna biomes.")
 public class EbonyWood extends CharmModule {
@@ -154,5 +135,7 @@ public class EbonyWood extends CharmModule {
     public void init() {
         RegistryHelper.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
         BiomeHelper.addFeatureToBiomeCategories(TREE_DECORATION, Biome.BiomeCategory.SAVANNA, GenerationStep.Decoration.VEGETAL_DECORATION);
+        ToolHelper.addStrippableLog(LOG, STRIPPED_LOG);
+        ToolHelper.addStrippableLog(WOOD, STRIPPED_WOOD);
     }
 }

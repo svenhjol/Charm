@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "accessor.AnvilMenuAccessor",
+    "accessor.AxeItemAccessor",
     "accessor.BeeAccessor",
     "accessor.BiomeGenerationSettingsAccessor",
     "accessor.BlockAccessor",
