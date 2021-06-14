@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmFenceBlock extends FenceBlock implements ICharmBlock {
@@ -18,6 +17,8 @@ public abstract class CharmFenceBlock extends FenceBlock implements ICharmBlock 
 
         this.register(module, name);
         this.module = module;
+        this.setFireInfo(5, 20);
+        this.setBurnTime(300);
     }
 
     public CharmFenceBlock(CharmModule module, String name, Block block) {

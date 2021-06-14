@@ -13,12 +13,17 @@ import svenhjol.charm.enums.IVariantMaterial;
 public class VariantLadderBlock extends LadderBlock implements ICharmBlock {
     private final CharmModule module;
 
-    public VariantLadderBlock(CharmModule module, IVariantMaterial type) {
+    public VariantLadderBlock(CharmModule module, IVariantMaterial material) {
         super(BlockBehaviour.Properties.copy(Blocks.LADDER));
-        register(module, type.getSerializedName() + "_ladder");
+        register(module, material.getSerializedName() + "_ladder");
 
-        this.setBurnTime(300);
         this.module = module;
+
+        if (material.isFlammable()) {
+            this.setBurnTime(300);
+        } else {
+            this.setFireproof();
+        }
     }
 
     @Override

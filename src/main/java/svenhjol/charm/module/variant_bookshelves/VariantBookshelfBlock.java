@@ -7,12 +7,16 @@ import svenhjol.charm.block.CharmBlock;
 import svenhjol.charm.enums.IVariantMaterial;
 
 public class VariantBookshelfBlock extends CharmBlock {
-    public VariantBookshelfBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
-        super(module, type.getSerializedName() + "_bookshelf", BlockBehaviour.Properties.copy(Blocks.BOOKSHELF), loadedMods);
+    public VariantBookshelfBlock(CharmModule module, IVariantMaterial material, String... loadedMods) {
+        super(module, material.getSerializedName() + "_bookshelf", BlockBehaviour.Properties.copy(Blocks.BOOKSHELF), loadedMods);
 
-        if (type.isFlammable())
+        if (material.isFlammable())
             this.setFireInfo(30, 20);
 
-        this.setBurnTime(300);
+        if (material.isFlammable()) {
+            this.setBurnTime(300);
+        } else {
+            this.setFireproof();
+        }
     }
 }

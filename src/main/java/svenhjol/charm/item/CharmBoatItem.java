@@ -32,6 +32,7 @@ public class CharmBoatItem extends CharmItem {
     public CharmBoatItem(CharmModule module, String name, BoatType type, Properties settings) {
         super(module, name, settings);
         this.type = type;
+        this.setBurnTime(1200);
     }
 
     public CharmBoatItem(CharmModule module, String name, BoatType type) {

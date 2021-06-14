@@ -30,15 +30,20 @@ public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVaria
         this(module, type, Properties.copy(Blocks.CHEST), () -> VariantChests.NORMAL_BLOCK_ENTITY, loadedMods);
     }
 
-    public VariantChestBlock(CharmModule module, IVariantMaterial type, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
+    public VariantChestBlock(CharmModule module, IVariantMaterial material, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
         super(settings, supplier);
 
         this.module = module;
-        this.type = type;
+        this.type = material;
         this.loadedMods = Arrays.asList(loadedMods);
 
-        this.register(module, type.getSerializedName() + "_chest");
-        this.setBurnTime(300);
+        this.register(module, material.getSerializedName() + "_chest");
+
+        if (material.isFlammable()) {
+            this.setBurnTime(300);
+        } else {
+            this.setFireproof();
+        }
     }
 
     @Override

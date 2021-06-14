@@ -6,7 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.block.CharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmPlanksBlock extends CharmBlock {
@@ -18,6 +17,10 @@ public abstract class CharmPlanksBlock extends CharmBlock {
         this(module, name, Properties.of(Material.WOOD, color)
             .strength(2.0F, 3.0F)
             .sound(SoundType.WOOD));
+
+        this.setFireInfo(5, 20);
+        this.setBurnTime(300);
+
     }
 
     @Override

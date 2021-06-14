@@ -1,11 +1,5 @@
 package svenhjol.charm.module.variant_chests;
 
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.block.ICharmBlock;
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.helper.ModHelper;
-
-import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -23,10 +17,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.module.variant_chests.IVariantChestBlock;
-import svenhjol.charm.module.variant_chests.VariantChests;
-import svenhjol.charm.module.variant_chests.VariantTrappedChestBlockEntity;
+import svenhjol.charm.block.ICharmBlock;
+import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.helper.ModHelper;
+import svenhjol.charm.module.CharmModule;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
@@ -41,14 +37,20 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
         this(module, type, Properties.copy(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_BLOCK_ENTITY);
     }
 
-    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
+    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial material, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
         super(settings, supplier);
 
         this.module = module;
-        this.type = type;
+        this.type = material;
         this.loadedMods = Arrays.asList(loadedMods);
 
-        this.register(module, type.getSerializedName() + "_trapped_chest");
+        this.register(module, material.getSerializedName() + "_trapped_chest");
+
+        if (material.isFlammable()) {
+            this.setBurnTime(300);
+        } else {
+            this.setFireproof();
+        }
     }
 
     @Override

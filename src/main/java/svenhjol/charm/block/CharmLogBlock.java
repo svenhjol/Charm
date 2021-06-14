@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmLogBlock extends RotatedPillarBlock implements ICharmBlock {
@@ -19,6 +18,8 @@ public abstract class CharmLogBlock extends RotatedPillarBlock implements ICharm
         super(settings);
         this.register(module, name);
         this.module = module;
+        this.setFireInfo(5, 20);
+        this.setBurnTime(300);
     }
 
     public CharmLogBlock(CharmModule module, String name, MaterialColor fromTop, MaterialColor fromSide) {

@@ -1,10 +1,5 @@
 package svenhjol.charm.module.storage_crates;
 
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.block.CharmBlockWithEntity;
-import svenhjol.charm.enums.IVariantMaterial;
-
-import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.item.CreativeModeTab;
@@ -22,7 +17,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import svenhjol.charm.module.storage_crates.StorageCrateBlockEntity;
+import svenhjol.charm.block.CharmBlockWithEntity;
+import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.module.CharmModule;
+
+import javax.annotation.Nullable;
 
 public class StorageCrateBlock extends CharmBlockWithEntity {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
@@ -32,6 +31,12 @@ public class StorageCrateBlock extends CharmBlockWithEntity {
         super(module, material.getSerializedName() + "_storage_crate",
             Properties.copy(Blocks.COMPOSTER)
         );
+
+        if (material.isFlammable()) {
+            this.setBurnTime(300);
+        } else {
+            this.setFireproof();
+        }
     }
 
     @Override
@@ -46,7 +51,7 @@ public class StorageCrateBlock extends CharmBlockWithEntity {
 
     @Override
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
-        svenhjol.charm.module.storage_crates.StorageCrateBlockEntity crate = getBlockEntity(world, pos);
+        StorageCrateBlockEntity crate = getBlockEntity(world, pos);
 
         if (!world.isClientSide && crate != null && !crate.isEmpty()) {
             Containers.dropContents(world, pos, crate.getItems());
@@ -56,10 +61,10 @@ public class StorageCrateBlock extends CharmBlockWithEntity {
     }
 
     @Nullable
-    public svenhjol.charm.module.storage_crates.StorageCrateBlockEntity getBlockEntity(Level world, BlockPos pos) {
+    public StorageCrateBlockEntity getBlockEntity(Level world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof svenhjol.charm.module.storage_crates.StorageCrateBlockEntity)
-            return (svenhjol.charm.module.storage_crates.StorageCrateBlockEntity) blockEntity;
+        if (blockEntity instanceof StorageCrateBlockEntity)
+            return (StorageCrateBlockEntity) blockEntity;
 
         return null;
     }

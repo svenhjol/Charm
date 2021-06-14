@@ -6,7 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmLeavesBlock extends LeavesBlock implements ICharmBlock {
@@ -17,6 +16,7 @@ public abstract class CharmLeavesBlock extends LeavesBlock implements ICharmBloc
 
         this.register(module, name);
         this.module = module;
+        this.setFireInfo(30, 60);
     }
 
     public CharmLeavesBlock(CharmModule module, String name) {
