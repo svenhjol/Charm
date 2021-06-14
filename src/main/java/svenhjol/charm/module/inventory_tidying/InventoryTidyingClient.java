@@ -101,7 +101,7 @@ public class InventoryTidyingClient extends CharmClientModule {
 
         List<Slot> slots = screenHandler.slots;
         for (Slot slot : slots) {
-            if (blockEntityScreens.contains(screen.getClass()) && ((SlotAccessor)slot).getIndex() == 0) {
+            if (blockEntityScreens.contains(screen.getClass()) && ((SlotAccessor)slot).accessGetIndex() == 0) {
                 this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(BE));
             }
 

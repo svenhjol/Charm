@@ -160,7 +160,7 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
     @Override
     protected void slotClicked(Slot slotIn, int slotId, int mouseButton, ClickType type) {
         if (type == ClickType.QUICK_MOVE) {
-            sendAtlasTransfer(slot, ((SlotAccessor)slotIn).getIndex(), -1, Atlases.MoveMode.FROM_INVENTORY);
+            sendAtlasTransfer(slot, ((SlotAccessor)slotIn).accessGetIndex(), -1, Atlases.MoveMode.FROM_INVENTORY);
         } else {
             super.slotClicked(slotIn, slotId, mouseButton, type);
         }

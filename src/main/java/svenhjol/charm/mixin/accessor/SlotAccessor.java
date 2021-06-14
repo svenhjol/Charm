@@ -8,6 +8,6 @@ import svenhjol.charm.annotation.CharmMixin;
 @Mixin(Slot.class)
 @CharmMixin(required = true)
 public interface SlotAccessor {
-    @Accessor
-    int getIndex();
+    @Accessor("index")
+    int accessGetIndex();
 }

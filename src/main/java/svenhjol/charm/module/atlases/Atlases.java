@@ -154,7 +154,7 @@ public class Atlases extends CharmModule {
     public static void setupAtlasUpscale(Inventory playerInventory, CartographyTableMenu container) {
         if (ModuleHandler.enabled(Atlases.class)) {
             Slot oldSlot = container.slots.get(0);
-            container.slots.set(0, new Slot(oldSlot.container, ((SlotAccessor)oldSlot).getIndex(), oldSlot.x, oldSlot.y) {
+            container.slots.set(0, new Slot(oldSlot.container, ((SlotAccessor)oldSlot).accessGetIndex(), oldSlot.x, oldSlot.y) {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
                     return oldSlot.mayPlace(stack) || stack.getItem() == ATLAS_ITEM && getInventory(playerInventory.player.level, stack).getMapInfos().isEmpty();
