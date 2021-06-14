@@ -188,7 +188,7 @@ public class CookingPotBlock extends CharmBlockWithEntity {
         if (pot.portions == 0)
             return 0;
 
-        return Math.round((pot.portions / (float) CookingPotBlockEntity.MAX_PORTIONS) * 16);
+        return Math.round((pot.portions / (float) CookingPots.maxPortions) * 16);
     }
 
     @Nullable

@@ -25,7 +25,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.helper.PotionHelper;
-import svenhjol.charm.module.casks.Casks;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -34,8 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
-    public static final int MAX_PORTIONS = 64;
-
     public static final String PORTIONS_NBT = "Portions";
     public static final String EFFECTS_NBT = "Effects";
     public static final String DURATIONS_NBT = "Duration";
@@ -127,7 +124,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
         if (potion == Potions.EMPTY)
             return false;
 
-        if (portions < MAX_PORTIONS) {
+        if (portions < Casks.maxBottles) {
 
             // reset effects if fresh cask
             if (portions == 0)
