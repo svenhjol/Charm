@@ -27,7 +27,7 @@ public class CookingPots extends CharmModule {
     public static BlockEntityType<CookingPotBlockEntity> BLOCK_ENTITY;
     public static MixedStewItem MIXED_STEW;
 
-    @Config(name = "Maximum portions", description = "Maximum number of portions a cooking pot can hold.")
+    @Config(name = "Maximum bowls", description = "Maximum number of bowls a cooking pot can hold.")
     public static int maxPortions = 64;
 
     public static final ResourceLocation MSG_CLIENT_ADDED_TO_POT = new ResourceLocation(Charm.MOD_ID, "client_added_to_pot");

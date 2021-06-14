@@ -124,7 +124,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
         if (potion == Potions.EMPTY)
             return false;
 
-        if (portions < Casks.maxBottles) {
+        if (portions < Casks.maxPortions) {
 
             // reset effects if fresh cask
             if (portions == 0)

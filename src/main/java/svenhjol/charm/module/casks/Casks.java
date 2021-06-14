@@ -17,7 +17,7 @@ public class Casks extends CharmModule {
     public static final ResourceLocation TRIGGER_TAKEN_BREW = new ResourceLocation(Charm.MOD_ID, "taken_brew");
 
     @Config(name = "Maximum bottles", description = "Maximum number of bottles a cask can hold.")
-    public static int maxBottles = 64;
+    public static int maxPortions = 64;
 
     @Config(name = "Show label", description = "If true, casks show their custom name and capacity as a hovering label. Requires the 'Storage Labels' feature to be enabled.")
     public static boolean showLabel = true;
