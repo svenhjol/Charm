@@ -3,6 +3,7 @@
 ### 3.0.7 (beta)
 * Fix accessor and loot table issues when mixins are disabled
 * Fix fuel and flammability for charm wood blocks and items
+* Move accessor out of the way so it doesn't conflict at AoF startup
 * Cooking pot no longer consumes water if creative mode
 * Configurable cask and cooking pot capacity
 
