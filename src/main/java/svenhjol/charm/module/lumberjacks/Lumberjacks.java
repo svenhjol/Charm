@@ -1,27 +1,25 @@
 package svenhjol.charm.module.lumberjacks;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.VillagerHelper;
-import svenhjol.charm.helper.WorldHelper;
-import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.event.SetupStructureCallback.VillageType;
-import svenhjol.charm.module.woodcutters.Woodcutters;
-import svenhjol.charm.module.lumberjacks.LumberjackTradeOffers.*;
-
-import static svenhjol.charm.helper.VillagerHelper.addTrade;
-
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.event.SetupStructureCallback.VillageType;
+import svenhjol.charm.helper.VillagerHelper;
+import svenhjol.charm.helper.WorldHelper;
+import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.module.lumberjacks.LumberjackTradeOffers.*;
+import svenhjol.charm.module.woodcutters.Woodcutters;
 
 import static svenhjol.charm.event.SetupStructureCallback.addVillageHouse;
+import static svenhjol.charm.helper.VillagerHelper.addTrade;
 
 @Module(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.")
 public class Lumberjacks extends CharmModule {
-    public static ResourceLocation VILLAGER_ID = new ResourceLocation(Charm.MOD_ID, "lumberjack");
+    public static String VILLAGER_ID = "charm_lumberjack";
     public static VillagerProfession LUMBERJACK;
     public static PoiType POIT;
 

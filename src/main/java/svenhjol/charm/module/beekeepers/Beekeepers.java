@@ -17,7 +17,7 @@ import static svenhjol.charm.helper.VillagerHelper.addTrade;
 
 @Module(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
 public class Beekeepers extends CharmModule {
-    public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "beekeeper");
+    public static String ID = "charm_beekeeper";
     public static VillagerProfession BEEKEEPER;
 
     @Config(name = "Beekeeper house weight", description = "Chance of a custom building to spawn. For reference, a vanilla library is 5.")
