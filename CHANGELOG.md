@@ -1,5 +1,8 @@
 # Changelog
 
+### 3.1.0 (beta)
+* Change villager registration.  **Existing lumberjacks and beekeepers will lose their trades.**
+
 ### 3.0.7 (beta)
 * Fix accessor and loot table issues when mixins are disabled
 * Fix fuel and flammability for charm wood blocks and items

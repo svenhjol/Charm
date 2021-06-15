@@ -133,7 +133,7 @@ public class RegistryHelper {
         return Registry.register(Registry.STRUCTURE_PIECE, id, structurePieceType);
     }
 
-    public static VillagerProfession villagerProfession(ResourceLocation id, VillagerProfession profession) {
+    public static VillagerProfession villagerProfession(String id, VillagerProfession profession) {
         return Registry.register(Registry.VILLAGER_PROFESSION, id, profession);
     }
 

@@ -5,7 +5,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.mixin.object.builder.VillagerProfessionAccessor;
 import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -15,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
-import svenhjol.charm.helper.RegistryHelper;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -26,7 +24,7 @@ import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
 import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRADES;
 
 public class VillagerHelper {
-    public static VillagerProfession addProfession(ResourceLocation id, PoiType poit, SoundEvent worksound) {
+    public static VillagerProfession addProfession(String id, PoiType poit, SoundEvent worksound) {
         VillagerProfession profession = VillagerProfessionAccessor.create(id.toString(), poit, ImmutableSet.of(), ImmutableSet.of(), worksound);
         VillagerProfession registeredProfession = RegistryHelper.villagerProfession(id, profession);
         TRADES.put(profession, new Int2ObjectOpenHashMap<>());
@@ -66,8 +64,8 @@ public class VillagerHelper {
         }
     }
 
-    public static abstract class SingleItemTypeTrade implements ItemListing {
-        protected ItemLike  in = Items.AIR;
+    public static class SingleItemTypeTrade implements ItemListing {
+        protected ItemLike in = Items.AIR;
         protected ItemLike out = Items.EMERALD;
         protected int inCount = 1;
         protected int outCount = 1;
