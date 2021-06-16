@@ -11,6 +11,7 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.*;
 import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.helper.ToolHelper;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
 import svenhjol.charm.mixin.accessor.FeaturesAccessor;
@@ -98,5 +99,7 @@ public class AzaleaWood extends CharmModule {
         TreeConfiguration config = feature.config();
         ((TreeConfigurationAccessor)config).setTrunkProvider(new SimpleStateProvider(AzaleaWood.LOG.defaultBlockState()));
         RegistryHelper.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
+        ToolHelper.addStrippableLog(LOG, STRIPPED_LOG);
+        ToolHelper.addStrippableLog(WOOD, STRIPPED_WOOD);
     }
 }

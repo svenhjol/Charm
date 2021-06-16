@@ -214,7 +214,7 @@ public class CaskBlock extends CharmBlockWithEntity {
         if (cask.portions == 0)
             return 0;
 
-        return Math.round((cask.portions / (float) CaskBlockEntity.MAX_PORTIONS) * 16);
+        return Math.round((cask.portions / (float) Casks.maxPortions) * 16);
     }
 
     @Nullable

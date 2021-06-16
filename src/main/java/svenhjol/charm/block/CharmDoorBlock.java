@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmDoorBlock extends DoorBlock implements ICharmBlock {
@@ -18,6 +17,7 @@ public abstract class CharmDoorBlock extends DoorBlock implements ICharmBlock {
 
         this.register(module, name);
         this.module = module;
+        this.setBurnTime(200);
     }
 
     public CharmDoorBlock(CharmModule module, String name, Block block) {

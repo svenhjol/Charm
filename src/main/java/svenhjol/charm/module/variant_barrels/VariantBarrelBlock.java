@@ -29,20 +29,25 @@ public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
         this(module, type, BlockBehaviour.Properties.copy(Blocks.BARREL), loadedMods);
     }
 
-    public VariantBarrelBlock(CharmModule module, IVariantMaterial type, BlockBehaviour.Properties settings, String... loadedMods) {
+    public VariantBarrelBlock(CharmModule module, IVariantMaterial material, BlockBehaviour.Properties settings, String... loadedMods) {
         super(settings);
 
         this.module = module;
-        this.type = type;
+        this.type = material;
         this.loadedMods = Arrays.asList(loadedMods);
 
-        this.register(module, type.getSerializedName() + "_barrel");
+        this.register(module, material.getSerializedName() + "_barrel");
         this.registerDefaultState(this.getStateDefinition()
             .any()
             .setValue(FACING, Direction.NORTH)
             .setValue(OPEN, false)
         );
-        this.setBurnTime(300);
+
+        if (material.isFlammable()) {
+            this.setBurnTime(300);
+        } else {
+            this.setFireproof();
+        }
     }
 
     @Override

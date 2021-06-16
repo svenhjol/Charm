@@ -16,4 +16,8 @@ public interface ICharmItem {
     default void setBurnTime(int burnTime) {
         FuelRegistry.INSTANCE.add((Item)this, burnTime);
     }
+
+    default void setFireproof() {
+        FuelRegistry.INSTANCE.remove((Item)this);
+    }
 }

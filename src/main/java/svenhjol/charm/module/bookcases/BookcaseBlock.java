@@ -31,18 +31,23 @@ public class BookcaseBlock extends CharmBlockWithEntity {
     protected CharmModule module;
     protected IVariantMaterial type;
 
-    public BookcaseBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
-        this(module, type, BlockBehaviour.Properties.copy(Blocks.BOOKSHELF), loadedMods);
+    public BookcaseBlock(CharmModule module, IVariantMaterial material, String... loadedMods) {
+        this(module, material, BlockBehaviour.Properties.copy(Blocks.BOOKSHELF), loadedMods);
     }
 
-    public BookcaseBlock(CharmModule module, IVariantMaterial type, BlockBehaviour.Properties settings, String... loadedMods) {
-        super(module, type.getSerializedName() + "_bookcase", settings, loadedMods);
+    public BookcaseBlock(CharmModule module, IVariantMaterial material, BlockBehaviour.Properties settings, String... loadedMods) {
+        super(module, material.getSerializedName() + "_bookcase", settings, loadedMods);
 
         this.module = module;
-        this.type = type;
+        this.type = material;
 
         registerDefaultState(defaultBlockState().setValue(SLOTS, 0));
-        this.setBurnTime(300);
+
+        if (material.isFlammable()) {
+            this.setBurnTime(300);
+        } else {
+            this.setFireproof();
+        }
     }
 
     @Override

@@ -2,17 +2,20 @@
   "template": {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-      "###",
-      "###"
+      "N",
+      "I",
+      "N"
     ],
     "key": {
-      "#": {
+      "I": {
         "item": "INGOTSOURCE:VARIANT_ingot"
+      },
+      "N": {
+        "item": "NUGGETSOURCE:VARIANT_nugget"
       }
     },
     "result": {
-      "item": "charm:VARIANT_bars",
-      "count": 16
+      "item": "charm:VARIANT_chain"
     }
   },
   "variants": "metal"

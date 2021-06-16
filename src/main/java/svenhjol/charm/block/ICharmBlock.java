@@ -58,4 +58,10 @@ public interface ICharmBlock {
     default void setFireInfo(int encouragement, int flammability) {
         ((FireBlockAccessor) Blocks.FIRE).invokeSetFlammable((Block)this, encouragement, flammability);
     }
+
+    default void setFireproof() {
+        FuelRegistry.INSTANCE.remove((Block)this);
+        ((FireBlockAccessor)Blocks.FIRE).getBurnOdds().put((Block)this, 0);
+        ((FireBlockAccessor)Blocks.FIRE).getFlameOdds().put((Block)this, 0);
+    }
 }

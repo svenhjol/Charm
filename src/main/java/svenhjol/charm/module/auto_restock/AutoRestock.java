@@ -1,16 +1,5 @@
 package svenhjol.charm.module.auto_restock;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.event.PlayerTickCallback;
-
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.WeakHashMap;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -19,6 +8,17 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.helper.PlayerHelper;
+import svenhjol.charm.module.CharmModule;
+
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.WeakHashMap;
 
 @Module(mod = Charm.MOD_ID, description = "Refills your hotbar from your inventory.",
     requiresMixins = {"PlayerTickCallback"})
@@ -76,9 +76,9 @@ public class AutoRestock extends CharmModule {
     private void findReplacement(ServerPlayer player, InteractionHand hand, StackData stackData) {
         Inventory inventory = PlayerHelper.getInventory(player);
 
-        //first 9 slots are the hotbar
+        // first 9 slots are the hotbar, anything from 36 is not inventory
         if (inventory != null) {
-            for (int i = 9; i < inventory.getContainerSize(); i++) {
+            for (int i = 9; i < Math.min(36, inventory.getContainerSize()); i++) {
                 ItemStack possibleReplacement = inventory.getItem(i);
                 if (stackData.item == possibleReplacement.getItem() && Objects.equals(stackData.enchantments, possibleReplacement.getEnchantmentTags())) {
                     player.setItemInHand(hand, possibleReplacement.copy());

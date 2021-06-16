@@ -6,7 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmStairsBlock extends StairBlock implements ICharmBlock {
@@ -17,6 +16,8 @@ public abstract class CharmStairsBlock extends StairBlock implements ICharmBlock
 
         this.register(module, name);
         this.module = module;
+        this.setFireInfo(5, 20);
+        this.setBurnTime(300);
     }
 
     public CharmStairsBlock(CharmModule module, String name, Block block) {

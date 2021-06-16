@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmSaplingBlock extends SaplingBlock implements ICharmBlock {
@@ -18,6 +17,7 @@ public abstract class CharmSaplingBlock extends SaplingBlock implements ICharmBl
 
         this.register(module, name);
         this.module = module;
+        this.setBurnTime(100);
     }
 
     public CharmSaplingBlock(CharmModule module, String name, AbstractTreeGrower generator) {

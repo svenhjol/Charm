@@ -1,19 +1,19 @@
 package svenhjol.charm.module.cooking_pots;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Config;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.init.CharmAdvancements;
-
-import java.util.ArrayList;
-import java.util.List;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.CharmModule;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Module(mod = Charm.MOD_ID, client = CookingPotsClient.class, description = "Cooking pots let you combine up to 64 food items, keeping an average of all hunger and saturation. Use wooden bowls to extract stew from the pot.")
 public class CookingPots extends CharmModule {
@@ -26,6 +26,9 @@ public class CookingPots extends CharmModule {
     public static CookingPotBlock COOKING_POT;
     public static BlockEntityType<CookingPotBlockEntity> BLOCK_ENTITY;
     public static MixedStewItem MIXED_STEW;
+
+    @Config(name = "Maximum bowls", description = "Maximum number of bowls a cooking pot can hold.")
+    public static int maxPortions = 64;
 
     public static final ResourceLocation MSG_CLIENT_ADDED_TO_POT = new ResourceLocation(Charm.MOD_ID, "client_added_to_pot");
 

@@ -1,0 +1,22 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "GGG",
+      "GTG",
+      "GGG"
+    ],
+    "key": {
+      "G": {
+        "item": "NUGGETSOURCE:VARIANT_nugget"
+      },
+      "T": {
+        "item": "minecraft:soul_torch"
+      }
+    },
+    "result": {
+      "item": "charm:VARIANT_soul_lantern"
+    }
+  },
+  "variants": "metal"
+}

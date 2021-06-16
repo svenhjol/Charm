@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public class CharmPressurePlate extends PressurePlateBlock implements ICharmBlock {
@@ -18,6 +17,7 @@ public class CharmPressurePlate extends PressurePlateBlock implements ICharmBloc
 
         this.register(module, name);
         this.module = module;
+        this.setBurnTime(300);
     }
 
     public CharmPressurePlate(CharmModule module, String name, Block block) {

@@ -6,7 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.WoodButtonBlock;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.module.CharmModule;
 
 public abstract class CharmWoodenButtonBlock extends WoodButtonBlock implements ICharmBlock {
@@ -17,6 +16,7 @@ public abstract class CharmWoodenButtonBlock extends WoodButtonBlock implements 
 
         this.register(module, name);
         this.module = module;
+        this.setBurnTime(100);
     }
 
     public CharmWoodenButtonBlock(CharmModule module, String name) {

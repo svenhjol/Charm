@@ -1,15 +1,5 @@
 package svenhjol.charm.module.lumberjacks;
 
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.helper.DecorationHelper;
-import svenhjol.charm.helper.VillagerHelper.SingleItemTypeTrade;
-import svenhjol.charm.module.bookcases.Bookcases;
-import svenhjol.charm.module.variant_barrels.VariantBarrels;
-import svenhjol.charm.module.variant_ladders.VariantLadders;
-import svenhjol.charm.module.woodcutters.Woodcutters;
-
-import javax.annotation.Nullable;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.Entity;
@@ -21,6 +11,16 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.helper.DecorationHelper;
+import svenhjol.charm.helper.VillagerHelper.SingleItemTypeTrade;
+import svenhjol.charm.module.bookcases.Bookcases;
+import svenhjol.charm.module.variant_barrels.VariantBarrels;
+import svenhjol.charm.module.variant_ladders.VariantLadders;
+import svenhjol.charm.module.woodcutters.Woodcutters;
+
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class LumberjackTradeOffers {
@@ -30,7 +30,7 @@ public class LumberjackTradeOffers {
     public static class EmeraldsForOverworldLogs extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 2;
             List<ItemLike> logs = new ArrayList<>(Arrays.asList(
                 Blocks.ACACIA_LOG,
@@ -55,7 +55,7 @@ public class LumberjackTradeOffers {
     public static class CommonSaplingsForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 2;
             List<Item> saplings = Arrays.asList(Items.OAK_SAPLING, Items.BIRCH_SAPLING, Items.SPRUCE_SAPLING);
             setInput(Items.EMERALD, 1);
@@ -67,7 +67,7 @@ public class LumberjackTradeOffers {
     public static class LaddersForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 2;
             ItemLike item;
             if (ModuleHandler.enabled("charm:variant_ladders")) {
@@ -87,7 +87,7 @@ public class LumberjackTradeOffers {
     public static class EmeraldsForBones extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 5;
             setInput(Items.BONE, random.nextInt(2) + 23);
             setOutput(Items.EMERALD, 1);
@@ -98,7 +98,7 @@ public class LumberjackTradeOffers {
     public static class BedForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 7;
             List<Item> beds = ItemTags.BEDS.getValues();
             setInput(Items.EMERALD, 3);
@@ -110,7 +110,7 @@ public class LumberjackTradeOffers {
     public static class FencesForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 6;
             List<ItemLike> doors = random.nextFloat() < 0.5F ? new ArrayList<>(ItemTags.WOODEN_FENCES.getValues()) : new ArrayList<>(BlockTags.FENCE_GATES.getValues());
             setInput(Items.EMERALD, 1);
@@ -124,7 +124,7 @@ public class LumberjackTradeOffers {
     public static class EmeraldsForStems extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             List<Item> stems;
             experience = 10;
 
@@ -143,7 +143,7 @@ public class LumberjackTradeOffers {
     public static class BarkForLogs implements VillagerTrades.ItemListing {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             Map<Block, Block> wood = new HashMap<>();
 
             wood.put(Blocks.ACACIA_LOG, Blocks.ACACIA_WOOD);
@@ -168,7 +168,7 @@ public class LumberjackTradeOffers {
     public static class UncommonSaplingsForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 10;
             List<Item> saplings = Arrays.asList(Items.ACACIA_SAPLING, Items.DARK_OAK_SAPLING, Items.JUNGLE_SAPLING);
             setInput(Items.EMERALD, 3);
@@ -180,7 +180,7 @@ public class LumberjackTradeOffers {
     public static class DoorsForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 10;
             List<Item> doors = random.nextFloat() < 0.5F ? ItemTags.WOODEN_DOORS.getValues() : ItemTags.WOODEN_TRAPDOORS.getValues();
             setInput(Items.EMERALD, 1);
@@ -194,7 +194,7 @@ public class LumberjackTradeOffers {
     public static class BarrelForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 15;
             ItemLike out;
             setInput(Items.EMERALD, 4);
@@ -218,7 +218,7 @@ public class LumberjackTradeOffers {
     public static class PlanksForLogs implements VillagerTrades.ItemListing {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             Map<Block, Block> planks = new HashMap<>();
 
             planks.put(Blocks.ACACIA_LOG, Blocks.ACACIA_PLANKS);
@@ -245,7 +245,7 @@ public class LumberjackTradeOffers {
     public static class MusicBlocksForLogs extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 15;
             if (random.nextFloat() < 0.5F) {
                 setOutput(Blocks.JUKEBOX, 1);
@@ -263,7 +263,7 @@ public class LumberjackTradeOffers {
     public static class BookcaseForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 30;
             IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
             setInput(Items.EMERALD, 8);
@@ -275,7 +275,7 @@ public class LumberjackTradeOffers {
     public static class WorkstationForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 30;
 
             List<Block> workstations = new ArrayList<>(Arrays.asList(

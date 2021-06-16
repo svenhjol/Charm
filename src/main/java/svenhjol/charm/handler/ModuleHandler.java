@@ -1,7 +1,7 @@
 package svenhjol.charm.handler;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.LoadWorldCallback;
+import svenhjol.charm.event.LoadServerFinishCallback;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.helper.StringHelper;
 import svenhjol.charm.init.CharmBiomes;
@@ -24,10 +24,9 @@ public class ModuleHandler {
         CharmBiomes.init();
 
         // listen for server world loading events
-        LoadWorldCallback.EVENT.register(server -> {
+        LoadServerFinishCallback.EVENT.register(server -> {
             // load late so that tags are populated at this point
             CharmDecoration.init();
-            AdvancementHandler.init();
         });
     }
 

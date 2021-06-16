@@ -67,7 +67,10 @@ public class CookingPotBlock extends CharmBlockWithEntity {
         if (state.getValue(LIQUID) == 0 && held.getItem() == Items.WATER_BUCKET) {
             if (!world.isClientSide) {
                 world.setBlock(pos, state.setValue(LIQUID, 1), 3);
-                player.setItemInHand(hand, new ItemStack(Items.BUCKET));
+
+                if (!player.getAbilities().instabuild)
+                    player.setItemInHand(hand, new ItemStack(Items.BUCKET));
+
                 world.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 0.8F, 1.0F);
                 CookingPots.triggerFilledWater((ServerPlayer) player);
 
@@ -188,7 +191,7 @@ public class CookingPotBlock extends CharmBlockWithEntity {
         if (pot.portions == 0)
             return 0;
 
-        return Math.round((pot.portions / (float) CookingPotBlockEntity.MAX_PORTIONS) * 16);
+        return Math.round((pot.portions / (float) CookingPots.maxPortions) * 16);
     }
 
     @Nullable

@@ -1,18 +1,20 @@
 package svenhjol.charm.module.extra_recipes;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.event.CheckAnvilRepairCallback;
-
-import java.util.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.event.CheckAnvilRepairCallback;
+import svenhjol.charm.module.CharmModule;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Module(mod = Charm.MOD_ID, description = "Adds custom recipes.",
     requiresMixins = {"CheckAnvilRepairCallback"})
@@ -56,26 +58,22 @@ public class ExtraRecipes extends CharmModule {
     public List<ResourceLocation> getRecipesToRemove() {
         List<ResourceLocation> removedRecipes = new ArrayList<>();
 
-        Map<Boolean, List<String>> collect = new WeakHashMap<>();
-        collect.put(useRawOreBlocks, Arrays.asList(
+        List<String> collect = new ArrayList<>();
+        if (!useRawOreBlocks) collect.addAll(Arrays.asList(
             "copper_block_from_blasting_raw_copper_block.json",
             "gold_block_from_blasting_raw_gold_block",
             "iron_block_from_blasting_raw_iron_block"
         ));
-        collect.put(useGildedBlackstone, Collections.singletonList("gilded_blackstone"));
-        collect.put(useTrident, Collections.singletonList("trident"));
-        collect.put(useCyanDye, Collections.singletonList("cyan_dye"));
-        collect.put(useGreenDye, Collections.singletonList("green_dye"));
-        collect.put(useSoulTorch, Collections.singletonList("soul_torch"));
-        collect.put(useBread, Collections.singletonList("bread"));
-        collect.put(usePaper, Collections.singletonList("paper"));
-        collect.put(useBundle, Collections.singletonList("bundle"));
+        if (!useGildedBlackstone) collect.add("gilded_blackstone");
+        if (!useTrident) collect.add("trident");
+        if (!useCyanDye) collect.add("cyan_dye");
+        if (!useGreenDye) collect.add("green_dye");
+        if (!useSoulTorch) collect.add("soul_torch");
+        if (!useBread) collect.add("bread");
+        if (!usePaper) collect.add("paper");
+        if (!useBundle) collect.add("bundle");
 
-        collect.forEach((key, recipes) -> {
-            if (!key)
-                recipes.forEach(recipe -> removedRecipes.add(new ResourceLocation(Charm.MOD_ID, "extra_recipes/" + recipe)));
-        });
-
+        collect.forEach(recipe -> removedRecipes.add(new ResourceLocation(Charm.MOD_ID, "extra_recipes/" + recipe)));
         return removedRecipes;
     }
 
