@@ -11,17 +11,16 @@ import net.minecraft.world.entity.monster.PatrollingMonster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.raid_horns.RaidHornItem;
+import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.",
     requiresMixins = {"EntityDropItemsCallback"})
 public class RaidHorns extends CharmModule {
-    public static svenhjol.charm.module.raid_horns.RaidHornItem RAID_HORN;
+    public static RaidHornItem RAID_HORN;
 
     public static final ResourceLocation TRIGGER_SUMMONED_PILLAGERS = new ResourceLocation(Charm.MOD_ID, "summoned_pillagers");
     public static final ResourceLocation TRIGGER_CALLED_OFF_RAID = new ResourceLocation(Charm.MOD_ID, "called_off_raid");
