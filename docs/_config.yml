@@ -11,7 +11,7 @@ modloader: Fabric
 github: https://github.com/svenhjol/Charm
 wiki: https://github.com/svenhjol/Charm/wiki
 issues: https://github.com/svenhjol/Charm/issues
-download_fabric_modrinth: https://todo
+download_modrinth: https://modrinth.com/mod/charm/
 download_fabric_curseforge: https://www.curseforge.com/minecraft/mc-mods/charm/files/
 download_forge_curseforge: https://www.curseforge.com/minecraft/mc-mods/charm-reforged/files/
 download_112_curseforge: https://www.curseforge.com/minecraft/mc-mods/charm/files/
