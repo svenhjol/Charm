@@ -1,6 +1,7 @@
 # Changelog
 
 ### 3.1.2
+* Fix sign material registry issue, causing crash with expanded-storage.  svenhjol/Charm#576
 * Cooking pot now updates capacity after taking bowl.  svenhjol/Charm#577
 * Kiln advancement now possible by clicking output slot.  svenhjol/Charm#578
 * Updated wording of cooking pot advancements
