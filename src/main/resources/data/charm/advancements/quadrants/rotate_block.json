@@ -2,7 +2,7 @@
   "parent": "charm:quadrants/hold_to_align",
   "display": {
     "icon": {
-      "item": "charm:birch_chest"
+      "item": "charm:acacia_chest"
     },
     "title": {
       "translate": "advancements.charm.rotate_block.title"

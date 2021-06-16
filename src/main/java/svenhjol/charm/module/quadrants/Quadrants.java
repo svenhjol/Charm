@@ -126,7 +126,7 @@ public class Quadrants extends CharmModule {
                 world.getBlockTicks().scheduleTick(pos, state.getBlock(), 4);
                 world.playSound(null, pos, CharmSounds.QUADRANT, SoundSource.BLOCKS, 0.35F + (0.25F * world.random.nextFloat()), 0.8F + (0.4F * world.random.nextFloat()));
 
-                if (!world.isClientSide)
+                if (!world.isClientSide && state.getBlock() instanceof ChestBlock)
                     triggerRotatedBlock((ServerPlayer) player);
 
                 // damage the quadrant a bit
