@@ -1,5 +1,10 @@
 # Changelog
 
+### 3.1.2
+* Cooking pot now updates capacity after taking bowl.  svenhjol/Charm#577
+* Kiln advancement now possible by clicking output slot.  svenhjol/Charm#578
+* Updated wording of cooking pot advancements
+
 ### 3.1.1
 * Added missing woodcutter recipes for stripped wood types
 * Temporary fix for raid horn model textures in 3rd person
