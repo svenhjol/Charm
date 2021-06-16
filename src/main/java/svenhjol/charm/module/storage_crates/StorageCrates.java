@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
@@ -36,6 +37,8 @@ public class StorageCrates extends CharmModule {
     public static final ResourceLocation MSG_CLIENT_UPDATED_CRATE = new ResourceLocation(Charm.MOD_ID, "client_interacted_with_crate");
     public static Map<IVariantMaterial, StorageCrateBlock> STORAGE_CRATE_BLOCKS = new HashMap<>();
     public static BlockEntityType<StorageCrateBlockEntity> BLOCK_ENTITY;
+
+    public static final ResourceLocation TRIGGER_ADDED_STACK_TO_CRATE = new ResourceLocation(Charm.MOD_ID, "added_stack_to_crate");
 
     @Config(name = "Maximum stacks", description = "Number of stacks of a single item or block that a storage crate will hold.")
     public static int maximumStacks = 54;
@@ -92,6 +95,9 @@ public class StorageCrates extends CharmModule {
                         } else {
                             ItemStack added = crate.addStack(held);
                             player.setItemInHand(hand, added);
+
+                            if (crate.getItemType() != null && crate.getTotalNumberOfItems() >= crate.getItemType().getMaxStackSize())
+                                triggerAddedStackToCrate((ServerPlayer) player);
                         }
                     } else {
                         return InteractionResult.PASS;
@@ -114,6 +120,10 @@ public class StorageCrates extends CharmModule {
 
         world.getEntitiesOfClass(Player.class, (new AABB(pos)).inflate(8.0D)).forEach(p
             -> ServerPlayNetworking.send((ServerPlayer) p, MSG_CLIENT_UPDATED_CRATE, data));
+    }
+
+    public static void triggerAddedStackToCrate(ServerPlayer player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_ADDED_STACK_TO_CRATE);
     }
 
     public enum ActionType {

@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/tools",
+  "display": {
+    "icon": {
+      "item": "charm:jungle_storage_crate"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_storage_crate.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_storage_crate.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_storage_crate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "charm:storage_crates"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_storage_crate"
+    ]
+  ]
+}

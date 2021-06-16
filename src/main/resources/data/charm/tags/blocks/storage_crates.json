@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "charm:acacia_storage_crate",
+    "charm:azalea_storage_crate",
+    "charm:birch_storage_crate",
+    "charm:crimson_storage_crate",
+    "charm:dark_oak_storage_crate",
+    "charm:ebony_storage_crate",
+    "charm:jungle_storage_crate",
+    "charm:oak_storage_crate",
+    "charm:spruce_storage_crate",
+    "charm:warped_storage_crate"
+  ]
+}

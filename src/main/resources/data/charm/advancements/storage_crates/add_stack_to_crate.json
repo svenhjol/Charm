@@ -1,0 +1,31 @@
+{
+  "parent": "charm:storage_crates/obtain_storage_crate",
+  "display": {
+    "icon": {
+      "item": "charm:jungle_storage_crate"
+    },
+    "title": {
+      "translate": "advancements.charm.add_stack_to_crate.title"
+    },
+    "description": {
+      "translate": "advancements.charm.add_stack_to_crate.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "added_stack_to_crate": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:added_stack_to_crate"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "added_stack_to_crate"
+    ]
+  ]
+}
