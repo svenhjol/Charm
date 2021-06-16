@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.BuiltinRegistries;
@@ -98,7 +100,9 @@ public class RegistryHelper {
 
     public static WoodType signType(ResourceLocation id) {
         // crashes when using fully qualified namespace, so convert colon to underscore
-        return WoodTypeAccessor.invokeRegister(WoodTypeAccessor.invokeInit(id.toString().replace(":", "_")));
+        WoodType woodType = WoodTypeAccessor.invokeRegister(WoodTypeAccessor.invokeInit(id.toString().replace(":", "_")));
+        Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + woodType.name())));
+        return woodType;
     }
 
     public static PoiType pointOfInterestType(ResourceLocation id, PoiType poit) {
