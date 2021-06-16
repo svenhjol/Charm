@@ -5,10 +5,9 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractFurnaceMenu;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeBookType;
-import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.module.kilns.Kilns;
 
 public class KilnScreenHandler extends AbstractFurnaceMenu {
     public KilnScreenHandler(int syncId, Inventory playerInventory) {
@@ -20,10 +19,10 @@ public class KilnScreenHandler extends AbstractFurnaceMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        if (player.level != null && !player.level.isClientSide && index == 2) {
+    protected void doClick(int i, int j, ClickType clickType, Player player) {
+        if (player.level != null && !player.level.isClientSide && i == 2 && clickType == ClickType.PICKUP) {
             Kilns.triggerFiredItem((ServerPlayer) player);
         }
-        return super.quickMoveStack(player, index);
+        super.doClick(i, j, clickType, player);
     }
 }
