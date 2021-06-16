@@ -145,6 +145,9 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
             if (!name.isEmpty())
                 stew.setHoverName(new TextComponent(name));
 
+            setChanged();
+            sync();
+
             return stew;
         }
 
