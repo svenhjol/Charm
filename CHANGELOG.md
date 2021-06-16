@@ -1,5 +1,9 @@
 # Changelog
 
+### 3.1.1
+* Added missing woodcutter recipes for stripped wood types
+* Temporary fix for raid horn model textures in 3rd person
+
 ### 3.1.0 (beta)
 * Change villager registration.  **Existing lumberjacks and beekeepers will lose their trades.**
 
