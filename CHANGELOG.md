@@ -2,6 +2,7 @@
 
 ### 3.1.4
 * Fix casks not accepting potions
+* Casks now preserve their contents when broken (configurable)
 * Casks with only water now return water bottles
 
 ### 3.1.3
