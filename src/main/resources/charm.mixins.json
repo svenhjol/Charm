@@ -84,6 +84,7 @@
     "core.AddCustomDecorationProcessorsMixin",
     "core.CheckImmovableByPistonMixin",
     "core.CheckItemDespawnMixin",
+    "core.FixFabricResourcePacks",
     "core.RemoveConditionalAdvancementsMixin",
     "core.SortRecipesMixin",
     "extract_enchantments.AddCustomGrindstoneSlotsMixin",
