@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
     public static final String PORTIONS_NBT = "Portions";
@@ -134,6 +135,13 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
             if (potion != Potions.WATER || !customEffects.isEmpty()) {
 
                 List<MobEffectInstance> effects = customEffects.isEmpty() && !potion.getEffects().isEmpty() ? potion.getEffects() : customEffects;
+
+                // strip out immediate effects and other weird things
+                effects = effects.stream()
+                    .filter(e -> e.getDuration() > 1)
+                    .filter(e -> e.getAmplifier() > 0)
+                    .collect(Collectors.toList());
+
                 if (effects.isEmpty())
                     return false;
 

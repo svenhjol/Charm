@@ -1,7 +1,8 @@
 # Changelog
 
 ### 3.1.3
-* Fix server-side crash with invalid client class access
+* Fix server-side crash with invalid client class access.  svenhjol/Charm#580
+* Casks no longer accept instant potions.  svenhjol/Charm#579
 * Added feature Lava Bucket Destroys Items
 
 ### 3.1.2
