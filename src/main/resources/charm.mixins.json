@@ -93,6 +93,7 @@
     "gentle_potion_particles.RenderTranslucentParticleMixin",
     "grindable_horse_armor.UpdateGrindstoneOutputMixin",
     "husk_improvements.AllowSpawningAnywhereMixin",
+    "callback.StackItemOnItemCallbackMixin",
     "mineshaft_improvements.GenerateMineshaftPiecesMixin",
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
     "parrots_stay_on_shoulder.KeepShoulderEntitiesMixin",
