@@ -1,5 +1,9 @@
 # Changelog
 
+### 3.1.4
+* Fix casks not accepting potions
+* Casks with only water now return water bottles
+
 ### 3.1.3
 * Fix server-side crash with invalid client class access.  svenhjol/Charm#580
 * Casks no longer accept instant potions.  svenhjol/Charm#579
