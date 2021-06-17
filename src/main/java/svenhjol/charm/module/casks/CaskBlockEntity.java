@@ -139,7 +139,6 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
                 // strip out immediate effects and other weird things
                 effects = effects.stream()
                     .filter(e -> e.getDuration() > 1)
-                    .filter(e -> e.getAmplifier() > 0)
                     .collect(Collectors.toList());
 
                 if (effects.isEmpty())
@@ -211,9 +210,6 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
             ItemStack bottle = PotionHelper.getFilledWaterBottle();
             List<MobEffectInstance> effects = new ArrayList<>();
 
-            if (this.effects.isEmpty())
-                return null;
-
             for (ResourceLocation effectId : this.effects) {
                 Registry.MOB_EFFECT.getOptional(effectId).ifPresent(statusEffect -> {
                     int duration = this.durations.get(effectId);
@@ -224,22 +220,24 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
                 });
             }
 
-            PotionUtils.setCustomEffects(bottle, effects);
+            Component bottleName;
+
+            if (!effects.isEmpty()) {
+                PotionUtils.setCustomEffects(bottle, effects);
+                if (!name.isEmpty()) {
+                    bottleName = new TextComponent(name);
+                } else {
+                    bottleName = new TranslatableComponent("item.charm.home_brew");
+                }
+                bottle.setHoverName(bottleName);
+            }
+
             container.shrink(1);
 
             // if no more portions in the cask, flush out the cask data
             if (--portions <= 0)
                 this.flush(world, pos, state);
 
-            Component bottleName;
-
-            if (!name.isEmpty()) {
-                bottleName = new TextComponent(name);
-            } else {
-                bottleName = new TranslatableComponent("item.charm.home_brew");
-            }
-
-            bottle.setHoverName(bottleName);
             return bottle;
         }
 
