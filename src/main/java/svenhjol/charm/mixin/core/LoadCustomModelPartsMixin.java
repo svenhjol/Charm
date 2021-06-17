@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.helper.EntityHelper;
+import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(EntityModelSet.class)
@@ -22,7 +22,7 @@ public class LoadCustomModelPartsMixin {
         cancellable = true
     )
     public void hookGetModelPart(ModelLayerLocation layer, CallbackInfoReturnable<ModelPart> cir) {
-        if (EntityHelper.LAYERS.containsKey(layer))
-            cir.setReturnValue(EntityHelper.LAYERS.get(layer));
+        if (ClientHelper.ENTITY_MODEL_LAYERS.containsKey(layer))
+            cir.setReturnValue(ClientHelper.ENTITY_MODEL_LAYERS.get(layer));
     }
 }

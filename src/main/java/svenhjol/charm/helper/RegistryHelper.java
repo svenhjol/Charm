@@ -1,11 +1,6 @@
 package svenhjol.charm.helper;
 
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.MenuAccess;
-import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.BuiltinRegistries;
@@ -59,10 +54,6 @@ public class RegistryHelper {
         PotionBrewingAccessor.invokeAddMix(input, reagant, output);
     }
 
-    public static <H extends AbstractContainerMenu, S extends Screen & MenuAccess<H>> void clientScreenHandler(MenuType<H> screenHandler, ScreenRegistry.Factory<H, S> screen) {
-        ScreenRegistry.register(screenHandler, screen);
-    }
-
     public static ConfiguredFeature<?, ?> configuredFeature(ResourceLocation id, ConfiguredFeature<?, ?> configuredFeature) {
         ResourceKey<ConfiguredFeature<?, ?>> key = ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, id);
         BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_FEATURE, key.location(), configuredFeature);
@@ -100,9 +91,7 @@ public class RegistryHelper {
 
     public static WoodType signType(ResourceLocation id) {
         // crashes when using fully qualified namespace, so convert colon to underscore
-        WoodType woodType = WoodTypeAccessor.invokeRegister(WoodTypeAccessor.invokeInit(id.toString().replace(":", "_")));
-        Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + woodType.name())));
-        return woodType;
+        return WoodTypeAccessor.invokeRegister(WoodTypeAccessor.invokeInit(id.toString().replace(":", "_")));
     }
 
     public static PoiType pointOfInterestType(ResourceLocation id, PoiType poit) {
