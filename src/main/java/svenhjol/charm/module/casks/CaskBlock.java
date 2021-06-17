@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -163,12 +164,20 @@ public class CaskBlock extends CharmBlockWithEntity {
 
     @Override
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        if (itemStack.hasCustomHoverName()) {
-            CaskBlockEntity cask = getBlockEntity(world, pos);
-            if (cask != null) {
+        CaskBlockEntity cask = getBlockEntity(world, pos);
+        if (cask != null) {
+            if (itemStack.hasCustomHoverName())
                 cask.name = itemStack.getHoverName().getContents();
-                cask.setChanged();
-            }
+
+            // try restore contents from tag
+            CompoundTag tag = itemStack.getTag();
+            if (tag != null && !tag.isEmpty())
+                cask.fromClientTag(tag.getCompound(Casks.STORED_POTIONS_NBT));
+
+            cask.setChanged();
+
+            if (!world.isClientSide)
+                cask.sync();
         }
 
         super.setPlacedBy(world, pos, state, placer, itemStack);
