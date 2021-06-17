@@ -1,5 +1,9 @@
 # Changelog
 
+### 3.1.3
+* Fix server-side crash with invalid client class access
+* Added feature Lava Bucket Destroys Items
+
 ### 3.1.2
 * Fix sign material registry issue, causing crash with expanded-storage.  svenhjol/Charm#576
 * Cooking pot now updates capacity after taking bowl.  svenhjol/Charm#577
