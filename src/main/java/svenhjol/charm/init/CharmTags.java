@@ -17,7 +17,7 @@ public class CharmTags {
         BARRELS = BlockTagsAccessor.invokeBind("charm:barrels");
         IMMOVABLE_BY_PISTONS = BlockTagsAccessor.invokeBind("charm:immovable_by_pistons");
         NETHER_PORTAL_FRAMES = BlockTagsAccessor.invokeBind("charm:nether_portal_frames");
-        PROVIDE_ENCHANTING_POWER = BlockTagsAccessor.invokeBind("charm:provide_enchanting_power");
+        PROVIDE_ENCHANTING_POWER = BlockTagsAccessor.invokeBind("c:provides_enchanting_power");
         CRAFTING_TABLES = ItemTagsAccessor.invokeBind("charm:crafting_tables");
     }
 }

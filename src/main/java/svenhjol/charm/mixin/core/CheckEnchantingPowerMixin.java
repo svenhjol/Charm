@@ -13,16 +13,28 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.annotation.CharmMixin;
-import svenhjol.charm.helper.EnchantmentsHelper;
+import svenhjol.charm.init.CharmTags;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This mixin is one of the most likely to conflict as other modders
+ * will target this to implement enchanting power to their own modded blocks.
+ *
+ * I have created a tag called c:provides_enchanting_power that contains
+ * the blocks that Charm uses for enchanting.  If you want to disable this mixin
+ * due to conflict, please add the above tag to your mod for Charm to function properly.
+ *
+ * See {@link ShowEnchantmentParticlesMixin} for the client-side implementation of this.
+ */
 @Mixin(EnchantmentMenu.class)
 @CharmMixin(disableIfModsPresent = {"betterend"})
 public abstract class CheckEnchantingPowerMixin extends AbstractContainerMenu {
-    @Shadow @Final private ContainerLevelAccess access;
+    @Shadow
+    @Final
+    private ContainerLevelAccess access;
 
     @Shadow @Final private Random random;
 
@@ -43,49 +55,47 @@ public abstract class CheckEnchantingPowerMixin extends AbstractContainerMenu {
     @Shadow protected abstract List<EnchantmentInstance> getEnchantmentList(ItemStack stack, int slot, int level);
 
     /**
-     * Add a hook that reimplements the check for surrounding blocks that provide enchanting bonus.
-     * This allows Charm's blocks to provide power before falling back to vanilla implementation (and other mod overrides)
-     * TODO: try and hook isOf()
+     * Copypasta from {@link EnchantmentMenu#slotsChanged}.
+     * We need the same logic as vanilla but checking for the PROVIDE_ENCHANTMENT_POWER tag.
      */
     @Inject(
         method = "slotsChanged",
         at = @At("HEAD"),
         cancellable = true
     )
-    private void hookOnContentChanged(Container inventory, CallbackInfo ci) {
-        /** Copypasta from {@link EnchantmentScreenHandler#onContentChanged(Inventory) */
-        if (inventory == this.enchantSlots) {
-            ItemStack itemStack = inventory.getItem(0);
+    private void hookOnContentChanged(Container container, CallbackInfo ci) {
+        if (container == this.enchantSlots) {
+            ItemStack itemStack = container.getItem(0);
             if (!itemStack.isEmpty() && itemStack.isEnchantable()) {
-                this.access.execute((world, blockPos) -> {
+                this.access.execute((level, blockPos) -> {
                     int i = 0;
 
                     int j;
                     for(j = -1; j <= 1; ++j) {
                         for(int k = -1; k <= 1; ++k) {
-                            if ((j != 0 || k != 0) && world.isEmptyBlock(blockPos.offset(k, 0, j)) && world.isEmptyBlock(blockPos.offset(k, 1, j))) {
-                                if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k * 2, 0, j * 2)))) {
+                            if ((j != 0 || k != 0) && level.isEmptyBlock(blockPos.offset(k, 0, j)) && level.isEmptyBlock(blockPos.offset(k, 1, j))) {
+                                if (level.getBlockState(blockPos.offset(k * 2, 0, j * 2)).is(CharmTags.PROVIDE_ENCHANTING_POWER)) {
                                     ++i;
                                 }
 
-                                if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k * 2, 1, j * 2)))) {
+                                if (level.getBlockState(blockPos.offset(k * 2, 1, j * 2)).is(CharmTags.PROVIDE_ENCHANTING_POWER)) {
                                     ++i;
                                 }
 
                                 if (k != 0 && j != 0) {
-                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k * 2, 0, j)))) {
+                                    if (level.getBlockState(blockPos.offset(k * 2, 0, j)).is(CharmTags.PROVIDE_ENCHANTING_POWER)) {
                                         ++i;
                                     }
 
-                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k * 2, 1, j)))) {
+                                    if (level.getBlockState(blockPos.offset(k * 2, 1, j)).is(CharmTags.PROVIDE_ENCHANTING_POWER)) {
                                         ++i;
                                     }
 
-                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k, 0, j * 2)))) {
+                                    if (level.getBlockState(blockPos.offset(k, 0, j * 2)).is(CharmTags.PROVIDE_ENCHANTING_POWER)) {
                                         ++i;
                                     }
 
-                                    if (EnchantmentsHelper.canBlockPowerEnchantingTable(world.getBlockState(blockPos.offset(k, 1, j * 2)))) {
+                                    if (level.getBlockState(blockPos.offset(k, 1, j * 2)).is(CharmTags.PROVIDE_ENCHANTING_POWER)) {
                                         ++i;
                                     }
                                 }
@@ -108,9 +118,9 @@ public abstract class CheckEnchantingPowerMixin extends AbstractContainerMenu {
                         if (this.costs[j] > 0) {
                             List<EnchantmentInstance> list = this.getEnchantmentList(itemStack, j, this.costs[j]);
                             if (list != null && !list.isEmpty()) {
-                                EnchantmentInstance enchantmentLevelEntry = (EnchantmentInstance)list.get(this.random.nextInt(list.size()));
-                                this.enchantClue[j] = Registry.ENCHANTMENT.getId(enchantmentLevelEntry.enchantment);
-                                this.levelClue[j] = enchantmentLevelEntry.level;
+                                EnchantmentInstance enchantmentInstance = (EnchantmentInstance)list.get(this.random.nextInt(list.size()));
+                                this.enchantClue[j] = Registry.ENCHANTMENT.getId(enchantmentInstance.enchantment);
+                                this.levelClue[j] = enchantmentInstance.level;
                             }
                         }
                     }
