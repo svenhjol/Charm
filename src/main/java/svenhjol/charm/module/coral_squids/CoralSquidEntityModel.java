@@ -12,34 +12,33 @@ import java.util.Arrays;
 
 public class CoralSquidEntityModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart[] tentacles = new ModelPart[8];
-    private final ModelPart modelPart;
+    private final ModelPart root;
 
-    public CoralSquidEntityModel(ModelPart modelPart) {
-        this.modelPart = modelPart;
-        Arrays.setAll(this.tentacles, t -> modelPart.getChild(getTentacleIndex(t)));
+    public CoralSquidEntityModel(ModelPart root) {
+        this.root = root;
+        Arrays.setAll(this.tentacles, t -> root.getChild(createTentacleName(t)));
     }
 
-    private static String getTentacleIndex(int i) {
+    private static String createTentacleName(int i) {
         return "tentacle" + i;
     }
 
     public static LayerDefinition getTexturedModelData() {
-        MeshDefinition lv = new MeshDefinition();
-        PartDefinition lv2 = lv.getRoot();
-        lv2.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -4.0F, -3.0F, 6.0F, 8.0F, 6.0F), PartPose.offset(0.0F, 4.0F, 0.0F));
-        CubeListBuilder lv3 = CubeListBuilder.create().texOffs(48, 0).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 7.0F, 1.0F);
+        MeshDefinition meshDefinition = new MeshDefinition();
+        PartDefinition partDefinition = meshDefinition.getRoot();
+        partDefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -4.0F, -3.0F, 6.0F, 8.0F, 6.0F), PartPose.offset(0.0F, 16.0F, 0.0F));
+        CubeListBuilder cubeListBuilder = CubeListBuilder.create().texOffs(48, 0).addBox(-0.5F, 0.0F, -0.5F, 1.0F, 7.0F, 1.0F);
 
         for(int k = 0; k < 8; ++k) {
             double d = (double)k * 3.141592653589793D * 2.0D / 8.0D;
             float f = (float)Math.cos(d) * 2.5F;
-            float g = 7.5F;
             float h = (float)Math.sin(d) * 2.5F;
             d = (double)k * 3.141592653589793D * -2.0D / 8.0D + 1.5707963267948966D;
             float l = (float)d;
-            lv2.addOrReplaceChild(getTentacleIndex(k), lv3, PartPose.offsetAndRotation(f, g, h, 0.0F, l, 0.0F));
+            partDefinition.addOrReplaceChild(createTentacleName(k), cubeListBuilder, PartPose.offsetAndRotation(f, 20.0F, h, 0.0F, l, 0.0F));
         }
 
-        return LayerDefinition.create(lv, 64, 32);
+        return LayerDefinition.create(meshDefinition, 64, 32);
     }
 
     public void setupAnim(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
@@ -50,11 +49,10 @@ public class CoralSquidEntityModel<T extends Entity> extends HierarchicalModel<T
             ModelPart modelPart = var7[var9];
             modelPart.xRot = animationProgress;
         }
-
     }
 
     @Override
     public ModelPart root() {
-        return this.modelPart;
+        return this.root;
     }
 }

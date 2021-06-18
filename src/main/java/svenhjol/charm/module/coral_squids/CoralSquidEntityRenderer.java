@@ -7,30 +7,32 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class CoralSquidEntityRenderer extends MobRenderer<CoralSquidEntity, CoralSquidEntityModel<CoralSquidEntity>> {
+public class CoralSquidEntityRenderer<T extends CoralSquidEntity> extends MobRenderer<T, CoralSquidEntityModel<T>> {
     public CoralSquidEntityRenderer(EntityRendererProvider.Context context) {
         super(context, new CoralSquidEntityModel<>(context.bakeLayer(CoralSquidsClient.LAYER)), 0.7F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(CoralSquidEntity entity) {
+    public ResourceLocation getTextureLocation(T entity) {
         return entity.getTexture();
     }
 
     /**
-     * Copypasta from SquidEntityRenderer.
+     * Copypasta from SquidRenderer.
      */
-    protected void setupTransforms(CoralSquidEntity squidEntity, PoseStack matrixStack, float f, float g, float h) {
-        float i = Mth.lerp(h, squidEntity.prevTiltAngle, squidEntity.tiltAngle);
-        float j = Mth.lerp(h, squidEntity.prevRollAngle, squidEntity.rollAngle);
-        matrixStack.translate(0.0D, 0.25D, 0.0D);
-        matrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - g));
-        matrixStack.mulPose(Vector3f.XP.rotationDegrees(i));
-        matrixStack.mulPose(Vector3f.YP.rotationDegrees(j));
-        matrixStack.translate(0.0D, -1.2000000476837158D, 0.0D);
+    @Override
+    protected void setupRotations(T squid, PoseStack poseStack, float f, float g, float h) {
+        float i = Mth.lerp(h, squid.xBodyRot0, squid.xBodyRot);
+        float j = Mth.lerp(h, squid.zBodyRot0, squid.zBodyRot);
+        poseStack.translate(0.0D, 0.25D, 0.0D);
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - g));
+        poseStack.mulPose(Vector3f.XP.rotationDegrees(i));
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(j));
+        poseStack.translate(0.0D, -0.6D, 0.0D);
     }
 
-    protected float getAnimationProgress(CoralSquidEntity squidEntity, float f) {
-        return Mth.lerp(f, squidEntity.prevTentacleAngle, squidEntity.tentacleAngle);
+    @Override
+    protected float getBob(T squid, float f) {
+        return Mth.lerp(f, squid.oldTentacleAndle, squid.tentacleAngle);
     }
 }

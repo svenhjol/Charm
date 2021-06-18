@@ -61,17 +61,17 @@ public class CoralSquidEntity extends WaterAnimal {
     public static final Map<Integer, ResourceLocation> TEXTURES;
     public static final Map<Integer, Item> DROPS;
 
-    public float tiltAngle;
-    public float prevTiltAngle;
-    public float rollAngle;
-    public float prevRollAngle;
-    public float thrustTimer;
-    public float prevThrustTimer;
+    public float xBodyRot;
+    public float xBodyRot0;
+    public float zBodyRot;
+    public float zBodyRot0;
+    public float tentacleMovement;
+    public float oldTentacleMovement;
     public float tentacleAngle;
-    public float prevTentacleAngle;
-    private float swimVelocityScale;
-    private float thrustTimerSpeed;
-    private float turningSpeed;
+    public float oldTentacleAndle;
+    private float speed;
+    private float tentacleSpeed;
+    private float rotateSpeed;
     private float swimX;
     private float swimY;
     private float swimZ;
@@ -79,7 +79,7 @@ public class CoralSquidEntity extends WaterAnimal {
     public CoralSquidEntity(EntityType<? extends CoralSquidEntity> entityType, Level world) {
         super(entityType, world);
         this.random.setSeed(this.getId());
-        this.thrustTimerSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.28F;
+        this.tentacleSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
     }
 
     @Nullable
@@ -154,8 +154,8 @@ public class CoralSquidEntity extends WaterAnimal {
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new CoralSquidEntity.EscapeAttackerGoal());
+        this.goalSelector.addGoal(0, new SquidRandomMovementGoal(this));
+        this.goalSelector.addGoal(1, new SquidFleeGoal());
     }
 
     @Override
@@ -172,7 +172,7 @@ public class CoralSquidEntity extends WaterAnimal {
     }
 
     protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
-        return dimensions.height * 0.5F;
+        return dimensions.height * 0.8F;
     }
 
     @Override
@@ -205,18 +205,18 @@ public class CoralSquidEntity extends WaterAnimal {
      */
     public void aiStep() {
         super.aiStep();
-        this.prevTiltAngle = this.tiltAngle;
-        this.prevRollAngle = this.rollAngle;
-        this.prevThrustTimer = this.thrustTimer;
-        this.prevTentacleAngle = this.tentacleAngle;
-        this.thrustTimer += this.thrustTimerSpeed;
-        if ((double)this.thrustTimer > 6.283185307179586D) {
+        this.xBodyRot0 = this.xBodyRot;
+        this.zBodyRot0 = this.zBodyRot;
+        this.oldTentacleMovement = this.tentacleMovement;
+        this.oldTentacleAndle = this.tentacleAngle;
+        this.tentacleMovement += this.tentacleSpeed;
+        if ((double)this.tentacleMovement > 6.283185307179586D) {
             if (this.level.isClientSide) {
-                this.thrustTimer = 6.2831855F;
+                this.tentacleMovement = 6.2831855F;
             } else {
-                this.thrustTimer = (float)((double)this.thrustTimer - 6.283185307179586D);
-                if (this.random.nextInt(7) == 0) {
-                    this.thrustTimerSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
+                this.tentacleMovement = (float)((double)this.tentacleMovement - 6.283185307179586D);
+                if (this.random.nextInt(10) == 0) {
+                    this.tentacleSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
                 }
 
                 this.level.broadcastEntityEvent(this, (byte)19);
@@ -224,33 +224,33 @@ public class CoralSquidEntity extends WaterAnimal {
         }
 
         if (this.isInWaterOrBubble()) {
-            if (this.thrustTimer < 3.1415927F) {
-                float f = this.thrustTimer / 3.1415927F;
+            if (this.tentacleMovement < 3.1415927F) {
+                float f = this.tentacleMovement / 3.1415927F;
                 this.tentacleAngle = Mth.sin(f * f * 3.1415927F) * 3.1415927F * 0.25F;
                 if ((double)f > 0.75D) {
-                    this.swimVelocityScale = 1.0F;
-                    this.turningSpeed = 1.0F;
+                    this.speed = 1.0F;
+                    this.rotateSpeed = 1.0F;
                 } else {
-                    this.turningSpeed *= 0.8F;
+                    this.rotateSpeed *= 0.8F;
                 }
             } else {
                 this.tentacleAngle = 0.0F;
-                this.swimVelocityScale *= 0.9F;
-                this.turningSpeed *= 0.99F;
+                this.speed *= 0.9F;
+                this.rotateSpeed *= 0.99F;
             }
 
             if (!this.level.isClientSide) {
-                this.setDeltaMovement((double)(this.swimX * this.swimVelocityScale), (double)(this.swimY * this.swimVelocityScale), (double)(this.swimZ * this.swimVelocityScale));
+                this.setDeltaMovement((double)(this.swimX * this.speed), (double)(this.swimY * this.speed), (double)(this.swimZ * this.speed));
             }
 
             Vec3 vec3d = this.getDeltaMovement();
             double d = vec3d.horizontalDistance();
             this.yBodyRot += (-((float)Mth.atan2(vec3d.x, vec3d.z)) * 57.295776F - this.yBodyRot) * 0.1F;
             this.setYRot(this.yBodyRot);
-            this.rollAngle = (float)((double)this.rollAngle + 3.141592653589793D * (double)this.turningSpeed * 1.5D);
-            this.tiltAngle += (-((float)Mth.atan2(d, vec3d.y)) * 57.295776F - this.tiltAngle) * 0.1F;
+            this.zBodyRot = (float)((double)this.zBodyRot + 3.141592653589793D * (double)this.rotateSpeed * 1.5D);
+            this.xBodyRot += (-((float)Mth.atan2(d, vec3d.y)) * 57.295776F - this.xBodyRot) * 0.1F;
         } else {
-            this.tentacleAngle = Mth.abs(Mth.sin(this.thrustTimer)) * 3.1415927F * 0.25F;
+            this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * 3.1415927F * 0.25F;
             if (!this.level.isClientSide) {
                 double d = this.getDeltaMovement().y;
                 if (this.hasEffect(MobEffects.LEVITATION)) {
@@ -262,9 +262,8 @@ public class CoralSquidEntity extends WaterAnimal {
                 this.setDeltaMovement(0.0D, d * 0.981D, 0.0D);
             }
 
-            this.tiltAngle = (float)((double)this.tiltAngle + (double)(-90.0F - this.tiltAngle) * 0.02D);
+            this.xBodyRot = (float)((double)this.xBodyRot + (double)(-90.0F - this.xBodyRot) * 0.02D);
         }
-
     }
 
     public void travel(Vec3 movementInput) {
@@ -274,22 +273,19 @@ public class CoralSquidEntity extends WaterAnimal {
     @Environment(EnvType.CLIENT)
     public void handleEntityEvent(byte status) {
         if (status == 19) {
-            this.thrustTimer = 0.0F;
+            this.tentacleMovement = 0.0F;
         } else {
             super.handleEntityEvent(status);
         }
     }
 
-    /**
-     * Sets the direction and velocity the squid must go when fleeing an enemy. Only has an effect when in the water.
-     */
-    public void setSwimmingVector(float x, float y, float z) {
+    public void setMovementVector(float x, float y, float z) {
         this.swimX = x;
         this.swimY = y;
         this.swimZ = z;
     }
 
-    public boolean hasSwimmingVector() {
+    public boolean hasMovementVector() {
         return this.swimX != 0.0F || this.swimY != 0.0F || this.swimZ != 0.0F;
     }
 
@@ -338,10 +334,10 @@ public class CoralSquidEntity extends WaterAnimal {
         return !this.isFromBucket() && !this.hasCustomName();
     }
 
-    class EscapeAttackerGoal extends Goal {
+    class SquidFleeGoal extends Goal {
         private int timer;
 
-        private EscapeAttackerGoal() {
+        private SquidFleeGoal() {
         }
 
         public boolean canUse() {
@@ -382,7 +378,7 @@ public class CoralSquidEntity extends WaterAnimal {
                         vec3d = vec3d.subtract(0.0D, vec3d.y, 0.0D);
                     }
 
-                    CoralSquidEntity.this.setSwimmingVector((float)vec3d.x / 20.0F, (float)vec3d.y / 20.0F, (float)vec3d.z / 20.0F);
+                    CoralSquidEntity.this.setMovementVector((float)vec3d.x / 20.0F, (float)vec3d.y / 20.0F, (float)vec3d.z / 20.0F);
                 }
 
                 if (this.timer % 10 == 5) {
@@ -393,10 +389,10 @@ public class CoralSquidEntity extends WaterAnimal {
         }
     }
 
-    static class SwimGoal extends Goal {
+    private static class SquidRandomMovementGoal extends Goal {
         private final CoralSquidEntity squid;
 
-        public SwimGoal(CoralSquidEntity squid) {
+        public SquidRandomMovementGoal(CoralSquidEntity squid) {
             this.squid = squid;
         }
 
@@ -407,13 +403,13 @@ public class CoralSquidEntity extends WaterAnimal {
         public void tick() {
             int i = this.squid.getNoActionTime();
             if (i > 100) {
-                this.squid.setSwimmingVector(0.0F, 0.0F, 0.0F);
-            } else if (this.squid.getRandom().nextInt(50) == 0 || !this.squid.wasTouchingWater || !this.squid.hasSwimmingVector()) {
+                this.squid.setMovementVector(0.0F, 0.0F, 0.0F);
+            } else if (this.squid.getRandom().nextInt(30) == 0 || !this.squid.wasTouchingWater || !this.squid.hasMovementVector()) {
                 float f = this.squid.getRandom().nextFloat() * 6.2831855F;
                 float g = Mth.cos(f) * 0.2F;
-                float h = -0.1F + this.squid.getRandom().nextFloat() * 0.2F;
+                float h = -0.1F + this.squid.getRandom().nextFloat() * 0.05F;
                 float j = Mth.sin(f) * 0.2F;
-                this.squid.setSwimmingVector(g, h, j);
+                this.squid.setMovementVector(g, h, j);
             }
         }
     }
