@@ -1,5 +1,8 @@
 # Changelog
 
+### 3.1.5
+* Fix coral squid hitbox, renderer and model.  svenhjol/Charm#583 svenhjol/Charm#582
+
 ### 3.1.4
 * Fix casks not accepting potions
 * Casks now preserve their contents when broken (configurable)
