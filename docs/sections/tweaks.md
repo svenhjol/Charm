@@ -74,6 +74,8 @@ A button to automatically stack and tidy inventories.
 ![Lava bucket destroys items](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Right-click on a lava bucket with an item or stack of items that you want to destroy.
 
+`New for 1.17!`
+
 ### Map Tooltips
 ![Map Tooltips](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Show a map in the tooltip when hovering over a filled map.
