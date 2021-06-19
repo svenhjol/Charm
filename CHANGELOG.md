@@ -3,6 +3,8 @@
 ### 3.1.6
 * Removed DirtToPath feature as it's now in vanilla
 * Fix typo in snowy village builds causing log spam
+* Mineshafts no longer spawn raw ore or emerald ore
+* Mineshaft central rooms may now have moss blocks and moss carpet
 
 ### 3.1.5
 * Fix coral squid hitbox, renderer and model.  svenhjol/Charm#583 svenhjol/Charm#582
