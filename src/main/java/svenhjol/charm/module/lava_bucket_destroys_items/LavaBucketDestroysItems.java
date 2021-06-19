@@ -1,5 +1,7 @@
 package svenhjol.charm.module.lava_bucket_destroys_items;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
@@ -11,12 +13,15 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.StackItemOnItemCallback;
 import svenhjol.charm.event.StackItemOnItemCallback.Direction;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nullable;
 
 @Module(mod = Charm.MOD_ID, description = "Drop an item onto a lava bucket item to destroy it.")
 public class LavaBucketDestroysItems extends CharmModule {
+    public static final ResourceLocation TRIGGER_DESTROYED_ITEM = new ResourceLocation(Charm.MOD_ID, "destroyed_item_with_lava_bucket");
+
     @Override
     public void init() {
         StackItemOnItemCallback.EVENT.register(this::handleStackedItem);
@@ -29,11 +34,18 @@ public class LavaBucketDestroysItems extends CharmModule {
             && dest.getItem() == Items.LAVA_BUCKET) {
             source.shrink(source.getCount());
 
-            if (player.level.isClientSide)
+            if (player.level.isClientSide) {
                 player.playSound(SoundEvents.FIRE_EXTINGUISH, 1.0F, 1.0F);
+            } else {
+                triggerDestroyedItem((ServerPlayer)player);
+            }
 
             return true;
         }
         return false;
+    }
+
+    public static void triggerDestroyedItem(ServerPlayer player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_DESTROYED_ITEM);
     }
 }
