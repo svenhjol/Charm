@@ -1,5 +1,5 @@
 {
-  "parent": "charm:dirt_to_path/convert_dirt",
+  "parent": "charm:core/tweaks",
   "display": {
     "icon": {
       "item": "minecraft:wheat"
