@@ -1,5 +1,9 @@
 # Changelog
 
+### 3.1.6
+* Removed DirtToPath feature as it's now in vanilla
+* Fix typo in snowy village builds causing log spam
+
 ### 3.1.5
 * Fix coral squid hitbox, renderer and model.  svenhjol/Charm#583 svenhjol/Charm#582
 
