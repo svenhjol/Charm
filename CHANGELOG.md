@@ -1,13 +1,13 @@
 # Changelog
 
 ### 3.1.6
-* Based on 1.17.1-pre1
 * Fix bookshelves not providing enchantment power on dedicated server. svenhjol/Charm#586
 * Fix typo in snowy village builds causing log spam
 * Removed DirtToPath feature as it's now in vanilla
 * Mineshafts no longer spawn raw ore or emerald ore
 * Mineshaft central rooms may now have moss blocks and moss carpet
 * Magma and lava blocks now provide cooking pot heat
+* Now built against 1.17.1-pre1
 
 ### 3.1.5
 * Fix coral squid hitbox, renderer and model.  svenhjol/Charm#583 svenhjol/Charm#582
