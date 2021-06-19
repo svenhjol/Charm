@@ -37,6 +37,8 @@ Cooking pots let you combine up to 64 food items, keeping an average of all hung
 
 Use wooden bowls to extract stew from the pot.
 
+A cooking pot must have a heat source underneath (e.g. fire, campfire, magma block) and be filled with water before items can be added to it.
+
 `New for 1.17!`
 
 ### Ender Bundles
