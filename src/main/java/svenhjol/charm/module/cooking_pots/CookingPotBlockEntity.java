@@ -163,6 +163,7 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
 
         if (belowBlock == Blocks.FIRE
             || belowBlock == Blocks.SOUL_FIRE
+            || belowBlock == Blocks.MAGMA_BLOCK
             || (belowBlock == Blocks.CAMPFIRE && belowState.getValue(CampfireBlock.LIT))
             || (belowBlock == Blocks.SOUL_CAMPFIRE && belowState.getValue(CampfireBlock.LIT))
         ) {
