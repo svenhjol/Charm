@@ -2,13 +2,13 @@
   "parent": "charm:core/tweaks",
   "display": {
     "icon": {
-      "item": "minecraft:dirt_path"
+      "item": "minecraft:lava_bucket"
     },
     "title": {
-      "translate": "advancements.charm.convert_dirt.title"
+      "translate": "advancements.charm.destroy_item_with_lava_bucket.title"
     },
     "description": {
-      "translate": "advancements.charm.convert_dirt.description"
+      "translate": "advancements.charm.destroy_item_with_lava_bucket.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "converted_dirt": {
+    "destroyed_item_with_lava_bucket": {
       "trigger": "charm:action_performed",
       "conditions": {
-        "action": "charm:converted_dirt"
+        "action": "charm:destroyed_item_with_lava_bucket"
       }
     }
   },
   "requirements": [
     [
-      "converted_dirt"
+      "destroyed_item_with_lava_bucket"
     ]
   ]
 }

@@ -77,9 +77,9 @@ public class MineshaftImprovements extends CharmModule {
         ));
 
         pileBlocks.addAll(Arrays.asList(
-            new Pair<>(Blocks.IRON_ORE.defaultBlockState(), Blocks.RAW_IRON_BLOCK.defaultBlockState()),
-            new Pair<>(Blocks.COPPER_ORE.defaultBlockState(), Blocks.RAW_COPPER_BLOCK.defaultBlockState()),
-            new Pair<>(Blocks.GOLD_ORE.defaultBlockState(), Blocks.RAW_GOLD_BLOCK.defaultBlockState()),
+            new Pair<>(Blocks.IRON_ORE.defaultBlockState(), Blocks.COBBLESTONE.defaultBlockState()),
+            new Pair<>(Blocks.COPPER_ORE.defaultBlockState(), Blocks.COBBLESTONE.defaultBlockState()),
+            new Pair<>(Blocks.GOLD_ORE.defaultBlockState(), Blocks.COBBLESTONE.defaultBlockState()),
             new Pair<>(Blocks.LAPIS_ORE.defaultBlockState(), Blocks.COAL_ORE.defaultBlockState()),
             new Pair<>(Blocks.REDSTONE_ORE.defaultBlockState(), Blocks.COBBLESTONE.defaultBlockState()),
             new Pair<>(Blocks.GRAVEL.defaultBlockState(), Blocks.COAL_ORE.defaultBlockState()),
@@ -96,19 +96,19 @@ public class MineshaftImprovements extends CharmModule {
 
         roomBlocks.addAll(Arrays.asList(
             Blocks.DIAMOND_ORE.defaultBlockState(),
-            Blocks.EMERALD_ORE.defaultBlockState(),
             Blocks.GOLD_ORE.defaultBlockState(),
             Blocks.LAPIS_ORE.defaultBlockState(),
             Blocks.DEEPSLATE_DIAMOND_ORE.defaultBlockState(),
-            Blocks.DEEPSLATE_EMERALD_ORE.defaultBlockState(),
             Blocks.DEEPSLATE_GOLD_ORE.defaultBlockState(),
             Blocks.DEEPSLATE_LAPIS_ORE.defaultBlockState()
         ));
 
         roomDecoration.addAll(Arrays.asList(
-            Blocks.MOSSY_COBBLESTONE.defaultBlockState(),
-            Blocks.MOSSY_COBBLESTONE_SLAB.defaultBlockState(),
-            Blocks.DIRT.defaultBlockState()
+            Blocks.ROOTED_DIRT.defaultBlockState(),
+            Blocks.COARSE_DIRT.defaultBlockState(),
+            Blocks.DIRT.defaultBlockState(),
+            Blocks.MOSS_CARPET.defaultBlockState(),
+            Blocks.MOSS_BLOCK.defaultBlockState()
         ));
 
         minecartLootTables.addAll(Arrays.asList(

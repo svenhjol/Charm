@@ -22,10 +22,6 @@ Refills your hotbar from your inventory.
 Campfires no longer damage mobs.
 By default, Soul Campfires still cause damage.
 
-### Dirt to Path
-![Dirt to Path](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
-Right-clicking dirt with a shovel turns it into grass path.
-
 ### Editable Signs
 ![Editable Signs](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Right-click on a sign with an empty hand to edit its text.
@@ -73,6 +69,12 @@ Right-click with a hoe to quickly harvest and replant a fully-grown crop.
 ### Inventory tidying
 ![Inventory tidying](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 A button to automatically stack and tidy inventories.
+
+### Lava bucket destroys items
+![Lava bucket destroys items](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Right-click on a lava bucket with an item or stack of items that you want to destroy.
+
+`New for 1.17!`
 
 ### Map Tooltips
 ![Map Tooltips](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
