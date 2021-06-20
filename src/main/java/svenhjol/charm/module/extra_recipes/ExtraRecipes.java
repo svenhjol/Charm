@@ -78,12 +78,12 @@ public class ExtraRecipes extends CharmModule {
     }
 
     private boolean handleCheckAnvilRepair(AnvilMenu handler, Player player, ItemStack leftStack, ItemStack rightStack) {
-        if (!useLeatherForElytra || player == null || player.level == null)
-            return false;
+        if (leftStack.getItem() != Items.ELYTRA || !useLeatherForElytra || player == null || player.level == null)
+            return true; // true to bypass
 
         // don't activate if insomnia is enabled
         if (!player.level.isClientSide && player.level.getGameRules().getBoolean(GameRules.RULE_DOINSOMNIA))
-            return false;
+            return false; // false to explicitly deny repair if insomnia is enabled
 
         return leftStack.getItem() == Items.ELYTRA && rightStack.getItem() == Items.LEATHER;
     }
