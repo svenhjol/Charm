@@ -1,5 +1,10 @@
 # Changelog
 
+### 3.1.7
+* Fix broken anvil repair recipes.  svenhjol/Charm#587
+* Rework raid horn model
+
+
 ### 3.1.6
 * Fix bookshelves not providing enchantment power on dedicated server. svenhjol/Charm#586
 * Fix typo in snowy village builds causing log spam
