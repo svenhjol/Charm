@@ -80,7 +80,7 @@ public class StorageCrates extends CharmModule {
             StorageCrateBlockEntity crate = (StorageCrateBlockEntity) blockEntity;
 
             if (!world.isClientSide) {
-                if (!crate.isEmpty() && (held.isEmpty() || (isSneaking && ItemStack.isSame(held, crate.getItemType())))) {
+                if (!crate.isEmpty() && (held.isEmpty() || (isSneaking && ItemStack.isSameItemSameTags(held, crate.getItemType())))) {
                     ItemStack stack = crate.takeStack();
                     PlayerHelper.addOrDropStack(player, stack);
 
