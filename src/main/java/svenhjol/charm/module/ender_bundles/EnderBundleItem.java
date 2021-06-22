@@ -2,7 +2,6 @@ package svenhjol.charm.module.ender_bundles;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.SlotAccess;
@@ -57,7 +56,7 @@ public class EnderBundleItem extends CharmItem {
         if (player.containerMenu instanceof ChestMenu
             && !(slot.container instanceof Inventory)) {
             return false; // don't allow inside ender chest inventory
-        } else if (player.containerMenu instanceof CreativeModeInventoryScreen.ItemPickerMenu) {
+        } else if (player.getAbilities().instabuild) {
             return false; // TODO: why is creative container wack?
         } else if (clickType != ClickAction.SECONDARY) {
             return false;
@@ -82,8 +81,8 @@ public class EnderBundleItem extends CharmItem {
             && !(slot.container instanceof Inventory)
         ) {
             return false; // don't allow inside ender chest inventory
-        } else if (player.containerMenu instanceof CreativeModeInventoryScreen.ItemPickerMenu) {
-            return false; // TODO: why is creative contains wack?
+        } else if (player.getAbilities().instabuild) {
+            return false; // TODO: why is creative container wack?
         } else if (clickType == ClickAction.SECONDARY && slot.allowModification(player)) {
             if (otherStack.isEmpty()) {
                 removeLastStack(player).ifPresent(stackReference::set);
