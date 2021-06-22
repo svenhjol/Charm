@@ -1,9 +1,10 @@
 # Changelog
 
 ### 3.1.7
+* Storage crates should not accept same item with different metadata.  svenhjol/Charm#597
 * Fix broken anvil repair recipes.  svenhjol/Charm#587
-* Rework raid horn model
-
+* Fix lanterns effective tool.  svenhjol/Charm#595
+* Rework raid horn model.  svenhjol/Charm#572
 
 ### 3.1.6
 * Fix bookshelves not providing enchantment power on dedicated server. svenhjol/Charm#586
