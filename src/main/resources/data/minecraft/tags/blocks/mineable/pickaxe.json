@@ -5,11 +5,15 @@
     "charm:copper_bars",
     "charm:copper_chain",
     "charm:copper_lantern",
+    "charm:copper_soul_lantern",
     "charm:gold_bars",
     "charm:gold_chain",
     "charm:gold_lantern",
+    "charm:gold_soul_lantern",
     "charm:netherite_bars",
     "charm:netherite_chain",
-    "charm:netherite_lantern"
+    "charm:netherite_lantern",
+    "charm:netherite_soul_lantern",
+    "charm:redstone_lantern"
   ]
 }
