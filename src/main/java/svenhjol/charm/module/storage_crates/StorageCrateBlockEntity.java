@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
@@ -86,17 +87,12 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
     public void setItem(int slot, ItemStack stack) {
         super.setItem(slot, stack);
         this.sync();
-
-        doClientRemoveEffect();
     }
 
     @Override
     public ItemStack getItem(int slot) {
         ItemStack stack = super.getItem(slot);
         this.sync();
-
-        if (!stack.isEmpty())
-            doClientAddEffect();
 
         return stack;
     }
@@ -140,11 +136,11 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
         return (int)getItems().stream().filter(s -> !s.isEmpty()).count();
     }
 
-    public ItemStack addStack(ItemStack stack) {
+    public ItemStack addStack(ItemStack stack, @Nullable Player player) {
         for (int i = 0; i < getItems().size(); i++) {
-            ItemStack stackInSlot = super.getItem(i); // call super so we don't get particle effects
+            ItemStack stackInSlot = getItem(i);
             if (stackInSlot.isEmpty()) {
-                super.setItem(i, stack); // call super so we don't get particle effects
+                super.setItem(i, stack);
                 stack = ItemStack.EMPTY;
                 break;
 
@@ -154,6 +150,9 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
                 stackInSlot.grow(d);
                 stack.shrink(d);
             }
+
+            if (player != null)
+                doClientAddEffect();
         }
 
         this.sync();
@@ -162,7 +161,7 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
         return stack;
     }
 
-    public ItemStack takeStack() {
+    public ItemStack takeStack(@Nullable Player player) {
         ItemStack stack = getItemType();
         if (stack == null)
             return ItemStack.EMPTY;
@@ -171,7 +170,10 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
         int c = maxCount;
 
         for (int i = 0; i < getItems().size(); i++) {
-            ItemStack stackInSlot = super.getItem(i); // call super so we don't get particle effects
+            ItemStack stackInSlot = getItem(i);
+            if (player != null)
+                doClientRemoveEffect();
+
             if (!stackInSlot.isEmpty()) {
                 int d = Math.min(c, stackInSlot.getCount());
                 stackInSlot.shrink(d);
