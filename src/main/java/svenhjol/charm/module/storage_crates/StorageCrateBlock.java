@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 
 public class StorageCrateBlock extends CharmBlockWithEntity {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static final VoxelShape SHAPE = box(1.0D, 1.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+    private static final VoxelShape SHAPE = box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
     public StorageCrateBlock(CharmModule module, IVariantMaterial material) {
         super(module, material.getSerializedName() + "_storage_crate",

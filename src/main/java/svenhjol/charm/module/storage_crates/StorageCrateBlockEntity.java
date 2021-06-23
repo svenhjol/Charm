@@ -111,7 +111,7 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
     public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction dir) {
         if (!this.isEmpty()) {
             for (ItemStack itemStack : items) {
-                if (!itemStack.isEmpty() && itemStack.getItem() == stack.getItem()) {
+                if (!itemStack.isEmpty() && ItemStack.isSameItemSameTags(itemStack, stack)) {
                     return true;
                 }
             }
@@ -204,7 +204,7 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
         } else if (second.getCount() == second.getMaxStackSize()) {
             return false;
         } else {
-            return ItemStack.tagMatches(first, second);
+            return ItemStack.isSameItemSameTags(first, second);
         }
     }
 
