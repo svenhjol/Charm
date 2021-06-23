@@ -27,8 +27,19 @@ import javax.annotation.Nullable;
 
 public class StorageCrateBlock extends CharmBlockWithEntity {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static final VoxelShape INSIDE = box(1.0D, 1.0D, 1.0D, 15.0D, 16.0D, 15.0D);
-    private static final VoxelShape SHAPE = Shapes.join(Shapes.block(), Shapes.or(INSIDE), BooleanOp.ONLY_FIRST);
+    private static final VoxelShape INSIDE_UP = box(1.0D, 1.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+    private static final VoxelShape INSIDE_DOWN = box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
+    private static final VoxelShape INSIDE_NORTH = box(0.0D, 1.0D, 1.0D, 15.0D, 15.0D, 15.0D);
+    private static final VoxelShape INSIDE_SOUTH = box(1.0D, 1.0D, 1.0D, 16.0D, 15.0D, 15.0D);
+    private static final VoxelShape INSIDE_EAST = box(1.0D, 1.0D, 0.0D, 15.0D, 15.0D, 15.0D);
+    private static final VoxelShape INSIDE_WEST = box(1.0D, 1.0D, 1.0D, 15.0D, 15.0D, 16.0D);
+
+    private static final VoxelShape SHAPE_UP = Shapes.join(Shapes.block(), Shapes.or(INSIDE_UP), BooleanOp.ONLY_FIRST);
+    private static final VoxelShape SHAPE_DOWN = Shapes.join(Shapes.block(), Shapes.or(INSIDE_DOWN), BooleanOp.ONLY_FIRST);
+    private static final VoxelShape SHAPE_NORTH = Shapes.join(Shapes.block(), Shapes.or(INSIDE_NORTH), BooleanOp.ONLY_FIRST);
+    private static final VoxelShape SHAPE_SOUTH = Shapes.join(Shapes.block(), Shapes.or(INSIDE_SOUTH), BooleanOp.ONLY_FIRST);
+    private static final VoxelShape SHAPE_EAST = Shapes.join(Shapes.block(), Shapes.or(INSIDE_EAST), BooleanOp.ONLY_FIRST);
+    private static final VoxelShape SHAPE_WEST = Shapes.join(Shapes.block(), Shapes.or(INSIDE_WEST), BooleanOp.ONLY_FIRST);
 
     public StorageCrateBlock(CharmModule module, IVariantMaterial material) {
         super(module, material.getSerializedName() + "_storage_crate",
@@ -44,12 +55,12 @@ public class StorageCrateBlock extends CharmBlockWithEntity {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return this.getShape(state);
     }
 
     @Override
     public VoxelShape getInteractionShape(BlockState state, BlockGetter world, BlockPos pos) {
-        return SHAPE;
+        return this.getShape(state);
     }
 
     @Override
@@ -97,5 +108,28 @@ public class StorageCrateBlock extends CharmBlockWithEntity {
 
     public BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    }
+
+    private VoxelShape getShape(BlockState state) {
+        switch (state.getValue(FACING)) {
+            case DOWN:
+                return SHAPE_DOWN;
+
+            case NORTH:
+                return SHAPE_NORTH;
+
+            case SOUTH:
+                return SHAPE_SOUTH;
+
+            case EAST:
+                return SHAPE_EAST;
+
+            case WEST:
+                return SHAPE_WEST;
+
+            default:
+            case UP:
+                return SHAPE_UP;
+        }
     }
 }
