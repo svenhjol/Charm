@@ -10,6 +10,7 @@
 * Slow down client storage crate effects.  svenhjol/Charm#584 
 * Rework how mixed stew item tooltips render.  svenhjol/Charm#585
 * Rework raid horn model.  svenhjol/Charm#572
+* Convert a variant chest/bookshelf/barrel to a vanilla version on a crafting table
 
 ### 3.1.6
 * Fix bookshelves not providing enchantment power on dedicated server. svenhjol/Charm#586
