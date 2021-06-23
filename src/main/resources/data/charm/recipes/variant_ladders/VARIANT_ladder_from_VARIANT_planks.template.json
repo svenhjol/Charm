@@ -5,22 +5,7 @@
       "item": "NAMESPACE:VARIANT_planks"
     },
     "result": "charm:VARIANT_ladder",
-    "count": 4,
-    "conditions": [
-      {
-        "type": "forge:and",
-        "values": [
-          {
-            "type": "charm:module_enabled",
-            "module": "charm:variant_ladders"
-          },
-          {
-            "type": "charm:module_enabled",
-            "module": "charm:woodcutters"
-          }
-        ]
-      }
-    ]
+    "count": 4
   },
   "variants": "wood"
 }

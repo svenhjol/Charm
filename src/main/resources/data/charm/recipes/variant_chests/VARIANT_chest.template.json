@@ -13,13 +13,7 @@
     },
     "result": {
       "item": "charm:VARIANT_chest"
-    },
-    "conditions": [
-      {
-        "type": "charm:module_enabled",
-        "module": "charm:variant_chests"
-      }
-    ]
+    }
   },
   "variants": "wood"
 }
