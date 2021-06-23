@@ -15,7 +15,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import svenhjol.charm.block.CharmBlockWithEntity;
 import svenhjol.charm.enums.IVariantMaterial;
@@ -25,7 +27,8 @@ import javax.annotation.Nullable;
 
 public class StorageCrateBlock extends CharmBlockWithEntity {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static final VoxelShape SHAPE = box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+    private static final VoxelShape INSIDE = box(1.0D, 1.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+    private static final VoxelShape SHAPE = Shapes.join(Shapes.block(), Shapes.or(INSIDE), BooleanOp.ONLY_FIRST);
 
     public StorageCrateBlock(CharmModule module, IVariantMaterial material) {
         super(module, material.getSerializedName() + "_storage_crate",
