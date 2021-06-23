@@ -1,14 +1,5 @@
 package svenhjol.charm.module.potion_of_hogsbane;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.potion.CharmPotion;
-import svenhjol.charm.event.PlayerTickCallback;
-import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.mixin.accessor.HoglinAiAccessor;
-
-import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -16,11 +7,20 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.mixin.accessor.HoglinAiAccessor;
+import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.potion.CharmPotion;
+
+import java.util.List;
 
 @Module(mod = Charm.MOD_ID, description = "Causes all hoglins in the vicinity to run away from you.",
     requiresMixins = {"PlayerTickCallback"})
 public class PotionOfHogsbane extends CharmModule {
-    public static svenhjol.charm.module.potion_of_hogsbane.HogsbaneEffect HOGSBANE_EFFECT;
+    public static HogsbaneEffect HOGSBANE_EFFECT;
     public static CharmPotion HOGSPANE_POTION;
     public static CharmPotion LONG_HOGSBANE_POTION;
 
