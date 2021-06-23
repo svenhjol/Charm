@@ -20,7 +20,7 @@ public class TooltipHelper {
     private static final int CORNER = 5;
     private static final int BUFFER = 1;
     private static final int EDGE = 18;
-    private static final float FRONT = 251F;
+    private static final float FRONT = 400F;
 
     public static void renderOverlay(PoseStack matrices, List<ItemStack> items, List<ClientTooltipComponent> lines, int tx, int ty) {
         final Minecraft mc = Minecraft.getInstance();
