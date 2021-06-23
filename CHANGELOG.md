@@ -1,5 +1,8 @@
 # Changelog
 
+### 3.2.0
+* Added Potion of Piercing Vision
+
 ### 3.1.7
 * Storage crates should not accept same item with different metadata.  svenhjol/Charm#597
 * Fix broken anvil repair recipes.  svenhjol/Charm#587
