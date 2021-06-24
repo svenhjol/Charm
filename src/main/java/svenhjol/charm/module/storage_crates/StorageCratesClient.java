@@ -25,6 +25,8 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class StorageCratesClient extends CharmClientModule {
+    public static long lastEffectTime;
+
     public StorageCratesClient(CharmModule module) {
         super(module);
     }
@@ -45,18 +47,13 @@ public class StorageCratesClient extends CharmClientModule {
 
         client.execute(() -> {
             ClientHelper.getWorld().ifPresent(world -> {
-                switch (actionType) {
-                    case ADDED:
-                        createEffect(world, pos, ParticleTypes.COMPOSTER, SoundEvents.COMPOSTER_FILL);
-                        break;
-
-                    case REMOVED:
-                        createEffect(world, pos, ParticleTypes.SMOKE, SoundEvents.ITEM_PICKUP);
-                        break;
-
-                    case FILLED:
-                        createEffect(world, pos, ParticleTypes.ASH, null);
-                        break;
+                if (world.getGameTime() - lastEffectTime > 5) {
+                    lastEffectTime = world.getGameTime();
+                    switch (actionType) {
+                        case ADDED -> createEffect(world, pos, ParticleTypes.COMPOSTER, SoundEvents.COMPOSTER_FILL);
+                        case REMOVED -> createEffect(world, pos, ParticleTypes.SMOKE, SoundEvents.ITEM_PICKUP);
+                        case FILLED -> createEffect(world, pos, ParticleTypes.ASH, null);
+                    }
                 }
             });
         });

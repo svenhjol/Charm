@@ -81,6 +81,8 @@ Copper, Gold and Netherite bars are crafted with their respective ingots in the 
 Bookshelves of each type of vanilla wood can be crafted using the respective wood planks and a bookshelf.
 The variants provide the same enchanting power as a normal bookshelf.
 
+Vanilla Bookshelves are still available and are crafted with a mix of wood types.
+
 ### Variant Chests
 ![Variant Chests](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/variant-chests.png?raw=true)
 Chests of each type of vanilla wood can be crafted using the respective wood planks.

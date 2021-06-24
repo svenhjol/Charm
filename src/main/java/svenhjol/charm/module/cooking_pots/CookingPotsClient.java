@@ -84,17 +84,16 @@ public class CookingPotsClient extends CharmClientModule {
         float oldZOffset = itemRenderer.blitOffset;
         itemRenderer.blitOffset = 400.0F; // hack to get front layer working
 
-        int ox = 0;
-        for (int i = 0; i < Math.min(14, items.size()); i++) {
-            ItemStack itemStack = new ItemStack(items.get(i));
-            if (!itemStack.isEmpty()) {
-                itemRenderer.renderAndDecorateFakeItem(itemStack, x + 8 + (ox++ * (items.size() < 7 ? 13 : 6)), y + 22);
-            }
-        }
-
         // add a couple of blank lines below for the items to render into
         for (int i = 0; i < 2; i++) {
             lines.add(ClientTooltipComponent.create(FormattedCharSequence.EMPTY));
+        }
+
+        int ox = 0;
+        for (int i = 0; i < Math.min(14, items.size()); i++) {
+            ItemStack itemStack = new ItemStack(items.get(i));
+            if (!itemStack.isEmpty())
+                itemRenderer.renderAndDecorateFakeItem(itemStack, x + 8 + (ox++ * (items.size() < 7 ? 13 : 6)), y + (lines.size() * 6));
         }
 
         itemRenderer.blitOffset = oldZOffset;

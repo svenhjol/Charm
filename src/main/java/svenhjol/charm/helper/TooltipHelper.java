@@ -30,14 +30,14 @@ public class TooltipHelper {
         int x = tx - 5;
         int y = ty - 35;
         int w = 172;
-        int h = 27;
+        int h = 45;
         int right = x + w;
 
         if (right > mc.getWindow().getGuiScaledWidth())
             x -= (right - mc.getWindow().getGuiScaledWidth());
 
         if (y < 0)
-            y = ty + lines.size() * 10 + 5;
+            y = ty + (lines.size() * 10 + h);
 
         matrices.pushPose();
         matrices.translate(0, 0, FRONT);

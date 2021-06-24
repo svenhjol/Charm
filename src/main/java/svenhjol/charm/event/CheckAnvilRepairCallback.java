@@ -8,13 +8,13 @@ import net.minecraft.world.item.ItemStack;
 
 public interface CheckAnvilRepairCallback {
     Event<CheckAnvilRepairCallback> EVENT = EventFactory.createArrayBacked(CheckAnvilRepairCallback.class, (listeners) -> (handler, player, leftStack, rightStack) -> {
-        boolean result = true;
-
         for (CheckAnvilRepairCallback listener : listeners) {
-            result = result && listener.interact(handler, player, leftStack, rightStack);
+            boolean result = listener.interact(handler, player, leftStack, rightStack);
+            if (!result)
+                return false;
         }
 
-        return result;
+        return true;
     });
 
     boolean interact(AnvilMenu handler, Player player, ItemStack leftStack, ItemStack rightStack);

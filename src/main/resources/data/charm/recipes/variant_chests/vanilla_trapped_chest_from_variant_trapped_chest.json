@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "charm:chests/trapped"
+    }
+  ],
+  "result": {
+    "item": "minecraft:chest"
+  }
+}
