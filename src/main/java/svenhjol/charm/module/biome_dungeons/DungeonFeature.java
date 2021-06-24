@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 import net.minecraft.world.level.levelgen.feature.structures.JigsawPlacement;
 import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElement;
@@ -41,7 +42,7 @@ public class DungeonFeature extends StructureFeature<JigsawConfiguration> {
         }
 
         @Override
-        public void generatePieces(RegistryAccess dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, JigsawConfiguration structurePoolFeatureConfig, LevelHeightAccessor heightLimitView) {
+        public void generatePieces(RegistryAccess dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, ChunkPos chunkPos, Biome biome, JigsawConfiguration featureConfiguration, LevelHeightAccessor heightLimitView) {
             int x = chunkPos.getMinBlockX();
             int y = MIN_Y + new Random().nextInt(44) + 4;
             int z = chunkPos.getMinBlockZ();
@@ -52,7 +53,7 @@ public class DungeonFeature extends StructureFeature<JigsawConfiguration> {
             Random random1 = new Random(blockPos.asLong()); // this gets passed to the generator and must be the same seed as the one used here.
 
             Rotation blockRotation = Rotation.getRandom(random);
-            StructureTemplatePool structurePool = structurePoolFeatureConfig.startPool().get();
+            StructureTemplatePool structurePool = featureConfiguration.startPool().get();
             StructurePoolElement structurePoolElement = structurePool.getRandomTemplate(new Random());
             BoundingBox box = structurePoolElement.getBoundingBox(structureManager, blockPos, blockRotation);
 
@@ -88,7 +89,7 @@ public class DungeonFeature extends StructureFeature<JigsawConfiguration> {
             if (found) {
                 BlockPos foundPos = new BlockPos(x, y + 1, z);
                 Pools.bootstrap();
-                JigsawPlacement.addPieces(dynamicRegistryManager, structurePoolFeatureConfig, PoolElementStructurePiece::new, chunkGenerator, structureManager, foundPos, this, random1, true, false, heightLimitView);
+                JigsawPlacement.addPieces(dynamicRegistryManager, featureConfiguration, PoolElementStructurePiece::new, chunkGenerator, structureManager, foundPos, this, random1, true, false, heightLimitView);
                 this.getBoundingBox();
             }
         }

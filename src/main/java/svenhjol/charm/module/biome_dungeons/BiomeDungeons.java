@@ -19,25 +19,21 @@ public class BiomeDungeons extends CharmModule {
     public static final ResourceLocation DUNGEON_ID = new ResourceLocation(Charm.MOD_ID, "dungeon");
     public static StructureFeature<JigsawConfiguration> DUNGEON_FEATURE;
 
-    public static ConfiguredStructureFeature<?, ?> BADLANDS;
-    public static ConfiguredStructureFeature<?, ?> DESERT;
-    public static ConfiguredStructureFeature<?, ?> FOREST;
-    public static ConfiguredStructureFeature<?, ?> JUNGLE;
-    public static ConfiguredStructureFeature<?, ?> MOUNTAINS;
-    public static ConfiguredStructureFeature<?, ?> NETHER;
-    public static ConfiguredStructureFeature<?, ?> PLAINS;
-    public static ConfiguredStructureFeature<?, ?> SAVANNA;
-    public static ConfiguredStructureFeature<?, ?> SNOWY;
-    public static ConfiguredStructureFeature<?, ?> TAIGA;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> BADLANDS;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> DESERT;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> FOREST;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> JUNGLE;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> MOUNTAINS;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> NETHER;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> PLAINS;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> SAVANNA;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> SNOWY;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> TAIGA;
+    public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> EMPTY;
 
     @Override
     public void register() {
         DUNGEON_FEATURE = new DungeonFeature(JigsawConfiguration.CODEC);
-
-        FabricStructureBuilder.create(DUNGEON_ID, DUNGEON_FEATURE)
-            .step(GenerationStep.Decoration.UNDERGROUND_STRUCTURES)
-            .defaultConfig(6, 2, 1225502)
-            .register();
 
         int dungeonSize = 1;
 
@@ -51,6 +47,13 @@ public class BiomeDungeons extends CharmModule {
         SAVANNA     = DUNGEON_FEATURE.configured(new JigsawConfiguration(() -> DungeonGenerator.SAVANNA_POOL, dungeonSize));
         SNOWY       = DUNGEON_FEATURE.configured(new JigsawConfiguration(() -> DungeonGenerator.SNOWY_POOL, dungeonSize));
         TAIGA       = DUNGEON_FEATURE.configured(new JigsawConfiguration(() -> DungeonGenerator.TAIGA_POOL, dungeonSize));
+        EMPTY       = DUNGEON_FEATURE.configured(new JigsawConfiguration(() -> DungeonGenerator.EMPTY_POOL, 0));
+
+        FabricStructureBuilder.create(DUNGEON_ID, DUNGEON_FEATURE)
+            .superflatFeature(EMPTY)
+            .step(GenerationStep.Decoration.UNDERGROUND_STRUCTURES)
+            .defaultConfig(6, 2, 1225502)
+            .register();
 
         configuredStructureFeature(new ResourceLocation(Charm.MOD_ID, "dungeon_badlands"), BADLANDS);
         configuredStructureFeature(new ResourceLocation(Charm.MOD_ID, "dungeon_desert"), DESERT);
@@ -64,7 +67,7 @@ public class BiomeDungeons extends CharmModule {
         configuredStructureFeature(new ResourceLocation(Charm.MOD_ID, "dungeon_taiga"), TAIGA);
 
         DungeonBuilds.init();
-        svenhjol.charm.module.biome_dungeons.DungeonGenerator.init();
+        DungeonGenerator.init();
     }
 
     @Override

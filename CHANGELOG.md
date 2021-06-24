@@ -1,6 +1,7 @@
 # Changelog
 
 ### 3.2.0
+* Fix superflat structure pool registration.  svenhjol/Charm#593
 * Added Potion of Piercing Vision
 
 ### 3.1.7
