@@ -39,6 +39,7 @@ public abstract class CheckAnvilRepairCallbackMixin extends ItemCombinerMenu {
         )
     )
     private boolean hookUpdateResultCanRepair(Item leftItem, ItemStack leftStack, ItemStack rightStack) {
-        return CheckAnvilRepairCallback.EVENT.invoker().interact((AnvilMenu)(Object) this, this.player, leftStack, rightStack);
+        boolean result = CheckAnvilRepairCallback.EVENT.invoker().interact((AnvilMenu)(Object) this, this.player, leftStack, rightStack);
+        return result || leftItem.isValidRepairItem(leftStack, rightStack);
     }
 }

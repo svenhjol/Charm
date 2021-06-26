@@ -10,11 +10,11 @@ public interface CheckAnvilRepairCallback {
     Event<CheckAnvilRepairCallback> EVENT = EventFactory.createArrayBacked(CheckAnvilRepairCallback.class, (listeners) -> (handler, player, leftStack, rightStack) -> {
         for (CheckAnvilRepairCallback listener : listeners) {
             boolean result = listener.interact(handler, player, leftStack, rightStack);
-            if (!result)
-                return false;
+            if (result)
+                return true;
         }
 
-        return true;
+        return false;
     });
 
     boolean interact(AnvilMenu handler, Player player, ItemStack leftStack, ItemStack rightStack);
