@@ -25,37 +25,26 @@ public class OpenDoubleDoors extends CharmModule {
             default -> null;
         };
 
-        if (neighborPos == null) {
-            Charm.LOG.debug("Neighbor blockpos not found");
+        if (neighborPos == null)
             return;
-        }
 
         BlockState neighborState = level.getBlockState(neighborPos);
 
-        if (!(neighborState.getBlock() instanceof DoorBlock)) {
-            Charm.LOG.debug("Neighbor is not a door");
+        if (!(neighborState.getBlock() instanceof DoorBlock neighbor))
             return;
-        }
 
         Boolean neighborPowered = neighborState.getValue(DoorBlock.POWERED);
-        if (neighborPowered) {
-            Charm.LOG.debug("Neighbor door is powered");
+        if (neighborPowered)
             return;
-        }
 
         Direction neighborFacing = neighborState.getValue(DoorBlock.FACING);
-        if (neighborFacing != facing) {
-            Charm.LOG.debug("Neighbor door does not face the same way");
+        if (neighborFacing != facing)
             return;
-        }
 
-        DoorBlock neighbor = (DoorBlock) neighborState.getBlock();
         DoorHingeSide neighborHinge = neighborState.getValue(DoorBlock.HINGE);
 
-        if (neighborHinge == hinge) {
-            Charm.LOG.debug("Neighbor hinge is not opposite");
+        if (neighborHinge == hinge)
             return;
-        }
 
         neighbor.setOpen(null, level, neighborState, neighborPos, isClosed);
     }
