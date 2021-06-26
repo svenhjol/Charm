@@ -1,5 +1,9 @@
 # Changelog
 
+### 3.2.1
+* Fix broken anvil enchantments.  svenhjol/Charm#601
+* Fix neighboring door not detecting powered state.  svenhjol/Charm#602
+
 ### 3.2.0
 * Fix superflat structure registration error.  svenhjol/Charm#593
 * Fix incorrect totem spawn height when mounted.  svenhjol/Charm#599
