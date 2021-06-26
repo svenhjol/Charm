@@ -31,8 +31,10 @@ public class OpenDoubleDoors extends CharmModule {
         }
 
         BlockState neighborState = level.getBlockState(neighborPos);
-        if (!DoorBlock.isWoodenDoor(neighborState)) {
-            Charm.LOG.debug("Neighbor door is not a wooden door");
+
+        Boolean neighborPowered = neighborState.getValue(DoorBlock.POWERED);
+        if (neighborPowered) {
+            Charm.LOG.debug("Neighbor door is powered");
             return;
         }
 
