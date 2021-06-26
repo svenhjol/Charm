@@ -3,12 +3,12 @@
 ### 3.2.1
 * Fix broken anvil enchantments.  svenhjol/Charm#601
 * Fix neighboring door not detecting powered state.  svenhjol/Charm#602
+* Netherite bars, chains and lanterns are now explosion resistant
 
 ### 3.2.0
 * Fix superflat structure registration error.  svenhjol/Charm#593
 * Fix incorrect totem spawn height when mounted.  svenhjol/Charm#599
 * Fix missing items when spawning multiple totems.  svenhjol/Charm#600
-* Netherite bars, chains and lanterns are now explosion resistant
 * Added Potion of Piercing Vision
 * Added Open Double Doors
 
