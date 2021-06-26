@@ -90,6 +90,14 @@ When a music disc plays in a jukebox, background music will be stopped and preve
 
 Creative background music may now play in survival mode.  In addition, the delay between ambient music tracks has been shortened.
 
+### Open Double Doors
+![Open Double Doors](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Double doors open automatically as long as they face the same way and have opposing hinges.
+
+Villagers also open both doors automatically.
+
+`New for 1.17!`
+
 ### Path to Dirt
 ![Path to Dirt](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/dirt-to-path.png?raw=true)
 Right-clicking on a grass path block with a hoe turns it back into dirt.

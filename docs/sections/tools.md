@@ -63,6 +63,15 @@ Brewed using warped fungus with an awkward potion base.
 
 `New for 1.17!`
 
+### Potion of Piercing Vision
+![Potion of Piercing Vision](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Gives you the Glowing effect, allowing other players to find you more easily.
+Make it into a splash or lingering potion to light up other mobs.
+
+Brewed using a glow ink sac with an awkward potion base.
+
+`New for 1.17!`
+
 ### Potion of Spelunking
 ![Potion of Spelunking](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Shows particles at ground level to help locate ores below you.
