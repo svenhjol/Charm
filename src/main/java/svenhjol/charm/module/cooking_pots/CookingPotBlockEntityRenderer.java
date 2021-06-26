@@ -79,7 +79,7 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
         matrices.translate(0, 0.52 + (((ticks > 180 ? (360 - ticks) : ticks) / 180.0F) * 0.39F), 0);
         matrices.mulPose(Vector3f.YP.rotationDegrees(ticks));
 
-        ticks += 0.5F;
+        ticks += 0.3F;
 
         Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, entity.hashCode());
         matrices.popPose();
