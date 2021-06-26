@@ -1,5 +1,8 @@
 # Changelog
 
+### 3.2.2
+* Fix door check crash.  svenhjol/Charm#603
+
 ### 3.2.1
 * Fix broken anvil enchantments.  svenhjol/Charm#601
 * Fix neighboring door not detecting powered state.  svenhjol/Charm#602
