@@ -10,7 +10,6 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.ServerJoinCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.core.CoreClient;
 
 @Module(mod = Charm.MOD_ID, priority = 100, client = CoreClient.class, alwaysEnabled = true, description = "Core configuration values.")
 public class Core extends CharmModule {
