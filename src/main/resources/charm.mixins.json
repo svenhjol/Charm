@@ -97,7 +97,7 @@
     "husk_improvements.AllowSpawningAnywhereMixin",
     "mineshaft_improvements.GenerateMineshaftPiecesMixin",
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
-    "open_double_doors.ReactOnDoorOpened",
+    "open_double_doors.ReactOnDoorOpenedMixin",
     "parrots_stay_on_shoulder.KeepShoulderEntitiesMixin",
     "quadrants.RotateBlockBeforePlaceMixin",
     "remove_potion_glint.CheckPotionHasGlintMixin",

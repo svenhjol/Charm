@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.module.open_double_doors.OpenDoubleDoors;
 
 @Mixin(DoorBlock.class)
-public class ReactOnDoorOpened {
+public class ReactOnDoorOpenedMixin {
     @Inject(
         method = "use",
         at = @At("RETURN")
