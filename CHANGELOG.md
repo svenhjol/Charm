@@ -3,6 +3,7 @@
 ### 3.2.0
 * Fix superflat structure pool registration.  svenhjol/Charm#593
 * Added Potion of Piercing Vision
+* Added Open Double Doors
 
 ### 3.1.7
 * Storage crates should not accept same item with different metadata.  svenhjol/Charm#597
