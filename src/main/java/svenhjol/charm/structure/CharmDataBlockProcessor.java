@@ -89,13 +89,12 @@ public class CharmDataBlockProcessor extends StructureProcessor {
         private static final String STORAGE = "storage";
 
         public static float BLOCK_CHANCE = 0.8F;
-        public static float BOOKCASE_CHANCE = 0.15F;
+        public static float BOOKCASE_CHANCE = 0.13F;
         public static float CHEST_CHANCE = 0.66F;
         public static float DECORATION_CHANCE = 0.85F;
         public static float FLOWER_CHANCE = 0.8F;
         public static float FLOWERPOT_CHANCE = 0.8F;
         public static float LANTERN_CHANCE = 0.9F;
-        public static float LANTERN_VARIANT_CHANCE = 0.25F;
         public static float LAVA_CHANCE = 0.7F;
         public static float MOB_CHANCE = 0.75F;
         public static float ORE_CHANCE = 0.75F;
@@ -106,7 +105,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
         public static float RUNESTONE_CHANCE = 0.75F;
         public static float SAPLING_CHANCE = 0.8F;
         public static float SPAWNER_CHANCE = 0.8F;
-        public static float STORAGE_CHANCE = 0.7F;
+        public static float STORAGE_CHANCE = 0.66F;
 
         public String data;
         public Rotation rotation;
