@@ -5,10 +5,10 @@
       "item": "charm:kiln"
     },
     "title": {
-      "translate": "advancements.charm.fired_item.title"
+      "translate": "advancements.charm.fire_item.title"
     },
     "description": {
-      "translate": "advancements.charm.fired_item.description"
+      "translate": "advancements.charm.fire_item.description"
     },
     "frame": "goal",
     "show_toast": true,
