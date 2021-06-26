@@ -1,6 +1,8 @@
 package svenhjol.charm.module.variant_lanterns;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.CharmLanternBlock;
@@ -18,8 +20,16 @@ public class VariantLanterns extends CharmModule {
     @Override
     public void register() {
         for (IMetalMaterial material : VanillaMetalMaterial.getTypes()) {
-            LANTERNS.put(material, new CharmLanternBlock(this, material.getSerializedName() + "_lantern"));
-            LANTERNS.put(material, new CharmLanternBlock(this, material.getSerializedName() + "_soul_lantern"));
+            BlockBehaviour.Properties lanternProperties = BlockBehaviour.Properties.copy(Blocks.LANTERN);
+            BlockBehaviour.Properties soulLanternProperties = BlockBehaviour.Properties.copy(Blocks.SOUL_LANTERN);
+
+            if (material == VanillaMetalMaterial.NETHERITE) {
+                lanternProperties = lanternProperties.strength(50.0F, 1200.0F);
+                soulLanternProperties = soulLanternProperties.strength(50.0F, 1200.0F);
+            }
+
+            LANTERNS.put(material, new CharmLanternBlock(this, material.getSerializedName() + "_lantern", lanternProperties));
+            LANTERNS.put(material, new CharmLanternBlock(this, material.getSerializedName() + "_soul_lantern", soulLanternProperties));
         }
     }
 

@@ -1,6 +1,8 @@
 package svenhjol.charm.module.variant_chains;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.CharmChainBlock;
@@ -18,7 +20,12 @@ public class VariantChains extends CharmModule {
     @Override
     public void register() {
         for (IMetalMaterial material : VanillaMetalMaterial.getTypes()) {
-            CHAINS.put(material, new CharmChainBlock(this, material.getSerializedName() + "_chain"));
+            BlockBehaviour.Properties properties = BlockBehaviour.Properties.copy(Blocks.CHAIN);
+
+            if (material == VanillaMetalMaterial.NETHERITE)
+                properties = properties.strength(50.0F, 1200.0F);
+
+            CHAINS.put(material, new CharmChainBlock(this, material.getSerializedName() + "_chain", properties));
         }
     }
 

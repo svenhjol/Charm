@@ -1,5 +1,8 @@
 package svenhjol.charm.module.variant_bars;
 
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.CharmBarsBlock;
@@ -17,7 +20,12 @@ public class VariantBars extends CharmModule {
     @Override
     public void register() {
         for (IMetalMaterial material : VanillaMetalMaterial.getTypes()) {
-            BARS.put(material, new CharmBarsBlock(this, material.getSerializedName() + "_bars"));
+            BlockBehaviour.Properties properties = BlockBehaviour.Properties.copy(Blocks.IRON_BARS);
+
+            if (material == VanillaMetalMaterial.NETHERITE)
+                properties = properties.strength(50.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK);
+
+            BARS.put(material, new CharmBarsBlock(this, material.getSerializedName() + "_bars", properties));
         }
     }
 }
