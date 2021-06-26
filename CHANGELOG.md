@@ -1,7 +1,9 @@
 # Changelog
 
 ### 3.2.0
-* Fix superflat structure pool registration.  svenhjol/Charm#593
+* Fix superflat structure registration error.  svenhjol/Charm#593
+* Fix incorrect totem spawn height when mounted.  svenhjol/Charm#599
+* Fix missing items when spawning multiple totems.  svenhjol/Charm#600
 * Added Potion of Piercing Vision
 * Added Open Double Doors
 
