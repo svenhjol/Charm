@@ -8,6 +8,7 @@
 * Fix superflat structure registration error.  svenhjol/Charm#593
 * Fix incorrect totem spawn height when mounted.  svenhjol/Charm#599
 * Fix missing items when spawning multiple totems.  svenhjol/Charm#600
+* Netherite bars, chains and lanterns are now explosion resistant
 * Added Potion of Piercing Vision
 * Added Open Double Doors
 
