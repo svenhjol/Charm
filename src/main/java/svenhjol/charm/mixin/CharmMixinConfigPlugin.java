@@ -151,7 +151,7 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                 if (required) {
                     logger.debug("> Mixin " + truncatedName + " is required");
                 } else if (disabled) {
-                    logger.warn(" > Mixin " + truncatedName + " will not be added");
+                    logger.info(" > Mixin " + truncatedName + " will not be added");
                 } else {
                     logger.debug(" > Mixin " + truncatedName + " will be added");
                 }
