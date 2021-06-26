@@ -26,12 +26,11 @@ import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.event.PlaySoundCallback;
 import svenhjol.charm.helper.DimensionHelper;
 import svenhjol.charm.helper.SoundHelper;
-import svenhjol.charm.event.PlaySoundCallback;
-import svenhjol.charm.module.music_improvements.MusicImprovements;
+import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,7 +168,7 @@ public class MusicImprovementsClient extends CharmClientModule {
         if (currentMusic != null) {
             Minecraft.getInstance().getSoundManager().stop(currentMusic);
             currentMusic = null;
-            timeUntilNextMusic = lastCondition != null ? new Random().nextInt(Math.min(lastCondition.getMinDelay(), 3600)) + 1200 : timeUntilNextMusic + 100;
+            timeUntilNextMusic = lastCondition != null ? new Random().nextInt(Math.min(lastCondition.getMinDelay(), 3600) + 100) + 1000 : timeUntilNextMusic + 100;
             CharmClient.LOG.debug("[Music Improvements] Stop was called, setting timeout to " + timeUntilNextMusic);
         }
         return true;
