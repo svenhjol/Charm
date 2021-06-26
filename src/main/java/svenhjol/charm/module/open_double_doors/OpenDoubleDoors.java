@@ -10,19 +10,18 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.module.CharmModule;
 
-import static net.minecraft.world.level.block.state.properties.DoorHingeSide.LEFT;
-
 @Module(mod = Charm.MOD_ID, description = "Automatically opens double doors.")
 public class OpenDoubleDoors extends CharmModule {
+
     public static void tryOpenNeighbour(Level level, BlockState state, BlockPos pos, boolean isClosed) {
         Direction facing = state.getValue(DoorBlock.FACING);
         DoorHingeSide hinge = state.getValue(DoorBlock.HINGE);
 
         BlockPos neighborPos = switch (facing) {
-            case NORTH -> hinge == LEFT ? pos.east() : pos.west();
-            case SOUTH -> hinge == LEFT ? pos.west() : pos.east();
-            case WEST -> hinge == LEFT ? pos.north() : pos.south();
-            case EAST -> hinge == LEFT ? pos.south() : pos.north();
+            case NORTH -> hinge == DoorHingeSide.LEFT ? pos.east() : pos.west();
+            case SOUTH -> hinge == DoorHingeSide.LEFT ? pos.west() : pos.east();
+            case WEST -> hinge == DoorHingeSide.LEFT ? pos.north() : pos.south();
+            case EAST -> hinge == DoorHingeSide.LEFT ? pos.south() : pos.north();
             default -> null;
         };
 
