@@ -1,12 +1,5 @@
 package svenhjol.charm.module.totem_of_preserving;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ItemNBTHelper;
-import svenhjol.charm.helper.TotemHelper;
-import svenhjol.charm.item.CharmItem;
-
-import javax.annotation.Nullable;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +17,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.Charm;
+import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.helper.TotemHelper;
+import svenhjol.charm.item.CharmItem;
+import svenhjol.charm.module.CharmModule;
+
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Set;
 
 public class TotemOfPreservingItem extends CharmItem {
     public static final String MESSAGE_TAG = "message";
@@ -57,18 +58,19 @@ public class TotemOfPreservingItem extends CharmItem {
         TotemHelper.destroy(user, totem);
 
         if (!world.isClientSide) {
-            for (int i = 0; i < items.size(); i++) {
-                Tag tag = items.get(String.valueOf(i));
+            Set<String> keys = items.getAllKeys();
+
+            keys.forEach(k -> {
+                Tag tag = items.get(k);
                 if (tag == null) {
                     Charm.LOG.warn("Item tag missing from totem");
-                    continue;
+                } else {
+                    ItemStack stack = ItemStack.of((CompoundTag) tag);
+                    BlockPos pos = user.blockPosition();
+                    ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY() + 0.5D, pos.getZ(), stack);
+                    world.addFreshEntity(itemEntity);
                 }
-
-                ItemStack stack = ItemStack.of((CompoundTag) tag);
-                BlockPos pos = user.blockPosition();
-                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY() + 0.5D, pos.getZ(), stack);
-                world.addFreshEntity(itemEntity);
-            }
+            });
         }
 
         return super.use(world, user, hand);
