@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -78,10 +79,9 @@ public class TotemOfPreserving extends CharmModule {
             // if there's already a filled totem in the inventory, spawn this separately
             if (stack.getItem() == TOTEM_OF_PRESERVING && !TotemOfPreservingItem.getItems(stack).isEmpty()) {
                 totemsToSpawn.add(stack);
-                continue;
+            } else {
+                serialized.put(Integer.toString(i), holdable.get(i).save(new CompoundTag()));
             }
-
-            serialized.put(Integer.toString(i), holdable.get(i).save(new CompoundTag()));
         }
 
         TotemOfPreservingItem.setItems(totem, serialized);
@@ -94,10 +94,18 @@ public class TotemOfPreserving extends CharmModule {
             totemsToSpawn.add(totem);
 
         BlockPos playerPos = player.blockPosition();
+        Entity vehicle = player.getVehicle();
+        double x, y, z;
 
-        double x = playerPos.getX() + 0.25D;
-        double y = playerPos.getY() + 0.75D;
-        double z = playerPos.getZ() + 0.25D;
+        if (vehicle != null) {
+            x = vehicle.getX() + 0.25D;
+            y = vehicle.getY() + 0.75D;
+            z = vehicle.getZ() + 0.25D;
+        } else {
+            x = playerPos.getX() + 0.25D;
+            y = playerPos.getY() + 0.75D;
+            z = playerPos.getZ() + 0.25D;
+        }
 
         if (y < world.getMinBuildHeight())
             y = world.getSeaLevel(); // fetching your totem from the void is sad
@@ -105,7 +113,7 @@ public class TotemOfPreserving extends CharmModule {
         // spawn totems
         for (ItemStack stack : totemsToSpawn) {
             double tx = x + random.nextFloat() * 0.25D;
-            double ty = y + random.nextFloat() * 0.25D;
+            double ty = y + 0.25D;
             double tz = z + random.nextFloat() * 0.25D;
 
             ItemEntity totemEntity = new ItemEntity(world, x, y, z, stack);
