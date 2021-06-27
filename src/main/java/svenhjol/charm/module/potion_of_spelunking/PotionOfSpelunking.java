@@ -112,7 +112,7 @@ public class PotionOfSpelunking extends CharmModule {
             });
 
             blocks.forEach((block, color) -> {
-                Optional<BlockPos> closest = BlockPos.findClosestMatch(playerPos.below(28), 8, depth / 2, pos -> {
+                Optional<BlockPos> closest = BlockPos.findClosestMatch(playerPos.below(depth/2), 8, depth / 2, pos -> {
                     return block.equals(world.getBlockState(pos).getBlock());
                 });
 
