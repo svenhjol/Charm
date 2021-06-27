@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.sounds.ChannelAccess;
 import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.BlockPos;
@@ -29,23 +30,31 @@ import svenhjol.charm.CharmClient;
 import svenhjol.charm.event.PlaySoundCallback;
 import svenhjol.charm.helper.DimensionHelper;
 import svenhjol.charm.helper.SoundHelper;
+import svenhjol.charm.mixin.accessor.ChannelAccessAccessor;
+import svenhjol.charm.mixin.accessor.SoundEngineAccessor;
+import svenhjol.charm.mixin.accessor.SoundManagerAccessor;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.module.core.Core;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
 public class MusicImprovementsClient extends CharmClientModule {
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;
+
     private static SoundInstance currentMusic;
     private static ResourceLocation currentDim = null;
-    private static int timeUntilNextMusic = 100;
     private static MusicCondition lastCondition;
     private static final List<MusicCondition> musicConditions = new ArrayList<>();
+    private static int timeUntilNextMusic = 100;
+    private static int debugChannelTicks = 0;
+
     public static boolean isEnabled;
 
     public MusicImprovementsClient(CharmModule module) {
@@ -161,6 +170,17 @@ public class MusicImprovementsClient extends CharmClientModule {
             }
         }
 
+        mc.getSoundManager().tick(true);
+
+        if (Core.debug && MusicImprovements.debugActiveChannels && debugChannelTicks++ % 20 == 0) {
+            SoundEngine soundEngine = ((SoundManagerAccessor) mc.getSoundManager()).getSoundEngine();
+            ChannelAccess channelAccess = ((SoundEngineAccessor) soundEngine).getChannelAccess();
+            Set<ChannelAccess.ChannelHandle> channels = ((ChannelAccessAccessor) channelAccess).getChannels();
+            CharmClient.LOG.debug("[Music Improvements] Active channels: " + channels.size());
+            if (debugChannelTicks >= 999)
+                debugChannelTicks = 0;
+        }
+
         return true;
     }
 
@@ -195,7 +215,7 @@ public class MusicImprovementsClient extends CharmClientModule {
             }
         }
 
-        // if none available, just play a default background track
+        // if none available, default to vanilla music selection
         if (condition == null)
             condition = new MusicCondition(Minecraft.getInstance().getSituationalMusic());
 

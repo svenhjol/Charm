@@ -115,6 +115,7 @@
   "client": [
     "accessor.AbstractContainerScreenAccessor",
     "accessor.AbstractTickableSoundInstanceAccessor",
+    "accessor.ChannelAccessAccessor",
     "accessor.EntityRenderDispatcherAccessor",
     "accessor.ItemRendererAccessor",
     "accessor.LivingEntityRendererAccessor",
