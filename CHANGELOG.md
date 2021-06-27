@@ -2,6 +2,7 @@
 
 ### 3.2.3
 * Minor reduction of spawn chance of bookcases and storage blocks in custom structures
+* Added debugging for audio channels as part of Music Improvements
 
 ### 3.2.2
 * Fix door check crash.  svenhjol/Charm#603
