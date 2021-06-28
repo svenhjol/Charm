@@ -1,6 +1,7 @@
 # Changelog
 
 ### 3.2.3
+* Restored missing planks tag. svenhjol/Charm#606
 * Minor reduction of spawn chance of bookcases and storage blocks in custom structures
 * Added debugging for audio channels as part of Music Improvements
 
