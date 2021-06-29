@@ -1,22 +1,21 @@
 package svenhjol.charm.handler;
 
 import com.google.gson.JsonElement;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.helper.StringHelper;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Stream;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 
 public class RecipeHandler {
-    private static final Map<String, CharmModule> loadedModules = svenhjol.charm.handler.ModuleHandler.getLoadedModules();
+    private static final Map<String, CharmModule> loadedModules = ModuleHandler.INSTANCE.getModules();
 
     public static void prepareCharmModulesFilter(Map<ResourceLocation, JsonElement> recipes) {
-        Map<String, CharmModule> loadedModules = ModuleHandler.getLoadedModules();
+        Map<String, CharmModule> loadedModules = ModuleHandler.INSTANCE.getModules();
 
         // remove recipes specified by enabled modules
         loadedModules.values().stream().filter(m -> m.enabled && !m.getRecipesToRemove().isEmpty()).forEach(m -> {

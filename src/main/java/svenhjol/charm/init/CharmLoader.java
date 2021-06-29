@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 public class CharmLoader {
     private final String MOD_ID;
     private final List<Class<? extends CharmModule>> CLASSES;
-    private final Map<String, CharmModule> LOADED_MODULES = new LinkedHashMap<>();
+    private final Map<String, CharmModule> MODULES = new LinkedHashMap<>();
     private final String MODULE_ANNOTATION = "Lsvenhjol/charm/annotation/Module;";
 
     public CharmLoader(String modId) {
@@ -143,14 +143,14 @@ public class CharmLoader {
         for (CharmModule mod : modList) {
             for (Map.Entry<String, CharmModule> entry : loaded.entrySet()) {
                 if (entry.getValue().equals(mod)) {
-                    LOADED_MODULES.put(entry.getKey(), mod);
+                    MODULES.put(entry.getKey(), mod);
                     break;
                 }
             }
         }
 
         // add and run register method for all loaded modules
-        LOADED_MODULES.forEach((moduleName, module) -> ModuleHandler.INSTANCE.register(module));
+        MODULES.forEach((moduleName, module) -> ModuleHandler.INSTANCE.register(module));
     }
 
     protected void init() {
@@ -162,11 +162,11 @@ public class CharmLoader {
     }
 
     public void eachModule(Consumer<CharmModule> consumer) {
-        LOADED_MODULES.values().forEach(consumer);
+        MODULES.values().forEach(consumer);
     }
 
     public void eachEnabledModule(Consumer<CharmModule> consumer) {
-        LOADED_MODULES.values()
+        MODULES.values()
             .stream()
             .filter(m -> m.enabled)
             .forEach(consumer);

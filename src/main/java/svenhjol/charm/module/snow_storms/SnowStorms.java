@@ -14,11 +14,10 @@ import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
-import svenhjol.charm.module.snow_storms.SnowStormsClient;
 
 @Module(mod = Charm.MOD_ID, client = SnowStormsClient.class, description = "Increases snow layers in cold biomes during thunderstorms.")
 public class SnowStorms extends CharmModule {

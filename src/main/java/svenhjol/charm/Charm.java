@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.handler.LogHandler;
 import svenhjol.charm.init.*;
 
+@SuppressWarnings("unused")
 public class Charm implements ModInitializer {
     public static final String MOD_ID = "charm";
     public static LogHandler LOG = new LogHandler("Charm");
@@ -18,7 +19,7 @@ public class Charm implements ModInitializer {
     /**
      * Use this to launch Charm submodules.
      */
-    public static void init(String modId) {
+    public static void initSubmodule(String modId) {
         initCharm();
         new CharmLoader(modId);
     }

@@ -3,8 +3,8 @@ package svenhjol.charm.module.gentle_potion_particles;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 

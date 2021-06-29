@@ -1,9 +1,9 @@
 package svenhjol.charm.module.anvil_improvements;
 
 import svenhjol.charm.Charm;
+import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 

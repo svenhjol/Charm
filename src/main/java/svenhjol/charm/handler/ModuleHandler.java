@@ -4,7 +4,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.event.LoadServerFinishCallback;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.helper.StringHelper;
-import svenhjol.charm.init.CharmBiomes;
 import svenhjol.charm.init.CharmDecoration;
 import svenhjol.charm.init.CharmLoader;
 import svenhjol.charm.mixin.CharmMixinConfigPlugin;
@@ -15,14 +14,11 @@ import java.util.*;
 
 public class ModuleHandler {
     public static ModuleHandler INSTANCE = new ModuleHandler();
-    public final static Map<String, CharmModule> LOADED_MODULES = new TreeMap<>();
-
-    private static final Map<String, CharmLoader> LOADER_INSTANCES = new HashMap<>();
-    private static final List<Class<? extends CharmModule>> ENABLED_MODULES = new ArrayList<>(); // this is a cache of enabled classes
+    private final Map<String, CharmModule> MODULES = new TreeMap<>();
+    private final Map<String, CharmLoader> LOADERS = new HashMap<>();
+    private final List<Class<? extends CharmModule>> ENABLED_MODULES = new ArrayList<>(); // this is a cache of enabled classes
 
     private ModuleHandler() {
-        CharmBiomes.init();
-
         // listen for server world loading events
         LoadServerFinishCallback.EVENT.register(server -> {
             // load late so that tags are populated at this point
@@ -31,20 +27,33 @@ public class ModuleHandler {
     }
 
     public void addLoader(CharmLoader loader) {
-        LOADER_INSTANCES.put(loader.getModId(), loader);
+        LOADERS.put(loader.getModId(), loader);
     }
 
     @Nullable
     public CharmLoader getLoader(String modId) {
-        return LOADER_INSTANCES.getOrDefault(modId, null);
+        return LOADERS.getOrDefault(modId, null);
     }
 
     public List<CharmLoader> getLoaders() {
-        return new ArrayList<>(LOADER_INSTANCES.values());
+        return new ArrayList<>(LOADERS.values());
+    }
+
+    public List<Class<? extends CharmModule>> getEnabledModules() {
+        return ENABLED_MODULES;
+    }
+
+    public Map<String, CharmModule> getModules() {
+        return MODULES;
+    }
+
+    @Nullable
+    public CharmModule getModule(String moduleName) {
+        return MODULES.getOrDefault(StringHelper.snakeToUpperCamel(moduleName), null);
     }
 
     public void register(CharmModule module) {
-        LOADED_MODULES.put(module.getName(), module);
+        MODULES.put(module.getName(), module);
 
         Charm.LOG.debug("Registering module " + module.getName());
         module.register();
@@ -56,11 +65,11 @@ public class ModuleHandler {
         boolean dependencyCheck = module.depends() && checkMixins(module);
 
         if (!isEnabled) {
-            Charm.LOG.debug(" > Module " + name + " is disabled");
+            Charm.LOG.debug("> Module " + name + " is disabled");
         } else if (!dependencyCheck) {
-            Charm.LOG.debug(" > Module " + name + " did not pass dependency check");
+            Charm.LOG.debug("> Module " + name + " did not pass dependency check");
         } else {
-            Charm.LOG.debug(" > Module " + name + " is enabled ");
+            Charm.LOG.debug("> Module " + name + " is enabled ");
         }
 
         module.enabled = isEnabled && dependencyCheck;
@@ -79,19 +88,10 @@ public class ModuleHandler {
 
     public void init(CharmModule module) {
         // this is a cache for quick lookup of enabled classes
-        ModuleHandler.ENABLED_MODULES.add(module.getClass());
+        getEnabledModules().add(module.getClass());
 
         Charm.LOG.info("Initialising module " + module.getName());
         module.init();
-    }
-
-    @Nullable
-    public static CharmModule getModule(String moduleName) {
-        return LOADED_MODULES.getOrDefault(StringHelper.snakeToUpperCamel(moduleName), null);
-    }
-
-    public static Map<String, CharmModule> getLoadedModules() {
-        return LOADED_MODULES;
     }
 
     /**
@@ -100,7 +100,7 @@ public class ModuleHandler {
      * @return True if the module is enabled
      */
     public static boolean enabled(Class<? extends CharmModule> clazz) {
-        return ENABLED_MODULES.contains(clazz);
+        return INSTANCE.getEnabledModules().contains(clazz);
     }
 
     /**
@@ -116,7 +116,7 @@ public class ModuleHandler {
         if (!ModHelper.isLoaded(modName))
             return false;
 
-        CharmModule module = getModule(modModule);
+        CharmModule module = INSTANCE.getModule(modModule);
         return module != null && module.enabled;
     }
 }

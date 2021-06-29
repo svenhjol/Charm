@@ -1,8 +1,8 @@
 package svenhjol.charm.module.grindable_horse_armor;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.init.CharmAdvancements;
 

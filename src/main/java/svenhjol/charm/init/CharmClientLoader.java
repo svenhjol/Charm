@@ -1,11 +1,10 @@
 package svenhjol.charm.init;
 
 import svenhjol.charm.CharmClient;
-import svenhjol.charm.init.CharmLoader;
+import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.module.CharmClientModule;
 import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.handler.ClientHandler;
-import svenhjol.charm.handler.ModuleHandler;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -45,8 +44,8 @@ public class CharmClientLoader {
         CLASSES.forEach(moduleClass -> {
             String name = moduleClass.getSimpleName();
 
-            if (ModuleHandler.LOADED_MODULES.containsKey(name)) {
-                CharmModule module = ModuleHandler.LOADED_MODULES.get(name);
+            if (ModuleHandler.INSTANCE.getModules().containsKey(name)) {
+                CharmModule module = ModuleHandler.INSTANCE.getModules().get(name);
                 CharmClientModule client;
 
                 Class<? extends CharmClientModule> clazz = module.client;
