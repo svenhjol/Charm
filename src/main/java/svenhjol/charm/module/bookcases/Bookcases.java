@@ -1,15 +1,5 @@
 package svenhjol.charm.module.bookcases;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.enums.VanillaVariantMaterial;
-import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.init.CharmAdvancements;
-
-import java.util.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,6 +8,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.enums.VanillaVariantMaterial;
+import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.CharmModule;
+
+import java.util.*;
 
 @Module(mod = Charm.MOD_ID, priority = 10, client = BookcasesClient.class, description = "Bookshelves that can hold up to 9 stacks of books and maps.")
 public class Bookcases extends CharmModule {
@@ -31,9 +31,7 @@ public class Bookcases extends CharmModule {
     public static List<Item> validItems = new ArrayList<>();
 
     @Config(name = "Valid books", description = "Additional items that may be placed in bookcases.")
-    public static List<String> configValidItems = Arrays.asList(
-        "strange:scroll"
-    );
+    public static List<String> configValidItems = new ArrayList<>();
 
     @Override
     public void register() {
