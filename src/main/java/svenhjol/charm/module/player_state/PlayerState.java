@@ -20,55 +20,51 @@ import svenhjol.charm.helper.NetworkHelper;
 import svenhjol.charm.helper.PosHelper;
 import svenhjol.charm.module.CharmModule;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 @Module(mod = Charm.MOD_ID, alwaysEnabled = true, client = PlayerStateClient.class, description = "Synchronize additional state from server to client.")
 public class PlayerState extends CharmModule {
-    public static final ResourceLocation MSG_SERVER_UPDATE_PLAYER_STATE
-        = new ResourceLocation(CharmNetworkReferences.ServerUpdatePlayerState.getSerializedName());
-
+    public static final ResourceLocation MSG_SERVER_UPDATE = new ResourceLocation(CharmNetworkReferences.ServerUpdatePlayerState.toString());
+    private static final Map<String, StructureFeature<?>> VANILLA_STRUCTURES = new HashMap<>();
     private static final List<BiConsumer<ServerPlayer, CompoundTag>> callbacks = new ArrayList<>();
 
     @Config(name = "Server state update interval", description = "Interval (in ticks) on which additional player state will be synchronised to the client.")
-    public static int serverStateInverval = 120;
+    public static int heartbeat = 120;
 
     @Override
     public void register() {
-        // register server message handler to call the serverCallback
-        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_UPDATE_PLAYER_STATE, this::handleServerUpdatePlayerState);
+        // when server_update request received from the client, prepare the state to send back to the client
+        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_UPDATE, this::handleUpdatePlayerState);
+
+        // set up vanilla structures to test if player is inside them
+        initVanillaStructures();
     }
 
-    public static void addNbtBeforeSending(BiConsumer<ServerPlayer, CompoundTag> callback) {
+    public static void addCallback(BiConsumer<ServerPlayer, CompoundTag> callback) {
         callbacks.add(callback);
     }
 
-    private void handleServerUpdatePlayerState(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf data, PacketSender sender) {
-        server.execute(() -> {
-            if (player == null)
-                return;
-
-            serverCallback(player);
-        });
+    private void handleUpdatePlayerState(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf data, PacketSender sender) {
+        server.execute(() -> serverCallback(player));
     }
 
     /**
      * Populates an NBT tag of state information about the player.
      * Sends a compressed string of data to the client to unpack.
-     *
-     * Call this directly if you need state data immediately.
      */
-    public static void serverCallback(ServerPlayer player) {
-        ServerLevel world = player.getLevel();
+    private void serverCallback(ServerPlayer player) {
+        ServerLevel level = player.getLevel();
         BlockPos pos = player.blockPosition();
         CompoundTag nbt = new CompoundTag();
 
-        nbt.putBoolean(CharmPlayerStateKeys.InsideMineshaft.toString(), PosHelper.isInsideStructure(world, pos, StructureFeature.MINESHAFT));
-        nbt.putBoolean(CharmPlayerStateKeys.InsideStronghold.toString(), PosHelper.isInsideStructure(world, pos, StructureFeature.STRONGHOLD));
-        nbt.putBoolean(CharmPlayerStateKeys.InsideNetherFortress.toString(), PosHelper.isInsideStructure(world, pos, StructureFeature.NETHER_BRIDGE));
-        nbt.putBoolean(CharmPlayerStateKeys.InsideShipwreck.toString(), PosHelper.isInsideStructure(world, pos, StructureFeature.SHIPWRECK));
-        nbt.putBoolean(CharmPlayerStateKeys.InsideMineshaft.toString(), world.isVillage(pos));
+        // if the player is inside a vanilla structure, add it to the nbt
+        for (Map.Entry<String, StructureFeature<?>> entry : VANILLA_STRUCTURES.entrySet()) {
+            if (PosHelper.isInsideStructure(level, pos, entry.getValue())) {
+                nbt.putBoolean(entry.getKey(), true);
+                break;
+            }
+        }
 
         // allow other mods to update the nbt
         callbacks.forEach(action -> action.accept(player, nbt));
@@ -77,6 +73,23 @@ public class PlayerState extends CharmModule {
         FriendlyByteBuf buffer = NetworkHelper.encodeNbt(nbt);
 
         if (buffer != null)
-            ServerPlayNetworking.send(player, PlayerStateClient.MSG_CLIENT_UPDATE_PLAYER_STATE, buffer);
+            ServerPlayNetworking.send(player, PlayerStateClient.MSG_CLIENT_UPDATE, buffer);
+    }
+
+    private void initVanillaStructures() {
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideVillage.toString(), StructureFeature.VILLAGE);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideMineshaft.toString(), StructureFeature.MINESHAFT);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideStronghold.toString(), StructureFeature.STRONGHOLD);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideDesertPyramid.toString(), StructureFeature.DESERT_PYRAMID);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideJunglePyramid.toString(), StructureFeature.JUNGLE_TEMPLE);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideIgloo.toString(), StructureFeature.IGLOO);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideMansion.toString(), StructureFeature.WOODLAND_MANSION);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideDesertPyramid.toString(), StructureFeature.DESERT_PYRAMID);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideSwampHut.toString(), StructureFeature.SWAMP_HUT);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideOceanMonument.toString(), StructureFeature.OCEAN_MONUMENT);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideOceanRuin.toString(), StructureFeature.OCEAN_RUIN);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideNetherFortress.toString(), StructureFeature.NETHER_BRIDGE);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideBastionRemnant.toString(), StructureFeature.BASTION_REMNANT);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideEndCity.toString(), StructureFeature.END_CITY);
     }
 }
