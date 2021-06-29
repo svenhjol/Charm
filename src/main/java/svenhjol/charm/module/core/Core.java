@@ -1,15 +1,16 @@
 package svenhjol.charm.module.core;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.Connection;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.ServerJoinCallback;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.module.CharmModule;
 
 @Module(mod = Charm.MOD_ID, priority = 100, client = CoreClient.class, alwaysEnabled = true, description = "Core configuration values.")
 public class Core extends CharmModule {
@@ -28,6 +29,9 @@ public class Core extends CharmModule {
     @Override
     public void register() {
         ServerJoinCallback.EVENT.register(this::handleServerJoin);
+
+        // always run in debug mode in dev environment
+        debug = FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 
     private void handleServerJoin(PlayerList playerManager, Connection connection, ServerPlayer player) {
