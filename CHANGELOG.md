@@ -2,8 +2,9 @@
 
 ### 3.2.3
 * Restored missing planks tag. svenhjol/Charm#606
+* Translation update provided by <https://github.com/SiongSng>.  svenhjol/Charm#607
+* Add compatibility tags for copper and nether nuggets. svenhjol/Charm#608
 * Minor reduction of spawn chance of bookcases and storage blocks in custom structures
-* Added debugging for audio channels as part of Music Improvements
 
 ### 3.2.2
 * Fix door check crash.  svenhjol/Charm#603
