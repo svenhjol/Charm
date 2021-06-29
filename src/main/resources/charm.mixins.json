@@ -151,7 +151,7 @@
     "core.LoadCustomModelPartsMixin",
     "core.ShowEnchantmentParticlesMixin",
     "extract_enchantments.ShowGrindstoneCostMixin",
-    "music_improvements.MusicTrackerMixin",
+    "music_improvements.TryCustomMusicMixin",
     "remove_spyglass_scope.RemoveSpyglassHudMixin",
     "snow_storms.RenderHeavySnowTextureMixin",
     "storage_labels.CallStorageLabelsRenderMixin",

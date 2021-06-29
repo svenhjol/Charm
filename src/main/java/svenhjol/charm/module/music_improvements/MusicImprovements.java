@@ -11,7 +11,4 @@ import svenhjol.charm.module.CharmModule;
 public class MusicImprovements extends CharmModule {
     @Config(name = "Play Creative music", description = "If true, the six Creative music tracks may play in survival mode.")
     public static boolean playCreativeMusic = true;
-
-    @Config(name = "Show active channels in debug mode", description = "If true and debug mode is enabled, show the number of active channels in the log. Only useful for debugging the sound client.")
-    public static boolean debugActiveChannels = false;
 }
