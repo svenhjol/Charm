@@ -2,6 +2,7 @@ package svenhjol.charm.mixin;
 
 import com.google.common.reflect.ClassPath;
 import com.moandjiezana.toml.Toml;
+import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.ClassReader;
@@ -36,8 +37,8 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {
         Logger logger = LogManager.getLogger();
+        boolean debug = FabricLoader.getInstance().isDevelopmentEnvironment();
         this.mixinPackage = mixinPackage;
-
 
         // try and load the mixin blacklist
         String blacklistPath = "./config/charm-mixin-blacklist.txt";
@@ -56,10 +57,8 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
             LogManager.getLogger().warn("IO error when handling mixin blacklist: " + e.getMessage());
         }
 
-
         // try and load existing config to scan for disabled modules
         Toml config = ConfigHelper.getConfig(Charm.MOD_ID);
-
 
         // fetch mixin annotations to remove when conflicting mods are present
         Iterable<ClassPath.ClassInfo> classes;
@@ -70,7 +69,7 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
             throw new IllegalStateException("Could not fetch mixin classes, giving up: " + e.getMessage());
         }
 
-        int count = 0;
+        int countProcessed = 0; // track how many mixins were added
 
         for (ClassPath.ClassInfo c : classes) {
             String className = c.getName();
@@ -90,8 +89,7 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
                 if (config != null
                     && !moduleName.isEmpty()
-                    && ConfigHelper.isModuleDisabled(config, moduleName)
-                ) {
+                    && ConfigHelper.isModuleDisabled(config, moduleName)) {
                     disabledMixins.put(truncatedName, true);
                 }
 
@@ -120,11 +118,6 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                         // handle required
                         required = annotations.containsKey(REQUIRED) && ((Boolean) annotations.get(REQUIRED));
 
-                        if (required) {
-                            disabledMixins.remove(truncatedName);
-                            requiredMixins.put(truncatedName, true);
-                        }
-
                         if (!required) {
                             List<String> modsToCheck = new ArrayList<>();
 
@@ -140,6 +133,14 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                     }
                 }
 
+                if (className.contains("accessor"))
+                    required = true;
+
+                if (required) {
+                    disabledMixins.remove(truncatedName);
+                    requiredMixins.put(truncatedName, true);
+                }
+
                 if (!disabled && !required && isMixinDisabled(truncatedName)) {
                     disabled = true;
 
@@ -149,21 +150,21 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                 }
 
                 if (required) {
-                    logger.debug("> Mixin " + truncatedName + " is required");
+                    if (debug) logger.info("> Mixin " + truncatedName + " is required");
                 } else if (disabled) {
-                    logger.info(" > Mixin " + truncatedName + " will not be added");
+                    logger.info("> Mixin " + truncatedName + " will not be added");
                 } else {
-                    logger.debug(" > Mixin " + truncatedName + " will be added");
+                    if (debug) logger.info("> Mixin " + truncatedName + " will be added");
                 }
 
-                count++;
+                countProcessed++;
 
             } catch (Exception e) {
                 logger.error(" > Error occurred while processing mixin " + truncatedName + ": " + e.getMessage());
             }
         }
 
-        if (count == 0) {
+        if (countProcessed == 0) {
             logger.warn("Seems no mixin classes were processed... this might be bad.");
         }
     }

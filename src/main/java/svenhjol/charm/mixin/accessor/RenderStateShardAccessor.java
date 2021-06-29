@@ -3,10 +3,8 @@ package svenhjol.charm.mixin.accessor;
 import net.minecraft.client.renderer.RenderStateShard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(RenderStateShard.class)
-@CharmMixin(required = true)
 public interface RenderStateShardAccessor {
     @Accessor("COLOR_WRITE")
     static RenderStateShard.WriteMaskStateShard getColorWrite() {

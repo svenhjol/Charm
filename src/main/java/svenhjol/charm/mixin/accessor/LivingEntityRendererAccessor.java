@@ -6,12 +6,10 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.List;
 
 @Mixin(LivingEntityRenderer.class)
-@CharmMixin(required = true)
 public interface LivingEntityRendererAccessor<T extends LivingEntity, M extends EntityModel<T>> {
     @Accessor
     List<RenderLayer<T, M>> getLayers();
