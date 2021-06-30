@@ -1,11 +1,10 @@
 package svenhjol.charm.module;
 
-import svenhjol.charm.module.CharmModule;
-
 public abstract class CharmClientModule {
-    protected svenhjol.charm.module.CharmModule module;
+    protected CharmModule module;
+    public int priority = 0;
 
-    public CharmClientModule(svenhjol.charm.module.CharmModule module) {
+    public CharmClientModule(CharmModule module) {
         this.module = module;
     }
 

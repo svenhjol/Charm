@@ -3,6 +3,7 @@ package svenhjol.charm.module.colored_glints;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderStateShard;
@@ -13,15 +14,17 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.mixin.accessor.RenderBuffersAccessor;
 import svenhjol.charm.mixin.accessor.MinecraftAccessor;
-import svenhjol.charm.mixin.accessor.RenderTypeAccessor;
+import svenhjol.charm.mixin.accessor.RenderBuffersAccessor;
 import svenhjol.charm.mixin.accessor.RenderStateShardAccessor;
+import svenhjol.charm.mixin.accessor.RenderTypeAccessor;
+import svenhjol.charm.module.CharmClientModule;
+import svenhjol.charm.module.CharmModule;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ColoredGlintHandler {
+public class ColoredGlintsClient extends CharmClientModule {
     public static final String GLINT_NBT = "charm_glint";
 
     public static Map<String, ResourceLocation> TEXTURES = new HashMap<>();
@@ -35,11 +38,19 @@ public class ColoredGlintHandler {
     public static String defaultGlintColor;
     public static ItemStack targetStack;
 
-    private static boolean hasInit = false;
+    private static boolean hasSetupGlints = false;
 
-    public static void init() {
-        if (hasInit)
-            return;
+    public ColoredGlintsClient(CharmModule module) {
+        super(module);
+    }
+
+    @Override
+    public void init() {
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> setupGlints());
+    }
+
+    private static void setupGlints() {
+        if (hasSetupGlints) return;
 
         for (DyeColor dyeColor : DyeColor.values()) {
             String color = dyeColor.getSerializedName();
@@ -59,7 +70,7 @@ public class ColoredGlintHandler {
 
         defaultGlintColor = (ModuleHandler.enabled(ColoredGlints.class) && validColors.contains(ColoredGlints.glintColor)) ? ColoredGlints.glintColor : DyeColor.PURPLE.getSerializedName();
 
-        hasInit = true;
+        hasSetupGlints = true;
     }
 
     public static String getDefaultGlintColor() {

@@ -1,5 +1,6 @@
 package svenhjol.charm.init;
 
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
@@ -7,6 +8,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import svenhjol.charm.enums.VanillaVariantMaterial;
+import svenhjol.charm.event.LoadServerFinishCallback;
 import svenhjol.charm.helper.LootHelper;
 
 import java.util.ArrayList;
@@ -16,14 +18,18 @@ import java.util.stream.Collectors;
 
 import static svenhjol.charm.helper.DecorationHelper.*;
 
-public class CharmDecoration {
+public class CharmDecorations {
     public static List<StructureProcessor> SINGLE_POOL_ELEMENT_PROCESSORS = new ArrayList<>();
-
-    private static boolean hasInit = false;
+    private static boolean hasAlreadySetup = false;
 
     public static void init() {
-        if (hasInit)
-            return;
+        // loaded late so that tags are available
+        LoadServerFinishCallback.EVENT.register(server -> setupDecoration());
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> setupDecoration());
+    }
+
+    private static void setupDecoration() {
+        if (hasAlreadySetup) return;
 
         List<Block> filteredFlowers = BlockTags.FLOWERS.getValues().stream()
             .filter(b -> b != Blocks.WITHER_ROSE
@@ -136,6 +142,6 @@ public class CharmDecoration {
             EntityType.CAVE_SPIDER
         ));
 
-        hasInit = true;
+        hasAlreadySetup = true;
     }
 }

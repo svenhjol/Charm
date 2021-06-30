@@ -50,11 +50,11 @@ public class ColoredGlints extends CharmModule {
      * Adds the enchantment and color directly to the input stack with no sanity checking.
      */
     public static void applyTint(ItemStack stack, String color) {
-        stack.getOrCreateTag().putString(svenhjol.charm.module.colored_glints.ColoredGlintHandler.GLINT_NBT, color);
+        stack.getOrCreateTag().putString(ColoredGlintsClient.GLINT_NBT, color);
     }
 
     public static boolean hasTint(ItemStack stack) {
-        return stack.getOrCreateTag().contains(ColoredGlintHandler.GLINT_NBT);
+        return stack.getOrCreateTag().contains(ColoredGlintsClient.GLINT_NBT);
     }
 
     private InteractionResult handleAnvilBehavior(AnvilMenu handler, Player player, ItemStack left, ItemStack right, Container output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {

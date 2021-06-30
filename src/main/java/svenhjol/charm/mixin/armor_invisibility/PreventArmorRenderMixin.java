@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
+import svenhjol.charm.module.colored_glints.ColoredGlintsClient;
 import svenhjol.charm.module.armor_invisibility.ArmorInvisibility;
 
 @Mixin(HumanoidArmorLayer.class)
@@ -27,6 +27,6 @@ public class PreventArmorRenderMixin<T extends LivingEntity, M extends HumanoidM
             ci.cancel();
 
         // take a reference to the item being rendered, this is needed for the glint consumer
-        ColoredGlintHandler.targetStack = livingEntity.getItemBySlot(equipmentSlot);
+        ColoredGlintsClient.targetStack = livingEntity.getItemBySlot(equipmentSlot);
     }
 }

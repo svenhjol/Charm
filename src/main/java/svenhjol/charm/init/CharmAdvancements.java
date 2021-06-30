@@ -11,12 +11,11 @@ public class CharmAdvancements {
 
     public static void init() {
         ACTION_PERFORMED = CriteriaAccessor.callRegister(new ActionPerformedCriterion());
-
         AdvancementHandler.modulesToRemove.clear();
 
-        ModuleHandler.INSTANCE.getLoaders().forEach(loader -> loader.eachModule(m -> {
-            if (!m.enabled || !Core.advancements)
-                AdvancementHandler.modulesToRemove.add(m.getId());
-        }));
+        ModuleHandler.INSTANCE.getModules().forEach((id, module) -> {
+            if (!module.enabled || !Core.advancements)
+                AdvancementHandler.modulesToRemove.add(module.getId());
+        });
     }
 }
