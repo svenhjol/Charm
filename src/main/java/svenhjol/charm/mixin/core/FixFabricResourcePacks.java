@@ -26,7 +26,7 @@ import java.util.Map;
 public class FixFabricResourcePacks {
     @Shadow
     private static @Final
-    Map<PackType, FileSystem> JAR_FILESYSTEM_BY_TYPE;
+    Map<PackType, FileSystem> ROOT_DIR_BY_TYPE;
 
     @Inject(method = "getResourceAsStream(Lnet/minecraft/server/packs/PackType;Lnet/minecraft/resources/ResourceLocation;)Ljava/io/InputStream;", at = @At("HEAD"), cancellable = true)
     private void onFindInputStream(PackType resourceType, ResourceLocation identifier, CallbackInfoReturnable<InputStream> callback) {
@@ -35,7 +35,7 @@ public class FixFabricResourcePacks {
             return;
         }
 
-        FileSystem fs = JAR_FILESYSTEM_BY_TYPE.get(resourceType);
+        FileSystem fs = ROOT_DIR_BY_TYPE.get(resourceType);
         if (fs == null) return; // Apparently Minecraft couldn't find its own resources, they'll be an error in the log for this
 
         Path path = fs.getPath(resourceType.getDirectory(), identifier.getNamespace(), identifier.getPath());
@@ -52,7 +52,7 @@ public class FixFabricResourcePacks {
     private void fixHasResource(PackType type, ResourceLocation id, CallbackInfoReturnable<Boolean> callback) {
         if (VanillaPackResources.generatedDir != null) return;
 
-        FileSystem fs = JAR_FILESYSTEM_BY_TYPE.get(type);
+        FileSystem fs = ROOT_DIR_BY_TYPE.get(type);
         if (fs == null) return;
 
         Path path = fs.getPath(type.getDirectory(), id.getNamespace(), id.getPath());
