@@ -90,7 +90,7 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
                 if (config != null
                     && !moduleName.isEmpty()
-                    && ConfigHelper.isModuleDisabled(config, moduleName)) {
+                    && !ConfigHelper.isModuleEnabled(config, moduleName)) {
                     disabledMixins.put(truncatedName, true);
                 }
 

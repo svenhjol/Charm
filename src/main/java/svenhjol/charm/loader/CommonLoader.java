@@ -1,11 +1,13 @@
 package svenhjol.charm.loader;
 
+import com.moandjiezana.toml.Toml;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.ConfigHelper;
 import svenhjol.charm.mixin.CharmMixinConfigPlugin;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CommonLoader<T extends CharmCommonModule> extends ModuleLoader<T> {
@@ -54,9 +56,12 @@ public class CommonLoader<T extends CharmCommonModule> extends ModuleLoader<T> {
     }
 
     @Override
-    protected void setupModuleConfig(Map<String, T> loadedModules) {
-        // config for this module set
-        ConfigHelper.createConfig(getModId(), loadedModules);
+    protected void setupModuleConfig(List<T> modules) {
+        ConfigHelper.updatePropState(getModId(), modules);
+        Toml toml = ConfigHelper.getConfig(getModId());
+
+        modules.forEach(module -> module.setEnabled(!ConfigHelper.isModuleExplicitlyDisabled(toml, module)));
+        ConfigHelper.writeConfig(getModId(), modules);
     }
 
     public static Map<ResourceLocation, CharmCommonModule> getAllModules() {

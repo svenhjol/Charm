@@ -111,7 +111,7 @@ public abstract class ModuleLoader<T extends ICharmModule> {
         if (discoveredClasses.isEmpty())
             Charm.LOG.warn("Seems no module classes were processed... this is probably bad.");
 
-        Map<String, T> loaded = new HashMap<>();
+        Map<String, T> loaded = new TreeMap<>();
         for (Class<T> clazz : discoveredClasses) {
             try {
                 T module = clazz.getDeclaredConstructor().newInstance();
@@ -125,7 +125,7 @@ public abstract class ModuleLoader<T extends ICharmModule> {
         }
 
         // defer module config to subclasses
-        setupModuleConfig(loaded);
+        setupModuleConfig(new LinkedList<>(loaded.values()));
 
         // sort by module priority
         ArrayList<T> modList = new ArrayList<>(loaded.values());
@@ -162,7 +162,7 @@ public abstract class ModuleLoader<T extends ICharmModule> {
 
     protected abstract void setupModuleAnnotations(Class<T> clazz, T module) throws IllegalStateException;
 
-    protected void setupModuleConfig(Map<String, T> loadedModules) {
+    protected void setupModuleConfig(List<T> modules) {
         // no op
     }
 }

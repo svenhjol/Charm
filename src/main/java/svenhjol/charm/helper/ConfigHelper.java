@@ -8,7 +8,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.loader.CharmCommonModule;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.Writer;
 import java.lang.reflect.Field;
@@ -18,120 +17,153 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ConfigHelper {
-
-    @Nullable
     public static Toml getConfig(String mod) {
         String configPath = "./config/" + mod + ".toml";
         Path path = Paths.get(configPath);
         File file = path.toFile();
 
         if (!file.exists())
-            return null;
+            return new Toml();
 
         return new Toml().read(path.toFile());
     }
 
-    public static boolean isModuleDisabled(Toml config, String moduleName) {
-        String moduleEnabled = moduleName + " Enabled";
-        String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
-        return config.contains(moduleEnabledQuoted) && !config.getBoolean(moduleEnabledQuoted);
+    public static <T extends CharmCommonModule> boolean isModuleEnabled(Toml toml, T module) {
+        return isModuleEnabled(toml, module.getName());
     }
 
-    public static<T extends CharmCommonModule> void createConfig(String mod, Map<String, T> modules) {
-        String configPath = "./config/" + mod + ".toml";
+    public static boolean isModuleEnabled(Toml toml, String moduleName) {
+        String moduleEnabled = moduleName + " Enabled";
+        String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
+        return toml.contains(moduleEnabledQuoted) && toml.getBoolean(moduleEnabledQuoted);
+    }
 
-        // this blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically
-        CommentedConfig writeConfig = TomlFormat.newConfig(LinkedHashMap::new);
-        Path path = Paths.get(configPath);
-        File file = path.toFile();
-        Toml readConfig = file.exists() ? new Toml().read(path.toFile()) : new Toml();
+    public static <T extends CharmCommonModule> boolean isModuleExplicitlyDisabled(Toml toml, T module) {
+        String moduleEnabled = module.getName() + " Enabled";
+        String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
+        return toml.contains(moduleEnabledQuoted) && !toml.getBoolean(moduleEnabledQuoted);
+    }
 
-        List<String> moduleNames = new ArrayList<>(modules.keySet());
-        Collections.sort(moduleNames);
+    public static <T extends CharmCommonModule> Map<String, Boolean> getModuleState(String mod, List<T> modules) {
+        Map<String, Boolean> out = new WeakHashMap<>();
+        Toml toml = getConfig(mod);
 
-        // parse config and apply values to modules
-        for (String moduleName : moduleNames) {
-            T module = modules.get(moduleName);
+        modules.forEach(module -> out.put(module.getName(), isModuleEnabled(toml, module)));
+        return out;
+    }
 
-            // set module enabled/disabled
-            String moduleEnabled = moduleName + " Enabled";
-            String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
-            boolean enabled = readConfig.contains(moduleEnabledQuoted) ? readConfig.getBoolean(moduleEnabledQuoted) : module.isEnabledByDefault();
+    public static <T extends CharmCommonModule> void updateModuleState(String mod, List<T> modules) {
+        Toml toml = getConfig(mod);
+
+        modules.forEach(module -> {
+            boolean enabled = isModuleEnabled(toml, module) || module.isEnabledByDefault();
             module.setEnabled(enabled);
+        });
+    }
 
-            if (!module.isAlwaysEnabled()) {
-                writeConfig.setComment(moduleEnabled, module.getDescription());
-                writeConfig.add(moduleEnabled, module.isEnabled());
-            }
+    public static <T extends CharmCommonModule> void updatePropState(String mod, List<T> modules) {
+        Toml toml = getConfig(mod);
+
+        modules.forEach(module -> {
+            String moduleName = module.getName();
 
             // get and set module config options
             ArrayList<Field> classFields = new ArrayList<>(Arrays.asList(module.getClass().getDeclaredFields()));
-            classFields.forEach(classField -> {
+            for (Field prop : classFields) {
                 try {
-                    Config annotation = classField.getDeclaredAnnotation(Config.class);
+                    Config annotation = prop.getDeclaredAnnotation(Config.class);
                     if (annotation == null)
                         return;
 
                     // set the static property as writable so that the config can modify it
-                    classField.setAccessible(true);
-                    String name = annotation.name();
-                    String description = annotation.description();
+                    prop.setAccessible(true);
+                    String propName = annotation.name();
 
-                    if (name.isEmpty())
-                        name = classField.getName();
+                    if (propName.isEmpty())
+                        propName = prop.getName();
 
-                    Object classValue = classField.get(null);
+                    Object propValue = prop.get(null);
                     Object configValue = null;
 
-                    if (readConfig.contains(moduleName)) {
+                    if (toml.contains(moduleName)) {
 
                         // get the block of key/value pairs from the config
-                        Toml moduleKeys = readConfig.getTable(moduleName);
+                        Toml moduleKeys = toml.getTable(moduleName);
                         Map<String, Object> mappedKeys = new HashMap<>();
 
                         // key names sometimes have quotes, map to remove them
                         moduleKeys.toMap().forEach((k, v) -> mappedKeys.put(k.replace("\"", ""), v));
-                        configValue = mappedKeys.get(name);
+                        configValue = mappedKeys.get(propName);
 
                         if (configValue != null) {
 
                             // there's some weirdness with casting, deal with that here
-                            if (classValue instanceof Integer && configValue instanceof Double)
+                            if (propValue instanceof Integer && configValue instanceof Double)
                                 configValue = (int)(double) configValue;
 
-                            if (classValue instanceof Integer && configValue instanceof Long)
+                            if (propValue instanceof Integer && configValue instanceof Long)
                                 configValue = (int)(long) configValue;
 
-                            classField.set(null, configValue);
+                            // set the class property
+                            prop.set(null, configValue);
                         }
                     }
 
-                    if (configValue == null)
-                        configValue = classValue;
+                } catch (Exception e) {
+                    Charm.LOG.error("Failed to read config for " + moduleName + ": " + e.getMessage());
+                }
+            }
+        });
+    }
+
+    public static <T extends CharmCommonModule> void writeConfig(String mod, List<T> modules) {
+        // this blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically
+        CommentedConfig config = TomlFormat.newConfig(LinkedHashMap::new);
+
+        // read config from each module
+        modules.forEach(module -> {
+            String moduleName = module.getName();
+
+            if (!module.isAlwaysEnabled()) {
+                String field = moduleName + " Enabled";
+                config.setComment(field, module.getDescription());
+                config.add(field, module.isEnabled());
+            }
+
+            // read class properties into config
+            ArrayList<Field> classFields = new ArrayList<>(Arrays.asList(module.getClass().getDeclaredFields()));
+            classFields.forEach(prop -> {
+                try {
+                    Config annotation = prop.getDeclaredAnnotation(Config.class);
+                    if (annotation == null) return;
+
+                    String propName = annotation.name();
+                    String propDescription = annotation.description();
+                    Object propValue = prop.get(null);
 
                     // set the key/value pair. The "." specifies that it is nested
-                    String moduleConfigName = moduleName + "." + name;
-                    writeConfig.setComment(moduleConfigName, description);
-                    writeConfig.add(moduleConfigName, configValue);
+                    String moduleConfigName = moduleName + "." + propName;
+                    config.setComment(moduleConfigName, propDescription);
+                    config.add(moduleConfigName, propValue);
 
                 } catch (Exception e) {
-                    Charm.LOG.error("Failed to set config for " + moduleName + ": " + e.getMessage());
+                    Charm.LOG.error("Failed to write config property " + prop.getName() + " in " + module.getName());
                 }
             });
-        }
+        });
+
+        String configPath = "./config/" + mod + ".toml";
+        Path path = Paths.get(configPath);
 
         try {
             // write out and close the file
             TomlWriter tomlWriter = new TomlWriter();
             Writer buffer = Files.newBufferedWriter(path);
-            tomlWriter.write(writeConfig, buffer);
+            tomlWriter.write(config, buffer);
             buffer.close();
             Charm.LOG.debug("Written config to disk");
-
         } catch (Exception e) {
             Charm.LOG.error("Failed to write config: " + e.getMessage());
         }
     }
-
-
 }
