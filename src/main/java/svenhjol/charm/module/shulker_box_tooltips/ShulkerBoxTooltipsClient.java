@@ -1,14 +1,6 @@
 package svenhjol.charm.module.shulker_box_tooltips;
 
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ItemHelper;
-import svenhjol.charm.helper.ItemNBTHelper;
-import svenhjol.charm.event.RenderTooltipCallback;
-import svenhjol.charm.helper.TooltipHelper;
-import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
-
-import javax.annotation.Nullable;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -18,14 +10,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
+import svenhjol.charm.event.RenderTooltipCallback;
+import svenhjol.charm.helper.ItemHelper;
+import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.helper.TooltipHelper;
+import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
+import svenhjol.charm.loader.ClientModule;
+
+import javax.annotation.Nullable;
 import java.util.List;
 
-public class ShulkerBoxTooltipsClient extends CharmClientModule {
-    public ShulkerBoxTooltipsClient(CharmModule module) {
-        super(module);
-    }
-
+public class ShulkerBoxTooltipsClient extends ClientModule {
     @Override
     public void init() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);

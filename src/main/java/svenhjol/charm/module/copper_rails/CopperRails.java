@@ -1,13 +1,11 @@
 package svenhjol.charm.module.copper_rails;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Module;
-import svenhjol.charm.module.copper_rails.CopperRailBlock;
-import svenhjol.charm.module.copper_rails.CopperRailsClient;
+import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, client = CopperRailsClient.class, description = "Copper ingots can be used to craft rails.")
-public class CopperRails extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Copper ingots can be used to craft rails.")
+public class CopperRails extends CommonModule {
     public static svenhjol.charm.module.copper_rails.CopperRailBlock COPPER_RAIL;
 
     @Override

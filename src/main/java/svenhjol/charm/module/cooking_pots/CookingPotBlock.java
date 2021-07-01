@@ -38,7 +38,7 @@ import svenhjol.charm.block.CharmBlockWithEntity;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmSounds;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.Random;
 
@@ -49,7 +49,7 @@ public class CookingPotBlock extends CharmBlockWithEntity {
     public static IntegerProperty LIQUID = IntegerProperty.create("liquid", 0, 2);
     public static BooleanProperty HAS_FIRE = BooleanProperty.create("has_fire");
 
-    public CookingPotBlock(CharmModule module) {
+    public CookingPotBlock(CommonModule module) {
         super(module, "cooking_pot", Properties.of(Material.METAL, MaterialColor.STONE)
             .requiresCorrectToolForDrops()
             .strength(2.0F)

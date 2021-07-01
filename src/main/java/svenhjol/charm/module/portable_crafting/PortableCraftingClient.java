@@ -20,18 +20,14 @@ import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.init.CharmTags;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
 import java.util.List;
 
-public class PortableCraftingClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = PortableCrafting.class)
+public class PortableCraftingClient extends ClientModule {
     public ImageButton craftingButton;
     public static KeyMapping keyBinding;
-
-    public PortableCraftingClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void init() {

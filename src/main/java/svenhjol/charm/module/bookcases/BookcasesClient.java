@@ -1,14 +1,10 @@
 package svenhjol.charm.module.bookcases;
 
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
-public class BookcasesClient extends CharmClientModule {
-    public BookcasesClient(CharmModule module) {
-        super(module);
-    }
-
+@svenhjol.charm.annotation.ClientModule(module = Bookcases.class)
+public class BookcasesClient extends ClientModule {
     @Override
     public void register() {
         ScreenRegistry.register(Bookcases.SCREEN_HANDLER, BookcaseScreen::new);

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.Charm;
 import svenhjol.charm.module.armor_invisibility.ArmorInvisibility;
 
 @Mixin(LivingEntity.class)
@@ -28,7 +28,7 @@ public abstract class ReduceAttackDistanceMixin {
         cancellable = true
     )
     private void hookGetArmorVisibility(CallbackInfoReturnable<Float> cir) {
-        if (ModuleHandler.enabled("charm:armor_invisibility")) {
+        if (Charm.LOADER.isEnabled("charm:armor_invisibility")) {
             LivingEntity entity = (LivingEntity) (Object) this;
             Iterable<ItemStack> armorItems = this.getArmorSlots();
 

@@ -9,13 +9,13 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import static svenhjol.charm.helper.BiomeHelper.addStructureToBiomeCategories;
 import static svenhjol.charm.helper.RegistryHelper.configuredStructureFeature;
 
 @Module(mod = Charm.MOD_ID, description = "Dungeon variations with different themes according to the biome.")
-public class BiomeDungeons extends CharmModule {
+public class BiomeDungeons extends CommonModule {
     public static final ResourceLocation DUNGEON_ID = new ResourceLocation(Charm.MOD_ID, "dungeon");
     public static StructureFeature<JigsawConfiguration> DUNGEON_FEATURE;
 

@@ -9,21 +9,19 @@ import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.block.CharmSignBlock;
-import svenhjol.charm.block.ICharmBlock;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public abstract class CharmWallSignBlock extends WallSignBlock implements ICharmBlock {
-    private final CharmModule module;
+    private final CommonModule module;
 
-    public CharmWallSignBlock(CharmModule module, String name, WoodType signType, Properties settings) {
+    public CharmWallSignBlock(CommonModule module, String name, WoodType signType, Properties settings) {
         super(settings, signType);
 
         this.register(module, name);
         this.module = module;
     }
 
-    public CharmWallSignBlock(CharmModule module, String name, CharmSignBlock block, WoodType signType, MaterialColor color) {
+    public CharmWallSignBlock(CommonModule module, String name, CharmSignBlock block, WoodType signType, MaterialColor color) {
         this(module, name, signType, Properties.of(Material.WOOD, color)
             .noCollission()
             .strength(1.0F)
@@ -44,6 +42,6 @@ public abstract class CharmWallSignBlock extends WallSignBlock implements ICharm
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

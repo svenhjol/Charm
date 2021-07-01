@@ -9,12 +9,12 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public abstract class CharmLogBlock extends RotatedPillarBlock implements ICharmBlock {
-    private final CharmModule module;
+    private final CommonModule module;
 
-    public CharmLogBlock(CharmModule module, String name, Properties settings) {
+    public CharmLogBlock(CommonModule module, String name, Properties settings) {
         super(settings);
         this.register(module, name);
         this.module = module;
@@ -22,13 +22,13 @@ public abstract class CharmLogBlock extends RotatedPillarBlock implements ICharm
         this.setBurnTime(300);
     }
 
-    public CharmLogBlock(CharmModule module, String name, MaterialColor fromTop, MaterialColor fromSide) {
+    public CharmLogBlock(CommonModule module, String name, MaterialColor fromTop, MaterialColor fromSide) {
         this(module, name, BlockBehaviour.Properties.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? fromTop : fromSide)
             .strength(2.0F)
             .sound(SoundType.WOOD));
     }
 
-    public CharmLogBlock(CharmModule module, String name, MaterialColor color) {
+    public CharmLogBlock(CommonModule module, String name, MaterialColor color) {
         this(module, name, BlockBehaviour.Properties.of(Material.WOOD, color)
             .strength(2.0F)
             .sound(SoundType.WOOD));
@@ -47,6 +47,6 @@ public abstract class CharmLogBlock extends RotatedPillarBlock implements ICharm
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

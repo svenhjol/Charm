@@ -8,13 +8,13 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.CharmLanternBlock;
 import svenhjol.charm.enums.IMetalMaterial;
 import svenhjol.charm.enums.VanillaMetalMaterial;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.module.extra_nuggets.ExtraNuggets;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, client = VariantLanternsClient.class, description = "Variants lanterns crafted from vanilla metal nuggets and torches.")
-public class VariantLanterns extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Variants lanterns crafted from vanilla metal nuggets and torches.")
+public class VariantLanterns extends CommonModule {
     public static Map<IMetalMaterial, CharmLanternBlock> LANTERNS = new HashMap<>();
 
     @Override
@@ -38,7 +38,7 @@ public class VariantLanterns extends CharmModule {
         List<ResourceLocation> remove = new ArrayList<>();
 
         // remove lantern recipes if nuggets module is disabled
-        if (!ModuleHandler.enabled("charm:extra_nuggets")) {
+        if (!Charm.LOADER.isEnabled(ExtraNuggets.class)) {
             remove.addAll(Arrays.asList(
                 new ResourceLocation(Charm.MOD_ID, "variant_lanterns/copper_lantern"),
                 new ResourceLocation(Charm.MOD_ID, "variant_lanterns/copper_soul_lantern"),

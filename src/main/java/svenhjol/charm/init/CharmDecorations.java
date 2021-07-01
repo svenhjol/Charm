@@ -1,6 +1,7 @@
 package svenhjol.charm.init;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +26,9 @@ public class CharmDecorations {
     public static void init() {
         // loaded late so that tags are available
         LoadServerFinishCallback.EVENT.register(server -> setupDecoration());
-        ClientLifecycleEvents.CLIENT_STARTED.register(client -> setupDecoration());
+
+        ClientEntityEvents.ENTITY_LOAD.register((entity, level)
+            -> { if (entity instanceof LocalPlayer) setupDecoration(); });
     }
 
     private static void setupDecoration() {

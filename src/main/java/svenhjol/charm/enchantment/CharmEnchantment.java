@@ -4,33 +4,33 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public abstract class CharmEnchantment extends Enchantment implements ICharmEnchantment {
-    protected CharmModule module;
+    protected CommonModule module;
 
-    public CharmEnchantment(CharmModule module, String name, Rarity rarity, EnchantmentCategory target, EquipmentSlot[] slotTypes) {
+    public CharmEnchantment(CommonModule module, String name, Rarity rarity, EnchantmentCategory target, EquipmentSlot[] slotTypes) {
         super(rarity, target, slotTypes);
         this.register(module, name);
         this.module = module;
     }
 
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 
     @Override
     public boolean canEnchant(ItemStack stack) {
-        return module.enabled && super.canEnchant(stack);
+        return module.isEnabled() && super.canEnchant(stack);
     }
 
     @Override
     public boolean isTradeable() {
-        return module.enabled && super.isTradeable();
+        return module.isEnabled() && super.isTradeable();
     }
 
     @Override
     public boolean isDiscoverable() {
-        return module.enabled && super.isDiscoverable();
+        return module.isEnabled() && super.isDiscoverable();
     }
 }

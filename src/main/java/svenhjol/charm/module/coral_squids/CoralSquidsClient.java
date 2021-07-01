@@ -3,15 +3,11 @@ package svenhjol.charm.module.coral_squids;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
-public class CoralSquidsClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = CoralSquids.class)
+public class CoralSquidsClient extends ClientModule {
     public static ModelLayerLocation LAYER;
-
-    public CoralSquidsClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void register() {

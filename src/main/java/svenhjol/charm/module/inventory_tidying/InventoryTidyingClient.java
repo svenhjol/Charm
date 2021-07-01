@@ -18,8 +18,7 @@ import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 import svenhjol.charm.module.atlases.AtlasScreen;
 import svenhjol.charm.module.bookcases.BookcaseScreen;
 
@@ -28,7 +27,8 @@ import java.util.*;
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.BE;
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PLAYER;
 
-public class InventoryTidyingClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = InventoryTidying.class)
+public class InventoryTidyingClient extends ClientModule {
     public static final int LEFT = 159;
     public static final int TOP = 12;
     public static final List<ImageButton> sortingButtons = new ArrayList<>();
@@ -38,13 +38,9 @@ public class InventoryTidyingClient extends CharmClientModule {
 
     public final Map<Class<? extends Screen>, Map<Integer, Integer>> screenTweaks = new HashMap<>();
 
-    public InventoryTidyingClient(CharmModule module) {
-        super(module);
-    }
-
     @Override
     public void register() {
-        if (!module.enabled)
+        if (!getParentModule().isEnabled())
             return;
 
         screenTweaks.put(MerchantScreen.class, new HashMap<Integer, Integer>() {{ put(100, 0); }});

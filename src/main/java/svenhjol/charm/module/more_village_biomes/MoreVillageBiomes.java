@@ -1,14 +1,5 @@
 package svenhjol.charm.module.more_village_biomes;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.event.AddEntityCallback;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.BiomeHelper;
-import svenhjol.charm.annotation.Module;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import net.minecraft.data.worldgen.StructureFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -19,10 +10,18 @@ import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.helper.BiomeHelper;
+import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Villages can spawn in swamps and jungles.",
-    requiresMixins = {"AddEntityCallback"})
-public class MoreVillageBiomes extends CharmModule {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+@Module(mod = Charm.MOD_ID, description = "Villages can spawn in swamps and jungles.")
+public class MoreVillageBiomes extends CommonModule {
     @Override
     public void init() {
         List<ResourceKey<Biome>> plainsBiomeKeys = new ArrayList<>(Arrays.asList(

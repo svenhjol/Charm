@@ -21,21 +21,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.item.TooltipFlag;
+import svenhjol.charm.Charm;
 import svenhjol.charm.event.RenderHeldItemCallback;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
 import java.util.List;
 
-public class AtlasesClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = Atlases.class)
+public class AtlasesClient extends ClientModule {
     private svenhjol.charm.module.atlases.AtlasRenderer renderer;
-
-    public AtlasesClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void register() {
@@ -96,7 +92,7 @@ public class AtlasesClient extends CharmClientModule {
     }
 
     public static boolean shouldDrawAtlasCopy(CartographyTableScreen screen) {
-        return ModuleHandler.enabled(Atlases.class) && screen.getMenu().getSlot(0).getItem().getItem() == Atlases.ATLAS_ITEM
+        return Charm.LOADER.isEnabled(Atlases.class) && screen.getMenu().getSlot(0).getItem().getItem() == Atlases.ATLAS_ITEM
             && screen.getMenu().getSlot(1).getItem().getItem() == Items.MAP;
     }
 }

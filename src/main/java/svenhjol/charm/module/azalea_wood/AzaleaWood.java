@@ -16,7 +16,7 @@ import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
 import svenhjol.charm.mixin.accessor.FeaturesAccessor;
 import svenhjol.charm.mixin.accessor.TreeConfigurationAccessor;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
 import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
@@ -29,8 +29,8 @@ import svenhjol.charm.module.variant_chests.VariantTrappedChestBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadders;
 
-@Module(mod = Charm.MOD_ID, client = AzaleaWoodClient.class, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
-public class AzaleaWood extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
+public class AzaleaWood extends CommonModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "azalea");
 
     public static WoodType SIGN_TYPE;

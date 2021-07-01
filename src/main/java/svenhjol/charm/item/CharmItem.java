@@ -4,13 +4,12 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.item.ICharmItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public abstract class CharmItem extends Item implements ICharmItem {
-    protected CharmModule module;
+    protected CommonModule module;
 
-    public CharmItem(CharmModule module, String name, Item.Properties props) {
+    public CharmItem(CommonModule module, String name, Item.Properties props) {
         super(props);
         this.module = module;
         register(module, name);
@@ -24,6 +23,6 @@ public abstract class CharmItem extends Item implements ICharmItem {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

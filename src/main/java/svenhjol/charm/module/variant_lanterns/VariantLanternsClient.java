@@ -2,14 +2,10 @@ package svenhjol.charm.module.variant_lanterns;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.module.variant_lanterns.VariantLanterns;
+import svenhjol.charm.loader.ClientModule;
 
-public class VariantLanternsClient extends CharmClientModule {
-    public VariantLanternsClient(CharmModule module) {
-        super(module);
-    }
+@svenhjol.charm.annotation.ClientModule(module = VariantLanterns.class)
+public class VariantLanternsClient extends ClientModule {
 
     @Override
     public void register() {

@@ -5,16 +5,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.mixin.accessor.ItemAccessor;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.module.cooking_pots.CookingPots;
 
 @Module(mod = Charm.MOD_ID, description = "Allows stews to stack.")
-public class StackableStews extends CharmModule {
+public class StackableStews extends CommonModule {
     @Config(name = "Stack size", description = "Maximum stew stack size.")
     public static int stackSize = 64;
 
@@ -30,12 +29,12 @@ public class StackableStews extends CharmModule {
         if (suspiciousStew)
             ((ItemAccessor) Items.SUSPICIOUS_STEW).setMaxStackSize(stackSize);
 
-        if (ModuleHandler.enabled("charm:cooking_pots"))
+        if (Charm.LOADER.isEnabled(CookingPots.class))
             ((ItemAccessor) CookingPots.MIXED_STEW).setMaxStackSize(stackSize);
     }
 
     public static boolean tryEatStewStack(LivingEntity entity, ItemStack stack) {
-        if (!ModuleHandler.enabled(StackableStews.class) || stack.getMaxStackSize() == 1)
+        if (!Charm.LOADER.isEnabled(StackableStews.class) || stack.getMaxStackSize() == 1)
             return false;
 
         if (entity instanceof Player) {

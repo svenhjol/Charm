@@ -14,16 +14,15 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.List;
 
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.BE;
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PLAYER;
 
-@Module(mod = Charm.MOD_ID, client = InventoryTidyingClient.class, description = "Button to automatically tidy inventories.",
-    requiresMixins = {"SetupGuiCallback", "RenderGuiCallback"})
-public class InventoryTidying extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Button to automatically tidy inventories.")
+public class InventoryTidying extends CommonModule {
     public static final ResourceLocation MSG_SERVER_TIDY_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_tidy_inventory");
     public static final ResourceLocation TRIGGER_TIDIED_INVENTORY = new ResourceLocation(Charm.MOD_ID, "tidied_inventory");
 

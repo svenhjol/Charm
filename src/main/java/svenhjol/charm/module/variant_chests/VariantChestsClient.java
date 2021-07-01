@@ -11,18 +11,14 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.event.RenderBlockItemCallback;
 import svenhjol.charm.event.StitchTextureCallback;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
 import java.util.Set;
 
-public class VariantChestsClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = VariantChests.class)
+public class VariantChestsClient extends ClientModule {
     private final VariantChestBlockEntity CACHED_NORMAL_CHEST = new VariantChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState());
     private final VariantTrappedChestBlockEntity CACHED_TRAPPED_CHEST = new VariantTrappedChestBlockEntity(BlockPos.ZERO, Blocks.TRAPPED_CHEST.defaultBlockState());
-
-    public VariantChestsClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void register() {
@@ -63,7 +59,7 @@ public class VariantChestsClient extends CharmClientModule {
         String[] bases = {"trapped", "normal"};
 
         for (String base : bases) {
-            ResourceLocation id = new ResourceLocation(module.mod, "entity/chest/" + variant.getSerializedName() + "_" + base + chestTypeName);
+            ResourceLocation id = new ResourceLocation(getModId(), "entity/chest/" + variant.getSerializedName() + "_" + base + chestTypeName);
             VariantChestBlockEntityRenderer.addTexture(variant, chestType, id, base.equals("trapped"));
             textures.add(id);
         }

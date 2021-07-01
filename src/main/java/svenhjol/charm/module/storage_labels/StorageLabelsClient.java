@@ -20,19 +20,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
-import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
 import java.util.List;
 import java.util.Optional;
 
-public class StorageLabelsClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = StorageLabels.class)
+public class StorageLabelsClient extends ClientModule {
     public static final ThreadLocal<BlockEntityRendererProvider.Context> chestBlockEntityContext = new ThreadLocal<>();
-    public StorageLabelsClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void init() {
@@ -74,7 +71,7 @@ public class StorageLabelsClient extends CharmClientModule {
     }
 
     public static void renderLabel(PoseStack matrices, MultiBufferSource vertexConsumers, Player player, Camera camera, List<Component> text) {
-        if (!ModuleHandler.enabled(StorageLabels.class))
+        if (!Charm.LOADER.isEnabled(StorageLabels.class))
             return;
 
         if (!StorageLabels.alwaysShow && !player.isShiftKeyDown())

@@ -19,14 +19,14 @@ import svenhjol.charm.helper.BiomeHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.item.CharmSpawnEggItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, client = CoralSquidsClient.class, description = "Coral Squids spawn near coral in warm oceans.")
-public class CoralSquids extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Coral Squids spawn near coral in warm oceans.")
+public class CoralSquids extends CommonModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "coral_squid");
 
     public static CoralSquidBucketItem CORAL_SQUID_BUCKET;

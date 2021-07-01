@@ -3,10 +3,10 @@ package svenhjol.charm.module.extra_boats;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import svenhjol.charm.item.CharmBoatItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public class CrimsonBoatItem extends CharmBoatItem {
-    public CrimsonBoatItem(CharmModule module) {
+    public CrimsonBoatItem(CommonModule module) {
         super(module, "crimson_boat", CharmBoatEntity.BoatType.CRIMSON, new Item.Properties()
             .stacksTo(1)
             .fireResistant()

@@ -7,12 +7,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public abstract class CharmFenceBlock extends FenceBlock implements ICharmBlock {
-    private final CharmModule module;
+    private final CommonModule module;
 
-    public CharmFenceBlock(CharmModule module, String name, Properties settings) {
+    public CharmFenceBlock(CommonModule module, String name, Properties settings) {
         super(settings);
 
         this.register(module, name);
@@ -21,7 +21,7 @@ public abstract class CharmFenceBlock extends FenceBlock implements ICharmBlock 
         this.setBurnTime(300);
     }
 
-    public CharmFenceBlock(CharmModule module, String name, Block block) {
+    public CharmFenceBlock(CommonModule module, String name, Block block) {
         this(module, name, Properties.of(Material.WOOD, block.defaultMaterialColor())
             .strength(2.0F, 3.0F)
             .sound(SoundType.WOOD));
@@ -35,6 +35,6 @@ public abstract class CharmFenceBlock extends FenceBlock implements ICharmBlock 
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

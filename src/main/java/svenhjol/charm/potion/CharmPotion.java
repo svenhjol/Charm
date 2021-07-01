@@ -1,26 +1,25 @@
 package svenhjol.charm.potion;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.potion.ICharmPotion;
 
 public abstract class CharmPotion extends Potion implements ICharmPotion {
-    protected CharmModule module;
+    protected CommonModule module;
 
-    public CharmPotion(CharmModule module, String name, MobEffectInstance... effects) {
+    public CharmPotion(CommonModule module, String name, MobEffectInstance... effects) {
         super(effects);
         this.setModuleAndName(module, name);
     }
 
-    public CharmPotion(CharmModule module, String name, String basedOn, MobEffectInstance... effects) {
+    public CharmPotion(CommonModule module, String name, String basedOn, MobEffectInstance... effects) {
         super(basedOn, effects);
         this.setModuleAndName(module, name);
     }
 
-    protected void setModuleAndName(CharmModule module, String name) {
+    protected void setModuleAndName(CommonModule module, String name) {
         this.module = module;
         this.register(module, name);
     }

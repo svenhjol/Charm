@@ -4,12 +4,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.ItemAccessor;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 
 @Module(mod = Charm.MOD_ID, description = "Allows enchanted books to stack.")
-public class StackableEnchantedBooks extends CharmModule {
+public class StackableEnchantedBooks extends CommonModule {
     @Config(name = "Stack size", description = "Maximum enchanted book stack size.")
     public static int stackSize = 16;
 

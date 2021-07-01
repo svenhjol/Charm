@@ -21,8 +21,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.event.RenderTooltipCallback;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -30,12 +29,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
 
-public class CookingPotsClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = CookingPots.class)
+public class CookingPotsClient extends ClientModule {
     private final Map<List<ResourceLocation>, List<Item>> cachedItems = new WeakHashMap<>();
-
-    public CookingPotsClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void register() {

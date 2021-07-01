@@ -7,17 +7,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.annotation.Module;
+import svenhjol.charm.helper.PlayerHelper;
+import svenhjol.charm.loader.CommonModule;
 
 @Module(mod = Charm.MOD_ID, description = "As long as a Totem of Undying is in your inventory, it will be consumed to protect you from death.")
-public class UseTotemFromInventory extends CharmModule {
+public class UseTotemFromInventory extends CommonModule {
     public static ItemStack tryFromInventory(LivingEntity entity, InteractionHand hand) {
         ItemStack totem = new ItemStack(Items.TOTEM_OF_UNDYING);
 
-        if (ModuleHandler.enabled("charm:use_totem_from_inventory") && entity instanceof Player) {
+        if (Charm.LOADER.isEnabled(UseTotemFromInventory.class) && entity instanceof Player) {
             Player player = (Player)entity;
             Inventory inventory = PlayerHelper.getInventory(player);
 

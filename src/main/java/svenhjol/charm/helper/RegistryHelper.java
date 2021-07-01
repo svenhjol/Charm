@@ -40,8 +40,6 @@ import java.util.Set;
 
 @SuppressWarnings("UnusedReturnValue")
 public class RegistryHelper {
-    public static List<String> SUPPRESS_DATA_FIXER_ERROR = new ArrayList<>();
-
     public static Block block(ResourceLocation id, Block block) {
         return Registry.register(Registry.BLOCK, id, block);
     }
@@ -76,7 +74,6 @@ public class RegistryHelper {
     }
 
     public static <T extends Entity> EntityType<T> entity(ResourceLocation id, FabricEntityTypeBuilder<T> build) {
-        SUPPRESS_DATA_FIXER_ERROR.add(id.toString());
         EntityType<T> entityType = build.build();
         return Registry.register(Registry.ENTITY_TYPE, id, entityType);
     }
@@ -141,5 +138,4 @@ public class RegistryHelper {
 
         ((BlockEntityTypeAccessor)type).setValidBlocks(new HashSet<>(mutable));
     }
-
 }

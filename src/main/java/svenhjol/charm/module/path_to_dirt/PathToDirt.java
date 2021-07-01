@@ -14,11 +14,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Module;
 
 @Module(mod = Charm.MOD_ID, description = "Right-clicking on a grass path block with a hoe turns it back into dirt.")
-public class PathToDirt extends CharmModule {
+public class PathToDirt extends CommonModule {
     @Override
     public void init() {
         UseBlockCallback.EVENT.register(this::convertPath);

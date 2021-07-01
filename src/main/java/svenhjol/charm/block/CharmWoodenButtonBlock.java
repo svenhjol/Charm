@@ -6,12 +6,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.WoodButtonBlock;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public abstract class CharmWoodenButtonBlock extends WoodButtonBlock implements ICharmBlock {
-    private final CharmModule module;
+    private final CommonModule module;
 
-    public CharmWoodenButtonBlock(CharmModule module, String name, Properties settings) {
+    public CharmWoodenButtonBlock(CommonModule module, String name, Properties settings) {
         super(settings);
 
         this.register(module, name);
@@ -19,7 +19,7 @@ public abstract class CharmWoodenButtonBlock extends WoodButtonBlock implements 
         this.setBurnTime(100);
     }
 
-    public CharmWoodenButtonBlock(CharmModule module, String name) {
+    public CharmWoodenButtonBlock(CommonModule module, String name) {
         this(module, name, Properties.of(Material.DECORATION)
             .strength(0.5F)
             .noCollission()
@@ -34,6 +34,6 @@ public abstract class CharmWoodenButtonBlock extends WoodButtonBlock implements 
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

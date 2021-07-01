@@ -19,7 +19,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
 import svenhjol.charm.helper.RegistryHelper;
@@ -31,8 +31,8 @@ import svenhjol.charm.enums.CharmWoodMaterial;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, priority = 10, client = StorageCratesClient.class, description = "A **Storage crate** has the equivalent capacity of a double-chest for a single item or block type.")
-public class StorageCrates extends CharmModule {
+@Module(mod = Charm.MOD_ID, priority = 10, description = "A Storage crate has the equivalent capacity of a double-chest for a single item or block type.")
+public class StorageCrates extends CommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "storage_crate");
     public static final ResourceLocation MSG_CLIENT_UPDATED_CRATE = new ResourceLocation(Charm.MOD_ID, "client_interacted_with_crate");
     public static Map<IVariantMaterial, StorageCrateBlock> STORAGE_CRATE_BLOCKS = new HashMap<>();
@@ -60,7 +60,7 @@ public class StorageCrates extends CharmModule {
         }
     }
 
-    public static StorageCrateBlock registerStorageCrate(CharmModule module, IVariantMaterial material) {
+    public static StorageCrateBlock registerStorageCrate(CommonModule module, IVariantMaterial material) {
         StorageCrateBlock crate = new StorageCrateBlock(module, material);
         STORAGE_CRATE_BLOCKS.put(material, crate);
         RegistryHelper.addBlocksToBlockEntity(BLOCK_ENTITY, crate);

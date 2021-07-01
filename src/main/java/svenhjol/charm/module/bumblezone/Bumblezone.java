@@ -1,7 +1,7 @@
 package svenhjol.charm.module.bumblezone;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.annotation.Module;
 
@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
 @Module(mod = Charm.MOD_ID, description = "Bumblezone integration.")
-public class Bumblezone extends CharmModule {
+public class Bumblezone extends CommonModule {
     public static final ResourceLocation BUMBLEZONE_FLUID_ID = new ResourceLocation("the_bumblezone", "sugar_water_block");
     public static Block bumblezoneFluid = null;
 

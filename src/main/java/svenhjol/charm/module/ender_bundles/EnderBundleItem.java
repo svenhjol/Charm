@@ -15,14 +15,14 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.Optional;
 
 public class EnderBundleItem extends CharmItem {
     private static final int ITEM_BAR_COLOR = Mth.color(0.4F, 0.4F, 1.0F);
 
-    public EnderBundleItem(CharmModule module) {
+    public EnderBundleItem(CommonModule module) {
         super(module, "ender_bundle", (new Item.Properties())
             .stacksTo(1)
             .tab(CreativeModeTab.TAB_TOOLS));

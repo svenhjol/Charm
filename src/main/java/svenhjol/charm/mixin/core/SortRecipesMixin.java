@@ -1,25 +1,23 @@
 package svenhjol.charm.mixin.core;
 
 import com.google.gson.JsonElement;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.item.crafting.RecipeManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.handler.RecipeHandler;
-import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.item.crafting.RecipeManager;
 
 @Mixin(value = RecipeManager.class)
-@CharmMixin(required = true)
 public class SortRecipesMixin {
     private Map<ResourceLocation, JsonElement> map2 = new TreeMap<>();
 

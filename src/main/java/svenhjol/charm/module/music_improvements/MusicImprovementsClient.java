@@ -25,8 +25,7 @@ import svenhjol.charm.CharmClient;
 import svenhjol.charm.event.PlaySoundCallback;
 import svenhjol.charm.helper.DimensionHelper;
 import svenhjol.charm.helper.SoundHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -35,16 +34,13 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
-public class MusicImprovementsClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = MusicImprovements.class)
+public class MusicImprovementsClient extends ClientModule {
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;
     private static final List<MusicCondition> musicConditions = new ArrayList<>();
 
     public static boolean isEnabled;
-
-    public MusicImprovementsClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void init() {

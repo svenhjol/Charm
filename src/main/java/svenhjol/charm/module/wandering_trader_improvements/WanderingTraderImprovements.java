@@ -1,8 +1,7 @@
 package svenhjol.charm.module.wandering_trader_improvements;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.helper.BiomeHelper;
 import svenhjol.charm.helper.MapHelper;
 import svenhjol.charm.helper.VillagerHelper;
@@ -28,7 +27,7 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 
 @Module(mod = Charm.MOD_ID, description = "Wandering traders only appear near signal campfires and sell maps to biomes and structures.")
-public class WanderingTraderImprovements extends CharmModule {
+public class WanderingTraderImprovements extends CommonModule {
     public static final List<TraderMap> traderMaps = new ArrayList<>();
 
     @Config(name = "Trade biome maps", description = "If true, wandering traders will sell maps to biomes.")
@@ -77,7 +76,7 @@ public class WanderingTraderImprovements extends CharmModule {
     }
 
     public static boolean shouldSpawnFrequently() {
-        return ModuleHandler.enabled("charm:wandering_trader_improvements") && frequentSpawn;
+        return Charm.LOADER.isEnabled("charm:wandering_trader_improvements") && frequentSpawn;
     }
 
     public static class StructureMapForEmeraldsTrade implements VillagerTrades.ItemListing {

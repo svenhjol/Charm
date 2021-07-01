@@ -13,18 +13,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.mixin.accessor.MinecraftAccessor;
 import svenhjol.charm.mixin.accessor.RenderBuffersAccessor;
 import svenhjol.charm.mixin.accessor.RenderStateShardAccessor;
 import svenhjol.charm.mixin.accessor.RenderTypeAccessor;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ColoredGlintsClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = ColoredGlints.class)
+public class ColoredGlintsClient extends ClientModule {
     public static final String GLINT_NBT = "charm_glint";
 
     public static Map<String, ResourceLocation> TEXTURES = new HashMap<>();
@@ -39,10 +38,6 @@ public class ColoredGlintsClient extends CharmClientModule {
     public static ItemStack targetStack;
 
     private static boolean hasSetupGlints = false;
-
-    public ColoredGlintsClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void init() {
@@ -68,7 +63,7 @@ public class ColoredGlintsClient extends CharmClientModule {
         List<String> validColors = Arrays.stream(DyeColor.values()).map(DyeColor::getSerializedName).collect(Collectors.toList());
         validColors.add("rainbow");
 
-        defaultGlintColor = (ModuleHandler.enabled(ColoredGlints.class) && validColors.contains(ColoredGlints.glintColor)) ? ColoredGlints.glintColor : DyeColor.PURPLE.getSerializedName();
+        defaultGlintColor = (Charm.LOADER.isEnabled(ColoredGlints.class) && validColors.contains(ColoredGlints.glintColor)) ? ColoredGlints.glintColor : DyeColor.PURPLE.getSerializedName();
 
         hasSetupGlints = true;
     }

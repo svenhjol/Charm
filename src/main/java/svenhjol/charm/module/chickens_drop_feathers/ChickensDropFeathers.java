@@ -4,15 +4,20 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Module;
 
-@Module(mod = Charm.MOD_ID, description = "Chickens randomly drop feathers.",
-    requiresMixins = {"chickens_drop_feathers.*"})
-public class ChickensDropFeathers extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Chickens randomly drop feathers.")
+public class ChickensDropFeathers extends CommonModule {
+    public static boolean isEnabled;
+
+    @Override
+    public void init() {
+        isEnabled = true;
+    }
+
     public static void tryDropFeather(Chicken chicken) {
-        if (!ModuleHandler.enabled("charm:chickens_drop_feathers"))
+        if (!isEnabled)
             return;
 
         if (chicken.isAlive()

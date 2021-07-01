@@ -1,11 +1,5 @@
 package svenhjol.charm.module.coral_squids;
 
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ItemNBTHelper;
-import svenhjol.charm.helper.MobHelper;
-import svenhjol.charm.item.ICharmItem;
-
-import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -20,15 +14,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.material.Fluids;
-import svenhjol.charm.module.coral_squids.CoralSquidEntity;
-import svenhjol.charm.module.coral_squids.CoralSquids;
+import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.helper.MobHelper;
+import svenhjol.charm.item.ICharmItem;
+import svenhjol.charm.loader.CommonModule;
+
+import javax.annotation.Nullable;
 
 public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
     public static final String STORED_CORAL_SQUID = "stored_coral_squid";
 
-    private CharmModule module;
+    private final CommonModule module;
 
-    public CoralSquidBucketItem(CharmModule module) {
+    public CoralSquidBucketItem(CommonModule module) {
         super(Fluids.WATER, new Item.Properties()
             .tab(CreativeModeTab.TAB_MISC)
             .stacksTo(1));
@@ -39,7 +37,7 @@ public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 
     @Override

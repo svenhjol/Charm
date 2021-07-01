@@ -5,22 +5,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.helper.StringHelper;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonLoader;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Stream;
 
 public class RecipeHandler {
-    private static final Map<String, CharmModule> loadedModules = ModuleHandler.INSTANCE.getModules();
-
     public static void prepareCharmModulesFilter(Map<ResourceLocation, JsonElement> recipes) {
-        Map<String, CharmModule> loadedModules = ModuleHandler.INSTANCE.getModules();
-
-        // remove recipes specified by enabled modules
-        loadedModules.values().stream().filter(m -> m.enabled && !m.getRecipesToRemove().isEmpty()).forEach(m -> {
-            m.getRecipesToRemove().forEach(recipes::remove);
-        });
+        CommonLoader.getAllModules().values().stream().filter(m -> m.isEnabled() && !m.getRecipesToRemove().isEmpty())
+            .forEach(m -> m.getRecipesToRemove().forEach(recipes::remove));
     }
 
     public static Iterator<Map.Entry<ResourceLocation, JsonElement>> sortAndFilterRecipes(Map<ResourceLocation, JsonElement> recipes) {
@@ -45,15 +39,16 @@ public class RecipeHandler {
      * Filter out recipes from Charm modules that have been disabled in config.
      */
     private static boolean filterUnloadedCharmModules(Map.Entry<ResourceLocation, JsonElement> recipe) {
-        ResourceLocation id = recipe.getKey();
-        if (id.getNamespace().equals("minecraft"))
+        String namespace = recipe.getKey().getNamespace();
+        String path = recipe.getKey().getPath();
+        if (namespace.equals("minecraft"))
             return true;
 
-        String path = id.getPath();
-        String moduleId = StringHelper.snakeToUpperCamel(path.split("/")[0]);
+        String moduleId = StringHelper.upperCamelToSnake(path.split("/")[0]);
+        ResourceLocation check = new ResourceLocation(namespace, moduleId);
 
         // remove recipes for disabled charm modules
-        return !loadedModules.containsKey(moduleId) || loadedModules.get(moduleId).enabled;
+        return !CommonLoader.getAllModules().containsKey(check) || CommonLoader.getAllModules().get(check).isEnabled();
     }
 
     /**

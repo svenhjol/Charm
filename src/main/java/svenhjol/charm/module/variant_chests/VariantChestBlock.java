@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -22,15 +22,15 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVariantChestBlock {
-    private final CharmModule module;
+    private final CommonModule module;
     private final IVariantMaterial type;
     private final List<String> loadedMods;
 
-    public VariantChestBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
+    public VariantChestBlock(CommonModule module, IVariantMaterial type, String... loadedMods) {
         this(module, type, Properties.copy(Blocks.CHEST), () -> VariantChests.NORMAL_BLOCK_ENTITY, loadedMods);
     }
 
-    public VariantChestBlock(CharmModule module, IVariantMaterial material, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
+    public VariantChestBlock(CommonModule module, IVariantMaterial material, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
         super(settings, supplier);
 
         this.module = module;
@@ -59,7 +59,7 @@ public class VariantChestBlock extends ChestBlock implements ICharmBlock, IVaria
 
     @Override
     public boolean enabled() {
-        return module.enabled && loadedMods.stream().allMatch(ModHelper::isLoaded);
+        return module.isEnabled() && loadedMods.stream().allMatch(ModHelper::isLoaded);
     }
 
     @Nullable

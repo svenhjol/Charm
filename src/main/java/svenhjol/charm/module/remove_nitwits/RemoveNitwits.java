@@ -6,13 +6,12 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.annotation.Module;
 
-@Module(mod = Charm.MOD_ID, description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.",
-    requiresMixins = {"AddEntityCallback"})
-public class RemoveNitwits extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
+public class RemoveNitwits extends CommonModule {
     @Override
     public void init() {
         AddEntityCallback.EVENT.register(this::changeNitwitProfession);

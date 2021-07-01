@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings({"UnstableApiUsage", "unused", "deprecation"})
 public class BiomeHelper {
-    public static Map<Biome.BiomeCategory, List<ResourceKey<Biome>>> BIOME_CATEGORY_MAP;
+    public static Map<Biome.BiomeCategory, List<ResourceKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
 
     public static Biome getBiome(ServerLevel world, BlockPos pos) {
         BiomeManager biomeAccess = world.getBiomeManager();
@@ -155,15 +155,5 @@ public class BiomeHelper {
         Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> spawnCosts = ((MobSpawnSettingsAccessor) settings).getMobSpawnCosts();
         if (spawnCosts instanceof ImmutableMap)
             ((MobSpawnSettingsAccessor)settings).setMobSpawnCosts(new HashMap<>(spawnCosts));
-    }
-
-    static {
-        BuiltinRegistries.BIOME.entrySet().forEach(entry -> {
-            Biome.BiomeCategory category = entry.getValue().getBiomeCategory();
-            ResourceKey<Biome> key = entry.getKey();
-
-            BiomeHelper.BIOME_CATEGORY_MAP.putIfAbsent(category, new ArrayList<>());
-            BiomeHelper.BIOME_CATEGORY_MAP.get(category).add(key);
-        });
     }
 }

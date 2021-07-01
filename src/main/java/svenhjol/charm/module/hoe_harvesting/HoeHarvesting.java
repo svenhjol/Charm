@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.init.CharmAdvancements;
 
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Module(mod = Charm.MOD_ID, description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.")
-public class HoeHarvesting extends CharmModule {
+public class HoeHarvesting extends CommonModule {
     public static final ResourceLocation TRIGGER_REPLANTED_CROPS = new ResourceLocation(Charm.MOD_ID, "replanted_crops");
 
     private static final List<BlockState> harvestable = new ArrayList<>();

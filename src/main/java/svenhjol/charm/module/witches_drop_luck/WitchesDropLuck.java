@@ -11,14 +11,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potions;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.EntityDropItemsCallback;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.helper.PotionHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 
-@Module(mod = Charm.MOD_ID, description = "A witch has a chance to drop a Potion of Luck when killed by a player.",
-    requiresMixins = {"EntityDropItemsCallback"})
-public class WitchesDropLuck extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "A witch has a chance to drop a Potion of Luck when killed by a player.")
+public class WitchesDropLuck extends CommonModule {
     public static double lootingBoost = 0.25D;
 
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a witch dropping a Potion of Luck when killed by the player.")

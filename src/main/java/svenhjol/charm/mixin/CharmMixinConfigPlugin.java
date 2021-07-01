@@ -11,6 +11,7 @@ import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import svenhjol.charm.Charm;
+import svenhjol.charm.helper.ClassHelper;
 import svenhjol.charm.helper.ConfigHelper;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.helper.StringHelper;
@@ -64,7 +65,7 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
         Iterable<ClassPath.ClassInfo> classes;
         try {
             ClassLoader classLoader = CharmMixinConfigPlugin.class.getClassLoader();
-            classes = ConfigHelper.getClassesInPackage(classLoader, mixinPackage);
+            classes = ClassHelper.getClassesInPackage(classLoader, mixinPackage);
         } catch (Exception e) {
             throw new IllegalStateException("Could not fetch mixin classes, giving up: " + e.getMessage());
         }

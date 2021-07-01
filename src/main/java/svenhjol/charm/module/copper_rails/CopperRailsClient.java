@@ -2,15 +2,10 @@ package svenhjol.charm.module.copper_rails;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.module.copper_rails.CopperRails;
+import svenhjol.charm.loader.ClientModule;
 
-public class CopperRailsClient extends CharmClientModule {
-    public CopperRailsClient(CharmModule module) {
-        super(module);
-    }
-
+@svenhjol.charm.annotation.ClientModule(module = CopperRails.class)
+public class CopperRailsClient extends ClientModule {
     @Override
     public void register() {
         BlockRenderLayerMap.INSTANCE.putBlock(CopperRails.COPPER_RAIL, RenderType.cutout());

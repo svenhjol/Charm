@@ -9,11 +9,11 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.block.CharmFallingBlock;
 
 public class RedstoneSandBlock extends CharmFallingBlock {
-    public RedstoneSandBlock(CharmModule module) {
+    public RedstoneSandBlock(CommonModule module) {
         super(module, "redstone_sand", FabricBlockSettings
             .of(Material.SAND)
             .sounds(SoundType.SAND)

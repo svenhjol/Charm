@@ -9,10 +9,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.item.CharmBoatItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, priority = 5, client = ExtraBoatsClient.class, description = "Adds crimson and warped wood boats.")
-public class ExtraBoats extends CharmModule {
+@Module(mod = Charm.MOD_ID, priority = 5, description = "Adds crimson and warped wood boats.")
+public class ExtraBoats extends CommonModule {
     public static EntityType<CharmBoatEntity> CHARM_BOAT;
 
     public static CharmBoatItem CRIMSON_BOAT;

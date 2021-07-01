@@ -15,12 +15,12 @@ import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, priority = 10, client = BookcasesClient.class, description = "Bookshelves that can hold up to 9 stacks of books and maps.")
-public class Bookcases extends CharmModule {
+@Module(mod = Charm.MOD_ID, priority = 10, description = "Bookshelves that can hold up to 9 stacks of books and maps.")
+public class Bookcases extends CommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "bookcase");
     public static final ResourceLocation TRIGGER_ADDED_BOOK_TO_BOOKCASE = new ResourceLocation(Charm.MOD_ID, "added_book_to_bookcase");
     public static final Map<IVariantMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
@@ -60,7 +60,7 @@ public class Bookcases extends CharmModule {
         SCREEN_HANDLER = RegistryHelper.screenHandler(ID, BookcaseScreenHandler::new);
     }
 
-    public static BookcaseBlock registerBookcase(CharmModule module, IVariantMaterial material) {
+    public static BookcaseBlock registerBookcase(CommonModule module, IVariantMaterial material) {
         BookcaseBlock bookcase = new BookcaseBlock(module, material);
         BOOKCASE_BLOCKS.put(material, bookcase);
         RegistryHelper.addBlocksToBlockEntity(BLOCK_ENTITY, bookcase);

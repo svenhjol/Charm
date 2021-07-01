@@ -14,13 +14,12 @@ import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 
-@Module(mod = Charm.MOD_ID, client = SnowStormsClient.class, description = "Increases snow layers in cold biomes during thunderstorms.")
-public class SnowStorms extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Increases snow layers in cold biomes during thunderstorms.")
+public class SnowStorms extends CommonModule {
     public static final ResourceLocation HEAVY_SNOW = new ResourceLocation(Charm.MOD_ID, "textures/environment/heavy_snow.png");
 
     @Config(name = "Snow layer chance", description = "Chance (out of 1.0) every tick of snow increasing by one layer during a thunderstorm.")
@@ -36,7 +35,7 @@ public class SnowStorms extends CharmModule {
         Level world = entity.level;
         BlockPos pos = entity.blockPosition();
 
-        return ModuleHandler.enabled(SnowStorms.class)
+        return Charm.LOADER.isEnabled(SnowStorms.class)
             && SnowStorms.freezingDamage
             && !world.isClientSide
             && world.isThundering()
@@ -48,11 +47,11 @@ public class SnowStorms extends CharmModule {
     }
 
     public static boolean tryRandomTick(ServerLevel world) {
-        return ModuleHandler.enabled(SnowStorms.class) && world.isThundering();
+        return Charm.LOADER.isEnabled(SnowStorms.class) && world.isThundering();
     }
 
     public static void tryPlaceSnow(ServerLevel world, int chunkX, int chunkZ) {
-        if (!ModuleHandler.enabled(SnowStorms.class) || !world.isThundering())
+        if (!Charm.LOADER.isEnabled(SnowStorms.class) || !world.isThundering())
             return;
 
         if (world.random.nextDouble() < snowLayerChance) {

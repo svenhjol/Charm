@@ -8,13 +8,13 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.CharmBarsBlock;
 import svenhjol.charm.enums.IMetalMaterial;
 import svenhjol.charm.enums.VanillaMetalMaterial;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, client = VariantBarsClient.class, description = "Variant bars crafted from vanilla metal ingots.")
-public class VariantBars extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Variant bars crafted from vanilla metal ingots.")
+public class VariantBars extends CommonModule {
     public static Map<IMetalMaterial, CharmBarsBlock> BARS = new HashMap<>();
 
     @Override

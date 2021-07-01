@@ -14,16 +14,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.helper.ItemNBTHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.bat_buckets.BatBucketItem;
 
 @Module(mod = Charm.MOD_ID, description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
-public class BatBuckets extends CharmModule {
+public class BatBuckets extends CommonModule {
     public static final ResourceLocation TRIGGER_CAPTURED_BAT = new ResourceLocation(Charm.MOD_ID, "captured_bat");
     public static final ResourceLocation TRIGGER_USED_BAT_BUCKET = new ResourceLocation(Charm.MOD_ID, "used_bat_bucket");
     public static svenhjol.charm.module.bat_buckets.BatBucketItem BAT_BUCKET_ITEM;

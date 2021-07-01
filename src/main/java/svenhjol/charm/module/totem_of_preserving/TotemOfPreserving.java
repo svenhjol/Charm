@@ -21,16 +21,15 @@ import svenhjol.charm.event.EntityDropXpCallback;
 import svenhjol.charm.event.PlayerDropInventoryCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-@Module(mod = Charm.MOD_ID, description = "Items will be held in the Totem of Preserving if you die.",
-    requiresMixins = {"PlayerDropInventoryCallback", "EntityDropXpCallback", "CheckItemDespawnMixin"})
-public class TotemOfPreserving extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Items will be held in the Totem of Preserving if you die.")
+public class TotemOfPreserving extends CommonModule {
     public static TotemOfPreservingItem TOTEM_OF_PRESERVING;
     public static final ResourceLocation TRIGGER_USED_TOTEM_OF_PRESERVING = new ResourceLocation(Charm.MOD_ID, "used_totem_of_preserving");
 

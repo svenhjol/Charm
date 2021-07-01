@@ -1,11 +1,5 @@
 package svenhjol.charm.helper;
 
-import svenhjol.charm.mixin.accessor.PlayerAccessor;
-import svenhjol.charm.mixin.accessor.PlayerDataStorageAccessor;
-
-import java.io.File;
-import java.util.EnumSet;
-import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -18,6 +12,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.PlayerDataStorage;
+import net.minecraft.world.phys.AABB;
+import svenhjol.charm.mixin.accessor.PlayerAccessor;
+import svenhjol.charm.mixin.accessor.PlayerDataStorageAccessor;
+
+import java.io.File;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 
 public class PlayerHelper {
     /**
@@ -71,5 +73,9 @@ public class PlayerHelper {
 
     public static File getPlayerDataDir(PlayerDataStorage saveHandler) {
         return ((PlayerDataStorageAccessor) saveHandler).getPlayerDir();
+    }
+
+    public static List<Player> getPlayersInRange(Level world, BlockPos pos) {
+        return world.getEntitiesOfClass(Player.class, new AABB(pos).inflate(8.0D));
     }
 }

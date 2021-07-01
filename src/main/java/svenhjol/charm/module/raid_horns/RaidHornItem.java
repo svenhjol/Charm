@@ -23,13 +23,13 @@ import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.mixin.accessor.PatrolSpawnerAccessor;
 import svenhjol.charm.mixin.accessor.ServerLevelAccessor;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.List;
 import java.util.Random;
 
 public class RaidHornItem extends CharmItem {
-    public RaidHornItem(CharmModule module) {
+    public RaidHornItem(CommonModule module) {
         super(module, "raid_horn", new Item.Properties()
             .stacksTo(1)
             .durability(16)

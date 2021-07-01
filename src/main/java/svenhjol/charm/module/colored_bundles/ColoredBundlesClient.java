@@ -3,13 +3,10 @@ package svenhjol.charm.module.colored_bundles;
 import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistryAccessor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BundleItem;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
-public class ColoredBundlesClient extends CharmClientModule {
-    public ColoredBundlesClient(CharmModule module) {
-        super(module);
-    }
+@svenhjol.charm.annotation.ClientModule(module = ColoredBundles.class)
+public class ColoredBundlesClient extends ClientModule {
 
     @Override
     public void register() {

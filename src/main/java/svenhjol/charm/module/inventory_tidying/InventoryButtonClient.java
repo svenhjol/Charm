@@ -6,24 +6,19 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import svenhjol.charm.CharmClient;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
-import svenhjol.charm.handler.ClientModuleHandler;
 import svenhjol.charm.helper.ScreenHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 import svenhjol.charm.module.portable_crafting.PortableCraftingClient;
 
 import java.util.List;
 
-public class InventoryButtonClient extends CharmClientModule {
+public class InventoryButtonClient extends ClientModule {
     public ImageButton recipeButton;
     public PortableCraftingClient portableCraftingClient;
     private boolean hasHiddenRecipeButton = false;
-
-    public InventoryButtonClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void register() {
@@ -33,7 +28,7 @@ public class InventoryButtonClient extends CharmClientModule {
 
     @Override
     public void init() {
-        portableCraftingClient = (PortableCraftingClient) ClientModuleHandler.INSTANCE.getModule("portable_crafting_client");
+        portableCraftingClient = (PortableCraftingClient) CharmClient.LOADER.getModule("portable_crafting_client");
     }
 
     private void handleGuiSetup(Minecraft client, int width, int height, List<NarratableEntry> buttons) {

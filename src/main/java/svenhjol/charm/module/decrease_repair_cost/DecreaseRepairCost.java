@@ -10,8 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.event.TakeAnvilOutputCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.annotation.Config;
@@ -19,9 +18,8 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.mixin.accessor.ItemCombinerMenuAccessor;
 
-@Module(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.",
-    requiresMixins = {"UpdateAnvilCallback", "TakeAnvilOutputCallback"})
-public class DecreaseRepairCost extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.")
+public class DecreaseRepairCost extends CommonModule {
     public static final ResourceLocation TRIGGER_DECREASED_COST = new ResourceLocation(Charm.MOD_ID, "decreased_cost");
 
     @Config(name = "XP cost", description = "Number of levels required to reduce repair cost on the anvil.")
@@ -33,7 +31,7 @@ public class DecreaseRepairCost extends CharmModule {
     @Override
     public void init() {
         // if anvil improvements are not enabled, then set the xpCost to 1.
-        if (!ModuleHandler.enabled("charm:anvil_improvements") && xpCost < 1)
+        if (!Charm.LOADER.isEnabled("anvil_improvements") && xpCost < 1)
             xpCost = 1;
 
         // register the anvil recipe for this operation

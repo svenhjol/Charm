@@ -1,6 +1,5 @@
 package svenhjol.charm.module.glowballs;
 
-import svenhjol.charm.module.CharmModule;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -15,12 +14,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.item.ICharmItem;
-import svenhjol.charm.module.glowballs.GlowballEntity;
+import svenhjol.charm.loader.CommonModule;
 
 public class GlowballItem extends EnderpearlItem implements ICharmItem {
-    protected CharmModule module;
+    protected CommonModule module;
 
-    public GlowballItem(CharmModule module) {
+    public GlowballItem(CommonModule module) {
         super(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_MISC));
         this.module = module;
         this.register(module, "glowball");
@@ -53,6 +52,6 @@ public class GlowballItem extends EnderpearlItem implements ICharmItem {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

@@ -3,13 +3,10 @@ package svenhjol.charm.module.woodcutters;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
-public class WoodcuttersClient extends CharmClientModule {
-    public WoodcuttersClient(CharmModule module) {
-        super(module);
-    }
+@svenhjol.charm.annotation.ClientModule(module = Woodcutters.class)
+public class WoodcuttersClient extends ClientModule {
 
     @Override
     public void register() {

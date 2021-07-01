@@ -1,6 +1,6 @@
 package svenhjol.charm.module.copper_rails;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -10,9 +10,9 @@ import net.minecraft.world.level.material.Material;
 import svenhjol.charm.block.ICharmBlock;
 
 public class CopperRailBlock extends RailBlock implements ICharmBlock {
-    private final CharmModule module;
+    private final CommonModule module;
 
-    public CopperRailBlock(CharmModule module) {
+    public CopperRailBlock(CommonModule module) {
         super(Properties.of(Material.DECORATION).noCollission().strength(0.7F).sound(SoundType.METAL));
         this.module = module;
         this.register(module, "copper_rail");
@@ -31,6 +31,6 @@ public class CopperRailBlock extends RailBlock implements ICharmBlock {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

@@ -22,20 +22,18 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.AddEntityCallback;
-import svenhjol.charm.handler.AdvancementHandler;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.MobHelper;
+import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.helper.PosHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, description = "Ender pearl storage. Eating a chorus fruit will teleport you to the nearest ender pearl block.",
-    requiresMixins = {"AddEntityCallback"})
-public class BlockOfEnderPearls extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Ender pearl storage. Eating a chorus fruit will teleport you to the nearest ender pearl block.")
+public class BlockOfEnderPearls extends CommonModule {
     public static EnderPearlBlock ENDER_PEARL_BLOCK;
 
     public static final ResourceLocation TRIGGER_CONVERTED_SILVERFISH = new ResourceLocation(Charm.MOD_ID, "converted_silverfish");
@@ -61,7 +59,7 @@ public class BlockOfEnderPearls extends CharmModule {
     }
 
     public static boolean tryChorusTeleport(LivingEntity entity, ItemStack stack) {
-        if (!ModuleHandler.enabled("charm:block_of_ender_pearls") || !chorusTeleport)
+        if (!Charm.LOADER.isEnabled("charm:block_of_ender_pearls") || !chorusTeleport)
             return false;
 
         if (!(entity instanceof Player))
@@ -144,7 +142,7 @@ public class BlockOfEnderPearls extends CharmModule {
     }
 
     public static void triggerConvertedSilverfishForNearbyPlayers(ServerLevel world, BlockPos pos) {
-        AdvancementHandler.getPlayersInRange(world, pos).forEach(player -> {
+        PlayerHelper.getPlayersInRange(world, pos).forEach(player -> {
             CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayer)player, TRIGGER_CONVERTED_SILVERFISH);
         });
     }

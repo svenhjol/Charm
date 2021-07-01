@@ -12,14 +12,13 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.mixin.accessor.HoglinAiAccessor;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.potion.CharmPotion;
 
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Causes all hoglins in the vicinity to run away from you.",
-    requiresMixins = {"PlayerTickCallback"})
-public class PotionOfHogsbane extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Causes all hoglins in the vicinity to run away from you.")
+public class PotionOfHogsbane extends CommonModule {
     public static HogsbaneEffect HOGSBANE_EFFECT;
     public static CharmPotion HOGSPANE_POTION;
     public static CharmPotion LONG_HOGSBANE_POTION;

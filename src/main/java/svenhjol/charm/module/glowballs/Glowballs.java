@@ -17,11 +17,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, client = GlowballsClient.class, description = "Glowballs can be thrown to produce a light source where they impact.",
-    requiresMixins = {"ClientSpawnEntityCallback"})
-public class Glowballs extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Glowballs can be thrown to produce a light source where they impact.")
+public class Glowballs extends CommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "glowball");
     public static final ResourceLocation TRIGGER_THROWN_GLOWBALL = new ResourceLocation(Charm.MOD_ID, "thrown_glowball");
 

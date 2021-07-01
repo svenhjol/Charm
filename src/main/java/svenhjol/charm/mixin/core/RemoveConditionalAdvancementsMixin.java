@@ -8,15 +8,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.annotation.CharmMixin;
-import svenhjol.charm.handler.AdvancementHandler;
+import svenhjol.charm.init.CharmAdvancements;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Mixin(AdvancementList.class)
-@CharmMixin(required = true)
 public class RemoveConditionalAdvancementsMixin {
     /**
      * Conditionally remove advancements from the map if their
@@ -37,7 +35,7 @@ public class RemoveConditionalAdvancementsMixin {
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void hookLoad(Map<ResourceLocation, Advancement.Builder> map, CallbackInfo ci, Map<ResourceLocation, Advancement.Builder> map2) {
-        AdvancementHandler.modulesToRemove.forEach(mod -> {
+        CharmAdvancements.modulesToRemove.forEach(mod -> {
             List<ResourceLocation> keys = new ArrayList<>(map2.keySet());
 
             keys.stream()

@@ -25,18 +25,16 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.EntityEquipCallback;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.init.CharmSounds;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-@Module(mod = Charm.MOD_ID, description = "A tool that rotates blocks. When held in offhand it locks block orientation when placing.",
-    requiresMixins = {"EntityEquipCallback"})
-public class Quadrants extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "A tool that rotates blocks. When held in offhand it locks block orientation when placing.")
+public class Quadrants extends CommonModule {
     public static QuadrantItem QUADRANT;
     public static Map<UUID, Direction> lockedDirection = new HashMap<>();
     public static final ResourceLocation TRIGGER_HELD_TO_ALIGN = new ResourceLocation(Charm.MOD_ID, "held_to_align");
@@ -54,7 +52,7 @@ public class Quadrants extends CharmModule {
     }
 
     public static BlockState getRotatedBlockState(BlockState state, BlockPlaceContext context) {
-        if (!ModuleHandler.enabled(Quadrants.class))
+        if (!Charm.LOADER.isEnabled(Quadrants.class))
             return state;
 
         Player player = context.getPlayer();

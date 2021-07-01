@@ -8,13 +8,10 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.EntityType;
 import svenhjol.charm.event.ClientSpawnEntityCallback;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
-public class GlowballsClient extends CharmClientModule {
-    public GlowballsClient(CharmModule module) {
-        super(module);
-    }
+@svenhjol.charm.annotation.ClientModule(module = Glowballs.class)
+public class GlowballsClient extends ClientModule {
 
     @Override
     public void register() {

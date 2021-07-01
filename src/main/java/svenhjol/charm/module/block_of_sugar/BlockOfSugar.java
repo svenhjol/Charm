@@ -6,12 +6,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Module;
-import svenhjol.charm.handler.AdvancementHandler;
+import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 @Module(mod = Charm.MOD_ID, description = "A storage block for sugar. It obeys gravity and dissolves in water.")
-public class BlockOfSugar extends CharmModule {
+public class BlockOfSugar extends CommonModule {
     public static SugarBlock SUGAR_BLOCK;
 
     public static final ResourceLocation TRIGGER_DISSOLVED_SUGAR = new ResourceLocation(Charm.MOD_ID, "dissolved_sugar");
@@ -22,7 +22,7 @@ public class BlockOfSugar extends CharmModule {
     }
 
     public static void triggerAdvancementForNearbyPlayers(ServerLevel world, BlockPos pos) {
-        AdvancementHandler.getPlayersInRange(world, pos).forEach(player -> {
+        PlayerHelper.getPlayersInRange(world, pos).forEach(player -> {
             CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayer)player, TRIGGER_DISSOLVED_SUGAR);
         });
     }

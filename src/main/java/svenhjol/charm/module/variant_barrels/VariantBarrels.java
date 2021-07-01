@@ -9,12 +9,12 @@ import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.helper.WorldHelper;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.*;
 
 @Module(mod = Charm.MOD_ID, priority = 10, description = "Barrels available in all types of vanilla wood.")
-public class VariantBarrels extends CharmModule {
+public class VariantBarrels extends CommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "barrel");
     public static final Map<IVariantMaterial, VariantBarrelBlock> BARREL_BLOCKS = new HashMap<>();
 
@@ -25,7 +25,7 @@ public class VariantBarrels extends CharmModule {
         }
     }
 
-    public static VariantBarrelBlock registerBarrel(CharmModule module, IVariantMaterial material) {
+    public static VariantBarrelBlock registerBarrel(CommonModule module, IVariantMaterial material) {
         VariantBarrelBlock barrel = new VariantBarrelBlock(module, material);
         BARREL_BLOCKS.put(material, barrel);
         RegistryHelper.addBlocksToBlockEntity(BlockEntityType.BARREL, barrel);

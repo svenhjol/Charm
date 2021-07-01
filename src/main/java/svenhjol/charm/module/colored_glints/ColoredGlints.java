@@ -12,17 +12,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.TakeAnvilOutputCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.init.CharmAdvancements;
 
-@Module(mod = Charm.MOD_ID, description = "Use dye on an anvil to change an item's enchantment color.",
-    requiresMixins = {"TakeAnvilOutputCallback", "UpdateAnvilCallback"})
-public class ColoredGlints extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Use dye on an anvil to change an item's enchantment color.")
+public class ColoredGlints extends CommonModule {
     public static final ResourceLocation TRIGGER_CHANGED_GLINT_COLOR = new ResourceLocation(Charm.MOD_ID, "changed_glint_color");
     public static boolean enabled;
 
@@ -34,10 +32,10 @@ public class ColoredGlints extends CharmModule {
 
     @Override
     public void init() {
-        if (!ModuleHandler.enabled("charm:anvil_improvements") && xpCost < 1)
+        if (!Charm.LOADER.isEnabled("anvil_improvements") && xpCost < 1)
             xpCost = 1;
 
-        enabled = ModuleHandler.enabled(ColoredGlints.class);
+        enabled = Charm.LOADER.isEnabled(ColoredGlints.class);
 
         // listen for anvil behavior
         UpdateAnvilCallback.EVENT.register(this::handleAnvilBehavior);

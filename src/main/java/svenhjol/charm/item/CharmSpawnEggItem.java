@@ -7,19 +7,18 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
-import svenhjol.charm.item.ICharmItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public class CharmSpawnEggItem extends SpawnEggItem implements ICharmItem {
-    private final CharmModule module;
+    private final CommonModule module;
 
-    public CharmSpawnEggItem(CharmModule module, String name, EntityType<? extends Mob> type, int primaryColor, int secondaryColor, Properties settings) {
+    public CharmSpawnEggItem(CommonModule module, String name, EntityType<? extends Mob> type, int primaryColor, int secondaryColor, Properties settings) {
         super(type, primaryColor, secondaryColor, settings);
         this.module = module;
         this.register(module, name);
     }
 
-    public CharmSpawnEggItem(CharmModule module, String name, EntityType<? extends Mob> type, int primaryColor, int secondaryColor) {
+    public CharmSpawnEggItem(CommonModule module, String name, EntityType<? extends Mob> type, int primaryColor, int secondaryColor) {
         this(module, name, type, primaryColor, secondaryColor, (new Item.Properties()).tab(CreativeModeTab.TAB_MISC));
     }
 
@@ -31,6 +30,6 @@ public class CharmSpawnEggItem extends SpawnEggItem implements ICharmItem {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

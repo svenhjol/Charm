@@ -12,12 +12,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.EntityHurtCallback;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Module;
 
-@Module(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.",
-    requiresMixins = {"EntityHurtCallback"})
-public class TamedAnimalsNoDamage extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.")
+public class TamedAnimalsNoDamage extends CommonModule {
     @Override
     public void init() {
         AttackEntityCallback.EVENT.register(this::tryIgnoreAttack);

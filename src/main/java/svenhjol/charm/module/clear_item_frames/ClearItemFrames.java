@@ -20,13 +20,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.clear_item_frames.ClearItemFramesClient;
+import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, client = ClearItemFramesClient.class, description = "Add amethyst shards to item frames to make them invisible.")
-public class ClearItemFrames extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Add amethyst shards to item frames to make them invisible.")
+public class ClearItemFrames extends CommonModule {
     public static final ResourceLocation MSG_CLIENT_ADD_AMETHYST = new ResourceLocation(Charm.MOD_ID, "client_add_amethyst");
     public static final ResourceLocation MSG_CLIENT_REMOVE_AMETHYST = new ResourceLocation(Charm.MOD_ID, "client_remove_amethyst");
     public static final ResourceLocation TRIGGER_USED_AMETHYST_ON_FRAME = new ResourceLocation(Charm.MOD_ID, "used_amethyst_on_frame");

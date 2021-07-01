@@ -7,11 +7,11 @@ import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Module;
 
 @Module(mod = Charm.MOD_ID, description = "Parrots stay on your shoulder when jumping and falling. Crouch to make them dismount.")
-public class ParrotsStayOnShoulder extends CharmModule {
+public class ParrotsStayOnShoulder extends CommonModule {
     private static boolean isEnabled = false;
 
     @Override

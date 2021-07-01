@@ -6,20 +6,19 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.Block;
-import svenhjol.charm.item.ICharmItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public class CharmSignItem extends SignItem implements ICharmItem {
-    private final CharmModule module;
+    private final CommonModule module;
 
-    public CharmSignItem(CharmModule module, String name, Block standingBlock, Block wallBlock, Properties settings) {
+    public CharmSignItem(CommonModule module, String name, Block standingBlock, Block wallBlock, Properties settings) {
         super(settings, standingBlock, wallBlock);
 
         this.register(module, name);
         this.module = module;
     }
 
-    public CharmSignItem(CharmModule module, String name, Block standingBlock, Block wallBlock) {
+    public CharmSignItem(CommonModule module, String name, Block standingBlock, Block wallBlock) {
         this(module, name, standingBlock, wallBlock, new Item.Properties()
             .stacksTo(16)
             .tab(CreativeModeTab.TAB_DECORATIONS));
@@ -33,6 +32,6 @@ public class CharmSignItem extends SignItem implements ICharmItem {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

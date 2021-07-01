@@ -25,15 +25,14 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
-import svenhjol.charm.module.storage_labels.StorageLabelsClient;
+import svenhjol.charm.loader.CommonModule;
 
 import javax.annotation.Nullable;
 
-@Module(mod = Charm.MOD_ID, client = StorageLabelsClient.class, description = "Shows the custom name of a storage block as a floating label when the player is sneaking.")
-public class StorageLabels extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Shows the custom name of a storage block as a floating label when the player is sneaking.")
+public class StorageLabels extends CommonModule {
     public static final ResourceLocation MSG_SERVER_QUERY_CUSTOM_NAME = new ResourceLocation(Charm.MOD_ID, "server_query_custom_name");
     public static final ResourceLocation MSG_CLIENT_UPDATE_CUSTOM_NAME = new ResourceLocation(Charm.MOD_ID, "client_update_custom_name");
     public static final ResourceLocation MSG_CLIENT_HAS_NO_CUSTOM_NAME = new ResourceLocation(Charm.MOD_ID, "client_has_no_custom_name");

@@ -11,12 +11,12 @@ import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.Charm;
 import svenhjol.charm.enums.ICharmEnum;
 import svenhjol.charm.event.ClientPlayerJoinCallback;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
 import java.util.*;
 
-public class VariantMobTexturesClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = VariantMobTextures.class)
+public class VariantMobTexturesClient extends ClientModule {
     private static final String PREFIX = "textures/entity/";
     private static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(PREFIX + "sheep/sheep.png");
 
@@ -36,10 +36,6 @@ public class VariantMobTexturesClient extends CharmClientModule {
     public static Map<ResourceLocation, ResourceLocation> wolvesTame = new HashMap<>();
     public static Map<ResourceLocation, ResourceLocation> wolvesAngry = new HashMap<>();
     public static Map<DyeColor, ResourceLocation> sheep = new HashMap<>();
-
-    public VariantMobTexturesClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void init() {

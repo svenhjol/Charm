@@ -7,19 +7,19 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public class CharmTrapdoorBlock extends TrapDoorBlock implements ICharmBlock {
-    private final CharmModule module;
+    private final CommonModule module;
 
-    public CharmTrapdoorBlock(CharmModule module, String name, Properties settings) {
+    public CharmTrapdoorBlock(CommonModule module, String name, Properties settings) {
         super(settings);
         this.register(module, name);
         this.module = module;
         this.setBurnTime(300);
     }
 
-    public CharmTrapdoorBlock(CharmModule module, String name, MaterialColor color) {
+    public CharmTrapdoorBlock(CommonModule module, String name, MaterialColor color) {
         this(module, name, Properties.of(Material.WOOD, color)
             .strength(3.0F)
             .noOcclusion()
@@ -35,6 +35,6 @@ public class CharmTrapdoorBlock extends TrapDoorBlock implements ICharmBlock {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

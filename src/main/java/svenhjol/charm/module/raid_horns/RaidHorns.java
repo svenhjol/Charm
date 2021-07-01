@@ -15,11 +15,10 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.",
-    requiresMixins = {"EntityDropItemsCallback"})
-public class RaidHorns extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.")
+public class RaidHorns extends CommonModule {
     public static RaidHornItem RAID_HORN;
 
     public static final ResourceLocation TRIGGER_SUMMONED_PILLAGERS = new ResourceLocation(Charm.MOD_ID, "summoned_pillagers");

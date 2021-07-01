@@ -8,13 +8,13 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.block.CharmChainBlock;
 import svenhjol.charm.enums.IMetalMaterial;
 import svenhjol.charm.enums.VanillaMetalMaterial;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.module.extra_nuggets.ExtraNuggets;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, client = VariantChainsClient.class, description = "Variant chains crafted from vanilla metal ingots and nuggets.")
-public class VariantChains extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Variant chains crafted from vanilla metal ingots and nuggets.")
+public class VariantChains extends CommonModule {
     public static Map<IMetalMaterial, CharmChainBlock> CHAINS = new HashMap<>();
 
     @Override
@@ -34,7 +34,7 @@ public class VariantChains extends CharmModule {
         List<ResourceLocation> remove = new ArrayList<>();
 
         // remove chain recipes if nuggets module is disabled
-        if (!ModuleHandler.enabled("charm:extra_nuggets")) {
+        if (!Charm.LOADER.isEnabled(ExtraNuggets.class)) {
             remove.addAll(Arrays.asList(
                 new ResourceLocation(Charm.MOD_ID, "variant_chains/copper_chain"),
                 new ResourceLocation(Charm.MOD_ID, "variant_chains/netherite_chain")

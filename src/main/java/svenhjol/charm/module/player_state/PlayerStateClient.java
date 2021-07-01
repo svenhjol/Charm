@@ -9,16 +9,12 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.api.CharmNetworkReferences;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
 @SuppressWarnings({"FieldCanBeLocal", "unused"})
-public class PlayerStateClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = PlayerState.class)
+public class PlayerStateClient extends ClientModule {
     public static final ResourceLocation MSG_CLIENT_UPDATE = new ResourceLocation(CharmNetworkReferences.ClientUpdatePlayerState.toString());
-
-    public PlayerStateClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void init() {

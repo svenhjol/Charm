@@ -1,21 +1,20 @@
 package svenhjol.charm.module.variant_chests;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.enums.VanillaVariantMaterial;
-import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.annotation.Module;
-
-import java.util.HashMap;
-import java.util.Map;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.enums.VanillaVariantMaterial;
+import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, priority = 10, client = VariantChestsClient.class, description = "Chests available in all types of vanilla wood.",
-    requiresMixins = {"StitchTextureCallback", "RenderBlockItemCallback"})
-public class VariantChests extends CharmModule {
+import java.util.HashMap;
+import java.util.Map;
+
+@Module(mod = Charm.MOD_ID, priority = 10, description = "Chests available in all types of vanilla wood.")
+public class VariantChests extends CommonModule {
     public static final ResourceLocation NORMAL_ID = new ResourceLocation(Charm.MOD_ID, "variant_chest");
     public static final ResourceLocation TRAPPED_ID = new ResourceLocation(Charm.MOD_ID, "trapped_chest");
 
@@ -36,14 +35,14 @@ public class VariantChests extends CharmModule {
         }
     }
 
-    public static VariantChestBlock registerChest(CharmModule module, IVariantMaterial material) {
+    public static VariantChestBlock registerChest(CommonModule module, IVariantMaterial material) {
         VariantChestBlock chest = new VariantChestBlock(module, material);
         NORMAL_CHEST_BLOCKS.put(material, chest);
         RegistryHelper.addBlocksToBlockEntity(NORMAL_BLOCK_ENTITY, chest);
         return chest;
     }
 
-    public static VariantTrappedChestBlock registerTrappedChest(CharmModule module, IVariantMaterial material) {
+    public static VariantTrappedChestBlock registerTrappedChest(CommonModule module, IVariantMaterial material) {
         VariantTrappedChestBlock chest = new VariantTrappedChestBlock(module, material);
         TRAPPED_CHEST_BLOCKS.put(material, chest);
         RegistryHelper.addBlocksToBlockEntity(TRAPPED_BLOCK_ENTITY, chest);

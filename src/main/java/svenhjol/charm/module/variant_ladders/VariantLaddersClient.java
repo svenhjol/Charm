@@ -2,15 +2,10 @@ package svenhjol.charm.module.variant_ladders;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.module.variant_ladders.VariantLadders;
+import svenhjol.charm.loader.ClientModule;
 
-public class VariantLaddersClient extends CharmClientModule {
-    public VariantLaddersClient(CharmModule module) {
-        super(module);
-    }
-
+@svenhjol.charm.annotation.ClientModule(module = VariantLadders.class)
+public class VariantLaddersClient extends ClientModule {
     @Override
     public void register() {
         VariantLadders.LADDER_BLOCKS.values().forEach(ladder -> BlockRenderLayerMap.INSTANCE.putBlock(ladder, RenderType.cutout()));

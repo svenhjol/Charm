@@ -6,13 +6,10 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
-public class AzaleaWoodClient extends CharmClientModule {
-    public AzaleaWoodClient(CharmModule module) {
-        super(module);
-    }
+@svenhjol.charm.annotation.ClientModule(module = AzaleaWood.class)
+public class AzaleaWoodClient extends ClientModule {
 
     @Override
     public void register() {

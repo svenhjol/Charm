@@ -1,28 +1,26 @@
 package svenhjol.charm.module.automatic_recipe_unlock;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.event.ServerJoinCallback;
-
-import java.util.Collection;
 import net.minecraft.network.Connection;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Module;
+import svenhjol.charm.event.ServerJoinCallback;
+import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Unlocks all vanilla recipes.",
-    requiresMixins = "ServerJoinCallback")
-public class AutomaticRecipeUnlock extends CharmModule {
+import java.util.Collection;
+
+@Module(mod = Charm.MOD_ID, description = "Unlocks all vanilla recipes.")
+public class AutomaticRecipeUnlock extends CommonModule {
     @Override
     public void init() {
         ServerJoinCallback.EVENT.register(this::handleServerJoin);
     }
 
     private void handleServerJoin(PlayerList playerManager, Connection connection, Player player) {
-        if (!ModuleHandler.enabled("charm:automatic_recipe_unlock"))
+        if (!Charm.LOADER.isEnabled(AutomaticRecipeUnlock.class))
             return;
 
         if (player != null) {

@@ -5,14 +5,10 @@ import net.minecraft.client.model.BoatModel;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
-public class ExtraBoatsClient extends CharmClientModule {
-    public ExtraBoatsClient(CharmModule module) {
-        super(module);
-    }
-
+@svenhjol.charm.annotation.ClientModule(module = ExtraBoats.class)
+public class ExtraBoatsClient extends ClientModule {
     @Override
     public void register() {
         // nether-wood boats

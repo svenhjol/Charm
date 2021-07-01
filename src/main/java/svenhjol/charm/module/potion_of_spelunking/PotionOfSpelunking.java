@@ -18,13 +18,12 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, client = PotionOfSpelunkingClient.class, description = "Shows particles at ground level to help locate ores below you.",
-    requiresMixins = {"PlayerTickCallback"})
-public class PotionOfSpelunking extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Shows particles at ground level to help locate ores below you.")
+public class PotionOfSpelunking extends CommonModule {
     private static final DyeColor DEFAULT_COLOR = DyeColor.WHITE;
 
     public static SpelunkingEffect SPELUNKING_EFFECT;

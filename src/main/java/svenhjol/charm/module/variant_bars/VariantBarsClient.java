@@ -2,15 +2,10 @@ package svenhjol.charm.module.variant_bars;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.module.variant_bars.VariantBars;
+import svenhjol.charm.loader.ClientModule;
 
-public class VariantBarsClient extends CharmClientModule {
-    public VariantBarsClient(CharmModule module) {
-        super(module);
-    }
-
+@svenhjol.charm.annotation.ClientModule(module = VariantBars.class)
+public class VariantBarsClient extends ClientModule {
     @Override
     public void register() {
         VariantBars.BARS.values().forEach(bars -> BlockRenderLayerMap.INSTANCE.putBlock(bars, RenderType.cutout()));

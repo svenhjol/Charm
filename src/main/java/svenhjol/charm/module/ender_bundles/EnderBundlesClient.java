@@ -20,20 +20,16 @@ import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.TooltipHelper;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class EnderBundlesClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = EnderBundles.class)
+public class EnderBundlesClient extends ClientModule {
     public static float CACHED_AMOUNT_FILLED = 0.0F;
-
-    public EnderBundlesClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void register() {

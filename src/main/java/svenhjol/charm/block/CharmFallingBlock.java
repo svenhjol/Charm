@@ -4,14 +4,13 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.FallingBlock;
-import svenhjol.charm.block.ICharmFallingBlock;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 @SuppressWarnings({"NullableProblems", "unused"})
 public abstract class CharmFallingBlock extends FallingBlock implements ICharmFallingBlock {
-    protected CharmModule module;
+    protected CommonModule module;
 
-    public CharmFallingBlock(CharmModule module, String name, Properties props) {
+    public CharmFallingBlock(CommonModule module, String name, Properties props) {
         super(props);
         this.module = module;
         register(module, name);
@@ -30,6 +29,6 @@ public abstract class CharmFallingBlock extends FallingBlock implements ICharmFa
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

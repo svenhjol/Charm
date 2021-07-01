@@ -10,10 +10,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.init.CharmDecorations;
-import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(SinglePoolElement.class)
-@CharmMixin(required = true)
 public class AddCustomDecorationProcessorsMixin {
     /**
      * Adds all the structure processors defined in StructureHelper.SINGLE_POOL_ELEMENT_PROCESSORS

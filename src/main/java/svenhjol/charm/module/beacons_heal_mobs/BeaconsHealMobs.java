@@ -1,8 +1,7 @@
 package svenhjol.charm.module.beacons_heal_mobs;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.ApplyBeaconEffectsCallback;
 
@@ -14,16 +13,15 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-@Module(mod = Charm.MOD_ID, description = "Passive and friendly mobs will heal themselves within range of a beacon with the regeneration effect.",
-    requiresMixins = {"ApplyBeaconEffectsCallback"})
-public class BeaconsHealMobs extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Passive and friendly mobs will heal themselves within range of a beacon with the regeneration effect.")
+public class BeaconsHealMobs extends CommonModule {
     @Override
     public void init() {
         ApplyBeaconEffectsCallback.EVENT.register(this::handleApplyBeaconEffects);
     }
 
     private void handleApplyBeaconEffects(Level world, BlockPos pos, int levels, MobEffect primaryEffect, MobEffect secondaryEffect) {
-        if (!ModuleHandler.enabled("charm:beacons_heal_mobs"))
+        if (!Charm.LOADER.isEnabled("charm:beacons_heal_mobs"))
             return;
 
         if (!world.isClientSide) {

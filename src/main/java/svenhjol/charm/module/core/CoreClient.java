@@ -5,18 +5,16 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.core.Core;
+import svenhjol.charm.loader.ClientModule;
 import svenhjol.charm.module.inventory_tidying.InventoryButtonClient;
 
-public class CoreClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = Core.class)
+public class CoreClient extends ClientModule {
     public final InventoryButtonClient inventoryButtonClient;
 
-    public CoreClient(CharmModule module) {
-        super(module);
-        this.inventoryButtonClient = new InventoryButtonClient(module);
+    public CoreClient() {
+        this.inventoryButtonClient = new InventoryButtonClient();
     }
 
     @Override

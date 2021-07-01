@@ -25,7 +25,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.block.CharmBlock;
 
 import java.util.HashMap;
@@ -36,7 +36,7 @@ public class GlowballBlobBlock extends CharmBlock implements SimpleWaterloggedBl
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public GlowballBlobBlock(CharmModule module) {
+    public GlowballBlobBlock(CommonModule module) {
         super(module, "glowball_blob", Properties.of(Material.REPLACEABLE_PLANT)
             .noCollission()
             .instabreak()

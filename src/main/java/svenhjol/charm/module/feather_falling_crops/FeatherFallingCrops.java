@@ -5,15 +5,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.helper.EnchantmentsHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.Module;
 
-@Module(mod = Charm.MOD_ID, description = "A player wearing feather falling enchanted boots will not trample crops.",
-    requiresMixins = {"feather_falling_crops.*"})
-public class FeatherFallingCrops extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "A player wearing feather falling enchanted boots will not trample crops.")
+public class FeatherFallingCrops extends CommonModule {
 
     @Config(name = "Requires feather falling", description = "Set to false to prevent trampling even when the player does not wear feather falling boots.")
     public static boolean requiresFeatherFalling = true;
@@ -22,7 +20,7 @@ public class FeatherFallingCrops extends CharmModule {
     public static boolean villagersNeverTrampleCrops = true;
 
     public static boolean landedOnFarmlandBlock(Entity entity) {
-        if (ModuleHandler.enabled("charm:feather_falling_crops") && entity instanceof LivingEntity) {
+        if (Charm.LOADER.isEnabled("charm:feather_falling_crops") && entity instanceof LivingEntity) {
             if (entity instanceof Player && (!requiresFeatherFalling || EnchantmentsHelper.hasFeatherFalling((LivingEntity) entity)))
                 return true;
 

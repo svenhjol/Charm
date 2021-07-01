@@ -14,12 +14,12 @@ import svenhjol.charm.annotation.Module;
 import svenhjol.charm.event.StackItemOnItemCallback;
 import svenhjol.charm.event.StackItemOnItemCallback.Direction;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 import javax.annotation.Nullable;
 
 @Module(mod = Charm.MOD_ID, description = "Drop an item onto a lava bucket item to destroy it.")
-public class LavaBucketDestroysItems extends CharmModule {
+public class LavaBucketDestroysItems extends CommonModule {
     public static final ResourceLocation TRIGGER_DESTROYED_ITEM = new ResourceLocation(Charm.MOD_ID, "destroyed_item_with_lava_bucket");
 
     @Override

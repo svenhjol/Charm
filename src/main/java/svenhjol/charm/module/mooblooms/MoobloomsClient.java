@@ -4,15 +4,11 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.ClientModule;
 
-public class MoobloomsClient extends CharmClientModule {
+@svenhjol.charm.annotation.ClientModule(module = Mooblooms.class)
+public class MoobloomsClient extends ClientModule {
     public static ModelLayerLocation LAYER;
-
-    public MoobloomsClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void register() {

@@ -21,11 +21,10 @@ import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, client = EndermitePowderClient.class, description = "Endermites drop endermite powder that can be used to locate an End City.",
-    requiresMixins = {"EntityDropItemsCallback"})
-public class EndermitePowder extends CharmModule {
+@Module(mod = Charm.MOD_ID, description = "Endermites drop endermite powder that can be used to locate an End City.")
+public class EndermitePowder extends CommonModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "endermite_powder");
     public static EntityType<EndermitePowderEntity> ENTITY;
     public static EndermitePowderItem ENDERMITE_POWDER;

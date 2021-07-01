@@ -11,8 +11,8 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import svenhjol.charm.Charm;
 import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.DecorationHelper;
 import svenhjol.charm.helper.VillagerHelper.SingleItemTypeTrade;
 import svenhjol.charm.module.bookcases.Bookcases;
@@ -70,7 +70,7 @@ public class LumberjackTradeOffers {
         public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 2;
             ItemLike item;
-            if (ModuleHandler.enabled("charm:variant_ladders")) {
+            if (Charm.LOADER.isEnabled("charm:variant_ladders")) {
                 IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
                 item = VariantLadders.LADDER_BLOCKS.get(variant);
             } else {
@@ -199,7 +199,7 @@ public class LumberjackTradeOffers {
             ItemLike out;
             setInput(Items.EMERALD, 4);
 
-            if (ModuleHandler.enabled("charm:variant_barrels")) {
+            if (Charm.LOADER.isEnabled("charm:variant_barrels")) {
                 IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
                 out = VariantBarrels.BARREL_BLOCKS.get(variant);
             } else {
@@ -286,7 +286,7 @@ public class LumberjackTradeOffers {
                 Blocks.LOOM
             ));
 
-            if (ModuleHandler.enabled("charm:woodcutters"))
+            if (Charm.LOADER.isEnabled("charm:woodcutters"))
                 workstations.add(Woodcutters.WOODCUTTER);
 
             IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);

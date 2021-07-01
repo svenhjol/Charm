@@ -10,22 +10,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.DyeColor;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.init.CharmParticles;
-import svenhjol.charm.module.potion_of_spelunking.PotionOfSpelunking;
+import svenhjol.charm.loader.ClientModule;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static net.minecraft.core.Direction.Axis;
-
-public class PotionOfSpelunkingClient extends CharmClientModule {
-    public PotionOfSpelunkingClient(CharmModule module) {
-        super(module);
-    }
-
+@svenhjol.charm.annotation.ClientModule(module = PotionOfSpelunking.class)
+public class PotionOfSpelunkingClient extends ClientModule {
     @Override
     public void register() {
         ClientPlayNetworking.registerGlobalReceiver(PotionOfSpelunking.MSG_CLIENT_HAS_EFFECT, this::handleClientHasEffect);

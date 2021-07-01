@@ -1,23 +1,22 @@
 package svenhjol.charm.block;
 
-import svenhjol.charm.block.ICharmBlock;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ModHelper;
-
-import java.util.Arrays;
-import java.util.List;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.helper.ModHelper;
+import svenhjol.charm.loader.CommonModule;
+
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class CharmBlockWithEntity extends BaseEntityBlock implements ICharmBlock {
-    public CharmModule module;
+    public CommonModule module;
     private final List<String> loadedMods;
 
-    protected CharmBlockWithEntity(CharmModule module, String name, Properties props, String... loadedMods) {
+    protected CharmBlockWithEntity(CommonModule module, String name, Properties props, String... loadedMods) {
         super(props);
         this.module = module;
         this.loadedMods = Arrays.asList(loadedMods);
@@ -32,7 +31,7 @@ public abstract class CharmBlockWithEntity extends BaseEntityBlock implements IC
 
     @Override
     public boolean enabled() {
-        return module.enabled && loadedMods.stream().allMatch(ModHelper::isLoaded);
+        return module.isEnabled() && loadedMods.stream().allMatch(ModHelper::isLoaded);
     }
 
     @Override

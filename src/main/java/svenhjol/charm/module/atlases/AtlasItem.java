@@ -14,11 +14,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public class AtlasItem extends CharmItem {
 
-    public AtlasItem(CharmModule module) {
+    public AtlasItem(CommonModule module) {
         super(module, "atlas", new Item.Properties()
             .tab(CreativeModeTab.TAB_MISC)
             .stacksTo(1));

@@ -7,12 +7,12 @@ import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CommonModule;
 
 public abstract class CharmSaplingBlock extends SaplingBlock implements ICharmBlock {
-    private final CharmModule module;
+    private final CommonModule module;
 
-    public CharmSaplingBlock(CharmModule module, String name, AbstractTreeGrower generator, Properties settings) {
+    public CharmSaplingBlock(CommonModule module, String name, AbstractTreeGrower generator, Properties settings) {
         super(generator, settings);
 
         this.register(module, name);
@@ -20,7 +20,7 @@ public abstract class CharmSaplingBlock extends SaplingBlock implements ICharmBl
         this.setBurnTime(100);
     }
 
-    public CharmSaplingBlock(CharmModule module, String name, AbstractTreeGrower generator) {
+    public CharmSaplingBlock(CommonModule module, String name, AbstractTreeGrower generator) {
         this(module, name, generator, Properties.of(Material.PLANT)
             .noCollission()
             .randomTicks()
@@ -36,6 +36,6 @@ public abstract class CharmSaplingBlock extends SaplingBlock implements ICharmBl
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }
