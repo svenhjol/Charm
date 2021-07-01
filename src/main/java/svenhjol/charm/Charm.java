@@ -16,10 +16,10 @@ public class Charm implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        startCharm();
+        initCharm();
     }
 
-    public static void startCharm() {
+    public static void initCharm() {
         if (hasStartedCharm) return;
 
         CharmLoot.init();
@@ -31,7 +31,7 @@ public class Charm implements ModInitializer {
         CharmBiomes.init();
         CharmAdvancements.init();
 
-        LOADER.start();
+        LOADER.init();
 
         hasStartedCharm = true;
     }

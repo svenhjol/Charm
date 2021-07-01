@@ -18,7 +18,7 @@ public abstract class ModuleLoader<T extends ICharmModule> {
         this.basePackage = basePackage;
     }
 
-    public void start() {
+    public void init() {
         // do module registration
         this.register();
 
@@ -120,7 +120,7 @@ public abstract class ModuleLoader<T extends ICharmModule> {
                 String moduleName = module.getName();
                 loaded.put(moduleName, module);
             } catch (Exception e) {
-                throw new RuntimeException("Error loading module " + clazz.toString() + ": " + e.getMessage());
+                Charm.LOG.error("Error loading module " + clazz.toString() + ": " + e.getMessage());
             }
         }
 

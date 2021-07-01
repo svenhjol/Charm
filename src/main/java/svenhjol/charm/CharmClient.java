@@ -18,7 +18,7 @@ public class CharmClient implements ClientModInitializer {
     public void onInitializeClient() {
         LOADER = new ClientLoader<>(Charm.LOADER, MOD_ID, "svenhjol.charm.module");
 
-        LOADER.start();
+        LOADER.init();
 
         CharmClientParticles.init();
         CharmDecorations.init();
