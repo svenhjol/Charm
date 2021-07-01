@@ -6,16 +6,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class CharmBlock extends Block implements ICharmBlock {
-    public CommonModule module;
+    public CharmCommonModule module;
     private final List<String> loadedMods;
 
-    public CharmBlock(CommonModule module, String name, BlockBehaviour.Properties props, String... loadedMods) {
+    public CharmBlock(CharmCommonModule module, String name, BlockBehaviour.Properties props, String... loadedMods) {
         super(props);
         this.module = module;
         this.loadedMods = Arrays.asList(loadedMods);

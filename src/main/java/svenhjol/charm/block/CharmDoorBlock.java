@@ -7,12 +7,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 public abstract class CharmDoorBlock extends DoorBlock implements ICharmBlock {
-    private final CommonModule module;
+    private final CharmCommonModule module;
 
-    public CharmDoorBlock(CommonModule module, String name, Properties settings) {
+    public CharmDoorBlock(CharmCommonModule module, String name, Properties settings) {
         super(settings);
 
         this.register(module, name);
@@ -20,7 +20,7 @@ public abstract class CharmDoorBlock extends DoorBlock implements ICharmBlock {
         this.setBurnTime(200);
     }
 
-    public CharmDoorBlock(CommonModule module, String name, Block block) {
+    public CharmDoorBlock(CharmCommonModule module, String name, Block block) {
         this(module, name, Properties.of(Material.WOOD, block.defaultMaterialColor())
             .strength(3.0F)
             .sound(SoundType.WOOD)

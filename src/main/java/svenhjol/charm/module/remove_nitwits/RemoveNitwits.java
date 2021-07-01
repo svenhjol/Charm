@@ -8,9 +8,10 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
-public class RemoveNitwits extends svenhjol.charm.loader.CommonModule {
+public class RemoveNitwits extends CharmCommonModule {
     @Override
     public void run() {
         AddEntityCallback.EVENT.register(this::changeNitwitProfession);

@@ -17,9 +17,10 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.TakeAnvilOutputCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Use dye on an anvil to change an item's enchantment color.")
-public class ColoredGlints extends svenhjol.charm.loader.CommonModule {
+public class ColoredGlints extends CharmCommonModule {
     public static final ResourceLocation TRIGGER_CHANGED_GLINT_COLOR = new ResourceLocation(Charm.MOD_ID, "changed_glint_color");
     public static boolean enabled;
 

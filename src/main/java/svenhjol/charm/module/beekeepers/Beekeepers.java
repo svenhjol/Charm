@@ -9,13 +9,14 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.SetupStructureCallback.VillageType;
 import svenhjol.charm.helper.VillagerHelper;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.mixin.accessor.PoiTypeAccessor;
 
 import static svenhjol.charm.event.SetupStructureCallback.addVillageHouse;
 import static svenhjol.charm.helper.VillagerHelper.addTrade;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
-public class Beekeepers extends svenhjol.charm.loader.CommonModule {
+public class Beekeepers extends CharmCommonModule {
     public static String ID = "charm_beekeeper";
     public static VillagerProfession BEEKEEPER;
 

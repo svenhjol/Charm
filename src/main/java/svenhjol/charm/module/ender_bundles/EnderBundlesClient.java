@@ -16,19 +16,20 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.TooltipHelper;
+import svenhjol.charm.loader.CharmClientModule;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
-import svenhjol.charm.loader.ClientModule;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@svenhjol.charm.annotation.ClientModule(module = EnderBundles.class)
-public class EnderBundlesClient extends ClientModule {
+@ClientModule(module = EnderBundles.class)
+public class EnderBundlesClient extends CharmClientModule {
     public static float CACHED_AMOUNT_FILLED = 0.0F;
 
     @Override

@@ -1,23 +1,25 @@
 package svenhjol.charm.module.variant_mob_textures;
 
 import com.google.common.collect.ImmutableList;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.enums.ICharmEnum;
-import svenhjol.charm.event.ClientPlayerJoinCallback;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
-@svenhjol.charm.annotation.ClientModule(module = VariantMobTextures.class)
-public class VariantMobTexturesClient extends ClientModule {
+@ClientModule(module = VariantMobTextures.class)
+public class VariantMobTexturesClient extends CharmClientModule {
     private static final String PREFIX = "textures/entity/";
     private static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(PREFIX + "sheep/sheep.png");
 
@@ -40,7 +42,7 @@ public class VariantMobTexturesClient extends ClientModule {
 
     @Override
     public void run() {
-        ClientPlayerJoinCallback.EVENT.register(this::handlePlayerJoin);
+        ClientEntityEvents.ENTITY_LOAD.register(this::handlePlayerJoin);
 
         if (VariantMobTextures.variantChickens)
             EntityRendererRegistry.INSTANCE.register(EntityType.CHICKEN, VariantMobRenderer.RenderChicken::new);
@@ -65,7 +67,9 @@ public class VariantMobTexturesClient extends ClientModule {
 
     }
 
-    public void handlePlayerJoin(Minecraft client) {
+    public void handlePlayerJoin(Entity entity, Level level) {
+        if (!(entity instanceof LocalPlayer)) return;
+
         // reset
         chickens = new ArrayList<>();
         cows = new ArrayList<>();

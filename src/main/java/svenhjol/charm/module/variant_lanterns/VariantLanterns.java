@@ -8,12 +8,13 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.block.CharmLanternBlock;
 import svenhjol.charm.enums.IMetalMaterial;
 import svenhjol.charm.enums.VanillaMetalMaterial;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.module.extra_nuggets.ExtraNuggets;
 
 import java.util.*;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Variants lanterns crafted from vanilla metal nuggets and torches.")
-public class VariantLanterns extends svenhjol.charm.loader.CommonModule {
+public class VariantLanterns extends CharmCommonModule {
     public static Map<IMetalMaterial, CharmLanternBlock> LANTERNS = new HashMap<>();
 
     @Override

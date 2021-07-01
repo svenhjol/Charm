@@ -18,12 +18,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import svenhjol.charm.block.CharmBlockWithEntity;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import javax.annotation.Nullable;
 
 public class EntitySpawnerBlock extends CharmBlockWithEntity {
-    public EntitySpawnerBlock(CommonModule module) {
+    public EntitySpawnerBlock(CharmCommonModule module) {
         super(module, "entity_spawner", BlockBehaviour.Properties
             .of(Material.AIR)
             .noCollission()

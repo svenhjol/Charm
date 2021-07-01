@@ -1,6 +1,6 @@
 package svenhjol.charm.module.endermite_powder;
 
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -20,7 +20,7 @@ import svenhjol.charm.helper.DimensionHelper;
 import svenhjol.charm.item.CharmItem;
 
 public class EndermitePowderItem extends CharmItem {
-    public EndermitePowderItem(CommonModule module) {
+    public EndermitePowderItem(CharmCommonModule module) {
         super(module, "endermite_powder", new Item.Properties().tab(CreativeModeTab.TAB_MISC));
     }
 

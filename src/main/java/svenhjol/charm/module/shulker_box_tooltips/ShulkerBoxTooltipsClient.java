@@ -15,12 +15,12 @@ import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.ItemNBTHelper;
 import svenhjol.charm.helper.TooltipHelper;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ShulkerBoxTooltipsClient extends ClientModule {
+public class ShulkerBoxTooltipsClient extends CharmClientModule {
     @Override
     public void run() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);

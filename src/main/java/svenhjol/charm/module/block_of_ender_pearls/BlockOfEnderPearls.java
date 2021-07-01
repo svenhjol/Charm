@@ -26,13 +26,14 @@ import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.helper.PosHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Ender pearl storage. Eating a chorus fruit will teleport you to the nearest ender pearl block.")
-public class BlockOfEnderPearls extends svenhjol.charm.loader.CommonModule {
+public class BlockOfEnderPearls extends CharmCommonModule {
     public static EnderPearlBlock ENDER_PEARL_BLOCK;
 
     public static final ResourceLocation TRIGGER_CONVERTED_SILVERFISH = new ResourceLocation(Charm.MOD_ID, "converted_silverfish");

@@ -24,7 +24,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.item.CharmItem;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class MixedStewItem extends CharmItem {
     public static final String HUNGER_NBT = "Hunger";
     public static final String SATURATION_NBT = "Saturation";
 
-    public MixedStewItem(CommonModule module) {
+    public MixedStewItem(CharmCommonModule module) {
         super(module, "mixed_stew", (new Item.Properties())
             .stacksTo(64)
             .tab(CreativeModeTab.TAB_FOOD));

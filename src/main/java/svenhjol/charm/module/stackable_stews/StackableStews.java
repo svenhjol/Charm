@@ -8,11 +8,12 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.mixin.accessor.ItemAccessor;
 import svenhjol.charm.module.cooking_pots.CookingPots;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Allows stews to stack.")
-public class StackableStews extends svenhjol.charm.loader.CommonModule {
+public class StackableStews extends CharmCommonModule {
     @Config(name = "Stack size", description = "Maximum stew stack size.")
     public static int stackSize = 64;
 

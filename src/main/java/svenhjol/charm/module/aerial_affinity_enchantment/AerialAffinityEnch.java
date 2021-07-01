@@ -1,12 +1,12 @@
 package svenhjol.charm.module.aerial_affinity_enchantment;
 
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import svenhjol.charm.enchantment.CharmEnchantment;
 
 public class AerialAffinityEnch extends CharmEnchantment {
-    public AerialAffinityEnch(CommonModule module) {
+    public AerialAffinityEnch(CharmCommonModule module) {
         super(module, "aerial_affinity", Rarity.RARE, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[] { EquipmentSlot.FEET });
     }
 

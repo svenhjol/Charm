@@ -14,6 +14,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.BE
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PLAYER;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Button to automatically tidy inventories.")
-public class InventoryTidying extends svenhjol.charm.loader.CommonModule {
+public class InventoryTidying extends CharmCommonModule {
     public static final ResourceLocation MSG_SERVER_TIDY_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_tidy_inventory");
     public static final ResourceLocation TRIGGER_TIDIED_INVENTORY = new ResourceLocation(Charm.MOD_ID, "tidied_inventory");
 

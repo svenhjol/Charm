@@ -8,9 +8,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A storage block for sugar. It obeys gravity and dissolves in water.")
-public class BlockOfSugar extends svenhjol.charm.loader.CommonModule {
+public class BlockOfSugar extends CharmCommonModule {
     public static SugarBlock SUGAR_BLOCK;
 
     public static final ResourceLocation TRIGGER_DISSOLVED_SUGAR = new ResourceLocation(Charm.MOD_ID, "dissolved_sugar");

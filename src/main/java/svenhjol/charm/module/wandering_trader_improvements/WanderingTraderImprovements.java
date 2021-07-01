@@ -24,9 +24,10 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Wandering traders only appear near signal campfires and sell maps to biomes and structures.")
-public class WanderingTraderImprovements extends svenhjol.charm.loader.CommonModule {
+public class WanderingTraderImprovements extends CharmCommonModule {
     public static final List<TraderMap> traderMaps = new ArrayList<>();
 
     @Config(name = "Trade biome maps", description = "If true, wandering traders will sell maps to biomes.")

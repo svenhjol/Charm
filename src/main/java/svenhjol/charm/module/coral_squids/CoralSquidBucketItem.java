@@ -17,16 +17,16 @@ import net.minecraft.world.level.material.Fluids;
 import svenhjol.charm.helper.ItemNBTHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.item.ICharmItem;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import javax.annotation.Nullable;
 
 public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
     public static final String STORED_CORAL_SQUID = "stored_coral_squid";
 
-    private final CommonModule module;
+    private final CharmCommonModule module;
 
-    public CoralSquidBucketItem(CommonModule module) {
+    public CoralSquidBucketItem(CharmCommonModule module) {
         super(Fluids.WATER, new Item.Properties()
             .tab(CreativeModeTab.TAB_MISC)
             .stacksTo(1));

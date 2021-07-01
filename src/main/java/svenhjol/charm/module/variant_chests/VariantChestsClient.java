@@ -8,15 +8,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.event.RenderBlockItemCallback;
 import svenhjol.charm.event.StitchTextureCallback;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
 import java.util.Set;
 
-@svenhjol.charm.annotation.ClientModule(module = VariantChests.class)
-public class VariantChestsClient extends ClientModule {
+@ClientModule(module = VariantChests.class)
+public class VariantChestsClient extends CharmClientModule {
     private final VariantChestBlockEntity CACHED_NORMAL_CHEST = new VariantChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState());
     private final VariantTrappedChestBlockEntity CACHED_TRAPPED_CHEST = new VariantTrappedChestBlockEntity(BlockPos.ZERO, Blocks.TRAPPED_CHEST.defaultBlockState());
 

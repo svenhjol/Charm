@@ -6,73 +6,73 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.material.MaterialColor;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.block.*;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.Random;
 
 public class EbonyBlocks {
     public static class EbonyButtonBlock extends CharmWoodenButtonBlock {
-        public EbonyButtonBlock(CommonModule module) {
+        public EbonyButtonBlock(CharmCommonModule module) {
             super(module, "ebony_button");
         }
     }
 
     public static class EbonyDoorBlock extends CharmDoorBlock {
-        public EbonyDoorBlock(CommonModule module) {
+        public EbonyDoorBlock(CharmCommonModule module) {
             super(module, "ebony_door", EbonyWood.PLANKS);
         }
     }
 
     public static class EbonyFenceBlock extends CharmFenceBlock {
-        public EbonyFenceBlock(CommonModule module) {
+        public EbonyFenceBlock(CharmCommonModule module) {
             super(module, "ebony_fence", EbonyWood.PLANKS);
         }
     }
 
     public static class EbonyFenceGateBlock extends CharmFenceGateBlock {
-        public EbonyFenceGateBlock(CommonModule module) {
+        public EbonyFenceGateBlock(CharmCommonModule module) {
             super(module, "ebony_fence_gate", EbonyWood.PLANKS);
         }
     }
 
     public static class EbonyLeavesBlock extends CharmLeavesBlock {
-        public EbonyLeavesBlock(CommonModule module) {
+        public EbonyLeavesBlock(CharmCommonModule module) {
             super(module, "ebony_leaves");
         }
     }
 
     public static class EbonyLogBlock extends CharmLogBlock {
-        public EbonyLogBlock(CommonModule module) {
+        public EbonyLogBlock(CharmCommonModule module) {
             super(module, "ebony_log", MaterialColor.COLOR_BLACK, MaterialColor.STONE);
         }
     }
 
     public static class StrippedEbonyLogBlock extends CharmLogBlock {
-        public StrippedEbonyLogBlock(CommonModule module) {
+        public StrippedEbonyLogBlock(CharmCommonModule module) {
             super(module, "stripped_ebony_log", MaterialColor.COLOR_BLACK, MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class StrippedEbonyWoodBlock extends CharmLogBlock {
-        public StrippedEbonyWoodBlock(CommonModule module) {
+        public StrippedEbonyWoodBlock(CharmCommonModule module) {
             super(module, "stripped_ebony_wood", MaterialColor.COLOR_BLACK, MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonyPlanksBlock extends CharmPlanksBlock {
-        public EbonyPlanksBlock(CommonModule module) {
+        public EbonyPlanksBlock(CharmCommonModule module) {
             super(module, "ebony_planks", MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonyPressurePlateBlock extends CharmPressurePlate {
-        public EbonyPressurePlateBlock(CommonModule module) {
+        public EbonyPressurePlateBlock(CharmCommonModule module) {
             super(module, "ebony_pressure_plate", EbonyWood.PLANKS);
         }
     }
 
     public static class EbonySaplingBlock extends CharmSaplingBlock {
-        public EbonySaplingBlock(CommonModule module) {
+        public EbonySaplingBlock(CharmCommonModule module) {
             super(module, "ebony_sapling", new AbstractTreeGrower() {
                 @Nullable
                 @Override
@@ -84,37 +84,37 @@ public class EbonyBlocks {
     }
 
     public static class EbonySignBlock extends CharmSignBlock {
-        public EbonySignBlock(CommonModule module) {
+        public EbonySignBlock(CharmCommonModule module) {
             super(module, "ebony_sign", EbonyWood.SIGN_TYPE, MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonySlabBlock extends CharmSlabBlock {
-        public EbonySlabBlock(CommonModule module) {
+        public EbonySlabBlock(CharmCommonModule module) {
             super(module, "ebony_slab", MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonyStairsBlock extends CharmStairsBlock {
-        public EbonyStairsBlock(CommonModule module) {
+        public EbonyStairsBlock(CharmCommonModule module) {
             super(module, "ebony_stairs", EbonyWood.PLANKS);
         }
     }
 
     public static class EbonyTrapdoorBlock extends CharmTrapdoorBlock {
-        public EbonyTrapdoorBlock(CommonModule module) {
+        public EbonyTrapdoorBlock(CharmCommonModule module) {
             super(module, "ebony_trapdoor", MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonyWallSignBlock extends CharmWallSignBlock {
-        public EbonyWallSignBlock(CommonModule module) {
+        public EbonyWallSignBlock(CharmCommonModule module) {
             super(module, "ebony_wall_sign", EbonyWood.SIGN_BLOCK, EbonyWood.SIGN_TYPE, MaterialColor.COLOR_BLACK);
         }
     }
 
     public static class EbonyWoodBlock extends CharmLogBlock {
-        public EbonyWoodBlock(CommonModule module) {
+        public EbonyWoodBlock(CharmCommonModule module) {
             super(module, "ebony_wood", MaterialColor.COLOR_BROWN);
         }
     }

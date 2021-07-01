@@ -17,9 +17,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Glowballs can be thrown to produce a light source where they impact.")
-public class Glowballs extends svenhjol.charm.loader.CommonModule {
+public class Glowballs extends CharmCommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "glowball");
     public static final ResourceLocation TRIGGER_THROWN_GLOWBALL = new ResourceLocation(Charm.MOD_ID, "thrown_glowball");
 

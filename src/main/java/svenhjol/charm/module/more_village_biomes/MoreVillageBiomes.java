@@ -14,13 +14,14 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.helper.BiomeHelper;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Villages can spawn in swamps and jungles.")
-public class MoreVillageBiomes extends svenhjol.charm.loader.CommonModule {
+public class MoreVillageBiomes extends CharmCommonModule {
     @Override
     public void run() {
         List<ResourceKey<Biome>> plainsBiomeKeys = new ArrayList<>(Arrays.asList(

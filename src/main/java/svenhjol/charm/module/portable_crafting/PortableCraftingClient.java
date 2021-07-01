@@ -14,18 +14,19 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.init.CharmTags;
+import svenhjol.charm.loader.CharmClientModule;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
-import svenhjol.charm.loader.ClientModule;
 
 import java.util.List;
 
-@svenhjol.charm.annotation.ClientModule(module = PortableCrafting.class)
-public class PortableCraftingClient extends ClientModule {
+@ClientModule(module = PortableCrafting.class)
+public class PortableCraftingClient extends CharmClientModule {
     public ImageButton craftingButton;
     public static KeyMapping keyBinding;
 

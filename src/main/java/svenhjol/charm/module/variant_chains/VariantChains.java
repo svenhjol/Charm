@@ -8,12 +8,13 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.block.CharmChainBlock;
 import svenhjol.charm.enums.IMetalMaterial;
 import svenhjol.charm.enums.VanillaMetalMaterial;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.module.extra_nuggets.ExtraNuggets;
 
 import java.util.*;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Variant chains crafted from vanilla metal ingots and nuggets.")
-public class VariantChains extends svenhjol.charm.loader.CommonModule {
+public class VariantChains extends CharmCommonModule {
     public static Map<IMetalMaterial, CharmChainBlock> CHAINS = new HashMap<>();
 
     @Override

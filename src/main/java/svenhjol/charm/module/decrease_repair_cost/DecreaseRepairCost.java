@@ -15,10 +15,11 @@ import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.mixin.accessor.ItemCombinerMenuAccessor;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.")
-public class DecreaseRepairCost extends svenhjol.charm.loader.CommonModule {
+public class DecreaseRepairCost extends CharmCommonModule {
     public static final ResourceLocation TRIGGER_DECREASED_COST = new ResourceLocation(Charm.MOD_ID, "decreased_cost");
 
     @Config(name = "XP cost", description = "Number of levels required to reduce repair cost on the anvil.")

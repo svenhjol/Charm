@@ -13,17 +13,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 import svenhjol.charm.mixin.accessor.MinecraftAccessor;
 import svenhjol.charm.mixin.accessor.RenderBuffersAccessor;
 import svenhjol.charm.mixin.accessor.RenderStateShardAccessor;
 import svenhjol.charm.mixin.accessor.RenderTypeAccessor;
-import svenhjol.charm.loader.ClientModule;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@svenhjol.charm.annotation.ClientModule(module = ColoredGlints.class)
-public class ColoredGlintsClient extends ClientModule {
+@ClientModule(module = ColoredGlints.class)
+public class ColoredGlintsClient extends CharmClientModule {
     public static final String GLINT_NBT = "charm_glint";
 
     public static Map<String, ResourceLocation> TEXTURES = new HashMap<>();

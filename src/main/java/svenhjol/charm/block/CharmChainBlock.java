@@ -5,18 +5,18 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChainBlock;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 public class CharmChainBlock extends ChainBlock implements ICharmBlock {
-    private final CommonModule module;
+    private final CharmCommonModule module;
 
-    public CharmChainBlock(CommonModule module, String name, Properties settings) {
+    public CharmChainBlock(CharmCommonModule module, String name, Properties settings) {
         super(settings);
         this.module = module;
         this.register(module, name);
     }
 
-    public CharmChainBlock(CommonModule module, String name) {
+    public CharmChainBlock(CharmCommonModule module, String name) {
         this(module, name, Properties.copy(Blocks.CHAIN));
     }
 

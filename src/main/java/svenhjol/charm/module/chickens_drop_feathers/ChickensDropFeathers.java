@@ -5,9 +5,10 @@ import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Chickens randomly drop feathers.")
-public class ChickensDropFeathers extends svenhjol.charm.loader.CommonModule {
+public class ChickensDropFeathers extends CharmCommonModule {
     public static boolean isEnabled;
 
     @Override

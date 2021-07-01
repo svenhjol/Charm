@@ -21,21 +21,21 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.block.CharmBlockWithEntity;
 import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import javax.annotation.Nullable;
 
 public class BookcaseBlock extends CharmBlockWithEntity {
     public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, BookcaseBlockEntity.SIZE);
 
-    protected CommonModule module;
+    protected CharmCommonModule module;
     protected IVariantMaterial type;
 
-    public BookcaseBlock(CommonModule module, IVariantMaterial material, String... loadedMods) {
+    public BookcaseBlock(CharmCommonModule module, IVariantMaterial material, String... loadedMods) {
         this(module, material, BlockBehaviour.Properties.copy(Blocks.BOOKSHELF), loadedMods);
     }
 
-    public BookcaseBlock(CommonModule module, IVariantMaterial material, BlockBehaviour.Properties settings, String... loadedMods) {
+    public BookcaseBlock(CharmCommonModule module, IVariantMaterial material, BlockBehaviour.Properties settings, String... loadedMods) {
         super(module, material.getSerializedName() + "_bookcase", settings, loadedMods);
 
         this.module = module;

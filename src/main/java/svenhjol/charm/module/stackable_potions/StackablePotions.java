@@ -2,12 +2,13 @@ package svenhjol.charm.module.stackable_potions;
 
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.mixin.accessor.ItemAccessor;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Allows potions to stack.")
-public class StackablePotions extends svenhjol.charm.loader.CommonModule {
+public class StackablePotions extends CharmCommonModule {
     @Config(name = "Stack size", description = "Maximum potion stack size.")
     public static int stackSize = 16;
 

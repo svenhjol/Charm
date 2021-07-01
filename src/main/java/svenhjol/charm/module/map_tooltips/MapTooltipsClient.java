@@ -13,14 +13,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-@svenhjol.charm.annotation.ClientModule(module = MapTooltips.class)
-public class MapTooltipsClient extends ClientModule {
+@ClientModule(module = MapTooltips.class)
+public class MapTooltipsClient extends CharmClientModule {
     private static final RenderType MAP_BACKGROUND = RenderType.text(new ResourceLocation("textures/map/map_background.png"));
 
     @Override

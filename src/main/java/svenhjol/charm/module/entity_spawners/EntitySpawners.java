@@ -6,9 +6,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, alwaysEnabled = true, description = "Spawns entities when a player is within range.")
-public class EntitySpawners extends svenhjol.charm.loader.CommonModule {
+public class EntitySpawners extends CharmCommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "entity_spawner");
     public static EntitySpawnerBlock ENTITY_SPAWNER;
     public static BlockEntityType<EntitySpawnerBlockEntity> BLOCK_ENTITY;

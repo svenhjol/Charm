@@ -6,7 +6,7 @@ import com.electronwill.nightconfig.toml.TomlWriter;
 import com.moandjiezana.toml.Toml;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -37,7 +37,7 @@ public class ConfigHelper {
         return config.contains(moduleEnabledQuoted) && !config.getBoolean(moduleEnabledQuoted);
     }
 
-    public static<T extends CommonModule> void createConfig(String mod, Map<String, T> modules) {
+    public static<T extends CharmCommonModule> void createConfig(String mod, Map<String, T> modules) {
         String configPath = "./config/" + mod + ".toml";
 
         // this blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically

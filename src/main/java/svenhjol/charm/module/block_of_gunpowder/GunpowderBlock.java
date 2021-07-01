@@ -12,10 +12,10 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import svenhjol.charm.block.CharmFallingBlock;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 public class GunpowderBlock extends CharmFallingBlock {
-    public GunpowderBlock(CommonModule module) {
+    public GunpowderBlock(CharmCommonModule module) {
         super(module, "gunpowder_block", FabricBlockSettings
             .of(Material.SAND)
             .sounds(SoundType.SAND)

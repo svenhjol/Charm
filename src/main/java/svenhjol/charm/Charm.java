@@ -5,13 +5,13 @@ import svenhjol.charm.event.LoadServerFinishCallback;
 import svenhjol.charm.handler.LogHandler;
 import svenhjol.charm.loader.CommonLoader;
 import svenhjol.charm.init.*;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @SuppressWarnings("unused")
 public class Charm implements ModInitializer {
     public static final String MOD_ID = "charm";
     public static final LogHandler LOG = new LogHandler("Charm");
-    public static CommonLoader<CommonModule> LOADER = new CommonLoader<>(MOD_ID, "svenhjol.charm.module");
+    public static CommonLoader<CharmCommonModule> LOADER = new CommonLoader<>(MOD_ID, "svenhjol.charm.module");
 
     private static boolean hasStartedCharm = false;
 

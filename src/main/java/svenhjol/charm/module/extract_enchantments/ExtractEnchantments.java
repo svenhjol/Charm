@@ -21,6 +21,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.module.grindable_horse_armor.GrindableHorseArmor;
 
 import javax.annotation.Nullable;
@@ -28,7 +29,7 @@ import java.util.*;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 @CommonModule(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.")
-public class ExtractEnchantments extends svenhjol.charm.loader.CommonModule {
+public class ExtractEnchantments extends CharmCommonModule {
     public static final ResourceLocation TRIGGER_EXTRACTED_ENCHANTMENT = new ResourceLocation(Charm.MOD_ID, "extracted_enchantment");
 
     @Config(name = "Initial XP cost", description = "Initial XP cost before adding XP equivalent to the enchantment level(s) of the item.")

@@ -3,11 +3,12 @@ package svenhjol.charm.module.mooblooms;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
-@svenhjol.charm.annotation.ClientModule(module = Mooblooms.class)
-public class MoobloomsClient extends ClientModule {
+@ClientModule(module = Mooblooms.class)
+public class MoobloomsClient extends CharmClientModule {
     public static ModelLayerLocation LAYER;
 
     @Override

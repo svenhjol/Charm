@@ -22,10 +22,11 @@ import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.CharmClient;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.PlaySoundCallback;
 import svenhjol.charm.helper.DimensionHelper;
 import svenhjol.charm.helper.SoundHelper;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
-@svenhjol.charm.annotation.ClientModule(module = MusicImprovements.class)
-public class MusicImprovementsClient extends ClientModule {
+@ClientModule(module = MusicImprovements.class)
+public class MusicImprovementsClient extends CharmClientModule {
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;
     private static final List<MusicCondition> musicConditions = new ArrayList<>();

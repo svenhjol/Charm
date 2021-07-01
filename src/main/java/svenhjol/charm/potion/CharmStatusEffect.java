@@ -2,12 +2,12 @@ package svenhjol.charm.potion;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 public abstract class CharmStatusEffect extends MobEffect implements ICharmStatusEffect {
-    protected CommonModule module;
+    protected CharmCommonModule module;
 
-    protected CharmStatusEffect(CommonModule module, String name, MobEffectCategory type, int color) {
+    protected CharmStatusEffect(CharmCommonModule module, String name, MobEffectCategory type, int color) {
         super(type, color);
         this.module = module;
         this.register(module, name);

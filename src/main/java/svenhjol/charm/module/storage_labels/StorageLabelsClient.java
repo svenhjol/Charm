@@ -21,14 +21,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
 import java.util.List;
 import java.util.Optional;
 
-@svenhjol.charm.annotation.ClientModule(module = StorageLabels.class)
-public class StorageLabelsClient extends ClientModule {
+@ClientModule(module = StorageLabels.class)
+public class StorageLabelsClient extends CharmClientModule {
     public static final ThreadLocal<BlockEntityRendererProvider.Context> chestBlockEntityContext = new ThreadLocal<>();
 
     @Override

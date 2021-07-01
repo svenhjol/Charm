@@ -10,6 +10,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Ladders available in all types of vanilla wood.")
-public class VariantLadders extends svenhjol.charm.loader.CommonModule {
+public class VariantLadders extends CharmCommonModule {
     public static final Map<IVariantMaterial, VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
 
     public static boolean isEnabled = false;
@@ -31,7 +32,7 @@ public class VariantLadders extends svenhjol.charm.loader.CommonModule {
         isEnabled = this.isEnabled();
     }
 
-    public static VariantLadderBlock registerLadder(svenhjol.charm.loader.CommonModule module, IVariantMaterial material) {
+    public static VariantLadderBlock registerLadder(CharmCommonModule module, IVariantMaterial material) {
         VariantLadderBlock ladder = new VariantLadderBlock(module, material);
         LADDER_BLOCKS.put(material, ladder);
         return ladder;

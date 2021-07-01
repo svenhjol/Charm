@@ -10,12 +10,12 @@ import svenhjol.charm.CharmClient;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenHelper;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 import svenhjol.charm.module.portable_crafting.PortableCraftingClient;
 
 import java.util.List;
 
-public class InventoryButtonClient extends ClientModule {
+public class InventoryButtonClient extends CharmClientModule {
     public ImageButton recipeButton;
     public PortableCraftingClient portableCraftingClient;
     private boolean hasHiddenRecipeButton = false;

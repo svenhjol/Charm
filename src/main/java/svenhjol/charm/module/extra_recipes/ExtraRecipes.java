@@ -10,13 +10,14 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.CheckAnvilRepairCallback;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Adds custom recipes.")
-public class ExtraRecipes extends svenhjol.charm.loader.CommonModule {
+public class ExtraRecipes extends CharmCommonModule {
     @Config(name = "Ore block from raw ore block", description = "If true, adds a blast furnace recipe for smelting raw ore blocks into ore blocks.")
     public static boolean useRawOreBlocks = true;
 

@@ -6,12 +6,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 public abstract class CharmLeavesBlock extends LeavesBlock implements ICharmBlock {
-    private final CommonModule module;
+    private final CharmCommonModule module;
 
-    public CharmLeavesBlock(CommonModule module, String name, Properties settings) {
+    public CharmLeavesBlock(CharmCommonModule module, String name, Properties settings) {
         super(settings);
 
         this.register(module, name);
@@ -19,7 +19,7 @@ public abstract class CharmLeavesBlock extends LeavesBlock implements ICharmBloc
         this.setFireInfo(30, 60);
     }
 
-    public CharmLeavesBlock(CommonModule module, String name) {
+    public CharmLeavesBlock(CharmCommonModule module, String name) {
         this(module, name, Properties.of(Material.LEAVES)
             .strength(0.2F)
             .randomTicks()

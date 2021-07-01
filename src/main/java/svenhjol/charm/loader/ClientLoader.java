@@ -1,12 +1,13 @@
 package svenhjol.charm.loader;
 
 import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.annotation.ClientModule;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClientLoader<T extends ClientModule, U extends CommonModule> extends ModuleLoader<T> {
-    private static final Map<ResourceLocation, ClientModule> ALL_MODULES = new HashMap<>();
+public class ClientLoader<T extends CharmClientModule, U extends CharmCommonModule> extends ModuleLoader<T> {
+    private static final Map<ResourceLocation, CharmClientModule> ALL_MODULES = new HashMap<>();
 
     private final CommonLoader<U> loader;
 
@@ -29,10 +30,10 @@ public class ClientLoader<T extends ClientModule, U extends CommonModule> extend
 
     @Override
     protected void setupModuleAnnotations(Class<T> clazz, T module) throws IllegalStateException {
-        if (clazz.isAnnotationPresent(svenhjol.charm.annotation.ClientModule.class)) {
-            svenhjol.charm.annotation.ClientModule annotation = clazz.getAnnotation(svenhjol.charm.annotation.ClientModule.class);
+        if (clazz.isAnnotationPresent(ClientModule.class)) {
+            ClientModule annotation = clazz.getAnnotation(ClientModule.class);
 
-            Class<? extends CommonModule> parentModuleClazz = annotation.module();
+            Class<? extends CharmCommonModule> parentModuleClazz = annotation.module();
             String name = parentModuleClazz.getSimpleName();
             U parentModule = loader.getModule(name);
             if (parentModule == null)
@@ -46,7 +47,7 @@ public class ClientLoader<T extends ClientModule, U extends CommonModule> extend
         }
     }
 
-    public static Map<ResourceLocation, ClientModule> getAllModules() {
+    public static Map<ResourceLocation, CharmClientModule> getAllModules() {
         return ALL_MODULES;
     }
 }

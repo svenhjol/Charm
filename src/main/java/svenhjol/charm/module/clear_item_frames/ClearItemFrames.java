@@ -22,9 +22,10 @@ import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Add amethyst shards to item frames to make them invisible.")
-public class ClearItemFrames extends svenhjol.charm.loader.CommonModule {
+public class ClearItemFrames extends CharmCommonModule {
     public static final ResourceLocation MSG_CLIENT_ADD_AMETHYST = new ResourceLocation(Charm.MOD_ID, "client_add_amethyst");
     public static final ResourceLocation MSG_CLIENT_REMOVE_AMETHYST = new ResourceLocation(Charm.MOD_ID, "client_remove_amethyst");
     public static final ResourceLocation TRIGGER_USED_AMETHYST_ON_FRAME = new ResourceLocation(Charm.MOD_ID, "used_amethyst_on_frame");

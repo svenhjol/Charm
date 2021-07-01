@@ -26,12 +26,13 @@ import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.enums.CharmWoodMaterial;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @CommonModule(mod = Charm.MOD_ID, priority = 10, description = "A Storage crate has the equivalent capacity of a double-chest for a single item or block type.")
-public class StorageCrates extends svenhjol.charm.loader.CommonModule {
+public class StorageCrates extends CharmCommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "storage_crate");
     public static final ResourceLocation MSG_CLIENT_UPDATED_CRATE = new ResourceLocation(Charm.MOD_ID, "client_interacted_with_crate");
     public static Map<IVariantMaterial, StorageCrateBlock> STORAGE_CRATE_BLOCKS = new HashMap<>();
@@ -59,7 +60,7 @@ public class StorageCrates extends svenhjol.charm.loader.CommonModule {
         }
     }
 
-    public static StorageCrateBlock registerStorageCrate(svenhjol.charm.loader.CommonModule module, IVariantMaterial material) {
+    public static StorageCrateBlock registerStorageCrate(CharmCommonModule module, IVariantMaterial material) {
         StorageCrateBlock crate = new StorageCrateBlock(module, material);
         STORAGE_CRATE_BLOCKS.put(material, crate);
         RegistryHelper.addBlocksToBlockEntity(BLOCK_ENTITY, crate);

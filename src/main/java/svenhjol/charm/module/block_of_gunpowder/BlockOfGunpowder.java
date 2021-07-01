@@ -8,9 +8,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A storage block for gunpowder. It obeys gravity and dissolves in lava.")
-public class BlockOfGunpowder extends svenhjol.charm.loader.CommonModule {
+public class BlockOfGunpowder extends CharmCommonModule {
     public static GunpowderBlock GUNPOWDER_BLOCK;
 
     public static final ResourceLocation TRIGGER_DISSOLVED_GUNPOWDER = new ResourceLocation(Charm.MOD_ID, "dissolved_gunpowder");

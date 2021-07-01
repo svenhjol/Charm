@@ -4,11 +4,11 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.item.CharmItem;
 
 public class QuadrantItem extends CharmItem {
-    public QuadrantItem(CommonModule module) {
+    public QuadrantItem(CharmCommonModule module) {
         super(module, "quadrant", new FabricItemSettings()
             .stacksTo(1)
             .durability(64)

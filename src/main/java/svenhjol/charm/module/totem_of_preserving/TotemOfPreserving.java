@@ -21,6 +21,7 @@ import svenhjol.charm.event.EntityDropXpCallback;
 import svenhjol.charm.event.PlayerDropInventoryCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ import java.util.Objects;
 import java.util.Random;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Items will be held in the Totem of Preserving if you die.")
-public class TotemOfPreserving extends svenhjol.charm.loader.CommonModule {
+public class TotemOfPreserving extends CharmCommonModule {
     public static TotemOfPreservingItem TOTEM_OF_PRESERVING;
     public static final ResourceLocation TRIGGER_USED_TOTEM_OF_PRESERVING = new ResourceLocation(Charm.MOD_ID, "used_totem_of_preserving");
 

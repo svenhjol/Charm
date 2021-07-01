@@ -10,14 +10,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.mixin.accessor.FireBlockAccessor;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.function.BiConsumer;
 
 public interface ICharmBlock {
     boolean enabled();
 
-    default void register(CommonModule module, String name) {
+    default void register(CharmCommonModule module, String name) {
         ResourceLocation id = new ResourceLocation(module.getModId(), name);
         RegistryHelper.block(id, (Block)this);
         createBlockItem(id);

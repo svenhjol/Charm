@@ -7,12 +7,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 public abstract class CharmFenceGateBlock extends FenceGateBlock implements ICharmBlock {
-    private final CommonModule module;
+    private final CharmCommonModule module;
 
-    public CharmFenceGateBlock(CommonModule module, String name, Properties settings) {
+    public CharmFenceGateBlock(CharmCommonModule module, String name, Properties settings) {
         super(settings);
 
         this.register(module, name);
@@ -21,7 +21,7 @@ public abstract class CharmFenceGateBlock extends FenceGateBlock implements ICha
         this.setBurnTime(300);
     }
 
-    public CharmFenceGateBlock(CommonModule module, String name, Block block) {
+    public CharmFenceGateBlock(CharmCommonModule module, String name, Block block) {
         this(module, name, Properties.of(Material.WOOD, block.defaultMaterialColor())
             .strength(2.0F, 3.0F)
             .sound(SoundType.WOOD));

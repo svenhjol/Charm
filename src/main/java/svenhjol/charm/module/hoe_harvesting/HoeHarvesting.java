@@ -23,12 +23,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.")
-public class HoeHarvesting extends svenhjol.charm.loader.CommonModule {
+public class HoeHarvesting extends CharmCommonModule {
     public static final ResourceLocation TRIGGER_REPLANTED_CROPS = new ResourceLocation(Charm.MOD_ID, "replanted_crops");
 
     private static final List<BlockState> harvestable = new ArrayList<>();

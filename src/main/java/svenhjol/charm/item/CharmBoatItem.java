@@ -17,7 +17,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.module.extra_boats.CharmBoatEntity;
 import svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType;
 
@@ -29,13 +29,13 @@ public class CharmBoatItem extends CharmItem {
     private static final Predicate<Entity> RIDERS;
     private final BoatType type;
 
-    public CharmBoatItem(CommonModule module, String name, BoatType type, Properties settings) {
+    public CharmBoatItem(CharmCommonModule module, String name, BoatType type, Properties settings) {
         super(module, name, settings);
         this.type = type;
         this.setBurnTime(1200);
     }
 
-    public CharmBoatItem(CommonModule module, String name, BoatType type) {
+    public CharmBoatItem(CharmCommonModule module, String name, BoatType type) {
         this(module, name, type, new Item.Properties()
             .stacksTo(1)
             .tab(CreativeModeTab.TAB_TRANSPORTATION));

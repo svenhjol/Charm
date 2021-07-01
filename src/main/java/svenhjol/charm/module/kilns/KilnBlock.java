@@ -20,16 +20,16 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.block.ICharmBlock;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
 public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
-    protected CommonModule module;
+    protected CharmCommonModule module;
 
-    public KilnBlock(CommonModule module) {
+    public KilnBlock(CharmCommonModule module) {
         super(BlockBehaviour.Properties
             .of(Material.STONE)
             .strength(3.5F)

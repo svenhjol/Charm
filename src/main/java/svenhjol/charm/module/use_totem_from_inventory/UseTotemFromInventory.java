@@ -9,9 +9,10 @@ import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "As long as a Totem of Undying is in your inventory, it will be consumed to protect you from death.")
-public class UseTotemFromInventory extends svenhjol.charm.loader.CommonModule {
+public class UseTotemFromInventory extends CharmCommonModule {
     public static ItemStack tryFromInventory(LivingEntity entity, InteractionHand hand) {
         ItemStack totem = new ItemStack(Items.TOTEM_OF_UNDYING);
 

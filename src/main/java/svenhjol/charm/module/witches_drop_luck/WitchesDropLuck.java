@@ -14,9 +14,10 @@ import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.PotionHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A witch has a chance to drop a Potion of Luck when killed by a player.")
-public class WitchesDropLuck extends svenhjol.charm.loader.CommonModule {
+public class WitchesDropLuck extends CharmCommonModule {
     public static double lootingBoost = 0.25D;
 
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a witch dropping a Potion of Luck when killed by the player.")

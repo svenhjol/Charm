@@ -6,12 +6,13 @@ import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Allows bundles to be dyed.")
-public class ColoredBundles extends svenhjol.charm.loader.CommonModule {
+public class ColoredBundles extends CharmCommonModule {
     public static final ResourceLocation RECIPE_ID = new ResourceLocation(Charm.MOD_ID, "crafting_special_bundlecoloring");
     public static final Map<DyeColor, ColoredBundleItem> COLORED_BUNDLES = new HashMap<>();
     public static SimpleRecipeSerializer<BundleColoringRecipe> BUNDLE_COLORING_RECIPE;

@@ -12,13 +12,14 @@ import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
+import svenhjol.charm.loader.CharmClientModule;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
-import svenhjol.charm.loader.ClientModule;
 import svenhjol.charm.module.atlases.AtlasScreen;
 import svenhjol.charm.module.bookcases.BookcaseScreen;
 
@@ -27,8 +28,8 @@ import java.util.*;
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.BE;
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PLAYER;
 
-@svenhjol.charm.annotation.ClientModule(module = InventoryTidying.class)
-public class InventoryTidyingClient extends ClientModule {
+@ClientModule(module = InventoryTidying.class)
+public class InventoryTidyingClient extends CharmClientModule {
     public static final int LEFT = 159;
     public static final int TOP = 12;
     public static final List<ImageButton> sortingButtons = new ArrayList<>();

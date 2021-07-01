@@ -19,16 +19,16 @@ import net.minecraft.world.level.block.StonecutterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.block.ICharmBlock;
 
 import javax.annotation.Nullable;
 
 public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
-    private CommonModule module;
+    private CharmCommonModule module;
     private static final Component TITLE = new TranslatableComponent("container.charm.woodcutter");
 
-    public WoodcutterBlock(CommonModule module) {
+    public WoodcutterBlock(CharmCommonModule module) {
         super(FabricBlockSettings
             .of(Material.STONE)
             .breakByTool(FabricToolTags.AXES)

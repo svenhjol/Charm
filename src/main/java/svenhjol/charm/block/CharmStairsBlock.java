@@ -6,12 +6,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 public abstract class CharmStairsBlock extends StairBlock implements ICharmBlock {
-    private final CommonModule module;
+    private final CharmCommonModule module;
 
-    public CharmStairsBlock(CommonModule module, String name, BlockState state, Properties settings) {
+    public CharmStairsBlock(CharmCommonModule module, String name, BlockState state, Properties settings) {
         super(state, settings);
 
         this.register(module, name);
@@ -20,7 +20,7 @@ public abstract class CharmStairsBlock extends StairBlock implements ICharmBlock
         this.setBurnTime(300);
     }
 
-    public CharmStairsBlock(CommonModule module, String name, Block block) {
+    public CharmStairsBlock(CharmCommonModule module, String name, Block block) {
         this(module, name, block.defaultBlockState(), Properties.copy(block));
     }
 

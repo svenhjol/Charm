@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public abstract class ClientModule implements ICharmModule {
-    private CommonModule parentModule;
+public abstract class CharmClientModule implements ICharmModule {
+    private CharmCommonModule parentModule;
     private int priority = 0;
     private final List<Predicate<ICharmModule>> dependencies = new ArrayList<>();
 
@@ -49,11 +49,11 @@ public abstract class ClientModule implements ICharmModule {
         this.priority = priority;
     }
 
-    public CommonModule getParentModule() {
+    public CharmCommonModule getParentModule() {
         return parentModule;
     }
 
-    public void setParentModule(CommonModule module) {
+    public void setParentModule(CharmCommonModule module) {
         this.parentModule = module;
     }
 }

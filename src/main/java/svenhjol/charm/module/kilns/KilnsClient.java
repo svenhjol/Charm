@@ -1,10 +1,11 @@
 package svenhjol.charm.module.kilns;
 
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
-@svenhjol.charm.annotation.ClientModule(module = Kilns.class)
-public class KilnsClient extends ClientModule {
+@ClientModule(module = Kilns.class)
+public class KilnsClient extends CharmClientModule {
     @Override
     public void register() {
         ClientHelper.registerScreenHandler(Kilns.SCREEN_HANDLER, KilnScreen::new);

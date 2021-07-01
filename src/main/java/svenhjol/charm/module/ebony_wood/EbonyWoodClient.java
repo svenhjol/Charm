@@ -13,13 +13,14 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
 import javax.annotation.Nullable;
 
-@svenhjol.charm.annotation.ClientModule(module = EbonyWood.class)
-public class EbonyWoodClient extends ClientModule {
+@ClientModule(module = EbonyWood.class)
+public class EbonyWoodClient extends CharmClientModule {
 
     @Override
     public void register() {

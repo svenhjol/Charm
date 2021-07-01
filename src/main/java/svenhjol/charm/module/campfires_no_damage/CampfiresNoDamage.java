@@ -5,9 +5,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Campfires no longer damage mobs.")
-public class CampfiresNoDamage extends svenhjol.charm.loader.CommonModule {
+public class CampfiresNoDamage extends CharmCommonModule {
     @Config(name = "Soul campfires cause damage", description = "If true, soul campfires will still cause damage to mobs.")
     public static boolean soulCampfiresDamage = true;
 

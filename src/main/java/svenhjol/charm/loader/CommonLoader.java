@@ -8,8 +8,8 @@ import svenhjol.charm.mixin.CharmMixinConfigPlugin;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommonLoader<T extends svenhjol.charm.loader.CommonModule> extends ModuleLoader<T> {
-    private static final Map<ResourceLocation, svenhjol.charm.loader.CommonModule> ALL_MODULES = new HashMap<>();
+public class CommonLoader<T extends CharmCommonModule> extends ModuleLoader<T> {
+    private static final Map<ResourceLocation, CharmCommonModule> ALL_MODULES = new HashMap<>();
 
     public CommonLoader(String modId, String basePackage) {
         super(modId, basePackage);
@@ -59,7 +59,7 @@ public class CommonLoader<T extends svenhjol.charm.loader.CommonModule> extends 
         ConfigHelper.createConfig(getModId(), loadedModules);
     }
 
-    public static Map<ResourceLocation, svenhjol.charm.loader.CommonModule> getAllModules() {
+    public static Map<ResourceLocation, CharmCommonModule> getAllModules() {
         return ALL_MODULES;
     }
 }

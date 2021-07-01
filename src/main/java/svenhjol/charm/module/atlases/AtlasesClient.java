@@ -22,15 +22,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.item.TooltipFlag;
 import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderHeldItemCallback;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
 import java.util.List;
 
-@svenhjol.charm.annotation.ClientModule(module = Atlases.class)
-public class AtlasesClient extends ClientModule {
+@ClientModule(module = Atlases.class)
+public class AtlasesClient extends CharmClientModule {
     private svenhjol.charm.module.atlases.AtlasRenderer renderer;
 
     @Override

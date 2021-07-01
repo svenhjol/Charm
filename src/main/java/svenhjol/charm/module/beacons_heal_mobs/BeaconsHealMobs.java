@@ -12,8 +12,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import svenhjol.charm.loader.CharmCommonModule;
+
 @CommonModule(mod = Charm.MOD_ID, description = "Passive and friendly mobs will heal themselves within range of a beacon with the regeneration effect.")
-public class BeaconsHealMobs extends svenhjol.charm.loader.CommonModule {
+public class BeaconsHealMobs extends CharmCommonModule {
     @Override
     public void run() {
         ApplyBeaconEffectsCallback.EVENT.register(this::handleApplyBeaconEffects);

@@ -9,12 +9,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.annotation.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
 import java.util.Random;
 
-@svenhjol.charm.annotation.ClientModule(module = Casks.class)
-public class CasksClient extends ClientModule {
+@ClientModule(module = Casks.class)
+public class CasksClient extends CharmClientModule {
 
     @Override
     public void register() {

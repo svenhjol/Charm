@@ -4,11 +4,12 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
-@svenhjol.charm.annotation.ClientModule(module = ExtraBoats.class)
-public class ExtraBoatsClient extends ClientModule {
+@ClientModule(module = ExtraBoats.class)
+public class ExtraBoatsClient extends CharmClientModule {
     @Override
     public void register() {
         // nether-wood boats

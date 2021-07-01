@@ -12,9 +12,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Lightweight armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
-public class ArmorInvisibility extends svenhjol.charm.loader.CommonModule {
+public class ArmorInvisibility extends CharmCommonModule {
     public static List<Item> invisibleItems = new ArrayList<>();
     public static boolean isEnabled = false;
 

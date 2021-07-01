@@ -11,9 +11,10 @@ import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.helper.DecorationHelper;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A functional block that speeds up cooking of clay, glass, bricks and terracotta.")
-public class Kilns extends svenhjol.charm.loader.CommonModule {
+public class Kilns extends CharmCommonModule {
     public static final ResourceLocation RECIPE_ID = new ResourceLocation(Charm.MOD_ID, "firing");
     public static final ResourceLocation BLOCK_ID = new ResourceLocation(Charm.MOD_ID, "kiln");
     public static final ResourceLocation TRIGGER_FIRED_ITEM = new ResourceLocation(Charm.MOD_ID, "fired_item");

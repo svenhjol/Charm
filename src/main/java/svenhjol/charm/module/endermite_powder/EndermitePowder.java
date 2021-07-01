@@ -21,9 +21,10 @@ import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Endermites drop endermite powder that can be used to locate an End City.")
-public class EndermitePowder extends svenhjol.charm.loader.CommonModule {
+public class EndermitePowder extends CharmCommonModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "endermite_powder");
     public static EntityType<EndermitePowderEntity> ENTITY;
     public static EndermitePowderItem ENDERMITE_POWDER;

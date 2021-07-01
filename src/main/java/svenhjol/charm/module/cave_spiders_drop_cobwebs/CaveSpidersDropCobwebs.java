@@ -14,9 +14,10 @@ import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Cave spiders have a chance to drop cobwebs.")
-public class CaveSpidersDropCobwebs extends svenhjol.charm.loader.CommonModule {
+public class CaveSpidersDropCobwebs extends CharmCommonModule {
     public static double lootingBoost = 0.3D;
 
     @Config(name = "Maximum drops", description = "Maximum cobwebs dropped when cave spider is killed.")

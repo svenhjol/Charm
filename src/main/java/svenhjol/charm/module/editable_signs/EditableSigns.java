@@ -15,9 +15,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Right-click on a sign with an empty hand to edit its text.")
-public class EditableSigns extends svenhjol.charm.loader.CommonModule {
+public class EditableSigns extends CharmCommonModule {
     public static final ResourceLocation TRIGGER_EDITED_SIGN = new ResourceLocation(Charm.MOD_ID, "edited_sign");
 
     @Override

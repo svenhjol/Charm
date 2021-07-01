@@ -7,14 +7,14 @@ import svenhjol.charm.loader.ClientLoader;
 import svenhjol.charm.handler.LogHandler;
 import svenhjol.charm.init.CharmClientParticles;
 import svenhjol.charm.init.CharmDecorations;
-import svenhjol.charm.loader.ClientModule;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 public class CharmClient implements ClientModInitializer {
     public static final String MOD_ID = "charm";
     public static LogHandler LOG = new LogHandler("CharmClient");
 
-    public static ClientLoader<ClientModule, CommonModule> LOADER = new ClientLoader<>(Charm.LOADER, MOD_ID, "svenhjol.charm.module");
+    public static ClientLoader<CharmClientModule, CharmCommonModule> LOADER = new ClientLoader<>(Charm.LOADER, MOD_ID, "svenhjol.charm.module");
 
     @Override
     public void onInitializeClient() {

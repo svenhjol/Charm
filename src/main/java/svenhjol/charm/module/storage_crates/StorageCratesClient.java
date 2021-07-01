@@ -17,14 +17,15 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.ClientModule;
+import svenhjol.charm.loader.CharmClientModule;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-@svenhjol.charm.annotation.ClientModule(module = StorageCrates.class)
-public class StorageCratesClient extends ClientModule {
+@ClientModule(module = StorageCrates.class)
+public class StorageCratesClient extends CharmClientModule {
     public static long lastEffectTime;
 
     @Override

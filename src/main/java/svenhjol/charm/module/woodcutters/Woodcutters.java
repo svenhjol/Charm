@@ -7,9 +7,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
-public class Woodcutters extends svenhjol.charm.loader.CommonModule {
+public class Woodcutters extends CharmCommonModule {
     public static ResourceLocation RECIPE_ID = new ResourceLocation(Charm.MOD_ID, "woodcutting");
     public static ResourceLocation BLOCK_ID = new ResourceLocation(Charm.MOD_ID, "woodcutter");
     public static WoodcutterBlock WOODCUTTER;

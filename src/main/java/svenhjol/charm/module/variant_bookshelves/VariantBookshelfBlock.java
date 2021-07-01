@@ -1,13 +1,13 @@
 package svenhjol.charm.module.variant_bookshelves;
 
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import svenhjol.charm.block.CharmBlock;
 import svenhjol.charm.enums.IVariantMaterial;
 
 public class VariantBookshelfBlock extends CharmBlock {
-    public VariantBookshelfBlock(CommonModule module, IVariantMaterial material, String... loadedMods) {
+    public VariantBookshelfBlock(CharmCommonModule module, IVariantMaterial material, String... loadedMods) {
         super(module, material.getSerializedName() + "_bookshelf", BlockBehaviour.Properties.copy(Blocks.BOOKSHELF), loadedMods);
 
         if (material.isFlammable())

@@ -15,14 +15,14 @@ import net.minecraft.world.level.material.Material;
 import svenhjol.charm.Charm;
 import svenhjol.charm.block.CharmFallingBlock;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.module.bumblezone.Bumblezone;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class SugarBlock extends CharmFallingBlock {
-    public SugarBlock(CommonModule module) {
+    public SugarBlock(CharmCommonModule module) {
         super(module, "sugar_block", FabricBlockSettings
             .of(Material.SAND)
             .sounds(SoundType.SAND)

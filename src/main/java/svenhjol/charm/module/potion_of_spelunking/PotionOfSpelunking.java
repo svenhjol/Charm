@@ -18,11 +18,12 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.util.*;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Shows particles at ground level to help locate ores below you.")
-public class PotionOfSpelunking extends svenhjol.charm.loader.CommonModule {
+public class PotionOfSpelunking extends CharmCommonModule {
     private static final DyeColor DEFAULT_COLOR = DyeColor.WHITE;
 
     public static SpelunkingEffect SPELUNKING_EFFECT;

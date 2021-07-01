@@ -1,6 +1,6 @@
 package svenhjol.charm.module.redstone_lanterns;
 
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.block.CharmLanternBlock;
 
 import java.util.Random;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 public class RedstoneLanternBlock extends CharmLanternBlock {
     public static BooleanProperty LIT = BlockStateProperties.LIT;
 
-    public RedstoneLanternBlock(CommonModule module) {
+    public RedstoneLanternBlock(CharmCommonModule module) {
         super(module, "redstone_lantern", BlockBehaviour.Properties.copy(Blocks.LANTERN)
             .lightLevel(p -> p.getValue(BlockStateProperties.LIT) ? 15 : 0));
 

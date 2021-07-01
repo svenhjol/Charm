@@ -26,6 +26,7 @@ import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.helper.ToolHelper;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
+import svenhjol.charm.loader.CharmCommonModule;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
 import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.ebony_wood.EbonyBlocks.*;
@@ -44,7 +45,7 @@ import svenhjol.charm.module.variant_ladders.VariantLadders;
 import java.util.OptionalInt;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Ebony is a very dark grey wood. Ebony trees can be found in savanna biomes.")
-public class EbonyWood extends svenhjol.charm.loader.CommonModule {
+public class EbonyWood extends CharmCommonModule {
     @Config(name = "Spawn chance", description = "Chance (per number of chunks) of an ebony tree spawning.")
     public static int spawnChance = 3;
 

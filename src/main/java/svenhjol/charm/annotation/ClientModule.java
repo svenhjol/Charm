@@ -1,6 +1,6 @@
 package svenhjol.charm.annotation;
 
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.loader.CharmCommonModule;
 
 import java.lang.annotation.*;
 
@@ -10,5 +10,5 @@ import java.lang.annotation.*;
 public @interface ClientModule {
     int priority() default 0;
 
-    Class<? extends CommonModule> module() default CommonModule.class;
+    Class<? extends CharmCommonModule> module() default CharmCommonModule.class;
 }
