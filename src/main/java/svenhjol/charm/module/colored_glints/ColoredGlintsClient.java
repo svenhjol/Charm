@@ -40,7 +40,7 @@ public class ColoredGlintsClient extends ClientModule {
     private static boolean hasSetupGlints = false;
 
     @Override
-    public void init() {
+    public void run() {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> setupGlints());
     }
 

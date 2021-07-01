@@ -16,20 +16,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.EntityDropXpCallback;
 import svenhjol.charm.event.PlayerDropInventoryCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-@Module(mod = Charm.MOD_ID, description = "Items will be held in the Totem of Preserving if you die.")
-public class TotemOfPreserving extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Items will be held in the Totem of Preserving if you die.")
+public class TotemOfPreserving extends svenhjol.charm.loader.CommonModule {
     public static TotemOfPreservingItem TOTEM_OF_PRESERVING;
     public static final ResourceLocation TRIGGER_USED_TOTEM_OF_PRESERVING = new ResourceLocation(Charm.MOD_ID, "used_totem_of_preserving");
 
@@ -42,7 +41,7 @@ public class TotemOfPreserving extends CommonModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         ItemHelper.ITEM_LIFETIME.put(TOTEM_OF_PRESERVING, Integer.MAX_VALUE); // probably stupid
         PlayerDropInventoryCallback.EVENT.register(this::tryInterceptDropInventory);
         EntityDropXpCallback.BEFORE.register(this::tryInterceptDropXp);

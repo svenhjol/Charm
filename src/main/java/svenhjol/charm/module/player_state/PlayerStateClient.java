@@ -17,7 +17,7 @@ public class PlayerStateClient extends ClientModule {
     public static final ResourceLocation MSG_CLIENT_UPDATE = new ResourceLocation(CharmNetworkReferences.ClientUpdatePlayerState.toString());
 
     @Override
-    public void init() {
+    public void run() {
         // send a state update request on a heartbeat
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
             if (client.player != null && client.player.level.getGameTime() % PlayerState.heartbeat == 0)

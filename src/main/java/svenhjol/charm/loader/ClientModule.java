@@ -1,9 +1,13 @@
 package svenhjol.charm.loader;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 public abstract class ClientModule implements ICharmModule {
     private CommonModule parentModule;
-    private boolean enabled = true;
     private int priority = 0;
+    private final List<Predicate<ICharmModule>> dependencies = new ArrayList<>();
 
     @Override
     public String getModId() {
@@ -16,13 +20,23 @@ public abstract class ClientModule implements ICharmModule {
     }
 
     @Override
+    public List<Predicate<ICharmModule>> getDependencies() {
+        return dependencies;
+    }
+
+    @Override
+    public void addDependencyCheck(Predicate<ICharmModule> test) {
+        dependencies.add(test);
+    }
+
+    @Override
     public boolean isEnabled() {
-        return enabled;
+        return getParentModule().isEnabled();
     }
 
     @Override
     public void setEnabled(boolean flag) {
-        this.enabled = flag;
+        // no op
     }
 
     @Override

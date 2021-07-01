@@ -3,13 +3,12 @@ package svenhjol.charm.module.entity_spawners;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 
-@Module(mod = Charm.MOD_ID, alwaysEnabled = true, description = "Spawns entities when a player is within range.")
-public class EntitySpawners extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, alwaysEnabled = true, description = "Spawns entities when a player is within range.")
+public class EntitySpawners extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "entity_spawner");
     public static EntitySpawnerBlock ENTITY_SPAWNER;
     public static BlockEntityType<EntitySpawnerBlockEntity> BLOCK_ENTITY;

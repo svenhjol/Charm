@@ -4,15 +4,14 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Chickens randomly drop feathers.")
-public class ChickensDropFeathers extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Chickens randomly drop feathers.")
+public class ChickensDropFeathers extends svenhjol.charm.loader.CommonModule {
     public static boolean isEnabled;
 
     @Override
-    public void init() {
+    public void run() {
         isEnabled = true;
     }
 

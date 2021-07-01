@@ -3,12 +3,11 @@ package svenhjol.charm.module.gentle_potion_particles;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Potion effect particles are much less obtrusive by default and can optionally be entirely hidden.")
-public class GentlePotionParticles extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Potion effect particles are much less obtrusive by default and can optionally be entirely hidden.")
+public class GentlePotionParticles extends svenhjol.charm.loader.CommonModule {
     @Config(name = "Translucent particles", description = "If true, faded/translucent particles will be rendered.  If false, no particles will be rendered.")
     public static boolean translucent = true;
 

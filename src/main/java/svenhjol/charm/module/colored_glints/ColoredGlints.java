@@ -12,15 +12,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.TakeAnvilOutputCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.init.CharmAdvancements;
 
-@Module(mod = Charm.MOD_ID, description = "Use dye on an anvil to change an item's enchantment color.")
-public class ColoredGlints extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Use dye on an anvil to change an item's enchantment color.")
+public class ColoredGlints extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation TRIGGER_CHANGED_GLINT_COLOR = new ResourceLocation(Charm.MOD_ID, "changed_glint_color");
     public static boolean enabled;
 
@@ -31,7 +30,7 @@ public class ColoredGlints extends CommonModule {
     public static int xpCost = 0;
 
     @Override
-    public void init() {
+    public void run() {
         if (!Charm.LOADER.isEnabled("anvil_improvements") && xpCost < 1)
             xpCost = 1;
 

@@ -15,15 +15,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CommonModule;
 
 import javax.annotation.Nullable;
 
-@Module(mod = Charm.MOD_ID, description = "Casks let you combine up to 64 potions, keeping an average of duration. Use glass bottles to extract home brew from the cask.")
-public class Casks extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Casks let you combine up to 64 potions, keeping an average of duration. Use glass bottles to extract home brew from the cask.")
+public class Casks extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "cask");
     public static final ResourceLocation TRIGGER_FILLED_WITH_POTION = new ResourceLocation(Charm.MOD_ID, "filled_with_potion");
     public static final ResourceLocation TRIGGER_TAKEN_BREW = new ResourceLocation(Charm.MOD_ID, "taken_brew");
@@ -51,7 +50,7 @@ public class Casks extends CommonModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         PlayerBlockBreakEvents.BEFORE.register(this::handleBlockBreak);
     }
 

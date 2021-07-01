@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface Module {
+public @interface CommonModule {
     String mod() default "";
 
     String description() default "";

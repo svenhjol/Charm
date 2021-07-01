@@ -2,11 +2,10 @@ package svenhjol.charm.module.variant_mob_textures;
 
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.annotation.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Mobs may spawn with different textures.")
-public class VariantMobTextures extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Mobs may spawn with different textures.")
+public class VariantMobTextures extends svenhjol.charm.loader.CommonModule {
     @Config(name = "Variant cows", description = "If true, cows may spawn with different textures.")
     public static boolean variantCows = true;
 

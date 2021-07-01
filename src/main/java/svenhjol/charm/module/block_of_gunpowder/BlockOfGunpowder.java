@@ -5,13 +5,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "A storage block for gunpowder. It obeys gravity and dissolves in lava.")
-public class BlockOfGunpowder extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "A storage block for gunpowder. It obeys gravity and dissolves in lava.")
+public class BlockOfGunpowder extends svenhjol.charm.loader.CommonModule {
     public static GunpowderBlock GUNPOWDER_BLOCK;
 
     public static final ResourceLocation TRIGGER_DISSOLVED_GUNPOWDER = new ResourceLocation(Charm.MOD_ID, "dissolved_gunpowder");

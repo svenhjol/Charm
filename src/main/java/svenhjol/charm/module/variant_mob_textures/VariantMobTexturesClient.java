@@ -13,6 +13,7 @@ import svenhjol.charm.enums.ICharmEnum;
 import svenhjol.charm.event.ClientPlayerJoinCallback;
 import svenhjol.charm.loader.ClientModule;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 @svenhjol.charm.annotation.ClientModule(module = VariantMobTextures.class)
@@ -38,7 +39,7 @@ public class VariantMobTexturesClient extends ClientModule {
     public static Map<DyeColor, ResourceLocation> sheep = new HashMap<>();
 
     @Override
-    public void init() {
+    public void run() {
         ClientPlayerJoinCallback.EVENT.register(this::handlePlayerJoin);
 
         if (VariantMobTextures.variantChickens)
@@ -149,14 +150,17 @@ public class VariantMobTexturesClient extends ClientModule {
         });
     }
 
+    @Nullable
     public static ResourceLocation getChickenTexture(Chicken entity) {
         return getRandomTexture(entity, chickens, rareChickens);
     }
 
+    @Nullable
     public static ResourceLocation getCowTexture(Cow entity) {
         return getRandomTexture(entity, cows, rareCows);
     }
 
+    @Nullable
     public static ResourceLocation getPigTexture(Pig entity) {
         return getRandomTexture(entity, pigs, rarePigs);
     }
@@ -166,16 +170,21 @@ public class VariantMobTexturesClient extends ClientModule {
         return sheep.getOrDefault(fleeceColor, DEFAULT_SHEEP);
     }
 
+    @Nullable
     public static ResourceLocation getSnowGolemTexture(SnowGolem entity) {
         return getRandomTexture(entity, snowGolems, ImmutableList.of());
     }
 
+    @Nullable
     public static ResourceLocation getSquidTexture(Squid entity) {
         return getRandomTexture(entity, squids, rareSquids);
     }
 
+    @Nullable
     public static ResourceLocation getWolfTexture(Wolf entity) {
         ResourceLocation res = getRandomTexture(entity, wolves, rareWolves);
+        if (res == null)
+            return null;
 
         if (entity.isTame()) {
             res = wolvesTame.get(res);
@@ -186,11 +195,15 @@ public class VariantMobTexturesClient extends ClientModule {
         return res;
     }
 
+    @Nullable
     public static ResourceLocation getRandomTexture(Entity entity, List<ResourceLocation> normalSet, List<ResourceLocation> rareSet) {
         UUID id = entity.getUUID();
         boolean isRare = VariantMobTextures.rareVariants && !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % VariantMobTextures.rarity == 0;
 
         List<ResourceLocation> set = isRare ? rareSet : normalSet;
+        if (set.isEmpty())
+            return null;
+
         int choice = Math.abs((int)(id.getMostSignificantBits() % set.size()));
         return set.get(choice);
     }

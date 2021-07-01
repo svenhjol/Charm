@@ -20,11 +20,10 @@ import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.mixin.accessor.MineshaftCorridorAccessor;
 import svenhjol.charm.mixin.accessor.MineshaftPartAccessor;
 import svenhjol.charm.mixin.accessor.StructurePieceAccessor;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.module.copper_rails.CopperRails;
 
 import java.util.ArrayList;
@@ -32,8 +31,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-@Module(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.")
-public class MineshaftImprovements extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.")
+public class MineshaftImprovements extends svenhjol.charm.loader.CommonModule {
     public static List<BlockState> floorBlocks = new ArrayList<>();
     public static List<BlockState> ceilingBlocks = new ArrayList<>();
     public static List<Pair<BlockState, BlockState>> pileBlocks = new ArrayList<>();
@@ -62,7 +61,7 @@ public class MineshaftImprovements extends CommonModule {
     public static boolean generateMinecarts = true;
 
     @Override
-    public void init() {
+    public void run() {
         isEnabled = true;
 
         floorBlocks.addAll(Arrays.asList(

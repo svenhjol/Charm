@@ -1,11 +1,10 @@
 package svenhjol.charm.module.remove_potion_glint;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Removes the potion enchantment glint so you can see what the potion color is.")
-public class RemovePotionGlint extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Removes the potion enchantment glint so you can see what the potion color is.")
+public class RemovePotionGlint extends svenhjol.charm.loader.CommonModule {
     private static boolean isEnabled = false;
 
     @Override

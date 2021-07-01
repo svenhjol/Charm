@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.ItemNBTHelper;
 import svenhjol.charm.helper.PlayerHelper;
@@ -29,12 +29,11 @@ import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.mixin.accessor.MapItemSavedDataAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, description = "Storage for maps that automatically updates the displayed map as you explore.")
-public class Atlases extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Storage for maps that automatically updates the displayed map as you explore.")
+public class Atlases extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "atlas");
     public static final ResourceLocation MSG_SERVER_ATLAS_TRANSFER = new ResourceLocation(Charm.MOD_ID, "server_atlas_transfer");
     public static final ResourceLocation MSG_CLIENT_UPDATE_ATLAS_INVENTORY = new ResourceLocation(Charm.MOD_ID, "client_update_atlas_inventory");
@@ -67,7 +66,7 @@ public class Atlases extends CommonModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
 
         // listen for network requests to run the server callback

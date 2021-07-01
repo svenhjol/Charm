@@ -11,20 +11,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.EntityDropItemsCallback;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Cave spiders have a chance to drop cobwebs.")
-public class CaveSpidersDropCobwebs extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Cave spiders have a chance to drop cobwebs.")
+public class CaveSpidersDropCobwebs extends svenhjol.charm.loader.CommonModule {
     public static double lootingBoost = 0.3D;
 
     @Config(name = "Maximum drops", description = "Maximum cobwebs dropped when cave spider is killed.")
     public static int maxDrops = 2;
 
     @Override
-    public void init() {
+    public void run() {
         EntityDropItemsCallback.AFTER.register((this::tryDropCobweb));
     }
 

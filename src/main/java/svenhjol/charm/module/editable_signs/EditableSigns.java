@@ -13,16 +13,15 @@ import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
 
-@Module(mod = Charm.MOD_ID, description = "Right-click on a sign with an empty hand to edit its text.")
-public class EditableSigns extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Right-click on a sign with an empty hand to edit its text.")
+public class EditableSigns extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation TRIGGER_EDITED_SIGN = new ResourceLocation(Charm.MOD_ID, "edited_sign");
 
     @Override
-    public void init() {
+    public void run() {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
     }
 

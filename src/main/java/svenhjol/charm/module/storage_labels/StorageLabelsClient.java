@@ -32,7 +32,7 @@ public class StorageLabelsClient extends ClientModule {
     public static final ThreadLocal<BlockEntityRendererProvider.Context> chestBlockEntityContext = new ThreadLocal<>();
 
     @Override
-    public void init() {
+    public void run() {
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_UPDATE_CUSTOM_NAME, this::handleUpdateCustomName);
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_HAS_NO_CUSTOM_NAME, this::handleHasNoCustomName);
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_CLEAR_CUSTOM_NAME, this::handleClearCustomName);

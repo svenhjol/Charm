@@ -7,13 +7,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.ServerJoinCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, priority = 100, alwaysEnabled = true, description = "Core configuration values.")
-public class Core extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, priority = 100, alwaysEnabled = true, description = "Core configuration values.")
+public class Core extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation ADVANCEMENT_PLAYER_JOINED = new ResourceLocation(Charm.MOD_ID, "player_joined");
     public static final ResourceLocation MSG_SERVER_OPEN_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_open_inventory");
 

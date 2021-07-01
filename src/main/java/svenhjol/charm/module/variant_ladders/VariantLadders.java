@@ -7,18 +7,17 @@ import net.minecraft.world.level.block.LadderBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, description = "Ladders available in all types of vanilla wood.")
-public class VariantLadders extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Ladders available in all types of vanilla wood.")
+public class VariantLadders extends svenhjol.charm.loader.CommonModule {
     public static final Map<IVariantMaterial, VariantLadderBlock> LADDER_BLOCKS = new HashMap<>();
 
     public static boolean isEnabled = false;
@@ -32,7 +31,7 @@ public class VariantLadders extends CommonModule {
         isEnabled = this.isEnabled();
     }
 
-    public static VariantLadderBlock registerLadder(CommonModule module, IVariantMaterial material) {
+    public static VariantLadderBlock registerLadder(svenhjol.charm.loader.CommonModule module, IVariantMaterial material) {
         VariantLadderBlock ladder = new VariantLadderBlock(module, material);
         LADDER_BLOCKS.put(material, ladder);
         return ladder;

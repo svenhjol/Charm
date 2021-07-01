@@ -24,7 +24,7 @@ public class MapTooltipsClient extends ClientModule {
     private static final RenderType MAP_BACKGROUND = RenderType.text(new ResourceLocation("textures/map/map_background.png"));
 
     @Override
-    public void init() {
+    public void run() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 

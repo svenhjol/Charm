@@ -10,14 +10,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Strays spawn anywhere within their biome and have a chance to drop blue ice.")
-public class StrayImprovements extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Strays spawn anywhere within their biome and have a chance to drop blue ice.")
+public class StrayImprovements extends svenhjol.charm.loader.CommonModule {
     public static double lootingBoost = 0.3D;
 
     @Config(name = "Spawn anywhere in biome", description = "If true, strays can spawn anywhere within their biome rather than just the surface.")
@@ -30,7 +29,7 @@ public class StrayImprovements extends CommonModule {
     public static int maxDrops = 2;
 
     @Override
-    public void init() {
+    public void run() {
         EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 

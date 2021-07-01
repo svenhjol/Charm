@@ -43,7 +43,7 @@ public class EnderBundlesClient extends ClientModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 

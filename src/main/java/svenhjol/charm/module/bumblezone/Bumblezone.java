@@ -1,12 +1,5 @@
 package svenhjol.charm.module.bumblezone;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
-import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.annotation.Module;
-
-import java.util.HashSet;
-import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -14,15 +7,21 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.helper.ModHelper;
 
-@Module(mod = Charm.MOD_ID, description = "Bumblezone integration.")
-public class Bumblezone extends CommonModule {
+import java.util.HashSet;
+import java.util.Set;
+
+@CommonModule(mod = Charm.MOD_ID, description = "Bumblezone integration.")
+public class Bumblezone extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation BUMBLEZONE_FLUID_ID = new ResourceLocation("the_bumblezone", "sugar_water_block");
     public static Block bumblezoneFluid = null;
 
     @Override
-    public boolean depends() {
-        return ModHelper.isLoaded("bumblezone");
+    public void register() {
+        this.addDependencyCheck(module -> ModHelper.isLoaded("bumblezone"));
     }
 
     /**

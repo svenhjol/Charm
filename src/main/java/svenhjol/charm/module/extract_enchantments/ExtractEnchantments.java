@@ -17,27 +17,26 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.module.grindable_horse_armor.GrindableHorseArmor;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
-@Module(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.")
-public class ExtractEnchantments extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.")
+public class ExtractEnchantments extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation TRIGGER_EXTRACTED_ENCHANTMENT = new ResourceLocation(Charm.MOD_ID, "extracted_enchantment");
 
     @Config(name = "Initial XP cost", description = "Initial XP cost before adding XP equivalent to the enchantment level(s) of the item.")
     public static int initialCost = 2;
 
     @Override
-    public boolean depends() {
-        return !ModHelper.isLoaded("grindenchantments");
+    public void register() {
+        this.addDependencyCheck(module -> !ModHelper.isLoaded("grindenchantments"));
     }
 
     public static Slot getGrindstoneInputSlot(int index, Container inputs) {

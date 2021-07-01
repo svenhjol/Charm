@@ -23,18 +23,17 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.EntityEquipCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.init.CharmSounds;
-import svenhjol.charm.loader.CommonModule;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-@Module(mod = Charm.MOD_ID, description = "A tool that rotates blocks. When held in offhand it locks block orientation when placing.")
-public class Quadrants extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "A tool that rotates blocks. When held in offhand it locks block orientation when placing.")
+public class Quadrants extends svenhjol.charm.loader.CommonModule {
     public static QuadrantItem QUADRANT;
     public static Map<UUID, Direction> lockedDirection = new HashMap<>();
     public static final ResourceLocation TRIGGER_HELD_TO_ALIGN = new ResourceLocation(Charm.MOD_ID, "held_to_align");
@@ -46,7 +45,7 @@ public class Quadrants extends CommonModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         EntityEquipCallback.EVENT.register(this::handleEntityEquip);
         UseBlockCallback.EVENT.register(this::handleUseBlock);
     }

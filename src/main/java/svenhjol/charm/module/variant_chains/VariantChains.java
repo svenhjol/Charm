@@ -4,17 +4,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.block.CharmChainBlock;
 import svenhjol.charm.enums.IMetalMaterial;
 import svenhjol.charm.enums.VanillaMetalMaterial;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.module.extra_nuggets.ExtraNuggets;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, description = "Variant chains crafted from vanilla metal ingots and nuggets.")
-public class VariantChains extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Variant chains crafted from vanilla metal ingots and nuggets.")
+public class VariantChains extends svenhjol.charm.loader.CommonModule {
     public static Map<IMetalMaterial, CharmChainBlock> CHAINS = new HashMap<>();
 
     @Override

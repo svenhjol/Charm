@@ -11,19 +11,18 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.helper.BiomeHelper;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Villages can spawn in swamps and jungles.")
-public class MoreVillageBiomes extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Villages can spawn in swamps and jungles.")
+public class MoreVillageBiomes extends svenhjol.charm.loader.CommonModule {
     @Override
-    public void init() {
+    public void run() {
         List<ResourceKey<Biome>> plainsBiomeKeys = new ArrayList<>(Arrays.asList(
             Biomes.JUNGLE, Biomes.BAMBOO_JUNGLE, Biomes.SWAMP
         ));

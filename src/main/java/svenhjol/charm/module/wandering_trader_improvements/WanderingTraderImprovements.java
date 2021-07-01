@@ -1,12 +1,11 @@
 package svenhjol.charm.module.wandering_trader_improvements;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.helper.BiomeHelper;
 import svenhjol.charm.helper.MapHelper;
 import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,8 +25,8 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 
-@Module(mod = Charm.MOD_ID, description = "Wandering traders only appear near signal campfires and sell maps to biomes and structures.")
-public class WanderingTraderImprovements extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Wandering traders only appear near signal campfires and sell maps to biomes and structures.")
+public class WanderingTraderImprovements extends svenhjol.charm.loader.CommonModule {
     public static final List<TraderMap> traderMaps = new ArrayList<>();
 
     @Config(name = "Trade biome maps", description = "If true, wandering traders will sell maps to biomes.")
@@ -40,7 +39,7 @@ public class WanderingTraderImprovements extends CommonModule {
     public static boolean frequentSpawn = false;
 
     @Override
-    public void init() {
+    public void run() {
         if (tradeStructureMaps) {
             traderMaps.addAll(Arrays.asList(
                 new StructureMap(StructureFeature.RUINED_PORTAL, false), // ruined portal

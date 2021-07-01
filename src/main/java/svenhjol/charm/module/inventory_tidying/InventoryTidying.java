@@ -11,23 +11,22 @@ import net.minecraft.world.Container;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.List;
 
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.BE;
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PLAYER;
 
-@Module(mod = Charm.MOD_ID, description = "Button to automatically tidy inventories.")
-public class InventoryTidying extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Button to automatically tidy inventories.")
+public class InventoryTidying extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation MSG_SERVER_TIDY_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_tidy_inventory");
     public static final ResourceLocation TRIGGER_TIDIED_INVENTORY = new ResourceLocation(Charm.MOD_ID, "tidied_inventory");
 
     @Override
-    public void init() {
+    public void run() {
         // listen for network requests to run the server callback
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_TIDY_INVENTORY, this::handleServerTidyInventory);
 

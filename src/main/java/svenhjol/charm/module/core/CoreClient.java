@@ -27,9 +27,9 @@ public class CoreClient extends ClientModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         // proxy calls
-        this.inventoryButtonClient.init();
+        this.inventoryButtonClient.run();
     }
 
     private void handleServerOpenInventory(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {

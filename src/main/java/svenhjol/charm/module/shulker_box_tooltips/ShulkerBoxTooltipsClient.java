@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ShulkerBoxTooltipsClient extends ClientModule {
     @Override
-    public void init() {
+    public void run() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 

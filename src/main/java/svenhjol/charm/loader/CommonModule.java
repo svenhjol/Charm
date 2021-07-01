@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public abstract class CommonModule implements ICharmModule {
     private String modId = "";
@@ -12,6 +13,7 @@ public abstract class CommonModule implements ICharmModule {
     private boolean enabled = true;
     private boolean enabledByDefault = true;
     private boolean alwaysEnabled = false;
+    private final List<Predicate<ICharmModule>> dependencies = new ArrayList<>();
 
     @Override
     public String getModId() {
@@ -31,6 +33,16 @@ public abstract class CommonModule implements ICharmModule {
     @Override
     public void setEnabled(boolean flag) {
         this.enabled = flag;
+    }
+
+    @Override
+    public void addDependencyCheck(Predicate<ICharmModule> test) {
+        dependencies.add(test);
+    }
+
+    @Override
+    public List<Predicate<ICharmModule>> getDependencies() {
+        return dependencies;
     }
 
     @Override

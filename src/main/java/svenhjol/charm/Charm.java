@@ -31,7 +31,7 @@ public class Charm implements ModInitializer {
         CharmBiomes.init();
         CharmAdvancements.init();
 
-        LOADER.run();
+        LOADER.start();
 
         hasStartedCharm = true;
     }

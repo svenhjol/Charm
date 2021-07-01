@@ -7,11 +7,10 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.loader.CommonModule;
+import svenhjol.charm.annotation.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Automatically opens double doors.")
-public class OpenDoubleDoors extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Automatically opens double doors.")
+public class OpenDoubleDoors extends svenhjol.charm.loader.CommonModule {
 
     public static void tryOpenNeighbour(Level level, BlockState state, BlockPos pos, boolean isClosed) {
         Direction facing = state.getValue(DoorBlock.FACING);

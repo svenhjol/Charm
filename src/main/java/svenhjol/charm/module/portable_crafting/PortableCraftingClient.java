@@ -30,7 +30,7 @@ public class PortableCraftingClient extends ClientModule {
     public static KeyMapping keyBinding;
 
     @Override
-    public void init() {
+    public void run() {
         // set up client listeners
         SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);

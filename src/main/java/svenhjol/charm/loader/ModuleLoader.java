@@ -18,17 +18,30 @@ public abstract class ModuleLoader<T extends ICharmModule> {
         this.basePackage = basePackage;
     }
 
-    public void run() {
-        // do module registration and dependency check
+    public void start() {
+        // do module registration
+        this.register();
+
+        // do module dependency check
+        this.dependencies();
+
+        // do module run if enabled
+        this.run();
+    }
+
+    protected void register() {
         prepareModules().forEach((id, module) -> {
             Charm.LOG.debug("Registering " + module.getName());
             MODULES.put(StringHelper.upperCamelToSnake(module.getName()), module);
             module.register();
         });
+    }
 
-        // do module dependency check
+    protected void dependencies() {
         getModules().forEach(module -> {
-            if (!module.depends()) {
+            boolean passed = module.getDependencies().isEmpty() || module.getDependencies().stream().allMatch(dep -> dep.test(module));
+
+            if (!passed) {
                 module.setEnabled(false);
                 Charm.LOG.debug("> " + module.getName() + " did not pass dependency check");
             } else if (!module.isEnabled()) {
@@ -37,11 +50,12 @@ public abstract class ModuleLoader<T extends ICharmModule> {
                 Charm.LOG.debug("> " + module.getName() + " is enabled ");
             }
         });
+    }
 
-        // do module init, add to enabled module cache
+    protected void run() {
         getEnabledModules().forEach(module -> {
             Charm.LOG.info("Initialising " + module.getName());
-            module.init();
+            module.run();
         });
     }
 
@@ -86,7 +100,8 @@ public abstract class ModuleLoader<T extends ICharmModule> {
             name = moduleName;
         }
 
-        return MODULES.getOrDefault(StringHelper.upperCamelToSnake(name), null);
+        String lower = StringHelper.upperCamelToSnake(name);
+        return MODULES.getOrDefault(lower, null);
     }
 
     protected Map<String, T> prepareModules() {

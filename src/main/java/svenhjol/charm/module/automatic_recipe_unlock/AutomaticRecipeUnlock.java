@@ -6,16 +6,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.ServerJoinCallback;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.Collection;
 
-@Module(mod = Charm.MOD_ID, description = "Unlocks all vanilla recipes.")
-public class AutomaticRecipeUnlock extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Unlocks all vanilla recipes.")
+public class AutomaticRecipeUnlock extends svenhjol.charm.loader.CommonModule {
     @Override
-    public void init() {
+    public void run() {
         ServerJoinCallback.EVENT.register(this::handleServerJoin);
     }
 

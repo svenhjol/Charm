@@ -6,13 +6,12 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.item.CharmBoatItem;
-import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, priority = 5, description = "Adds crimson and warped wood boats.")
-public class ExtraBoats extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, priority = 5, description = "Adds crimson and warped wood boats.")
+public class ExtraBoats extends svenhjol.charm.loader.CommonModule {
     public static EntityType<CharmBoatEntity> CHARM_BOAT;
 
     public static CharmBoatItem CRIMSON_BOAT;

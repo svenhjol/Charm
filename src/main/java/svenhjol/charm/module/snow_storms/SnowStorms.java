@@ -14,12 +14,11 @@ import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Increases snow layers in cold biomes during thunderstorms.")
-public class SnowStorms extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Increases snow layers in cold biomes during thunderstorms.")
+public class SnowStorms extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation HEAVY_SNOW = new ResourceLocation(Charm.MOD_ID, "textures/environment/heavy_snow.png");
 
     @Config(name = "Snow layer chance", description = "Chance (out of 1.0) every tick of snow increasing by one layer during a thunderstorm.")

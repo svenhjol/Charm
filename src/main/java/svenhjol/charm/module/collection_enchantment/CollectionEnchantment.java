@@ -6,17 +6,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.EnchantmentsHelper;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.Map;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
-@Module(mod = Charm.MOD_ID, description = "Tools with the Collection enchantment automatically pick up drops.")
-public class CollectionEnchantment extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Tools with the Collection enchantment automatically pick up drops.")
+public class CollectionEnchantment extends svenhjol.charm.loader.CommonModule {
     private static final Map<BlockPos, UUID> breaking = new WeakHashMap<>();
     public static CollectionEnch ENCHANTMENT;
 

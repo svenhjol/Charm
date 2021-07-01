@@ -9,23 +9,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
-@Module(mod = Charm.MOD_ID, description = "Refills your hotbar from your inventory.")
-public class AutoRestock extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Refills your hotbar from your inventory.")
+public class AutoRestock extends svenhjol.charm.loader.CommonModule {
     //remember which items were in our hands and how often they were used
     private final Map<Player, EnumMap<InteractionHand, StackData>> handCache = new WeakHashMap<>();
 
     @Override
-    public void init() {
+    public void run() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 

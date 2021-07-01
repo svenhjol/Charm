@@ -15,15 +15,14 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, description = "Shows particles at ground level to help locate ores below you.")
-public class PotionOfSpelunking extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Shows particles at ground level to help locate ores below you.")
+public class PotionOfSpelunking extends svenhjol.charm.loader.CommonModule {
     private static final DyeColor DEFAULT_COLOR = DyeColor.WHITE;
 
     public static SpelunkingEffect SPELUNKING_EFFECT;
@@ -88,7 +87,7 @@ public class PotionOfSpelunking extends CommonModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 

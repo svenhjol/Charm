@@ -6,17 +6,16 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.SetupStructureCallback.VillageType;
 import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.mixin.accessor.PoiTypeAccessor;
-import svenhjol.charm.loader.CommonModule;
 
 import static svenhjol.charm.event.SetupStructureCallback.addVillageHouse;
 import static svenhjol.charm.helper.VillagerHelper.addTrade;
 
-@Module(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
-public class Beekeepers extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
+public class Beekeepers extends svenhjol.charm.loader.CommonModule {
     public static String ID = "charm_beekeeper";
     public static VillagerProfession BEEKEEPER;
 
@@ -24,7 +23,7 @@ public class Beekeepers extends CommonModule {
     public static int buildingWeight = 5;
 
     @Override
-    public void init() {
+    public void run() {
         BEEKEEPER = VillagerHelper.addProfession(ID, PoiType.BEEHIVE, SoundEvents.BEEHIVE_WORK);
 
         // HACK: set ticketCount so that villager can use it as job site

@@ -12,21 +12,20 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Villagers are attracted when the player holds a block of emeralds.")
-public class VillagersFollowEmeraldBlocks extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Villagers are attracted when the player holds a block of emeralds.")
+public class VillagersFollowEmeraldBlocks extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation TRIGGER_LURED_VILLAGER = new ResourceLocation(Charm.MOD_ID, "lured_villager");
 
     @Override
-    public void init() {
+    public void run() {
         AddEntityCallback.EVENT.register(this::followEmerald);
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }

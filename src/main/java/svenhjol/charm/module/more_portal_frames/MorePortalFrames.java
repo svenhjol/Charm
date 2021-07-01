@@ -3,12 +3,11 @@ package svenhjol.charm.module.more_portal_frames;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.init.CharmTags;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Crying obsidian can be used to construct nether portal frames.")
-public class MorePortalFrames extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Crying obsidian can be used to construct nether portal frames.")
+public class MorePortalFrames extends svenhjol.charm.loader.CommonModule {
     public static boolean isValidBlock(BlockState blockState) {
         if (!Charm.LOADER.isEnabled(MorePortalFrames.class))
             return blockState.is(Blocks.OBSIDIAN); // vanilla

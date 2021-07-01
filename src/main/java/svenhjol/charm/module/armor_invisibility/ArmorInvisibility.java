@@ -1,8 +1,7 @@
 package svenhjol.charm.module.armor_invisibility;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.loader.CommonModule;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,13 +13,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-@Module(mod = Charm.MOD_ID, description = "Lightweight armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
-public class ArmorInvisibility extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Lightweight armor is invisible and does not increase mob awareness when drinking Potion of Invisibility.")
+public class ArmorInvisibility extends svenhjol.charm.loader.CommonModule {
     public static List<Item> invisibleItems = new ArrayList<>();
     public static boolean isEnabled = false;
 
     @Override
-    public void init() {
+    public void run() {
         isEnabled = true;
 
         invisibleItems.addAll(Arrays.asList(

@@ -39,7 +39,7 @@ public class AtlasesClient extends ClientModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         RenderHeldItemCallback.EVENT.register(this::handleRenderItem);
         ItemTooltipCallback.EVENT.register(this::handleItemTooltip);
         ClientPlayNetworking.registerGlobalReceiver(Atlases.MSG_CLIENT_UPDATE_ATLAS_INVENTORY, this::handleClientUpdateAtlas);

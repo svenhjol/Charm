@@ -14,19 +14,18 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.BiomeHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.item.CharmSpawnEggItem;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Coral Squids spawn near coral in warm oceans.")
-public class CoralSquids extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Coral Squids spawn near coral in warm oceans.")
+public class CoralSquids extends svenhjol.charm.loader.CommonModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "coral_squid");
 
     public static CoralSquidBucketItem CORAL_SQUID_BUCKET;
@@ -59,7 +58,7 @@ public class CoralSquids extends CommonModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         List<ResourceKey<Biome>> biomes = new ArrayList<>(Arrays.asList(Biomes.WARM_OCEAN, Biomes.DEEP_WARM_OCEAN));
 
         biomes.forEach(biomeKey -> {

@@ -27,7 +27,7 @@ public class InventoryButtonClient extends ClientModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         portableCraftingClient = (PortableCraftingClient) CharmClient.LOADER.getModule("portable_crafting_client");
     }
 

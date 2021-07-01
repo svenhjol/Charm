@@ -6,14 +6,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.mixin.accessor.ItemAccessor;
-import svenhjol.charm.loader.CommonModule;
 import svenhjol.charm.module.cooking_pots.CookingPots;
 
-@Module(mod = Charm.MOD_ID, description = "Allows stews to stack.")
-public class StackableStews extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Allows stews to stack.")
+public class StackableStews extends svenhjol.charm.loader.CommonModule {
     @Config(name = "Stack size", description = "Maximum stew stack size.")
     public static int stackSize = 64;
 
@@ -21,7 +20,7 @@ public class StackableStews extends CommonModule {
     public static boolean suspiciousStew = false;
 
     @Override
-    public void init() {
+    public void run() {
         ((ItemAccessor) Items.MUSHROOM_STEW).setMaxStackSize(stackSize);
         ((ItemAccessor) Items.RABBIT_STEW).setMaxStackSize(stackSize);
         ((ItemAccessor) Items.BEETROOT_SOUP).setMaxStackSize(stackSize);

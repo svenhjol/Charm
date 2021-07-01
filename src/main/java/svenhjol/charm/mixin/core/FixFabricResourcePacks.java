@@ -23,7 +23,7 @@ import java.util.Map;
  * @link {https://github.com/FabricMC/fabric/issues/66#issuecomment-614970964}
  */
 @Mixin(VanillaPackResources.class)
-public class FixFabricResourcePacks {
+public class FixFabricResourcePacks { // TODO: blacklisted for now, it's b0rk in pre3
     @Shadow
     private static @Final
     Map<PackType, FileSystem> ROOT_DIR_BY_TYPE;

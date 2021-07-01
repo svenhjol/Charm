@@ -7,16 +7,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CommonModule;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Cooking pots let you combine up to 64 food items, keeping an average of all hunger and saturation. Use wooden bowls to extract stew from the pot.")
-public class CookingPots extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Cooking pots let you combine up to 64 food items, keeping an average of all hunger and saturation. Use wooden bowls to extract stew from the pot.")
+public class CookingPots extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "cooking_pot");
     public static final ResourceLocation TRIGGER_LIT_FIRE = new ResourceLocation(Charm.MOD_ID, "lit_fire_under_pot");
     public static final ResourceLocation TRIGGER_FILLED_WATER = new ResourceLocation(Charm.MOD_ID, "filled_pot_with_water");

@@ -18,6 +18,11 @@ public class ClientLoader<T extends ClientModule, U extends CommonModule> extend
     }
 
     @Override
+    protected void register() {
+        super.register();
+    }
+
+    @Override
     protected String getModuleAnnotation() {
         return "Lsvenhjol/charm/annotation/ClientModule;";
     }

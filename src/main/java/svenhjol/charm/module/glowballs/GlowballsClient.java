@@ -22,7 +22,7 @@ public class GlowballsClient extends ClientModule {
     }
 
     @Override
-    public void init() {
+    public void run() {
         ClientSpawnEntityCallback.EVENT.register(this::handleClientSpawnEntity);
     }
 

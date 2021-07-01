@@ -43,7 +43,7 @@ public class MusicImprovementsClient extends ClientModule {
     public static boolean isEnabled;
 
     @Override
-    public void init() {
+    public void run() {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
         PlaySoundCallback.EVENT.register(this::handlePlaySound);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);

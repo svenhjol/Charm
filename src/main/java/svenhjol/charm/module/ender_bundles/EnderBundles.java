@@ -10,12 +10,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CommonModule;
 
-@Module(mod = Charm.MOD_ID, description = "Ender bundles allow transfer of items to and from your ender chest.")
-public class EnderBundles extends CommonModule {
+@CommonModule(mod = Charm.MOD_ID, description = "Ender bundles allow transfer of items to and from your ender chest.")
+public class EnderBundles extends svenhjol.charm.loader.CommonModule {
     public static final ResourceLocation MSG_SERVER_UPDATE_ENDER_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_update_ender_inventory");
     public static final ResourceLocation MSG_CLIENT_UPDATE_ENDER_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_client_ender_inventory");
     public static final ResourceLocation TRIGGER_USED_ENDER_BUNDLE = new ResourceLocation(Charm.MOD_ID, "used_ender_bundle");
