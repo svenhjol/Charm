@@ -1,6 +1,8 @@
 package svenhjol.charm;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
+import net.minecraft.client.player.LocalPlayer;
 import svenhjol.charm.loader.ClientLoader;
 import svenhjol.charm.handler.LogHandler;
 import svenhjol.charm.init.CharmClientParticles;
@@ -12,15 +14,15 @@ public class CharmClient implements ClientModInitializer {
     public static final String MOD_ID = "charm";
     public static LogHandler LOG = new LogHandler("CharmClient");
 
-    public static ClientLoader<ClientModule, CommonModule> LOADER;
+    public static ClientLoader<ClientModule, CommonModule> LOADER = new ClientLoader<>(Charm.LOADER, MOD_ID, "svenhjol.charm.module");
 
     @Override
     public void onInitializeClient() {
-        LOADER = new ClientLoader<>(Charm.LOADER, MOD_ID, "svenhjol.charm.module");
+        CharmClientParticles.init();
 
         LOADER.init();
 
-        CharmClientParticles.init();
-        CharmDecorations.init();
+        ClientEntityEvents.ENTITY_LOAD.register((entity, level)
+            -> { if (entity instanceof LocalPlayer) CharmDecorations.init(); });
     }
 }

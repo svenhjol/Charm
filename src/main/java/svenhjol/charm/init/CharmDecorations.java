@@ -1,7 +1,5 @@
 package svenhjol.charm.init;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
@@ -9,7 +7,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import svenhjol.charm.enums.VanillaVariantMaterial;
-import svenhjol.charm.event.LoadServerFinishCallback;
 import svenhjol.charm.helper.LootHelper;
 
 import java.util.ArrayList;
@@ -24,14 +21,6 @@ public class CharmDecorations {
     private static boolean hasAlreadySetup = false;
 
     public static void init() {
-        // loaded late so that tags are available
-        LoadServerFinishCallback.EVENT.register(server -> setupDecoration());
-
-        ClientEntityEvents.ENTITY_LOAD.register((entity, level)
-            -> { if (entity instanceof LocalPlayer) setupDecoration(); });
-    }
-
-    private static void setupDecoration() {
         if (hasAlreadySetup) return;
 
         List<Block> filteredFlowers = BlockTags.FLOWERS.getValues().stream()
