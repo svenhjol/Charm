@@ -145,7 +145,6 @@
     "colored_glints.GetCustomRenderLayersMixin",
     "colored_glints.GetElytraMixin",
     "colored_glints.GetItemMixin",
-    "core.FixFabricResourcePacks",
     "core.FixRecipeSpawnMixin",
     "core.LoadCustomModelPartsMixin",
     "core.ShowEnchantmentParticlesMixin",

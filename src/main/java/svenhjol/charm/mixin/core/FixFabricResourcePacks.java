@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
@@ -24,9 +23,7 @@ import java.util.Map;
  */
 @Mixin(VanillaPackResources.class)
 public class FixFabricResourcePacks { // TODO: blacklisted for now, it's b0rk in pre3
-    @Shadow
-    private static @Final
-    Map<PackType, FileSystem> ROOT_DIR_BY_TYPE;
+    @Shadow @Final private static Map<PackType, Path> ROOT_DIR_BY_TYPE;
 
     @Inject(method = "getResourceAsStream(Lnet/minecraft/server/packs/PackType;Lnet/minecraft/resources/ResourceLocation;)Ljava/io/InputStream;", at = @At("HEAD"), cancellable = true)
     private void onFindInputStream(PackType resourceType, ResourceLocation identifier, CallbackInfoReturnable<InputStream> callback) {
@@ -35,10 +32,9 @@ public class FixFabricResourcePacks { // TODO: blacklisted for now, it's b0rk in
             return;
         }
 
-        FileSystem fs = ROOT_DIR_BY_TYPE.get(resourceType);
-        if (fs == null) return; // Apparently Minecraft couldn't find its own resources, they'll be an error in the log for this
+        Path path = ROOT_DIR_BY_TYPE.get(resourceType);
+        if (path == null) return; // Apparently Minecraft couldn't find its own resources, they'll be an error in the log for this
 
-        Path path = fs.getPath(resourceType.getDirectory(), identifier.getNamespace(), identifier.getPath());
         if (path != null && Files.isRegularFile(path)) {
             try {
                 callback.setReturnValue(Files.newInputStream(path));
@@ -52,10 +48,7 @@ public class FixFabricResourcePacks { // TODO: blacklisted for now, it's b0rk in
     private void fixHasResource(PackType type, ResourceLocation id, CallbackInfoReturnable<Boolean> callback) {
         if (VanillaPackResources.generatedDir != null) return;
 
-        FileSystem fs = ROOT_DIR_BY_TYPE.get(type);
-        if (fs == null) return;
-
-        Path path = fs.getPath(type.getDirectory(), id.getNamespace(), id.getPath());
+        Path path = ROOT_DIR_BY_TYPE.get(type);
         if (path != null) callback.setReturnValue(Files.isRegularFile(path));
     }
 }
