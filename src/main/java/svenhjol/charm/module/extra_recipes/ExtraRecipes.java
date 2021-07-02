@@ -34,6 +34,9 @@ public class ExtraRecipes extends CharmModule {
     @Config(name = "Green Dye from yellow and blue", description = "If true, adds a recipe for Green Dye using yellow and blue dyes.")
     public static boolean useGreenDye = true;
 
+    @Config(name = "Snowballs from snow blocks", description = "If true, adds a recipe for turning snow blocks back into snowballs.")
+    public static boolean useSnowballs = true;
+
     @Config(name = "Simpler Soul Torch", description = "If true, adds a recipe for Soul Torches using soul sand/soul soil and sticks.")
     public static boolean useSoulTorch = true;
 
@@ -51,7 +54,6 @@ public class ExtraRecipes extends CharmModule {
 
     @Override
     public void register() {
-
         // remove recipes that are not valid according to the config
         List<String> invalid = new ArrayList<>();
         if (!useRawOreBlocks) invalid.addAll(Arrays.asList(
@@ -60,6 +62,7 @@ public class ExtraRecipes extends CharmModule {
             "iron_block_from_blasting_raw_iron_block"
         ));
         if (!useGildedBlackstone) invalid.add("gilded_blackstone");
+        if (!useSnowballs) invalid.add("snowballs_from_snow_block");
         if (!useTrident) invalid.add("trident");
         if (!useCyanDye) invalid.add("cyan_dye");
         if (!useGreenDye) invalid.add("green_dye");
