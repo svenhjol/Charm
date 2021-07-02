@@ -35,6 +35,11 @@ public class Core extends CharmModule {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, ADVANCEMENT_PLAYER_JOINED);
     }
 
+    public static void debug(String message) {
+        if (isDebugMode())
+            Charm.LOG.info(message);
+    }
+
     public static boolean isDebugMode() {
         return debug || FabricLoader.getInstance().isDevelopmentEnvironment();
     }

@@ -100,7 +100,7 @@ public class BiomeHelper {
             try {
                 biomeSelector = BiomeSelectors.includeByKey(biomeKey);
                 structureKey = BuiltInRegistryKeys.get(structureFeature);
-                Charm.LOG.debug("[BiomeHelper] Added structure `" + structureFeature.feature.getFeatureName() + "` to biome `" + biomeKey.toString() + "`");
+                Core.debug("[BiomeHelper] Added structure `" + structureFeature.feature.getFeatureName() + "` to biome `" + biomeKey.location() + "`");
             } catch (Exception e) {
                 Charm.LOG.error("[BiomeHelper] Failed to add structure to biome. This may cause crashes when trying to locate the structure.");
                 return;

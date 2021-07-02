@@ -42,6 +42,7 @@ import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.helper.PlayerHelper;
+import svenhjol.charm.module.core.Core;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -108,7 +109,7 @@ public class CoralSquidEntity extends WaterAnimal {
             && coralBelow;
 
         if (canSpawn)
-            Charm.LOG.debug("[CoralSquidEntity] Can spawn coral squid at pos: " + pos);
+            Core.debug("[CoralSquidEntity] Can spawn coral squid at pos: " + pos);
 
         return canSpawn;
     }

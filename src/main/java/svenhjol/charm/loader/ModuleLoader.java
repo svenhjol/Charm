@@ -35,7 +35,7 @@ public abstract class ModuleLoader<T extends CharmModule> {
 
     protected void register() {
         prepareModules().forEach((id, module) -> {
-            Charm.LOG.debug("[ModuleLoader] Registering " + module.getName());
+            Core.debug("[ModuleLoader] Registering " + module.getName());
             MODULES.put(StringHelper.upperCamelToSnake(module.getName()), module);
             module.register();
         });
@@ -69,7 +69,7 @@ public abstract class ModuleLoader<T extends CharmModule> {
 
     protected void runWhenDisabled() {
         getDisabledModules().forEach(module -> {
-            Charm.LOG.debug("[ModuleLoader] Running disabled tasks: " + module.getName());
+            Core.debug("[ModuleLoader] Running disabled tasks: " + module.getName());
             module.runWhenDisabled();
         });
     }

@@ -27,9 +27,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
-import svenhjol.charm.Charm;
 import svenhjol.charm.helper.DataBlockHelper;
 import svenhjol.charm.helper.LootHelper;
+import svenhjol.charm.module.core.Core;
 
 import java.util.*;
 
@@ -102,9 +102,9 @@ public class EntitySpawnerBlockEntity extends BlockEntity {
         boolean result = trySpawn(world, entitySpawner.worldPosition, entitySpawner);
 
         if (result) {
-            Charm.LOG.debug("EntitySpawner spawned entity " + entitySpawner.entity.toString() + " at pos: " + pos);
+            Core.debug("EntitySpawner spawned entity " + entitySpawner.entity.toString() + " at pos: " + pos);
         } else {
-            Charm.LOG.debug("EntitySpawner failed to spawn entity " + entitySpawner.entity.toString() + " at pos: " + pos);
+            Core.debug("EntitySpawner failed to spawn entity " + entitySpawner.entity.toString() + " at pos: " + pos);
         }
     }
 
@@ -114,7 +114,7 @@ public class EntitySpawnerBlockEntity extends BlockEntity {
             return false;
 
         Optional<EntityType<?>> optionalEntityType = Registry.ENTITY_TYPE.getOptional(entitySpawner.entity);
-        if (!optionalEntityType.isPresent())
+        if (optionalEntityType.isEmpty())
             return false;
 
         EntityType<?> type = optionalEntityType.get();
