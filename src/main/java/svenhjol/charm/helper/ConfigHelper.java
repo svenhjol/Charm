@@ -28,44 +28,22 @@ public class ConfigHelper {
         return new Toml().read(path.toFile());
     }
 
-    public static <T extends CharmCommonModule> boolean isModuleEnabled(Toml toml, T module) {
-        return isModuleEnabled(toml, module.getName());
+    public static boolean isModuleDisabled(String modId, String moduleName) {
+        return isModuleDisabled(getConfig(modId), moduleName);
     }
 
-    public static boolean isModuleEnabled(Toml toml, String moduleName) {
+    public static boolean isModuleDisabled(Toml toml, String moduleName) {
         String moduleEnabled = moduleName + " Enabled";
-        String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
-        return toml.contains(moduleEnabledQuoted) && toml.getBoolean(moduleEnabledQuoted);
-    }
-
-    public static <T extends CharmCommonModule> boolean isModuleExplicitlyDisabled(Toml toml, T module) {
-        String moduleEnabled = module.getName() + " Enabled";
         String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
         return toml.contains(moduleEnabledQuoted) && !toml.getBoolean(moduleEnabledQuoted);
     }
 
-    public static <T extends CharmCommonModule> Map<String, Boolean> getModuleState(String mod, List<T> modules) {
-        Map<String, Boolean> out = new WeakHashMap<>();
-        Toml toml = getConfig(mod);
-
-        modules.forEach(module -> out.put(module.getName(), isModuleEnabled(toml, module)));
-        return out;
-    }
-
-    public static <T extends CharmCommonModule> void updateModuleState(String mod, List<T> modules) {
-        Toml toml = getConfig(mod);
-
-        modules.forEach(module -> {
-            boolean enabled = isModuleEnabled(toml, module) || module.isEnabledByDefault();
-            module.setEnabled(enabled);
-        });
-    }
-
-    public static <T extends CharmCommonModule> void updatePropState(String mod, List<T> modules) {
+    public static <T extends CharmCommonModule> void applyConfig(String mod, List<T> modules) {
         Toml toml = getConfig(mod);
 
         modules.forEach(module -> {
             String moduleName = module.getName();
+            module.setEnabledInConfig(!isModuleDisabled(toml, moduleName));
 
             // get and set module config options
             ArrayList<Field> classFields = new ArrayList<>(Arrays.asList(module.getClass().getDeclaredFields()));
@@ -127,7 +105,7 @@ public class ConfigHelper {
             if (!module.isAlwaysEnabled()) {
                 String field = moduleName + " Enabled";
                 config.setComment(field, module.getDescription());
-                config.add(field, module.isEnabled());
+                config.add(field, module.isEnabledInConfig());
             }
 
             // read class properties into config

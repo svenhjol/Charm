@@ -1,11 +1,11 @@
 package svenhjol.charm.integration.modmenu;
 
-import com.moandjiezana.toml.Toml;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.impl.builders.FieldBuilder;
 import me.shedaniel.clothconfig2.impl.builders.SubCategoryBuilder;
 import net.minecraft.network.chat.TextComponent;
 import svenhjol.charm.Charm;
@@ -15,7 +15,6 @@ import svenhjol.charm.loader.CharmCommonModule;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.function.Consumer;
 
 public class CharmModMenuPlugin implements ModMenuApi {
     @Override
@@ -25,86 +24,62 @@ public class CharmModMenuPlugin implements ModMenuApi {
                 .setParentScreen(parent)
                 .setTitle(new TextComponent("Charm configuration"));
 
-            // load user config from disk
-            Toml toml = ConfigHelper.getConfig(Charm.MOD_ID);
-
             // get all the loader modules
-            List<CharmCommonModule> modules = Charm.LOADER.getModules();
-
-            // prepare confi to write to disk
-            List<CharmCommonModule> config = new LinkedList<>();
+            List<CharmCommonModule> modules = new LinkedList<>(Charm.LOADER.getModules());
 
             builder.setSavingRunnable(() -> {
                 // Serialise the config into the config file. This will be called last after all variables are updated.
                 Charm.LOG.info("here");
-                ConfigHelper.writeConfig(Charm.MOD_ID, config);
+                ConfigHelper.writeConfig(Charm.MOD_ID, modules);
             });
 
             ConfigCategory mainCategory = builder.getOrCreateCategory(new TextComponent("Charm"));
 
             for (CharmCommonModule module : modules) {
-                config.add(module);
-                boolean enabled = ConfigHelper.isModuleEnabled(toml, module);
-
                 if (!module.isAlwaysEnabled()) {
                     ConfigEntryBuilder enabledBuilder = builder.entryBuilder();
 
                     Map<Field, Object> properties = getModuleConfigProperties(module);
                     SubCategoryBuilder subcategory = enabledBuilder.startSubCategory(new TextComponent(module.getName()));
 
-                    subcategory.add(enabledBuilder.startBooleanToggle(new TextComponent("Module Enabled"), enabled)
+                    subcategory.add(enabledBuilder.startBooleanToggle(new TextComponent("Module Enabled"), module.isEnabledInConfig())
                         .setDefaultValue(module.isEnabledByDefault()) // Used when user click "Reset"
                         .setTooltip(new TextComponent("Enable or disable this module")) // Shown when the user hover over this option
-                        .setSaveConsumer(module::setEnabled) // Called when user save the config
+                        .setSaveConsumer(module::setEnabledInConfig) // Called when user save the config
+                        .requireRestart()
                         .build()); // Builds the option entry for cloth config
 
                     properties.forEach((prop, value) -> {
-                        Consumer<?> trySetProp = val -> {
-                            try { prop.set(null, val); } catch (IllegalAccessException e) { e.printStackTrace(); }
-                        };
-
                         ConfigEntryBuilder propBuilder = builder.entryBuilder();
+                        FieldBuilder<?, ?> fieldBuilder = null;
                         Config annotation = prop.getDeclaredAnnotation(Config.class);
 
                         TextComponent name = new TextComponent(annotation.name());
                         TextComponent description = new TextComponent(annotation.description());
 
                         if (value instanceof Boolean) {
-                            subcategory.add(propBuilder
-                                .startBooleanToggle(name, (Boolean)value)
-                                .setTooltip(description)
-                                .setSaveConsumer((Consumer<Boolean>) trySetProp)
-                                .build());
+                            fieldBuilder = propBuilder
+                                .startBooleanToggle(name, (Boolean) value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
                         } else if (value instanceof Integer) {
-                            subcategory.add(propBuilder
-                                .startIntField(name, (Integer) value)
-                                .setTooltip(description)
-                                .setSaveConsumer((Consumer<Integer>) trySetProp)
-                                .build());
+                            fieldBuilder = propBuilder
+                                .startIntField(name, (Integer) value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
                         } else if (value instanceof Double) {
-                            subcategory.add(propBuilder
-                                .startDoubleField(name, (Double) value)
-                                .setTooltip(description)
-                                .setSaveConsumer((Consumer<Double>) trySetProp)
-                                .build());
+                            fieldBuilder = propBuilder
+                                .startDoubleField(name, (Double) value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
                         } else if (value instanceof Float) {
-                            subcategory.add(propBuilder
-                                .startFloatField(name, (Float) value)
-                                .setTooltip(description)
-                                .setSaveConsumer((Consumer<Float>) trySetProp)
-                                .build());
+                            fieldBuilder = propBuilder
+                                .startFloatField(name, (Float) value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
                         } else if (value instanceof String) {
-                            subcategory.add(propBuilder
-                                .startTextField(name, (String)value)
-                                .setTooltip(description)
-                                .setSaveConsumer((Consumer<String>) trySetProp)
-                                .build());
+                            fieldBuilder = propBuilder
+                                .startTextField(name, (String)value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
                         } else if (value instanceof List) {
-                            subcategory.add(propBuilder
-                                .startStrList(name, (List<String>)value)
-                                .setTooltip(description)
-                                .setSaveConsumer((Consumer<List<String>>) trySetProp)
-                                .build());
+                            fieldBuilder = propBuilder
+                                .startStrList(name, (List<String>)value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
+                        }
+
+                        if (fieldBuilder != null) {
+                            fieldBuilder.requireRestart(annotation.requireRestart());
+                            subcategory.add(fieldBuilder.build());
                         }
                     });
 
@@ -135,5 +110,9 @@ public class CharmModMenuPlugin implements ModMenuApi {
         });
 
         return properties;
+    }
+
+    private void trySetProp(Field prop, Object val) {
+        try { prop.set(null, val); } catch (IllegalAccessException e) { e.printStackTrace(); }
     }
 }

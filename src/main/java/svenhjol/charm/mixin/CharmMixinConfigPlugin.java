@@ -1,7 +1,6 @@
 package svenhjol.charm.mixin;
 
 import com.google.common.reflect.ClassPath;
-import com.moandjiezana.toml.Toml;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -58,9 +57,6 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
             LogManager.getLogger().warn("IO error when handling mixin blacklist: " + e.getMessage());
         }
 
-        // try and load existing config to scan for disabled modules
-        Toml config = ConfigHelper.getConfig(Charm.MOD_ID);
-
         // fetch mixin annotations to remove when conflicting mods are present
         Iterable<ClassPath.ClassInfo> classes;
         try {
@@ -88,11 +84,8 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
                 String moduleName = StringHelper.snakeToUpperCamel(truncatedName.substring(0, truncatedName.indexOf(".")));
 
-                if (config != null
-                    && !moduleName.isEmpty()
-                    && !ConfigHelper.isModuleEnabled(config, moduleName)) {
+                if (!moduleName.isEmpty() && ConfigHelper.isModuleDisabled(Charm.MOD_ID, moduleName))
                     disabledMixins.put(truncatedName, true);
-                }
 
                 if (node.visibleAnnotations != null && !node.visibleAnnotations.isEmpty()) {
                     for (AnnotationNode annotation : node.visibleAnnotations) {

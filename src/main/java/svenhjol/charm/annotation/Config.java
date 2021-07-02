@@ -11,4 +11,6 @@ public @interface Config {
     String name() default "";
 
     String description() default "";
+
+    boolean requireRestart() default false;
 }

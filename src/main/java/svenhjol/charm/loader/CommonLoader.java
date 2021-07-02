@@ -1,6 +1,5 @@
 package svenhjol.charm.loader;
 
-import com.moandjiezana.toml.Toml;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.ConfigHelper;
@@ -57,10 +56,8 @@ public class CommonLoader<T extends CharmCommonModule> extends ModuleLoader<T> {
 
     @Override
     protected void setupModuleConfig(List<T> modules) {
-        ConfigHelper.updatePropState(getModId(), modules);
-        Toml toml = ConfigHelper.getConfig(getModId());
-
-        modules.forEach(module -> module.setEnabled(!ConfigHelper.isModuleExplicitlyDisabled(toml, module)));
+        ConfigHelper.applyConfig(getModId(), modules);
+        modules.forEach(module -> module.setEnabled(!ConfigHelper.isModuleDisabled(getModId(), module.getName())));
         ConfigHelper.writeConfig(getModId(), modules);
     }
 

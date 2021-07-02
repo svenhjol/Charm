@@ -39,13 +39,17 @@ public abstract class ModuleLoader<T extends ICharmModule> {
 
     protected void dependencies() {
         getModules().forEach(module -> {
-            boolean passed = module.getDependencies().isEmpty() || module.getDependencies().stream().allMatch(dep -> dep.test(module));
+            boolean enabledInConfig = module.isEnabledInConfig();
+            boolean passedDependencyCheck = module.getDependencies().isEmpty() || module.getDependencies().stream().allMatch(dep -> dep.test(module));
 
-            if (!passed) {
+            if (!enabledInConfig) {
+                module.setEnabled(false);
+                Charm.LOG.debug("> " + module.getName() + " is disabled in configuration");
+            } else if (!passedDependencyCheck) {
                 module.setEnabled(false);
                 Charm.LOG.debug("> " + module.getName() + " did not pass dependency check");
             } else if (!module.isEnabled()) {
-                Charm.LOG.debug("> " + module.getName() + " is disabled");
+                Charm.LOG.debug("> " + module.getName() + " is disabled automatically");
             } else {
                 Charm.LOG.debug("> " + module.getName() + " is enabled ");
             }

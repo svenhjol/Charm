@@ -7,6 +7,9 @@ import java.util.function.Predicate;
 public abstract class CharmClientModule implements ICharmModule {
     private CharmCommonModule parentModule;
     private int priority = 0;
+    private boolean enabledInConfig = true;
+    private boolean enabledByDefault = true;
+    private boolean alwaysEnabled = false;
     private final List<Predicate<ICharmModule>> dependencies = new ArrayList<>();
 
     @Override
@@ -32,6 +35,34 @@ public abstract class CharmClientModule implements ICharmModule {
     @Override
     public boolean isEnabled() {
         return getParentModule().isEnabled();
+    }
+
+    @Override
+    public boolean isEnabledInConfig() {
+        return enabledInConfig;
+    }
+
+    @Override
+    public boolean isEnabledByDefault() {
+        return enabledByDefault;
+    }
+
+    @Override
+    public boolean isAlwaysEnabled() {
+        return alwaysEnabled;
+    }
+
+    public void setAlwaysEnabled(boolean flag) {
+        this.alwaysEnabled = flag;
+    }
+
+    public void setEnabledByDefault(boolean flag) {
+        this.enabledByDefault = flag;
+    }
+
+    @Override
+    public void setEnabledInConfig(boolean flag) {
+        this.enabledInConfig = flag;
     }
 
     @Override

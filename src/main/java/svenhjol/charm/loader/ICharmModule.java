@@ -8,21 +8,29 @@ import java.util.Locale;
 import java.util.function.Predicate;
 
 public interface ICharmModule {
-    String getModId();
-
     boolean isEnabled();
 
+    boolean isEnabledInConfig();
+
+    boolean isEnabledByDefault();
+
+    boolean isAlwaysEnabled();
+
+    String getModId();
+
     int getPriority();
+
+    List<Predicate<ICharmModule>> getDependencies();
 
     void setModId(String modId);
 
     void setEnabled(boolean flag);
 
+    void setEnabledInConfig(boolean flag);
+
     void setPriority(int priority);
 
     void addDependencyCheck(Predicate<ICharmModule> test);
-
-    List<Predicate<ICharmModule>> getDependencies();
 
     default String getName() {
         return this.getClass().getSimpleName();
