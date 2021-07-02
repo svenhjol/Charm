@@ -7,6 +7,7 @@ import com.moandjiezana.toml.Toml;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.core.Core;
 
 import java.io.File;
 import java.io.Writer;
@@ -17,6 +18,9 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ConfigHelper {
+    private static final Map<Field, Object> DEFAULT_PROP_VALUES = new HashMap<>();
+    private static boolean hasAppliedConfig = false;
+
     public static Toml readConfig(String modId) {
         Path path = getConfigPath(modId);
         File file = path.toFile();
@@ -62,6 +66,9 @@ public class ConfigHelper {
                     Object propValue = prop.get(null);
                     Object configValue = null;
 
+                    if (!hasAppliedConfig)
+                        DEFAULT_PROP_VALUES.put(prop, propValue);
+
                     if (toml.contains(moduleName)) {
 
                         // get the block of key/value pairs from the config
@@ -82,7 +89,7 @@ public class ConfigHelper {
                                 configValue = (int)(long) configValue;
 
                             // set the class property
-                            Charm.LOG.debug("[ConfigHelper] In module `" + moduleName + "`, setting `" + propName + "` to `" + configValue + "`");
+                            if (Core.isDebugMode()) Charm.LOG.info("[ConfigHelper] In module " + moduleName + ": setting `" + propName + "` to `" + configValue + "`");
                             prop.set(null, configValue);
                         }
                     }
@@ -92,6 +99,8 @@ public class ConfigHelper {
                 }
             }
         });
+
+        hasAppliedConfig = true;
     }
 
     public static <T extends CharmModule> void writeConfig(String modId, List<T> modules) {
@@ -138,10 +147,14 @@ public class ConfigHelper {
             Writer buffer = Files.newBufferedWriter(path);
             tomlWriter.write(config, buffer);
             buffer.close();
-            Charm.LOG.debug("[ConfigHelper] Written config to disk");
+            Core.debug("[ConfigHelper] Written config to disk");
         } catch (Exception e) {
             Charm.LOG.error("[ConfigHelper] Failed to write config: " + e.getMessage());
         }
+    }
+
+    public static Map<Field, Object> getDefaultPropValues() {
+        return DEFAULT_PROP_VALUES;
     }
 
     private static Path getConfigPath(String modId) {
