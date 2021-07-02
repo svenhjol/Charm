@@ -29,7 +29,7 @@ public class ColoredGlints extends CharmModule {
     public static String glintColor = DyeColor.PURPLE.getName();
 
     @Config(name = "XP cost", description = "Number of levels of XP required to change an item's enchantment color using dye on an anvil.")
-    public static int xpCost = 0;
+    public static int xpCost = 1;
 
     @Override
     public void runWhenEnabled() {
