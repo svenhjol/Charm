@@ -38,12 +38,12 @@ public class CharmModMenuPlugin implements ModMenuApi {
             ConfigCategory mainCategory = builder.getOrCreateCategory(new TranslatableComponent("cloth.category.title"));
 
             for (CharmModule module : modules) {
+                Map<Field, Object> properties = getModuleConfigProperties(module);
+
+                SubCategoryBuilder subcategory = builder.entryBuilder()
+                    .startSubCategory(new TextComponent(module.getName()));
+
                 if (!module.isAlwaysEnabled()) {
-                    Map<Field, Object> properties = getModuleConfigProperties(module);
-
-                    SubCategoryBuilder subcategory = builder.entryBuilder()
-                        .startSubCategory(new TextComponent(module.getName()));
-
                     FieldBuilder<?, ?> enabledValue = builder.entryBuilder()
                         .startBooleanToggle(new TranslatableComponent("cloth.category.module_enabled"), module.isEnabledInConfig())
                         .setDefaultValue(module.isEnabledByDefault()) // Used when user click "Reset"
@@ -55,44 +55,44 @@ public class CharmModMenuPlugin implements ModMenuApi {
                         enabledValue.requireRestart(true);
                         subcategory.add(enabledValue.build());
                     }
-
-                    properties.forEach((prop, value) -> {
-                        ConfigEntryBuilder propBuilder = builder.entryBuilder();
-
-                        FieldBuilder<?, ?> propValue = null;
-                        Config annotation = prop.getDeclaredAnnotation(Config.class);
-
-                        TextComponent name = new TextComponent(annotation.name());
-                        TextComponent desc = new TextComponent(StringHelper.splitOverLines(annotation.description()));
-
-                        if (value instanceof Boolean) {
-                            propValue = propBuilder
-                                .startBooleanToggle(name, (Boolean)value).setDefaultValue(() -> (Boolean)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
-                        } else if (value instanceof Integer) {
-                            propValue = propBuilder
-                                .startIntField(name, (Integer)value).setDefaultValue(() -> (Integer)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
-                        } else if (value instanceof Double) {
-                            propValue = propBuilder
-                                .startDoubleField(name, (Double)value).setDefaultValue(() -> (Double)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
-                        } else if (value instanceof Float) {
-                            propValue = propBuilder
-                                .startFloatField(name, (Float)value).setDefaultValue(() -> (Float)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
-                        } else if (value instanceof String) {
-                            propValue = propBuilder
-                                .startTextField(name, (String)value).setDefaultValue(() -> (String)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
-                        } else if (value instanceof List) {
-                            propValue = propBuilder
-                                .startStrList(name, (List<String>)value).setDefaultValue(() -> (List<String>)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
-                        }
-
-                        if (propValue != null) {
-                            propValue.requireRestart(annotation.requireRestart());
-                            subcategory.add(propValue.build());
-                        }
-                    });
-
-                    mainCategory.addEntry(subcategory.build());
                 }
+
+                properties.forEach((prop, value) -> {
+                    ConfigEntryBuilder propBuilder = builder.entryBuilder();
+
+                    FieldBuilder<?, ?> propValue = null;
+                    Config annotation = prop.getDeclaredAnnotation(Config.class);
+
+                    TextComponent name = new TextComponent(annotation.name());
+                    TextComponent desc = new TextComponent(StringHelper.splitOverLines(annotation.description()));
+
+                    if (value instanceof Boolean) {
+                        propValue = propBuilder
+                            .startBooleanToggle(name, (Boolean)value).setDefaultValue(() -> (Boolean)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
+                    } else if (value instanceof Integer) {
+                        propValue = propBuilder
+                            .startIntField(name, (Integer)value).setDefaultValue(() -> (Integer)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
+                    } else if (value instanceof Double) {
+                        propValue = propBuilder
+                            .startDoubleField(name, (Double)value).setDefaultValue(() -> (Double)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
+                    } else if (value instanceof Float) {
+                        propValue = propBuilder
+                            .startFloatField(name, (Float)value).setDefaultValue(() -> (Float)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
+                    } else if (value instanceof String) {
+                        propValue = propBuilder
+                            .startTextField(name, (String)value).setDefaultValue(() -> (String)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
+                    } else if (value instanceof List) {
+                        propValue = propBuilder
+                            .startStrList(name, (List<String>)value).setDefaultValue(() -> (List<String>)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
+                    }
+
+                    if (propValue != null) {
+                        propValue.requireRestart(annotation.requireRestart());
+                        subcategory.add(propValue.build());
+                    }
+                });
+
+                mainCategory.addEntry(subcategory.build());
             }
 
             return builder.build();
