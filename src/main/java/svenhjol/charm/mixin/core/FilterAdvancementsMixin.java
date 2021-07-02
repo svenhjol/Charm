@@ -8,14 +8,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.helper.AdvancementHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Mixin(AdvancementList.class)
-public class RemoveConditionalAdvancementsMixin {
+public class FilterAdvancementsMixin {
     /**
      * Conditionally remove advancements from the map if their
      * corresponding Charm module is disabled.
@@ -34,14 +32,8 @@ public class RemoveConditionalAdvancementsMixin {
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookLoad(Map<ResourceLocation, Advancement.Builder> map, CallbackInfo ci, Map<ResourceLocation, Advancement.Builder> map2) {
-        CharmAdvancements.modulesToRemove.forEach(mod -> {
-            List<ResourceLocation> keys = new ArrayList<>(map2.keySet());
-
-            keys.stream()
-                .filter(a -> a.getNamespace().equals(mod.getNamespace()))
-                .filter(a -> a.getPath().startsWith(mod.getPath()))
-                .forEach(map2::remove);
-        });
+    private void hookAdd(Map<ResourceLocation, Advancement.Builder> map, CallbackInfo ci,
+                         Map<ResourceLocation, Advancement.Builder> map2) {
+        AdvancementHelper.filterAdvancements(map2); // TODO do we need local here or can we just use first param?
     }
 }

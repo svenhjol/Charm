@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class ModuleLoader<T extends CharmModule> {
+    private static final List<String> MOD_IDS = new ArrayList<>();
     private final Map<String, T> MODULES = new TreeMap<>();
     private final String modId;
     private final String basePackage;
@@ -17,6 +18,8 @@ public abstract class ModuleLoader<T extends CharmModule> {
     public ModuleLoader(String modId, String basePackage) {
         this.modId = modId;
         this.basePackage = basePackage;
+
+        MOD_IDS.add(modId);
     }
 
     public void init() {
@@ -26,11 +29,8 @@ public abstract class ModuleLoader<T extends CharmModule> {
         // do module dependency checks
         this.dependencies();
 
-        // do enabled module tasks
-        this.runWhenEnabled();
-
-        // do disabled module tasks
-        this.runWhenDisabled();
+        // do module tasks
+        this.run();
     }
 
     protected void register() {
@@ -49,25 +49,23 @@ public abstract class ModuleLoader<T extends CharmModule> {
             module.setEnabled(enabledInConfig && passedDependencyCheck);
 
             if (!enabledInConfig) {
-                if (debug) Charm.LOG.warn("[ModuleLoader] " + module.getName() + " is disabled in configuration");
+                if (debug) Charm.LOG.warn("[ModuleLoader] Disabled in configuration: " + module.getName());
             } else if (!passedDependencyCheck) {
-                if (debug) Charm.LOG.warn("[ModuleLoader] " + module.getName() + " did not pass dependency check");
+                if (debug) Charm.LOG.warn("[ModuleLoader] Failed dependency check: " + module.getName());
             } else if (!module.isEnabled()) {
-                if (debug) Charm.LOG.warn("[ModuleLoader] " + module.getName() + " is disabled automatically");
+                if (debug) Charm.LOG.warn("[ModuleLoader] Disabled automatically: " + module.getName());
             } else {
-                Charm.LOG.info("[ModuleLoader] " + module.getName() + " is enabled ");
+                Charm.LOG.info("[ModuleLoader] Enabled " + module.getName());
             }
         });
     }
 
-    protected void runWhenEnabled() {
+    protected void run() {
         getEnabledModules().forEach(module -> {
             Charm.LOG.info("[ModuleLoader] Running " + module.getName());
             module.runWhenEnabled();
         });
-    }
 
-    protected void runWhenDisabled() {
         getDisabledModules().forEach(module -> {
             Core.debug("[ModuleLoader] Running disabled tasks: " + module.getName());
             module.runWhenDisabled();
@@ -85,9 +83,9 @@ public abstract class ModuleLoader<T extends CharmModule> {
      * Use this anywhere to check a module's enabled status for any Charm-based module.
      */
     public boolean isEnabled(String moduleName) {
-        // deprecated, warn about it
-        if (moduleName.contains(":")) {
-            Charm.LOG.warn("[ModuleLoader] Deprecated: moduleName `" + moduleName + "` no longer requires namespace");
+        if (Core.isDebugMode() && moduleName.contains(":")) {
+            // deprecated, warn about it
+            Charm.LOG.warn("[ModuleLoader] Deprecated: Module `" + moduleName + "` no longer requires namespace");
             moduleName = moduleName.split(":")[1];
         }
 
@@ -183,5 +181,9 @@ public abstract class ModuleLoader<T extends CharmModule> {
 
     protected void setupModuleConfig(List<T> modules) {
         // no op
+    }
+
+    public static List<String> getModIds() {
+        return MOD_IDS;
     }
 }

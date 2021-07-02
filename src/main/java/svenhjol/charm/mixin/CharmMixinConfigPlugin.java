@@ -144,12 +144,12 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                 }
 
                 if (required) {
-                    if (debug) logger.info("[MixinConfig] " + truncatedName + " is required");
+                    if (debug) logger.info("[MixinConfig] Requiring " + truncatedName);
                 } else if (disabled) {
-                    String message = "[MixinConfig] " + truncatedName + " will not be added";
+                    String message = "[MixinConfig] Not adding " + truncatedName;
                     if (debug) { logger.warn(message); } else { logger.info(message); }
                 } else {
-                    if (debug) logger.info("[MixinConfig] " + truncatedName + " will be added");
+                    if (debug) logger.info("[MixinConfig] Adding " + truncatedName);
                 }
 
                 countProcessed++;

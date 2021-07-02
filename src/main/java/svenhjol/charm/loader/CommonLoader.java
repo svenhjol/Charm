@@ -2,12 +2,14 @@ package svenhjol.charm.loader;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.helper.AdvancementHelper;
 import svenhjol.charm.helper.ConfigHelper;
 import svenhjol.charm.mixin.CharmMixinConfigPlugin;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CommonLoader<T extends CharmModule> extends ModuleLoader<T> {
     private static final Map<ResourceLocation, CharmModule> ALL_MODULES = new HashMap<>();
@@ -27,10 +29,19 @@ public class CommonLoader<T extends CharmModule> extends ModuleLoader<T> {
     @Override
     protected void dependencies() {
         // run a mixin check as part of the module dependency checks
-        getModules().forEach(module -> module.addDependencyCheck(m
-            -> !CharmMixinConfigPlugin.isMixinDisabled(m.getName())));
+        getModules().forEach(module -> module
+            .addDependencyCheck(m -> !CharmMixinConfigPlugin.isMixinDisabled(m.getName())));
 
         super.dependencies();
+    }
+
+    @Override
+    protected void run() {
+        super.run();
+
+        // filter out all disabled module advancements
+        AdvancementHelper.removeAdvancements(getAllModules().values().stream()
+            .filter(m -> !m.isEnabled()).collect(Collectors.toList()));
     }
 
     @Override

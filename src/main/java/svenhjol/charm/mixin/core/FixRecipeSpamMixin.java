@@ -11,7 +11,7 @@ import svenhjol.charm.module.kilns.Kilns;
 import svenhjol.charm.module.woodcutters.Woodcutters;
 
 @Mixin(ClientRecipeBook.class)
-public class FixRecipeSpawnMixin {
+public class FixRecipeSpamMixin {
     /**
      * Prevents log spam from the recipe book when custom recipe types cannot be found.
      */

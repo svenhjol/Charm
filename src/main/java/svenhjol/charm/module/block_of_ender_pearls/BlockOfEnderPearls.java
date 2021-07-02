@@ -19,18 +19,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.helper.AdvancementHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.helper.PosHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Ender pearl storage. Eating a chorus fruit will teleport you to the nearest ender pearl block.")
 public class BlockOfEnderPearls extends CharmModule {
@@ -51,6 +50,12 @@ public class BlockOfEnderPearls extends CharmModule {
     @Override
     public void register() {
         ENDER_PEARL_BLOCK = new EnderPearlBlock(this);
+
+        // conditionally disable advancements
+        List<String> disable = new ArrayList<>();
+        if (!chorusTeleport) disable.add("teleport_to_ender_pearl_block");
+        if (!convertSilverfish) disable.add("convert_silverfish");
+        disable.forEach(a -> AdvancementHelper.removeAdvancement(new ResourceLocation(Charm.MOD_ID, "block_of_ender_pearls/" + a)));
     }
 
     @Override
@@ -59,7 +64,7 @@ public class BlockOfEnderPearls extends CharmModule {
     }
 
     public static boolean tryChorusTeleport(LivingEntity entity, ItemStack stack) {
-        if (!Charm.LOADER.isEnabled("charm:block_of_ender_pearls") || !chorusTeleport)
+        if (!Charm.LOADER.isEnabled(BlockOfEnderPearls.class) || !chorusTeleport)
             return false;
 
         if (!(entity instanceof Player))
@@ -129,10 +134,9 @@ public class BlockOfEnderPearls extends CharmModule {
         if (!convertSilverfish)
             return InteractionResult.PASS;
 
-        if (!(entity instanceof Silverfish))
+        if (!(entity instanceof Silverfish silverfish))
             return InteractionResult.PASS; // must be a silverfish to process it
 
-        Silverfish silverfish = (Silverfish)entity;
         GoalSelector goalSelector = MobHelper.getGoalSelector(silverfish);
 
         if (goalSelector.getRunningGoals().noneMatch(g -> g.getGoal() instanceof FormEndermiteGoal))
@@ -142,9 +146,8 @@ public class BlockOfEnderPearls extends CharmModule {
     }
 
     public static void triggerConvertedSilverfishForNearbyPlayers(ServerLevel world, BlockPos pos) {
-        PlayerHelper.getPlayersInRange(world, pos).forEach(player -> {
-            CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayer)player, TRIGGER_CONVERTED_SILVERFISH);
-        });
+        PlayerHelper.getPlayersInRange(world, pos).forEach(player
+            -> CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayer)player, TRIGGER_CONVERTED_SILVERFISH));
     }
 
     public static void triggerTeleported(ServerPlayer playerEntity) {

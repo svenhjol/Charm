@@ -32,10 +32,8 @@ public class Charm implements ModInitializer {
         CharmBiomes.init();
         CharmAdvancements.init();
 
-        LoadServerFinishCallback.EVENT.register(server -> {
-            CharmDecorations.init();
-            CharmAdvancements.processModules();
-        });
+        LoadServerFinishCallback.EVENT.register(server
+            -> CharmDecorations.init());
 
         LOADER.init();
 
