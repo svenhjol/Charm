@@ -20,7 +20,7 @@ public class FeatherFallingCrops extends CharmModule {
     public static boolean villagersNeverTrampleCrops = true;
 
     public static boolean landedOnFarmlandBlock(Entity entity) {
-        if (Charm.LOADER.isEnabled("charm:feather_falling_crops") && entity instanceof LivingEntity) {
+        if (Charm.LOADER.isEnabled(FeatherFallingCrops.class) && entity instanceof LivingEntity) {
             if (entity instanceof Player && (!requiresFeatherFalling || EnchantmentsHelper.hasFeatherFalling((LivingEntity) entity)))
                 return true;
 

@@ -70,7 +70,7 @@ public class LumberjackTradeOffers {
         public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 2;
             ItemLike item;
-            if (Charm.LOADER.isEnabled("charm:variant_ladders")) {
+            if (Charm.LOADER.isEnabled(VariantLadders.class)) {
                 IWoodMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
                 item = VariantLadders.LADDER_BLOCKS.get(variant);
             } else {
@@ -199,7 +199,7 @@ public class LumberjackTradeOffers {
             ItemLike out;
             setInput(Items.EMERALD, 4);
 
-            if (Charm.LOADER.isEnabled("charm:variant_barrels")) {
+            if (Charm.LOADER.isEnabled(VariantBarrels.class)) {
                 IWoodMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
                 out = VariantBarrels.BARREL_BLOCKS.get(variant);
             } else {
@@ -286,7 +286,7 @@ public class LumberjackTradeOffers {
                 Blocks.LOOM
             ));
 
-            if (Charm.LOADER.isEnabled("charm:woodcutters"))
+            if (Charm.LOADER.isEnabled(Woodcutters.class))
                 workstations.add(Woodcutters.WOODCUTTER);
 
             IWoodMaterial variant = DecorationHelper.getRandomVariantMaterial(random);

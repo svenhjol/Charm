@@ -211,7 +211,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
                     variantMaterial = material;
             }
 
-            if (Charm.LOADER.isEnabled("charm:bookcases") && withChance(BOOKCASE_CHANCE)) {
+            if (Charm.LOADER.isEnabled(Bookcases.class) && withChance(BOOKCASE_CHANCE)) {
                 state = Bookcases.BOOKCASE_BLOCKS.get(variantMaterial).defaultBlockState()
                     .setValue(BookcaseBlock.SLOTS, BookcaseBlockEntity.SIZE); // make it have the "full" texture
 
@@ -224,7 +224,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
 
                 this.nbt = new CompoundTag();
                 blockEntity.save(this.nbt);
-            } else if (Charm.LOADER.isEnabled("charm:variant_bookshelves") && variantMaterial != VanillaWoodMaterial.OAK) {
+            } else if (Charm.LOADER.isEnabled(VariantBookshelves.class) && variantMaterial != VanillaWoodMaterial.OAK) {
                 state = VariantBookshelves.BOOKSHELF_BLOCKS.get(variantMaterial).defaultBlockState();
             } else {
                 state = Blocks.BOOKSHELF.defaultBlockState();
@@ -247,7 +247,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
         protected void chest() {
             if (!withChance(CHEST_CHANCE)) return;
 
-            if (Charm.LOADER.isEnabled("charm:variant_chests")) {
+            if (Charm.LOADER.isEnabled(VariantChests.class)) {
                 IWoodMaterial variantMaterial = DecorationHelper.getRandomOverworldVariantMaterial(random);
 
                 String type = getValue("material", this.data, "");
@@ -413,7 +413,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
             RandomizableContainerBlockEntity blockEntity;
             IWoodMaterial woodType = DecorationHelper.getRandomOverworldVariantMaterial(random);
 
-            if (Charm.LOADER.isEnabled("charm:variant_barrels")) {
+            if (Charm.LOADER.isEnabled(VariantBarrels.class)) {
                 // get variant barrel
                 state = VariantBarrels.BARREL_BLOCKS.get(woodType).defaultBlockState();
             } else {

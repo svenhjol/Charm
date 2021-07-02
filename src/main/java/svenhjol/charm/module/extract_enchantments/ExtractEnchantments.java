@@ -47,7 +47,7 @@ public class ExtractEnchantments extends CharmModule {
                 boolean valid = stack.isDamageableItem() || stack.getItem() == Items.ENCHANTED_BOOK || stack.isEnchanted();
 
                 // check for horse armor extraction
-                if (Charm.LOADER.isEnabled("charm:grindable_horse_armor") && GrindableHorseArmor.horseArmorRecipes.containsKey(stack.getItem())) {
+                if (Charm.LOADER.isEnabled(GrindableHorseArmor.class) && GrindableHorseArmor.horseArmorRecipes.containsKey(stack.getItem())) {
                     return true;
                 }
 

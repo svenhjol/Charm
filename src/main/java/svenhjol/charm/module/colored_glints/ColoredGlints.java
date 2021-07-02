@@ -18,6 +18,7 @@ import svenhjol.charm.event.TakeAnvilOutputCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Use dye on an anvil to change an item's enchantment color.")
 public class ColoredGlints extends CharmModule {
@@ -32,7 +33,7 @@ public class ColoredGlints extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        if (!Charm.LOADER.isEnabled("anvil_improvements") && xpCost < 1)
+        if (!Charm.LOADER.isEnabled(AnvilImprovements.class) && xpCost < 1)
             xpCost = 1;
 
         enabled = Charm.LOADER.isEnabled(ColoredGlints.class);

@@ -28,7 +28,7 @@ public abstract class ReduceAttackDistanceMixin {
         cancellable = true
     )
     private void hookGetArmorVisibility(CallbackInfoReturnable<Float> cir) {
-        if (Charm.LOADER.isEnabled("charm:armor_invisibility")) {
+        if (Charm.LOADER.isEnabled(ArmorInvisibility.class)) {
             LivingEntity entity = (LivingEntity) (Object) this;
             Iterable<ItemStack> armorItems = this.getArmorSlots();
 

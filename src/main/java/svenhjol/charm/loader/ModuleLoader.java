@@ -80,7 +80,7 @@ public abstract class ModuleLoader<T extends CharmModule> {
      * Use this anywhere to check a module's enabled status for any Charm-based module.
      */
     public boolean isEnabled(Class<? extends T> clazz) {
-        return getModules().stream().anyMatch(module -> module.getClass().equals(clazz));
+        return getModules().stream().anyMatch(module -> module.getClass().equals(clazz) && module.isEnabled());
     }
 
     /**

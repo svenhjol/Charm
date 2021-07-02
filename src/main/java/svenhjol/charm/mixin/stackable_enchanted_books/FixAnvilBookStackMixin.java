@@ -36,7 +36,7 @@ public class FixAnvilBookStackMixin {
         )
     )
     private void anvilUpdateHook(Container inv, int index, ItemStack stack) {
-        if (Charm.LOADER.isEnabled("charm:stackable_enchanted_books"))
+        if (Charm.LOADER.isEnabled(StackableEnchantedBooks.class))
             stack = StackableEnchantedBooks.getReducedStack(inv.getItem(index));
 
         inv.setItem(index, stack);

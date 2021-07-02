@@ -17,6 +17,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.ItemCombinerMenuAccessor;
+import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.")
 public class DecreaseRepairCost extends CharmModule {
@@ -31,7 +32,7 @@ public class DecreaseRepairCost extends CharmModule {
     @Override
     public void runWhenEnabled() {
         // if anvil improvements are not enabled, then set the xpCost to 1.
-        if (!Charm.LOADER.isEnabled("anvil_improvements") && xpCost < 1)
+        if (!Charm.LOADER.isEnabled(AnvilImprovements.class) && xpCost < 1)
             xpCost = 1;
 
         // register the anvil recipe for this operation

@@ -67,7 +67,7 @@ public class AnvilImprovements extends CharmModule {
     }
 
     public static boolean tryDamageAnvil() {
-        return Charm.LOADER.isEnabled("charm:anvil_improvements")
+        return Charm.LOADER.isEnabled(AnvilImprovements.class)
             && AnvilImprovements.strongerAnvils
             && new Random().nextFloat() < 0.5F;
     }

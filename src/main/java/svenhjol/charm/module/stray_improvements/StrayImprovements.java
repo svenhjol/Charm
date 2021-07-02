@@ -35,7 +35,7 @@ public class StrayImprovements extends CharmModule {
     }
 
     public static boolean canSpawn() {
-        return Charm.LOADER.isEnabled("charm:stray_improvements") && spawnAnywhere;
+        return Charm.LOADER.isEnabled(StrayImprovements.class) && spawnAnywhere;
     }
 
     private InteractionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {
