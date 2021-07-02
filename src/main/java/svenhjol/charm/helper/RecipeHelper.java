@@ -25,7 +25,7 @@ public class RecipeHelper {
         Core.debug("[RecipeHelper] Preparing to sort and filter recipes");
         List<String> modIds = ModuleLoader.getModIds();
         Map<ResourceLocation, CharmModule> charmModules = CommonLoader.getAllModules();
-        Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> out = new HashMap<>();
+        Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> out = new LinkedHashMap<>();
 
         recipesByType.keySet().forEach(type -> {
             Map<ResourceLocation, Recipe<?>> recipes = recipesByType.get(type);
@@ -63,7 +63,7 @@ public class RecipeHelper {
                 return enabled;
             });
 
-            Map<ResourceLocation, Recipe<?>> merged = new TreeMap<>();
+            Map<ResourceLocation, Recipe<?>> merged = new LinkedHashMap<>();
             Map<ResourceLocation, Recipe<?>> moddedRecipes = moddedStream.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
             Map<ResourceLocation, Recipe<?>> minecraftRecipes = minecraftStream.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
