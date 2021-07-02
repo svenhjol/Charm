@@ -5,6 +5,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.AdvancementHelper;
 import svenhjol.charm.helper.ConfigHelper;
 import svenhjol.charm.mixin.CharmMixinConfigPlugin;
+import svenhjol.charm.module.core.Core;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +42,7 @@ public class CommonLoader<T extends CharmModule> extends ModuleLoader<T> {
 
         // filter out all disabled module advancements
         AdvancementHelper.removeAdvancements(getAllModules().values().stream()
-            .filter(m -> !m.isEnabled()).collect(Collectors.toList()));
+            .filter(m -> !Core.doAdvancements || !m.isEnabled()).collect(Collectors.toList()));
     }
 
     @Override

@@ -18,7 +18,7 @@ public class Core extends CharmModule {
     public static final ResourceLocation MSG_SERVER_OPEN_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_open_inventory");
 
     @Config(name = "Debug mode", description = "If true, routes additional debug messages into the standard game log.")
-    public static boolean debug = false;
+    public static boolean debug = true;
 
     @Config(name = "Use built-in biome hacks", description = "If true, use Charm's biome hacks to add world features instead of Fabric's biome API.\nIt's very unlikely you want to enable this.")
     public static boolean useBiomeHacks = false;
