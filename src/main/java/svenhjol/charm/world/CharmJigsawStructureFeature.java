@@ -15,6 +15,7 @@ import net.minecraft.world.level.levelgen.structure.NoiseAffectingStructureStart
 import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 
+@SuppressWarnings({"unused", "ResultOfMethodCallIgnored"})
 public class CharmJigsawStructureFeature extends StructureFeature<JigsawConfiguration> {
     private final int structureStartY;
     private final int variation;

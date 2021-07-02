@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.event.RenderBlockItemCallback;
 import svenhjol.charm.event.StitchTextureCallback;
 import svenhjol.charm.loader.CharmModule;
@@ -55,7 +55,7 @@ public class VariantChestsClient extends CharmModule {
         return null;
     }
 
-    private void addChestTexture(Set<ResourceLocation> textures, IVariantMaterial variant, ChestType chestType) {
+    private void addChestTexture(Set<ResourceLocation> textures, IWoodMaterial variant, ChestType chestType) {
         String chestTypeName = chestType != ChestType.SINGLE ? "_" + chestType.getSerializedName().toLowerCase() : "";
         String[] bases = {"trapped", "normal"};
 

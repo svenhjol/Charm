@@ -8,9 +8,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import svenhjol.charm.client.CharmHandledScreen;
 import svenhjol.charm.init.CharmResources;
 
+@SuppressWarnings({"unused"})
 public class CharmInventoryScreen<T extends AbstractContainerMenu> extends CharmHandledScreen<T> {
 
     public CharmInventoryScreen(int rows, T handler, Inventory inventory, Component title) {
@@ -53,13 +53,10 @@ public class CharmInventoryScreen<T extends AbstractContainerMenu> extends Charm
     }
 
     private static ResourceLocation getTextureFromRows(int rows) {
-        switch (rows) {
-            case 1:
-                return CharmResources.GUI_9_TEXTURE;
-            case 2:
-                return CharmResources.GUI_18_TEXTURE;
-            default:
-                throw new IllegalArgumentException("Unsupported row count " + rows);
-        }
+        return switch (rows) {
+            case 1 -> CharmResources.GUI_9_TEXTURE;
+            case 2 -> CharmResources.GUI_18_TEXTURE;
+            default -> throw new IllegalArgumentException("Unsupported row count " + rows);
+        };
     }
 }

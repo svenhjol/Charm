@@ -23,11 +23,12 @@ import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings({"ClassCanBeRecord", "UnstableApiUsage"})
 @Environment(EnvType.CLIENT)
 public class FiringCategory implements TransferDisplayCategory<FiringDisplay> {
-    private CategoryIdentifier<? extends FiringDisplay> identifier;
-    private EntryStack<?> logo;
-    private String categoryName;
+    private final CategoryIdentifier<? extends FiringDisplay> identifier;
+    private final EntryStack<?> logo;
+    private final String categoryName;
 
     public FiringCategory(CategoryIdentifier<? extends FiringDisplay> identifier, EntryStack<?> logo, String categoryName) {
         this.identifier = identifier;

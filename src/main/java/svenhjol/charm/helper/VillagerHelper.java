@@ -25,7 +25,7 @@ import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRA
 
 public class VillagerHelper {
     public static VillagerProfession addProfession(String id, PoiType poit, SoundEvent worksound) {
-        VillagerProfession profession = VillagerProfessionAccessor.create(id.toString(), poit, ImmutableSet.of(), ImmutableSet.of(), worksound);
+        VillagerProfession profession = VillagerProfessionAccessor.create(id, poit, ImmutableSet.of(), ImmutableSet.of(), worksound);
         VillagerProfession registeredProfession = RegistryHelper.villagerProfession(id, profession);
         TRADES.put(profession, new Int2ObjectOpenHashMap<>());
         return registeredProfession;
@@ -39,14 +39,15 @@ public class VillagerHelper {
             mutableTrades.put(i, NonNullList.create());
         }
 
-        fixedTrades.int2ObjectEntrySet().forEach(e -> {
-            Arrays.stream(e.getValue()).forEach(a -> mutableTrades.get(e.getIntKey()).add(a));
-        });
+        fixedTrades.int2ObjectEntrySet().forEach(e
+            -> Arrays.stream(e.getValue()).forEach(a -> mutableTrades.get(e.getIntKey()).add(a)));
 
         mutableTrades.get(level).add(trade);
 
         Int2ObjectMap<ItemListing[]> mappedTrades = new Int2ObjectOpenHashMap<>();
-        mutableTrades.int2ObjectEntrySet().forEach(e -> mappedTrades.put(e.getIntKey(), e.getValue().toArray(new ItemListing[0])));
+        mutableTrades.int2ObjectEntrySet().forEach(e
+            -> mappedTrades.put(e.getIntKey(), e.getValue().toArray(new ItemListing[0])));
+
         TRADES.put(profession, mappedTrades);
     }
 

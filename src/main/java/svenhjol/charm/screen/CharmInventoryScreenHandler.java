@@ -1,13 +1,14 @@
 package svenhjol.charm.screen;
 
-import java.util.function.Predicate;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.screen.CharmScreenHandler;
 
+import java.util.function.Predicate;
+
+@SuppressWarnings("unused")
 public class CharmInventoryScreenHandler extends CharmScreenHandler {
 
     public CharmInventoryScreenHandler(int rows, Predicate<ItemStack> condition, MenuType<? extends CharmInventoryScreenHandler> type, int syncId,

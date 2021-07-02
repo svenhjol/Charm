@@ -30,7 +30,7 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> implements BlockEntityRenderer<T> {
-    private BlockEntityRendererProvider.Context context;
+    private final BlockEntityRendererProvider.Context context;
     private int index = 0;
     private float ticks = 0.0F;
 
@@ -70,7 +70,7 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
         try {
              stack = new ItemStack(items.get(index));
         } catch (IndexOutOfBoundsException e) {
-            Charm.LOG.warn("THIS AGAIN, WHY IS IT ALWAYS THIS");
+            Charm.LOG.debug("[CookingPotBlockEntityRenderer] Should not happen");
             index = 0;
             matrices.popPose();
             return;
@@ -86,7 +86,7 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
 
 
         Optional<Player> optPlayer = ClientHelper.getPlayer();
-        if (!optPlayer.isPresent())
+        if (optPlayer.isEmpty())
             return;
 
         Player player = optPlayer.get();

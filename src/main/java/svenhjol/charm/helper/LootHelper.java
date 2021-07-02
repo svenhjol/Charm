@@ -1,13 +1,15 @@
 package svenhjol.charm.helper;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
+@SuppressWarnings({"unused"})
 public class LootHelper {
     public static List<ResourceLocation> CUSTOM_LOOT_TABLES = new ArrayList<>();
     public static Map<String, ResourceLocation> CACHED_LOOT_TABLES_NAMES = new HashMap<>();

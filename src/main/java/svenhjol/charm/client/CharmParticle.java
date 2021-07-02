@@ -7,6 +7,7 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import java.util.Random;
 
+@SuppressWarnings("ClassCanBeRecord")
 @Environment(EnvType.CLIENT)
 public class CharmParticle extends TextureSheetParticle {
     private static final Random RANDOM = new Random();

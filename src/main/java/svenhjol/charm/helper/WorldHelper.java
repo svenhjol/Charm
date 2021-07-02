@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings({"unused"})
 public class WorldHelper {
     public static boolean addForcedChunk(ServerLevel world, BlockPos pos) {
         ChunkPos chunkPos = new ChunkPos(pos);
@@ -27,7 +28,7 @@ public class WorldHelper {
             if (result) break;
         }
         if (result)
-            Charm.LOG.debug("Force loaded chunk " + chunkPos.toString());
+            Charm.LOG.debug("[WorldHelper] Force loaded chunk " + chunkPos);
 
         return result;
     }
@@ -36,9 +37,9 @@ public class WorldHelper {
         ChunkPos chunkPos = new ChunkPos(pos);
         boolean result = world.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), false);
         if (!result) {
-            Charm.LOG.error("Could not unload forced chunk - this is probably really bad.");
+            Charm.LOG.error("[WorldHelper] Could not unload forced chunk - this is probably really bad.");
         } else {
-            Charm.LOG.debug("Unloaded forced chunk " + chunkPos.toString());
+            Charm.LOG.debug("[WorldHelper] Unloaded forced chunk " + chunkPos);
         }
         return result;
     }
@@ -80,9 +81,6 @@ public class WorldHelper {
         }
 
         PoiTypeAccessor.getAllStates().addAll(states);
-
-        states.forEach(state -> {
-            PoiTypeAccessor.getTypeByState().put(state, poit);
-        });
+        states.forEach(state -> PoiTypeAccessor.getTypeByState().put(state, poit));
     }
 }

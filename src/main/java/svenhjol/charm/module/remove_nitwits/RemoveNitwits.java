@@ -26,7 +26,7 @@ public class RemoveNitwits extends CharmModule {
 
             if (data.getProfession() == VillagerProfession.NITWIT) {
                 villager.setVillagerData(data.setProfession(VillagerProfession.NONE));
-                Charm.LOG.debug("Changed nitwit's profession to NONE: " + villager.getStringUUID());
+                Charm.LOG.debug("[RemoveNitwits] Made nitwit `" + villager.getStringUUID() + "` into a proper villager at pos: " + villager.blockPosition());
             }
         }
 

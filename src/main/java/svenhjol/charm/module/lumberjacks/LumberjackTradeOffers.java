@@ -12,7 +12,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
-import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.helper.DecorationHelper;
 import svenhjol.charm.helper.VillagerHelper.SingleItemTypeTrade;
 import svenhjol.charm.module.bookcases.Bookcases;
@@ -71,7 +71,7 @@ public class LumberjackTradeOffers {
             experience = 2;
             ItemLike item;
             if (Charm.LOADER.isEnabled("charm:variant_ladders")) {
-                IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
+                IWoodMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
                 item = VariantLadders.LADDER_BLOCKS.get(variant);
             } else {
                 item = Items.LADDER;
@@ -200,7 +200,7 @@ public class LumberjackTradeOffers {
             setInput(Items.EMERALD, 4);
 
             if (Charm.LOADER.isEnabled("charm:variant_barrels")) {
-                IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
+                IWoodMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
                 out = VariantBarrels.BARREL_BLOCKS.get(variant);
             } else {
                 out = Blocks.BARREL;
@@ -265,7 +265,7 @@ public class LumberjackTradeOffers {
         @Override
         public MerchantOffer getOffer(Entity entity, @Nullable Random random) {
             experience = 30;
-            IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
+            IWoodMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
             setInput(Items.EMERALD, 8);
             setOutput(Bookcases.BOOKCASE_BLOCKS.get(variant), 1);
             return super.getOffer(entity, random);
@@ -289,7 +289,7 @@ public class LumberjackTradeOffers {
             if (Charm.LOADER.isEnabled("charm:woodcutters"))
                 workstations.add(Woodcutters.WOODCUTTER);
 
-            IVariantMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
+            IWoodMaterial variant = DecorationHelper.getRandomVariantMaterial(random);
             setInput(Items.EMERALD, 5);
             setOutput(workstations.get(random.nextInt(workstations.size())), 1);
             return super.getOffer(entity, random);

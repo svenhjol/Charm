@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
+import svenhjol.charm.helper.ClientRegistryHelper;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
@@ -34,10 +35,10 @@ public class EbonyWoodClient extends CharmModule {
         BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.TRAPDOOR, RenderType.cutout());
 
         // register boat model
-        ClientHelper.registerEntityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/ebony"), BoatModel.createBodyModel().bakeRoot());
+        ClientRegistryHelper.entityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/ebony"), BoatModel.createBodyModel().bakeRoot());
 
         // register sign material
-        ClientHelper.registerSignMaterial(EbonyWood.SIGN_TYPE);
+        ClientRegistryHelper.signMaterial(EbonyWood.SIGN_TYPE);
     }
 
     private int handleBlockColor(BlockState state, @Nullable BlockAndTintGetter world, @Nullable BlockPos pos, int tintIndex) {

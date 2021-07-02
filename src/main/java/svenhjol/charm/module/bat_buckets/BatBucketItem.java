@@ -22,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.loader.CharmModule;
@@ -55,7 +55,7 @@ public class BatBucketItem extends CharmItem {
             Bat bat = MobHelper.spawn(EntityType.BAT, (ServerLevel)world, spawnPos, MobSpawnType.BUCKET);
             if (bat != null) {
 
-                CompoundTag data = ItemNBTHelper.getCompound(held, STORED_BAT_NBT);
+                CompoundTag data = ItemNbtHelper.getCompound(held, STORED_BAT_NBT);
                 if (!data.isEmpty())
                     bat.readAdditionalSaveData(data);
 

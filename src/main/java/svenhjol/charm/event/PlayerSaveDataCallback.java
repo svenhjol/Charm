@@ -9,6 +9,7 @@ import svenhjol.charm.Charm;
 
 import java.io.File;
 
+@SuppressWarnings("unused")
 public interface PlayerSaveDataCallback {
     Event<PlayerSaveDataCallback> EVENT = EventFactory.createArrayBacked(PlayerSaveDataCallback.class, (listeners) -> (player, dataDir) -> {
         for (PlayerSaveDataCallback listener : listeners) {
@@ -20,7 +21,7 @@ public interface PlayerSaveDataCallback {
         try {
             NbtIo.writeCompressed(nbt, file);
         } catch (Exception e) {
-            Charm.LOG.error("Failed to save player data to file: " + file.toString());
+            Charm.LOG.error("[PlayerSaveDataCallback] Failed to save player data to file: " + file.toString());
         }
     }
 

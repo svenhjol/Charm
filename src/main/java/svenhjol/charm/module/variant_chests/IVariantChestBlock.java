@@ -1,7 +1,7 @@
 package svenhjol.charm.module.variant_chests;
 
-import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.enums.IWoodMaterial;
 
 public interface IVariantChestBlock {
-    IVariantMaterial getMaterialType();
+    IWoodMaterial getMaterialType();
 }

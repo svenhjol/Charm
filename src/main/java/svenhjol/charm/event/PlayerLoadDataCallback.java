@@ -9,6 +9,7 @@ import svenhjol.charm.Charm;
 
 import java.io.File;
 
+@SuppressWarnings("unused")
 public interface PlayerLoadDataCallback {
     Event<PlayerLoadDataCallback> EVENT = EventFactory.createArrayBacked(PlayerLoadDataCallback.class, (listeners) -> (player, dataDir) -> {
         for (PlayerLoadDataCallback listener : listeners) {
@@ -23,7 +24,7 @@ public interface PlayerLoadDataCallback {
             try {
                 nbt = NbtIo.readCompressed(file);
             } catch (Exception e) {
-                Charm.LOG.error("Failed to load player data from file: " + file);
+                Charm.LOG.error("[PlayerLoadDataCallback] Failed to load player data from file: " + file);
                 nbt = new CompoundTag();
             }
         } else {

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum VanillaVariantMaterial implements IVariantMaterial {
+public enum VanillaWoodMaterial implements IWoodMaterial {
     OAK,
     SPRUCE,
     BIRCH,
@@ -15,12 +15,12 @@ public enum VanillaVariantMaterial implements IVariantMaterial {
     CRIMSON,
     WARPED;
 
-    public static List<IVariantMaterial> getTypes() {
+    public static List<IWoodMaterial> getTypes() {
         return Arrays.stream(values()).collect(Collectors.toList());
     }
 
-    public static List<IVariantMaterial> getTypesWithout(IVariantMaterial... types) {
-        List<IVariantMaterial> typesList = new ArrayList<>(Arrays.asList(types));
+    public static List<IWoodMaterial> getTypesWithout(IWoodMaterial... types) {
+        List<IWoodMaterial> typesList = new ArrayList<>(Arrays.asList(types));
         return Arrays.stream(values()).filter(t -> !typesList.contains(t)).collect(Collectors.toList());
     }
 

@@ -127,7 +127,7 @@ public class TotemOfPreserving extends CharmModule {
         }
 
         triggerUsedTotemOfPreserving((ServerPlayer) player);
-        Charm.LOG.info("Totem of Preserving spawned at " + new BlockPos(x, y, z));
+        Charm.LOG.info("[TotemOfPreserving] Spawned at pos: " + new BlockPos(x, y, z));
 
         // clear player's inventory
         for (NonNullList<ItemStack> inv : combined) {

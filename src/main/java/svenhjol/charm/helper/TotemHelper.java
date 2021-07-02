@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+@SuppressWarnings("UnusedReturnValue")
 public class TotemHelper {
     public static boolean destroy(Player player, ItemStack totem) {
         if (player.isSpectator() || player.isCreative())

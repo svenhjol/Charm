@@ -19,8 +19,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.enums.VanillaVariantMaterial;
+import svenhjol.charm.enums.IWoodMaterial;
+import svenhjol.charm.enums.VanillaWoodMaterial;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.annotation.Config;
@@ -35,7 +35,7 @@ import java.util.Map;
 public class StorageCrates extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "storage_crate");
     public static final ResourceLocation MSG_CLIENT_UPDATED_CRATE = new ResourceLocation(Charm.MOD_ID, "client_interacted_with_crate");
-    public static Map<IVariantMaterial, StorageCrateBlock> STORAGE_CRATE_BLOCKS = new HashMap<>();
+    public static Map<IWoodMaterial, StorageCrateBlock> STORAGE_CRATE_BLOCKS = new HashMap<>();
     public static BlockEntityType<StorageCrateBlockEntity> BLOCK_ENTITY;
 
     public static final ResourceLocation TRIGGER_ADDED_STACK_TO_CRATE = new ResourceLocation(Charm.MOD_ID, "added_stack_to_crate");
@@ -51,7 +51,7 @@ public class StorageCrates extends CharmModule {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
         BLOCK_ENTITY = RegistryHelper.blockEntity(ID, StorageCrateBlockEntity::new);
 
-        VanillaVariantMaterial.getTypes().forEach(material -> {
+        VanillaWoodMaterial.getTypes().forEach(material -> {
             registerStorageCrate(this, material);
         });
 
@@ -60,7 +60,7 @@ public class StorageCrates extends CharmModule {
         }
     }
 
-    public static StorageCrateBlock registerStorageCrate(CharmModule module, IVariantMaterial material) {
+    public static StorageCrateBlock registerStorageCrate(CharmModule module, IWoodMaterial material) {
         StorageCrateBlock crate = new StorageCrateBlock(module, material);
         STORAGE_CRATE_BLOCKS.put(material, crate);
         RegistryHelper.addBlocksToBlockEntity(BLOCK_ENTITY, crate);

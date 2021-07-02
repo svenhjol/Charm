@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public abstract class CharmModule {
     private String modId = "";
     private String description = "";

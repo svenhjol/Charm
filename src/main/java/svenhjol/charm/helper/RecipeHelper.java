@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.LogHandler;
 import svenhjol.charm.loader.CommonLoader;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class RecipeHelper {
     private static final List<ResourceLocation> RECIPES_TO_REMOVE = new ArrayList<>();
 
     public static void removeRecipe(ResourceLocation id) {
-        Charm.LOG.debug(LogHandler.RECIPE_HELPER, "Added `" + id + "` to list of recipes to remove from the game");
+        Charm.LOG.debug("[RecipeHelper] Added `" + id + "` to list of recipes to remove from the game");
         RECIPES_TO_REMOVE.add(id);
     }
 
@@ -26,7 +25,7 @@ public class RecipeHelper {
     }
 
     public static Iterator<Map.Entry<ResourceLocation, JsonElement>> sortAndFilterRecipes(Map<ResourceLocation, JsonElement> recipes) {
-        Charm.LOG.debug(LogHandler.RECIPE_HELPER, "Sorting and filtering " + recipes.size() + " recipes");
+        Charm.LOG.debug("[RecipeHelper] Sorting and filtering " + recipes.size() + " recipes");
         return sortRecipes(recipes)
             .filter(RecipeHelper::filterUnloadedRecipeTypes)
             .filter(RecipeHelper::filterUnloadedCharmModules)

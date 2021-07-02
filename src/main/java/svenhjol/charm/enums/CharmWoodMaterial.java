@@ -1,6 +1,6 @@
 package svenhjol.charm.enums;
 
-public enum CharmWoodMaterial implements IVariantMaterial {
+public enum CharmWoodMaterial implements IWoodMaterial {
     AZALEA,
     EBONY
 }

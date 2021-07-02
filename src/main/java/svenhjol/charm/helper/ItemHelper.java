@@ -1,14 +1,15 @@
 package svenhjol.charm.helper;
 
-import svenhjol.charm.mixin.accessor.ItemEntityAccessor;
-
-import java.util.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import svenhjol.charm.mixin.accessor.ItemEntityAccessor;
 
+import java.util.*;
+
+@SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class ItemHelper {
     public static Map<Item, Integer> ITEM_LIFETIME = new HashMap<>();
     public static List<Item> BOWL_FOODS = Arrays.asList(
@@ -35,10 +36,8 @@ public class ItemHelper {
 
     public static boolean shouldItemDespawn(ItemEntity itemEntity) {
         Item item = itemEntity.getItem().getItem();
-        if (ItemHelper.ITEM_LIFETIME.containsKey(item)) {
-            if (((ItemEntityAccessor)itemEntity).getAge() < ItemHelper.ITEM_LIFETIME.get(item))
-                return false;
-        }
+        if (ItemHelper.ITEM_LIFETIME.containsKey(item))
+            return ((ItemEntityAccessor) itemEntity).getAge() >= ItemHelper.ITEM_LIFETIME.get(item);
 
         return true;
     }

@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.block.ICharmBlock;
-import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.loader.CharmModule;
 
@@ -22,14 +22,14 @@ import java.util.List;
 
 public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
     protected CharmModule module;
-    protected IVariantMaterial type;
+    protected IWoodMaterial type;
     private final List<String> loadedMods;
 
-    public VariantBarrelBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
+    public VariantBarrelBlock(CharmModule module, IWoodMaterial type, String... loadedMods) {
         this(module, type, BlockBehaviour.Properties.copy(Blocks.BARREL), loadedMods);
     }
 
-    public VariantBarrelBlock(CharmModule module, IVariantMaterial material, BlockBehaviour.Properties settings, String... loadedMods) {
+    public VariantBarrelBlock(CharmModule module, IWoodMaterial material, BlockBehaviour.Properties settings, String... loadedMods) {
         super(settings);
 
         this.module = module;

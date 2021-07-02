@@ -2,6 +2,7 @@ package svenhjol.charm.helper;
 
 import com.google.common.base.CaseFormat;
 
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class StringHelper {
     public static String snakeToUpperCamel(String string) {
         return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, string);

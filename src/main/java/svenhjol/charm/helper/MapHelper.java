@@ -8,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
-import svenhjol.charm.helper.ItemNBTHelper;
 
 public class MapHelper {
     public static ItemStack getMap(ServerLevel world, BlockPos pos, TranslatableComponent mapName, MapDecoration.Type targetType, int color) {
@@ -19,9 +18,9 @@ public class MapHelper {
         stack.setHoverName(mapName);
 
         // set map color based on structure
-        CompoundTag nbt = svenhjol.charm.helper.ItemNBTHelper.getCompound(stack, "display");
+        CompoundTag nbt = ItemNbtHelper.getCompound(stack, "display");
         nbt.putInt("MapColor", color);
-        ItemNBTHelper.setCompound(stack, "display", nbt);
+        ItemNbtHelper.setCompound(stack, "display", nbt);
 
         return stack;
     }

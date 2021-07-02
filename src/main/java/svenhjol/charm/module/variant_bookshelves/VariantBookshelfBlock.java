@@ -4,10 +4,10 @@ import svenhjol.charm.loader.CharmModule;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import svenhjol.charm.block.CharmBlock;
-import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.enums.IWoodMaterial;
 
 public class VariantBookshelfBlock extends CharmBlock {
-    public VariantBookshelfBlock(CharmModule module, IVariantMaterial material, String... loadedMods) {
+    public VariantBookshelfBlock(CharmModule module, IWoodMaterial material, String... loadedMods) {
         super(module, material.getSerializedName() + "_bookshelf", BlockBehaviour.Properties.copy(Blocks.BOOKSHELF), loadedMods);
 
         if (material.isFlammable())

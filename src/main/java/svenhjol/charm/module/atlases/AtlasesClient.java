@@ -24,7 +24,7 @@ import net.minecraft.world.item.TooltipFlag;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderHeldItemCallback;
-import svenhjol.charm.helper.ClientHelper;
+import svenhjol.charm.helper.ClientRegistryHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.loader.CharmModule;
 
@@ -36,7 +36,7 @@ public class AtlasesClient extends CharmModule {
 
     @Override
     public void register() {
-        ClientHelper.registerScreenHandler(Atlases.CONTAINER, AtlasScreen::new);
+        ClientRegistryHelper.screenHandler(Atlases.CONTAINER, AtlasScreen::new);
     }
 
     @Override

@@ -7,6 +7,7 @@ import svenhjol.charm.annotation.ClientModule;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class ClientLoader<T extends CharmModule> extends ModuleLoader<T> {
     private static final Map<ResourceLocation, CharmModule> ALL_MODULES = new HashMap<>();
 
@@ -34,7 +35,7 @@ public class ClientLoader<T extends CharmModule> extends ModuleLoader<T> {
             module.setPriority(annotation.priority());
             module.addDependencyCheck(m -> Charm.LOADER.isEnabled(annotation.module()));
         } else {
-            throw new RuntimeException("Missing annotation for client module: " + clazz);
+            throw new RuntimeException("[ClientLoader] Missing annotation for client module `" + clazz + "`");
         }
     }
 

@@ -15,10 +15,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 public class FiringDisplay extends BasicDisplay implements SimpleGridMenuDisplay {
-    private Recipe<?> recipe;
-    private float xp;
-    private double cookTime;
+    private final Recipe<?> recipe;
+    private final float xp;
+    private final double cookTime;
 
     public FiringDisplay(AbstractCookingRecipe recipe) {
         this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getResultItem())),

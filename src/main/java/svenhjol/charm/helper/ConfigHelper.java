@@ -17,9 +17,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ConfigHelper {
-    public static Toml getConfig(String mod) {
-        String configPath = "./config/" + mod + ".toml";
-        Path path = Paths.get(configPath);
+    public static Toml getConfig(String modId) {
+        Path path = getConfigPath(modId);
         File file = path.toFile();
 
         if (!file.exists())
@@ -61,7 +60,7 @@ public class ConfigHelper {
                         propName = prop.getName();
 
                     Object propValue = prop.get(null);
-                    Object configValue = null;
+                    Object configValue;
 
                     if (toml.contains(moduleName)) {
 
@@ -88,13 +87,15 @@ public class ConfigHelper {
                     }
 
                 } catch (Exception e) {
-                    Charm.LOG.error("Failed to read config for " + moduleName + ": " + e.getMessage());
+                    Charm.LOG.error("[ConfigHelper] Failed to read config for `" + moduleName + "`: " + e.getMessage());
                 }
             }
         });
     }
 
-    public static <T extends CharmModule> void writeConfig(String mod, List<T> modules) {
+    public static <T extends CharmModule> void writeConfig(String modId, List<T> modules) {
+        Path path = getConfigPath(modId);
+
         // this blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically
         CommentedConfig config = TomlFormat.newConfig(LinkedHashMap::new);
 
@@ -125,13 +126,10 @@ public class ConfigHelper {
                     config.add(moduleConfigName, propValue);
 
                 } catch (Exception e) {
-                    Charm.LOG.error("Failed to write config property " + prop.getName() + " in " + module.getName());
+                    Charm.LOG.error("[ConfigHelper] Failed to write config property `" + prop.getName() + "` in `" + module.getName() + "`");
                 }
             });
         });
-
-        String configPath = "./config/" + mod + ".toml";
-        Path path = Paths.get(configPath);
 
         try {
             // write out and close the file
@@ -139,9 +137,14 @@ public class ConfigHelper {
             Writer buffer = Files.newBufferedWriter(path);
             tomlWriter.write(config, buffer);
             buffer.close();
-            Charm.LOG.debug("Written config to disk");
+            Charm.LOG.debug("[ConfigHelper] Written config to disk");
         } catch (Exception e) {
-            Charm.LOG.error("Failed to write config: " + e.getMessage());
+            Charm.LOG.error("[ConfigHelper] Failed to write config: " + e.getMessage());
         }
+    }
+
+    private static Path getConfigPath(String modId) {
+        String configPath = "./config/" + modId + ".toml";
+        return Paths.get(configPath);
     }
 }

@@ -38,7 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"unused", "UnusedReturnValue", "ConstantConditions"})
 public class RegistryHelper {
     public static Block block(ResourceLocation id, Block block) {
         return Registry.register(Registry.BLOCK, id, block);

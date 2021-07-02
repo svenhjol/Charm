@@ -75,7 +75,7 @@ public class BiomeHelper {
                 biomeSelector = BiomeSelectors.includeByKey(biomeKey);
                 featureKey = BuiltInRegistryKeys.get(feature);
             } catch (Exception e) {
-                Charm.LOG.error("Failed to add feature to biome.");
+                Charm.LOG.error("[BiomeHelper] Failed to add feature to biome.");
                 return;
             }
 
@@ -100,9 +100,9 @@ public class BiomeHelper {
             try {
                 biomeSelector = BiomeSelectors.includeByKey(biomeKey);
                 structureKey = BuiltInRegistryKeys.get(structureFeature);
-                Charm.LOG.debug("Added structure " + structureKey.toString() + " to biome " + biomeKey.toString());
+                Charm.LOG.debug("[BiomeHelper] Added structure `" + structureFeature.feature.getFeatureName() + "` to biome `" + biomeKey.toString() + "`");
             } catch (Exception e) {
-                Charm.LOG.error("Failed to add structure to biome. This may cause crashes when trying to locate the structure.");
+                Charm.LOG.error("[BiomeHelper] Failed to add structure to biome. This may cause crashes when trying to locate the structure.");
                 return;
             }
 
@@ -124,7 +124,7 @@ public class BiomeHelper {
                 Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
                 BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
             } catch (Exception e) {
-                Charm.LOG.error("Failed to add entity to biome spawn. This may cause crashes when trying to spawn the entity.");
+                Charm.LOG.error("[BiomeHelper] Failed to add entity to biome spawn. This may cause crashes when trying to spawn the entity.");
             }
         }
     }

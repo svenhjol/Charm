@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.enums.VanillaVariantMaterial;
+import svenhjol.charm.enums.IWoodMaterial;
+import svenhjol.charm.enums.VanillaWoodMaterial;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
@@ -23,7 +23,7 @@ import java.util.*;
 public class Bookcases extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "bookcase");
     public static final ResourceLocation TRIGGER_ADDED_BOOK_TO_BOOKCASE = new ResourceLocation(Charm.MOD_ID, "added_book_to_bookcase");
-    public static final Map<IVariantMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
+    public static final Map<IWoodMaterial, BookcaseBlock> BOOKCASE_BLOCKS = new HashMap<>();
 
     public static MenuType<BookcaseScreenHandler> SCREEN_HANDLER;
     public static BlockEntityType<BookcaseBlockEntity> BLOCK_ENTITY;
@@ -48,7 +48,7 @@ public class Bookcases extends CharmModule {
             Items.FILLED_MAP
         ));
 
-        VanillaVariantMaterial.getTypes().forEach(type -> {
+        VanillaWoodMaterial.getTypes().forEach(type -> {
             registerBookcase(this, type);
         });
 
@@ -60,7 +60,7 @@ public class Bookcases extends CharmModule {
         SCREEN_HANDLER = RegistryHelper.screenHandler(ID, BookcaseScreenHandler::new);
     }
 
-    public static BookcaseBlock registerBookcase(CharmModule module, IVariantMaterial material) {
+    public static BookcaseBlock registerBookcase(CharmModule module, IWoodMaterial material) {
         BookcaseBlock bookcase = new BookcaseBlock(module, material);
         BOOKCASE_BLOCKS.put(material, bookcase);
         RegistryHelper.addBlocksToBlockEntity(BLOCK_ENTITY, bookcase);

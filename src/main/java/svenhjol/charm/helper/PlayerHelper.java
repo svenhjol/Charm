@@ -21,13 +21,10 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class PlayerHelper {
     /**
      * Tries to add item stack to player, drops if not possible.
-     *
-     * @param player The player
-     * @param stack  The stack to add/drop
-     * @return True if able to add to player inv, false if dropped
      */
     public static boolean addOrDropStack(Player player, ItemStack stack) {
         if (!getInventory(player).add(stack)) {

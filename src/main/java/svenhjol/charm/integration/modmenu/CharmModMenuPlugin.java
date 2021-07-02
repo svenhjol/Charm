@@ -8,6 +8,7 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.impl.builders.FieldBuilder;
 import me.shedaniel.clothconfig2.impl.builders.SubCategoryBuilder;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.ConfigHelper;
@@ -16,24 +17,24 @@ import svenhjol.charm.loader.CharmModule;
 import java.lang.reflect.Field;
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class CharmModMenuPlugin implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return parent -> {
             ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(new TextComponent("Charm configuration"));
+                .setTitle(new TranslatableComponent("cloth.title"));
 
             // get all the loader modules
             List<CharmModule> modules = new LinkedList<>(Charm.LOADER.getModules());
 
             builder.setSavingRunnable(() -> {
                 // Serialise the config into the config file. This will be called last after all variables are updated.
-                Charm.LOG.info("here");
                 ConfigHelper.writeConfig(Charm.MOD_ID, modules);
             });
 
-            ConfigCategory mainCategory = builder.getOrCreateCategory(new TextComponent("Charm"));
+            ConfigCategory mainCategory = builder.getOrCreateCategory(new TranslatableComponent("cloth.category.title"));
 
             for (CharmModule module : modules) {
                 if (!module.isAlwaysEnabled()) {
@@ -42,9 +43,9 @@ public class CharmModMenuPlugin implements ModMenuApi {
                     Map<Field, Object> properties = getModuleConfigProperties(module);
                     SubCategoryBuilder subcategory = enabledBuilder.startSubCategory(new TextComponent(module.getName()));
 
-                    subcategory.add(enabledBuilder.startBooleanToggle(new TextComponent("Module Enabled"), module.isEnabledInConfig())
+                    subcategory.add(enabledBuilder.startBooleanToggle(new TranslatableComponent("cloth.category.module_enabled"), module.isEnabledInConfig())
                         .setDefaultValue(module.isEnabledByDefault()) // Used when user click "Reset"
-                        .setTooltip(new TextComponent("Enable or disable this module")) // Shown when the user hover over this option
+                        .setTooltip(new TranslatableComponent("cloth.category.enable_or_disable_module")) // Shown when the user hover over this option
                         .setSaveConsumer(module::setEnabledInConfig) // Called when user save the config
                         .requireRestart()
                         .build()); // Builds the option entry for cloth config
@@ -105,7 +106,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
                 properties.put(prop, value);
 
             } catch (Exception e) {
-                Charm.LOG.error("Failed to read config property " + prop.getName() + " in " + module.getName());
+                Charm.LOG.error("[CharmModMenuPlugin] Failed to read config property " + prop.getName() + " in " + module.getName());
             }
         });
 

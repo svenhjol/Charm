@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ItemHelper;
-import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.helper.TooltipHelper;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
 import svenhjol.charm.loader.CharmModule;
@@ -36,7 +36,7 @@ public class ShulkerBoxTooltipsClient extends CharmModule {
         if (stack == null || !stack.hasTag())
             return;
 
-        CompoundTag nbt = ItemNBTHelper.getCompound(stack, "BlockEntityTag", true);
+        CompoundTag nbt = ItemNbtHelper.getCompound(stack, "BlockEntityTag", true);
 
         if (nbt == null)
             return;

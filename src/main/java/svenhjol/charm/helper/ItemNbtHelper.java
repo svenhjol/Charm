@@ -1,12 +1,13 @@
 package svenhjol.charm.helper;
 
-import java.util.UUID;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.UUID;
+
 @SuppressWarnings("unused")
-public class ItemNBTHelper {
+public class ItemNbtHelper {
     public static int getInt(ItemStack stack, String nbt, int defaultExpected) {
         return nbtExists(stack, nbt) ? getNBT(stack).getInt(nbt) : defaultExpected;
     }

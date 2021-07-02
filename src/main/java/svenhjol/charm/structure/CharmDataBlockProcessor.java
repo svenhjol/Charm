@@ -19,8 +19,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 import svenhjol.charm.Charm;
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.enums.VanillaVariantMaterial;
+import svenhjol.charm.enums.IWoodMaterial;
+import svenhjol.charm.enums.VanillaWoodMaterial;
 import svenhjol.charm.helper.DecorationHelper;
 import svenhjol.charm.helper.LootHelper;
 import svenhjol.charm.init.CharmStructures;
@@ -194,7 +194,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
             ResourceLocation typeId = new ResourceLocation(type);
             Optional<Block> optionalBlock = Registry.BLOCK.getOptional(typeId);
 
-            if (!optionalBlock.isPresent())
+            if (optionalBlock.isEmpty())
                 return;
 
             Block block = optionalBlock.get();
@@ -202,11 +202,11 @@ public class CharmDataBlockProcessor extends StructureProcessor {
         }
 
         protected void bookshelf() {
-            IVariantMaterial variantMaterial = DecorationHelper.getRandomOverworldVariantMaterial(fixedRandom);
+            IWoodMaterial variantMaterial = DecorationHelper.getRandomOverworldVariantMaterial(fixedRandom);
 
             String type = getValue("material", this.data, "");
             if (!type.isEmpty()) {
-                IVariantMaterial material = DecorationHelper.getVariantMaterial(type);
+                IWoodMaterial material = DecorationHelper.getVariantMaterial(type);
                 if (material != null)
                     variantMaterial = material;
             }
@@ -224,7 +224,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
 
                 this.nbt = new CompoundTag();
                 blockEntity.save(this.nbt);
-            } else if (Charm.LOADER.isEnabled("charm:variant_bookshelves") && variantMaterial != VanillaVariantMaterial.OAK) {
+            } else if (Charm.LOADER.isEnabled("charm:variant_bookshelves") && variantMaterial != VanillaWoodMaterial.OAK) {
                 state = VariantBookshelves.BOOKSHELF_BLOCKS.get(variantMaterial).defaultBlockState();
             } else {
                 state = Blocks.BOOKSHELF.defaultBlockState();
@@ -248,11 +248,11 @@ public class CharmDataBlockProcessor extends StructureProcessor {
             if (!withChance(CHEST_CHANCE)) return;
 
             if (Charm.LOADER.isEnabled("charm:variant_chests")) {
-                IVariantMaterial variantMaterial = DecorationHelper.getRandomOverworldVariantMaterial(random);
+                IWoodMaterial variantMaterial = DecorationHelper.getRandomOverworldVariantMaterial(random);
 
                 String type = getValue("material", this.data, "");
                 if (!type.isEmpty()) {
-                    IVariantMaterial material = DecorationHelper.getVariantMaterial(type);
+                    IWoodMaterial material = DecorationHelper.getVariantMaterial(type);
                     if (material != null)
                         variantMaterial = material;
                 }
@@ -295,7 +295,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
 
             ResourceLocation typeId = new ResourceLocation(type);
 
-            if (!Registry.ENTITY_TYPE.getOptional(typeId).isPresent())
+            if (Registry.ENTITY_TYPE.getOptional(typeId).isEmpty())
                 return;
 
             blockEntity.entity = typeId;
@@ -359,7 +359,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
             String type = getValue("type", this.data, "");
             if (!type.isEmpty()) {
                 ResourceLocation typeId = new ResourceLocation(type);
-                if (!Registry.ENTITY_TYPE.getOptional(typeId).isPresent())
+                if (Registry.ENTITY_TYPE.getOptional(typeId).isEmpty())
                     return;
 
                 Block ore = Registry.BLOCK.get(typeId);
@@ -388,7 +388,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
             } else {
                 // try and use the specified entity
                 ResourceLocation typeId = new ResourceLocation(type);
-                if (!Registry.ENTITY_TYPE.getOptional(typeId).isPresent())
+                if (Registry.ENTITY_TYPE.getOptional(typeId).isEmpty())
                     return;
 
                 entity = Registry.ENTITY_TYPE.get(typeId);
@@ -411,7 +411,7 @@ public class CharmDataBlockProcessor extends StructureProcessor {
             if (!withChance(STORAGE_CHANCE)) return;
 
             RandomizableContainerBlockEntity blockEntity;
-            IVariantMaterial woodType = DecorationHelper.getRandomOverworldVariantMaterial(random);
+            IWoodMaterial woodType = DecorationHelper.getRandomOverworldVariantMaterial(random);
 
             if (Charm.LOADER.isEnabled("charm:variant_barrels")) {
                 // get variant barrel

@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import svenhjol.charm.enums.VanillaVariantMaterial;
+import svenhjol.charm.enums.VanillaWoodMaterial;
 import svenhjol.charm.helper.LootHelper;
 
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 import static svenhjol.charm.helper.DecorationHelper.*;
 
+@SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class CharmDecorations {
     public static List<StructureProcessor> SINGLE_POOL_ELEMENT_PROCESSORS = new ArrayList<>();
     private static boolean hasAlreadySetup = false;
@@ -40,10 +41,10 @@ public class CharmDecorations {
         SAPLINGS.addAll(filteredSaplings);
         WOOL.addAll(BlockTags.WOOL.getValues());
 
-        VARIANT_MATERIALS.addAll(VanillaVariantMaterial.getTypes());
-        OVERWORLD_VARIANT_MATERIALS.addAll(VanillaVariantMaterial.getTypesWithout(
-            VanillaVariantMaterial.CRIMSON,
-            VanillaVariantMaterial.WARPED
+        VARIANT_MATERIALS.addAll(VanillaWoodMaterial.getTypes());
+        OVERWORLD_VARIANT_MATERIALS.addAll(VanillaWoodMaterial.getTypesWithout(
+            VanillaWoodMaterial.CRIMSON,
+            VanillaWoodMaterial.WARPED
         ));
 
         CHEST_LOOT_TABLES = Arrays.asList(

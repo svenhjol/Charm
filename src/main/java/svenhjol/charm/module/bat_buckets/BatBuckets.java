@@ -14,7 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
@@ -59,7 +59,7 @@ public class BatBuckets extends CharmModule {
 
             ItemStack batBucket = new ItemStack(BAT_BUCKET_ITEM);
             CompoundTag nbt = new CompoundTag();
-            ItemNBTHelper.setCompound(batBucket, BatBucketItem.STORED_BAT_NBT, bat.saveWithoutId(nbt));
+            ItemNbtHelper.setCompound(batBucket, BatBucketItem.STORED_BAT_NBT, bat.saveWithoutId(nbt));
 
             if (held.getCount() == 1) {
                 player.setItemInHand(hand, batBucket);

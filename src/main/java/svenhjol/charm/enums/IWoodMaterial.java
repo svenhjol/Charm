@@ -1,6 +1,6 @@
 package svenhjol.charm.enums;
 
-public interface IVariantMaterial extends ICharmEnum {
+public interface IWoodMaterial extends ICharmEnum {
     default boolean isFlammable() {
         return true;
     }

@@ -40,7 +40,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.Charm;
-import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.helper.PlayerHelper;
 
 import javax.annotation.Nullable;
@@ -51,6 +51,7 @@ import java.util.Random;
  * Most of this is copypasta from SquidEntity.
  * canSpawn() checks for coral.
  */
+@SuppressWarnings("unused")
 public class CoralSquidEntity extends WaterAnimal {
     public static final String CORAL_SQUID_TYPE_NBT = "CoralSquidType";
     public static final String CORAL_SQUID_FROM_BUCKET_NBT = "FromBucket";
@@ -107,7 +108,7 @@ public class CoralSquidEntity extends WaterAnimal {
             && coralBelow;
 
         if (canSpawn)
-            Charm.LOG.debug("Can spawn coral squid at " + pos.toString());
+            Charm.LOG.debug("[CoralSquidEntity] Can spawn coral squid at pos: " + pos);
 
         return canSpawn;
     }
@@ -240,7 +241,7 @@ public class CoralSquidEntity extends WaterAnimal {
             }
 
             if (!this.level.isClientSide) {
-                this.setDeltaMovement((double)(this.swimX * this.speed), (double)(this.swimY * this.speed), (double)(this.swimZ * this.speed));
+                this.setDeltaMovement((this.swimX * this.speed), (this.swimY * this.speed), (this.swimZ * this.speed));
             }
 
             Vec3 vec3d = this.getDeltaMovement();
@@ -299,7 +300,7 @@ public class CoralSquidEntity extends WaterAnimal {
 
             ItemStack coralSquidBucket = new ItemStack(CoralSquids.CORAL_SQUID_BUCKET);
             CompoundTag nbt = new CompoundTag();
-            ItemNBTHelper.setCompound(coralSquidBucket, CoralSquidBucketItem.STORED_CORAL_SQUID, this.saveWithoutId(nbt));
+            ItemNbtHelper.setCompound(coralSquidBucket, CoralSquidBucketItem.STORED_CORAL_SQUID, this.saveWithoutId(nbt));
 
             if (this.hasCustomName())
                 coralSquidBucket.setHoverName(this.getCustomName());

@@ -1,16 +1,17 @@
 package svenhjol.charm.helper;
 
-import svenhjol.charm.Charm;
-
-import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.material.Material;
+import svenhjol.charm.Charm;
+
+import javax.annotation.Nullable;
 import java.util.Random;
 
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class PosHelper {
     public static BlockPos addRandomOffset(BlockPos pos, Random rand, int min, int max) {
         int n = rand.nextInt(max - min) + min;
@@ -64,7 +65,7 @@ public class PosHelper {
         }
 
         if (surface <= 0) {
-            Charm.LOG.warn("Failed to find a surface value to spawn the player");
+            Charm.LOG.warn("[PosHelper] Failed to find a surface value to spawn the player");
             return null;
         }
 

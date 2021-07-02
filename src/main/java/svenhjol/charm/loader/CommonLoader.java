@@ -50,7 +50,7 @@ public class CommonLoader<T extends CharmModule> extends ModuleLoader<T> {
             module.setEnabled(module.isEnabledByDefault());
 
         } else {
-            throw new RuntimeException("Missing annotation for module: " + clazz);
+            throw new RuntimeException("[CommonLoader] Missing annotation for module `" + clazz + "`");
         }
     }
 
