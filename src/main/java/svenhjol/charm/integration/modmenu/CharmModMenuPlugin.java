@@ -38,48 +38,55 @@ public class CharmModMenuPlugin implements ModMenuApi {
 
             for (CharmModule module : modules) {
                 if (!module.isAlwaysEnabled()) {
-                    ConfigEntryBuilder enabledBuilder = builder.entryBuilder();
-
                     Map<Field, Object> properties = getModuleConfigProperties(module);
-                    SubCategoryBuilder subcategory = enabledBuilder.startSubCategory(new TextComponent(module.getName()));
 
-                    subcategory.add(enabledBuilder.startBooleanToggle(new TranslatableComponent("cloth.category.module_enabled"), module.isEnabledInConfig())
+                    SubCategoryBuilder subcategory = builder.entryBuilder()
+                        .startSubCategory(new TextComponent(module.getName()));
+
+                    FieldBuilder<?, ?> enabledValue = builder.entryBuilder()
+                        .startBooleanToggle(new TranslatableComponent("cloth.category.module_enabled"), module.isEnabledInConfig())
                         .setDefaultValue(module.isEnabledByDefault()) // Used when user click "Reset"
                         .setTooltip(new TranslatableComponent("cloth.category.enable_or_disable_module")) // Shown when the user hover over this option
-                        .setSaveConsumer(module::setEnabledInConfig) // Called when user save the config
-                        .build()); // Builds the option entry for cloth config
+                        .setSaveConsumer(module::setEnabledInConfig)
+                        .requireRestart();
+
+                    if (enabledValue != null) {
+                        enabledValue.requireRestart(true);
+                        subcategory.add(enabledValue.build());
+                    }
 
                     properties.forEach((prop, value) -> {
                         ConfigEntryBuilder propBuilder = builder.entryBuilder();
-                        FieldBuilder<?, ?> fieldBuilder = null;
+
+                        FieldBuilder<?, ?> propValue = null;
                         Config annotation = prop.getDeclaredAnnotation(Config.class);
 
                         TextComponent name = new TextComponent(annotation.name());
-                        TextComponent description = new TextComponent(annotation.description());
+                        TextComponent desc = new TextComponent(annotation.description()); // TODO split over lines
 
                         if (value instanceof Boolean) {
-                            fieldBuilder = propBuilder
-                                .startBooleanToggle(name, (Boolean) value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
+                            propValue = propBuilder
+                                .startBooleanToggle(name, (Boolean)value).setDefaultValue(() -> (Boolean)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
                         } else if (value instanceof Integer) {
-                            fieldBuilder = propBuilder
-                                .startIntField(name, (Integer) value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
+                            propValue = propBuilder
+                                .startIntField(name, (Integer)value).setDefaultValue(() -> (Integer)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
                         } else if (value instanceof Double) {
-                            fieldBuilder = propBuilder
-                                .startDoubleField(name, (Double) value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
+                            propValue = propBuilder
+                                .startDoubleField(name, (Double)value).setDefaultValue(() -> (Double)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
                         } else if (value instanceof Float) {
-                            fieldBuilder = propBuilder
-                                .startFloatField(name, (Float) value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
+                            propValue = propBuilder
+                                .startFloatField(name, (Float)value).setDefaultValue(() -> (Float)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
                         } else if (value instanceof String) {
-                            fieldBuilder = propBuilder
-                                .startTextField(name, (String)value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
+                            propValue = propBuilder
+                                .startTextField(name, (String)value).setDefaultValue(() -> (String)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
                         } else if (value instanceof List) {
-                            fieldBuilder = propBuilder
-                                .startStrList(name, (List<String>)value).setTooltip(description).setSaveConsumer(val -> trySetProp(prop, val));
+                            propValue = propBuilder
+                                .startStrList(name, (List<String>)value).setDefaultValue(() -> (List<String>)tryGetDefault(prop)).setTooltip(desc).setSaveConsumer(val -> trySetProp(prop, val));
                         }
 
-                        if (fieldBuilder != null) {
-                            fieldBuilder.requireRestart(annotation.requireRestart());
-                            subcategory.add(fieldBuilder.build());
+                        if (propValue != null) {
+                            propValue.requireRestart(annotation.requireRestart());
+                            subcategory.add(propValue.build());
                         }
                     });
 
@@ -114,5 +121,9 @@ public class CharmModMenuPlugin implements ModMenuApi {
 
     private void trySetProp(Field prop, Object val) {
         try { prop.set(null, val); } catch (IllegalAccessException e) { e.printStackTrace(); }
+    }
+
+    private Object tryGetDefault(Field prop) {
+        return ConfigHelper.getDefaultPropValues().getOrDefault(prop, null);
     }
 }
