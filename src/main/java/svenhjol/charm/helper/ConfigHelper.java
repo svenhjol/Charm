@@ -4,6 +4,7 @@ import com.electronwill.nightconfig.core.CommentedConfig;
 import com.electronwill.nightconfig.toml.TomlFormat;
 import com.electronwill.nightconfig.toml.TomlWriter;
 import com.moandjiezana.toml.Toml;
+import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.loader.CharmModule;
@@ -158,7 +159,7 @@ public class ConfigHelper {
     }
 
     private static Path getConfigPath(String modId) {
-        String configPath = "./config/" + modId + ".toml";
+        String configPath = FabricLoader.getInstance().getConfigDir() + "/" + modId + ".toml";
         return Paths.get(configPath);
     }
 }
