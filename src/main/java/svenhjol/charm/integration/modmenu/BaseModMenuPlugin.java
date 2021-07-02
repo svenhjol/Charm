@@ -18,6 +18,9 @@ import svenhjol.charm.loader.CharmModule;
 import java.lang.reflect.Field;
 import java.util.*;
 
+/**
+ * @version 1.0.0-charm
+ */
 @SuppressWarnings("unchecked")
 public abstract class BaseModMenuPlugin<T extends CharmModule> implements ModMenuApi {
     public abstract String getModId();
