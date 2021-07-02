@@ -12,7 +12,8 @@ import svenhjol.charm.helper.RecipeHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.extra_nuggets.ExtraNuggets;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Variants lanterns crafted from vanilla metal nuggets and torches.")
 public class VariantLanterns extends CharmModule {
@@ -32,7 +33,10 @@ public class VariantLanterns extends CharmModule {
             LANTERNS.put(material, new CharmLanternBlock(this, material.getSerializedName() + "_lantern", lanternProperties));
             LANTERNS.put(material, new CharmLanternBlock(this, material.getSerializedName() + "_soul_lantern", soulLanternProperties));
         }
+    }
 
+    @Override
+    public void runWhenEnabled() {
         // remove lantern recipes if nuggets module is disabled
         if (!Charm.LOADER.isEnabled(ExtraNuggets.class)) {
             RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "variant_lanterns/copper_lantern"));

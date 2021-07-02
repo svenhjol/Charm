@@ -12,7 +12,8 @@ import svenhjol.charm.helper.RecipeHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.extra_nuggets.ExtraNuggets;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Variant chains crafted from vanilla metal ingots and nuggets.")
 public class VariantChains extends CharmModule {
@@ -28,7 +29,10 @@ public class VariantChains extends CharmModule {
 
             CHAINS.put(material, new CharmChainBlock(this, material.getSerializedName() + "_chain", properties));
         }
+    }
 
+    @Override
+    public void runWhenEnabled() {
         // remove chain recipes if nuggets module is disabled
         if (!Charm.LOADER.isEnabled(ExtraNuggets.class)) {
             RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "variant_chains/copper_chain"));
