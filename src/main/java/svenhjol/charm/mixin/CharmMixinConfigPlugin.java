@@ -144,18 +144,18 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                 }
 
                 if (required) {
-                    if (debug) logger.info("[MixinConfig] Mixin " + truncatedName + " is required");
+                    if (debug) logger.info("[MixinConfig] " + truncatedName + " is required");
                 } else if (disabled) {
-                    String message = "[MixinConfig] Mixin " + truncatedName + " will not be added";
+                    String message = "[MixinConfig] " + truncatedName + " will not be added";
                     if (debug) { logger.warn(message); } else { logger.info(message); }
                 } else {
-                    if (debug) logger.info("[MixinConfig] Mixin " + truncatedName + " will be added");
+                    if (debug) logger.info("[MixinConfig] " + truncatedName + " will be added");
                 }
 
                 countProcessed++;
 
             } catch (Exception e) {
-                logger.error("[MixinConfig]  Error occurred while processing mixin " + truncatedName + ": " + e.getMessage());
+                logger.error("[MixinConfig] Error occurred while processing mixin " + truncatedName + ": " + e.getMessage());
             }
         }
 
