@@ -46,7 +46,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
                     FieldBuilder<?, ?> enabledValue = builder.entryBuilder()
                         .startBooleanToggle(new TranslatableComponent("cloth.category.module_enabled"), module.isEnabledInConfig())
                         .setDefaultValue(module.isEnabledByDefault()) // Used when user click "Reset"
-                        .setTooltip(new TranslatableComponent("cloth.category.enable_or_disable_module")) // Shown when the user hover over this option
+                        .setTooltip(new TranslatableComponent(module.getDescription())) // Shown when the user hover over this option
                         .setSaveConsumer(module::setEnabledInConfig)
                         .requireRestart();
 
