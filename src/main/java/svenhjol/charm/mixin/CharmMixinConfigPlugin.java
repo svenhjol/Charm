@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 @SuppressWarnings({"UnstableApiUsage", "unused"})
-public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
+public class MixinConfigPlugin implements IMixinConfigPlugin {
     private static final String MIXIN = "Mixin"; // all valid mixin classes have this annotation
 
     // these must match the annotation methods in CharmMixin
@@ -54,16 +54,16 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
         } catch (FileNotFoundException e) {
             // it doesn't matter
         } catch (IOException e) {
-            LogManager.getLogger().warn("[CharmMixinConfig] IO error when handling mixin blacklist: " + e.getMessage());
+            LogManager.getLogger().warn("[MixinConfig] IO error when handling mixin blacklist: " + e.getMessage());
         }
 
         // fetch mixin annotations to remove when conflicting mods are present
         Iterable<ClassPath.ClassInfo> classes;
         try {
-            ClassLoader classLoader = CharmMixinConfigPlugin.class.getClassLoader();
+            ClassLoader classLoader = MixinConfigPlugin.class.getClassLoader();
             classes = ClassHelper.getClassesInPackage(classLoader, mixinPackage);
         } catch (Exception e) {
-            throw new IllegalStateException("[CharmMixinConfig] Could not fetch mixin classes, giving up: " + e.getMessage());
+            throw new IllegalStateException("[MixinConfig] Could not fetch mixin classes, giving up: " + e.getMessage());
         }
 
         int countProcessed = 0; // track how many mixins were added
@@ -144,23 +144,23 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                 }
 
                 if (required) {
-                    if (debug) logger.info("[CharmMixinConfig] Mixin " + truncatedName + " is required");
+                    if (debug) logger.info("[MixinConfig] Mixin " + truncatedName + " is required");
                 } else if (disabled) {
-                    String message = "[CharmMixinConfig] Mixin " + truncatedName + " will not be added";
+                    String message = "[MixinConfig] Mixin " + truncatedName + " will not be added";
                     if (debug) { logger.warn(message); } else { logger.info(message); }
                 } else {
-                    if (debug) logger.info("[CharmMixinConfig] Mixin " + truncatedName + " will be added");
+                    if (debug) logger.info("[MixinConfig] Mixin " + truncatedName + " will be added");
                 }
 
                 countProcessed++;
 
             } catch (Exception e) {
-                logger.error("[CharmMixinConfig]  Error occurred while processing mixin " + truncatedName + ": " + e.getMessage());
+                logger.error("[MixinConfig]  Error occurred while processing mixin " + truncatedName + ": " + e.getMessage());
             }
         }
 
         if (countProcessed == 0)
-            logger.warn("[CharmMixinConfig] Seems no mixin classes were processed... this might be bad.");
+            logger.warn("[MixinConfig] Seems no mixin classes were processed... this might be bad.");
     }
 
     @Override
