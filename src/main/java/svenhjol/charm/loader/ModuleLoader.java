@@ -23,7 +23,7 @@ public abstract class ModuleLoader<T extends CharmModule> {
         // do module registration
         this.register();
 
-        // do module dependency check
+        // do module dependency checks
         this.dependencies();
 
         // do enabled module tasks
@@ -46,7 +46,7 @@ public abstract class ModuleLoader<T extends CharmModule> {
             boolean debug = Core.isDebugMode();
             boolean enabledInConfig = module.isEnabledInConfig();
             boolean passedDependencyCheck = module.getDependencies().isEmpty() || module.getDependencies().stream().allMatch(dep -> dep.test(module));
-            module.setEnabled(!enabledInConfig || !passedDependencyCheck);
+            module.setEnabled(enabledInConfig && passedDependencyCheck);
 
             if (!enabledInConfig) {
                 if (debug) Charm.LOG.warn("[ModuleLoader] " + module.getName() + " is disabled in configuration");
