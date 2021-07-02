@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 @SuppressWarnings({"UnstableApiUsage", "unused"})
-public class MixinConfigPlugin implements IMixinConfigPlugin {
+public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
     private static final String MIXIN = "Mixin"; // all valid mixin classes have this annotation
 
     // these must match the annotation methods in CharmMixin
@@ -60,7 +60,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         // fetch mixin annotations to remove when conflicting mods are present
         Iterable<ClassPath.ClassInfo> classes;
         try {
-            ClassLoader classLoader = MixinConfigPlugin.class.getClassLoader();
+            ClassLoader classLoader = CharmMixinConfigPlugin.class.getClassLoader();
             classes = ClassHelper.getClassesInPackage(classLoader, mixinPackage);
         } catch (Exception e) {
             throw new IllegalStateException("[MixinConfig] Could not fetch mixin classes, giving up: " + e.getMessage());
