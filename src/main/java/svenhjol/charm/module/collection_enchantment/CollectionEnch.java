@@ -1,6 +1,6 @@
 package svenhjol.charm.module.collection_enchantment;
 
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
@@ -8,7 +8,7 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import svenhjol.charm.enchantment.CharmEnchantment;
 
 public class CollectionEnch extends CharmEnchantment {
-    public CollectionEnch(CharmCommonModule module) {
+    public CollectionEnch(CharmModule module) {
         super(module, "collection", Rarity.UNCOMMON, EnchantmentCategory.DIGGER, new EquipmentSlot[] { EquipmentSlot.MAINHAND });
     }
 

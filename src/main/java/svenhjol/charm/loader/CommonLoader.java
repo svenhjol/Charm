@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CommonLoader<T extends CharmCommonModule> extends ModuleLoader<T> {
-    private static final Map<ResourceLocation, CharmCommonModule> ALL_MODULES = new HashMap<>();
+public class CommonLoader<T extends CharmModule> extends ModuleLoader<T> {
+    private static final Map<ResourceLocation, CharmModule> ALL_MODULES = new HashMap<>();
 
     public CommonLoader(String modId, String basePackage) {
         super(modId, basePackage);
@@ -61,7 +61,7 @@ public class CommonLoader<T extends CharmCommonModule> extends ModuleLoader<T> {
         ConfigHelper.writeConfig(getModId(), modules);
     }
 
-    public static Map<ResourceLocation, CharmCommonModule> getAllModules() {
+    public static Map<ResourceLocation, CharmModule> getAllModules() {
         return ALL_MODULES;
     }
 }

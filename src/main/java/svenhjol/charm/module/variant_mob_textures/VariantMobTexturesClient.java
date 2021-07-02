@@ -13,13 +13,13 @@ import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.enums.ICharmEnum;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
 @ClientModule(module = VariantMobTextures.class)
-public class VariantMobTexturesClient extends CharmClientModule {
+public class VariantMobTexturesClient extends CharmModule {
     private static final String PREFIX = "textures/entity/";
     private static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(PREFIX + "sheep/sheep.png");
 
@@ -41,7 +41,7 @@ public class VariantMobTexturesClient extends CharmClientModule {
     public static Map<DyeColor, ResourceLocation> sheep = new HashMap<>();
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         ClientEntityEvents.ENTITY_LOAD.register(this::handlePlayerJoin);
 
         if (VariantMobTextures.variantChickens)

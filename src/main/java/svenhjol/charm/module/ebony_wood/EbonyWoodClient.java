@@ -15,12 +15,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 
 @ClientModule(module = EbonyWood.class)
-public class EbonyWoodClient extends CharmClientModule {
+public class EbonyWoodClient extends CharmModule {
 
     @Override
     public void register() {

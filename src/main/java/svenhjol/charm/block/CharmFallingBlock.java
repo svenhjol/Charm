@@ -4,13 +4,13 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.FallingBlock;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @SuppressWarnings({"NullableProblems", "unused"})
 public abstract class CharmFallingBlock extends FallingBlock implements ICharmFallingBlock {
-    protected CharmCommonModule module;
+    protected CharmModule module;
 
-    public CharmFallingBlock(CharmCommonModule module, String name, Properties props) {
+    public CharmFallingBlock(CharmModule module, String name, Properties props) {
         super(props);
         this.module = module;
         register(module, name);

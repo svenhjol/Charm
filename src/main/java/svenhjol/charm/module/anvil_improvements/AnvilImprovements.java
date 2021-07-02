@@ -14,7 +14,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Random;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Removes minimum and maximum XP costs on the anvil. Anvils are also less likely to break.")
-public class AnvilImprovements extends CharmCommonModule {
+public class AnvilImprovements extends CharmModule {
     @Config(name = "Remove Too Expensive", description = "If true, removes the maximum cost of 40 XP when working items on the anvil.")
     public static boolean removeTooExpensive = true;
 

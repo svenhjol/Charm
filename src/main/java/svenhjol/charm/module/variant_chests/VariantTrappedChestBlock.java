@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -29,15 +29,15 @@ import java.util.function.Supplier;
 
 @SuppressWarnings({"NullableProblems", "deprecation"})
 public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock, IVariantChestBlock {
-    private final CharmCommonModule module;
+    private final CharmModule module;
     private final IVariantMaterial type;
     private final List<String> loadedMods;
 
-    public VariantTrappedChestBlock(CharmCommonModule module, IVariantMaterial type, String... loadedMods) {
+    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
         this(module, type, Properties.copy(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_BLOCK_ENTITY);
     }
 
-    public VariantTrappedChestBlock(CharmCommonModule module, IVariantMaterial material, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
+    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial material, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
         super(settings, supplier);
 
         this.module = module;

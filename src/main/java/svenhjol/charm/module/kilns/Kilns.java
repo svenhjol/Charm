@@ -11,10 +11,10 @@ import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.helper.DecorationHelper;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A functional block that speeds up cooking of clay, glass, bricks and terracotta.")
-public class Kilns extends CharmCommonModule {
+public class Kilns extends CharmModule {
     public static final ResourceLocation RECIPE_ID = new ResourceLocation(Charm.MOD_ID, "firing");
     public static final ResourceLocation BLOCK_ID = new ResourceLocation(Charm.MOD_ID, "kiln");
     public static final ResourceLocation TRIGGER_FIRED_ITEM = new ResourceLocation(Charm.MOD_ID, "fired_item");
@@ -35,7 +35,7 @@ public class Kilns extends CharmCommonModule {
     }
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         DecorationHelper.DECORATION_BLOCKS.add(KILN);
         DecorationHelper.STATE_CALLBACK.put(KILN, facing -> KILN.defaultBlockState().setValue(KilnBlock.FACING, facing));
     }

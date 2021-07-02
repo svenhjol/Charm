@@ -10,15 +10,15 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.api.CharmNetworkReferences;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 @SuppressWarnings({"FieldCanBeLocal", "unused"})
 @ClientModule(module = PlayerState.class)
-public class PlayerStateClient extends CharmClientModule {
+public class PlayerStateClient extends CharmModule {
     public static final ResourceLocation MSG_CLIENT_UPDATE = new ResourceLocation(CharmNetworkReferences.ClientUpdatePlayerState.toString());
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         // send a state update request on a heartbeat
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
             if (client.player != null && client.player.level.getGameTime() % PlayerState.heartbeat == 0)

@@ -23,17 +23,17 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
 import java.util.Optional;
 
 @ClientModule(module = StorageLabels.class)
-public class StorageLabelsClient extends CharmClientModule {
+public class StorageLabelsClient extends CharmModule {
     public static final ThreadLocal<BlockEntityRendererProvider.Context> chestBlockEntityContext = new ThreadLocal<>();
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_UPDATE_CUSTOM_NAME, this::handleUpdateCustomName);
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_HAS_NO_CUSTOM_NAME, this::handleHasNoCustomName);
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_CLEAR_CUSTOM_NAME, this::handleClearCustomName);

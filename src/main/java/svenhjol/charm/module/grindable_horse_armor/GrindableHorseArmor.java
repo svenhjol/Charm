@@ -10,19 +10,19 @@ import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Horse armor returns a single ingot or gem when used on the grindstone.")
-public class GrindableHorseArmor extends CharmCommonModule {
+public class GrindableHorseArmor extends CharmModule {
     public static final ResourceLocation TRIGGER_RECYCLED_HORSE_ARMOR = new ResourceLocation(Charm.MOD_ID, "recycled_horse_armor");
     public static final Map<Item, Item> horseArmorRecipes = new HashMap<>();
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         horseArmorRecipes.put(Items.LEATHER_HORSE_ARMOR, Items.LEATHER);
         horseArmorRecipes.put(Items.IRON_HORSE_ARMOR, Items.IRON_INGOT);
         horseArmorRecipes.put(Items.GOLDEN_HORSE_ARMOR, Items.GOLD_INGOT);

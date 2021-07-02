@@ -26,13 +26,13 @@ import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderHeldItemCallback;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
 
 @ClientModule(module = Atlases.class)
-public class AtlasesClient extends CharmClientModule {
-    private svenhjol.charm.module.atlases.AtlasRenderer renderer;
+public class AtlasesClient extends CharmModule {
+    private AtlasRenderer renderer;
 
     @Override
     public void register() {
@@ -40,7 +40,7 @@ public class AtlasesClient extends CharmClientModule {
     }
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         RenderHeldItemCallback.EVENT.register(this::handleRenderItem);
         ItemTooltipCallback.EVENT.register(this::handleItemTooltip);
         ClientPlayNetworking.registerGlobalReceiver(Atlases.MSG_CLIENT_UPDATE_ATLAS_INVENTORY, this::handleClientUpdateAtlas);

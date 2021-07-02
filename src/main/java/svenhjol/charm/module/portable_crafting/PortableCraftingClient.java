@@ -20,18 +20,18 @@ import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.init.CharmTags;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
 
 import java.util.List;
 
 @ClientModule(module = PortableCrafting.class)
-public class PortableCraftingClient extends CharmClientModule {
+public class PortableCraftingClient extends CharmModule {
     public ImageButton craftingButton;
     public static KeyMapping keyBinding;
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         // set up client listeners
         SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);

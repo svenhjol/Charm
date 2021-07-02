@@ -12,7 +12,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -20,12 +20,12 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Refills your hotbar from your inventory.")
-public class AutoRestock extends CharmCommonModule {
+public class AutoRestock extends CharmModule {
     //remember which items were in our hands and how often they were used
     private final Map<Player, EnumMap<InteractionHand, StackData>> handCache = new WeakHashMap<>();
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 

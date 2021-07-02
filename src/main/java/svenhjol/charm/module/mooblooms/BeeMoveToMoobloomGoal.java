@@ -1,16 +1,16 @@
 package svenhjol.charm.module.mooblooms;
 
-import svenhjol.charm.mixin.accessor.BeeAccessor;
-import svenhjol.charm.module.core.Core;
-
-import java.util.List;
-import java.util.function.Predicate;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import svenhjol.charm.mixin.accessor.BeeAccessor;
+import svenhjol.charm.module.core.Core;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 public class BeeMoveToMoobloomGoal extends Goal {
     private static final int MAX_MOVE_TICKS = 1200;
@@ -82,7 +82,7 @@ public class BeeMoveToMoobloomGoal extends Goal {
         } else if (!bee.getNavigation().isInProgress()) {
             ((BeeAccessor) bee).invokePathfindRandomlyTowards(moobloom.blockPosition());
 
-            if (Core.debug)
+            if (Core.isDebugMode())
                 bee.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100));
         } else {
 
@@ -94,7 +94,7 @@ public class BeeMoveToMoobloomGoal extends Goal {
             if (dist < 2.2) {
                 ((BeeAccessor)bee).invokeSetHasNectar(false);
 
-                if (Core.debug)
+                if (Core.isDebugMode())
                     bee.removeEffect(MobEffects.GLOWING);
 
                 moobloom.pollinate();

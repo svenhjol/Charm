@@ -17,15 +17,15 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.block.ICharmBlock;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 public class PlayerPressurePlateBlock extends PressurePlateBlock implements ICharmBlock {
-    private final CharmCommonModule module;
+    private final CharmModule module;
 
-    public PlayerPressurePlateBlock(CharmCommonModule module) {
+    public PlayerPressurePlateBlock(CharmModule module) {
         super(null, FabricBlockSettings.of(Material.STONE, MaterialColor.COLOR_BLACK)
             .requiresTool()
             .breakByTool(FabricToolTags.PICKAXES)

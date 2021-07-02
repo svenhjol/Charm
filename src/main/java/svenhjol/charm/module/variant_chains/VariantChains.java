@@ -8,13 +8,14 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.block.CharmChainBlock;
 import svenhjol.charm.enums.IMetalMaterial;
 import svenhjol.charm.enums.VanillaMetalMaterial;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.helper.RecipeHelper;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.extra_nuggets.ExtraNuggets;
 
 import java.util.*;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Variant chains crafted from vanilla metal ingots and nuggets.")
-public class VariantChains extends CharmCommonModule {
+public class VariantChains extends CharmModule {
     public static Map<IMetalMaterial, CharmChainBlock> CHAINS = new HashMap<>();
 
     @Override
@@ -27,20 +28,11 @@ public class VariantChains extends CharmCommonModule {
 
             CHAINS.put(material, new CharmChainBlock(this, material.getSerializedName() + "_chain", properties));
         }
-    }
-
-    @Override
-    public List<ResourceLocation> getRecipesToRemove() {
-        List<ResourceLocation> remove = new ArrayList<>();
 
         // remove chain recipes if nuggets module is disabled
         if (!Charm.LOADER.isEnabled(ExtraNuggets.class)) {
-            remove.addAll(Arrays.asList(
-                new ResourceLocation(Charm.MOD_ID, "variant_chains/copper_chain"),
-                new ResourceLocation(Charm.MOD_ID, "variant_chains/netherite_chain")
-            ));
+            RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "variant_chains/copper_chain"));
+            RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "variant_chains/netherite_chain"));
         }
-
-        return remove;
     }
 }

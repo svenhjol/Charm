@@ -14,12 +14,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.item.ICharmItem;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public class GlowballItem extends EnderpearlItem implements ICharmItem {
-    protected CharmCommonModule module;
+    protected CharmModule module;
 
-    public GlowballItem(CharmCommonModule module) {
+    public GlowballItem(CharmModule module) {
         super(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_MISC));
         this.module = module;
         this.register(module, "glowball");

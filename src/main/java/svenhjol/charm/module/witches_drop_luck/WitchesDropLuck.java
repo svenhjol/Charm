@@ -14,17 +14,17 @@ import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.PotionHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A witch has a chance to drop a Potion of Luck when killed by a player.")
-public class WitchesDropLuck extends CharmCommonModule {
+public class WitchesDropLuck extends CharmModule {
     public static double lootingBoost = 0.25D;
 
     @Config(name = "Drop chance", description = "Chance (out of 1.0) of a witch dropping a Potion of Luck when killed by the player.")
     public static double dropChance = 0.05D;
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 

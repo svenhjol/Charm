@@ -23,19 +23,19 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.")
-public class HoeHarvesting extends CharmCommonModule {
+public class HoeHarvesting extends CharmModule {
     public static final ResourceLocation TRIGGER_REPLANTED_CROPS = new ResourceLocation(Charm.MOD_ID, "replanted_crops");
 
     private static final List<BlockState> harvestable = new ArrayList<>();
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         addHarvestable("minecraft:beetroots[age=3]");
         addHarvestable("minecraft:carrots[age=7]");
         addHarvestable("minecraft:nether_wart[age=3]");

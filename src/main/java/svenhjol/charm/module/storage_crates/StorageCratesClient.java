@@ -19,13 +19,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
 @ClientModule(module = StorageCrates.class)
-public class StorageCratesClient extends CharmClientModule {
+public class StorageCratesClient extends CharmModule {
     public static long lastEffectTime;
 
     @Override

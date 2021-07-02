@@ -13,12 +13,12 @@ import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.EntityHurtCallback;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.")
-public class TamedAnimalsNoDamage extends CharmCommonModule {
+public class TamedAnimalsNoDamage extends CharmModule {
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         AttackEntityCallback.EVENT.register(this::tryIgnoreAttack);
         EntityHurtCallback.EVENT.register(this::tryIgnoreDamage);
     }

@@ -9,19 +9,19 @@ import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmWallSignBlock extends WallSignBlock implements ICharmBlock {
-    private final CharmCommonModule module;
+    private final CharmModule module;
 
-    public CharmWallSignBlock(CharmCommonModule module, String name, WoodType signType, Properties settings) {
+    public CharmWallSignBlock(CharmModule module, String name, WoodType signType, Properties settings) {
         super(settings, signType);
 
         this.register(module, name);
         this.module = module;
     }
 
-    public CharmWallSignBlock(CharmCommonModule module, String name, CharmSignBlock block, WoodType signType, MaterialColor color) {
+    public CharmWallSignBlock(CharmModule module, String name, CharmSignBlock block, WoodType signType, MaterialColor color) {
         this(module, name, signType, Properties.of(Material.WOOD, color)
             .noCollission()
             .strength(1.0F)

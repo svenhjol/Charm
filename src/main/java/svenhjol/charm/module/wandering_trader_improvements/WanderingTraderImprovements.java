@@ -24,10 +24,10 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Wandering traders only appear near signal campfires and sell maps to biomes and structures.")
-public class WanderingTraderImprovements extends CharmCommonModule {
+public class WanderingTraderImprovements extends CharmModule {
     public static final List<TraderMap> traderMaps = new ArrayList<>();
 
     @Config(name = "Trade biome maps", description = "If true, wandering traders will sell maps to biomes.")
@@ -40,7 +40,7 @@ public class WanderingTraderImprovements extends CharmCommonModule {
     public static boolean frequentSpawn = false;
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         if (tradeStructureMaps) {
             traderMaps.addAll(Arrays.asList(
                 new StructureMap(StructureFeature.RUINED_PORTAL, false), // ruined portal

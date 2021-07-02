@@ -17,16 +17,16 @@ import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Villagers are attracted when the player holds a block of emeralds.")
-public class VillagersFollowEmeraldBlocks extends CharmCommonModule {
+public class VillagersFollowEmeraldBlocks extends CharmModule {
     public static final ResourceLocation TRIGGER_LURED_VILLAGER = new ResourceLocation(Charm.MOD_ID, "lured_villager");
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         AddEntityCallback.EVENT.register(this::followEmerald);
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }

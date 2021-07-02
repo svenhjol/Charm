@@ -6,14 +6,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmPlanksBlock extends CharmBlock {
-    public CharmPlanksBlock(CharmCommonModule module, String name, Properties settings) {
+    public CharmPlanksBlock(CharmModule module, String name, Properties settings) {
         super(module, name, settings);
     }
 
-    public CharmPlanksBlock(CharmCommonModule module, String name, MaterialColor color) {
+    public CharmPlanksBlock(CharmModule module, String name, MaterialColor color) {
         this(module, name, Properties.of(Material.WOOD, color)
             .strength(2.0F, 3.0F)
             .sound(SoundType.WOOD));

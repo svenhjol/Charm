@@ -8,14 +8,14 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.ServerJoinCallback;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.Collection;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Unlocks all vanilla recipes.")
-public class AutomaticRecipeUnlock extends CharmCommonModule {
+public class AutomaticRecipeUnlock extends CharmModule {
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         ServerJoinCallback.EVENT.register(this::handleServerJoin);
     }
 

@@ -12,20 +12,20 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public class CharmLanternBlock extends LanternBlock implements ICharmBlock {
-    protected CharmCommonModule module;
+    protected CharmModule module;
     private static final VoxelShape AABB = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 11.0D, 11.0D);
     private static final VoxelShape HANGING_AABB = Block.box(5.0D, 4.0D, 5.0D, 11.0D, 15.0D, 11.0D);
 
-    public CharmLanternBlock(CharmCommonModule module, String name, BlockBehaviour.Properties settings) {
+    public CharmLanternBlock(CharmModule module, String name, BlockBehaviour.Properties settings) {
         super(settings);
         this.module = module;
         register(module, name);
     }
 
-    public CharmLanternBlock(CharmCommonModule module, String name) {
+    public CharmLanternBlock(CharmModule module, String name) {
         this(module, name, Properties.copy(Blocks.LANTERN));
     }
 

@@ -5,10 +5,10 @@ import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 @ClientModule(module = Mooblooms.class)
-public class MoobloomsClient extends CharmClientModule {
+public class MoobloomsClient extends CharmModule {
     public static ModelLayerLocation LAYER;
 
     @Override

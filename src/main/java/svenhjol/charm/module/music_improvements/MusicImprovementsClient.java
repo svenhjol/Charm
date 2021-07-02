@@ -26,7 +26,7 @@ import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.PlaySoundCallback;
 import svenhjol.charm.helper.DimensionHelper;
 import svenhjol.charm.helper.SoundHelper;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
 @ClientModule(module = MusicImprovements.class)
-public class MusicImprovementsClient extends CharmClientModule {
+public class MusicImprovementsClient extends CharmModule {
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;
     private static final List<MusicCondition> musicConditions = new ArrayList<>();
@@ -44,7 +44,7 @@ public class MusicImprovementsClient extends CharmClientModule {
     public static boolean isEnabled;
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
         PlaySoundCallback.EVENT.register(this::handlePlaySound);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);

@@ -25,7 +25,7 @@ import net.minecraft.world.phys.AABB;
 import svenhjol.charm.helper.ItemNBTHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -33,7 +33,7 @@ import java.util.function.Predicate;
 public class BatBucketItem extends CharmItem {
     public static final String STORED_BAT_NBT = "StoredBat";
 
-    public BatBucketItem(CharmCommonModule module) {
+    public BatBucketItem(CharmModule module) {
         super(module, "bat_bucket", new Item.Properties()
             .tab(CreativeModeTab.TAB_MISC)
             .stacksTo(1));

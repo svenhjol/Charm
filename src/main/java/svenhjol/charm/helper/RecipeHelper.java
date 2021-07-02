@@ -1,26 +1,35 @@
-package svenhjol.charm.handler;
+package svenhjol.charm.helper;
 
 import com.google.gson.JsonElement;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.helper.StringHelper;
+import svenhjol.charm.Charm;
+import svenhjol.charm.handler.LogHandler;
 import svenhjol.charm.loader.CommonLoader;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class RecipeHandler {
+public class RecipeHelper {
+    private static final List<ResourceLocation> RECIPES_TO_REMOVE = new ArrayList<>();
+
+    public static void removeRecipe(ResourceLocation id) {
+        Charm.LOG.debug(LogHandler.RECIPE_HELPER, "Added `" + id + "` to list of recipes to remove from the game");
+        RECIPES_TO_REMOVE.add(id);
+    }
+
     public static void prepareCharmModulesFilter(Map<ResourceLocation, JsonElement> recipes) {
-        CommonLoader.getAllModules().values().stream().filter(m -> m.isEnabled() && !m.getRecipesToRemove().isEmpty())
-            .forEach(m -> m.getRecipesToRemove().forEach(recipes::remove));
+        RECIPES_TO_REMOVE.stream().distinct().forEach(recipes::remove);
     }
 
     public static Iterator<Map.Entry<ResourceLocation, JsonElement>> sortAndFilterRecipes(Map<ResourceLocation, JsonElement> recipes) {
+        Charm.LOG.debug(LogHandler.RECIPE_HELPER, "Sorting and filtering " + recipes.size() + " recipes");
         return sortRecipes(recipes)
-            .filter(RecipeHandler::filterUnloadedRecipeTypes)
-            .filter(RecipeHandler::filterUnloadedCharmModules)
+            .filter(RecipeHelper::filterUnloadedRecipeTypes)
+            .filter(RecipeHelper::filterUnloadedCharmModules)
             .iterator();
     }
 

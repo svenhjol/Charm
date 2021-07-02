@@ -2,11 +2,11 @@ package svenhjol.charm.module.potion_of_piercing_vision;
 
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.potion.CharmPotion;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Drink to give yourself the glowing effect or use as a splash potion to light up other entities.")
-public class PotionOfPiercingVision extends CharmCommonModule {
+public class PotionOfPiercingVision extends CharmModule {
     public static CharmPotion PIERCING_VISION_POTION;
     public static CharmPotion LONG_PIERCING_VISION_POTION;
 

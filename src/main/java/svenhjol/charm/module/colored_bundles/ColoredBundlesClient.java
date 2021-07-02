@@ -4,10 +4,10 @@ import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistryAc
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BundleItem;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 @ClientModule(module = ColoredBundles.class)
-public class ColoredBundlesClient extends CharmClientModule {
+public class ColoredBundlesClient extends CharmModule {
 
     @Override
     public void register() {

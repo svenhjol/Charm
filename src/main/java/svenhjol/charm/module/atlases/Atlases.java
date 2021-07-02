@@ -27,14 +27,14 @@ import svenhjol.charm.helper.ItemNBTHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.MapItemSavedDataAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 
 import java.util.*;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Storage for maps that automatically updates the displayed map as you explore.")
-public class Atlases extends CharmCommonModule {
+public class Atlases extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "atlas");
     public static final ResourceLocation MSG_SERVER_ATLAS_TRANSFER = new ResourceLocation(Charm.MOD_ID, "server_atlas_transfer");
     public static final ResourceLocation MSG_CLIENT_UPDATE_ATLAS_INVENTORY = new ResourceLocation(Charm.MOD_ID, "client_update_atlas_inventory");
@@ -67,7 +67,7 @@ public class Atlases extends CharmCommonModule {
     }
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
 
         // listen for network requests to run the server callback

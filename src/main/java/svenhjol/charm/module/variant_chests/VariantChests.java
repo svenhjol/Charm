@@ -8,13 +8,13 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.enums.VanillaVariantMaterial;
 import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @CommonModule(mod = Charm.MOD_ID, priority = 10, description = "Chests available in all types of vanilla wood.")
-public class VariantChests extends CharmCommonModule {
+public class VariantChests extends CharmModule {
     public static final ResourceLocation NORMAL_ID = new ResourceLocation(Charm.MOD_ID, "variant_chest");
     public static final ResourceLocation TRAPPED_ID = new ResourceLocation(Charm.MOD_ID, "trapped_chest");
 
@@ -35,14 +35,14 @@ public class VariantChests extends CharmCommonModule {
         }
     }
 
-    public static VariantChestBlock registerChest(CharmCommonModule module, IVariantMaterial material) {
+    public static VariantChestBlock registerChest(CharmModule module, IVariantMaterial material) {
         VariantChestBlock chest = new VariantChestBlock(module, material);
         NORMAL_CHEST_BLOCKS.put(material, chest);
         RegistryHelper.addBlocksToBlockEntity(NORMAL_BLOCK_ENTITY, chest);
         return chest;
     }
 
-    public static VariantTrappedChestBlock registerTrappedChest(CharmCommonModule module, IVariantMaterial material) {
+    public static VariantTrappedChestBlock registerTrappedChest(CharmModule module, IVariantMaterial material) {
         VariantTrappedChestBlock chest = new VariantTrappedChestBlock(module, material);
         TRAPPED_CHEST_BLOCKS.put(material, chest);
         RegistryHelper.addBlocksToBlockEntity(TRAPPED_BLOCK_ENTITY, chest);

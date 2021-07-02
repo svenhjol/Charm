@@ -27,14 +27,14 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.EntityEquipCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.init.CharmSounds;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A tool that rotates blocks. When held in offhand it locks block orientation when placing.")
-public class Quadrants extends CharmCommonModule {
+public class Quadrants extends CharmModule {
     public static QuadrantItem QUADRANT;
     public static Map<UUID, Direction> lockedDirection = new HashMap<>();
     public static final ResourceLocation TRIGGER_HELD_TO_ALIGN = new ResourceLocation(Charm.MOD_ID, "held_to_align");
@@ -46,7 +46,7 @@ public class Quadrants extends CharmCommonModule {
     }
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         EntityEquipCallback.EVENT.register(this::handleEntityEquip);
         UseBlockCallback.EVENT.register(this::handleUseBlock);
     }

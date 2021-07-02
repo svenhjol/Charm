@@ -8,10 +8,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.helper.EnchantmentsHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A player wearing feather falling enchanted boots will not trample crops.")
-public class FeatherFallingCrops extends CharmCommonModule {
+public class FeatherFallingCrops extends CharmModule {
 
     @Config(name = "Requires feather falling", description = "Set to false to prevent trampling even when the player does not wear feather falling boots.")
     public static boolean requiresFeatherFalling = true;

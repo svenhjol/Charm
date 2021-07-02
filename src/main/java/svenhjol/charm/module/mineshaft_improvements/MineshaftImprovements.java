@@ -21,7 +21,7 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.MineshaftCorridorAccessor;
 import svenhjol.charm.mixin.accessor.MineshaftPartAccessor;
 import svenhjol.charm.mixin.accessor.StructurePieceAccessor;
@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Random;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.")
-public class MineshaftImprovements extends CharmCommonModule {
+public class MineshaftImprovements extends CharmModule {
     public static List<BlockState> floorBlocks = new ArrayList<>();
     public static List<BlockState> ceilingBlocks = new ArrayList<>();
     public static List<Pair<BlockState, BlockState>> pileBlocks = new ArrayList<>();
@@ -62,7 +62,7 @@ public class MineshaftImprovements extends CharmCommonModule {
     public static boolean generateMinecarts = true;
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         isEnabled = true;
 
         floorBlocks.addAll(Arrays.asList(

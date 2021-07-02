@@ -14,10 +14,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.init.CharmParticles;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 @ClientModule(module = ClearItemFrames.class)
-public class ClearItemFramesClient extends CharmClientModule {
+public class ClearItemFramesClient extends CharmModule {
     @Override
     public void register() {
         ClientPlayNetworking.registerGlobalReceiver(ClearItemFrames.MSG_CLIENT_ADD_AMETHYST, this::handleClientMakeInvisible);

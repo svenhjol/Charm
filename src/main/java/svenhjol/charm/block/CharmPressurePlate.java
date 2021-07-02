@@ -7,12 +7,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public class CharmPressurePlate extends PressurePlateBlock implements ICharmBlock {
-    private final CharmCommonModule module;
+    private final CharmModule module;
 
-    public CharmPressurePlate(CharmCommonModule module, String name, PressurePlateBlock.Sensitivity activationRule, Properties settings) {
+    public CharmPressurePlate(CharmModule module, String name, PressurePlateBlock.Sensitivity activationRule, Properties settings) {
         super(activationRule, settings);
 
         this.register(module, name);
@@ -20,7 +20,7 @@ public class CharmPressurePlate extends PressurePlateBlock implements ICharmBloc
         this.setBurnTime(300);
     }
 
-    public CharmPressurePlate(CharmCommonModule module, String name, Block block) {
+    public CharmPressurePlate(CharmModule module, String name, Block block) {
         this(module, name, Sensitivity.EVERYTHING, Properties.of(Material.WOOD, block.defaultMaterialColor())
             .noCollission()
             .strength(0.5F)

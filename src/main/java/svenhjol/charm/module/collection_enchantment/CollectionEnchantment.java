@@ -9,14 +9,14 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.EnchantmentsHelper;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.Map;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Tools with the Collection enchantment automatically pick up drops.")
-public class CollectionEnchantment extends CharmCommonModule {
+public class CollectionEnchantment extends CharmModule {
     private static final Map<BlockPos, UUID> breaking = new WeakHashMap<>();
     public static CollectionEnch ENCHANTMENT;
 

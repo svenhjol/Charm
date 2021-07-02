@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.handler.RecipeHandler;
+import svenhjol.charm.helper.RecipeHelper;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -26,14 +26,14 @@ public class SortRecipesMixin {
      * Prepares conversion of registered recipes map to a TreeMap
      * so that modded recipes are iterated before vanilla recipes.
      * 
-     * {@link RecipeHandler#prepareCharmModulesFilter(Map)}
+     * {@link RecipeHelper#prepareCharmModulesFilter(Map)}
      */
     @Inject(
         method = "apply",
         at = @At("HEAD")
     )
     private void hookApply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler, CallbackInfo ci) {
-        RecipeHandler.prepareCharmModulesFilter(map);
+        RecipeHelper.prepareCharmModulesFilter(map);
         map2 = new TreeMap<>(map);
     }
 
@@ -48,6 +48,6 @@ public class SortRecipesMixin {
         )
     )
     private Iterator<?> hookNewHashMap(Set set) {
-        return RecipeHandler.sortAndFilterRecipes(map2);
+        return RecipeHelper.sortAndFilterRecipes(map2);
     }
 }

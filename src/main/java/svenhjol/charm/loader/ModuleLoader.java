@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public abstract class ModuleLoader<T extends ICharmModule> {
+public abstract class ModuleLoader<T extends CharmModule> {
     private final Map<String, T> MODULES = new TreeMap<>();
     private final String modId;
     private final String basePackage;
@@ -59,7 +59,7 @@ public abstract class ModuleLoader<T extends ICharmModule> {
     protected void run() {
         getEnabledModules().forEach(module -> {
             Charm.LOG.info("Initialising " + module.getName());
-            module.run();
+            module.runWhenEnabled();
         });
     }
 
@@ -89,7 +89,7 @@ public abstract class ModuleLoader<T extends ICharmModule> {
     }
 
     public List<T> getEnabledModules() {
-        return MODULES.values().stream().filter(ICharmModule::isEnabled).collect(Collectors.toList());
+        return MODULES.values().stream().filter(CharmModule::isEnabled).collect(Collectors.toList());
     }
 
     @Nullable

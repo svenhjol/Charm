@@ -16,10 +16,10 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Increases snow layers in cold biomes during thunderstorms.")
-public class SnowStorms extends CharmCommonModule {
+public class SnowStorms extends CharmModule {
     public static final ResourceLocation HEAVY_SNOW = new ResourceLocation(Charm.MOD_ID, "textures/environment/heavy_snow.png");
 
     @Config(name = "Snow layer chance", description = "Chance (out of 1.0) every tick of snow increasing by one layer during a thunderstorm.")

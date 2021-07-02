@@ -12,12 +12,12 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import svenhjol.charm.block.CharmBlock;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.Random;
 
 public class EnderPearlBlock extends CharmBlock {
-    public EnderPearlBlock(CharmCommonModule module) {
+    public EnderPearlBlock(CharmModule module) {
         super(module, "ender_pearl_block", FabricBlockSettings
             .of(Material.GLASS)
             .sounds(SoundType.GLASS)

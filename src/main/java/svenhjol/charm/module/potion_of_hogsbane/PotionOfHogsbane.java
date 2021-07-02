@@ -11,14 +11,14 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.HoglinAiAccessor;
 import svenhjol.charm.potion.CharmPotion;
 
 import java.util.List;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Causes all hoglins in the vicinity to run away from you.")
-public class PotionOfHogsbane extends CharmCommonModule {
+public class PotionOfHogsbane extends CharmModule {
     public static HogsbaneEffect HOGSBANE_EFFECT;
     public static CharmPotion HOGSPANE_POTION;
     public static CharmPotion LONG_HOGSBANE_POTION;
@@ -33,7 +33,7 @@ public class PotionOfHogsbane extends CharmCommonModule {
     }
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 

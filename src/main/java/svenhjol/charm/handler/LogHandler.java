@@ -8,7 +8,8 @@ import svenhjol.charm.module.core.Core;
 
 public class LogHandler {
     public String name;
-    public static final Marker INTERNAL = MarkerManager.getMarker("CHARM");
+    public static final Marker INTERNAL = MarkerManager.getMarker("Charm");
+    public static final Marker RECIPE_HELPER = MarkerManager.getMarker("RecipeHelper");
 
     public LogHandler(String name) {
         this.name = name;
@@ -19,7 +20,7 @@ public class LogHandler {
     }
 
     public void debug(Marker marker, String msg) {
-        if (Core.debug) {
+        if (Core.isDebugMode()) {
             info(marker, msg);
         } else {
             getLogger().debug(marker, msg);

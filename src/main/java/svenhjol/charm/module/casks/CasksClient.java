@@ -10,12 +10,12 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.Random;
 
 @ClientModule(module = Casks.class)
-public class CasksClient extends CharmClientModule {
+public class CasksClient extends CharmModule {
 
     @Override
     public void register() {

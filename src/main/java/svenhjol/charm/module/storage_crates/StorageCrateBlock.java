@@ -21,7 +21,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import svenhjol.charm.block.CharmBlockWithEntity;
 import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 
@@ -41,7 +41,7 @@ public class StorageCrateBlock extends CharmBlockWithEntity {
     private static final VoxelShape SHAPE_EAST = Shapes.join(Shapes.block(), Shapes.or(INSIDE_EAST), BooleanOp.ONLY_FIRST);
     private static final VoxelShape SHAPE_WEST = Shapes.join(Shapes.block(), Shapes.or(INSIDE_WEST), BooleanOp.ONLY_FIRST);
 
-    public StorageCrateBlock(CharmCommonModule module, IVariantMaterial material) {
+    public StorageCrateBlock(CharmModule module, IVariantMaterial material) {
         super(module, material.getSerializedName() + "_storage_crate",
             Properties.copy(Blocks.COMPOSTER)
         );

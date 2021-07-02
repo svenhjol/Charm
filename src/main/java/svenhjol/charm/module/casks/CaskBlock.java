@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.block.CharmBlockWithEntity;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmSounds;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
 import java.util.Objects;
@@ -56,7 +56,7 @@ public class CaskBlock extends CharmBlockWithEntity {
     public static final VoxelShape Y_SHAPE;
     public static final VoxelShape Z_SHAPE;
 
-    public CaskBlock(CharmCommonModule module) {
+    public CaskBlock(CharmModule module) {
         super(module, "cask", FabricBlockSettings.of(Material.WOOD)
             .strength(2.5F)
             .sound(SoundType.WOOD));

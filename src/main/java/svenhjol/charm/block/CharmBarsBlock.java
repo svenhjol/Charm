@@ -5,19 +5,19 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IronBarsBlock;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public class CharmBarsBlock extends IronBarsBlock implements ICharmBlock {
-    private final CharmCommonModule module;
+    private final CharmModule module;
 
-    public CharmBarsBlock(CharmCommonModule module, String name, Properties settings) {
+    public CharmBarsBlock(CharmModule module, String name, Properties settings) {
         super(settings);
 
         this.module = module;
         this.register(module, name);
     }
 
-    public CharmBarsBlock(CharmCommonModule module, String name) {
+    public CharmBarsBlock(CharmModule module, String name) {
         this(module, name, Properties.copy(Blocks.IRON_BARS));
     }
 

@@ -14,7 +14,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.MinecraftAccessor;
 import svenhjol.charm.mixin.accessor.RenderBuffersAccessor;
 import svenhjol.charm.mixin.accessor.RenderStateShardAccessor;
@@ -24,7 +24,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @ClientModule(module = ColoredGlints.class)
-public class ColoredGlintsClient extends CharmClientModule {
+public class ColoredGlintsClient extends CharmModule {
     public static final String GLINT_NBT = "charm_glint";
 
     public static Map<String, ResourceLocation> TEXTURES = new HashMap<>();
@@ -41,7 +41,7 @@ public class ColoredGlintsClient extends CharmClientModule {
     private static boolean hasSetupGlints = false;
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> setupGlints());
     }
 

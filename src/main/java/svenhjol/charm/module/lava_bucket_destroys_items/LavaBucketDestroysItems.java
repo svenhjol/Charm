@@ -14,16 +14,16 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.StackItemOnItemCallback;
 import svenhjol.charm.event.StackItemOnItemCallback.Direction;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Drop an item onto a lava bucket item to destroy it.")
-public class LavaBucketDestroysItems extends CharmCommonModule {
+public class LavaBucketDestroysItems extends CharmModule {
     public static final ResourceLocation TRIGGER_DESTROYED_ITEM = new ResourceLocation(Charm.MOD_ID, "destroyed_item_with_lava_bucket");
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         StackItemOnItemCallback.EVENT.register(this::handleStackedItem);
     }
 

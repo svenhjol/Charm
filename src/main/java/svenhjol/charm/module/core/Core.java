@@ -10,10 +10,10 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.ServerJoinCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, priority = 100, alwaysEnabled = true, description = "Core configuration values.")
-public class Core extends CharmCommonModule {
+public class Core extends CharmModule {
     public static final ResourceLocation ADVANCEMENT_PLAYER_JOINED = new ResourceLocation(Charm.MOD_ID, "player_joined");
     public static final ResourceLocation MSG_SERVER_OPEN_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_open_inventory");
 
@@ -29,12 +29,13 @@ public class Core extends CharmCommonModule {
     @Override
     public void register() {
         ServerJoinCallback.EVENT.register(this::handleServerJoin);
-
-        // always run in debug mode in dev environment
-        debug = FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 
     private void handleServerJoin(PlayerList playerManager, Connection connection, ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, ADVANCEMENT_PLAYER_JOINED);
+    }
+
+    public static boolean isDebugMode() {
+        return debug || FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 }

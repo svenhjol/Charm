@@ -20,7 +20,7 @@ import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.TooltipHelper;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
 
 import javax.annotation.Nullable;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 @ClientModule(module = EnderBundles.class)
-public class EnderBundlesClient extends CharmClientModule {
+public class EnderBundlesClient extends CharmModule {
     public static float CACHED_AMOUNT_FILLED = 0.0F;
 
     @Override
@@ -44,7 +44,7 @@ public class EnderBundlesClient extends CharmClientModule {
     }
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 

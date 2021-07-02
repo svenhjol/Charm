@@ -9,12 +9,12 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmLogBlock extends RotatedPillarBlock implements ICharmBlock {
-    private final CharmCommonModule module;
+    private final CharmModule module;
 
-    public CharmLogBlock(CharmCommonModule module, String name, Properties settings) {
+    public CharmLogBlock(CharmModule module, String name, Properties settings) {
         super(settings);
         this.register(module, name);
         this.module = module;
@@ -22,13 +22,13 @@ public abstract class CharmLogBlock extends RotatedPillarBlock implements ICharm
         this.setBurnTime(300);
     }
 
-    public CharmLogBlock(CharmCommonModule module, String name, MaterialColor fromTop, MaterialColor fromSide) {
+    public CharmLogBlock(CharmModule module, String name, MaterialColor fromTop, MaterialColor fromSide) {
         this(module, name, BlockBehaviour.Properties.of(Material.WOOD, state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? fromTop : fromSide)
             .strength(2.0F)
             .sound(SoundType.WOOD));
     }
 
-    public CharmLogBlock(CharmCommonModule module, String name, MaterialColor color) {
+    public CharmLogBlock(CharmModule module, String name, MaterialColor color) {
         this(module, name, BlockBehaviour.Properties.of(Material.WOOD, color)
             .strength(2.0F)
             .sound(SoundType.WOOD));

@@ -4,12 +4,12 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmItem extends Item implements ICharmItem {
-    protected CharmCommonModule module;
+    protected CharmModule module;
 
-    public CharmItem(CharmCommonModule module, String name, Item.Properties props) {
+    public CharmItem(CharmModule module, String name, Item.Properties props) {
         super(props);
         this.module = module;
         register(module, name);

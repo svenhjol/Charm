@@ -10,13 +10,13 @@ import net.minecraft.world.level.material.Material;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Bumblezone integration.")
-public class Bumblezone extends CharmCommonModule {
+public class Bumblezone extends CharmModule {
     public static final ResourceLocation BUMBLEZONE_FLUID_ID = new ResourceLocation("the_bumblezone", "sugar_water_block");
     public static Block bumblezoneFluid = null;
 

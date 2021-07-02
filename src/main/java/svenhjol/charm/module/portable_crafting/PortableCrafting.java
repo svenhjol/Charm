@@ -18,10 +18,10 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
-public class PortableCrafting extends CharmCommonModule {
+public class PortableCrafting extends CharmModule {
     private static final Component LABEL = new TranslatableComponent("container.charm.portable_crafting_table");
     public static final ResourceLocation MSG_SERVER_OPEN_CRAFTING = new ResourceLocation(Charm.MOD_ID, "server_open_crafting");
     public static final ResourceLocation TRIGGER_USED_CRAFTING_TABLE = new ResourceLocation(Charm.MOD_ID, "used_crafting_table");
@@ -30,7 +30,7 @@ public class PortableCrafting extends CharmCommonModule {
     public static boolean enableKeybind = true;
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         // listen for network requests to open the portable ender chest
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_OPEN_CRAFTING, this::handleServerOpenCrafting);
     }

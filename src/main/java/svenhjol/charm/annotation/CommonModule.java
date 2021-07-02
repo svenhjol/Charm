@@ -15,5 +15,4 @@ public @interface CommonModule {
     boolean alwaysEnabled() default false;
 
     boolean enabledByDefault() default true;
-
 }

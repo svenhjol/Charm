@@ -4,10 +4,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.multiplayer.ClientLevel;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 @ClientModule(module = SnowStorms.class)
-public class SnowStormsClient extends CharmClientModule {
+public class SnowStormsClient extends CharmModule {
 
     public static void tryHeavySnowTexture(ClientLevel world, float gradient) {
         float h = world.getThunderLevel(gradient);

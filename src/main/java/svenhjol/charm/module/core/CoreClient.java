@@ -7,11 +7,11 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.inventory_tidying.InventoryButtonClient;
 
 @ClientModule(module = Core.class)
-public class CoreClient extends CharmClientModule {
+public class CoreClient extends CharmModule {
     public final InventoryButtonClient inventoryButtonClient;
 
     public CoreClient() {
@@ -28,9 +28,9 @@ public class CoreClient extends CharmClientModule {
     }
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         // proxy calls
-        this.inventoryButtonClient.run();
+        this.inventoryButtonClient.runWhenEnabled();
     }
 
     private void handleServerOpenInventory(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {

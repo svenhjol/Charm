@@ -18,7 +18,7 @@ import svenhjol.charm.api.CharmNetworkReferences;
 import svenhjol.charm.api.CharmPlayerStateKeys;
 import svenhjol.charm.helper.NetworkHelper;
 import svenhjol.charm.helper.PosHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 @CommonModule(mod = Charm.MOD_ID, alwaysEnabled = true, description = "Synchronize additional state from server to client.")
-public class PlayerState extends CharmCommonModule {
+public class PlayerState extends CharmModule {
     public static final ResourceLocation MSG_SERVER_UPDATE = new ResourceLocation(CharmNetworkReferences.ServerUpdatePlayerState.toString());
     private static final Map<String, StructureFeature<?>> VANILLA_STRUCTURES = new HashMap<>();
     private static final List<BiConsumer<ServerPlayer, CompoundTag>> callbacks = new ArrayList<>();

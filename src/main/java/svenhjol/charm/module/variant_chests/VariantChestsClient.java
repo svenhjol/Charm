@@ -12,12 +12,12 @@ import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.event.RenderBlockItemCallback;
 import svenhjol.charm.event.StitchTextureCallback;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.Set;
 
 @ClientModule(module = VariantChests.class)
-public class VariantChestsClient extends CharmClientModule {
+public class VariantChestsClient extends CharmModule {
     private final VariantChestBlockEntity CACHED_NORMAL_CHEST = new VariantChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState());
     private final VariantTrappedChestBlockEntity CACHED_TRAPPED_CHEST = new VariantTrappedChestBlockEntity(BlockPos.ZERO, Blocks.TRAPPED_CHEST.defaultBlockState());
 

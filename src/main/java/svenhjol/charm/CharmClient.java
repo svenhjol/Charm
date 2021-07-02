@@ -3,18 +3,17 @@ package svenhjol.charm;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.minecraft.client.player.LocalPlayer;
-import svenhjol.charm.loader.ClientLoader;
 import svenhjol.charm.handler.LogHandler;
 import svenhjol.charm.init.CharmClientParticles;
 import svenhjol.charm.init.CharmDecorations;
-import svenhjol.charm.loader.CharmClientModule;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.ClientLoader;
+import svenhjol.charm.loader.CharmModule;
 
 public class CharmClient implements ClientModInitializer {
     public static final String MOD_ID = "charm";
     public static LogHandler LOG = new LogHandler("CharmClient");
 
-    public static ClientLoader<CharmClientModule, CharmCommonModule> LOADER = new ClientLoader<>(Charm.LOADER, MOD_ID, "svenhjol.charm.module");
+    public static ClientLoader<CharmModule> LOADER = new ClientLoader<>(MOD_ID, "svenhjol.charm.module");
 
     @Override
     public void onInitializeClient() {

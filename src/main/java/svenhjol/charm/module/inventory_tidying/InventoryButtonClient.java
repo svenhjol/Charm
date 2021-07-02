@@ -10,12 +10,12 @@ import svenhjol.charm.CharmClient;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenHelper;
-import svenhjol.charm.loader.CharmClientModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.portable_crafting.PortableCraftingClient;
 
 import java.util.List;
 
-public class InventoryButtonClient extends CharmClientModule {
+public class InventoryButtonClient extends CharmModule {
     public ImageButton recipeButton;
     public PortableCraftingClient portableCraftingClient;
     private boolean hasHiddenRecipeButton = false;
@@ -27,7 +27,7 @@ public class InventoryButtonClient extends CharmClientModule {
     }
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         portableCraftingClient = (PortableCraftingClient) CharmClient.LOADER.getModule("portable_crafting_client");
     }
 

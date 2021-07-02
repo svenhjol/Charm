@@ -14,7 +14,7 @@ import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.helper.ToolHelper;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.FeaturesAccessor;
 import svenhjol.charm.mixin.accessor.TreeConfigurationAccessor;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
@@ -30,7 +30,7 @@ import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadders;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
-public class AzaleaWood extends CharmCommonModule {
+public class AzaleaWood extends CharmModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "azalea");
 
     public static WoodType SIGN_TYPE;
@@ -94,7 +94,7 @@ public class AzaleaWood extends CharmCommonModule {
     }
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         ConfiguredFeature<TreeConfiguration, ?> feature = FeaturesAccessor.getAzaleaTree();
         TreeConfiguration config = feature.config();
         ((TreeConfigurationAccessor)config).setTrunkProvider(new SimpleStateProvider(AzaleaWood.LOG.defaultBlockState()));

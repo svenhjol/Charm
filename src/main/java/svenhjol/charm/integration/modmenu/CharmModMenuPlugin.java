@@ -11,7 +11,7 @@ import net.minecraft.network.chat.TextComponent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.ConfigHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -25,7 +25,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
                 .setTitle(new TextComponent("Charm configuration"));
 
             // get all the loader modules
-            List<CharmCommonModule> modules = new LinkedList<>(Charm.LOADER.getModules());
+            List<CharmModule> modules = new LinkedList<>(Charm.LOADER.getModules());
 
             builder.setSavingRunnable(() -> {
                 // Serialise the config into the config file. This will be called last after all variables are updated.
@@ -35,7 +35,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
 
             ConfigCategory mainCategory = builder.getOrCreateCategory(new TextComponent("Charm"));
 
-            for (CharmCommonModule module : modules) {
+            for (CharmModule module : modules) {
                 if (!module.isAlwaysEnabled()) {
                     ConfigEntryBuilder enabledBuilder = builder.entryBuilder();
 
@@ -91,7 +91,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
         };
     }
 
-    private Map<Field, Object> getModuleConfigProperties(CharmCommonModule module) {
+    private Map<Field, Object> getModuleConfigProperties(CharmModule module) {
         Map<Field, Object> properties = new LinkedHashMap<>();
 
         // get and set module config options

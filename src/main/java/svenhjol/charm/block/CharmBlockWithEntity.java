@@ -7,16 +7,16 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class CharmBlockWithEntity extends BaseEntityBlock implements ICharmBlock {
-    public CharmCommonModule module;
+    public CharmModule module;
     private final List<String> loadedMods;
 
-    protected CharmBlockWithEntity(CharmCommonModule module, String name, Properties props, String... loadedMods) {
+    protected CharmBlockWithEntity(CharmModule module, String name, Properties props, String... loadedMods) {
         super(props);
         this.module = module;
         this.loadedMods = Arrays.asList(loadedMods);

@@ -14,22 +14,22 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.enums.IVariantMaterial;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
 public class VariantBarrelBlock extends BarrelBlock implements ICharmBlock {
-    protected CharmCommonModule module;
+    protected CharmModule module;
     protected IVariantMaterial type;
     private final List<String> loadedMods;
 
-    public VariantBarrelBlock(CharmCommonModule module, IVariantMaterial type, String... loadedMods) {
+    public VariantBarrelBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
         this(module, type, BlockBehaviour.Properties.copy(Blocks.BARREL), loadedMods);
     }
 
-    public VariantBarrelBlock(CharmCommonModule module, IVariantMaterial material, BlockBehaviour.Properties settings, String... loadedMods) {
+    public VariantBarrelBlock(CharmModule module, IVariantMaterial material, BlockBehaviour.Properties settings, String... loadedMods) {
         super(settings);
 
         this.module = module;

@@ -21,14 +21,14 @@ import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.CharmSpawnEggItem;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Mooblooms are cow-like mobs that come in a variety of flower types. They spawn flowers where they walk and can be milked for suspicious stew.")
-public class Mooblooms extends CharmCommonModule {
+public class Mooblooms extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "moobloom");
     public static final ResourceLocation TRIGGER_MILKED_MOOBLOOM = new ResourceLocation(Charm.MOD_ID, "milked_moobloom");
     public static EntityType<MoobloomEntity> MOOBLOOM;
@@ -50,7 +50,7 @@ public class Mooblooms extends CharmCommonModule {
     }
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         // add goals to any spawned bees
         AddEntityCallback.EVENT.register(this::tryAddGoalsToBee);
 

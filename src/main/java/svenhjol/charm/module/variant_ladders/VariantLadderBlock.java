@@ -1,6 +1,6 @@
 package svenhjol.charm.module.variant_ladders;
 
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -11,9 +11,9 @@ import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.enums.IVariantMaterial;
 
 public class VariantLadderBlock extends LadderBlock implements ICharmBlock {
-    private final CharmCommonModule module;
+    private final CharmModule module;
 
-    public VariantLadderBlock(CharmCommonModule module, IVariantMaterial material) {
+    public VariantLadderBlock(CharmModule module, IVariantMaterial material) {
         super(BlockBehaviour.Properties.copy(Blocks.LADDER));
         register(module, material.getSerializedName() + "_ladder");
 

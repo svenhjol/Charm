@@ -7,12 +7,12 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmSlabBlock extends SlabBlock implements ICharmBlock {
-    private final CharmCommonModule module;
+    private final CharmModule module;
 
-    public CharmSlabBlock(CharmCommonModule module, String name, Properties settings) {
+    public CharmSlabBlock(CharmModule module, String name, Properties settings) {
         super(settings);
         this.register(module, name);
         this.module = module;
@@ -20,7 +20,7 @@ public abstract class CharmSlabBlock extends SlabBlock implements ICharmBlock {
         this.setBurnTime(150);
     }
 
-    public CharmSlabBlock(CharmCommonModule module, String name, MaterialColor color) {
+    public CharmSlabBlock(CharmModule module, String name, MaterialColor color) {
         this(module, name, Properties.of(Material.WOOD, color)
             .strength(2.0F, 3.0F)
             .sound(SoundType.WOOD));

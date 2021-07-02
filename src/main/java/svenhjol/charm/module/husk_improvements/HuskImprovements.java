@@ -14,10 +14,10 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Husks spawn anywhere within their biome and have a chance to drop sand.")
-public class HuskImprovements extends CharmCommonModule {
+public class HuskImprovements extends CharmModule {
     public static double lootingBoost = 0.3D;
 
     @Config(name = "Spawn anywhere in biome", description = "If true, husks can spawn anywhere within their biome rather than just the surface.")
@@ -30,7 +30,7 @@ public class HuskImprovements extends CharmCommonModule {
     public static int maxDrops = 2;
 
     @Override
-    public void run() {
+    public void runWhenEnabled() {
         EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 

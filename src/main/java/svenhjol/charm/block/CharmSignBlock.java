@@ -9,12 +9,12 @@ import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmSignBlock extends StandingSignBlock implements ICharmBlock {
-    private final CharmCommonModule module;
+    private final CharmModule module;
 
-    public CharmSignBlock(CharmCommonModule module, String name, WoodType signType, Properties settings) {
+    public CharmSignBlock(CharmModule module, String name, WoodType signType, Properties settings) {
         super(settings, signType);
 
         this.register(module, name);
@@ -22,7 +22,7 @@ public abstract class CharmSignBlock extends StandingSignBlock implements ICharm
         this.setBurnTime(200);
     }
 
-    public CharmSignBlock(CharmCommonModule module, String name, WoodType signType, MaterialColor color) {
+    public CharmSignBlock(CharmModule module, String name, WoodType signType, MaterialColor color) {
         this(module, name, signType, Properties.of(Material.WOOD, color)
             .noCollission()
             .strength(1.0F)

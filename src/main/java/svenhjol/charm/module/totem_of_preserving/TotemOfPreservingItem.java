@@ -21,7 +21,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ItemNBTHelper;
 import svenhjol.charm.helper.TotemHelper;
 import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -32,7 +32,7 @@ public class TotemOfPreservingItem extends CharmItem {
     public static final String ITEMS_TAG = "items";
     public static final String XP_TAG = "xp";
 
-    public TotemOfPreservingItem(CharmCommonModule module) {
+    public TotemOfPreservingItem(CharmModule module) {
         super(module, "totem_of_preserving", new Properties()
             .tab(CreativeModeTab.TAB_MISC)
             .rarity(Rarity.UNCOMMON)

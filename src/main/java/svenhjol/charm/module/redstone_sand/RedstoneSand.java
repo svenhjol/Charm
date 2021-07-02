@@ -2,10 +2,10 @@ package svenhjol.charm.module.redstone_sand;
 
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A block that acts like sand but is powered like a block of redstone.")
-public class RedstoneSand extends CharmCommonModule {
+public class RedstoneSand extends CharmModule {
     public static RedstoneSandBlock REDSTONE_SAND;
 
     @Override

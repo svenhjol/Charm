@@ -6,19 +6,19 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.Block;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 public class CharmSignItem extends SignItem implements ICharmItem {
-    private final CharmCommonModule module;
+    private final CharmModule module;
 
-    public CharmSignItem(CharmCommonModule module, String name, Block standingBlock, Block wallBlock, Properties settings) {
+    public CharmSignItem(CharmModule module, String name, Block standingBlock, Block wallBlock, Properties settings) {
         super(settings, standingBlock, wallBlock);
 
         this.register(module, name);
         this.module = module;
     }
 
-    public CharmSignItem(CharmCommonModule module, String name, Block standingBlock, Block wallBlock) {
+    public CharmSignItem(CharmModule module, String name, Block standingBlock, Block wallBlock) {
         this(module, name, standingBlock, wallBlock, new Item.Properties()
             .stacksTo(16)
             .tab(CreativeModeTab.TAB_DECORATIONS));

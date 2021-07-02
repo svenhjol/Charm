@@ -6,7 +6,7 @@ import com.electronwill.nightconfig.toml.TomlWriter;
 import com.moandjiezana.toml.Toml;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.loader.CharmCommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.io.File;
 import java.io.Writer;
@@ -38,7 +38,7 @@ public class ConfigHelper {
         return toml.contains(moduleEnabledQuoted) && !toml.getBoolean(moduleEnabledQuoted);
     }
 
-    public static <T extends CharmCommonModule> void applyConfig(String mod, List<T> modules) {
+    public static <T extends CharmModule> void applyConfig(String mod, List<T> modules) {
         Toml toml = getConfig(mod);
 
         modules.forEach(module -> {
@@ -94,7 +94,7 @@ public class ConfigHelper {
         });
     }
 
-    public static <T extends CharmCommonModule> void writeConfig(String mod, List<T> modules) {
+    public static <T extends CharmModule> void writeConfig(String mod, List<T> modules) {
         // this blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically
         CommentedConfig config = TomlFormat.newConfig(LinkedHashMap::new);
 

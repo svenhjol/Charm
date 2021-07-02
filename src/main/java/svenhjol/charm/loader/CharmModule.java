@@ -1,12 +1,14 @@
 package svenhjol.charm.loader;
 
 import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.helper.StringHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Predicate;
 
-public abstract class CharmCommonModule implements ICharmModule {
+public abstract class CharmModule {
     private String modId = "";
     private String description = "";
     private int priority = 0;
@@ -14,29 +16,24 @@ public abstract class CharmCommonModule implements ICharmModule {
     private boolean enabledInConfig = true;
     private boolean enabledByDefault = true;
     private boolean alwaysEnabled = false;
-    private final List<Predicate<ICharmModule>> dependencies = new ArrayList<>();
+    private final List<Predicate<CharmModule>> dependencies = new ArrayList<>();
 
-    @Override
     public boolean isEnabled() {
         return enabled;
     }
 
-    @Override
     public boolean isEnabledInConfig() {
         return enabledInConfig;
     }
 
-    @Override
     public boolean isEnabledByDefault() {
         return enabledByDefault;
     }
 
-    @Override
     public boolean isAlwaysEnabled() {
         return alwaysEnabled;
     }
 
-    @Override
     public String getModId() {
         return modId;
     }
@@ -45,17 +42,14 @@ public abstract class CharmCommonModule implements ICharmModule {
         return description;
     }
 
-    @Override
-    public List<Predicate<ICharmModule>> getDependencies() {
+    public List<Predicate<CharmModule>> getDependencies() {
         return dependencies;
     }
 
-    @Override
     public int getPriority() {
         return priority;
     }
 
-    @Override
     public void setPriority(int priority) {
         this.priority = priority;
     }
@@ -68,42 +62,43 @@ public abstract class CharmCommonModule implements ICharmModule {
         this.alwaysEnabled = flag;
     }
 
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @Override
     public void setModId(String modId) {
         this.modId = modId;
     }
 
-    @Override
     public void setEnabled(boolean flag) {
         this.enabled = flag;
     }
 
-    @Override
     public void setEnabledInConfig(boolean flag) {
         this.enabledInConfig = flag;
     }
 
-    @Override
-    public void addDependencyCheck(Predicate<ICharmModule> test) {
+    public void addDependencyCheck(Predicate<CharmModule> test) {
         dependencies.add(test);
     }
 
-    /**
-     * Provide a list of recipe IDs to remove.
-     * This allows a module to conditionally remove recipes according to its config.
-     * @return Recipe IDs to remove.
-     */
-    public List<ResourceLocation> getRecipesToRemove() {
-        return new ArrayList<>();
+    public ResourceLocation getId() {
+        return new ResourceLocation(getModId(), StringHelper.upperCamelToSnake(getName()).toLowerCase(Locale.ROOT));
     }
 
-    // TODO
-    public List<ResourceLocation> getAdvancementsToRemove() {
-        return new ArrayList<>();
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
+
+    public void register() {
+        // always run
+    }
+
+    public void runWhenEnabled() {
+        // run if module is enabled
+    }
+
+    public void runWhenDisabled() {
+        // run if module is disabled
     }
 }
