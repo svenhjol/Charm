@@ -17,8 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ItemNbtHelper;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.TotemHelper;
 import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.loader.CharmModule;
@@ -63,7 +63,7 @@ public class TotemOfPreservingItem extends CharmItem {
             keys.forEach(k -> {
                 Tag tag = items.get(k);
                 if (tag == null) {
-                    Charm.LOG.warn("[TotemOfPreservingItem] Item tag missing from totem");
+                    LogHelper.warn(this.getClass(), "Item tag missing from totem");
                 } else {
                     ItemStack stack = ItemStack.of((CompoundTag) tag);
                     BlockPos pos = user.blockPosition();

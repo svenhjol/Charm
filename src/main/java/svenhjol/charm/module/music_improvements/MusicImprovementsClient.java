@@ -24,9 +24,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.PlaySoundCallback;
 import svenhjol.charm.helper.DimensionHelper;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.SoundHelper;
 import svenhjol.charm.loader.CharmModule;
-import svenhjol.charm.module.core.Core;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class MusicImprovementsClient extends CharmModule {
             SoundHelper.getPlayingSounds().forEach((category, s) -> {
                 if (category == SoundSource.RECORDS) {
                     musicToStop = sound;
-                    Core.debug("[Music Improvements] Triggered background music while music disc playing");
+                    LogHelper.debug(this.getClass(), "Triggered background music while music disc playing");
                 }
             });
         }

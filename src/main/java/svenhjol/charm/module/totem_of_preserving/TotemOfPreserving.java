@@ -15,11 +15,12 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.EntityDropXpCallback;
 import svenhjol.charm.event.PlayerDropInventoryCallback;
 import svenhjol.charm.helper.ItemHelper;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
@@ -127,7 +128,7 @@ public class TotemOfPreserving extends CharmModule {
         }
 
         triggerUsedTotemOfPreserving((ServerPlayer) player);
-        Charm.LOG.info("[TotemOfPreserving] Spawned at pos: " + new BlockPos(x, y, z));
+        LogHelper.info(this.getClass(), "Spawned at pos: " + new BlockPos(x, y, z));
 
         // clear player's inventory
         for (NonNullList<ItemStack> inv : combined) {

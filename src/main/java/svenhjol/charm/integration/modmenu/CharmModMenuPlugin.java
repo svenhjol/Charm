@@ -12,6 +12,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.ConfigHelper;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.StringHelper;
 import svenhjol.charm.loader.CharmModule;
 
@@ -113,7 +114,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
                 properties.put(prop, value);
 
             } catch (Exception e) {
-                Charm.LOG.error("[ModMenu] Failed to read config property " + prop.getName() + " in " + module.getName());
+                LogHelper.error(this.getClass(), "Failed to read config property " + prop.getName() + " in " + module.getName());
             }
         });
 

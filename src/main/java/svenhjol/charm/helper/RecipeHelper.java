@@ -6,9 +6,11 @@ import net.minecraft.world.item.crafting.RecipeType;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.loader.CommonLoader;
 import svenhjol.charm.loader.ModuleLoader;
-import svenhjol.charm.module.core.Core;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,19 +19,19 @@ public class RecipeHelper {
     private static final List<ResourceLocation> RECIPES_TO_REMOVE = new ArrayList<>();
 
     public static void removeRecipe(ResourceLocation id) {
-        Core.debug("[RecipeHelper] Adding `" + id + "` to list of recipes to remove");
+        LogHelper.debug(RecipeHelper.class, "Adding `" + id + "` to list of recipes to remove");
         RECIPES_TO_REMOVE.add(id);
     }
 
     public static Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> sortAndFilterRecipes(Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> recipesByType) {
-        Core.debug("[RecipeHelper] Preparing to sort and filter recipes");
+        LogHelper.debug(RecipeHelper.class, "Preparing to sort and filter recipes");
         List<String> modIds = ModuleLoader.getModIds();
         Map<ResourceLocation, CharmModule> charmModules = CommonLoader.getAllModules();
         Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> out = new LinkedHashMap<>();
 
         recipesByType.keySet().forEach(type -> {
             Map<ResourceLocation, Recipe<?>> recipes = recipesByType.get(type);
-            Core.debug("[RecipeHelper] Recipe type `" + type.toString() + "` contains " + recipes.size() + " recipes");
+            LogHelper.debug(RecipeHelper.class, "Recipe type `" + type.toString() + "` contains " + recipes.size() + " recipes");
 
             Stream<Map.Entry<ResourceLocation, Recipe<?>>> moddedStream = recipes.entrySet().stream().filter(r -> !r.getKey().getNamespace().equals("minecraft"));
             Stream<Map.Entry<ResourceLocation, Recipe<?>>> minecraftStream = recipes.entrySet().stream().filter(r -> r.getKey().getNamespace().equals("minecraft"));
@@ -56,7 +58,7 @@ public class RecipeHelper {
                     && !RECIPES_TO_REMOVE.contains(res);
 
                 if (!enabled) {
-                    Core.debug("[RecipeHelper] > Filtering out recipe `" + res + "`");
+                    LogHelper.debug(RecipeHelper.class, " > Filtering out recipe `" + res + "`");
                     countFiltered.getAndIncrement();
                 }
 
@@ -72,7 +74,7 @@ public class RecipeHelper {
             merged.putAll(minecraftRecipes);
 
             out.put(type, merged);
-            Core.debug("[RecipeHelper] Recipe type `" + type + "` reassembled with " + merged.size() + " recipes");
+            LogHelper.debug(RecipeHelper.class, "Recipe type `" + type + "` reassembled with " + merged.size() + " recipes");
         });
 
         return out;

@@ -20,7 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.core.Core;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.module.storage_labels.StorageLabels;
 import svenhjol.charm.module.storage_labels.StorageLabelsClient;
 
@@ -70,7 +70,7 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
         try {
              stack = new ItemStack(items.get(index));
         } catch (IndexOutOfBoundsException e) {
-            Core.debug("[CookingPotBlockEntityRenderer] Should not happen");
+            LogHelper.debug(this.getClass(), "Should not happen");
             index = 0;
             matrices.popPose();
             return;

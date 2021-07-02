@@ -28,8 +28,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.helper.DataBlockHelper;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.LootHelper;
-import svenhjol.charm.module.core.Core;
 
 import java.util.*;
 
@@ -102,9 +102,9 @@ public class EntitySpawnerBlockEntity extends BlockEntity {
         boolean result = trySpawn(world, entitySpawner.worldPosition, entitySpawner);
 
         if (result) {
-            Core.debug("EntitySpawner spawned entity " + entitySpawner.entity.toString() + " at pos: " + pos);
+            LogHelper.debug(EntitySpawnerBlockEntity.class, "EntitySpawner spawned entity " + entitySpawner.entity.toString() + " at pos: " + pos);
         } else {
-            Core.debug("EntitySpawner failed to spawn entity " + entitySpawner.entity.toString() + " at pos: " + pos);
+            LogHelper.debug(EntitySpawnerBlockEntity.class, "EntitySpawner failed to spawn entity " + entitySpawner.entity.toString() + " at pos: " + pos);
         }
     }
 

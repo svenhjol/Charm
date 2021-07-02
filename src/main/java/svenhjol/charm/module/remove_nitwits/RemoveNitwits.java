@@ -6,10 +6,10 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.loader.CharmModule;
-import svenhjol.charm.module.core.Core;
 
 @CommonModule(mod = Charm.MOD_ID, description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
 public class RemoveNitwits extends CharmModule {
@@ -27,7 +27,7 @@ public class RemoveNitwits extends CharmModule {
 
             if (data.getProfession() == VillagerProfession.NITWIT) {
                 villager.setVillagerData(data.setProfession(VillagerProfession.NONE));
-                Core.debug("[RemoveNitwits] Made nitwit `" + villager.getStringUUID() + "` into a proper villager at pos: " + villager.blockPosition());
+                LogHelper.debug(this.getClass(), "Made nitwit `" + villager.getStringUUID() + "` into a proper villager at pos: " + villager.blockPosition());
             }
         }
 

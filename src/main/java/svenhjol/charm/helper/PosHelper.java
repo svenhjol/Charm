@@ -6,7 +6,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.Charm;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -65,7 +64,7 @@ public class PosHelper {
         }
 
         if (surface <= 0) {
-            Charm.LOG.warn("[PosHelper] Failed to find a surface value to spawn the player");
+            LogHelper.warn(PosHelper.class, "Failed to find a surface value to spawn the player");
             return null;
         }
 

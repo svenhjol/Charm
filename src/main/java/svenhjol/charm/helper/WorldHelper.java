@@ -9,9 +9,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.PoiTypeAccessor;
-import svenhjol.charm.module.core.Core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +27,7 @@ public class WorldHelper {
             if (result) break;
         }
         if (result)
-            Core.debug("[WorldHelper] Force loaded chunk " + chunkPos);
+            LogHelper.debug(WorldHelper.class, "Force loaded chunk " + chunkPos);
 
         return result;
     }
@@ -38,9 +36,9 @@ public class WorldHelper {
         ChunkPos chunkPos = new ChunkPos(pos);
         boolean result = world.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), false);
         if (!result) {
-            Charm.LOG.error("[WorldHelper] Could not unload forced chunk - this is probably really bad.");
+            LogHelper.error(WorldHelper.class, "Could not unload forced chunk - this is probably really bad.");
         } else {
-            Core.debug("[WorldHelper] Unloaded forced chunk " + chunkPos);
+            LogHelper.debug(WorldHelper.class, "Unloaded forced chunk " + chunkPos);
         }
         return result;
     }

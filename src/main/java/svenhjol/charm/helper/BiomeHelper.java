@@ -21,7 +21,6 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
-import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.BiomeGenerationSettingsAccessor;
 import svenhjol.charm.mixin.accessor.MobSpawnSettingsAccessor;
 import svenhjol.charm.module.core.Core;
@@ -75,7 +74,7 @@ public class BiomeHelper {
                 biomeSelector = BiomeSelectors.includeByKey(biomeKey);
                 featureKey = BuiltInRegistryKeys.get(feature);
             } catch (Exception e) {
-                Charm.LOG.error("[BiomeHelper] Failed to add feature to biome.");
+                LogHelper.error(BiomeHelper.class, "Failed to add feature to biome.");
                 return;
             }
 
@@ -100,9 +99,9 @@ public class BiomeHelper {
             try {
                 biomeSelector = BiomeSelectors.includeByKey(biomeKey);
                 structureKey = BuiltInRegistryKeys.get(structureFeature);
-                Core.debug("[BiomeHelper] Adding structure `" + structureFeature.feature.getFeatureName() + "` to biome `" + biomeKey.location() + "`");
+                LogHelper.debug(BiomeHelper.class, "Adding structure `" + structureFeature.feature.getFeatureName() + "` to biome `" + biomeKey.location() + "`");
             } catch (Exception e) {
-                Charm.LOG.error("[BiomeHelper] Failed to add structure to biome. This may cause crashes when trying to locate the structure.");
+                LogHelper.error(BiomeHelper.class, "Failed to add structure to biome. This may cause crashes when trying to locate the structure.");
                 return;
             }
 
@@ -124,7 +123,7 @@ public class BiomeHelper {
                 Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
                 BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
             } catch (Exception e) {
-                Charm.LOG.error("[BiomeHelper] Failed to add entity to biome spawn. This may cause crashes when trying to spawn the entity.");
+                LogHelper.error(BiomeHelper.class, "Failed to add entity to biome spawn. This may cause crashes when trying to spawn the entity.");
             }
         }
     }

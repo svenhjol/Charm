@@ -1,14 +1,18 @@
 package svenhjol.charm.loader;
 
-import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ClassHelper;
+import svenhjol.charm.helper.DebugHelper;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.StringHelper;
-import svenhjol.charm.module.core.Core;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @version 1.0.0-charm
+ */
+@SuppressWarnings("unused")
 public abstract class ModuleLoader<T extends CharmModule> {
     private static final List<String> MOD_IDS = new ArrayList<>();
     private final Map<String, T> MODULES = new TreeMap<>();
@@ -35,7 +39,7 @@ public abstract class ModuleLoader<T extends CharmModule> {
 
     protected void register() {
         prepareModules().forEach((id, module) -> {
-            Core.debug("[ModuleLoader] Registering " + module.getName());
+            LogHelper.debug(ModuleLoader.class, "Registering " + module.getName());
             MODULES.put(StringHelper.upperCamelToSnake(module.getName()), module);
             module.register();
         });
@@ -43,31 +47,31 @@ public abstract class ModuleLoader<T extends CharmModule> {
 
     protected void dependencies() {
         getModules().forEach(module -> {
-            boolean debug = Core.isDebugMode();
+            boolean debug = DebugHelper.isDebugMode();
             boolean enabledInConfig = module.isEnabledInConfig();
             boolean passedDependencyCheck = module.getDependencies().isEmpty() || module.getDependencies().stream().allMatch(dep -> dep.test(module));
             module.setEnabled(enabledInConfig && passedDependencyCheck);
 
             if (!enabledInConfig) {
-                if (debug) Charm.LOG.warn("[ModuleLoader] Disabled in configuration: " + module.getName());
+                if (debug) LogHelper.warn(ModuleLoader.class, "Disabled in configuration: " + module.getName());
             } else if (!passedDependencyCheck) {
-                if (debug) Charm.LOG.warn("[ModuleLoader] Failed dependency check: " + module.getName());
+                if (debug) LogHelper.warn(ModuleLoader.class, "Failed dependency check: " + module.getName());
             } else if (!module.isEnabled()) {
-                if (debug) Charm.LOG.warn("[ModuleLoader] Disabled automatically: " + module.getName());
+                if (debug) LogHelper.warn(ModuleLoader.class, "Disabled automatically: " + module.getName());
             } else {
-                Charm.LOG.info("[ModuleLoader] Enabled " + module.getName());
+                LogHelper.info(ModuleLoader.class, "Enabled " + module.getName());
             }
         });
     }
 
     protected void run() {
         getEnabledModules().forEach(module -> {
-            Charm.LOG.info("[ModuleLoader] Running " + module.getName());
+            LogHelper.info(ModuleLoader.class, "Running " + module.getName());
             module.runWhenEnabled();
         });
 
         getDisabledModules().forEach(module -> {
-            Core.debug("[ModuleLoader] Running disabled tasks: " + module.getName());
+            LogHelper.debug(ModuleLoader.class, "Running disabled tasks: " + module.getName());
             module.runWhenDisabled();
         });
     }
@@ -83,9 +87,9 @@ public abstract class ModuleLoader<T extends CharmModule> {
      * Use this anywhere to check a module's enabled status for any Charm-based module.
      */
     public boolean isEnabled(String moduleName) {
-        if (Core.isDebugMode() && moduleName.contains(":")) {
+        if (DebugHelper.isDebugMode() && moduleName.contains(":")) {
             // deprecated, warn about it
-            Charm.LOG.warn("[ModuleLoader] Deprecated: Module `" + moduleName + "` no longer requires namespace");
+            LogHelper.warn(ModuleLoader.class, "Deprecated: Module `" + moduleName + "` no longer requires namespace");
             moduleName = moduleName.split(":")[1];
         }
 
@@ -126,7 +130,7 @@ public abstract class ModuleLoader<T extends CharmModule> {
         List<Class<T>> discoveredClasses = ClassHelper.getClassesInPackage(getBasePackage(), getModuleAnnotation());
 
         if (discoveredClasses.isEmpty())
-            Charm.LOG.warn("[ModuleLoader] Seems no module classes were processed... this is probably bad.");
+            LogHelper.warn(ModuleLoader.class, "Seems no module classes were processed... this is probably bad.");
 
         Map<String, T> loaded = new TreeMap<>();
         for (Class<T> clazz : discoveredClasses) {
@@ -137,7 +141,7 @@ public abstract class ModuleLoader<T extends CharmModule> {
                 String moduleName = module.getName();
                 loaded.put(moduleName, module);
             } catch (Exception e) {
-                Charm.LOG.error("[ModuleLoader] Error loading module " + clazz.toString() + ": " + e.getMessage());
+                LogHelper.error(ModuleLoader.class, "Error loading module " + clazz.toString() + ": " + e.getMessage());
             }
         }
 

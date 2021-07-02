@@ -2,6 +2,9 @@ package svenhjol.charm.helper;
 
 import com.google.common.base.CaseFormat;
 
+/**
+ * @version 1.0.0-charm
+ */
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class StringHelper {
     public static String snakeToUpperCamel(String string) {

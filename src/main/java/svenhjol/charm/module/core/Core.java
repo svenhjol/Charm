@@ -1,13 +1,12 @@
 package svenhjol.charm.module.core;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.Connection;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.ServerJoinCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
@@ -36,14 +35,5 @@ public class Core extends CharmModule {
 
     private void handleServerJoin(PlayerList playerManager, Connection connection, ServerPlayer player) {
         CharmAdvancements.ACTION_PERFORMED.trigger(player, ADVANCEMENT_PLAYER_JOINED);
-    }
-
-    public static void debug(String message) {
-        if (isDebugMode())
-            Charm.LOG.info(message);
-    }
-
-    public static boolean isDebugMode() {
-        return debug || FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 }

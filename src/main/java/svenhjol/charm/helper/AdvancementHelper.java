@@ -3,7 +3,6 @@ package svenhjol.charm.helper;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.loader.CharmModule;
-import svenhjol.charm.module.core.Core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ public class AdvancementHelper {
     private static final List<ResourceLocation> ADVANCEMENTS_TO_REMOVE = new ArrayList<>();
 
     public static void removeAdvancement(ResourceLocation id) {
-        Core.debug("[AdvancementHelper] Adding `" + id + "` to list of advancements to remove");
+        LogHelper.debug(AdvancementHelper.class, "Adding `" + id + "` to list of advancements to remove");
         ADVANCEMENTS_TO_REMOVE.add(id);
     }
 
@@ -27,7 +26,7 @@ public class AdvancementHelper {
             // remove exact matches
             AtomicInteger exactMatches = new AtomicInteger();
             keys.stream().filter(a -> a.equals(toRemove)).forEach(a -> {
-                Core.debug("[AdvancementHelper] > Filtering out exact match `" + a + "`");
+                LogHelper.debug(AdvancementHelper.class, " > Filtering out exact match `" + a + "`");
                 exactMatches.getAndIncrement();
                 map.remove(a);
             });
@@ -39,7 +38,7 @@ public class AdvancementHelper {
                 .filter(a -> a.getNamespace().equals(toRemove.getNamespace()))
                 .filter(a -> a.getPath().startsWith(toRemove.getPath()))
                 .forEach(a -> {
-                    Core.debug("[AdvancementHelper] > Filtering out fuzzy match `" + a + "`");
+                    LogHelper.debug(AdvancementHelper.class, " > Filtering out fuzzy match `" + a + "`");
                     map.remove(a);
                 });
         });

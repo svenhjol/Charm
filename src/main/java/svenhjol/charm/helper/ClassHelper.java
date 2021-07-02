@@ -21,7 +21,10 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("UnstableApiUsage")
+/**
+ * @version 1.0.0-charm
+ */
+@SuppressWarnings({"UnstableApiUsage", "unchecked"})
 public class ClassHelper {
 
     /**
@@ -37,7 +40,11 @@ public class ClassHelper {
         assert classLoader != null;
 
         ArrayList<String> classes = new ArrayList<>();
-        URL url = new URL(classLoader.getResource(path).toString());
+        URL classLoaderResource = classLoader.getResource(path);
+        if (classLoaderResource == null)
+            throw new IOException("Could not create class loader resource URL for package: " + packageName);
+
+        URL url = new URL(classLoaderResource.toString());
 
         if (url.toString().startsWith("jar:")) {
             try {
@@ -64,12 +71,11 @@ public class ClassHelper {
                     e.printStackTrace();
                 }
             } catch (Exception e) {
-
+                throw new IOException("Failed to open jar file: " + e.getMessage());
             }
 
         } else {
-            URL resource = classLoader.getResource(path);
-            File dir = new File(resource.toURI());
+            File dir = new File(classLoaderResource.toURI());
             classes.addAll(findClasses(dir, packageName));
         }
 
@@ -84,12 +90,15 @@ public class ClassHelper {
      * @param packageName The package name for classes found inside the base directory
      * @return fully qualified class name strings
      */
-    public static List<String> findClasses(File directory, String packageName) {
-        List<String> classes = new ArrayList<String>();
+    public static List<String> findClasses(File directory, String packageName) throws IOException {
+        List<String> classes = new ArrayList<>();
         if (!directory.exists()) {
             return classes;
         }
         File[] files = directory.listFiles();
+        if (files == null)
+            throw new IOException("Could not get files from class directory: " + directory);
+
         for (File file : files) {
             if (file.isDirectory()) {
                 assert !file.getName().contains(".");

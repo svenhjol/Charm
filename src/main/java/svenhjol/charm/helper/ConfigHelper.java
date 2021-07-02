@@ -5,10 +5,8 @@ import com.electronwill.nightconfig.toml.TomlFormat;
 import com.electronwill.nightconfig.toml.TomlWriter;
 import com.moandjiezana.toml.Toml;
 import net.fabricmc.loader.api.FabricLoader;
-import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.loader.CharmModule;
-import svenhjol.charm.module.core.Core;
 
 import java.io.File;
 import java.io.Writer;
@@ -18,6 +16,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+/**
+ * @version 1.0.0-charm
+ */
+@SuppressWarnings("unused")
 public class ConfigHelper {
     private static final Map<Field, Object> DEFAULT_PROP_VALUES = new HashMap<>();
     private static boolean hasAppliedConfig = false;
@@ -65,7 +67,7 @@ public class ConfigHelper {
                         propName = prop.getName();
 
                     Object propValue = prop.get(null);
-                    Object configValue = null;
+                    Object configValue;
 
                     if (!hasAppliedConfig)
                         DEFAULT_PROP_VALUES.put(prop, propValue);
@@ -90,13 +92,13 @@ public class ConfigHelper {
                                 configValue = (int)(long) configValue;
 
                             // set the class property
-                            if (Core.isDebugMode()) Charm.LOG.info("[ConfigHelper] In module " + moduleName + ": setting `" + propName + "` to `" + configValue + "`");
+                            if (DebugHelper.isDebugMode()) LogHelper.info(ConfigHelper.class, "In module " + moduleName + ": setting `" + propName + "` to `" + configValue + "`");
                             prop.set(null, configValue);
                         }
                     }
 
                 } catch (Exception e) {
-                    Charm.LOG.error("[ConfigHelper] Failed to read config for `" + moduleName + "`: " + e.getMessage());
+                    LogHelper.error(ConfigHelper.class, "Failed to read config for `" + moduleName + "`: " + e.getMessage());
                 }
             }
         });
@@ -137,7 +139,7 @@ public class ConfigHelper {
                     config.add(moduleConfigName, propValue);
 
                 } catch (Exception e) {
-                    Charm.LOG.error("[ConfigHelper] Failed to write config property `" + prop.getName() + "` in `" + module.getName() + "`");
+                    LogHelper.error(ConfigHelper.class, "Failed to write config property `" + prop.getName() + "` in `" + module.getName() + "`");
                 }
             });
         });
@@ -148,9 +150,9 @@ public class ConfigHelper {
             Writer buffer = Files.newBufferedWriter(path);
             tomlWriter.write(config, buffer);
             buffer.close();
-            Core.debug("[ConfigHelper] Written config to disk");
+            LogHelper.debug(ConfigHelper.class, "Written config to disk");
         } catch (Exception e) {
-            Charm.LOG.error("[ConfigHelper] Failed to write config: " + e.getMessage());
+            LogHelper.error(ConfigHelper.class, "Failed to write config: " + e.getMessage());
         }
     }
 
