@@ -47,7 +47,6 @@ public class CharmModMenuPlugin implements ModMenuApi {
                         .setDefaultValue(module.isEnabledByDefault()) // Used when user click "Reset"
                         .setTooltip(new TranslatableComponent("cloth.category.enable_or_disable_module")) // Shown when the user hover over this option
                         .setSaveConsumer(module::setEnabledInConfig) // Called when user save the config
-                        .requireRestart()
                         .build()); // Builds the option entry for cloth config
 
                     properties.forEach((prop, value) -> {
@@ -106,7 +105,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
                 properties.put(prop, value);
 
             } catch (Exception e) {
-                Charm.LOG.error("[CharmModMenuPlugin] Failed to read config property " + prop.getName() + " in " + module.getName());
+                Charm.LOG.error("[ModMenu] Failed to read config property " + prop.getName() + " in " + module.getName());
             }
         });
 

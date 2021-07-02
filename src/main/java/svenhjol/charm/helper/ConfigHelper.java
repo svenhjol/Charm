@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class ConfigHelper {
-    public static Toml getConfig(String modId) {
+    public static Toml readConfig(String modId) {
         Path path = getConfigPath(modId);
         File file = path.toFile();
 
@@ -28,7 +28,7 @@ public class ConfigHelper {
     }
 
     public static boolean isModuleDisabled(String modId, String moduleName) {
-        return isModuleDisabled(getConfig(modId), moduleName);
+        return isModuleDisabled(readConfig(modId), moduleName);
     }
 
     public static boolean isModuleDisabled(Toml toml, String moduleName) {
@@ -38,7 +38,7 @@ public class ConfigHelper {
     }
 
     public static <T extends CharmModule> void applyConfig(String mod, List<T> modules) {
-        Toml toml = getConfig(mod);
+        Toml toml = readConfig(mod);
 
         modules.forEach(module -> {
             String moduleName = module.getName();
@@ -50,7 +50,7 @@ public class ConfigHelper {
                 try {
                     Config annotation = prop.getDeclaredAnnotation(Config.class);
                     if (annotation == null)
-                        return;
+                        continue;
 
                     // set the static property as writable so that the config can modify it
                     prop.setAccessible(true);
@@ -60,7 +60,7 @@ public class ConfigHelper {
                         propName = prop.getName();
 
                     Object propValue = prop.get(null);
-                    Object configValue;
+                    Object configValue = null;
 
                     if (toml.contains(moduleName)) {
 
@@ -82,6 +82,7 @@ public class ConfigHelper {
                                 configValue = (int)(long) configValue;
 
                             // set the class property
+                            Charm.LOG.debug("[ConfigHelper] In module `" + moduleName + "`, setting `" + propName + "` to `" + configValue + "`");
                             prop.set(null, configValue);
                         }
                     }
