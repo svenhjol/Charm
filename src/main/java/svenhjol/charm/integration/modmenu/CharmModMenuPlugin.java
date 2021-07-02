@@ -12,6 +12,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.ConfigHelper;
+import svenhjol.charm.helper.StringHelper;
 import svenhjol.charm.loader.CharmModule;
 
 import java.lang.reflect.Field;
@@ -46,7 +47,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
                     FieldBuilder<?, ?> enabledValue = builder.entryBuilder()
                         .startBooleanToggle(new TranslatableComponent("cloth.category.module_enabled"), module.isEnabledInConfig())
                         .setDefaultValue(module.isEnabledByDefault()) // Used when user click "Reset"
-                        .setTooltip(new TranslatableComponent(module.getDescription())) // Shown when the user hover over this option
+                        .setTooltip(new TranslatableComponent(StringHelper.splitOverLines(module.getDescription()))) // Shown when the user hover over this option
                         .setSaveConsumer(module::setEnabledInConfig)
                         .requireRestart();
 
@@ -62,7 +63,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
                         Config annotation = prop.getDeclaredAnnotation(Config.class);
 
                         TextComponent name = new TextComponent(annotation.name());
-                        TextComponent desc = new TextComponent(annotation.description()); // TODO split over lines
+                        TextComponent desc = new TextComponent(StringHelper.splitOverLines(annotation.description()));
 
                         if (value instanceof Boolean) {
                             propValue = propBuilder
