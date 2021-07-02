@@ -17,11 +17,6 @@ public class ClientLoader<T extends CharmModule> extends ModuleLoader<T> {
     }
 
     @Override
-    protected void register() {
-        super.register();
-    }
-
-    @Override
     protected String getModuleAnnotation() {
         return "Lsvenhjol/charm/annotation/ClientModule;";
     }
