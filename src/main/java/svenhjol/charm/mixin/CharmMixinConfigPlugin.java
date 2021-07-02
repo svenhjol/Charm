@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("UnstableApiUsage")
+@SuppressWarnings({"UnstableApiUsage", "unused"})
 public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
     private static final String MIXIN = "Mixin"; // all valid mixin classes have this annotation
 
@@ -54,7 +54,7 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
         } catch (FileNotFoundException e) {
             // it doesn't matter
         } catch (IOException e) {
-            LogManager.getLogger().warn("IO error when handling mixin blacklist: " + e.getMessage());
+            LogManager.getLogger().warn("[CharmMixinConfig] IO error when handling mixin blacklist: " + e.getMessage());
         }
 
         // fetch mixin annotations to remove when conflicting mods are present
@@ -63,7 +63,7 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
             ClassLoader classLoader = CharmMixinConfigPlugin.class.getClassLoader();
             classes = ClassHelper.getClassesInPackage(classLoader, mixinPackage);
         } catch (Exception e) {
-            throw new IllegalStateException("Could not fetch mixin classes, giving up: " + e.getMessage());
+            throw new IllegalStateException("[CharmMixinConfig] Could not fetch mixin classes, giving up: " + e.getMessage());
         }
 
         int countProcessed = 0; // track how many mixins were added
@@ -144,23 +144,22 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
                 }
 
                 if (required) {
-                    if (debug) logger.info("> Mixin " + truncatedName + " is required");
+                    if (debug) logger.info("[CharmMixinConfig] Mixin " + truncatedName + " is required");
                 } else if (disabled) {
-                    logger.info("> Mixin " + truncatedName + " will not be added");
+                    logger.info("[CharmMixinConfig]  Mixin " + truncatedName + " will not be added");
                 } else {
-                    if (debug) logger.info("> Mixin " + truncatedName + " will be added");
+                    if (debug) logger.info("[CharmMixinConfig] Mixin " + truncatedName + " will be added");
                 }
 
                 countProcessed++;
 
             } catch (Exception e) {
-                logger.error(" > Error occurred while processing mixin " + truncatedName + ": " + e.getMessage());
+                logger.error("[CharmMixinConfig]  Error occurred while processing mixin " + truncatedName + ": " + e.getMessage());
             }
         }
 
-        if (countProcessed == 0) {
-            logger.warn("Seems no mixin classes were processed... this might be bad.");
-        }
+        if (countProcessed == 0)
+            logger.warn("[CharmMixinConfig] Seems no mixin classes were processed... this might be bad.");
     }
 
     @Override
@@ -172,8 +171,7 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         // do the logic checking in onLoad. Fetching annotations here breaks everything
         String truncatedName = mixinClassName.substring(mixinPackage.length() + 1);
-        boolean shouldApply = requiredMixins.containsKey(truncatedName) || !isMixinDisabled(truncatedName);
-        return shouldApply;
+        return requiredMixins.containsKey(truncatedName) || !isMixinDisabled(truncatedName);
     }
 
     @Override
@@ -197,13 +195,11 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
     }
 
     public static boolean isMixinDisabled(String truncatedName) {
-        boolean matches = disabledMixins.keySet().stream().anyMatch(s
+        return disabledMixins.keySet().stream().anyMatch(s
             -> (s.equalsIgnoreCase("ALL")
                 || Pattern.matches(s, truncatedName)
                 || Pattern.matches(truncatedName, s)
                 || s.contains(truncatedName)
                 || truncatedName.contains(s)));
-
-        return matches;
     }
 }
