@@ -91,6 +91,9 @@ public class ConfigHelper {
                             if (propValue instanceof Integer && configValue instanceof Long)
                                 configValue = (int)(long) configValue;
 
+                            if (propValue instanceof Float && configValue instanceof Double)
+                                configValue = (float)(double) configValue;
+
                             // set the class property
                             if (DebugHelper.isDebugMode()) LogHelper.info(ConfigHelper.class, "In module " + moduleName + ": setting `" + propName + "` to `" + configValue + "`");
                             prop.set(null, configValue);
