@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * @version 1.0.0-charm
+ * @version 1.0.1-charm
  */
 @SuppressWarnings("unused")
 public class ConfigHelper {
@@ -34,19 +34,13 @@ public class ConfigHelper {
         return new Toml().read(path.toFile());
     }
 
-    public static boolean isModuleDisabled(String modId, String moduleName) {
-        return isModuleDisabled(readConfig(modId), moduleName);
-    }
-
     public static boolean isModuleDisabled(Toml toml, String moduleName) {
         String moduleEnabled = moduleName + " Enabled";
         String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
         return toml.contains(moduleEnabledQuoted) && !toml.getBoolean(moduleEnabledQuoted);
     }
 
-    public static <T extends CharmModule> void applyConfig(String mod, List<T> modules) {
-        Toml toml = readConfig(mod);
-
+    public static <T extends CharmModule> void applyConfig(Toml toml, List<T> modules) {
         modules.forEach(module -> {
             String moduleName = module.getName();
             module.setEnabledInConfig(!isModuleDisabled(toml, moduleName));
