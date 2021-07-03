@@ -1,10 +1,11 @@
 package svenhjol.charm.loader;
 
+import com.moandjiezana.toml.Toml;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.AdvancementHelper;
 import svenhjol.charm.helper.ConfigHelper;
-import svenhjol.charm.mixin.CharmMixinConfigPlugin;
+import svenhjol.charm.mixin.BaseMixinConfigPlugin;
 import svenhjol.charm.module.core.Core;
 
 import java.util.HashMap;
@@ -31,7 +32,7 @@ public class CommonLoader<T extends CharmModule> extends ModuleLoader<T> {
     protected void dependencies() {
         // run a mixin check as part of the module dependency checks
         getModules().forEach(module -> module
-            .addDependencyCheck(m -> !CharmMixinConfigPlugin.isMixinDisabled(m.getName())));
+            .addDependencyCheck(m -> !BaseMixinConfigPlugin.isMixinDisabled(m.getName())));
 
         super.dependencies();
     }
@@ -68,8 +69,9 @@ public class CommonLoader<T extends CharmModule> extends ModuleLoader<T> {
 
     @Override
     protected void setupModuleConfig(List<T> modules) {
-        ConfigHelper.applyConfig(getModId(), modules);
-        modules.forEach(module -> module.setEnabled(!ConfigHelper.isModuleDisabled(getModId(), module.getName())));
+        Toml toml = ConfigHelper.readConfig(getModId());
+        ConfigHelper.applyConfig(toml, modules);
+        modules.forEach(module -> module.setEnabled(!ConfigHelper.isModuleDisabled(toml, module.getName())));
         ConfigHelper.writeConfig(getModId(), modules);
     }
 
