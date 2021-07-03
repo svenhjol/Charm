@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,7 +22,7 @@ public class RecipeHelper {
         RECIPES_TO_REMOVE.add(id);
     }
 
-    public static Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> sortAndFilterRecipes(Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> recipesByType) {
+    public static Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> sortAndFilterRecipes(Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> recipesByType, boolean doFilter) {
         LogHelper.debug(RecipeHelper.class, "Preparing to sort and filter recipes");
         List<String> modIds = ModuleLoader.getModIds();
         Map<ResourceLocation, CharmModule> charmModules = CommonLoader.getAllModules();
@@ -36,34 +35,30 @@ public class RecipeHelper {
             Stream<Map.Entry<ResourceLocation, Recipe<?>>> moddedStream = recipes.entrySet().stream().filter(r -> !r.getKey().getNamespace().equals("minecraft"));
             Stream<Map.Entry<ResourceLocation, Recipe<?>>> minecraftStream = recipes.entrySet().stream().filter(r -> r.getKey().getNamespace().equals("minecraft"));
 
-            AtomicInteger countActual = new AtomicInteger();
-            AtomicInteger countFiltered = new AtomicInteger();
+            if (doFilter) {
+                moddedStream = moddedStream.filter(r -> {
 
-            moddedStream = moddedStream.filter(r -> {
-                countActual.getAndIncrement();
+                    ResourceLocation res = r.getKey();
+                    String namespace = res.getNamespace();
+                    String path = res.getPath();
 
-                ResourceLocation res = r.getKey();
-                String namespace = res.getNamespace();
-                String path = res.getPath();
+                    // if the recipe is not a charm-based mod, let it pass
+                    if (!modIds.contains(namespace)) return true;
 
-                // if the recipe is not a charm-based mod, let it pass
-                if (!modIds.contains(namespace)) return true;
+                    String moduleId = StringHelper.upperCamelToSnake(path.split("/")[0]);
+                    ResourceLocation check = new ResourceLocation(namespace, moduleId);
 
-                String moduleId = StringHelper.upperCamelToSnake(path.split("/")[0]);
-                ResourceLocation check = new ResourceLocation(namespace, moduleId);
+                    // remove recipes for disabled charm modules and recipes
+                    boolean enabled = charmModules.containsKey(check)
+                        && charmModules.get(check).isEnabled()
+                        && !RECIPES_TO_REMOVE.contains(res);
 
-                // remove recipes for disabled charm modules and recipes
-                boolean enabled = charmModules.containsKey(check)
-                    && charmModules.get(check).isEnabled()
-                    && !RECIPES_TO_REMOVE.contains(res);
+                    if (!enabled)
+                        LogHelper.debug(RecipeHelper.class, " > Filtering out recipe `" + res + "`");
 
-                if (!enabled) {
-                    LogHelper.debug(RecipeHelper.class, " > Filtering out recipe `" + res + "`");
-                    countFiltered.getAndIncrement();
-                }
-
-                return enabled;
-            });
+                    return enabled;
+                });
+            }
 
             Map<ResourceLocation, Recipe<?>> merged = new LinkedHashMap<>();
             Map<ResourceLocation, Recipe<?>> moddedRecipes = moddedStream.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
