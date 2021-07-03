@@ -19,7 +19,7 @@ import java.util.*;
 /**
  * @version 1.0.1-charm
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "BooleanMethodIsAlwaysInverted"})
 public class ConfigHelper {
     private static final Map<Field, Object> DEFAULT_PROP_VALUES = new HashMap<>();
     private static boolean hasAppliedConfig = false;
