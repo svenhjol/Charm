@@ -25,9 +25,6 @@ public class Core extends CharmModule {
     @Config(name = "Advancements", description = "If true, Charm will add its own advancement tree.")
     public static boolean doAdvancements = true;
 
-    @Config(name = "Recipe filtering", description = "If true, Charm will sort and filter recipes. If this is disabled some Charm recipes will misbehave.\nIt's very unlikely you want to disable this.")
-    public static boolean doRecipeFiltering = true;
-
     @Override
     public void register() {
         ServerJoinCallback.EVENT.register(this::handleServerJoin);

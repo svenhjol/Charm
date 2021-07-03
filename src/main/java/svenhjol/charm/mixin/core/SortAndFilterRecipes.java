@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.helper.RecipeHelper;
-import svenhjol.charm.module.core.Core;
 
 import java.util.Map;
 
@@ -26,7 +25,7 @@ public class SortAndFilterRecipes {
         at = @At("RETURN")
     )
     private void hookApply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profilerFiller, CallbackInfo ci) {
-        if (Core.doRecipeFiltering && !this.recipes.isEmpty())
+        if (!this.recipes.isEmpty())
             this.recipes = RecipeHelper.sortAndFilterRecipes(this.recipes);
     }
 }
