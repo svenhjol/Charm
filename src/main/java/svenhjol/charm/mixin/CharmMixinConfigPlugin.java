@@ -27,6 +27,7 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
     // these must match the annotation methods in CharmMixin
     private static final String CHARM_MIXIN = "CharmMixin";
+    private static final String ENABLE_IF_MODS_PRESENT = "enableIfModsPresent";
     private static final String DISABLE_IF_MODS_PRESENT = "disableIfModsPresent";
     private static final String REQUIRED = "required";
 
@@ -117,11 +118,20 @@ public class CharmMixinConfigPlugin implements IMixinConfigPlugin {
 
                             if (annotations.containsKey(DISABLE_IF_MODS_PRESENT)) {
                                 ((ArrayList<?>) annotations.get(DISABLE_IF_MODS_PRESENT)).forEach(m -> modsToCheck.add((String) m));
+
+                                if (modsToCheck.stream().anyMatch(ModHelper::isLoaded)) {
+                                    disabledMixins.put(truncatedName, true);
+                                    disabled = true;
+                                }
                             }
 
-                            if (modsToCheck.stream().anyMatch(ModHelper::isLoaded)) {
-                                disabledMixins.put(truncatedName, true);
-                                disabled = true;
+                            if (annotations.containsKey(ENABLE_IF_MODS_PRESENT)) {
+                                ((ArrayList<?>) annotations.get(ENABLE_IF_MODS_PRESENT)).forEach(m -> modsToCheck.add((String) m));
+
+                                if (modsToCheck.stream().anyMatch(mod -> !ModHelper.isLoaded(mod))) {
+                                    disabledMixins.put(truncatedName, true);
+                                    disabled = true;
+                                }
                             }
                         }
                     }
