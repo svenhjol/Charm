@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.helper.MathHelper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -102,8 +103,8 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
             int foodHunger = foodComponent.getNutrition();
             float foodSaturation = foodComponent.getSaturationModifier();
 
-            hunger = (float)Math.round(100 * (((portions - 1) * hunger) + foodHunger) / portions) / 100;
-            saturation = (float)Math.round(100 * (((portions - 1) * saturation) + foodSaturation) / portions) / 100;
+            hunger = (float) MathHelper.round((100 * (((portions - 1) * hunger) + foodHunger) / portions) / 100, 0);
+            saturation = (float)MathHelper.round((100 * (((portions - 1) * saturation) + foodSaturation) / portions) / 100, 1);
             ResourceLocation id = Registry.ITEM.getKey(food.getItem());
 
             if (id.toString().equals("minecraft:air"))
