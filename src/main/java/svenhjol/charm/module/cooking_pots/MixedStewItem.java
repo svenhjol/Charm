@@ -62,8 +62,7 @@ public class MixedStewItem extends CharmItem {
         world.gameEvent(user, GameEvent.EAT, user.eyeBlockPosition());
         world.playSound(null, user.getX(), user.getY(), user.getZ(), user.getEatingSound(stack), SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
 
-        if (user instanceof Player) {
-            Player player = (Player) user;
+        if (user instanceof Player player) {
             player.getFoodData().eat((int)getHunger(stack), getSaturation(stack));
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 
