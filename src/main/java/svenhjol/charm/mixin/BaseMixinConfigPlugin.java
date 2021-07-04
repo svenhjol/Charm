@@ -76,7 +76,7 @@ public abstract class BaseMixinConfigPlugin implements IMixinConfigPlugin {
         for (ClassPath.ClassInfo c : classes) {
             String className = c.getName();
             String truncatedName = className.substring(mixinPackage.length() + 1);
-            if (this.getClass().getName().equals(className))
+            if (this.getClass().getName().equals(className) || className.contains("BaseMixinConfigPlugin"))
                 continue; // don't try and process this class as a mixin
 
             try {
