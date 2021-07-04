@@ -86,7 +86,7 @@ public class CookingPotsClient extends CharmModule {
         itemRenderer.blitOffset = 500.0F; // hack to get front layer working
 
         int iconStartX = x + 12; // X value at which to start drawing icons
-        int iconStartY = y - 14 + (lines.size() * 10); // Y value at which to start drawing icons
+        int iconStartY = y - 15 + (lines.size() * 10); // Y value at which to start drawing icons
 
         // add blank lines so there is empty space for the icons
         for (int i = 0; i < 3; i++) {
@@ -106,7 +106,7 @@ public class CookingPotsClient extends CharmModule {
         }
 
         // render the saturation icons
-        RenderSystem.setShaderColor(0.8F, 0.95F, 0.0F, 1.0F);
+        RenderSystem.setShaderColor(0.68F, 0.8F, 0.0F, 1.0F);
         offsetStartX = 16; // 16 pixels from the left of the iconset
         ox = 0;
         for (int i = 1; i < (saturation * 10); i++) {
@@ -120,10 +120,10 @@ public class CookingPotsClient extends CharmModule {
         // render the item icons
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         ox = 0;
-        for (int i = 0; i < Math.min(14, items.size()); i++) {
+        for (int i = 0; i < Math.min(7, items.size()); i++) {
             ItemStack itemStack = new ItemStack(items.get(i));
             if (!itemStack.isEmpty())
-                itemRenderer.renderAndDecorateFakeItem(itemStack, iconStartX + (ox++ * (items.size() < 7 ? 13 : 6)), iconStartY + 19);
+                itemRenderer.renderAndDecorateFakeItem(itemStack, iconStartX - 3 + (ox++ * (items.size() < 5 ? 13 : 7)), iconStartY + 19);
         }
 
         itemRenderer.blitOffset = oldZOffset;
