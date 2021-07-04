@@ -86,30 +86,44 @@ public class CookingPotsClient extends CharmModule {
         itemRenderer.blitOffset = 500.0F; // hack to get front layer working
 
         int iconStartX = x + 12; // X value at which to start drawing icons
-        int iconStartY = y + (lines.size() * 7); // Y value at which to start drawing icons
+        int iconStartY = y - 14 + (lines.size() * 10); // Y value at which to start drawing icons
 
-        // add a couple of blank lines so there is empty space for the icons
+        // add blank lines so there is empty space for the icons
         for (int i = 0; i < 3; i++) {
             lines.add(ClientTooltipComponent.create(FormattedCharSequence.EMPTY));
         }
 
         // render the hunger icons
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         int offsetStartX = 16; // 16 pixels from the left of the iconset
         int ox = 0;
         for (int i = 0; i < hunger; i++) {
             int iconOffsetX = i % 2 == 1 ? offsetStartX + 36 : offsetStartX + 45;
-            ClientHelper.getIconRenderer().renderHungerIcon(pose, iconStartX + ox, iconStartY + 2, iconOffsetX, 27, 9, 9);
+            ClientHelper.getIconRenderer().renderGuiIcon(pose, iconStartX + ox, iconStartY + 2, iconOffsetX, 27, 9, 9);
             if (i % 2 == 1) {
-                ox += 8;
+                ox += (hunger < 10 ? 8 : 5);
+            }
+        }
+
+        // render the saturation icons
+        RenderSystem.setShaderColor(0.8F, 0.95F, 0.0F, 1.0F);
+        offsetStartX = 16; // 16 pixels from the left of the iconset
+        ox = 0;
+        for (int i = 1; i < (saturation * 10); i++) {
+            int iconOffsetX = i % 2 == 1 ? offsetStartX + 54 : offsetStartX + 63;
+            ClientHelper.getIconRenderer().renderGuiIcon(pose, iconStartX + ox, iconStartY + 11, iconOffsetX, 27, 9, 9);
+            if (i % 2 == 1) {
+                ox += (saturation < 1.2F ? 8 : 5);
             }
         }
 
         // render the item icons
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         ox = 0;
         for (int i = 0; i < Math.min(14, items.size()); i++) {
             ItemStack itemStack = new ItemStack(items.get(i));
             if (!itemStack.isEmpty())
-                itemRenderer.renderAndDecorateFakeItem(itemStack, iconStartX + (ox++ * (items.size() < 7 ? 13 : 6)), iconStartY + 12);
+                itemRenderer.renderAndDecorateFakeItem(itemStack, iconStartX + (ox++ * (items.size() < 7 ? 13 : 6)), iconStartY + 19);
         }
 
         itemRenderer.blitOffset = oldZOffset;

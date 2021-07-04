@@ -19,6 +19,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
+import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.loader.CharmModule;
 
@@ -108,6 +109,11 @@ public class MixedStewItem extends CharmItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
-        tooltip.add(new TranslatableComponent("item.charm.mixed_stew.saturation", getSaturation(stack)).withStyle(ChatFormatting.GOLD));
+        ClientHelper.getClient().ifPresent(client -> {
+            if (client.options.advancedItemTooltips) {
+                tooltip.add(new TranslatableComponent("item.charm.mixed_stew.hunger", getHunger(stack)).withStyle(ChatFormatting.YELLOW));
+                tooltip.add(new TranslatableComponent("item.charm.mixed_stew.saturation", getSaturation(stack)).withStyle(ChatFormatting.GOLD));
+            }
+        });
     }
 }
