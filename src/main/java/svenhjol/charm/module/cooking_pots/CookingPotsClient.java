@@ -86,7 +86,7 @@ public class CookingPotsClient extends CharmModule {
         itemRenderer.blitOffset = 500.0F; // hack to get front layer working
 
         int iconStartX = x + 12; // X value at which to start drawing icons
-        int iconStartY = y - 15 + (lines.size() * 10); // Y value at which to start drawing icons
+        int iconStartY = y - 14 + (lines.size() * 10); // Y value at which to start drawing icons
 
         // add blank lines so there is empty space for the icons
         for (int i = 0; i < 3; i++) {
