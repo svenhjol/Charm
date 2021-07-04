@@ -100,7 +100,7 @@ public class ClientHelper {
     }
 
     public static class IconRenderer extends GuiComponent {
-        public void renderHungerIcon(PoseStack pose, int drawX, int drawY, int offsetX, int offsetY, int sizeX, int sizeY) {
+        public void renderGuiIcon(PoseStack pose, int drawX, int drawY, int offsetX, int offsetY, int sizeX, int sizeY) {
             RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
             this.blit(pose, drawX, drawY, offsetX, offsetY, sizeX, sizeY);
         }
