@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("unused")
 public class CookingPotBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
     public static final String PORTIONS_NBT = "Portions";
     public static final String HUNGER_NBT = "Hunger";
@@ -66,9 +67,8 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
         nbt.putFloat(HUNGER_NBT, this.hunger);
         nbt.putFloat(SATURATION_NBT, this.saturation);
         ListTag list = new ListTag();
-        this.contents.forEach(item -> {
-            list.add(StringTag.valueOf(item.toString()));
-        });
+        this.contents.forEach(item
+            -> list.add(StringTag.valueOf(item.toString())));
         nbt.put(CONTENTS_NBT, list);
 
         return nbt;

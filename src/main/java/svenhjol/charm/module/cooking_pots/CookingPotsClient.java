@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
+import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
@@ -54,13 +55,16 @@ public class CookingPotsClient extends CharmModule {
         return -1;
     }
 
-    private void handleRenderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
+    private void handleRenderTooltip(PoseStack pose, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
         if (stack == null || stack.getItem() != CookingPots.MIXED_STEW)
             return;
 
         List<ResourceLocation> contents = MixedStewItem.getContents(stack);
         if (contents.isEmpty())
             return;
+
+        int hunger = (int)MixedStewItem.getHunger(stack);
+        float saturation = MixedStewItem.getSaturation(stack);
 
         if (!cachedItems.containsKey(contents)) {
             this.cachedItems.clear();
@@ -74,28 +78,43 @@ public class CookingPotsClient extends CharmModule {
         final Minecraft mc = Minecraft.getInstance();
         ItemRenderer itemRenderer = mc.getItemRenderer();
 
-        matrices.pushPose();
+        pose.pushPose();
         RenderSystem.enableDepthTest();
-        matrices.translate(0, 0, 400);
+        pose.translate(0, 0, 500);
 
         float oldZOffset = itemRenderer.blitOffset;
-        itemRenderer.blitOffset = 400.0F; // hack to get front layer working
+        itemRenderer.blitOffset = 500.0F; // hack to get front layer working
 
-        // add a couple of blank lines below for the items to render into
-        for (int i = 0; i < 2; i++) {
+        int iconStartX = x + 12; // X value at which to start drawing icons
+        int iconStartY = y + (lines.size() * 7); // Y value at which to start drawing icons
+
+        // add a couple of blank lines so there is empty space for the icons
+        for (int i = 0; i < 3; i++) {
             lines.add(ClientTooltipComponent.create(FormattedCharSequence.EMPTY));
         }
 
+        // render the hunger icons
+        int offsetStartX = 16; // 16 pixels from the left of the iconset
         int ox = 0;
+        for (int i = 0; i < hunger; i++) {
+            int iconOffsetX = i % 2 == 1 ? offsetStartX + 36 : offsetStartX + 45;
+            ClientHelper.getIconRenderer().renderHungerIcon(pose, iconStartX + ox, iconStartY + 2, iconOffsetX, 27, 9, 9);
+            if (i % 2 == 1) {
+                ox += 8;
+            }
+        }
+
+        // render the item icons
+        ox = 0;
         for (int i = 0; i < Math.min(14, items.size()); i++) {
             ItemStack itemStack = new ItemStack(items.get(i));
             if (!itemStack.isEmpty())
-                itemRenderer.renderAndDecorateFakeItem(itemStack, x + 8 + (ox++ * (items.size() < 7 ? 13 : 6)), y + (lines.size() * 6));
+                itemRenderer.renderAndDecorateFakeItem(itemStack, iconStartX + (ox++ * (items.size() < 7 ? 13 : 6)), iconStartY + 12);
         }
 
         itemRenderer.blitOffset = oldZOffset;
         RenderSystem.disableDepthTest();
-        matrices.popPose();
+        pose.popPose();
     }
 
     private void handleClientAddedToPot(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {
