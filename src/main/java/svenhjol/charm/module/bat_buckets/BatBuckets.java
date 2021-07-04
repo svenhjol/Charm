@@ -25,7 +25,7 @@ import svenhjol.charm.loader.CharmModule;
 public class BatBuckets extends CharmModule {
     public static final ResourceLocation TRIGGER_CAPTURED_BAT = new ResourceLocation(Charm.MOD_ID, "captured_bat");
     public static final ResourceLocation TRIGGER_USED_BAT_BUCKET = new ResourceLocation(Charm.MOD_ID, "used_bat_bucket");
-    public static svenhjol.charm.module.bat_buckets.BatBucketItem BAT_BUCKET_ITEM;
+    public static BatBucketItem BAT_BUCKET_ITEM;
 
     @Config(name = "Glowing time", description = "Number of seconds that entities will receive the glowing effect.")
     public static int glowingTime = 10;
@@ -38,7 +38,7 @@ public class BatBuckets extends CharmModule {
 
     @Override
     public void register() {
-        BAT_BUCKET_ITEM = new svenhjol.charm.module.bat_buckets.BatBucketItem(this);
+        BAT_BUCKET_ITEM = new BatBucketItem(this);
     }
 
     @Override

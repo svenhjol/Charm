@@ -36,7 +36,7 @@ public class PortableCraftingClient extends CharmModule {
         SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
 
-        if (svenhjol.charm.module.portable_crafting.PortableCrafting.enableKeybind) {
+        if (PortableCrafting.enableKeybind) {
             keyBinding = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.charm.openCraftingTable",
                 InputConstants.Type.KEYSYM,
