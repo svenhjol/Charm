@@ -28,13 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 @ClientModule(module = EnderBundles.class)
 public class EnderBundlesClient extends CharmModule {
     public static float CACHED_AMOUNT_FILLED = 0.0F;
 
     @Override
     public void register() {
-        // set up scroll item model predicate
+        // set up item predicate so the icon changes when full
         ModelPredicateProviderRegistryAccessor.callRegister(new ResourceLocation("ender_bundle_filled"), (stack, world, entity, i)
             -> EnderBundleItem.getAmountFilled());
 
@@ -85,7 +86,7 @@ public class EnderBundlesClient extends CharmModule {
     private void handleRenderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
         if (stack != null && stack.getItem() instanceof EnderBundleItem) {
             ClientHelper.getWorld().ifPresent(world -> {
-                if (world.getGameTime() % 10 == 0)
+                if (world.getGameTime() % 5 == 0)
                     ClientPlayNetworking.send(EnderBundles.MSG_SERVER_UPDATE_ENDER_INVENTORY, new FriendlyByteBuf(Unpooled.buffer()));
             });
 
@@ -95,7 +96,7 @@ public class EnderBundlesClient extends CharmModule {
 
     private void renderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int tx, int ty) {
         Optional<Player> optional = ClientHelper.getPlayer();
-        if (!optional.isPresent())
+        if (optional.isEmpty())
             return;
 
         Player player = optional.get();
