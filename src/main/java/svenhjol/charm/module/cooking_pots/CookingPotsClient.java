@@ -77,6 +77,7 @@ public class CookingPotsClient extends CharmModule {
 
         final Minecraft mc = Minecraft.getInstance();
         ItemRenderer itemRenderer = mc.getItemRenderer();
+        boolean showTooltips = mc.options.advancedItemTooltips;
 
         pose.pushPose();
         RenderSystem.enableDepthTest();
@@ -120,10 +121,13 @@ public class CookingPotsClient extends CharmModule {
         // render the item icons
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         ox = 0;
-        for (int i = 0; i < Math.min(7, items.size()); i++) {
+        int showItems = showTooltips ? 10 : 7;
+        int collapseAt = showTooltips ? 8 : 5;
+        for (int i = 0; i < Math.min(showItems, items.size()); i++) {
             ItemStack itemStack = new ItemStack(items.get(i));
-            if (!itemStack.isEmpty())
-                itemRenderer.renderAndDecorateFakeItem(itemStack, iconStartX - 3 + (ox++ * (items.size() < 5 ? 13 : 7)), iconStartY + 19);
+            if (!itemStack.isEmpty()) {
+                itemRenderer.renderAndDecorateFakeItem(itemStack, iconStartX - 3 + (ox++ * (items.size() < collapseAt ? 13 : 7)), iconStartY + 19);
+            }
         }
 
         itemRenderer.blitOffset = oldZOffset;
