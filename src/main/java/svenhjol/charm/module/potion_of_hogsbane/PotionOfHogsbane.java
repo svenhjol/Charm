@@ -8,17 +8,16 @@ import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.HoglinAiAccessor;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.potion.CharmPotion;
 
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Causes all hoglins in the vicinity to run away from you.",
-    requiresMixins = {"PlayerTickCallback"})
+@CommonModule(mod = Charm.MOD_ID, description = "Causes all hoglins in the vicinity to run away from you.")
 public class PotionOfHogsbane extends CharmModule {
     public static HogsbaneEffect HOGSBANE_EFFECT;
     public static CharmPotion HOGSPANE_POTION;
@@ -34,7 +33,7 @@ public class PotionOfHogsbane extends CharmModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 

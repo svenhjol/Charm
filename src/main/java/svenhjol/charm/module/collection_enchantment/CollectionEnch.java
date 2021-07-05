@@ -1,6 +1,6 @@
 package svenhjol.charm.module.collection_enchantment;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
@@ -29,6 +29,6 @@ public class CollectionEnch extends CharmEnchantment {
 
     @Override
     public boolean canEnchant(ItemStack stack) {
-        return module.enabled && (stack.getItem() instanceof ShearsItem || super.canEnchant(stack));
+        return module.isEnabled() && (stack.getItem() instanceof ShearsItem || super.canEnchant(stack));
     }
 }

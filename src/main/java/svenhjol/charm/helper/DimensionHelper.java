@@ -13,6 +13,10 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+/**
+ * @version 1.0.0-charm
+ */
+@SuppressWarnings({"unused"})
 public class DimensionHelper {
     private static final Logger LOGGER = LogManager.getLogger();
 

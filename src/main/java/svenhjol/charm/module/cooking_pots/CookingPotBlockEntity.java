@@ -18,12 +18,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.helper.MathHelper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("unused")
 public class CookingPotBlockEntity extends BlockEntity implements BlockEntityClientSerializable {
     public static final String PORTIONS_NBT = "Portions";
     public static final String HUNGER_NBT = "Hunger";
@@ -35,6 +37,8 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
     public int portions = 0;
     public float hunger = 0.0F;
     public float saturation = 0.0F;
+    public float displayTicks = 0.0F;
+    public int displayIndex = 0;
     public List<ResourceLocation> contents = new ArrayList<>();
 
     public CookingPotBlockEntity(BlockPos pos, BlockState state) {
@@ -66,9 +70,8 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
         nbt.putFloat(HUNGER_NBT, this.hunger);
         nbt.putFloat(SATURATION_NBT, this.saturation);
         ListTag list = new ListTag();
-        this.contents.forEach(item -> {
-            list.add(StringTag.valueOf(item.toString()));
-        });
+        this.contents.forEach(item
+            -> list.add(StringTag.valueOf(item.toString())));
         nbt.put(CONTENTS_NBT, list);
 
         return nbt;
@@ -102,8 +105,8 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
             int foodHunger = foodComponent.getNutrition();
             float foodSaturation = foodComponent.getSaturationModifier();
 
-            hunger = (float)Math.round(100 * (((portions - 1) * hunger) + foodHunger) / portions) / 100;
-            saturation = (float)Math.round(100 * (((portions - 1) * saturation) + foodSaturation) / portions) / 100;
+            hunger = (float) MathHelper.round((100 * (((portions - 1) * hunger) + foodHunger) / portions) / 100, 0);
+            saturation = (float)MathHelper.round((100 * (((portions - 1) * saturation) + foodSaturation) / portions) / 100, 1);
             ResourceLocation id = Registry.ITEM.getKey(food.getItem());
 
             if (id.toString().equals("minecraft:air"))

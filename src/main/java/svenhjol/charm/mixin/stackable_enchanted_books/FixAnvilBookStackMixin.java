@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
-import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.Charm;
 import svenhjol.charm.module.stackable_enchanted_books.StackableEnchantedBooks;
 
 @Mixin(AnvilMenu.class)
@@ -36,7 +36,7 @@ public class FixAnvilBookStackMixin {
         )
     )
     private void anvilUpdateHook(Container inv, int index, ItemStack stack) {
-        if (ModuleHandler.enabled("charm:stackable_enchanted_books"))
+        if (Charm.LOADER.isEnabled(StackableEnchantedBooks.class))
             stack = StackableEnchantedBooks.getReducedStack(inv.getItem(index));
 
         inv.setItem(index, stack);

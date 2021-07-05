@@ -1,6 +1,6 @@
 package svenhjol.charm.module.copper_rails;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -31,6 +31,6 @@ public class CopperRailBlock extends RailBlock implements ICharmBlock {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

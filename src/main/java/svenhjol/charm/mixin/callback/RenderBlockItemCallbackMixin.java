@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.RenderBlockItemCallback;
-import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
+import svenhjol.charm.module.colored_glints.ColoredGlintsClient;
 
 @Mixin(BlockEntityWithoutLevelRenderer.class)
 public class RenderBlockItemCallbackMixin {
@@ -32,7 +32,7 @@ public class RenderBlockItemCallbackMixin {
         cancellable = true
     )
     private void hookRender(ItemStack stack, ItemTransforms.TransformType mode, PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, int j, CallbackInfo ci) {
-        ColoredGlintHandler.targetStack = stack; // take reference to item to be rendered
+        ColoredGlintsClient.targetStack = stack; // take reference to item to be rendered
 
         Item item = stack.getItem();
         if (item instanceof BlockItem) {

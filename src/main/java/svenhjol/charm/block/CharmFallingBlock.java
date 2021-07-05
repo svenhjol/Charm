@@ -4,8 +4,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.FallingBlock;
-import svenhjol.charm.block.ICharmFallingBlock;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 @SuppressWarnings({"NullableProblems", "unused"})
 public abstract class CharmFallingBlock extends FallingBlock implements ICharmFallingBlock {
@@ -30,6 +29,6 @@ public abstract class CharmFallingBlock extends FallingBlock implements ICharmFa
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

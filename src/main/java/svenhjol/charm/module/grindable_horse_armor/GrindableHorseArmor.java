@@ -1,12 +1,5 @@
 package svenhjol.charm.module.grindable_horse_armor;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.init.CharmAdvancements;
-
-import javax.annotation.Nullable;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -14,17 +7,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmModule;
+
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, description = "Horse armor returns a single ingot or gem when used on the grindstone.",
-    requiresMixins = {"grindable_horse_armor.*"})
+@CommonModule(mod = Charm.MOD_ID, description = "Horse armor returns a single ingot or gem when used on the grindstone.")
 public class GrindableHorseArmor extends CharmModule {
     public static final ResourceLocation TRIGGER_RECYCLED_HORSE_ARMOR = new ResourceLocation(Charm.MOD_ID, "recycled_horse_armor");
     public static final Map<Item, Item> horseArmorRecipes = new HashMap<>();
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         horseArmorRecipes.put(Items.LEATHER_HORSE_ARMOR, Items.LEATHER);
         horseArmorRecipes.put(Items.IRON_HORSE_ARMOR, Items.IRON_INGOT);
         horseArmorRecipes.put(Items.GOLDEN_HORSE_ARMOR, Items.GOLD_INGOT);
@@ -32,7 +30,7 @@ public class GrindableHorseArmor extends CharmModule {
     }
 
     private static boolean isModuleEnabled() {
-        return ModuleHandler.enabled(GrindableHorseArmor.class);
+        return Charm.LOADER.isEnabled(GrindableHorseArmor.class);
     }
 
     public static boolean tryUpdateGrindstoneOutput(Container inputs, Container output, @Nullable Player player) {

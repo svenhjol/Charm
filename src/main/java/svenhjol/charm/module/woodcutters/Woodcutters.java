@@ -5,11 +5,11 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmModule;
 
-@Module(mod = Charm.MOD_ID, client = WoodcuttersClient.class, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
+@CommonModule(mod = Charm.MOD_ID, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
 public class Woodcutters extends CharmModule {
     public static ResourceLocation RECIPE_ID = new ResourceLocation(Charm.MOD_ID, "woodcutting");
     public static ResourceLocation BLOCK_ID = new ResourceLocation(Charm.MOD_ID, "woodcutter");

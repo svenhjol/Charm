@@ -1,12 +1,13 @@
 package svenhjol.charm.init;
 
+import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
 import svenhjol.charm.helper.LootHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.resources.ResourceLocation;
 
+@SuppressWarnings("unused")
 public class CharmLoot {
     public static List<ResourceLocation> REGISTER = new ArrayList<>();
 

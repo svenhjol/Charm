@@ -6,8 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.Block;
-import svenhjol.charm.item.ICharmItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 public class CharmSignItem extends SignItem implements ICharmItem {
     private final CharmModule module;
@@ -33,6 +32,6 @@ public class CharmSignItem extends SignItem implements ICharmItem {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

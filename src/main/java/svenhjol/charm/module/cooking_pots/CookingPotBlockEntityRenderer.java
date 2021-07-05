@@ -19,7 +19,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.module.storage_labels.StorageLabels;
 import svenhjol.charm.module.storage_labels.StorageLabelsClient;
@@ -28,11 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("ClassCanBeRecord")
 @Environment(EnvType.CLIENT)
 public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> implements BlockEntityRenderer<T> {
-    private BlockEntityRendererProvider.Context context;
-    private int index = 0;
-    private float ticks = 0.0F;
+    private final BlockEntityRendererProvider.Context context;
 
     public CookingPotBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         this.context = context;
@@ -49,7 +47,7 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
         if (world == null)
             return;
 
-        if (!svenhjol.charm.module.cooking_pots.CookingPots.showLabel)
+        if (!CookingPots.showLabel)
             return;
 
         List<Item> items = CookingPots.getResolvedItems(entity.contents);
@@ -60,33 +58,37 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
         matrices.scale(0.57F, 0.57F, 0.57F);
         matrices.translate(0.82F, 0.68F, 0.82F);
 
-        if (ticks > 360) {
-            ticks = 0;
-            if (++index > entity.contents.size() - 1)
-                index = 0;
+        if (entity.displayTicks > 360) {
+            entity.displayTicks = 0;
+            if (entity.contents.size() > 1) {
+                entity.displayIndex++;
+                if (entity.displayIndex > entity.contents.size() - 1)
+                    entity.displayIndex = 0;
+            } else {
+                entity.displayIndex = 0;
+            }
         }
 
         ItemStack stack;
         try {
-             stack = new ItemStack(items.get(index));
+            stack = new ItemStack(items.get(entity.displayIndex));
         } catch (IndexOutOfBoundsException e) {
-            Charm.LOG.warn("THIS AGAIN, WHY IS IT ALWAYS THIS");
-            index = 0;
+            entity.displayIndex = 0;
             matrices.popPose();
             return;
         }
 
-        matrices.translate(0, 0.52 + (((ticks > 180 ? (360 - ticks) : ticks) / 180.0F) * 0.39F), 0);
-        matrices.mulPose(Vector3f.YP.rotationDegrees(ticks));
+        matrices.translate(0, 0.52 + (((entity.displayTicks > 180 ? (360 - entity.displayTicks) : entity.displayTicks) / 180.0F) * 0.39F), 0);
+        matrices.mulPose(Vector3f.YP.rotationDegrees(entity.displayTicks));
 
-        ticks += 0.3F;
+        entity.displayTicks += 0.3F;
 
         Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, entity.hashCode());
         matrices.popPose();
 
 
         Optional<Player> optPlayer = ClientHelper.getPlayer();
-        if (!optPlayer.isPresent())
+        if (optPlayer.isEmpty())
             return;
 
         Player player = optPlayer.get();

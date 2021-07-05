@@ -4,7 +4,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmEnchantment extends Enchantment implements ICharmEnchantment {
     protected CharmModule module;
@@ -16,21 +16,21 @@ public abstract class CharmEnchantment extends Enchantment implements ICharmEnch
     }
 
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 
     @Override
     public boolean canEnchant(ItemStack stack) {
-        return module.enabled && super.canEnchant(stack);
+        return module.isEnabled() && super.canEnchant(stack);
     }
 
     @Override
     public boolean isTradeable() {
-        return module.enabled && super.isTradeable();
+        return module.isEnabled() && super.isTradeable();
     }
 
     @Override
     public boolean isDiscoverable() {
-        return module.enabled && super.isDiscoverable();
+        return module.isEnabled() && super.isDiscoverable();
     }
 }

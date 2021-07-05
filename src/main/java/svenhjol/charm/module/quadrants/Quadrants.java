@@ -23,19 +23,17 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.EntityEquipCallback;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.init.CharmSounds;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
-@Module(mod = Charm.MOD_ID, description = "A tool that rotates blocks. When held in offhand it locks block orientation when placing.",
-    requiresMixins = {"EntityEquipCallback"})
+@CommonModule(mod = Charm.MOD_ID, description = "A tool that rotates blocks. When held in offhand it locks block orientation when placing.")
 public class Quadrants extends CharmModule {
     public static QuadrantItem QUADRANT;
     public static Map<UUID, Direction> lockedDirection = new HashMap<>();
@@ -48,13 +46,13 @@ public class Quadrants extends CharmModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         EntityEquipCallback.EVENT.register(this::handleEntityEquip);
         UseBlockCallback.EVENT.register(this::handleUseBlock);
     }
 
     public static BlockState getRotatedBlockState(BlockState state, BlockPlaceContext context) {
-        if (!ModuleHandler.enabled(Quadrants.class))
+        if (!Charm.LOADER.isEnabled(Quadrants.class))
             return state;
 
         Player player = context.getPlayer();

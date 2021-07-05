@@ -4,16 +4,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.block.CharmLanternBlock;
 import svenhjol.charm.enums.IMetalMaterial;
 import svenhjol.charm.enums.VanillaMetalMaterial;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.helper.RecipeHelper;
+import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_nuggets.ExtraNuggets;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-@Module(mod = Charm.MOD_ID, client = VariantLanternsClient.class, description = "Variants lanterns crafted from vanilla metal nuggets and torches.")
+@CommonModule(mod = Charm.MOD_ID, description = "Variants lanterns crafted from vanilla metal nuggets and torches.")
 public class VariantLanterns extends CharmModule {
     public static Map<IMetalMaterial, CharmLanternBlock> LANTERNS = new HashMap<>();
 
@@ -34,19 +36,13 @@ public class VariantLanterns extends CharmModule {
     }
 
     @Override
-    public List<ResourceLocation> getRecipesToRemove() {
-        List<ResourceLocation> remove = new ArrayList<>();
-
+    public void runWhenEnabled() {
         // remove lantern recipes if nuggets module is disabled
-        if (!ModuleHandler.enabled("charm:extra_nuggets")) {
-            remove.addAll(Arrays.asList(
-                new ResourceLocation(Charm.MOD_ID, "variant_lanterns/copper_lantern"),
-                new ResourceLocation(Charm.MOD_ID, "variant_lanterns/copper_soul_lantern"),
-                new ResourceLocation(Charm.MOD_ID, "variant_lanterns/netherite_lantern"),
-                new ResourceLocation(Charm.MOD_ID, "variant_lanterns/netherite_soul_lantern")
-            ));
+        if (!Charm.LOADER.isEnabled(ExtraNuggets.class)) {
+            RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "variant_lanterns/copper_lantern"));
+            RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "variant_lanterns/copper_soul_lantern"));
+            RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "variant_lanterns/netherite_lantern"));
+            RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "variant_lanterns/netherite_soul_lantern"));
         }
-
-        return remove;
     }
 }

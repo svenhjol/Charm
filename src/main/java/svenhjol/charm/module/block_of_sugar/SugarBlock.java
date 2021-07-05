@@ -12,10 +12,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import svenhjol.charm.Charm;
 import svenhjol.charm.block.CharmFallingBlock;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.bumblezone.Bumblezone;
 
 import java.util.HashSet;
@@ -66,7 +66,7 @@ public class SugarBlock extends CharmFallingBlock {
         if (waterBelow) {
             world.globalLevelEvent(2001, pos, Block.getId(world.getBlockState(pos)));
 
-            if (ModHelper.isLoaded("bumblezone") && ModuleHandler.enabled(Bumblezone.class)) {
+            if (ModHelper.isLoaded("bumblezone") && Charm.LOADER.isEnabled(Bumblezone.class)) {
                 if (Bumblezone.bumblezoneFluid == null) {
                     Bumblezone.bumblezoneFluid = Registry.BLOCK.get(Bumblezone.BUMBLEZONE_FLUID_ID);
                 }

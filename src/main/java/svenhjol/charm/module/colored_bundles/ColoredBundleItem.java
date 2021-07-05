@@ -1,6 +1,6 @@
 package svenhjol.charm.module.colored_bundles;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -26,6 +26,6 @@ public class ColoredBundleItem extends BundleItem implements ICharmItem {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

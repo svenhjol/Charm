@@ -1,40 +1,40 @@
 package svenhjol.charm;
 
 import net.fabricmc.api.ModInitializer;
-import svenhjol.charm.handler.LogHandler;
+import svenhjol.charm.event.LoadServerFinishCallback;
 import svenhjol.charm.init.*;
+import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.loader.CommonLoader;
 
+@SuppressWarnings("unused")
 public class Charm implements ModInitializer {
     public static final String MOD_ID = "charm";
-    public static LogHandler LOG = new LogHandler("Charm");
+    public static CommonLoader<CharmModule> LOADER = new CommonLoader<>(MOD_ID, "svenhjol.charm.module");
 
-    private static boolean hasCharmInit = false;
+    private static boolean hasStartedCharm = false;
 
     @Override
     public void onInitialize() {
         initCharm();
     }
 
-    /**
-     * Use this to launch Charm submodules.
-     */
-    public static void init(String modId) {
-        initCharm();
-        new CharmLoader(modId);
-    }
+    public static void initCharm() {
+        if (hasStartedCharm) return;
 
-    private static void initCharm() {
-        if (hasCharmInit)
-            return;
-
-        hasCharmInit = true;
-        new CharmLoader(MOD_ID);
-
+        CharmLog.init();
         CharmLoot.init();
         CharmParticles.init();
         CharmStructures.init();
         CharmSounds.init();
         CharmTags.init();
+        CharmBiomes.init();
         CharmAdvancements.init();
+
+        LoadServerFinishCallback.EVENT.register(server
+            -> CharmDecorations.init());
+
+        LOADER.init();
+
+        hasStartedCharm = true;
     }
 }

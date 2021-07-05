@@ -6,13 +6,11 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 @Mixin(BiomeGenerationSettings.class)
-@CharmMixin(required = true)
 public interface BiomeGenerationSettingsAccessor {
     @Mutable @Accessor
     List<Supplier<ConfiguredStructureFeature<?, ?>>> getStructureStarts();

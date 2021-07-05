@@ -23,7 +23,7 @@ import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.mixin.accessor.PatrolSpawnerAccessor;
 import svenhjol.charm.mixin.accessor.ServerLevelAccessor;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
 import java.util.Random;

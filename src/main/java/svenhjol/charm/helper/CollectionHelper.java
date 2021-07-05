@@ -1,14 +1,15 @@
 package svenhjol.charm.helper;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.util.random.WeightedEntry;
+import net.minecraft.util.random.WeightedRandom;
+import net.minecraft.util.random.WeightedRandomList;
 import svenhjol.charm.mixin.accessor.WeightedRandomListAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.util.random.WeightedEntry;
-import net.minecraft.util.random.WeightedRandom;
-import net.minecraft.util.random.WeightedRandomList;
 
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class CollectionHelper {
     /**
      * Use this method directly when adding a pool entry.

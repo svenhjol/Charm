@@ -8,13 +8,13 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmModule;
 
 import static svenhjol.charm.helper.BiomeHelper.addStructureToBiomeCategories;
 import static svenhjol.charm.helper.RegistryHelper.configuredStructureFeature;
 
-@Module(mod = Charm.MOD_ID, description = "Dungeon variations with different themes according to the biome.")
+@CommonModule(mod = Charm.MOD_ID, description = "Dungeon variations with different themes according to the biome.")
 public class BiomeDungeons extends CharmModule {
     public static final ResourceLocation DUNGEON_ID = new ResourceLocation(Charm.MOD_ID, "dungeon");
     public static StructureFeature<JigsawConfiguration> DUNGEON_FEATURE;
@@ -71,7 +71,7 @@ public class BiomeDungeons extends CharmModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         if (!DungeonGenerator.BADLANDS_DUNGEONS.isEmpty()) addStructureToBiomeCategories(BADLANDS, Biome.BiomeCategory.MESA);
         if (!DungeonGenerator.DESERT_DUNGEONS.isEmpty()) addStructureToBiomeCategories(DESERT, Biome.BiomeCategory.DESERT);
         if (!DungeonGenerator.FOREST_DUNGEONS.isEmpty()) addStructureToBiomeCategories(FOREST, Biome.BiomeCategory.FOREST);

@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.block.ICharmBlock;
-import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -30,14 +30,14 @@ import java.util.function.Supplier;
 @SuppressWarnings({"NullableProblems", "deprecation"})
 public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock, IVariantChestBlock {
     private final CharmModule module;
-    private final IVariantMaterial type;
+    private final IWoodMaterial type;
     private final List<String> loadedMods;
 
-    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial type, String... loadedMods) {
+    public VariantTrappedChestBlock(CharmModule module, IWoodMaterial type, String... loadedMods) {
         this(module, type, Properties.copy(Blocks.TRAPPED_CHEST), () -> VariantChests.TRAPPED_BLOCK_ENTITY);
     }
 
-    public VariantTrappedChestBlock(CharmModule module, IVariantMaterial material, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
+    public VariantTrappedChestBlock(CharmModule module, IWoodMaterial material, BlockBehaviour.Properties settings, Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, String... loadedMods) {
         super(settings, supplier);
 
         this.module = module;
@@ -66,7 +66,7 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
 
     @Override
     public boolean enabled() {
-        return module.enabled && loadedMods.stream().allMatch(ModHelper::isLoaded);
+        return module.isEnabled() && loadedMods.stream().allMatch(ModHelper::isLoaded);
     }
 
     @Nullable
@@ -86,7 +86,7 @@ public class VariantTrappedChestBlock extends ChestBlock implements ICharmBlock,
     }
 
     @Override
-    public IVariantMaterial getMaterialType() {
+    public IWoodMaterial getMaterialType() {
         return type;
     }
 

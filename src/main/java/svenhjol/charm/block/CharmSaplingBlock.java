@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmSaplingBlock extends SaplingBlock implements ICharmBlock {
     private final CharmModule module;
@@ -36,6 +36,6 @@ public abstract class CharmSaplingBlock extends SaplingBlock implements ICharmBl
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

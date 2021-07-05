@@ -24,6 +24,7 @@ import java.util.function.BiConsumer;
 import static svenhjol.charm.helper.PosHelper.isLikeAir;
 import static svenhjol.charm.helper.PosHelper.isLikeSolid;
 
+@SuppressWarnings({"unused"})
 public class MobHelper {
     public static Set<WrappedGoal> getGoals(Mob mob) {
         return ((GoalSelectorAccessor)getGoalSelector(mob)).getAvailableGoals();

@@ -16,28 +16,26 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.TooltipHelper;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class EnderBundlesClient extends CharmClientModule {
+@SuppressWarnings("unused")
+@ClientModule(module = EnderBundles.class)
+public class EnderBundlesClient extends CharmModule {
     public static float CACHED_AMOUNT_FILLED = 0.0F;
-
-    public EnderBundlesClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void register() {
-        // set up scroll item model predicate
+        // set up item predicate so the icon changes when full
         ModelPredicateProviderRegistryAccessor.callRegister(new ResourceLocation("ender_bundle_filled"), (stack, world, entity, i)
             -> EnderBundleItem.getAmountFilled());
 
@@ -47,7 +45,7 @@ public class EnderBundlesClient extends CharmClientModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
@@ -88,7 +86,7 @@ public class EnderBundlesClient extends CharmClientModule {
     private void handleRenderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
         if (stack != null && stack.getItem() instanceof EnderBundleItem) {
             ClientHelper.getWorld().ifPresent(world -> {
-                if (world.getGameTime() % 10 == 0)
+                if (world.getGameTime() % 5 == 0)
                     ClientPlayNetworking.send(EnderBundles.MSG_SERVER_UPDATE_ENDER_INVENTORY, new FriendlyByteBuf(Unpooled.buffer()));
             });
 
@@ -98,7 +96,7 @@ public class EnderBundlesClient extends CharmClientModule {
 
     private void renderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int tx, int ty) {
         Optional<Player> optional = ClientHelper.getPlayer();
-        if (!optional.isPresent())
+        if (optional.isEmpty())
             return;
 
         Player player = optional.get();

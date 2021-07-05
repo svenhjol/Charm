@@ -1,6 +1,6 @@
 package svenhjol.charm.module.aerial_affinity_enchantment;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import svenhjol.charm.enchantment.CharmEnchantment;

@@ -14,21 +14,20 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.helper.BiomeHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.CharmSpawnEggItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, client = MoobloomsClient.class, description = "Mooblooms are cow-like mobs that come in a variety of flower types. They spawn flowers where they walk and can be milked for suspicious stew.",
-    requiresMixins = {"AddEntityCallback"})
+@CommonModule(mod = Charm.MOD_ID, description = "Mooblooms are cow-like mobs that come in a variety of flower types. They spawn flowers where they walk and can be milked for suspicious stew.")
 public class Mooblooms extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "moobloom");
     public static final ResourceLocation TRIGGER_MILKED_MOOBLOOM = new ResourceLocation(Charm.MOD_ID, "milked_moobloom");
@@ -51,7 +50,7 @@ public class Mooblooms extends CharmModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         // add goals to any spawned bees
         AddEntityCallback.EVENT.register(this::tryAddGoalsToBee);
 

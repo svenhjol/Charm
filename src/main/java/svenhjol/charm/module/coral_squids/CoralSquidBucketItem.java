@@ -1,11 +1,5 @@
 package svenhjol.charm.module.coral_squids;
 
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.ItemNBTHelper;
-import svenhjol.charm.helper.MobHelper;
-import svenhjol.charm.item.ICharmItem;
-
-import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -20,13 +14,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.material.Fluids;
-import svenhjol.charm.module.coral_squids.CoralSquidEntity;
-import svenhjol.charm.module.coral_squids.CoralSquids;
+import svenhjol.charm.helper.ItemNbtHelper;
+import svenhjol.charm.helper.MobHelper;
+import svenhjol.charm.item.ICharmItem;
+import svenhjol.charm.loader.CharmModule;
+
+import javax.annotation.Nullable;
 
 public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
     public static final String STORED_CORAL_SQUID = "stored_coral_squid";
 
-    private CharmModule module;
+    private final CharmModule module;
 
     public CoralSquidBucketItem(CharmModule module) {
         super(Fluids.WATER, new Item.Properties()
@@ -39,7 +37,7 @@ public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 
     @Override
@@ -47,7 +45,7 @@ public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
         if (world instanceof ServerLevel) {
             CoralSquidEntity coralSquid = MobHelper.spawn(CoralSquids.CORAL_SQUID, (ServerLevel) world, pos, MobSpawnType.BUCKET);
             if (coralSquid != null) {
-                CompoundTag data = ItemNBTHelper.getCompound(stack, STORED_CORAL_SQUID);
+                CompoundTag data = ItemNbtHelper.getCompound(stack, STORED_CORAL_SQUID);
                 if (!data.isEmpty())
                     coralSquid.readAdditionalSaveData(data);
 

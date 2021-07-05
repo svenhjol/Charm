@@ -6,12 +6,10 @@ import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePo
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.List;
 
 @Mixin(StructureTemplatePool.class)
-@CharmMixin(required = true)
 public interface StructureTemplatePoolAccessor {
     @Accessor
     List<StructurePoolElement> getTemplates();

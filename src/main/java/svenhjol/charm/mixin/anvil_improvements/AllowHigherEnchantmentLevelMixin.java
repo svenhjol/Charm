@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.Charm;
 import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
 import java.util.Map;
@@ -39,7 +39,7 @@ public abstract class AllowHigherEnchantmentLevelMixin extends ItemCombinerMenu 
         )
     )
     private void hookUpdateResultAllowHigherLevel(Map<Enchantment, Integer> enchantments, ItemStack outputStack) {
-        if (!ModuleHandler.enabled(AnvilImprovements.class) || !AnvilImprovements.higherEnchantmentLevels) {
+        if (!Charm.LOADER.isEnabled(AnvilImprovements.class) || !AnvilImprovements.higherEnchantmentLevels) {
             EnchantmentHelper.setEnchantments(enchantments, outputStack); // vanilla behavior
             return;
         }

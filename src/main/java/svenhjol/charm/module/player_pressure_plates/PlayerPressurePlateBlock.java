@@ -17,7 +17,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.block.ICharmBlock;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -49,7 +49,7 @@ public class PlayerPressurePlateBlock extends PressurePlateBlock implements ICha
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 
     @Override

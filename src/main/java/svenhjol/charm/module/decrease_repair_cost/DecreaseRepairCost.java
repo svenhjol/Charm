@@ -10,17 +10,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.event.TakeAnvilOutputCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.ItemCombinerMenuAccessor;
+import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
-@Module(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.",
-    requiresMixins = {"UpdateAnvilCallback", "TakeAnvilOutputCallback"})
+@CommonModule(mod = Charm.MOD_ID, description = "Combine a tool or armor with an amethyst shard on an anvil to reduce its repair cost.")
 public class DecreaseRepairCost extends CharmModule {
     public static final ResourceLocation TRIGGER_DECREASED_COST = new ResourceLocation(Charm.MOD_ID, "decreased_cost");
 
@@ -31,9 +30,9 @@ public class DecreaseRepairCost extends CharmModule {
     public static int decreaseAmount = 5;
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         // if anvil improvements are not enabled, then set the xpCost to 1.
-        if (!ModuleHandler.enabled("charm:anvil_improvements") && xpCost < 1)
+        if (!Charm.LOADER.isEnabled(AnvilImprovements.class) && xpCost < 1)
             xpCost = 1;
 
         // register the anvil recipe for this operation

@@ -5,10 +5,8 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(TreeConfiguration.class)
-@CharmMixin(required = true)
 public interface TreeConfigurationAccessor {
     @Mutable @Accessor
     void setTrunkProvider(BlockStateProvider provider);

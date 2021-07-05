@@ -8,16 +8,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.CheckAnvilRepairCallback;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.helper.RecipeHelper;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Module(mod = Charm.MOD_ID, description = "Adds custom recipes.",
-    requiresMixins = {"CheckAnvilRepairCallback"})
+@CommonModule(mod = Charm.MOD_ID, description = "Adds custom recipes.")
 public class ExtraRecipes extends CharmModule {
     @Config(name = "Ore block from raw ore block", description = "If true, adds a blast furnace recipe for smelting raw ore blocks into ore blocks.")
     public static boolean useRawOreBlocks = true;
@@ -33,6 +33,9 @@ public class ExtraRecipes extends CharmModule {
 
     @Config(name = "Green Dye from yellow and blue", description = "If true, adds a recipe for Green Dye using yellow and blue dyes.")
     public static boolean useGreenDye = true;
+
+    @Config(name = "Snowballs from snow blocks", description = "If true, adds a recipe for turning snow blocks back into snowballs.")
+    public static boolean useSnowballs = true;
 
     @Config(name = "Simpler Soul Torch", description = "If true, adds a recipe for Soul Torches using soul sand/soul soil and sticks.")
     public static boolean useSoulTorch = true;
@@ -50,31 +53,30 @@ public class ExtraRecipes extends CharmModule {
     public static boolean useLeatherForElytra = true;
 
     @Override
-    public void init() {
-        CheckAnvilRepairCallback.EVENT.register(this::handleCheckAnvilRepair);
-    }
-
-    @Override
-    public List<ResourceLocation> getRecipesToRemove() {
-        List<ResourceLocation> removedRecipes = new ArrayList<>();
-
-        List<String> collect = new ArrayList<>();
-        if (!useRawOreBlocks) collect.addAll(Arrays.asList(
+    public void register() {
+        // remove recipes that are not valid according to the config
+        List<String> invalid = new ArrayList<>();
+        if (!useRawOreBlocks) invalid.addAll(Arrays.asList(
             "copper_block_from_blasting_raw_copper_block.json",
             "gold_block_from_blasting_raw_gold_block",
             "iron_block_from_blasting_raw_iron_block"
         ));
-        if (!useGildedBlackstone) collect.add("gilded_blackstone");
-        if (!useTrident) collect.add("trident");
-        if (!useCyanDye) collect.add("cyan_dye");
-        if (!useGreenDye) collect.add("green_dye");
-        if (!useSoulTorch) collect.add("soul_torch");
-        if (!useBread) collect.add("bread");
-        if (!usePaper) collect.add("paper");
-        if (!useBundle) collect.add("bundle");
+        if (!useGildedBlackstone) invalid.add("gilded_blackstone");
+        if (!useSnowballs) invalid.add("snowballs_from_snow_block");
+        if (!useTrident) invalid.add("trident");
+        if (!useCyanDye) invalid.add("cyan_dye");
+        if (!useGreenDye) invalid.add("green_dye");
+        if (!useSoulTorch) invalid.add("soul_torch");
+        if (!useBread) invalid.add("bread");
+        if (!usePaper) invalid.add("paper");
+        if (!useBundle) invalid.add("bundle");
 
-        collect.forEach(recipe -> removedRecipes.add(new ResourceLocation(Charm.MOD_ID, "extra_recipes/" + recipe)));
-        return removedRecipes;
+        invalid.forEach(recipe -> RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "extra_recipes/" + recipe)));
+    }
+
+    @Override
+    public void runWhenEnabled() {
+        CheckAnvilRepairCallback.EVENT.register(this::handleCheckAnvilRepair);
     }
 
     private boolean handleCheckAnvilRepair(AnvilMenu handler, Player player, ItemStack leftStack, ItemStack rightStack) {

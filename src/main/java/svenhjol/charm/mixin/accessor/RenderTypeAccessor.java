@@ -3,10 +3,8 @@ package svenhjol.charm.mixin.accessor;
 import net.minecraft.client.renderer.RenderType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(RenderType.class)
-@CharmMixin(required = true)
 public interface RenderTypeAccessor {
     @Accessor("ARMOR_GLINT")
     static RenderType getArmorGlint() {

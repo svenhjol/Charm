@@ -18,7 +18,7 @@ import net.minecraft.world.level.levelgen.placement.ChanceDecoratorConfiguration
 import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.block.*;
 import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.helper.BiomeHelper;
@@ -26,7 +26,7 @@ import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.helper.ToolHelper;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
 import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.ebony_wood.EbonyBlocks.*;
@@ -44,7 +44,7 @@ import svenhjol.charm.module.variant_ladders.VariantLadders;
 
 import java.util.OptionalInt;
 
-@Module(mod = Charm.MOD_ID, client = EbonyWoodClient.class, description = "Ebony is a very dark grey wood. Ebony trees can be found in savanna biomes.")
+@CommonModule(mod = Charm.MOD_ID, description = "Ebony is a very dark grey wood. Ebony trees can be found in savanna biomes.")
 public class EbonyWood extends CharmModule {
     @Config(name = "Spawn chance", description = "Chance (per number of chunks) of an ebony tree spawning.")
     public static int spawnChance = 3;
@@ -132,7 +132,7 @@ public class EbonyWood extends CharmModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         RegistryHelper.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
         BiomeHelper.addFeatureToBiomeCategories(TREE_DECORATION, Biome.BiomeCategory.SAVANNA, GenerationStep.Decoration.VEGETAL_DECORATION);
         ToolHelper.addStrippableLog(LOG, STRIPPED_LOG);

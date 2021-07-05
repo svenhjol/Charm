@@ -3,7 +3,7 @@ package svenhjol.charm.module.potion_of_piercing_vision;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.potion.CharmPotion;
 
 public class LongPiercingVisionPotion extends CharmPotion {

@@ -12,13 +12,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
-@Module(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.",
-    requiresMixins = {"EntityDropItemsCallback"})
+@CommonModule(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.")
 public class RaidHorns extends CharmModule {
     public static RaidHornItem RAID_HORN;
 
@@ -39,7 +38,7 @@ public class RaidHorns extends CharmModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 

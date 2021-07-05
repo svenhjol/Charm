@@ -20,22 +20,20 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
-import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
 import java.util.Optional;
 
-public class StorageLabelsClient extends CharmClientModule {
+@ClientModule(module = StorageLabels.class)
+public class StorageLabelsClient extends CharmModule {
     public static final ThreadLocal<BlockEntityRendererProvider.Context> chestBlockEntityContext = new ThreadLocal<>();
-    public StorageLabelsClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_UPDATE_CUSTOM_NAME, this::handleUpdateCustomName);
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_HAS_NO_CUSTOM_NAME, this::handleHasNoCustomName);
         ClientPlayNetworking.registerGlobalReceiver(StorageLabels.MSG_CLIENT_CLEAR_CUSTOM_NAME, this::handleClearCustomName);
@@ -74,7 +72,7 @@ public class StorageLabelsClient extends CharmClientModule {
     }
 
     public static void renderLabel(PoseStack matrices, MultiBufferSource vertexConsumers, Player player, Camera camera, List<Component> text) {
-        if (!ModuleHandler.enabled(StorageLabels.class))
+        if (!Charm.LOADER.isEnabled(StorageLabels.class))
             return;
 
         if (!StorageLabels.alwaysShow && !player.isShiftKeyDown())

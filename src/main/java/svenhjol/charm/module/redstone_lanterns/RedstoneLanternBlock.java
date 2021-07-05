@@ -1,6 +1,6 @@
 package svenhjol.charm.module.redstone_lanterns;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.block.CharmLanternBlock;
 
 import java.util.Random;

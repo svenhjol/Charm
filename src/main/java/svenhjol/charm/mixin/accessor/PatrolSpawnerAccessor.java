@@ -6,12 +6,10 @@ import net.minecraft.world.level.levelgen.PatrolSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.annotation.CharmMixin;
 
 import java.util.Random;
 
 @Mixin(PatrolSpawner.class)
-@CharmMixin(required = true)
 public interface PatrolSpawnerAccessor {
     @Accessor("nextTick")
     void setTicksUntilNextSpawn(int ticks);

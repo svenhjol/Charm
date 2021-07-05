@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.block.CharmBlockWithEntity;
-import svenhjol.charm.enums.IVariantMaterial;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.enums.IWoodMaterial;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 
@@ -29,13 +29,13 @@ public class BookcaseBlock extends CharmBlockWithEntity {
     public static final IntegerProperty SLOTS = IntegerProperty.create("slots", 0, BookcaseBlockEntity.SIZE);
 
     protected CharmModule module;
-    protected IVariantMaterial type;
+    protected IWoodMaterial type;
 
-    public BookcaseBlock(CharmModule module, IVariantMaterial material, String... loadedMods) {
+    public BookcaseBlock(CharmModule module, IWoodMaterial material, String... loadedMods) {
         this(module, material, BlockBehaviour.Properties.copy(Blocks.BOOKSHELF), loadedMods);
     }
 
-    public BookcaseBlock(CharmModule module, IVariantMaterial material, BlockBehaviour.Properties settings, String... loadedMods) {
+    public BookcaseBlock(CharmModule module, IWoodMaterial material, BlockBehaviour.Properties settings, String... loadedMods) {
         super(module, material.getSerializedName() + "_bookcase", settings, loadedMods);
 
         this.module = module;

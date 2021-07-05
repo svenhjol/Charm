@@ -1,5 +1,12 @@
 # Changelog
 
+### 3.3.0
+* Reworked module loader. **Some minor configuration keys may have changed**
+* Reworked recipe and advancement filtering
+* Simplified Music Improvements feature
+* Added ModMenu and Cloth Config support
+* Added preliminary API for non-Charm-based mods
+
 ### 3.2.3
 * Restored missing planks tag. svenhjol/Charm#606
 * Translation update provided by <https://github.com/SiongSng>.  svenhjol/Charm#607

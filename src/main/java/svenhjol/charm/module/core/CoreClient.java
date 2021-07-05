@@ -5,18 +5,17 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.core.Core;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.inventory_tidying.InventoryButtonClient;
 
-public class CoreClient extends CharmClientModule {
+@ClientModule(module = Core.class)
+public class CoreClient extends CharmModule {
     public final InventoryButtonClient inventoryButtonClient;
 
-    public CoreClient(CharmModule module) {
-        super(module);
-        this.inventoryButtonClient = new InventoryButtonClient(module);
+    public CoreClient() {
+        this.inventoryButtonClient = new InventoryButtonClient();
     }
 
     @Override
@@ -29,9 +28,9 @@ public class CoreClient extends CharmClientModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         // proxy calls
-        this.inventoryButtonClient.init();
+        this.inventoryButtonClient.runWhenEnabled();
     }
 
     private void handleServerOpenInventory(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {

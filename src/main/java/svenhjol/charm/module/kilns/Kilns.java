@@ -7,13 +7,13 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.helper.DecorationHelper;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmModule;
 
-@Module(mod = Charm.MOD_ID, client = KilnsClient.class, description = "A functional block that speeds up cooking of clay, glass, bricks and terracotta.")
+@CommonModule(mod = Charm.MOD_ID, description = "A functional block that speeds up cooking of clay, glass, bricks and terracotta.")
 public class Kilns extends CharmModule {
     public static final ResourceLocation RECIPE_ID = new ResourceLocation(Charm.MOD_ID, "firing");
     public static final ResourceLocation BLOCK_ID = new ResourceLocation(Charm.MOD_ID, "kiln");
@@ -35,7 +35,7 @@ public class Kilns extends CharmModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         DecorationHelper.DECORATION_BLOCKS.add(KILN);
         DecorationHelper.STATE_CALLBACK.put(KILN, facing -> KILN.defaultBlockState().setValue(KilnBlock.FACING, facing));
     }

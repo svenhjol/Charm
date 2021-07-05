@@ -1,15 +1,16 @@
 package svenhjol.charm.helper;
 
-import svenhjol.charm.init.CharmTags;
-
-import java.util.Map;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.init.CharmTags;
 
+import java.util.Map;
+
+@SuppressWarnings({"unused"})
 public class EnchantmentsHelper {
     public static boolean canBlockPowerEnchantingTable(BlockState state) {
         return state.is(CharmTags.PROVIDE_ENCHANTING_POWER);

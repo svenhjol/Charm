@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.WoodButtonBlock;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmWoodenButtonBlock extends WoodButtonBlock implements ICharmBlock {
     private final CharmModule module;
@@ -34,6 +34,6 @@ public abstract class CharmWoodenButtonBlock extends WoodButtonBlock implements 
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

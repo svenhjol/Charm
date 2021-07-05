@@ -1,6 +1,6 @@
 package svenhjol.charm.module.coral_sea_lanterns;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.block.CharmBlock;
 import svenhjol.charm.enums.ICoralMaterial;

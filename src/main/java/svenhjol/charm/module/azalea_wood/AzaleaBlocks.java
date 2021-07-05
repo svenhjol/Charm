@@ -2,7 +2,7 @@ package svenhjol.charm.module.azalea_wood;
 
 import net.minecraft.world.level.material.MaterialColor;
 import svenhjol.charm.block.*;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 import static svenhjol.charm.module.azalea_wood.AzaleaWood.*;
 

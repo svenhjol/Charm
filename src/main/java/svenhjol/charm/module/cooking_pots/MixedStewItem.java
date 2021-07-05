@@ -11,22 +11,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.item.CharmItem;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,8 +62,7 @@ public class MixedStewItem extends CharmItem {
         world.gameEvent(user, GameEvent.EAT, user.eyeBlockPosition());
         world.playSound(null, user.getX(), user.getY(), user.getZ(), user.getEatingSound(stack), SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
 
-        if (user instanceof Player) {
-            Player player = (Player) user;
+        if (user instanceof Player player) {
             player.getFoodData().eat((int)getHunger(stack), getSaturation(stack));
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 
@@ -114,7 +108,11 @@ public class MixedStewItem extends CharmItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
-        tooltip.add(new TranslatableComponent("item.charm.mixed_stew.hunger", getHunger(stack)).withStyle(ChatFormatting.YELLOW));
-        tooltip.add(new TranslatableComponent("item.charm.mixed_stew.saturation", getSaturation(stack)).withStyle(ChatFormatting.GOLD));
+        ClientHelper.getClient().ifPresent(client -> {
+            if (client.options.advancedItemTooltips) {
+                tooltip.add(new TranslatableComponent("item.charm.mixed_stew.hunger", getHunger(stack)).withStyle(ChatFormatting.YELLOW));
+                tooltip.add(new TranslatableComponent("item.charm.mixed_stew.saturation", getSaturation(stack)).withStyle(ChatFormatting.GOLD));
+            }
+        });
     }
 }

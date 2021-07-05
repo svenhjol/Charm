@@ -10,15 +10,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmModule;
 
-@Module(mod = Charm.MOD_ID, description = "Strays spawn anywhere within their biome and have a chance to drop blue ice.",
-    requiresMixins = {"EntityDropItemsCallback"})
+@CommonModule(mod = Charm.MOD_ID, description = "Strays spawn anywhere within their biome and have a chance to drop blue ice.")
 public class StrayImprovements extends CharmModule {
     public static double lootingBoost = 0.3D;
 
@@ -32,12 +30,12 @@ public class StrayImprovements extends CharmModule {
     public static int maxDrops = 2;
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 
     public static boolean canSpawn() {
-        return ModuleHandler.enabled("charm:stray_improvements") && spawnAnywhere;
+        return Charm.LOADER.isEnabled(StrayImprovements.class) && spawnAnywhere;
     }
 
     private InteractionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {

@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 public class CharmPressurePlate extends PressurePlateBlock implements ICharmBlock {
     private final CharmModule module;
@@ -35,6 +35,6 @@ public class CharmPressurePlate extends PressurePlateBlock implements ICharmBloc
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

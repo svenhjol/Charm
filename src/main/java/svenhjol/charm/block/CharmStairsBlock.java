@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmStairsBlock extends StairBlock implements ICharmBlock {
     private final CharmModule module;
@@ -32,6 +32,6 @@ public abstract class CharmStairsBlock extends StairBlock implements ICharmBlock
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

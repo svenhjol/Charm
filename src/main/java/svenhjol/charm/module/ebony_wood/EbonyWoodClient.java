@@ -13,16 +13,15 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.helper.ClientRegistryHelper;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 
-public class EbonyWoodClient extends CharmClientModule {
-    public EbonyWoodClient(CharmModule module) {
-        super(module);
-    }
+@ClientModule(module = EbonyWood.class)
+public class EbonyWoodClient extends CharmModule {
 
     @Override
     public void register() {
@@ -36,10 +35,10 @@ public class EbonyWoodClient extends CharmClientModule {
         BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.TRAPDOOR, RenderType.cutout());
 
         // register boat model
-        ClientHelper.registerEntityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/ebony"), BoatModel.createBodyModel().bakeRoot());
+        ClientRegistryHelper.entityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/ebony"), BoatModel.createBodyModel().bakeRoot());
 
         // register sign material
-        ClientHelper.registerSignMaterial(EbonyWood.SIGN_TYPE);
+        ClientRegistryHelper.signMaterial(EbonyWood.SIGN_TYPE);
     }
 
     private int handleBlockColor(BlockState state, @Nullable BlockAndTintGetter world, @Nullable BlockPos pos, int tintIndex) {

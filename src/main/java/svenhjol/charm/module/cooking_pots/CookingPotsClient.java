@@ -20,9 +20,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.helper.ClientHelper;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -30,12 +31,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
 
-public class CookingPotsClient extends CharmClientModule {
+@ClientModule(module = CookingPots.class)
+public class CookingPotsClient extends CharmModule {
     private final Map<List<ResourceLocation>, List<Item>> cachedItems = new WeakHashMap<>();
-
-    public CookingPotsClient(CharmModule module) {
-        super(module);
-    }
 
     @Override
     public void register() {
@@ -57,13 +55,16 @@ public class CookingPotsClient extends CharmClientModule {
         return -1;
     }
 
-    private void handleRenderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
+    private void handleRenderTooltip(PoseStack pose, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
         if (stack == null || stack.getItem() != CookingPots.MIXED_STEW)
             return;
 
         List<ResourceLocation> contents = MixedStewItem.getContents(stack);
         if (contents.isEmpty())
             return;
+
+        int hunger = (int)MixedStewItem.getHunger(stack);
+        float saturation = MixedStewItem.getSaturation(stack);
 
         if (!cachedItems.containsKey(contents)) {
             this.cachedItems.clear();
@@ -76,29 +77,62 @@ public class CookingPotsClient extends CharmClientModule {
 
         final Minecraft mc = Minecraft.getInstance();
         ItemRenderer itemRenderer = mc.getItemRenderer();
+        boolean showTooltips = mc.options.advancedItemTooltips;
 
-        matrices.pushPose();
+        pose.pushPose();
         RenderSystem.enableDepthTest();
-        matrices.translate(0, 0, 400);
+        pose.translate(0, 0, 500);
 
         float oldZOffset = itemRenderer.blitOffset;
-        itemRenderer.blitOffset = 400.0F; // hack to get front layer working
+        itemRenderer.blitOffset = 500.0F; // hack to get front layer working
 
-        // add a couple of blank lines below for the items to render into
-        for (int i = 0; i < 2; i++) {
+        int iconStartX = x + 12; // X value at which to start drawing icons
+        int iconStartY = y - 14 + (lines.size() * 10); // Y value at which to start drawing icons
+
+        // add blank lines so there is empty space for the icons
+        for (int i = 0; i < 3; i++) {
             lines.add(ClientTooltipComponent.create(FormattedCharSequence.EMPTY));
         }
 
+        // render the hunger icons
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        int offsetStartX = 16; // 16 pixels from the left of the iconset
         int ox = 0;
-        for (int i = 0; i < Math.min(14, items.size()); i++) {
+        for (int i = 0; i < hunger; i++) {
+            int iconOffsetX = i % 2 == 1 ? offsetStartX + 36 : offsetStartX + 45;
+            ClientHelper.getIconRenderer().renderGuiIcon(pose, iconStartX + ox, iconStartY + 2, iconOffsetX, 27, 9, 9);
+            if (i % 2 == 1) {
+                ox += (hunger < 10 ? 8 : 5);
+            }
+        }
+
+        // render the saturation icons
+        RenderSystem.setShaderColor(0.68F, 0.8F, 0.0F, 1.0F);
+        offsetStartX = 16; // 16 pixels from the left of the iconset
+        ox = 0;
+        for (int i = 1; i < (saturation * 10); i++) {
+            int iconOffsetX = i % 2 == 1 ? offsetStartX + 54 : offsetStartX + 63;
+            ClientHelper.getIconRenderer().renderGuiIcon(pose, iconStartX + ox, iconStartY + 11, iconOffsetX, 27, 9, 9);
+            if (i % 2 == 1) {
+                ox += (saturation < 1.2F ? 8 : 5);
+            }
+        }
+
+        // render the item icons
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        ox = 0;
+        int showItems = showTooltips ? 10 : 7;
+        int collapseAt = showTooltips ? 8 : 5;
+        for (int i = 0; i < Math.min(showItems, items.size()); i++) {
             ItemStack itemStack = new ItemStack(items.get(i));
-            if (!itemStack.isEmpty())
-                itemRenderer.renderAndDecorateFakeItem(itemStack, x + 8 + (ox++ * (items.size() < 7 ? 13 : 6)), y + (lines.size() * 6));
+            if (!itemStack.isEmpty()) {
+                itemRenderer.renderAndDecorateFakeItem(itemStack, iconStartX - 3 + (ox++ * (items.size() < collapseAt ? 13 : 7)), iconStartY + 19);
+            }
         }
 
         itemRenderer.blitOffset = oldZOffset;
         RenderSystem.disableDepthTest();
-        matrices.popPose();
+        pose.popPose();
     }
 
     private void handleClientAddedToPot(Minecraft client, ClientPacketListener handler, FriendlyByteBuf data, PacketSender sender) {

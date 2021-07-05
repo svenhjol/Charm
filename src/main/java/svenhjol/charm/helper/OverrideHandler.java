@@ -1,12 +1,6 @@
 package svenhjol.charm.helper;
 
 import com.mojang.serialization.Lifecycle;
-import svenhjol.charm.mixin.accessor.BlockAccessor;
-import svenhjol.charm.mixin.accessor.DispenserBlockAccessor;
-import svenhjol.charm.mixin.accessor.ItemAccessor;
-
-import java.util.HashMap;
-import java.util.Map;
 import net.minecraft.core.Registry;
 import net.minecraft.core.WritableRegistry;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
@@ -15,8 +9,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
+import svenhjol.charm.mixin.accessor.BlockAccessor;
+import svenhjol.charm.mixin.accessor.DispenserBlockAccessor;
+import svenhjol.charm.mixin.accessor.ItemAccessor;
 
-@SuppressWarnings({"unchecked", "rawtypes"})
+import java.util.HashMap;
+import java.util.Map;
+
+
+@SuppressWarnings({"unused", "UnusedReturnValue", "unchecked", "rawtypes"})
 public class OverrideHandler {
     private static final Map<Item, String> defaultItemKeys = new HashMap<>();
     private static final Map<Block, String> defaultBlockKeys = new HashMap<>();

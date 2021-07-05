@@ -1,14 +1,11 @@
 package svenhjol.charm.module.variant_mob_textures;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.module.variant_mob_textures.VariantMobTexturesClient;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmModule;
 
-@Module(mod = Charm.MOD_ID, client = VariantMobTexturesClient.class, description = "Mobs may spawn with different textures.",
-    requiresMixins = {"ClientPlayerJoinCallbackMixin"}
-)
+@CommonModule(mod = Charm.MOD_ID, description = "Mobs may spawn with different textures.")
 public class VariantMobTextures extends CharmModule {
     @Config(name = "Variant cows", description = "If true, cows may spawn with different textures.")
     public static boolean variantCows = true;

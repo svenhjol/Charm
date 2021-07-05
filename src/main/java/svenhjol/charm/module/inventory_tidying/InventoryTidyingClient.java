@@ -12,14 +12,15 @@ import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.module.atlases.AtlasScreen;
 import svenhjol.charm.module.bookcases.BookcaseScreen;
 
@@ -28,7 +29,8 @@ import java.util.*;
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.BE;
 import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PLAYER;
 
-public class InventoryTidyingClient extends CharmClientModule {
+@ClientModule(module = InventoryTidying.class)
+public class InventoryTidyingClient extends CharmModule {
     public static final int LEFT = 159;
     public static final int TOP = 12;
     public static final List<ImageButton> sortingButtons = new ArrayList<>();
@@ -38,17 +40,12 @@ public class InventoryTidyingClient extends CharmClientModule {
 
     public final Map<Class<? extends Screen>, Map<Integer, Integer>> screenTweaks = new HashMap<>();
 
-    public InventoryTidyingClient(CharmModule module) {
-        super(module);
-    }
-
     @Override
     public void register() {
-        if (!module.enabled)
-            return;
+        if (!Charm.LOADER.isEnabled(InventoryTidying.class)) return; // return early, don't even register
 
-        screenTweaks.put(MerchantScreen.class, new HashMap<Integer, Integer>() {{ put(100, 0); }});
-        screenTweaks.put(InventoryScreen.class, new HashMap<Integer, Integer>() {{ put(0, 76); }});
+        screenTweaks.put(MerchantScreen.class, new HashMap<>() {{ put(100, 0); }});
+        screenTweaks.put(InventoryScreen.class, new HashMap<>() {{ put(0, 76); }});
 
         blockEntityScreens.addAll(Arrays.asList(
             ContainerScreen.class,
@@ -66,7 +63,7 @@ public class InventoryTidyingClient extends CharmClientModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         // set up client listeners
         SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);

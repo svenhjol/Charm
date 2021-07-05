@@ -6,10 +6,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(ProcessorLists.class)
-@CharmMixin(required = true)
 public interface ProcessorListsAccessor {
     @Invoker
     static StructureProcessorList invokeRegister(String id, ImmutableList<StructureProcessor> processorList) {

@@ -2,14 +2,11 @@ package svenhjol.charm.module.entity_spawners;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.module.entity_spawners.EntitySpawners;
+import svenhjol.charm.annotation.ClientModule;
+import svenhjol.charm.loader.CharmModule;
 
-public class EntitySpawnersClient extends CharmClientModule {
-    public EntitySpawnersClient(CharmModule module) {
-        super(module);
-    }
+@ClientModule(module = EntitySpawners.class)
+public class EntitySpawnersClient extends CharmModule {
 
     @Override
     public void register() {

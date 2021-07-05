@@ -2,9 +2,9 @@ package svenhjol.charm.potion;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.potion.ICharmStatusEffect;
+import svenhjol.charm.loader.CharmModule;
 
+@SuppressWarnings("unused")
 public abstract class CharmStatusEffect extends MobEffect implements ICharmStatusEffect {
     protected CharmModule module;
 
@@ -15,8 +15,7 @@ public abstract class CharmStatusEffect extends MobEffect implements ICharmStatu
     }
 
     protected void addStatusEffect(MobEffect effect) {
-        effect.getAttributeModifiers().forEach((attribute, modifier) -> {
-            this.addAttributeModifier(attribute, modifier.getId().toString(), modifier.getAmount(), modifier.getOperation());
-        });
+        effect.getAttributeModifiers().forEach((attribute, modifier)
+            -> this.addAttributeModifier(attribute, modifier.getId().toString(), modifier.getAmount(), modifier.getOperation()));
     }
 }

@@ -2,18 +2,16 @@ package svenhjol.charm.module.woodcutters;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
-import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.annotation.ClientModule;
+import svenhjol.charm.helper.ClientRegistryHelper;
+import svenhjol.charm.loader.CharmModule;
 
-public class WoodcuttersClient extends CharmClientModule {
-    public WoodcuttersClient(CharmModule module) {
-        super(module);
-    }
+@ClientModule(module = Woodcutters.class)
+public class WoodcuttersClient extends CharmModule {
 
     @Override
     public void register() {
-        ClientHelper.registerScreenHandler(Woodcutters.SCREEN_HANDLER, WoodcutterScreen::new);
+        ClientRegistryHelper.screenHandler(Woodcutters.SCREEN_HANDLER, WoodcutterScreen::new);
         BlockRenderLayerMap.INSTANCE.putBlock(Woodcutters.WOODCUTTER, RenderType.cutout());
     }
 }

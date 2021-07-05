@@ -1,11 +1,9 @@
 package svenhjol.charm.module.player_state;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -15,75 +13,86 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.api.CharmNetworkReferences;
+import svenhjol.charm.api.CharmPlayerStateKeys;
+import svenhjol.charm.helper.NetworkHelper;
 import svenhjol.charm.helper.PosHelper;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 
-@Module(mod = Charm.MOD_ID, alwaysEnabled = true, client = PlayerStateClient.class, description = "Synchronize additional state from server to client.")
+@CommonModule(mod = Charm.MOD_ID, alwaysEnabled = true, description = "Synchronize additional state from server to client.")
 public class PlayerState extends CharmModule {
-    public static final ResourceLocation MSG_SERVER_UPDATE_PLAYER_STATE = new ResourceLocation(Charm.MOD_ID, "server_update_player_state");
-    public static List<BiConsumer<ServerPlayer, CompoundTag>> listeners = new ArrayList<>();
+    public static final ResourceLocation MSG_SERVER_UPDATE = new ResourceLocation(CharmNetworkReferences.ServerUpdatePlayerState.toString());
+    private static final Map<String, StructureFeature<?>> VANILLA_STRUCTURES = new HashMap<>();
+    private static final List<BiConsumer<ServerPlayer, CompoundTag>> callbacks = new ArrayList<>();
 
-    @Config(name = "Server state update interval", description = "Interval (in ticks) on which additional world state will be synchronised to the client.")
-    public static int serverStateInverval = 120;
+    @Config(name = "Server state update interval", description = "Interval (in ticks) on which additional player state will be synchronised to the client.")
+    public static int heartbeat = 120;
 
     @Override
     public void register() {
-        // register server message handler to call the serverCallback
-        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_UPDATE_PLAYER_STATE, this::handleServerUpdatePlayerState);
+        // when server_update request received from the client, prepare the state to send back to the client
+        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_UPDATE, this::handleUpdatePlayerState);
+
+        // set up vanilla structures to test if player is inside them
+        initVanillaStructures();
     }
 
-    private void handleServerUpdatePlayerState(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf data, PacketSender sender) {
-        server.execute(() -> {
-            if (player == null)
-                return;
+    public static void addCallback(BiConsumer<ServerPlayer, CompoundTag> callback) {
+        callbacks.add(callback);
+    }
 
-            serverCallback(player);
-        });
+    private void handleUpdatePlayerState(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf data, PacketSender sender) {
+        server.execute(() -> serverCallback(player));
     }
 
     /**
-     * Populates an NBT tag of state information about the player,
-     * sends a compressed string of data to the client to unpack.
+     * Populates an NBT tag of state information about the player.
+     * Sends a compressed string of data to the client to unpack.
      */
-    public static void serverCallback(ServerPlayer player) {
-        ServerLevel world = player.getLevel();
+    private void serverCallback(ServerPlayer player) {
+        ServerLevel level = player.getLevel();
         BlockPos pos = player.blockPosition();
-        long dayTime = world.getDayTime() % 24000;
         CompoundTag nbt = new CompoundTag();
 
-        nbt.putBoolean("mineshaft", PosHelper.isInsideStructure(world, pos, StructureFeature.MINESHAFT));
-        nbt.putBoolean("stronghold", PosHelper.isInsideStructure(world, pos, StructureFeature.STRONGHOLD));
-        nbt.putBoolean("fortress", PosHelper.isInsideStructure(world, pos, StructureFeature.NETHER_BRIDGE));
-        nbt.putBoolean("shipwreck", PosHelper.isInsideStructure(world, pos, StructureFeature.SHIPWRECK));
-        nbt.putBoolean("village", world.isVillage(pos));
-        nbt.putBoolean("day", dayTime > 0 && dayTime < 12700);
+        // if the player is inside a vanilla structure, add it to the nbt
+        for (Map.Entry<String, StructureFeature<?>> entry : VANILLA_STRUCTURES.entrySet()) {
+            if (PosHelper.isInsideStructure(level, pos, entry.getValue())) {
+                nbt.putBoolean(entry.getKey(), true);
+                break;
+            }
+        }
 
-        // send updated player data to listeners
-        listeners.forEach(action -> action.accept(player, nbt));
+        // allow other mods to update the nbt
+        callbacks.forEach(action -> action.accept(player, nbt));
 
         // send updated player data to client
-        FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-        String serialized = null;
+        FriendlyByteBuf buffer = NetworkHelper.encodeNbt(nbt);
 
-        try {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            NbtIo.writeCompressed(nbt, out);
-            serialized = Base64.getEncoder().encodeToString(out.toByteArray());
-        } catch (IOException e) {
-            Charm.LOG.warn("Failed to compress player state");
-        }
+        if (buffer != null)
+            ServerPlayNetworking.send(player, PlayerStateClient.MSG_CLIENT_UPDATE, buffer);
+    }
 
-        if (serialized != null) {
-            buffer.writeUtf(serialized);
-            ServerPlayNetworking.send(player, PlayerStateClient.MSG_CLIENT_UPDATE_PLAYER_STATE, buffer);
-        }
+    private void initVanillaStructures() {
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideVillage.toString(), StructureFeature.VILLAGE);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideMineshaft.toString(), StructureFeature.MINESHAFT);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideStronghold.toString(), StructureFeature.STRONGHOLD);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideDesertPyramid.toString(), StructureFeature.DESERT_PYRAMID);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideJunglePyramid.toString(), StructureFeature.JUNGLE_TEMPLE);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideIgloo.toString(), StructureFeature.IGLOO);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideMansion.toString(), StructureFeature.WOODLAND_MANSION);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideDesertPyramid.toString(), StructureFeature.DESERT_PYRAMID);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideSwampHut.toString(), StructureFeature.SWAMP_HUT);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideOceanMonument.toString(), StructureFeature.OCEAN_MONUMENT);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideOceanRuin.toString(), StructureFeature.OCEAN_RUIN);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideNetherFortress.toString(), StructureFeature.NETHER_BRIDGE);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideBastionRemnant.toString(), StructureFeature.BASTION_REMNANT);
+        VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideEndCity.toString(), StructureFeature.END_CITY);
     }
 }

@@ -12,17 +12,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.handler.ModuleHandler;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.TakeAnvilOutputCallback;
 import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
+import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
 
-@Module(mod = Charm.MOD_ID, description = "Use dye on an anvil to change an item's enchantment color.",
-    requiresMixins = {"TakeAnvilOutputCallback", "UpdateAnvilCallback"})
+@CommonModule(mod = Charm.MOD_ID, description = "Use dye on an anvil to change an item's enchantment color.")
 public class ColoredGlints extends CharmModule {
     public static final ResourceLocation TRIGGER_CHANGED_GLINT_COLOR = new ResourceLocation(Charm.MOD_ID, "changed_glint_color");
     public static boolean enabled;
@@ -31,14 +29,14 @@ public class ColoredGlints extends CharmModule {
     public static String glintColor = DyeColor.PURPLE.getName();
 
     @Config(name = "XP cost", description = "Number of levels of XP required to change an item's enchantment color using dye on an anvil.")
-    public static int xpCost = 0;
+    public static int xpCost = 1;
 
     @Override
-    public void init() {
-        if (!ModuleHandler.enabled("charm:anvil_improvements") && xpCost < 1)
+    public void runWhenEnabled() {
+        if (!Charm.LOADER.isEnabled(AnvilImprovements.class) && xpCost < 1)
             xpCost = 1;
 
-        enabled = ModuleHandler.enabled(ColoredGlints.class);
+        enabled = Charm.LOADER.isEnabled(ColoredGlints.class);
 
         // listen for anvil behavior
         UpdateAnvilCallback.EVENT.register(this::handleAnvilBehavior);
@@ -51,11 +49,11 @@ public class ColoredGlints extends CharmModule {
      * Adds the enchantment and color directly to the input stack with no sanity checking.
      */
     public static void applyTint(ItemStack stack, String color) {
-        stack.getOrCreateTag().putString(svenhjol.charm.module.colored_glints.ColoredGlintHandler.GLINT_NBT, color);
+        stack.getOrCreateTag().putString(ColoredGlintsClient.GLINT_NBT, color);
     }
 
     public static boolean hasTint(ItemStack stack) {
-        return stack.getOrCreateTag().contains(ColoredGlintHandler.GLINT_NBT);
+        return stack.getOrCreateTag().contains(ColoredGlintsClient.GLINT_NBT);
     }
 
     private InteractionResult handleAnvilBehavior(AnvilMenu handler, Player player, ItemStack left, ItemStack right, Container output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {

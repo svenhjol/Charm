@@ -17,11 +17,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.Charm;
-import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.TotemHelper;
 import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -63,7 +63,7 @@ public class TotemOfPreservingItem extends CharmItem {
             keys.forEach(k -> {
                 Tag tag = items.get(k);
                 if (tag == null) {
-                    Charm.LOG.warn("Item tag missing from totem");
+                    LogHelper.warn(this.getClass(), "Item tag missing from totem");
                 } else {
                     ItemStack stack = ItemStack.of((CompoundTag) tag);
                     BlockPos pos = user.blockPosition();
@@ -94,26 +94,26 @@ public class TotemOfPreservingItem extends CharmItem {
     }
 
     public static void setMessage(ItemStack totem, String message) {
-        ItemNBTHelper.setString(totem, MESSAGE_TAG, message);
+        ItemNbtHelper.setString(totem, MESSAGE_TAG, message);
     }
 
     public static void setItems(ItemStack totem, CompoundTag items) {
-        ItemNBTHelper.setCompound(totem, ITEMS_TAG, items);
+        ItemNbtHelper.setCompound(totem, ITEMS_TAG, items);
     }
 
     public static void setXp(ItemStack totem, int xp) {
-        ItemNBTHelper.setInt(totem, XP_TAG, xp);
+        ItemNbtHelper.setInt(totem, XP_TAG, xp);
     }
 
     public static String getMessage(ItemStack totem) {
-        return ItemNBTHelper.getString(totem, MESSAGE_TAG, "");
+        return ItemNbtHelper.getString(totem, MESSAGE_TAG, "");
     }
 
     public static CompoundTag getItems(ItemStack totem) {
-        return ItemNBTHelper.getCompound(totem, ITEMS_TAG);
+        return ItemNbtHelper.getCompound(totem, ITEMS_TAG);
     }
 
     public static int getXp(ItemStack totem) {
-        return ItemNBTHelper.getInt(totem, XP_TAG, 0);
+        return ItemNbtHelper.getInt(totem, XP_TAG, 0);
     }
 }

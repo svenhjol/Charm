@@ -1,10 +1,8 @@
 package svenhjol.charm.module.map_tooltips;
 
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.event.RenderTooltipCallback;
-
-import javax.annotation.Nullable;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,20 +13,19 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
+import svenhjol.charm.annotation.ClientModule;
+import svenhjol.charm.event.RenderTooltipCallback;
+import svenhjol.charm.loader.CharmModule;
+
+import javax.annotation.Nullable;
 import java.util.List;
 
-public class MapTooltipsClient extends CharmClientModule {
+@ClientModule(module = MapTooltips.class)
+public class MapTooltipsClient extends CharmModule {
     private static final RenderType MAP_BACKGROUND = RenderType.text(new ResourceLocation("textures/map/map_background.png"));
 
-    public MapTooltipsClient(CharmModule module) {
-        super(module);
-    }
-
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 

@@ -17,20 +17,18 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.ModHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.grindable_horse_armor.GrindableHorseArmor;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
-@Module(mod = Charm.MOD_ID, client = ExtractEnchantmentsClient.class, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.",
-    requiresMixins = {"extract_enchantments.*"})
+@CommonModule(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.")
 public class ExtractEnchantments extends CharmModule {
     public static final ResourceLocation TRIGGER_EXTRACTED_ENCHANTMENT = new ResourceLocation(Charm.MOD_ID, "extracted_enchantment");
 
@@ -38,8 +36,8 @@ public class ExtractEnchantments extends CharmModule {
     public static int initialCost = 2;
 
     @Override
-    public boolean depends() {
-        return !ModHelper.isLoaded("grindenchantments");
+    public void register() {
+        this.addDependencyCheck(module -> !ModHelper.isLoaded("grindenchantments"));
     }
 
     public static Slot getGrindstoneInputSlot(int index, Container inputs) {
@@ -49,7 +47,7 @@ public class ExtractEnchantments extends CharmModule {
                 boolean valid = stack.isDamageableItem() || stack.getItem() == Items.ENCHANTED_BOOK || stack.isEnchanted();
 
                 // check for horse armor extraction
-                if (ModuleHandler.enabled("charm:grindable_horse_armor") && GrindableHorseArmor.horseArmorRecipes.containsKey(stack.getItem())) {
+                if (Charm.LOADER.isEnabled(GrindableHorseArmor.class) && GrindableHorseArmor.horseArmorRecipes.containsKey(stack.getItem())) {
                     return true;
                 }
 
@@ -206,7 +204,7 @@ public class ExtractEnchantments extends CharmModule {
     }
 
     private static boolean isExtractEnchantmentsEnabled() {
-        return ModuleHandler.enabled(ExtractEnchantments.class);
+        return Charm.LOADER.isEnabled(ExtractEnchantments.class);
     }
 
     public static List<ItemStack> getStacksFromInventory(Container inventory) {

@@ -3,7 +3,6 @@ package svenhjol.charm.init;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import svenhjol.charm.Charm;
-import svenhjol.charm.init.CharmDecoration;
 import svenhjol.charm.structure.CharmDataBlockProcessor;
 
 import java.util.Arrays;
@@ -19,7 +18,7 @@ public class CharmStructures {
     public static final StructureProcessorType<CharmDataBlockProcessor> DATA_BLOCK_PROCESSOR_TYPE = () -> CODEC;
 
     public static void init() {
-        CharmDecoration.SINGLE_POOL_ELEMENT_PROCESSORS.addAll(Arrays.asList(
+        CharmDecorations.SINGLE_POOL_ELEMENT_PROCESSORS.addAll(Arrays.asList(
             new BlockIgnoreProcessor(ImmutableList.of(Blocks.GRAY_STAINED_GLASS)),
             DATA_BLOCK_PROCESSOR
         ));

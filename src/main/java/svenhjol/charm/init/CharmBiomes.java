@@ -1,11 +1,11 @@
 package svenhjol.charm.init;
 
-import svenhjol.charm.helper.BiomeHelper;
-
-import java.util.ArrayList;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
+import svenhjol.charm.helper.BiomeHelper;
+
+import java.util.ArrayList;
 
 public class CharmBiomes {
     public static void init() {

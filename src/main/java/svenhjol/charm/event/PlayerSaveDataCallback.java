@@ -5,10 +5,11 @@ import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.world.entity.player.Player;
-import svenhjol.charm.Charm;
+import svenhjol.charm.helper.LogHelper;
 
 import java.io.File;
 
+@SuppressWarnings("unused")
 public interface PlayerSaveDataCallback {
     Event<PlayerSaveDataCallback> EVENT = EventFactory.createArrayBacked(PlayerSaveDataCallback.class, (listeners) -> (player, dataDir) -> {
         for (PlayerSaveDataCallback listener : listeners) {
@@ -20,7 +21,7 @@ public interface PlayerSaveDataCallback {
         try {
             NbtIo.writeCompressed(nbt, file);
         } catch (Exception e) {
-            Charm.LOG.error("Failed to save player data to file: " + file.toString());
+            LogHelper.error(PlayerSaveDataCallback.class, "Failed to save player data to file: " + file.toString());
         }
     }
 

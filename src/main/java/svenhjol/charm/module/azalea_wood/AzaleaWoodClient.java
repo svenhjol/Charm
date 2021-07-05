@@ -5,14 +5,12 @@ import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.annotation.ClientModule;
+import svenhjol.charm.helper.ClientRegistryHelper;
+import svenhjol.charm.loader.CharmModule;
 
-public class AzaleaWoodClient extends CharmClientModule {
-    public AzaleaWoodClient(CharmModule module) {
-        super(module);
-    }
+@ClientModule(module = AzaleaWood.class)
+public class AzaleaWoodClient extends CharmModule {
 
     @Override
     public void register() {
@@ -21,9 +19,9 @@ public class AzaleaWoodClient extends CharmClientModule {
         BlockRenderLayerMap.INSTANCE.putBlock(AzaleaWood.TRAPDOOR, RenderType.cutout());
 
         // register boat model
-        ClientHelper.registerEntityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/azalea"), BoatModel.createBodyModel().bakeRoot());
+        ClientRegistryHelper.entityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/azalea"), BoatModel.createBodyModel().bakeRoot());
 
         // register sign material
-        ClientHelper.registerSignMaterial(AzaleaWood.SIGN_TYPE);
+        ClientRegistryHelper.signMaterial(AzaleaWood.SIGN_TYPE);
     }
 }

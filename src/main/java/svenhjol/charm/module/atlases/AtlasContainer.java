@@ -4,7 +4,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.helper.ItemNBTHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.screen.CharmScreenHandler;
 import svenhjol.charm.screen.ConditionalSlot;
 
@@ -34,8 +34,8 @@ public class AtlasContainer extends CharmScreenHandler {
             this.addSlot(new Slot(player, i, 8 + i * 18, 142) {
                 @Override
                 public boolean mayPickup(Player playerIn) {
-                    return getItem().getItem() != Atlases.ATLAS_ITEM || !Objects.equals(ItemNBTHelper.getUuid(getItem(), AtlasInventory.ID),
-                        ItemNBTHelper.getUuid(atlasInventory.getAtlasItem(), AtlasInventory.ID));
+                    return getItem().getItem() != Atlases.ATLAS_ITEM || !Objects.equals(ItemNbtHelper.getUuid(getItem(), AtlasInventory.ID),
+                        ItemNbtHelper.getUuid(atlasInventory.getAtlasItem(), AtlasInventory.ID));
                 }
             });
         }

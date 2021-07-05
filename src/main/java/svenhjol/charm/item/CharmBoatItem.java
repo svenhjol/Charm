@@ -17,7 +17,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.extra_boats.CharmBoatEntity;
 import svenhjol.charm.module.extra_boats.CharmBoatEntity.BoatType;
 
@@ -56,7 +56,7 @@ public class CharmBoatItem extends CharmItem {
         List<Entity> list = world.getEntities(user, user.getBoundingBox().expandTowards(vec3d.scale(5.0D)).inflate(1.0D), RIDERS);
         if (!list.isEmpty()) {
             Vec3 vec3d2 = user.getEyePosition();
-            Iterator var11 = list.iterator();
+            Iterator<?> var11 = list.iterator();
 
             while(var11.hasNext()) {
                 Entity entity = (Entity)var11.next();

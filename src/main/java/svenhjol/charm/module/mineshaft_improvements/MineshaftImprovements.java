@@ -20,12 +20,11 @@ import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-import svenhjol.charm.handler.ModuleHandler;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.MineshaftCorridorAccessor;
 import svenhjol.charm.mixin.accessor.MineshaftPartAccessor;
 import svenhjol.charm.mixin.accessor.StructurePieceAccessor;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.module.copper_rails.CopperRails;
 
 import java.util.ArrayList;
@@ -33,8 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-@Module(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.",
-    requiresMixins = {"mineshaft_pieces.*"})
+@CommonModule(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.")
 public class MineshaftImprovements extends CharmModule {
     public static List<BlockState> floorBlocks = new ArrayList<>();
     public static List<BlockState> ceilingBlocks = new ArrayList<>();
@@ -64,7 +62,7 @@ public class MineshaftImprovements extends CharmModule {
     public static boolean generateMinecarts = true;
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         isEnabled = true;
 
         floorBlocks.addAll(Arrays.asList(
@@ -132,7 +130,7 @@ public class MineshaftImprovements extends CharmModule {
             }
         });
 
-        if (ModuleHandler.enabled("charm:copper_rails")) {
+        if (Charm.LOADER.isEnabled(CopperRails.class)) {
             floorBlocks.add(CopperRails.COPPER_RAIL.defaultBlockState().setValue(RailBlock.SHAPE, RailShape.EAST_WEST));
             floorBlocks.add(CopperRails.COPPER_RAIL.defaultBlockState().setValue(RailBlock.SHAPE, RailShape.NORTH_SOUTH));
         }

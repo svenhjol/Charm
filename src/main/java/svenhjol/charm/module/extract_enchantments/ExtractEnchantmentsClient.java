@@ -8,18 +8,15 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.GrindstoneMenu;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.annotation.ClientModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ExtractEnchantmentsClient extends CharmClientModule {
-    public ExtractEnchantmentsClient(CharmModule module) {
-        super(module);
-    }
-
+@ClientModule(module = ExtractEnchantments.class)
+public class ExtractEnchantmentsClient extends CharmModule {
     public static void updateGrindstoneCost(GrindstoneScreen screen, Player player, PoseStack matrices, Font textRenderer, int width) {
         GrindstoneMenu screenHandler = screen.getMenu();
 

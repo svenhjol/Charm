@@ -29,6 +29,9 @@
     "rei": [
       "svenhjol.charm.integration.rei.CharmReiClientPlugin",
       "svenhjol.charm.integration.rei.CharmReiServerPlugin"
+    ],
+    "modmenu": [
+      "svenhjol.charm.integration.modmenu.CharmModMenuPlugin"
     ]
   },
   "mixins": [

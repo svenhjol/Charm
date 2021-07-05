@@ -15,7 +15,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 import java.util.Optional;
 
@@ -63,7 +63,7 @@ public class EnderBundleItem extends CharmItem {
         } else {
             ItemStack itemStack = slot.getItem();
             if (itemStack.isEmpty()) {
-                Optional<ItemStack> out = removeLastStack(player);
+                Optional<ItemStack> out = removeFirstStack(player);
                 out.ifPresent(slot::safeInsert);
             } else if (itemStack.getItem().canFitInsideContainerItems()) {
                 ItemStack out = addToBundle(player, itemStack);
@@ -85,7 +85,7 @@ public class EnderBundleItem extends CharmItem {
             return false; // TODO: why is creative container wack?
         } else if (clickType == ClickAction.SECONDARY && slot.allowModification(player)) {
             if (otherStack.isEmpty()) {
-                removeLastStack(player).ifPresent(stackReference::set);
+                removeFirstStack(player).ifPresent(stackReference::set);
             } else {
                 ItemStack out = addToBundle(player, otherStack);
                 otherStack.setCount(out.getCount());
@@ -111,11 +111,11 @@ public class EnderBundleItem extends CharmItem {
         return stack;
     }
 
-    private static Optional<ItemStack> removeLastStack(Player player) {
+    private static Optional<ItemStack> removeFirstStack(Player player) {
         PlayerEnderChestContainer inventory = player.getEnderChestInventory();
         int index = 0;
         int size = inventory.getContainerSize();
-        for (int i = 0; i < size; i++) {
+        for (int i = size - 1; i >= 0; i--) {
             if (!inventory.getItem(i).isEmpty()) {
                 index = i;
             }

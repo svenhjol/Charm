@@ -4,20 +4,17 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.annotation.ClientModule;
+import svenhjol.charm.helper.ClientRegistryHelper;
+import svenhjol.charm.loader.CharmModule;
 
-public class ExtraBoatsClient extends CharmClientModule {
-    public ExtraBoatsClient(CharmModule module) {
-        super(module);
-    }
-
+@ClientModule(module = ExtraBoats.class)
+public class ExtraBoatsClient extends CharmModule {
     @Override
     public void register() {
         // nether-wood boats
         for (String s : new String[]{"crimson", "warped"}) {
-            ClientHelper.registerEntityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/" + s), BoatModel.createBodyModel().bakeRoot());
+            ClientRegistryHelper.entityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/" + s), BoatModel.createBodyModel().bakeRoot());
         }
 
         // register charm boats renderer

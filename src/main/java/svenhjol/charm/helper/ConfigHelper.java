@@ -3,246 +3,162 @@ package svenhjol.charm.helper;
 import com.electronwill.nightconfig.core.CommentedConfig;
 import com.electronwill.nightconfig.toml.TomlFormat;
 import com.electronwill.nightconfig.toml.TomlWriter;
-import com.google.common.collect.Lists;
-import com.google.common.reflect.ClassPath;
 import com.moandjiezana.toml.Toml;
-import svenhjol.charm.Charm;
+import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
-import javax.annotation.Nullable;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.Writer;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.net.JarURLConnection;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarInputStream;
-import java.util.stream.Collectors;
 
+/**
+ * @version 1.0.1-charm
+ */
+@SuppressWarnings({"unused", "BooleanMethodIsAlwaysInverted"})
 public class ConfigHelper {
+    private static final Map<Field, Object> DEFAULT_PROP_VALUES = new HashMap<>();
+    private static boolean hasAppliedConfig = false;
 
-    @Nullable
-    public static Toml getConfig(String mod) {
-        String configPath = "./config/" + mod + ".toml";
-        Path path = Paths.get(configPath);
+    public static Toml readConfig(String modId) {
+        Path path = getConfigPath(modId);
         File file = path.toFile();
 
         if (!file.exists())
-            return null;
+            return new Toml();
 
         return new Toml().read(path.toFile());
     }
 
-    public static boolean isModuleDisabled(Toml config, String moduleName) {
+    public static boolean isModuleDisabled(Toml toml, String moduleName) {
         String moduleEnabled = moduleName + " Enabled";
         String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
-        return config.contains(moduleEnabledQuoted) && !config.getBoolean(moduleEnabledQuoted);
+        return toml.contains(moduleEnabledQuoted) && !toml.getBoolean(moduleEnabledQuoted);
     }
 
-    public static void createConfig(String mod, Map<String, CharmModule> modules) {
-        String configPath = "./config/" + mod + ".toml";
-
-        // this blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically
-        CommentedConfig writeConfig = TomlFormat.newConfig(LinkedHashMap::new);
-        Path path = Paths.get(configPath);
-        File file = path.toFile();
-        Toml readConfig = file.exists() ? new Toml().read(path.toFile()) : new Toml();
-
-        List<String> moduleNames = new ArrayList<>(modules.keySet());
-        Collections.sort(moduleNames);
-
-        // parse config and apply values to modules
-        for (String moduleName : moduleNames) {
-            CharmModule module = modules.get(moduleName);
-
-            // set module enabled/disabled
-            String moduleEnabled = moduleName + " Enabled";
-            String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
-            module.enabled = readConfig.contains(moduleEnabledQuoted) ? readConfig.getBoolean(moduleEnabledQuoted) : module.enabledByDefault;
-
-            if (!module.alwaysEnabled) {
-                writeConfig.setComment(moduleEnabled, module.description);
-                writeConfig.add(moduleEnabled, module.enabled);
-            }
+    public static <T extends CharmModule> void applyConfig(Toml toml, List<T> modules) {
+        modules.forEach(module -> {
+            String moduleName = module.getName();
+            module.setEnabledInConfig(!isModuleDisabled(toml, moduleName));
 
             // get and set module config options
             ArrayList<Field> classFields = new ArrayList<>(Arrays.asList(module.getClass().getDeclaredFields()));
-            classFields.forEach(classField -> {
+            for (Field prop : classFields) {
                 try {
-                    Config annotation = classField.getDeclaredAnnotation(Config.class);
+                    Config annotation = prop.getDeclaredAnnotation(Config.class);
                     if (annotation == null)
-                        return;
+                        continue;
 
                     // set the static property as writable so that the config can modify it
-                    classField.setAccessible(true);
-                    String name = annotation.name();
-                    String description = annotation.description();
+                    prop.setAccessible(true);
+                    String propName = annotation.name();
 
-                    if (name.isEmpty())
-                        name = classField.getName();
+                    if (propName.isEmpty())
+                        propName = prop.getName();
 
-                    Object classValue = classField.get(null);
-                    Object configValue = null;
+                    Object propValue = prop.get(null);
+                    Object configValue;
 
-                    if (readConfig.contains(moduleName)) {
+                    if (!hasAppliedConfig)
+                        DEFAULT_PROP_VALUES.put(prop, propValue);
+
+                    if (toml.contains(moduleName)) {
 
                         // get the block of key/value pairs from the config
-                        Toml moduleKeys = readConfig.getTable(moduleName);
+                        Toml moduleKeys = toml.getTable(moduleName);
                         Map<String, Object> mappedKeys = new HashMap<>();
 
                         // key names sometimes have quotes, map to remove them
                         moduleKeys.toMap().forEach((k, v) -> mappedKeys.put(k.replace("\"", ""), v));
-                        configValue = mappedKeys.get(name);
+                        configValue = mappedKeys.get(propName);
 
                         if (configValue != null) {
 
                             // there's some weirdness with casting, deal with that here
-                            if (classValue instanceof Integer && configValue instanceof Double)
+                            if (propValue instanceof Integer && configValue instanceof Double)
                                 configValue = (int)(double) configValue;
 
-                            if (classValue instanceof Integer && configValue instanceof Long)
+                            if (propValue instanceof Integer && configValue instanceof Long)
                                 configValue = (int)(long) configValue;
 
-                            classField.set(null, configValue);
+                            if (propValue instanceof Float && configValue instanceof Double)
+                                configValue = (float)(double) configValue;
+
+                            // set the class property
+                            if (DebugHelper.isDebugMode()) LogHelper.info(ConfigHelper.class, "In module " + moduleName + ": setting `" + propName + "` to `" + configValue + "`");
+                            prop.set(null, configValue);
                         }
                     }
 
-                    if (configValue == null)
-                        configValue = classValue;
+                } catch (Exception e) {
+                    LogHelper.error(ConfigHelper.class, "Failed to read config for `" + moduleName + "`: " + e.getMessage());
+                }
+            }
+        });
+
+        hasAppliedConfig = true;
+    }
+
+    public static <T extends CharmModule> void writeConfig(String modId, List<T> modules) {
+        Path path = getConfigPath(modId);
+
+        // this blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically
+        CommentedConfig config = TomlFormat.newConfig(LinkedHashMap::new);
+
+        // read config from each module
+        modules.forEach(module -> {
+            String moduleName = module.getName();
+
+            if (!module.isAlwaysEnabled()) {
+                String field = moduleName + " Enabled";
+                config.setComment(field, module.getDescription());
+                config.add(field, module.isEnabledInConfig());
+            }
+
+            // read class properties into config
+            ArrayList<Field> classFields = new ArrayList<>(Arrays.asList(module.getClass().getDeclaredFields()));
+            classFields.forEach(prop -> {
+                try {
+                    Config annotation = prop.getDeclaredAnnotation(Config.class);
+                    if (annotation == null) return;
+
+                    String propName = annotation.name();
+                    String propDescription = annotation.description();
+                    Object propValue = prop.get(null);
 
                     // set the key/value pair. The "." specifies that it is nested
-                    String moduleConfigName = moduleName + "." + name;
-                    writeConfig.setComment(moduleConfigName, description);
-                    writeConfig.add(moduleConfigName, configValue);
+                    String moduleConfigName = moduleName + "." + propName;
+                    config.setComment(moduleConfigName, propDescription);
+                    config.add(moduleConfigName, propValue);
 
                 } catch (Exception e) {
-                    Charm.LOG.error("Failed to set config for " + moduleName + ": " + e.getMessage());
+                    LogHelper.error(ConfigHelper.class, "Failed to write config property `" + prop.getName() + "` in `" + module.getName() + "`");
                 }
             });
-        }
+        });
 
         try {
             // write out and close the file
             TomlWriter tomlWriter = new TomlWriter();
             Writer buffer = Files.newBufferedWriter(path);
-            tomlWriter.write(writeConfig, buffer);
+            tomlWriter.write(config, buffer);
             buffer.close();
-            Charm.LOG.debug("Written config to disk");
-
+            LogHelper.debug(ConfigHelper.class, "Written config to disk");
         } catch (Exception e) {
-            Charm.LOG.error("Failed to write config: " + e.getMessage());
+            LogHelper.error(ConfigHelper.class, "Failed to write config: " + e.getMessage());
         }
     }
 
-
-    /**
-     * Scans all classes accessible from the context class loader which belong to the given package and subpackages.
-     *
-     * @see <a href="https://stackoverflow.com/a/520344">Stackoverflow inspiration</a>
-     * @param packageName The base package
-     * @return fully qualified class name strings
-     */
-    public static List<String> getClassesInPackage(String packageName) throws IOException, URISyntaxException {
-        String path = packageName.replace(".", "/");
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        assert classLoader != null;
-
-        ArrayList<String> classes = new ArrayList<>();
-
-        URL url = new URL(classLoader.getResource(path).toString());
-
-        if (url.toString().startsWith("jar:")) {
-            try {
-                JarURLConnection connection = (JarURLConnection) url.openConnection();
-                File file = new File(connection.getJarFileURL().toURI());
-
-                packageName = packageName.replaceAll("\\.", "/");
-                try {
-                    JarInputStream jarFile = new JarInputStream(new FileInputStream(file));
-                    JarEntry jarEntry;
-
-                    while (true) {
-                        jarEntry = jarFile.getNextJarEntry();
-                        if (jarEntry == null) {
-                            break;
-                        }
-                        if (jarEntry.getName().startsWith(packageName) && jarEntry.getName().endsWith(".class")) {
-                            classes.add(jarEntry.getName()
-                                .replaceAll("/", "\\.")
-                                .replace(".class", ""));
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } catch (Exception e) {
-
-            }
-
-        } else {
-            URL resource = classLoader.getResource(path);
-            File dir = new File(resource.toURI());
-            classes.addAll(findClasses(dir, packageName));
-        }
-
-        return classes.stream().distinct().collect(Collectors.toList());
+    public static Map<Field, Object> getDefaultPropValues() {
+        return DEFAULT_PROP_VALUES;
     }
 
-    /**
-     * Recursive method used to find all classes in a given directory and subdirs.
-     *
-     * @see <a href="https://stackoverflow.com/a/520344">Stackoverflow inspiration</a>
-     * @param directory   The base directory
-     * @param packageName The package name for classes found inside the base directory
-     * @return fully qualified class name strings
-     */
-    public static List<String> findClasses(File directory, String packageName) {
-        List<String> classes = new ArrayList<String>();
-        if (!directory.exists()) {
-            return classes;
-        }
-        File[] files = directory.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                assert !file.getName().contains(".");
-                classes.addAll(findClasses(file, packageName + "." + file.getName()));
-            } else if (file.getName().endsWith(".class")) {
-                classes.add(packageName + '.' + file.getName().substring(0, file.getName().length() - 6));
-            }
-        }
-        return classes;
-    }
-
-    /**
-     * Inspired by getClassesInPackage from Fabrication.
-     */
-    public static Iterable<ClassPath.ClassInfo> getClassesInPackage(ClassLoader classLoader, String packageName) {
-        try {
-            List<String> classes = getClassesInPackage(packageName);
-
-            Constructor<ClassPath.ClassInfo> cons = ClassPath.ClassInfo.class.getDeclaredConstructor(String.class, ClassLoader.class);
-            cons.setAccessible(true);
-            List<ClassPath.ClassInfo> rtrn = Lists.newArrayList();
-
-            for (String c : classes) {
-                if (c.startsWith(packageName)) {
-                    String resource = c.replace('.', '/') + ".class";
-                    rtrn.add(cons.newInstance(resource, classLoader));
-                }
-            }
-
-            return rtrn;
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+    private static Path getConfigPath(String modId) {
+        String configPath = FabricLoader.getInstance().getConfigDir() + "/" + modId + ".toml";
+        return Paths.get(configPath);
     }
 }

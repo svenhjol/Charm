@@ -21,12 +21,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import svenhjol.charm.CharmClient;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.PlaySoundCallback;
 import svenhjol.charm.helper.DimensionHelper;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.SoundHelper;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -35,19 +35,16 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
-public class MusicImprovementsClient extends CharmClientModule {
+@ClientModule(module = MusicImprovements.class)
+public class MusicImprovementsClient extends CharmModule {
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;
     private static final List<MusicCondition> musicConditions = new ArrayList<>();
 
     public static boolean isEnabled;
 
-    public MusicImprovementsClient(CharmModule module) {
-        super(module);
-    }
-
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
         PlaySoundCallback.EVENT.register(this::handlePlaySound);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
@@ -95,7 +92,7 @@ public class MusicImprovementsClient extends CharmClientModule {
             SoundHelper.getPlayingSounds().forEach((category, s) -> {
                 if (category == SoundSource.RECORDS) {
                     musicToStop = sound;
-                    CharmClient.LOG.debug("[Music Improvements] Triggered background music while music disc playing");
+                    LogHelper.debug(this.getClass(), "Triggered background music while music disc playing");
                 }
             });
         }

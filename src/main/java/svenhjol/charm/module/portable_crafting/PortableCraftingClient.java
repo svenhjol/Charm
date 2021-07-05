@@ -14,32 +14,29 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.init.CharmTags;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
 
 import java.util.List;
 
-public class PortableCraftingClient extends CharmClientModule {
+@ClientModule(module = PortableCrafting.class)
+public class PortableCraftingClient extends CharmModule {
     public ImageButton craftingButton;
     public static KeyMapping keyBinding;
 
-    public PortableCraftingClient(CharmModule module) {
-        super(module);
-    }
-
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         // set up client listeners
         SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
 
-        if (svenhjol.charm.module.portable_crafting.PortableCrafting.enableKeybind) {
+        if (PortableCrafting.enableKeybind) {
             keyBinding = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.charm.openCraftingTable",
                 InputConstants.Type.KEYSYM,

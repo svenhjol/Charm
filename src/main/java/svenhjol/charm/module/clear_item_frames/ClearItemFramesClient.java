@@ -12,15 +12,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.DyeColor;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.init.CharmParticles;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
-public class ClearItemFramesClient extends CharmClientModule {
-    public ClearItemFramesClient(CharmModule module) {
-        super(module);
-    }
-
+@ClientModule(module = ClearItemFrames.class)
+public class ClearItemFramesClient extends CharmModule {
     @Override
     public void register() {
         ClientPlayNetworking.registerGlobalReceiver(ClearItemFrames.MSG_CLIENT_ADD_AMETHYST, this::handleClientMakeInvisible);

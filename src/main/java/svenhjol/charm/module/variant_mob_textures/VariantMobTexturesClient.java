@@ -1,22 +1,25 @@
 package svenhjol.charm.module.variant_mob_textures;
 
 import com.google.common.collect.ImmutableList;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.enums.ICharmEnum;
-import svenhjol.charm.event.ClientPlayerJoinCallback;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
-public class VariantMobTexturesClient extends CharmClientModule {
+@ClientModule(module = VariantMobTextures.class)
+public class VariantMobTexturesClient extends CharmModule {
     private static final String PREFIX = "textures/entity/";
     private static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(PREFIX + "sheep/sheep.png");
 
@@ -37,13 +40,9 @@ public class VariantMobTexturesClient extends CharmClientModule {
     public static Map<ResourceLocation, ResourceLocation> wolvesAngry = new HashMap<>();
     public static Map<DyeColor, ResourceLocation> sheep = new HashMap<>();
 
-    public VariantMobTexturesClient(CharmModule module) {
-        super(module);
-    }
-
     @Override
-    public void init() {
-        ClientPlayerJoinCallback.EVENT.register(this::handlePlayerJoin);
+    public void runWhenEnabled() {
+        ClientEntityEvents.ENTITY_LOAD.register(this::handlePlayerJoin);
 
         if (VariantMobTextures.variantChickens)
             EntityRendererRegistry.INSTANCE.register(EntityType.CHICKEN, VariantMobRenderer.RenderChicken::new);
@@ -68,7 +67,9 @@ public class VariantMobTexturesClient extends CharmClientModule {
 
     }
 
-    public void handlePlayerJoin(Minecraft client) {
+    public void handlePlayerJoin(Entity entity, Level level) {
+        if (!(entity instanceof LocalPlayer)) return;
+
         // reset
         chickens = new ArrayList<>();
         cows = new ArrayList<>();
@@ -153,14 +154,17 @@ public class VariantMobTexturesClient extends CharmClientModule {
         });
     }
 
+    @Nullable
     public static ResourceLocation getChickenTexture(Chicken entity) {
         return getRandomTexture(entity, chickens, rareChickens);
     }
 
+    @Nullable
     public static ResourceLocation getCowTexture(Cow entity) {
         return getRandomTexture(entity, cows, rareCows);
     }
 
+    @Nullable
     public static ResourceLocation getPigTexture(Pig entity) {
         return getRandomTexture(entity, pigs, rarePigs);
     }
@@ -170,16 +174,21 @@ public class VariantMobTexturesClient extends CharmClientModule {
         return sheep.getOrDefault(fleeceColor, DEFAULT_SHEEP);
     }
 
+    @Nullable
     public static ResourceLocation getSnowGolemTexture(SnowGolem entity) {
         return getRandomTexture(entity, snowGolems, ImmutableList.of());
     }
 
+    @Nullable
     public static ResourceLocation getSquidTexture(Squid entity) {
         return getRandomTexture(entity, squids, rareSquids);
     }
 
+    @Nullable
     public static ResourceLocation getWolfTexture(Wolf entity) {
         ResourceLocation res = getRandomTexture(entity, wolves, rareWolves);
+        if (res == null)
+            return null;
 
         if (entity.isTame()) {
             res = wolvesTame.get(res);
@@ -190,11 +199,15 @@ public class VariantMobTexturesClient extends CharmClientModule {
         return res;
     }
 
+    @Nullable
     public static ResourceLocation getRandomTexture(Entity entity, List<ResourceLocation> normalSet, List<ResourceLocation> rareSet) {
         UUID id = entity.getUUID();
         boolean isRare = VariantMobTextures.rareVariants && !rareSet.isEmpty() && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % VariantMobTextures.rarity == 0;
 
         List<ResourceLocation> set = isRare ? rareSet : normalSet;
+        if (set.isEmpty())
+            return null;
+
         int choice = Math.abs((int)(id.getMostSignificantBits() % set.size()));
         return set.get(choice);
     }

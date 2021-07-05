@@ -1,18 +1,5 @@
 package svenhjol.charm.module.wandering_trader_improvements;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.helper.BiomeHelper;
-import svenhjol.charm.helper.MapHelper;
-import svenhjol.charm.helper.VillagerHelper;
-import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -26,8 +13,20 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.annotation.Config;
+import svenhjol.charm.helper.BiomeHelper;
+import svenhjol.charm.helper.MapHelper;
+import svenhjol.charm.helper.VillagerHelper;
+import svenhjol.charm.loader.CharmModule;
 
-@Module(mod = Charm.MOD_ID, description = "Wandering traders only appear near signal campfires and sell maps to biomes and structures.")
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+@CommonModule(mod = Charm.MOD_ID, description = "Wandering traders only appear near signal campfires and sell maps to biomes and structures.")
 public class WanderingTraderImprovements extends CharmModule {
     public static final List<TraderMap> traderMaps = new ArrayList<>();
 
@@ -41,7 +40,7 @@ public class WanderingTraderImprovements extends CharmModule {
     public static boolean frequentSpawn = false;
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         if (tradeStructureMaps) {
             traderMaps.addAll(Arrays.asList(
                 new StructureMap(StructureFeature.RUINED_PORTAL, false), // ruined portal
@@ -77,7 +76,7 @@ public class WanderingTraderImprovements extends CharmModule {
     }
 
     public static boolean shouldSpawnFrequently() {
-        return ModuleHandler.enabled("charm:wandering_trader_improvements") && frequentSpawn;
+        return Charm.LOADER.isEnabled(WanderingTraderImprovements.class) && frequentSpawn;
     }
 
     public static class StructureMapForEmeraldsTrade implements VillagerTrades.ItemListing {

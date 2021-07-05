@@ -1,6 +1,6 @@
 package svenhjol.charm.module.extra_nuggets;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import net.minecraft.world.item.CreativeModeTab;
 import svenhjol.charm.item.CharmItem;
 

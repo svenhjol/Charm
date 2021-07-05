@@ -9,7 +9,7 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.Charm;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.mixin.accessor.BoatAccessor;
 import svenhjol.charm.module.azalea_wood.AzaleaWood;
 import svenhjol.charm.module.ebony_wood.EbonyWood;
@@ -104,7 +104,7 @@ public class CharmBoatEntity extends Boat {
             try {
                 boatType = valueOf(upper);
             } catch (IllegalArgumentException e) {
-                Charm.LOG.error(e.getMessage());
+                LogHelper.error(BoatType.class, e.getMessage());
                 boatType = CRIMSON;
             }
 

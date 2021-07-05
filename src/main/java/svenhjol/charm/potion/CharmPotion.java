@@ -1,11 +1,10 @@
 package svenhjol.charm.potion;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.potion.ICharmPotion;
 
 public abstract class CharmPotion extends Potion implements ICharmPotion {
     protected CharmModule module;

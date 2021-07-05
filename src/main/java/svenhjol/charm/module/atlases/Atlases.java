@@ -16,30 +16,24 @@ import net.minecraft.world.inventory.CartographyTableMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ComplexItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.MapItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.helper.RegistryHelper;
-import svenhjol.charm.helper.ItemNBTHelper;
-import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.helper.ItemNbtHelper;
+import svenhjol.charm.helper.PlayerHelper;
+import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.MapItemSavedDataAccessor;
 import svenhjol.charm.mixin.accessor.SlotAccessor;
 
 import java.util.*;
 
-@Module(mod = Charm.MOD_ID, client = AtlasesClient.class, description = "Storage for maps that automatically updates the displayed map as you explore.",
-    requiresMixins = {"PlayerTickCallback", "RenderHeldItemCallback", "ItemTooltipCallback"})
+@CommonModule(mod = Charm.MOD_ID, description = "Storage for maps that automatically updates the displayed map as you explore.")
 public class Atlases extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "atlas");
     public static final ResourceLocation MSG_SERVER_ATLAS_TRANSFER = new ResourceLocation(Charm.MOD_ID, "server_atlas_transfer");
@@ -73,7 +67,7 @@ public class Atlases extends CharmModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
 
         // listen for network requests to run the server callback
@@ -83,7 +77,7 @@ public class Atlases extends CharmModule {
     public static boolean inventoryContainsMap(Inventory inventory, ItemStack itemStack) {
         if (inventory.contains(itemStack)) {
             return true;
-        } else if (ModuleHandler.enabled(Atlases.class)) {
+        } else if (Charm.LOADER.isEnabled(Atlases.class)) {
             for (InteractionHand hand : InteractionHand.values()) {
                 ItemStack atlasStack = inventory.player.getItemInHand(hand);
                 if (atlasStack.getItem() == ATLAS_ITEM) {
@@ -98,10 +92,10 @@ public class Atlases extends CharmModule {
     }
 
     public static AtlasInventory getInventory(Level world, ItemStack stack) {
-        UUID id = ItemNBTHelper.getUuid(stack, AtlasInventory.ID);
+        UUID id = ItemNbtHelper.getUuid(stack, AtlasInventory.ID);
         if (id == null) {
             id = UUID.randomUUID();
-            ItemNBTHelper.setUuid(stack, AtlasInventory.ID, id);
+            ItemNbtHelper.setUuid(stack, AtlasInventory.ID, id);
         }
         Map<UUID, AtlasInventory> cache = world.isClientSide ? clientCache : serverCache;
         AtlasInventory inventory = cache.get(id);
@@ -152,7 +146,7 @@ public class Atlases extends CharmModule {
     }
 
     public static void setupAtlasUpscale(Inventory playerInventory, CartographyTableMenu container) {
-        if (ModuleHandler.enabled(Atlases.class)) {
+        if (Charm.LOADER.isEnabled(Atlases.class)) {
             Slot oldSlot = container.slots.get(0);
             container.slots.set(0, new Slot(oldSlot.container, ((SlotAccessor)oldSlot).accessGetIndex(), oldSlot.x, oldSlot.y) {
                 @Override
@@ -165,13 +159,13 @@ public class Atlases extends CharmModule {
 
     public static boolean makeAtlasUpscaleOutput(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, Level world,
         ResultContainer craftResultInventory, CartographyTableMenu cartographyContainer) {
-        if (ModuleHandler.enabled(Atlases.class) && topStack.getItem() == ATLAS_ITEM) {
+        if (Charm.LOADER.isEnabled(Atlases.class) && topStack.getItem() == ATLAS_ITEM) {
             AtlasInventory inventory = getInventory(world, topStack);
             ItemStack output;
             if (inventory.getMapInfos().isEmpty() && bottomStack.getItem() == Items.MAP && inventory.getScale() < 4) {
                 output = topStack.copy();
-                ItemNBTHelper.setUuid(output, AtlasInventory.ID, UUID.randomUUID());
-                ItemNBTHelper.setInt(output, AtlasInventory.SCALE, inventory.getScale() + 1);
+                ItemNbtHelper.setUuid(output, AtlasInventory.ID, UUID.randomUUID());
+                ItemNbtHelper.setInt(output, AtlasInventory.SCALE, inventory.getScale() + 1);
             } else {
                 output = ItemStack.EMPTY;
             }

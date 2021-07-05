@@ -11,13 +11,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.event.EntityDropItemsCallback;
-import svenhjol.charm.module.CharmModule;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.loader.CharmModule;
 
-@Module(mod = Charm.MOD_ID, description = "Cave spiders have a chance to drop cobwebs.",
-    requiresMixins = {"EntityDropItemsCallback"})
+@CommonModule(mod = Charm.MOD_ID, description = "Cave spiders have a chance to drop cobwebs.")
 public class CaveSpidersDropCobwebs extends CharmModule {
     public static double lootingBoost = 0.3D;
 
@@ -25,7 +24,7 @@ public class CaveSpidersDropCobwebs extends CharmModule {
     public static int maxDrops = 2;
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         EntityDropItemsCallback.AFTER.register((this::tryDropCobweb));
     }
 

@@ -5,10 +5,8 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import svenhjol.charm.annotation.CharmMixin;
 
 @Mixin(Features.class)
-@CharmMixin(required = true)
 public interface FeaturesAccessor {
     @Accessor("AZALEA_TREE")
     static ConfiguredFeature<TreeConfiguration, ?> getAzaleaTree() {

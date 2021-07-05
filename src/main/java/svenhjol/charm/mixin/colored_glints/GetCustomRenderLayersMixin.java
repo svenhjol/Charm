@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.colored_glints.ColoredGlintHandler;
+import svenhjol.charm.module.colored_glints.ColoredGlintsClient;
 import svenhjol.charm.module.colored_glints.ColoredGlints;
 
 @Mixin(RenderType.class)
@@ -17,7 +17,7 @@ public class GetCustomRenderLayersMixin {
     )
     private static void hookGetArmorGlint(CallbackInfoReturnable<RenderType> cir) {
         if (ColoredGlints.enabled)
-            cir.setReturnValue(ColoredGlintHandler.getArmorGlintRenderLayer());
+            cir.setReturnValue(ColoredGlintsClient.getArmorGlintRenderLayer());
     }
 
     @Inject(
@@ -27,7 +27,7 @@ public class GetCustomRenderLayersMixin {
     )
     private static void hookGetArmorEntityGlint(CallbackInfoReturnable<RenderType> cir) {
         if (ColoredGlints.enabled)
-            cir.setReturnValue(ColoredGlintHandler.getArmorEntityGlintRenderLayer());
+            cir.setReturnValue(ColoredGlintsClient.getArmorEntityGlintRenderLayer());
     }
 
     @Inject(
@@ -37,7 +37,7 @@ public class GetCustomRenderLayersMixin {
     )
     private static void hookGetEntityGlint(CallbackInfoReturnable<RenderType> cir) {
         if (ColoredGlints.enabled)
-            cir.setReturnValue(ColoredGlintHandler.getEntityGlintRenderLayer());
+            cir.setReturnValue(ColoredGlintsClient.getEntityGlintRenderLayer());
     }
 
     @Inject(
@@ -47,7 +47,7 @@ public class GetCustomRenderLayersMixin {
     )
     private static void hookGetEntityGlintDirect(CallbackInfoReturnable<RenderType> cir) {
         if (ColoredGlints.enabled)
-            cir.setReturnValue(ColoredGlintHandler.getDirectEntityGlintRenderLayer());
+            cir.setReturnValue(ColoredGlintsClient.getDirectEntityGlintRenderLayer());
     }
 
     @Inject(
@@ -57,7 +57,7 @@ public class GetCustomRenderLayersMixin {
     )
     private static void hookGetGlint(CallbackInfoReturnable<RenderType> cir) {
         if (ColoredGlints.enabled)
-            cir.setReturnValue(ColoredGlintHandler.getGlintRenderLayer());
+            cir.setReturnValue(ColoredGlintsClient.getGlintRenderLayer());
     }
 
     @Inject(
@@ -67,6 +67,6 @@ public class GetCustomRenderLayersMixin {
     )
     private static void hookGetGlintDirect(CallbackInfoReturnable<RenderType> cir) {
         if (ColoredGlints.enabled)
-            cir.setReturnValue(ColoredGlintHandler.getDirectGlintRenderLayer());
+            cir.setReturnValue(ColoredGlintsClient.getDirectGlintRenderLayer());
     }
 }

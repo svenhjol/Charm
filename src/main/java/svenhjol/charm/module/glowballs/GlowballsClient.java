@@ -7,14 +7,12 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.EntityType;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.ClientSpawnEntityCallback;
-import svenhjol.charm.module.CharmClientModule;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
-public class GlowballsClient extends CharmClientModule {
-    public GlowballsClient(CharmModule module) {
-        super(module);
-    }
+@ClientModule(module = Glowballs.class)
+public class GlowballsClient extends CharmModule {
 
     @Override
     public void register() {
@@ -25,7 +23,7 @@ public class GlowballsClient extends CharmClientModule {
     }
 
     @Override
-    public void init() {
+    public void runWhenEnabled() {
         ClientSpawnEntityCallback.EVENT.register(this::handleClientSpawnEntity);
     }
 

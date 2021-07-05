@@ -1,16 +1,5 @@
 package svenhjol.charm.module.anvil_improvements;
 
-import svenhjol.charm.Charm;
-import svenhjol.charm.module.CharmModule;
-import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.handler.ModuleHandler;
-import svenhjol.charm.annotation.Config;
-import svenhjol.charm.annotation.Module;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -21,8 +10,18 @@ import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import svenhjol.charm.Charm;
+import svenhjol.charm.annotation.Config;
+import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.helper.PlayerHelper;
+import svenhjol.charm.loader.CharmModule;
 
-@Module(mod = Charm.MOD_ID, description = "Removes minimum and maximum XP costs on the anvil. Anvils are also less likely to break.")
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+@CommonModule(mod = Charm.MOD_ID, description = "Removes minimum and maximum XP costs on the anvil. Anvils are also less likely to break.")
 public class AnvilImprovements extends CharmModule {
     @Config(name = "Remove Too Expensive", description = "If true, removes the maximum cost of 40 XP when working items on the anvil.")
     public static boolean removeTooExpensive = true;
@@ -37,11 +36,11 @@ public class AnvilImprovements extends CharmModule {
     public static boolean showRepairCost = true;
 
     public static boolean removeTooExpensive() {
-        return ModuleHandler.enabled("charm:anvil_improvements") && AnvilImprovements.removeTooExpensive;
+        return Charm.LOADER.isEnabled(AnvilImprovements.class) && AnvilImprovements.removeTooExpensive;
     }
 
     public static boolean allowTakeWithoutXp(Player player, DataSlot levelCost) {
-        return ModuleHandler.enabled("charm:anvil_improvements")
+        return Charm.LOADER.isEnabled(AnvilImprovements.class)
             && (PlayerHelper.getAbilities(player).instabuild || ((player.experienceLevel >= levelCost.get()) && levelCost.get() > -1));
     }
 
@@ -49,7 +48,7 @@ public class AnvilImprovements extends CharmModule {
         if (book.isEmpty() || output.isEmpty())
             return;
 
-        if (ModuleHandler.enabled(AnvilImprovements.class) && book.getItem() instanceof EnchantedBookItem) {
+        if (Charm.LOADER.isEnabled(AnvilImprovements.class) && book.getItem() instanceof EnchantedBookItem) {
             Map<Enchantment, Integer> reset = new HashMap<>();
             Map<Enchantment, Integer> bookEnchants = EnchantmentHelper.getEnchantments(book);
 
@@ -68,7 +67,7 @@ public class AnvilImprovements extends CharmModule {
     }
 
     public static boolean tryDamageAnvil() {
-        return ModuleHandler.enabled("charm:anvil_improvements")
+        return Charm.LOADER.isEnabled(AnvilImprovements.class)
             && AnvilImprovements.strongerAnvils
             && new Random().nextFloat() < 0.5F;
     }

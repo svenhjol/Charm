@@ -5,8 +5,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChainBlock;
-import svenhjol.charm.block.ICharmBlock;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 public class CharmChainBlock extends ChainBlock implements ICharmBlock {
     private final CharmModule module;
@@ -34,7 +33,7 @@ public class CharmChainBlock extends ChainBlock implements ICharmBlock {
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }
 

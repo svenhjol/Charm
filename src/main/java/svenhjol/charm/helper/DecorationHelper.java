@@ -6,12 +6,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import svenhjol.charm.enums.IVariantMaterial;
+import svenhjol.charm.enums.IWoodMaterial;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Function;
 
+@SuppressWarnings({"unused"})
 public class DecorationHelper {
     public static List<Block> BARK = new ArrayList<>();
     public static List<ResourceLocation> BOOKCASE_LOOT_TABLES = new ArrayList<>();
@@ -29,8 +30,8 @@ public class DecorationHelper {
     public static List<EntityType<?>> SPAWNER_MOBS = new ArrayList<>();
     public static List<Block> STRIPPED_LOGS = new ArrayList<>();
     public static List<Block> STRIPPED_WOOD = new ArrayList<>();
-    public static List<IVariantMaterial> VARIANT_MATERIALS = new ArrayList<>();
-    public static List<IVariantMaterial> OVERWORLD_VARIANT_MATERIALS = new ArrayList<>();
+    public static List<IWoodMaterial> VARIANT_MATERIALS = new ArrayList<>();
+    public static List<IWoodMaterial> OVERWORLD_VARIANT_MATERIALS = new ArrayList<>();
     public static List<Block> WOOL = new ArrayList<>();
 
     public static Map<Block, Function<Direction, BlockState>> STATE_CALLBACK = new HashMap<>();
@@ -82,17 +83,17 @@ public class DecorationHelper {
         return state;
     }
 
-    public static IVariantMaterial getRandomVariantMaterial(Random random) {
+    public static IWoodMaterial getRandomVariantMaterial(Random random) {
         return VARIANT_MATERIALS.get(random.nextInt(VARIANT_MATERIALS.size()));
     }
 
-    public static IVariantMaterial getRandomOverworldVariantMaterial(Random random) {
+    public static IWoodMaterial getRandomOverworldVariantMaterial(Random random) {
         return OVERWORLD_VARIANT_MATERIALS.get(random.nextInt(OVERWORLD_VARIANT_MATERIALS.size()));
     }
 
     @Nullable
-    public static IVariantMaterial getVariantMaterial(String string) {
-        for (IVariantMaterial material : VARIANT_MATERIALS) {
+    public static IWoodMaterial getVariantMaterial(String string) {
+        for (IWoodMaterial material : VARIANT_MATERIALS) {
             if (material.getSerializedName().equals(string))
                 return material;
         }

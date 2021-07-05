@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmLeavesBlock extends LeavesBlock implements ICharmBlock {
     private final CharmModule module;
@@ -38,6 +38,6 @@ public abstract class CharmLeavesBlock extends LeavesBlock implements ICharmBloc
 
     @Override
     public boolean enabled() {
-        return module.enabled;
+        return module.isEnabled();
     }
 }

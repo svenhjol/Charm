@@ -9,13 +9,13 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.PoiTypeAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings({"unused"})
 public class WorldHelper {
     public static boolean addForcedChunk(ServerLevel world, BlockPos pos) {
         ChunkPos chunkPos = new ChunkPos(pos);
@@ -27,7 +27,7 @@ public class WorldHelper {
             if (result) break;
         }
         if (result)
-            Charm.LOG.debug("Force loaded chunk " + chunkPos.toString());
+            LogHelper.debug(WorldHelper.class, "Force loaded chunk " + chunkPos);
 
         return result;
     }
@@ -36,9 +36,9 @@ public class WorldHelper {
         ChunkPos chunkPos = new ChunkPos(pos);
         boolean result = world.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), false);
         if (!result) {
-            Charm.LOG.error("Could not unload forced chunk - this is probably really bad.");
+            LogHelper.error(WorldHelper.class, "Could not unload forced chunk - this is probably really bad.");
         } else {
-            Charm.LOG.debug("Unloaded forced chunk " + chunkPos.toString());
+            LogHelper.debug(WorldHelper.class, "Unloaded forced chunk " + chunkPos);
         }
         return result;
     }
@@ -80,9 +80,6 @@ public class WorldHelper {
         }
 
         PoiTypeAccessor.getAllStates().addAll(states);
-
-        states.forEach(state -> {
-            PoiTypeAccessor.getTypeByState().put(state, poit);
-        });
+        states.forEach(state -> PoiTypeAccessor.getTypeByState().put(state, poit));
     }
 }

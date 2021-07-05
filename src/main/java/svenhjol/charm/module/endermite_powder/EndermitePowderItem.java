@@ -1,6 +1,6 @@
 package svenhjol.charm.module.endermite_powder;
 
-import svenhjol.charm.module.CharmModule;
+import svenhjol.charm.loader.CharmModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -18,8 +18,6 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.helper.DimensionHelper;
 import svenhjol.charm.item.CharmItem;
-import svenhjol.charm.module.endermite_powder.EndermitePowder;
-import svenhjol.charm.module.endermite_powder.EndermitePowderEntity;
 
 public class EndermitePowderItem extends CharmItem {
     public EndermitePowderItem(CharmModule module) {
