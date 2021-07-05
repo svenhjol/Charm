@@ -37,6 +37,7 @@ public class CookingPotBlockEntity extends BlockEntity implements BlockEntityCli
     public int portions = 0;
     public float hunger = 0.0F;
     public float saturation = 0.0F;
+    public float ticks = 0.0F;
     public List<ResourceLocation> contents = new ArrayList<>();
 
     public CookingPotBlockEntity(BlockPos pos, BlockState state) {

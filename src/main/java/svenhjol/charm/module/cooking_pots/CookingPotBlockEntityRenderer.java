@@ -32,7 +32,6 @@ import java.util.Optional;
 public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> implements BlockEntityRenderer<T> {
     private final BlockEntityRendererProvider.Context context;
     private int index = 0;
-    private float ticks = 0.0F;
 
     public CookingPotBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         this.context = context;
@@ -60,8 +59,8 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
         matrices.scale(0.57F, 0.57F, 0.57F);
         matrices.translate(0.82F, 0.68F, 0.82F);
 
-        if (ticks > 360) {
-            ticks = 0;
+        if (entity.ticks > 360) {
+            entity.ticks = 0;
             if (++index > entity.contents.size() - 1)
                 index = 0;
         }
@@ -76,10 +75,10 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
             return;
         }
 
-        matrices.translate(0, 0.52 + (((ticks > 180 ? (360 - ticks) : ticks) / 180.0F) * 0.39F), 0);
-        matrices.mulPose(Vector3f.YP.rotationDegrees(ticks));
+        matrices.translate(0, 0.52 + (((entity.ticks > 180 ? (360 - entity.ticks) : entity.ticks) / 180.0F) * 0.39F), 0);
+        matrices.mulPose(Vector3f.YP.rotationDegrees(entity.ticks));
 
-        ticks += 0.3F;
+        entity.ticks += 0.3F;
 
         Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.FIXED, light, OverlayTexture.NO_OVERLAY, matrices, vertexConsumers, entity.hashCode());
         matrices.popPose();
