@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.core;
+package svenhjol.charm.mixin.helper;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementList;

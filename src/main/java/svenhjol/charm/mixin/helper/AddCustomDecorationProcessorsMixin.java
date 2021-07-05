@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.core;
+package svenhjol.charm.mixin.helper;
 
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.feature.structures.SinglePoolElement;
