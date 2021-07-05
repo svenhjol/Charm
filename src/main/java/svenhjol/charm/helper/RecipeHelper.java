@@ -54,7 +54,7 @@ public class RecipeHelper {
                         && !RECIPES_TO_REMOVE.contains(res);
 
                     if (!enabled)
-                        LogHelper.debug(RecipeHelper.class, " > Filtering out recipe `" + res + "`");
+                        LogHelper.debug(RecipeHelper.class, "> Filtering out recipe `" + res + "`");
 
                     return enabled;
                 });
