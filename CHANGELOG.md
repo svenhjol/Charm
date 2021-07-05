@@ -1,10 +1,18 @@
 # Changelog
 
 ### 3.3.0
-* Reworked module loader. **Some minor configuration keys may have changed**
+* Reworked module loader. **Some minor configuration keys have changed**
 * Reworked recipe and advancement filtering
+* Fix Potion of Hogsbane working intermittently
+* Fix advancement titles not working on server side
+* Fix cooking pot renderer tick speed and item icon problems
 * Simplified Music Improvements feature
+* Updated colored bundle graphics
+* Changing enchantment color on an anvil has now had its XP cost increased from 0 to 1 level
+* Added hunger and saturation icons to mixed stew tooltips
+* Added recipe for snowballs from snow blocks
 * Added ModMenu and Cloth Config support
+* Added BundleSorting, use scrollwheel while hovering to rotate the order of contents
 * Added preliminary API for non-Charm-based mods
 
 ### 3.2.3
