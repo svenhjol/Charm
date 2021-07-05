@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.module.core.SortingRecipeManager;
 
 @Mixin(value = ServerResources.class)
-public class AddSortingRecipeManager {
+public class AddSortingRecipeManagerMixin {
     @Shadow @Final private ReloadableResourceManager resources;
     @Unique private SortingRecipeManager sortingRecipeManager;
 

@@ -22,7 +22,7 @@ import java.util.Map;
  * @link {https://github.com/FabricMC/fabric/issues/66#issuecomment-614970964}
  */
 @Mixin(VanillaPackResources.class)
-public class FixFabricResourcePacks { // TODO: blacklisted for now, it's b0rk in pre3
+public class FixFabricResourcePacksMixin { // TODO: blacklisted for now, it's b0rk in pre3
     @Shadow @Final private static Map<PackType, Path> ROOT_DIR_BY_TYPE;
 
     @Inject(method = "getResourceAsStream(Lnet/minecraft/server/packs/PackType;Lnet/minecraft/resources/ResourceLocation;)Ljava/io/InputStream;", at = @At("HEAD"), cancellable = true)
