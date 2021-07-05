@@ -6,6 +6,7 @@ import net.minecraft.world.entity.monster.hoglin.HoglinAi;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
+@SuppressWarnings("unused")
 @Mixin(HoglinAi.class)
 public interface HoglinAiAccessor {
     @Invoker
