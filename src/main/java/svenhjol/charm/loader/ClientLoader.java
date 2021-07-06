@@ -1,18 +1,20 @@
 package svenhjol.charm.loader;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("unused")
-public class ClientLoader<T extends CharmModule> extends ModuleLoader<T> {
+@SuppressWarnings({"unused", "unchecked"})
+public class ClientLoader<T extends CharmModule, L extends ModuleLoader<T>> extends ModuleLoader<T> {
     private static final Map<ResourceLocation, CharmModule> ALL_MODULES = new HashMap<>();
 
-    public ClientLoader(String modId, String basePackage) {
+    private final L loader;
+
+    public ClientLoader(String modId, L loader, String basePackage) {
         super(modId, basePackage);
+        this.loader = loader;
         getModules().forEach(module -> ALL_MODULES.put(module.getId(), module));
     }
 
@@ -28,7 +30,7 @@ public class ClientLoader<T extends CharmModule> extends ModuleLoader<T> {
 
             module.setModId(getModId());
             module.setPriority(annotation.priority());
-            module.addDependencyCheck(m -> Charm.LOADER.isEnabled(annotation.module()));
+            module.addDependencyCheck(m -> loader.isEnabled((Class<? extends T>) annotation.module()));
         } else {
             throw new RuntimeException("[ClientLoader] Missing annotation for client module `" + clazz + "`");
         }
