@@ -32,7 +32,7 @@ public abstract class BaseModMenuPlugin<T extends CharmModule> implements ModMen
         return parent -> {
             ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(new TranslatableComponent("cloth.title"));
+                .setTitle(new TranslatableComponent("cloth." + getModId() + ".title"));
 
             // get all the loader modules
             List<T> modules = new LinkedList<>(getModules());
@@ -42,7 +42,7 @@ public abstract class BaseModMenuPlugin<T extends CharmModule> implements ModMen
                 ConfigHelper.writeConfig(getModId(), modules);
             });
 
-            ConfigCategory mainCategory = builder.getOrCreateCategory(new TranslatableComponent("cloth.category.title"));
+            ConfigCategory mainCategory = builder.getOrCreateCategory(new TranslatableComponent("cloth." + getModId() + ".category.title"));
 
             for (T module : modules) {
                 Map<Field, Object> properties = getModuleConfigProperties(module);
@@ -52,7 +52,7 @@ public abstract class BaseModMenuPlugin<T extends CharmModule> implements ModMen
 
                 if (!module.isAlwaysEnabled()) {
                     FieldBuilder<?, ?> enabledValue = builder.entryBuilder()
-                        .startBooleanToggle(new TranslatableComponent("cloth.category.module_enabled"), module.isEnabledInConfig())
+                        .startBooleanToggle(new TranslatableComponent("cloth." + getModId() + ".category.module_enabled"), module.isEnabledInConfig())
                         .setDefaultValue(module.isEnabledByDefault()) // Used when user click "Reset"
                         .setTooltip(new TranslatableComponent(StringHelper.splitOverLines(module.getDescription()))) // Shown when the user hover over this option
                         .setSaveConsumer(module::setEnabledInConfig)

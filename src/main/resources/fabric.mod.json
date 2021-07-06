@@ -11,8 +11,9 @@
     "WarlordWossman"
   ],
   "contact": {
-    "homepage": "https://svenhjol.github.io/Charm/",
-    "sources": "https://github.com/svenhjol/Charm"
+    "homepage": "https://svenhjol.github.io/Charm",
+    "sources": "https://github.com/svenhjol/Charm",
+    "issues": "https://github.com/svenhjol/Charm/issues"
   },
 
   "license": "MIT",
