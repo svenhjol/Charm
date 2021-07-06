@@ -62,7 +62,7 @@ public class CookingPotBlockEntityRenderer<T extends CookingPotBlockEntity> impl
             entity.displayTicks = 0;
             if (entity.contents.size() > 1) {
                 entity.displayIndex++;
-                if (entity.displayIndex > entity.contents.size() - 1)
+                if (entity.displayIndex >= entity.contents.size())
                     entity.displayIndex = 0;
             } else {
                 entity.displayIndex = 0;
