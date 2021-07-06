@@ -3,8 +3,9 @@ package svenhjol.charm.api;
 import net.minecraft.util.StringRepresentable;
 
 /**
- * @version 1.0.0
+ * @version 1.0.1
  */
+@SuppressWarnings("unused")
 public enum CharmNetworkReferences implements StringRepresentable {
     ClientUpdatePlayerState("charm:client_update_player_state"),
     ServerUpdatePlayerState("charm:server_update_player_state");

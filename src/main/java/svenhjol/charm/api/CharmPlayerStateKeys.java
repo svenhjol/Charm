@@ -3,8 +3,9 @@ package svenhjol.charm.api;
 import net.minecraft.util.StringRepresentable;
 
 /**
- * @version 1.0.0
+ * @version 1.1.0
  */
+@SuppressWarnings("unused")
 public enum CharmPlayerStateKeys implements StringRepresentable {
     InsideVillage("village"),
     InsideMineshaft("mineshaft"),
@@ -19,7 +20,10 @@ public enum CharmPlayerStateKeys implements StringRepresentable {
     InsideMansion("mansion"),
     InsideNetherFortress("nether_fortress"),
     InsideBastionRemnant("bastion_remnant"),
-    InsideEndCity("end_city");
+    InsideEndCity("end_city"),
+    InsideOverworldRuin("overworld_ruin"),
+    InsideNetherRuin("nether_ruin"),
+    InsideEndRuin("end_ruin");
 
     private final String name;
 

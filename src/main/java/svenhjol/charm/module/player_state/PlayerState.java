@@ -26,10 +26,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+@SuppressWarnings("unused")
 @CommonModule(mod = Charm.MOD_ID, alwaysEnabled = true, description = "Synchronize additional state from server to client.")
 public class PlayerState extends CharmModule {
     public static final ResourceLocation MSG_SERVER_UPDATE = new ResourceLocation(CharmNetworkReferences.ServerUpdatePlayerState.toString());
     private static final Map<String, StructureFeature<?>> VANILLA_STRUCTURES = new HashMap<>();
+    private static final List<String> OVERWORLD_RUINS = new ArrayList<>();
+    private static final List<String> NETHER_RUINS = new ArrayList<>();
+    private static final List<String> END_RUINS = new ArrayList<>();
     private static final List<BiConsumer<ServerPlayer, CompoundTag>> callbacks = new ArrayList<>();
 
     @Config(name = "Server state update interval", description = "Interval (in ticks) on which additional player state will be synchronised to the client.")
@@ -64,7 +68,15 @@ public class PlayerState extends CharmModule {
         // if the player is inside a vanilla structure, add it to the nbt
         for (Map.Entry<String, StructureFeature<?>> entry : VANILLA_STRUCTURES.entrySet()) {
             if (PosHelper.isInsideStructure(level, pos, entry.getValue())) {
-                nbt.putBoolean(entry.getKey(), true);
+                String key = entry.getKey();
+                nbt.putBoolean(key, true);
+
+                if (OVERWORLD_RUINS.contains(key))
+                    nbt.putBoolean(CharmPlayerStateKeys.InsideOverworldRuin.toString(), true);
+
+                if (NETHER_RUINS.contains(key))
+                    nbt.putBoolean(CharmPlayerStateKeys.InsideNetherRuin.toString(), true);
+
                 break;
             }
         }
@@ -94,5 +106,8 @@ public class PlayerState extends CharmModule {
         VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideNetherFortress.toString(), StructureFeature.NETHER_BRIDGE);
         VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideBastionRemnant.toString(), StructureFeature.BASTION_REMNANT);
         VANILLA_STRUCTURES.put(CharmPlayerStateKeys.InsideEndCity.toString(), StructureFeature.END_CITY);
+
+        OVERWORLD_RUINS.add(CharmPlayerStateKeys.InsideStronghold.toString());
+        NETHER_RUINS.add(CharmPlayerStateKeys.InsideBastionRemnant.toString());
     }
 }
