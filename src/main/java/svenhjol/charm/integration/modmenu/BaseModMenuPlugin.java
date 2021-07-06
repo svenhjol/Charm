@@ -19,7 +19,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 /**
- * @version 1.0.1-charm
+ * @version 1.0.2-charm
  */
 @SuppressWarnings("unchecked")
 public abstract class BaseModMenuPlugin<T extends CharmModule> implements ModMenuApi {
@@ -99,7 +99,8 @@ public abstract class BaseModMenuPlugin<T extends CharmModule> implements ModMen
                     }
                 });
 
-                mainCategory.addEntry(subcategory.build());
+                if (!subcategory.isEmpty())
+                    mainCategory.addEntry(subcategory.build());
             }
 
             return builder.build();
