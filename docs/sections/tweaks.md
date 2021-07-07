@@ -17,6 +17,12 @@ All recipes will be unlocked when the player enters a world.
 ![Auto Restock](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
 Refills your hotbar from your inventory.
 
+### Bundle Sorting
+![Editable Signs](https://raw.githubusercontent.com/svenhjol/Charm-Assets/master/web/charm-features/nope.png)
+Use the scrollwheel when hovering over a bundle to change the order of its contents.
+
+`New for 1.17!`
+
 ### Campfires no damage
 ![Campfires no damage](https://github.com/svenhjol/Charm-Assets/blob/master/web/charm-features/campfire-no-damage.png?raw=true)
 Campfires no longer damage mobs.
