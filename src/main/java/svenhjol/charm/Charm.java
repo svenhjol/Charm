@@ -15,10 +15,10 @@ public class Charm implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        initCharm();
+        init();
     }
 
-    public static void initCharm() {
+    public static void init() {
         if (hasStartedCharm) return;
 
         CharmLog.init();
