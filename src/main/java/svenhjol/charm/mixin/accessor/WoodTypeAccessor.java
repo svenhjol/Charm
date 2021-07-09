@@ -4,6 +4,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
+@SuppressWarnings("unused")
 @Mixin(WoodType.class)
 public interface WoodTypeAccessor {
     @Invoker("<init>")

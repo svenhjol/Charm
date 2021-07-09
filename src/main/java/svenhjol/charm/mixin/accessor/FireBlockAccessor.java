@@ -17,11 +17,5 @@ public interface FireBlockAccessor {
     Object2IntMap<Block> getFlameOdds();
 
     @Mutable @Accessor
-    void setFlameOdds(Object2IntMap<Block> odds);
-
-    @Mutable @Accessor
     Object2IntMap<Block> getBurnOdds();
-
-    @Mutable @Accessor
-    void setBurnOdds(Object2IntMap<Block> odds);
 }

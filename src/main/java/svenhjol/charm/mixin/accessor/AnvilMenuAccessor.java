@@ -12,7 +12,4 @@ public interface AnvilMenuAccessor {
 
     @Accessor
     DataSlot getCost();
-
-    @Accessor
-    void setRepairItemCountCost(int cost);
 }

@@ -16,8 +16,5 @@ public interface WeightedRandomListAccessor<E extends WeightedEntry> {
     void setItems(ImmutableList<E> items);
 
     @Mutable @Accessor
-    int getTotalWeight();
-
-    @Mutable @Accessor
     void setTotalWeight(int totalWeight);
 }

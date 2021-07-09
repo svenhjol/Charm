@@ -12,9 +12,4 @@ public interface FeaturesAccessor {
     static ConfiguredFeature<TreeConfiguration, ?> getAzaleaTree() {
         throw new IllegalStateException();
     }
-
-    @Accessor("AZALEA_TREE")
-    static void setAzaleaTree(ConfiguredFeature<TreeConfiguration, ?> tree) {
-        throw new IllegalStateException();
-    }
 }

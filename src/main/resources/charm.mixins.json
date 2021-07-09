@@ -3,18 +3,19 @@
   "minVersion": "0.8.2",
   "package": "svenhjol.charm.mixin",
   "compatibilityLevel": "JAVA_16",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "svenhjol.charm.mixin.CharmMixinConfigPlugin",
   "mixins": [
     "accessor.AnvilMenuAccessor",
     "accessor.AxeItemAccessor",
     "accessor.BeeAccessor",
     "accessor.BiomeGenerationSettingsAccessor",
-    "accessor.BlockAccessor",
     "accessor.BlockEntityTypeAccessor",
-    "accessor.BlocksAccessor",
     "accessor.BlockTagsAccessor",
     "accessor.BoatAccessor",
     "accessor.BundleItemAccessor",
-    "accessor.DispenserBlockAccessor",
     "accessor.FeaturesAccessor",
     "accessor.FireBlockAccessor",
     "accessor.GoalSelectorAccessor",
@@ -34,17 +35,14 @@
     "accessor.PlayerDataStorageAccessor",
     "accessor.PoiTypeAccessor",
     "accessor.PotionBrewingAccessor",
-    "accessor.ProcessorListsAccessor",
     "accessor.RecipeManagerAccessor",
     "accessor.ServerLevelAccessor",
-    "accessor.ServerPlayerAccessor",
     "accessor.ShulkerBoxBlockEntityAccessor",
     "accessor.SimpleParticleTypeAccessor",
     "accessor.SlotAccessor",
     "accessor.StructurePieceAccessor",
     "accessor.StructureTemplatePoolAccessor",
     "accessor.TreeConfigurationAccessor",
-    "accessor.VillagerAccessor",
     "accessor.WeightedRandomListAccessor",
     "accessor.WoodTypeAccessor",
     "aerial_affinity_enchantment.AllowBlockBreakMixin",
@@ -119,12 +117,9 @@
   ],
   "client": [
     "accessor.AbstractContainerScreenAccessor",
-    "accessor.AbstractTickableSoundInstanceAccessor",
     "accessor.EntityRenderDispatcherAccessor",
-    "accessor.ItemRendererAccessor",
     "accessor.LivingEntityRendererAccessor",
     "accessor.MinecraftAccessor",
-    "accessor.NativeImageAccessor",
     "accessor.RenderBuffersAccessor",
     "accessor.RenderLayerAccessor",
     "accessor.RenderStateShardAccessor",
@@ -162,9 +157,5 @@
     "storage_labels.CallStorageLabelsRenderMixin",
     "storage_labels.GetChestBlockEntityContextMixin",
     "variant_chests.FetchCustomChestTextureMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "plugin": "svenhjol.charm.mixin.CharmMixinConfigPlugin"
+  ]
 }

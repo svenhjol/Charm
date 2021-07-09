@@ -7,12 +7,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(Item.class)
 public interface ItemAccessor {
-    @Accessor
-    int getMaxStackSize();
-
     @Mutable @Accessor
     void setMaxStackSize(int maxCount);
-
-    @Accessor()
-    void setDescriptionId(String key);
 }
