@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.metadata.ModMetadata;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -18,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @version 1.0.1-charm
+ * @version 1.0.2-charm
  */
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class StringHelper {
@@ -65,7 +64,6 @@ public class StringHelper {
         if (!languageStrings.containsKey(modId)) {
             // try and parse the mod's en_us language file into a json object
             FabricLoader.getInstance().getModContainer(modId).ifPresent(container -> {
-                ModMetadata metadata = container.getMetadata();
                 Path path = container.getPath("assets/" + modId + "/lang/en_us.json");
 
                 try (JsonReader reader = new JsonReader(new InputStreamReader(Files.newInputStream(path), StandardCharsets.UTF_8))) {

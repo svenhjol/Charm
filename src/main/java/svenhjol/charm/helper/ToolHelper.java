@@ -6,6 +6,9 @@ import svenhjol.charm.mixin.accessor.AxeItemAccessor;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @version 1.0.0-charm
+ */
 public class ToolHelper {
     public static void addStrippableLog(Block raw, Block stripped) {
         makeStrippablesMutable();

@@ -5,18 +5,21 @@ import net.fabricmc.loader.api.FabricLoader;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @version 1.0.0-charm
+ */
 public class ModHelper {
-    private static final Map<String, Boolean> cachedLoaded = new HashMap<>();
+    private static final Map<String, Boolean> CACHED = new HashMap<>();
 
     public static boolean isLoaded(String mod) {
         boolean result;
 
-        if (!cachedLoaded.containsKey(mod)) {
+        if (!CACHED.containsKey(mod)) {
             FabricLoader instance = FabricLoader.getInstance();
             result = instance.isModLoaded(mod);
-            cachedLoaded.put(mod, result);
+            CACHED.put(mod, result);
         } else {
-            result = cachedLoaded.get(mod);
+            result = CACHED.get(mod);
         }
 
         return result;

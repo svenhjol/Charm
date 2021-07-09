@@ -19,9 +19,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
-import svenhjol.charm.helper.MapRenderHelper;
-import svenhjol.charm.module.atlases.AtlasInventory;
-import svenhjol.charm.module.atlases.Atlases;
+import svenhjol.charm.helper.ClientMapHelper;
 
 public class AtlasRenderer {
     public final RenderType ATLAS_BACKGROUND = RenderType.text(new ResourceLocation(Charm.MOD_ID, "textures/map/atlas_background.png"));
@@ -128,6 +126,6 @@ public class AtlasRenderer {
         matrixStack.scale(0.38F, 0.38F, 0.38F);
         matrixStack.translate(-0.5D, -0.5D, 0.0D);
         matrixStack.scale(0.0078125F, 0.0078125F, 0.0078125F);
-        MapRenderHelper.drawBackgroundVertex(matrixStack, light, buffers.getBuffer(background));
+        ClientMapHelper.drawBackgroundVertex(matrixStack, light, buffers.getBuffer(background));
     }
 }

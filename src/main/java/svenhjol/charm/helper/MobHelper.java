@@ -21,10 +21,13 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-import static svenhjol.charm.helper.PosHelper.isLikeAir;
-import static svenhjol.charm.helper.PosHelper.isLikeSolid;
+import static svenhjol.charm.helper.WorldHelper.isLikeAir;
+import static svenhjol.charm.helper.WorldHelper.isLikeSolid;
 
-@SuppressWarnings({"unused"})
+/**
+ * @version 1.0.0-charm
+ */
+@SuppressWarnings("unused")
 public class MobHelper {
     public static Set<WrappedGoal> getGoals(Mob mob) {
         return ((GoalSelectorAccessor)getGoalSelector(mob)).getAvailableGoals();
@@ -42,12 +45,12 @@ public class MobHelper {
         FabricDefaultAttributeRegistry.register(entityType, attributes);
     }
 
-    public static boolean spawnMobNearPos(ServerLevel world, BlockPos pos, Mob mob, BiConsumer<Mob, BlockPos> onSpawn) {
+    public static boolean spawnNearBlockPos(ServerLevel level, BlockPos pos, Mob mob, BiConsumer<Mob, BlockPos> onSpawn) {
         int range = 6;
         int tries = 8;
-        Random random = world.random;
+        Random random = level.random;
         List<BlockPos> validPositions = new ArrayList<>();
-        int surface = world.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ());
+        int surface = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ());
 
         for (int y = surface; y < surface + range; y++) {
             for (int i = range; i > 1; --i) {
@@ -55,9 +58,9 @@ public class MobHelper {
                     BlockPos checkPos = new BlockPos(pos.getX() + random.nextInt(i), y, pos.getZ() + random.nextInt(i));
                     BlockPos floor = checkPos.below();
                     BlockPos above = checkPos.above();
-                    boolean areaIsValid = isLikeSolid(world, floor)
-                        && isLikeAir(world, checkPos)
-                        && isLikeAir(world, above);
+                    boolean areaIsValid = isLikeSolid(level, floor)
+                        && isLikeAir(level, checkPos)
+                        && isLikeAir(level, above);
 
                     if (areaIsValid)
                         validPositions.add(checkPos);
@@ -73,8 +76,8 @@ public class MobHelper {
         } else {
             BlockPos spawnPos = validPositions.get(random.nextInt(validPositions.size()));
             mob.moveTo(spawnPos, 0.0F, 0.0F);
-            mob.finalizeSpawn(world, world.getCurrentDifficultyAt(spawnPos), MobSpawnType.TRIGGERED, null, null);
-            world.addFreshEntity(mob);
+            mob.finalizeSpawn(level, level.getCurrentDifficultyAt(spawnPos), MobSpawnType.TRIGGERED, null, null);
+            level.addFreshEntity(mob);
             onSpawn.accept(mob, spawnPos);
             return true;
         }

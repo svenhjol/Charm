@@ -21,6 +21,9 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @version 1.0.0-charm
+ */
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class PlayerHelper {
     /**
@@ -42,9 +45,9 @@ public class PlayerHelper {
         return ((PlayerAccessor)player).getAbilities();
     }
 
-    public static void teleport(Level world, BlockPos pos, Player player) {
-        if (!world.isClientSide) {
-            ServerLevel serverWorld = (ServerLevel) world;
+    public static void teleport(Level level, BlockPos pos, Player player) {
+        if (!level.isClientSide) {
+            ServerLevel serverWorld = (ServerLevel) level;
 
             double x = pos.getX() + 0.5D;
             double y = pos.getY() + 0.25D;
@@ -60,7 +63,7 @@ public class PlayerHelper {
             if (player.isSleeping())
                 player.stopSleepInBed(true, true);
 
-            if (world == player.level) {
+            if (level == player.level) {
                 ((ServerPlayer)player).connection.teleport(x, y, z, yaw, pitch, flags);
             } else {
                 ((ServerPlayer)player).teleportTo(serverWorld, x, y, z, yaw, pitch);

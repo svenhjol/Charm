@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
-import svenhjol.charm.helper.ClientHelper;
+import svenhjol.charm.helper.ScreenRenderHelper;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
@@ -100,7 +100,7 @@ public class CookingPotsClient extends CharmModule {
         int ox = 0;
         for (int i = 0; i < hunger; i++) {
             int iconOffsetX = i % 2 == 1 ? offsetStartX + 36 : offsetStartX + 45;
-            ClientHelper.getIconRenderer().renderGuiIcon(pose, iconStartX + ox, iconStartY + 2, iconOffsetX, 27, 9, 9);
+            ScreenRenderHelper.getIconRenderer().renderGuiIcon(pose, iconStartX + ox, iconStartY + 2, iconOffsetX, 27, 9, 9);
             if (i % 2 == 1) {
                 ox += (hunger < 10 ? 8 : 5);
             }
@@ -112,7 +112,7 @@ public class CookingPotsClient extends CharmModule {
         ox = 0;
         for (int i = 1; i < (saturation * 10); i++) {
             int iconOffsetX = i % 2 == 1 ? offsetStartX + 54 : offsetStartX + 63;
-            ClientHelper.getIconRenderer().renderGuiIcon(pose, iconStartX + ox, iconStartY + 11, iconOffsetX, 27, 9, 9);
+            ScreenRenderHelper.getIconRenderer().renderGuiIcon(pose, iconStartX + ox, iconStartY + 11, iconOffsetX, 27, 9, 9);
             if (i % 2 == 1) {
                 ox += (saturation < 1.2F ? 8 : 5);
             }

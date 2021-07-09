@@ -15,8 +15,10 @@ import java.util.List;
 /**
  * Originally from Quark ShulkerBoxTooltips#renderTooltipBackground()
  * Also copied shulker_widget.png to resources/assets/textures/gui/slot_widget.png
+ *
+ * @version 1.0.0-charm
  */
-@SuppressWarnings({"unused"})
+@SuppressWarnings("unused")
 public class TooltipHelper {
     private static final int CORNER = 5;
     private static final int BUFFER = 1;

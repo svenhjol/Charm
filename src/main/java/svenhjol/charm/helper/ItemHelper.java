@@ -9,16 +9,19 @@ import svenhjol.charm.mixin.accessor.ItemEntityAccessor;
 
 import java.util.*;
 
+/**
+ * @version 1.0.0-charm
+ */
 @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
 public class ItemHelper {
     public static Map<Item, Integer> ITEM_LIFETIME = new HashMap<>();
-    public static List<Item> BOWL_FOODS = Arrays.asList(
+    protected static List<Item> BOWL_FOODS = Arrays.asList(
         Items.MUSHROOM_STEW,
         Items.RABBIT_STEW,
         Items.BEETROOT_SOUP,
         Items.SUSPICIOUS_STEW
     );
-    public static List<Item> BOTTLE_FOODS = Arrays.asList(
+    protected static List<Item> BOTTLE_FOODS = Arrays.asList(
         Items.HONEY_BOTTLE
     );
 

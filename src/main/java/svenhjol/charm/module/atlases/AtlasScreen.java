@@ -27,7 +27,7 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
 import svenhjol.charm.client.CharmHandledScreen;
 import svenhjol.charm.client.CharmImageButton;
-import svenhjol.charm.helper.MapRenderHelper;
+import svenhjol.charm.helper.ClientMapHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.mixin.accessor.MapItemSavedDataAccessor;
 import svenhjol.charm.mixin.accessor.ScreenAccessor;
@@ -115,7 +115,7 @@ public class AtlasScreen extends CharmHandledScreen<AtlasContainer> {
     @Override
     protected void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
         super.renderLabels(matrices, mouseX, mouseY);
-        MapRenderHelper.renderMapWithBackground(matrices, LEFT, TOP, 0, BASE_SCALE, LIGHT, bufferSource -> mapGui.render(matrices, bufferSource, mouseX, mouseY));
+        ClientMapHelper.renderMapWithBackground(matrices, LEFT, TOP, 0, BASE_SCALE, LIGHT, bufferSource -> mapGui.render(matrices, bufferSource, mouseX, mouseY));
     }
 
     private void updateGui() {

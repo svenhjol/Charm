@@ -9,6 +9,9 @@ import net.minecraft.sounds.SoundSource;
 import svenhjol.charm.mixin.accessor.SoundManagerAccessor;
 import svenhjol.charm.mixin.accessor.SoundEngineAccessor;
 
+/**
+ * @version 1.0.0-charm
+ */
 public class SoundHelper {
     public static SoundManager getSoundManager() {
         return Minecraft.getInstance().getSoundManager();

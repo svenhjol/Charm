@@ -6,6 +6,9 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 
+/**
+ * @version 1.0.0-charm
+ */
 public class PotionHelper {
     public static ItemStack getPotionItemStack(Potion potion, int amount) {
         ItemStack out = new ItemStack(Items.POTION, amount);

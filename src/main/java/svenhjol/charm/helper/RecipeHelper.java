@@ -14,6 +14,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * @version 1.0.0-charm
+ */
 public class RecipeHelper {
     private static final List<ResourceLocation> RECIPES_TO_REMOVE = new ArrayList<>();
 

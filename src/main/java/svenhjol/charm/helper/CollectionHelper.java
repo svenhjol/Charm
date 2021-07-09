@@ -9,6 +9,9 @@ import svenhjol.charm.mixin.accessor.WeightedRandomListAccessor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @version 1.0.0-charm
+ */
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class CollectionHelper {
     /**

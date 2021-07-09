@@ -2,6 +2,9 @@ package svenhjol.charm.helper;
 
 import org.apache.logging.log4j.Logger;
 
+/**
+ * @version 1.0.0-charm
+ */
 public class LogHelper {
     public static Logger INSTANCE;
 

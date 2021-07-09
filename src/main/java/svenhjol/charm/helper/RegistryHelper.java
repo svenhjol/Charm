@@ -38,6 +38,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @version 1.0.0-charm
+ */
 @SuppressWarnings({"unused", "UnusedReturnValue", "ConstantConditions"})
 public class RegistryHelper {
     public static Block block(ResourceLocation id, Block block) {

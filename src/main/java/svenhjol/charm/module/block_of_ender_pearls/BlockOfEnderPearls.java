@@ -22,10 +22,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.AddEntityCallback;
-import svenhjol.charm.helper.AdvancementHelper;
-import svenhjol.charm.helper.MobHelper;
-import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.helper.PosHelper;
+import svenhjol.charm.helper.*;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
@@ -97,7 +94,7 @@ public class BlockOfEnderPearls extends CharmModule {
             if (state1.getMaterial() != Material.AIR || state2.getMaterial() != Material.AIR)
                 return; // don't suffocate the player
 
-            double dist = PosHelper.getDistanceSquared(playerPos, abovePos);
+            double dist = WorldHelper.getDistanceSquared(playerPos, abovePos);
             foundPositions.put(dist, abovePos);
         });
 

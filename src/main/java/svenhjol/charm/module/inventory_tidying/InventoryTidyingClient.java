@@ -16,7 +16,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
-import svenhjol.charm.helper.ScreenHelper;
+import svenhjol.charm.helper.ScreenRenderHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
@@ -85,8 +85,8 @@ public class InventoryTidyingClient extends CharmModule {
         Class<? extends AbstractContainerScreen> clazz = screen.getClass();
         AbstractContainerMenu screenHandler = screen.getMenu();
 
-        int x = ScreenHelper.getX(screen) + LEFT;
-        int y = ScreenHelper.getY(screen) - TOP;
+        int x = ScreenRenderHelper.getX(screen) + LEFT;
+        int y = ScreenRenderHelper.getY(screen) - TOP;
 
         if (screenTweaks.containsKey(clazz)) {
             Map<Integer, Integer> m = screenTweaks.get(clazz);
@@ -117,7 +117,7 @@ public class InventoryTidyingClient extends CharmModule {
         ) {
             // handles the recipe being open/closed
             InventoryScreen screen = (InventoryScreen)client.screen;
-            int x = ScreenHelper.getX(screen);
+            int x = ScreenRenderHelper.getX(screen);
             sortingButtons.forEach(button -> button.setPosition(x + LEFT, button.y));
         }
     }

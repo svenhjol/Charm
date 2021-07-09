@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@SuppressWarnings({"unused"})
+/**
+ * @version 1.0.0-charm
+ */
 public class LootHelper {
     public static List<ResourceLocation> CUSTOM_LOOT_TABLES = new ArrayList<>();
     public static Map<String, ResourceLocation> CACHED_LOOT_TABLES_NAMES = new HashMap<>();
@@ -21,10 +23,6 @@ public class LootHelper {
         allLootTables.addAll(CUSTOM_LOOT_TABLES);
 
         return allLootTables;
-    }
-
-    public static List<ResourceLocation> getVanillaChestLootTables() {
-        return getVanillaLootTables("chests/");
     }
 
     public static List<ResourceLocation> getVanillaVillageLootTables() {

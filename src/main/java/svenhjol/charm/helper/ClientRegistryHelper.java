@@ -12,6 +12,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
+/**
+ * @version 1.0.0-charm
+ */
 public class ClientRegistryHelper {
     public static void signMaterial(WoodType woodType) {
         Sheets.SIGN_MATERIALS.put(woodType, new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + woodType.name())));

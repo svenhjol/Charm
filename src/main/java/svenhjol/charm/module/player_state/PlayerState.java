@@ -17,7 +17,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.api.CharmNetworkReferences;
 import svenhjol.charm.api.CharmPlayerStateKeys;
 import svenhjol.charm.helper.NetworkHelper;
-import svenhjol.charm.helper.PosHelper;
+import svenhjol.charm.helper.WorldHelper;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class PlayerState extends CharmModule {
 
         // if the player is inside a vanilla structure, add it to the nbt
         for (Map.Entry<String, StructureFeature<?>> entry : VANILLA_STRUCTURES.entrySet()) {
-            if (PosHelper.isInsideStructure(level, pos, entry.getValue())) {
+            if (WorldHelper.isInsideStructure(level, pos, entry.getValue())) {
                 String key = entry.getKey();
                 nbt.putBoolean(key, true);
 

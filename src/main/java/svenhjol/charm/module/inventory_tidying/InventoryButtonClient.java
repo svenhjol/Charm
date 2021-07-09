@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
-import svenhjol.charm.helper.ScreenHelper;
+import svenhjol.charm.helper.ScreenRenderHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.portable_crafting.PortableCraftingClient;
 
@@ -52,7 +52,7 @@ public class InventoryButtonClient extends CharmModule {
     }
 
     private void redrawButtons(InventoryScreen screen) {
-        int left = ScreenHelper.getX(screen);
+        int left = ScreenRenderHelper.getX(screen);
 
         if (portableCraftingClient != null && portableCraftingClient.isButtonVisible()) {
             // just the recipe and crafting buttons

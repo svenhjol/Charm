@@ -9,6 +9,9 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
+/**
+ * @version 1.0.0-charm
+ */
 public class MapHelper {
     public static ItemStack getMap(ServerLevel world, BlockPos pos, TranslatableComponent mapName, MapDecoration.Type targetType, int color) {
         // generate the map

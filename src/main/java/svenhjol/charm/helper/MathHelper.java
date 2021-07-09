@@ -1,5 +1,8 @@
 package svenhjol.charm.helper;
 
+/**
+ * @version 1.0.0-charm
+ */
 public class MathHelper {
     /**
      * @link {https://stackoverflow.com/a/22186845}

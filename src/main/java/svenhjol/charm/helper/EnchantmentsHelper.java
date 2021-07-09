@@ -5,17 +5,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.init.CharmTags;
 
 import java.util.Map;
 
-@SuppressWarnings({"unused"})
+/**
+ * @version 1.0.0-charm
+ */
+@SuppressWarnings("unused")
 public class EnchantmentsHelper {
-    public static boolean canBlockPowerEnchantingTable(BlockState state) {
-        return state.is(CharmTags.PROVIDE_ENCHANTING_POWER);
-    }
-
     public static void apply(ItemStack stack, Enchantment enchantment, int level) {
         Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
         enchantments.put(enchantment, level);

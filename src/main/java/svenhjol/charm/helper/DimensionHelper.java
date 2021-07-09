@@ -14,30 +14,23 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * @version 1.0.0-charm
+ * @version 1.0.1-charm
  */
-@SuppressWarnings({"unused"})
+@SuppressWarnings("unused")
 public class DimensionHelper {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public static boolean isOverworld(Level world) {
-        return world.dimension() == Level.OVERWORLD;
+    public static boolean isOverworld(Level level) {
+        return level.dimension() == Level.OVERWORLD;
     }
 
-    public static boolean isNether(Level world) {
-        return world.dimension() == Level.NETHER;
+    public static boolean isDimension(Level level, ResourceLocation dimension) {
+        return getDimension(level).equals(dimension);
     }
 
-    public static boolean isEnd(Level world) {
-        return world.dimension() == Level.END;
-    }
 
-    public static boolean isDimension(Level world, ResourceLocation dimension) {
-        return getDimension(world).equals(dimension);
-    }
-
-    public static boolean isDimension(Level world, ResourceKey<Level> key) {
-        return world.dimension().equals(key);
+    public static boolean isDimension(Level level, ResourceKey<Level> key) {
+        return level.dimension().equals(key);
     }
 
     public static ResourceLocation getDimension(Level world) {
@@ -46,20 +39,20 @@ public class DimensionHelper {
     }
 
     @Nullable
-    public static ResourceKey<Level> getDimension(ResourceLocation dim) {
-        if (Level.OVERWORLD.location().equals(dim)) {
+    public static ResourceKey<Level> getDimension(ResourceLocation dimension) {
+        if (Level.OVERWORLD.location().equals(dimension)) {
             return Level.OVERWORLD;
-        } else if (Level.NETHER.location().equals(dim)) {
+        } else if (Level.NETHER.location().equals(dimension)) {
             return Level.NETHER;
-        } else if (Level.END.location().equals(dim)) {
+        } else if (Level.END.location().equals(dimension)) {
             return Level.END;
         }
 
         return null;
     }
 
-    public static void encodeDimension(ResourceKey<Level> worldKey, Consumer<Tag> consumer) {
-        DataResult<Tag> result = Level.RESOURCE_KEY_CODEC.encodeStart(NbtOps.INSTANCE, worldKey);
+    public static void encodeDimension(ResourceKey<Level> key, Consumer<Tag> consumer) {
+        DataResult<Tag> result = Level.RESOURCE_KEY_CODEC.encodeStart(NbtOps.INSTANCE, key);
         result.resultOrPartial(LOGGER::error).ifPresent(consumer);
     }
 

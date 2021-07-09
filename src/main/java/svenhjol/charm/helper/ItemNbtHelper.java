@@ -6,6 +6,9 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.UUID;
 
+/**
+ * @version 1.0.0-charm
+ */
 @SuppressWarnings("unused")
 public class ItemNbtHelper {
     public static int getInt(ItemStack stack, String nbt, int defaultExpected) {
@@ -53,8 +56,8 @@ public class ItemNbtHelper {
         getNBT(stack).putBoolean(nbt, b);
     }
 
-    public static void setCompound(ItemStack stack, String nbt, CompoundTag cmp) {
-        getNBT(stack).put(nbt, cmp);
+    public static void setCompound(ItemStack stack, String nbt, CompoundTag tag) {
+        getNBT(stack).put(nbt, tag);
     }
 
     public static void setDouble(ItemStack stack, String nbt, double d) {

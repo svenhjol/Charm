@@ -9,7 +9,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import java.util.function.Consumer;
 
-public class MapRenderHelper {
+public class ClientMapHelper {
     private static final RenderType MAP_BACKGROUND = RenderType.text(new ResourceLocation("textures/map/map_background.png"));
 
     public static void renderMapWithBackground(PoseStack matrices, int x, int y, int z, float scale, int light, Consumer<MultiBufferSource.BufferSource> renderMap) {

@@ -30,7 +30,10 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-@SuppressWarnings({"UnstableApiUsage", "unused", "deprecation"})
+/**
+ * @version 1.0.0-charm
+ */
+@SuppressWarnings({"UnstableApiUsage", "deprecation"})
 public class BiomeHelper {
     public static Map<Biome.BiomeCategory, List<ResourceKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
 

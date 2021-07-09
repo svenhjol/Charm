@@ -1,14 +1,15 @@
 package svenhjol.charm.helper;
 
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings({"unused"})
+/**
+ * @version 1.0.0-charm
+ */
 public class DataBlockHelper {
     public static Direction getFacing(String direction) {
         if (direction.equals("east")) return Direction.EAST;
@@ -23,11 +24,6 @@ public class DataBlockHelper {
         if (direction.equals("south")) state = state.setValue(prop, Direction.SOUTH);
         if (direction.equals("west")) state = state.setValue(prop, Direction.WEST);
         return state;
-    }
-
-    public static ResourceLocation getLootTable(String data, ResourceLocation fallback) {
-        String loot = DataBlockHelper.getValue("loot", data, "");
-        return LootHelper.getLootTable(loot, fallback);
     }
 
     public static boolean getValue(String key, String name, boolean fallback) {

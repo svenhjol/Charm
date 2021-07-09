@@ -17,7 +17,7 @@ import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
-import svenhjol.charm.helper.ScreenHelper;
+import svenhjol.charm.helper.ScreenRenderHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.init.CharmTags;
 import svenhjol.charm.loader.CharmModule;
@@ -63,7 +63,7 @@ public class PortableCraftingClient extends CharmModule {
             return;
 
         InventoryScreen screen = (InventoryScreen)client.screen;
-        int guiLeft = ScreenHelper.getX(screen);
+        int guiLeft = ScreenRenderHelper.getX(screen);
 
         this.craftingButton = new ImageButton(guiLeft + 130, height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click -> {
             triggerOpenCraftingTable();

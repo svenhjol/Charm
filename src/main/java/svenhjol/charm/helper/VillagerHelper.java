@@ -23,6 +23,9 @@ import java.util.Random;
 import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
 import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRADES;
 
+/**
+ * @version 1.0.0-charm
+ */
 public class VillagerHelper {
     public static VillagerProfession addProfession(String id, PoiType poit, SoundEvent worksound) {
         VillagerProfession profession = VillagerProfessionAccessor.create(id, poit, ImmutableSet.of(), ImmutableSet.of(), worksound);
