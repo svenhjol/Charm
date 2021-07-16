@@ -38,7 +38,7 @@ public class PiglinsFollowGoldBlocks extends CharmModule {
             Ingredient ingredient = Ingredient.of(Blocks.GOLD_BLOCK);
 
             if (MobHelper.getGoals(piglin).stream().noneMatch(g -> g.getGoal() instanceof TemptGoal))
-                MobHelper.getGoalSelector(piglin).addGoal(3, new TemptGoal(piglin, 0.6, ingredient, false));
+                MobHelper.getGoalSelector(piglin).addGoal(1, new TemptGoal(piglin, 0.6, ingredient, false));
         }
 
         return InteractionResult.PASS;

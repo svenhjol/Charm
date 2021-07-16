@@ -100,6 +100,7 @@
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
     "open_double_doors.ReactOnDoorOpenedMixin",
     "parrots_stay_on_shoulder.KeepShoulderEntitiesMixin",
+    "piglins_follow_gold_blocks.CheckHoldingGoldBlockMixin",
     "potion_of_hogsbane.PreventAttackingAiMixin",
     "potion_of_hogsbane.PreventAttackingHoglinMixin",
     "quadrants.RotateBlockBeforePlaceMixin",
