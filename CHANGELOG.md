@@ -3,6 +3,7 @@
 ### 3.3.1
 * Disable extract enchantments when grindenchantments mod is present. svenhjol/Charm#630
 * Don't translate advancements on client side. svenhjol/Charm#629
+* Fix for bat bucket glowing effect duration, probably.
 
 ### 3.3.0
 * Reworked module loader. **Some minor configuration keys have changed**
