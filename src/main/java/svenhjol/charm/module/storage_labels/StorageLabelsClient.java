@@ -46,7 +46,7 @@ public class StorageLabelsClient extends CharmModule {
         String label = data.readUtf();
 
         client.execute(() ->
-            ClientHelper.getWorld()
+            ClientHelper.getLevel()
                 .ifPresent(world -> getLootableContainerBlockEntity(world, pos)
                     .ifPresent(container -> container.setCustomName(new TextComponent(label)))));
     }
@@ -55,7 +55,7 @@ public class StorageLabelsClient extends CharmModule {
         BlockPos pos = BlockPos.of(data.readLong());
 
         client.execute(() ->
-            ClientHelper.getWorld()
+            ClientHelper.getLevel()
                 .ifPresent(world -> LootableContainerBlockEntityRenderer.cachedPos.put(pos, (long) -1)));
     }
 
@@ -63,7 +63,7 @@ public class StorageLabelsClient extends CharmModule {
         BlockPos pos = BlockPos.of(data.readLong());
 
         client.execute(() ->
-            ClientHelper.getWorld()
+            ClientHelper.getLevel()
                 .ifPresent(world -> LootableContainerBlockEntityRenderer.cachedPos.remove(pos)));
     }
 

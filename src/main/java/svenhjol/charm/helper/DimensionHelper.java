@@ -9,12 +9,11 @@ import net.minecraft.world.level.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * @version 1.0.1-charm
+ * @version 1.0.2-charm
  */
 @SuppressWarnings("unused")
 public class DimensionHelper {
@@ -24,31 +23,28 @@ public class DimensionHelper {
         return level.dimension() == Level.OVERWORLD;
     }
 
+    public static boolean isNether(Level level) {
+        return level.dimension() == Level.NETHER;
+    }
+
+    public static boolean isEnd(Level level) {
+        return level.dimension() == Level.END;
+    }
+
     public static boolean isDimension(Level level, ResourceLocation dimension) {
         return getDimension(level).equals(dimension);
     }
-
 
     public static boolean isDimension(Level level, ResourceKey<Level> key) {
         return level.dimension().equals(key);
     }
 
     public static ResourceLocation getDimension(Level world) {
-        ResourceKey<Level> key = world.dimension();
-        return key.location();
+        return getDimension(world.dimension());
     }
 
-    @Nullable
-    public static ResourceKey<Level> getDimension(ResourceLocation dimension) {
-        if (Level.OVERWORLD.location().equals(dimension)) {
-            return Level.OVERWORLD;
-        } else if (Level.NETHER.location().equals(dimension)) {
-            return Level.NETHER;
-        } else if (Level.END.location().equals(dimension)) {
-            return Level.END;
-        }
-
-        return null;
+    public static ResourceLocation getDimension(ResourceKey<Level> key) {
+        return key.location();
     }
 
     public static void encodeDimension(ResourceKey<Level> key, Consumer<Tag> consumer) {

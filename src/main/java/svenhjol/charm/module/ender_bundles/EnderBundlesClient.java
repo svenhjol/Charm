@@ -85,7 +85,7 @@ public class EnderBundlesClient extends CharmModule {
      */
     private void handleRenderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
         if (stack != null && stack.getItem() instanceof EnderBundleItem) {
-            ClientHelper.getWorld().ifPresent(world -> {
+            ClientHelper.getLevel().ifPresent(world -> {
                 if (world.getGameTime() % 5 == 0)
                     ClientPlayNetworking.send(EnderBundles.MSG_SERVER_UPDATE_ENDER_INVENTORY, new FriendlyByteBuf(Unpooled.buffer()));
             });

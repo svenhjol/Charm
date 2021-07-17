@@ -10,6 +10,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -49,11 +50,18 @@ public class ClientHelper {
         return Optional.ofNullable(Minecraft.getInstance());
     }
 
-    public static Optional<Level> getWorld() {
+    public static Optional<Level> getLevel() {
         if (getClient().isEmpty())
             return Optional.empty();
 
         return Optional.ofNullable(getClient().get().level);
+    }
+
+    public static Optional<ResourceKey<Level>> getLevelKey() {
+        if (getClient().isEmpty() || getLevel().isEmpty())
+            return Optional.empty();
+
+        return Optional.ofNullable(getLevel().get().dimension());
     }
 
     public static Optional<Player> getPlayer() {

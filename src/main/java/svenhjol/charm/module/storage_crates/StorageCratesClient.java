@@ -43,7 +43,7 @@ public class StorageCratesClient extends CharmModule {
         BlockPos pos = BlockPos.of(data.readLong());
 
         client.execute(() -> {
-            ClientHelper.getWorld().ifPresent(world -> {
+            ClientHelper.getLevel().ifPresent(world -> {
                 if (world.getGameTime() - lastEffectTime > 5) {
                     lastEffectTime = world.getGameTime();
                     switch (actionType) {
