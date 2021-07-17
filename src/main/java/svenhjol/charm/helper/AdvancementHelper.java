@@ -31,7 +31,7 @@ public class AdvancementHelper {
             return null;
 
         // don't do translation on client side
-        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
+        if (FabricLoader.getInstance().getEnvironmentType() != EnvType.SERVER)
             return null;
 
         // the text we are interested in is the only argument of the square_brackets component
