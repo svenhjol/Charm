@@ -1,5 +1,7 @@
 package svenhjol.charm.helper;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
@@ -26,6 +28,10 @@ public class AdvancementHelper {
 
         // the title is a translate component of `chat.square_brackets`; don't try and work with a non-translatable component
         if (!(title instanceof TranslatableComponent trans))
+            return null;
+
+        // don't do translation on client side
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
             return null;
 
         // the text we are interested in is the only argument of the square_brackets component
