@@ -10,10 +10,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import svenhjol.charm.annotation.CharmMixin;
 import svenhjol.charm.module.extract_enchantments.ExtractEnchantments;
 
 import javax.annotation.Nullable;
 
+@CharmMixin(disableIfModsPresent = {"grindenchantments"})
 @Mixin(value = GrindstoneMenu.class, priority = 1)
 public class UpdateGrindstoneOutputMixin {
     @Nullable Player player;

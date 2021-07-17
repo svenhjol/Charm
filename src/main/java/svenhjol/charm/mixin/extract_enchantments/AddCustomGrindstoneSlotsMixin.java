@@ -9,8 +9,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import svenhjol.charm.annotation.CharmMixin;
 import svenhjol.charm.module.extract_enchantments.ExtractEnchantments;
 
+@CharmMixin(disableIfModsPresent = {"grindenchantments"})
 @Mixin(value = GrindstoneMenu.class, priority = 1)
 public class AddCustomGrindstoneSlotsMixin {
     @Shadow @Final Container repairSlots;
