@@ -11,7 +11,6 @@ import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import svenhjol.charm.helper.*;
-import svenhjol.charm.module.core.Core;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,7 +38,7 @@ public abstract class BaseMixinConfigPlugin implements IMixinConfigPlugin {
     public void onLoad(String mixinPackage) {
         Logger logger = LogManager.getLogger();
         Toml toml = ConfigHelper.readConfig(getModId());
-        Core.debug = ConfigHelper.isDebugMode(toml) || FabricLoader.getInstance().isDevelopmentEnvironment();
+        boolean debug = ConfigHelper.isDebugMode(toml) || FabricLoader.getInstance().isDevelopmentEnvironment();
         this.mixinPackage = mixinPackage;
 
 
@@ -159,12 +158,12 @@ public abstract class BaseMixinConfigPlugin implements IMixinConfigPlugin {
                 }
 
                 if (required) {
-                    if (DebugHelper.isDebugMode()) logger.info("[MixinConfig] Requiring " + truncatedName);
+                    if (debug) logger.info("[MixinConfig] Requiring " + truncatedName);
                 } else if (disabled) {
                     String message = "[MixinConfig] Not adding " + truncatedName;
-                    if (DebugHelper.isDebugMode()) { logger.warn(message); } else { logger.info(message); }
+                    if (debug) { logger.warn(message); } else { logger.info(message); }
                 } else {
-                    if (DebugHelper.isDebugMode()) logger.info("[MixinConfig] Adding " + truncatedName);
+                    if (debug) logger.info("[MixinConfig] Adding " + truncatedName);
                 }
 
                 countProcessed++;

@@ -1,5 +1,8 @@
 # Changelog
 
+### 3.3.2
+* Change debug early loading to fix compatibility (e.g. Ferritecore)
+
 ### 3.3.1
 * Disable extract enchantments when grindenchantments mod is present. svenhjol/Charm#630
 * Disable grindable horse armor when grindenchantments mod is present.  svenhjol/Charm#630
