@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.helper;
+package svenhjol.charm.mixin.devenv;
 
 import com.mojang.authlib.minecraft.OfflineSocialInteractions;
 import com.mojang.authlib.minecraft.SocialInteractionsService;

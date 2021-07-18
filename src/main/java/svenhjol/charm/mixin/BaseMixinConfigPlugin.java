@@ -144,6 +144,9 @@ public abstract class BaseMixinConfigPlugin implements IMixinConfigPlugin {
                 if (className.contains("accessor"))
                     required = true;
 
+                if (className.contains("devenv") && !FabricLoader.getInstance().isDevelopmentEnvironment())
+                    disabled = true;
+
                 if (required) {
                     disabledMixins.remove(truncatedName);
                     requiredMixins.put(truncatedName, true);

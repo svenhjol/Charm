@@ -152,6 +152,7 @@
     "colored_glints.GetCustomRenderLayersMixin",
     "colored_glints.GetElytraMixin",
     "colored_glints.GetItemMixin",
+    "devenv.FixDevAuthSpamMixin",
     "extract_enchantments.ShowGrindstoneCostMixin",
     "helper.FixRecipeSpamMixin",
     "helper.LoadCustomModelPartsMixin",
