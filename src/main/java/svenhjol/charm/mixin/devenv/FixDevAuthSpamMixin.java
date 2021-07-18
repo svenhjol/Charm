@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.helper;
+package svenhjol.charm.mixin.devenv;
 
 import com.mojang.authlib.minecraft.OfflineSocialInteractions;
 import com.mojang.authlib.minecraft.SocialInteractionsService;
@@ -16,7 +16,6 @@ public class FixDevAuthSpamMixin {
     @Inject(
         method = "createSocialInteractions",
         at = @At("HEAD"),
-        remap = false,
         cancellable = true
     )
     private void hookCheckPrivileges(YggdrasilAuthenticationService yggdrasilAuthenticationService, GameConfig gameConfig, CallbackInfoReturnable<SocialInteractionsService> cir) {

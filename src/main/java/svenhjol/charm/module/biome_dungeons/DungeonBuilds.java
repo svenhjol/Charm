@@ -6,7 +6,7 @@ import svenhjol.charm.module.biome_dungeons.builds.PlainsDungeons;
 
 public class DungeonBuilds {
     public static void init() {
-        DungeonGenerator.PLAINS_DUNGEONS.add(new PlainsDungeons.Creeper());
+        DungeonGenerator.PLAINS_DUNGEONS.add(new PlainsDungeons.Creepers());
         DungeonGenerator.PLAINS_DUNGEONS.add(new PlainsDungeons.Columns());
         DungeonGenerator.PLAINS_DUNGEONS.add(new PlainsDungeons.Pillar());
         DungeonGenerator.PLAINS_DUNGEONS.add(new PlainsDungeons.Shelf());

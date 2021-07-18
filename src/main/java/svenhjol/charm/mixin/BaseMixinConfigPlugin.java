@@ -10,10 +10,8 @@ import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-import svenhjol.charm.helper.ClassHelper;
-import svenhjol.charm.helper.ConfigHelper;
-import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.helper.StringHelper;
+import svenhjol.charm.helper.*;
+import svenhjol.charm.module.core.Core;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,8 +38,8 @@ public abstract class BaseMixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {
         Logger logger = LogManager.getLogger();
-        boolean debug = FabricLoader.getInstance().isDevelopmentEnvironment();
         Toml toml = ConfigHelper.readConfig(getModId());
+        Core.debug = ConfigHelper.isDebugMode(toml) || FabricLoader.getInstance().isDevelopmentEnvironment();
         this.mixinPackage = mixinPackage;
 
 
@@ -144,6 +142,9 @@ public abstract class BaseMixinConfigPlugin implements IMixinConfigPlugin {
                 if (className.contains("accessor"))
                     required = true;
 
+                if (className.contains("devenv") && !FabricLoader.getInstance().isDevelopmentEnvironment())
+                    disabled = true;
+
                 if (required) {
                     disabledMixins.remove(truncatedName);
                     requiredMixins.put(truncatedName, true);
@@ -158,12 +159,12 @@ public abstract class BaseMixinConfigPlugin implements IMixinConfigPlugin {
                 }
 
                 if (required) {
-                    if (debug) logger.info("[MixinConfig] Requiring " + truncatedName);
+                    if (DebugHelper.isDebugMode()) logger.info("[MixinConfig] Requiring " + truncatedName);
                 } else if (disabled) {
                     String message = "[MixinConfig] Not adding " + truncatedName;
-                    if (debug) { logger.warn(message); } else { logger.info(message); }
+                    if (DebugHelper.isDebugMode()) { logger.warn(message); } else { logger.info(message); }
                 } else {
-                    if (debug) logger.info("[MixinConfig] Adding " + truncatedName);
+                    if (DebugHelper.isDebugMode()) logger.info("[MixinConfig] Adding " + truncatedName);
                 }
 
                 countProcessed++;

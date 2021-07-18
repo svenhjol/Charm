@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * @version 1.0.1-charm
+ * @version 1.0.2-charm
  */
 @SuppressWarnings({"unused", "BooleanMethodIsAlwaysInverted"})
 public class ConfigHelper {
@@ -38,6 +38,11 @@ public class ConfigHelper {
         String moduleEnabled = moduleName + " Enabled";
         String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
         return toml.contains(moduleEnabledQuoted) && !toml.getBoolean(moduleEnabledQuoted);
+    }
+
+    public static boolean isDebugMode(Toml toml) {
+        String debugMode = "Core.\"Debug mode\"";
+        return toml.contains(debugMode) && toml.getBoolean(debugMode);
     }
 
     public static <T extends CharmModule> void applyConfig(Toml toml, List<T> modules) {

@@ -37,15 +37,18 @@ public class GrindableHorseArmor extends CharmModule {
         if (!isModuleEnabled())
             return false;
 
-        Item slot0 = inputs.getItem(0).getItem();
-        Item slot1 = inputs.getItem(1).getItem();
+        ItemStack slot0 = inputs.getItem(0);
+        ItemStack slot1 = inputs.getItem(1);
 
-        if (horseArmorRecipes.containsKey(slot0)) {
-            output.setItem(0, new ItemStack(horseArmorRecipes.get(slot0)));
-        } else if (horseArmorRecipes.containsKey(slot1)) {
-            output.setItem(0, new ItemStack(horseArmorRecipes.get(slot1)));
+        if (horseArmorRecipes.containsKey(slot0.getItem()) && slot1.isEmpty()) {
+            output.setItem(0, new ItemStack(horseArmorRecipes.get(slot0.getItem())));
+            return true;
+        } else if (horseArmorRecipes.containsKey(slot1.getItem()) && slot0.isEmpty()) {
+            output.setItem(0, new ItemStack(horseArmorRecipes.get(slot1.getItem())));
+            return true;
         }
-        return true;
+
+        return false;
     }
 
     public static void triggerRecycledHorseArmor(ServerPlayer player) {

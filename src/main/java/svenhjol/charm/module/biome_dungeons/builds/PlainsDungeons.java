@@ -4,10 +4,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.world.CharmStructure;
 
 public class PlainsDungeons {
-    public static class Creeper extends CharmStructure {
-        public Creeper() {
-            super(Charm.MOD_ID, "dungeons", "plains_creeper");
-            addStart("plains_creeper", 1);
+    public static class Creepers extends CharmStructure {
+        public Creepers() {
+            super(Charm.MOD_ID, "dungeons", "plains_creepers");
+            addStart("plains_creepers", 1);
         }
     }
 
