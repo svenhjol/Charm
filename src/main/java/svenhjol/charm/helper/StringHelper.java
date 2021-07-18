@@ -6,15 +6,19 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import svenhjol.charm.loader.ModuleLoader;
 
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @version 1.0.2-charm
@@ -59,8 +63,7 @@ public class StringHelper {
         return out.toString();
     }
 
-    @Nullable
-    public static String tryResolveLanguageKey(String modId, String key) {
+    public static Optional<String> tryResolveLanguageKey(String modId, String key) {
         if (!languageStrings.containsKey(modId)) {
             // try and parse the mod's en_us language file into a json object
             FabricLoader.getInstance().getModContainer(modId).ifPresent(container -> {
@@ -79,12 +82,49 @@ public class StringHelper {
         if (languageStrings.containsKey(modId)) {
             // try and fetch the resolved language key from the mod's language strings
             JsonElement el = languageStrings.get(modId).get(key);
-            if (el != null) {
-                return el.getAsString();
-            }
+            if (el != null)
+                return Optional.of(el.getAsString());
+
             LogHelper.debug(StringHelper.class, "Could not resolve key `" + key + "` for mod `" + modId + "`");
         }
 
-        return null;
+        return Optional.empty();
+    }
+
+    public static Optional<String> tryTranslateServerComponent(Component message) {
+        List<String> modIds = ModuleLoader.getModIds();
+
+        // don't try and work with a non-translatable component
+        if (!(message instanceof TranslatableComponent translatable)) return Optional.empty();
+
+        // ignore if it doesn't contain a mod key
+        String useModId = "";
+        for (String modId : modIds) {
+            if (message.getString().contains(modId + "."))
+                useModId = modId;
+        }
+        if (useModId.isEmpty()) return Optional.empty();
+
+        String reduced = message.getString();
+        if (reduced.startsWith("[") && reduced.endsWith("]"))
+            reduced = reduced.substring(1, reduced.length() - 1);
+
+        try {
+            int i = reduced.lastIndexOf("[");
+            int j = reduced.lastIndexOf("]");
+            String key = i >= 0 && j >= 0 ? reduced.substring(i + 1, j) : reduced;
+
+            if (!key.isEmpty() && key.contains(useModId)) {
+                Optional<String> opt = tryResolveLanguageKey(useModId, key);
+                if (opt.isPresent()) {
+                    LogHelper.debug(StringHelper.class, "Resolved key `" + key + "` to `" + opt.get() + "`");
+                    return Optional.of(reduced.replace(key, opt.get()));
+                }
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            LogHelper.debug(StringHelper.class, "Index out of bounds when trying to process `" + reduced + "`: " + e.getMessage());
+        }
+
+        return Optional.empty();
     }
 }

@@ -28,7 +28,6 @@ import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class BatBucketItem extends CharmItem {
     public static final String STORED_BAT_NBT = "StoredBat";
@@ -71,15 +70,19 @@ public class BatBucketItem extends CharmItem {
 
         player.swing(hand);
 
-        if (!world.isClientSide) {
+        if (!player.level.isClientSide) {
             BatBuckets.triggerUsedBatBucket((ServerPlayer) player);
             world.playSound(null, player.blockPosition(), SoundEvents.BAT_TAKEOFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
 
+            int duration = BatBuckets.glowingTime * 20;
             AABB box = player.getBoundingBox().inflate(BatBuckets.glowingRange, BatBuckets.glowingRange / 2.0, BatBuckets.glowingRange);
-            Predicate<LivingEntity> selector = entity -> true;
-            MobEffectInstance effect = new MobEffectInstance(MobEffects.GLOWING, BatBuckets.glowingTime * 20);
-            List<LivingEntity> entities = player.level.getEntitiesOfClass(LivingEntity.class, box, selector);
-            entities.forEach(entity -> entity.addEffect(effect));
+            MobEffectInstance effect = new MobEffectInstance(MobEffects.GLOWING, duration);
+            List<LivingEntity> entities = player.level.getEntitiesOfClass(LivingEntity.class, box);
+
+            for (LivingEntity entity : entities) {
+                if (entity.canBeAffected(effect))
+                    entity.addEffect(new MobEffectInstance(MobEffects.GLOWING, duration, 0, false, true), player);
+            }
         }
 
         if (!player.isCreative())
