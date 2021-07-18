@@ -16,7 +16,6 @@ public class FixDevAuthSpamMixin {
     @Inject(
         method = "createSocialInteractions",
         at = @At("HEAD"),
-        remap = false,
         cancellable = true
     )
     private void hookCheckPrivileges(YggdrasilAuthenticationService yggdrasilAuthenticationService, GameConfig gameConfig, CallbackInfoReturnable<SocialInteractionsService> cir) {
