@@ -96,7 +96,7 @@
     "helper.CheckImmovableByPistonMixin",
     "helper.CheckItemDespawnMixin",
     "helper.FilterAdvancementsMixin",
-    "helper.TranslateAdvancementMixin",
+    "helper.TranslateServerComponentMixin",
     "husk_improvements.AllowSpawningAnywhereMixin",
     "mineshaft_improvements.GenerateMineshaftPiecesMixin",
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
