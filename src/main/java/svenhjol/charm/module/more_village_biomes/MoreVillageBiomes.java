@@ -29,7 +29,8 @@ public class MoreVillageBiomes extends CharmModule {
         ));
 
         List<ResourceKey<Biome>> taigaBiomeKeys = new ArrayList<>(Arrays.asList(
-            Biomes.SNOWY_TAIGA
+            Biomes.SNOWY_TAIGA,
+            Biomes.GIANT_SPRUCE_TAIGA
         ));
 
         List<ResourceKey<Biome>> snowyBiomeKeys = new ArrayList<>(Arrays.asList(
@@ -53,10 +54,9 @@ public class MoreVillageBiomes extends CharmModule {
 
     private InteractionResult changeVillagerSkin(Entity entity) {
         if (!entity.level.isClientSide
-            && entity instanceof Villager
+            && entity instanceof Villager villager
             && entity.tickCount == 0
         ) {
-            Villager villager = (Villager) entity;
             VillagerData data = villager.getVillagerData();
             ServerLevel world = (ServerLevel)entity.level;
 
