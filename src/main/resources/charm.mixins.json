@@ -132,7 +132,6 @@
     "atlases.DrawAtlasOnCartographyTableMixin",
     "event.AddEntityCallbackClientMixin",
     "event.ClientSpawnEntityCallbackMixin",
-    "event.LoadWorldClientStartCallbackMixin",
     "event.PlaySoundCallbackMixin",
     "event.RenderBlockItemCallbackMixin",
     "event.RenderGuiCallbackMixin",
