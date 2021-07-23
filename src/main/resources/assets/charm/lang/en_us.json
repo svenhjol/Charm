@@ -295,6 +295,7 @@
   "gui.charm.quadrants.unlocked": "Unlocked rotation",
   "gui.charm.recipebook.toggleRecipes.fireable": "Showing Fireable",
   "gui.charm.storage_crate_capacity": "Items: %s",
+  "gui.charm.totem_of_preserving.deathpos": "Your totem is near %s %s %s",
   "item.charm.azalea_boat": "Azalea Boat",
   "item.charm.atlas": "Atlas",
   "item.charm.bat_bucket": "Bat in a Bucket",

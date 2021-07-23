@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,6 +37,9 @@ public class TotemOfPreserving extends CharmModule {
 
     @Config(name = "Preserve XP", description = "If true, the totem will preserve the player's experience and restore when broken.")
     public static boolean preserveXp = false;
+
+    @Config(name = "Show death position", description = "If true, the coordinates where you died will be added to your chat screen.")
+    public static boolean showDeathPosition = false;
 
     @Override
     public void register() {
@@ -127,8 +131,10 @@ public class TotemOfPreserving extends CharmModule {
             world.addFreshEntity(totemEntity);
         }
 
+        BlockPos deathPos = new BlockPos(x, y, z);
+
         triggerUsedTotemOfPreserving((ServerPlayer) player);
-        LogHelper.info(this.getClass(), "Spawned at pos: " + new BlockPos(x, y, z));
+        LogHelper.info(this.getClass(), "Spawned at pos: " + deathPos);
 
         // clear player's inventory
         for (NonNullList<ItemStack> inv : combined) {
@@ -136,6 +142,9 @@ public class TotemOfPreserving extends CharmModule {
                 inv.set(i, ItemStack.EMPTY);
             }
         }
+
+        if (showDeathPosition)
+            player.displayClientMessage(new TranslatableComponent("gui.charm.totem_of_preserving.deathpos", x, y, z), false);
 
         return InteractionResult.SUCCESS;
     }
