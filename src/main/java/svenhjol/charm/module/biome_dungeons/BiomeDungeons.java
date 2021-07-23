@@ -9,6 +9,7 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.annotation.Config;
 import svenhjol.charm.loader.CharmModule;
 
 import static svenhjol.charm.helper.BiomeHelper.addStructureToBiomeCategories;
@@ -31,6 +32,9 @@ public class BiomeDungeons extends CharmModule {
     public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> TAIGA;
     public static ConfiguredStructureFeature<JigsawConfiguration, ? extends StructureFeature<JigsawConfiguration>> EMPTY;
 
+    @Config(name = "Distance", description = "Average chunk distance between two biome dungeons.")
+    public static int distance = 10;
+
     @Override
     public void register() {
         DUNGEON_FEATURE = new DungeonFeature(JigsawConfiguration.CODEC);
@@ -52,7 +56,7 @@ public class BiomeDungeons extends CharmModule {
         FabricStructureBuilder.create(DUNGEON_ID, DUNGEON_FEATURE)
             .superflatFeature(EMPTY)
             .step(GenerationStep.Decoration.UNDERGROUND_STRUCTURES)
-            .defaultConfig(6, 2, 1225502)
+            .defaultConfig(distance, 2, 1225502)
             .register();
 
         configuredStructureFeature(new ResourceLocation(Charm.MOD_ID, "dungeon_badlands"), BADLANDS);
