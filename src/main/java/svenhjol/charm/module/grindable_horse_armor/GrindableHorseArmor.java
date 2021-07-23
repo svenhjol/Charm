@@ -27,6 +27,7 @@ public class GrindableHorseArmor extends CharmModule {
         horseArmorRecipes.put(Items.IRON_HORSE_ARMOR, Items.IRON_INGOT);
         horseArmorRecipes.put(Items.GOLDEN_HORSE_ARMOR, Items.GOLD_INGOT);
         horseArmorRecipes.put(Items.DIAMOND_HORSE_ARMOR, Items.DIAMOND);
+        horseArmorRecipes.put(Items.SADDLE, Items.LEATHER);
     }
 
     private static boolean isModuleEnabled() {
