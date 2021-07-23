@@ -8,9 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
@@ -29,9 +27,9 @@ public class EditableSigns extends CharmModule {
     private InteractionResult handleUseBlock(Player player, Level world, InteractionHand hand, BlockHitResult hitResult) {
         BlockPos pos = hitResult.getBlockPos();
         if (!world.isClientSide && player != null && player.getItemInHand(hand).isEmpty()) {
-            BlockState state = world.getBlockState(pos);
-            if (state.getBlock() instanceof SignBlock) {
-                player.openTextEdit((SignBlockEntity)world.getBlockEntity(pos));
+            if (world.getBlockEntity(pos) instanceof SignBlockEntity signBlockEntity) {
+                signBlockEntity.setEditable(true);
+                player.openTextEdit(signBlockEntity);
                 triggerEditedSign((ServerPlayer) player);
                 return InteractionResult.SUCCESS;
             }
