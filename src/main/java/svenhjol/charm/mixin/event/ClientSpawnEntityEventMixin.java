@@ -14,7 +14,7 @@ import svenhjol.charm.event.AddEntityEvent;
 import svenhjol.charm.event.ClientSpawnEntityEvent;
 
 @Mixin(ClientPacketListener.class)
-public class ClientSpawnEntityCallbackMixin {
+public class ClientSpawnEntityEventMixin {
     @Shadow private ClientLevel level;
 
     /**

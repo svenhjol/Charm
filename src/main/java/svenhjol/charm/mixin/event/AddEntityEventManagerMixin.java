@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.event.AddEntityEvent;
 
 @Mixin(PersistentEntitySectionManager.class)
-public class AddEntityCallbackManagerMixin<T extends EntityAccess> {
+public class AddEntityEventManagerMixin<T extends EntityAccess> {
     /**
      * Fires the {@link AddEntityEvent} event when an entity
      * is registered and before tracking is applied.

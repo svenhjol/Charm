@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.PlayerDropInventoryEvent;
 
 @Mixin(Player.class)
-public abstract class PlayerDropInventoryCallbackMixin {
+public abstract class PlayerDropInventoryEventMixin {
     @Shadow @Final
     private Inventory inventory;
 

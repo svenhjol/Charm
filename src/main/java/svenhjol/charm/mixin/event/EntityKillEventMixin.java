@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.EntityKillEvent;
 
 @Mixin(LivingEntity.class)
-public class EntityKillCallbackMixin {
+public class EntityKillEventMixin {
     /**
      * Fires the {@link EntityKillEvent} event when an entity is killed.
      */

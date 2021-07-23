@@ -14,7 +14,7 @@ import svenhjol.charm.event.SetupGuiEvent;
 import java.util.List;
 
 @Mixin(Screen.class)
-public abstract class SetupGuiCallbackMixin {
+public abstract class SetupGuiEventMixin {
     @Shadow @Final
     private List<NarratableEntry> narratables;
 
@@ -24,7 +24,7 @@ public abstract class SetupGuiCallbackMixin {
      * Simulates Forge's InitGuiEvent.Post.
      *
      * We can access existing GUI buttons and add new ones as required
-     * using the SetupGuiCallback invoked in this hook.
+     * using the SetupGuiEvent invoked in this hook.
      */
     @Inject(
         method = "init(Lnet/minecraft/client/Minecraft;II)V",

@@ -14,7 +14,7 @@ import svenhjol.charm.event.ScrollMouseEvent;
 
 @Environment(EnvType.CLIENT)
 @Mixin(MouseHandler.class)
-public class ScrollMouseCallbackMixin {
+public class ScrollMouseEventMixin {
     @Shadow @Final private Minecraft minecraft;
 
     @Inject(

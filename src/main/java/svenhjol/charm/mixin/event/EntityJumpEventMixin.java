@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.EntityJumpEvent;
 
 @Mixin(LivingEntity.class)
-public class EntityJumpCallbackMixin {
+public class EntityJumpEventMixin {
 
     /**
      * Fires the {@link EntityJumpEvent} event when the entity jumps.

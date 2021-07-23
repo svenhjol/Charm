@@ -15,7 +15,7 @@ import svenhjol.charm.event.RenderTooltipEvent;
 import java.util.List;
 
 @Mixin(Screen.class)
-public class RenderTooltipCallbackMixin {
+public class RenderTooltipEventMixin {
     protected ItemStack itemStack;
 
     /**
@@ -33,7 +33,7 @@ public class RenderTooltipCallbackMixin {
 
     /**
      * Caches the ItemStack passed to getTooltipFromItem.
-     * This is then passed to the RenderTooltipCallback event above.
+     * This is then passed to the RenderTooltipEvent event above.
      */
     @Inject(
         method = "getTooltipFromItem",

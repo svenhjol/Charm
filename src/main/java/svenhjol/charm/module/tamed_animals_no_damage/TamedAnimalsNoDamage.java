@@ -11,8 +11,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.EntityHurtEvent;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.event.EntityHurtEvent;
 import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.")

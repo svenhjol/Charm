@@ -10,12 +10,12 @@ import svenhjol.charm.event.AddEntityEvent;
 import svenhjol.charm.event.ClientSpawnEntityEvent;
 
 @Mixin(ClientLevel.class)
-public class AddEntityCallbackClientMixin {
+public class AddEntityEventClientMixin {
     /**
      * Fires the {@link AddEntityEvent} event when an entity (e.g. the player)
      * is added to the *client* world.
      *
-     * See {@link AddEntityCallbackServerMixin} for the server-side version of this event.
+     * See {@link AddEntityEventServerMixin} for the server-side version of this event.
      *
      * It is cancellable if ActionResult != PASS.
      *

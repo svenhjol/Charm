@@ -14,7 +14,7 @@ import svenhjol.charm.event.PlayerLoadDataEvent;
 import svenhjol.charm.helper.PlayerHelper;
 
 @Mixin(PlayerList.class)
-public class PlayerLoadDataCallbackMixin {
+public class PlayerLoadDataEventMixin {
     @Shadow @Final
     private PlayerDataStorage playerIo;
 

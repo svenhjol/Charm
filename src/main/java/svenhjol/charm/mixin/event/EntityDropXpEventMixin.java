@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.EntityDropXpEvent;
 
 @Mixin(LivingEntity.class)
-public class EntityDropXpCallbackMixin {
+public class EntityDropXpEventMixin {
     /**
      * Fires the {@link EntityDropXpEvent} event before entity has dropped XP.
      *

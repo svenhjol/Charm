@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.RenderHeldItemEvent;
 
 @Mixin(ItemInHandRenderer.class)
-public class RenderHeldItemCallbackMixin {
+public class RenderHeldItemEventMixin {
     /**
      * Fires the {@link RenderHeldItemEvent} event.
      *

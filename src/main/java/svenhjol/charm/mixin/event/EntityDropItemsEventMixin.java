@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.EntityDropItemsEvent;
 
 @Mixin(LivingEntity.class)
-public class EntityDropItemsCallbackMixin {
+public class EntityDropItemsEventMixin {
     /**
      * Fires the {@link EntityDropItemsEvent} event.
      */

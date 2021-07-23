@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.event.ThrownEntityImpactEvent;
 
 @Mixin(ThrowableProjectile.class)
-public class ThrownEntityImpactCallbackMixin {
+public class ThrownEntityImpactEventMixin {
     /**
      * Fires the {@link ThrownEntityImpactEvent} event when
      * the entity collides with something.

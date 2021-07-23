@@ -17,7 +17,7 @@ import static svenhjol.charm.event.StackItemOnItemEvent.*;
 import static svenhjol.charm.event.StackItemOnItemEvent.Direction.*;
 
 @Mixin(Item.class)
-public class StackItemOnItemCallbackMixin {
+public class StackItemOnItemEventMixin {
     @Inject(
         method = "overrideStackedOnOther",
         at = @At("HEAD"),

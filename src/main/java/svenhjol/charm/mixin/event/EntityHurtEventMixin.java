@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.EntityHurtEvent;
 
 @Mixin(LivingEntity.class)
-public class EntityHurtCallbackMixin {
+public class EntityHurtEventMixin {
     /**
      * Fires the {@link EntityHurtEvent} when entity is hurt.
      *

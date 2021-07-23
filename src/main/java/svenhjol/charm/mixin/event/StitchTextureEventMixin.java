@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 @Mixin(TextureAtlas.class)
-public class StitchTextureCallbackMixin {
+public class StitchTextureEventMixin {
     /**
      * Fires the {@link StitchTextureEvent} event.
      *

@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.api.event.ApplyBeaconEffectsEvent;
 
 @Mixin(BeaconBlockEntity.class)
-public class ApplyBeaconEffectsCallbackMixin extends BlockEntity {
-    public ApplyBeaconEffectsCallbackMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
+public class ApplyBeaconEffectsEventMixin extends BlockEntity {
+    public ApplyBeaconEffectsEventMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
     }
 

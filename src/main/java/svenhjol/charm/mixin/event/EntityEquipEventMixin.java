@@ -13,7 +13,7 @@ import svenhjol.charm.event.EntityEquipEvent;
 import java.util.Map;
 
 @Mixin(LivingEntity.class)
-public class EntityEquipCallbackMixin {
+public class EntityEquipEventMixin {
     /**
      * Fires the {@link EntityEquipEvent} event.
      */

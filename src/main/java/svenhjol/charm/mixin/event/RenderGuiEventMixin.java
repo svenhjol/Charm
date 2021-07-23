@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.RenderGuiEvent;
 
 @Mixin(AbstractContainerScreen.class)
-public class RenderGuiCallbackMixin {
+public class RenderGuiEventMixin {
     /**
      * Fires the {@link RenderGuiEvent} event.
      *

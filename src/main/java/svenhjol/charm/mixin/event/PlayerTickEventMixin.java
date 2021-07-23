@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.PlayerTickEvent;
 
 @Mixin(Player.class)
-public class PlayerTickCallbackMixin {
+public class PlayerTickEventMixin {
 
     /**
      * Fires the {@link PlayerTickEvent} event.

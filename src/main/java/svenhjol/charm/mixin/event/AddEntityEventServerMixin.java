@@ -12,10 +12,10 @@ import svenhjol.charm.event.AddEntityEvent;
 
 /**
  * Be aware that this event is also fired on the server side
- * by the {@link AddEntityCallbackManagerMixin}.
+ * by the {@link AddEntityEventManagerMixin}.
  */
 @Mixin(ServerLevel.class)
-public class AddEntityCallbackServerMixin {
+public class AddEntityEventServerMixin {
     /**
      * Fires the {@link AddEntityEvent} event when any entity
      * is added to the server world.

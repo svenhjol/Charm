@@ -13,7 +13,7 @@ import svenhjol.charm.event.PlayerSaveDataEvent;
 import svenhjol.charm.helper.PlayerHelper;
 
 @Mixin(PlayerList.class)
-public class PlayerSaveDataCallbackMixin {
+public class PlayerSaveDataEventMixin {
     @Shadow @Final
     private PlayerDataStorage playerIo;
 

@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.event.UpdateAnvilEvent;
 
 @Mixin(AnvilMenu.class)
-public abstract class UpdateAnvilCallbackMixin extends ItemCombinerMenu {
+public abstract class UpdateAnvilEventMixin extends ItemCombinerMenu {
     @Shadow
     private String itemName;
 
@@ -28,7 +28,7 @@ public abstract class UpdateAnvilCallbackMixin extends ItemCombinerMenu {
 
     @Shadow private int repairItemCountCost;
 
-    public UpdateAnvilCallbackMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context) {
+    public UpdateAnvilEventMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(type, syncId, playerInventory, context);
     }
 

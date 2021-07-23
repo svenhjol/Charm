@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.TakeAnvilOutputEvent;
 
 @Mixin(AnvilMenu.class)
-public class TakeAnvilOutputCallbackMixin {
+public class TakeAnvilOutputEventMixin {
     /**
      * Fires the {@link TakeAnvilOutputEvent} event when an item is taken from the anvil.
      * This event is useful for anvil-related advancements.

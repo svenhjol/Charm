@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.event.PlaySoundEvent;
 
 @Mixin(SoundEngine.class)
-public class PlaySoundCallbackMixin {
+public class PlaySoundEventMixin {
     @Inject(
         method = "play",
         at = @At(

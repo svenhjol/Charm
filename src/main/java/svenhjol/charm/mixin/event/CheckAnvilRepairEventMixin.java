@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import svenhjol.charm.event.CheckAnvilRepairEvent;
 
 @Mixin(AnvilMenu.class)
-public abstract class CheckAnvilRepairCallbackMixin extends ItemCombinerMenu {
-    public CheckAnvilRepairCallbackMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context) {
+public abstract class CheckAnvilRepairEventMixin extends ItemCombinerMenu {
+    public CheckAnvilRepairEventMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(type, syncId, playerInventory, context);
     }
 
@@ -23,7 +23,7 @@ public abstract class CheckAnvilRepairCallbackMixin extends ItemCombinerMenu {
      * Fires the {@link CheckAnvilRepairEvent} event.
      *
      * Allows intervention when checking if the anvil item can be
-     * repaired with another item via the CheckAnvilRepairCallback event.
+     * repaired with another item via the CheckAnvilRepairEvent event.
      *
      * For example, elytra cannot normally be repaired with leather,
      * but using the player.world we can check if insomnia is disabled

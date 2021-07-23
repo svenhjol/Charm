@@ -19,7 +19,7 @@ import svenhjol.charm.event.RenderBlockItemEvent;
 import svenhjol.charm.module.colored_glints.ColoredGlintsClient;
 
 @Mixin(BlockEntityWithoutLevelRenderer.class)
-public class RenderBlockItemCallbackMixin {
+public class RenderBlockItemEventMixin {
     @Shadow @Final private BlockEntityRenderDispatcher blockEntityRenderDispatcher;
 
     /**
