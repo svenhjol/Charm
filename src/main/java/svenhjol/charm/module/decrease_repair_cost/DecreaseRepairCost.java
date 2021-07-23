@@ -73,6 +73,8 @@ public class DecreaseRepairCost extends CharmModule {
             if (!input.isEmpty()
                 && !input.getItem(0).isEmpty()
                 && input.getItem(0).getBaseRepairCost() > stack.getBaseRepairCost()
+                && !input.getItem(1).isEmpty()
+                && input.getItem(1).getItem() == Items.AMETHYST_SHARD
             ) {
                 triggerDecreasedCost((ServerPlayer) player);
             }
