@@ -1,13 +1,13 @@
 package svenhjol.charm.module.core;
 
-import net.minecraft.network.Connection;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.Entity;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.event.ServerJoinEvent;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
@@ -27,10 +27,11 @@ public class Core extends CharmModule {
 
     @Override
     public void register() {
-        ServerJoinEvent.EVENT.register(this::handleServerJoin);
+        ServerEntityEvents.ENTITY_LOAD.register(this::handleServerJoin);
     }
 
-    private void handleServerJoin(PlayerList playerManager, Connection connection, ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, ADVANCEMENT_PLAYER_JOINED);
+    private void handleServerJoin(Entity entity, ServerLevel level) {
+        if (entity instanceof ServerPlayer player)
+            CharmAdvancements.ACTION_PERFORMED.trigger(player, ADVANCEMENT_PLAYER_JOINED);
     }
 }
