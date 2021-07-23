@@ -67,7 +67,6 @@
     "event.EntityHurtCallbackMixin",
     "event.EntityJumpCallbackMixin",
     "event.EntityKillCallbackMixin",
-    "event.LoadServerFinishCallbackMixin",
     "event.PlayerDropInventoryCallbackMixin",
     "event.PlayerLoadDataCallbackMixin",
     "event.PlayerSaveDataCallbackMixin",
