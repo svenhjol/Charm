@@ -5,7 +5,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.event.PlayerTickEvent;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
 import svenhjol.charm.annotation.CommonModule;
@@ -17,7 +17,7 @@ public class ParrotsStayOnShoulder extends CharmModule {
     @Override
     public void runWhenEnabled() {
         isEnabled = true;
-        PlayerTickCallback.EVENT.register(this::tryDismountParrot);
+        PlayerTickEvent.EVENT.register(this::tryDismountParrot);
     }
 
     public static boolean shouldParrotStayMounted(Level world, long shoulderTime) {

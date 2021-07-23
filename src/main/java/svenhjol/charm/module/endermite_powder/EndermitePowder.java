@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.EntityDropItemsCallback;
+import svenhjol.charm.event.EntityDropItemsEvent;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.init.CharmAdvancements;
@@ -49,7 +49,7 @@ public class EndermitePowder extends CharmModule {
     @Override
     public void runWhenEnabled() {
         // react to entity drops
-        EntityDropItemsCallback.AFTER.register(this::tryDrop);
+        EntityDropItemsEvent.AFTER.register(this::tryDrop);
     }
 
     private InteractionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {

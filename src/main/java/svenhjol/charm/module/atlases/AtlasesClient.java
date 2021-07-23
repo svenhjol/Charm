@@ -23,7 +23,7 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.item.TooltipFlag;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.RenderHeldItemCallback;
+import svenhjol.charm.event.RenderHeldItemEvent;
 import svenhjol.charm.helper.ClientRegistryHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.loader.CharmModule;
@@ -41,7 +41,7 @@ public class AtlasesClient extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        RenderHeldItemCallback.EVENT.register(this::handleRenderItem);
+        RenderHeldItemEvent.EVENT.register(this::handleRenderItem);
         ItemTooltipCallback.EVENT.register(this::handleItemTooltip);
         ClientPlayNetworking.registerGlobalReceiver(Atlases.MSG_CLIENT_UPDATE_ATLAS_INVENTORY, this::handleClientUpdateAtlas);
     }

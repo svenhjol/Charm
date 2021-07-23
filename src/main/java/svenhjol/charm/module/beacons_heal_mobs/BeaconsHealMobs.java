@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.api.event.ApplyBeaconEffectsCallback;
+import svenhjol.charm.api.event.ApplyBeaconEffectsEvent;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public class BeaconsHealMobs extends CharmModule {
     @Override
     public void runWhenEnabled() {
-        ApplyBeaconEffectsCallback.EVENT.register(this::handleApplyBeaconEffects);
+        ApplyBeaconEffectsEvent.EVENT.register(this::handleApplyBeaconEffects);
     }
 
     private void handleApplyBeaconEffects(Level world, BlockPos pos, int levels, MobEffect primaryEffect, MobEffect secondaryEffect) {

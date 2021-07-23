@@ -15,7 +15,7 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.event.AddEntityEvent;
 import svenhjol.charm.helper.BiomeHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.helper.RegistryHelper;
@@ -52,7 +52,7 @@ public class Mooblooms extends CharmModule {
     @Override
     public void runWhenEnabled() {
         // add goals to any spawned bees
-        AddEntityCallback.EVENT.register(this::tryAddGoalsToBee);
+        AddEntityEvent.EVENT.register(this::tryAddGoalsToBee);
 
         // add the mooblooms to flower forest biomes
         List<ResourceKey<Biome>> biomes = new ArrayList<>(Collections.singletonList(Biomes.FLOWER_FOREST));

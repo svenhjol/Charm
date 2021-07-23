@@ -12,7 +12,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.event.AddEntityEvent;
 import svenhjol.charm.helper.BiomeHelper;
 import svenhjol.charm.loader.CharmModule;
 
@@ -48,7 +48,7 @@ public class MoreVillageBiomes extends CharmModule {
             BiomeHelper.addStructureToBiome(StructureFeatures.VILLAGE_SNOWY, biomeKey);
         }
 
-        AddEntityCallback.EVENT.register(this::changeVillagerSkin);
+        AddEntityEvent.EVENT.register(this::changeVillagerSkin);
     }
 
     private InteractionResult changeVillagerSkin(Entity entity) {

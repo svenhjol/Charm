@@ -13,8 +13,8 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.RenderTooltipCallback;
-import svenhjol.charm.event.ScrollMouseCallback;
+import svenhjol.charm.event.RenderTooltipEvent;
+import svenhjol.charm.event.ScrollMouseEvent;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.AbstractContainerScreenAccessor;
@@ -30,8 +30,8 @@ public class BundleSortingClient extends CharmModule {
 
     @Override
     public void register() {
-        ScrollMouseCallback.EVENT.register(this::handleScrollMouse);
-        RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
+        ScrollMouseEvent.EVENT.register(this::handleScrollMouse);
+        RenderTooltipEvent.EVENT.register(this::handleRenderTooltip);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
     }
 

@@ -19,7 +19,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.event.PlayerTickEvent;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.HoglinAiAccessor;
@@ -44,7 +44,7 @@ public class PotionOfHogsbane extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        PlayerTickCallback.EVENT.register(this::handlePlayerTick);
+        PlayerTickEvent.EVENT.register(this::handlePlayerTick);
         AttackEntityCallback.EVENT.register(this::handleAttackEntity);
     }
 

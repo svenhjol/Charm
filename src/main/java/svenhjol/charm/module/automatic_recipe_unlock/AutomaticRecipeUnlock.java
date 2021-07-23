@@ -7,7 +7,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.ServerJoinCallback;
+import svenhjol.charm.event.ServerJoinEvent;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.Collection;
@@ -16,7 +16,7 @@ import java.util.Collection;
 public class AutomaticRecipeUnlock extends CharmModule {
     @Override
     public void runWhenEnabled() {
-        ServerJoinCallback.EVENT.register(this::handleServerJoin);
+        ServerJoinEvent.EVENT.register(this::handleServerJoin);
     }
 
     private void handleServerJoin(PlayerList playerManager, Connection connection, Player player) {

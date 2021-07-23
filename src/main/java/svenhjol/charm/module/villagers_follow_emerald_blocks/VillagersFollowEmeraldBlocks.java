@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.AddEntityCallback;
-import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.event.AddEntityEvent;
+import svenhjol.charm.event.PlayerTickEvent;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
@@ -27,8 +27,8 @@ public class VillagersFollowEmeraldBlocks extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        AddEntityCallback.EVENT.register(this::followEmerald);
-        PlayerTickCallback.EVENT.register(this::handlePlayerTick);
+        AddEntityEvent.EVENT.register(this::followEmerald);
+        PlayerTickEvent.EVENT.register(this::handlePlayerTick);
     }
 
     private InteractionResult followEmerald(Entity entity) {

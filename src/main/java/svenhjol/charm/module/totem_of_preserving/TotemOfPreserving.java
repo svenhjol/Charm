@@ -17,8 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.event.EntityDropXpCallback;
-import svenhjol.charm.event.PlayerDropInventoryCallback;
+import svenhjol.charm.event.EntityDropXpEvent;
+import svenhjol.charm.event.PlayerDropInventoryEvent;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.init.CharmAdvancements;
@@ -45,8 +45,8 @@ public class TotemOfPreserving extends CharmModule {
     @Override
     public void runWhenEnabled() {
         ItemHelper.ITEM_LIFETIME.put(TOTEM_OF_PRESERVING, Integer.MAX_VALUE); // probably stupid
-        PlayerDropInventoryCallback.EVENT.register(this::tryInterceptDropInventory);
-        EntityDropXpCallback.BEFORE.register(this::tryInterceptDropXp);
+        PlayerDropInventoryEvent.EVENT.register(this::tryInterceptDropInventory);
+        EntityDropXpEvent.BEFORE.register(this::tryInterceptDropXp);
     }
 
     public InteractionResult tryInterceptDropXp(LivingEntity entity) {

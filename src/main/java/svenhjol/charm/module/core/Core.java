@@ -7,7 +7,7 @@ import net.minecraft.server.players.PlayerList;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.event.ServerJoinCallback;
+import svenhjol.charm.event.ServerJoinEvent;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
@@ -27,7 +27,7 @@ public class Core extends CharmModule {
 
     @Override
     public void register() {
-        ServerJoinCallback.EVENT.register(this::handleServerJoin);
+        ServerJoinEvent.EVENT.register(this::handleServerJoin);
     }
 
     private void handleServerJoin(PlayerList playerManager, Connection connection, ServerPlayer player) {

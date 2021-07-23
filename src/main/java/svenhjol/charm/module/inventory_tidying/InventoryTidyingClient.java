@@ -14,8 +14,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.RenderGuiCallback;
-import svenhjol.charm.event.SetupGuiCallback;
+import svenhjol.charm.event.RenderGuiEvent;
+import svenhjol.charm.event.SetupGuiEvent;
 import svenhjol.charm.helper.ScreenRenderHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.loader.CharmModule;
@@ -65,8 +65,8 @@ public class InventoryTidyingClient extends CharmModule {
     @Override
     public void runWhenEnabled() {
         // set up client listeners
-        SetupGuiCallback.EVENT.register(this::handleGuiSetup);
-        RenderGuiCallback.EVENT.register(this::handleRenderGui);
+        SetupGuiEvent.EVENT.register(this::handleGuiSetup);
+        RenderGuiEvent.EVENT.register(this::handleRenderGui);
     }
 
     private void handleGuiSetup(Minecraft client, int width, int height, List<NarratableEntry> buttons) {

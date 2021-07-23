@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.EntityHurtCallback;
+import svenhjol.charm.event.EntityHurtEvent;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.loader.CharmModule;
 
@@ -20,7 +20,7 @@ public class TamedAnimalsNoDamage extends CharmModule {
     @Override
     public void runWhenEnabled() {
         AttackEntityCallback.EVENT.register(this::tryIgnoreAttack);
-        EntityHurtCallback.EVENT.register(this::tryIgnoreDamage);
+        EntityHurtEvent.EVENT.register(this::tryIgnoreDamage);
     }
 
     private InteractionResult tryIgnoreAttack(Player player, Level world, InteractionHand hand, Entity entity, EntityHitResult hitResult) {

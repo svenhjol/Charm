@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.EntityDropItemsCallback;
+import svenhjol.charm.event.EntityDropItemsEvent;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
@@ -39,7 +39,7 @@ public class RaidHorns extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        EntityDropItemsCallback.AFTER.register(this::tryDrop);
+        EntityDropItemsEvent.AFTER.register(this::tryDrop);
     }
 
     public InteractionResult tryDrop(LivingEntity entity, DamageSource source, int lootingLevel) {

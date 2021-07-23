@@ -22,7 +22,7 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.event.PlayerTickEvent;
 import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.helper.RegistryHelper;
@@ -68,7 +68,7 @@ public class Atlases extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        PlayerTickCallback.EVENT.register(this::handlePlayerTick);
+        PlayerTickEvent.EVENT.register(this::handlePlayerTick);
 
         // listen for network requests to run the server callback
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_ATLAS_TRANSFER, this::handleServerAtlasTransfer);

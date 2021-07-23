@@ -14,8 +14,8 @@ import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.TakeAnvilOutputCallback;
-import svenhjol.charm.event.UpdateAnvilCallback;
+import svenhjol.charm.event.TakeAnvilOutputEvent;
+import svenhjol.charm.event.UpdateAnvilEvent;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.anvil_improvements.AnvilImprovements;
@@ -39,10 +39,10 @@ public class ColoredGlints extends CharmModule {
         enabled = Charm.LOADER.isEnabled(ColoredGlints.class);
 
         // listen for anvil behavior
-        UpdateAnvilCallback.EVENT.register(this::handleAnvilBehavior);
+        UpdateAnvilEvent.EVENT.register(this::handleAnvilBehavior);
 
         // listen for when player takes item from anvil
-        TakeAnvilOutputCallback.EVENT.register(this::handleTakeOutput);
+        TakeAnvilOutputEvent.EVENT.register(this::handleTakeOutput);
     }
 
     /**

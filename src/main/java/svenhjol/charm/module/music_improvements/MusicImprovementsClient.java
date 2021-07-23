@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.PlaySoundCallback;
+import svenhjol.charm.event.PlaySoundEvent;
 import svenhjol.charm.helper.DimensionHelper;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.SoundHelper;
@@ -46,7 +46,7 @@ public class MusicImprovementsClient extends CharmModule {
     @Override
     public void runWhenEnabled() {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
-        PlaySoundCallback.EVENT.register(this::handlePlaySound);
+        PlaySoundEvent.EVENT.register(this::handlePlaySound);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
 
         if (MusicImprovements.playCreativeMusic) {

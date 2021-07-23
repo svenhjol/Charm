@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.EntityEquipCallback;
+import svenhjol.charm.event.EntityEquipEvent;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.loader.CharmModule;
@@ -47,7 +47,7 @@ public class Quadrants extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        EntityEquipCallback.EVENT.register(this::handleEntityEquip);
+        EntityEquipEvent.EVENT.register(this::handleEntityEquip);
         UseBlockCallback.EVENT.register(this::handleUseBlock);
     }
 

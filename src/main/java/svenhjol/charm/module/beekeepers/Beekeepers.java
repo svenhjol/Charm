@@ -7,12 +7,12 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.SetupStructureCallback.VillageType;
+import svenhjol.charm.event.SetupStructureEvent.VillageType;
 import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.mixin.accessor.PoiTypeAccessor;
 
-import static svenhjol.charm.event.SetupStructureCallback.addVillageHouse;
+import static svenhjol.charm.event.SetupStructureEvent.addVillageHouse;
 import static svenhjol.charm.helper.VillagerHelper.addTrade;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")

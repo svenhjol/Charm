@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.EntityDropItemsCallback;
+import svenhjol.charm.event.EntityDropItemsEvent;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
@@ -31,7 +31,7 @@ public class StrayImprovements extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        EntityDropItemsCallback.AFTER.register(this::tryDrop);
+        EntityDropItemsEvent.AFTER.register(this::tryDrop);
     }
 
     public static boolean canSpawn() {
