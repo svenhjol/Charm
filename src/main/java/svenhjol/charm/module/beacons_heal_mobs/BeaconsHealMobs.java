@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.ApplyBeaconEffectsCallback;
+import svenhjol.charm.api.event.ApplyBeaconEffectsCallback;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
