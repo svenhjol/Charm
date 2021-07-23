@@ -6,6 +6,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.Level;
 
+/**
+ * @version 1.0.0
+ */
 public interface ApplyBeaconEffectsEvent {
     Event<ApplyBeaconEffectsEvent> EVENT = EventFactory.createArrayBacked(ApplyBeaconEffectsEvent.class, (listeners) -> (world, level, pos, primary, secondary) -> {
         for (ApplyBeaconEffectsEvent listener : listeners) {
