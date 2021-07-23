@@ -72,7 +72,6 @@
     "event.PlayerSaveDataCallbackMixin",
     "event.PlayerTickCallbackMixin",
     "event.ServerJoinCallbackMixin",
-    "event.ServerWorldInitCallbackMixin",
     "event.StackItemOnItemCallbackMixin",
     "event.TakeAnvilOutputCallbackMixin",
     "event.ThrownEntityImpactCallbackMixin",
