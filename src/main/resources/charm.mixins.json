@@ -60,7 +60,6 @@
     "event.AddEntityCallbackServerMixin",
     "event.ApplyBeaconEffectsCallbackMixin",
     "event.CheckAnvilRepairCallbackMixin",
-    "event.DedidcatedServerSetupCallbackMixin",
     "event.EntityDropItemsCallbackMixin",
     "event.EntityDropXpCallbackMixin",
     "event.EntityEquipCallbackMixin",
