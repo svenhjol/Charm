@@ -137,5 +137,5 @@ publishing {
 repositories {
 	flatDir { dirs "libs" }
 	maven { url "https://maven.shedaniel.me" }
-//	maven { url "https://maven.terraformersmc.com" }
+	maven { url "https://maven.terraformersmc.com" }
 }
