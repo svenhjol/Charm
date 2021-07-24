@@ -8,6 +8,7 @@ import com.google.gson.stream.JsonReader;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import org.apache.commons.lang3.StringUtils;
 import svenhjol.charm.loader.ModuleLoader;
 
 import java.io.IOException;
@@ -15,13 +16,10 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
- * @version 1.0.2-charm
+ * @version 1.0.3-charm
  */
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class StringHelper {
@@ -126,5 +124,27 @@ public class StringHelper {
         }
 
         return Optional.empty();
+    }
+
+    public static OptionalLong parseSeed(String seed) {
+        OptionalLong opt1;
+        if (StringUtils.isEmpty(seed)) {
+            opt1 = OptionalLong.empty();
+        } else {
+            OptionalLong opt2;
+            try {
+                opt2 = OptionalLong.of(Long.parseLong(seed));
+            } catch (NumberFormatException var4) {
+                opt2 = OptionalLong.empty();
+            }
+
+            if (opt2.isPresent() && opt2.getAsLong() != 0L) {
+                opt1 = opt2;
+            } else {
+                opt1 = OptionalLong.of(seed.hashCode());
+            }
+        }
+
+        return opt1;
     }
 }
