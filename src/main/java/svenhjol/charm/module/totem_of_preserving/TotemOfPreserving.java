@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
+import svenhjol.charm.api.event.SpawnTotemOfPreservingCallback;
 import svenhjol.charm.event.EntityDropXpEvent;
 import svenhjol.charm.event.PlayerDropInventoryEvent;
 import svenhjol.charm.helper.ItemHelper;
@@ -64,8 +65,9 @@ public class TotemOfPreserving extends CharmModule {
         if (player.level.isClientSide)
             return InteractionResult.PASS;
 
-        ServerLevel world = (ServerLevel)player.level;
-        Random random = world.getRandom();
+        ServerLevel serverLevel = (ServerLevel)player.level;
+        ServerPlayer serverPlayer = (ServerPlayer)player;
+        Random random = serverLevel.getRandom();
         ItemStack totem = new ItemStack(TOTEM_OF_PRESERVING);
         CompoundTag serialized = new CompoundTag();
         List<ItemStack> holdable = new ArrayList<>();
@@ -89,16 +91,16 @@ public class TotemOfPreserving extends CharmModule {
         }
 
         TotemOfPreservingItem.setItems(totem, serialized);
-        TotemOfPreservingItem.setMessage(totem, player.getScoreboardName());
+        TotemOfPreservingItem.setMessage(totem, serverPlayer.getScoreboardName());
 
         if (preserveXp)
-            TotemOfPreservingItem.setXp(totem, player.totalExperience);
+            TotemOfPreservingItem.setXp(totem, serverPlayer.totalExperience);
 
         if (!TotemOfPreservingItem.getItems(totem).isEmpty())
             totemsToSpawn.add(totem);
 
-        BlockPos playerPos = player.blockPosition();
-        Entity vehicle = player.getVehicle();
+        BlockPos playerPos = serverPlayer.blockPosition();
+        Entity vehicle = serverPlayer.getVehicle();
         double x, y, z;
 
         if (vehicle != null) {
@@ -111,8 +113,8 @@ public class TotemOfPreserving extends CharmModule {
             z = playerPos.getZ() + 0.25D;
         }
 
-        if (y < world.getMinBuildHeight())
-            y = world.getSeaLevel(); // fetching your totem from the void is sad
+        if (y < serverLevel.getMinBuildHeight())
+            y = serverLevel.getSeaLevel(); // fetching your totem from the void is sad
 
         // spawn totems
         for (ItemStack stack : totemsToSpawn) {
@@ -120,7 +122,7 @@ public class TotemOfPreserving extends CharmModule {
             double ty = y + 0.25D;
             double tz = z + random.nextFloat() * 0.25D;
 
-            ItemEntity totemEntity = new ItemEntity(world, x, y, z, stack);
+            ItemEntity totemEntity = new ItemEntity(serverLevel, x, y, z, stack);
             totemEntity.setNoGravity(true);
             totemEntity.setDeltaMovement(0, 0, 0);
             totemEntity.setPosRaw(tx, ty, tz);
@@ -128,7 +130,7 @@ public class TotemOfPreserving extends CharmModule {
             totemEntity.setGlowingTag(true);
             totemEntity.setInvulnerable(true);
 
-            world.addFreshEntity(totemEntity);
+            serverLevel.addFreshEntity(totemEntity);
         }
 
         BlockPos deathPos = new BlockPos(x, y, z);
@@ -145,6 +147,9 @@ public class TotemOfPreserving extends CharmModule {
 
         if (showDeathPosition)
             player.displayClientMessage(new TranslatableComponent("gui.charm.totem_of_preserving.deathpos", x, y, z), false);
+
+        // fire totem event
+        SpawnTotemOfPreservingCallback.EVENT.invoker().interact(serverPlayer, serverLevel, deathPos);
 
         return InteractionResult.SUCCESS;
     }

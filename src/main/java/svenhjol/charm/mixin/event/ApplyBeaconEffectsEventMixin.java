@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.api.event.ApplyBeaconEffectsEvent;
+import svenhjol.charm.api.event.ApplyBeaconEffectsCallback;
 
 @Mixin(BeaconBlockEntity.class)
 public class ApplyBeaconEffectsEventMixin extends BlockEntity {
@@ -20,7 +20,7 @@ public class ApplyBeaconEffectsEventMixin extends BlockEntity {
     }
 
     /**
-     * Fires the {@link ApplyBeaconEffectsEvent} event when adding vanilla beacon effects.
+     * Fires the {@link ApplyBeaconEffectsCallback} event when adding vanilla beacon effects.
      * This allows Charm modules to add additional effects to entities in range.
      */
     @Inject(
@@ -29,6 +29,6 @@ public class ApplyBeaconEffectsEventMixin extends BlockEntity {
     )
     private static void hookAddEffects(Level world, BlockPos pos, int level, MobEffect primary, MobEffect secondary, CallbackInfo ci) {
         if (world != null)
-            ApplyBeaconEffectsEvent.EVENT.invoker().interact(world, pos, level, primary, secondary);
+            ApplyBeaconEffectsCallback.EVENT.invoker().interact(world, pos, level, primary, secondary);
     }
 }
