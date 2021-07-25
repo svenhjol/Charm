@@ -6,18 +6,18 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.event.EntityKillCallback;
+import svenhjol.charm.event.EntityDieCallback;
 
 @Mixin(LivingEntity.class)
-public class EntityKillMixin {
+public class EntityDieMixin {
     /**
-     * Fires the {@link EntityKillCallback} event when an entity is killed.
+     * Fires the {@link EntityDieCallback} event when an entity is killed.
      */
     @Inject(
         method = "die",
         at = @At("HEAD")
     )
     private void hookOnDeath(DamageSource source, CallbackInfo ci) {
-        EntityKillCallback.EVENT.invoker().interact((LivingEntity)(Object)this, source);
+        EntityDieCallback.EVENT.invoker().interact((LivingEntity)(Object)this, source);
     }
 }

@@ -5,9 +5,9 @@ import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 
-public interface EntityKillCallback {
-    Event<EntityKillCallback> EVENT = EventFactory.createArrayBacked(EntityKillCallback.class, (listeners) -> (livingEntity, source) -> {
-        for (EntityKillCallback listener : listeners) {
+public interface EntityDieCallback {
+    Event<EntityDieCallback> EVENT = EventFactory.createArrayBacked(EntityDieCallback.class, (listeners) -> (livingEntity, source) -> {
+        for (EntityDieCallback listener : listeners) {
             listener.interact(livingEntity, source);
         }
     });
