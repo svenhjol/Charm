@@ -3,8 +3,8 @@ package svenhjol.charm.api.event;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
 
 /**
  * @version 1.0.0
@@ -16,5 +16,5 @@ public interface SpawnTotemOfPreservingCallback {
         }
     });
 
-    void interact(ServerPlayer player, Level world, BlockPos pos);
+    void interact(ServerPlayer player, ServerLevel world, BlockPos pos);
 }
