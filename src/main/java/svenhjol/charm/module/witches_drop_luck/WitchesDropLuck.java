@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potions;
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.EntityDropItemsEvent;
+import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.PotionHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
@@ -25,7 +25,7 @@ public class WitchesDropLuck extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        EntityDropItemsEvent.AFTER.register(this::tryDrop);
+        EntityDropItemsCallback.AFTER.register(this::tryDrop);
     }
 
     public InteractionResult tryDrop(LivingEntity entity, DamageSource damageSource, int lootingLevel) {

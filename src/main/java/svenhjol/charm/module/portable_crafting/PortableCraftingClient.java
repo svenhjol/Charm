@@ -15,8 +15,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.RenderGuiEvent;
-import svenhjol.charm.event.SetupGuiEvent;
+import svenhjol.charm.event.RenderGuiCallback;
+import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenRenderHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.init.CharmTags;
@@ -33,8 +33,8 @@ public class PortableCraftingClient extends CharmModule {
     @Override
     public void runWhenEnabled() {
         // set up client listeners
-        SetupGuiEvent.EVENT.register(this::handleGuiSetup);
-        RenderGuiEvent.EVENT.register(this::handleRenderGui);
+        SetupGuiCallback.EVENT.register(this::handleGuiSetup);
+        RenderGuiCallback.EVENT.register(this::handleRenderGui);
 
         if (PortableCrafting.enableKeybind) {
             keyBinding = KeyBindingHelper.registerKeyBinding(new KeyMapping(

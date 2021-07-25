@@ -21,7 +21,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.RenderTooltipEvent;
+import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ScreenRenderHelper;
 import svenhjol.charm.loader.CharmModule;
 
@@ -37,7 +37,7 @@ public class CookingPotsClient extends CharmModule {
 
     @Override
     public void register() {
-        RenderTooltipEvent.EVENT.register(this::handleRenderTooltip);
+        RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
         ColorProviderRegistry.BLOCK.register(this::handleColorProvider, CookingPots.COOKING_POT);
         BlockEntityRendererRegistry.INSTANCE.register(CookingPots.BLOCK_ENTITY, CookingPotBlockEntityRenderer::new);
         ClientPlayNetworking.registerGlobalReceiver(CookingPots.MSG_CLIENT_ADDED_TO_POT, this::handleClientAddedToPot);

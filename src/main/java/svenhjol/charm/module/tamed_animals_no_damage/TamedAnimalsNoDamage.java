@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.EntityHurtEvent;
+import svenhjol.charm.event.EntityHurtCallback;
 import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.")
@@ -20,7 +20,7 @@ public class TamedAnimalsNoDamage extends CharmModule {
     @Override
     public void runWhenEnabled() {
         AttackEntityCallback.EVENT.register(this::tryIgnoreAttack);
-        EntityHurtEvent.EVENT.register(this::tryIgnoreDamage);
+        EntityHurtCallback.EVENT.register(this::tryIgnoreDamage);
     }
 
     private InteractionResult tryIgnoreAttack(Player player, Level world, InteractionHand hand, Entity entity, EntityHitResult hitResult) {

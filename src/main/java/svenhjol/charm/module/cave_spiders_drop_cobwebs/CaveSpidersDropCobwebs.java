@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.EntityDropItemsEvent;
+import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
@@ -25,7 +25,7 @@ public class CaveSpidersDropCobwebs extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        EntityDropItemsEvent.AFTER.register((this::tryDropCobweb));
+        EntityDropItemsCallback.AFTER.register((this::tryDropCobweb));
     }
 
     public InteractionResult tryDropCobweb(LivingEntity entity, DamageSource source, int lootingLevel) {

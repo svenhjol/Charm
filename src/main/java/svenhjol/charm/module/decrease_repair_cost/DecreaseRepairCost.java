@@ -10,8 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
-import svenhjol.charm.event.TakeAnvilOutputEvent;
-import svenhjol.charm.event.UpdateAnvilEvent;
+import svenhjol.charm.event.TakeAnvilOutputCallback;
+import svenhjol.charm.event.UpdateAnvilCallback;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
@@ -36,10 +36,10 @@ public class DecreaseRepairCost extends CharmModule {
             xpCost = 1;
 
         // register the anvil recipe for this operation
-        UpdateAnvilEvent.EVENT.register(this::tryReduceRepairCost);
+        UpdateAnvilCallback.EVENT.register(this::tryReduceRepairCost);
 
         // listen for when player takes item from anvil
-        TakeAnvilOutputEvent.EVENT.register(this::handleTakeOutput);
+        TakeAnvilOutputCallback.EVENT.register(this::handleTakeOutput);
     }
 
     private InteractionResult tryReduceRepairCost(AnvilMenu handler, Player player, ItemStack left, ItemStack right, Container output, String name, int baseCost, TriConsumer<ItemStack, Integer, Integer> apply) {

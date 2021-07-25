@@ -14,7 +14,7 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.RenderTooltipEvent;
+import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
@@ -26,7 +26,7 @@ public class MapTooltipsClient extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        RenderTooltipEvent.EVENT.register(this::handleRenderTooltip);
+        RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
     private void handleRenderTooltip(PoseStack matrices, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {

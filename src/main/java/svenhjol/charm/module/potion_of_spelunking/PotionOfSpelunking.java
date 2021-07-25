@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.PlayerTickEvent;
+import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
@@ -89,7 +89,7 @@ public class PotionOfSpelunking extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        PlayerTickEvent.EVENT.register(this::handlePlayerTick);
+        PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 
     private void handlePlayerTick(Player player) {

@@ -7,14 +7,14 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.SetupStructureEvent.VillageType;
+import svenhjol.charm.event.SetupStructureCallback.VillageType;
 import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.helper.WorldHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.lumberjacks.LumberjackTradeOffers.*;
 import svenhjol.charm.module.woodcutters.Woodcutters;
 
-import static svenhjol.charm.event.SetupStructureEvent.addVillageHouse;
+import static svenhjol.charm.event.SetupStructureCallback.addVillageHouse;
 import static svenhjol.charm.helper.VillagerHelper.addTrade;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.")

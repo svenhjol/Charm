@@ -7,8 +7,8 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm.event.RenderGuiEvent;
-import svenhjol.charm.event.SetupGuiEvent;
+import svenhjol.charm.event.RenderGuiCallback;
+import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.helper.ScreenRenderHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.portable_crafting.PortableCraftingClient;
@@ -22,8 +22,8 @@ public class InventoryButtonClient extends CharmModule {
 
     @Override
     public void register() {
-        SetupGuiEvent.EVENT.register(this::handleGuiSetup);
-        RenderGuiEvent.EVENT.register(this::handleRenderGui);
+        SetupGuiCallback.EVENT.register(this::handleGuiSetup);
+        RenderGuiCallback.EVENT.register(this::handleRenderGui);
     }
 
     @Override

@@ -11,8 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.StackItemOnItemEvent;
-import svenhjol.charm.event.StackItemOnItemEvent.Direction;
+import svenhjol.charm.event.StackItemOnItemCallback;
+import svenhjol.charm.event.StackItemOnItemCallback.Direction;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
@@ -24,7 +24,7 @@ public class LavaBucketDestroysItems extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        StackItemOnItemEvent.EVENT.register(this::handleStackedItem);
+        StackItemOnItemCallback.EVENT.register(this::handleStackedItem);
     }
 
     private boolean handleStackedItem(Direction direction, ItemStack source, ItemStack dest, Slot slot, ClickAction clickAction, Player player, @Nullable SlotAccess slotAccess) {

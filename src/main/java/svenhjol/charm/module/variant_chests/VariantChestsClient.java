@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.enums.IWoodMaterial;
-import svenhjol.charm.event.RenderBlockItemEvent;
-import svenhjol.charm.event.StitchTextureEvent;
+import svenhjol.charm.event.RenderBlockItemCallback;
+import svenhjol.charm.event.StitchTextureCallback;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.Set;
@@ -26,8 +26,8 @@ public class VariantChestsClient extends CharmModule {
         BlockEntityRendererRegistry.INSTANCE.register(VariantChests.NORMAL_BLOCK_ENTITY, VariantChestBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(VariantChests.TRAPPED_BLOCK_ENTITY, VariantChestBlockEntityRenderer::new);
 
-        StitchTextureEvent.EVENT.register(this::handleTextureStitch);
-        RenderBlockItemEvent.EVENT.register(this::handleBlockItemRender);
+        StitchTextureCallback.EVENT.register(this::handleTextureStitch);
+        RenderBlockItemCallback.EVENT.register(this::handleBlockItemRender);
     }
 
     private void handleTextureStitch(TextureAtlas atlas, Set<ResourceLocation> textures) {

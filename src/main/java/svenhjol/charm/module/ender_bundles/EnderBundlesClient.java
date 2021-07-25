@@ -17,7 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.RenderTooltipEvent;
+import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ClientHelper;
 import svenhjol.charm.helper.TooltipHelper;
 import svenhjol.charm.loader.CharmModule;
@@ -46,7 +46,7 @@ public class EnderBundlesClient extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        RenderTooltipEvent.EVENT.register(this::handleRenderTooltip);
+        RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
     }
 
     /**

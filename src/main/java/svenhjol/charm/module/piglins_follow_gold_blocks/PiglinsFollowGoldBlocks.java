@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.AddEntityEvent;
-import svenhjol.charm.event.PlayerTickEvent;
+import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
@@ -27,8 +27,8 @@ public class PiglinsFollowGoldBlocks extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        AddEntityEvent.EVENT.register(this::followGold);
-        PlayerTickEvent.EVENT.register(this::handlePlayerTick);
+        AddEntityCallback.EVENT.register(this::followGold);
+        PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 
     private InteractionResult followGold(Entity entity) {

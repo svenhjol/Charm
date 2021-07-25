@@ -21,7 +21,7 @@ import net.minecraft.world.level.material.Material;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.event.AddEntityEvent;
+import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.helper.*;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
@@ -57,7 +57,7 @@ public class BlockOfEnderPearls extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        AddEntityEvent.EVENT.register(this::addGoalToSilverfish);
+        AddEntityCallback.EVENT.register(this::addGoalToSilverfish);
     }
 
     public static boolean tryChorusTeleport(LivingEntity entity, ItemStack stack) {
