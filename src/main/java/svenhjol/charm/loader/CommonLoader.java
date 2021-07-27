@@ -8,10 +8,10 @@ import svenhjol.charm.helper.ConfigHelper;
 import svenhjol.charm.mixin.BaseMixinConfigPlugin;
 import svenhjol.charm.module.core.Core;
 
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @SuppressWarnings({"unused", "unchecked"})
@@ -81,9 +81,8 @@ public class CommonLoader<T extends CharmModule> extends ModuleLoader<T> {
         ConfigHelper.writeConfig(getModId(), modules);
     }
 
-    @Nullable
-    public T getModule(Class<? extends T> clazz) {
-        return MODULES_BY_CLASS.getOrDefault(clazz, null);
+    public Optional<T> getModule(Class<? extends T> clazz) {
+        return Optional.ofNullable(MODULES_BY_CLASS.get(clazz));
     }
 
     public static Map<ResourceLocation, CharmModule> getAllModules() {

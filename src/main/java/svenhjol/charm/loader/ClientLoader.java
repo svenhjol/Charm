@@ -3,14 +3,14 @@ package svenhjol.charm.loader;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.annotation.ClientModule;
 
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @SuppressWarnings({"unused", "unchecked"})
 public class ClientLoader<T extends CharmModule, L extends ModuleLoader<T>> extends ModuleLoader<T> {
-    private static final Map<ResourceLocation, CharmModule> ALL_MODULES_BY_ID = new HashMap<>();
-    private final Map<Class<? extends T>, T> MODULES_BY_CLASS = new HashMap<>();
+    private final Map<ResourceLocation, T> ALL_MODULES_BY_ID = new HashMap<>();
+    private final Map<Class<? extends T>, T> ALL_MODULES_BY_CLASS = new HashMap<>();
 
     private final L loader;
 
@@ -19,7 +19,7 @@ public class ClientLoader<T extends CharmModule, L extends ModuleLoader<T>> exte
         this.loader = loader;
         getModules().forEach(module -> {
             ALL_MODULES_BY_ID.put(module.getId(), module);
-            MODULES_BY_CLASS.put((Class<? extends T>) module.getClass(), module);
+            ALL_MODULES_BY_CLASS.put((Class<? extends T>) module.getClass(), module);
         });
     }
 
@@ -41,12 +41,11 @@ public class ClientLoader<T extends CharmModule, L extends ModuleLoader<T>> exte
         }
     }
 
-    @Nullable
-    public T getModule(Class<? extends T> clazz) {
-        return MODULES_BY_CLASS.getOrDefault(clazz, null);
+    public Optional<T> getModule(Class<? extends T> clazz) {
+        return Optional.ofNullable(ALL_MODULES_BY_CLASS.get(clazz));
     }
 
-    public static Map<ResourceLocation, CharmModule> getAllModules() {
+    public Map<ResourceLocation, T> getAllModules() {
         return ALL_MODULES_BY_ID;
     }
 }
