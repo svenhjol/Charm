@@ -3,12 +3,13 @@ package svenhjol.charm.event;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
+import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.data.worldgen.ProcessorLists;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.structures.LegacySinglePoolElement;
 import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElement;
 import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import svenhjol.charm.mixin.accessor.StructureTemplatePoolAccessor;
 import svenhjol.charm.enums.ICharmEnum;
@@ -46,15 +47,17 @@ public interface SetupStructureCallback {
         return vanillaPools.get(id);
     }
 
-    static void addStructurePoolElement(ResourceLocation poolId, ResourceLocation pieceId, StructureProcessorList processor, StructureTemplatePool.Projection projection, int count) {
+    static void addStructurePoolElement(ResourceLocation poolId, ResourceLocation pieceId, StructureProcessorList processor, StructureTemplatePool.Projection projection, int count, Registry<StructureTemplatePool> poolRegistry) {
         Pair<Function<StructureTemplatePool.Projection, LegacySinglePoolElement>, Integer> pair =
             Pair.of(StructurePoolElement.legacy(pieceId.toString(), processor), count);
 
         StructurePoolElement element = pair.getFirst().apply(projection);
-        StructureTemplatePool pool = getVanillaPool(poolId);
+        StructureTemplatePool pool = poolRegistry.get(poolId);
         
         // add custom piece to the element counts
-        ((StructureTemplatePoolAccessor)pool).getRawTemplates().add(Pair.of(element, count));
+        List<Pair<StructurePoolElement, Integer>> listOfPieceEntries = new ArrayList<>(((StructureTemplatePoolAccessor)pool).getRawTemplates());
+        listOfPieceEntries.add(new Pair<>(element, count));
+        ((StructureTemplatePoolAccessor)pool).setRawTemplates(listOfPieceEntries);
         
         // add custom piece to the elements
         for (int i = 0; i < count; i++) {
@@ -62,11 +65,10 @@ public interface SetupStructureCallback {
         }
     }
 
-    static void addVillageHouse(VillageType type, ResourceLocation pieceId, int count) {
+    static void addVillageHouse(VillageType type, ResourceLocation pieceId, int count, List<StructureProcessor> charmProcessor, Registry<StructureTemplatePool> poolRegistry) {
         ResourceLocation houses = new ResourceLocation("village/" + type.getSerializedName() + "/houses");
-        StructureProcessorList processor = ProcessorLists.MOSSIFY_10_PERCENT;
         StructureTemplatePool.Projection projection = StructureTemplatePool.Projection.RIGID;
-        addStructurePoolElement(houses, pieceId, processor, projection, count);
+        addStructurePoolElement(houses, pieceId, new StructureProcessorList(charmProcessor), projection, count, poolRegistry);
     }
 
     void interact();

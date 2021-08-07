@@ -89,7 +89,6 @@
     "feather_falling_crops.PreventTramplingMixin",
     "gentle_potion_particles.RenderTranslucentParticleMixin",
     "grindable_horse_armor.UpdateGrindstoneOutputMixin",
-    "helper.AddCustomDecorationProcessorsMixin",
     "helper.AddSortingRecipeManagerMixin",
     "helper.ChangeAdvancementErrorTypeMixin",
     "helper.CheckEnchantingPowerMixin",
