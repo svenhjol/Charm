@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.ItemNbtHelper;
@@ -20,6 +21,7 @@ import svenhjol.charm.loader.CharmModule;
 import javax.annotation.Nullable;
 import java.util.List;
 
+@ClientModule(module = ShulkerBoxTooltips.class)
 public class ShulkerBoxTooltipsClient extends CharmModule {
     @Override
     public void runWhenEnabled() {
