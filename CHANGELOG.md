@@ -3,6 +3,8 @@
 ### 3.3.3
 * Signs are now editable in the nether
 * Anvils properly check for amethyst in second slot
+* Copper rail color adjusted to match copper ingots more closely (Coranthes)
+* Fixes to custom village structure processors (TelepathicGrunt)
 
 ### 3.3.2
 * Change debug early loading to fix compatibility (e.g. Ferritecore)
