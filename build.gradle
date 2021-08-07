@@ -4,6 +4,7 @@ import groovy.json.JsonSlurper
 plugins {
 	id 'maven-publish'
 	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'org.ajoberstar.grgit' version '4.1.0'
 //	id 'dev.architectury.loom' version("0.7.2-SNAPSHOT") apply false
 }
 
@@ -13,7 +14,7 @@ sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version
+version = "${project.mod_version}-${getVersionMetadata()}"
 group = project.maven_group
 
 minecraft {
@@ -132,6 +133,17 @@ publishing {
 		// uncomment to publish to the local maven
 		// mavenLocal()
 	}
+}
+
+def getVersionMetadata() {
+	if (grgit != null) {
+		def head = grgit.head()
+		def id = head.abbreviatedId
+		return id;
+	}
+
+	// No tracking information could be found about the build
+	return "unknown"
 }
 
 repositories {
