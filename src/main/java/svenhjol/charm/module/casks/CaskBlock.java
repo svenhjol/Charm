@@ -11,6 +11,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -47,6 +48,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("deprecation")
 public class CaskBlock extends CharmBlockWithEntity {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final VoxelShape X1, X2, X3, X4;
@@ -236,6 +238,16 @@ public class CaskBlock extends CharmBlockWithEntity {
     }
 
     @Override
+    public void tick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, Random random) {
+        super.tick(blockState, serverLevel, blockPos, random);
+        CaskBlockEntity cask = getBlockEntity(serverLevel, blockPos);
+        if (cask != null && random.nextInt(1000) == 0) {
+            cask.ferment();
+            serverLevel.playSound(null, blockPos.getX() + 0.5D, blockPos.getY() + 0.5D, blockPos.getZ() + 0.5D, CharmSounds.CASK, SoundSource.BLOCKS, 0.3F + (0.1F * random.nextFloat()), random.nextFloat() * 0.7F + 0.6F);
+        }
+    }
+
+    @Override
     @Environment(EnvType.CLIENT)
     public void animateTick(BlockState state, Level world, BlockPos pos, Random random) {
         if (random.nextInt(2) == 0) {
@@ -254,10 +266,6 @@ public class CaskBlock extends CharmBlockWithEntity {
                     double b = (double) (color & 255) / 255.0D;
                     world.addParticle(ParticleTypes.AMBIENT_ENTITY_EFFECT, (double) pos.getX() + 0.13D + (0.7D * random.nextDouble()), (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.13D + (0.7D * random.nextDouble()), r, g, b);
                 });
-
-                if (!effects.isEmpty() && random.nextInt(20) == 0) {
-                    world.playLocalSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, CharmSounds.CASK, SoundSource.BLOCKS, 0.1F + (0.1F * random.nextFloat()), random.nextFloat() * 0.7F + 0.6F, false);
-                }
             }
         }
     }
