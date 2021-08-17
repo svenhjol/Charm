@@ -34,9 +34,14 @@ import java.util.Random;
 
 import static net.minecraft.core.Direction.DOWN;
 
+@SuppressWarnings("NullableProblems")
 @Environment(EnvType.CLIENT)
 public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> implements BlockEntityRenderer<T> {
     private static final int PER_ROW = 6;
+    private static final int DIST_CUTOFF_DEFAULT = 400;
+    private static final int DIST_CUTOFF_FABULOUS = 900;
+    private static final int DIST_FULLRENDER_DEFAULT = 100;
+    private static final int DIST_FULLRENDER_FABULOUS = 160;
 
     protected Level world;
     protected ItemStack stack;
@@ -72,8 +77,8 @@ public class StorageCrateBlockEntityRenderer<T extends StorageCrateBlockEntity> 
             return;
 
         boolean fabulous = Minecraft.useShaderTransparency();
-        int distCutoffRender = fabulous ? 768 : 256;
-        int distFullRender = fabulous ? 96 : 32;
+        int distCutoffRender = fabulous ? DIST_CUTOFF_FABULOUS : DIST_CUTOFF_DEFAULT;
+        int distFullRender = fabulous ? DIST_FULLRENDER_FABULOUS : DIST_FULLRENDER_DEFAULT;
 
         itemRenderer = client.getItemRenderer();
         textRenderer = client.font;
