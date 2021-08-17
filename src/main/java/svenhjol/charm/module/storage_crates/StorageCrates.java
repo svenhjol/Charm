@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -41,7 +42,7 @@ public class StorageCrates extends CharmModule {
     public static final ResourceLocation TRIGGER_ADDED_STACK_TO_CRATE = new ResourceLocation(Charm.MOD_ID, "added_stack_to_crate");
 
     @Config(name = "Maximum stacks", description = "Number of stacks of a single item or block that a storage crate will hold.")
-    public static int maximumStacks = 54;
+    public static int maximumStacks = 216;
 
     @Config(name = "Show label", description = "If true, storage crates show their type and capacity as a hovering label. Requires the 'Storage Labels' feature to be enabled.")
     public static boolean showLabel = true;
@@ -76,10 +77,9 @@ public class StorageCrates extends CharmModule {
         boolean isSneaking = player.isShiftKeyDown();
 
         BlockEntity blockEntity = world.getBlockEntity(hitResult.getBlockPos());
-        if (blockEntity instanceof StorageCrateBlockEntity) {
-            StorageCrateBlockEntity crate = (StorageCrateBlockEntity) blockEntity;
-
+        if (blockEntity instanceof StorageCrateBlockEntity crate) {
             if (!world.isClientSide) {
+
                 if (!crate.isEmpty() && (held.isEmpty() || (isSneaking && ItemStack.isSameItemSameTags(held, crate.getItemType())))) {
                     ItemStack stack = crate.takeStack(player);
                     PlayerHelper.addOrDropStack(player, stack);
@@ -93,8 +93,28 @@ public class StorageCrates extends CharmModule {
                         if (crate.isFull()) {
                             sendClientEffects(world, pos, ActionType.FILLED);
                         } else {
+                            ItemStack typeToAdd = held.copy();
                             ItemStack added = crate.addStack(held, player);
-                            player.setItemInHand(hand, added);
+
+                            // try and merge all stacks of this type from the player's inventory
+                            if (added.getCount() == 0) {
+                                Inventory playerInventory = player.getInventory();
+
+                                for (ItemStack invStack : playerInventory.items) {
+                                    ItemStack stackToAdd = invStack.copy();
+                                    if (ItemStack.isSameItemSameTags(typeToAdd, invStack)) {
+                                        ItemStack remainder = crate.addStack(stackToAdd, player);
+                                        invStack.setCount(0);
+
+                                        if (remainder.getCount() > 0) {
+                                            player.setItemInHand(hand, remainder);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else {
+                                player.setItemInHand(hand, added);
+                            }
 
                             if (crate.getItemType() != null && crate.getTotalNumberOfItems() >= crate.getItemType().getMaxStackSize())
                                 triggerAddedStackToCrate((ServerPlayer) player);
