@@ -137,18 +137,20 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
     }
 
     public ItemStack addStack(ItemStack stack, @Nullable Player player) {
+        ItemStack copyStack = stack.copy();
+        int maxStackSize = copyStack.getMaxStackSize();
         for (int i = 0; i < getItems().size(); i++) {
             ItemStack stackInSlot = getItem(i);
             if (stackInSlot.isEmpty()) {
-                super.setItem(i, stack);
-                stack = ItemStack.EMPTY;
+                super.setItem(i, copyStack);
+                copyStack = ItemStack.EMPTY;
                 break;
 
-            } else if (canMergeItems(stack, stackInSlot)) {
-                int c = stack.getMaxStackSize() - stackInSlot.getCount();
-                int d = Math.min(stack.getCount(), c);
+            } else if (canMergeItems(copyStack, stackInSlot)) {
+                int c = maxStackSize - stackInSlot.getCount();
+                int d = Math.min(copyStack.getCount(), c);
                 stackInSlot.grow(d);
-                stack.shrink(d);
+                copyStack.shrink(d);
             }
 
             if (player != null)
@@ -158,7 +160,7 @@ public class StorageCrateBlockEntity extends RandomizableContainerBlockEntity im
         this.sync();
 
         doClientAddEffect();
-        return stack;
+        return copyStack;
     }
 
     public ItemStack takeStack(@Nullable Player player) {

@@ -93,27 +93,13 @@ public class StorageCrates extends CharmModule {
                         if (crate.isFull()) {
                             sendClientEffects(world, pos, ActionType.FILLED);
                         } else {
-                            ItemStack typeToAdd = held.copy();
-                            ItemStack added = crate.addStack(held, player);
+                            Inventory playerInventory = player.getInventory();
 
-                            // try and merge all stacks of this type from the player's inventory
-                            if (added.getCount() == 0) {
-                                Inventory playerInventory = player.getInventory();
+                            tryAddInventoryStack(player, crate, player.getMainHandItem());
+                            tryAddInventoryStack(player, crate, player.getOffhandItem());
 
-                                for (ItemStack invStack : playerInventory.items) {
-                                    ItemStack stackToAdd = invStack.copy();
-                                    if (ItemStack.isSameItemSameTags(typeToAdd, invStack)) {
-                                        ItemStack remainder = crate.addStack(stackToAdd, player);
-                                        invStack.setCount(0);
-
-                                        if (remainder.getCount() > 0) {
-                                            player.setItemInHand(hand, remainder);
-                                            break;
-                                        }
-                                    }
-                                }
-                            } else {
-                                player.setItemInHand(hand, added);
+                            for (ItemStack inventoryStack : playerInventory.items) {
+                                tryAddInventoryStack(player, crate, inventoryStack);
                             }
 
                             if (crate.getItemType() != null && crate.getTotalNumberOfItems() >= crate.getItemType().getMaxStackSize())
@@ -131,6 +117,24 @@ public class StorageCrates extends CharmModule {
         }
 
         return InteractionResult.PASS;
+    }
+
+    private void tryAddInventoryStack(Player player, StorageCrateBlockEntity crate, ItemStack inventoryStack) {
+        ItemStack itemType = crate.getItemType();
+        ItemStack stackToAdd = inventoryStack.copy();
+
+        if (itemType == null)
+            itemType = stackToAdd.copy();
+
+        if (ItemStack.isSameItemSameTags(itemType, inventoryStack)) {
+            ItemStack remainder = crate.addStack(stackToAdd, player);
+
+            if (remainder.getCount() > 0) {
+                inventoryStack.setCount(remainder.getCount());
+            } else {
+                inventoryStack.setCount(0);
+            }
+        }
     }
 
     public static void sendClientEffects(Level world, BlockPos pos, ActionType actionType) {
