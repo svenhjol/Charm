@@ -52,6 +52,9 @@ public class ExtraRecipes extends CharmModule {
     @Config(name = "Leather to repair elytra", description = "If true, leather can be used to repair elytra when insomnia is disabled.")
     public static boolean useLeatherForElytra = true;
 
+    @Config(name = "Nether Quartz from quartz block", description = "If true, adds a recipe to turn Quartz blocks back into Nether Quartz.")
+    public static boolean useQuartz = true;
+
     @Override
     public void register() {
         // remove recipes that are not valid according to the config
@@ -70,6 +73,7 @@ public class ExtraRecipes extends CharmModule {
         if (!useBread) invalid.add("bread");
         if (!usePaper) invalid.add("paper");
         if (!useBundle) invalid.add("bundle");
+        if (!useQuartz) invalid.add("quartz");
 
         invalid.forEach(recipe -> RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "extra_recipes/" + recipe)));
     }
