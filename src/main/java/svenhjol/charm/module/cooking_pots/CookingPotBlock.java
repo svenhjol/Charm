@@ -42,6 +42,7 @@ import svenhjol.charm.loader.CharmModule;
 
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class CookingPotBlock extends CharmBlockWithEntity {
     private static final VoxelShape RAY_TRACE_SHAPE = box(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
     private static final VoxelShape OUTLINE_SHAPE;

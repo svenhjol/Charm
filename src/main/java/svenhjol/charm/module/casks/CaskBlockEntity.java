@@ -40,8 +40,10 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
     public static final String AMPLIFIERS_NBT = "Amplifier";
     public static final String DILUTIONS_NBT = "Dilutions";
     public static final String NAME_NBT = "Name";
+    public static final String FERMENTATION_NBT = "Fermentation";
 
     public int portions = 0;
+    public int fermentation = 0;
     public String name = "";
     public Map<ResourceLocation, Integer> durations = new HashMap<>();
     public Map<ResourceLocation, Integer> amplifiers = new HashMap<>();
@@ -58,6 +60,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
 
         this.name = nbt.getString(NAME_NBT);
         this.portions = nbt.getInt(PORTIONS_NBT);
+        this.fermentation = nbt.getInt(FERMENTATION_NBT);
         this.effects = new ArrayList<>();
         this.durations = new HashMap<>();
         this.amplifiers = new HashMap<>();
@@ -85,6 +88,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
 
         nbt.putString(NAME_NBT, this.name);
         nbt.putInt(PORTIONS_NBT, this.portions);
+        nbt.putInt(FERMENTATION_NBT, this.fermentation);
 
         CompoundTag durations = new CompoundTag();
         CompoundTag amplifiers = new CompoundTag();
@@ -216,7 +220,7 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
                     int amplifier = this.amplifiers.get(effectId);
                     int dilution = this.dilutions.get(effectId);
 
-                    effects.add(new MobEffectInstance(statusEffect, duration / dilution, amplifier));
+                    effects.add(new MobEffectInstance(statusEffect, (duration / dilution) * fermentation, amplifier));
                 });
             }
 
@@ -244,12 +248,19 @@ public class CaskBlockEntity extends BlockEntity implements BlockEntityClientSer
         return null;
     }
 
+    public void ferment() {
+        if (this.fermentation < 5) {
+            this.fermentation++;
+        }
+    }
+
     private void flush(Level world, BlockPos pos, BlockState state) {
         this.effects = new ArrayList<>();
         this.durations = new HashMap<>();
         this.dilutions = new HashMap<>();
         this.amplifiers = new HashMap<>();
         this.portions = 0;
+        this.fermentation = 0;
 
         setChanged();
         sync();
