@@ -26,6 +26,8 @@ import java.util.WeakHashMap;
 
 public class LootableContainerBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
     private static final int REFRESH_NAME_TICKS = 60;
+    private static final Long NO_CUSTOM_NAME = -1L;
+
     private final BlockEntityRendererProvider.Context context;
     public static Map<BlockPos, Long> cachedPos = new WeakHashMap<>();
 
@@ -61,10 +63,11 @@ public class LootableContainerBlockEntityRenderer<T extends BlockEntity> impleme
             return;
 
         if (!container.hasCustomName()) {
+            Long value = cachedPos.get(pos);
             // ask the server to update this container with a custom name
-            if (!cachedPos.containsKey(pos)) {
+            if (value == null) {
                 cachedPos.put(pos, world.getGameTime());
-            } else if (cachedPos.get(pos) == -1) {
+            } else if (value == NO_CUSTOM_NAME) {
                 // server updated this to confirm there's no custom name here, don't do anything
                 return;
             } else if (world.getGameTime() - cachedPos.get(pos) > REFRESH_NAME_TICKS) {
