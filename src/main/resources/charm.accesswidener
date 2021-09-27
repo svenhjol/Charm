@@ -1,0 +1,45 @@
+accessWidener v1 named
+
+# Inaccessible classes and interfaces
+accessible class net/minecraft/world/inventory/MenuType$MenuSupplier
+accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
+accessible class net/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker
+accessible class net/minecraft/world/item/crafting/SimpleCookingSerializer$CookieBaker
+
+accessible class net/minecraft/client/renderer/RenderStateShard$CullStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$DepthTestStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$LayeringStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$ShaderStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$OutputStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$TexturingStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$TransparencyStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$WriteMaskStateShard
+
+accessible class net/minecraft/client/renderer/RenderType$CompositeState
+accessible class net/minecraft/data/worldgen/Features$Decorators
+
+# Inaccessible constructors
+accessible method net/minecraft/world/inventory/MenuType <init> (Lnet/minecraft/world/inventory/MenuType$MenuSupplier;)V
+accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer <init> (Lnet/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker;)V
+accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V
+accessible method net/minecraft/world/level/block/state/properties/WoodType <init> (Ljava/lang/String;)V
+
+# Inaccessible methods
+accessible method net/minecraft/client/renderer/RenderType create (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;ILnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
+accessible method net/minecraft/client/renderer/RenderType create (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;IZZLnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
+accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
+accessible method net/minecraft/world/item/alchemy/PotionBrewing addMix (Lnet/minecraft/world/item/alchemy/Potion;Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/alchemy/Potion;)V
+accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
+accessible method net/minecraft/tags/BlockTags bind (Ljava/lang/String;)Lnet/minecraft/tags/Tag$Named;
+accessible method net/minecraft/tags/ItemTags bind (Ljava/lang/String;)Lnet/minecraft/tags/Tag$Named;
+extendable method net/minecraft/world/inventory/AbstractContainerMenu doClick (IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V
+
+# Inaccessible fields
+accessible  field net/minecraft/client/Minecraft blockColors Lnet/minecraft/client/color/block/BlockColors;
+accessible  field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
+accessible  field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
+accessible  field net/minecraft/util/random/WeightedRandomList totalWeight I
+mutable     field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
+mutable     field net/minecraft/util/random/WeightedRandomList totalWeight I
+mutable     field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;

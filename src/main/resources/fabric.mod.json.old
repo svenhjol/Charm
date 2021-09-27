@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "charm",
+  "version": "${version}",
+
+  "name": "Charm",
+  "description": "Smaller things.",
+  "authors": [
+    "svenhjol",
+    "Coranthes",
+    "WarlordWossman",
+    "F43nd1r"
+  ],
+  "contact": {
+    "homepage": "https://svenhjol.github.io/Charm",
+    "sources": "https://github.com/svenhjol/Charm",
+    "issues": "https://github.com/svenhjol/Charm/issues"
+  },
+
+  "license": "MIT",
+  "icon": "assets/charm/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "svenhjol.charm.Charm"
+    ],
+    "client": [
+      "svenhjol.charm.CharmClient"
+    ],
+    "rei": [
+      "svenhjol.charm.integration.rei.CharmReiClientPlugin",
+      "svenhjol.charm.integration.rei.CharmReiServerPlugin"
+    ],
+    "modmenu": [
+      "svenhjol.charm.integration.modmenu.CharmModMenuPlugin"
+    ]
+  },
+  "mixins": [
+    "charm.mixins.json"
+  ],
+  "accessWidener": "charm.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "fabric-key-binding-api-v1": "*",
+    "java": ">=16"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

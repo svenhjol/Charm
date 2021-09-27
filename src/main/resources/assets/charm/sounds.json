@@ -1,0 +1,45 @@
+{
+  "bookshelf_open": {
+    "category": "blocks",
+    "sounds": [
+      "charm:bookshelf_open1",
+      "charm:bookshelf_open2"
+    ]
+  },
+  "bookshelf_close": {
+    "category": "blocks",
+    "sounds": [
+      "charm:bookshelf_close1",
+      "charm:bookshelf_close2"
+    ]
+  },
+  "quadrant": {
+    "category": "blocks",
+    "sounds": [
+      "charm:quadrant1",
+      "charm:quadrant2"
+    ]
+  },
+  "raid_horn": {
+    "category": "players",
+    "sounds": [
+      {
+        "name": "minecraft:event/raid/raidhorn_01",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:event/raid/raidhorn_02",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:event/raid/raidhorn_03",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:event/raid/raidhorn_04",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.event.raid.horn"
+  }
+}
