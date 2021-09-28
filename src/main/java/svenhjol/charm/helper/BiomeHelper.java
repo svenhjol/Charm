@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.impl.biome.modification.BiomeSelectionContextImpl;
 import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
