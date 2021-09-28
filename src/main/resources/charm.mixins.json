@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8.2",
+  "package": "svenhjol.charm.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "svenhjol.charm.mixin.CharmMixinConfigPlugin",
+  "mixins": [
+    "helper.AddSortingRecipeManagerMixin"
+  ],
+  "client": [
+    "event.CheckAnvilRepairMixin",
+    "event.RenderGuiMixin",
+    "event.SetupGuiMixin"
+  ]
+}

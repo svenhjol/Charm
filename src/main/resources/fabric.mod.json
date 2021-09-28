@@ -29,6 +29,9 @@
       "svenhjol.charm.CharmClient"
     ]
   },
+  "mixins": [
+    "charm.mixins.json"
+  ],
   "accessWidener": "charm.accesswidener",
 
   "depends": {
