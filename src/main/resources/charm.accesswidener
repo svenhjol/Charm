@@ -44,6 +44,7 @@ accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScr
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
 accessible field net/minecraft/world/entity/player/Player inventory Lnet/minecraft/world/entity/player/Inventory;
 accessible field net/minecraft/world/item/crafting/RecipeManager recipes Ljava/util/Map;
+accessible field net/minecraft/world/entity/item/ItemEntity age I
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
 mutable    field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;

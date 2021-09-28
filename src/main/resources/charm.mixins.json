@@ -8,10 +8,12 @@
   },
   "plugin": "svenhjol.charm.mixin.CharmMixinConfigPlugin",
   "mixins": [
+    "event.CheckAnvilRepairMixin",
+    "event.EntityDropXpMixin",
+    "event.PlayerDropInventoryMixin",
     "helper.AddSortingRecipeManagerMixin"
   ],
   "client": [
-    "event.CheckAnvilRepairMixin",
     "event.RenderGuiMixin",
     "event.SetupGuiMixin"
   ]
