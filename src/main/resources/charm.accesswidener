@@ -45,7 +45,15 @@ accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScr
 accessible field net/minecraft/world/entity/player/Player inventory Lnet/minecraft/world/entity/player/Inventory;
 accessible field net/minecraft/world/item/crafting/RecipeManager recipes Ljava/util/Map;
 accessible field net/minecraft/world/entity/item/ItemEntity age I
+accessible field net/minecraft/world/level/storage/PlayerDataStorage playerDir Ljava/io/File;
+accessible field net/minecraft/world/entity/ai/village/poi/PoiType matchingStates Ljava/util/Set;
+accessible field net/minecraft/world/entity/ai/village/poi/PoiType ALL_STATES Ljava/util/Set;
+accessible field net/minecraft/world/entity/ai/village/poi/PoiType TYPE_BY_STATE Ljava/util/Map;
+accessible field net/minecraft/client/gui/screens/Screen children Ljava/util/List;
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
 mutable    field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
 mutable    field net/minecraft/world/item/crafting/RecipeManager recipes Ljava/util/Map;
+mutable    field net/minecraft/world/entity/ai/village/poi/PoiType matchingStates Ljava/util/Set;
+mutable    field net/minecraft/world/entity/ai/village/poi/PoiType ALL_STATES Ljava/util/Set;
+mutable    field net/minecraft/client/gui/screens/Screen children Ljava/util/List;

@@ -10,7 +10,10 @@
   "mixins": [
     "event.CheckAnvilRepairMixin",
     "event.EntityDropXpMixin",
+    "event.PlayerDieMixin",
     "event.PlayerDropInventoryMixin",
+    "event.PlayerLoadDataMixin",
+    "event.PlayerSaveDataMixin",
     "helper.AddSortingRecipeManagerMixin"
   ],
   "client": [
