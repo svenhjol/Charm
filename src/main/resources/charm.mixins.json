@@ -8,15 +8,19 @@
   },
   "plugin": "svenhjol.charm.mixin.CharmMixinConfigPlugin",
   "mixins": [
+    "chickens_drop_feathers.DropFeatherMixin",
     "event.CheckAnvilRepairMixin",
+    "event.EntityDropItemsMixin",
     "event.EntityDropXpMixin",
     "event.PlayerDieMixin",
     "event.PlayerDropInventoryMixin",
     "event.PlayerLoadDataMixin",
     "event.PlayerSaveDataMixin",
     "helper.AddSortingRecipeManagerMixin",
+    "husk_improvements.AllowSpawningAnywhereMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
-    "stackable_stews.FinishEatingStewMixin"
+    "stackable_stews.FinishEatingStewMixin",
+    "stray_improvements.AllowSpawningAnywhereMixin"
   ],
   "client": [
     "event.RenderGuiMixin",
