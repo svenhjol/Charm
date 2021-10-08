@@ -14,7 +14,9 @@
     "event.PlayerDropInventoryMixin",
     "event.PlayerLoadDataMixin",
     "event.PlayerSaveDataMixin",
-    "helper.AddSortingRecipeManagerMixin"
+    "helper.AddSortingRecipeManagerMixin",
+    "stackable_enchanted_books.FixAnvilBookStackMixin",
+    "stackable_stews.FinishEatingStewMixin"
   ],
   "client": [
     "event.RenderGuiMixin",
