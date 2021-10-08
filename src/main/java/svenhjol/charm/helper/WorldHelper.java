@@ -105,7 +105,7 @@ public class WorldHelper {
     }
 
     public static boolean isInsideStructure(ServerLevel world, BlockPos pos, StructureFeature<?> structure) {
-        return world.structureFeatureManager().getStructureAt(pos, true, structure).isValid();
+        return world.structureFeatureManager().getStructureAt(pos, structure).isValid();
     }
 
     public static boolean isLikeSolid(Level world, BlockPos pos) {
