@@ -20,6 +20,7 @@
   ],
   "client": [
     "event.RenderGuiMixin",
-    "event.SetupGuiMixin"
+    "event.SetupGuiMixin",
+    "remove_potion_glint.CheckPotionHasGlintMixin"
   ]
 }
