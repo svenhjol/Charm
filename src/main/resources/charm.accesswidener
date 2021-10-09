@@ -54,6 +54,7 @@ accessible field net/minecraft/client/gui/screens/Screen children Ljava/util/Lis
 accessible field net/minecraft/world/item/Item maxStackSize I
 accessible field net/minecraft/world/level/block/FireBlock flameOdds Lit/unimi/dsi/fastutil/objects/Object2IntMap;
 accessible field net/minecraft/world/level/block/FireBlock burnOdds Lit/unimi/dsi/fastutil/objects/Object2IntMap;
+accessible field net/minecraft/server/MinecraftServer levels Ljava/util/Map;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
