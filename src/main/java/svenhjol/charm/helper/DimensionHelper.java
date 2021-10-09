@@ -5,15 +5,10 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -42,12 +37,6 @@ public class DimensionHelper {
 
     public static boolean isDimension(Level level, ResourceKey<Level> key) {
         return level.dimension().equals(key);
-    }
-
-    public static boolean isValidDimension(MinecraftServer server, ResourceLocation dimensionId) {
-        List<ResourceLocation> ids = new ArrayList<>();
-        server.getAllLevels().forEach(serverLevel -> ids.add(serverLevel.dimension().location()));
-        return ids.contains(dimensionId);
     }
 
     public static ResourceLocation getDimension(Level world) {
