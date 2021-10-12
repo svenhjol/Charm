@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
@@ -19,18 +20,20 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import svenhjol.charm.module.core.Core;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * @version 1.0.0-charm
+ * @version 2.0.0-charm
  */
 @SuppressWarnings({"UnstableApiUsage", "deprecation"})
 public class BiomeHelper {
@@ -41,8 +44,14 @@ public class BiomeHelper {
         return biomeAccess.getBiome(pos);
     }
 
+    @Nullable
     public static Biome getBiomeFromBiomeKey(ResourceKey<Biome> biomeKey) {
-        return BuiltinRegistries.BIOME.get(biomeKey);
+        return BuiltinRegistries.BIOME.getOptional(biomeKey).orElse(null);
+    }
+
+    @Nullable
+    public static ResourceKey<Biome> getBiomeKeyFromBiome(Biome biome) {
+        return BuiltinRegistries.BIOME.getResourceKey(biome).orElse(null);
     }
 
     public static Optional<ResourceKey<Biome>> getBiomeKeyAtPosition(ServerLevel world, BlockPos pos) {
