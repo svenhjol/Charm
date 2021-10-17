@@ -3,6 +3,8 @@ package svenhjol.charm.helper;
 import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.mixin.object.builder.PointOfInterestTypeAccessor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -121,6 +123,14 @@ public class WorldHelper {
     public static boolean isSolid(Level world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         return state.canOcclude() && !world.isEmptyBlock(pos) && !state.getMaterial().isLiquid();
+    }
+
+    private static boolean isStructure(ResourceLocation structureId) {
+        return Registry.STRUCTURE_FEATURE.get(structureId) != null;
+    }
+
+    private static boolean isBiome(ResourceLocation biomeId) {
+        return BuiltinRegistries.BIOME.get(biomeId) != null;
     }
 
     @Nullable

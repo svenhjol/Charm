@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @version 1.0.3-charm
@@ -147,4 +148,9 @@ public class StringHelper {
 
         return opt1;
     }
+
+    private static List<String> splitConfigEntry(String entry) {
+        return Arrays.stream(entry.split("->")).map(s -> s.trim().toLowerCase(Locale.ROOT)).collect(Collectors.toList());
+    }
+
 }
