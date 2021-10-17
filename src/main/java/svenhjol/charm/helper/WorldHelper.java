@@ -125,11 +125,11 @@ public class WorldHelper {
         return state.canOcclude() && !world.isEmptyBlock(pos) && !state.getMaterial().isLiquid();
     }
 
-    private static boolean isStructure(ResourceLocation structureId) {
+    public static boolean isStructure(ResourceLocation structureId) {
         return Registry.STRUCTURE_FEATURE.get(structureId) != null;
     }
 
-    private static boolean isBiome(ResourceLocation biomeId) {
+    public static boolean isBiome(ResourceLocation biomeId) {
         return BuiltinRegistries.BIOME.get(biomeId) != null;
     }
 

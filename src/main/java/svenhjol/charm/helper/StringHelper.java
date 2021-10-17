@@ -149,8 +149,7 @@ public class StringHelper {
         return opt1;
     }
 
-    private static List<String> splitConfigEntry(String entry) {
+    public static List<String> splitConfigEntry(String entry) {
         return Arrays.stream(entry.split("->")).map(s -> s.trim().toLowerCase(Locale.ROOT)).collect(Collectors.toList());
     }
-
 }
