@@ -152,4 +152,16 @@ public class StringHelper {
     public static List<String> splitConfigEntry(String entry) {
         return Arrays.stream(entry.split("->")).map(s -> s.trim().toLowerCase(Locale.ROOT)).collect(Collectors.toList());
     }
+
+    public static String snakeToPretty(String string) {
+        return snakeToPretty(string, false);
+    }
+
+    public static String snakeToPretty(String string, boolean capitalizeEveryWord) {
+        if (capitalizeEveryWord) {
+            return Arrays.stream(string.split("_")).map(StringHelper::capitalize).collect(Collectors.joining(" "));
+        } else {
+            return capitalize(string.replace("_", " "));
+        }
+    }
 }
