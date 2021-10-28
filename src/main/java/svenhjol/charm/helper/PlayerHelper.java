@@ -2,6 +2,7 @@ package svenhjol.charm.helper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
@@ -11,9 +12,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @version 1.0.0-charm
@@ -59,5 +58,10 @@ public class PlayerHelper {
 
     public static List<Player> getPlayersInRange(Level world, BlockPos pos) {
         return world.getEntitiesOfClass(Player.class, new AABB(pos).inflate(8.0D));
+    }
+
+    public static Optional<String> getPlayerName(MinecraftServer server, UUID player) {
+        Optional<ServerPlayer> learnedPlayer = Optional.ofNullable(server.getPlayerList().getPlayer(player));
+        return learnedPlayer.map(serverPlayer -> serverPlayer.getName().getString());
     }
 }
