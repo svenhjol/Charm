@@ -85,6 +85,11 @@ public class CommonLoader<T extends CharmModule> extends ModuleLoader<T> {
         return Optional.ofNullable(MODULES_BY_CLASS.get(clazz));
     }
 
+    @Override
+    public boolean isEnabled(Class<? extends T> clazz) {
+        return MODULES_BY_CLASS.get(clazz).isEnabled();
+    }
+
     public static Map<ResourceLocation, CharmModule> getAllModules() {
         return ALL_MODULES;
     }
