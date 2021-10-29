@@ -35,10 +35,10 @@ public class SnowStorms extends CharmModule {
         Level world = entity.level;
         BlockPos pos = entity.blockPosition();
 
-        return Charm.LOADER.isEnabled(SnowStorms.class)
-            && SnowStorms.freezingDamage
+        return SnowStorms.freezingDamage
             && !world.isClientSide
             && world.isThundering()
+            && Charm.LOADER.isEnabled(SnowStorms.class)
             && entity instanceof Player // limit to players, all entities is too nasty
             && !((Player)entity).getAbilities().instabuild
             && world.canSeeSky(pos)
@@ -47,11 +47,11 @@ public class SnowStorms extends CharmModule {
     }
 
     public static boolean tryRandomTick(ServerLevel world) {
-        return Charm.LOADER.isEnabled(SnowStorms.class) && world.isThundering();
+        return world.isThundering() && Charm.LOADER.isEnabled(SnowStorms.class);
     }
 
     public static void tryPlaceSnow(ServerLevel world, int chunkX, int chunkZ) {
-        if (!Charm.LOADER.isEnabled(SnowStorms.class) || !world.isThundering())
+        if (!world.isThundering() || !Charm.LOADER.isEnabled(SnowStorms.class))
             return;
 
         if (world.random.nextDouble() < snowLayerChance) {
