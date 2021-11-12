@@ -134,12 +134,16 @@ public class WorldHelper {
     }
 
     @Nullable
-    public static BlockPos getSurfacePos(Level world, BlockPos pos) {
+    public static BlockPos getSurfacePos(Level level, BlockPos pos) {
+        return getSurfacePos(level, pos, level.getMaxBuildHeight());
+    }
+
+    public static BlockPos getSurfacePos(Level level, BlockPos pos, int maxHeight) {
         int surface = 0;
 
-        for (int y = world.getMaxBuildHeight(); y >= 0; --y) {
+        for (int y = level.getMaxBuildHeight(); y >= 0; --y) {
             BlockPos n = new BlockPos(pos.getX(), y, pos.getZ());
-            if (world.isEmptyBlock(n) && !world.isEmptyBlock(n.below())) {
+            if (level.isEmptyBlock(n) && !level.isEmptyBlock(n.below())) {
                 surface = y;
                 break;
             }
