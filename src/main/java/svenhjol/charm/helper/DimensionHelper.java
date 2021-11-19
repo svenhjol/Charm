@@ -39,8 +39,8 @@ public class DimensionHelper {
         return level.dimension().equals(key);
     }
 
-    public static ResourceLocation getDimension(Level world) {
-        return getDimension(world.dimension());
+    public static ResourceLocation getDimension(Level level) {
+        return getDimension(level.dimension());
     }
 
     public static ResourceLocation getDimension(ResourceKey<Level> key) {
