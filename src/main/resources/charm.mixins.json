@@ -9,6 +9,8 @@
   "plugin": "svenhjol.charm.mixin.CharmMixinConfigPlugin",
   "mixins": [
     "chickens_drop_feathers.DropFeatherMixin",
+    "event.AddEntityManagerMixin",
+    "event.AddEntityServerMixin",
     "event.CheckAnvilRepairMixin",
     "event.EntityDropItemsMixin",
     "event.EntityDropXpMixin",
@@ -23,6 +25,7 @@
     "stray_improvements.AllowSpawningAnywhereMixin"
   ],
   "client": [
+    "event.AddEntityClientMixin",
     "event.RenderGuiMixin",
     "event.SetupGuiMixin",
     "remove_potion_glint.CheckPotionHasGlintMixin"
