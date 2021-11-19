@@ -69,7 +69,7 @@ public class StringHelper {
                 Path path = container.getPath("assets/" + modId + "/lang/en_us.json");
 
                 try (JsonReader reader = new JsonReader(new InputStreamReader(Files.newInputStream(path), StandardCharsets.UTF_8))) {
-                    JsonElement parsed = new JsonParser().parse(reader);
+                    JsonElement parsed = JsonParser.parseReader(reader);
                     languageStrings.put(modId, parsed.getAsJsonObject());
                     LogHelper.debug(StringHelper.class, "Successfully opened language file for `" + modId + "`");
                 } catch (IOException e) {

@@ -1,36 +1,28 @@
 package svenhjol.charm.helper;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.impl.biome.modification.BiomeSelectionContextImpl;
 import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeManager;
-import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
-import svenhjol.charm.module.core.Core;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * @version 2.0.0-charm
@@ -67,13 +59,13 @@ public class BiomeHelper {
         return world.findNearestBiome(biome, pos, 6400, 8);
     }
 
-    public static void addFeatureToBiomeCategories(ConfiguredFeature<?, ?> feature, Biome.BiomeCategory biomeCategory, GenerationStep.Decoration generationStep) {
+    public static void addFeatureToBiomeCategories(PlacedFeature feature, Biome.BiomeCategory biomeCategory, GenerationStep.Decoration generationStep) {
         List<ResourceKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
         biomeKeys.forEach(biomeKey -> BiomeHelper.addFeatureToBiome(feature, biomeKey, generationStep));
     }
 
-    public static void addFeatureToBiome(ConfiguredFeature<?, ?> feature, ResourceKey<Biome> biomeKey, GenerationStep.Decoration generationStep) {
-        ResourceKey<ConfiguredFeature<?, ?>> featureKey;
+    public static void addFeatureToBiome(PlacedFeature feature, ResourceKey<Biome> biomeKey, GenerationStep.Decoration generationStep) {
+        ResourceKey<PlacedFeature> featureKey;
         Predicate<BiomeSelectionContext> biomeSelector;
 
         try {

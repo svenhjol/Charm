@@ -17,7 +17,6 @@ accessible class net/minecraft/client/renderer/RenderStateShard$TransparencyStat
 accessible class net/minecraft/client/renderer/RenderStateShard$WriteMaskStateShard
 
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
-accessible class net/minecraft/data/worldgen/Features$Decorators
 
 # Inaccessible constructors
 accessible method net/minecraft/world/inventory/MenuType <init> (Lnet/minecraft/world/inventory/MenuType$MenuSupplier;)V
