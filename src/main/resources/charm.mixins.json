@@ -18,6 +18,7 @@
     "event.PlayerDropInventoryMixin",
     "event.PlayerLoadDataMixin",
     "event.PlayerSaveDataMixin",
+    "event.PlayerTickMixin",
     "helper.AddSortingRecipeManagerMixin",
     "husk_improvements.AllowSpawningAnywhereMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
