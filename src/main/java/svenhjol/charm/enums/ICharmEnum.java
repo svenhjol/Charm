@@ -11,6 +11,10 @@ public interface ICharmEnum extends StringRepresentable {
         return ((Enum)this).name().toLowerCase(Locale.ENGLISH);
     }
 
+    default String getNameAsString() {
+        return ((Enum)this).name();
+    }
+
     default String getCapitalizedName() {
         String name = getSerializedName();
         return name.substring(0, 1).toUpperCase() + name.substring(1);
