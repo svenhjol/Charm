@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * @version 4.0.0-charm
+ */
 @SuppressWarnings("unused")
 public class WorldHelper {
     public static boolean addForcedChunk(ServerLevel world, BlockPos pos) {
@@ -32,8 +35,10 @@ public class WorldHelper {
             result = world.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), true);
             if (result) break;
         }
-        if (result)
+
+        if (result) {
             LogHelper.debug(WorldHelper.class, "Force loaded chunk " + chunkPos);
+        }
 
         return result;
     }
@@ -126,10 +131,12 @@ public class WorldHelper {
     }
 
     public static boolean isStructure(ResourceLocation structureId) {
+        // TODO: static cache
         return Registry.STRUCTURE_FEATURE.get(structureId) != null;
     }
 
     public static boolean isBiome(ResourceLocation biomeId) {
+        // TODO: static cache
         return BuiltinRegistries.BIOME.get(biomeId) != null;
     }
 
@@ -138,6 +145,7 @@ public class WorldHelper {
         return getSurfacePos(level, pos, level.getMaxBuildHeight());
     }
 
+    @Nullable
     public static BlockPos getSurfacePos(Level level, BlockPos pos, int startAtHeight) {
         int surface = 0;
 
@@ -155,5 +163,9 @@ public class WorldHelper {
         }
 
         return new BlockPos(pos.getX(), surface, pos.getZ());
+    }
+
+    public static void syncBlockEntityToClient(ServerLevel level, BlockPos pos) {
+        level.getChunkSource().blockChanged(pos);
     }
 }
