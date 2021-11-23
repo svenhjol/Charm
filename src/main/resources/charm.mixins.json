@@ -29,6 +29,7 @@
     "event.AddEntityClientMixin",
     "event.ClientSpawnEntityMixin",
     "event.RenderGuiMixin",
+    "event.RenderTooltipMixin",
     "event.SetupGuiMixin",
     "remove_potion_glint.CheckPotionHasGlintMixin"
   ]
