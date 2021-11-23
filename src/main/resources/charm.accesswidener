@@ -34,6 +34,7 @@ accessible method net/minecraft/tags/BlockTags bind (Ljava/lang/String;)Lnet/min
 accessible method net/minecraft/tags/ItemTags bind (Ljava/lang/String;)Lnet/minecraft/tags/Tag$Named;
 accessible method net/minecraft/world/level/block/FireBlock setFlammable (Lnet/minecraft/world/level/block/Block;II)V
 extendable method net/minecraft/world/inventory/AbstractContainerMenu doClick (IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V
+accessible method net/minecraft/world/item/BundleItem getContents (Lnet/minecraft/world/item/ItemStack;)Ljava/util/stream/Stream;
 
 # Inaccessible fields
 accessible field net/minecraft/client/Minecraft blockColors Lnet/minecraft/client/color/block/BlockColors;
@@ -53,6 +54,7 @@ accessible field net/minecraft/client/gui/screens/Screen children Ljava/util/Lis
 accessible field net/minecraft/world/item/Item maxStackSize I
 accessible field net/minecraft/world/level/block/FireBlock flameOdds Lit/unimi/dsi/fastutil/objects/Object2IntMap;
 accessible field net/minecraft/world/level/block/FireBlock burnOdds Lit/unimi/dsi/fastutil/objects/Object2IntMap;
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
