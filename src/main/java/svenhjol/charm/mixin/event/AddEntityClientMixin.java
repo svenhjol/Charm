@@ -19,7 +19,7 @@ public class AddEntityClientMixin {
      * It is cancellable if ActionResult != PASS.
      *
      * If you need the entity's spawn packet (lower-level than this event) then use
-     * {@link ClientSpawnEntityCallback}.
+     * {@link svenhjol.charm.event.ClientSpawnEntityCallback}.
      *
      * Inspired by Forge's EntityJoinWorldEvent which provides a hook at the same point
      * in the code, except allows it to be cancellable.
