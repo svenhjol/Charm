@@ -1,21 +1,18 @@
 package svenhjol.charm.module.bundle_sorting;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.event.ScrollMouseCallback;
 import svenhjol.charm.helper.ClientHelper;
+import svenhjol.charm.helper.NetworkHelper;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
@@ -45,16 +42,17 @@ public class BundleSortingClient extends CharmModule {
                 Slot hoveredSlot = ((AbstractContainerScreen<?>)screen).hoveredSlot;
                 if (hoveredSlot == null) return;
 
-                FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
-                data.writeInt(hoveredSlot.index);
-                data.writeBoolean(direction > 0);
-                ClientPlayNetworking.send(BundleSorting.MSG_SERVER_CYCLE_BUNDLE_CONTENTS, data);
+                NetworkHelper.sendPacketToServer(BundleSorting.MSG_SERVER_SCROLLED_ON_HOVER,
+                    buf -> {
+                        buf.writeInt(hoveredSlot.index);
+                        buf.writeBoolean(direction > 0);
+                    });
             }
         }
     }
 
     private void handleRenderTooltip(PoseStack pose, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
-        if (stack != null && stack.getItem() instanceof BundleItem) {
+        if (stack != null && BundleSorting.SORTABLE.contains(stack.getItem())) {
             selectedBundle = stack;
         }
     }
