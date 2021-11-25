@@ -39,7 +39,7 @@ public abstract class CharmSyncedBlockEntity extends BlockEntity {
 
     public void syncToClient() {
         Level level = getLevel();
-        if (level != null && level.isClientSide) {
+        if (level != null && !level.isClientSide) {
             WorldHelper.syncBlockEntityToClient((ServerLevel)level, getBlockPos());
         }
     }
