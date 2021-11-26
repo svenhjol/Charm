@@ -21,6 +21,8 @@
     "event.PlayerTickMixin",
     "helper.AddSortingRecipeManagerMixin",
     "husk_improvements.AllowSpawningAnywhereMixin",
+    "snow_accumulation.PlaceMoreSnowMixin",
+    "snow_accumulation.PreventSnowMeltingMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
     "stackable_stews.FinishEatingStewMixin",
     "stray_improvements.AllowSpawningAnywhereMixin"
