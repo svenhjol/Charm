@@ -15,6 +15,7 @@
     "event.CheckAnvilRepairMixin",
     "event.EntityDropItemsMixin",
     "event.EntityDropXpMixin",
+    "event.EntityJumpMixin",
     "event.PlayerDieMixin",
     "event.PlayerDropInventoryMixin",
     "event.PlayerLoadDataMixin",
