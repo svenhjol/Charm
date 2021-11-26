@@ -23,8 +23,9 @@ public class StackableStews extends CharmModule {
         Items.RABBIT_STEW.maxStackSize = stackSize;
         Items.BEETROOT_SOUP.maxStackSize = stackSize;
 
-        if (suspiciousStew)
+        if (suspiciousStew) {
             Items.SUSPICIOUS_STEW.maxStackSize = stackSize;
+        }
     }
 
     public static boolean tryEatStewStack(LivingEntity entity, ItemStack stack) {
@@ -32,8 +33,9 @@ public class StackableStews extends CharmModule {
             return false;
 
         if (entity instanceof Player player) {
-            if (!player.getAbilities().instabuild)
+            if (!player.getAbilities().instabuild) {
                 player.addItem(new ItemStack(Items.BOWL));
+            }
         }
 
         return true;
