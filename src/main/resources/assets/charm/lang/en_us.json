@@ -251,6 +251,7 @@
   "container.charm.kiln": "Kiln",
   "container.charm.portable_crafting_table": "Portable Crafting",
   "container.charm.woodcutter": "Woodcutter",
+  "effect.charm.echolocation": "Echolocation",
   "enchantment.charm.aerial_affinity": "Aerial Affinity",
   "enchantment.charm.aerial_affinity.desc": "Increases mining rate when not on the ground",
   "enchantment.charm.collection": "Collection",
