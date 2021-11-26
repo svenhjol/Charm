@@ -11,6 +11,7 @@
     "chickens_drop_feathers.DropFeatherMixin",
     "event.AddEntityManagerMixin",
     "event.AddEntityServerMixin",
+    "event.ApplyBeaconEffectsMixin",
     "event.CheckAnvilRepairMixin",
     "event.EntityDropItemsMixin",
     "event.EntityDropXpMixin",

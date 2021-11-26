@@ -7,14 +7,14 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.Level;
 
 /**
- * @version 1.0.1
+ * @version 4.0.0
  */
 public interface ApplyBeaconEffectsCallback {
-    Event<ApplyBeaconEffectsCallback> EVENT = EventFactory.createArrayBacked(ApplyBeaconEffectsCallback.class, (listeners) -> (world, level, pos, primary, secondary) -> {
+    Event<ApplyBeaconEffectsCallback> EVENT = EventFactory.createArrayBacked(ApplyBeaconEffectsCallback.class, (listeners) -> (level, pos, beaconLevel, primary, secondary) -> {
         for (ApplyBeaconEffectsCallback listener : listeners) {
-            listener.interact(world, level, pos, primary, secondary);
+            listener.interact(level, pos, beaconLevel, primary, secondary);
         }
     });
 
-    void interact(Level world, BlockPos pos, int level, MobEffect primary, MobEffect secondary);
+    void interact(Level level, BlockPos pos, int beaconLevel, MobEffect primary, MobEffect secondary);
 }

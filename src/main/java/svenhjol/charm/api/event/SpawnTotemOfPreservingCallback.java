@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * @version 1.0.0
+ * @version 4.0.0
  */
 public interface SpawnTotemOfPreservingCallback {
     Event<SpawnTotemOfPreservingCallback> EVENT = EventFactory.createArrayBacked(SpawnTotemOfPreservingCallback.class, (listeners) -> (player, level, pos) -> {
