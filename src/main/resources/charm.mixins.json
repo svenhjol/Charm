@@ -41,6 +41,6 @@
     "event.RenderTooltipMixin",
     "event.ScrollMouseMixin",
     "event.SetupGuiMixin",
-    "remove_potion_glint.CheckPotionHasGlintMixin"
+    "no_potion_glint.CheckPotionHasGlintMixin"
   ]
 }

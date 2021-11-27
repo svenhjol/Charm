@@ -1,4 +1,4 @@
-package svenhjol.charm.module.remove_nitwits;
+package svenhjol.charm.module.no_nitwits;
 
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -12,7 +12,7 @@ import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, enabledByDefault = false, description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
-public class RemoveNitwits extends CharmModule {
+public class NoNitwits extends CharmModule {
     @Override
     public void runWhenEnabled() {
         AddEntityCallback.EVENT.register(this::changeNitwitProfession);
