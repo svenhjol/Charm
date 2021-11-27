@@ -26,14 +26,14 @@
     "event.PlayerSaveDataMixin",
     "event.PlayerTickMixin",
     "helper.AddSortingRecipeManagerMixin",
-    "husk_improvements.AllowSpawningAnywhereMixin",
+    "husks_spawn_below_surface.AllowSpawningAnywhereMixin",
     "no_campfire_damage.BypassCampfireDamageMixin",
     "show_repair_cost.AddRepairCostToTooltipMixin",
     "snow_accumulation.PlaceMoreSnowMixin",
     "snow_accumulation.PreventSnowMeltingMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
     "stackable_stews.FinishEatingStewMixin",
-    "stray_improvements.AllowSpawningAnywhereMixin",
+    "strays_spawn_below_surface.AllowSpawningAnywhereMixin",
     "stronger_anvils.ReduceAnvilDamageMixin"
   ],
   "client": [

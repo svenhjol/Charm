@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.husk_improvements;
+package svenhjol.charm.mixin.husks_spawn_below_surface;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.husk_improvements.HuskImprovements;
+import svenhjol.charm.module.husks_spawn_below_surface.HusksSpawnBelowSurface;
 
 import java.util.Random;
 
@@ -23,8 +23,9 @@ public abstract class AllowSpawningAnywhereMixin {
         at = @At("RETURN"),
         cancellable = true
     )
-    private static void hookCanSpawn(EntityType<Husk> entity, ServerLevelAccessor world, MobSpawnType reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
-        if (!cir.getReturnValue() && HuskImprovements.canSpawn())
-            cir.setReturnValue(Husk.checkMonsterSpawnRules(entity, world, reason, pos, rand));
+    private static void hookCanSpawn(EntityType<Husk> entity, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
+        if (!cir.getReturnValue() && HusksSpawnBelowSurface.canSpawn()) {
+            cir.setReturnValue(Husk.checkMonsterSpawnRules(entity, level, reason, pos, rand));
+        }
     }
 }
