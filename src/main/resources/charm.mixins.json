@@ -25,6 +25,7 @@
     "event.PlayerTickMixin",
     "helper.AddSortingRecipeManagerMixin",
     "husk_improvements.AllowSpawningAnywhereMixin",
+    "no_campfire_damage.BypassCampfireDamageMixin",
     "show_repair_cost.AddRepairCostToTooltipMixin",
     "snow_accumulation.PlaceMoreSnowMixin",
     "snow_accumulation.PreventSnowMeltingMixin",
