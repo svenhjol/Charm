@@ -8,6 +8,8 @@
   },
   "plugin": "svenhjol.charm.mixin.CharmMixinConfigPlugin",
   "mixins": [
+    "auto_restock.AddStatWhenAnimalConsumedMixin",
+    "auto_restock.AddStatWhenCompostedMixin",
     "chickens_drop_feathers.DropFeatherMixin",
     "event.AddEntityManagerMixin",
     "event.AddEntityServerMixin",
@@ -27,7 +29,8 @@
     "snow_accumulation.PreventSnowMeltingMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
     "stackable_stews.FinishEatingStewMixin",
-    "stray_improvements.AllowSpawningAnywhereMixin"
+    "stray_improvements.AllowSpawningAnywhereMixin",
+    "stronger_anvils.ReduceAnvilDamageMixin"
   ],
   "client": [
     "event.AddEntityClientMixin",
