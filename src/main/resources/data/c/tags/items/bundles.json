@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bundle",
+    "charm:red_bundle",
+    "charm:orange_bundle",
+    "charm:yellow_bundle",
+    "charm:lime_bundle",
+    "charm:green_bundle",
+    "charm:cyan_bundle",
+    "charm:light_blue_bundle",
+    "charm:blue_bundle",
+    "charm:purple_bundle",
+    "charm:magenta_bundle",
+    "charm:pink_bundle",
+    "charm:brown_bundle",
+    "charm:black_bundle",
+    "charm:gray_bundle",
+    "charm:light_gray_bundle",
+    "charm:white_bundle"
+  ]
+}

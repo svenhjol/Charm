@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "charm:colored_bundles"
+    }
+  ],
+  "result": {
+    "item": "minecraft:bundle"
+  }
+}
