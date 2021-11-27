@@ -25,6 +25,7 @@
     "event.PlayerTickMixin",
     "helper.AddSortingRecipeManagerMixin",
     "husk_improvements.AllowSpawningAnywhereMixin",
+    "show_repair_cost.AddRepairCostToTooltipMixin",
     "snow_accumulation.PlaceMoreSnowMixin",
     "snow_accumulation.PreventSnowMeltingMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
