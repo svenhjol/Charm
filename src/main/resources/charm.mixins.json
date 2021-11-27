@@ -8,9 +8,11 @@
   },
   "plugin": "svenhjol.charm.mixin.CharmMixinConfigPlugin",
   "mixins": [
+    "allow_too_expensive.RemoveTooExpensiveMixin",
     "auto_restock.AddStatWhenAnimalConsumedMixin",
     "auto_restock.AddStatWhenCompostedMixin",
     "chickens_drop_feathers.DropFeatherMixin",
+    "core.AllowZeroCostAnvilRecipesMixin",
     "event.AddEntityManagerMixin",
     "event.AddEntityServerMixin",
     "event.ApplyBeaconEffectsMixin",
@@ -35,6 +37,7 @@
     "stronger_anvils.ReduceAnvilDamageMixin"
   ],
   "client": [
+    "allow_too_expensive.StopShowingTooExpensiveMixin",
     "event.AddEntityClientMixin",
     "event.ClientSpawnEntityMixin",
     "event.RenderGuiMixin",
