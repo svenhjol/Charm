@@ -1,14 +1,21 @@
 package svenhjol.charm.module.shulker_box_drag_drop;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -19,19 +26,41 @@ import svenhjol.charm.event.StackItemOnItemCallback;
 import svenhjol.charm.event.StackItemOnItemCallback.Direction;
 import svenhjol.charm.loader.CharmModule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @CommonModule(mod = Charm.MOD_ID)
 public class ShulkerBoxDragDrop extends CharmModule {
+    public static final List<ItemLike> BLACKLIST = new ArrayList<>();
+
     @Override
     public void runWhenEnabled() {
         StackItemOnItemCallback.EVENT.register(this::handleInventoryInteraction);
+        ServerWorldEvents.LOAD.register(this::handleWorldLoad);
+    }
+
+    private void handleWorldLoad(MinecraftServer server, ServerLevel level) {
+        // do not allow shulkerboxes to be added to shulkerboxes
+        if (level.dimension() == Level.OVERWORLD) {
+            for (Block block : BlockTags.SHULKER_BOXES.getValues()) {
+                if (!BLACKLIST.contains(block)) {
+                    BLACKLIST.add(block);
+                }
+            }
+        }
     }
 
     private boolean handleInventoryInteraction(Direction direction, ItemStack source, ItemStack dest, Slot slot, ClickAction clickAction, Player player, SlotAccess slotAccess) {
-        if (clickAction != ClickAction.SECONDARY || !slot.allowModification(player)) {
-            return false;
-        }
+        if (clickAction != ClickAction.SECONDARY || !slot.allowModification(player)) return false;
 
         if (Block.byItem(dest.getItem()) instanceof ShulkerBoxBlock shulkerBoxBlock) {
+            // check if the item is not in the blacklist
+            Item item = source.getItem();
+            Block block = Block.byItem(item);
+            if (BLACKLIST.contains(item) || BLACKLIST.contains(block)) {
+                return false;
+            }
+
             CompoundTag shulkerBoxTag = BlockItem.getBlockEntityData(dest);
             BlockEntity blockEntity;
 
