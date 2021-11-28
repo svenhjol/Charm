@@ -1,4 +1,4 @@
-package svenhjol.charm.module.bundle_sorting.event;
+package svenhjol.charm.module.hover_sorting.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
@@ -7,9 +7,9 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public interface SortBundleItemsCallback {
-    Event<SortBundleItemsCallback> EVENT = EventFactory.createArrayBacked(SortBundleItemsCallback.class, (listeners) -> (player, stack, direction) -> {
-        for (SortBundleItemsCallback listener : listeners) {
+public interface HoverSortItemsCallback {
+    Event<HoverSortItemsCallback> EVENT = EventFactory.createArrayBacked(HoverSortItemsCallback.class, (listeners) -> (player, stack, direction) -> {
+        for (HoverSortItemsCallback listener : listeners) {
             listener.interact(player, stack, direction);
         }
     });
