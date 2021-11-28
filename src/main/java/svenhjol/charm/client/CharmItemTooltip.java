@@ -8,4 +8,12 @@ public class CharmItemTooltip extends BundleTooltip {
     public CharmItemTooltip(NonNullList<ItemStack> items) {
         super(items, 0);
     }
+
+    public int gridSizeX() {
+        return 9;
+    }
+
+    public int gridSizeY() {
+        return 3;
+    }
 }

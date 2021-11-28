@@ -7,7 +7,9 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.event.ScrollMouseCallback;
@@ -52,7 +54,9 @@ public class HoverSortingClient extends CharmModule {
     }
 
     private void handleRenderTooltip(PoseStack pose, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
-        if (stack != null && HoverSorting.SORTABLE.contains(stack.getItem())) {
+        if (stack != null) {
+            Item item = stack.getItem();
+            if (HoverSorting.SORTABLE.contains(item) || HoverSorting.SORTABLE.contains(Block.byItem(item)))
             hoveredItem = stack;
         }
     }

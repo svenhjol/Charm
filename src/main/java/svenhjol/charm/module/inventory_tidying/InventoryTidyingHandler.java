@@ -76,39 +76,6 @@ public class InventoryTidyingHandler {
         stacks.removeIf((ItemStack stack) -> stack.isEmpty() || stack.getCount() == 0);
     }
 
-    public static ItemStack mergeIntoInventory(Container inventory, ItemStack toMerge) {
-        int size = inventory.getContainerSize();
-        ItemStack tryMerge = toMerge.copy();
-
-        for (int i = 0; i < size; i++) {
-            ItemStack stack = inventory.getItem(i);
-            if (stack.isEmpty()) {
-                inventory.setItem(i, tryMerge.copy());
-                tryMerge.setCount(0);
-                return ItemStack.EMPTY;
-            }
-
-            if (tryMerge.getCount() < tryMerge.getMaxStackSize()
-                && ItemStack.isSameIgnoreDurability(stack, tryMerge)
-                && ItemStack.tagMatches(stack, tryMerge)
-            ) {
-                int setSize = tryMerge.getCount() + stack.getCount();
-                int carryover = Math.max(0, setSize - tryMerge.getMaxStackSize());
-                tryMerge.setCount(carryover);
-                stack.setCount(setSize - carryover);
-
-                inventory.setItem(i, stack.copy());
-                if (stack.getCount() == stack.getMaxStackSize()) continue;
-            }
-
-            if (tryMerge.getCount() == 0) {
-                return ItemStack.EMPTY;
-            }
-        }
-
-        return tryMerge;
-    }
-
     public static void sortStacks(List<ItemStack> stacks) {
         stacks.sort(InventoryTidyingHandler::compare); // maybe improve this at some point in future
     }

@@ -39,13 +39,14 @@
   ],
   "client": [
     "allow_too_expensive.StopShowingTooExpensiveMixin",
+    "core.OverrideBundleTooltipGridsizeMixin",
     "event.AddEntityClientMixin",
     "event.ClientSpawnEntityMixin",
+    "event.ItemTooltipImageMixin",
     "event.RenderGuiMixin",
     "event.RenderTooltipMixin",
     "event.ScrollMouseMixin",
     "event.SetupGuiMixin",
-    "event.ItemTooltipImageMixin",
     "no_potion_glint.CheckPotionHasGlintMixin"
   ]
 }
