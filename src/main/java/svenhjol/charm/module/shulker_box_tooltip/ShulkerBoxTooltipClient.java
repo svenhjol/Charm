@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.client.CharmItemTooltip;
 import svenhjol.charm.event.ItemTooltipImageCallback;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ItemHelper;
@@ -33,6 +32,9 @@ public class ShulkerBoxTooltipClient extends CharmModule {
         isEnabled = true;
     }
 
+    /**
+     * When hovering, remove all text below the custom grid.
+     */
     private void handleRenderTooltip(PoseStack poseStack, ItemStack stack, List<ClientTooltipComponent> components, int x, int y) {
         if (isEnabled && stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
             if (components.size() >= 2) {
@@ -45,6 +47,9 @@ public class ShulkerBoxTooltipClient extends CharmModule {
         }
     }
 
+    /**
+     * Add code to the getTooltipImage method to display our custom grid.
+     */
     private Optional<TooltipComponent> handleItemTooltipImage(ItemStack stack) {
         if (isEnabled && stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
             CompoundTag shulkerBoxTag = BlockItem.getBlockEntityData(stack);
@@ -53,7 +58,7 @@ public class ShulkerBoxTooltipClient extends CharmModule {
 
                 if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBox) {
                     NonNullList<ItemStack> items = shulkerBox.itemStacks;
-                    return Optional.of(new CharmItemTooltip(items));
+                    return Optional.of(new ShulkerBoxItemTooltip(items));
                 }
             }
         }

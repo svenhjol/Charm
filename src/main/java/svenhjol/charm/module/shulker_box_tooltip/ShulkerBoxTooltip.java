@@ -58,6 +58,9 @@ public class ShulkerBoxTooltip extends CharmModule {
         });
     }
 
+    /**
+     * Tagged blocks must be registered at world load.
+     */
     private void handleWorldLoad(MinecraftServer server, ServerLevel level) {
         if (level.dimension() == Level.OVERWORLD) {
             for (Block block : BlockTags.SHULKER_BOXES.getValues()) {
