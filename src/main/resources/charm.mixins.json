@@ -25,6 +25,7 @@
     "event.PlayerLoadDataMixin",
     "event.PlayerSaveDataMixin",
     "event.PlayerTickMixin",
+    "event.StackItemOnItemMixin",
     "helper.AddSortingRecipeManagerMixin",
     "husks_spawn_below_surface.AllowSpawningAnywhereMixin",
     "no_campfire_damage.BypassCampfireDamageMixin",
@@ -44,6 +45,7 @@
     "event.RenderTooltipMixin",
     "event.ScrollMouseMixin",
     "event.SetupGuiMixin",
+    "event.ItemTooltipImageMixin",
     "no_potion_glint.CheckPotionHasGlintMixin"
   ]
 }
