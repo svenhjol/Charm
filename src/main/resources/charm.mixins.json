@@ -8,6 +8,7 @@
   },
   "plugin": "svenhjol.charm.mixin.CharmMixinConfigPlugin",
   "mixins": [
+    "aerial_affinity_enchantment.UndoDestroySpeedPenaltyMixin",
     "allow_too_expensive.RemoveTooExpensiveMixin",
     "auto_restock.AddStatWhenAnimalConsumedMixin",
     "auto_restock.AddStatWhenCompostedMixin",
