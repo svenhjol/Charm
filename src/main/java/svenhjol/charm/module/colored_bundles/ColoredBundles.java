@@ -7,7 +7,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.RegistryHelper;
 import svenhjol.charm.loader.CharmModule;
-import svenhjol.charm.module.bundle_sorting.BundleSorting;
+import svenhjol.charm.module.hover_sorting.HoverSorting;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class ColoredBundles extends CharmModule {
     public void register() {
         for (DyeColor color : DyeColor.values()) {
             COLORED_BUNDLES.put(color, new ColoredBundleItem(this, color));
-            BundleSorting.SORTABLE.add(COLORED_BUNDLES.get(color));
+            HoverSorting.SORTABLE.add(COLORED_BUNDLES.get(color));
         }
 
         BUNDLE_COLORING_RECIPE = RegistryHelper.recipeSerializer(RECIPE_ID.toString(), new SimpleRecipeSerializer<>(BundleColoringRecipe::new));
