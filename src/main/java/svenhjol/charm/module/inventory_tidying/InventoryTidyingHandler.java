@@ -21,40 +21,41 @@ public class InventoryTidyingHandler {
     }
 
     public static void sort(Container inventory, int startSlot, int endSlot) {
-        List<ItemStack> stacks = new ArrayList<>();
+        List<ItemStack> stacks = getInventoryStacks(inventory, startSlot, endSlot);
 
-        populate(inventory, stacks, startSlot, endSlot);
-        mergeInventory(stacks);
-        sortInventory(stacks);
+        mergeStacks(stacks);
+        sortStacks(stacks);
         setInventory(inventory, stacks, startSlot, endSlot);
     }
 
-    public static void populate(Container inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
+    public static List<ItemStack> getInventoryStacks(Container inventory, int startSlot, int endSlot) {
+        List<ItemStack> stacks = new ArrayList<>();
+
         for (int i = startSlot; i < endSlot; i++) {
             ItemStack stackInSlot = inventory.getItem(i);
 
-            if (!stackInSlot.isEmpty())
+            if (!stackInSlot.isEmpty()) {
                 stacks.add(stackInSlot.copy());
+            }
         }
+
+        return stacks;
     }
 
     /**
      * Core merging code adapted from Quark's SortingHandler.
      * @param stacks Inventory stack to merge within
      */
-    public static void mergeInventory(List<ItemStack> stacks) {
+    public static void mergeStacks(List<ItemStack> stacks) {
         for (int i = 0; i < stacks.size(); i++) {
             ItemStack stack = stacks.get(i);
-            if (stack.isEmpty())
-                continue;
+            if (stack.isEmpty()) continue;
 
             for (int j = 0; j < stacks.size(); j++) {
-                if (i == j)
-                    continue;
+                if (i == j) continue;
 
                 ItemStack stack1 = stacks.get(j);
-                if (stack1.isEmpty())
-                    continue;
+                if (stack1.isEmpty()) continue;
 
                 if (stack1.getCount() < stack1.getMaxStackSize()
                     && ItemStack.isSameIgnoreDurability(stack, stack1)
@@ -65,8 +66,7 @@ public class InventoryTidyingHandler {
                     stack1.setCount(carryover);
                     stack.setCount(setSize - carryover);
 
-                    if (stack.getCount() == stack.getMaxStackSize())
-                        break;
+                    if (stack.getCount() == stack.getMaxStackSize()) break;
                 }
             }
 
@@ -76,17 +76,51 @@ public class InventoryTidyingHandler {
         stacks.removeIf((ItemStack stack) -> stack.isEmpty() || stack.getCount() == 0);
     }
 
-    public static void sortInventory(List<ItemStack> stacks) {
+    public static ItemStack mergeIntoInventory(Container inventory, ItemStack toMerge) {
+        int size = inventory.getContainerSize();
+        ItemStack tryMerge = toMerge.copy();
+
+        for (int i = 0; i < size; i++) {
+            ItemStack stack = inventory.getItem(i);
+            if (stack.isEmpty()) {
+                inventory.setItem(i, tryMerge.copy());
+                tryMerge.setCount(0);
+                return ItemStack.EMPTY;
+            }
+
+            if (tryMerge.getCount() < tryMerge.getMaxStackSize()
+                && ItemStack.isSameIgnoreDurability(stack, tryMerge)
+                && ItemStack.tagMatches(stack, tryMerge)
+            ) {
+                int setSize = tryMerge.getCount() + stack.getCount();
+                int carryover = Math.max(0, setSize - tryMerge.getMaxStackSize());
+                tryMerge.setCount(carryover);
+                stack.setCount(setSize - carryover);
+
+                inventory.setItem(i, stack.copy());
+                if (stack.getCount() == stack.getMaxStackSize()) continue;
+            }
+
+            if (tryMerge.getCount() == 0) {
+                return ItemStack.EMPTY;
+            }
+        }
+
+        return tryMerge;
+    }
+
+    public static void sortStacks(List<ItemStack> stacks) {
         stacks.sort(InventoryTidyingHandler::compare); // maybe improve this at some point in future
     }
 
-    private static boolean setInventory(Container inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
+    public static boolean setInventory(Container inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
         for (int i = startSlot; i < endSlot; i++) {
             int j = i - startSlot;
             ItemStack stack = j >= stacks.size() ? ItemStack.EMPTY : stacks.get(j);
             inventory.removeItem(i, inventory.getMaxStackSize());
-            if (!stack.isEmpty())
+            if (!stack.isEmpty()) {
                 inventory.setItem(i, stack);
+            }
         }
 
         return true;
@@ -104,10 +138,12 @@ public class InventoryTidyingHandler {
         int index1 = 1, index2 = -1, index = 0;
 
         for (Predicate<ItemStack> predicate : testCompare.keySet()) {
-            if (predicate.test(stack1))
+            if (predicate.test(stack1)) {
                 index1 = index;
-            if (predicate.test(stack2))
+            }
+            if (predicate.test(stack2)) {
                 index2 = index;
+            }
 
             if (index1 >= 0 && index1 == index2)
                 return testCompare.get(predicate).compare(stack1, stack2);
@@ -135,8 +171,7 @@ public class InventoryTidyingHandler {
         return ((stack1, stack2) -> {
             for (Comparator<ItemStack> comparator : comparators) {
                 int res = comparator.compare(stack1, stack2);
-                if (res != 0)
-                    return res;
+                if (res != 0) return res;
             }
             return 0;
         });
