@@ -6,6 +6,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -29,33 +30,35 @@ public class ShulkerBoxTooltip extends CharmModule {
     @Override
     public void runWhenEnabled() {
         ServerWorldEvents.LOAD.register(this::handleWorldLoad);
-        HoverSorting.SORT_HANDLERS.add((player, stack, direction) -> {
-            if (Block.byItem(stack.getItem()) instanceof ShulkerBoxBlock shulkerBoxBlock) {
-                CompoundTag shulkerBoxTag = BlockItem.getBlockEntityData(stack);
-                BlockEntity blockEntity;
+        HoverSortItemsCallback.EVENT.register(this::handleSortItems);
+    }
 
-                if (shulkerBoxTag == null) {
-                    // generate a new empty blockentity
-                    blockEntity = shulkerBoxBlock.newBlockEntity(BlockPos.ZERO, shulkerBoxBlock.defaultBlockState());
-                } else {
-                    // instantiate existing shulkerbox blockentity from BlockEntityTag
-                    blockEntity = BlockEntity.loadStatic(BlockPos.ZERO, shulkerBoxBlock.defaultBlockState(), shulkerBoxTag);
-                }
+    private void handleSortItems(ServerPlayer player, ItemStack stack, boolean direction) {
+        if (Block.byItem(stack.getItem()) instanceof ShulkerBoxBlock shulkerBoxBlock) {
+            CompoundTag shulkerBoxTag = BlockItem.getBlockEntityData(stack);
+            BlockEntity blockEntity;
 
-                if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBox) {
-                    if (shulkerBox.itemStacks.size() < 1) return;
-
-                    List<ItemStack> stacks = new ArrayList<>(shulkerBox.itemStacks);
-                    InventoryTidyingHandler.mergeStacks(stacks);
-
-                    HoverSortItemsCallback.sortByScrollDirection(stacks, direction);
-                    NonNullList<ItemStack> nonNullList = NonNullList.create();
-                    nonNullList.addAll(stacks);
-                    shulkerBox.itemStacks = nonNullList;
-                    shulkerBox.saveToItem(stack);
-                }
+            if (shulkerBoxTag == null) {
+                // generate a new empty blockentity
+                blockEntity = shulkerBoxBlock.newBlockEntity(BlockPos.ZERO, shulkerBoxBlock.defaultBlockState());
+            } else {
+                // instantiate existing shulkerbox blockentity from BlockEntityTag
+                blockEntity = BlockEntity.loadStatic(BlockPos.ZERO, shulkerBoxBlock.defaultBlockState(), shulkerBoxTag);
             }
-        });
+
+            if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBox) {
+                if (shulkerBox.itemStacks.size() < 1) return;
+
+                List<ItemStack> stacks = new ArrayList<>(shulkerBox.itemStacks);
+                InventoryTidyingHandler.mergeStacks(stacks);
+
+                HoverSortItemsCallback.sortByScrollDirection(stacks, direction);
+                NonNullList<ItemStack> nonNullList = NonNullList.create();
+                nonNullList.addAll(stacks);
+                shulkerBox.itemStacks = nonNullList;
+                shulkerBox.saveToItem(stack);
+            }
+        }
     }
 
     /**

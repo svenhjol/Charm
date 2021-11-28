@@ -13,7 +13,6 @@ import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import org.apache.logging.log4j.util.TriConsumer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.loader.CharmModule;
@@ -31,7 +30,6 @@ public class HoverSorting extends CharmModule {
 
     // add items that should allow hover sorting to this list
     public static final List<ItemLike> SORTABLE = new ArrayList<>();
-    public static final List<TriConsumer<ServerPlayer, ItemStack, Boolean>> SORT_HANDLERS = new ArrayList<>();
 
     @Override
     public void register() {
@@ -42,30 +40,29 @@ public class HoverSorting extends CharmModule {
     public void runWhenEnabled() {
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_SCROLLED_ON_HOVER, this::handleScrollOnHover);
         HoverSortItemsCallback.EVENT.register(this::handleSortItems);
+    }
 
-        // add a bundle sorting handler
-        SORT_HANDLERS.add((player, stack, direction) -> {
-            String TAG_ITEMS = "Items"; // must match tag of BundleItem
+    private void handleSortItems(ServerPlayer player, ItemStack stack, boolean direction) {
+        String TAG_ITEMS = "Items"; // must match tag of BundleItem
 
-            if (stack.getItem() instanceof BundleItem) {
-                List<ItemStack> contents = BundleItem.getContents(stack).collect(Collectors.toCollection(LinkedList::new));
-                if (contents.size() < 1) return;
+        if (stack.getItem() instanceof BundleItem) {
+            List<ItemStack> contents = BundleItem.getContents(stack).collect(Collectors.toCollection(LinkedList::new));
+            if (contents.size() < 1) return;
 
-                HoverSortItemsCallback.sortByScrollDirection(contents, direction);
-                stack.removeTagKey(TAG_ITEMS);
+            HoverSortItemsCallback.sortByScrollDirection(contents, direction);
+            stack.removeTagKey(TAG_ITEMS);
 
-                CompoundTag tag = stack.getOrCreateTag();
-                tag.put(TAG_ITEMS, new ListTag());
-                ListTag list = tag.getList(TAG_ITEMS, 10);
+            CompoundTag tag = stack.getOrCreateTag();
+            tag.put(TAG_ITEMS, new ListTag());
+            ListTag list = tag.getList(TAG_ITEMS, 10);
 
-                Collections.reverse(contents);
-                contents.forEach(s -> {
-                    CompoundTag stackNbt = new CompoundTag();
-                    s.save(stackNbt);
-                    list.add(0, stackNbt);
-                });
-            }
-        });
+            Collections.reverse(contents);
+            contents.forEach(s -> {
+                CompoundTag stackNbt = new CompoundTag();
+                s.save(stackNbt);
+                list.add(0, stackNbt);
+            });
+        }
     }
 
     private void handleScrollOnHover(MinecraftServer server, ServerPlayer player, ServerGamePacketListener handler, FriendlyByteBuf buffer, PacketSender sender) {
@@ -77,9 +74,5 @@ public class HoverSorting extends CharmModule {
             ItemStack itemInSlot = player.containerMenu.getSlot(slotIndex).getItem();
             HoverSortItemsCallback.EVENT.invoker().interact(player, itemInSlot, direction);
         });
-    }
-
-    private void handleSortItems(ServerPlayer player, ItemStack stack, boolean direction) {
-        SORT_HANDLERS.forEach(handler -> handler.accept(player, stack, direction));
     }
 }
