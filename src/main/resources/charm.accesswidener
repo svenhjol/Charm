@@ -56,6 +56,7 @@ accessible field net/minecraft/world/item/Item maxStackSize I
 accessible field net/minecraft/world/level/block/FireBlock flameOdds Lit/unimi/dsi/fastutil/objects/Object2IntMap;
 accessible field net/minecraft/world/level/block/FireBlock burnOdds Lit/unimi/dsi/fastutil/objects/Object2IntMap;
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
+accessible field net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity itemStacks Lnet/minecraft/core/NonNullList;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
