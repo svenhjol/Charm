@@ -7,10 +7,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.client.CharmItemTooltip;
+import svenhjol.charm.client.ICustomGridsize;
 
 @Mixin(ClientBundleTooltip.class)
 public class OverrideBundleTooltipGridsizeMixin {
+    /**
+     * CharmItemTooltips have a customizable X and Y gridSize.
+     */
     private static BundleTooltip storedBundleTooltip;
 
     @Inject(
@@ -27,8 +30,8 @@ public class OverrideBundleTooltipGridsizeMixin {
         cancellable = true
     )
     private void hookGridSizeX(CallbackInfoReturnable<Integer> cir) {
-        if (storedBundleTooltip instanceof CharmItemTooltip) {
-            cir.setReturnValue(((CharmItemTooltip) storedBundleTooltip).gridSizeX());
+        if (storedBundleTooltip instanceof ICustomGridsize) {
+            cir.setReturnValue(((ICustomGridsize) storedBundleTooltip).gridSizeX());
         }
     }
 
@@ -38,8 +41,8 @@ public class OverrideBundleTooltipGridsizeMixin {
         cancellable = true
     )
     private void hookGridSizeY(CallbackInfoReturnable<Integer> cir) {
-        if (storedBundleTooltip instanceof CharmItemTooltip) {
-            cir.setReturnValue(((CharmItemTooltip) storedBundleTooltip).gridSizeY());
+        if (storedBundleTooltip instanceof ICustomGridsize) {
+            cir.setReturnValue(((ICustomGridsize) storedBundleTooltip).gridSizeY());
         }
     }
 }
