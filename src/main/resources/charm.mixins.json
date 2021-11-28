@@ -10,6 +10,8 @@
   "mixins": [
     "aerial_affinity_enchantment.UndoDestroySpeedPenaltyMixin",
     "allow_too_expensive.RemoveTooExpensiveMixin",
+    "atlases.CheckContainsMapsMixin",
+    "atlases.ScaleAtlasesOnCartographyTableMixin",
     "auto_restock.AddStatWhenAnimalConsumedMixin",
     "auto_restock.AddStatWhenCompostedMixin",
     "chickens_drop_feathers.DropFeatherMixin",
@@ -40,11 +42,13 @@
   ],
   "client": [
     "allow_too_expensive.StopShowingTooExpensiveMixin",
+    "atlases.DrawAtlasOnCartographyTableMixin",
     "core.OverrideBundleTooltipGridsizeMixin",
     "event.AddEntityClientMixin",
     "event.ClientSpawnEntityMixin",
     "event.ItemTooltipImageMixin",
     "event.RenderGuiMixin",
+    "event.RenderHeldItemMixin",
     "event.RenderTooltipMixin",
     "event.ScrollMouseMixin",
     "event.SetupGuiMixin",

@@ -3,7 +3,7 @@ package svenhjol.charm.potion;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
-import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.registry.CommonRegistry;
 import svenhjol.charm.loader.CharmModule;
 
 public abstract class CharmPotion extends Potion implements ICharmPotion {
@@ -25,6 +25,6 @@ public abstract class CharmPotion extends Potion implements ICharmPotion {
     }
 
     protected void registerRecipe(Potion input, Item reagant) {
-        RegistryHelper.brewingRecipe(input, reagant, this);
+        CommonRegistry.brewingRecipe(input, reagant, this);
     }
 }

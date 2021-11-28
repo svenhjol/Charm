@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
+import svenhjol.charm.registry.CommonRegistry;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -29,7 +30,7 @@ import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRA
 public class VillagerHelper {
     public static VillagerProfession addProfession(String id, PoiType poit, SoundEvent worksound) {
         VillagerProfession profession = VillagerProfessionAccessor.create(id, poit, ImmutableSet.of(), ImmutableSet.of(), worksound);
-        VillagerProfession registeredProfession = RegistryHelper.villagerProfession(id, profession);
+        VillagerProfession registeredProfession = CommonRegistry.villagerProfession(id, profession);
         TRADES.put(profession, new Int2ObjectOpenHashMap<>());
         return registeredProfession;
     }

@@ -1,4 +1,4 @@
-package svenhjol.charm.helper;
+package svenhjol.charm.registry;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.core.Registry;
@@ -35,11 +35,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @version 1.0.0-charm
- */
 @SuppressWarnings({"unused", "UnusedReturnValue", "ConstantConditions"})
-public class RegistryHelper {
+public class CommonRegistry {
     public static Block block(ResourceLocation id, Block block) {
         return Registry.register(Registry.BLOCK, id, block);
     }
@@ -107,7 +104,7 @@ public class RegistryHelper {
         return RecipeSerializer.register(recipeId, serializer);
     }
 
-    public static <T extends AbstractContainerMenu> MenuType<T> screenHandler(ResourceLocation id, MenuType.MenuSupplier<T> factory) {
+    public static <T extends AbstractContainerMenu> MenuType<T> menu(ResourceLocation id, MenuType.MenuSupplier<T> factory) {
         return Registry.register(Registry.MENU, id, new MenuType<>(factory));
     }
 

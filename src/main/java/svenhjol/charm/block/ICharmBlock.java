@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
-import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.registry.CommonRegistry;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.function.BiConsumer;
@@ -19,7 +19,7 @@ public interface ICharmBlock {
 
     default void register(CharmModule module, String name) {
         ResourceLocation id = new ResourceLocation(module.getModId(), name);
-        RegistryHelper.block(id, (Block)this);
+        CommonRegistry.block(id, (Block)this);
         createBlockItem(id);
     }
 
@@ -41,7 +41,7 @@ public interface ICharmBlock {
         settings.stacksTo(getMaxStackSize());
 
         svenhjol.charm.block.CharmBlockItem blockItem = new CharmBlockItem(this, settings);
-        RegistryHelper.item(id, blockItem);
+        CommonRegistry.item(id, blockItem);
     }
 
     default BiConsumer<ItemStack, Boolean> getInventoryTickConsumer() {

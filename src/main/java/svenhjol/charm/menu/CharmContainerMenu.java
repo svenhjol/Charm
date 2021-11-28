@@ -1,4 +1,4 @@
-package svenhjol.charm.screen;
+package svenhjol.charm.menu;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;

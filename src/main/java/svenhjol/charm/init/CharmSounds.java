@@ -3,7 +3,7 @@ package svenhjol.charm.init;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import svenhjol.charm.Charm;
-import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,7 @@ public class CharmSounds {
     public static final SoundEvent RAID_HORN = createSound("raid_horn");
 
     public static void init() {
-        REGISTER.forEach(RegistryHelper::sound);
+        REGISTER.forEach(CommonRegistry::sound);
     }
 
     public static SoundEvent createSound(String name) {

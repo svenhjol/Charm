@@ -32,9 +32,7 @@ public class ClientHelper {
     public static void openPlayerInventory() {
         Minecraft mc = Minecraft.getInstance();
 
-        if (mc.player == null)
-            return;
-
+        if (mc.player == null) return;
         mc.setScreen(new InventoryScreen(mc.player));
     }
 
@@ -50,30 +48,25 @@ public class ClientHelper {
     }
 
     public static Optional<Level> getLevel() {
-        if (getClient().isEmpty())
-            return Optional.empty();
-
+        if (getClient().isEmpty()) return Optional.empty();
         return Optional.ofNullable(getClient().get().level);
     }
 
     public static Optional<ResourceKey<Level>> getLevelKey() {
-        if (getClient().isEmpty() || getLevel().isEmpty())
-            return Optional.empty();
-
+        if (getClient().isEmpty() || getLevel().isEmpty()) return Optional.empty();
         return Optional.ofNullable(getLevel().get().dimension());
     }
 
     public static Optional<Player> getPlayer() {
-        if (getClient().isEmpty())
-            return Optional.empty();
-
+        if (getClient().isEmpty()) return Optional.empty();
         return Optional.ofNullable(getClient().get().player);
     }
 
     public static Optional<BlockColors> getBlockColors() {
         if (getClient().isPresent()) {
-            if (blockColors == null)
+            if (blockColors == null) {
                 blockColors = Minecraft.getInstance().getBlockColors();
+            }
 
             return Optional.of(blockColors);
         }
@@ -82,8 +75,9 @@ public class ClientHelper {
 
     public static Optional<Font> getTextRenderer() {
         if (getClient().isPresent()) {
-            if (textRenderer == null)
+            if (textRenderer == null) {
                 textRenderer = Minecraft.getInstance().font;
+            }
 
             return Optional.of(textRenderer);
         }
@@ -92,8 +86,9 @@ public class ClientHelper {
 
     public static Optional<Options> getGameOptions() {
         if (getClient().isPresent()) {
-            if (gameOptions == null)
+            if (gameOptions == null) {
                 gameOptions = Minecraft.getInstance().options;
+            }
 
             return Optional.of(gameOptions);
         }

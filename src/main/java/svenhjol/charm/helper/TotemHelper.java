@@ -16,8 +16,7 @@ import net.minecraft.world.item.ItemStack;
 @SuppressWarnings("UnusedReturnValue")
 public class TotemHelper {
     public static boolean destroy(Player player, ItemStack totem) {
-        if (player.isSpectator() || player.isCreative())
-            return false;
+        if (player.isSpectator() || player.isCreative()) return false;
 
         totem.shrink(1);
 
@@ -33,8 +32,7 @@ public class TotemHelper {
     @Environment(EnvType.CLIENT)
     public static void effectDestroyTotem(BlockPos pos) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.level == null || mc.player == null)
-            return;
+        if (mc.level == null || mc.player == null) return;
 
         double spread = 1.5D;
         for (int i = 0; i < 4; i++) {

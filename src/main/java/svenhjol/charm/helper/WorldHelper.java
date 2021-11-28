@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.material.Material;
+import svenhjol.charm.registry.CommonRegistry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class WorldHelper {
 
     public static PoiType addPointOfInterestType(ResourceLocation id, Block block, int ticketCount) {
         PoiType poit = PointOfInterestTypeAccessor.callCreate(id.toString(), ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates()), ticketCount, 1);
-        RegistryHelper.pointOfInterestType(id, poit);
+        CommonRegistry.pointOfInterestType(id, poit);
         return PointOfInterestTypeAccessor.callSetup(poit);
     }
 

@@ -5,7 +5,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.helper.RegistryHelper;
+import svenhjol.charm.registry.CommonRegistry;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.hover_sorting.HoverSorting;
 
@@ -25,6 +25,6 @@ public class ColoredBundles extends CharmModule {
             HoverSorting.SORTABLE.add(COLORED_BUNDLES.get(color));
         }
 
-        BUNDLE_COLORING_RECIPE = RegistryHelper.recipeSerializer(RECIPE_ID.toString(), new SimpleRecipeSerializer<>(BundleColoringRecipe::new));
+        BUNDLE_COLORING_RECIPE = CommonRegistry.recipeSerializer(RECIPE_ID.toString(), new SimpleRecipeSerializer<>(BundleColoringRecipe::new));
     }
 }
