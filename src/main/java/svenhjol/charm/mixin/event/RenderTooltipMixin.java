@@ -26,8 +26,8 @@ public class RenderTooltipMixin {
         method = "renderTooltipInternal",
         at = @At("HEAD")
     )
-    private void hookRenderOrderedTooltip(PoseStack matrices, List<ClientTooltipComponent> lines, int x, int y, CallbackInfo ci) {
-        RenderTooltipCallback.EVENT.invoker().interact(matrices, itemStack, lines, x, y);
+    private void hookRenderOrderedTooltip(PoseStack poseStack, List<ClientTooltipComponent> lines, int x, int y, CallbackInfo ci) {
+        RenderTooltipCallback.EVENT.invoker().interact((Screen)(Object)this, poseStack, itemStack, lines, x, y);
         itemStack = null;
     }
 

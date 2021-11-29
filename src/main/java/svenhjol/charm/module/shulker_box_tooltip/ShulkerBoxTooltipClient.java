@@ -1,6 +1,7 @@
 package svenhjol.charm.module.shulker_box_tooltip;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -35,7 +36,7 @@ public class ShulkerBoxTooltipClient extends CharmModule {
     /**
      * When hovering, remove all text below the custom grid.
      */
-    private void handleRenderTooltip(PoseStack poseStack, ItemStack stack, List<ClientTooltipComponent> components, int x, int y) {
+    private void handleRenderTooltip(Screen screen, PoseStack poseStack, ItemStack stack, List<ClientTooltipComponent> components, int x, int y) {
         if (isEnabled && stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
             if (components.size() >= 2) {
                 ClientTooltipComponent title = components.get(0);

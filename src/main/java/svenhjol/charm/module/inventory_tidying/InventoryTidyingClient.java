@@ -31,19 +31,18 @@ public class InventoryTidyingClient extends CharmModule {
     public static final int TOP = 12;
     public static final List<ImageButton> sortingButtons = new ArrayList<>();
 
-    public final List<Class<? extends Screen>> blockEntityScreens = new ArrayList<>();
-    public final List<Class<? extends Screen>> blacklistScreens = new ArrayList<>();
-
-    public final Map<Class<? extends Screen>, Map<Integer, Integer>> screenTweaks = new HashMap<>();
+    public final List<Class<? extends Screen>> BLOCK_ENTITY_SCREENS = new ArrayList<>();
+    public final List<Class<? extends Screen>> BLACKLIST = new ArrayList<>();
+    public final Map<Class<? extends Screen>, Map<Integer, Integer>> SCREEN_TWEAKS = new HashMap<>();
 
     @Override
     public void register() {
         if (!Charm.LOADER.isEnabled(InventoryTidying.class)) return; // return early, don't even register
 
-        screenTweaks.put(MerchantScreen.class, new HashMap<>() {{ put(100, 0); }});
-        screenTweaks.put(InventoryScreen.class, new HashMap<>() {{ put(0, 76); }});
+        SCREEN_TWEAKS.put(MerchantScreen.class, new HashMap<>() {{ put(100, 0); }});
+        SCREEN_TWEAKS.put(InventoryScreen.class, new HashMap<>() {{ put(0, 76); }});
 
-        blockEntityScreens.addAll(Arrays.asList(
+        BLOCK_ENTITY_SCREENS.addAll(Arrays.asList(
             ContainerScreen.class,
             HopperScreen.class,
             ShulkerBoxScreen.class,
@@ -51,10 +50,9 @@ public class InventoryTidyingClient extends CharmModule {
             DispenserScreen.class
         ));
 
-        blacklistScreens.addAll(Arrays.asList(
+        BLACKLIST.addAll(Arrays.asList(
             CreativeModeInventoryScreen.class,
             BeaconScreen.class
-//            AtlasScreen.class // TODO: restore
         ));
     }
 
@@ -72,7 +70,7 @@ public class InventoryTidyingClient extends CharmModule {
         if (!(client.screen instanceof AbstractContainerScreen<?> screen))
             return;
 
-        if (blacklistScreens.contains(client.screen.getClass()))
+        if (BLACKLIST.contains(client.screen.getClass()))
             return;
 
         sortingButtons.clear();
@@ -83,8 +81,8 @@ public class InventoryTidyingClient extends CharmModule {
         int x = screen.leftPos + LEFT;
         int y = screen.topPos - TOP;
 
-        if (screenTweaks.containsKey(clazz)) {
-            Map<Integer, Integer> m = screenTweaks.get(clazz);
+        if (SCREEN_TWEAKS.containsKey(clazz)) {
+            Map<Integer, Integer> m = SCREEN_TWEAKS.get(clazz);
             for (Map.Entry<Integer, Integer> e : m.entrySet()) {
                 x += e.getKey();
                 y += e.getValue();
@@ -93,7 +91,7 @@ public class InventoryTidyingClient extends CharmModule {
 
         List<Slot> slots = screenHandler.slots;
         for (Slot slot : slots) {
-            if (blockEntityScreens.contains(screen.getClass()) && slot.index == 0) {
+            if (BLOCK_ENTITY_SCREENS.contains(screen.getClass()) && slot.index == 0) {
                 this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(BE));
             }
 
@@ -108,7 +106,7 @@ public class InventoryTidyingClient extends CharmModule {
 
     private void handleRenderGui(Minecraft client, PoseStack matrices, int mouseX, int mouseY, float delta) {
         if (client.screen instanceof InventoryScreen screen
-            && !blacklistScreens.contains(client.screen.getClass())
+            && !BLACKLIST.contains(client.screen.getClass())
         ) {
             // handles the recipe being open/closed
             int x = screen.leftPos;

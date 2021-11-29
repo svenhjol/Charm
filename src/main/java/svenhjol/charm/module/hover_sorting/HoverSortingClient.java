@@ -1,8 +1,12 @@
 package svenhjol.charm.module.hover_sorting;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
+import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -24,15 +28,29 @@ import java.util.Optional;
 @ClientModule(module = HoverSorting.class)
 public class HoverSortingClient extends CharmModule {
     public static ItemStack hoveredItem = null;
-
     @Override
     public void register() {
-        ScrollMouseCallback.EVENT.register(this::handleScrollMouse);
+        ScrollMouseCallback.EVENT.register(this::handleScrollDirection);
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
+        ScreenEvents.BEFORE_INIT.register(this::handleScreenInit);
     }
 
-    private void handleScrollMouse(double direction) {
+    private void handleScreenInit(Minecraft minecraft, Screen screen, int width, int height) {
+        if (!(screen instanceof AbstractContainerScreen)) return;
+        ScreenKeyboardEvents.beforeKeyPress(screen).register(this::handleKeyPress);
+    }
+
+    private void handleKeyPress(Screen screen, int key, int scancode, int modifiers) {
+        Options options = Minecraft.getInstance().options;
+        if (key == InputConstants.KEY_LEFT || options.keyLeft.matches(key, scancode)) {
+            handleScrollDirection(-1);
+        } else if (key == InputConstants.KEY_RIGHT || options.keyRight.matches(key, scancode)) {
+            handleScrollDirection(1);
+        }
+    }
+
+    private void handleScrollDirection(double direction) {
         Optional<Minecraft> opt = ClientHelper.getClient();
         if (opt.isEmpty()) return;
 
@@ -53,11 +71,12 @@ public class HoverSortingClient extends CharmModule {
         }
     }
 
-    private void handleRenderTooltip(PoseStack pose, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
+    private void handleRenderTooltip(Screen screen, PoseStack pose, @Nullable ItemStack stack, List<ClientTooltipComponent> lines, int x, int y) {
         if (stack != null) {
             Item item = stack.getItem();
-            if (HoverSorting.SORTABLE.contains(item) || HoverSorting.SORTABLE.contains(Block.byItem(item)))
-            hoveredItem = stack;
+            if (HoverSorting.SORTABLE.contains(item) || HoverSorting.SORTABLE.contains(Block.byItem(item))) {
+                hoveredItem = stack;
+            }
         }
     }
 
