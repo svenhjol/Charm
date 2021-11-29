@@ -31,7 +31,7 @@
     "event.PlayerTickMixin",
     "event.StackItemOnItemMixin",
     "helper.AddSortingRecipeManagerMixin",
-    "husks_spawn_below_surface.AllowSpawningAnywhereMixin",
+    "husks_spawn_underground.AllowSpawningAnywhereMixin",
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
     "no_campfire_damage.BypassCampfireDamageMixin",
     "no_crop_trampling.PreventTramplingMixin",
@@ -42,7 +42,7 @@
     "snow_accumulation.PreventSnowMeltingMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
     "stackable_stews.FinishEatingStewMixin",
-    "strays_spawn_below_surface.AllowSpawningAnywhereMixin",
+    "strays_spawn_underground.AllowSpawningAnywhereMixin",
     "stronger_anvils.ReduceAnvilDamageMixin",
     "totem_works_from_inventory.CheckInventoryMixin"
   ],

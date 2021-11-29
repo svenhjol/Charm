@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.strays_spawn_below_surface;
+package svenhjol.charm.mixin.strays_spawn_underground;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.strays_spawn_below_surface.StraysSpawnBelowSurface;
+import svenhjol.charm.module.strays_spawn_underground.StraysSpawnUnderground;
 
 import java.util.Random;
 
@@ -24,7 +24,7 @@ public abstract class AllowSpawningAnywhereMixin {
         cancellable = true
     )
     private static void hookCanSpawn(EntityType<Stray> entity, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, Random rand, CallbackInfoReturnable<Boolean> cir) {
-        if (!cir.getReturnValue() && StraysSpawnBelowSurface.canSpawn()) {
+        if (!cir.getReturnValue() && StraysSpawnUnderground.canSpawn()) {
             cir.setReturnValue(Stray.checkMonsterSpawnRules(entity, level, reason, pos, rand));
         }
     }

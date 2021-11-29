@@ -10,7 +10,6 @@ import svenhjol.charm.module.atlases.Atlases;
 
 @Mixin(MapItemSavedData.class)
 public class CheckContainsMapsMixin {
-
     /**
      * Redirects the normal player inventory contains method to
      * also check for atlases containing maps.
