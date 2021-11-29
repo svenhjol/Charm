@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -24,6 +25,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.ItemNbtHelper;
+import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.registry.CommonRegistry;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
@@ -36,6 +38,9 @@ public class Atlases extends CharmModule {
     public static final ResourceLocation MSG_SERVER_ATLAS_TRANSFER = new ResourceLocation(Charm.MOD_ID, "server_atlas_transfer");
     public static final ResourceLocation MSG_CLIENT_UPDATE_ATLAS_INVENTORY = new ResourceLocation(Charm.MOD_ID, "client_update_atlas_inventory");
     public static final ResourceLocation TRIGGER_MADE_ATLAS_MAPS = new ResourceLocation(Charm.MOD_ID, "made_atlas_maps");
+
+    public static final SoundEvent ATLAS_OPEN = CharmSounds.createSound("atlas_open");
+    public static final SoundEvent ATLAS_CLOSE = CharmSounds.createSound("atlas_close");
 
     public static final int NUMBER_OF_MAPS_FOR_ACHIEVEMENT = 10;
 

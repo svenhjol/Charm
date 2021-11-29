@@ -30,7 +30,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.helper.ItemNbtHelper;
-import svenhjol.charm.init.CharmSounds;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -270,7 +269,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public void startOpen(Player player) {
         isOpen = true;
         if (!player.level.isClientSide) {
-            player.playNotifySound(CharmSounds.BOOKSHELF_OPEN, SoundSource.BLOCKS, 0.5f, player.level.random.nextFloat() * 0.1F + 0.9F);
+            player.playNotifySound(Atlases.ATLAS_OPEN, SoundSource.BLOCKS, 0.4f, player.level.random.nextFloat() * 0.1F + 0.9F);
         }
     }
 
@@ -278,7 +277,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public void stopOpen(Player player) {
         isOpen = false;
         if (!player.level.isClientSide) {
-            player.playNotifySound(CharmSounds.BOOKSHELF_CLOSE, SoundSource.BLOCKS, 0.5f, player.level.random.nextFloat() * 0.1F + 0.9F);
+            player.playNotifySound(Atlases.ATLAS_CLOSE, SoundSource.BLOCKS, 0.4f, player.level.random.nextFloat() * 0.1F + 0.9F);
         }
     }
 

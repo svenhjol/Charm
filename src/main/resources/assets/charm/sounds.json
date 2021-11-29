@@ -1,21 +1,37 @@
 {
-  "bookshelf_open": {
+  "atlas_open": {
     "sounds": [
-      "charm:bookshelf_open1",
-      "charm:bookshelf_open2"
-    ]
+      {
+        "name": "charm:atlas1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.atlas.open"
   },
-  "bookshelf_close": {
+  "atlas_close": {
     "sounds": [
-      "charm:bookshelf_close1",
-      "charm:bookshelf_close2"
-    ]
-  },
-  "quadrant": {
-    "sounds": [
-      "charm:quadrant1",
-      "charm:quadrant2"
-    ]
+      {
+        "name": "charm:atlas1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.atlas.close"
   },
   "raid_horn_call_off_raid": {
     "sounds": [
@@ -54,6 +70,6 @@
         "volume": 1.0
       }
     ],
-    "subtitle": "subtitles.charm.item.raid_horn.squeaks"
+    "subtitle": "subtitles.charm.item.raid_horn.squeak"
   }
 }
