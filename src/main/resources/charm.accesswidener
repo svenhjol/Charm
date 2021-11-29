@@ -37,6 +37,9 @@ extendable method net/minecraft/world/inventory/AbstractContainerMenu doClick (I
 accessible method net/minecraft/world/item/BundleItem getContents (Lnet/minecraft/world/item/ItemStack;)Ljava/util/stream/Stream;
 accessible method net/minecraft/world/level/biome/Biome getHeightAdjustedTemperature (Lnet/minecraft/core/BlockPos;)F
 accessible method net/minecraft/world/level/saveddata/maps/MapItemSavedData setColorsDirty (II)V
+accessible method net/minecraft/world/entity/player/Player respawnEntityOnShoulder (Lnet/minecraft/nbt/CompoundTag;)V
+accessible method net/minecraft/world/entity/player/Player setShoulderEntityLeft (Lnet/minecraft/nbt/CompoundTag;)V
+accessible method net/minecraft/world/entity/player/Player setShoulderEntityRight (Lnet/minecraft/nbt/CompoundTag;)V
 
 # Inaccessible fields
 accessible field net/minecraft/client/Minecraft blockColors Lnet/minecraft/client/color/block/BlockColors;

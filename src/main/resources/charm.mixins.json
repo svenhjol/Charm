@@ -32,13 +32,16 @@
     "helper.AddSortingRecipeManagerMixin",
     "husks_spawn_below_surface.AllowSpawningAnywhereMixin",
     "no_campfire_damage.BypassCampfireDamageMixin",
+    "open_both_doors.ReactOnDoorOpenedMixin",
+    "parrots_stay_on_shoulder.KeepShoulderEntitiesMixin",
     "show_repair_cost.AddRepairCostToTooltipMixin",
     "snow_accumulation.PlaceMoreSnowMixin",
     "snow_accumulation.PreventSnowMeltingMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
     "stackable_stews.FinishEatingStewMixin",
     "strays_spawn_below_surface.AllowSpawningAnywhereMixin",
-    "stronger_anvils.ReduceAnvilDamageMixin"
+    "stronger_anvils.ReduceAnvilDamageMixin",
+    "totem_works_from_inventory.CheckInventoryMixin"
   ],
   "client": [
     "allow_too_expensive.StopShowingTooExpensiveMixin",
@@ -52,6 +55,7 @@
     "event.RenderTooltipMixin",
     "event.ScrollMouseMixin",
     "event.SetupGuiMixin",
-    "no_potion_glint.CheckPotionHasGlintMixin"
+    "no_potion_glint.CheckPotionHasGlintMixin",
+    "no_spyglass_scope.RemoveSpyglassHudMixin"
   ]
 }
