@@ -98,14 +98,18 @@ public class ShulkerBoxDragDrop extends CharmModule {
                     ItemStack out = stack.copy();
                     container.setItem(index, ItemStack.EMPTY);
                     InventoryTidyingHandler.mergeStacks(container); // merge to remove empty slots
-                    slot.safeInsert(out);
-                    playRemoveOneSound(player);
+                    if (slot.safeInsert(out).isEmpty()) {
+                        playRemoveOneSound(player);
+                    }
 
                 } else {
                     // add hovering item into the container
                     ItemStack result = container.addItem(source);
                     source.setCount(result.getCount());
-                    playInsertSound(player);
+
+                    if (result.getCount() == 0) {
+                        playInsertSound(player);
+                    }
                 }
 
                 // write container back to shulkerbox
@@ -127,6 +131,7 @@ public class ShulkerBoxDragDrop extends CharmModule {
      */
     private void playRemoveOneSound(Entity entity) {
         entity.playSound(SoundEvents.BUNDLE_REMOVE_ONE, 0.8f, 0.8f + entity.getLevel().getRandom().nextFloat() * 0.4f);
+        entity.playSound(SoundEvents.SHULKER_BOX_OPEN, 0.1f + entity.getLevel().getRandom().nextFloat() * 0.3f, 0.65f + entity.getLevel().getRandom().nextFloat() * 0.4f);
     }
 
     /**
@@ -134,5 +139,6 @@ public class ShulkerBoxDragDrop extends CharmModule {
      */
     private void playInsertSound(Entity entity) {
         entity.playSound(SoundEvents.BUNDLE_INSERT, 0.8f, 0.8f + entity.getLevel().getRandom().nextFloat() * 0.4f);
+        entity.playSound(SoundEvents.SHULKER_BOX_OPEN, 0.1f + entity.getLevel().getRandom().nextFloat() * 0.3f, 0.67f + entity.getLevel().getRandom().nextFloat() * 0.4f);
     }
 }
