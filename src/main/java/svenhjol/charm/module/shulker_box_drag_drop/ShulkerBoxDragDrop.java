@@ -25,6 +25,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.event.StackItemOnItemCallback;
 import svenhjol.charm.event.StackItemOnItemCallback.Direction;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,7 @@ public class ShulkerBoxDragDrop extends CharmModule {
 
                     ItemStack out = stack.copy();
                     container.setItem(index, ItemStack.EMPTY);
+                    InventoryTidyingHandler.mergeStacks(container); // merge to remove empty slots
                     slot.safeInsert(out);
 
                 } else {

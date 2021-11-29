@@ -76,6 +76,20 @@ public class InventoryTidyingHandler {
         stacks.removeIf((ItemStack stack) -> stack.isEmpty() || stack.getCount() == 0);
     }
 
+    public static void mergeStacks(Container container) {
+        List<ItemStack> stacks = new ArrayList<>();
+        int size = container.getContainerSize();
+        for (int i = 0; i < size; i++) {
+            stacks.add(container.getItem(i));
+        }
+
+        mergeStacks(stacks);
+        container.clearContent();
+        for (int i = 0; i < stacks.size(); i++) {
+            container.setItem(i, stacks.get(i));
+        }
+    }
+
     public static void sortStacks(List<ItemStack> stacks) {
         stacks.sort(InventoryTidyingHandler::compare); // maybe improve this at some point in future
     }
