@@ -14,7 +14,6 @@ public class CharmSounds {
     public static final SoundEvent BOOKSHELF_OPEN = createSound("bookshelf_open");
     public static final SoundEvent BOOKSHELF_CLOSE = createSound("bookshelf_close");
     public static final SoundEvent QUADRANT = createSound("quadrant");
-    public static final SoundEvent RAID_HORN = createSound("raid_horn");
 
     public static void init() {
         REGISTER.forEach(CommonRegistry::sound);

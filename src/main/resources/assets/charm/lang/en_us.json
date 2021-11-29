@@ -291,5 +291,8 @@
   "structure.charm.swamp_hut": "Swamp Hut",
   "structure.charm.village": "Village",
   "totem.charm.preserving.item": "Preserving one item",
-  "totem.charm.preserving.items": "Preserving %s items"
+  "totem.charm.preserving.items": "Preserving %s items",
+  "subtitles.charm.item.raid_horn.call_patrol": "Horn calls patrol",
+  "subtitles.charm.item.raid_horn.call_off_raid": "Horn calls off raid",
+  "subtitles.charm.item.raid_horn.squeaks": "Horn fails to make a sound"
 }

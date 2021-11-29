@@ -18,7 +18,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
-import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.loader.CharmModule;
 
@@ -38,7 +37,6 @@ public class RaidHornItem extends CharmItem {
         ItemStack horn = user.getItemInHand(hand);
 
         if (!world.isClientSide) {
-            world.playSound(null, user.blockPosition(), CharmSounds.RAID_HORN, SoundSource.PLAYERS, (float) RaidHorns.volume, 1.0F);
             user.startUsingItem(hand);
         }
 
@@ -65,12 +63,18 @@ public class RaidHornItem extends CharmItem {
             Raid raid = serverLevel.getRaidAt(pos);
             if (raid != null) {
                 raid.stop();
+                playCallOffRaidSound(serverLevel, user.blockPosition());
                 RaidHorns.triggerCalledOff(player);
+            } else {
+                playFailSound(serverLevel, user.blockPosition());
             }
         } else {
             boolean result = trySpawnPillagers(serverLevel, (Player) user);
             if (result) {
+                playCallPatrolSound(serverLevel, user.blockPosition());
                 RaidHorns.triggerSummoned(player);
+            } else {
+                playFailSound(serverLevel, user.blockPosition());
             }
         }
 
@@ -93,6 +97,9 @@ public class RaidHornItem extends CharmItem {
         return f;
     }
 
+    /**
+     * Source: {@link PatrolSpawner#tick}
+     */
     private boolean trySpawnPillagers(ServerLevel level, Player player) {
         PatrolSpawner patrolSpawner = null;
         List<CustomSpawner> spawners = level.customSpawners;
@@ -104,10 +111,9 @@ public class RaidHornItem extends CharmItem {
         }
 
         if (patrolSpawner == null) return false;
-
         Random random = level.getRandom();
 
-        // copypasta from PillagerSpawner
+        // some copypasta from PatrolSpawner#tick
         int j = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
         int k = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);
         BlockPos.MutableBlockPos mutable = player.blockPosition().mutable().move(j, 0, k);
@@ -119,28 +125,35 @@ public class RaidHornItem extends CharmItem {
             if (category == Biome.BiomeCategory.MUSHROOM) {
                 return false;
             } else {
-                int m = 0;
-                int n = (int)Math.ceil((double)level.getCurrentDifficultyAt(mutable).getEffectiveDifficulty()) + 1;
-
-                for(int o = 0; o < n; ++o) {
-                    ++m;
+                boolean spawned = false;
+                int n = (int)Math.ceil(level.getCurrentDifficultyAt(mutable).getEffectiveDifficulty()) + 1;
+                for (int o = 0; o < n; ++o) {
                     mutable.setY(level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, mutable).getY());
-                    if (o == 0) {
-                        if (!patrolSpawner.spawnPatrolMember(level, mutable, random, true)) {
-                            break;
-                        }
-                    } else {
-                        patrolSpawner.spawnPatrolMember(level, mutable, random, false);
-                    }
+                    boolean result = patrolSpawner.spawnPatrolMember(level, mutable, random, o == 0);
 
-                    mutable.setX(mutable.getX() + random.nextInt(5) - random.nextInt(5));
-                    mutable.setZ(mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                    if (result) {
+                        spawned = true;
+                        mutable.setX(mutable.getX() + random.nextInt(5) - random.nextInt(5));
+                        mutable.setZ(mutable.getZ() + random.nextInt(5) - random.nextInt(5));
+                    }
                 }
 
                 // must reset the global pillager spawner timer after spawning these in
                 patrolSpawner.nextTick = 12000;
-                return true;
+                return spawned;
             }
         }
+    }
+
+    private void playCallPatrolSound(ServerLevel level, BlockPos pos) {
+        level.playSound(null, pos, RaidHorns.RAID_HORN_CALL_PATROL, SoundSource.PLAYERS, (float) RaidHorns.volume, 0.9F + level.getRandom().nextFloat() * 0.2F);
+    }
+
+    private void playCallOffRaidSound(ServerLevel level, BlockPos pos) {
+        level.playSound(null, pos, RaidHorns.RAID_HORN_CALL_OFF_RAID, SoundSource.PLAYERS, (float) RaidHorns.volume - 0.1F, 0.9F + level.getRandom().nextFloat() * 0.2F);
+    }
+
+    private void playFailSound(ServerLevel level, BlockPos pos) {
+        level.playSound(null, pos, RaidHorns.RAID_HORN_SQUEAK, SoundSource.PLAYERS, (float) RaidHorns.volume - 0.2F, 0.9F + level.getRandom().nextFloat() * 0.2F);
     }
 }

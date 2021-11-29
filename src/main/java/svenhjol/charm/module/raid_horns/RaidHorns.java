@@ -3,6 +3,7 @@ package svenhjol.charm.module.raid_horns;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,11 +16,16 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.")
 public class RaidHorns extends CharmModule {
     public static RaidHornItem RAID_HORN;
+
+    public static final SoundEvent RAID_HORN_CALL_PATROL = CharmSounds.createSound("raid_horn_call_patrol");
+    public static final SoundEvent RAID_HORN_CALL_OFF_RAID = CharmSounds.createSound("raid_horn_call_off_raid");
+    public static final SoundEvent RAID_HORN_SQUEAK = CharmSounds.createSound("raid_horn_squeak");
 
     public static final ResourceLocation TRIGGER_SUMMONED_PILLAGERS = new ResourceLocation(Charm.MOD_ID, "summoned_pillagers");
     public static final ResourceLocation TRIGGER_CALLED_OFF_RAID = new ResourceLocation(Charm.MOD_ID, "called_off_raid");
