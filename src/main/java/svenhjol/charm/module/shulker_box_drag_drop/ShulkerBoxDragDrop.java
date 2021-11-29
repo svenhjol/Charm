@@ -5,8 +5,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
@@ -97,11 +99,13 @@ public class ShulkerBoxDragDrop extends CharmModule {
                     container.setItem(index, ItemStack.EMPTY);
                     InventoryTidyingHandler.mergeStacks(container); // merge to remove empty slots
                     slot.safeInsert(out);
+                    playRemoveOneSound(player);
 
                 } else {
                     // add hovering item into the container
                     ItemStack result = container.addItem(source);
                     source.setCount(result.getCount());
+                    playInsertSound(player);
                 }
 
                 // write container back to shulkerbox
@@ -116,5 +120,19 @@ public class ShulkerBoxDragDrop extends CharmModule {
         }
 
         return false;
+    }
+
+    /**
+     * Copypasta from {@link net.minecraft.world.item.BundleItem}
+     */
+    private void playRemoveOneSound(Entity entity) {
+        entity.playSound(SoundEvents.BUNDLE_REMOVE_ONE, 0.8f, 0.8f + entity.getLevel().getRandom().nextFloat() * 0.4f);
+    }
+
+    /**
+     * Copypasta from {@link net.minecraft.world.item.BundleItem}
+     */
+    private void playInsertSound(Entity entity) {
+        entity.playSound(SoundEvents.BUNDLE_INSERT, 0.8f, 0.8f + entity.getLevel().getRandom().nextFloat() * 0.4f);
     }
 }
