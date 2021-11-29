@@ -40,6 +40,7 @@ accessible method net/minecraft/world/level/saveddata/maps/MapItemSavedData setC
 accessible method net/minecraft/world/entity/player/Player respawnEntityOnShoulder (Lnet/minecraft/nbt/CompoundTag;)V
 accessible method net/minecraft/world/entity/player/Player setShoulderEntityLeft (Lnet/minecraft/nbt/CompoundTag;)V
 accessible method net/minecraft/world/entity/player/Player setShoulderEntityRight (Lnet/minecraft/nbt/CompoundTag;)V
+accessible method net/minecraft/world/level/levelgen/PatrolSpawner spawnPatrolMember (Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Ljava/util/Random;Z)Z
 
 # Inaccessible fields
 accessible field net/minecraft/client/Minecraft blockColors Lnet/minecraft/client/color/block/BlockColors;
@@ -63,6 +64,8 @@ accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScr
 accessible field net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity itemStacks Lnet/minecraft/core/NonNullList;
 accessible field net/minecraft/client/gui/screens/Screen narratables Ljava/util/List;
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+accessible field net/minecraft/server/level/ServerLevel customSpawners Ljava/util/List;
+accessible field net/minecraft/world/level/levelgen/PatrolSpawner nextTick I
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
