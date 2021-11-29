@@ -24,6 +24,7 @@ import svenhjol.charm.loader.CharmModule;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class RaidHornItem extends CharmItem {
     public RaidHornItem(CharmModule module) {
         super(module, "raid_horn", new Properties()
