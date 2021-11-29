@@ -38,14 +38,12 @@ public class PortableCraftingClient extends CharmModule {
             keyBinding = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.charm.openCraftingTable",
                 InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_V,
+                GLFW.GLFW_KEY_C,
                 "key.categories.inventory"
             ));
 
-            ClientTickEvents.END_WORLD_TICK.register(world -> {
-                if (keyBinding == null || world == null)
-                    return;
-
+            ClientTickEvents.END_WORLD_TICK.register(level -> {
+                if (keyBinding == null || level == null) return;
                 while (keyBinding.consumeClick()) {
                     triggerOpenCraftingTable();
                 }
@@ -54,11 +52,8 @@ public class PortableCraftingClient extends CharmModule {
     }
 
     private void handleGuiSetup(Minecraft client, int width, int height, List<NarratableEntry> buttons) {
-        if (client.player == null)
-            return;
-
-        if (!(client.screen instanceof InventoryScreen screen))
-            return;
+        if (client.player == null) return;
+        if (!(client.screen instanceof InventoryScreen screen)) return;
 
         int guiLeft = screen.leftPos;
 
@@ -77,8 +72,9 @@ public class PortableCraftingClient extends CharmModule {
             return;
         }
 
-        if (client.player.level.getGameTime() % 5 == 0)
+        if (client.player.level.getGameTime() % 5 == 0) {
             this.craftingButton.visible = hasCrafting(client.player);
+        }
     }
 
     private boolean hasCrafting(Player player) {

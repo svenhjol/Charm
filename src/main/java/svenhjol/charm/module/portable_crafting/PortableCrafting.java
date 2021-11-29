@@ -25,7 +25,7 @@ public class PortableCrafting extends CharmModule {
     public static final ResourceLocation MSG_SERVER_OPEN_CRAFTING = new ResourceLocation(Charm.MOD_ID, "server_open_crafting");
     public static final ResourceLocation TRIGGER_USED_CRAFTING_TABLE = new ResourceLocation(Charm.MOD_ID, "used_crafting_table");
 
-    @Config(name = "Enable keybind", description = "If true, sets a keybind for opening the portable crafting table (defaults to 'v').")
+    @Config(name = "Enable keybind", description = "If true, sets a keybind for opening the portable crafting table (defaults to 'c').")
     public static boolean enableKeybind = true;
 
     @Override
@@ -36,14 +36,12 @@ public class PortableCrafting extends CharmModule {
 
     public static void openContainer(ServerPlayer player) {
         player.closeContainer();
-        player.openMenu(new SimpleMenuProvider((i, inv, p) -> new PortableCraftingScreenHandler(i, inv, ContainerLevelAccess.create(p.level, p.blockPosition())), LABEL));
+        player.openMenu(new SimpleMenuProvider((i, inv, p) -> new PortableCraftingMenu(i, inv, ContainerLevelAccess.create(p.level, p.blockPosition())), LABEL));
     }
 
     private void handleServerOpenCrafting(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf data, PacketSender sender) {
         server.execute(() -> {
-            if (player == null || !player.inventory.contains(new ItemStack(Blocks.CRAFTING_TABLE)))
-                return;
-
+            if (player == null || !player.inventory.contains(new ItemStack(Blocks.CRAFTING_TABLE))) return;
             triggerUsedCraftingTable(player);
             PortableCrafting.openContainer(player);
         });
