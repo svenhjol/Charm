@@ -1,4 +1,4 @@
-package svenhjol.charm.module.map_tooltips;
+package svenhjol.charm.module.map_tooltip;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

@@ -1,4 +1,4 @@
-package svenhjol.charm.module.map_tooltips;
+package svenhjol.charm.module.map_tooltip;
 
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
