@@ -66,6 +66,9 @@ accessible field net/minecraft/client/gui/screens/Screen narratables Ljava/util/
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/server/level/ServerLevel customSpawners Ljava/util/List;
 accessible field net/minecraft/world/level/levelgen/PatrolSpawner nextTick I
+accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher renderers Ljava/util/Map;
+accessible field net/minecraft/client/renderer/entity/LivingEntityRenderer layers Ljava/util/List;
+accessible field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
@@ -77,3 +80,4 @@ mutable    field net/minecraft/client/gui/screens/Screen children Ljava/util/Lis
 mutable    field net/minecraft/world/item/Item maxStackSize I
 mutable    field net/minecraft/world/level/block/FireBlock flameOdds Lit/unimi/dsi/fastutil/objects/Object2IntMap;
 mutable    field net/minecraft/world/level/block/FireBlock burnOdds Lit/unimi/dsi/fastutil/objects/Object2IntMap;
+mutable    field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
