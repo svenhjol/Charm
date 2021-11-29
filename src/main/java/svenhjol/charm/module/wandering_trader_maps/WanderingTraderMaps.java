@@ -69,8 +69,9 @@ public class WanderingTraderMaps extends CharmModule {
             ));
         }
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++) {
             VillagerHelper.addWanderingTrade(new StructureMapForEmeraldsTrade(), false);
+        }
     }
 
     public static class StructureMapForEmeraldsTrade implements VillagerTrades.ItemListing {
@@ -109,8 +110,7 @@ public class WanderingTraderMaps extends CharmModule {
         public ItemStack getMap(ServerLevel level, BlockPos pos) {
             int color = 0x662200;
             BlockPos nearestStructure = level.findNearestMapFeature(structure, pos, 2000, true);
-            if (nearestStructure == null)
-                return null;
+            if (nearestStructure == null) return null;
 
             TranslatableComponent structureName = new TranslatableComponent("structure.charm." + structure.getFeatureName());
             TranslatableComponent mapName = new TranslatableComponent("filled_map.charm.trader_map", structureName);
@@ -139,8 +139,7 @@ public class WanderingTraderMaps extends CharmModule {
             BlockPos nearestBiome = BiomeHelper.locateBiome(biomeKey, level, pos);
             String biomeName = biomeKey.location().getPath();
 
-            if (nearestBiome == null)
-                return null;
+            if (nearestBiome == null) return null;
 
             TranslatableComponent mapName = new TranslatableComponent("filled_map.charm.trader_map", new TranslatableComponent("biome.minecraft." + biomeName));
             return MapHelper.create(level, nearestBiome, mapName, MapDecoration.Type.TARGET_X, color);
