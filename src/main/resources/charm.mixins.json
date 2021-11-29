@@ -30,6 +30,8 @@
     "event.PlayerSaveDataMixin",
     "event.PlayerTickMixin",
     "event.StackItemOnItemMixin",
+    "grindable_horse_armor.AllowHorseArmorMixin",
+    "grindable_horse_armor.UpdateGrindstoneOutputMixin",
     "helper.AddSortingRecipeManagerMixin",
     "husks_spawn_underground.AllowSpawningAnywhereMixin",
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
