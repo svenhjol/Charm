@@ -15,6 +15,8 @@
     "auto_restock.AddStatWhenAnimalConsumedMixin",
     "auto_restock.AddStatWhenCompostedMixin",
     "chickens_drop_feathers.DropFeatherMixin",
+    "collection_enchantment.AddDroppedItemToInventoryMixin",
+    "collection_enchantment.TryBreakBlockMixin",
     "core.AllowZeroCostAnvilRecipesMixin",
     "event.AddEntityManagerMixin",
     "event.AddEntityServerMixin",
@@ -60,9 +62,10 @@
     "event.RenderTooltipMixin",
     "event.ScrollMouseMixin",
     "event.SetupGuiMixin",
+    "extract_enchantments.ShowGrindstoneCostMixin",
+    "gentle_potion_particles.RenderTranslucentParticleMixin",
     "no_potion_glint.CheckPotionHasGlintMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
-    "extract_enchantments.ShowGrindstoneCostMixin",
     "show_repair_cost.AddRepairCostToTooltipMixin"
   ]
 }
