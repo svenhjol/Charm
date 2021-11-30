@@ -64,6 +64,7 @@
     "event.SetupGuiMixin",
     "extract_enchantments.ShowGrindstoneCostMixin",
     "gentle_potion_particles.RenderTranslucentParticleMixin",
+    "helper.LoadCustomModelPartsMixin",
     "no_potion_glint.CheckPotionHasGlintMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
     "show_repair_cost.AddRepairCostToTooltipMixin"
