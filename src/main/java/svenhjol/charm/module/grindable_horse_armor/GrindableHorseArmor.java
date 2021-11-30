@@ -3,16 +3,15 @@ package svenhjol.charm.module.grindable_horse_armor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.event.GrindstoneEvents;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,28 +30,41 @@ public class GrindableHorseArmor extends CharmModule {
         HORSE_ARMOR_RECIPES.put(Items.DIAMOND_HORSE_ARMOR, Items.DIAMOND);
         HORSE_ARMOR_RECIPES.put(Items.SADDLE, Items.LEATHER);
 
+        GrindstoneEvents.CAN_PLACE.register(this::handlePlacedInGrindstone);
+        GrindstoneEvents.CALCULATE_OUTPUT.register(this::handleCalculateGrindstoneOutput);
+
         staticEnabled = true;
+    }
+
+    private boolean handleCalculateGrindstoneOutput(GrindstoneEvents.GrindstoneMenuInstance instance) {
+        if (!staticEnabled) return false;
+
+        ItemStack slot0 = instance.input.getItem(0);
+        ItemStack slot1 = instance.input.getItem(1);
+
+        boolean valid = false;
+
+        if (HORSE_ARMOR_RECIPES.containsKey(slot0.getItem()) && slot1.isEmpty()) {
+            instance.output.setItem(0, new ItemStack(HORSE_ARMOR_RECIPES.get(slot0.getItem())));
+            valid = true;
+        } else if (HORSE_ARMOR_RECIPES.containsKey(slot1.getItem()) && slot0.isEmpty()) {
+            instance.output.setItem(0, new ItemStack(HORSE_ARMOR_RECIPES.get(slot1.getItem())));
+            valid = true;
+        }
+
+        if (valid) {
+            instance.menu.broadcastChanges();
+        }
+
+        return valid;
+    }
+
+    private boolean handlePlacedInGrindstone(Container container, ItemStack stack) {
+        return enabled() && GrindableHorseArmor.HORSE_ARMOR_RECIPES.containsKey(stack.getItem());
     }
 
     public static boolean enabled() {
         return staticEnabled;
-    }
-
-    public static boolean tryUpdateGrindstoneOutput(Container inputs, Container output, @Nullable Player player) {
-        if (!staticEnabled) return false;
-
-        ItemStack slot0 = inputs.getItem(0);
-        ItemStack slot1 = inputs.getItem(1);
-
-        if (HORSE_ARMOR_RECIPES.containsKey(slot0.getItem()) && slot1.isEmpty()) {
-            output.setItem(0, new ItemStack(HORSE_ARMOR_RECIPES.get(slot0.getItem())));
-            return true;
-        } else if (HORSE_ARMOR_RECIPES.containsKey(slot1.getItem()) && slot0.isEmpty()) {
-            output.setItem(0, new ItemStack(HORSE_ARMOR_RECIPES.get(slot1.getItem())));
-            return true;
-        }
-
-        return false;
     }
 
     public static void triggerRecycledHorseArmor(ServerPlayer player) {
