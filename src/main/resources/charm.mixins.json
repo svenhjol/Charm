@@ -24,14 +24,15 @@
     "event.EntityDropXpMixin",
     "event.EntityHurtMixin",
     "event.EntityJumpMixin",
+    "event.GrindstoneMenuInputMixin",
+    "event.GrindstoneMenuMixin",
+    "event.GrindstoneMenuOutputMixin",
     "event.PlayerDieMixin",
     "event.PlayerDropInventoryMixin",
     "event.PlayerLoadDataMixin",
     "event.PlayerSaveDataMixin",
     "event.PlayerTickMixin",
     "event.StackItemOnItemMixin",
-    "grindable_horse_armor.AllowHorseArmorMixin",
-    "grindable_horse_armor.UpdateGrindstoneOutputMixin",
     "helper.AddSortingRecipeManagerMixin",
     "husks_spawn_underground.AllowSpawningAnywhereMixin",
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
@@ -39,7 +40,6 @@
     "no_crop_trampling.PreventTramplingMixin",
     "open_both_doors.ReactOnDoorOpenedMixin",
     "parrots_stay_on_shoulder.KeepShoulderEntitiesMixin",
-    "show_repair_cost.AddRepairCostToTooltipMixin",
     "snow_accumulation.PlaceMoreSnowMixin",
     "snow_accumulation.PreventSnowMeltingMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
@@ -61,6 +61,8 @@
     "event.ScrollMouseMixin",
     "event.SetupGuiMixin",
     "no_potion_glint.CheckPotionHasGlintMixin",
-    "no_spyglass_scope.RemoveSpyglassHudMixin"
+    "no_spyglass_scope.RemoveSpyglassHudMixin",
+    "extract_enchantments.ShowGrindstoneCostMixin",
+    "show_repair_cost.AddRepairCostToTooltipMixin"
   ]
 }
