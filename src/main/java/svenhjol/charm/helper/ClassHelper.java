@@ -23,7 +23,7 @@ import java.util.jar.JarInputStream;
 import java.util.stream.Collectors;
 
 /**
- * @version 1.0.0-charm
+ * @version 4.0.0-charm
  */
 @SuppressWarnings({"UnstableApiUsage", "unchecked"})
 public class ClassHelper {
