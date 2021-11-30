@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 public abstract class ModuleLoader<T extends CharmModule> {
     private static final List<String> MOD_IDS = new ArrayList<>();
     private final Map<String, T> MODULES = new TreeMap<>();
+    private final Map<Class<? extends T>, Boolean> ENABLED_CLAZZ_CACHE = new HashMap<>();
+    private final Map<String, Boolean> ENABLED_STRING_CACHE = new HashMap<>();
     private final String modId;
     private final String basePackage;
 
@@ -80,21 +82,29 @@ public abstract class ModuleLoader<T extends CharmModule> {
      * Use this anywhere to check a module's enabled status for any Charm-based module.
      */
     public boolean isEnabled(Class<? extends T> clazz) {
-        return getModules().stream().anyMatch(module -> module.getClass().equals(clazz) && module.isEnabled());
+        if (!ENABLED_CLAZZ_CACHE.containsKey(clazz)) {
+            boolean enabled = getModules().stream().anyMatch(module -> module.getClass().equals(clazz) && module.isEnabled());
+            ENABLED_CLAZZ_CACHE.put(clazz, enabled);
+        }
+        return ENABLED_CLAZZ_CACHE.get(clazz);
     }
 
     /**
      * Use this anywhere to check a module's enabled status for any Charm-based module.
      */
     public boolean isEnabled(String moduleName) {
-        if (DebugHelper.isDebugMode() && moduleName.contains(":")) {
-            // deprecated, warn about it
-            LogHelper.warn(ModuleLoader.class, "Deprecated: Module `" + moduleName + "` no longer requires namespace");
-            moduleName = moduleName.split(":")[1];
-        }
+        if (!ENABLED_STRING_CACHE.containsKey(moduleName)) {
+            if (DebugHelper.isDebugMode() && moduleName.contains(":")) {
+                // deprecated, warn about it
+                LogHelper.warn(ModuleLoader.class, "Deprecated: Module `" + moduleName + "` no longer requires namespace");
+                moduleName = moduleName.split(":")[1];
+            }
 
-        T module = getModule(moduleName);
-        return module != null && module.isEnabled();
+            T module = getModule(moduleName);
+            boolean enabled = module != null && module.isEnabled();
+            ENABLED_STRING_CACHE.put(moduleName, enabled);
+        }
+        return ENABLED_STRING_CACHE.get(moduleName);
     }
 
     public List<T> getModules() {
