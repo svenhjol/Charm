@@ -1,9 +1,14 @@
 package svenhjol.charm.module.bat_buckets;
 
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,6 +28,7 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
@@ -33,6 +39,10 @@ public class BatBuckets extends CharmModule {
 
     public static final ResourceLocation TRIGGER_CAPTURED_BAT = new ResourceLocation(Charm.MOD_ID, "captured_bat");
     public static final ResourceLocation TRIGGER_USED_BAT_BUCKET = new ResourceLocation(Charm.MOD_ID, "used_bat_bucket");
+
+    public static final SoundEvent BAT_BUCKET_GRAB = CharmSounds.createSound("bat_bucket_grab");
+    public static final SoundEvent BAT_BUCKET_RELEASE = CharmSounds.createSound("bat_bucket_release");
+
     public static BatBucketItem BAT_BUCKET_ITEM;
     public static EcholocationEffect ECHOLOCATION;
 
@@ -91,7 +101,8 @@ public class BatBuckets extends CharmModule {
                 player.getInventory().placeItemBackInInventory(batBucket);
             }
 
-            player.getCooldowns().addCooldown(BAT_BUCKET_ITEM, 20);
+            playGrabSound((ServerLevel)bat.level, bat.blockPosition());
+            player.getCooldowns().addCooldown(BAT_BUCKET_ITEM, 30);
             player.swing(hand);
             entity.discard();
 
@@ -100,6 +111,18 @@ public class BatBuckets extends CharmModule {
         }
 
         return InteractionResult.PASS;
+    }
+
+    public static void playGrabSound(ServerLevel level, BlockPos pos) {
+        level.playSound(null, pos, BatBuckets.BAT_BUCKET_GRAB, SoundSource.PLAYERS, 0.6F, 0.95F + level.getRandom().nextFloat() * 0.2F);
+    }
+
+    public static void playReleaseSound(ServerLevel level, BlockPos pos) {
+        level.playSound(null, pos, BatBuckets.BAT_BUCKET_RELEASE, SoundSource.PLAYERS, 0.6F, 0.95F + level.getRandom().nextFloat() * 0.2F);
+    }
+
+    public static void playLaunchSound(ServerLevel level, BlockPos pos) {
+        level.playSound(null, pos, SoundEvents.BAT_TAKEOFF, SoundSource.PLAYERS, 0.25F, 1F);
     }
 
     public static void triggerCapturedBat(ServerPlayer player) {

@@ -5,8 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -50,10 +48,15 @@ public class BatBucketItem extends CharmItem {
                     mob.readAdditionalSaveData(data);
                 }
 
+                BatBuckets.playReleaseSound((ServerLevel) level, player.blockPosition());
+
                 if (BatBuckets.damageBat) {
                     // damage the bat :(
                     float health = mob.getHealth();
                     mob.setHealth(health - 1.0F);
+                    if (mob.getHealth() > 0) {
+                        BatBuckets.playLaunchSound((ServerLevel) level, mob.blockPosition());
+                    }
                 }
             });
         }
@@ -62,7 +65,6 @@ public class BatBucketItem extends CharmItem {
 
         if (!player.level.isClientSide) {
             BatBuckets.triggerUsedBatBucket((ServerPlayer) player);
-            level.playSound(null, player.blockPosition(), SoundEvents.BAT_TAKEOFF, SoundSource.NEUTRAL, 1.0F, 1.0F);
 
             int duration = BatBuckets.glowingTime * 20;
             player.addEffect(new MobEffectInstance(BatBuckets.ECHOLOCATION, duration));
