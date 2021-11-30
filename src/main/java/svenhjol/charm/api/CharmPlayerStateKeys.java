@@ -3,7 +3,7 @@ package svenhjol.charm.api;
 import net.minecraft.util.StringRepresentable;
 
 /**
- * @version 1.1.0
+ * @version 4.0.0
  */
 @SuppressWarnings("unused")
 public enum CharmPlayerStateKeys implements StringRepresentable {

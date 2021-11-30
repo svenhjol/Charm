@@ -3,7 +3,7 @@ package svenhjol.charm.api;
 import net.minecraft.util.StringRepresentable;
 
 /**
- * @version 1.0.1
+ * @version 4.0.0
  */
 @SuppressWarnings("unused")
 public enum CharmNetworkReferences implements StringRepresentable {
