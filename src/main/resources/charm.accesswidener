@@ -69,6 +69,11 @@ accessible field net/minecraft/world/level/levelgen/PatrolSpawner nextTick I
 accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher renderers Ljava/util/Map;
 accessible field net/minecraft/client/renderer/entity/LivingEntityRenderer layers Ljava/util/List;
 accessible field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
+accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_PLAINS Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
+accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_DESERT Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
+accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_SAVANNA Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
+accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_SNOWY Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
+accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_TAIGA Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
