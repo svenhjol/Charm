@@ -34,10 +34,10 @@ public class RaidHornItem extends CharmItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
         ItemStack horn = user.getItemInHand(hand);
 
-        if (!world.isClientSide) {
+        if (!level.isClientSide) {
             user.startUsingItem(hand);
         }
 

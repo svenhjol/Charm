@@ -34,9 +34,9 @@ public class ScaleAtlasesOnCartographyTableMixin {
         cancellable = true
     )
     private void hookUpdateResult(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, CallbackInfo ci) {
-        Level world = access.evaluate((w, b) -> w).orElse(null);
-        if (world == null) return;
-        if (Atlases.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, world, resultContainer, (CartographyTableMenu) (Object) this)) {
+        Level level = access.evaluate((w, b) -> w).orElse(null);
+        if (level == null) return;
+        if (Atlases.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, level, resultContainer, (CartographyTableMenu) (Object) this)) {
             ci.cancel();
         }
     }

@@ -20,8 +20,6 @@ public class GrindableHorseArmor extends CharmModule {
     public static final ResourceLocation TRIGGER_RECYCLED_HORSE_ARMOR = new ResourceLocation(Charm.MOD_ID, "recycled_horse_armor");
     public static final Map<Item, Item> HORSE_ARMOR_RECIPES = new HashMap<>();
 
-    private static boolean staticEnabled = false;
-
     @Override
     public void runWhenEnabled() {
         HORSE_ARMOR_RECIPES.put(Items.LEATHER_HORSE_ARMOR, Items.LEATHER);
@@ -32,39 +30,28 @@ public class GrindableHorseArmor extends CharmModule {
 
         GrindstoneEvents.CAN_PLACE.register(this::handlePlacedInGrindstone);
         GrindstoneEvents.CALCULATE_OUTPUT.register(this::handleCalculateGrindstoneOutput);
-
-        staticEnabled = true;
     }
 
     private boolean handleCalculateGrindstoneOutput(GrindstoneEvents.GrindstoneMenuInstance instance) {
-        if (!staticEnabled) return false;
+        if (!Charm.LOADER.isEnabled(GrindableHorseArmor.class)) return false;
 
         ItemStack slot0 = instance.input.getItem(0);
         ItemStack slot1 = instance.input.getItem(1);
 
-        boolean valid = false;
-
         if (HORSE_ARMOR_RECIPES.containsKey(slot0.getItem()) && slot1.isEmpty()) {
             instance.output.setItem(0, new ItemStack(HORSE_ARMOR_RECIPES.get(slot0.getItem())));
-            valid = true;
         } else if (HORSE_ARMOR_RECIPES.containsKey(slot1.getItem()) && slot0.isEmpty()) {
             instance.output.setItem(0, new ItemStack(HORSE_ARMOR_RECIPES.get(slot1.getItem())));
-            valid = true;
+        } else {
+            return false;
         }
 
-        if (valid) {
-            instance.menu.broadcastChanges();
-        }
-
-        return valid;
+        instance.menu.broadcastChanges();
+        return true;
     }
 
     private boolean handlePlacedInGrindstone(Container container, ItemStack stack) {
-        return enabled() && GrindableHorseArmor.HORSE_ARMOR_RECIPES.containsKey(stack.getItem());
-    }
-
-    public static boolean enabled() {
-        return staticEnabled;
+        return Charm.LOADER.isEnabled(GrindableHorseArmor.class) && GrindableHorseArmor.HORSE_ARMOR_RECIPES.containsKey(stack.getItem());
     }
 
     public static void triggerRecycledHorseArmor(ServerPlayer player) {

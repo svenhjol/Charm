@@ -15,8 +15,8 @@ import svenhjol.charm.module.parrots_stay_on_shoulder.ParrotsStayOnShoulder;
 public abstract class KeepShoulderEntitiesMixin extends Entity {
     @Shadow private long timeEntitySatOnShoulder;
 
-    public KeepShoulderEntitiesMixin(EntityType<?> type, Level world) {
-        super(type, world);
+    public KeepShoulderEntitiesMixin(EntityType<?> type, Level level) {
+        super(type, level);
     }
 
     /**

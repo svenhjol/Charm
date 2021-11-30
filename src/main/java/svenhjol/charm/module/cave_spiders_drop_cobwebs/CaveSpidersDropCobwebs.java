@@ -29,14 +29,12 @@ public class CaveSpidersDropCobwebs extends CharmModule {
     }
 
     public InteractionResult tryDropCobweb(LivingEntity entity, DamageSource source, int lootingLevel) {
-        if (!entity.level.isClientSide
-            && entity instanceof CaveSpider
-        ) {
-            Level world = entity.getCommandSenderWorld();
+        if (!entity.level.isClientSide && entity instanceof CaveSpider) {
+            Level level = entity.getCommandSenderWorld();
             BlockPos pos = entity.blockPosition();
 
-            int amount = ItemHelper.getAmountWithLooting(world.random, maxDrops, lootingLevel, (float)lootingBoost);
-            world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.COBWEB, amount)));
+            int amount = ItemHelper.getAmountWithLooting(level.random, maxDrops, lootingLevel, (float)lootingBoost);
+            level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.COBWEB, amount)));
         }
 
         return InteractionResult.PASS;

@@ -82,7 +82,7 @@ public class BatBuckets extends CharmModule {
         }
     }
 
-    private InteractionResult tryCapture(Player player, Level world, InteractionHand hand, Entity entity, EntityHitResult hitResult) {
+    private InteractionResult tryCapture(Player player, Level level, InteractionHand hand, Entity entity, EntityHitResult hitResult) {
         if (!entity.level.isClientSide && entity instanceof Bat bat && bat.getHealth() > 0) {
             ItemStack held = player.getItemInHand(hand);
 

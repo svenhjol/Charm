@@ -19,8 +19,9 @@ public class CharmBlockItem extends BlockItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (inventoryTickConsumer != null)
+    public void inventoryTick(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected) {
+        if (inventoryTickConsumer != null) {
             inventoryTickConsumer.accept(stack, isSelected);
+        }
     }
 }

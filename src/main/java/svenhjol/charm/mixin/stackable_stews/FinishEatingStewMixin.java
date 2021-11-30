@@ -27,9 +27,10 @@ public class FinishEatingStewMixin {
         cancellable = true,
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookFinishUsing(ItemStack stack, Level world, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir, ItemStack eatenStack) {
+    private void hookFinishUsing(ItemStack stack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir, ItemStack eatenStack) {
         boolean result = StackableStews.tryEatStewStack(entity, eatenStack);
-        if (result)
+        if (result) {
             cir.setReturnValue(eatenStack);
+        }
     }
 }

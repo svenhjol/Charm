@@ -9,16 +9,8 @@ import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Chickens randomly drop feathers.")
 public class ChickensDropFeathers extends CharmModule {
-    public static boolean isEnabled;
-
-    @Override
-    public void runWhenEnabled() {
-        isEnabled = true;
-    }
-
     public static void tryDropFeather(Chicken chicken) {
-        if (!isEnabled)
-            return;
+        if (!Charm.LOADER.isEnabled(ChickensDropFeathers.class)) return;
 
         if (chicken.isAlive()
             && !chicken.isBaby()

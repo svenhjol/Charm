@@ -17,9 +17,9 @@ public interface ClientSpawnEntityCallback {
         }
     });
 
-    void interact(ClientboundAddEntityPacket packet, EntityType<?> entityType, ClientLevel world, double x, double y, double z);
+    void interact(ClientboundAddEntityPacket packet, EntityType<?> entityType, ClientLevel level, double x, double y, double z);
 
-    static void addEntity(ClientboundAddEntityPacket packet, ClientLevel world, Entity entity) {
+    static void addEntity(ClientboundAddEntityPacket packet, ClientLevel level, Entity entity) {
         int id = packet.getId();
 
         double x = packet.getX();
@@ -32,6 +32,6 @@ public interface ClientSpawnEntityCallback {
         entity.setYRot((float)(packet.getyRot() * 360) / 256.0F);
         entity.setId(id);
         entity.setUUID(packet.getUUID());
-        world.putNonPlayerEntity(id, entity);
+        level.putNonPlayerEntity(id, entity);
     }
 }

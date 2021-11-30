@@ -5,6 +5,7 @@ import net.minecraft.world.inventory.AnvilMenu;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import svenhjol.charm.Charm;
 import svenhjol.charm.module.allow_too_expensive.AllowTooExpensive;
 
 @Mixin(AnvilMenu.class)
@@ -27,6 +28,6 @@ public class RemoveTooExpensiveMixin {
         )
     )
     private boolean hookUpdateResultTooExpensive(Abilities abilities) {
-        return AllowTooExpensive.enabled() || abilities.instabuild;
+        return Charm.LOADER.isEnabled(AllowTooExpensive.class) || abilities.instabuild;
     }
 }

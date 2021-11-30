@@ -11,16 +11,13 @@ import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Parrots stay on your shoulder when jumping and falling. Crouch to make them dismount.")
 public class ParrotsStayOnShoulder extends CharmModule {
-    private static boolean isEnabled = false;
-
     @Override
     public void runWhenEnabled() {
-        isEnabled = true;
         PlayerTickCallback.EVENT.register(this::tryDismountParrot);
     }
 
-    public static boolean shouldParrotStayMounted(Level world, long shoulderTime) {
-        return shoulderTime + 20L < world.getGameTime() && isEnabled;
+    public static boolean shouldParrotStayMounted(Level level, long shoulderTime) {
+        return shoulderTime + 20L < level.getGameTime() && Charm.LOADER.isEnabled(ParrotsStayOnShoulder.class);
     }
 
     public void tryDismountParrot(Player player) {

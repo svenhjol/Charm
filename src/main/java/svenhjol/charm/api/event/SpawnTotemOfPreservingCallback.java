@@ -16,5 +16,5 @@ public interface SpawnTotemOfPreservingCallback {
         }
     });
 
-    void interact(ServerPlayer player, ServerLevel world, BlockPos pos);
+    void interact(ServerPlayer player, ServerLevel level, BlockPos pos);
 }

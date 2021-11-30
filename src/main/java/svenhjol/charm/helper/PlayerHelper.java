@@ -32,7 +32,7 @@ public class PlayerHelper {
 
     public static void teleport(Level level, BlockPos pos, Player player) {
         if (!level.isClientSide) {
-            ServerLevel serverWorld = (ServerLevel) level;
+            ServerLevel serverLevel = (ServerLevel) level;
 
             double x = pos.getX() + 0.5D;
             double y = pos.getY() + 0.25D;
@@ -42,7 +42,7 @@ public class PlayerHelper {
             Set<ClientboundPlayerPositionPacket.RelativeArgument> flags = EnumSet.noneOf(ClientboundPlayerPositionPacket.RelativeArgument.class);
 
             ChunkPos chunkPos = new ChunkPos(new BlockPos(x, y, z));
-            serverWorld.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, chunkPos, 1, player.getId());
+            serverLevel.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, chunkPos, 1, player.getId());
             player.stopRiding();
 
             if (player.isSleeping())
@@ -51,13 +51,13 @@ public class PlayerHelper {
             if (level == player.level) {
                 ((ServerPlayer)player).connection.teleport(x, y, z, yaw, pitch, flags);
             } else {
-                ((ServerPlayer)player).teleportTo(serverWorld, x, y, z, yaw, pitch);
+                ((ServerPlayer)player).teleportTo(serverLevel, x, y, z, yaw, pitch);
             }
         }
     }
 
-    public static List<Player> getPlayersInRange(Level world, BlockPos pos) {
-        return world.getEntitiesOfClass(Player.class, new AABB(pos).inflate(8.0D));
+    public static List<Player> getPlayersInRange(Level level, BlockPos pos) {
+        return level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(8.0D));
     }
 
     public static Optional<String> getPlayerName(MinecraftServer server, UUID player) {

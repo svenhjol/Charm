@@ -27,13 +27,13 @@ import java.util.Set;
  */
 @SuppressWarnings("unused")
 public class WorldHelper {
-    public static boolean addForcedChunk(ServerLevel world, BlockPos pos) {
+    public static boolean addForcedChunk(ServerLevel level, BlockPos pos) {
         ChunkPos chunkPos = new ChunkPos(pos);
 
         // try a couple of times I guess?
         boolean result = false;
         for (int i = 0; i <= 2; i++) {
-            result = world.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), true);
+            result = level.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), true);
             if (result) break;
         }
 
@@ -44,9 +44,9 @@ public class WorldHelper {
         return result;
     }
 
-    public static boolean removeForcedChunk(ServerLevel world, BlockPos pos) {
+    public static boolean removeForcedChunk(ServerLevel level, BlockPos pos) {
         ChunkPos chunkPos = new ChunkPos(pos);
-        boolean result = world.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), false);
+        boolean result = level.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), false);
         if (!result) {
             LogHelper.error(WorldHelper.class, "Could not unload forced chunk - this is probably really bad.");
         } else {
@@ -55,20 +55,20 @@ public class WorldHelper {
         return result;
     }
 
-    public static void clearWeather(ServerLevel world) {
-        clearWeather(world, world.random.nextInt(12000) + 3600);
+    public static void clearWeather(ServerLevel level) {
+        clearWeather(level, level.random.nextInt(12000) + 3600);
     }
 
-    public static void clearWeather(ServerLevel world, int duration) {
-        world.setWeatherParameters(duration, 0, false, false);
+    public static void clearWeather(ServerLevel level, int duration) {
+        level.setWeatherParameters(duration, 0, false, false);
     }
 
-    public static void stormyWeather(ServerLevel world) {
-        stormyWeather(world, world.random.nextInt(12000) + 3600);
+    public static void stormyWeather(ServerLevel level) {
+        stormyWeather(level, level.random.nextInt(12000) + 3600);
     }
 
-    public static void stormyWeather(ServerLevel world, int duration) {
-        world.setWeatherParameters(0, duration, true, true);
+    public static void stormyWeather(ServerLevel level, int duration) {
+        level.setWeatherParameters(0, duration, true, true);
     }
 
     public static PoiType addPointOfInterestType(ResourceLocation id, Block block, int ticketCount) {
@@ -112,23 +112,23 @@ public class WorldHelper {
         return d2 * d2 + d3 * d3;
     }
 
-    public static boolean isInsideStructure(ServerLevel world, BlockPos pos, StructureFeature<?> structure) {
-        return world.structureFeatureManager().getStructureAt(pos, structure).isValid();
+    public static boolean isInsideStructure(ServerLevel level, BlockPos pos, StructureFeature<?> structure) {
+        return level.structureFeatureManager().getStructureAt(pos, structure).isValid();
     }
 
-    public static boolean isLikeSolid(Level world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
-        return isSolid(world, pos) || state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.TOP_SNOW || state.getMaterial() == Material.CLAY || state.getMaterial() == Material.PLANT;
+    public static boolean isLikeSolid(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        return isSolid(level, pos) || state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.TOP_SNOW || state.getMaterial() == Material.CLAY || state.getMaterial() == Material.PLANT;
     }
 
-    public static boolean isLikeAir(Level world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
+    public static boolean isLikeAir(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
         return !state.canOcclude() || state.getMaterial() == Material.WATER || state.getMaterial() == Material.TOP_SNOW || state.getMaterial() == Material.PLANT || state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.CLAY;
     }
 
-    public static boolean isSolid(Level world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
-        return state.canOcclude() && !world.isEmptyBlock(pos) && !state.getMaterial().isLiquid();
+    public static boolean isSolid(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        return state.canOcclude() && !level.isEmptyBlock(pos) && !state.getMaterial().isLiquid();
     }
 
     public static boolean isStructure(ResourceLocation structureId) {

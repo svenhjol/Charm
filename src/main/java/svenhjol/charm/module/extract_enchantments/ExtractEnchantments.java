@@ -28,8 +28,6 @@ import java.util.Optional;
 
 @CommonModule(mod = Charm.MOD_ID)
 public class ExtractEnchantments extends CharmModule {
-    private static boolean staticEnabled = false;
-
     public static final ResourceLocation TRIGGER_EXTRACTED_ENCHANTMENT = new ResourceLocation(Charm.MOD_ID, "extracted_enchantment");
 
     @Config(name = "Initial XP cost", description = "Initial XP cost before adding XP equivalent to the enchantment level(s) of the item.")
@@ -46,16 +44,14 @@ public class ExtractEnchantments extends CharmModule {
         GrindstoneEvents.CALCULATE_OUTPUT.register(this::handleCalculateOutput);
         GrindstoneEvents.CAN_TAKE.register(this::handleCanTake);
         GrindstoneEvents.CAN_PLACE.register(this::handleCanPlace);
-
-        staticEnabled = true;
     }
 
     private boolean handleCanPlace(Container container, ItemStack stack) {
-        return staticEnabled && stack.getItem() == Items.BOOK;
+        return Charm.LOADER.isEnabled(ExtractEnchantments.class) && stack.getItem() == Items.BOOK;
     }
 
     private InteractionResult handleCanTake(GrindstoneMenuInstance instance, Player player) {
-        if (!staticEnabled) return InteractionResult.PASS;
+        if (!Charm.LOADER.isEnabled(ExtractEnchantments.class)) return InteractionResult.PASS;
 
         List<ItemStack> stacks = getStacksFromInventory(instance.output);
         if (shouldExtract(stacks)) {
@@ -74,7 +70,7 @@ public class ExtractEnchantments extends CharmModule {
     }
 
     private boolean handleCalculateOutput(GrindstoneMenuInstance instance) {
-        if (!staticEnabled) return false;
+        if (!Charm.LOADER.isEnabled(ExtractEnchantments.class)) return false;
 
         ItemStack out = tryGetEnchantedBook(instance.input, instance.player);
         if (out == null) return false;
@@ -84,7 +80,7 @@ public class ExtractEnchantments extends CharmModule {
     }
 
     private boolean handleOnTake(GrindstoneMenuInstance instance, Player player, ItemStack stack) {
-        if (!staticEnabled) return false;
+        if (!Charm.LOADER.isEnabled(ExtractEnchantments.class)) return false;
 
         ItemStack out = tryGetEnchantedBook(instance.input, player);
 

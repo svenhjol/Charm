@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.ItemTooltipImageCallback;
 import svenhjol.charm.event.RenderTooltipCallback;
@@ -24,20 +25,17 @@ import java.util.Optional;
 
 @ClientModule(module = ShulkerBoxTooltip.class)
 public class ShulkerBoxTooltipClient extends CharmModule {
-    private static boolean isEnabled = false;
-
     @Override
     public void runWhenEnabled() {
         ItemTooltipImageCallback.EVENT.register(this::handleItemTooltipImage);
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
-        isEnabled = true;
     }
 
     /**
      * When hovering, remove all text below the custom grid.
      */
     private void handleRenderTooltip(Screen screen, PoseStack poseStack, ItemStack stack, List<ClientTooltipComponent> components, int x, int y) {
-        if (isEnabled && stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
+        if (Charm.LOADER.isEnabled(ShulkerBoxTooltip.class) && stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
             if (components.size() >= 2) {
                 ClientTooltipComponent title = components.get(0);
                 ClientTooltipComponent icons = components.get(1);
@@ -52,7 +50,7 @@ public class ShulkerBoxTooltipClient extends CharmModule {
      * Add code to the getTooltipImage method to display our custom grid.
      */
     private Optional<TooltipComponent> handleItemTooltipImage(ItemStack stack) {
-        if (isEnabled && stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
+        if (Charm.LOADER.isEnabled(ShulkerBoxTooltip.class) && stack != null && ItemHelper.getBlockClass(stack) == ShulkerBoxBlock.class) {
             CompoundTag shulkerBoxTag = BlockItem.getBlockEntityData(stack);
             if (shulkerBoxTag != null && Block.byItem(stack.getItem()) instanceof ShulkerBoxBlock shulkerBoxBlock) {
                 BlockEntity blockEntity = BlockEntity.loadStatic(BlockPos.ZERO, shulkerBoxBlock.defaultBlockState(), shulkerBoxTag);

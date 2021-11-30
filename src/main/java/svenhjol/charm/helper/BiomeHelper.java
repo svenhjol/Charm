@@ -25,14 +25,14 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * @version 2.0.0-charm
+ * @version 4.0.0-charm
  */
-@SuppressWarnings({"UnstableApiUsage", "deprecation"})
+@SuppressWarnings({"UnstableApiUsage", "unused"})
 public class BiomeHelper {
     public static Map<Biome.BiomeCategory, List<ResourceKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
 
-    public static Biome getBiome(ServerLevel world, BlockPos pos) {
-        BiomeManager biomeAccess = world.getBiomeManager();
+    public static Biome getBiome(ServerLevel level, BlockPos pos) {
+        BiomeManager biomeAccess = level.getBiomeManager();
         return biomeAccess.getBiome(pos);
     }
 
@@ -46,17 +46,17 @@ public class BiomeHelper {
         return BuiltinRegistries.BIOME.getResourceKey(biome).orElse(null);
     }
 
-    public static Optional<ResourceKey<Biome>> getBiomeKeyAtPosition(ServerLevel world, BlockPos pos) {
-        return world.getBiomeName(pos);
+    public static Optional<ResourceKey<Biome>> getBiomeKeyAtPosition(ServerLevel level, BlockPos pos) {
+        return level.getBiomeName(pos);
     }
 
-    public static BlockPos locateBiome(ResourceKey<Biome> biomeKey, ServerLevel world, BlockPos pos) {
-        Biome biome = world.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).get(biomeKey);
-        return locateBiome(biome, world, pos);
+    public static BlockPos locateBiome(ResourceKey<Biome> biomeKey, ServerLevel level, BlockPos pos) {
+        Biome biome = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).get(biomeKey);
+        return locateBiome(biome, level, pos);
     }
 
-    public static BlockPos locateBiome(Biome biome, ServerLevel world, BlockPos pos) {
-        return world.findNearestBiome(biome, pos, 6400, 8);
+    public static BlockPos locateBiome(Biome biome, ServerLevel level, BlockPos pos) {
+        return level.findNearestBiome(biome, pos, 6400, 8);
     }
 
     public static void addFeatureToBiomeCategories(PlacedFeature feature, Biome.BiomeCategory biomeCategory, GenerationStep.Decoration generationStep) {

@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Abilities;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import svenhjol.charm.Charm;
 import svenhjol.charm.module.allow_too_expensive.AllowTooExpensive;
 
 @Mixin(AnvilScreen.class)
@@ -27,6 +28,6 @@ public class StopShowingTooExpensiveMixin {
         )
     )
     private boolean hookMaximumCostCheck(Abilities abilities, PoseStack matrix, int x, int y) {
-        return AllowTooExpensive.enabled() || abilities.instabuild;
+        return Charm.LOADER.isEnabled(AllowTooExpensive.class) || abilities.instabuild;
     }
 }

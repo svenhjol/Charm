@@ -6,14 +6,7 @@ import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Removes the potion enchantment glint so you can see what the potion color is.")
 public class NoPotionGlint extends CharmModule {
-    private static boolean isEnabled = false;
-
-    @Override
-    public void register() {
-        isEnabled = this.isEnabled();
-    }
-
     public static boolean shouldRemoveGlint() {
-        return isEnabled;
+        return Charm.LOADER.isEnabled(NoPotionGlint.class);
     }
 }

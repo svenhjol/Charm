@@ -22,7 +22,7 @@ public abstract class BypassCampfireDamageMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private void hookOnEntityCollision(BlockState state, Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo ci) {
+    private void hookOnEntityCollision(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
         if (NoCampfireDamage.bypassDamage(state)) {
             ci.cancel();
         }

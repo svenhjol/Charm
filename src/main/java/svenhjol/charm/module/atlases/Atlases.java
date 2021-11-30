@@ -158,10 +158,10 @@ public class Atlases extends CharmModule {
         }
     }
 
-    public static boolean makeAtlasUpscaleOutput(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, Level world,
+    public static boolean makeAtlasUpscaleOutput(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, Level level,
         ResultContainer craftResultInventory, CartographyTableMenu cartographyContainer) {
         if (Charm.LOADER.isEnabled(Atlases.class) && topStack.getItem() == ATLAS_ITEM) {
-            AtlasInventory inventory = getInventory(world, topStack);
+            AtlasInventory inventory = getInventory(level, topStack);
             ItemStack output;
             if (inventory.getMapInfos().isEmpty() && bottomStack.getItem() == Items.MAP && inventory.getScale() < 4) {
                 output = topStack.copy();

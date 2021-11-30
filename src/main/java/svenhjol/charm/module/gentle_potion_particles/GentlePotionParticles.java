@@ -12,11 +12,11 @@ public class GentlePotionParticles extends CharmModule {
     @Config(name = "Translucent particles", description = "If true, translucent particles will be rendered.  If false, no particles will be rendered.")
     public static boolean translucent = true;
 
-    public static boolean tryRenderParticles(Level world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+    public static boolean tryRenderParticles(Level level, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
         if (!Charm.LOADER.isEnabled(GentlePotionParticles.class)) return false;
 
         if (translucent) {
-            world.addParticle(ParticleTypes.AMBIENT_ENTITY_EFFECT, x, y, z, velocityX, velocityY, velocityZ);
+            level.addParticle(ParticleTypes.AMBIENT_ENTITY_EFFECT, x, y, z, velocityX, velocityY, velocityZ);
         }
 
         return true;

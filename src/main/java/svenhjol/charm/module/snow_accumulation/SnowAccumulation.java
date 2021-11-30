@@ -21,12 +21,12 @@ public class SnowAccumulation extends CharmModule {
     // snow won't be accumulated on any of these blockstates
     public final static List<BlockState> STATE_BLACKLIST;
 
-    public static boolean enabled() {
+    public static boolean shouldAccumulateSnow() {
         return Charm.LOADER.isEnabled(SnowAccumulation.class);
     }
 
     public static void tryPlaceSnow(ServerLevel level, int chunkX, int chunkZ) {
-        if (!enabled()) return;
+        if (!shouldAccumulateSnow()) return;
 
         if (level.random.nextDouble() < 0.015D) {
             BlockPos pos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, level.getBlockRandomPos(chunkX, 0, chunkZ, 15));

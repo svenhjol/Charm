@@ -43,18 +43,18 @@ public class TotemOfPreservingItem extends CharmItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player user, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
         ItemStack totem = user.getItemInHand(hand);
         CompoundTag items = getItems(totem);
         int xp = getXp(totem);
         if (xp > 0) {
-            world.playSound(null, user.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.8F, 1.0F);
+            level.playSound(null, user.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.8F, 1.0F);
             user.giveExperiencePoints(xp);
         }
 
         TotemHelper.destroy(user, totem);
 
-        if (!world.isClientSide) {
+        if (!level.isClientSide) {
             Set<String> keys = items.getAllKeys();
 
             keys.forEach(k -> {
@@ -64,17 +64,17 @@ public class TotemOfPreservingItem extends CharmItem {
                 } else {
                     ItemStack stack = ItemStack.of((CompoundTag) tag);
                     BlockPos pos = user.blockPosition();
-                    ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY() + 0.5D, pos.getZ(), stack);
-                    world.addFreshEntity(itemEntity);
+                    ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 0.5D, pos.getZ(), stack);
+                    level.addFreshEntity(itemEntity);
                 }
             });
         }
 
-        return super.use(world, user, hand);
+        return super.use(level, user, hand);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag context) {
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag context) {
         String message = getMessage(stack);
         CompoundTag items = getItems(stack);
 
@@ -87,7 +87,7 @@ public class TotemOfPreservingItem extends CharmItem {
             tooltip.add(new TextComponent(I18n.get(str, size)));
         }
 
-        super.appendHoverText(stack, world, tooltip, context);
+        super.appendHoverText(stack, level, tooltip, context);
     }
 
     public static void setMessage(ItemStack totem, String message) {
