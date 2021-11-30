@@ -15,6 +15,7 @@ public class MobHelper {
         T mob = type.create(level, null, null, null, pos, reason, false, false);
         if (mob != null) {
             beforeAddToLevel.accept(mob);
+            level.addFreshEntity(mob);
         }
         return mob;
     }
