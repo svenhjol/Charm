@@ -1,0 +1,36 @@
+{
+  "pools": [
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "lantern",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{BlockStateTag:{hanging:\"true\"}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "chain",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{BlockStateTag:{axis:\"y\"}}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -41,6 +41,13 @@ accessible method net/minecraft/world/entity/player/Player respawnEntityOnShould
 accessible method net/minecraft/world/entity/player/Player setShoulderEntityLeft (Lnet/minecraft/nbt/CompoundTag;)V
 accessible method net/minecraft/world/entity/player/Player setShoulderEntityRight (Lnet/minecraft/nbt/CompoundTag;)V
 accessible method net/minecraft/world/level/levelgen/PatrolSpawner spawnPatrolMember (Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Ljava/util/Random;Z)Z
+accessible method net/minecraft/world/level/levelgen/structure/MineShaftPieces$MineShaftPiece isSupportingBox (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIII)Z
+accessible method net/minecraft/world/level/levelgen/structure/MineShaftPieces$MineShaftCorridor hasSturdyNeighbours (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIII)Z
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece placeBlock (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldX (II)I
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldY (I)I
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldZ (II)I
+accessible method net/minecraft/world/item/BlockItem updateState (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/String;)Lnet/minecraft/world/level/block/state/BlockState;
 
 # Inaccessible fields
 accessible field net/minecraft/client/Minecraft blockColors Lnet/minecraft/client/color/block/BlockColors;
@@ -75,6 +82,7 @@ accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_SAVANNA L
 accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_SNOWY Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
 accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_TAIGA Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
 accessible field net/minecraft/world/entity/ai/village/poi/PoiType maxTickets I
+accessible field net/minecraft/world/level/levelgen/structure/MineShaftPieces$MineShaftPiece type Lnet/minecraft/world/level/levelgen/feature/MineshaftFeature$Type;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I

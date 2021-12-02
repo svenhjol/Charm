@@ -1,0 +1,102 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "tnt"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "iron_ore"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "gold_ore"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "copper_ore"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "lantern"
+        }
+      ]
+    },
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "gray_candle",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{BlockStateTag:{candles:1,lit:\"true\"}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "gray_candle",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{BlockStateTag:{candles:2,lit:\"true\"}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "gray_candle",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{BlockStateTag:{candles:3,lit:\"true\"}}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
