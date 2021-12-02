@@ -25,7 +25,7 @@ import svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-@CommonModule(mod = Charm.MOD_ID)
+@CommonModule(mod = Charm.MOD_ID, description = "A shulker box's contents is shown in the item tooltip when hovering over.")
 public class ShulkerBoxTooltip extends CharmModule {
     @Override
     public void runWhenEnabled() {

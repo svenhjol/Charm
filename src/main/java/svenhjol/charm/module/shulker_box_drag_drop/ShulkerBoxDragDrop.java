@@ -32,7 +32,7 @@ import svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-@CommonModule(mod = Charm.MOD_ID)
+@CommonModule(mod = Charm.MOD_ID, description = "Drag and drop items into a shulkerbox from within your inventory.")
 public class ShulkerBoxDragDrop extends CharmModule {
     public static final List<ItemLike> BLACKLIST = new ArrayList<>();
 

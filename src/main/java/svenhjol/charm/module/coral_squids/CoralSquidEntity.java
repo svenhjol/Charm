@@ -52,7 +52,7 @@ import java.util.Random;
  * Most of this is copypasta from SquidEntity.
  * canSpawn() checks for coral.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "deprecation"})
 public class CoralSquidEntity extends WaterAnimal {
     public static final String CORAL_SQUID_TYPE_NBT = "CoralSquidType";
     public static final String CORAL_SQUID_FROM_BUCKET_NBT = "FromBucket";

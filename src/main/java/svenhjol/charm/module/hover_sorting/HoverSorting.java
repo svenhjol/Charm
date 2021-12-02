@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CommonModule(mod = Charm.MOD_ID, description = "Scroll the mouse while hovering over a bundle or shulkerbox to change the order of its contents.")
+@CommonModule(mod = Charm.MOD_ID, description = "Scroll the mouse while hovering over a bundle or shulker box to change the order of its contents.")
 public class HoverSorting extends CharmModule {
     public static final ResourceLocation MSG_SERVER_SCROLLED_ON_HOVER = new ResourceLocation(Charm.MOD_ID, "server_scrolled_on_hover");
 
