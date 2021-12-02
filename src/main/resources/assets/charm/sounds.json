@@ -106,5 +106,22 @@
       }
     ],
     "subtitle": "subtitles.charm.item.raid_horn.squeak"
+  },
+  "woodcutter_use": {
+    "sounds": [
+      {
+        "name": "charm:woodcutter1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:woodcutter2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:woodcutter3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.woodcutter.use"
   }
 }

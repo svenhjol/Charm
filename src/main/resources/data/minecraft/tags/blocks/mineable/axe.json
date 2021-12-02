@@ -16,6 +16,7 @@
     "charm:spruce_bookshelf",
     "charm:spruce_ladder",
     "charm:warped_bookshelf",
-    "charm:warped_ladder"
+    "charm:warped_ladder",
+    "charm:woodcutter"
   ]
 }
