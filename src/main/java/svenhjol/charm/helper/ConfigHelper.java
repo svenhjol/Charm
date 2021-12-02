@@ -48,7 +48,11 @@ public class ConfigHelper {
     public static <T extends CharmModule> void applyConfig(Toml toml, List<T> modules) {
         modules.forEach(module -> {
             String moduleName = module.getName();
-            module.setEnabledInConfig(!isModuleDisabled(toml, moduleName));
+            if (toml.isEmpty() && !module.isEnabledByDefault()) {
+                module.setEnabledInConfig(false);
+            } else {
+                module.setEnabledInConfig(!isModuleDisabled(toml, moduleName));
+            }
 
             // get and set module config options
             ArrayList<Field> classFields = new ArrayList<>(Arrays.asList(module.getClass().getDeclaredFields()));
