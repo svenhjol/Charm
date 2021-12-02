@@ -11,11 +11,5 @@
   "result": {
     "item": "charm:atlas",
     "count": 1
-  },
-  "conditions": [
-    {
-      "type": "charm:module_enabled",
-      "module": "charm:atlas"
-    }
-  ]
+  }
 }
