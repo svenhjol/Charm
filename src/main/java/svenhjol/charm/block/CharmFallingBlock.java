@@ -3,23 +3,28 @@ package svenhjol.charm.block;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FallingBlock;
 import svenhjol.charm.loader.CharmModule;
 
-public abstract class CharmBlock extends Block implements ICharmBlock {
-    public CharmModule module;
+@SuppressWarnings({"NullableProblems", "unused"})
+public abstract class CharmFallingBlock extends FallingBlock implements ICharmFallingBlock {
+    protected CharmModule module;
 
-    public CharmBlock(CharmModule module, String name, Properties props) {
+    public CharmFallingBlock(CharmModule module, String name, Properties props) {
         super(props);
         this.module = module;
         register(module, name);
     }
 
     @Override
+    public CreativeModeTab getItemGroup() {
+        return CreativeModeTab.TAB_BUILDING_BLOCKS;
+    }
+
+    @Override
     public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-        if (enabled()) {
+        if (enabled())
             super.fillItemCategory(group, items);
-        }
     }
 
     @Override
