@@ -50,7 +50,8 @@
     "stackable_stews.FinishEatingStewMixin",
     "strays_spawn_underground.AllowSpawningAnywhereMixin",
     "stronger_anvils.ReduceAnvilDamageMixin",
-    "totem_works_from_inventory.CheckInventoryMixin"
+    "totem_works_from_inventory.CheckInventoryMixin",
+    "variant_ladders.ClimbTrapdoorMixin"
   ],
   "client": [
     "allow_too_expensive.StopShowingTooExpensiveMixin",
