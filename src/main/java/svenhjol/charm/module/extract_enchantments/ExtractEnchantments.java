@@ -26,12 +26,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@CommonModule(mod = Charm.MOD_ID)
+@CommonModule(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.")
 public class ExtractEnchantments extends CharmModule {
     public static final ResourceLocation TRIGGER_EXTRACTED_ENCHANTMENT = new ResourceLocation(Charm.MOD_ID, "extracted_enchantment");
 
-    @Config(name = "Initial XP cost", description = "Initial XP cost before adding XP equivalent to the enchantment level(s) of the item.")
-    public static int initialCost = 2;
+    @Config(name = "Initial XP cost", description = "Number of XP levels required before adding on the cost of the enchanted item.")
+    public static int initialCost = 5;
 
     @Override
     public void register() {
