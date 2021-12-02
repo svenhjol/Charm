@@ -1,0 +1,10 @@
+{
+  "template": {
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+      "end": "NAMESPACE:block/VARIANT_planks",
+      "side": "charm:block/bookshelf/VARIANT_bookshelf"
+    }
+  },
+  "variants": "wood"
+}
