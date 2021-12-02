@@ -7,7 +7,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmTags;
 import svenhjol.charm.loader.CharmModule;
 
-@CommonModule(mod = Charm.MOD_ID, description = "Crying obsidian can be used to construct nether portal frames.")
+@CommonModule(mod = Charm.MOD_ID, description = "Crying obsidian can be used in the construction of nether portal frames.")
 public class MorePortalFrames extends CharmModule {
     public static boolean isValidBlock(BlockState blockState) {
         if (!Charm.LOADER.isEnabled(MorePortalFrames.class)) {
