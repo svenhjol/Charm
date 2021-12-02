@@ -46,7 +46,6 @@ public class InventoryTidyingClient extends CharmModule {
             ContainerScreen.class,
             HopperScreen.class,
             ShulkerBoxScreen.class,
-//            BookcaseScreen.class, // TODO: restore
             DispenserScreen.class
         ));
 

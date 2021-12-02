@@ -20,8 +20,6 @@ public class Charm implements ModInitializer {
     public static void init() {
         if (hasStartedCharm) return;
 
-        // TODO: Structures and Decoration init has permanently moved to Strange
-
         CharmLog.init();
         CharmLoot.init();
         CharmParticles.init();
