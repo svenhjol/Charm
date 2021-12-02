@@ -17,7 +17,7 @@ public class CharmTags {
         // TODO: restore
 //        BARRELS = BlockTagsAccessor.invokeBind("charm:barrels");
 //        IMMOVABLE_BY_PISTONS = BlockTagsAccessor.invokeBind("charm:immovable_by_pistons");
-//        PROVIDE_ENCHANTING_POWER = BlockTagsAccessor.invokeBind("c:provides_enchanting_power");
+        PROVIDE_ENCHANTING_POWER = BlockTags.bind("c:provides_enchanting_power");
         CRAFTING_TABLES = ItemTags.bind("charm:crafting_tables");
         NETHER_PORTAL_FRAMES = BlockTags.bind("charm:nether_portal_frames");
     }

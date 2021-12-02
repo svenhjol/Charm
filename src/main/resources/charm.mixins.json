@@ -36,6 +36,7 @@
     "event.PlayerTickMixin",
     "event.StackItemOnItemMixin",
     "helper.AddSortingRecipeManagerMixin",
+    "helper.CheckEnchantingPowerMixin",
     "husks_spawn_underground.AllowSpawningAnywhereMixin",
     "mineshaft_improvements.GenerateMineshaftPiecesMixin",
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
@@ -66,6 +67,7 @@
     "extract_enchantments.ShowGrindstoneCostMixin",
     "gentle_potion_particles.RenderTranslucentParticleMixin",
     "helper.LoadCustomModelPartsMixin",
+    "helper.ShowEnchantmentParticlesMixin",
     "no_potion_glint.CheckPotionHasGlintMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
     "show_repair_cost.AddRepairCostToTooltipMixin"
