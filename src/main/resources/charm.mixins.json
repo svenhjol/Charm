@@ -37,6 +37,7 @@
     "event.StackItemOnItemMixin",
     "helper.AddSortingRecipeManagerMixin",
     "husks_spawn_underground.AllowSpawningAnywhereMixin",
+    "mineshaft_improvements.GenerateMineshaftPiecesMixin",
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
     "no_campfire_damage.BypassCampfireDamageMixin",
     "no_crop_trampling.PreventTramplingMixin",
