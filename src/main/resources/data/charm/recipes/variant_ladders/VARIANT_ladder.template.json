@@ -1,0 +1,23 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "# #",
+      "#P#",
+      "# #"
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "P": {
+        "item": "NAMESPACE:VARIANT_planks"
+      }
+    },
+    "result": {
+      "item": "charm:VARIANT_ladder",
+      "count": 3
+    }
+  },
+  "variants": "wood"
+}

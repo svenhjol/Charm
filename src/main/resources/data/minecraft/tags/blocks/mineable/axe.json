@@ -2,12 +2,20 @@
   "replace": false,
   "values": [
     "charm:acacia_bookshelf",
+    "charm:acacia_ladder",
     "charm:birch_bookshelf",
+    "charm:birch_ladder",
     "charm:crimson_bookshelf",
+    "charm:crimson_ladder",
     "charm:dark_oak_bookshelf",
+    "charm:dark_oak_ladder",
     "charm:jungle_bookshelf",
+    "charm:jungle_ladder",
     "charm:oak_bookshelf",
+    "charm:oak_ladder",
     "charm:spruce_bookshelf",
-    "charm:warped_bookshelf"
+    "charm:spruce_ladder",
+    "charm:warped_bookshelf",
+    "charm:warped_ladder"
   ]
 }
