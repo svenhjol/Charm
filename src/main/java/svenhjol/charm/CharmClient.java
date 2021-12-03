@@ -1,6 +1,7 @@
 package svenhjol.charm;
 
 import net.fabricmc.api.ClientModInitializer;
+import svenhjol.charm.init.CharmClientHacks;
 import svenhjol.charm.init.CharmClientParticles;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.loader.ClientLoader;
@@ -11,6 +12,7 @@ public class CharmClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        CharmClientHacks.init();
         CharmClientParticles.init();
         LOADER.init();
     }

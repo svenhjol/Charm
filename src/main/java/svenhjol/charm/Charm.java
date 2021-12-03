@@ -21,6 +21,7 @@ public class Charm implements ModInitializer {
         if (hasStartedCharm) return;
 
         CharmLog.init();
+        CharmHacks.init();
         CharmLoot.init();
         CharmParticles.init();
         CharmSounds.init();
