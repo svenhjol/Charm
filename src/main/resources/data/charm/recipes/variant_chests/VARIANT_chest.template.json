@@ -1,0 +1,19 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "###",
+      "# #",
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "NAMESPACE:VARIANT_planks"
+      }
+    },
+    "result": {
+      "item": "charm:VARIANT_chest"
+    }
+  },
+  "variants": "wood"
+}

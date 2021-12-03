@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:chest",
+    "charm:acacia_chest",
+    "charm:birch_chest",
+    "charm:crimson_chest",
+    "charm:dark_oak_chest",
+    "charm:jungle_chest",
+    "charm:oak_chest",
+    "charm:spruce_chest",
+    "charm:warped_chest"
+  ]
+}

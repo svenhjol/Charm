@@ -80,6 +80,7 @@
     "no_potion_glint.CheckPotionHasGlintMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
     "show_repair_cost.AddRepairCostToTooltipMixin",
+    "variant_chests.FetchCustomChestTextureMixin",
     "woodcutters.AddRecipeCategoryMixin",
     "woodcutters.GetCorrectCategoriesMixin",
     "woodcutters.GetCorrectCategoryMixin"
