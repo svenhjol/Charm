@@ -38,6 +38,7 @@
     "helper.AddSortingRecipeManagerMixin",
     "helper.CheckEnchantingPowerMixin",
     "husks_spawn_underground.AllowSpawningAnywhereMixin",
+    "kilns.AddRecipeBookTypeMixin",
     "mineshaft_improvements.GenerateMineshaftPiecesMixin",
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
     "no_campfire_damage.BypassCampfireDamageMixin",
@@ -51,7 +52,8 @@
     "strays_spawn_underground.AllowSpawningAnywhereMixin",
     "stronger_anvils.ReduceAnvilDamageMixin",
     "totem_works_from_inventory.CheckInventoryMixin",
-    "variant_ladders.ClimbTrapdoorMixin"
+    "variant_ladders.ClimbTrapdoorMixin",
+    "woodcutters.AddRecipeBookTypeMixin"
   ],
   "client": [
     "allow_too_expensive.StopShowingTooExpensiveMixin",
@@ -69,8 +71,14 @@
     "gentle_potion_particles.RenderTranslucentParticleMixin",
     "helper.LoadCustomModelPartsMixin",
     "helper.ShowEnchantmentParticlesMixin",
+    "kilns.AddRecipeCategoryMixin",
+    "kilns.GetCorrectCategoryMixin",
+    "kilns.GetCorrectCategoriesMixin",
     "no_potion_glint.CheckPotionHasGlintMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
-    "show_repair_cost.AddRepairCostToTooltipMixin"
+    "show_repair_cost.AddRepairCostToTooltipMixin",
+    "woodcutters.AddRecipeCategoryMixin",
+    "woodcutters.GetCorrectCategoryMixin",
+    "woodcutters.GetCorrectCategoriesMixin"
   ]
 }

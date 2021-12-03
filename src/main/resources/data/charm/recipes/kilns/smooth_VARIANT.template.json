@@ -1,0 +1,16 @@
+{
+  "template": {
+    "type": "charm:firing",
+    "ingredient": {
+      "item": "minecraft:VARIANT"
+    },
+    "result": "minecraft:smooth_VARIANT",
+    "experience": 0.1,
+    "cookingtime": 100
+  },
+  "variants": [
+    "red_sandstone",
+    "sandstone",
+    "stone"
+  ]
+}

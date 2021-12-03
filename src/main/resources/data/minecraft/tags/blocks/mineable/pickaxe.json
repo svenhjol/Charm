@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "charm:kiln",
     "charm:player_pressure_plate"
   ]
 }

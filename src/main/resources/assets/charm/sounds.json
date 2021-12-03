@@ -107,6 +107,26 @@
     ],
     "subtitle": "subtitles.charm.item.raid_horn.squeak"
   },
+  "kiln_smoke": {
+    "sounds": [
+      {
+        "name": "minecraft:block/smoker/smoker1"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker2"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker3"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker4"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker5"
+      }
+    ],
+    "subtitle": "subtitles.charm.block.kiln.smoke"
+  },
   "woodcutter_use": {
     "sounds": [
       {

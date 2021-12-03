@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "charm:block/kiln/kiln_top",
+    "bottom": "charm:block/kiln/kiln_bottom",
+    "side": "charm:block/kiln/kiln_side",
+    "front": "charm:block/kiln/kiln_front_on"
+  }
+}

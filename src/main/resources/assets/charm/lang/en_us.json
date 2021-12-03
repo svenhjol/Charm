@@ -250,5 +250,6 @@
   "subtitles.charm.item.raid_horn.call_patrol": "Horn calls patrol",
   "subtitles.charm.item.raid_horn.call_off_raid": "Horn calls off raid",
   "subtitles.charm.item.raid_horn.squeak": "Horn fails to make a sound",
-  "subtitles.charm.block.woodcutter.use": "Woodcutter used"
+  "subtitles.charm.block.woodcutter.use": "Woodcutter used",
+  "subtitles.charm.block.kiln.smoke": "Kiln smokes"
 }
