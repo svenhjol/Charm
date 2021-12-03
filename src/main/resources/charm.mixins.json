@@ -10,6 +10,7 @@
   "mixins": [
     "aerial_affinity_enchantment.UndoDestroySpeedPenaltyMixin",
     "allow_too_expensive.RemoveTooExpensiveMixin",
+    "amethyst_note_block.AddNoteBlockInstrumentMixin",
     "atlases.CheckContainsMapsMixin",
     "atlases.ScaleAtlasesOnCartographyTableMixin",
     "auto_restock.AddStatWhenAnimalConsumedMixin",
@@ -72,13 +73,13 @@
     "helper.LoadCustomModelPartsMixin",
     "helper.ShowEnchantmentParticlesMixin",
     "kilns.AddRecipeCategoryMixin",
-    "kilns.GetCorrectCategoryMixin",
     "kilns.GetCorrectCategoriesMixin",
+    "kilns.GetCorrectCategoryMixin",
     "no_potion_glint.CheckPotionHasGlintMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
     "show_repair_cost.AddRepairCostToTooltipMixin",
     "woodcutters.AddRecipeCategoryMixin",
-    "woodcutters.GetCorrectCategoryMixin",
-    "woodcutters.GetCorrectCategoriesMixin"
+    "woodcutters.GetCorrectCategoriesMixin",
+    "woodcutters.GetCorrectCategoryMixin"
   ]
 }
