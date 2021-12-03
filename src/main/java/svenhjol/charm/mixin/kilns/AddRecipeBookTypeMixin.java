@@ -8,10 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Enum solution from LudoCrypt:
+ * @link {https://github.com/SpongePowered/Mixin/issues/387#issuecomment-888408556}
+ */
+@SuppressWarnings({"SameParameterValue", "unused", "target"})
 @Mixin(RecipeBookType.class)
 @Unique
 public class AddRecipeBookTypeMixin {
-    @SuppressWarnings("target")
     @Shadow
     @Final
     @Mutable
@@ -28,9 +32,7 @@ public class AddRecipeBookTypeMixin {
 
     private static void addVariant(String newName) {
         List<RecipeBookType> variants = new ArrayList<>(Arrays.asList(AddRecipeBookTypeMixin.$VALUES));
-        int newId = variants.get(variants.size() - 1).ordinal() + 1;
-        RecipeBookType newEntry = invokeInit(newName, newId);
-        variants.add(newEntry);
+        variants.add(invokeInit(newName, variants.get(variants.size() - 1).ordinal() + 1));
         AddRecipeBookTypeMixin.$VALUES = variants.toArray(new RecipeBookType[0]);
     }
 }

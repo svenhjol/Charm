@@ -12,13 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Solution from LudoCrypt:
+ * Enum solution from LudoCrypt:
  * @link {https://github.com/SpongePowered/Mixin/issues/387#issuecomment-888408556}
  */
+@SuppressWarnings({"SameParameterValue", "unused", "target"})
 @Mixin(RecipeBookCategories.class)
 @Unique
 public class AddRecipeCategoryMixin {
-    @SuppressWarnings("target")
     @Shadow
     @Final
     @Mutable
@@ -36,9 +36,7 @@ public class AddRecipeCategoryMixin {
 
     private static void addVariant(String newName, ItemStack ...itemStacks) {
         List<RecipeBookCategories> variants = new ArrayList<>(Arrays.asList(AddRecipeCategoryMixin.$VALUES));
-        int newId = variants.get(variants.size() - 1).ordinal() + 1;
-        RecipeBookCategories newEntry = invokeInit(newName, newId, itemStacks);
-        variants.add(newEntry);
+        variants.add(invokeInit(newName, variants.get(variants.size() - 1).ordinal() + 1, itemStacks));
         AddRecipeCategoryMixin.$VALUES = variants.toArray(new RecipeBookCategories[0]);
     }
 }
