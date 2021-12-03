@@ -83,6 +83,9 @@ accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_SNOWY Lne
 accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_TAIGA Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
 accessible field net/minecraft/world/entity/ai/village/poi/PoiType maxTickets I
 accessible field net/minecraft/world/level/levelgen/structure/MineShaftPieces$MineShaftPiece type Lnet/minecraft/world/level/levelgen/feature/MineshaftFeature$Type;
+accessible field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;
+accessible field net/minecraft/client/RecipeBookCategories itemIcons Ljava/util/List;
+accessible field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Map;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
@@ -96,3 +99,6 @@ mutable    field net/minecraft/world/level/block/FireBlock flameOdds Lit/unimi/d
 mutable    field net/minecraft/world/level/block/FireBlock burnOdds Lit/unimi/dsi/fastutil/objects/Object2IntMap;
 mutable    field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
 mutable    field net/minecraft/world/entity/ai/village/poi/PoiType maxTickets I
+mutable    field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;
+mutable    field net/minecraft/client/RecipeBookCategories itemIcons Ljava/util/List;
+mutable    field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Map;
