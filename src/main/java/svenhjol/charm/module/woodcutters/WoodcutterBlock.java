@@ -37,6 +37,7 @@ public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
     }
 
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!module.isEnabled()) return InteractionResult.FAIL;
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {

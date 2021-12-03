@@ -3,6 +3,7 @@ package svenhjol.charm.module.woodcutters;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import svenhjol.charm.Charm;
@@ -21,6 +22,7 @@ public class Woodcutters extends CharmModule {
     public static RecipeSerializer<WoodcuttingRecipe> RECIPE_SERIALIZER;
 
     public static SoundEvent WOODCUTTER_USE = CharmSounds.createSound("woodcutter_use");
+    public static RecipeBookType RECIPE_BOOK_TYPE;
 
     @Override
     public void register() {
@@ -28,5 +30,10 @@ public class Woodcutters extends CharmModule {
         RECIPE_TYPE = CommonRegistry.recipeType(RECIPE_ID.toString());
         RECIPE_SERIALIZER = CommonRegistry.recipeSerializer(RECIPE_ID.toString(), new WoodcuttingRecipe.Serializer<>(WoodcuttingRecipe::new));
         MENU = CommonRegistry.menu(BLOCK_ID, WoodcutterMenu::new);
+    }
+
+    @Override
+    public void runWhenEnabled() {
+        RECIPE_BOOK_TYPE = CommonRegistry.recipeBookType("woodcutter");
     }
 }
