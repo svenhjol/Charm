@@ -1,5 +1,6 @@
 package svenhjol.charm.registry;
 
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -7,6 +8,7 @@ import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.stats.RecipeBookSettings;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
@@ -29,11 +32,9 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructurePieceType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import svenhjol.charm.helper.StringHelper;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings({"unused", "UnusedReturnValue", "ConstantConditions"})
 public class CommonRegistry {
@@ -102,6 +103,17 @@ public class CommonRegistry {
 
     public static <S extends RecipeSerializer<T>, T extends Recipe<?>> S recipeSerializer(String recipeId, S serializer) {
         return RecipeSerializer.register(recipeId, serializer);
+    }
+
+    /**
+     * Adds the custom recipe book type to tags so that the client can serialize and deserialize properly.
+     */
+    public static RecipeBookType recipeBookType(String shortName) {
+        String upper = shortName.toUpperCase(Locale.ROOT);
+        String capitalized = StringHelper.capitalize(shortName.toLowerCase(Locale.ROOT));
+        RecipeBookType type = RecipeBookType.valueOf(upper);
+        RecipeBookSettings.TAG_FIELDS.put(type, Pair.of("is" + capitalized + "GuiOpen", "is" + capitalized + "FilteringCraftable"));
+        return type;
     }
 
     public static <T extends AbstractContainerMenu> MenuType<T> menu(ResourceLocation id, MenuType.MenuSupplier<T> factory) {
