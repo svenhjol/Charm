@@ -1,0 +1,11 @@
+{
+  "template": {
+    "parent": "block/cube_bottom_top",
+    "textures": {
+      "top": "charm:block/barrel/VARIANT_barrel_top_open",
+      "side": "charm:block/barrel/VARIANT_barrel_side",
+      "bottom": "charm:block/barrel/VARIANT_barrel_bottom"
+    }
+  },
+  "variants": "wood"
+}
