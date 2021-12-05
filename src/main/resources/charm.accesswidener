@@ -5,7 +5,6 @@ accessible class net/minecraft/world/inventory/MenuType$MenuSupplier
 accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 accessible class net/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker
 accessible class net/minecraft/world/item/crafting/SimpleCookingSerializer$CookieBaker
-
 accessible class net/minecraft/client/renderer/RenderStateShard$CullStateShard
 accessible class net/minecraft/client/renderer/RenderStateShard$DepthTestStateShard
 accessible class net/minecraft/client/renderer/RenderStateShard$LayeringStateShard
@@ -15,7 +14,6 @@ accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShar
 accessible class net/minecraft/client/renderer/RenderStateShard$TexturingStateShard
 accessible class net/minecraft/client/renderer/RenderStateShard$TransparencyStateShard
 accessible class net/minecraft/client/renderer/RenderStateShard$WriteMaskStateShard
-
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
 
 # Inaccessible constructors
@@ -23,6 +21,7 @@ accessible method net/minecraft/world/inventory/MenuType <init> (Lnet/minecraft/
 accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer <init> (Lnet/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker;)V
 accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V
 accessible method net/minecraft/world/level/block/state/properties/WoodType <init> (Ljava/lang/String;)V
+accessible method net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
 
 # Inaccessible methods
 accessible method net/minecraft/client/renderer/RenderType create (Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;ILnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;
@@ -87,6 +86,9 @@ accessible field net/minecraft/world/level/levelgen/structure/MineShaftPieces$Mi
 accessible field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;
 accessible field net/minecraft/client/RecipeBookCategories itemIcons Ljava/util/List;
 accessible field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Map;
+accessible field net/minecraft/world/entity/vehicle/Boat paddlePositions [F
+accessible field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
+accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
@@ -103,3 +105,6 @@ mutable    field net/minecraft/world/entity/ai/village/poi/PoiType maxTickets I
 mutable    field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;
 mutable    field net/minecraft/client/RecipeBookCategories itemIcons Ljava/util/List;
 mutable    field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Map;
+mutable    field net/minecraft/world/entity/vehicle/Boat paddlePositions [F
+mutable    field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
+mutable    field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
