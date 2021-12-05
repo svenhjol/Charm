@@ -18,8 +18,9 @@ public class VariantBookshelves extends CharmModule {
         VanillaWoodMaterial.getTypes().forEach(type -> registerBookshelf(this, type));
     }
 
-    public static void registerBookshelf(CharmModule module, IWoodMaterial material) {
+    public static VariantBookshelfBlock registerBookshelf(CharmModule module, IWoodMaterial material) {
         VariantBookshelfBlock bookshelf = new VariantBookshelfBlock(module, material);
         BOOKSHELF_BLOCKS.put(material, bookshelf);
+        return bookshelf;
     }
 }

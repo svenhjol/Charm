@@ -73,15 +73,17 @@ public class VariantChests extends CharmModule {
         return InteractionResult.PASS;
     }
 
-    public static void registerChest(CharmModule module, IWoodMaterial material) {
+    public static VariantChestBlock registerChest(CharmModule module, IWoodMaterial material) {
         VariantChestBlock chest = new VariantChestBlock(module, material);
         NORMAL_CHEST_BLOCKS.put(material, chest);
         CommonRegistry.addBlocksToBlockEntity(NORMAL_BLOCK_ENTITY, chest);
+        return chest;
     }
 
-    public static void registerTrappedChest(CharmModule module, IWoodMaterial material) {
+    public static VariantTrappedChestBlock registerTrappedChest(CharmModule module, IWoodMaterial material) {
         VariantTrappedChestBlock chest = new VariantTrappedChestBlock(module, material);
         TRAPPED_CHEST_BLOCKS.put(material, chest);
         CommonRegistry.addBlocksToBlockEntity(TRAPPED_BLOCK_ENTITY, chest);
+        return chest;
     }
 }

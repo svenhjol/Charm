@@ -25,11 +25,12 @@ public class VariantBarrels extends CharmModule {
         }
     }
 
-    public static void registerBarrel(CharmModule module, IWoodMaterial material) {
+    public static VariantBarrelBlock registerBarrel(CharmModule module, IWoodMaterial material) {
         VariantBarrelBlock barrel = new VariantBarrelBlock(module, material);
         BARREL_BLOCKS.put(material, barrel);
         CommonRegistry.addBlocksToBlockEntity(BlockEntityType.BARREL, barrel);
         WorldHelper.addBlockStatesToPointOfInterest(PoiType.FISHERMAN, barrel.getStateDefinition().getPossibleStates());
+        return barrel;
     }
 
     public static VariantBarrelBlock getRandomBarrel(Random rand) {

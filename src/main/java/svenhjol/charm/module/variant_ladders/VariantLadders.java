@@ -25,9 +25,10 @@ public class VariantLadders extends CharmModule {
         VanillaWoodMaterial.getTypes().forEach(type -> registerLadder(this, type));
     }
 
-    public static void registerLadder(CharmModule module, IWoodMaterial material) {
+    public static VariantLadderBlock registerLadder(CharmModule module, IWoodMaterial material) {
         VariantLadderBlock ladder = new VariantLadderBlock(module, material);
         LADDER_BLOCKS.put(material, ladder);
+        return ladder;
     }
 
     public static boolean canEnterTrapdoor(Level level, BlockPos pos, BlockState state) {
