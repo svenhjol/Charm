@@ -20,8 +20,7 @@ public class AutomaticRecipeUnlock extends CharmModule {
     }
 
     private void handleServerJoin(Entity entity, ServerLevel level) {
-        if (!Charm.LOADER.isEnabled(AutomaticRecipeUnlock.class))
-            return;
+        if (!Charm.LOADER.isEnabled(AutomaticRecipeUnlock.class)) return;
 
         if (entity instanceof Player player) {
             RecipeManager recipeManager = player.level.getRecipeManager();

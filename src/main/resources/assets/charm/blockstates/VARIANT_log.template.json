@@ -1,0 +1,19 @@
+{
+  "template": {
+    "variants": {
+      "axis=x": {
+        "model": "charm:block/VARIANT_log_horizontal",
+        "x": 90,
+        "y": 90
+      },
+      "axis=y": {
+        "model": "charm:block/VARIANT_log"
+      },
+      "axis=z": {
+        "model": "charm:block/VARIANT_log_horizontal",
+        "x": 90
+      }
+    }
+  },
+  "variants": "charm_wood"
+}

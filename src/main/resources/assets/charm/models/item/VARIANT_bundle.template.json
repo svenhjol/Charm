@@ -2,7 +2,7 @@
   "template": {
     "parent": "item/generated",
     "textures": {
-      "layer0": "charm:item/bundles/VARIANT_bundle"
+      "layer0": "charm:item/VARIANT_bundle"
     },
     "overrides": [
       {

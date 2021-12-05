@@ -1,12 +1,12 @@
 {
 	"ambientocclusion": false,
 	"textures": {
-		"2": "charm:item/raid_horn/raid_horn_bottom",
-		"3": "charm:item/raid_horn/raid_horn_back",
-		"4": "charm:item/raid_horn/raid_horn_side",
-		"5": "charm:item/raid_horn/raid_horn_top",
-		"6": "charm:item/raid_horn/raid_horn_front",
-		"particle": "charm:item/raid_horn/raid_horn_front"
+		"2": "charm:item/raid_horn_bottom",
+		"3": "charm:item/raid_horn_back",
+		"4": "charm:item/raid_horn_side",
+		"5": "charm:item/raid_horn_top",
+		"6": "charm:item/raid_horn_front",
+		"particle": "charm:item/raid_horn_front"
 	},
 	"elements": [
 		{

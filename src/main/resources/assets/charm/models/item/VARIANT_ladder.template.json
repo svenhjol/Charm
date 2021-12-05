@@ -2,7 +2,7 @@
   "template": {
     "parent": "minecraft:item/generated",
     "textures": {
-      "layer0": "charm:block/ladder/VARIANT_ladder"
+      "layer0": "charm:block/VARIANT_ladder"
     }
   },
   "variants": "wood"

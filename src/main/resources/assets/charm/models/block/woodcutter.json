@@ -1,9 +1,9 @@
 {   "parent": "block/block",
 	"textures": {
-		"particle": "charm:block/woodcutter/woodcutter_bottom",
-		"bottom": "charm:block/woodcutter/woodcutter_bottom",
-		"top": "charm:block/woodcutter/woodcutter_top",
-		"side": "charm:block/woodcutter/woodcutter_side",
+		"particle": "charm:block/woodcutter_bottom",
+		"bottom": "charm:block/woodcutter_bottom",
+		"top": "charm:block/woodcutter_top",
+		"side": "charm:block/woodcutter_side",
 		"saw": "block/stonecutter_saw"
 	},
 	"elements": [

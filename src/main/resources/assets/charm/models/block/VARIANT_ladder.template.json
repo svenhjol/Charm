@@ -2,8 +2,8 @@
   "template": {
     "ambientocclusion": false,
     "textures": {
-      "particle": "charm:block/ladder/VARIANT_ladder",
-      "texture": "charm:block/ladder/VARIANT_ladder"
+      "particle": "charm:block/VARIANT_ladder",
+      "texture": "charm:block/VARIANT_ladder"
     },
     "elements": [
       {   "from": [ 0, 0, 15.2 ],

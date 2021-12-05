@@ -1,0 +1,32 @@
+{
+  "template": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1.0,
+        "bonus_rolls": 0.0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "conditions": [
+              {
+                "condition": "minecraft:block_state_property",
+                "block": "NAMESPACE:VARIANT_door",
+                "properties": {
+                  "half": "lower"
+                }
+              }
+            ],
+            "name": "NAMESPACE:VARIANT_door"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "variants": "charm_wood"
+}

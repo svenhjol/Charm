@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/VARIANT_log"
+  },
+  "variants": "charm_wood"
+}

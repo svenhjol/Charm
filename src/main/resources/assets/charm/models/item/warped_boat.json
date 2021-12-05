@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "charm:item/boat/warped_boat"
+    "layer0": "charm:item/warped_boat"
   }
 }

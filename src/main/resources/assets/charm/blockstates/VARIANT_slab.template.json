@@ -1,0 +1,16 @@
+{
+  "template": {
+    "variants": {
+      "type=bottom": {
+        "model": "NAMESPACE:block/VARIANT_slab"
+      },
+      "type=double": {
+        "model": "NAMESPACE:block/VARIANT_planks"
+      },
+      "type=top": {
+        "model": "NAMESPACE:block/VARIANT_slab_top"
+      }
+    }
+  },
+  "variants": "charm_wood"
+}

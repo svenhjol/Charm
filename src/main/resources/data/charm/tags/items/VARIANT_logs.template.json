@@ -1,0 +1,12 @@
+{
+  "template": {
+    "replace": false,
+    "values": [
+      "NAMESPACE:VARIANT_log",
+      "NAMESPACE:VARIANT_wood",
+      "NAMESPACE:stripped_VARIANT_log",
+      "NAMESPACE:stripped_VARIANT_wood"
+    ]
+  },
+  "variants": "charm_wood"
+}
