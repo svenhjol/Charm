@@ -1,8 +1,20 @@
 package svenhjol.charm.module.variant_chests;
 
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.enums.IWoodMaterial;
@@ -33,6 +45,32 @@ public class VariantChests extends CharmModule {
             registerChest(this, type);
             registerTrappedChest(this, type);
         }
+    }
+
+    @Override
+    public void runWhenEnabled() {
+        UseEntityCallback.EVENT.register(this::handleEntityInteract);
+    }
+
+    private InteractionResult handleEntityInteract(Player player, Level level, InteractionHand hand, Entity entity, @Nullable EntityHitResult hitResult) {
+        if (entity instanceof AbstractChestedHorse horse) {
+            ItemStack held = player.getItemInHand(hand);
+            Item item = held.getItem();
+            Block block = Block.byItem(item);
+            if (block instanceof VariantChestBlock
+                && horse.isTamed()
+                && !horse.hasChest()
+                && !horse.isBaby()) {
+                horse.setChest(true);
+                horse.playSound(SoundEvents.DONKEY_CHEST, 1.0f, (horse.getRandom().nextFloat() - horse.getRandom().nextFloat()) * 0.2f + 1.0f);
+                if (!player.getAbilities().instabuild) {
+                    held.shrink(1);
+                }
+                horse.createInventory();
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            }
+        }
+        return InteractionResult.PASS;
     }
 
     public static void registerChest(CharmModule module, IWoodMaterial material) {
