@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:sea_lantern",
+    "charm:brain_sea_lantern",
+    "charm:bubble_sea_lantern",
+    "charm:fire_sea_lantern",
+    "charm:horn_sea_lantern",
+    "charm:tube_sea_lantern"
+  ]
+}

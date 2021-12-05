@@ -1,0 +1,22 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "SCS",
+      "CCC",
+      "SCS"
+    ],
+    "key": {
+      "S": {
+        "item": "NAMESPACE:VARIANT_coral"
+      },
+      "C": {
+        "item": "minecraft:prismarine_crystals"
+      }
+    },
+    "result": {
+      "item": "charm:VARIANT_sea_lantern"
+    }
+  },
+  "variants": "coral"
+}
