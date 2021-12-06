@@ -10,9 +10,9 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.loader.CharmModule;
 
-@CommonModule(mod = Charm.MOD_ID, description = "As long as a Totem of Undying is in your inventory, it will be consumed to protect you from death.")
+@CommonModule(mod = Charm.MOD_ID, description = "A totem will work from anywhere in the player's inventory as well as held in the main or offhand.")
 public class TotemWorksFromInventory extends CharmModule {
-    public static ItemStack tryFromInventory(LivingEntity entity, InteractionHand hand) {
+    public static ItemStack tryUsingDeathTotemFromInventory(LivingEntity entity, InteractionHand hand) {
         ItemStack totem = new ItemStack(Items.TOTEM_OF_UNDYING);
 
         if (Charm.LOADER.isEnabled(TotemWorksFromInventory.class) && entity instanceof Player player) {

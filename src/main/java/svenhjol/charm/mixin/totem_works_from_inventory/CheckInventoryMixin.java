@@ -11,7 +11,7 @@ import svenhjol.charm.module.totem_works_from_inventory.TotemWorksFromInventory;
 @Mixin(LivingEntity.class)
 public class CheckInventoryMixin {
     /**
-     * Defer to {@link TotemWorksFromInventory#tryFromInventory} when checking if the entity is holding a totem.
+     * Defer to {@link TotemWorksFromInventory#tryUsingDeathTotemFromInventory} when checking if the entity is holding a totem.
      * If the check passes (the entity has one in inventory) then return true.
      */
     @Redirect(
@@ -21,7 +21,7 @@ public class CheckInventoryMixin {
             target = "Lnet/minecraft/world/entity/LivingEntity;getItemInHand(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemStack;"
         )
     )
-    private ItemStack hookTryUseTotem(LivingEntity livingEntity, InteractionHand hand) {
-        return TotemWorksFromInventory.tryFromInventory(livingEntity, hand);
+    private ItemStack hookCheckTotemDeathProtection(LivingEntity livingEntity, InteractionHand hand) {
+        return TotemWorksFromInventory.tryUsingDeathTotemFromInventory(livingEntity, hand);
     }
 }
