@@ -63,14 +63,9 @@ public class InventoryTidyingClient extends CharmModule {
     }
 
     private void handleGuiSetup(Minecraft client, int width, int height, List<NarratableEntry> buttons) {
-        if (client.player == null)
-            return;
-
-        if (!(client.screen instanceof AbstractContainerScreen<?> screen))
-            return;
-
-        if (BLACKLIST.contains(client.screen.getClass()))
-            return;
+        if (client.player == null) return;
+        if (!(client.screen instanceof AbstractContainerScreen<?> screen)) return;
+        if (BLACKLIST.contains(client.screen.getClass())) return;
 
         sortingButtons.clear();
 
@@ -91,11 +86,11 @@ public class InventoryTidyingClient extends CharmModule {
         List<Slot> slots = screenHandler.slots;
         for (Slot slot : slots) {
             if (BLOCK_ENTITY_SCREENS.contains(screen.getClass()) && slot.index == 0) {
-                this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(BE));
+                addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(BE));
             }
 
             if (slot.container == client.player.inventory) {
-                this.addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(PLAYER));
+                addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(PLAYER));
                 break;
             }
         }
@@ -104,9 +99,7 @@ public class InventoryTidyingClient extends CharmModule {
     }
 
     private void handleRenderGui(Minecraft client, PoseStack matrices, int mouseX, int mouseY, float delta) {
-        if (client.screen instanceof InventoryScreen screen
-            && !BLACKLIST.contains(client.screen.getClass())
-        ) {
+        if (client.screen instanceof AbstractContainerScreen screen && !BLACKLIST.contains(screen.getClass())) {
             // handles the recipe being open/closed
             int x = screen.leftPos;
             sortingButtons.forEach(button -> button.setPosition(x + LEFT, button.y));

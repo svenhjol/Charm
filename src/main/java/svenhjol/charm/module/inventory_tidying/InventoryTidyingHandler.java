@@ -126,8 +126,9 @@ public class InventoryTidyingHandler {
                 index2 = index;
             }
 
-            if (index1 >= 0 && index1 == index2)
+            if (index1 >= 0 && index1 == index2) {
                 return testCompare.get(predicate).compare(stack1, stack2);
+            }
 
             index++;
         }
