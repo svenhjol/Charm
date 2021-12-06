@@ -48,6 +48,7 @@ accessible method net/minecraft/world/level/levelgen/structure/StructurePiece ge
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldZ (II)I
 accessible method net/minecraft/world/item/BlockItem updateState (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/String;)Lnet/minecraft/world/level/block/state/BlockState;
 accessible method net/minecraft/world/entity/animal/horse/AbstractHorse createInventory ()V
+accessible method net/minecraft/world/level/block/NoteBlock playNote (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
 
 # Inaccessible fields
 accessible field net/minecraft/client/Minecraft blockColors Lnet/minecraft/client/color/block/BlockColors;
