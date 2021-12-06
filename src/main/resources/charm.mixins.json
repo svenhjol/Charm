@@ -46,6 +46,7 @@
     "no_crop_trampling.PreventTramplingMixin",
     "open_both_doors.ReactOnDoorOpenedMixin",
     "parrots_stay_on_shoulder.KeepShoulderEntitiesMixin",
+    "respawn_anchor_in_the_end.CheckIfCanSetSpawnMixin",
     "snow_accumulation.PlaceMoreSnowMixin",
     "snow_accumulation.PreventSnowMeltingMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
