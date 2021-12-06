@@ -1,7 +1,6 @@
 package svenhjol.charm.mixin.amethyst_note_block;
 
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -10,6 +9,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import svenhjol.charm.module.amethyst_note_block.AmethystNoteBlock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,8 +24,11 @@ public class AddNoteBlockInstrumentMixin {
     @Mutable
     private static NoteBlockInstrument[] $VALUES;
 
+    @Mutable
+    @Shadow @Final private SoundEvent soundEvent;
+
     static {
-        addVariant("AMETHYST", "amethyst", SoundEvents.AMETHYST_BLOCK_PLACE);
+        addVariant("AMETHYST", "amethyst", AmethystNoteBlock.AMETHYST);
     }
 
     @Invoker("<init>")

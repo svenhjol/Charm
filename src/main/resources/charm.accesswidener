@@ -89,6 +89,7 @@ accessible field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Ma
 accessible field net/minecraft/world/entity/vehicle/Boat paddlePositions [F
 accessible field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
 accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
+accessible field net/minecraft/world/level/block/state/properties/NoteBlockInstrument soundEvent Lnet/minecraft/sounds/SoundEvent;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
@@ -108,3 +109,4 @@ mutable    field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Ma
 mutable    field net/minecraft/world/entity/vehicle/Boat paddlePositions [F
 mutable    field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
 mutable    field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
+mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstrument soundEvent Lnet/minecraft/sounds/SoundEvent;
