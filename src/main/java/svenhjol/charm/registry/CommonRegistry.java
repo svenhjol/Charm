@@ -120,6 +120,12 @@ public class CommonRegistry {
         return Registry.register(Registry.MENU, id, new MenuType<>(factory));
     }
 
+    public static SoundEvent sound(ResourceLocation id) {
+        SoundEvent sound = new SoundEvent(id);
+        sound(id, sound);
+        return sound;
+    }
+
     public static SoundEvent sound(ResourceLocation id, SoundEvent sound) {
         return Registry.register(Registry.SOUND_EVENT, id, sound);
     }
