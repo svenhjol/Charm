@@ -11,7 +11,7 @@ import java.util.UUID;
  * @version 4.0.0-charm
  */
 @SuppressWarnings("unused")
-public class TagHelper {
+public class NbtHelper {
     public static int getInt(ItemStack stack, String nbt, int fallback) {
         return tagExists(stack, nbt) ? getTag(stack).getInt(nbt) : fallback;
     }

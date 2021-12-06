@@ -29,7 +29,7 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
-import svenhjol.charm.helper.TagHelper;
+import svenhjol.charm.helper.NbtHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -69,10 +69,10 @@ public class AtlasInventory implements MenuProvider, Container {
     }
 
     private void load() {
-        scale = TagHelper.getInt(atlas, SCALE, Atlases.defaultScale);
+        scale = NbtHelper.getInt(atlas, SCALE, Atlases.defaultScale);
         diameter = 128 * (1 << scale);
-        ContainerHelper.loadAllItems(TagHelper.getCompound(atlas, EMPTY_MAPS), emptyMaps);
-        ListTag listNBT = TagHelper.getList(atlas, FILLED_MAPS);
+        ContainerHelper.loadAllItems(NbtHelper.getCompound(atlas, EMPTY_MAPS), emptyMaps);
+        ListTag listNBT = NbtHelper.getList(atlas, FILLED_MAPS);
         for (int i = 0; i < listNBT.size(); ++i) {
             putMapInfo(MapInfo.readFrom(listNBT.getCompound(i)));
         }
@@ -116,9 +116,9 @@ public class AtlasInventory implements MenuProvider, Container {
         }
         if (activeMap != null) {
             Atlases.sendMapToClient(player, activeMap.map, false);
-            TagHelper.setInt(atlas, ACTIVE_MAP, activeMap.id);
+            NbtHelper.setInt(atlas, ACTIVE_MAP, activeMap.id);
         } else {
-            TagHelper.setInt(atlas, ACTIVE_MAP, -1);
+            NbtHelper.setInt(atlas, ACTIVE_MAP, -1);
         }
         return madeNewMap;
     }
@@ -144,7 +144,7 @@ public class AtlasInventory implements MenuProvider, Container {
 
     @Nullable
     public int getActiveMapId(Level level) {
-        return TagHelper.getInt(atlas, ACTIVE_MAP, -1);
+        return NbtHelper.getInt(atlas, ACTIVE_MAP, -1);
     }
 
     @Nullable
@@ -157,7 +157,7 @@ public class AtlasInventory implements MenuProvider, Container {
 
     @Nullable
     public ItemStack getLastActiveMapItem() {
-        int activeId = TagHelper.getInt(atlas, ACTIVE_MAP, -1);
+        int activeId = NbtHelper.getInt(atlas, ACTIVE_MAP, -1);
         if (activeId == -1) return null;
         return mapInfos.values().stream().filter(it -> it.id == activeId).findAny().map(it -> it.map).orElse(null);
     }
@@ -235,24 +235,24 @@ public class AtlasInventory implements MenuProvider, Container {
 
     @Override
     public void setChanged() {
-        TagHelper.setInt(atlas, SCALE, scale);
+        NbtHelper.setInt(atlas, SCALE, scale);
         CompoundTag emptyMapNBT = new CompoundTag();
         ContainerHelper.saveAllItems(emptyMapNBT, emptyMaps, false);
-        TagHelper.setCompound(atlas, EMPTY_MAPS, emptyMapNBT);
+        NbtHelper.setCompound(atlas, EMPTY_MAPS, emptyMapNBT);
         ListTag listNBT = new ListTag();
         for (MapInfo mapInfo : mapInfos.values()) {
             CompoundTag nbt = new CompoundTag();
             mapInfo.writeTo(nbt);
             listNBT.add(nbt);
         }
-        TagHelper.setList(atlas, FILLED_MAPS, listNBT);
+        NbtHelper.setList(atlas, FILLED_MAPS, listNBT);
     }
 
     @Override
     public boolean stillValid(@Nonnull Player player) {
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack heldItem = player.getItemInHand(hand);
-            if (heldItem.getItem() == Atlases.ATLAS_ITEM && Objects.equals(TagHelper.getUuid(atlas, ID), TagHelper.getUuid(heldItem, ID))) {
+            if (heldItem.getItem() == Atlases.ATLAS_ITEM && Objects.equals(NbtHelper.getUuid(atlas, ID), NbtHelper.getUuid(heldItem, ID))) {
                 return true;
             }
         }

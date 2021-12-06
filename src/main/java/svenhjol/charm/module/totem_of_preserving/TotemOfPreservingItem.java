@@ -14,7 +14,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.helper.TagHelper;
+import svenhjol.charm.helper.NbtHelper;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.TotemHelper;
 import svenhjol.charm.item.CharmItem;
@@ -96,23 +96,23 @@ public class TotemOfPreservingItem extends CharmItem {
     }
 
     public static void setMessage(ItemStack totem, String message) {
-        TagHelper.setString(totem, MESSAGE_TAG, message);
+        NbtHelper.setString(totem, MESSAGE_TAG, message);
     }
 
     public static void setItems(ItemStack totem, CompoundTag items) {
-        TagHelper.setCompound(totem, ITEMS_TAG, items);
+        NbtHelper.setCompound(totem, ITEMS_TAG, items);
     }
 
     public static void setXp(ItemStack totem, int xp) {
-        TagHelper.setInt(totem, XP_TAG, xp);
+        NbtHelper.setInt(totem, XP_TAG, xp);
     }
 
     public static String getMessage(ItemStack totem) {
-        return TagHelper.getString(totem, MESSAGE_TAG, "");
+        return NbtHelper.getString(totem, MESSAGE_TAG, "");
     }
 
     public static CompoundTag getItems(ItemStack totem) {
-        return TagHelper.getCompound(totem, ITEMS_TAG);
+        return NbtHelper.getCompound(totem, ITEMS_TAG);
     }
 
     public static boolean hasItems(ItemStack totem) {
@@ -120,6 +120,6 @@ public class TotemOfPreservingItem extends CharmItem {
     }
 
     public static int getXp(ItemStack totem) {
-        return TagHelper.getInt(totem, XP_TAG, 0);
+        return NbtHelper.getInt(totem, XP_TAG, 0);
     }
 }

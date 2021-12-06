@@ -24,7 +24,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.PlayerTickCallback;
-import svenhjol.charm.helper.TagHelper;
+import svenhjol.charm.helper.NbtHelper;
 import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.registry.CommonRegistry;
 import svenhjol.charm.init.CharmAdvancements;
@@ -93,10 +93,10 @@ public class Atlases extends CharmModule {
     }
 
     public static AtlasInventory getInventory(Level level, ItemStack stack) {
-        UUID id = TagHelper.getUuid(stack, AtlasInventory.ID);
+        UUID id = NbtHelper.getUuid(stack, AtlasInventory.ID);
         if (id == null) {
             id = UUID.randomUUID();
-            TagHelper.setUuid(stack, AtlasInventory.ID, id);
+            NbtHelper.setUuid(stack, AtlasInventory.ID, id);
         }
         Map<UUID, AtlasInventory> cache = level.isClientSide ? clientCache : serverCache;
         AtlasInventory inventory = cache.get(id);
@@ -165,8 +165,8 @@ public class Atlases extends CharmModule {
             ItemStack output;
             if (inventory.getMapInfos().isEmpty() && bottomStack.getItem() == Items.MAP && inventory.getScale() < 4) {
                 output = topStack.copy();
-                TagHelper.setUuid(output, AtlasInventory.ID, UUID.randomUUID());
-                TagHelper.setInt(output, AtlasInventory.SCALE, inventory.getScale() + 1);
+                NbtHelper.setUuid(output, AtlasInventory.ID, UUID.randomUUID());
+                NbtHelper.setInt(output, AtlasInventory.SCALE, inventory.getScale() + 1);
             } else {
                 output = ItemStack.EMPTY;
             }
