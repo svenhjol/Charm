@@ -38,7 +38,7 @@ public class PortableCraftingClient extends CharmModule {
             keyBinding = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.charm.openCraftingTable",
                 InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_C,
+                GLFW.GLFW_KEY_V,
                 "key.categories.inventory"
             ));
 

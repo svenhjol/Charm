@@ -25,7 +25,7 @@ public class PortableCrafting extends CharmModule {
     public static final ResourceLocation MSG_SERVER_OPEN_CRAFTING = new ResourceLocation(Charm.MOD_ID, "server_open_crafting");
     public static final ResourceLocation TRIGGER_USED_CRAFTING_TABLE = new ResourceLocation(Charm.MOD_ID, "used_crafting_table");
 
-    @Config(name = "Enable keybind", description = "If true, sets a keybind for opening the portable crafting table (defaults to 'c').")
+    @Config(name = "Enable keybind", description = "If true, sets a keybind for opening the portable crafting table (defaults to 'v').")
     public static boolean enableKeybind = true;
 
     @Override
