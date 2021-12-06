@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "charm:kiln",
-    "charm:player_pressure_plate",
+    "minecraft:lantern",
+    "minecraft:soul_lantern",
     "charm:redstone_lantern"
   ]
 }
