@@ -193,7 +193,7 @@
   "entity.charm.moobloom": "Moobloom",
   "entity.minecraft.villager.charm_beekeeper": "Beekeeper",
   "entity.minecraft.villager.charm_lumberjack": "Lumberjack",
-  "filled_map.charm.trader_map": "%s Map",
+  "filled_map.charm.trader_map": "%s Explorer Map",
   "gui.charm.recipebook.toggleRecipes.fireable": "Showing Fireable",
   "gui.charm.totem_of_preserving.deathpos": "Your totem is near %s %s %s",
   "item.charm.azalea_boat": "Azalea Boat",
