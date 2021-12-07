@@ -64,7 +64,7 @@ public class TotemOfPreserving extends CharmModule {
     @Config(name = "Add totems to loot", description = "Loot tables that totems of preserving will be added to.\n" +
         "This does not apply if Grave mode is active for the current game difficulty. See 'Grave mode game difficulties' to configure this.")
     public static List<String> configLootTables = Arrays.asList(
-        "entities/vindicator", "entities/witch"
+        "entities/witch", "chests/pillager_outpost", "chests/woodland_mansion"
     );
 
     @Config(name = "Preserve XP", description = "If true, the totem will preserve the player's experience and restore when broken.")
