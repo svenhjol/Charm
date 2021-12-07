@@ -16,7 +16,7 @@ import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.loader.CharmModule;
 
-@CommonModule(mod = Charm.MOD_ID, description = "Cave spiders have a chance to drop cobwebs.")
+@CommonModule(mod = Charm.MOD_ID, description = "Cave spiders have a chance to drop cobwebs when killed.")
 public class CaveSpidersDropCobwebs extends CharmModule {
     public static double lootingBoost = 0.3D;
 
