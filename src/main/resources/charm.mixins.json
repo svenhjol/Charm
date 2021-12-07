@@ -15,6 +15,7 @@
     "atlases.ScaleAtlasesOnCartographyTableMixin",
     "auto_restock.AddStatWhenAnimalConsumedMixin",
     "auto_restock.AddStatWhenCompostedMixin",
+    "block_of_ender_pearls.PreventRandomTeleportMixin",
     "chickens_drop_feathers.DropFeatherMixin",
     "collection_enchantment.AddDroppedItemToInventoryMixin",
     "collection_enchantment.TryBreakBlockMixin",

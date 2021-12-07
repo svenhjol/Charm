@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "charm:copper_bars",
+    "charm:ender_pearl_block",
     "charm:gold_bars",
     "charm:gold_chain",
     "charm:gold_lantern",
