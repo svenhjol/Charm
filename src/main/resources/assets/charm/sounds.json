@@ -59,6 +59,24 @@
     ],
     "subtitle": "subtitles.charm.item.bat_bucket.release"
   },
+  "sugar_dissolve": {
+    "sounds": [
+      {
+        "name": "charm:dissolve",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.sugar_block.dissolve"
+  },
+  "gunpowder_dissolve": {
+    "sounds": [
+      {
+        "name": "charm:dissolve",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.gunpowder_block.dissolve"
+  },
   "endermite_powder_launch": {
     "sounds": [
       {
