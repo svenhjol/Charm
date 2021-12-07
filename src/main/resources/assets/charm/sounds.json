@@ -115,6 +115,27 @@
     ],
     "subtitle": "subtitles.charm.item.raid_horn.squeak"
   },
+  "lumberjack": {
+    "sounds": [
+      {
+        "name": "charm:lumberjack1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:lumberjack2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:lumberjack3",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:lumberjack4",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.entity.villager.work_lumberjack"
+  },
   "kiln_bake": {
     "sounds": [
       {
