@@ -31,7 +31,7 @@ public class RedstoneSandBlock extends CharmFallingBlock {
     }
 
     @Override
-    public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
+    public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
         return 15;
     }
 }
