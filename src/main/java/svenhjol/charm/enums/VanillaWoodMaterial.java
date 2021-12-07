@@ -26,7 +26,7 @@ public enum VanillaWoodMaterial implements IWoodMaterial {
 
     @Override
     public boolean isFlammable() {
-        // non_flammable_wood is not available at reg point
+        // TODO: non_flammable_wood is not available at reg point
         return !this.equals(CRIMSON) && !this.equals(WARPED);
     }
 }
