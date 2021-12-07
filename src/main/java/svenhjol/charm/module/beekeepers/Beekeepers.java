@@ -13,7 +13,6 @@ public class Beekeepers extends CharmModule {
     public static String ID = "charm_beekeeper";
     public static VillagerProfession BEEKEEPER;
 
-
     @Override
     public void runWhenEnabled() {
         BEEKEEPER = VillagerHelper.addProfession(ID, PoiType.BEEHIVE, SoundEvents.BEEHIVE_WORK);
