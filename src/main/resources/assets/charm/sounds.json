@@ -115,7 +115,7 @@
     ],
     "subtitle": "subtitles.charm.item.raid_horn.squeak"
   },
-  "kiln_smoke": {
+  "kiln_bake": {
     "sounds": [
       {
         "name": "minecraft:block/smoker/smoker1"
@@ -133,7 +133,7 @@
         "name": "minecraft:block/smoker/smoker5"
       }
     ],
-    "subtitle": "subtitles.charm.block.kiln.smoke"
+    "subtitle": "subtitles.charm.block.kiln.bake"
   },
   "woodcutter_use": {
     "sounds": [

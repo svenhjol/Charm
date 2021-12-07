@@ -27,7 +27,7 @@ public class Kilns extends CharmModule {
     public static SimpleCookingSerializer<FiringRecipe> RECIPE_SERIALIZER;
     public static MenuType<KilnScreenHandler> SCREEN_HANDLER;
 
-    public static final SoundEvent KILN_SMOKE = CharmSounds.createSound("kiln_smoke");
+    public static final SoundEvent KILN_BAKE = CharmSounds.createSound("kiln_bake");
 
     public static RecipeBookType RECIPE_BOOK_TYPE;
 

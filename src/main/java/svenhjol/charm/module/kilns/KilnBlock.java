@@ -90,7 +90,7 @@ public class KilnBlock extends AbstractFurnaceBlock implements ICharmBlock {
             double y = pos.getY();
             double z = pos.getZ() + 0.5D;
             if (random.nextDouble() < 0.1D) {
-                level.playLocalSound(x, y, z, Kilns.KILN_SMOKE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                level.playLocalSound(x, y, z, Kilns.KILN_BAKE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
             }
 
             level.addParticle(ParticleTypes.SMOKE, x, y + 1.1D, z, 0.0D, 0.0D, 0.0D);
