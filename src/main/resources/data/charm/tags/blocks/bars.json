@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:iron_bars",
+    "charm:copper_bars",
+    "charm:gold_bars",
+    "charm:netherite_bars"
+  ]
+}
