@@ -8,7 +8,7 @@
     ],
     "key": {
       "G": {
-        "item": "NUGGETSOURCE:VARIANT_nugget"
+        "item": "NUGGETNAMESPACE:VARIANT_nugget"
       },
       "T": {
         "item": "minecraft:torch"

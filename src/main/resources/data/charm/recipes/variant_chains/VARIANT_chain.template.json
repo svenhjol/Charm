@@ -8,10 +8,10 @@
     ],
     "key": {
       "I": {
-        "item": "INGOTSOURCE:VARIANT_ingot"
+        "item": "INGOTNAMESPACE:VARIANT_ingot"
       },
       "N": {
-        "item": "NUGGETSOURCE:VARIANT_nugget"
+        "item": "NUGGETNAMESPACE:VARIANT_nugget"
       }
     },
     "result": {
