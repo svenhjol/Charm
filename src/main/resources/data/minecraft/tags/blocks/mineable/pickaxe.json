@@ -3,6 +3,8 @@
   "values": [
     "charm:kiln",
     "charm:player_pressure_plate",
-    "charm:redstone_lantern"
+    "charm:redstone_lantern",
+    "charm:gold_lantern",
+    "charm:gold_soul_lantern"
   ]
 }

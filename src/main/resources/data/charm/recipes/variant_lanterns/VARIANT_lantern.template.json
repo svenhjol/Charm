@@ -1,0 +1,22 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "GGG",
+      "GTG",
+      "GGG"
+    ],
+    "key": {
+      "G": {
+        "item": "NUGGETSOURCE:VARIANT_nugget"
+      },
+      "T": {
+        "item": "minecraft:torch"
+      }
+    },
+    "result": {
+      "item": "charm:VARIANT_lantern"
+    }
+  },
+  "variants": "metal_with_nuggets"
+}
