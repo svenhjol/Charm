@@ -43,7 +43,6 @@
     "kilns.AddRecipeBookTypeMixin",
     "mineshaft_improvements.GenerateMineshaftPiecesMixin",
     "more_portal_frames.AddValidPortalFrameBlocksMixin",
-    "no_campfire_damage.BypassCampfireDamageMixin",
     "no_crop_trampling.PreventTramplingMixin",
     "open_both_doors.ReactOnDoorOpenedMixin",
     "parrots_stay_on_shoulder.KeepShoulderEntitiesMixin",
