@@ -1,0 +1,11 @@
+{
+  "template": {
+    "type": "charm:woodcutting",
+    "ingredient": {
+      "item": "NAMESPACE:stripped_VARIANT_wood"
+    },
+    "result": "NAMESPACE:VARIANT_planks",
+    "count": 4
+  },
+  "variants": "overworld_wood"
+}

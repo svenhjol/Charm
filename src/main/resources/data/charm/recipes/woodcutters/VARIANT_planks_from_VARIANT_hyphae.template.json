@@ -1,0 +1,11 @@
+{
+  "template": {
+    "type": "charm:woodcutting",
+    "ingredient": {
+      "item": "NAMESPACE:VARIANT_hyphae"
+    },
+    "result": "NAMESPACE:VARIANT_planks",
+    "count": 4
+  },
+  "variants": "nether_wood"
+}

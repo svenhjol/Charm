@@ -1,0 +1,11 @@
+{
+  "template": {
+    "type": "charm:woodcutting",
+    "ingredient": {
+      "item": "NAMESPACE:VARIANT_planks"
+    },
+    "result": "NAMESPACE:VARIANT_fence",
+    "count": 1
+  },
+  "variants": "wood"
+}
