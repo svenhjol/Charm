@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import svenhjol.charm.block.CharmLanternBlock;
+import svenhjol.charm.enums.VanillaMetalMaterial;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
@@ -21,7 +22,7 @@ public class RedstoneLanternBlock extends CharmLanternBlock {
     public static BooleanProperty LIT = BlockStateProperties.LIT;
 
     public RedstoneLanternBlock(CharmModule module) {
-        super(module, "redstone_lantern", Properties.copy(Blocks.LANTERN)
+        super(module, "redstone_lantern", VanillaMetalMaterial.IRON, Properties.copy(Blocks.LANTERN)
             .lightLevel(p -> p.getValue(BlockStateProperties.LIT) ? 15 : 0));
 
         registerDefaultState(defaultBlockState().setValue(LIT, false));
