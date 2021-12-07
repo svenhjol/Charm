@@ -20,7 +20,7 @@ public interface ICharmBlock {
     default void register(CharmModule module, String name) {
         ResourceLocation id = new ResourceLocation(module.getModId(), name);
         CommonRegistry.block(id, (Block)this);
-        createBlockItem(id);
+        createBlockItem(id, new Item.Properties());
     }
 
     default CreativeModeTab getItemGroup() {
@@ -31,16 +31,15 @@ public interface ICharmBlock {
         return 64;
     }
 
-    default void createBlockItem(ResourceLocation id) {
-        Item.Properties settings = new Item.Properties();
-
+    default void createBlockItem(ResourceLocation id, Item.Properties properties) {
         CreativeModeTab itemGroup = getItemGroup();
-        if (itemGroup != null)
-            settings.tab(itemGroup);
+        if (itemGroup != null) {
+            properties.tab(itemGroup);
+        }
 
-        settings.stacksTo(getMaxStackSize());
+        properties.stacksTo(getMaxStackSize());
 
-        svenhjol.charm.block.CharmBlockItem blockItem = new CharmBlockItem(this, settings);
+        CharmBlockItem blockItem = new CharmBlockItem(this, properties);
         CommonRegistry.item(id, blockItem);
     }
 

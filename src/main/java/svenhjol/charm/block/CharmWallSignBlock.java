@@ -3,6 +3,7 @@ package svenhjol.charm.block;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.WallSignBlock;
@@ -30,7 +31,7 @@ public abstract class CharmWallSignBlock extends WallSignBlock implements ICharm
     }
 
     @Override
-    public void createBlockItem(ResourceLocation id) {
+    public void createBlockItem(ResourceLocation id, Item.Properties properties) {
         // no, because infinite loop. No need for item here
     }
 
