@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR", "RSR", "RRR"
+  ],
+  "key": {
+    "R": {"item": "minecraft:redstone"},
+    "S": {"tag": "minecraft:sand"}
+  },
+  "result": {
+    "item": "charm:redstone_sand"
+  }
+}
