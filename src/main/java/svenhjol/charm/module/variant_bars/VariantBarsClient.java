@@ -7,6 +7,7 @@ import svenhjol.charm.loader.CharmModule;
 
 @ClientModule(module = VariantBars.class)
 public class VariantBarsClient extends CharmModule {
+
     @Override
     public void register() {
         VariantBars.BARS.values()

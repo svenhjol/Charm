@@ -1,11 +1,14 @@
 {
   "replace": false,
   "values": [
-    "charm:kiln",
-    "charm:player_pressure_plate",
-    "charm:redstone_lantern",
+    "charm:copper_bars",
     "charm:gold_bars",
+    "charm:gold_chain",
     "charm:gold_lantern",
-    "charm:gold_soul_lantern"
+    "charm:gold_soul_lantern",
+    "charm:kiln",
+    "charm:netherite_bars",
+    "charm:player_pressure_plate",
+    "charm:redstone_lantern"
   ]
 }
