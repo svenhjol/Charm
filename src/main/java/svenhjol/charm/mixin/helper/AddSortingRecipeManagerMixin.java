@@ -11,11 +11,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.annotation.CharmMixin;
 import svenhjol.charm.module.core.SortingRecipeManager;
 
 @Mixin(value = ServerResources.class)
-@CharmMixin(required = true)
 public class AddSortingRecipeManagerMixin {
     @Shadow @Final private ReloadableResourceManager resources;
     @Unique private SortingRecipeManager sortingRecipeManager;
