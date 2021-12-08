@@ -34,19 +34,10 @@ public class ConfigHelper {
         return new Toml().read(path.toFile());
     }
 
-    public static String getQuotedModuleEnabledName(String moduleName) {
+    public static boolean isModuleDisabled(Toml toml, String moduleName) {
         String moduleEnabled = moduleName + " Enabled";
-        return "\"" + moduleEnabled + "\"";
-    }
-
-    public static boolean moduleExistsInConfig(Toml toml, String moduleName) {
-        String quoted = getQuotedModuleEnabledName(moduleName);
-        return toml.contains(quoted);
-    }
-
-    public static boolean isModuleEnabled(Toml toml, String moduleName) {
-        String quoted = getQuotedModuleEnabledName(moduleName);
-        return toml.contains(quoted) && toml.getBoolean(quoted);
+        String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
+        return toml.contains(moduleEnabledQuoted) && !toml.getBoolean(moduleEnabledQuoted);
     }
 
     public static boolean isDebugMode(Toml toml) {
@@ -57,10 +48,10 @@ public class ConfigHelper {
     public static <T extends CharmModule> void applyConfig(Toml toml, List<T> modules) {
         modules.forEach(module -> {
             String moduleName = module.getName();
-            if ((toml.isEmpty() || !moduleExistsInConfig(toml, moduleName)) && !module.isEnabledByDefault()) {
+            if (toml.isEmpty() && !module.isEnabledByDefault()) {
                 module.setEnabledInConfig(false);
             } else {
-                module.setEnabledInConfig(isModuleEnabled(toml, moduleName));
+                module.setEnabledInConfig(!isModuleDisabled(toml, moduleName));
             }
 
             // get and set module config options

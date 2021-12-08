@@ -77,7 +77,7 @@ public class CommonLoader<T extends CharmModule> extends ModuleLoader<T> {
     protected void setupModuleConfig(List<T> modules) {
         Toml toml = ConfigHelper.readConfig(getModId());
         ConfigHelper.applyConfig(toml, modules);
-        modules.forEach(module -> module.setEnabled(ConfigHelper.isModuleEnabled(toml, module.getName())));
+        modules.forEach(module -> module.setEnabled(!ConfigHelper.isModuleDisabled(toml, module.getName())));
         ConfigHelper.writeConfig(getModId(), modules);
     }
 
