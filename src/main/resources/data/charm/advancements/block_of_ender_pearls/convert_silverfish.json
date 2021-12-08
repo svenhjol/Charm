@@ -1,0 +1,31 @@
+{
+  "parent": "charm:block_of_ender_pearls/teleport_to_ender_pearl_block",
+  "display": {
+    "icon": {
+      "item": "minecraft:endermite_spawn_egg"
+    },
+    "title": {
+      "translate": "advancements.charm.convert_silverfish.title"
+    },
+    "description": {
+      "translate": "advancements.charm.convert_silverfish.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "converted_silverfish": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:converted_silverfish"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "converted_silverfish"
+    ]
+  ]
+}

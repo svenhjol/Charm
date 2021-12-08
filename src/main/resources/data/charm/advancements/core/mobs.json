@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:cow_spawn_egg"
+    },
+    "title": {
+      "translate": "advancements.charm.mobs.title"
+    },
+    "description": {
+      "translate": "advancements.charm.mobs.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "player_joined": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:player_joined"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "player_joined"
+    ]
+  ]
+}

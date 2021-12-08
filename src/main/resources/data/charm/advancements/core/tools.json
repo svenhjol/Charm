@@ -1,0 +1,32 @@
+{
+  "parent": "charm:core/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_pickaxe",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.charm.tools.title"
+    },
+    "description": {
+      "translate": "advancements.charm.tools.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "player_joined": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:player_joined"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "player_joined"
+    ]
+  ]
+}

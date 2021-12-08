@@ -1,0 +1,31 @@
+{
+  "parent": "charm:block_of_sugar/dissolve_sugar",
+  "display": {
+    "icon": {
+      "item": "charm:gunpowder_block"
+    },
+    "title": {
+      "translate": "advancements.charm.dissolve_gunpowder.title"
+    },
+    "description": {
+      "translate": "advancements.charm.dissolve_gunpowder.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "dissolved_gunpowder": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:dissolved_gunpowder"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "dissolved_gunpowder"
+    ]
+  ]
+}

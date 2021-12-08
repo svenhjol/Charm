@@ -1,0 +1,31 @@
+{
+  "parent": "charm:bat_buckets/capture_bat",
+  "display": {
+    "icon": {
+      "item": "charm:bat_bucket"
+    },
+    "title": {
+      "translate": "advancements.charm.use_bat_bucket.title"
+    },
+    "description": {
+      "translate": "advancements.charm.use_bat_bucket.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "used_bat_bucket": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:used_bat_bucket"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "used_bat_bucket"
+    ]
+  ]
+}

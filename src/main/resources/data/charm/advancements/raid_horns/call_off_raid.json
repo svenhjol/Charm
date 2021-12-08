@@ -1,0 +1,31 @@
+{
+  "parent": "charm:raid_horns/summon_pillagers",
+  "display": {
+    "icon": {
+      "item": "charm:raid_horn"
+    },
+    "title": {
+      "translate": "advancements.charm.call_off_raid.title"
+    },
+    "description": {
+      "translate": "advancements.charm.call_off_raid.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "called_off_raid": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:called_off_raid"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "called_off_raid"
+    ]
+  ]
+}

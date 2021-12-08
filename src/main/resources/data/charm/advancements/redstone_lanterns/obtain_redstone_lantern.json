@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/automation",
+  "display": {
+    "icon": {
+      "item": "charm:redstone_lantern"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_redstone_lantern.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_redstone_lantern.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_redstone_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:redstone_lantern"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_redstone_lantern"
+    ]
+  ]
+}

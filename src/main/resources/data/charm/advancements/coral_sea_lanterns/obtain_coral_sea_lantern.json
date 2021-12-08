@@ -1,0 +1,27 @@
+{
+  "parent": "charm:core/decoration",
+  "display": {
+    "icon": {
+      "item": "charm:brain_sea_lantern"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_coral_sea_lantern.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_coral_sea_lantern.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_sea_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {"items": [{"tag": "charm:coral_sea_lanterns"}]}
+    }
+  },
+  "requirements": [
+    ["has_sea_lantern"]
+  ]
+}

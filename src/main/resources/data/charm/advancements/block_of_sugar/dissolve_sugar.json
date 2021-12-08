@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/automation",
+  "display": {
+    "icon": {
+      "item": "charm:sugar_block"
+    },
+    "title": {
+      "translate": "advancements.charm.dissolve_sugar.title"
+    },
+    "description": {
+      "translate": "advancements.charm.dissolve_sugar.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "dissolved_sugar": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:dissolved_sugar"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "dissolved_sugar"
+    ]
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/tweaks",
+  "display": {
+    "icon": {
+      "item": "minecraft:emerald_block"
+    },
+    "title": {
+      "translate": "advancements.charm.lure_villager.title"
+    },
+    "description": {
+      "translate": "advancements.charm.lure_villager.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "lured_villager": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:lured_villager"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "lured_villager"
+    ]
+  ]
+}

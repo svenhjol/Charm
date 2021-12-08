@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/tools",
+  "display": {
+    "icon": {
+      "item": "charm:raid_horn"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_raid_horn.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_raid_horn.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_raid_horn": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:raid_horn"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_raid_horn"
+    ]
+  ]
+}

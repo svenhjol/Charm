@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/tweaks",
+  "display": {
+    "icon": {
+      "item": "minecraft:oak_sign"
+    },
+    "title": {
+      "translate": "advancements.charm.edit_sign.title"
+    },
+    "description": {
+      "translate": "advancements.charm.edit_sign.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "edited_sign": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:edited_sign"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "edited_sign"
+    ]
+  ]
+}
