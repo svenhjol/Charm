@@ -5,10 +5,10 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ServerGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
@@ -25,18 +25,22 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.NbtHelper;
-import svenhjol.charm.init.CharmSounds;
-import svenhjol.charm.registry.CommonRegistry;
+import svenhjol.charm.helper.NetworkHelper;
 import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Storage for maps that automatically updates the displayed map as you explore.")
 public class Atlases extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "atlas");
-    public static final ResourceLocation MSG_SERVER_ATLAS_TRANSFER = new ResourceLocation(Charm.MOD_ID, "server_atlas_transfer");
+    public static final ResourceLocation MSG_SERVER_TRANSFER_ATLAS = new ResourceLocation(Charm.MOD_ID, "server_transfer_atlas");
+    public static final ResourceLocation MSG_SERVER_SWAP_ATLAS = new ResourceLocation(Charm.MOD_ID, "server_swap_atlas");
     public static final ResourceLocation MSG_CLIENT_UPDATE_ATLAS_INVENTORY = new ResourceLocation(Charm.MOD_ID, "client_update_atlas_inventory");
+    public static final ResourceLocation MSG_CLIENT_SWAPPED_SLOT = new ResourceLocation(Charm.MOD_ID, "client_swapped_slot");
     public static final ResourceLocation TRIGGER_MADE_ATLAS_MAPS = new ResourceLocation(Charm.MOD_ID, "made_atlas_maps");
 
     public static final SoundEvent ATLAS_OPEN = CharmSounds.createSound("atlas_open");
@@ -55,6 +59,9 @@ public class Atlases extends CharmModule {
     @Config(name = "Map scale", description = "Map scale used in atlases by default.")
     public static int defaultScale = 0;
 
+    @Config(name = "Enable keybind", description = "If true, sets a keybind for swapping the item in your main hand with the first available atlas in your inventory (defaults to 'r').")
+    public static boolean enableKeybind = true;
+
     public static AtlasItem ATLAS_ITEM;
     public static MenuType<AtlasContainer> MENU;
 
@@ -72,7 +79,8 @@ public class Atlases extends CharmModule {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
 
         // listen for network requests to run the server callback
-        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_ATLAS_TRANSFER, this::handleServerAtlasTransfer);
+        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_TRANSFER_ATLAS, this::handleTransferAtlas);
+        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_SWAP_ATLAS, this::handleSwapAtlas);
     }
 
     public static boolean inventoryContainsMap(Inventory inventory, ItemStack stack) {
@@ -201,16 +209,52 @@ public class Atlases extends CharmModule {
         }
     }
 
-    private void handleServerAtlasTransfer(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf data, PacketSender sender) {
-        int atlasSlot = data.readInt();
-        int mapX = data.readInt();
-        int mapZ = data.readInt();
-        MoveMode mode = data.readEnum(MoveMode.class);
+    private void handleSwapAtlas(MinecraftServer server, ServerPlayer player, ServerGamePacketListener handler, FriendlyByteBuf buffer, PacketSender sender) {
+        int swappedSlot = buffer.readInt();
+        server.execute(() -> {
+            if (player == null) return;
+            ItemStack offhandItem = player.getOffhandItem().copy();
+            ItemStack mainHandItem = player.getMainHandItem().copy();
+            Inventory inventory = player.getInventory();
+
+            Consumer<Integer> doSwap = i -> {
+                ItemStack swap = inventory.getItem(i).copy();
+                inventory.setItem(i, mainHandItem);
+                player.setItemInHand(InteractionHand.MAIN_HAND, swap);
+                NetworkHelper.sendPacketToClient(player, MSG_CLIENT_SWAPPED_SLOT, buf -> buf.writeInt(i));
+            };
+
+            if (mainHandItem.getItem() instanceof AtlasItem) {
+                if (swappedSlot >= 0) {
+                    doSwap.accept(swappedSlot);
+                    return;
+                }
+            }
+
+            if (offhandItem.getItem() instanceof AtlasItem) return;
+
+            int slot = -1;
+            for (int i = 0; i < 36; i++) {
+                ItemStack inv = inventory.getItem(i);
+                if (inv.getItem() instanceof AtlasItem) {
+                    slot = i;
+                    break;
+                }
+            }
+
+            if (slot == -1) return;
+            doSwap.accept(slot);
+        });
+    }
+
+    private void handleTransferAtlas(MinecraftServer server, ServerPlayer player, ServerGamePacketListener handler, FriendlyByteBuf buffer, PacketSender sender) {
+        int atlasSlot = buffer.readInt();
+        int mapX = buffer.readInt();
+        int mapZ = buffer.readInt();
+        MoveMode mode = buffer.readEnum(MoveMode.class);
 
         server.execute(() -> {
-            if (player == null)
-                return;
-
+            if (player == null) return;
             AtlasInventory inventory = getInventory(player.level, player.getInventory().getItem(atlasSlot));
 
             switch (mode) {

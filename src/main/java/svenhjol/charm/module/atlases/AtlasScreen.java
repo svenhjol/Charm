@@ -203,7 +203,7 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
         data.writeInt(mapX);
         data.writeInt(mapZ);
         data.writeEnum(mode);
-        ClientPlayNetworking.send(Atlases.MSG_SERVER_ATLAS_TRANSFER, data);
+        ClientPlayNetworking.send(Atlases.MSG_SERVER_TRANSFER_ATLAS, data);
     }
 
     private int getX() {
