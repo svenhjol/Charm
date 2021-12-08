@@ -34,10 +34,23 @@ public class ConfigHelper {
         return new Toml().read(path.toFile());
     }
 
-    public static boolean isModuleDisabled(Toml toml, String moduleName) {
+    public static String getQuotedModuleEnabledName(String moduleName) {
         String moduleEnabled = moduleName + " Enabled";
-        String moduleEnabledQuoted = "\"" + moduleEnabled + "\"";
-        return toml.contains(moduleEnabledQuoted) && !toml.getBoolean(moduleEnabledQuoted);
+        return "\"" + moduleEnabled + "\"";
+    }
+
+    public static boolean moduleExistsInConfig(Toml toml, String moduleName) {
+        String quoted = getQuotedModuleEnabledName(moduleName);
+        return toml.contains(quoted);
+    }
+
+    /**
+     * Even though it seems that it should be isModuleEnabled and the NOT check removed,
+     * this needs to be an explicit disabled check so that early mixin loading works.
+     */
+    public static boolean isModuleDisabled(Toml toml, String moduleName) {
+        String quoted = getQuotedModuleEnabledName(moduleName);
+        return toml.contains(quoted) && !toml.getBoolean(quoted);
     }
 
     public static boolean isDebugMode(Toml toml) {
@@ -48,7 +61,7 @@ public class ConfigHelper {
     public static <T extends CharmModule> void applyConfig(Toml toml, List<T> modules) {
         modules.forEach(module -> {
             String moduleName = module.getName();
-            if (toml.isEmpty() && !module.isEnabledByDefault()) {
+            if ((toml.isEmpty() || !moduleExistsInConfig(toml, moduleName)) && !module.isEnabledByDefault()) {
                 module.setEnabledInConfig(false);
             } else {
                 module.setEnabledInConfig(!isModuleDisabled(toml, moduleName));
