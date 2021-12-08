@@ -35,8 +35,9 @@ public class StringHelper {
     }
 
     public static String capitalize(String string) {
-        if (string == null || string.isEmpty())
+        if (string == null || string.isEmpty()) {
             return string;
+        }
 
         return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
@@ -81,10 +82,10 @@ public class StringHelper {
         if (languageStrings.containsKey(modId)) {
             // try and fetch the resolved language key from the mod's language strings
             JsonElement el = languageStrings.get(modId).get(key);
-            if (el != null)
+            if (el != null) {
+                LogHelper.debug(StringHelper.class, "Resolved `" + key + "` for mod `" + modId + "`");
                 return Optional.of(el.getAsString());
-
-            LogHelper.debug(StringHelper.class, "Could not resolve key `" + key + "` for mod `" + modId + "`");
+            }
         }
 
         return Optional.empty();
@@ -94,15 +95,20 @@ public class StringHelper {
         List<String> modIds = ModuleLoader.getModIds();
 
         // don't try and work with a non-translatable component
-        if (!(message instanceof TranslatableComponent translatable)) return Optional.empty();
+        if (!(message instanceof TranslatableComponent translatable)) {
+            return Optional.empty();
+        }
 
         // ignore if it doesn't contain a mod key
         String useModId = "";
         for (String modId : modIds) {
-            if (message.getString().contains(modId + "."))
+            if (message.getString().contains(modId + ".")) {
                 useModId = modId;
+            }
         }
-        if (useModId.isEmpty()) return Optional.empty();
+        if (useModId.isEmpty()) {
+            return Optional.empty();
+        }
 
         String reduced = message.getString();
         if (reduced.startsWith("[") && reduced.endsWith("]"))
