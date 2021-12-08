@@ -19,7 +19,7 @@ public class ShowRepairCost extends CharmModule {
         int repairCost = stack.getBaseRepairCost();
         if (repairCost > 0) {
             tooltip.add(TextComponent.EMPTY); // a new line
-            tooltip.add(new TranslatableComponent("item.charm.repair_cost", repairCost).withStyle(ChatFormatting.GRAY));
+            tooltip.add(new TranslatableComponent("gui.charm.repair_cost", repairCost).withStyle(ChatFormatting.GRAY));
         }
 
         return tooltip;

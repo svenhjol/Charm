@@ -7,6 +7,7 @@ If the feature is not listed here then its functionality remains the same from C
 
 * `Anvil improvements` has been split into the following features:
   * `Allow too expensive`
+  * `Show repair cost`
   * `Stronger anvils`
 * `Amethyst note block` has been added.
 * `Armor invisibility` has been removed.
