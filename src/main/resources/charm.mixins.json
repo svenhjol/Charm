@@ -48,7 +48,7 @@
     "open_both_doors.ReactOnDoorOpenedMixin",
     "parrots_stay_on_shoulder.KeepShoulderEntitiesMixin",
     "respawn_anchor_in_the_end.CheckIfCanSetSpawnMixin",
-    "scale_cured_villager_discount.ScaleReputationGossipMixin",
+    "no_cured_villager_discount.BypassReputationGossipMixin",
     "snow_accumulation.PlaceMoreSnowMixin",
     "snow_accumulation.PreventSnowMeltingMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",

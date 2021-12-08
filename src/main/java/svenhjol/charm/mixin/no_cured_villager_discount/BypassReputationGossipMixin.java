@@ -1,13 +1,13 @@
-package svenhjol.charm.mixin.scale_cured_villager_discount;
+package svenhjol.charm.mixin.no_cured_villager_discount;
 
 import net.minecraft.world.entity.npc.Villager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import svenhjol.charm.module.scale_cured_villager_discount.ScaleCuredVillagerDiscount;
+import svenhjol.charm.module.no_cured_villager_discount.NoCuredVillagerDiscount;
 
 @Mixin(Villager.class)
-public class ScaleReputationGossipMixin {
+public class BypassReputationGossipMixin {
     @ModifyArg(
         method = "onReputationEventFrom",
         at = @At(
@@ -18,7 +18,7 @@ public class ScaleReputationGossipMixin {
         index = 2
     )
     private int hookMajorPositiveGossip(int val) {
-        return ScaleCuredVillagerDiscount.scaleValue(val);
+        return NoCuredVillagerDiscount.shouldRemoveDiscount() ? 0 : val;
     }
 
     @ModifyArg(
@@ -31,6 +31,6 @@ public class ScaleReputationGossipMixin {
         index = 2
     )
     private int hookMinorPositiveGossip(int val) {
-        return ScaleCuredVillagerDiscount.scaleValue(val);
+        return NoCuredVillagerDiscount.shouldRemoveDiscount() ? 0 : val;
     }
 }

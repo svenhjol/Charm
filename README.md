@@ -45,6 +45,7 @@ If the feature is not listed here then its functionality remains the same from C
 * `Music improvements` is now known as `Discs stop background music`.
   * The creative music tracks have moved to the *Charmonium* mod.
 * `More village biomes` now adds villages to the new meadows biome.
+* `No cured villager discount` has been added and is **disabled by default**.
 * `No treasure enchantment trading` has been added and is **disabled by default**.
 * `Open double doors` is now known as `Open both doors`.
 * `Piglins follow gold blocks` has been removed.
@@ -54,7 +55,6 @@ If the feature is not listed here then its functionality remains the same from C
 * `Quadrants` has been moved to the *Strange* mod.
 * `Remove nitwits` is now known as `No nitwits` and is **disabled by default**.
 * `Respawn anchor in the End` has been added and is **disabled by default**.
-* `Scale cured villager discount` has been added and is **disabled by default**.
 * `Shulker box drag drop` has been added.
 * `Shulker box tooltips` is now known as `Shulker box tooltip`.
   * The tooltip uses the vanilla bundle tooltip hover gui.
