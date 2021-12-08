@@ -9,6 +9,6 @@ import svenhjol.charm.loader.CharmModule;
     "This is an opinionated feature designed to force the player to explore and so is disabled by default.")
 public class NoTreasureEnchantmentTrading extends CharmModule {
     public static boolean isTradeable(Enchantment enchantment) {
-        return enchantment.isTradeable() && !enchantment.isTreasureOnly();
+        return !enchantment.isTreasureOnly();
     }
 }
