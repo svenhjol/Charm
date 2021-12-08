@@ -89,8 +89,9 @@ public abstract class BaseMixinConfigPlugin implements IMixinConfigPlugin {
 
                 String moduleName = StringHelper.snakeToUpperCamel(truncatedName.substring(0, truncatedName.indexOf(".")));
 
-                if (!moduleName.isEmpty() && ConfigHelper.isModuleDisabled(toml, moduleName))
+                if (!moduleName.isEmpty() && !ConfigHelper.isModuleEnabled(toml, moduleName)) {
                     disabledMixins.put(truncatedName, true);
+                }
 
                 if (node.visibleAnnotations != null && !node.visibleAnnotations.isEmpty()) {
                     for (AnnotationNode annotation : node.visibleAnnotations) {
