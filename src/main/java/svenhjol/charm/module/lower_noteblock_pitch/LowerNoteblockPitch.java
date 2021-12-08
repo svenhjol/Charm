@@ -25,6 +25,7 @@ public class LowerNoteblockPitch extends CharmModule {
     private InteractionResult handleUseBlock(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
         if (hand != InteractionHand.MAIN_HAND
             || level.isClientSide
+            || !player.getMainHandItem().isEmpty()
             || !player.isSecondaryUseActive()) {
             return InteractionResult.PASS;
         }
