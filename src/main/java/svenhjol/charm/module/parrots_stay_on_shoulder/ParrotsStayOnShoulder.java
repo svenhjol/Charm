@@ -13,17 +13,17 @@ import svenhjol.charm.loader.CharmModule;
 public class ParrotsStayOnShoulder extends CharmModule {
     @Override
     public void runWhenEnabled() {
-        PlayerTickCallback.EVENT.register(this::tryDismountParrot);
+        PlayerTickCallback.EVENT.register(this::handlePlayerTick);
     }
 
     public static boolean shouldParrotStayMounted(Level level, long shoulderTime) {
         return shoulderTime + 20L < level.getGameTime() && Charm.LOADER.isEnabled(ParrotsStayOnShoulder.class);
     }
 
-    public void tryDismountParrot(Player player) {
+    private void handlePlayerTick(Player player) {
         if (!player.level.isClientSide
             && player.level.getGameTime() % 10 == 0
-            && player.isShiftKeyDown()
+            && (player.isSecondaryUseActive() || player.isUnderWater())
         ) {
             final ServerPlayer serverPlayer = (ServerPlayer)player;
             if (!serverPlayer.getShoulderEntityLeft().isEmpty()) {
