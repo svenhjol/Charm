@@ -8,7 +8,7 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.EnchantmentsHelper;
 import svenhjol.charm.loader.CharmModule;
 
-@CommonModule(mod = Charm.MOD_ID, enabledByDefault = false, description = "Removes trampling of farmland and crops.")
+@CommonModule(mod = Charm.MOD_ID, description = "Removes trampling of farmland and crops.")
 public class NoCropTrampling extends CharmModule {
 
     @Config(name = "Require feather falling", description = "If true, a player or mob will trample crops unless wearing boots with feather falling enchantment.")

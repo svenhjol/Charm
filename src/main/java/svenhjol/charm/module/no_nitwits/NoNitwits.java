@@ -11,7 +11,8 @@ import svenhjol.charm.event.AddEntityCallback;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.loader.CharmModule;
 
-@CommonModule(mod = Charm.MOD_ID, enabledByDefault = false, description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.")
+@CommonModule(mod = Charm.MOD_ID, enabledByDefault = false, description = "When any action would cause a villager to become a nitwit, it becomes an unemployed villager instead.\n" +
+    "This is an opinionated feature that removes a gameplay element and so is disabled by default.")
 public class NoNitwits extends CharmModule {
     @Override
     public void runWhenEnabled() {
