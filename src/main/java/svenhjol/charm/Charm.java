@@ -23,7 +23,6 @@ public class Charm implements ModInitializer {
         CharmLog.init();
         CharmHacks.init();
         CharmParticles.init();
-        CharmSounds.init();
         CharmTags.init();
         CharmBiomes.init();
         CharmAdvancements.init();

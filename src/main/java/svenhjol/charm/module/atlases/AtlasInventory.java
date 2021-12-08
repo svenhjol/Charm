@@ -269,7 +269,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public void startOpen(Player player) {
         isOpen = true;
         if (!player.level.isClientSide) {
-            player.playNotifySound(Atlases.ATLAS_OPEN, SoundSource.BLOCKS, 0.4f, player.level.random.nextFloat() * 0.1F + 0.9F);
+            player.playNotifySound(Atlases.ATLAS_OPEN_SOUND, SoundSource.BLOCKS, 0.4f, player.level.random.nextFloat() * 0.1F + 0.9F);
         }
     }
 
@@ -277,7 +277,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public void stopOpen(Player player) {
         isOpen = false;
         if (!player.level.isClientSide) {
-            player.playNotifySound(Atlases.ATLAS_CLOSE, SoundSource.BLOCKS, 0.4f, player.level.random.nextFloat() * 0.1F + 0.9F);
+            player.playNotifySound(Atlases.ATLAS_CLOSE_SOUND, SoundSource.BLOCKS, 0.4f, player.level.random.nextFloat() * 0.1F + 0.9F);
         }
     }
 

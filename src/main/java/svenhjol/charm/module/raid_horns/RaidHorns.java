@@ -16,16 +16,16 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.registry.CommonRegistry;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.")
 public class RaidHorns extends CharmModule {
     public static RaidHornItem RAID_HORN;
 
-    public static final SoundEvent RAID_HORN_CALL_PATROL = CharmSounds.createSound("raid_horn_call_patrol");
-    public static final SoundEvent RAID_HORN_CALL_OFF_RAID = CharmSounds.createSound("raid_horn_call_off_raid");
-    public static final SoundEvent RAID_HORN_SQUEAK = CharmSounds.createSound("raid_horn_squeak");
+    public static SoundEvent CALL_PATROL_SOUND;
+    public static SoundEvent CALL_OFF_RAID_SOUND;
+    public static SoundEvent SQUEAK_SOUND;
 
     public static final ResourceLocation TRIGGER_SUMMONED_PILLAGERS = new ResourceLocation(Charm.MOD_ID, "summoned_pillagers");
     public static final ResourceLocation TRIGGER_CALLED_OFF_RAID = new ResourceLocation(Charm.MOD_ID, "called_off_raid");
@@ -41,6 +41,9 @@ public class RaidHorns extends CharmModule {
     @Override
     public void register() {
         RAID_HORN = new RaidHornItem(this);
+        CALL_PATROL_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "raid_horn_call_patrol"));
+        CALL_OFF_RAID_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "raid_horn_call_off_raid"));
+        SQUEAK_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "raid_horn_squeak"));
     }
 
     @Override

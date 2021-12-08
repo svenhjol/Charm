@@ -21,7 +21,6 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -31,7 +30,7 @@ public class EndermitePowder extends CharmModule {
     public static EntityType<EndermitePowderEntity> ENTITY;
     public static EndermitePowderItem ENDERMITE_POWDER;
 
-    public static final SoundEvent ENDERMITE_POWDER_LAUNCH = CharmSounds.createSound("endermite_powder_launch");
+    public static SoundEvent LAUNCH_SOUND;
 
     public static double lootingBoost = 0.3D;
 
@@ -41,6 +40,7 @@ public class EndermitePowder extends CharmModule {
     @Override
     public void register() {
         ENDERMITE_POWDER = new EndermitePowderItem(this);
+        LAUNCH_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "endermite_powder_launch"));
 
         // setup and register the entity
         ENTITY = CommonRegistry.entity(ID, FabricEntityTypeBuilder

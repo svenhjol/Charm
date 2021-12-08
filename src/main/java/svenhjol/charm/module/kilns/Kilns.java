@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -26,9 +25,7 @@ public class Kilns extends CharmModule {
     public static RecipeType<FiringRecipe> RECIPE_TYPE;
     public static SimpleCookingSerializer<FiringRecipe> RECIPE_SERIALIZER;
     public static MenuType<KilnScreenHandler> SCREEN_HANDLER;
-
-    public static final SoundEvent KILN_BAKE = CharmSounds.createSound("kiln_bake");
-
+    public static SoundEvent BAKE_SOUND;
     public static RecipeBookType RECIPE_BOOK_TYPE;
 
     @Override
@@ -38,6 +35,7 @@ public class Kilns extends CharmModule {
         RECIPE_SERIALIZER = CommonRegistry.recipeSerializer(RECIPE_ID.toString(), new SimpleCookingSerializer<>(FiringRecipe::new, 100));
         BLOCK_ENTITY = CommonRegistry.blockEntity(BLOCK_ID, KilnBlockEntity::new, KILN);
         SCREEN_HANDLER = CommonRegistry.menu(BLOCK_ID, KilnScreenHandler::new);
+        BAKE_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "kiln_bake"));
     }
 
     @Override

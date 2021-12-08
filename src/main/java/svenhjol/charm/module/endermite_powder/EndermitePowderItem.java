@@ -42,7 +42,7 @@ public class EndermitePowderItem extends CharmItem {
         // client
         if (level.isClientSide) {
             player.swing(hand);
-            level.playSound(player, x, y, z, EndermitePowder.ENDERMITE_POWDER_LAUNCH, SoundSource.PLAYERS, 0.4F, 0.9F + level.random.nextFloat() * 0.2F);
+            level.playSound(player, x, y, z, EndermitePowder.LAUNCH_SOUND, SoundSource.PLAYERS, 0.4F, 0.9F + level.random.nextFloat() * 0.2F);
         }
 
         // server

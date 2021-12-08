@@ -27,7 +27,6 @@ import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.NbtHelper;
 import svenhjol.charm.helper.NetworkHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -43,8 +42,8 @@ public class Atlases extends CharmModule {
     public static final ResourceLocation MSG_CLIENT_SWAPPED_SLOT = new ResourceLocation(Charm.MOD_ID, "client_swapped_slot");
     public static final ResourceLocation TRIGGER_MADE_ATLAS_MAPS = new ResourceLocation(Charm.MOD_ID, "made_atlas_maps");
 
-    public static final SoundEvent ATLAS_OPEN = CharmSounds.createSound("atlas_open");
-    public static final SoundEvent ATLAS_CLOSE = CharmSounds.createSound("atlas_close");
+    public static SoundEvent ATLAS_OPEN_SOUND;
+    public static SoundEvent ATLAS_CLOSE_SOUND;
 
     public static final int NUMBER_OF_MAPS_FOR_ACHIEVEMENT = 10;
 
@@ -70,13 +69,16 @@ public class Atlases extends CharmModule {
         ATLAS_ITEM = new AtlasItem(this);
         VALID_ATLAS_ITEMS.add(Items.MAP);
         VALID_ATLAS_ITEMS.add(Items.FILLED_MAP);
-
+        ATLAS_OPEN_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "atlas_open"));
+        ATLAS_CLOSE_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "atlas_close"));
         MENU = CommonRegistry.menu(ID, (syncId, playerInventory) -> new AtlasContainer(syncId, playerInventory, findAtlas(playerInventory)));
     }
 
     @Override
     public void runWhenEnabled() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
+
+        // TODO: on world load, reset the client-side swappedSlot!
 
         // listen for network requests to run the server callback
         ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_TRANSFER_ATLAS, this::handleTransferAtlas);

@@ -147,14 +147,14 @@ public class RaidHornItem extends CharmItem {
     }
 
     private void playCallPatrolSound(ServerLevel level, BlockPos pos) {
-        level.playSound(null, pos, RaidHorns.RAID_HORN_CALL_PATROL, SoundSource.PLAYERS, (float) RaidHorns.volume, 0.95F + level.getRandom().nextFloat() * 0.15F);
+        level.playSound(null, pos, RaidHorns.CALL_PATROL_SOUND, SoundSource.PLAYERS, (float) RaidHorns.volume, 0.95F + level.getRandom().nextFloat() * 0.15F);
     }
 
     private void playCallOffRaidSound(ServerLevel level, BlockPos pos) {
-        level.playSound(null, pos, RaidHorns.RAID_HORN_CALL_OFF_RAID, SoundSource.PLAYERS, (float) RaidHorns.volume - 0.1F, 0.95F + level.getRandom().nextFloat() * 0.15F);
+        level.playSound(null, pos, RaidHorns.CALL_OFF_RAID_SOUND, SoundSource.PLAYERS, (float) RaidHorns.volume - 0.1F, 0.95F + level.getRandom().nextFloat() * 0.15F);
     }
 
     private void playFailSound(ServerLevel level, BlockPos pos) {
-        level.playSound(null, pos, RaidHorns.RAID_HORN_SQUEAK, SoundSource.PLAYERS, (float) RaidHorns.volume - 0.2F, 0.95F + level.getRandom().nextFloat() * 0.15F);
+        level.playSound(null, pos, RaidHorns.SQUEAK_SOUND, SoundSource.PLAYERS, (float) RaidHorns.volume - 0.2F, 0.95F + level.getRandom().nextFloat() * 0.15F);
     }
 }

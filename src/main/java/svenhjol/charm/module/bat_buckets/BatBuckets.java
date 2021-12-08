@@ -28,8 +28,8 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.NbtHelper;
 import svenhjol.charm.init.CharmAdvancements;
-import svenhjol.charm.init.CharmSounds;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.List;
 
@@ -40,8 +40,8 @@ public class BatBuckets extends CharmModule {
     public static final ResourceLocation TRIGGER_CAPTURED_BAT = new ResourceLocation(Charm.MOD_ID, "captured_bat");
     public static final ResourceLocation TRIGGER_USED_BAT_BUCKET = new ResourceLocation(Charm.MOD_ID, "used_bat_bucket");
 
-    public static final SoundEvent BAT_BUCKET_GRAB = CharmSounds.createSound("bat_bucket_grab");
-    public static final SoundEvent BAT_BUCKET_RELEASE = CharmSounds.createSound("bat_bucket_release");
+    public static SoundEvent GRAB_SOUND;
+    public static SoundEvent RELEASE_SOUND;
 
     public static BatBucketItem BAT_BUCKET_ITEM;
     public static EcholocationEffect ECHOLOCATION;
@@ -59,6 +59,8 @@ public class BatBuckets extends CharmModule {
     public void register() {
         BAT_BUCKET_ITEM = new BatBucketItem(this);
         ECHOLOCATION = new EcholocationEffect(this);
+        GRAB_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "bat_bucket_grab"));
+        RELEASE_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "bat_bucket_release"));
     }
 
     @Override
@@ -114,11 +116,11 @@ public class BatBuckets extends CharmModule {
     }
 
     public static void playGrabSound(ServerLevel level, BlockPos pos) {
-        level.playSound(null, pos, BatBuckets.BAT_BUCKET_GRAB, SoundSource.PLAYERS, 0.6F, 0.95F + level.getRandom().nextFloat() * 0.2F);
+        level.playSound(null, pos, BatBuckets.GRAB_SOUND, SoundSource.PLAYERS, 0.6F, 0.95F + level.getRandom().nextFloat() * 0.2F);
     }
 
     public static void playReleaseSound(ServerLevel level, BlockPos pos) {
-        level.playSound(null, pos, BatBuckets.BAT_BUCKET_RELEASE, SoundSource.PLAYERS, 0.6F, 0.95F + level.getRandom().nextFloat() * 0.2F);
+        level.playSound(null, pos, BatBuckets.RELEASE_SOUND, SoundSource.PLAYERS, 0.6F, 0.95F + level.getRandom().nextFloat() * 0.2F);
     }
 
     public static void playLaunchSound(ServerLevel level, BlockPos pos) {

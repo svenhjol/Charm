@@ -67,7 +67,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
                 context.execute((level, blockPos) -> {
                     long l = level.getGameTime();
                     if (WoodcutterMenu.this.lastTakeTime != l) {
-                        level.playSound(null, blockPos, Woodcutters.WOODCUTTER_USE, SoundSource.BLOCKS, 0.4F, 1.0F);
+                        level.playSound(null, blockPos, Woodcutters.USE_SOUND, SoundSource.BLOCKS, 0.4F, 1.0F);
                         WoodcutterMenu.this.lastTakeTime = l;
                     }
                 });
