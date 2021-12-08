@@ -26,12 +26,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@CommonModule(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.")
+@CommonModule(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item into an empty book using the grindstone.\n" +
+    "The player must pay a cost (in xp levels) to extract enchantments from the item.")
 public class ExtractEnchantments extends CharmModule {
     public static final ResourceLocation TRIGGER_EXTRACTED_ENCHANTMENT = new ResourceLocation(Charm.MOD_ID, "extracted_enchantment");
 
-    @Config(name = "Initial XP cost", description = "Number of XP levels required before adding on the cost of the enchanted item.")
+    @Config(name = "Initial cost", description = "Initial cost (in xp levels) of extraction before adding on the cost of the enchantment(s).")
     public static int initialCost = 5;
+
+    @Config(name = "Treasure cost", description = "Adds extra cost (in xp levels) if the enchantment is a 'treasure' enchantment such as Mending.")
+    public static int treasureCost = 5;
+
+    @Config(name = "Add item repair cost", description = "If true, the item's repair cost will be added to the cost of extraction.")
+    public static boolean addRepairCost = true;
 
     @Override
     public void register() {
@@ -167,10 +174,14 @@ public class ExtractEnchantments extends CharmModule {
             if (level > 0 && ench.isTradeable()) {
                 cost += level;
             }
+
+            if (ench.isTreasureOnly()) {
+                cost += treasureCost;
+            }
         }
 
         // add repair cost on the input item
-        if (stack.getTag() != null && !stack.getTag().isEmpty()) {
+        if (addRepairCost && stack.getTag() != null && !stack.getTag().isEmpty()) {
             cost += stack.getTag().getInt("RepairCost");
         }
 
