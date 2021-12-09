@@ -31,6 +31,9 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructurePieceType;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import svenhjol.charm.helper.StringHelper;
 
@@ -120,6 +123,11 @@ public class CommonRegistry {
         return Registry.register(Registry.MENU, id, new MenuType<>(factory));
     }
 
+    public static StructureProcessorList processorList(ResourceLocation id, List<StructureProcessor> processors) {
+        StructureProcessorList list = new StructureProcessorList(processors);
+        return BuiltinRegistries.register(BuiltinRegistries.PROCESSOR_LIST, id, list);
+    }
+
     public static SoundEvent sound(ResourceLocation id) {
         SoundEvent sound = new SoundEvent(id);
         sound(id, sound);
@@ -136,6 +144,10 @@ public class CommonRegistry {
 
     public static StructurePieceType structurePiece(ResourceLocation id, StructurePieceType structurePieceType) {
         return Registry.register(Registry.STRUCTURE_PIECE, id, structurePieceType);
+    }
+
+    public static <T extends StructureProcessor> StructureProcessorType<T> structureProcessor(ResourceLocation id, StructureProcessorType<T> type) {
+        return Registry.register(Registry.STRUCTURE_PROCESSOR, id, type);
     }
 
     public static VillagerProfession villagerProfession(String id, VillagerProfession profession) {
