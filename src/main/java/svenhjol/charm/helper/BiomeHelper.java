@@ -12,24 +12,23 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @version 4.0.0-charm
  */
 @SuppressWarnings({"UnstableApiUsage", "unused"})
 public class BiomeHelper {
-    public static Map<Biome.BiomeCategory, List<ResourceKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
+    public static Map<BiomeCategory, List<ResourceKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
 
     public static Biome getBiome(ServerLevel level, BlockPos pos) {
         BiomeManager biomeAccess = level.getBiomeManager();
@@ -50,6 +49,15 @@ public class BiomeHelper {
         return level.getBiomeName(pos);
     }
 
+    @Nullable
+    public static BiomeCategory getBiomeCategoryByName(String name) {
+        List<String> validCategories = Arrays.stream(BiomeCategory.values()).map(BiomeCategory::getSerializedName).collect(Collectors.toList());
+        if (validCategories.contains(name)) {
+            return BiomeCategory.byName(name);
+        }
+        return null;
+    }
+
     public static BlockPos locateBiome(ResourceKey<Biome> biomeKey, ServerLevel level, BlockPos pos) {
         Biome biome = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).get(biomeKey);
         return locateBiome(biome, level, pos);
@@ -59,7 +67,7 @@ public class BiomeHelper {
         return level.findNearestBiome(biome, pos, 6400, 8);
     }
 
-    public static void addFeatureToBiomeCategories(PlacedFeature feature, Biome.BiomeCategory biomeCategory, GenerationStep.Decoration generationStep) {
+    public static void addFeatureToBiomeCategories(PlacedFeature feature, BiomeCategory biomeCategory, GenerationStep.Decoration generationStep) {
         List<ResourceKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
         biomeKeys.forEach(biomeKey -> BiomeHelper.addFeatureToBiome(feature, biomeKey, generationStep));
     }
@@ -79,7 +87,7 @@ public class BiomeHelper {
         BiomeModifications.addFeature(biomeSelector, generationStep, featureKey);
     }
 
-    public static void addStructureToBiomeCategories(ConfiguredStructureFeature<?, ?> structureFeature, Biome.BiomeCategory biomeCategory) {
+    public static void addStructureToBiomeCategories(ConfiguredStructureFeature<?, ?> structureFeature, BiomeCategory biomeCategory) {
         List<ResourceKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
         biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureToBiome(structureFeature, biomeKey));
     }
