@@ -1,7 +1,5 @@
 package svenhjol.charm.module.stackable_stews;
 
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
@@ -28,16 +26,9 @@ public class StackableStews extends CharmModule {
         }
     }
 
-    public static boolean tryEatStewStack(LivingEntity entity, ItemStack stack) {
-        if (!Charm.LOADER.isEnabled(StackableStews.class) || stack.getMaxStackSize() == 1)
-            return false;
-
-        if (entity instanceof Player player) {
-            if (!player.getAbilities().instabuild) {
-                player.addItem(new ItemStack(Items.BOWL));
-            }
-        }
-
-        return true;
+    public static boolean changeReturnedItem(ItemStack eaten, ItemStack returned) {
+        return returned.getItem() == Items.BOWL
+            && Charm.LOADER.isEnabled(StackableStews.class)
+            && eaten.getCount() > 0;
     }
 }

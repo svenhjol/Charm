@@ -7,12 +7,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.helper.AdvancementHelper;
 
 import java.util.Map;
 
-@SuppressWarnings("InvalidInjectorMethodSignature")
 @Mixin(AdvancementList.class)
 public class FilterAdvancementsMixin {
     /**
@@ -30,10 +28,9 @@ public class FilterAdvancementsMixin {
             target = "Lcom/google/common/collect/Maps;newHashMap(Ljava/util/Map;)Ljava/util/HashMap;",
             shift = At.Shift.AFTER,
             remap = false
-        ),
-        locals = LocalCapture.CAPTURE_FAILSOFT
+        )
     )
-    private void hookAdd(Map<ResourceLocation, Advancement.Builder> map, CallbackInfo ci, Map<ResourceLocation, Advancement.Builder> map2) {
-        AdvancementHelper.filterAdvancements(map2); // TODO do we need local here or can we just use first param?
+    private void hookAdd(Map<ResourceLocation, Advancement.Builder> map, CallbackInfo ci) {
+        AdvancementHelper.filterAdvancements(map);
     }
 }

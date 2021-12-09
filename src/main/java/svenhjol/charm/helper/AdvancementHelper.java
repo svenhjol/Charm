@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @version 1.0.1-charm
+ * @version 4.0.0-charm
  */
 public class AdvancementHelper {
     private static final List<ResourceLocation> ADVANCEMENTS_TO_REMOVE = new ArrayList<>();

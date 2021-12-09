@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.module.stackable_stews.StackableStews;
 
 @Mixin({BowlFoodItem.class, SuspiciousStewItem.class})
@@ -17,20 +16,15 @@ public class FinishEatingStewMixin {
     /**
      * Defer to tryEatStewStack when mushroom stew is eaten.
      * If the check passes, return the decremented stack.
-     *
-     * If this mixin is not present, vanilla will reduce an
-     * entire stack of stew to a single bowl.
      */
     @Inject(
         method = "finishUsingItem",
-        at = @At(value = "TAIL"),
-        cancellable = true,
-        locals = LocalCapture.CAPTURE_FAILHARD
+        at = @At("RETURN"),
+        cancellable = true
     )
-    private void hookFinishUsing(ItemStack stack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir, ItemStack eatenStack) {
-        boolean result = StackableStews.tryEatStewStack(entity, eatenStack);
-        if (result) {
-            cir.setReturnValue(eatenStack);
+    private void hookFinishUsing(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
+        if (StackableStews.changeReturnedItem(itemStack, cir.getReturnValue())) {
+            cir.setReturnValue(itemStack);
         }
     }
 }
