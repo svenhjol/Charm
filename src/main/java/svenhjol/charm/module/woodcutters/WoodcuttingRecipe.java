@@ -22,7 +22,7 @@ public class WoodcuttingRecipe extends SingleItemRecipe {
       return this.result.copy();
    }
 
-   public boolean matches(Container inv, Level world) {
+   public boolean matches(Container inv, Level level) {
       return this.ingredient.test(inv.getItem(0));
    }
 

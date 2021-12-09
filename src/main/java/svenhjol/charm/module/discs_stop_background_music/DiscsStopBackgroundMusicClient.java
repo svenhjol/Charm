@@ -37,7 +37,7 @@ public class DiscsStopBackgroundMusicClient extends CharmModule {
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
     }
 
-    private InteractionResult handleUseBlock(Player player, Level world, InteractionHand hand, BlockHitResult hitResult) {
+    private InteractionResult handleUseBlock(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
         stopRecord(player, hitResult.getBlockPos(), player.getItemInHand(hand));
         return InteractionResult.PASS;
     }

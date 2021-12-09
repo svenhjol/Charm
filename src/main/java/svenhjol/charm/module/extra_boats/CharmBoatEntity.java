@@ -15,14 +15,14 @@ import java.util.ArrayList;
 public class CharmBoatEntity extends Boat {
     private static final EntityDataAccessor<Integer> BOAT_TYPE;
 
-    public CharmBoatEntity(EntityType<? extends CharmBoatEntity> entityType, Level world) {
-        super(entityType, world);
+    public CharmBoatEntity(EntityType<? extends CharmBoatEntity> entityType, Level level) {
+        super(entityType, level);
         this.paddlePositions = new float[2];
         this.blocksBuilding = true;
     }
 
-    public CharmBoatEntity(Level world, double x, double y, double z) {
-        this(ExtraBoats.CHARM_BOAT, world);
+    public CharmBoatEntity(Level level, double x, double y, double z) {
+        this(ExtraBoats.CHARM_BOAT, level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;

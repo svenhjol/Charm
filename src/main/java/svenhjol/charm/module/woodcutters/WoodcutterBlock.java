@@ -59,9 +59,9 @@ public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
     }
 
     @Nullable
-    public MenuProvider getMenuProvider(BlockState state, Level world, BlockPos pos) {
+    public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
         return new SimpleMenuProvider((i, playerInventory, playerEntity)
-            -> new WoodcutterMenu(i, playerInventory, ContainerLevelAccess.create(world, pos)), TITLE);
+            -> new WoodcutterMenu(i, playerInventory, ContainerLevelAccess.create(level, pos)), TITLE);
     }
 
     @Override
