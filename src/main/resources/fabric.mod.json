@@ -27,6 +27,13 @@
     ],
     "client": [
       "svenhjol.charm.CharmClient"
+    ],
+    "rei": [
+      "svenhjol.charm.integration.rei.CharmReiClientPlugin",
+      "svenhjol.charm.integration.rei.CharmReiServerPlugin"
+    ],
+    "modmenu": [
+      "svenhjol.charm.integration.modmenu.CharmModMenuPlugin"
     ]
   },
   "mixins": [
@@ -35,11 +42,11 @@
   "accessWidener": "charm.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.11.7",
+    "fabricloader": ">=0.12.8",
     "fabric": "*",
     "minecraft": "1.18.x",
     "fabric-key-binding-api-v1": "*",
-    "java": ">=16"
+    "java": ">=17"
   },
   "suggests": {
     "flamingo": "*"
