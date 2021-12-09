@@ -67,7 +67,7 @@ public class BiomeHelper {
         return level.findNearestBiome(biome, pos, 6400, 8);
     }
 
-    public static void addFeatureToBiomeCategories(PlacedFeature feature, BiomeCategory biomeCategory, GenerationStep.Decoration generationStep) {
+    public static void addFeatureToBiomeCategory(PlacedFeature feature, BiomeCategory biomeCategory, GenerationStep.Decoration generationStep) {
         List<ResourceKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
         biomeKeys.forEach(biomeKey -> BiomeHelper.addFeatureToBiome(feature, biomeKey, generationStep));
     }
@@ -87,7 +87,7 @@ public class BiomeHelper {
         BiomeModifications.addFeature(biomeSelector, generationStep, featureKey);
     }
 
-    public static void addStructureToBiomeCategories(ConfiguredStructureFeature<?, ?> structureFeature, BiomeCategory biomeCategory) {
+    public static void addStructureToBiomeCategory(ConfiguredStructureFeature<?, ?> structureFeature, BiomeCategory biomeCategory) {
         List<ResourceKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
         biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureToBiome(structureFeature, biomeKey));
     }
