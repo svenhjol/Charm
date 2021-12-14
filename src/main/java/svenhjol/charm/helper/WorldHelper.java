@@ -12,15 +12,14 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraft.world.level.material.Material;
 import svenhjol.charm.registry.CommonRegistry;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @version 4.0.0-charm
@@ -53,6 +52,17 @@ public class WorldHelper {
             LogHelper.debug(WorldHelper.class, "Unloaded forced chunk " + chunkPos);
         }
         return result;
+    }
+
+    public static void removeStructures(ServerLevel level, List<StructureFeature<?>> structureFeatures) {
+        StructureSettings settings = level.getChunkSource().getGenerator().getSettings();
+        Map<StructureFeature<?>, StructureFeatureConfiguration> structureConfig = new HashMap<>(settings.structureConfig());
+
+        for (StructureFeature<?> structureFeature : structureFeatures) {
+            structureConfig.remove(structureFeature);
+        }
+
+        settings.structureConfig = structureConfig;
     }
 
     public static void clearWeather(ServerLevel level) {
