@@ -1,6 +1,7 @@
 package svenhjol.charm.mixin.event;
 
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +17,7 @@ public class AddEntityClientMixin {
      *
      * See {@link AddEntityServerMixin} for the server-side version of this event.
      *
-     * It is cancellable if ActionResult != PASS.
+     * It is cancellable if ActionResult == FAIL.
      *
      * If you need the entity's spawn packet (lower-level than this event) then use
      * {@link svenhjol.charm.event.ClientSpawnEntityCallback}.
@@ -26,9 +27,13 @@ public class AddEntityClientMixin {
      */
     @Inject(
         method = "addEntity",
-        at = @At("HEAD")
+        at = @At("HEAD"),
+        cancellable = true
     )
     private void hookAddEntityPrivate(int id, Entity entity, CallbackInfo ci) {
-        AddEntityCallback.EVENT.invoker().interact(entity);
+        InteractionResult result = AddEntityCallback.EVENT.invoker().interact(entity);
+        if (result == InteractionResult.FAIL) {
+            ci.cancel();
+        }
     }
 }

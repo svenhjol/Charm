@@ -1,5 +1,6 @@
 package svenhjol.charm.mixin.event;
 
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.entity.EntityAccess;
 import net.minecraft.world.level.entity.PersistentEntitySectionManager;
@@ -20,11 +21,15 @@ public class AddEntityManagerMixin<T extends EntityAccess> {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/core/SectionPos;asLong(Lnet/minecraft/core/BlockPos;)J"
-        )
+        ),
+        cancellable = true
     )
     private void hookLoadEntity(T entity, boolean existing, CallbackInfoReturnable<Boolean> cir) {
         if (entity instanceof Entity) {
-            AddEntityCallback.EVENT.invoker().interact((Entity)entity);
+            InteractionResult result = AddEntityCallback.EVENT.invoker().interact((Entity) entity);
+            if (result == InteractionResult.FAIL) {
+                cir.setReturnValue(false);
+            }
         }
     }
 }

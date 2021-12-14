@@ -2,6 +2,7 @@ package svenhjol.charm.mixin.event;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,10 +26,14 @@ public class AddEntityServerMixin {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;addNewEntity(Lnet/minecraft/world/level/entity/EntityAccess;)Z"
-        )
+        ),
+        cancellable = true
     )
     private void hookAddEntity(Entity entity, CallbackInfoReturnable<Boolean> cir) {
-        AddEntityCallback.EVENT.invoker().interact(entity);
+        InteractionResult result = AddEntityCallback.EVENT.invoker().interact(entity);
+        if (result == InteractionResult.FAIL) {
+            cir.setReturnValue(false);
+        }
     }
 
     /**
@@ -37,9 +42,13 @@ public class AddEntityServerMixin {
      */
     @Inject(
         method = "addPlayer",
-        at = @At("HEAD")
+        at = @At("HEAD"),
+        cancellable = true
     )
     private void hookAddPlayer(ServerPlayer player, CallbackInfo ci) {
-        AddEntityCallback.EVENT.invoker().interact(player);
+        InteractionResult result = AddEntityCallback.EVENT.invoker().interact(player);
+        if (result == InteractionResult.FAIL) {
+            ci.cancel();
+        }
     }
 }
