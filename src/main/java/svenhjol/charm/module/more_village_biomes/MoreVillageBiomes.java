@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@CommonModule(mod = Charm.MOD_ID, description = "Villages can spawn in more biomes, such as snowy taiga and meadows.")
+@CommonModule(mod = Charm.MOD_ID, description = "Villages can spawn in more biomes, such as snowy taiga and swamps.")
 public class MoreVillageBiomes extends CharmModule {
     @Override
     public void runWhenEnabled() {
