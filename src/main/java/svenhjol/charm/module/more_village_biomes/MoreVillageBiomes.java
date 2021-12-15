@@ -27,8 +27,7 @@ public class MoreVillageBiomes extends CharmModule {
         List<ResourceKey<Biome>> plainsBiomeKeys = new ArrayList<>(Arrays.asList(
             Biomes.JUNGLE,
             Biomes.BAMBOO_JUNGLE,
-            Biomes.SWAMP,
-            Biomes.MEADOW
+            Biomes.SWAMP
         ));
 
         List<ResourceKey<Biome>> taigaBiomeKeys = new ArrayList<>(Arrays.asList(
