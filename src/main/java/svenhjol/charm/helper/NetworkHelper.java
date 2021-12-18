@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
 import javax.annotation.Nullable;
@@ -70,5 +71,10 @@ public class NetworkHelper {
         FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
         callback.accept(buffer);
         ServerPlayNetworking.send(player, id, buffer);
+    }
+
+    public static void sendPacketToAllClients(MinecraftServer server, ResourceLocation id, Consumer<FriendlyByteBuf> callback) {
+        var playerList = server.getPlayerList();
+        playerList.getPlayers().forEach(player -> sendPacketToClient(player, id, callback));
     }
 }
