@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -174,6 +175,13 @@ public class WorldHelper {
         }
 
         return new BlockPos(pos.getX(), surface, pos.getZ());
+    }
+
+    /**
+     * Creates an explosion at the target position.
+     */
+    public static void explode(ServerLevel level, BlockPos pos, float size, Explosion.BlockInteraction interaction) {
+        level.explode(null, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, size, interaction);
     }
 
     public static void syncBlockEntityToClient(ServerLevel level, BlockPos pos) {
