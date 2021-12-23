@@ -20,7 +20,6 @@ import java.util.Optional;
 public abstract class ServerReceiver {
     private int warnings = 0;
     private ResourceLocation id; // cached message ID
-    protected boolean suppressDebugMessages = false;
 
     public ServerReceiver() {
         var id = id();
@@ -44,9 +43,13 @@ public abstract class ServerReceiver {
     }
 
     protected void debug(String message) {
-        if (!suppressDebugMessages) {
+        if (showDebugMessages()) {
             LogHelper.debug(getClass(), message);
         }
+    }
+
+    protected boolean showDebugMessages() {
+        return true;
     }
 
     private void handleInternal(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl listener, FriendlyByteBuf buffer, PacketSender sender) {

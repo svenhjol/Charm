@@ -19,7 +19,6 @@ import java.util.Optional;
 public abstract class ClientReceiver {
     protected ResourceLocation id; // cached message ID
     protected int warnings = 0;
-    protected boolean suppressDebugMessages = false;
 
     public ClientReceiver() {
         ClientPlayNetworking.registerGlobalReceiver(id(), this::handleInternal);
@@ -42,9 +41,13 @@ public abstract class ClientReceiver {
     }
 
     protected void debug(String message) {
-        if (!suppressDebugMessages) {
+        if (showDebugMessages()) {
             LogHelper.debug(getClass(), message);
         }
+    }
+
+    protected boolean showDebugMessages() {
+        return true;
     }
 
     protected void handleInternal(Minecraft client, ClientPacketListener listener, FriendlyByteBuf buffer, PacketSender sender) {

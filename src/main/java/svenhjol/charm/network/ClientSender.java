@@ -15,7 +15,6 @@ import java.util.function.Consumer;
 @SuppressWarnings("unused")
 public abstract class ClientSender {
     protected ResourceLocation id; // cached message ID
-    protected boolean suppressDebugMessages = false;
 
     /**
      * Send an empty message to the server.
@@ -57,8 +56,12 @@ public abstract class ClientSender {
     }
 
     protected void debug(String message) {
-        if (!suppressDebugMessages) {
+        if (showDebugMessages()) {
             LogHelper.debug(getClass(), message);
         }
+    }
+
+    protected boolean showDebugMessages() {
+        return true;
     }
 }

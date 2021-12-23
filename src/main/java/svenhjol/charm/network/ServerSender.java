@@ -17,7 +17,6 @@ import java.util.function.Consumer;
 @SuppressWarnings("unused")
 public abstract class ServerSender {
     protected ResourceLocation id; // cached message ID
-    protected boolean suppressDebugMessages = false;
 
     /**
      * Cache and fetch the message ID from the annotation.
@@ -36,9 +35,13 @@ public abstract class ServerSender {
     }
 
     protected void debug(String message) {
-        if (!suppressDebugMessages) {
+        if (showDebugMessages()) {
             LogHelper.debug(getClass(), message);
         }
+    }
+
+    protected boolean showDebugMessages() {
+        return true;
     }
 
     /**
