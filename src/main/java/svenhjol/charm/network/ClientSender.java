@@ -14,7 +14,8 @@ import java.util.function.Consumer;
  */
 @SuppressWarnings("unused")
 public abstract class ClientSender {
-    private ResourceLocation id; // cached message ID
+    protected ResourceLocation id; // cached message ID
+    protected boolean suppressDebugMessages = false;
 
     /**
      * Send an empty message to the server.
@@ -35,14 +36,14 @@ public abstract class ClientSender {
             callback.accept(buffer);
         }
 
-        LogHelper.debug(getClass(), "Sending message `" + id + "` to server.");
+        debug("Sending message `" + id + "` to server.");
         ClientPlayNetworking.send(id, buffer);
     }
 
     /**
      * Cache and fetch the message ID from the annotation.
      */
-    private ResourceLocation id() {
+    protected ResourceLocation id() {
         if (id == null) {
             if (getClass().isAnnotationPresent(Id.class)) {
                 var annotation = getClass().getAnnotation(Id.class);
@@ -53,5 +54,11 @@ public abstract class ClientSender {
         }
 
         return id;
+    }
+
+    protected void debug(String message) {
+        if (!suppressDebugMessages) {
+            LogHelper.debug(getClass(), message);
+        }
     }
 }

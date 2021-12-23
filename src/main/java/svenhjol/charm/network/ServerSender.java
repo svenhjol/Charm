@@ -16,12 +16,13 @@ import java.util.function.Consumer;
  */
 @SuppressWarnings("unused")
 public abstract class ServerSender {
-    private ResourceLocation id; // cached message ID
+    protected ResourceLocation id; // cached message ID
+    protected boolean suppressDebugMessages = false;
 
     /**
      * Cache and fetch the message ID from the annotation.
      */
-    private ResourceLocation id() {
+    protected ResourceLocation id() {
         if (id == null) {
             if (getClass().isAnnotationPresent(Id.class)) {
                 var annotation = getClass().getAnnotation(Id.class);
@@ -32,6 +33,12 @@ public abstract class ServerSender {
         }
 
         return id;
+    }
+
+    protected void debug(String message) {
+        if (!suppressDebugMessages) {
+            LogHelper.debug(getClass(), message);
+        }
     }
 
     /**
@@ -53,7 +60,7 @@ public abstract class ServerSender {
             callback.accept(buffer);
         }
 
-        LogHelper.debug(getClass(), "Sending message `" + id + "` to " + player.getUUID());
+        debug("Sending message `" + id + "` to " + player.getUUID());
         ServerPlayNetworking.send(player, id, buffer);
     }
 

@@ -20,6 +20,7 @@ import java.util.Optional;
 public abstract class ServerReceiver {
     private int warnings = 0;
     private ResourceLocation id; // cached message ID
+    protected boolean suppressDebugMessages = false;
 
     public ServerReceiver() {
         var id = id();
@@ -42,15 +43,21 @@ public abstract class ServerReceiver {
         return id;
     }
 
+    protected void debug(String message) {
+        if (!suppressDebugMessages) {
+            LogHelper.debug(getClass(), message);
+        }
+    }
+
     private void handleInternal(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl listener, FriendlyByteBuf buffer, PacketSender sender) {
         var id = id();
-        LogHelper.debug(getClass(), "Received message `" + id + "` from client " + player.getUUID() + ".");
+        debug("Received message `" + id + "` from client " + player.getUUID() + ".");
 
         try {
             handle(server, player, buffer);
         } catch (Exception e) {
             if (warnings < 10) {
-                LogHelper.warn(getClass(), "Exception when handling message from server: " + e.getMessage());
+                debug("Exception when handling message from server: " + e.getMessage());
                 warnings++;
             }
         }

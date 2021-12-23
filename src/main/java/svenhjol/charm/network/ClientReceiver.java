@@ -17,8 +17,9 @@ import java.util.Optional;
  */
 @SuppressWarnings("unused")
 public abstract class ClientReceiver {
-    private ResourceLocation id; // cached message ID
-    private int warnings = 0;
+    protected ResourceLocation id; // cached message ID
+    protected int warnings = 0;
+    protected boolean suppressDebugMessages = false;
 
     public ClientReceiver() {
         ClientPlayNetworking.registerGlobalReceiver(id(), this::handleInternal);
@@ -27,7 +28,7 @@ public abstract class ClientReceiver {
     /**
      * Cache and fetch the message ID from the annotation.
      */
-    private ResourceLocation id() {
+    protected ResourceLocation id() {
         if (id == null) {
             if (getClass().isAnnotationPresent(Id.class)) {
                 var annotation = getClass().getAnnotation(Id.class);
@@ -40,14 +41,20 @@ public abstract class ClientReceiver {
         return id;
     }
 
-    private void handleInternal(Minecraft client, ClientPacketListener listener, FriendlyByteBuf buffer, PacketSender sender) {
-        LogHelper.debug(getClass(), "Received message `" + id + "` from server.");
+    protected void debug(String message) {
+        if (!suppressDebugMessages) {
+            LogHelper.debug(getClass(), message);
+        }
+    }
+
+    protected void handleInternal(Minecraft client, ClientPacketListener listener, FriendlyByteBuf buffer, PacketSender sender) {
+        debug("Received message `" + id + "` from server.");
 
         try {
             handle(client, buffer);
         } catch (Exception e) {
             if (warnings < 10) {
-                LogHelper.warn(getClass(), "Exception when handling message from client: " + e.getMessage());
+                debug("Exception when handling message from client: " + e.getMessage());
                 warnings++;
             }
         }
