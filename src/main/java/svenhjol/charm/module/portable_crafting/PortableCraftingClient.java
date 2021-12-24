@@ -2,16 +2,13 @@ package svenhjol.charm.module.portable_crafting;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.annotation.ClientModule;
@@ -20,6 +17,7 @@ import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.init.CharmTags;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.portable_crafting.network.ClientSendOpenCrafting;
 
 import java.util.List;
 
@@ -28,9 +26,12 @@ public class PortableCraftingClient extends CharmModule {
     public ImageButton craftingButton;
     public static KeyMapping keyBinding;
 
+    public static ClientSendOpenCrafting CLIENT_SEND_OPEN_CRAFTING;
+
     @Override
     public void runWhenEnabled() {
-        // set up client listeners
+        CLIENT_SEND_OPEN_CRAFTING = new ClientSendOpenCrafting();
+
         SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
 
@@ -45,7 +46,7 @@ public class PortableCraftingClient extends CharmModule {
             ClientTickEvents.END_WORLD_TICK.register(level -> {
                 if (keyBinding == null || level == null) return;
                 while (keyBinding.consumeClick()) {
-                    triggerOpenCraftingTable();
+                    openCraftingTable();
                 }
             });
         }
@@ -58,7 +59,7 @@ public class PortableCraftingClient extends CharmModule {
         int guiLeft = screen.leftPos;
 
         this.craftingButton = new ImageButton(guiLeft + 130, height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click
-            -> triggerOpenCraftingTable());
+            -> openCraftingTable());
 
         this.craftingButton.visible = hasCrafting(client.player);
         screen.addRenderableWidget(this.craftingButton);
@@ -81,8 +82,8 @@ public class PortableCraftingClient extends CharmModule {
         return player.inventory.contains(CharmTags.CRAFTING_TABLES);
     }
 
-    private void triggerOpenCraftingTable() {
-        ClientPlayNetworking.send(PortableCrafting.MSG_SERVER_OPEN_CRAFTING, new FriendlyByteBuf(Unpooled.buffer()));
+    private void openCraftingTable() {
+        CLIENT_SEND_OPEN_CRAFTING.send();
     }
 
     public boolean isButtonVisible() {
