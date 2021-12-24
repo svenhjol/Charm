@@ -18,20 +18,25 @@ import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.helper.NetworkHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.clear_item_frames.network.ServerSendAddAmethyst;
+import svenhjol.charm.module.clear_item_frames.network.ServerSendRemoveAmethyst;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Add amethyst shards to item frames to make them invisible.")
 public class ClearItemFrames extends CharmModule {
-    public static final ResourceLocation MSG_CLIENT_ADD_AMETHYST = new ResourceLocation(Charm.MOD_ID, "client_add_amethyst");
-    public static final ResourceLocation MSG_CLIENT_REMOVE_AMETHYST = new ResourceLocation(Charm.MOD_ID, "client_remove_amethyst");
     public static final ResourceLocation TRIGGER_USED_AMETHYST_ON_FRAME = new ResourceLocation(Charm.MOD_ID, "used_amethyst_on_frame");
+
+    public static ServerSendAddAmethyst SERVER_SEND_ADD_AMETHYST;
+    public static ServerSendRemoveAmethyst SERVER_SEND_REMOVE_AMETHYST;
 
     @Override
     public void runWhenEnabled() {
         UseEntityCallback.EVENT.register(this::handleUseEntity);
         AttackEntityCallback.EVENT.register(this::handleAttackEntity);
+
+        SERVER_SEND_ADD_AMETHYST = new ServerSendAddAmethyst();
+        SERVER_SEND_REMOVE_AMETHYST = new ServerSendRemoveAmethyst();
     }
 
     private InteractionResult handleUseEntity(Player player, Level level, InteractionHand hand, Entity entity, @Nullable EntityHitResult hitResult) {
@@ -52,7 +57,7 @@ public class ClearItemFrames extends CharmModule {
             held.shrink(1);
 
             if (!level.isClientSide) {
-                NetworkHelper.sendPacketToClient((ServerPlayer) player, MSG_CLIENT_ADD_AMETHYST, buf -> buf.writeLong(frame.blockPosition().asLong()));
+                SERVER_SEND_ADD_AMETHYST.send((ServerPlayer) player, frame.blockPosition());
                 CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayer) player, TRIGGER_USED_AMETHYST_ON_FRAME);
             }
 
@@ -73,7 +78,7 @@ public class ClearItemFrames extends CharmModule {
                 level.addFreshEntity(itemEntity);
 
                 if (!level.isClientSide) {
-                    NetworkHelper.sendPacketToClient((ServerPlayer) player, MSG_CLIENT_REMOVE_AMETHYST, buf -> buf.writeLong(frame.blockPosition().asLong()));
+                    SERVER_SEND_REMOVE_AMETHYST.send((ServerPlayer) player, frame.blockPosition());
                 }
 
                 frame.setInvisible(false);
