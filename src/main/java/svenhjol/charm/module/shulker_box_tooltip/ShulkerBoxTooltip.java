@@ -19,7 +19,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.hover_sorting.HoverSorting;
-import svenhjol.charm.module.hover_sorting.event.HoverSortItemsCallback;
+import svenhjol.charm.api.event.HoverSortItemsCallback;
 import svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler;
 
 import java.util.ArrayList;

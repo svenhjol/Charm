@@ -18,8 +18,8 @@ import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.event.RenderTooltipCallback;
 import svenhjol.charm.event.ScrollMouseCallback;
 import svenhjol.charm.helper.ClientHelper;
-import svenhjol.charm.helper.NetworkHelper;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.hover_sorting.network.ClientSendScrolledOnHover;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -28,12 +28,20 @@ import java.util.Optional;
 @ClientModule(module = HoverSorting.class)
 public class HoverSortingClient extends CharmModule {
     public static ItemStack hoveredItem = null;
+
+    public static ClientSendScrolledOnHover CLIENT_SEND_SCROLLED_ON_HOVER;
+
     @Override
     public void register() {
         ScrollMouseCallback.EVENT.register(this::handleScrollDirection);
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
         ScreenEvents.BEFORE_INIT.register(this::handleScreenInit);
+    }
+
+    @Override
+    public void runWhenEnabled() {
+        CLIENT_SEND_SCROLLED_ON_HOVER = new ClientSendScrolledOnHover();
     }
 
     private void handleScreenInit(Minecraft minecraft, Screen screen, int width, int height) {
@@ -61,12 +69,7 @@ public class HoverSortingClient extends CharmModule {
             if (screen instanceof AbstractContainerScreen) {
                 Slot hoveredSlot = ((AbstractContainerScreen<?>)screen).hoveredSlot;
                 if (hoveredSlot == null) return;
-
-                NetworkHelper.sendPacketToServer(HoverSorting.MSG_SERVER_SCROLLED_ON_HOVER,
-                    buf -> {
-                        buf.writeInt(hoveredSlot.index);
-                        buf.writeBoolean(direction > 0);
-                    });
+                CLIENT_SEND_SCROLLED_ON_HOVER.send(hoveredSlot.index, direction > 0);
             }
         }
     }

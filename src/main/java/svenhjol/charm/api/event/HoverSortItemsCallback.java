@@ -1,4 +1,4 @@
-package svenhjol.charm.module.hover_sorting.event;
+package svenhjol.charm.api.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
