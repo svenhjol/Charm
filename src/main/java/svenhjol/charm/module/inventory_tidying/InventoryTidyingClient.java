@@ -1,15 +1,12 @@
 package svenhjol.charm.module.inventory_tidying;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import svenhjol.charm.Charm;
@@ -18,6 +15,7 @@ import svenhjol.charm.event.RenderGuiCallback;
 import svenhjol.charm.event.SetupGuiCallback;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.inventory_tidying.network.ClientSendTidyInventory;
 
 import java.util.*;
 
@@ -30,6 +28,8 @@ public class InventoryTidyingClient extends CharmModule {
     public static final int LEFT = 159;
     public static final int TOP = 12;
     public static final List<ImageButton> sortingButtons = new ArrayList<>();
+
+    public static ClientSendTidyInventory CLIENT_SEND_TIDY_INVENTORY;
 
     public final List<Class<? extends Screen>> BLOCK_ENTITY_SCREENS = new ArrayList<>();
     public final List<Class<? extends Screen>> BLACKLIST = new ArrayList<>();
@@ -57,7 +57,7 @@ public class InventoryTidyingClient extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        // set up client listeners
+        CLIENT_SEND_TIDY_INVENTORY = new ClientSendTidyInventory();
         SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
     }
@@ -86,11 +86,11 @@ public class InventoryTidyingClient extends CharmModule {
         List<Slot> slots = screenHandler.slots;
         for (Slot slot : slots) {
             if (BLOCK_ENTITY_SCREENS.contains(screen.getClass()) && slot.index == 0) {
-                addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(BE));
+                addSortingButton(screen, x, y + slot.y, click -> CLIENT_SEND_TIDY_INVENTORY.send(BE));
             }
 
             if (slot.container == client.player.inventory) {
-                addSortingButton(screen, x, y + slot.y, click -> sendSortMessage(PLAYER));
+                addSortingButton(screen, x, y + slot.y, click -> CLIENT_SEND_TIDY_INVENTORY.send(PLAYER));
                 break;
             }
         }
@@ -108,11 +108,5 @@ public class InventoryTidyingClient extends CharmModule {
 
     private void addSortingButton(Screen screen, int x, int y, Button.OnPress onPress) {
         sortingButtons.add(new ImageButton(x, y, 10, 10, 40, 0, 10, CharmResources.INVENTORY_BUTTONS, onPress));
-    }
-
-    private void sendSortMessage(int type) {
-        FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
-        data.writeInt(type);
-        ClientPlayNetworking.send(InventoryTidying.MSG_SERVER_TIDY_INVENTORY, data);
     }
 }

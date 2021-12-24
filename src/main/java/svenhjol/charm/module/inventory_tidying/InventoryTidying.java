@@ -1,12 +1,7 @@
 package svenhjol.charm.module.inventory_tidying;
 
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
@@ -14,6 +9,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.inventory_tidying.network.ServerReceiveTidyInventory;
 
 import java.util.List;
 
@@ -22,26 +18,13 @@ import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PL
 
 @CommonModule(mod = Charm.MOD_ID, description = "Button to automatically tidy inventories.")
 public class InventoryTidying extends CharmModule {
-    public static final ResourceLocation MSG_SERVER_TIDY_INVENTORY = new ResourceLocation(Charm.MOD_ID, "server_tidy_inventory");
+    public static ServerReceiveTidyInventory SERVER_RECEIVE_TIDY_INVENTORY;
     public static final ResourceLocation TRIGGER_TIDIED_INVENTORY = new ResourceLocation(Charm.MOD_ID, "tidied_inventory");
 
     @Override
     public void runWhenEnabled() {
-        // listen for network requests to run the server callback
-        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_TIDY_INVENTORY, this::handleServerTidyInventory);
-
+        SERVER_RECEIVE_TIDY_INVENTORY = new ServerReceiveTidyInventory();
         InventoryTidyingHandler.init();
-    }
-
-    private void handleServerTidyInventory(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf data, PacketSender sender) {
-        int type = data.readInt();
-
-        server.execute(() -> {
-            if (player == null)
-                return;
-
-            InventoryTidying.serverCallback(player, type);
-        });
     }
 
     public static void serverCallback(ServerPlayer player, int type) {
