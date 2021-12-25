@@ -55,7 +55,7 @@ public class LogHelper {
 
     public static void debug(String modId, Class<?> source, String message, Object... args) {
         if (DebugHelper.isDebugMode()) {
-            instance(modId).debug(assembleMessage(source, message), args);
+            instance(modId).info(assembleMessage(source, message), args);
         }
     }
 
