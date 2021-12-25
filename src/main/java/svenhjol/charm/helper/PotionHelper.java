@@ -11,7 +11,19 @@ import net.minecraft.world.item.alchemy.Potions;
  */
 public class PotionHelper {
     public static ItemStack getPotionBottle(Potion potion, int amount) {
-        ItemStack out = new ItemStack(Items.POTION, amount);
+        var out = new ItemStack(Items.POTION, amount);
+        PotionUtils.setPotion(out, potion);
+        return out;
+    }
+
+    public static ItemStack getSplashPotionBottle(Potion potion, int amount) {
+        var out = new ItemStack(Items.SPLASH_POTION, amount);
+        PotionUtils.setPotion(out, potion);
+        return out;
+    }
+
+    public static ItemStack getLingeringPotionBottle(Potion potion, int amount) {
+        var out = new ItemStack(Items.LINGERING_POTION, amount);
         PotionUtils.setPotion(out, potion);
         return out;
     }
