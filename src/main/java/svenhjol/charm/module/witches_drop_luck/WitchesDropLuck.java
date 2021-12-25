@@ -35,7 +35,7 @@ public class WitchesDropLuck extends CharmModule {
             && entity.level.random.nextFloat() <= (dropChance + lootingBoost * lootingLevel)
         ) {
             BlockPos pos = entity.blockPosition();
-            ItemStack potion = PotionHelper.getPotionItemStack(Potions.LUCK, 1);
+            ItemStack potion = PotionHelper.getPotionBottle(Potions.LUCK, 1);
             entity.level.addFreshEntity(new ItemEntity(entity.getCommandSenderWorld(), pos.getX(), pos.getY(), pos.getZ(), potion));
         }
         return InteractionResult.PASS;
