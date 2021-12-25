@@ -13,10 +13,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import javax.annotation.Nullable;
 
-import static svenhjol.charm.event.StackItemOnItemCallback.Direction;
-import static svenhjol.charm.event.StackItemOnItemCallback.Direction.STACKED_ON_OTHER;
-import static svenhjol.charm.event.StackItemOnItemCallback.Direction.STACKED_ON_SELF;
-import static svenhjol.charm.event.StackItemOnItemCallback.EVENT;
+import static svenhjol.charm.api.event.StackItemOnItemCallback.Direction;
+import static svenhjol.charm.api.event.StackItemOnItemCallback.Direction.STACKED_ON_OTHER;
+import static svenhjol.charm.api.event.StackItemOnItemCallback.Direction.STACKED_ON_SELF;
+import static svenhjol.charm.api.event.StackItemOnItemCallback.EVENT;
 
 @Mixin(Item.class)
 public class StackItemOnItemMixin {

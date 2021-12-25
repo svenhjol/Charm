@@ -10,7 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.api.event.PlayerTickCallback;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.EnumMap;

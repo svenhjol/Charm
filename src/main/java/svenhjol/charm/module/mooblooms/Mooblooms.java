@@ -15,7 +15,7 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.api.event.AddEntityCallback;
 import svenhjol.charm.helper.BiomeHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.init.CharmAdvancements;

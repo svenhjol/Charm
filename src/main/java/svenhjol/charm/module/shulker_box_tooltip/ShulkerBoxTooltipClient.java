@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.ItemTooltipImageCallback;
-import svenhjol.charm.event.RenderTooltipCallback;
+import svenhjol.charm.api.event.ItemTooltipImageCallback;
+import svenhjol.charm.api.event.RenderTooltipCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.loader.CharmModule;
 

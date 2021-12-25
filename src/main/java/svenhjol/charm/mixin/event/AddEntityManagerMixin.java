@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.api.event.AddEntityCallback;
 
 @Mixin(PersistentEntitySectionManager.class)
 public class AddEntityManagerMixin<T extends EntityAccess> {

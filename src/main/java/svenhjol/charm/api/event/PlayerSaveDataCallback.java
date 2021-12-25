@@ -1,11 +1,11 @@
-package svenhjol.charm.event;
+package svenhjol.charm.api.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.world.entity.player.Player;
-import svenhjol.charm.helper.LogHelper;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 
@@ -21,7 +21,7 @@ public interface PlayerSaveDataCallback {
         try {
             NbtIo.writeCompressed(nbt, file);
         } catch (Exception e) {
-            LogHelper.error(PlayerSaveDataCallback.class, "Failed to save player data to file: " + file.toString());
+            LogManager.getLogger().warn("Failed to save player data to file: " + file.toString());
         }
     }
 

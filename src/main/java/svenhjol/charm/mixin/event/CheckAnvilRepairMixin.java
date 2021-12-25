@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.event.CheckAnvilRepairCallback;
+import svenhjol.charm.api.event.CheckAnvilRepairCallback;
 
 @Mixin(AnvilMenu.class)
 public abstract class CheckAnvilRepairMixin extends ItemCombinerMenu {

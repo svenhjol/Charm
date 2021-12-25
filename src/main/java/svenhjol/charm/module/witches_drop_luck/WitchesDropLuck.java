@@ -12,7 +12,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.event.EntityDropItemsCallback;
+import svenhjol.charm.api.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.PotionHelper;
 import svenhjol.charm.loader.CharmModule;
 

@@ -11,8 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.StackItemOnItemCallback;
-import svenhjol.charm.event.StackItemOnItemCallback.Direction;
+import svenhjol.charm.api.event.StackItemOnItemCallback;
+import svenhjol.charm.api.event.StackItemOnItemCallback.Direction;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 

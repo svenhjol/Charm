@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.AddEntityCallback;
-import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.api.event.AddEntityCallback;
+import svenhjol.charm.api.event.PlayerTickCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 

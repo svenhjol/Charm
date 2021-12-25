@@ -7,8 +7,8 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm.event.RenderGuiCallback;
-import svenhjol.charm.event.SetupGuiCallback;
+import svenhjol.charm.api.event.RenderGuiCallback;
+import svenhjol.charm.api.event.SetupGuiCallback;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.portable_crafting.PortableCraftingClient;
 

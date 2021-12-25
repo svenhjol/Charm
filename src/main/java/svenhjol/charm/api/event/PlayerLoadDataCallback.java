@@ -1,11 +1,11 @@
-package svenhjol.charm.event;
+package svenhjol.charm.api.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.world.entity.player.Player;
-import svenhjol.charm.helper.LogHelper;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 
@@ -18,20 +18,20 @@ public interface PlayerLoadDataCallback {
     });
 
     static CompoundTag readFile(File file) {
-        CompoundTag nbt;
+        CompoundTag tag;
 
         if (file.exists()) {
             try {
-                nbt = NbtIo.readCompressed(file);
+                tag = NbtIo.readCompressed(file);
             } catch (Exception e) {
-                LogHelper.error(PlayerLoadDataCallback.class, "Failed to load player data from file: " + file);
-                nbt = new CompoundTag();
+                LogManager.getLogger().warn("Failed to load player data from file: " + file);
+                tag = new CompoundTag();
             }
         } else {
-            nbt = new CompoundTag();
+            tag = new CompoundTag();
         }
 
-        return nbt;
+        return tag;
     }
 
     void interact(Player player, File playerDataDir);

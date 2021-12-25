@@ -7,7 +7,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.api.event.AddEntityCallback;
+import svenhjol.charm.api.event.ClientSpawnEntityCallback;
 
 @Mixin(ClientLevel.class)
 public class AddEntityClientMixin {
@@ -20,7 +21,7 @@ public class AddEntityClientMixin {
      * It is cancellable if ActionResult == FAIL.
      *
      * If you need the entity's spawn packet (lower-level than this event) then use
-     * {@link svenhjol.charm.event.ClientSpawnEntityCallback}.
+     * {@link ClientSpawnEntityCallback}.
      *
      * Inspired by Forge's EntityJoinWorldEvent which provides a hook at the same point
      * in the code, except allows it to be cancellable.

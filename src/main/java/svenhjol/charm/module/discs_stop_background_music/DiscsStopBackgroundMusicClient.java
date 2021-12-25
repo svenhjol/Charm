@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.PlaySoundCallback;
+import svenhjol.charm.api.event.PlaySoundCallback;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.SoundHelper;
 import svenhjol.charm.loader.CharmModule;

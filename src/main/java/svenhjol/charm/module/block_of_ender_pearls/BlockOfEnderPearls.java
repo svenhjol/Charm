@@ -19,7 +19,7 @@ import net.minecraft.world.level.material.Material;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.event.AddEntityCallback;
+import svenhjol.charm.api.event.AddEntityCallback;
 import svenhjol.charm.helper.AdvancementHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.helper.WorldHelper;

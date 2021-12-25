@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.enums.IWoodMaterial;
-import svenhjol.charm.event.RenderBlockItemCallback;
-import svenhjol.charm.event.StitchTextureCallback;
+import svenhjol.charm.api.event.RenderBlockItemCallback;
+import svenhjol.charm.api.event.StitchTextureCallback;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.Set;

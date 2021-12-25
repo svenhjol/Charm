@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.event.EntityDropItemsCallback;
+import svenhjol.charm.api.event.EntityDropItemsCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;

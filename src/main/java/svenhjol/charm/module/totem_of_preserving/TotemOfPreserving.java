@@ -31,8 +31,8 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.TotemOfPreservingEvents;
-import svenhjol.charm.event.EntityDropXpCallback;
-import svenhjol.charm.event.PlayerDropInventoryCallback;
+import svenhjol.charm.api.event.EntityDropXpCallback;
+import svenhjol.charm.api.event.PlayerDropInventoryCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.init.CharmAdvancements;
@@ -42,9 +42,10 @@ import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.*;
 
-@CommonModule(mod = Charm.MOD_ID, description = "The player's inventory items will be held in the Totem of Preserving upon death.\n" +
-    "By default, a new totem will always be spawned to hold items upon dying in Easy or Peaceful mode ('Grave mode').\n" +
-    "In Normal and Hard mode, the player must be holding an empty Totem of Preserving in order for it to hold items upon death.")
+@CommonModule(mod = Charm.MOD_ID, description = """
+    The player's inventory items will be held in the Totem of Preserving upon death.
+    By default, a new totem will always be spawned to hold items upon dying in Easy or Peaceful mode ('Grave mode').
+    In Normal and Hard mode, the player must be holding an empty Totem of Preserving in order for it to hold items upon death.""")
 public class TotemOfPreserving extends CharmModule {
     public static TotemOfPreservingItem TOTEM_OF_PRESERVING;
     public static LootItemFunctionType LOOT_FUNCTION;

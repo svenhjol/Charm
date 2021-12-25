@@ -24,7 +24,7 @@ import net.minecraft.world.item.TooltipFlag;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.RenderHeldItemCallback;
+import svenhjol.charm.api.event.RenderHeldItemCallback;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.atlases.network.ClientReceiveSwappedSlot;
 import svenhjol.charm.module.atlases.network.ClientReceiveUpdateInventory;

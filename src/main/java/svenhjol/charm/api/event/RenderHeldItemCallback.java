@@ -1,4 +1,4 @@
-package svenhjol.charm.event;
+package svenhjol.charm.api.event;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.event.Event;

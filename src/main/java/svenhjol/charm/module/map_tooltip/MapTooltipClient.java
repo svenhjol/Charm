@@ -15,7 +15,7 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.event.RenderTooltipCallback;
+import svenhjol.charm.api.event.RenderTooltipCallback;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;

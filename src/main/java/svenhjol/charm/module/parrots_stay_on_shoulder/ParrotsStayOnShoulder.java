@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.api.event.PlayerTickCallback;
 import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Parrots stay on your shoulder when jumping and falling. Crouch to make them dismount.")

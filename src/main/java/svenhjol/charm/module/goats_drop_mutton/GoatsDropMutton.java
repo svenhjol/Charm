@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.event.EntityDropItemsCallback;
+import svenhjol.charm.api.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.loader.CharmModule;
 

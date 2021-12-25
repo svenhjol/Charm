@@ -9,7 +9,7 @@ import net.minecraft.world.level.GameRules;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.event.CheckAnvilRepairCallback;
+import svenhjol.charm.api.event.CheckAnvilRepairCallback;
 import svenhjol.charm.helper.RecipeHelper;
 import svenhjol.charm.loader.CharmModule;
 

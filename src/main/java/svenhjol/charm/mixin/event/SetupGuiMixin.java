@@ -9,14 +9,14 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.event.SetupGuiCallback;
+import svenhjol.charm.api.event.SetupGuiCallback;
 
 import java.util.List;
 
 @Mixin(Screen.class)
 public abstract class SetupGuiMixin {
     @Shadow @Final
-    private List<NarratableEntry> narratables;
+    public List<NarratableEntry> narratables;
 
     /**
      * Fires the {@link SetupGuiCallback} event.

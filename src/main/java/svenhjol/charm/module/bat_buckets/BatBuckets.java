@@ -25,7 +25,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.event.PlayerTickCallback;
+import svenhjol.charm.api.event.PlayerTickCallback;
 import svenhjol.charm.helper.NbtHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
