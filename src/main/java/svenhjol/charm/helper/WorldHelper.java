@@ -27,6 +27,9 @@ import java.util.*;
  */
 @SuppressWarnings("unused")
 public class WorldHelper {
+    private static final Map<ResourceLocation, Boolean> CACHE_STRUCTURES = new HashMap<>();
+    private static final Map<ResourceLocation, Boolean> CACHE_BIOMES = new HashMap<>();
+
     public static boolean addForcedChunk(ServerLevel level, BlockPos pos) {
         ChunkPos chunkPos = new ChunkPos(pos);
 
@@ -143,13 +146,11 @@ public class WorldHelper {
     }
 
     public static boolean isStructure(ResourceLocation structureId) {
-        // TODO: static cache
-        return Registry.STRUCTURE_FEATURE.get(structureId) != null;
+        return CACHE_STRUCTURES.computeIfAbsent(structureId, b -> Registry.STRUCTURE_FEATURE.get(structureId) != null);
     }
 
     public static boolean isBiome(ResourceLocation biomeId) {
-        // TODO: static cache
-        return BuiltinRegistries.BIOME.get(biomeId) != null;
+        return CACHE_BIOMES.computeIfAbsent(biomeId, b -> BuiltinRegistries.BIOME.get(biomeId) != null);
     }
 
     @Nullable
