@@ -1,14 +1,12 @@
 package svenhjol.charm.module.atlases;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.FriendlyByteBuf;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ServerGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
@@ -25,22 +23,25 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charm.helper.NbtHelper;
-import svenhjol.charm.helper.NetworkHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.atlases.network.ServerReceiveSwapAtlas;
+import svenhjol.charm.module.atlases.network.ServerReceiveTransferAtlas;
+import svenhjol.charm.module.atlases.network.ServerSendSwappedSlot;
+import svenhjol.charm.module.atlases.network.ServerSendUpdateInventory;
 import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Storage for maps that automatically updates the displayed map as you explore.")
 public class Atlases extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "atlas");
-    public static final ResourceLocation MSG_SERVER_TRANSFER_ATLAS = new ResourceLocation(Charm.MOD_ID, "server_transfer_atlas");
-    public static final ResourceLocation MSG_SERVER_SWAP_ATLAS = new ResourceLocation(Charm.MOD_ID, "server_swap_atlas");
-    public static final ResourceLocation MSG_CLIENT_UPDATE_ATLAS_INVENTORY = new ResourceLocation(Charm.MOD_ID, "client_update_atlas_inventory");
-    public static final ResourceLocation MSG_CLIENT_SWAPPED_SLOT = new ResourceLocation(Charm.MOD_ID, "client_swapped_slot");
     public static final ResourceLocation TRIGGER_MADE_ATLAS_MAPS = new ResourceLocation(Charm.MOD_ID, "made_atlas_maps");
+
+    public static ServerSendSwappedSlot SERVER_SEND_SWAPPED_SLOT;
+    public static ServerSendUpdateInventory SERVER_SEND_UPDATE_INVENTORY;
+    public static ServerReceiveSwapAtlas SERVER_RECEIVE_SWAP_ATLAS;
+    public static ServerReceiveTransferAtlas SERVER_RECEIVE_TRANSFER_ATLAS;
 
     public static SoundEvent ATLAS_OPEN_SOUND;
     public static SoundEvent ATLAS_CLOSE_SOUND;
@@ -77,12 +78,12 @@ public class Atlases extends CharmModule {
     @Override
     public void runWhenEnabled() {
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
+        ServerPlayConnectionEvents.JOIN.register(this::handlePlayerJoin);
 
-        // TODO: on world load, reset the client-side swappedSlot!
-
-        // listen for network requests to run the server callback
-        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_TRANSFER_ATLAS, this::handleTransferAtlas);
-        ServerPlayNetworking.registerGlobalReceiver(MSG_SERVER_SWAP_ATLAS, this::handleSwapAtlas);
+        SERVER_SEND_SWAPPED_SLOT = new ServerSendSwappedSlot();
+        SERVER_SEND_UPDATE_INVENTORY = new ServerSendUpdateInventory();
+        SERVER_RECEIVE_SWAP_ATLAS = new ServerReceiveSwapAtlas();
+        SERVER_RECEIVE_TRANSFER_ATLAS = new ServerReceiveTransferAtlas();
     }
 
     public static boolean inventoryContainsMap(Inventory inventory, ItemStack stack) {
@@ -141,9 +142,7 @@ public class Atlases extends CharmModule {
     }
 
     public static void updateClient(ServerPlayer player, int atlasSlot) {
-        FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
-        data.writeInt(atlasSlot);
-        ServerPlayNetworking.send(player, MSG_CLIENT_UPDATE_ATLAS_INVENTORY, data);
+        SERVER_SEND_UPDATE_INVENTORY.send(player, atlasSlot);
     }
 
     private static AtlasInventory findAtlas(Inventory inventory) {
@@ -211,89 +210,11 @@ public class Atlases extends CharmModule {
         }
     }
 
-    private void handleSwapAtlas(MinecraftServer server, ServerPlayer player, ServerGamePacketListener handler, FriendlyByteBuf buffer, PacketSender sender) {
-        int swappedSlot = buffer.readInt();
-        server.execute(() -> {
-            if (player == null) return;
-            ItemStack offhandItem = player.getOffhandItem().copy();
-            ItemStack mainHandItem = player.getMainHandItem().copy();
-            Inventory inventory = player.getInventory();
-
-            Consumer<Integer> doSwap = i -> {
-                ItemStack swap = inventory.getItem(i).copy();
-                inventory.setItem(i, mainHandItem);
-                player.setItemInHand(InteractionHand.MAIN_HAND, swap);
-                NetworkHelper.sendPacketToClient(player, MSG_CLIENT_SWAPPED_SLOT, buf -> buf.writeInt(i));
-            };
-
-            if (mainHandItem.getItem() instanceof AtlasItem) {
-                if (swappedSlot >= 0) {
-                    doSwap.accept(swappedSlot);
-                    return;
-                }
-            }
-
-            if (offhandItem.getItem() instanceof AtlasItem) return;
-
-            int slot = -1;
-            for (int i = 0; i < 36; i++) {
-                ItemStack inv = inventory.getItem(i);
-                if (inv.getItem() instanceof AtlasItem) {
-                    slot = i;
-                    break;
-                }
-            }
-
-            if (slot == -1) return;
-            doSwap.accept(slot);
-        });
-    }
-
-    private void handleTransferAtlas(MinecraftServer server, ServerPlayer player, ServerGamePacketListener handler, FriendlyByteBuf buffer, PacketSender sender) {
-        int atlasSlot = buffer.readInt();
-        int mapX = buffer.readInt();
-        int mapZ = buffer.readInt();
-        MoveMode mode = buffer.readEnum(MoveMode.class);
-
-        server.execute(() -> {
-            if (player == null) return;
-            AtlasInventory inventory = getInventory(player.level, player.getInventory().getItem(atlasSlot));
-
-            switch (mode) {
-                case TO_HAND:
-                    player.containerMenu.setCarried(inventory.removeMapByCoords(player.level, mapX, mapZ).map);
-                    updateClient(player, atlasSlot);
-                    break;
-                case TO_INVENTORY:
-                    player.addItem(inventory.removeMapByCoords(player.level, mapX, mapZ).map);
-                    updateClient(player, atlasSlot);
-                    break;
-                case FROM_HAND:
-                    ItemStack heldItem = player.containerMenu.getCarried();
-                    if (heldItem.getItem() == Items.FILLED_MAP) {
-                        Integer mapId = MapItem.getMapId(heldItem);
-                        MapItemSavedData mapState = MapItem.getSavedData(mapId, player.level);
-                        if (mapState != null && mapState.scale == inventory.getScale()) {
-                            inventory.addToInventory(player.level, heldItem);
-                            player.containerMenu.setCarried(ItemStack.EMPTY);
-                            updateClient(player, atlasSlot);
-                        }
-                    }
-                    break;
-                case FROM_INVENTORY:
-                    ItemStack stack = player.getInventory().getItem(mapX);
-                    if (stack.getItem() == Items.FILLED_MAP) {
-                        Integer mapId = MapItem.getMapId(stack);
-                        MapItemSavedData mapState = MapItem.getSavedData(mapId, player.level);
-                        if (mapState != null && mapState.scale == inventory.getScale()) {
-                            inventory.addToInventory(player.level, stack);
-                            player.getInventory().removeItemNoUpdate(mapX);
-                            updateClient(player, atlasSlot);
-                        }
-                    }
-                    break;
-            }
-        });
+    private void handlePlayerJoin(ServerGamePacketListenerImpl listener, PacketSender sender, MinecraftServer server) {
+        // We need to reset the swapped slot when a player joins.
+        // This is because a player connecting from a different world
+        // could retain their swapped slot status when joining this one.
+        SERVER_SEND_SWAPPED_SLOT.send(listener.getPlayer(), -1);
     }
 
     private static int getSlotFromHand(Player player, InteractionHand hand) {

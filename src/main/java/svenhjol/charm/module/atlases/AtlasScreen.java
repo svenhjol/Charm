@@ -5,14 +5,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
-import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.MapRenderer;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -43,6 +40,7 @@ import java.util.stream.Collector;
  * @author Lukas
  * @since 28.12.2020
  */
+@SuppressWarnings("ConstantConditions")
 public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
     private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(Charm.MOD_ID, "textures/gui/atlas_container.png");
     private static final RenderType MAP_DECORATIONS = RenderType.text(new ResourceLocation("textures/map/map_icons.png"));
@@ -56,30 +54,39 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
     private static final int NORMAL_SIZE = 128;
     private static final float BASE_SCALE = (float) SIZE / NORMAL_SIZE;
     private static final int LIGHT = 240;
-    private final int slot;
-    private final Map<ButtonDirection, CharmImageButton> buttons;
     private final WorldMap worldMap = new WorldMap();
     private final SingleMap singleMap = new SingleMap(null);
+    private Map<ButtonDirection, CharmImageButton> buttons;
     private MapGui mapGui;
+    private int slot;
     private int lastSize;
-    private final MapRenderer mapItemRenderer;
+    private MapRenderer mapItemRenderer;
     private final Player player;
+    private final Inventory inventory;
 
-    public AtlasScreen(AtlasContainer screenContainer, Inventory inv, Component title) {
-        super(screenContainer, inv, title, CONTAINER_BACKGROUND);
+    public AtlasScreen(AtlasContainer menu, Inventory inv, Component title) {
+        super(menu, inv, title, CONTAINER_BACKGROUND);
         this.imageWidth = 175;
         this.imageHeight = 168;
+        this.inventory = inv;
         this.player = inv.player;
-        AtlasInventory atlasInventory = screenContainer.getAtlasInventory();
-        this.slot = inv.findSlotMatchingItem(atlasInventory.getAtlasItem());
-        Map<Index, MapInfo> mapInfos = atlasInventory.getCurrentDimensionMapInfos(Minecraft.getInstance().level);
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+
+        AtlasInventory atlasInventory = menu.getAtlasInventory();
+        this.slot = inventory.findSlotMatchingItem(atlasInventory.getAtlasItem());
+
+        Map<Index, MapInfo> mapInfos = atlasInventory.getCurrentDimensionMapInfos(minecraft.level);
         lastSize = mapInfos.size();
         mapGui = lastSize > 1 ? getWorldMap() : getSingleMap(lastSize == 0 ? null : mapInfos.values().iterator().next());
         buttons = new EnumMap<>(ButtonDirection.class);
         for (ButtonDirection direction : ButtonDirection.values()) {
             buttons.put(direction, createButton(direction));
         }
-        mapItemRenderer = Minecraft.getInstance().gameRenderer.getMapRenderer();
+        mapItemRenderer = minecraft.gameRenderer.getMapRenderer();
     }
 
     private CharmImageButton createButton(ButtonDirection dir) {
@@ -198,12 +205,7 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
     }
 
     private void sendAtlasTransfer(int atlasSlot, int mapX, int mapZ, Atlases.MoveMode mode) {
-        FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
-        data.writeInt(atlasSlot);
-        data.writeInt(mapX);
-        data.writeInt(mapZ);
-        data.writeEnum(mode);
-        ClientPlayNetworking.send(Atlases.MSG_SERVER_TRANSFER_ATLAS, data);
+        AtlasesClient.CLIENT_SEND_TRANSFER_ATLAS.send(atlasSlot, mapX, mapZ, mode);
     }
 
     private int getX() {
@@ -423,38 +425,24 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
 
         @Override
         public boolean buttonVisible(ButtonDirection direction) {
-            switch (direction) {
-                case LEFT:
-                case TOP:
-                case RIGHT:
-                case BOTTOM:
-                    return corner != null;
-                case IN:
-                case OUT:
-                    return true;
-                default:
-                    return false;
-            }
+            return switch (direction) {
+                case LEFT, TOP, RIGHT, BOTTOM -> corner != null;
+                case IN, OUT -> true;
+                default -> false;
+            };
         }
 
         @Override
         public boolean buttonEnabled(ButtonDirection direction) {
-            switch (direction) {
-                case LEFT:
-                    return corner != null && corner.x > extremes.min.x;
-                case TOP:
-                    return corner != null && corner.y > extremes.min.y;
-                case RIGHT:
-                    return corner != null && corner.x + mapDistance <= extremes.max.x;
-                case BOTTOM:
-                    return corner != null && corner.y + mapDistance <= extremes.max.y;
-                case IN:
-                    return mapDistance > 1;
-                case OUT:
-                    return mapDistance < maxMapDistance;
-                default:
-                    return false;
-            }
+            return switch (direction) {
+                case LEFT -> corner != null && corner.x > extremes.min.x;
+                case TOP -> corner != null && corner.y > extremes.min.y;
+                case RIGHT -> corner != null && corner.x + mapDistance <= extremes.max.x;
+                case BOTTOM -> corner != null && corner.y + mapDistance <= extremes.max.y;
+                case IN -> mapDistance > 1;
+                case OUT -> mapDistance < maxMapDistance;
+                default -> false;
+            };
         }
 
         private double normalizeForMapArea(double base, double val) {
