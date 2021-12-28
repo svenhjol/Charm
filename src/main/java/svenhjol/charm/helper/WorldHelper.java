@@ -12,6 +12,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
@@ -187,5 +188,22 @@ public class WorldHelper {
 
     public static void syncBlockEntityToClient(ServerLevel level, BlockPos pos) {
         level.getChunkSource().blockChanged(pos);
+    }
+
+    /**
+     * Gets an appropriate stone block according to the dimension.
+     * Typically used for generating platforms for teleportation.
+     */
+    public static BlockState getSurfaceBlockForDimension(ServerLevel level) {
+        BlockState block;
+        if (DimensionHelper.isEnd(level)) {
+            block = Blocks.END_STONE.defaultBlockState();
+        } else if (DimensionHelper.isNether(level)) {
+            block = Blocks.NETHERRACK.defaultBlockState();
+        } else {
+            block = Blocks.STONE.defaultBlockState();
+        }
+
+        return block;
     }
 }
