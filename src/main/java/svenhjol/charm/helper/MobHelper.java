@@ -10,14 +10,13 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static svenhjol.charm.helper.WorldHelper.isLikeAir;
 import static svenhjol.charm.helper.WorldHelper.isLikeSolid;
 
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"unused", "ConstantConditions"})
 public class MobHelper {
     @Nullable
     public static <T extends Entity> T spawn(EntityType<T> type, ServerLevel level, BlockPos pos, MobSpawnType reason, Consumer<T> beforeAddToLevel) {
