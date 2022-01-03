@@ -62,7 +62,7 @@ public class AtlasesClient extends CharmModule {
 
         if (Atlases.enableKeybind) {
             keyBinding = KeyBindingHelper.registerKeyBinding(new KeyMapping(
-                "key.charm.openAtlas",
+                "key.charm.open_atlas",
                 InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_R,
                 "key.categories.inventory"
