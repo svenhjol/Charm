@@ -29,14 +29,14 @@ public class SnowAccumulation extends CharmModule {
     @Config(name = "Powder snow chance", description = "Chance (out of 1.0) of a fully accumulated snow block being converted to powder snow.")
     public static double convertToPowderSnow = 0.01D;
 
-    public static boolean shouldAccumulateSnow() {
-        return Charm.LOADER.isEnabled(SnowAccumulation.class);
+    public static boolean shouldAccumulateSnow(ServerLevel level) {
+        return Charm.LOADER.isEnabled(SnowAccumulation.class) && level.isRaining();
     }
 
     public static void tryPlaceSnow(ServerLevel level, int chunkX, int chunkZ) {
-        if (!shouldAccumulateSnow() || !level.isRaining()) return;
+        if (!shouldAccumulateSnow(level)) return;
 
-        if (level.random.nextDouble() < 0.015D) {
+        if (level.random.nextDouble() < 0.01D) {
             BlockPos pos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, level.getBlockRandomPos(chunkX, 0, chunkZ, 15));
             BlockPos belowPos = pos.below();
             BlockState belowState = level.getBlockState(belowPos);

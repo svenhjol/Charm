@@ -16,7 +16,7 @@ import java.util.Random;
 public class PreventSnowMeltingMixin {
     /**
      * Cancels snowblock randomtick melting of snow if snow accumulation is enabled.
-     * @see SnowAccumulation#shouldAccumulateSnow()
+     * @see SnowAccumulation#shouldAccumulateSnow(ServerLevel)
      */
     @Inject(
         method = "randomTick",
@@ -24,7 +24,7 @@ public class PreventSnowMeltingMixin {
         cancellable = true
     )
     private void hookRandomTick(BlockState state, ServerLevel level, BlockPos pos, Random random, CallbackInfo ci) {
-        if (SnowAccumulation.shouldAccumulateSnow()) {
+        if (SnowAccumulation.shouldAccumulateSnow(level)) {
             ci.cancel();
         }
     }
