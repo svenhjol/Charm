@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.annotation.Config;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.Arrays;
@@ -20,6 +21,10 @@ import java.util.List;
 public class SnowAccumulation extends CharmModule {
     // snow won't be accumulated on any of these blockstates
     public final static List<BlockState> STATE_BLACKLIST;
+
+    @Config(name = "Allow block replace", description = "If true, placing a block on a non-full snow block will replace the snow block.\n" +
+        "If false, use vanilla behavior (only a snow block with a single layer will allow block replacement).")
+    public static boolean allowBlockReplace = true;
 
     public static boolean shouldAccumulateSnow() {
         return Charm.LOADER.isEnabled(SnowAccumulation.class);
