@@ -68,7 +68,7 @@ public class SnowAccumulation extends CharmModule {
             Blocks.BARRIER.defaultBlockState(),
             Blocks.HONEY_BLOCK.defaultBlockState(),
             Blocks.SOUL_SAND.defaultBlockState(),
-            Blocks.SNOW.defaultBlockState()
+            Blocks.SNOW_BLOCK.defaultBlockState()
         );
     }
 }
