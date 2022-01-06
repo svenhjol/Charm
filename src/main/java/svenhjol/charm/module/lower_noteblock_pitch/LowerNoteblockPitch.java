@@ -35,7 +35,7 @@ public class LowerNoteblockPitch extends CharmModule {
         BlockState state = level.getBlockState(pos);
         Block block = state.getBlock();
 
-        if (block == Blocks.NOTE_BLOCK) {
+        if (block != Blocks.NOTE_BLOCK) {
             return InteractionResult.PASS;
         }
 
