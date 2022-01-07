@@ -15,6 +15,6 @@ public class AmethystNoteBlock extends CharmModule {
     @Override
     public void register() {
         AMETHYST = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "amethyst"));
-        NoteBlockInstrument.valueOf("AMETHYST").soundEvent = AMETHYST;
+        NoteBlockInstrument.valueOf("CHARM_AMETHYST").soundEvent = AMETHYST;
     }
 }
