@@ -33,7 +33,7 @@ public class TotemOfPreservingLootFunction extends LootItemConditionalFunction {
         Random random = context.getRandom();
         float luck = context.getLuck();
 
-        if (random.nextFloat() < (0.5F + (0.5F * luck))) {
+        if (random.nextFloat() < (0.66F + (0.34F * luck))) {
             return new ItemStack(TotemOfPreserving.TOTEM_OF_PRESERVING);
         }
 
