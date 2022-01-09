@@ -36,7 +36,7 @@ public class SnowAccumulation extends CharmModule {
     public static void tryPlaceSnow(ServerLevel level, int chunkX, int chunkZ) {
         if (!shouldAccumulateSnow(level)) return;
 
-        if (level.random.nextDouble() < 0.01D) {
+        if (level.random.nextInt(750) == 0) {
             BlockPos pos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, level.getBlockRandomPos(chunkX, 0, chunkZ, 15));
             BlockPos belowPos = pos.below();
             BlockState belowState = level.getBlockState(belowPos);
