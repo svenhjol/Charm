@@ -50,8 +50,14 @@ public class TotemOfPreservingItem extends CharmItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
         ItemStack totem = user.getItemInHand(hand);
-        CompoundTag items = getItems(totem);
-        int xp = getXp(totem);
+
+        // Don't break totem if it's empty.
+        if (!TotemOfPreservingItem.hasItems(totem)) {
+            return InteractionResultHolder.pass(totem);
+        }
+
+        var items = getItems(totem);
+        var xp = getXp(totem);
         if (xp > 0) {
             level.playSound(null, user.blockPosition(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.8F, 1.0F);
             user.giveExperiencePoints(xp);
@@ -63,13 +69,13 @@ public class TotemOfPreservingItem extends CharmItem {
             Set<String> keys = items.getAllKeys();
 
             keys.forEach(k -> {
-                Tag tag = items.get(k);
+                var tag = items.get(k);
                 if (tag == null) {
                     LogHelper.warn(this.getClass(), "Item tag missing from totem");
                 } else {
-                    ItemStack stack = ItemStack.of((CompoundTag) tag);
-                    BlockPos pos = user.blockPosition();
-                    ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 0.5D, pos.getZ(), stack);
+                    var stack = ItemStack.of((CompoundTag) tag);
+                    var pos = user.blockPosition();
+                    var itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 0.5D, pos.getZ(), stack);
                     level.addFreshEntity(itemEntity);
                 }
             });

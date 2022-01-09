@@ -27,6 +27,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
@@ -53,8 +55,9 @@ public class TotemOfPreserving extends CharmModule {
     public static final ResourceLocation LOOT_ID = new ResourceLocation(Charm.MOD_ID, "totem_of_preserving_loot");
     public static final ResourceLocation TRIGGER_USED_TOTEM_OF_PRESERVING = new ResourceLocation(Charm.MOD_ID, "used_totem_of_preserving");
 
-    public static List<Difficulty> GRAVE_MODE_DIFFICULTIES = new ArrayList<>();
-    public static List<ResourceLocation> VALID_LOOT_TABLES = new ArrayList<>();
+    public static final List<Difficulty> GRAVE_MODE_DIFFICULTIES = new ArrayList<>();
+    public static final List<ResourceLocation> VALID_MOB_DROPS = new ArrayList<>();
+    public static final List<ResourceLocation> VALID_CHEST_LOOT = new ArrayList<>();
 
     @Config(name = "Grave mode game difficulties", description = "A list of game difficulties in which totems will behave in 'Grave mode'.\n" +
         "In Grave mode, a totem will be dropped on death even if the player doesn't have an empty totem in their inventory.")
@@ -62,10 +65,16 @@ public class TotemOfPreserving extends CharmModule {
         "peaceful", "easy"
     );
 
-    @Config(name = "Add totems to loot", description = "Loot tables that totems of preserving will be added to.\n" +
+    @Config(name = "Mobs drop totems", description = "Mobs that have a chance to drop a totem of preserving.\n" +
         "This does not apply if Grave mode is active for the current game difficulty. See 'Grave mode game difficulties' to configure this.")
-    public static List<String> configLootTables = Arrays.asList(
-        "entities/witch", "entities/pillager", "chests/pillager_outpost", "chests/woodland_mansion"
+    public static List<String> configMobDrops = Arrays.asList(
+        "entities/witch", "entities/pillager"
+    );
+
+    @Config(name = "Chests contain totems", description = "Chest loot tables that will always contain a totem of preserving.\n" +
+        "This does not apply if Grave mode is active for the current game difficulty. See 'Grave mode game difficulties' to configure this.")
+    public static List<String> configChestLoot = Arrays.asList(
+        "chests/pillager_outpost", "chests/woodland_mansion"
     );
 
     @Config(name = "Preserve XP", description = "If true, the totem will preserve the player's experience and restore when broken.")
@@ -78,8 +87,9 @@ public class TotemOfPreserving extends CharmModule {
     public void register() {
         TOTEM_OF_PRESERVING = new TotemOfPreservingItem(this);
 
-        configGraveModeDifficulties.stream().map(String::toLowerCase).map(Difficulty::byName).filter(Objects::nonNull).forEach(d -> GRAVE_MODE_DIFFICULTIES.add(d));
-        configLootTables.stream().map(ResourceLocation::new).forEach(l -> VALID_LOOT_TABLES.add(l));
+        configGraveModeDifficulties.stream().map(String::toLowerCase).map(Difficulty::byName).filter(Objects::nonNull).forEach(GRAVE_MODE_DIFFICULTIES::add);
+        configMobDrops.stream().map(ResourceLocation::new).forEach(VALID_MOB_DROPS::add);
+        configChestLoot.stream().map(ResourceLocation::new).forEach(VALID_CHEST_LOOT::add);
     }
 
     @Override
@@ -95,9 +105,17 @@ public class TotemOfPreserving extends CharmModule {
     }
 
     private void handleLootTables(ResourceManager manager, LootTables lootTables, ResourceLocation id, FabricLootSupplierBuilder supplier, LootTableLoadingCallback.LootTableSetter setter) {
-        if (VALID_LOOT_TABLES.contains(id)) {
-            FabricLootPoolBuilder builder = FabricLootPoolBuilder.builder()
-                .rolls(ConstantValue.exactly(1))
+        NumberProvider numberProvider = null;
+
+        if (VALID_MOB_DROPS.contains(id)) {
+            numberProvider = UniformGenerator.between(0, 1);
+        } else if (VALID_CHEST_LOOT.contains(id)) {
+            numberProvider = ConstantValue.exactly(1);
+        }
+
+        if (numberProvider != null) {
+            var builder = FabricLootPoolBuilder.builder()
+                .rolls(numberProvider)
                 .with(LootItem.lootTableItem(Items.AIR)
                     .setWeight(1)
                     .apply(() -> new TotemOfPreservingLootFunction(new LootItemCondition[0])));
