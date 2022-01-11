@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.player.Player;
 
 public interface PlayerDieCallback {
     Event<PlayerDieCallback> EVENT = EventFactory.createArrayBacked(PlayerDieCallback.class, (listeners) -> (player, source) -> {
@@ -12,5 +13,5 @@ public interface PlayerDieCallback {
         }
     });
 
-    void interact(ServerPlayer player, DamageSource source);
+    void interact(Player player, DamageSource source);
 }
