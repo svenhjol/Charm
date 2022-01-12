@@ -13,5 +13,5 @@ public interface PlayerDieCallback {
         }
     });
 
-    void interact(Player player, DamageSource source);
+    void interact(ServerPlayer player, DamageSource source);
 }
