@@ -21,23 +21,12 @@ public class TotemOfPreservingLootFunction extends LootItemConditionalFunction {
         if (!Charm.LOADER.isEnabled(TotemOfPreserving.class)) return stack;
         if (TotemOfPreserving.isGraveMode(context.getLevel().getDifficulty())) return stack;
 
-        return tryCreate(stack, context);
+        return new ItemStack(TotemOfPreserving.TOTEM_OF_PRESERVING);
     }
 
     @Override
     public LootItemFunctionType getType() {
         return TotemOfPreserving.LOOT_FUNCTION;
-    }
-
-    private ItemStack tryCreate(ItemStack stack, LootContext context) {
-        Random random = context.getRandom();
-        float luck = context.getLuck();
-
-        if (random.nextFloat() < (0.5F + (0.5F * luck))) {
-            return new ItemStack(TotemOfPreserving.TOTEM_OF_PRESERVING);
-        }
-
-        return stack;
     }
 
     public static class Serializer extends LootItemConditionalFunction.Serializer<TotemOfPreservingLootFunction> {

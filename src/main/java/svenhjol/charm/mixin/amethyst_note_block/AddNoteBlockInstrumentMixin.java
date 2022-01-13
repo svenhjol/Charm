@@ -28,7 +28,7 @@ public class AddNoteBlockInstrumentMixin {
     @Shadow @Final private SoundEvent soundEvent;
 
     static {
-        addVariant("AMETHYST", "amethyst", AmethystNoteBlock.AMETHYST);
+        addVariant("CHARM_AMETHYST", "charm_amethyst", AmethystNoteBlock.AMETHYST);
     }
 
     @Invoker("<init>")
@@ -43,7 +43,7 @@ public class AddNoteBlockInstrumentMixin {
     )
     private static void hookByState(BlockState state, CallbackInfoReturnable<NoteBlockInstrument> cir) {
         if (state.is(Blocks.AMETHYST_BLOCK)) {
-            cir.setReturnValue(NoteBlockInstrument.valueOf("AMETHYST"));
+            cir.setReturnValue(NoteBlockInstrument.valueOf("CHARM_AMETHYST"));
         }
     }
 

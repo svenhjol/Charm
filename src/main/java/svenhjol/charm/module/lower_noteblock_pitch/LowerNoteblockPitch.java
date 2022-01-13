@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -33,6 +34,10 @@ public class LowerNoteblockPitch extends CharmModule {
         BlockPos pos = hitResult.getBlockPos();
         BlockState state = level.getBlockState(pos);
         Block block = state.getBlock();
+
+        if (block != Blocks.NOTE_BLOCK) {
+            return InteractionResult.PASS;
+        }
 
         int currentNote = state.getValue(NoteBlock.NOTE);
         if (currentNote == 0) {
