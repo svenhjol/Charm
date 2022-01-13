@@ -90,9 +90,10 @@ public class ExtractEnchantments extends CharmModule {
         if (!Charm.LOADER.isEnabled(ExtractEnchantments.class)) return false;
 
         ItemStack out = tryGetEnchantedBook(instance.input, player);
+        if (out == null) return false;
 
         instance.access.execute((level, pos) -> {
-            if (out != null && out.getItem() instanceof EnchantedBookItem) {
+            if (out.getItem() instanceof EnchantedBookItem) {
                 if (!player.getAbilities().instabuild) {
                     int cost = getCost(stack);
                     player.giveExperienceLevels(-cost);
