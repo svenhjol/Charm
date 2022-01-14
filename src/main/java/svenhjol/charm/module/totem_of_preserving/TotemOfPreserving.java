@@ -107,7 +107,7 @@ public class TotemOfPreserving extends CharmModule {
     private void handleLootTables(ResourceManager manager, LootTables lootTables, ResourceLocation id, FabricLootSupplierBuilder supplier, LootTableLoadingCallback.LootTableSetter setter) {
         NumberProvider numberProvider = null;
 
-        if (VALID_MOB_DROPS.contains(id)) {
+        if (VALID_MOB_DROPS.contains(id) && new Random().nextFloat() < 0.3F) {
             numberProvider = UniformGenerator.between(0, 1);
         } else if (VALID_CHEST_LOOT.contains(id)) {
             numberProvider = ConstantValue.exactly(1);
