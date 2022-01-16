@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 public class RepairNetheriteFromScrap extends CharmModule {
     private final List<Item> VALID_ITEMS = new ArrayList<>();
 
-    public static int repairAmount = 100;
+    public static int repairAmount = 300;
 
     public static int xpCost = 1;
 
@@ -58,6 +58,8 @@ public class RepairNetheriteFromScrap extends CharmModule {
             setOutput.accept(out);
             setXpCost.accept(baseCost + xpCost);
             setMaterialCost.accept(1);
+
+            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.PASS;
