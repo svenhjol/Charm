@@ -37,6 +37,12 @@ public class ExtraRecipes extends CharmModule {
     @Config(name = "Snowballs from snow blocks", description = "If true, adds a recipe for turning snow blocks back into snowballs.")
     public static boolean snowballs = true;
 
+    @Config(name = "Quartz from quartz blocks", description = "If true, adds a recipe for turning quartz blocks back into quartz.")
+    public static boolean quartz = true;
+
+    @Config(name = "Clay balls from clay blocks", description = "If true, adds a recipe for turning clay blocks back into clay balls.")
+    public static boolean clay = true;
+
     @Config(name = "Simpler Soul Torch", description = "If true, adds a recipe for Soul Torches using soul sand/soul soil and sticks.")
     public static boolean soulTorch = true;
 
@@ -63,6 +69,8 @@ public class ExtraRecipes extends CharmModule {
         ));
         if (!gildedBlackstone) invalid.add("gilded_blackstone");
         if (!snowballs) invalid.add("snowballs_from_snow_block");
+        if (!quartz) invalid.add("quartz_from_quartz_block");
+        if (!clay) invalid.add("clay_balls_from_clay_block");
         if (!trident) invalid.add("trident");
         if (!cyanDye) invalid.add("cyan_dye");
         if (!greenDye) invalid.add("green_dye");
@@ -80,12 +88,14 @@ public class ExtraRecipes extends CharmModule {
     }
 
     private boolean handleCheckAnvilRepair(AnvilMenu handler, Player player, ItemStack leftStack, ItemStack rightStack) {
-        if (leftStack.getItem() != Items.ELYTRA || !leatherForElytra || player == null || player.level == null)
+        if (leftStack.getItem() != Items.ELYTRA || !leatherForElytra || player == null || player.level == null) {
             return false; // false to bypass
+        }
 
         // don't activate if insomnia is enabled
-        if (!player.level.isClientSide && player.level.getGameRules().getBoolean(GameRules.RULE_DOINSOMNIA))
+        if (!player.level.isClientSide && player.level.getGameRules().getBoolean(GameRules.RULE_DOINSOMNIA)) {
             return false; // false to explicitly deny repair if insomnia is enabled
+        }
 
         return leftStack.getItem() == Items.ELYTRA && rightStack.getItem() == Items.LEATHER;
     }
