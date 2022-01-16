@@ -38,6 +38,7 @@
     "event.PlayerSaveDataMixin",
     "event.PlayerTickMixin",
     "event.StackItemOnItemMixin",
+    "event.UpdateAnvilMixin",
     "helper.AddSortingRecipeManagerMixin",
     "helper.CheckEnchantingPowerMixin",
     "helper.FilterAdvancementsMixin",
