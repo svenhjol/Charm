@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.UpdateAnvilCallback;
 import svenhjol.charm.loader.CharmModule;
 
@@ -23,8 +24,10 @@ public class RepairNetheriteFromScrap extends CharmModule {
 
     public static int repairAmount = 300;
 
+    @Config(name = "XP cost", description = "Number of levels required to restore durability.")
     public static int xpCost = 1;
 
+    @Config(name = "Repairable items", description = "List of items repairable using netherite scrap.")
     public static List<String> configValidItems = List.of(
         "netherite_hoe",
         "netherite_shovel",
