@@ -21,8 +21,8 @@ public class RepairElytraFromLeather extends CharmModule {
         CheckAnvilRepairCallback.EVENT.register(this::handleCheckAnvilRepair);
     }
 
-    private boolean handleCheckAnvilRepair(AnvilMenu handler, Player player, ItemStack leftStack, ItemStack rightStack) {
-        if (leftStack.getItem() != Items.ELYTRA || player == null || player.level == null) {
+    private boolean handleCheckAnvilRepair(AnvilMenu menu, Player player, ItemStack left, ItemStack right) {
+        if (left.getItem() != Items.ELYTRA || player == null || player.level == null) {
             return false; // false to bypass
         }
 
@@ -31,6 +31,6 @@ public class RepairElytraFromLeather extends CharmModule {
             return false; // false to explicitly deny repair if insomnia is enabled
         }
 
-        return leftStack.getItem() == Items.ELYTRA && rightStack.getItem() == Items.LEATHER;
+        return right.getItem() == Items.LEATHER;
     }
 }
