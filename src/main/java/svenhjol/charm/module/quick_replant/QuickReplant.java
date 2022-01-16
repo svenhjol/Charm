@@ -100,7 +100,7 @@ public class QuickReplant extends CharmModule {
                 triggerReplantedCrops(serverPlayer);
 
                 // damage the hoe a bit
-                held.hurtAndBreak(1, player, p -> p.swing(hand));
+                held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
                 return InteractionResult.CONSUME;
             }
 
