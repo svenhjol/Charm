@@ -11,11 +11,11 @@ import java.util.function.Consumer;
 
 public interface UpdateAnvilCallback {
     Event<UpdateAnvilCallback> EVENT = EventFactory.createArrayBacked(UpdateAnvilCallback.class, (listeners) -> (
-        menu, player, left, right, setOutput, setXpCost, setMaterialCost
+        menu, player, left, right, baseCost, setOutput, setXpCost, setMaterialCost
     ) -> {
         for (UpdateAnvilCallback listener : listeners) {
             var result = listener.interact(
-                menu, player, left, right, setOutput, setXpCost, setMaterialCost
+                menu, player, left, right, baseCost, setOutput, setXpCost, setMaterialCost
             );
             if (result != InteractionResult.PASS) {
                 return result;
@@ -25,6 +25,6 @@ public interface UpdateAnvilCallback {
         return InteractionResult.PASS;
     });
 
-    InteractionResult interact(AnvilMenu menu, Player player, ItemStack left, ItemStack right,
+    InteractionResult interact(AnvilMenu menu, Player player, ItemStack left, ItemStack right, int baseCost,
                                Consumer<ItemStack> setOutput, Consumer<Integer> setXpCost, Consumer<Integer> setMaterialCost);
 }

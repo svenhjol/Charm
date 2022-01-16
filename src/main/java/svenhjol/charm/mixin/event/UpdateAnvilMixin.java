@@ -39,7 +39,7 @@ public abstract class UpdateAnvilMixin extends ItemCombinerMenu {
     )
     private void hookCreateResult(CallbackInfo ci, ItemStack input, int i, int baseCost, int k, ItemStack left, ItemStack right, Map<?, ?> enchantments, boolean isEnchantedBook) {
         var menu = (AnvilMenu) (Object) this;
-        var result = UpdateAnvilCallback.EVENT.invoker().interact(menu, player, left, right, this::setOutput, this::setXpCost, this::setMaterialCost);
+        var result = UpdateAnvilCallback.EVENT.invoker().interact(menu, player, left, right, baseCost, this::setOutput, this::setXpCost, this::setMaterialCost);
 
         if (result != InteractionResult.PASS) {
             ci.cancel();
