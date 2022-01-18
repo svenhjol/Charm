@@ -38,7 +38,7 @@ public class PathToDirt extends CharmModule {
                     level.playSound(null, pos, SoundEvents.SHOVEL_FLATTEN, SoundSource.BLOCKS, 1.0F, 1.0F);
 
                     // damage the hoe a bit
-                    stack.hurtAndBreak(1, player, p -> p.swing(hand));
+                    stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
                     return InteractionResult.SUCCESS;
                 }
             }

@@ -27,14 +27,12 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.api.event.TotemOfPreservingEvents;
 import svenhjol.charm.api.event.EntityDropXpCallback;
 import svenhjol.charm.api.event.PlayerDropInventoryCallback;
+import svenhjol.charm.api.event.TotemOfPreservingEvents;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.init.CharmAdvancements;
@@ -50,13 +48,15 @@ import java.util.*;
     In Normal and Hard mode, the player must be holding an empty Totem of Preserving in order for it to hold items upon death.""")
 public class TotemOfPreserving extends CharmModule {
     public static TotemOfPreservingItem TOTEM_OF_PRESERVING;
-    public static LootItemFunctionType LOOT_FUNCTION;
+    public static LootItemFunctionType CHEST_LOOT_FUNCTION;
+    public static LootItemFunctionType MOB_LOOT_FUNCTION;
 
-    public static final ResourceLocation LOOT_ID = new ResourceLocation(Charm.MOD_ID, "totem_of_preserving_loot");
+    public static final ResourceLocation CHEST_LOOT_ID = new ResourceLocation(Charm.MOD_ID, "totem_of_preserving_chest_loot");
+    public static final ResourceLocation MOB_LOOT_ID = new ResourceLocation(Charm.MOD_ID, "totem_of_preserving_mob_loot");
     public static final ResourceLocation TRIGGER_USED_TOTEM_OF_PRESERVING = new ResourceLocation(Charm.MOD_ID, "used_totem_of_preserving");
 
     public static final List<Difficulty> GRAVE_MODE_DIFFICULTIES = new ArrayList<>();
-    public static final List<ResourceLocation> VALID_MOB_DROPS = new ArrayList<>();
+    public static final List<ResourceLocation> VALID_MOB_LOOT = new ArrayList<>();
     public static final List<ResourceLocation> VALID_CHEST_LOOT = new ArrayList<>();
 
     @Config(name = "Grave mode game difficulties", description = "A list of game difficulties in which totems will behave in 'Grave mode'.\n" +
@@ -88,7 +88,7 @@ public class TotemOfPreserving extends CharmModule {
         TOTEM_OF_PRESERVING = new TotemOfPreservingItem(this);
 
         configGraveModeDifficulties.stream().map(String::toLowerCase).map(Difficulty::byName).filter(Objects::nonNull).forEach(GRAVE_MODE_DIFFICULTIES::add);
-        configMobDrops.stream().map(ResourceLocation::new).forEach(VALID_MOB_DROPS::add);
+        configMobDrops.stream().map(ResourceLocation::new).forEach(VALID_MOB_LOOT::add);
         configChestLoot.stream().map(ResourceLocation::new).forEach(VALID_CHEST_LOOT::add);
     }
 
@@ -97,7 +97,8 @@ public class TotemOfPreserving extends CharmModule {
         ItemHelper.ITEM_LIFETIME.put(TOTEM_OF_PRESERVING, Integer.MAX_VALUE); // probably stupid
 
         // register loot function
-        LOOT_FUNCTION = CommonRegistry.lootFunctionType(LOOT_ID, new LootItemFunctionType(new TotemOfPreservingLootFunction.Serializer()));
+        CHEST_LOOT_FUNCTION = CommonRegistry.lootFunctionType(CHEST_LOOT_ID, new LootItemFunctionType(new TotemOfPreservingChestLootFunction.Serializer()));
+        MOB_LOOT_FUNCTION = CommonRegistry.lootFunctionType(MOB_LOOT_ID, new LootItemFunctionType(new TotemOfPreservingMobLootFunction.Serializer()));
 
         PlayerDropInventoryCallback.EVENT.register(this::handleDropInventory);
         EntityDropXpCallback.BEFORE.register(this::handleDropXp);
@@ -105,20 +106,18 @@ public class TotemOfPreserving extends CharmModule {
     }
 
     private void handleLootTables(ResourceManager manager, LootTables lootTables, ResourceLocation id, FabricLootSupplierBuilder supplier, LootTableLoadingCallback.LootTableSetter setter) {
-        NumberProvider numberProvider = null;
-
-        if (VALID_MOB_DROPS.contains(id) && new Random().nextFloat() < 0.3F) {
-            numberProvider = UniformGenerator.between(0, 1);
-        } else if (VALID_CHEST_LOOT.contains(id)) {
-            numberProvider = ConstantValue.exactly(1);
-        }
-
-        if (numberProvider != null) {
+        if (VALID_MOB_LOOT.contains(id) || VALID_CHEST_LOOT.contains(id)) {
             var builder = FabricLootPoolBuilder.builder()
-                .rolls(numberProvider)
+                .rolls(ConstantValue.exactly(1))
                 .with(LootItem.lootTableItem(Items.AIR)
                     .setWeight(1)
-                    .apply(() -> new TotemOfPreservingLootFunction(new LootItemCondition[0])));
+                    .apply(() -> {
+                        if (VALID_CHEST_LOOT.contains(id)) {
+                            return new TotemOfPreservingChestLootFunction(new LootItemCondition[0]);
+                        } else {
+                            return new TotemOfPreservingMobLootFunction(new LootItemCondition[0]);
+                        }
+                    }));
 
             supplier.withPool(builder);
         }

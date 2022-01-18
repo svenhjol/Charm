@@ -9,10 +9,8 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import svenhjol.charm.Charm;
 
-import java.util.Random;
-
-public class TotemOfPreservingLootFunction extends LootItemConditionalFunction {
-    protected TotemOfPreservingLootFunction(LootItemCondition[] conditions) {
+public class TotemOfPreservingMobLootFunction extends LootItemConditionalFunction {
+    protected TotemOfPreservingMobLootFunction(LootItemCondition[] conditions) {
         super(conditions);
     }
 
@@ -21,18 +19,21 @@ public class TotemOfPreservingLootFunction extends LootItemConditionalFunction {
         if (!Charm.LOADER.isEnabled(TotemOfPreserving.class)) return stack;
         if (TotemOfPreserving.isGraveMode(context.getLevel().getDifficulty())) return stack;
 
+        float val = 0.2F + context.getLuck();
+        if (context.getRandom().nextFloat() > val) return stack;
+
         return new ItemStack(TotemOfPreserving.TOTEM_OF_PRESERVING);
     }
 
     @Override
     public LootItemFunctionType getType() {
-        return TotemOfPreserving.LOOT_FUNCTION;
+        return TotemOfPreserving.MOB_LOOT_FUNCTION;
     }
 
-    public static class Serializer extends LootItemConditionalFunction.Serializer<TotemOfPreservingLootFunction> {
+    public static class Serializer extends LootItemConditionalFunction.Serializer<TotemOfPreservingMobLootFunction> {
         @Override
-        public TotemOfPreservingLootFunction deserialize(JsonObject json, JsonDeserializationContext context, LootItemCondition[] conditions) {
-            return new TotemOfPreservingLootFunction(conditions);
+        public TotemOfPreservingMobLootFunction deserialize(JsonObject json, JsonDeserializationContext context, LootItemCondition[] conditions) {
+            return new TotemOfPreservingMobLootFunction(conditions);
         }
     }
 }
