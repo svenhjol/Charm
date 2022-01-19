@@ -67,7 +67,11 @@ public class BeekeeperTradeOffers {
         @Override
         public MerchantOffer getOffer(Entity entity, Random random) {
             setInput(Items.EMERALD, 3);
-            setOutput(ItemTags.CANDLES.getRandomElement(random), 1);
+
+            ItemTags.CANDLES.getRandomElement(random).ifPresentOrElse(
+                candle -> setOutput(candle, 1),
+                () -> setOutput(Items.CANDLE.asItem(), 1)
+            );
 
             return super.getOffer(entity, random);
         }
