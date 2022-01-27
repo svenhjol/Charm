@@ -2,13 +2,13 @@
   "parent": "charm:extract_enchantments/extract_enchantment",
   "display": {
     "icon": {
-      "item": "minecraft:iron_horse_armor"
+      "item": "minecraft:leather_chestplate"
     },
     "title": {
-      "translate": "advancements.charm.recycle_horse_armor.title"
+      "translate": "advancements.charm.recycle_armor.title"
     },
     "description": {
-      "translate": "advancements.charm.recycle_horse_armor.description"
+      "translate": "advancements.charm.recycle_armor.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "recycled_horse_armor": {
+    "recycled_armor": {
       "trigger": "charm:action_performed",
       "conditions": {
-        "action": "charm:recycled_horse_armor"
+        "action": "charm:recycled_armor"
       }
     }
   },
   "requirements": [
     [
-      "recycled_horse_armor"
+      "recycled_armor"
     ]
   ]
 }
