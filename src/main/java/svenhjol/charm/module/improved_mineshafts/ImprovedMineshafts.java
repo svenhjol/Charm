@@ -1,4 +1,4 @@
-package svenhjol.charm.module.mineshaft_improvements;
+package svenhjol.charm.module.improved_mineshafts;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.core.BlockPos;
@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Random;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.")
-public class MineshaftImprovements extends CharmModule {
+public class ImprovedMineshafts extends CharmModule {
     public static List<ResourceLocation> MINECART_LOOT_TABLES = new ArrayList<>();
 
     public static List<BlockState> FLOOR_BLOCKS = new ArrayList<>();
@@ -99,7 +99,7 @@ public class MineshaftImprovements extends CharmModule {
     }
 
     public static void generatePiece(StructurePiece piece, WorldGenLevel level, StructureFeatureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
-        if (!Charm.LOADER.isEnabled(MineshaftImprovements.class))
+        if (!Charm.LOADER.isEnabled(ImprovedMineshafts.class))
 
         // don't add any decoration to mesa mineshafts
         if (((MineShaftPieces.MineShaftPiece)piece).type == MineshaftFeature.Type.MESA) return;
@@ -261,10 +261,10 @@ public class MineshaftImprovements extends CharmModule {
             BuiltInLootTables.VILLAGE_WEAPONSMITH.getPath()
         );
 
-        FLOOR_BLOCK_LOOT = new ResourceLocation(Charm.MOD_ID, "mineshaft_improvements/floor_blocks");
-        PILE_BLOCK_LOOT = new ResourceLocation(Charm.MOD_ID, "mineshaft_improvements/pile_blocks");
-        CEILING_BLOCK_LOOT = new ResourceLocation(Charm.MOD_ID, "mineshaft_improvements/ceiling_blocks");
-        ROOM_BLOCK_LOOT = new ResourceLocation(Charm.MOD_ID, "mineshaft_improvements/room_blocks");
-        ROOM_DECORATION_LOOT = new ResourceLocation(Charm.MOD_ID, "mineshaft_improvements/room_decorations");
+        FLOOR_BLOCK_LOOT = new ResourceLocation(Charm.MOD_ID, "improved_mineshafts/floor_blocks");
+        PILE_BLOCK_LOOT = new ResourceLocation(Charm.MOD_ID, "improved_mineshafts/pile_blocks");
+        CEILING_BLOCK_LOOT = new ResourceLocation(Charm.MOD_ID, "improved_mineshafts/ceiling_blocks");
+        ROOM_BLOCK_LOOT = new ResourceLocation(Charm.MOD_ID, "improved_mineshafts/room_blocks");
+        ROOM_DECORATION_LOOT = new ResourceLocation(Charm.MOD_ID, "improved_mineshafts/room_decorations");
     }
 }
