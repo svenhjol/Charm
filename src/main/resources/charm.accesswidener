@@ -53,6 +53,8 @@ accessible method net/minecraft/world/entity/animal/Bee setHasNectar (Z)V
 accessible method net/minecraft/world/entity/animal/Bee pathfindRandomlyTowards (Lnet/minecraft/core/BlockPos;)V
 
 # Inaccessible fields
+accessible field net/minecraft/client/gui/Gui screenWidth I
+accessible field net/minecraft/client/gui/Gui screenHeight I
 accessible field net/minecraft/client/Minecraft blockColors Lnet/minecraft/client/color/block/BlockColors;
 accessible field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
 accessible field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
