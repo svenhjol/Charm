@@ -70,6 +70,11 @@ public class WorldHelper {
         settings.structureConfig = structureConfig;
     }
 
+    public static boolean hasStructure(ServerLevel level, StructureFeature<?> structureFeature) {
+        StructureSettings settings = level.getChunkSource().getGenerator().getSettings();
+        return settings.structureConfig.containsKey(structureFeature);
+    }
+
     public static void clearWeather(ServerLevel level) {
         clearWeather(level, level.random.nextInt(12000) + 3600);
     }
