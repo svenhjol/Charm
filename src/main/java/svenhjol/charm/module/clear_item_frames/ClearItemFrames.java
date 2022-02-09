@@ -71,7 +71,7 @@ public class ClearItemFrames extends CharmModule {
         if (entity instanceof ItemFrame frame) {
             BlockPos pos = frame.blockPosition();
 
-            if (frame.isInvisible()) {
+            if (frame.isInvisible() && frame.getItem().isEmpty()) {
                 ItemStack shard = new ItemStack(Items.AMETHYST_SHARD);
                 ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, shard);
                 itemEntity.setDefaultPickUpDelay();

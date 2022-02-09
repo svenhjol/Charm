@@ -1,6 +1,5 @@
 package svenhjol.charm.module.atlases;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
@@ -22,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
+import svenhjol.charm.helper.KeyboardHelper;
 import svenhjol.charm.init.CharmResources;
 import svenhjol.charm.module.atlases.AtlasInventory.Index;
 import svenhjol.charm.module.atlases.AtlasInventory.MapInfo;
@@ -92,11 +92,6 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
     private CharmImageButton createButton(ButtonDirection dir) {
         return new CharmImageButton(() -> getX() + LEFT + dir.left, () -> getY() + TOP + dir.top, dir.width, dir.height,
             dir.texStart, 0, dir.height, 2 * dir.height, CharmResources.INVENTORY_BUTTONS, it -> mapGui.buttonClick(dir));
-    }
-
-    private static boolean isShiftClick() {
-        long handle = Minecraft.getInstance().getWindow().getWindow();
-        return InputConstants.isKeyDown(handle, 340) || InputConstants.isKeyDown(handle, 344);
     }
 
     private WorldMap getWorldMap() {
@@ -384,7 +379,7 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
                         Map<Index, MapInfo> mapInfos = menu.getAtlasInventory().getCurrentDimensionMapInfos(Minecraft.getInstance().level);
                         MapInfo mapInfo = mapInfos.get(index);
                         if (mapInfo != null) {
-                            if (isShiftClick()) {
+                            if (KeyboardHelper.isShiftClick()) {
                                 sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_INVENTORY);
                             } else {
                                 changeGui(getSingleMap(mapInfo));
@@ -518,7 +513,7 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
                 if (!heldItem.isEmpty()) {
                     sendAtlasTransfer(slot, -1, -1, Atlases.MoveMode.FROM_HAND);
                 } else if (mapInfo != null) {
-                    if (isShiftClick()) {
+                    if (KeyboardHelper.isShiftClick()) {
                         sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_INVENTORY);
                     } else {
                         sendAtlasTransfer(slot, mapInfo.x, mapInfo.z, Atlases.MoveMode.TO_HAND);
