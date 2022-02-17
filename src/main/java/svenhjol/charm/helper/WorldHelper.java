@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.StructureSettings;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
 import net.minecraft.world.level.material.Material;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -61,7 +61,7 @@ public class WorldHelper {
 
     public static void removeStructures(ServerLevel level, List<StructureFeature<?>> structureFeatures) {
         StructureSettings settings = level.getChunkSource().getGenerator().getSettings();
-        Map<StructureFeature<?>, StructureFeatureConfiguration> structureConfig = new HashMap<>(settings.structureConfig());
+        Map<StructureFeature<?>, StructurePlacement> structureConfig = new HashMap<>(settings.structureConfig());
 
         for (StructureFeature<?> structureFeature : structureFeatures) {
             structureConfig.remove(structureFeature);

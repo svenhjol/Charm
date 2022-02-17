@@ -2,7 +2,7 @@ package svenhjol.charm.module.core;
 
 import com.google.gson.JsonElement;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.ServerResources;
+import net.minecraft.server.ReloadableServerResources;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Recipe;
@@ -13,20 +13,20 @@ import svenhjol.charm.helper.RecipeHelper;
 import java.util.Map;
 
 public class SortingRecipeManager extends RecipeManager {
-    private final ServerResources manager;
+    private final ReloadableServerResources resources;
 
-    public SortingRecipeManager(ServerResources manager) {
-        this.manager = manager;
+    public SortingRecipeManager(ReloadableServerResources resources) {
+        this.resources = resources;
     }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         super.apply(map, resourceManager, profilerFiller);
 
-        Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> existing = manager.getRecipeManager().recipes;
+        Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> existing = resources.getRecipeManager().recipes;
 
         if (!existing.isEmpty()) {
-            manager.getRecipeManager().recipes = RecipeHelper.sortAndFilterRecipes(existing, true);
+            resources.getRecipeManager().recipes = RecipeHelper.sortAndFilterRecipes(existing, true);
         }
     }
 }

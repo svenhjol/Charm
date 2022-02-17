@@ -26,6 +26,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.api.event.StackItemOnItemCallback;
 import svenhjol.charm.api.event.StackItemOnItemCallback.Direction;
+import svenhjol.charm.helper.TagHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler;
 
@@ -45,7 +46,7 @@ public class ShulkerBoxDragDrop extends CharmModule {
     private void handleWorldLoad(MinecraftServer server, ServerLevel level) {
         // do not allow shulkerboxes to be added to shulkerboxes
         if (level.dimension() == Level.OVERWORLD) {
-            for (Block block : BlockTags.SHULKER_BOXES.getValues()) {
+            for (Block block : TagHelper.getBlockValues(BlockTags.SHULKER_BOXES)) {
                 if (!BLACKLIST.contains(block)) {
                     BLACKLIST.add(block);
                 }

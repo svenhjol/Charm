@@ -1,6 +1,7 @@
 package svenhjol.charm.module.raid_horns;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -121,8 +122,8 @@ public class RaidHornItem extends CharmItem {
         if (!level.hasChunksAt(mutable.getX() - 10, mutable.getY() - 10, mutable.getZ() - 10, mutable.getX() + 10, mutable.getY() + 10, mutable.getZ() + 10)) {
             return false;
         } else {
-            Biome biome = level.getBiome(mutable);
-            Biome.BiomeCategory category = biome.getBiomeCategory();
+            Holder<Biome> holder = level.getBiome(mutable);
+            Biome.BiomeCategory category = Biome.getBiomeCategory(holder);
             if (category == Biome.BiomeCategory.MUSHROOM) {
                 return false;
             } else {

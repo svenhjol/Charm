@@ -17,9 +17,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.api.event.HoverSortItemsCallback;
+import svenhjol.charm.helper.TagHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.hover_sorting.HoverSorting;
-import svenhjol.charm.api.event.HoverSortItemsCallback;
 import svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler;
 
 import java.util.ArrayList;
@@ -66,9 +67,10 @@ public class ShulkerBoxTooltip extends CharmModule {
      */
     private void handleWorldLoad(MinecraftServer server, ServerLevel level) {
         if (level.dimension() == Level.OVERWORLD) {
-            for (Block block : BlockTags.SHULKER_BOXES.getValues()) {
-                if (!HoverSorting.SORTABLE.contains(block)) {
-                    HoverSorting.SORTABLE.add(block);
+            var boxes = TagHelper.getBlockValues(BlockTags.SHULKER_BOXES);
+            for (Block box : boxes) {
+                if (!HoverSorting.SORTABLE.contains(box)) {
+                    HoverSorting.SORTABLE.add(box);
                 }
             }
         }

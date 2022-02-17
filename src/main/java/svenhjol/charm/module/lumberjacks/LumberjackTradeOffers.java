@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.enums.IWoodMaterial;
+import svenhjol.charm.helper.TagHelper;
 import svenhjol.charm.helper.VillagerHelper.SingleItemTypeTrade;
 import svenhjol.charm.module.variant_barrels.VariantBarrels;
 import svenhjol.charm.module.variant_ladders.VariantLadders;
@@ -99,7 +100,7 @@ public class LumberjackTradeOffers {
         @Override
         public MerchantOffer getOffer(Entity entity, Random random) {
             experience = 7;
-            List<Item> beds = ItemTags.BEDS.getValues();
+            List<Item> beds = TagHelper.getItemValues(ItemTags.BEDS);
             setInput(Items.EMERALD, 3);
             setOutput(beds.get(random.nextInt(beds.size())), 1);
             return super.getOffer(entity, random);
@@ -111,7 +112,9 @@ public class LumberjackTradeOffers {
         @Override
         public MerchantOffer getOffer(Entity entity, Random random) {
             experience = 6;
-            List<ItemLike> doors = random.nextFloat() < 0.5F ? new ArrayList<>(ItemTags.WOODEN_FENCES.getValues()) : new ArrayList<>(BlockTags.FENCE_GATES.getValues());
+            List<ItemLike> doors = random.nextFloat() < 0.5F
+                ? new ArrayList<>(TagHelper.getItemValues(ItemTags.WOODEN_FENCES))
+                : new ArrayList<>(TagHelper.getBlockValues(BlockTags.FENCE_GATES));
             setInput(Items.EMERALD, 1);
             setOutput(doors.get(random.nextInt(doors.size())), 1);
             return super.getOffer(entity, random);
@@ -128,9 +131,9 @@ public class LumberjackTradeOffers {
             experience = 10;
 
             if (random.nextFloat() < 0.5F) {
-                stems = ItemTags.CRIMSON_STEMS.getValues();
+                stems = TagHelper.getItemValues(ItemTags.CRIMSON_STEMS);
             } else {
-                stems = ItemTags.WARPED_STEMS.getValues();
+                stems = TagHelper.getItemValues(ItemTags.WARPED_STEMS);
             }
 
             setInput(stems.get(random.nextInt(stems.size())), 7);
@@ -181,7 +184,9 @@ public class LumberjackTradeOffers {
         @Override
         public MerchantOffer getOffer(Entity entity, Random random) {
             experience = 10;
-            List<Item> doors = random.nextFloat() < 0.5F ? ItemTags.WOODEN_DOORS.getValues() : ItemTags.WOODEN_TRAPDOORS.getValues();
+            List<Item> doors = random.nextFloat() < 0.5F
+                ? TagHelper.getItemValues(ItemTags.WOODEN_DOORS)
+                : TagHelper.getItemValues(ItemTags.WOODEN_TRAPDOORS);
             setInput(Items.EMERALD, 1);
             setOutput(doors.get(random.nextInt(doors.size())), 1);
             return super.getOffer(entity, random);

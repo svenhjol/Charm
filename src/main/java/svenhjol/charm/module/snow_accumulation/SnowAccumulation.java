@@ -40,7 +40,7 @@ public class SnowAccumulation extends CharmModule {
             BlockPos pos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, level.getBlockRandomPos(chunkX, 0, chunkZ, 15));
             BlockPos belowPos = pos.below();
             BlockState belowState = level.getBlockState(belowPos);
-            Biome biome = level.getBiome(pos);
+            Biome biome = level.getBiome(pos).value();
 
             if (biome.getHeightAdjustedTemperature(pos) < 0.15F && pos.getY() >= level.getMinBuildHeight() && pos.getY() < level.getMaxBuildHeight()) {
                 BlockState state = level.getBlockState(pos);

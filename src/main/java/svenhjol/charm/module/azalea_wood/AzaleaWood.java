@@ -93,7 +93,7 @@ public class AzaleaWood extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        ConfiguredFeature<TreeConfiguration, ?> feature = (ConfiguredFeature<TreeConfiguration, ?>) TreeFeatures.AZALEA_TREE;
+        ConfiguredFeature<TreeConfiguration, ?> feature = TreeFeatures.AZALEA_TREE.value();
         feature.config().trunkProvider = new SimpleStateProvider(AzaleaWood.LOG.defaultBlockState());
 
         CommonRegistry.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);

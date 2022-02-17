@@ -1,38 +1,37 @@
 package svenhjol.charm.helper;
 
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
-import net.minecraft.world.level.biome.BiomeManager;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 import javax.annotation.Nullable;
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @version 4.0.0-charm
  */
-@SuppressWarnings({"UnstableApiUsage", "unused"})
+@SuppressWarnings({"unused"})
 public class BiomeHelper {
     public static Map<BiomeCategory, List<ResourceKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
 
     public static Biome getBiome(ServerLevel level, BlockPos pos) {
-        BiomeManager biomeAccess = level.getBiomeManager();
-        return biomeAccess.getBiome(pos);
+        return getBiomeHolder(level, pos).value();
+    }
+
+    public static Holder<Biome> getBiomeHolder(ServerLevel level, BlockPos pos) {
+        return level.getBiomeManager().getBiome(pos);
     }
 
     @Nullable
@@ -45,75 +44,39 @@ public class BiomeHelper {
         return BuiltinRegistries.BIOME.getResourceKey(biome).orElse(null);
     }
 
-    public static Optional<ResourceKey<Biome>> getBiomeKeyAtPosition(ServerLevel level, BlockPos pos) {
-        return level.getBiomeName(pos);
-    }
-
     @Nullable
     public static BiomeCategory getBiomeCategoryByName(String name) {
-        List<String> validCategories = Arrays.stream(BiomeCategory.values()).map(BiomeCategory::getSerializedName).collect(Collectors.toList());
+        List<String> validCategories = Arrays.stream(BiomeCategory.values()).map(BiomeCategory::getSerializedName).toList();
         if (validCategories.contains(name)) {
             return BiomeCategory.byName(name);
         }
         return null;
     }
 
-    public static BlockPos locateBiome(ResourceKey<Biome> biomeKey, ServerLevel level, BlockPos pos) {
-        Biome biome = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).get(biomeKey);
-        return locateBiome(biome, level, pos);
-    }
-
-    public static BlockPos locateBiome(Biome biome, ServerLevel level, BlockPos pos) {
+    public static BlockPos locateBiome(ResourceKey<Biome> biome, ServerLevel level, BlockPos pos) {
         return level.findNearestBiome(biome, pos, 6400, 8);
     }
 
-    public static void addFeatureToBiomeCategory(PlacedFeature feature, BiomeCategory biomeCategory, GenerationStep.Decoration generationStep) {
-        List<ResourceKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
-        biomeKeys.forEach(biomeKey -> BiomeHelper.addFeatureToBiome(feature, biomeKey, generationStep));
-    }
-
-    public static void addFeatureToBiome(PlacedFeature feature, ResourceKey<Biome> biomeKey, GenerationStep.Decoration generationStep) {
-        ResourceKey<PlacedFeature> featureKey;
-        Predicate<BiomeSelectionContext> biomeSelector;
-
-        try {
-            biomeSelector = BiomeSelectors.includeByKey(biomeKey);
-            featureKey = BuiltInRegistryKeys.get(feature);
-        } catch (Exception e) {
-            LogHelper.error(BiomeHelper.class, "Failed to add feature to biome.");
-            return;
-        }
-
-        BiomeModifications.addFeature(biomeSelector, generationStep, featureKey);
-    }
-
-    public static void addStructureToBiomeCategory(ConfiguredStructureFeature<?, ?> structureFeature, BiomeCategory biomeCategory) {
-        List<ResourceKey<Biome>> biomeKeys = BIOME_CATEGORY_MAP.get(biomeCategory);
-        biomeKeys.forEach(biomeKey -> BiomeHelper.addStructureToBiome(structureFeature, biomeKey));
-    }
-
-    public static void addStructureToBiome(ConfiguredStructureFeature<?, ?> structureFeature, ResourceKey<Biome> biomeKey) {
-        ResourceKey<ConfiguredStructureFeature<?, ?>> structureKey;
-        Predicate<BiomeSelectionContext> biomeSelector;
-
-        try {
-            biomeSelector = BiomeSelectors.includeByKey(biomeKey);
-            structureKey = BuiltInRegistryKeys.get(structureFeature);
-            LogHelper.debug(BiomeHelper.class, "Adding structure `" + structureFeature.feature.getFeatureName() + "` to biome `" + biomeKey.location() + "`");
-        } catch (Exception e) {
-            LogHelper.error(BiomeHelper.class, "Failed to add structure to biome. This may cause crashes when trying to locate the structure.");
-            return;
-        }
-
-        BiomeModifications.addStructure(biomeSelector, structureKey);
-    }
-
     public static void addSpawnEntry(ResourceKey<Biome> biomeKey, MobCategory group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
-        try {
-            Predicate<BiomeSelectionContext> biomeSelector = BiomeSelectors.includeByKey(biomeKey);
-            BiomeModifications.addSpawn(biomeSelector, group, entity, weight, minGroupSize, maxGroupSize);
-        } catch (Exception e) {
-            LogHelper.error(BiomeHelper.class, "Failed to add entity to biome spawn. This may cause crashes when trying to spawn the entity.");
-        }
+        MobSpawnSettings spawnSettings = getBiomeFromBiomeKey(biomeKey).getMobSettings();
+        makeSpawnSettingsMutable(spawnSettings);
+
+        Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners = spawnSettings.spawners;
+        CollectionHelper.addPoolEntry(spawners.get(group), new MobSpawnSettings.SpawnerData(entity, weight, minGroupSize, maxGroupSize));
+
+        spawnSettings.spawners = spawners;
+    }
+
+    /**
+     * Charm's biome spawn settings mutability hack, don't use unless fabric's biome API is b0rk
+     */
+    private static void makeSpawnSettingsMutable(MobSpawnSettings settings) {
+        Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners = settings.spawners;
+        if (spawners instanceof ImmutableMap)
+            settings.spawners = new HashMap<>(spawners);
+
+        Map<EntityType<?>, MobSpawnSettings.MobSpawnCost> spawnCosts = settings.mobSpawnCosts;
+        if (spawnCosts instanceof ImmutableMap)
+            settings.mobSpawnCosts = new HashMap<>(spawnCosts);
     }
 }

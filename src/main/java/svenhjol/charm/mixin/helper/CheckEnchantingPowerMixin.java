@@ -1,27 +1,26 @@
 package svenhjol.charm.mixin.helper;
 
-import net.minecraft.world.inventory.EnchantmentMenu;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EnchantmentTableBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.annotation.CharmMixin;
 import svenhjol.charm.init.CharmTags;
 
-@Mixin(EnchantmentMenu.class)
+@Mixin(EnchantmentTableBlock.class)
 @CharmMixin(disableIfModsPresent = {"betterend"})
 public class CheckEnchantingPowerMixin {
-    @SuppressWarnings({"target"})
-    @Redirect(
-        method = "lambda$slotsChanged$0(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
-        )
+    @Inject(
+        method = "isValidBookShelf",
+        at = @At("HEAD"),
+        cancellable = true
     )
-    private boolean hookAnimateTick(BlockState state, Block block) {
-        Block compare = state.getBlock();
-        return compare == block || CharmTags.PROVIDE_ENCHANTING_POWER.contains(compare);
+    private static void hookIsValidBookShelf(Level level, BlockPos blockPos, BlockPos blockPos2, CallbackInfoReturnable<Boolean> cir) {
+        if (level.getBlockState(blockPos.offset(blockPos2)).is(CharmTags.PROVIDE_ENCHANTING_POWER) && level.isEmptyBlock(blockPos.offset(blockPos2.getX() / 2, blockPos2.getY(), blockPos2.getZ() / 2))) {
+            cir.setReturnValue(true);
+        }
     }
 }

@@ -82,7 +82,6 @@
     "extract_enchantments.ShowGrindstoneCostMixin",
     "gentle_potion_particles.RenderTranslucentParticleMixin",
     "helper.LoadCustomModelPartsMixin",
-    "helper.ShowEnchantmentParticlesMixin",
     "kilns.AddRecipeCategoryMixin",
     "kilns.GetCorrectCategoriesMixin",
     "kilns.GetCorrectCategoryMixin",

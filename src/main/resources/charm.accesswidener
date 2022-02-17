@@ -15,6 +15,7 @@ accessible class net/minecraft/client/renderer/RenderStateShard$TexturingStateSh
 accessible class net/minecraft/client/renderer/RenderStateShard$TransparencyStateShard
 accessible class net/minecraft/client/renderer/RenderStateShard$WriteMaskStateShard
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
+accessible class net/minecraft/server/MinecraftServer$ReloadableResources
 
 # Inaccessible constructors
 accessible method net/minecraft/world/inventory/MenuType <init> (Lnet/minecraft/world/inventory/MenuType$MenuSupplier;)V
@@ -29,8 +30,6 @@ accessible method net/minecraft/client/renderer/RenderType create (Ljava/lang/St
 accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
 accessible method net/minecraft/world/item/alchemy/PotionBrewing addMix (Lnet/minecraft/world/item/alchemy/Potion;Lnet/minecraft/world/item/Item;Lnet/minecraft/world/item/alchemy/Potion;)V
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
-accessible method net/minecraft/tags/BlockTags bind (Ljava/lang/String;)Lnet/minecraft/tags/Tag$Named;
-accessible method net/minecraft/tags/ItemTags bind (Ljava/lang/String;)Lnet/minecraft/tags/Tag$Named;
 accessible method net/minecraft/world/level/block/FireBlock setFlammable (Lnet/minecraft/world/level/block/Block;II)V
 extendable method net/minecraft/world/inventory/AbstractContainerMenu doClick (IILnet/minecraft/world/inventory/ClickType;Lnet/minecraft/world/entity/player/Player;)V
 accessible method net/minecraft/world/item/BundleItem getContents (Lnet/minecraft/world/item/ItemStack;)Ljava/util/stream/Stream;
@@ -51,6 +50,9 @@ accessible method net/minecraft/world/entity/animal/horse/AbstractHorse createIn
 accessible method net/minecraft/world/level/block/NoteBlock playNote (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
 accessible method net/minecraft/world/entity/animal/Bee setHasNectar (Z)V
 accessible method net/minecraft/world/entity/animal/Bee pathfindRandomlyTowards (Lnet/minecraft/core/BlockPos;)V
+accessible method net/minecraft/tags/ItemTags bind (Ljava/lang/String;)Lnet/minecraft/tags/TagKey;
+accessible method net/minecraft/tags/BlockTags create (Ljava/lang/String;)Lnet/minecraft/tags/TagKey;
+accessible method net/minecraft/world/level/biome/Biome getBiomeCategory ()Lnet/minecraft/world/level/biome/Biome$BiomeCategory;
 
 # Inaccessible fields
 accessible field net/minecraft/client/gui/Gui screenWidth I
@@ -81,11 +83,11 @@ accessible field net/minecraft/world/level/levelgen/PatrolSpawner nextTick I
 accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher renderers Ljava/util/Map;
 accessible field net/minecraft/client/renderer/entity/LivingEntityRenderer layers Ljava/util/List;
 accessible field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
-accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_PLAINS Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
-accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_DESERT Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
-accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_SAVANNA Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
-accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_SNOWY Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
-accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_TAIGA Lnet/minecraft/world/level/levelgen/feature/ConfiguredStructureFeature;
+accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_PLAINS Lnet/minecraft/core/Holder;
+accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_DESERT Lnet/minecraft/core/Holder;
+accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_SAVANNA Lnet/minecraft/core/Holder;
+accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_SNOWY Lnet/minecraft/core/Holder;
+accessible field net/minecraft/data/worldgen/StructureFeatures VILLAGE_TAIGA Lnet/minecraft/core/Holder;
 accessible field net/minecraft/world/entity/ai/village/poi/PoiType maxTickets I
 accessible field net/minecraft/world/level/levelgen/structure/MineShaftPieces$MineShaftPiece type Lnet/minecraft/world/level/levelgen/feature/MineshaftFeature$Type;
 accessible field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;
@@ -98,6 +100,10 @@ accessible field net/minecraft/world/level/block/state/properties/NoteBlockInstr
 accessible field net/minecraft/client/sounds/SoundManager soundEngine Lnet/minecraft/client/sounds/SoundEngine;
 accessible field net/minecraft/client/sounds/SoundEngine instanceBySource Lcom/google/common/collect/Multimap;
 accessible field net/minecraft/world/level/levelgen/StructureSettings structureConfig Ljava/util/Map;
+accessible field net/minecraft/server/MinecraftServer$ReloadableResources managers Lnet/minecraft/server/ReloadableServerResources;
+accessible field net/minecraft/world/level/biome/BiomeGenerationSettings features Ljava/util/List;
+accessible field net/minecraft/world/level/biome/MobSpawnSettings spawners Ljava/util/Map;
+accessible field net/minecraft/world/level/biome/MobSpawnSettings mobSpawnCosts Ljava/util/Map;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
@@ -119,4 +125,5 @@ mutable    field net/minecraft/world/level/levelgen/feature/configurations/TreeC
 mutable    field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstrument soundEvent Lnet/minecraft/sounds/SoundEvent;
 mutable    field net/minecraft/world/level/levelgen/StructureSettings structureConfig Ljava/util/Map;
-
+mutable    field net/minecraft/world/level/biome/MobSpawnSettings spawners Ljava/util/Map;
+mutable    field net/minecraft/world/level/biome/MobSpawnSettings mobSpawnCosts Ljava/util/Map;

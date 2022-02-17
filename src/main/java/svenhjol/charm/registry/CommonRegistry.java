@@ -2,6 +2,7 @@ package svenhjol.charm.registry;
 
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.BuiltinRegistries;
@@ -30,7 +31,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.level.levelgen.feature.StructurePieceType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
@@ -123,7 +124,7 @@ public class CommonRegistry {
         return Registry.register(Registry.MENU, id, new MenuType<>(factory));
     }
 
-    public static StructureProcessorList processorList(ResourceLocation id, List<StructureProcessor> processors) {
+    public static Holder<StructureProcessorList> processorList(ResourceLocation id, List<StructureProcessor> processors) {
         StructureProcessorList list = new StructureProcessorList(processors);
         return BuiltinRegistries.register(BuiltinRegistries.PROCESSOR_LIST, id, list);
     }

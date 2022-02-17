@@ -1,6 +1,8 @@
 package svenhjol.charm.module.beekeepers;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.ItemTags;
@@ -12,8 +14,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
+import svenhjol.charm.helper.TagHelper;
 import svenhjol.charm.helper.VillagerHelper.SingleItemTypeTrade;
 
 import javax.annotation.Nullable;
@@ -25,8 +29,21 @@ public class BeekeeperTradeOffers {
         @Nullable
         @Override
         public MerchantOffer getOffer(Entity entity, Random random) {
-            List<Item> flowers = ItemTags.FLOWERS.getValues();
-            setInput(flowers.get(random.nextInt(flowers.size())), random.nextInt(3) + 13);
+            List<Item> flowers = TagHelper.getItemValues(ItemTags.FLOWERS);
+            ItemLike item;
+
+            var size = Registry.ITEM.getTagOrEmpty(ItemTags.FLOWERS);
+            for (Holder<Item> holder : size) {
+                flowers.add(holder.value());
+            }
+
+            if (flowers.isEmpty()) {
+                item = Items.DANDELION.asItem();
+            } else {
+                item = flowers.get(random.nextInt(flowers.size()));
+            }
+
+            setInput(item, random.nextInt(3) + 13);
             setOutput(Items.EMERALD, 1);
             return super.getOffer(entity, random);
         }
@@ -68,10 +85,9 @@ public class BeekeeperTradeOffers {
         public MerchantOffer getOffer(Entity entity, Random random) {
             setInput(Items.EMERALD, 3);
 
-            ItemTags.CANDLES.getRandomElement(random).ifPresentOrElse(
-                candle -> setOutput(candle, 1),
-                () -> setOutput(Items.CANDLE.asItem(), 1)
-            );
+            var candles = TagHelper.getItemValues(ItemTags.CANDLES);
+            var candle = TagHelper.getRandomElement(candles, Items.CANDLE, random);
+            setOutput(candle, 1);
 
             return super.getOffer(entity, random);
         }
