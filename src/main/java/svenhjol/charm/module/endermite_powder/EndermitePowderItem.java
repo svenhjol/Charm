@@ -10,9 +10,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.helper.DimensionHelper;
+import svenhjol.charm.init.CharmTags;
 import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.loader.CharmModule;
 
@@ -48,7 +48,7 @@ public class EndermitePowderItem extends CharmItem {
         // server
         if (!level.isClientSide) {
             ServerLevel serverLevel = (ServerLevel)level;
-            BlockPos pos = serverLevel.findNearestMapFeature(StructureFeature.END_CITY, player.blockPosition(), 1500, false);
+            BlockPos pos = serverLevel.findNearestMapFeature(CharmTags.ENDERMITE_POWDER_LOCATED, player.blockPosition(), 1500, false);
             if (pos != null) {
                 EndermitePowderEntity entity = new EndermitePowderEntity(level, pos.getX(), pos.getZ());
                 Vec3 look = player.getLookAngle();
