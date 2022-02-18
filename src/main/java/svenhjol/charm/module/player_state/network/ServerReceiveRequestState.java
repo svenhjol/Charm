@@ -1,7 +1,7 @@
 package svenhjol.charm.module.player_state.network;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import svenhjol.charm.helper.WorldHelper;
 import svenhjol.charm.module.player_state.PlayerState;
 import svenhjol.charm.network.Id;
@@ -29,10 +29,10 @@ public class ServerReceiveRequestState extends ServerReceiver {
         // Check if player is in a structure bounds and if so add it to a structure list.
         ListTag withinStructures = new ListTag();
 
-        var entries = Registry.STRUCTURE_FEATURE.entrySet();
-        for (Map.Entry<ResourceKey<StructureFeature<?>>, StructureFeature<?>> entry : entries) {
+        var entries = BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.entrySet();
+        for (Map.Entry<ResourceKey<ConfiguredStructureFeature<?, ?>>, ConfiguredStructureFeature<?, ?>> entry : entries) {
             var key = entry.getKey();
-            StructureFeature<?> structureFeature = entry.getValue();
+            ConfiguredStructureFeature<?, ?> structureFeature = entry.getValue();
 
             if (WorldHelper.isInsideStructure(level, pos, structureFeature)) {
                 withinStructures.add(StringTag.valueOf(key.location().toString()));
