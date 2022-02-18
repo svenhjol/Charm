@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * @version 4.0.0-charm
@@ -39,6 +40,10 @@ public class BiomeHelper {
         return BuiltinRegistries.BIOME.getOptional(biomeKey).orElse(null);
     }
 
+    public static Holder<Biome> getBiomeHolderFromBiomeKey(ResourceKey<Biome> biomeKey) {
+        return BuiltinRegistries.BIOME.getOrCreateHolder(biomeKey);
+    }
+
     @Nullable
     public static ResourceKey<Biome> getBiomeKeyFromBiome(Biome biome) {
         return BuiltinRegistries.BIOME.getResourceKey(biome).orElse(null);
@@ -53,8 +58,12 @@ public class BiomeHelper {
         return null;
     }
 
+    @Nullable
     public static BlockPos locateBiome(ResourceKey<Biome> biome, ServerLevel level, BlockPos pos) {
-        return level.findNearestBiome(biome, pos, 6400, 8);
+        var holder = getBiomeHolderFromBiomeKey(biome);
+        Predicate<Holder<Biome>> biomePredicate = r -> r.value().equals(holder.value());
+        var nearestBiome = level.findNearestBiome(biomePredicate, pos, 6400, 8);
+        return nearestBiome != null ? nearestBiome.getFirst() : null;
     }
 
     public static void addSpawnEntry(ResourceKey<Biome> biomeKey, MobCategory group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
