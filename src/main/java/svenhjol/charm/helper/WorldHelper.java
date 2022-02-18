@@ -14,9 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.StructureSettings;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.material.Material;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -57,22 +55,6 @@ public class WorldHelper {
             LogHelper.debug(WorldHelper.class, "Unloaded forced chunk " + chunkPos);
         }
         return result;
-    }
-
-    public static void removeStructures(ServerLevel level, List<StructureFeature<?>> structureFeatures) {
-        StructureSettings settings = level.getChunkSource().getGenerator().getSettings();
-        Map<StructureFeature<?>, StructurePlacement> structureConfig = new HashMap<>(settings.structureConfig());
-
-        for (StructureFeature<?> structureFeature : structureFeatures) {
-            structureConfig.remove(structureFeature);
-        }
-
-        settings.structureConfig = structureConfig;
-    }
-
-    public static boolean hasStructure(ServerLevel level, StructureFeature<?> structureFeature) {
-        StructureSettings settings = level.getChunkSource().getGenerator().getSettings();
-        return settings.structureConfig.containsKey(structureFeature);
     }
 
     public static void clearWeather(ServerLevel level) {
@@ -132,7 +114,7 @@ public class WorldHelper {
         return d2 * d2 + d3 * d3;
     }
 
-    public static boolean isInsideStructure(ServerLevel level, BlockPos pos, StructureFeature<?> structure) {
+    public static boolean isInsideStructure(ServerLevel level, BlockPos pos, ConfiguredStructureFeature<?, ?> structure) {
         return level.structureFeatureManager().getStructureAt(pos, structure).isValid();
     }
 
