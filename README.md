@@ -1,11 +1,11 @@
-# Charm for Minecraft 1.18.1
+# Charm for Minecraft 1.18.x
 
 ## Version 4.x
 Charm is a vanilla-plus mod for Minecraft, inspired by the Quark mod.
 
-It requires Fabric API, Minecraft 1.18.1 and Java 17.
+It requires Fabric API, Minecraft 1.18.2 and Java 17.
 
-Charm is currently in internal testing.  A beta release is due on or before **17/12/21**.
+Charm is currently in internal testing.  A public beta release is due on or before **28/02/22**.
 
 ### Unchanged features
 * `Aerial affinity enchantment`
@@ -47,7 +47,6 @@ Charm is currently in internal testing.  A beta release is due on or before **17
 * `Variant ladders`
 * `Variant mob textures`
 * `Villagers follow emerald blocks`
-* `Wandering trader maps`
 * `Witches drop luck`
 * `Woodcutters`
 
@@ -67,17 +66,23 @@ Charm is currently in internal testing.  A beta release is due on or before **17
   * The village house has been moved to the *Strange* mod.
 * `Bumblezone` is now known as `Bumblezone integration`.
 * `Bundle sorting` has been changed to `Hover sorting` and is also responsible for sorting shulker boxes.
+* `Chairs` has been added.
+* `Compass overlay` has been added.
 * `Extra trades` has been added.
 * `Extract enchantments`:
   * Extraction and treasure enchantments are more expensive (configurable).
 * `Feather falling crops` is now known as `No crop trampling`.
   * Feather falling boots is now a configurable option.
 * `Goats drop mutton` has been added.
+* `Grindable armor` has been added.
+  * It allows grinding of both horse armor and undamaged player armor.
 * `Hoe harvesting` is now known as `Quick replant`.
   * It is now possible to add custom crop blockstates to the config.
 * `Husk improvements` has been split into the following features:
   * `Husks drop sand`
   * `Husks spawn underground`
+* `Improved fortress loot` has been added.
+* `Improved mansion loot` has been added.
 * `Lower noteblock pitch` has been added.
 * `Lumberjacks`:
   * No longer have a dedicated village house.
@@ -86,8 +91,6 @@ Charm is currently in internal testing.  A beta release is due on or before **17
   * Now uses decoration blocks from dedicated loot table files.
 * `Music improvements` is now known as `Discs stop background music`.
   * The creative music tracks have moved to the *Charmonium* mod.
-* `More village biomes`:
-  * Now adds villages to the new meadows biome.
 * `No cured villager discount` has been added and is **disabled by default**.
 * `No treasure enchantment trading` has been added and is **disabled by default**.
 * `Open double doors` is now known as `Open both doors`.
@@ -95,6 +98,10 @@ Charm is currently in internal testing.  A beta release is due on or before **17
   * New sound for when calling off a raid.
   * Sounds added for if a raid horn fails to activate.
 * `Remove nitwits` is now known as `No nitwits` and is **disabled by default**.
+* `Repair elytra from leather` has been added.
+  * By default only functional when insomnia is disabled.
+* `Repair netherite from scrap` has been added.
+* `Repair tridents from shards` has been added.
 * `Respawn anchor in the End` has been added and is **disabled by default**.
 * `Shulker box drag drop` has been added.
 * `Shulker box tooltips` is now known as `Shulker box tooltip`.
@@ -116,6 +123,7 @@ Charm is currently in internal testing.  A beta release is due on or before **17
 * `Variant bars` textures now match the gold, copper and netherite blocks palette more closely.
 * `Variant chains` now only applies to gold.
 * `Variant lanterns` now only applies to gold.
+* `Wandering trader maps` is currently limited to village maps.
 
 
 ### Removed/moved features
@@ -133,6 +141,7 @@ Charm is currently in internal testing.  A beta release is due on or before **17
 * `Entity spawners` has moved to the *Strange* mod.
 * `Extra nuggets` has been removed.
 * `Glowballs` has moved to the *Strange* mod.
+* `More village biomes`
 * `Piglins follow gold blocks`
 * `Potion of Hogsbane` has moved to the *Strange* mod.
 * `Potion of Piercing Vision` has moved to the *Strange* mod.
