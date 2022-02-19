@@ -141,8 +141,8 @@ Charm is currently in internal testing.  A public beta release is due on or befo
 * `Entity spawners` has moved to the *Strange* mod.
 * `Extra nuggets` has been removed.
 * `Glowballs` has moved to the *Strange* mod.
-* `More village biomes`
-* `Piglins follow gold blocks`
+* `More village biomes` has been removed (for now).
+* `Piglins follow gold blocks` has been removed.
 * `Potion of Hogsbane` has moved to the *Strange* mod.
 * `Potion of Piercing Vision` has moved to the *Strange* mod.
 * `Potion of Spelunking` has moved to the *Strange* mod.
