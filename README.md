@@ -27,7 +27,7 @@ Please note that creating any new issues about earlier versions will also be clo
 * `Block of sugar`
 * `Cave spiders drop cobwebs`
 * `Chickens drop feathers`
-* `Clear item framrs`
+* `Clear item frames`
 * `Collection enchantment`
 * `Colored bundles`
 * `Coral sea lanterns`
