@@ -15,6 +15,7 @@ import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_boats.ExtraBoats;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
 import svenhjol.charm.module.variant_barrels.VariantBarrels;
 import svenhjol.charm.module.variant_bookshelves.VariantBookshelfBlock;
@@ -26,7 +27,6 @@ import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadders;
 import svenhjol.charm.registry.CommonRegistry;
 
-@SuppressWarnings("unchecked")
 @CommonModule(mod = Charm.MOD_ID, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
 public class AzaleaWood extends CharmModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "azalea");
@@ -89,6 +89,8 @@ public class AzaleaWood extends CharmModule {
         CHEST = VariantChests.registerChest(this, CharmWoodMaterial.AZALEA);
         LADDER = VariantLadders.registerLadder(this, CharmWoodMaterial.AZALEA);
         TRAPPED_CHEST = VariantChests.registerTrappedChest(this, CharmWoodMaterial.AZALEA);
+
+        ExtraBoats.registerBoat(AZALEA, BOAT);
     }
 
     @Override
