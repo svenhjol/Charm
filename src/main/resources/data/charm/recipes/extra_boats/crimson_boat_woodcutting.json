@@ -1,0 +1,8 @@
+{
+  "type": "charm:woodcutting",
+  "ingredient": {
+    "item": "minecraft:crimson_planks"
+  },
+  "result": "charm:crimson_boat",
+  "count": 1
+}
