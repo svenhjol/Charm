@@ -27,7 +27,7 @@ import java.util.Random;
 public class WanderingTraderMaps extends CharmModule {
     @Config(name = "Structures", description = "List of structure IDs and structure tags.")
     public static List<String> structures = Arrays.asList(
-        "#minecraft:village", "minecraft:mineshaft", "minecraft:swamp_hut", "minecraft:igloo"
+        "#minecraft:village", "#minecraft:mineshaft", "minecraft:swamp_hut", "minecraft:igloo"
     );
 
     @Config(name = "Rare structures", description = "List of rarer structure IDs and structure tags.\n" +
