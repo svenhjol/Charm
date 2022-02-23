@@ -3,10 +3,13 @@ package svenhjol.charm.helper;
 import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.mixin.object.builder.PointOfInterestTypeAccessor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Explosion;
@@ -16,6 +19,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.material.Material;
+import svenhjol.charm.Charm;
 import svenhjol.charm.registry.CommonRegistry;
 
 import javax.annotation.Nullable;
@@ -192,5 +196,37 @@ public class WorldHelper {
         }
 
         return block;
+    }
+
+    @Nullable
+    public static BlockPos findNearestMapFeature(String id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
+        if (id.startsWith("#")) {
+            var tagKey = TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(id.substring(1)));
+            return findNearestMapFeature(tagKey, level, origin, distance, skipExploredChunks);
+        } else {
+            var res = new ResourceLocation(id);
+            return findNearestMapFeature(res, level, origin, distance, skipExploredChunks);
+        }
+    }
+
+    @Nullable
+    public static BlockPos findNearestMapFeature(ResourceLocation id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
+        var configuredStructures = Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY;
+        var registry = level.registryAccess().registryOrThrow(configuredStructures);
+        var resourceKey = ResourceKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, id);
+
+        try {
+            var holderSet = registry.getHolder(resourceKey).map(HolderSet::direct).orElseThrow();
+            var destination = level.getChunkSource().getGenerator().findNearestMapFeature(level, holderSet, origin, distance, skipExploredChunks);
+            return destination != null ? destination.getFirst() : null;
+        } catch (Exception e) {
+            LogHelper.debug(Charm.MOD_ID, WorldHelper.class, "Failed to locate structure: " + id);
+            return null;
+        }
+    }
+
+    @Nullable
+    public static BlockPos findNearestMapFeature(TagKey<ConfiguredStructureFeature<?, ?>> id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
+        return level.findNearestMapFeature(id, origin, distance, skipExploredChunks);
     }
 }
