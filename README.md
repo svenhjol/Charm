@@ -133,7 +133,7 @@ Please note that creating any new issues about earlier versions will also be clo
 * `Variant bars` textures now match the gold, copper and netherite blocks palette more closely.
 * `Variant chains` now only applies to gold.
 * `Variant lanterns` now only applies to gold.
-* `Wandering trader maps` is currently limited to village maps.
+* `Wandering trader maps` now supports tagged structures.
 
 
 ### Removed/moved features
