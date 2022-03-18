@@ -10,13 +10,10 @@ import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -25,8 +22,6 @@ import java.util.function.Predicate;
  */
 @SuppressWarnings({"unused"})
 public class BiomeHelper {
-    public static Map<BiomeCategory, List<ResourceKey<Biome>>> BIOME_CATEGORY_MAP = new HashMap<>();
-
     public static Biome getBiome(ServerLevel level, BlockPos pos) {
         return getBiomeHolder(level, pos).value();
     }
@@ -47,15 +42,6 @@ public class BiomeHelper {
     @Nullable
     public static ResourceKey<Biome> getBiomeKeyFromBiome(Biome biome) {
         return BuiltinRegistries.BIOME.getResourceKey(biome).orElse(null);
-    }
-
-    @Nullable
-    public static BiomeCategory getBiomeCategoryByName(String name) {
-        List<String> validCategories = Arrays.stream(BiomeCategory.values()).map(BiomeCategory::getSerializedName).toList();
-        if (validCategories.contains(name)) {
-            return BiomeCategory.byName(name);
-        }
-        return null;
     }
 
     @Nullable

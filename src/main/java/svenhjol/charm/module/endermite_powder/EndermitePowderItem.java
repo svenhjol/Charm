@@ -48,7 +48,7 @@ public class EndermitePowderItem extends CharmItem {
         // server
         if (!level.isClientSide) {
             ServerLevel serverLevel = (ServerLevel)level;
-            BlockPos pos = serverLevel.findNearestMapFeature(CharmTags.ENDERMITE_POWDER_LOCATED, player.blockPosition(), 1500, false);
+            BlockPos pos = serverLevel.findNearestMapStructure(CharmTags.ENDERMITE_POWDER_LOCATED, player.blockPosition(), 1500, false);
             if (pos != null) {
                 EndermitePowderEntity entity = new EndermitePowderEntity(level, pos.getX(), pos.getZ());
                 Vec3 look = player.getLookAngle();

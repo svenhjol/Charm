@@ -9,7 +9,7 @@ import net.minecraft.world.entity.vehicle.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LanternBlock;
@@ -18,10 +18,10 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.feature.MineshaftFeature;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.level.levelgen.structure.MineShaftPieces;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
+import net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces;
+import net.minecraft.world.level.levelgen.structure.structures.MineshaftStructure;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -98,20 +98,20 @@ public class ImprovedMineshafts extends CharmModule {
         return states;
     }
 
-    public static void generatePiece(StructurePiece piece, WorldGenLevel level, StructureFeatureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
+    public static void generatePiece(StructurePiece piece, WorldGenLevel level, StructureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (!Charm.LOADER.isEnabled(ImprovedMineshafts.class))
 
         // don't add any decoration to mesa mineshafts
-        if (((MineShaftPieces.MineShaftPiece)piece).type == MineshaftFeature.Type.MESA) return;
+        if (((MineshaftPieces.MineShaftPiece)piece).type == MineshaftStructure.Type.MESA) return;
 
-        if (piece instanceof MineShaftPieces.MineShaftCorridor) {
-            corridor((MineShaftPieces.MineShaftCorridor)piece, level, accessor, chunkGenerator, rand, box, chunkPos, blockPos);
-        } else if (piece instanceof MineShaftPieces.MineShaftRoom) {
-            room((MineShaftPieces.MineShaftRoom)piece, level, accessor, chunkGenerator, rand, box, chunkPos, blockPos);
+        if (piece instanceof MineshaftPieces.MineShaftCorridor) {
+            corridor((MineshaftPieces.MineShaftCorridor)piece, level, accessor, chunkGenerator, rand, box, chunkPos, blockPos);
+        } else if (piece instanceof MineshaftPieces.MineShaftRoom) {
+            room((MineshaftPieces.MineShaftRoom)piece, level, accessor, chunkGenerator, rand, box, chunkPos, blockPos);
         }
     }
 
-    private static void corridor(MineShaftPieces.MineShaftCorridor piece, WorldGenLevel level, StructureFeatureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
+    private static void corridor(MineshaftPieces.MineShaftCorridor piece, WorldGenLevel level, StructureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (floorBlockChance > 0 || ceilingBlockChance > 0) {
             for (int x = 0; x < 3; x++) {
                 if (x == 1 && rand.nextFloat() < 0.08F)
@@ -195,7 +195,7 @@ public class ImprovedMineshafts extends CharmModule {
         }
     }
 
-    private static void room(MineShaftPieces.MineShaftRoom piece, WorldGenLevel level, StructureFeatureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
+    private static void room(MineshaftPieces.MineShaftRoom piece, WorldGenLevel level, StructureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (!ROOM_BLOCKS.isEmpty() && !ROOM_DECORATIONS.isEmpty()) {
             int bx = box.maxX() - box.minX();
             int bz = box.maxZ() - box.minZ();

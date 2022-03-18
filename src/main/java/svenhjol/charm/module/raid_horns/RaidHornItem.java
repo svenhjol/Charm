@@ -5,6 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -123,8 +124,7 @@ public class RaidHornItem extends CharmItem {
             return false;
         } else {
             Holder<Biome> holder = level.getBiome(mutable);
-            Biome.BiomeCategory category = Biome.getBiomeCategory(holder);
-            if (category == Biome.BiomeCategory.MUSHROOM) {
+            if (holder.is(BiomeTags.WITHOUT_PATROL_SPAWNS)) {
                 return false;
             } else {
                 boolean spawned = false;

@@ -40,11 +40,11 @@ dependencies {
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
 	// REI and ClothConfig. Disable the modRuntime line if REI is broken.
-	modApi "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
-	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}" // <- disable this on server-side, it's breaking
-	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
-		exclude(group: "net.fabricmc.fabric-api")
-	}
+//	modApi "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+//	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}" // <- disable this on server-side, it's breaking
+//	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+//		exclude(group: "net.fabricmc.fabric-api")
+//	}
 
 	// ModMenu
 	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"

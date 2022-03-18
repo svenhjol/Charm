@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Material;
 import svenhjol.charm.Charm;
 import svenhjol.charm.registry.CommonRegistry;
@@ -118,8 +118,8 @@ public class WorldHelper {
         return d2 * d2 + d3 * d3;
     }
 
-    public static boolean isInsideStructure(ServerLevel level, BlockPos pos, ConfiguredStructureFeature<?, ?> structure) {
-        return level.structureFeatureManager().getStructureAt(pos, structure).isValid();
+    public static boolean isInsideStructure(ServerLevel level, BlockPos pos, Structure structure) {
+        return level.structureManager().getStructureAt(pos, structure).isValid();
     }
 
     public static boolean isLikeSolid(Level level, BlockPos pos) {
@@ -138,7 +138,7 @@ public class WorldHelper {
     }
 
     public static boolean isStructure(ResourceLocation structureId) {
-        return CACHE_STRUCTURES.computeIfAbsent(structureId, b -> Registry.STRUCTURE_FEATURE.get(structureId) != null);
+        return CACHE_STRUCTURES.computeIfAbsent(structureId, b -> Registry.STRUCTURE_TYPES.get(structureId) != null);
     }
 
     public static boolean isBiome(ResourceLocation biomeId) {
@@ -201,7 +201,7 @@ public class WorldHelper {
     @Nullable
     public static BlockPos findNearestMapFeature(String id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
         if (id.startsWith("#")) {
-            var tagKey = TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(id.substring(1)));
+            var tagKey = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(id.substring(1)));
             return findNearestMapFeature(tagKey, level, origin, distance, skipExploredChunks);
         } else {
             var res = new ResourceLocation(id);
@@ -211,13 +211,13 @@ public class WorldHelper {
 
     @Nullable
     public static BlockPos findNearestMapFeature(ResourceLocation id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
-        var configuredStructures = Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY;
+        var configuredStructures = Registry.STRUCTURE_REGISTRY;
         var registry = level.registryAccess().registryOrThrow(configuredStructures);
-        var resourceKey = ResourceKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, id);
+        var resourceKey = ResourceKey.create(Registry.STRUCTURE_REGISTRY, id);
 
         try {
             var holderSet = registry.getHolder(resourceKey).map(HolderSet::direct).orElseThrow();
-            var destination = level.getChunkSource().getGenerator().findNearestMapFeature(level, holderSet, origin, distance, skipExploredChunks);
+            var destination = level.getChunkSource().getGenerator().findNearestMapStructure(level, holderSet, origin, distance, skipExploredChunks);
             return destination != null ? destination.getFirst() : null;
         } catch (Exception e) {
             LogHelper.debug(Charm.MOD_ID, WorldHelper.class, "Failed to locate structure: " + id);
@@ -226,7 +226,7 @@ public class WorldHelper {
     }
 
     @Nullable
-    public static BlockPos findNearestMapFeature(TagKey<ConfiguredStructureFeature<?, ?>> id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
-        return level.findNearestMapFeature(id, origin, distance, skipExploredChunks);
+    public static BlockPos findNearestMapFeature(TagKey<Structure> id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
+        return level.findNearestMapStructure(id, origin, distance, skipExploredChunks);
     }
 }

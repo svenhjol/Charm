@@ -61,6 +61,6 @@ public interface ICharmBlock {
     default void setFireproof() {
         FuelRegistry.INSTANCE.remove((Block)this);
         ((FireBlock)Blocks.FIRE).burnOdds.put((Block)this, 0);
-        ((FireBlock)Blocks.FIRE).flameOdds.put((Block)this, 0);
+        ((FireBlock)Blocks.FIRE).igniteOdds.put((Block)this, 0);
     }
 }

@@ -1,9 +1,9 @@
 package svenhjol.charm.module.quick_replant;
 
-import com.mojang.brigadier.StringReader;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.commands.arguments.blocks.BlockStateParser;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -114,8 +114,7 @@ public class QuickReplant extends CharmModule {
         BlockState state;
 
         try {
-            BlockStateParser parser = new BlockStateParser(new StringReader(blockState), false).parse(false);
-            state = parser.getState();
+            state = BlockStateParser.parseForBlock(Registry.BLOCK, blockState, true).blockState();
         } catch (Exception e) {
             state = null;
         }
