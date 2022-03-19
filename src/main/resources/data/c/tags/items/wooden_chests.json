@@ -9,6 +9,7 @@
     "charm:crimson_chest",
     "charm:dark_oak_chest",
     "charm:jungle_chest",
+    "charm:mangrove_chest",
     "charm:oak_chest",
     "charm:spruce_chest",
     "charm:warped_chest",
@@ -18,6 +19,7 @@
     "charm:crimson_trapped_chest",
     "charm:dark_oak_trapped_chest",
     "charm:jungle_trapped_chest",
+    "charm:mangrove_trapped_chest",
     "charm:oak_trapped_chest",
     "charm:spruce_trapped_chest",
     "charm:warped_trapped_chest"

@@ -7,13 +7,14 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 public enum VanillaWoodMaterial implements IWoodMaterial {
+    ACACIA(true),
+    BIRCH(true),
+    CRIMSON(false),
+    DARK_OAK(true),
+    JUNGLE(true),
+    MANGROVE(true),
     OAK(true),
     SPRUCE(true),
-    BIRCH(true),
-    JUNGLE(true),
-    ACACIA(true),
-    DARK_OAK(true),
-    CRIMSON(false),
     WARPED(false);
 
     private final boolean flammable;

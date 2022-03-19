@@ -37,12 +37,14 @@ public class LumberjackTradeOffers {
                 Blocks.BIRCH_LOG,
                 Blocks.DARK_OAK_LOG,
                 Blocks.JUNGLE_LOG,
+                Blocks.MANGROVE_LOG,
                 Blocks.OAK_LOG,
                 Blocks.SPRUCE_LOG,
                 Blocks.STRIPPED_ACACIA_LOG,
                 Blocks.STRIPPED_BIRCH_LOG,
                 Blocks.STRIPPED_DARK_OAK_LOG,
                 Blocks.STRIPPED_JUNGLE_LOG,
+                Blocks.STRIPPED_MANGROVE_LOG,
                 Blocks.STRIPPED_OAK_LOG,
                 Blocks.STRIPPED_SPRUCE_LOG
             ));
@@ -152,6 +154,7 @@ public class LumberjackTradeOffers {
             wood.put(Blocks.BIRCH_LOG, Blocks.BIRCH_WOOD);
             wood.put(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_WOOD);
             wood.put(Blocks.JUNGLE_LOG, Blocks.JUNGLE_WOOD);
+            wood.put(Blocks.MANGROVE_LOG, Blocks.MANGROVE_WOOD);
             wood.put(Blocks.OAK_LOG, Blocks.OAK_WOOD);
             wood.put(Blocks.SPRUCE_LOG, Blocks.SPRUCE_WOOD);
 
@@ -230,6 +233,7 @@ public class LumberjackTradeOffers {
             planks.put(Blocks.CRIMSON_STEM, Blocks.CRIMSON_PLANKS);
             planks.put(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_PLANKS);
             planks.put(Blocks.JUNGLE_LOG, Blocks.JUNGLE_PLANKS);
+            planks.put(Blocks.MANGROVE_LOG, Blocks.MANGROVE_PLANKS);
             planks.put(Blocks.OAK_LOG, Blocks.OAK_PLANKS);
             planks.put(Blocks.SPRUCE_LOG, Blocks.SPRUCE_PLANKS);
             planks.put(Blocks.WARPED_STEM, Blocks.WARPED_PLANKS);
