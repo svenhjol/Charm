@@ -1,11 +1,10 @@
-# Charm for Minecraft 1.18.x
+# Charm for Minecraft 1.19.x
 
 ## Version 4.x
 Charm is a vanilla-plus mod for Minecraft, inspired by the Quark mod.
 
-It requires Fabric API, Minecraft 1.18.2 and Java 17.
+It requires Fabric API, Minecraft 1.19 and Java 17.
 
-Charm is currently in testing.  A public beta release is due on or before **28/02/22**.
 If you would like to participate in testing pre-release versions of Charm, please get in touch on [Discord](https://discord.gg/ZxH7Jred).
 
 ### Why has my issue been closed?
