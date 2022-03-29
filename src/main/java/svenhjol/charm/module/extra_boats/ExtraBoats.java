@@ -8,6 +8,7 @@ import net.minecraft.world.entity.MobCategory;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.enums.VanillaWoodMaterial;
+import svenhjol.charm.helper.RecipeHelper;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
@@ -33,6 +34,12 @@ public class ExtraBoats extends CharmModule {
 
         registerBoat(CRIMSON, new CrimsonBoatItem(this));
         registerBoat(WARPED, new WarpedBoatItem(this));
+    }
+
+    @Override
+    public void runWhenDisabled() {
+        RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "extra_boats/crimson_boat_woodcutting"));
+        RecipeHelper.removeRecipe(new ResourceLocation(Charm.MOD_ID, "extra_boats/warped_boat_woodcutting"));
     }
 
     public static void registerBoat(String material, CharmBoatItem boat) {

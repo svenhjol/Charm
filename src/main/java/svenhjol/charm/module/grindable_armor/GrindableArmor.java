@@ -35,6 +35,10 @@ public class GrindableArmor extends CharmModule {
         ARMOR_RECIPES.put(Items.IRON_CHESTPLATE, Items.IRON_INGOT);
         ARMOR_RECIPES.put(Items.IRON_LEGGINGS, Items.IRON_INGOT);
         ARMOR_RECIPES.put(Items.IRON_BOOTS, Items.IRON_INGOT);
+        ARMOR_RECIPES.put(Items.CHAINMAIL_HELMET, Items.IRON_INGOT);
+        ARMOR_RECIPES.put(Items.CHAINMAIL_CHESTPLATE, Items.IRON_INGOT);
+        ARMOR_RECIPES.put(Items.CHAINMAIL_LEGGINGS, Items.IRON_INGOT);
+        ARMOR_RECIPES.put(Items.CHAINMAIL_BOOTS, Items.IRON_INGOT);
         ARMOR_RECIPES.put(Items.GOLDEN_HORSE_ARMOR, Items.GOLD_INGOT);
         ARMOR_RECIPES.put(Items.GOLDEN_HELMET, Items.GOLD_INGOT);
         ARMOR_RECIPES.put(Items.GOLDEN_CHESTPLATE, Items.GOLD_INGOT);
@@ -45,6 +49,10 @@ public class GrindableArmor extends CharmModule {
         ARMOR_RECIPES.put(Items.DIAMOND_CHESTPLATE, Items.DIAMOND);
         ARMOR_RECIPES.put(Items.DIAMOND_LEGGINGS, Items.DIAMOND);
         ARMOR_RECIPES.put(Items.DIAMOND_BOOTS, Items.DIAMOND);
+        ARMOR_RECIPES.put(Items.NETHERITE_HELMET, Items.NETHERITE_SCRAP);
+        ARMOR_RECIPES.put(Items.NETHERITE_CHESTPLATE, Items.NETHERITE_SCRAP);
+        ARMOR_RECIPES.put(Items.NETHERITE_LEGGINGS, Items.NETHERITE_SCRAP);
+        ARMOR_RECIPES.put(Items.NETHERITE_BOOTS, Items.NETHERITE_SCRAP);
 
         GrindstoneEvents.CAN_PLACE.register(this::handlePlaced);
         GrindstoneEvents.CALCULATE_OUTPUT.register(this::handleCalculatedOutput);

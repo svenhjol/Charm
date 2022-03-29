@@ -40,7 +40,9 @@ public class BeekeeperTradeOffers {
             if (flowers.isEmpty()) {
                 item = Items.DANDELION.asItem();
             } else {
-                item = flowers.get(random.nextInt(flowers.size()));
+                // No wither roses pls.
+                var filtered = flowers.stream().filter(f -> f != Items.WITHER_ROSE).toList();
+                item = filtered.get(random.nextInt(filtered.size()));
             }
 
             setInput(item, random.nextInt(3) + 13);

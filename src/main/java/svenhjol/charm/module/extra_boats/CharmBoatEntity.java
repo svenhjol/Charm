@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class CharmBoatEntity extends Boat {
     private static final EntityDataAccessor<Integer> BOAT_TYPE;
+    private static final String TYPE_TAG = "Type";
 
     public CharmBoatEntity(EntityType<? extends CharmBoatEntity> entityType, Level level) {
         super(entityType, level);
@@ -46,14 +47,14 @@ public class CharmBoatEntity extends Boat {
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putString("Type", getCharmBoatType());
+        tag.putString(TYPE_TAG, getCharmBoatType());
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
-        if (nbt.contains("Type", 8)) {
-            setCharmBoatType(nbt.getString("Type"));
+        if (nbt.contains(TYPE_TAG, 8)) {
+            setCharmBoatType(nbt.getString(TYPE_TAG));
         }
     }
 
