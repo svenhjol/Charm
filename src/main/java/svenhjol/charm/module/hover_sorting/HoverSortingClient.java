@@ -32,16 +32,13 @@ public class HoverSortingClient extends CharmModule {
     public static ClientSendScrolledOnHover CLIENT_SEND_SCROLLED_ON_HOVER;
 
     @Override
-    public void register() {
+    public void runWhenEnabled() {
+        CLIENT_SEND_SCROLLED_ON_HOVER = new ClientSendScrolledOnHover();
+
         ScrollMouseCallback.EVENT.register(this::handleScrollDirection);
         RenderTooltipCallback.EVENT.register(this::handleRenderTooltip);
         ClientTickEvents.END_CLIENT_TICK.register(this::handleClientTick);
         ScreenEvents.BEFORE_INIT.register(this::handleScreenInit);
-    }
-
-    @Override
-    public void runWhenEnabled() {
-        CLIENT_SEND_SCROLLED_ON_HOVER = new ClientSendScrolledOnHover();
     }
 
     private void handleScreenInit(Minecraft minecraft, Screen screen, int width, int height) {
