@@ -26,13 +26,13 @@ public class WeatheringIron extends CharmModule {
     public static List<Block> WEATHERING_ORDER = new ArrayList<>();
 
     @Config(name = "Faces increase weathering", description = "The chance of weathering increases according to the number of block faces touching water.")
-    public static boolean facesIncreaseWeathering = false;
+    public static boolean facesIncreaseWeathering = true;
 
     @Config(name = "Face multiplier", description = "When more than one block face is touching water, weathering chance increases by this amount per face.")
     public static double faceMultiplier = 0.01D;
 
     @Config(name = "Weathering chance", description = "Chance (out of 1.0) of a block being considered for weathering.")
-    public static double chance = 0.057D;
+    public static double chance = 0.017D;
 
     @Config(name = "Bubble column chance multiplier", description = "When a block is above a bubble column, weathering chance is multiplied by this value.")
     public static double bubbleColumnMultiplier = 100D;
@@ -54,17 +54,22 @@ public class WeatheringIron extends CharmModule {
      */
     public static void handleRandomTick(ServerLevel level, BlockPos pos, BlockState state, Random random) {
         var d = random.nextDouble();
-        var maxChance = chance * bubbleColumnMultiplier;
 
-        if (d < maxChance
-            && WEATHERING_ORDER.contains(state.getBlock())
-            && (hasBubbleColumn(level, pos) || d < multiplyByTouchingFaces(level, pos))
-        ) {
-            var i = WEATHERING_ORDER.indexOf(state.getBlock());
-            if (i < WEATHERING_ORDER.size() - 1) {
-                var nextBlock = WEATHERING_ORDER.get(i + 1);
-                LogHelper.debug(WeatheringIron.class, "Weathering block to " + nextBlock + ", pos = " + pos);
-                level.setBlockAndUpdate(pos, nextBlock.defaultBlockState());
+        if (WEATHERING_ORDER.contains(state.getBlock())) {
+            var chance = multiplyByTouchingFaces(level, pos);
+            if (chance == 0) return; // no point continuing if no faces touching
+
+            if (hasBubbleColumn(level, pos)) {
+                chance *= bubbleColumnMultiplier;
+            }
+
+            if (d <= chance) {
+                var i = WEATHERING_ORDER.indexOf(state.getBlock());
+                if (i < WEATHERING_ORDER.size() - 1) {
+                    var nextBlock = WEATHERING_ORDER.get(i + 1);
+                    LogHelper.debug(WeatheringIron.class, "Weathering block to " + nextBlock + ", d = " + d + ", chance = " + chance, ", pos = " + pos);
+                    level.setBlockAndUpdate(pos, nextBlock.defaultBlockState());
+                }
             }
         }
     }
@@ -86,7 +91,7 @@ public class WeatheringIron extends CharmModule {
 
         if (facesIncreaseWeathering && faces > 1) {
             double newChance = chance + (faceMultiplier * faces);
-            LogHelper.debug(WeatheringIron.class, "Face weathering increases chance, faces = " + faces + ", chance now = " + newChance + ", pos = " + pos);
+            LogHelper.debug(WeatheringIron.class, "Face weathering, faces = " + faces + ", chance now = " + newChance + ", pos = " + pos);
             return newChance;
         } else if (faces > 0) {
             return chance;
