@@ -10,6 +10,8 @@ import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -17,9 +19,11 @@ import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.enums.VanillaWoodMaterial;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.azalea_wood.AzaleaWood;
 import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.HashMap;
@@ -36,6 +40,11 @@ public class VariantChests extends CharmModule {
     public static BlockEntityType<VariantChestBlockEntity> NORMAL_BLOCK_ENTITY;
     public static BlockEntityType<VariantTrappedChestBlockEntity> TRAPPED_BLOCK_ENTITY;
 
+    public static final ResourceLocation VARIANT_CHEST_BOAT_RECIPE_ID = new ResourceLocation(Charm.MOD_ID, "crafting_special_variantchestboats");
+    public static Map<Item, Item> CHEST_BOATS = new HashMap<>();
+    public static Map<String, Integer> CHEST_LAYER_COLORS = new HashMap<>();
+    public static SimpleRecipeSerializer<VariantChestBoatRecipe> VARIANT_CHEST_BOAT_RECIPE;
+
     @Override
     public void register() {
         NORMAL_BLOCK_ENTITY = CommonRegistry.blockEntity(NORMAL_ID, VariantChestBlockEntity::new, NORMAL_CHEST_BLOCKS.values().toArray(new Block[0]));
@@ -45,6 +54,31 @@ public class VariantChests extends CharmModule {
             registerChest(this, type);
             registerTrappedChest(this, type);
         }
+
+        VARIANT_CHEST_BOAT_RECIPE = CommonRegistry.recipeSerializer(VARIANT_CHEST_BOAT_RECIPE_ID.toString(), new SimpleRecipeSerializer<>(VariantChestBoatRecipe::new));
+
+        CHEST_BOATS.put(Items.ACACIA_BOAT, Items.ACACIA_CHEST_BOAT);
+        CHEST_BOATS.put(Items.BIRCH_BOAT, Items.BIRCH_CHEST_BOAT);
+        CHEST_BOATS.put(Items.DARK_OAK_BOAT, Items.DARK_OAK_CHEST_BOAT);
+        CHEST_BOATS.put(Items.JUNGLE_BOAT, Items.JUNGLE_CHEST_BOAT);
+        CHEST_BOATS.put(Items.MANGROVE_BOAT, Items.MANGROVE_CHEST_BOAT);
+        CHEST_BOATS.put(Items.OAK_BOAT, Items.OAK_CHEST_BOAT);
+        CHEST_BOATS.put(Items.SPRUCE_BOAT, Items.SPRUCE_CHEST_BOAT);
+
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.ACACIA.getSerializedName(), 0xda8357);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.BIRCH.getSerializedName(), 0xf7e1a5);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.CRIMSON.getSerializedName(), 0x9e5a76);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.DARK_OAK.getSerializedName(), 0x5e4932);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.JUNGLE.getSerializedName(), 0xca9974);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.MANGROVE.getSerializedName(), 0x9f6254);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.OAK.getSerializedName(), 0x71614b);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.SPRUCE.getSerializedName(), 0x9a7a54);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.WARPED.getSerializedName(), 0x59a3a2);
+
+        // TODO: move to AzaleaWood maybe?
+        CHEST_BOATS.put(AzaleaWood.BOAT, AzaleaWood.CHEST_BOAT);
+        CHEST_LAYER_COLORS.put(CharmWoodMaterial.AZALEA.getSerializedName(), 0xcf998d);
+
     }
 
     @Override
@@ -85,5 +119,17 @@ public class VariantChests extends CharmModule {
         TRAPPED_CHEST_BLOCKS.put(material, chest);
         CommonRegistry.addBlocksToBlockEntity(TRAPPED_BLOCK_ENTITY, chest);
         return chest;
+    }
+
+    public static int getLayerColor(ItemStack stack) {
+        int color = 0xa76e1f;
+
+        var tag = stack.getTag();
+        if (tag != null && tag.contains(VariantChestBoatRecipe.CHEST_TYPE_TAG)) {
+            var type = tag.getString(VariantChestBoatRecipe.CHEST_TYPE_TAG);
+            color = CHEST_LAYER_COLORS.getOrDefault(type, null);
+        }
+
+        return color;
     }
 }

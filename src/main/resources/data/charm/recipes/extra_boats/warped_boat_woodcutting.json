@@ -1,8 +1,0 @@
-{
-  "type": "charm:woodcutting",
-  "ingredient": {
-    "item": "minecraft:warped_planks"
-  },
-  "result": "charm:warped_boat",
-  "count": 1
-}

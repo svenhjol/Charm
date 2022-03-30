@@ -19,7 +19,8 @@ public class AzaleaWoodClient extends CharmModule {
         BlockRenderLayerMap.INSTANCE.putBlock(AzaleaWood.TRAPDOOR, RenderType.cutout());
 
         // register boat model
-        ClientRegistry.entityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/azalea"), BoatModel.createBodyModel().bakeRoot());
+        ClientRegistry.entityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/azalea"), BoatModel.createBodyModel(false).bakeRoot());
+        ClientRegistry.entityModelLayer(new ResourceLocation(Charm.MOD_ID, "chest_boat/azalea"), BoatModel.createBodyModel(true).bakeRoot());
 
         // register sign material
         ClientRegistry.signMaterial(AzaleaWood.SIGN_TYPE);

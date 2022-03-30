@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/acacia_chest_boat",
+    "layer1": "minecraft:item/chest_boat_overlay"
+  }
+}
