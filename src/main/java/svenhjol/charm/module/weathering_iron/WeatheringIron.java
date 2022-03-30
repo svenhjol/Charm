@@ -28,7 +28,7 @@ public class WeatheringIron extends CharmModule {
     @Config(name = "Faces increase weathering", description = "The chance of weathering increases according to the number of block faces touching water.")
     public static boolean facesIncreaseWeathering = false;
 
-    @Config(name = "Face multiplier", description = "Testme")
+    @Config(name = "Face multiplier", description = "When more than one block face is touching water, weathering chance increases by this amount per face.")
     public static double faceMultiplier = 0.01D;
 
     @Config(name = "Weathering chance", description = "Chance (out of 1.0) of a block being considered for weathering.")
