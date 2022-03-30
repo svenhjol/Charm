@@ -96,7 +96,7 @@ public class WeatheringIron extends CharmModule {
     }
 
     public static boolean hasBubbleColumn(ServerLevel level, BlockPos pos) {
-        boolean has = level.getBlockState(pos.below()) == Blocks.BUBBLE_COLUMN.defaultBlockState();
+        boolean has = level.getBlockState(pos.below()).getBlock() == Blocks.BUBBLE_COLUMN;
         if (has) {
             LogHelper.debug(WeatheringIron.class, "Bubble column weathering, pos = " + pos);
         }
