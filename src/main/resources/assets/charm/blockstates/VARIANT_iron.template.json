@@ -1,0 +1,10 @@
+{
+  "template": {
+    "variants": {
+      "": {
+        "model": "NAMESPACE:block/VARIANT_iron"
+      }
+    }
+  },
+  "variants": "weathering_iron"
+}

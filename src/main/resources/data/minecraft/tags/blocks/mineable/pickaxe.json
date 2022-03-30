@@ -10,6 +10,9 @@
     "charm:kiln",
     "charm:netherite_bars",
     "charm:player_pressure_plate",
-    "charm:redstone_lantern"
+    "charm:redstone_lantern",
+    "charm:exposed_iron",
+    "charm:weathered_iron",
+    "charm:oxidized_iron"
   ]
 }
