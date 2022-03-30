@@ -53,11 +53,12 @@ public class WeatheringIron extends CharmModule {
      * @see ChangeOverTimeBlock#onRandomTick
      */
     public static void handleRandomTick(ServerLevel level, BlockPos pos, BlockState state, Random random) {
-        double g = chance * bubbleColumnMultiplier;
+        var d = random.nextDouble();
+        var maxChance = chance * bubbleColumnMultiplier;
 
-        if (random.nextFloat() < g
+        if (d < maxChance
             && WEATHERING_ORDER.contains(state.getBlock())
-            && (hasBubbleColumn(level, pos) || random.nextDouble() < multiplyByTouchingFaces(level, pos))
+            && (hasBubbleColumn(level, pos) || d < multiplyByTouchingFaces(level, pos))
         ) {
             var i = WEATHERING_ORDER.indexOf(state.getBlock());
             if (i < WEATHERING_ORDER.size() - 1) {
