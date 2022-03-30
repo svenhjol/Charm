@@ -24,7 +24,7 @@ public class ScrollMouseMixin {
     private void hookScroll(long windowId, double d, double e, CallbackInfo ci) {
         Minecraft client = Minecraft.getInstance();
         if (windowId == client.getWindow().getWindow()) {
-            double direction = (this.minecraft.options.discreteMouseScroll ? Math.signum(e) : e) * this.minecraft.options.mouseWheelSensitivity.get();
+            double direction = (this.minecraft.options.discreteMouseScroll.get() ? Math.signum(e) : e) * this.minecraft.options.mouseWheelSensitivity.get();
             ScrollMouseCallback.EVENT.invoker().interact(direction);
         }
     }

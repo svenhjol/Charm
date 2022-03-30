@@ -48,7 +48,7 @@ public class BiomeHelper {
     public static BlockPos locateBiome(ResourceKey<Biome> biome, ServerLevel level, BlockPos pos) {
         var holder = getBiomeHolderFromBiomeKey(biome);
         Predicate<Holder<Biome>> biomePredicate = r -> r.value().equals(holder.value());
-        var nearestBiome = level.findNearestBiome(biomePredicate, pos, 6400, 8);
+        var nearestBiome = level.findClosestBiome3d(biomePredicate, pos, 6400, 32, 64);
         return nearestBiome != null ? nearestBiome.getFirst() : null;
     }
 
