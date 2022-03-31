@@ -23,7 +23,6 @@ import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.enums.VanillaWoodMaterial;
 import svenhjol.charm.loader.CharmModule;
-import svenhjol.charm.module.azalea_wood.AzaleaWood;
 import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.HashMap;
@@ -74,11 +73,6 @@ public class VariantChests extends CharmModule {
         CHEST_LAYER_COLORS.put(VanillaWoodMaterial.OAK.getSerializedName(), 0x71614b);
         CHEST_LAYER_COLORS.put(VanillaWoodMaterial.SPRUCE.getSerializedName(), 0x9a7a54);
         CHEST_LAYER_COLORS.put(VanillaWoodMaterial.WARPED.getSerializedName(), 0x59a3a2);
-
-        // TODO: move to AzaleaWood maybe?
-        CHEST_BOATS.put(AzaleaWood.BOAT, AzaleaWood.CHEST_BOAT);
-        CHEST_LAYER_COLORS.put(CharmWoodMaterial.AZALEA.getSerializedName(), 0xcf998d);
-
     }
 
     @Override
@@ -122,12 +116,24 @@ public class VariantChests extends CharmModule {
     }
 
     public static int getLayerColor(ItemStack stack) {
-        int color = 0xa76e1f;
+        int color = 0xdf9f43; // this is the default color when there's no variant chest tag
+
+        // TODO: Temporary hack so I can change colors in debug
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.ACACIA.getSerializedName(), 0xda8357);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.BIRCH.getSerializedName(), 0xffefa0);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.CRIMSON.getSerializedName(), 0x9f4a6f);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.DARK_OAK.getSerializedName(), 0x6b4224);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.JUNGLE.getSerializedName(), 0xd08f67);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.MANGROVE.getSerializedName(), 0xaf5944);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.OAK.getSerializedName(), 0xf0ba70);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.SPRUCE.getSerializedName(), 0x91683e);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.WARPED.getSerializedName(), 0x408a82);
+        CHEST_LAYER_COLORS.put(CharmWoodMaterial.AZALEA.getSerializedName(), 0xffaf9f);
 
         var tag = stack.getTag();
         if (tag != null && tag.contains(VariantChestBoatRecipe.CHEST_TYPE_TAG)) {
             var type = tag.getString(VariantChestBoatRecipe.CHEST_TYPE_TAG);
-            color = CHEST_LAYER_COLORS.getOrDefault(type, null);
+            color = CHEST_LAYER_COLORS.getOrDefault(type, color);
         }
 
         return color;

@@ -63,8 +63,6 @@ public class AzaleaWood extends CharmModule {
 
     public static CharmSignItem SIGN_ITEM;
 
-    public static final String AZALEA = CharmWoodMaterial.AZALEA.getSerializedName();
-
     @Override
     public void register() {
         // must init these first, other blocks depend on them being registered
@@ -102,6 +100,9 @@ public class AzaleaWood extends CharmModule {
         CHEST_BOAT = new BoatItem(true, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
         CommonRegistry.item(new ResourceLocation("minecraft:azalea_boat"), BOAT);
         CommonRegistry.item(new ResourceLocation("minecraft:azalea_chest_boat"), CHEST_BOAT);
+
+        VariantChests.CHEST_BOATS.put(AzaleaWood.BOAT, AzaleaWood.CHEST_BOAT);
+        VariantChests.CHEST_LAYER_COLORS.put(CharmWoodMaterial.AZALEA.getSerializedName(), 0xfc9f93);
     }
 
     @Override

@@ -65,6 +65,7 @@
     "stronger_anvils.ReduceAnvilDamageMixin",
     "totem_works_from_inventory.CheckInventoryMixin",
     "variant_chests.AddChestBoatTypeMixin",
+    "variant_chests.GetChestBoatItemMixin",
     "variant_chests.VariantChestBoatMixin",
     "variant_ladders.ClimbTrapdoorMixin",
     "woodcutters.AddRecipeBookTypeMixin"

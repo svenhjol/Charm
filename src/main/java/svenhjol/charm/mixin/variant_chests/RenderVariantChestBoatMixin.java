@@ -37,8 +37,11 @@ public class RenderVariantChestBoatMixin {
         var boat = this.boat.get();
         if (boat instanceof IVariantChestBoat chestBoat) {
             var chestType = chestBoat.getVariantChest();
-            var boatType = boat.getBoatType();
-            return new ResourceLocation("textures/entity/chest_boat/" + boatType + "_with_" + chestType + "_chest.png");
+
+            if (!chestType.isEmpty()) {
+                var boatType = boat.getBoatType();
+                return new ResourceLocation("textures/entity/chest_boat/" + boatType + "_with_" + chestType + "_chest.png");
+            }
         }
 
         return res;
