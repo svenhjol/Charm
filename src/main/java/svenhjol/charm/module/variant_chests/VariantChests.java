@@ -19,7 +19,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.enums.VanillaWoodMaterial;
 import svenhjol.charm.loader.CharmModule;
@@ -65,14 +64,14 @@ public class VariantChests extends CharmModule {
         CHEST_BOATS.put(Items.SPRUCE_BOAT, Items.SPRUCE_CHEST_BOAT);
 
         CHEST_LAYER_COLORS.put(VanillaWoodMaterial.ACACIA.getSerializedName(), 0xda8357);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.BIRCH.getSerializedName(), 0xf7e1a5);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.CRIMSON.getSerializedName(), 0x9e5a76);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.DARK_OAK.getSerializedName(), 0x5e4932);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.JUNGLE.getSerializedName(), 0xca9974);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.MANGROVE.getSerializedName(), 0x9f6254);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.OAK.getSerializedName(), 0x71614b);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.SPRUCE.getSerializedName(), 0x9a7a54);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.WARPED.getSerializedName(), 0x59a3a2);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.BIRCH.getSerializedName(), 0xffefa0);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.CRIMSON.getSerializedName(), 0x9f4a6f);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.DARK_OAK.getSerializedName(), 0x6b4224);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.JUNGLE.getSerializedName(), 0xd08f67);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.MANGROVE.getSerializedName(), 0xaf5944);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.OAK.getSerializedName(), 0xf0ba70);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.SPRUCE.getSerializedName(), 0x91683e);
+        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.WARPED.getSerializedName(), 0x408a82);
     }
 
     @Override
@@ -117,18 +116,6 @@ public class VariantChests extends CharmModule {
 
     public static int getLayerColor(ItemStack stack) {
         int color = 0xdf9f43; // this is the default color when there's no variant chest tag
-
-        // TODO: Temporary hack so I can change colors in debug
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.ACACIA.getSerializedName(), 0xda8357);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.BIRCH.getSerializedName(), 0xffefa0);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.CRIMSON.getSerializedName(), 0x9f4a6f);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.DARK_OAK.getSerializedName(), 0x6b4224);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.JUNGLE.getSerializedName(), 0xd08f67);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.MANGROVE.getSerializedName(), 0xaf5944);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.OAK.getSerializedName(), 0xf0ba70);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.SPRUCE.getSerializedName(), 0x91683e);
-        CHEST_LAYER_COLORS.put(VanillaWoodMaterial.WARPED.getSerializedName(), 0x408a82);
-        CHEST_LAYER_COLORS.put(CharmWoodMaterial.AZALEA.getSerializedName(), 0xffaf9f);
 
         var tag = stack.getTag();
         if (tag != null && tag.contains(VariantChestBoatRecipe.CHEST_TYPE_TAG)) {

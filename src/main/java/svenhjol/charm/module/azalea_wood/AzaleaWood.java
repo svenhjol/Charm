@@ -102,7 +102,7 @@ public class AzaleaWood extends CharmModule {
         CommonRegistry.item(new ResourceLocation("minecraft:azalea_chest_boat"), CHEST_BOAT);
 
         VariantChests.CHEST_BOATS.put(AzaleaWood.BOAT, AzaleaWood.CHEST_BOAT);
-        VariantChests.CHEST_LAYER_COLORS.put(CharmWoodMaterial.AZALEA.getSerializedName(), 0xfc9f93);
+        VariantChests.CHEST_LAYER_COLORS.put(CharmWoodMaterial.AZALEA.getSerializedName(), 0xffaf9f);
     }
 
     @Override
