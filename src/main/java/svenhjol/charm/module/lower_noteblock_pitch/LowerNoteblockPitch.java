@@ -47,7 +47,7 @@ public class LowerNoteblockPitch extends CharmModule {
         }
 
         level.setBlock(pos, state, 3);
-        ((NoteBlock)block).playNote(level, pos);
+        ((NoteBlock)block).playNote(null, level, pos);
         player.awardStat(Stats.TUNE_NOTEBLOCK);
         return InteractionResult.CONSUME;
     }
