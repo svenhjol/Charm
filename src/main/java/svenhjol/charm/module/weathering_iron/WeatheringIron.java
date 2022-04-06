@@ -29,13 +29,13 @@ public class WeatheringIron extends CharmModule {
     public static boolean facesIncreaseWeathering = true;
 
     @Config(name = "Face multiplier", description = "When more than one block face is touching water, weathering chance increases by this amount per face.")
-    public static double faceMultiplier = 0.01D;
+    public static double faceMultiplier = 0.008D;
 
     @Config(name = "Weathering chance", description = "Chance (out of 1.0) of a block being considered for weathering.")
-    public static double chance = 0.017D;
+    public static double chance = 0.006D;
 
     @Config(name = "Bubble column chance multiplier", description = "When a block is above a bubble column, weathering chance is multiplied by this value.")
-    public static double bubbleColumnMultiplier = 100D;
+    public static double bubbleColumnMultiplier = 4.0D;
 
     @Override
     public void register() {
@@ -47,6 +47,11 @@ public class WeatheringIron extends CharmModule {
         WEATHERING_ORDER.add(EXPOSED_IRON);
         WEATHERING_ORDER.add(WEATHERED_IRON);
         WEATHERING_ORDER.add(OXIDIZED_IRON);
+    }
+
+    @Override
+    public void runWhenEnabled() {
+        super.runWhenEnabled();
     }
 
     /**
