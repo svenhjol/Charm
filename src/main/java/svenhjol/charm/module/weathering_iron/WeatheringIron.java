@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChangeOverTimeBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
@@ -13,9 +14,7 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.loader.CharmModule;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Iron rusts when in contact with water.")
 public class WeatheringIron extends CharmModule {
@@ -23,7 +22,13 @@ public class WeatheringIron extends CharmModule {
     public static WeatheringIronBlock WEATHERED_IRON;
     public static WeatheringIronBlock OXIDIZED_IRON;
 
+    public static WaxedIronBlock WAXED_IRON;
+    public static WaxedIronBlock WAXED_EXPOSED_IRON;
+    public static WaxedIronBlock WAXED_WEATHERED_IRON;
+    public static WaxedIronBlock WAXED_OXIDIZED_IRON;
+
     public static List<Block> WEATHERING_ORDER = new ArrayList<>();
+    public static Map<Block, Block> WAXABLES = new HashMap<>();
 
     @Config(name = "Faces increase weathering", description = "The chance of weathering increases according to the number of block faces touching water.")
     public static boolean facesIncreaseWeathering = true;
@@ -43,15 +48,20 @@ public class WeatheringIron extends CharmModule {
         WEATHERED_IRON = new WeatheringIronBlock(this, "weathered_iron");
         OXIDIZED_IRON = new WeatheringIronBlock(this, "oxidized_iron");
 
+        WAXED_IRON = new WaxedIronBlock(this, "waxed_iron", Properties.copy(Blocks.IRON_BLOCK));
+        WAXED_EXPOSED_IRON = new WaxedIronBlock(this, "waxed_exposed_iron", Properties.copy(EXPOSED_IRON));
+        WAXED_WEATHERED_IRON = new WaxedIronBlock(this, "waxed_weathered_iron", Properties.copy(WEATHERED_IRON));
+        WAXED_OXIDIZED_IRON = new WaxedIronBlock(this, "waxed_oxidized_iron", Properties.copy(OXIDIZED_IRON));
+
         WEATHERING_ORDER.add(Blocks.IRON_BLOCK);
         WEATHERING_ORDER.add(EXPOSED_IRON);
         WEATHERING_ORDER.add(WEATHERED_IRON);
         WEATHERING_ORDER.add(OXIDIZED_IRON);
-    }
 
-    @Override
-    public void runWhenEnabled() {
-        super.runWhenEnabled();
+        WAXABLES.put(Blocks.IRON_BLOCK, WAXED_IRON);
+        WAXABLES.put(EXPOSED_IRON, WAXED_EXPOSED_IRON);
+        WAXABLES.put(WEATHERED_IRON, WAXED_WEATHERED_IRON);
+        WAXABLES.put(OXIDIZED_IRON, WAXED_OXIDIZED_IRON);
     }
 
     /**

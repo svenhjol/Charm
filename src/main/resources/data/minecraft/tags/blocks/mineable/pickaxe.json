@@ -13,6 +13,10 @@
     "charm:redstone_lantern",
     "charm:exposed_iron",
     "charm:weathered_iron",
-    "charm:oxidized_iron"
+    "charm:oxidized_iron",
+    "charm:waxed_iron",
+    "charm:waxed_exposed_iron",
+    "charm:waxed_weathered_iron",
+    "charm:waxed_oxidized_iron"
   ]
 }
