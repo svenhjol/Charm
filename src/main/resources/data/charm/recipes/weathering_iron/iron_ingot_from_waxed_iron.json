@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "iron_ingot",
+  "ingredients": [
+    {
+      "item": "charm:waxed_iron"
+    }
+  ],
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 9
+  }
+}
