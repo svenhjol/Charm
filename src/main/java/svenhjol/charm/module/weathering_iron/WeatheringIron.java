@@ -106,7 +106,7 @@ public class WeatheringIron extends CharmModule {
                 if (WEATHERING_ORDER.contains(block)) {
                     var i = WEATHERING_ORDER.indexOf(block);
                     if (i - 1 >= 0) {
-                        level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0f, 1.0f);
+                        level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
                         level.levelEvent(player, 3005, pos, 0);
                         newState = Optional.of(WEATHERING_ORDER.get(i - 1).defaultBlockState());
                     }
