@@ -1,20 +1,39 @@
 package svenhjol.charm.module.weathering_iron;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.HoneycombItem;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChangeOverTimeBlock;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.loader.CharmModule;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Iron rusts when in contact with water.")
 public class WeatheringIron extends CharmModule {
@@ -28,7 +47,7 @@ public class WeatheringIron extends CharmModule {
     public static WaxedIronBlock WAXED_OXIDIZED_IRON;
 
     public static List<Block> WEATHERING_ORDER = new ArrayList<>();
-    public static Map<Block, Block> WAXABLES = new HashMap<>();
+    public static BiMap<Block, Block> WAXABLES = HashBiMap.create();
 
     @Config(name = "Faces increase weathering", description = "The chance of weathering increases according to the number of block faces touching water.")
     public static boolean facesIncreaseWeathering = true;
@@ -62,6 +81,65 @@ public class WeatheringIron extends CharmModule {
         WAXABLES.put(EXPOSED_IRON, WAXED_EXPOSED_IRON);
         WAXABLES.put(WEATHERED_IRON, WAXED_WEATHERED_IRON);
         WAXABLES.put(OXIDIZED_IRON, WAXED_OXIDIZED_IRON);
+    }
+
+    @Override
+    public void runWhenEnabled() {
+        UseBlockCallback.EVENT.register(this::handleUseBlock);
+        DispenserBlock.registerBehavior(Items.HONEYCOMB, new WaxDispenseBehavior());
+    }
+
+    private InteractionResult handleUseBlock(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
+        var held = player.getItemInHand(hand);
+        if (held.isEmpty()) return InteractionResult.PASS;
+
+        var item = held.getItem();
+        var pos = hitResult.getBlockPos();
+        var state = level.getBlockState(pos);
+        var block = state.getBlock();
+
+        Optional<BlockState> newState = Optional.empty();
+
+        if (item instanceof AxeItem) {
+            if (block instanceof WeatheringIronBlock) {
+                // Scrape rust
+                if (WEATHERING_ORDER.contains(block)) {
+                    var i = WEATHERING_ORDER.indexOf(block);
+                    if (i - 1 >= 0) {
+                        level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0f, 1.0f);
+                        level.levelEvent(player, 3005, pos, 0);
+                        newState = Optional.of(WEATHERING_ORDER.get(i - 1).defaultBlockState());
+                    }
+                }
+            } else if (block instanceof WaxedIronBlock) {
+                // Wax off
+                var inverse = WAXABLES.inverse();
+                if (inverse.containsKey(block)) {
+                    level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.levelEvent(player, 3004, pos, 0);
+                    newState = Optional.of(inverse.get(block).defaultBlockState());
+                }
+            }
+        } else if (item instanceof HoneycombItem) {
+            // Wax on
+            if (WAXABLES.containsKey(block)) {
+                level.levelEvent(player, 3003, pos, 0);
+                newState = Optional.of(WAXABLES.get(block).defaultBlockState());
+            }
+        }
+
+        if (newState.isPresent()) {
+            if (player instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, held);
+            }
+            level.setBlock(pos, newState.get(), 11);
+            if (held.isDamageableItem()) {
+                held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        return InteractionResult.PASS;
     }
 
     /**
