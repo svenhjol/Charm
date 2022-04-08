@@ -62,7 +62,7 @@ public class TotemOfPreserving extends CharmModule {
     @Config(name = "Grave mode game difficulties", description = "A list of game difficulties in which totems will behave in 'Grave mode'.\n" +
         "In Grave mode, a totem will be dropped on death even if the player doesn't have an empty totem in their inventory.")
     public static List<String> configGraveModeDifficulties = Arrays.asList(
-        "peaceful", "easy"
+        "peaceful", "easy", "normal", "hard"
     );
 
     @Config(name = "Mobs drop totems", description = "Mobs that have a chance to drop a totem of preserving.\n" +
