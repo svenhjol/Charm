@@ -1,6 +1,7 @@
 package svenhjol.charm.mixin.improved_mineshafts;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
@@ -14,8 +15,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.module.improved_mineshafts.ImprovedMineshafts;
 
-import java.util.Random;
-
 @Mixin(value = {
     MineshaftPieces.MineShaftCorridor.class,
     MineshaftPieces.MineShaftRoom.class
@@ -28,7 +27,7 @@ public class GenerateMineshaftPiecesMixin {
         method = "postProcess",
         at = @At("TAIL")
     )
-    private void hookGenerate(WorldGenLevel level, StructureManager structure, ChunkGenerator gen, Random random, BoundingBox boundingBox, ChunkPos chunkPos, BlockPos blockPos, CallbackInfo ci) {
+    private void hookGenerate(WorldGenLevel level, StructureManager structure, ChunkGenerator gen, RandomSource random, BoundingBox boundingBox, ChunkPos chunkPos, BlockPos blockPos, CallbackInfo ci) {
         ImprovedMineshafts.generatePiece((StructurePiece) (Object) this, level, structure, gen, random, boundingBox, chunkPos, blockPos);
     }
 }

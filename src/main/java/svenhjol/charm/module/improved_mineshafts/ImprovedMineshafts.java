@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.vehicle.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
@@ -34,7 +35,6 @@ import svenhjol.charm.loader.CharmModule;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.")
 public class ImprovedMineshafts extends CharmModule {
@@ -98,7 +98,7 @@ public class ImprovedMineshafts extends CharmModule {
         return states;
     }
 
-    public static void generatePiece(StructurePiece piece, WorldGenLevel level, StructureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
+    public static void generatePiece(StructurePiece piece, WorldGenLevel level, StructureManager accessor, ChunkGenerator chunkGenerator, RandomSource rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (!Charm.LOADER.isEnabled(ImprovedMineshafts.class))
 
         // don't add any decoration to mesa mineshafts
@@ -111,7 +111,7 @@ public class ImprovedMineshafts extends CharmModule {
         }
     }
 
-    private static void corridor(MineshaftPieces.MineShaftCorridor piece, WorldGenLevel level, StructureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
+    private static void corridor(MineshaftPieces.MineShaftCorridor piece, WorldGenLevel level, StructureManager accessor, ChunkGenerator chunkGenerator, RandomSource rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (floorBlockChance > 0 || ceilingBlockChance > 0) {
             for (int x = 0; x < 3; x++) {
                 if (x == 1 && rand.nextFloat() < 0.08F)
@@ -195,7 +195,7 @@ public class ImprovedMineshafts extends CharmModule {
         }
     }
 
-    private static void room(MineshaftPieces.MineShaftRoom piece, WorldGenLevel level, StructureManager accessor, ChunkGenerator chunkGenerator, Random rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
+    private static void room(MineshaftPieces.MineShaftRoom piece, WorldGenLevel level, StructureManager accessor, ChunkGenerator chunkGenerator, RandomSource rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
         if (!ROOM_BLOCKS.isEmpty() && !ROOM_DECORATIONS.isEmpty()) {
             int bx = box.maxX() - box.minX();
             int bz = box.maxZ() - box.minZ();
@@ -245,7 +245,7 @@ public class ImprovedMineshafts extends CharmModule {
             && airAbove;
     }
 
-    private static BlockState getRandom(List<BlockState> blocks, Random rand) {
+    private static BlockState getRandom(List<BlockState> blocks, RandomSource rand) {
         if (blocks.isEmpty()) return Blocks.AIR.defaultBlockState();
         return blocks.get(rand.nextInt(blocks.size()));
     }
