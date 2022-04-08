@@ -63,6 +63,7 @@
     "totem_works_from_inventory.CheckInventoryMixin",
     "variant_ladders.ClimbTrapdoorMixin",
     "weathering_iron.TickIronBlockMixin",
+    "weathering_iron.WaxedIronGolemBuildingMixin",
     "weathering_iron.WaxedIronNoteBlockMixin",
     "woodcutters.AddRecipeBookTypeMixin"
   ],
