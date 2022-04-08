@@ -8,7 +8,6 @@ public class CrimsonBoatItem extends CharmBoatItem {
     public CrimsonBoatItem(CharmModule module) {
         super(module, "crimson_boat", ExtraBoats.CRIMSON, new Properties()
             .stacksTo(1)
-            .fireResistant()
             .tab(CreativeModeTab.TAB_TRANSPORTATION));
 
         this.setFireproof();
