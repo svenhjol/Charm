@@ -33,7 +33,7 @@ public class WanderingTraderMaps extends CharmModule {
     @Config(name = "Rare structures", description = "List of rarer structure IDs and structure tags.\n" +
         "These are more expensive and less likely to be sold.")
     public static List<String> rareStructures = Arrays.asList(
-        "minecraft:desert_pyramid", "minecraft:jungle_temple", "#minecraft:ocean_ruin"
+        "minecraft:desert_pyramid", "minecraft:jungle_temple", "#minecraft:ocean_ruin", "minecraft:ancient_city"
     );
 
     @Override
