@@ -6,6 +6,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Bee;
@@ -22,13 +23,12 @@ import svenhjol.charm.helper.VillagerHelper.SingleItemTypeTrade;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 
 public class BeekeeperTradeOffers {
     public static class EmeraldsForFlowers extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             List<Item> flowers = TagHelper.getItemValues(ItemTags.FLOWERS);
             ItemLike item;
 
@@ -54,7 +54,7 @@ public class BeekeeperTradeOffers {
     public static class EmeraldsForCharcoal extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             setInput(Items.CHARCOAL, random.nextInt(3) + 13);
             setOutput(Items.EMERALD, 1);
             return super.getOffer(entity, random);
@@ -64,7 +64,7 @@ public class BeekeeperTradeOffers {
     public static class EmeraldsForHoneycomb extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             setInput(Items.HONEYCOMB, 10);
             setOutput(Items.EMERALD, random.nextInt(2) + 1);
             return super.getOffer(entity, random);
@@ -74,7 +74,7 @@ public class BeekeeperTradeOffers {
     public static class BottlesForEmerald extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             setInput(Items.EMERALD, 1);
             setOutput(Items.GLASS_BOTTLE, random.nextInt(4) + 2);
             return super.getOffer(entity, random);
@@ -84,7 +84,7 @@ public class BeekeeperTradeOffers {
     public static class CandlesForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             setInput(Items.EMERALD, 3);
 
             var candles = TagHelper.getItemValues(ItemTags.CANDLES);
@@ -98,7 +98,7 @@ public class BeekeeperTradeOffers {
     public static class CampfireForEmerald extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             setInput(Items.EMERALD, 1);
             setOutput(Items.CAMPFIRE, 1);
             return super.getOffer(entity, random);
@@ -108,7 +108,7 @@ public class BeekeeperTradeOffers {
     public static class LeadForEmeralds extends SingleItemTypeTrade {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             setInput(Items.EMERALD, 6);
             setOutput(Items.LEAD, 1);
             return super.getOffer(entity, random);
@@ -118,7 +118,7 @@ public class BeekeeperTradeOffers {
     public static class HoneyBottlesForEmeralds implements VillagerTrades.ItemListing {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             int count = random.nextInt(2) + 1;
             ItemStack in1 = new ItemStack(Items.EMERALD, count);
             ItemStack out = new ItemStack(Items.HONEY_BOTTLE, count);
@@ -129,7 +129,7 @@ public class BeekeeperTradeOffers {
     public static class PopulatedBeehiveForEmeralds implements VillagerTrades.ItemListing {
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             int count = random.nextInt(14) + 21;
             ItemStack in1 = new ItemStack(Items.EMERALD, count);
             ItemStack out = new ItemStack(Items.BEEHIVE);

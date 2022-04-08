@@ -6,6 +6,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.mixin.object.builder.VillagerProfessionAccessor;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -19,7 +20,6 @@ import svenhjol.charm.registry.CommonRegistry;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
 import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRADES;
@@ -90,7 +90,7 @@ public class VillagerHelper {
 
         @Nullable
         @Override
-        public MerchantOffer getOffer(Entity entity, Random random) {
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
             ItemStack in1 = new ItemStack(in, inCount);
             ItemStack out1 = new ItemStack(out, outCount);
             return new MerchantOffer(in1, out1, maxUses, experience, multiplier);

@@ -2,6 +2,7 @@ package svenhjol.charm.module.redstone_lanterns;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -15,7 +16,6 @@ import svenhjol.charm.enums.VanillaMetalMaterial;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class RedstoneLanternBlock extends CharmLanternBlock {
@@ -39,7 +39,7 @@ public class RedstoneLanternBlock extends CharmLanternBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         super.tick(state, level, pos, random);
         if (state.getValue(LIT) && !level.hasNeighborSignal(pos)) {
             level.setBlock(pos, state.cycle(LIT), 2);

@@ -3,12 +3,12 @@ package svenhjol.charm.helper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TagHelper {
     public static List<Item> getItemValues(TagKey<Item> tags) {
@@ -33,7 +33,7 @@ public class TagHelper {
         return blocks;
     }
 
-    public static <T> T getRandomElement(List<T> list, T fallback, Random random) {
+    public static <T> T getRandomElement(List<T> list, T fallback, RandomSource random) {
         if (list.size() > 0) {
             return list.get(random.nextInt(list.size()));
         }

@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +22,6 @@ import svenhjol.charm.loader.CharmModule;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Wandering traders have a chance to sell maps to distant structures.")
 public class WanderingTraderMaps extends CharmModule {
@@ -57,7 +57,7 @@ public class WanderingTraderMaps extends CharmModule {
 
     static class MapForEmeralds implements VillagerTrades.ItemListing {
         @Override
-        public MerchantOffer getOffer(Entity trader, Random random) {
+        public MerchantOffer getOffer(Entity trader, RandomSource random) {
             if (!trader.level.isClientSide) {
                 var map = new Map();
                 var stack = map.getMap((ServerLevel) trader.level, trader.blockPosition(), random);
@@ -75,7 +75,7 @@ public class WanderingTraderMaps extends CharmModule {
 
     static class RareMapForEmeralds implements VillagerTrades.ItemListing {
         @Override
-        public MerchantOffer getOffer(Entity trader, Random random) {
+        public MerchantOffer getOffer(Entity trader, RandomSource random) {
             if (!trader.level.isClientSide) {
                 var map = new RareMap();
                 var stack = map.getMap((ServerLevel) trader.level, trader.blockPosition(), random);
@@ -93,7 +93,7 @@ public class WanderingTraderMaps extends CharmModule {
 
     static class Map implements TraderMap {
         @Override
-        public ItemStack getMap(ServerLevel level, BlockPos pos, Random random) {
+        public ItemStack getMap(ServerLevel level, BlockPos pos, RandomSource random) {
             var color = 0x004466;
             var id = structures.get(random.nextInt(structures.size()));
 
@@ -101,14 +101,14 @@ public class WanderingTraderMaps extends CharmModule {
         }
 
         @Override
-        public int getCost(Random random) {
+        public int getCost(RandomSource random) {
             return random.nextInt(2) + 2;
         }
     }
 
     static class RareMap implements TraderMap {
         @Override
-        public ItemStack getMap(ServerLevel level, BlockPos pos, Random random) {
+        public ItemStack getMap(ServerLevel level, BlockPos pos, RandomSource random) {
             var color = 0x99AA00;
             var id = rareStructures.get(random.nextInt(rareStructures.size()));
 
@@ -116,14 +116,14 @@ public class WanderingTraderMaps extends CharmModule {
         }
 
         @Override
-        public int getCost(Random random) {
+        public int getCost(RandomSource random) {
             return random.nextInt(5) + 10;
         }
     }
 
     interface TraderMap {
-        ItemStack getMap(ServerLevel level, BlockPos pos, Random random);
+        ItemStack getMap(ServerLevel level, BlockPos pos, RandomSource random);
 
-        int getCost(Random random);
+        int getCost(RandomSource random);
     }
 }

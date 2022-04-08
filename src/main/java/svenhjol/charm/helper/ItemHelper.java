@@ -1,6 +1,7 @@
 package svenhjol.charm.helper;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -33,7 +34,7 @@ public class ItemHelper {
         return Block.byItem(stack.getItem()).getClass();
     }
 
-    public static int getAmountWithLooting(Random rand, int maxDrops, int lootingLevel, float lootingBoost) {
+    public static int getAmountWithLooting(RandomSource rand, int maxDrops, int lootingLevel, float lootingBoost) {
         int amount = rand.nextInt(Math.max(1, maxDrops + 1));
         if (rand.nextFloat() < lootingBoost * lootingLevel) {
             amount++;

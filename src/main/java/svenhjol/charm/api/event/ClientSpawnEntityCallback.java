@@ -28,8 +28,8 @@ public interface ClientSpawnEntityCallback {
 
         entity.setPacketCoordinates(x, y, z);
         entity.moveTo(x, y, z);
-        entity.setXRot((float)(packet.getxRot() * 360) / 256.0F);
-        entity.setYRot((float)(packet.getyRot() * 360) / 256.0F);
+        entity.setXRot((packet.getXRot() * 360) / 256.0F);
+        entity.setYRot((packet.getYRot() * 360) / 256.0F);
         entity.setId(id);
         entity.setUUID(packet.getUUID());
         level.putNonPlayerEntity(id, entity);

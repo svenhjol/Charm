@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,13 +41,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.Charm;
-import svenhjol.charm.helper.NbtHelper;
 import svenhjol.charm.helper.LogHelper;
+import svenhjol.charm.helper.NbtHelper;
 import svenhjol.charm.helper.PlayerHelper;
 
 import javax.annotation.Nullable;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Most of this is copypasta from SquidEntity.
@@ -92,7 +92,7 @@ public class CoralSquidEntity extends WaterAnimal {
         return entityData;
     }
 
-    public static boolean canSpawn(EntityType<CoralSquidEntity> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<CoralSquidEntity> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
         boolean coralBelow = false;
 
         for (int y = 0; y > -16; y--) {

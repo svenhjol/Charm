@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.helper.MobHelper;
 
 import java.util.EnumSet;
-import java.util.Random;
 
 public class FormEndermiteGoal extends RandomStrollGoal {
     private final Silverfish silverfish;
@@ -35,7 +34,7 @@ public class FormEndermiteGoal extends RandomStrollGoal {
         } else if (!silverfish.getNavigation().isDone()) {
             return false;
         } else {
-            Random random = silverfish.getRandom();
+            var random = silverfish.getRandom();
 
             if (random.nextFloat() < 0.8D) {
                 facing = Direction.getRandom(random);

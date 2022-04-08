@@ -24,7 +24,6 @@ import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
-import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class RaidHornItem extends CharmItem {
@@ -114,7 +113,7 @@ public class RaidHornItem extends CharmItem {
         }
 
         if (patrolSpawner == null) return false;
-        Random random = level.getRandom();
+        var random = level.getRandom();
 
         // some copypasta from PatrolSpawner#tick
         int j = (24 + random.nextInt(24)) * (random.nextBoolean() ? -1 : 1);

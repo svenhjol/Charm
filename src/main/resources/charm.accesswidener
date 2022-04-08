@@ -38,7 +38,7 @@ accessible method net/minecraft/world/level/saveddata/maps/MapItemSavedData setC
 accessible method net/minecraft/world/entity/player/Player respawnEntityOnShoulder (Lnet/minecraft/nbt/CompoundTag;)V
 accessible method net/minecraft/world/entity/player/Player setShoulderEntityLeft (Lnet/minecraft/nbt/CompoundTag;)V
 accessible method net/minecraft/world/entity/player/Player setShoulderEntityRight (Lnet/minecraft/nbt/CompoundTag;)V
-accessible method net/minecraft/world/level/levelgen/PatrolSpawner spawnPatrolMember (Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Ljava/util/Random;Z)Z
+accessible method net/minecraft/world/level/levelgen/PatrolSpawner spawnPatrolMember (Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Z
 accessible method net/minecraft/world/level/levelgen/structure/structures/MineshaftPieces$MineShaftPiece isSupportingBox (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIII)Z
 accessible method net/minecraft/world/level/levelgen/structure/structures/MineshaftPieces$MineShaftCorridor hasSturdyNeighbours (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIII)Z
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece placeBlock (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
@@ -53,6 +53,7 @@ accessible method net/minecraft/world/entity/animal/Bee pathfindRandomlyTowards 
 accessible method net/minecraft/tags/ItemTags bind (Ljava/lang/String;)Lnet/minecraft/tags/TagKey;
 accessible method net/minecraft/tags/BlockTags create (Ljava/lang/String;)Lnet/minecraft/tags/TagKey;
 accessible method net/minecraft/tags/StructureTags create (Ljava/lang/String;)Lnet/minecraft/tags/TagKey;
+accessible method net/minecraft/world/item/BlockItem updateBlockStateFromTag (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/state/BlockState;
 
 # Inaccessible fields
 accessible field net/minecraft/client/Options mouseWheelSensitivity Lnet/minecraft/client/OptionInstance;

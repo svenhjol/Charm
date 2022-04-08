@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -76,15 +75,20 @@ public class LootHelper {
         Map<Integer, List<Item>> map = new HashMap<>();
         Gson gson = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 
-        Resource resource;
+        var resource = server.getResourceManager().getResource(table).orElse(null);
+        if (resource == null) {
+            return null;
+        }
+
+        InputStream inputStream;
+
         try {
-            resource = server.getResourceManager().getResource(table);
+            inputStream = resource.open();
         } catch (IOException e) {
             return null;
         }
 
-        InputStream inputStream = resource.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+        var reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
         JsonObject obj = GsonHelper.fromJson(gson, reader, JsonObject.class);
         if (obj == null) return null;

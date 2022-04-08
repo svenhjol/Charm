@@ -136,9 +136,9 @@ public class TotemOfPreserving extends CharmModule {
             return InteractionResult.PASS;
         }
 
-        ServerLevel serverLevel = (ServerLevel)player.level;
-        ServerPlayer serverPlayer = (ServerPlayer)player;
-        Random random = serverLevel.getRandom();
+        var serverLevel = (ServerLevel)player.level;
+        var serverPlayer = (ServerPlayer)player;
+        var random = serverLevel.getRandom();
         ItemStack totem = new ItemStack(TOTEM_OF_PRESERVING);
         CompoundTag serialized = new CompoundTag();
         List<ItemStack> holdable = new ArrayList<>();

@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -145,8 +146,13 @@ public class MoobloomEntity extends Cow implements Shearable {
     public MoobloomEntity getBreedOffspring(ServerLevel level, AgeableMob mob) {
         MoobloomEntity entity = Mooblooms.MOOBLOOM.create(level);
         Type childType = level.random.nextFloat() < 0.5F ? this.getMoobloomType() : ((MoobloomEntity)mob).getMoobloomType();
-        entity.setMoobloomType(childType);
-        return entity;
+
+        if (entity != null) {
+            entity.setMoobloomType(childType);
+            return entity;
+        }
+
+        return null;
     }
 
     public void pollinate() {
@@ -179,7 +185,7 @@ public class MoobloomEntity extends Cow implements Shearable {
         return Optional.empty();
     }
 
-    public static boolean canSpawn(EntityType<MoobloomEntity> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<MoobloomEntity> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
         return level.getRawBrightness(pos, 0) > 8;
     }
 
@@ -190,7 +196,10 @@ public class MoobloomEntity extends Cow implements Shearable {
         if (!this.level.isClientSide) {
             ((ServerLevel)this.level).sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(0.5D), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             this.discard();
+
             Cow cowEntity = EntityType.COW.create(this.level);
+            if (cowEntity == null) return;
+
             cowEntity.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
             cowEntity.setHealth(this.getHealth());
             cowEntity.yBodyRot = this.yBodyRot;

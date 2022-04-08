@@ -1,5 +1,6 @@
 package svenhjol.charm.module.extra_trades;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Item;
@@ -11,8 +12,6 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.loader.CharmModule;
-
-import java.util.Random;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Adds more villager trades.")
 public class ExtraTrades extends CharmModule {
@@ -31,19 +30,18 @@ public class ExtraTrades extends CharmModule {
     @Config(name = "Bundles", description = "If true, leatherworkers will sell bundles in return for emeralds.")
     public static boolean bundles = true;
 
+    /**
+     * MerchantOffer:
+     * - ItemStack in1
+     * - (ItemStack in2)
+     * - ItemStack out
+     * - int maxUses
+     * - int villagerXp
+     * - float priceMultiplier
+     */
+
     @Override
     public void runWhenEnabled() {
-
-        /**
-         * MerchantOffer:
-         * - ItemStack in1
-         * - (ItemStack in2)
-         * - ItemStack out
-         * - int maxUses
-         * - int villagerXp
-         * - float priceMultiplier
-         */
-
         if (enchantedBooks) {
             int tier = 2;
             VillagerHelper.addTrade(VillagerProfession.LIBRARIAN, tier, (entity, random) -> {
@@ -91,7 +89,7 @@ public class ExtraTrades extends CharmModule {
         }
     }
 
-    private MerchantOffer anvilRepairTrade(Entity entity, Random random) {
+    private MerchantOffer anvilRepairTrade(Entity entity, RandomSource random) {
         Item in1 = random.nextBoolean() ? Items.DAMAGED_ANVIL : Items.CHIPPED_ANVIL;
         Item in2 = Items.IRON_INGOT;
         Item out = Items.ANVIL;
