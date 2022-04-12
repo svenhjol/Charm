@@ -1,6 +1,6 @@
 {
   "template": {
-    "parent": "NAMESPACE:block/VARIANT_iron"
+    "parent": "NAMESPACE:block/VARIANT_cut_iron_slab"
   },
   "variants": "weathering_iron"
 }

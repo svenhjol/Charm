@@ -1,0 +1,23 @@
+{
+  "template": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "NAMESPACE:waxed_VARIANT_cut_iron"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "variants": "weathering_iron"
+}

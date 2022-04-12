@@ -2,7 +2,7 @@
   "template": {
     "variants": {
       "": {
-        "model": "NAMESPACE:block/VARIANT_iron"
+        "model": "NAMESPACE:block/VARIANT_cut_iron"
       }
     }
   },

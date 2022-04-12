@@ -2,7 +2,7 @@
   "template": {
     "parent": "minecraft:block/cube_all",
     "textures": {
-      "all": "NAMESPACE:block/VARIANT_iron"
+      "all": "NAMESPACE:block/VARIANT_cut_iron"
     }
   },
   "variants": "weathering_iron"

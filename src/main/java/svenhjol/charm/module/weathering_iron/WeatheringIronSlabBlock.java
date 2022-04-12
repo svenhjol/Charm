@@ -2,22 +2,22 @@ package svenhjol.charm.module.weathering_iron;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.block.CharmBlock;
+import svenhjol.charm.block.CharmSlabBlock;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.Random;
 
-public class WeatheringIronBlock extends CharmBlock implements IWeatherableIron {
+public class WeatheringIronSlabBlock extends CharmSlabBlock implements IWeatherableIron {
     private final boolean fullyOxidised;
 
-    public WeatheringIronBlock(CharmModule module, String name) {
-        this(module, name, false);
+    public WeatheringIronSlabBlock(CharmModule module, String name, Block block) {
+        this(module, name, block, false);
     }
 
-    public WeatheringIronBlock(CharmModule module, String name, boolean fullyOxidised) {
-        super(module, name, Properties.copy(Blocks.IRON_BLOCK));
+    public WeatheringIronSlabBlock(CharmModule module, String name, Block block, boolean fullyOxidised) {
+        super(module, name, Properties.copy(block));
         this.fullyOxidised = fullyOxidised;
     }
 

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "charm:block/cut_iron",
+    "top": "charm:block/cut_iron",
+    "side": "charm:block/cut_iron"
+  }
+}

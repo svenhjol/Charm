@@ -67,13 +67,13 @@ public class AzaleaBlocks {
         }
     }
 
-    public static class AzaleaSlabBlock extends CharmSlabBlock {
+    public static class AzaleaSlabBlock extends CharmWoodenSlabBlock {
         public AzaleaSlabBlock(CharmModule module) {
             super(module, "azalea_slab", MaterialColor.COLOR_BLACK);
         }
     }
 
-    public static class AzaleaStairsBlock extends CharmStairsBlock {
+    public static class AzaleaStairsBlock extends CharmWoodenStairBlock {
         public AzaleaStairsBlock(CharmModule module) {
             super(module, "azalea_stairs", PLANKS);
         }

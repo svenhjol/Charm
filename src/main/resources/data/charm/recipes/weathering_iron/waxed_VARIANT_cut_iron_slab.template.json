@@ -1,0 +1,18 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "NAMESPACE:waxed_VARIANT_cut_iron"
+      }
+    },
+    "result": {
+      "item": "NAMESPACE:waxed_VARIANT_cut_iron_slab",
+      "count": 6
+    }
+  },
+  "variants": "weathering_iron"
+}

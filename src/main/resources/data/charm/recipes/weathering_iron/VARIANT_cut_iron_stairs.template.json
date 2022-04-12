@@ -1,0 +1,20 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#  ",
+      "## ",
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "NAMESPACE:VARIANT_cut_iron"
+      }
+    },
+    "result": {
+      "item": "NAMESPACE:VARIANT_cut_iron_stairs",
+      "count": 4
+    }
+  },
+  "variants": "weathering_iron"
+}

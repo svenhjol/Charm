@@ -8,26 +8,24 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.loader.CharmModule;
 
-public abstract class CharmStairsBlock extends StairBlock implements ICharmBlock {
+public abstract class CharmStairBlock extends StairBlock implements ICharmBlock {
     private final CharmModule module;
 
-    public CharmStairsBlock(CharmModule module, String name, BlockState state, Properties settings) {
+    public CharmStairBlock(CharmModule module, String name, BlockState state, Properties settings) {
         super(state, settings);
-
         this.register(module, name);
         this.module = module;
-        this.setFireInfo(5, 20);
-        this.setBurnTime(300);
     }
 
-    public CharmStairsBlock(CharmModule module, String name, Block block) {
+    public CharmStairBlock(CharmModule module, String name, Block block) {
         this(module, name, block.defaultBlockState(), Properties.copy(block));
     }
 
     @Override
     public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-        if (enabled())
+        if (enabled()) {
             super.fillItemCategory(group, items);
+        }
     }
 
     @Override

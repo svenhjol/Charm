@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "charm:block/waxed_iron"
+      "model": "minecraft:block/iron_block"
     }
   }
 }

@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChangeOverTimeBlock;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
@@ -41,10 +41,40 @@ public class WeatheringIron extends CharmModule {
     public static WeatheringIronBlock WEATHERED_IRON;
     public static WeatheringIronBlock OXIDIZED_IRON;
 
+    public static WeatheringIronBlock CUT_IRON;
+    public static WeatheringIronBlock EXPOSED_CUT_IRON;
+    public static WeatheringIronBlock WEATHERED_CUT_IRON;
+    public static WeatheringIronBlock OXIDIZED_CUT_IRON;
+
+    public static WeatheringIronSlabBlock CUT_IRON_SLAB;
+    public static WeatheringIronSlabBlock EXPOSED_CUT_IRON_SLAB;
+    public static WeatheringIronSlabBlock WEATHERED_CUT_IRON_SLAB;
+    public static WeatheringIronSlabBlock OXIDIZED_CUT_IRON_SLAB;
+
+    public static WeatheringIronStairBlock CUT_IRON_STAIRS;
+    public static WeatheringIronStairBlock EXPOSED_CUT_IRON_STAIRS;
+    public static WeatheringIronStairBlock WEATHERED_CUT_IRON_STAIRS;
+    public static WeatheringIronStairBlock OXIDIZED_CUT_IRON_STAIRS;
+
     public static WaxedIronBlock WAXED_IRON;
     public static WaxedIronBlock WAXED_EXPOSED_IRON;
     public static WaxedIronBlock WAXED_WEATHERED_IRON;
     public static WaxedIronBlock WAXED_OXIDIZED_IRON;
+
+    public static WaxedIronBlock WAXED_CUT_IRON;
+    public static WaxedIronBlock WAXED_EXPOSED_CUT_IRON;
+    public static WaxedIronBlock WAXED_WEATHERED_CUT_IRON;
+    public static WaxedIronBlock WAXED_OXIDIZED_CUT_IRON;
+
+    public static WaxedIronSlabBlock WAXED_CUT_IRON_SLAB;
+    public static WaxedIronSlabBlock WAXED_EXPOSED_CUT_IRON_SLAB;
+    public static WaxedIronSlabBlock WAXED_WEATHERED_CUT_IRON_SLAB;
+    public static WaxedIronSlabBlock WAXED_OXIDIZED_CUT_IRON_SLAB;
+
+    public static WaxedIronStairBlock WAXED_CUT_IRON_STAIRS;
+    public static WaxedIronStairBlock WAXED_EXPOSED_CUT_IRON_STAIRS;
+    public static WaxedIronStairBlock WAXED_WEATHERED_CUT_IRON_STAIRS;
+    public static WaxedIronStairBlock WAXED_OXIDIZED_CUT_IRON_STAIRS;
 
     public static List<Block> WEATHERING_ORDER = new ArrayList<>();
     public static BiMap<Block, Block> WAXABLES = HashBiMap.create();
@@ -63,24 +93,92 @@ public class WeatheringIron extends CharmModule {
 
     @Override
     public void register() {
+
+        // Register weathering blocks.
         EXPOSED_IRON = new WeatheringIronBlock(this, "exposed_iron");
         WEATHERED_IRON = new WeatheringIronBlock(this, "weathered_iron");
-        OXIDIZED_IRON = new WeatheringIronBlock(this, "oxidized_iron");
+        OXIDIZED_IRON = new WeatheringIronBlock(this, "oxidized_iron", true);
 
-        WAXED_IRON = new WaxedIronBlock(this, "waxed_iron", Properties.copy(Blocks.IRON_BLOCK));
-        WAXED_EXPOSED_IRON = new WaxedIronBlock(this, "waxed_exposed_iron", Properties.copy(EXPOSED_IRON));
-        WAXED_WEATHERED_IRON = new WaxedIronBlock(this, "waxed_weathered_iron", Properties.copy(WEATHERED_IRON));
-        WAXED_OXIDIZED_IRON = new WaxedIronBlock(this, "waxed_oxidized_iron", Properties.copy(OXIDIZED_IRON));
+        CUT_IRON = new WeatheringIronBlock(this, "cut_iron");
+        EXPOSED_CUT_IRON = new WeatheringIronBlock(this, "exposed_cut_iron");
+        WEATHERED_CUT_IRON = new WeatheringIronBlock(this, "weathered_cut_iron");
+        OXIDIZED_CUT_IRON = new WeatheringIronBlock(this, "oxidized_cut_iron", true);
 
+        CUT_IRON_SLAB = new WeatheringIronSlabBlock(this, "cut_iron_slab", CUT_IRON);
+        EXPOSED_CUT_IRON_SLAB = new WeatheringIronSlabBlock(this, "exposed_cut_iron_slab", EXPOSED_CUT_IRON);
+        WEATHERED_CUT_IRON_SLAB = new WeatheringIronSlabBlock(this, "weathered_cut_iron_slab", WEATHERED_CUT_IRON);
+        OXIDIZED_CUT_IRON_SLAB = new WeatheringIronSlabBlock(this, "oxidized_cut_iron_slab", OXIDIZED_CUT_IRON, true);
+
+        CUT_IRON_STAIRS = new WeatheringIronStairBlock(this, "cut_iron_stairs", CUT_IRON);
+        EXPOSED_CUT_IRON_STAIRS = new WeatheringIronStairBlock(this, "exposed_cut_iron_stairs", EXPOSED_IRON);
+        WEATHERED_CUT_IRON_STAIRS = new WeatheringIronStairBlock(this, "weathered_cut_iron_stairs", WEATHERED_CUT_IRON);
+        OXIDIZED_CUT_IRON_STAIRS = new WeatheringIronStairBlock(this, "oxidized_cut_iron_stairs", OXIDIZED_CUT_IRON, true);
+
+
+        // Register waxed blocks.
+        WAXED_IRON = new WaxedIronBlock(this, "waxed_iron", Blocks.IRON_BLOCK);
+        WAXED_EXPOSED_IRON = new WaxedIronBlock(this, "waxed_exposed_iron", EXPOSED_IRON);
+        WAXED_WEATHERED_IRON = new WaxedIronBlock(this, "waxed_weathered_iron", WEATHERED_IRON);
+        WAXED_OXIDIZED_IRON = new WaxedIronBlock(this, "waxed_oxidized_iron", OXIDIZED_IRON);
+
+        WAXED_CUT_IRON = new WaxedIronBlock(this, "waxed_cut_iron", Blocks.IRON_BLOCK);
+        WAXED_EXPOSED_CUT_IRON = new WaxedIronBlock(this, "waxed_exposed_cut_iron", EXPOSED_IRON);
+        WAXED_WEATHERED_CUT_IRON = new WaxedIronBlock(this, "waxed_weathered_cut_iron", WEATHERED_IRON);
+        WAXED_OXIDIZED_CUT_IRON = new WaxedIronBlock(this, "waxed_oxidized_cut_iron", OXIDIZED_IRON);
+
+        WAXED_CUT_IRON_SLAB = new WaxedIronSlabBlock(this, "waxed_cut_iron_slab", Blocks.IRON_BLOCK);
+        WAXED_EXPOSED_CUT_IRON_SLAB = new WaxedIronSlabBlock(this, "waxed_exposed_cut_iron_slab", EXPOSED_IRON);
+        WAXED_WEATHERED_CUT_IRON_SLAB = new WaxedIronSlabBlock(this, "waxed_weathered_cut_iron_slab", WEATHERED_IRON);
+        WAXED_OXIDIZED_CUT_IRON_SLAB = new WaxedIronSlabBlock(this, "waxed_oxidized_cut_iron_slab", OXIDIZED_IRON);
+
+        WAXED_CUT_IRON_STAIRS = new WaxedIronStairBlock(this, "waxed_cut_iron_stairs", Blocks.IRON_BLOCK);
+        WAXED_EXPOSED_CUT_IRON_STAIRS = new WaxedIronStairBlock(this, "waxed_exposed_cut_iron_stairs", EXPOSED_IRON);
+        WAXED_WEATHERED_CUT_IRON_STAIRS = new WaxedIronStairBlock(this, "waxed_weathered_cut_iron_stairs", WEATHERED_IRON);
+        WAXED_OXIDIZED_CUT_IRON_STAIRS = new WaxedIronStairBlock(this, "waxed_oxidized_cut_iron_stairs", OXIDIZED_IRON);
+
+
+        // Add weathering orders for different block families.
         WEATHERING_ORDER.add(Blocks.IRON_BLOCK);
         WEATHERING_ORDER.add(EXPOSED_IRON);
         WEATHERING_ORDER.add(WEATHERED_IRON);
         WEATHERING_ORDER.add(OXIDIZED_IRON);
 
+        WEATHERING_ORDER.add(CUT_IRON);
+        WEATHERING_ORDER.add(EXPOSED_CUT_IRON);
+        WEATHERING_ORDER.add(WEATHERED_CUT_IRON);
+        WEATHERING_ORDER.add(OXIDIZED_CUT_IRON);
+
+        WEATHERING_ORDER.add(CUT_IRON_SLAB);
+        WEATHERING_ORDER.add(EXPOSED_CUT_IRON_SLAB);
+        WEATHERING_ORDER.add(WEATHERED_CUT_IRON_SLAB);
+        WEATHERING_ORDER.add(OXIDIZED_CUT_IRON_SLAB);
+
+        WEATHERING_ORDER.add(CUT_IRON_STAIRS);
+        WEATHERING_ORDER.add(EXPOSED_CUT_IRON_STAIRS);
+        WEATHERING_ORDER.add(WEATHERED_CUT_IRON_STAIRS);
+        WEATHERING_ORDER.add(OXIDIZED_CUT_IRON_STAIRS);
+
+
+        // Add waxable block maps.
         WAXABLES.put(Blocks.IRON_BLOCK, WAXED_IRON);
         WAXABLES.put(EXPOSED_IRON, WAXED_EXPOSED_IRON);
         WAXABLES.put(WEATHERED_IRON, WAXED_WEATHERED_IRON);
         WAXABLES.put(OXIDIZED_IRON, WAXED_OXIDIZED_IRON);
+
+        WAXABLES.put(CUT_IRON, WAXED_CUT_IRON);
+        WAXABLES.put(EXPOSED_CUT_IRON, WAXED_EXPOSED_CUT_IRON);
+        WAXABLES.put(WEATHERED_CUT_IRON, WAXED_WEATHERED_CUT_IRON);
+        WAXABLES.put(OXIDIZED_CUT_IRON, WAXED_OXIDIZED_CUT_IRON);
+
+        WAXABLES.put(CUT_IRON_SLAB, WAXED_CUT_IRON_SLAB);
+        WAXABLES.put(EXPOSED_CUT_IRON_SLAB, WAXED_EXPOSED_CUT_IRON_SLAB);
+        WAXABLES.put(WEATHERED_CUT_IRON_SLAB, WAXED_WEATHERED_CUT_IRON_SLAB);
+        WAXABLES.put(OXIDIZED_CUT_IRON_SLAB, WAXED_OXIDIZED_CUT_IRON_SLAB);
+
+        WAXABLES.put(CUT_IRON_STAIRS, WAXED_CUT_IRON_STAIRS);
+        WAXABLES.put(EXPOSED_CUT_IRON_STAIRS, WAXED_EXPOSED_CUT_IRON_STAIRS);
+        WAXABLES.put(WEATHERED_CUT_IRON_STAIRS, WAXED_WEATHERED_CUT_IRON_STAIRS);
+        WAXABLES.put(OXIDIZED_CUT_IRON_STAIRS, WAXED_OXIDIZED_CUT_IRON_STAIRS);
     }
 
     @Override
@@ -101,7 +199,7 @@ public class WeatheringIron extends CharmModule {
         Optional<BlockState> newState = Optional.empty();
 
         if (item instanceof AxeItem) {
-            if (block instanceof WeatheringIronBlock) {
+            if (block instanceof IWeatherableIron) {
                 // Scrape rust
                 if (WEATHERING_ORDER.contains(block)) {
                     var i = WEATHERING_ORDER.indexOf(block);
@@ -111,7 +209,7 @@ public class WeatheringIron extends CharmModule {
                         newState = Optional.of(WEATHERING_ORDER.get(i - 1).defaultBlockState());
                     }
                 }
-            } else if (block instanceof WaxedIronBlock) {
+            } else if (block instanceof IWaxableIron) {
                 // Wax off
                 var inverse = WAXABLES.inverse();
                 if (inverse.containsKey(block)) {
@@ -132,7 +230,13 @@ public class WeatheringIron extends CharmModule {
             if (player instanceof ServerPlayer serverPlayer) {
                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, held);
             }
-            level.setBlock(pos, newState.get(), 11);
+            var getState = newState.get();
+            var properties = state.getProperties();
+            for (Property property : properties) {
+                getState = getState.setValue(property, state.getValue(property));
+            }
+
+            level.setBlock(pos, getState, 11);
             if (held.isDamageableItem()) {
                 held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
             }
@@ -147,8 +251,11 @@ public class WeatheringIron extends CharmModule {
      */
     public static void handleRandomTick(ServerLevel level, BlockPos pos, BlockState state, Random random) {
         var d = random.nextDouble();
+        if (!(state.getBlock() instanceof IWeatherableIron block)) {
+            return;
+        }
 
-        if (WEATHERING_ORDER.contains(state.getBlock())) {
+        if (WEATHERING_ORDER.contains(block)) {
             var chance = multiplyByTouchingFaces(level, pos);
             if (chance == 0) return; // no point continuing if no faces touching
 
@@ -157,11 +264,17 @@ public class WeatheringIron extends CharmModule {
             }
 
             if (d <= chance) {
-                var i = WEATHERING_ORDER.indexOf(state.getBlock());
-                if (i < WEATHERING_ORDER.size() - 1) {
+                var i = WEATHERING_ORDER.indexOf(block);
+                if (!block.isFullyOxidised()) {
+                    var properties = state.getProperties();
                     var nextBlock = WEATHERING_ORDER.get(i + 1);
+                    var nextState = nextBlock.defaultBlockState();
+                    for (Property property : properties) {
+                        nextState = nextState.setValue(property, state.getValue(property));
+                    }
+
                     LogHelper.debug(WeatheringIron.class, "Weathering block to " + nextBlock + ", d = " + d + ", chance = " + chance, ", pos = " + pos);
-                    level.setBlockAndUpdate(pos, nextBlock.defaultBlockState());
+                    level.setBlockAndUpdate(pos, nextState);
                 }
             }
         }
