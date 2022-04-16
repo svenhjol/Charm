@@ -21,7 +21,7 @@ import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.*;
 
-@CommonModule(mod = Charm.MOD_ID)
+@CommonModule(mod = Charm.MOD_ID, description = "Throw dye into a nether portal to change its color.")
 public class ColoredNetherPortals extends CharmModule {
     public static Map<DyeColor, ColoredNetherPortalBlock> BLOCKS = new HashMap<>();
     public static SoundEvent PORTAL_CHANGE_COLOR_SOUND;
