@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:iron_block",
+    "charm:exposed_iron",
+    "charm:weathered_iron",
+    "charm:oxidised_iron",
+    "charm:waxed_iron_block",
+    "charm:waxed_exposed_iron",
+    "charm:waxed_weathered_iron",
+    "charm:waxed_oxidised_iron"
+  ]
+}

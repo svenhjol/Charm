@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.weathering_iron.WeatheringIron;
+import svenhjol.charm.init.CharmTags;
 
 /**
  * Waxed iron should make the same sound as a normal iron block.
@@ -20,7 +20,7 @@ public class WaxedIronNoteBlockMixin {
         cancellable = true
     )
     private static void hookByState(BlockState state, CallbackInfoReturnable<NoteBlockInstrument> cir) {
-        if (state.is(WeatheringIron.WAXED_IRON_BLOCK)) {
+        if (state.is(CharmTags.IRON)) {
             cir.setReturnValue(NoteBlockInstrument.IRON_XYLOPHONE);
         }
     }
