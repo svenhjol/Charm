@@ -1,0 +1,12 @@
+{
+  "template":
+  {
+    "type": "minecraft:stonecutting",
+    "ingredient": {
+      "item": "charm:VARIANT_iron"
+    },
+    "result": "charm:VARIANT_cut_iron",
+    "count": 4
+  },
+  "variants": "weathering_iron"
+}
