@@ -13,5 +13,5 @@ public class AddValidPortalFrameBlocksMixin {
     /**
      * Override the default valid frame block predicate with the one provided by MorePortalFrames module.
      */
-    @Final @Shadow private static final BlockBehaviour.StatePredicate FRAME = (blockState, blockView, blockPos) -> MorePortalFrames.isValidBlock(blockState);
+    @Final @Shadow private final static BlockBehaviour.StatePredicate FRAME = (blockState, blockView, blockPos) -> MorePortalFrames.isValidBlock(blockState);
 }
