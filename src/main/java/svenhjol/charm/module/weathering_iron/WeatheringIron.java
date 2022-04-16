@@ -5,6 +5,7 @@ import com.google.common.collect.HashBiMap;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,7 +16,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoneycombItem;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -30,6 +31,7 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.loader.CharmModule;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -185,7 +187,6 @@ public class WeatheringIron extends CharmModule {
     @Override
     public void runWhenEnabled() {
         UseBlockCallback.EVENT.register(this::handleUseBlock);
-        DispenserBlock.registerBehavior(Items.HONEYCOMB, new WaxDispenseBehavior());
     }
 
     private InteractionResult handleUseBlock(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
@@ -313,5 +314,23 @@ public class WeatheringIron extends CharmModule {
             LogHelper.debug(WeatheringIron.class, "Bubble column weathering, pos = " + pos);
         }
         return has;
+    }
+
+    @Nullable
+    public static ItemStack tryDispense(BlockSource source, ItemStack stack) {
+        var pos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+        var level = source.getLevel();
+        var state = level.getBlockState(pos);
+        var block = state.getBlock();
+
+        if (WeatheringIron.WAXABLES.containsKey(block)) {
+            var newState = WeatheringIron.WAXABLES.get(block).defaultBlockState();
+            level.setBlockAndUpdate(pos, newState);
+            level.levelEvent(3003, pos, 0);
+            stack.shrink(1);
+            return stack;
+        }
+
+        return null;
     }
 }

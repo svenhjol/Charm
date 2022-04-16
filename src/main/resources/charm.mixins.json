@@ -64,6 +64,7 @@
     "stronger_anvils.ReduceAnvilDamageMixin",
     "totem_works_from_inventory.CheckInventoryMixin",
     "variant_ladders.ClimbTrapdoorMixin",
+    "weathering_iron.DispenseHoneycombIronMixin",
     "weathering_iron.TickIronBlockMixin",
     "weathering_iron.WaxedIronGolemBuildingMixin",
     "weathering_iron.WaxedIronNoteBlockMixin",
@@ -72,9 +73,9 @@
   "client": [
     "allow_too_expensive.StopShowingTooExpensiveMixin",
     "atlases.DrawAtlasOnCartographyTableMixin",
-    "event.BlockColorRegisterMixin",
     "core.OverrideBundleTooltipGridsizeMixin",
     "event.AddEntityClientMixin",
+    "event.BlockColorRegisterMixin",
     "event.ClientSpawnEntityMixin",
     "event.ItemTooltipImageMixin",
     "event.PlaySoundMixin",
