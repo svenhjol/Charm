@@ -104,4 +104,14 @@ public class ClientHelper {
         if (getClient().isEmpty()) return Optional.empty();
         return Optional.ofNullable(getClient().get().getTextureManager());
     }
+
+    /**
+     * Split an integer color into its red green and blue components.
+     */
+    public static double[] getRgb(int color) {
+        double r = (double) (color >> 16 & 255) / 255.0D;
+        double g = (double) (color >> 8 & 255) / 255.0D;
+        double b = (double) (color & 255) / 255.0D;
+        return new double[]{r, g, b};
+    }
 }
