@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+@SuppressWarnings({"unchecked", "rawtypes"})
 @CommonModule(mod = Charm.MOD_ID, description = "Iron rusts when in contact with water.")
 public class WeatheringIron extends CharmModule {
     public static WeatheringIronBlock EXPOSED_IRON;
@@ -56,7 +57,7 @@ public class WeatheringIron extends CharmModule {
     public static WeatheringIronStairBlock WEATHERED_CUT_IRON_STAIRS;
     public static WeatheringIronStairBlock OXIDIZED_CUT_IRON_STAIRS;
 
-    public static WaxedIronBlock WAXED_IRON;
+    public static WaxedIronBlock WAXED_IRON_BLOCK;
     public static WaxedIronBlock WAXED_EXPOSED_IRON;
     public static WaxedIronBlock WAXED_WEATHERED_IRON;
     public static WaxedIronBlock WAXED_OXIDIZED_IRON;
@@ -116,7 +117,7 @@ public class WeatheringIron extends CharmModule {
 
 
         // Register waxed blocks.
-        WAXED_IRON = new WaxedIronBlock(this, "waxed_iron", Blocks.IRON_BLOCK);
+        WAXED_IRON_BLOCK = new WaxedIronBlock(this, "waxed_iron_block", Blocks.IRON_BLOCK);
         WAXED_EXPOSED_IRON = new WaxedIronBlock(this, "waxed_exposed_iron", EXPOSED_IRON);
         WAXED_WEATHERED_IRON = new WaxedIronBlock(this, "waxed_weathered_iron", WEATHERED_IRON);
         WAXED_OXIDIZED_IRON = new WaxedIronBlock(this, "waxed_oxidized_iron", OXIDIZED_IRON);
@@ -160,7 +161,7 @@ public class WeatheringIron extends CharmModule {
 
 
         // Add waxable block maps.
-        WAXABLES.put(Blocks.IRON_BLOCK, WAXED_IRON);
+        WAXABLES.put(Blocks.IRON_BLOCK, WAXED_IRON_BLOCK);
         WAXABLES.put(EXPOSED_IRON, WAXED_EXPOSED_IRON);
         WAXABLES.put(WEATHERED_IRON, WAXED_WEATHERED_IRON);
         WAXABLES.put(OXIDIZED_IRON, WAXED_OXIDIZED_IRON);

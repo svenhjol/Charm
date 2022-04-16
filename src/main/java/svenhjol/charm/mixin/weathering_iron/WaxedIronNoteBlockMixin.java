@@ -20,7 +20,7 @@ public class WaxedIronNoteBlockMixin {
         cancellable = true
     )
     private static void hookByState(BlockState state, CallbackInfoReturnable<NoteBlockInstrument> cir) {
-        if (state.is(WeatheringIron.WAXED_IRON)) {
+        if (state.is(WeatheringIron.WAXED_IRON_BLOCK)) {
             cir.setReturnValue(NoteBlockInstrument.IRON_XYLOPHONE);
         }
     }

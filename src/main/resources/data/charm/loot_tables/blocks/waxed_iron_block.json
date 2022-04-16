@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "charm:waxed_iron"
+          "name": "charm:waxed_iron_block"
         }
       ],
       "conditions": [

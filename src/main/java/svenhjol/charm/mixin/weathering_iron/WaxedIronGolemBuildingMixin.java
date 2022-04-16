@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 public class WaxedIronGolemBuildingMixin {
     private static final Predicate<BlockState> IRON_BLOCKS_PREDICATE =
         state -> state != null
-        && (state.is(Blocks.IRON_BLOCK) || state.is(WeatheringIron.WAXED_IRON));
+        && (state.is(Blocks.IRON_BLOCK) || state.is(WeatheringIron.WAXED_IRON_BLOCK));
 
     @ModifyArg(
         method = "getOrCreateIronGolemBase",
