@@ -41,8 +41,8 @@ public class AzaleaWood extends CharmModule {
     public static CharmPlanksBlock PLANKS;
     public static CharmPressurePlate PRESSURE_PLATE;
     public static CharmSignBlock SIGN_BLOCK;
-    public static CharmSlabBlock SLAB;
-    public static CharmStairsBlock STAIRS;
+    public static CharmWoodenSlabBlock SLAB;
+    public static CharmWoodenStairBlock STAIRS;
     public static CharmLogBlock STRIPPED_LOG;
     public static CharmLogBlock STRIPPED_WOOD;
     public static CharmTrapdoorBlock TRAPDOOR;

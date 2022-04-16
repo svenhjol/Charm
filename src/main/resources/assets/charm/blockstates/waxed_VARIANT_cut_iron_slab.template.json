@@ -1,0 +1,16 @@
+{
+  "template": {
+    "variants": {
+      "type=bottom": {
+        "model": "NAMESPACE:block/VARIANT_cut_iron_slab"
+      },
+      "type=double": {
+        "model": "NAMESPACE:block/VARIANT_cut_iron"
+      },
+      "type=top": {
+        "model": "NAMESPACE:block/VARIANT_cut_iron_slab_top"
+      }
+    }
+  },
+  "variants": "weathering_iron"
+}

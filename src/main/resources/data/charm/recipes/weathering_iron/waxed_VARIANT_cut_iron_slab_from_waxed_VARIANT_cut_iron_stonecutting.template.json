@@ -1,0 +1,11 @@
+{
+  "template": {
+    "type": "minecraft:stonecutting",
+    "ingredient": {
+      "item": "charm:waxed_VARIANT_cut_iron"
+    },
+    "result": "charm:waxed_VARIANT_cut_iron_slab",
+    "count": 2
+  },
+  "variants": "weathering_iron"
+}

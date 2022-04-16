@@ -1,0 +1,18 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shapeless",
+    "group": "waxed_VARIANT_cut_iron",
+    "ingredients": [
+      {
+        "item": "charm:VARIANT_cut_iron"
+      },
+      {
+        "item": "minecraft:honeycomb"
+      }
+    ],
+    "result": {
+      "item": "charm:waxed_VARIANT_cut_iron"
+    }
+  },
+  "variants": "weathering_iron"
+}

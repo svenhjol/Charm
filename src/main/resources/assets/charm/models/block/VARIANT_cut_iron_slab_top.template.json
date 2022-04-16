@@ -1,0 +1,11 @@
+{
+  "template": {
+    "parent": "minecraft:block/slab_top",
+    "textures": {
+      "bottom": "NAMESPACE:block/VARIANT_cut_iron",
+      "top": "NAMESPACE:block/VARIANT_cut_iron",
+      "side": "NAMESPACE:block/VARIANT_cut_iron"
+    }
+  },
+  "variants": "weathering_iron"
+}

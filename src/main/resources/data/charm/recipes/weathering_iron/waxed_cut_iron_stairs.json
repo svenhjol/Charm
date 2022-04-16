@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "charm:waxed_cut_iron"
+    }
+  },
+  "result": {
+    "item": "charm:waxed_cut_iron_stairs",
+    "count": 4
+  }
+}

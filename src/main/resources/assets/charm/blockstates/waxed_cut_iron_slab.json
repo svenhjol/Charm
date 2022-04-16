@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "charm:block/cut_iron_slab"
+    },
+    "type=double": {
+      "model": "charm:block/cut_iron"
+    },
+    "type=top": {
+      "model": "charm:block/cut_iron_slab_top"
+    }
+  }
+}
