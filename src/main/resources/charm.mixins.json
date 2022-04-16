@@ -20,6 +20,7 @@
     "chickens_drop_feathers.DropFeatherMixin",
     "collection_enchantment.AddDroppedItemToInventoryMixin",
     "collection_enchantment.TryBreakBlockMixin",
+    "colored_nether_portals.HandleInsidePortalMixin",
     "core.AllowZeroCostAnvilRecipesMixin",
     "event.AddEntityManagerMixin",
     "event.AddEntityServerMixin",
@@ -71,6 +72,7 @@
   "client": [
     "allow_too_expensive.StopShowingTooExpensiveMixin",
     "atlases.DrawAtlasOnCartographyTableMixin",
+    "event.BlockColorRegisterMixin",
     "core.OverrideBundleTooltipGridsizeMixin",
     "event.AddEntityClientMixin",
     "event.ClientSpawnEntityMixin",
