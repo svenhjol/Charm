@@ -100,22 +100,22 @@ public class WeatheringIron extends CharmModule {
         // Register weathering blocks.
         EXPOSED_IRON = new WeatheringIronBlock(this, "exposed_iron");
         WEATHERED_IRON = new WeatheringIronBlock(this, "weathered_iron");
-        OXIDIZED_IRON = new WeatheringIronBlock(this, "oxidized_iron", true);
+        OXIDIZED_IRON = new WeatheringIronBlock(this, "oxidized_iron").fullyOxidised();
 
-        CUT_IRON = new WeatheringIronBlock(this, "cut_iron");
+        CUT_IRON = new WeatheringIronBlock(this, "cut_iron").noOxidisation();
         EXPOSED_CUT_IRON = new WeatheringIronBlock(this, "exposed_cut_iron");
         WEATHERED_CUT_IRON = new WeatheringIronBlock(this, "weathered_cut_iron");
-        OXIDIZED_CUT_IRON = new WeatheringIronBlock(this, "oxidized_cut_iron", true);
+        OXIDIZED_CUT_IRON = new WeatheringIronBlock(this, "oxidized_cut_iron").fullyOxidised();
 
-        CUT_IRON_SLAB = new WeatheringIronSlabBlock(this, "cut_iron_slab", CUT_IRON);
+        CUT_IRON_SLAB = new WeatheringIronSlabBlock(this, "cut_iron_slab", CUT_IRON).noOxidisation();
         EXPOSED_CUT_IRON_SLAB = new WeatheringIronSlabBlock(this, "exposed_cut_iron_slab", EXPOSED_CUT_IRON);
         WEATHERED_CUT_IRON_SLAB = new WeatheringIronSlabBlock(this, "weathered_cut_iron_slab", WEATHERED_CUT_IRON);
-        OXIDIZED_CUT_IRON_SLAB = new WeatheringIronSlabBlock(this, "oxidized_cut_iron_slab", OXIDIZED_CUT_IRON, true);
+        OXIDIZED_CUT_IRON_SLAB = new WeatheringIronSlabBlock(this, "oxidized_cut_iron_slab", OXIDIZED_CUT_IRON).fullyOxidised();
 
-        CUT_IRON_STAIRS = new WeatheringIronStairBlock(this, "cut_iron_stairs", CUT_IRON);
+        CUT_IRON_STAIRS = new WeatheringIronStairBlock(this, "cut_iron_stairs", CUT_IRON).noOxidisation();
         EXPOSED_CUT_IRON_STAIRS = new WeatheringIronStairBlock(this, "exposed_cut_iron_stairs", EXPOSED_IRON);
         WEATHERED_CUT_IRON_STAIRS = new WeatheringIronStairBlock(this, "weathered_cut_iron_stairs", WEATHERED_CUT_IRON);
-        OXIDIZED_CUT_IRON_STAIRS = new WeatheringIronStairBlock(this, "oxidized_cut_iron_stairs", OXIDIZED_CUT_IRON, true);
+        OXIDIZED_CUT_IRON_STAIRS = new WeatheringIronStairBlock(this, "oxidized_cut_iron_stairs", OXIDIZED_CUT_IRON).fullyOxidised();
 
 
         // Register waxed blocks.
@@ -201,23 +201,23 @@ public class WeatheringIron extends CharmModule {
         Optional<BlockState> newState = Optional.empty();
 
         if (item instanceof AxeItem) {
-            if (block instanceof IWeatherableIron) {
+            if (block instanceof IWeatherableIron iron) {
                 // Scrape rust
-                if (WEATHERING_ORDER.contains(block)) {
-                    var i = WEATHERING_ORDER.indexOf(block);
-                    if (i - 1 >= 0) {
+                if (WEATHERING_ORDER.contains(iron)) {
+                    if (iron.hasAnyOxidation()) {
+                        var i = WEATHERING_ORDER.indexOf(block);
                         level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
                         level.levelEvent(player, 3005, pos, 0);
                         newState = Optional.of(WEATHERING_ORDER.get(i - 1).defaultBlockState());
                     }
                 }
-            } else if (block instanceof IWaxableIron) {
+            } else if (block instanceof IWaxableIron iron) {
                 // Wax off
                 var inverse = WAXABLES.inverse();
-                if (inverse.containsKey(block)) {
+                if (inverse.containsKey(iron)) {
                     level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
                     level.levelEvent(player, 3004, pos, 0);
-                    newState = Optional.of(inverse.get(block).defaultBlockState());
+                    newState = Optional.of(inverse.get(iron).defaultBlockState());
                 }
             }
         } else if (item instanceof HoneycombItem) {
@@ -253,11 +253,11 @@ public class WeatheringIron extends CharmModule {
      */
     public static void handleRandomTick(ServerLevel level, BlockPos pos, BlockState state, Random random) {
         var d = random.nextDouble();
-        if (!(state.getBlock() instanceof IWeatherableIron block)) {
+        if (!(state.getBlock() instanceof IWeatherableIron iron)) {
             return;
         }
 
-        if (WEATHERING_ORDER.contains(block)) {
+        if (WEATHERING_ORDER.contains(iron)) {
             var chance = multiplyByTouchingFaces(level, pos);
             if (chance == 0) return; // no point continuing if no faces touching
 
@@ -266,8 +266,8 @@ public class WeatheringIron extends CharmModule {
             }
 
             if (d <= chance) {
-                var i = WEATHERING_ORDER.indexOf(block);
-                if (!block.isFullyOxidised()) {
+                var i = WEATHERING_ORDER.indexOf(iron);
+                if (!iron.isFullyOxidised()) {
                     var properties = state.getProperties();
                     var nextBlock = WEATHERING_ORDER.get(i + 1);
                     var nextState = nextBlock.defaultBlockState();

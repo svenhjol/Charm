@@ -10,15 +10,21 @@ import svenhjol.charm.loader.CharmModule;
 import java.util.Random;
 
 public class WeatheringIronStairBlock extends CharmStairBlock implements IWeatherableIron {
-    private final boolean fullyOxidised;
+    private boolean fullyOxidised;
+    private boolean notOxidised;
 
     public WeatheringIronStairBlock(CharmModule module, String name, Block block) {
-        this(module, name, block, false);
+        super(module, name, block);
     }
 
-    public WeatheringIronStairBlock(CharmModule module, String name, Block block, boolean fullyOxidised) {
-        super(module, name, block);
-        this.fullyOxidised = fullyOxidised;
+    public WeatheringIronStairBlock fullyOxidised() {
+        this.fullyOxidised = true;
+        return this;
+    }
+
+    public WeatheringIronStairBlock noOxidisation() {
+        this.notOxidised = true;
+        return this;
     }
 
     @Override
@@ -34,5 +40,10 @@ public class WeatheringIronStairBlock extends CharmStairBlock implements IWeathe
     @Override
     public boolean isFullyOxidised() {
         return fullyOxidised;
+    }
+
+    @Override
+    public boolean hasAnyOxidation() {
+        return !notOxidised;
     }
 }
