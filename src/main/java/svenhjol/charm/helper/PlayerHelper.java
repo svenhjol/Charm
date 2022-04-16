@@ -56,8 +56,18 @@ public class PlayerHelper {
         }
     }
 
+    /**
+     * Returns list of player 8.0 blocks around the pos.
+     */
     public static List<Player> getPlayersInRange(Level level, BlockPos pos) {
-        return level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(8.0D));
+        return getPlayersInRange(level, pos, 8.0D);
+    }
+
+    /**
+     * Returns list of players in given range of pos.
+     */
+    public static List<Player> getPlayersInRange(Level level, BlockPos pos, double range) {
+        return level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(range));
     }
 
     public static Optional<String> getPlayerName(MinecraftServer server, UUID player) {

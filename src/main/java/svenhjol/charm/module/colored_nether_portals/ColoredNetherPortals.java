@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -15,7 +16,9 @@ import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.helper.WorldHelper;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -25,6 +28,7 @@ import java.util.*;
 public class ColoredNetherPortals extends CharmModule {
     public static Map<DyeColor, ColoredNetherPortalBlock> BLOCKS = new HashMap<>();
     public static SoundEvent PORTAL_CHANGE_COLOR_SOUND;
+    public static final ResourceLocation TRIGGER_COLORED_PORTAL = new ResourceLocation(Charm.MOD_ID, "colored_portal");
 
     @Override
     public void register() {
@@ -97,6 +101,13 @@ public class ColoredNetherPortals extends CharmModule {
 
         if (!level.isClientSide) {
             level.playSound(null, pos, ColoredNetherPortals.PORTAL_CHANGE_COLOR_SOUND, SoundSource.BLOCKS, 0.44F, new Random().nextFloat() * 0.4F + 0.8F);
+
+            // Award the advancement to all nearby players.
+            PlayerHelper.getPlayersInRange(level, pos, 4.0D).forEach(player -> triggerColoredPortal((ServerPlayer)player));
         }
+    }
+
+    public static void triggerColoredPortal(ServerPlayer player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_COLORED_PORTAL);
     }
 }
