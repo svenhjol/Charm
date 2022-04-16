@@ -59,6 +59,15 @@
     ],
     "subtitle": "subtitles.charm.item.bat_bucket.release"
   },
+  "portal_change_color": {
+    "sounds": [
+      {
+        "name": "charm:portal_change_color",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.portal.change_color"
+  },
   "sugar_dissolve": {
     "sounds": [
       {

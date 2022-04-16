@@ -4,6 +4,10 @@ import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
@@ -13,18 +17,22 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.WorldHelper;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.*;
 
 @CommonModule(mod = Charm.MOD_ID)
 public class ColoredNetherPortals extends CharmModule {
     public static Map<DyeColor, ColoredNetherPortalBlock> BLOCKS = new HashMap<>();
+    public static SoundEvent PORTAL_CHANGE_COLOR_SOUND;
 
     @Override
     public void register() {
         for (DyeColor color : DyeColor.values()) {
             BLOCKS.put(color, new ColoredNetherPortalBlock(this, color));
         }
+
+        PORTAL_CHANGE_COLOR_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "portal_change_color"));
     }
 
     @Override
@@ -85,6 +93,10 @@ public class ColoredNetherPortals extends CharmModule {
             if (!set.contains(pos2 = newPos.relative(opp2))) {
                 queue.add(pos2);
             }
+        }
+
+        if (!level.isClientSide) {
+            level.playSound(null, pos, ColoredNetherPortals.PORTAL_CHANGE_COLOR_SOUND, SoundSource.BLOCKS, 0.44F, new Random().nextFloat() * 0.4F + 0.8F);
         }
     }
 }

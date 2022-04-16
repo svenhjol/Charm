@@ -261,5 +261,6 @@
   "subtitles.charm.block.kiln.bake": "Kiln bakes",
   "subtitles.charm.entity.villager.work_lumberjack": "Lumberjack works",
   "subtitles.charm.block.gunpowder_block.dissolve": "Gunpowder dissolves",
-  "subtitles.charm.block.sugar_block.dissolve": "Sugar dissolves"
+  "subtitles.charm.block.sugar_block.dissolve": "Sugar dissolves",
+  "subtitles.charm.portal.change_color": "Portal changes color"
 }
