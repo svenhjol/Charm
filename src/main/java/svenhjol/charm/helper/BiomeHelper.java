@@ -1,6 +1,8 @@
 package svenhjol.charm.helper;
 
 import com.google.common.collect.ImmutableMap;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
@@ -53,13 +55,17 @@ public class BiomeHelper {
     }
 
     public static void addSpawnEntry(ResourceKey<Biome> biomeKey, MobCategory group, EntityType<?> entity, int weight, int minGroupSize, int maxGroupSize) {
-        MobSpawnSettings spawnSettings = getBiomeFromBiomeKey(biomeKey).getMobSettings();
-        makeSpawnSettingsMutable(spawnSettings);
+        Predicate<BiomeSelectionContext> context = c -> c.getBiomeKey() == biomeKey;
+        BiomeModifications.addSpawn(context, group, entity, weight, minGroupSize, maxGroupSize);
 
-        Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners = spawnSettings.spawners;
-        CollectionHelper.addPoolEntry(spawners.get(group), new MobSpawnSettings.SpawnerData(entity, weight, minGroupSize, maxGroupSize));
-
-        spawnSettings.spawners = spawners;
+        // This is broken, don't use it
+//        MobSpawnSettings spawnSettings = getBiomeFromBiomeKey(biomeKey).getMobSettings();
+//        makeSpawnSettingsMutable(spawnSettings);
+//
+//        Map<MobCategory, WeightedRandomList<MobSpawnSettings.SpawnerData>> spawners = spawnSettings.spawners;
+//        CollectionHelper.addPoolEntry(spawners.get(group), new MobSpawnSettings.SpawnerData(entity, weight, minGroupSize, maxGroupSize));
+//
+//        spawnSettings.spawners = spawners;
     }
 
     /**

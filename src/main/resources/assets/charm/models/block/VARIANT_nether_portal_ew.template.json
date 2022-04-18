@@ -1,0 +1,19 @@
+{
+  "template": {
+    "textures": {
+      "particle": "charm:block/VARIANT_nether_portal",
+      "portal": "charm:block/VARIANT_nether_portal"
+    },
+    "elements": [
+      {
+        "from": [ 6, 0, 0 ],
+        "to": [ 10, 16, 16 ],
+        "faces": {
+          "east": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal", "tintindex": 0  },
+          "west": { "uv": [ 0, 0, 16, 16 ], "texture": "#portal", "tintindex": 0  }
+        }
+      }
+    ]
+  },
+  "variants": "color"
+}

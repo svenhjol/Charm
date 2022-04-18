@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/VARIANT_cut_iron_stairs"
+  },
+  "variants": "weathering_iron"
+}

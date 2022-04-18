@@ -19,7 +19,7 @@ public class CheckEnchantingPowerMixin {
         cancellable = true
     )
     private static void hookIsValidBookShelf(Level level, BlockPos blockPos, BlockPos blockPos2, CallbackInfoReturnable<Boolean> cir) {
-        if (level.getBlockState(blockPos.offset(blockPos2)).is(CharmTags.PROVIDE_ENCHANTING_POWER) && level.isEmptyBlock(blockPos.offset(blockPos2.getX() / 2, blockPos2.getY(), blockPos2.getZ() / 2))) {
+        if (level.getBlockState(blockPos.offset(blockPos2)).is(CharmTags.PROVIDES_ENCHANTING_POWER) && level.isEmptyBlock(blockPos.offset(blockPos2.getX() / 2, blockPos2.getY(), blockPos2.getZ() / 2))) {
             cir.setReturnValue(true);
         }
     }

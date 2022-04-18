@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "charm:cut_iron_stairs",
+    "charm:exposed_cut_iron_stairs",
+    "charm:weathered_cut_iron_stairs",
+    "charm:oxidized_cut_iron_stairs",
+    "charm:waxed_cut_iron_stairs",
+    "charm:waxed_exposed_cut_iron_stairs",
+    "charm:waxed_weathered_cut_iron_stairs",
+    "charm:waxed_oxidized_cut_iron_stairs"
+  ]
+}

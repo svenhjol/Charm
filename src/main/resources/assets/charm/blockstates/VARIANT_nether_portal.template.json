@@ -1,0 +1,13 @@
+{
+  "template": {
+    "variants": {
+      "axis=x": {
+        "model": "charm:block/VARIANT_nether_portal_ns"
+      },
+      "axis=z": {
+        "model": "charm:block/VARIANT_nether_portal_ew"
+      }
+    }
+  },
+  "variants": "color"
+}

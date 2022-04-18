@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "charm:waxed_cut_iron"
+  },
+  "result": "charm:waxed_cut_iron_slab",
+  "count": 2
+}

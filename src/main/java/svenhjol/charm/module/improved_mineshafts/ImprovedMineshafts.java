@@ -183,8 +183,6 @@ public class ImprovedMineshafts extends CharmModule {
                 } else if (rand.nextFloat() < 0.4F) {
                     minecart = new MinecartTNT(serverWorld, cartX, cartY, cartZ);
                 } else if (rand.nextFloat() < 0.4F) {
-                    minecart = new MinecartHopper(serverWorld, cartX, cartY, cartZ);
-                } else if (rand.nextFloat() < 0.4F) {
                     minecart = new MinecartFurnace(serverWorld, cartX, cartY, cartZ);
                 } else {
                     minecart = new Minecart(serverWorld, cartX, cartY, cartZ);
