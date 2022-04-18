@@ -19,6 +19,9 @@ import svenhjol.charm.module.variant_chests.VariantChestBoatRecipe;
 
 import java.util.List;
 
+/**
+ * Adds the variant chest type from a chest boat item to a ChestBoat entity.
+ */
 @Mixin(BoatItem.class)
 public class AddChestBoatTypeMixin {
     @Inject(

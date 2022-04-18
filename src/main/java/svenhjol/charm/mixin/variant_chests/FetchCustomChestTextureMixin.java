@@ -10,13 +10,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.module.variant_chests.VariantChestBlockEntityRenderer;
 
+/**
+ * Defers to {@link VariantChestBlockEntityRenderer#getMaterial} to fetch
+ * a custom chest texture according to the provided block entity.
+ * If the returned texture is null, use vanilla texture.
+ */
 @Mixin(Sheets.class)
 public class FetchCustomChestTextureMixin {
-    /**
-     * Defers to {@link VariantChestBlockEntityRenderer#getMaterial} to fetch
-     * a custom chest texture according to the provided block entity.
-     * If the returned texture is null, use vanilla texture.
-     */
     @Inject(
         method = "chooseMaterial(Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/level/block/state/properties/ChestType;Z)Lnet/minecraft/client/resources/model/Material;",
         at = @At("HEAD"),
