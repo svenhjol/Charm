@@ -13,6 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.variant_chests.IVariantChestBoat;
 
+/**
+ * Render a custom texture when the ChestBoat entity has a variant chest.
+ */
 @Mixin(BoatRenderer.class)
 public class RenderVariantChestBoatMixin {
     private final ThreadLocal<Boat> boat = new ThreadLocal<>();

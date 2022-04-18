@@ -11,6 +11,9 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import svenhjol.charm.module.variant_chests.IVariantChestBoat;
 
+/**
+ * Adds an extra VARIANT_CHEST property to all ChestBoat entities.
+ */
 @Mixin(ChestBoat.class)
 public class VariantChestBoatMixin extends Boat implements IVariantChestBoat {
     private static final String VARIANT_CHEST_TAG = "variant_chest";

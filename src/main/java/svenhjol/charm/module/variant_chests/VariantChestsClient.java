@@ -1,10 +1,12 @@
 package svenhjol.charm.module.variant_chests;
 
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -29,6 +31,15 @@ public class VariantChestsClient extends CharmModule {
 
         StitchTextureCallback.EVENT.register(this::handleTextureStitch);
         RenderBlockItemCallback.EVENT.register(this::handleBlockItemRender);
+
+        ColorProviderRegistry.ITEM.register(this::handleRegisterBoatLayerColors, VariantChests.CHEST_BOATS.values().toArray(new ItemLike[0]));
+    }
+
+    /**
+     * Call a handler (getLayerColor) for all variant chest boats.
+     */
+    private int handleRegisterBoatLayerColors(ItemStack stack, int layer) {
+        return layer == 0 ? -1 : VariantChests.getLayerColor(stack);
     }
 
     private void handleTextureStitch(TextureAtlas atlas, Set<ResourceLocation> textures) {

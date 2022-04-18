@@ -101,7 +101,6 @@
     "no_potion_glint.CheckPotionHasGlintMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
     "show_repair_cost.AddRepairCostToTooltipMixin",
-    "variant_chests.ColoredLayerForChestBoatsMixin",
     "variant_chests.FetchCustomChestTextureMixin",
     "variant_chests.RenderVariantChestBoatMixin",
     "woodcutters.AddRecipeCategoryMixin",
