@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -35,7 +36,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 @CommonModule(mod = Charm.MOD_ID, description = "Iron rusts when in contact with water.")
@@ -251,7 +251,7 @@ public class WeatheringIron extends CharmModule {
     /**
      * @see ChangeOverTimeBlock#onRandomTick
      */
-    public static void handleRandomTick(ServerLevel level, BlockPos pos, BlockState state, Random random) {
+    public static void handleRandomTick(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         var d = random.nextDouble();
         if (!(state.getBlock() instanceof IWeatherableIron iron)) {
             return;

@@ -1,10 +1,10 @@
 package svenhjol.charm.module.colored_nether_portals;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -14,8 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.block.ICharmBlock;
 import svenhjol.charm.init.CharmParticles;
 import svenhjol.charm.loader.CharmModule;
-
-import java.util.Random;
 
 public class ColoredNetherPortalBlock extends NetherPortalBlock implements ICharmBlock {
     private final CharmModule module;
@@ -49,7 +47,7 @@ public class ColoredNetherPortalBlock extends NetherPortalBlock implements IChar
      * Some copypasta from {@link NetherPortalBlock#animateTick}
      */
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (random.nextInt(100) == 0) {
             level.playLocalSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.PORTAL_AMBIENT, SoundSource.BLOCKS, 0.5f, random.nextFloat() * 0.4f + 0.8f, false);
         }
