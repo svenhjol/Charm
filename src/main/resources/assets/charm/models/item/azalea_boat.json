@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:item/azalea_boat"
+    "layer0": "charm:item/azalea_boat"
   }
 }

@@ -98,8 +98,8 @@ public class AzaleaWood extends CharmModule {
         // Boat items must now be registered in the minecraft namespace.
         BOAT = new BoatItem(false, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
         CHEST_BOAT = new BoatItem(true, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
-        CommonRegistry.item(new ResourceLocation("minecraft:azalea_boat"), BOAT);
-        CommonRegistry.item(new ResourceLocation("minecraft:azalea_chest_boat"), CHEST_BOAT);
+        CommonRegistry.item(new ResourceLocation(Charm.MOD_ID, "azalea_boat"), BOAT);
+        CommonRegistry.item(new ResourceLocation(Charm.MOD_ID, "azalea_chest_boat"), CHEST_BOAT);
 
         VariantChests.CHEST_BOATS.put(AzaleaWood.BOAT, AzaleaWood.CHEST_BOAT);
         VariantChests.CHEST_LAYER_COLORS.put(CharmWoodMaterial.AZALEA.getSerializedName(), 0xffaf9f);

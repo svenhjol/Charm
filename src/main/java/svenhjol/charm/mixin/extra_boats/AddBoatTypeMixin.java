@@ -22,7 +22,7 @@ public class AddBoatTypeMixin {
     private static Boat.Type[] $VALUES;
 
     static {
-        addVariant("AZALEA", AzaleaWood.PLANKS, "azalea");
+        addVariant("AZALEA", AzaleaWood.PLANKS, "charm_azalea");
     }
 
     @Invoker("<init>")

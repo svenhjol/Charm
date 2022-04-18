@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import svenhjol.charm.Charm;
 import svenhjol.charm.module.variant_chests.IVariantChestBoat;
 
 @Mixin(BoatRenderer.class)
@@ -40,7 +41,7 @@ public class RenderVariantChestBoatMixin {
 
             if (!chestType.isEmpty()) {
                 var boatType = boat.getBoatType();
-                return new ResourceLocation("textures/entity/chest_boat/" + boatType + "_with_" + chestType + "_chest.png");
+                return new ResourceLocation(Charm.MOD_ID, "textures/entity/chest_boat/" + boatType + "_with_" + chestType + "_chest.png");
             }
         }
 
