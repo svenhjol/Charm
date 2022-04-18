@@ -1,4 +1,4 @@
-# Charm for Minecraft 1.18.x
+# Charm for Minecraft 1.18.2
 
 ## Version 4.x
 Charm is a vanilla-plus mod for Minecraft, inspired by the Quark mod.
