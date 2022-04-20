@@ -26,7 +26,7 @@ public interface ClientSpawnEntityCallback {
         double y = packet.getY();
         double z = packet.getZ();
 
-        entity.setPacketCoordinates(x, y, z);
+        entity.syncPacketPositionCodec(x, y, z);
         entity.moveTo(x, y, z);
         entity.setXRot((packet.getXRot() * 360) / 256.0F);
         entity.setYRot((packet.getYRot() * 360) / 256.0F);

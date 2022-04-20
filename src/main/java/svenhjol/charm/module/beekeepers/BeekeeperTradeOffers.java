@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -147,7 +147,7 @@ public class BeekeeperTradeOffers {
             honeyTag.putInt("honey_level", 0);
             out.addTagElement("BlockEntityTag", beesTag);
             out.addTagElement("BlockStateTag", honeyTag);
-            out.setHoverName(new TranslatableComponent("item.charm.populated_beehive"));
+            out.setHoverName(Component.translatable("item.charm.populated_beehive"));
 
             return new MerchantOffer(in1, out, 1, 10, 0.2F);
         }

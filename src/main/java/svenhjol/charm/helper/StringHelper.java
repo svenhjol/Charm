@@ -7,7 +7,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
 import org.apache.commons.lang3.StringUtils;
 import svenhjol.charm.loader.ModuleLoader;
 
@@ -95,7 +95,8 @@ public class StringHelper {
         List<String> modIds = ModuleLoader.getModIds();
 
         // don't try and work with a non-translatable component
-        if (!(message instanceof TranslatableComponent translatable)) {
+        // TODO: this has been weakened in 1.19 and might not check properly.
+        if (!(message instanceof MutableComponent translatable)) {
             return Optional.empty();
         }
 

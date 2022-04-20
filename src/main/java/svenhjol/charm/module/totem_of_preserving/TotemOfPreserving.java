@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -40,7 +40,10 @@ import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.totem_works_from_inventory.TotemWorksFromInventory;
 import svenhjol.charm.registry.CommonRegistry;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 @CommonModule(mod = Charm.MOD_ID, description = """
     The player's inventory items will be held in the Totem of Preserving upon death.
@@ -262,7 +265,7 @@ public class TotemOfPreserving extends CharmModule {
         }
 
         if (showDeathPosition) {
-            player.displayClientMessage(new TranslatableComponent("gui.charm.totem_of_preserving.deathpos", x, y, z), false);
+            player.displayClientMessage(Component.translatable("gui.charm.totem_of_preserving.deathpos", x, y, z), false);
         }
 
         return InteractionResult.SUCCESS;

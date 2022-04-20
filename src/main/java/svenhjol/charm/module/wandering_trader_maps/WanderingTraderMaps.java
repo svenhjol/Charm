@@ -1,8 +1,7 @@
 package svenhjol.charm.module.wandering_trader_maps;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -51,7 +50,7 @@ public class WanderingTraderMaps extends CharmModule {
         if (nearest == null) return new ItemStack(Items.MAP);
 
         var name = StringHelper.snakeToPretty(id.substring(id.indexOf(":") + 1), true);
-        var mapName = new TranslatableComponent("filled_map.charm.trader_map", new TextComponent(name));
+        var mapName = Component.translatable("filled_map.charm.trader_map", Component.literal(name));
         return MapHelper.create(level, nearest, mapName, MapDecoration.Type.TARGET_X, color);
     }
 

@@ -13,7 +13,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -100,10 +99,10 @@ public class AtlasesClient extends CharmModule {
         ItemStack map = inventory.getLastActiveMapItem();
         if (map == null) return;
 
-        lines.add(new TextComponent("Scale " + inventory.getScale()).withStyle(ChatFormatting.GRAY));
+        lines.add(Component.translatable("Scale " + inventory.getScale()).withStyle(ChatFormatting.GRAY));
 
         MutableComponent name = map.hasCustomHoverName() ? map.getHoverName().plainCopy()
-            : map.getHoverName().plainCopy().append(new TextComponent(" #" + MapItem.getMapId(map)));
+            : map.getHoverName().plainCopy().append(Component.translatable(" #" + MapItem.getMapId(map)));
         lines.add(name.withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
     }
 

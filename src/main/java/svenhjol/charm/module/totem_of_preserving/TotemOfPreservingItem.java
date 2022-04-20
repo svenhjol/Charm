@@ -1,11 +1,8 @@
 package svenhjol.charm.module.totem_of_preserving;
 
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -90,12 +87,12 @@ public class TotemOfPreservingItem extends CharmItem {
         CompoundTag items = getItems(stack);
 
         if (!message.isEmpty())
-            tooltip.add(new TextComponent(message));
+            tooltip.add(Component.translatable(message));
 
         if (!items.isEmpty()) {
             int size = items.size();
             String str = size == 1 ? "totem.charm.preserving.item" : "totem.charm.preserving.items";
-            tooltip.add(new TextComponent(I18n.get(str, size)));
+            tooltip.add(Component.translatable(I18n.get(str, size)));
         }
 
         super.appendHoverText(stack, level, tooltip, context);

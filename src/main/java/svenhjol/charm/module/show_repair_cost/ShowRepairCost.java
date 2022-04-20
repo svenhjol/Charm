@@ -2,8 +2,6 @@ package svenhjol.charm.module.show_repair_cost;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
@@ -18,8 +16,8 @@ public class ShowRepairCost extends CharmModule {
 
         int repairCost = stack.getBaseRepairCost();
         if (repairCost > 0) {
-            tooltip.add(TextComponent.EMPTY); // a new line
-            tooltip.add(new TranslatableComponent("gui.charm.repair_cost", repairCost).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.empty()); // a new line
+            tooltip.add(Component.translatable("gui.charm.repair_cost", repairCost).withStyle(ChatFormatting.GRAY));
         }
 
         return tooltip;
