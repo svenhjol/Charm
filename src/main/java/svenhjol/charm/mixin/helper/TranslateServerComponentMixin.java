@@ -11,8 +11,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.helper.StringHelper;
 
-import java.util.UUID;
-
 @Mixin(MinecraftServer.class)
 public class TranslateServerComponentMixin {
     @Shadow @Final
@@ -27,11 +25,11 @@ public class TranslateServerComponentMixin {
      * so that it gets saved to the server log correctly.
      */
     @Inject(
-        method = "sendMessage",
+        method = "sendSystemMessage",
         at = @At("HEAD"),
         cancellable = true
     )
-    private void hookSendMessage(Component component, UUID uUID, CallbackInfo ci) {
+    private void hookSendMessage(Component component, CallbackInfo ci) {
         StringHelper.tryTranslateServerComponent(component)
             .ifPresent(translated -> {
                 LOGGER.info(translated);
