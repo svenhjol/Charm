@@ -7,7 +7,7 @@ import svenhjol.charm.loader.CharmModule;
 public class CharmRecordItem extends RecordItem implements ICharmItem {
     protected CharmModule module;
 
-    protected CharmRecordItem(CharmModule module, String name, int redstoneStrength, SoundEvent soundEvent, Properties properties) {
+    public CharmRecordItem(CharmModule module, String name, int redstoneStrength, SoundEvent soundEvent, Properties properties) {
         super(redstoneStrength, soundEvent, properties);
         this.module = module;
         this.register(module, name);
