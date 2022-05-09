@@ -25,15 +25,19 @@ public class VariantMobTexturesClient extends CharmModule {
 
     public static List<ResourceLocation> chickens = new ArrayList<>();
     public static List<ResourceLocation> cows = new ArrayList<>();
+    public static List<ResourceLocation> dolphins = new ArrayList<>();
     public static List<ResourceLocation> snowGolems = new ArrayList<>();
     public static List<ResourceLocation> squids = new ArrayList<>();
     public static List<ResourceLocation> pigs = new ArrayList<>();
+    public static List<ResourceLocation> turtles = new ArrayList<>();
     public static List<ResourceLocation> wolves = new ArrayList<>();
 
     public static List<ResourceLocation> rareChickens = new ArrayList<>();
     public static List<ResourceLocation> rareCows = new ArrayList<>();
+    public static List<ResourceLocation> rareDolphins = new ArrayList<>();
     public static List<ResourceLocation> rareSquids = new ArrayList<>();
     public static List<ResourceLocation> rarePigs = new ArrayList<>();
+    public static List<ResourceLocation> rareTurtles = new ArrayList<>();
     public static List<ResourceLocation> rareWolves = new ArrayList<>();
 
     public static Map<ResourceLocation, ResourceLocation> wolvesTame = new HashMap<>();
@@ -52,6 +56,10 @@ public class VariantMobTexturesClient extends CharmModule {
             EntityRendererRegistry.register(EntityType.COW, VariantMobRenderer.RenderCow::new);
         }
 
+        if (VariantMobTextures.variantDolphins) {
+            EntityRendererRegistry.register(EntityType.DOLPHIN, VariantMobRenderer.RenderDolphin::new);
+        }
+
         if (VariantMobTextures.variantPigs) {
             EntityRendererRegistry.register(EntityType.PIG, VariantMobRenderer.RenderPig::new);
         }
@@ -68,6 +76,10 @@ public class VariantMobTexturesClient extends CharmModule {
             EntityRendererRegistry.register(EntityType.SQUID, VariantMobRenderer.RenderSquid::new);
         }
 
+        if (VariantMobTextures.variantTurtles) {
+            EntityRendererRegistry.register(EntityType.TURTLE, VariantMobRenderer.RenderTurtle::new);
+        }
+
         if (VariantMobTextures.variantWolves) {
             EntityRendererRegistry.register(EntityType.WOLF, VariantMobRenderer.RenderWolf::new);
         }
@@ -80,25 +92,31 @@ public class VariantMobTexturesClient extends CharmModule {
         // reset
         chickens = new ArrayList<>();
         cows = new ArrayList<>();
+        dolphins = new ArrayList<>();
         pigs = new ArrayList<>();
         snowGolems = new ArrayList<>();
         squids = new ArrayList<>();
+        turtles = new ArrayList<>();
         wolves = new ArrayList<>();
         wolvesTame = new HashMap<>();
         wolvesAngry = new HashMap<>();
 
         rareChickens = new ArrayList<>();
         rareCows = new ArrayList<>();
+        rareDolphins = new ArrayList<>();
         rarePigs = new ArrayList<>();
         rareSquids = new ArrayList<>();
+        rareTurtles = new ArrayList<>();
         rareWolves = new ArrayList<>();
 
         // add vanilla textures
         chickens.add(new ResourceLocation(PREFIX + "chicken.png"));
         cows.add(new ResourceLocation(PREFIX + "cow/cow.png"));
+        dolphins.add(new ResourceLocation(PREFIX + "dolphin.png"));
         pigs.add(new ResourceLocation(PREFIX + "pig/pig.png"));
         snowGolems.add(new ResourceLocation(PREFIX + "snow_golem.png"));
         squids.add(new ResourceLocation(PREFIX + "squid/squid.png"));
+        turtles.add(new ResourceLocation(PREFIX + "turtle/big_sea_turtle.png"));
 
         ResourceLocation wolf = new ResourceLocation(PREFIX + "wolf/wolf.png");
         wolves.add(wolf);
@@ -111,6 +129,22 @@ public class VariantMobTexturesClient extends CharmModule {
 
         for (int i = 1; i <= 2; i++) {
             addCustomTextures(rareChickens, MobType.CHICKEN, "rare_chicken" + i);
+        }
+
+        for (int i = 1; i <= 3; i++) {
+            addCustomTextures(dolphins, MobType.DOLPHIN, "dolphin" + i);
+        }
+
+        for (int i = 1; i <= 2; i++) {
+            addCustomTextures(rareDolphins, MobType.DOLPHIN, "rare_dolphin" + i);
+        }
+
+        for (int i = 1; i <= 1; i++) {
+            addCustomTextures(turtles, MobType.TURTLE, "turtle" + i);
+        }
+
+        for (int i = 1; i <= 1; i++) {
+            addCustomTextures(rareTurtles, MobType.TURTLE, "rare_turtle" + i);
         }
 
         for (int i = 1; i <= 7; i++) {
@@ -183,6 +217,11 @@ public class VariantMobTexturesClient extends CharmModule {
     }
 
     @Nullable
+    public static ResourceLocation getDolphinTexture(Dolphin entity) {
+        return getRandomTexture(entity, dolphins, rareDolphins);
+    }
+
+    @Nullable
     public static ResourceLocation getPigTexture(Pig entity) {
         return getRandomTexture(entity, pigs, rarePigs);
     }
@@ -200,6 +239,11 @@ public class VariantMobTexturesClient extends CharmModule {
     @Nullable
     public static ResourceLocation getSquidTexture(Squid entity) {
         return getRandomTexture(entity, squids, rareSquids);
+    }
+
+    @Nullable
+    public static ResourceLocation getTurtleTexture(Turtle entity) {
+        return getRandomTexture(entity, turtles, rareTurtles);
     }
 
     @Nullable
@@ -233,5 +277,5 @@ public class VariantMobTexturesClient extends CharmModule {
         return new ResourceLocation(Charm.MOD_ID, PREFIX + type.getSerializedName() + "/" + texture + ".png");
     }
 
-    public enum MobType implements ICharmEnum { WOLF, COW, PIG, CHICKEN, SQUID, SHEEP, SNOW_GOLEM }
+    public enum MobType implements ICharmEnum { WOLF, COW, PIG, CHICKEN, SQUID, SHEEP, TURTLE, SNOW_GOLEM, DOLPHIN }
 }

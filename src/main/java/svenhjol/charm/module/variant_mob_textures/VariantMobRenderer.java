@@ -49,6 +49,18 @@ public class VariantMobRenderer {
         }
     }
 
+    public static class RenderDolphin extends DolphinRenderer {
+        public RenderDolphin(EntityRendererProvider.Context context) {
+            super(context);
+            fillLayersFromOld(context, this, EntityType.DOLPHIN);
+        }
+
+        @Override
+        public ResourceLocation getTextureLocation(Dolphin entity) {
+            return VariantMobTexturesClient.getDolphinTexture(entity);
+        }
+    }
+
     public static class RenderPig extends PigRenderer {
         public RenderPig(EntityRendererProvider.Context context) {
             super(context);
@@ -94,6 +106,18 @@ public class VariantMobRenderer {
         @Override
         public ResourceLocation getTextureLocation(Squid entity) {
             return VariantMobTexturesClient.getSquidTexture(entity);
+        }
+    }
+
+    public static class RenderTurtle extends TurtleRenderer {
+        public RenderTurtle(EntityRendererProvider.Context context) {
+            super(context);
+            fillLayersFromOld(context, this, EntityType.TURTLE);
+        }
+
+        @Override
+        public ResourceLocation getTextureLocation(Turtle entity) {
+            return VariantMobTexturesClient.getTurtleTexture(entity);
         }
     }
 

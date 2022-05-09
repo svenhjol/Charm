@@ -13,6 +13,9 @@ public class VariantMobTextures extends CharmModule {
     @Config(name = "Variant chickens", description = "If true, chickens may spawn with different textures.")
     public static boolean variantChickens = true;
 
+    @Config(name = "Variant dolphins", description = "If true, dolphins may spawn with different textures.")
+    public static boolean variantDolphins = true;
+
     @Config(name = "Variant pigs", description = "If true, pigs may spawn with different textures.")
     public static boolean variantPigs = true;
 
@@ -24,6 +27,9 @@ public class VariantMobTextures extends CharmModule {
 
     @Config(name = "Variant squids", description = "If true, squids may spawn with different textures.")
     public static boolean variantSquids = true;
+
+    @Config(name = "Variant turtles", description = "If true, turtles may spawn with different textures.")
+    public static boolean variantTurtles = true;
 
     @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
     public static boolean variantWolves = true;
