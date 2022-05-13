@@ -1,7 +1,5 @@
 package svenhjol.charm.helper;
 
-import com.google.common.collect.ImmutableSet;
-import net.fabricmc.fabric.mixin.object.builder.PointOfInterestTypeAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
@@ -11,16 +9,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Material;
 import svenhjol.charm.Charm;
-import svenhjol.charm.registry.CommonRegistry;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -77,25 +74,21 @@ public class WorldHelper {
         level.setWeatherParameters(0, duration, true, true);
     }
 
-    public static PoiType addPointOfInterestType(ResourceLocation id, Block block, int ticketCount) {
-        PoiType poit = PointOfInterestTypeAccessor.callCreate(id.toString(), ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates()), ticketCount, 1);
-        CommonRegistry.pointOfInterestType(id, poit);
-        return PointOfInterestTypeAccessor.callSetup(poit);
-    }
+//    public static PoiType addPointOfInterestType(ResourceLocation id, Block block, int ticketCount) {
+//        var type = PoiTypes.createKey(id.toString());
+//
+//        return PoiTypes.register(Registry.POINT_OF_INTEREST_TYPE_REGISTRY, type, ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates()), ticketCount, 1);
+//    }
 
-    public static void addBlockStatesToPointOfInterest(PoiType poit, List<BlockState> states) {
-        Set<BlockState> existingStates = poit.matchingStates;
-        if (existingStates instanceof ImmutableSet) {
-            List<BlockState> mutable = new ArrayList<>(existingStates);
-            mutable.addAll(states);
-            poit.matchingStates = ImmutableSet.copyOf(mutable);
-        } else {
-            existingStates.addAll(states);
-            poit.matchingStates = existingStates;
-        }
+    public static void addBlockStatesToPointOfInterest(ResourceKey<PoiType> poit, List<BlockState> states) {
+        var holder = Registry.POINT_OF_INTEREST_TYPE.getHolderOrThrow(poit);
+        var matchingStates = new ArrayList<>(holder.value().matchingStates());
+        matchingStates.addAll(states);
 
-        PoiType.ALL_STATES.addAll(states);
-        states.forEach(state -> PoiType.TYPE_BY_STATE.put(state, poit));
+        matchingStates.forEach(state -> {
+            PoiTypes.TYPE_BY_STATE.put(state, holder);
+            PoiTypes.ALL_STATES.add(state);
+        });
     }
 
     public static BlockPos addRandomOffset(BlockPos pos, Random rand, int min, int max) {
