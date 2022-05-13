@@ -74,12 +74,6 @@ public class WorldHelper {
         level.setWeatherParameters(0, duration, true, true);
     }
 
-//    public static PoiType addPointOfInterestType(ResourceLocation id, Block block, int ticketCount) {
-//        var type = PoiTypes.createKey(id.toString());
-//
-//        return PoiTypes.register(Registry.POINT_OF_INTEREST_TYPE_REGISTRY, type, ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates()), ticketCount, 1);
-//    }
-
     public static void addBlockStatesToPointOfInterest(ResourceKey<PoiType> poit, List<BlockState> states) {
         var holder = Registry.POINT_OF_INTEREST_TYPE.getHolderOrThrow(poit);
         var matchingStates = new ArrayList<>(holder.value().matchingStates());
