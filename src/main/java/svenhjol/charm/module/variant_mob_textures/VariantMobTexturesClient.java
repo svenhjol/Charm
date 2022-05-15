@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
@@ -31,6 +32,7 @@ public class VariantMobTexturesClient extends CharmModule {
     public static List<ResourceLocation> pigs = new ArrayList<>();
     public static List<ResourceLocation> turtles = new ArrayList<>();
     public static List<ResourceLocation> wolves = new ArrayList<>();
+    public static List<ResourceLocation> wanderingTraders = new ArrayList<>();
 
     public static List<ResourceLocation> rareChickens = new ArrayList<>();
     public static List<ResourceLocation> rareCows = new ArrayList<>();
@@ -84,6 +86,9 @@ public class VariantMobTexturesClient extends CharmModule {
             EntityRendererRegistry.register(EntityType.WOLF, VariantMobRenderer.RenderWolf::new);
         }
 
+        if (VariantMobTextures.variantWanderingTraders) {
+            EntityRendererRegistry.register(EntityType.WANDERING_TRADER, VariantMobRenderer.RenderWanderingTrader::new);
+        }
     }
 
     public void handlePlayerJoin(Entity entity, Level level) {
@@ -100,6 +105,7 @@ public class VariantMobTexturesClient extends CharmModule {
         wolves = new ArrayList<>();
         wolvesTame = new HashMap<>();
         wolvesAngry = new HashMap<>();
+        wanderingTraders = new ArrayList<>();
 
         rareChickens = new ArrayList<>();
         rareCows = new ArrayList<>();
@@ -117,6 +123,7 @@ public class VariantMobTexturesClient extends CharmModule {
         snowGolems.add(new ResourceLocation(PREFIX + "snow_golem.png"));
         squids.add(new ResourceLocation(PREFIX + "squid/squid.png"));
         turtles.add(new ResourceLocation(PREFIX + "turtle/big_sea_turtle.png"));
+        wanderingTraders.add(new ResourceLocation(PREFIX + "wandering_trader.png"));
 
         ResourceLocation wolf = new ResourceLocation(PREFIX + "wolf/wolf.png");
         wolves.add(wolf);
@@ -149,6 +156,10 @@ public class VariantMobTexturesClient extends CharmModule {
 
         for (int i = 1; i <= 7; i++) {
             addCustomTextures(cows, MobType.COW, "cow" + i);
+        }
+
+        for (int i = 1; i <= 3; i++) {
+            addCustomTextures(wanderingTraders, MobType.WANDERING_TRADER, "wandering_trader" + i);
         }
 
         for (int i = 1; i <= 1; i++) {
@@ -237,6 +248,11 @@ public class VariantMobTexturesClient extends CharmModule {
     }
 
     @Nullable
+    public static ResourceLocation getWanderingTraderTexture(WanderingTrader entity) {
+        return getRandomTexture(entity, wanderingTraders, ImmutableList.of());
+    }
+
+    @Nullable
     public static ResourceLocation getSquidTexture(Squid entity) {
         return getRandomTexture(entity, squids, rareSquids);
     }
@@ -277,5 +293,5 @@ public class VariantMobTexturesClient extends CharmModule {
         return new ResourceLocation(Charm.MOD_ID, PREFIX + type.getSerializedName() + "/" + texture + ".png");
     }
 
-    public enum MobType implements ICharmEnum { WOLF, COW, PIG, CHICKEN, SQUID, SHEEP, TURTLE, SNOW_GOLEM, DOLPHIN }
+    public enum MobType implements ICharmEnum { WOLF, COW, PIG, CHICKEN, SQUID, SHEEP, WANDERING_TRADER, TURTLE, SNOW_GOLEM, DOLPHIN }
 }

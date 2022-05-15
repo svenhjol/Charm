@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.npc.WanderingTrader;
 
 import java.util.List;
 
@@ -130,6 +131,18 @@ public class VariantMobRenderer {
         @Override
         public ResourceLocation getTextureLocation(Wolf entity) {
             return VariantMobTexturesClient.getWolfTexture(entity);
+        }
+    }
+
+    public static class RenderWanderingTrader extends WanderingTraderRenderer {
+        public RenderWanderingTrader(EntityRendererProvider.Context context) {
+            super(context);
+            fillLayersFromOld(context, this, EntityType.WANDERING_TRADER);
+        }
+
+        @Override
+        public ResourceLocation getTextureLocation(WanderingTrader entity) {
+            return VariantMobTexturesClient.getWanderingTraderTexture(entity);
         }
     }
 }
