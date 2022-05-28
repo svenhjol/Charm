@@ -1,14 +1,15 @@
 package svenhjol.charm.mixin.helper;
 
+import com.google.common.collect.Maps;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementList;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import svenhjol.charm.helper.AdvancementHelper;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Mixin(AdvancementList.class)
@@ -21,16 +22,17 @@ public class FilterAdvancementsMixin {
      * loaded and if any Charm modules are disabled then
      * some advancements may not be completable.
      */
-    @Inject(
+    @Redirect(
         method = "add",
         at = @At(
-            value = "INVOKE_ASSIGN",
+            value = "INVOKE",
             target = "Lcom/google/common/collect/Maps;newHashMap(Ljava/util/Map;)Ljava/util/HashMap;",
-            shift = At.Shift.AFTER,
             remap = false
         )
     )
-    private void hookAdd(Map<ResourceLocation, Advancement.Builder> map, CallbackInfo ci) {
-        AdvancementHelper.filterAdvancements(map);
+    private HashMap<ResourceLocation, Advancement.Builder> hookAdd(Map<ResourceLocation, Advancement.Builder> map) {
+        var newMap = new HashMap<>(map);
+        AdvancementHelper.filterAdvancements(newMap);
+        return Maps.newHashMap(newMap);
     }
 }
