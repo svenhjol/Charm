@@ -1,0 +1,149 @@
+package svenhjol.charm.module.bookcases;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+import svenhjol.charm.block.ICharmSyncedBlockEntity;
+
+import java.util.stream.IntStream;
+
+public class BookcaseBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer, ICharmSyncedBlockEntity {
+    public static final int SIZE = 9;
+    private final int[] SLOTS = IntStream.range(0, SIZE).toArray();
+    private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
+
+    protected BookcaseBlockEntity(BlockPos pos, BlockState state) {
+        super(Bookcases.BLOCK_ENTITY, pos, state);
+    }
+
+    @Override
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
+        this.items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
+
+        if (!tryLoadLootTable(nbt)) {
+            ContainerHelper.loadAllItems(nbt, items);
+        }
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag nbt) {
+        super.saveAdditional(nbt);
+
+        if (!trySaveLootTable(nbt)) {
+            ContainerHelper.saveAllItems(nbt, items);
+        }
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction direction) {
+        return SLOTS;
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
+        return Bookcases.isValidItem(itemStack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int i, ItemStack itemStack, Direction direction) {
+        return true;
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return items;
+    }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> items) {
+        this.items = items;
+    }
+
+    @Override
+    public void setItem(int slot, ItemStack stack) {
+        super.setItem(slot, stack);
+        updateCapacity();
+    }
+
+    @Override
+    protected Component getDefaultName() {
+        return new TranslatableComponent("container.charm.bookcase");
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
+        return new BookcaseMenu(syncId, playerInventory, this);
+    }
+
+    @Override
+    public int getContainerSize() {
+        return SIZE;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return items.stream().allMatch(ItemStack::isEmpty);
+    }
+
+    public int getFilledSlots() {
+        var filledslots = 0;
+
+        for (int i = 0; i < SIZE; i++) {
+            if (!getItem(i).isEmpty()) {
+                filledslots++;
+            }
+        }
+
+        return filledslots;
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag updateTag = new CompoundTag();
+        saveAdditional(updateTag);
+        return updateTag;
+    }
+
+    @Override
+    public void setChanged() {
+        super.setChanged();
+        updateCapacity();
+        syncToClient();
+    }
+
+    private void updateCapacity() {
+        if (getLevel() == null) return;
+
+        var filledslots = getFilledSlots();
+        int capacity;
+
+        var state = getLevel().getBlockState(getBlockPos());
+
+        if (state.getBlock() instanceof BookcaseBlock) {
+            if (filledslots == 0) {
+                capacity = 0;
+            } else if (filledslots >= 1 && filledslots <= Math.ceil(SIZE * 0.44)) {
+                capacity = 1;
+            } else if (filledslots < SIZE) {
+                capacity = 2;
+            } else {
+                capacity = 3;
+            }
+
+            state = state.setValue(BookcaseBlock.CAPACITY, capacity);
+            getLevel().setBlockAndUpdate(getBlockPos(), state);
+        }
+    }
+}

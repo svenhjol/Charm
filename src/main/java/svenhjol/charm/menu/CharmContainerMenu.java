@@ -5,7 +5,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public abstract class CharmContainerMenu extends AbstractContainerMenu {
@@ -20,29 +19,29 @@ public abstract class CharmContainerMenu extends AbstractContainerMenu {
     @Override
     public void removed(Player player) {
         super.removed(player);
-        this.inventory.stopOpen(player);
+        inventory.stopOpen(player);
     }
 
     @Override
     public boolean stillValid(Player player) {
-        return this.inventory.stillValid(player);
+        return inventory.stillValid(player);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        ItemStack stack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(index);
+        var stack = ItemStack.EMPTY;
+        var slot = slots.get(index);
 
         if (slot != null && slot.hasItem()) {
-            ItemStack stackInSlot = slot.getItem();
+            var stackInSlot = slot.getItem();
             stack = stackInSlot.copy();
 
-            if (index < this.inventory.getContainerSize()) {
-
-                if (!this.moveItemStackTo(stackInSlot, this.inventory.getContainerSize(), this.slots.size(), true))
+            if (index < inventory.getContainerSize()) {
+                if (!moveItemStackTo(stackInSlot, inventory.getContainerSize(), slots.size(), true)) {
                     return ItemStack.EMPTY;
-
-            } else if (!this.moveItemStackTo(stackInSlot, 0, this.inventory.getContainerSize(), false)) {
+                }
+            } else if (!moveItemStackTo(stackInSlot, 0, inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
