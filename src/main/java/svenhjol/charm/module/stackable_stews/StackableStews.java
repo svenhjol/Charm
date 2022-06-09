@@ -28,7 +28,6 @@ public class StackableStews extends CharmModule {
 
     public static boolean changeReturnedItem(ItemStack eaten, ItemStack returned) {
         return returned.getItem() == Items.BOWL
-            && Charm.LOADER.isEnabled(StackableStews.class)
             && eaten.getCount() > 0;
     }
 }
