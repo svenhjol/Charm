@@ -1,6 +1,5 @@
 package svenhjol.charm.module.bookcases;
 
-import dev.architectury.registry.block.BlockProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -31,7 +30,7 @@ public class BookcaseBlock extends CharmBlockWithEntity {
     protected IWoodMaterial material;
 
     protected BookcaseBlock(CharmModule module, IWoodMaterial material) {
-        super(module, material.getSerializedName() + "_bookcase", BlockProperties.copy(Blocks.BOOKSHELF));
+        super(module, material.getSerializedName() + "_bookcase", Properties.copy(Blocks.BOOKSHELF));
 
         this.module = module;
         this.material = material;
