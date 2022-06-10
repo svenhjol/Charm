@@ -2,20 +2,20 @@
   "template": {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-      "PSP",
-      "P P",
-      "PSP"
+      "###",
+      "#X#",
+      "###"
     ],
     "key": {
-      "S": {
-        "item": "NAMESPACE:VARIANT_slab"
-      },
-      "P": {
+      "#": {
         "item": "NAMESPACE:VARIANT_planks"
+      },
+      "X": {
+        "item": "charm:VARIANT_bookshelf"
       }
     },
     "result": {
-      "item": "charm:VARIANT_barrel"
+      "item": "charm:VARIANT_bookcase"
     }
   },
   "variants": "wood"

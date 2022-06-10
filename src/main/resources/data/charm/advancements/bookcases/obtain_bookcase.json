@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/tools",
+  "display": {
+    "icon": {
+      "item": "charm:spruce_bookcase"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_bookcase.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_bookcase.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_bookcase": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "charm:bookcases"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_bookcase"
+    ]
+  ]
+}

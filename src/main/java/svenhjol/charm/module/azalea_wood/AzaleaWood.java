@@ -18,6 +18,8 @@ import svenhjol.charm.block.*;
 import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.item.CharmSignItem;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.bookcases.BookcaseBlock;
+import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
 import svenhjol.charm.module.variant_barrels.VariantBarrels;
 import svenhjol.charm.module.variant_bookshelves.VariantBookshelfBlock;
@@ -34,7 +36,6 @@ public class AzaleaWood extends CharmModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "azalea");
 
     public static WoodType SIGN_TYPE;
-
     public static CharmWoodenButtonBlock BUTTON;
     public static CharmDoorBlock DOOR;
     public static CharmFenceBlock FENCE;
@@ -50,7 +51,6 @@ public class AzaleaWood extends CharmModule {
     public static CharmTrapdoorBlock TRAPDOOR;
     public static CharmWallSignBlock WALL_SIGN_BLOCK;
     public static CharmLogBlock WOOD;
-
     public static VariantBarrelBlock BARREL;
     public static VariantBookshelfBlock BOOKSHELF;
     public static VariantChestBlock CHEST;
@@ -62,6 +62,7 @@ public class AzaleaWood extends CharmModule {
     public static Boat.Type BOAT_TYPE;
 
     public static CharmSignItem SIGN_ITEM;
+    public static BookcaseBlock BOOKCASE;
 
     @Override
     public void register() {
@@ -94,6 +95,7 @@ public class AzaleaWood extends CharmModule {
         CHEST = VariantChests.registerChest(this, CharmWoodMaterial.AZALEA);
         LADDER = VariantLadders.registerLadder(this, CharmWoodMaterial.AZALEA);
         TRAPPED_CHEST = VariantChests.registerTrappedChest(this, CharmWoodMaterial.AZALEA);
+        BOOKCASE = Bookcases.registerBookcase(this, CharmWoodMaterial.AZALEA);
 
         // Boat items must now be registered in the minecraft namespace.
         BOAT = new BoatItem(false, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
