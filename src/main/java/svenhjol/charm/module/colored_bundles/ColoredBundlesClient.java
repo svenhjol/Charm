@@ -1,6 +1,6 @@
 package svenhjol.charm.module.colored_bundles;
 
-import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistryAccessor;
+import net.fabricmc.fabric.mixin.object.builder.client.ModelPredicateProviderRegistryAccessor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BundleItem;
 import svenhjol.charm.annotation.ClientModule;

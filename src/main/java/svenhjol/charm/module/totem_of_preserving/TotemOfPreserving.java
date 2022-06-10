@@ -1,9 +1,8 @@
 package svenhjol.charm.module.totem_of_preserving;
 
 import com.google.common.collect.ImmutableList;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -22,6 +21,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
@@ -105,14 +106,14 @@ public class TotemOfPreserving extends CharmModule {
 
         PlayerDropInventoryCallback.EVENT.register(this::handleDropInventory);
         EntityDropXpCallback.BEFORE.register(this::handleDropXp);
-        LootTableLoadingCallback.EVENT.register(this::handleLootTables);
+        LootTableEvents.MODIFY.register(this::handleLootTables);
     }
 
-    private void handleLootTables(ResourceManager manager, LootTables lootTables, ResourceLocation id, FabricLootSupplierBuilder supplier, LootTableLoadingCallback.LootTableSetter setter) {
+    private void handleLootTables(ResourceManager resourceManager, LootTables lootTables, ResourceLocation id, LootTable.Builder supplier, LootTableSource source) {
         if (VALID_MOB_LOOT.contains(id) || VALID_CHEST_LOOT.contains(id)) {
-            var builder = FabricLootPoolBuilder.builder()
-                .rolls(ConstantValue.exactly(1))
-                .with(LootItem.lootTableItem(Items.AIR)
+            var builder = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(Items.AIR)
                     .setWeight(1)
                     .apply(() -> {
                         if (VALID_CHEST_LOOT.contains(id)) {
