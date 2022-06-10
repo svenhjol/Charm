@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
@@ -81,7 +80,7 @@ public class BookcaseBlockEntity extends RandomizableContainerBlockEntity implem
 
     @Override
     protected Component getDefaultName() {
-        return new TranslatableComponent("container.charm.bookcase");
+        return Component.translatable("container.charm.bookcase");
     }
 
     @Override
