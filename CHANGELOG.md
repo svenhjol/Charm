@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.19 exclusive changes
+
+* Variant chests can be added to boats.
+* New variant textures for Turtles, Dolphins and Wandering Traders.
+* Crimson and Warped boats have been removed.
+
 ## 4.1.2
 
 * Added Bookcases.
