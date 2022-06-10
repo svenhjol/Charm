@@ -12,13 +12,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.module.stackable_stews.StackableStews;
 
 @Mixin({BowlFoodItem.class, SuspiciousStewItem.class})
 public class FinishEatingStewMixin {
     /**
-     * Defer to tryEatStewStack when mushroom stew is eaten.
-     * If the check passes, return the decremented stack.
+     * Return an empty bowl to the player if the stack is larger than zero.
      */
     @Inject(
         method = "finishUsingItem",
@@ -26,7 +24,7 @@ public class FinishEatingStewMixin {
         cancellable = true
     )
     private void hookFinishUsing(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir) {
-        if (StackableStews.changeReturnedItem(itemStack, cir.getReturnValue())) {
+        if (cir.getReturnValue().getItem() == Items.BOWL && itemStack.getCount() > 0) {
             if (livingEntity instanceof Player player) {
                 PlayerHelper.addOrDropStack(player, new ItemStack(Items.BOWL));
             }
