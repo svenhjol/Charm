@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.1.2
+
+* Added Bookcases.
+* Fixed Mooblooms no longer stop rendering at distances further than ~16 blocks.
+* Fixed bowl not returned when eating stacked soup.
+* Fixed bottle not returned when drinking stacked potion/water.
+
 ## 4.1.1
 
 * Merge fix for advancements issue #781 - [PR](https://github.com/svenhjol/Charm/pull/738)
