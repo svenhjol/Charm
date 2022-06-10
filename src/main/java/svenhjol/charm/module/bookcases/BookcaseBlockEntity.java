@@ -6,9 +6,11 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
@@ -121,6 +123,16 @@ public class BookcaseBlockEntity extends RandomizableContainerBlockEntity implem
         super.setChanged();
         updateCapacity();
         syncToClient();
+    }
+
+    @Override
+    public void startOpen(Player player) {
+        player.level.playSound(null, worldPosition, Bookcases.BOOKCASE_OPEN_SOUND, SoundSource.BLOCKS, 0.6f, player.level.random.nextFloat() * 0.1f + 0.9f);
+    }
+
+    @Override
+    public void stopOpen(Player player) {
+        player.level.playSound(null, worldPosition, Bookcases.BOOKCASE_CLOSE_SOUND, SoundSource.BLOCKS, 0.6f, player.level.random.nextFloat() * 0.1f + 0.9f);
     }
 
     private void updateCapacity() {

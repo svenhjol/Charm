@@ -2,6 +2,7 @@ package svenhjol.charm.module.bookcases;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +24,8 @@ public class Bookcases extends CharmModule {
     public static final ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "bookcase");
     public static BlockEntityType<BookcaseBlockEntity> BLOCK_ENTITY;
     public static MenuType<BookcaseMenu> MENU;
+    public static SoundEvent BOOKCASE_OPEN_SOUND;
+    public static SoundEvent BOOKCASE_CLOSE_SOUND;
 
     @Config(name = "Valid items", description = "Items that may be placed in bookcases.")
     public static List<String> configValidItems = Arrays.asList(
@@ -40,11 +43,15 @@ public class Bookcases extends CharmModule {
     public void register() {
         BLOCK_ENTITY = CommonRegistry.blockEntity(ID, BookcaseBlockEntity::new);
         MENU = CommonRegistry.menu(ID, BookcaseMenu::new);
+        BOOKCASE_OPEN_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "bookcase_open"));
+        BOOKCASE_CLOSE_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "bookcase_close"));
 
+        // Register all vanilla wood bookcases.
         for (VanillaWoodMaterial material : VanillaWoodMaterial.values()) {
             registerBookcase(this, material);
         }
 
+        // Register all items that can be placed inside bookcase containers.
         for (String configItem : configValidItems) {
             Registry.ITEM.getOptional(new ResourceLocation(configItem))
                 .ifPresent(Bookcases::registerValidItem);

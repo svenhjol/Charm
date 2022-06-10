@@ -302,6 +302,8 @@
   "subtitles.charm.item.raid_horn.squeak": "Horn fails to make a sound",
   "subtitles.charm.block.woodcutter.use": "Woodcutter used",
   "subtitles.charm.block.kiln.bake": "Kiln bakes",
+  "subtitles.charm.block.bookcase.open": "Barrel opens",
+  "subtitles.charm.block.bookcase.close": "Barrel closes",
   "subtitles.charm.entity.villager.work_lumberjack": "Lumberjack works",
   "subtitles.charm.block.gunpowder_block.dissolve": "Gunpowder dissolves",
   "subtitles.charm.block.sugar_block.dissolve": "Sugar dissolves",
