@@ -2,6 +2,7 @@ package svenhjol.charm.module.bookcases;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
@@ -12,6 +13,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.enums.VanillaWoodMaterial;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -26,6 +28,8 @@ public class Bookcases extends CharmModule {
     public static MenuType<BookcaseMenu> MENU;
     public static SoundEvent BOOKCASE_OPEN_SOUND;
     public static SoundEvent BOOKCASE_CLOSE_SOUND;
+
+    public static final ResourceLocation TRIGGER_ADDED_BOOK_TO_BOOKCASE = new ResourceLocation(Charm.MOD_ID, "added_book_to_bookcase");
 
     @Config(name = "Valid items", description = "Items that may be placed in bookcases.")
     public static List<String> configValidItems = Arrays.asList(
@@ -72,5 +76,9 @@ public class Bookcases extends CharmModule {
 
     public static boolean isValidItem(ItemStack stack) {
         return VALID_ITEMS.contains(stack.getItem());
+    }
+
+    public static void triggerAddedBookToBookcase(ServerPlayer player) {
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_ADDED_BOOK_TO_BOOKCASE);
     }
 }
