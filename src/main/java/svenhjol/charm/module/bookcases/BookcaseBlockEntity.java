@@ -6,6 +6,10 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
@@ -13,14 +17,16 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
-import svenhjol.charm.block.ICharmSyncedBlockEntity;
+import svenhjol.charm.helper.WorldHelper;
 
+import javax.annotation.Nullable;
 import java.util.stream.IntStream;
 
-public class BookcaseBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer, ICharmSyncedBlockEntity {
+public class BookcaseBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     public static final int SIZE = 9;
     private final int[] SLOTS = IntStream.range(0, SIZE).toArray();
     private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
@@ -111,7 +117,11 @@ public class BookcaseBlockEntity extends RandomizableContainerBlockEntity implem
         return filledslots;
     }
 
-    @Override
+    @Nullable
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
+    }
+
     public CompoundTag getUpdateTag() {
         CompoundTag updateTag = new CompoundTag();
         saveAdditional(updateTag);
@@ -123,6 +133,13 @@ public class BookcaseBlockEntity extends RandomizableContainerBlockEntity implem
         super.setChanged();
         updateCapacity();
         syncToClient();
+    }
+
+    public void syncToClient() {
+        Level level = getLevel();
+        if (level != null && !level.isClientSide) {
+            WorldHelper.syncBlockEntityToClient((ServerLevel)level, getBlockPos());
+        }
     }
 
     @Override
