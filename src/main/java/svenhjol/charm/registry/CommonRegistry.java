@@ -1,5 +1,6 @@
 package svenhjol.charm.registry;
 
+import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.core.Holder;
@@ -14,6 +15,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -35,6 +37,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.helper.StringHelper;
 
 import java.util.*;
@@ -92,8 +95,10 @@ public class CommonRegistry {
         return WoodType.register(new WoodType(id.toString().replace(":", "_")));
     }
 
-    public static PoiType pointOfInterestType(ResourceLocation id, PoiType poit) {
-        return Registry.register(Registry.POINT_OF_INTEREST_TYPE, id, poit);
+    public static ResourceKey<PoiType> pointOfInterestType(ResourceLocation id, Block block, int ticketCount) {
+        var resourceKey = PoiTypes.createKey(id.toString());
+        PoiTypes.register(Registry.POINT_OF_INTEREST_TYPE, resourceKey, ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates()), ticketCount, 1);
+        return resourceKey;
     }
 
     public static Potion potion(ResourceLocation id, Potion potion) {
@@ -150,8 +155,8 @@ public class CommonRegistry {
         return Registry.register(Registry.STRUCTURE_PROCESSOR, id, type);
     }
 
-    public static VillagerProfession villagerProfession(String id, VillagerProfession profession) {
-        return Registry.register(Registry.VILLAGER_PROFESSION, id, profession);
+    public static VillagerProfession villagerProfession(String id, ResourceKey<PoiType> poiType, ImmutableSet<Item> set1, ImmutableSet<Block> set2, @Nullable SoundEvent sound) {
+        return Registry.register(Registry.VILLAGER_PROFESSION, id, new VillagerProfession(id, holder -> holder.is(poiType), PoiType.NONE, set1, set2, sound));
     }
 
     public static void addBlocksToBlockEntity(BlockEntityType<?> type, Block... blocks) {

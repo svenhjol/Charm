@@ -3,7 +3,7 @@ import groovy.json.JsonSlurper
 
 plugins {
 	id 'maven-publish'
-	id 'fabric-loom' version '0.11-SNAPSHOT'
+	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'org.ajoberstar.grgit' version '4.1.0'
 }
 
@@ -23,7 +23,6 @@ runServer {
 }
 
 dependencies {
-	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.layered {
 		officialMojangMappings()
@@ -41,10 +40,7 @@ dependencies {
 
 	// REI and ClothConfig. Disable the modRuntime line if REI is broken.
 //	modApi "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
-//	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}" // <- disable this on server-side, it's breaking
-//	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
-//		exclude(group: "net.fabricmc.fabric-api")
-//	}
+//	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}" // <- disable this on server-side, it's breaking
 
 	// ModMenu
 //	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"

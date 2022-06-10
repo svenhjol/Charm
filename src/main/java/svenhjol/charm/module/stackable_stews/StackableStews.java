@@ -1,6 +1,5 @@
 package svenhjol.charm.module.stackable_stews;
 
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
@@ -24,11 +23,5 @@ public class StackableStews extends CharmModule {
         if (suspiciousStew) {
             Items.SUSPICIOUS_STEW.maxStackSize = stackSize;
         }
-    }
-
-    public static boolean changeReturnedItem(ItemStack eaten, ItemStack returned) {
-        return returned.getItem() == Items.BOWL
-            && Charm.LOADER.isEnabled(StackableStews.class)
-            && eaten.getCount() > 0;
     }
 }

@@ -16,13 +16,7 @@
     },
     "result": {
       "item": "charm:VARIANT_barrel"
-    },
-    "conditions": [
-      {
-        "type": "charm:module_enabled",
-        "module": "charm:variant_barrels"
-      }
-    ]
+    }
   },
   "variants": "wood"
 }

@@ -2,6 +2,7 @@ package svenhjol.charm.module.variant_barrels;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
@@ -20,16 +21,16 @@ public class VariantBarrels extends CharmModule {
 
     @Override
     public void register() {
-        for (VanillaWoodMaterial type : VanillaWoodMaterial.values()) {
-            registerBarrel(this, type);
+        for (VanillaWoodMaterial material : VanillaWoodMaterial.values()) {
+            registerBarrel(this, material);
         }
     }
 
     public static VariantBarrelBlock registerBarrel(CharmModule module, IWoodMaterial material) {
-        VariantBarrelBlock barrel = new VariantBarrelBlock(module, material);
+        var barrel = new VariantBarrelBlock(module, material);
         BARREL_BLOCKS.put(material, barrel);
         CommonRegistry.addBlocksToBlockEntity(BlockEntityType.BARREL, barrel);
-        WorldHelper.addBlockStatesToPointOfInterest(PoiType.FISHERMAN, barrel.getStateDefinition().getPossibleStates());
+        WorldHelper.addBlockStatesToPointOfInterest(PoiTypes.FISHERMAN, barrel.getStateDefinition().getPossibleStates());
         return barrel;
     }
 

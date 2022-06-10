@@ -1,5 +1,6 @@
 package svenhjol.charm.module.lumberjacks;
 
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -7,7 +8,6 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.VillagerHelper;
-import svenhjol.charm.helper.WorldHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.lumberjacks.LumberjackTradeOffers.*;
 import svenhjol.charm.module.woodcutters.Woodcutters;
@@ -19,7 +19,8 @@ import static svenhjol.charm.helper.VillagerHelper.addTrade;
 public class Lumberjacks extends CharmModule {
     public static String VILLAGER_ID = "charm_lumberjack";
     public static VillagerProfession LUMBERJACK;
-    public static PoiType POIT;
+
+    public static ResourceKey<PoiType> POIT;
     public static SoundEvent VILLAGER_WORK_LUMBERJACK;
 
     @Override
@@ -30,7 +31,7 @@ public class Lumberjacks extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        POIT = WorldHelper.addPointOfInterestType(Woodcutters.BLOCK_ID, Woodcutters.WOODCUTTER, 1);
+        POIT = CommonRegistry.pointOfInterestType(Woodcutters.BLOCK_ID, Woodcutters.WOODCUTTER, 1);
         LUMBERJACK = VillagerHelper.addProfession(VILLAGER_ID, POIT, VILLAGER_WORK_LUMBERJACK);
 
         // register lumberjack trades

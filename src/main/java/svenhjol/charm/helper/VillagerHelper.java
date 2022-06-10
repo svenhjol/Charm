@@ -3,8 +3,8 @@ package svenhjol.charm.helper;
 import com.google.common.collect.ImmutableSet;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.fabricmc.fabric.mixin.object.builder.VillagerProfessionAccessor;
 import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -28,11 +28,10 @@ import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRA
  * @version 4.0.0-charm
  */
 public class VillagerHelper {
-    public static VillagerProfession addProfession(String id, PoiType poit, SoundEvent worksound) {
-        VillagerProfession profession = VillagerProfessionAccessor.create(id, poit, ImmutableSet.of(), ImmutableSet.of(), worksound);
-        VillagerProfession registeredProfession = CommonRegistry.villagerProfession(id, profession);
+    public static VillagerProfession addProfession(String id, ResourceKey<PoiType> poit, SoundEvent worksound) {
+        var profession = CommonRegistry.villagerProfession(id, poit, ImmutableSet.of(), ImmutableSet.of(), worksound);
         TRADES.put(profession, new Int2ObjectOpenHashMap<>());
-        return registeredProfession;
+        return profession;
     }
 
     public static void addTrade(VillagerProfession profession, int level, ItemListing trade) {

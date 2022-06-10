@@ -62,6 +62,7 @@
     "snow_accumulation.PlaceMoreSnowMixin",
     "snow_accumulation.PreventSnowMeltingMixin",
     "stackable_enchanted_books.FixAnvilBookStackMixin",
+    "stackable_potions.FinishDrinkingPotionMixin",
     "stackable_stews.FinishEatingStewMixin",
     "strays_spawn_underground.AllowSpawningAnywhereMixin",
     "stronger_anvils.ReduceAnvilDamageMixin",

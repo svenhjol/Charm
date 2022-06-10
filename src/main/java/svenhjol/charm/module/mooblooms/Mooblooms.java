@@ -40,7 +40,7 @@ public class Mooblooms extends CharmModule {
         MOOBLOOM = CommonRegistry.entity(ID, FabricEntityTypeBuilder
             .create(MobCategory.CREATURE, MoobloomEntity::new)
             .dimensions(EntityDimensions.fixed(0.9F, 1.4F))
-            .trackRangeBlocks(10));
+            .trackRangeChunks(10));
 
         SpawnRestrictionAccessor.callRegister(MOOBLOOM, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MoobloomEntity::canSpawn);
 

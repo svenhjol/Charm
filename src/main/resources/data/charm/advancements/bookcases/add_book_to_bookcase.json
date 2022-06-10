@@ -1,0 +1,31 @@
+{
+  "parent": "charm:bookcases/obtain_bookcase",
+  "display": {
+    "icon": {
+      "item": "charm:spruce_bookshelf"
+    },
+    "title": {
+      "translate": "advancements.charm.add_book_to_bookcase.title"
+    },
+    "description": {
+      "translate": "advancements.charm.add_book_to_bookcase.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "added_book_to_bookcase": {
+      "trigger": "charm:action_performed",
+      "conditions": {
+        "action": "charm:added_book_to_bookcase"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "added_book_to_bookcase"
+    ]
+  ]
+}
