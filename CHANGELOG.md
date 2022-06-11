@@ -6,6 +6,7 @@
 * Fixed Mooblooms no longer stop rendering at distances further than ~16 blocks.
 * Fixed bowl not returned when eating stacked soup.
 * Fixed bottle not returned when drinking stacked potion/water.
+* Fixed incompatibilities caused by recipe reloader mixin, relates to [this issue](https://github.com/TelepathicGrunt/RepurposedStructures-Fabric/issues/205)
 
 ## 4.1.1
 
