@@ -43,7 +43,7 @@
     "extra_boats.AddBoatTypeMixin",
     "extra_boats.GetBoatItemMixin",
     "extra_boats.GetChestBoatItemMixin",
-    "helper.AddSortingRecipeManagerMixin",
+    "helper.HoldRecipeManagerMixin",
     "helper.CheckEnchantingPowerMixin",
     "helper.FilterAdvancementsMixin",
     "helper.TranslateServerComponentMixin",
