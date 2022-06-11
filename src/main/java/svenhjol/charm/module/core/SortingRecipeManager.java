@@ -1,32 +1,45 @@
 package svenhjol.charm.module.core;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.ReloadableServerResources;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import svenhjol.charm.Charm;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.RecipeHelper;
+import svenhjol.charm.init.CharmResources;
 
 import java.util.Map;
 
-public class SortingRecipeManager extends RecipeManager {
-    private final ReloadableServerResources resources;
+public class SortingRecipeManager extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
+    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().setLenient().disableHtmlEscaping().excludeFieldsWithoutExposeAnnotation().create();
 
-    public SortingRecipeManager(ReloadableServerResources resources) {
-        this.resources = resources;
+    public SortingRecipeManager() {
+        super(GSON, "charm_sortingrecipes");
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-        super.apply(map, resourceManager, profilerFiller);
+    protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+        if (CharmResources.recipeManagerHolder != null) {
+            var holder = CharmResources.recipeManagerHolder;
+            LogHelper.debug(getClass(), holder.toString());
 
-        Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> existing = resources.getRecipeManager().recipes;
+            Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> existing = holder.recipes;
 
-        if (!existing.isEmpty()) {
-            resources.getRecipeManager().recipes = RecipeHelper.sortAndFilterRecipes(existing, true);
+            if (!existing.isEmpty()) {
+                holder.recipes = RecipeHelper.sortAndFilterRecipes(existing, true);
+            }
         }
+    }
+
+    @Override
+    public ResourceLocation getFabricId() {
+        return new ResourceLocation(Charm.MOD_ID, "sortingrecipes");
     }
 }

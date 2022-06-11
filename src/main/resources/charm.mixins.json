@@ -40,7 +40,7 @@
     "event.PlayerTickMixin",
     "event.StackItemOnItemMixin",
     "event.UpdateAnvilMixin",
-    "helper.AddSortingRecipeManagerMixin",
+    "helper.HoldRecipeManagerMixin",
     "helper.CheckEnchantingPowerMixin",
     "helper.FilterAdvancementsMixin",
     "helper.TranslateServerComponentMixin",
