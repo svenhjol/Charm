@@ -1,10 +1,8 @@
 # Changelog
 
-## 1.19 exclusive changes
+## 4.1.3
 
-* Variant chests can be added to boats.
-* New variant textures for Turtles, Dolphins and Wandering Traders.
-* Crimson and Warped boats have been removed.
+* Fixed disabling amethyst noteblock causing IllegalArgumentException crash (#745)
 
 ## 4.1.2
 
@@ -13,6 +11,10 @@
 * Fixed bowl not returned when eating stacked soup.
 * Fixed bottle not returned when drinking stacked potion/water.
 * Fixed incompatibilities caused by recipe reloader mixin, relates to [this issue](https://github.com/TelepathicGrunt/RepurposedStructures-Fabric/issues/205)
+* 1.19: Variant chests can be added to boats.
+* 1.19: New variant textures for Turtles, Dolphins and Wandering Traders.
+* 1.19: Crimson and Warped boats have been removed.
+
 
 ## 4.1.1
 
