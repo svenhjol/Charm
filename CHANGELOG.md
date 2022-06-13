@@ -3,6 +3,7 @@
 ## 4.1.3
 
 * Fixed disabling amethyst noteblock causing IllegalArgumentException crash (#745)
+* Changed Automatic Recipe Unlock to be disabled by default.
 
 ## 4.1.2
 
