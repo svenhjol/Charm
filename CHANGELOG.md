@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.3
+
+* Fixed disabling amethyst noteblock causing IllegalArgumentException crash (#745)
+
 ## 4.1.2
 
 * Added Bookcases.
