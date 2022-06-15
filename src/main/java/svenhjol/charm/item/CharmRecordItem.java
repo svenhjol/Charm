@@ -8,7 +8,7 @@ public class CharmRecordItem extends RecordItem implements ICharmItem {
     protected CharmModule module;
 
     public CharmRecordItem(CharmModule module, String name, int redstoneStrength, SoundEvent soundEvent, Properties properties) {
-        super(redstoneStrength, soundEvent, properties);
+        super(redstoneStrength, soundEvent, properties, 120); // TODO: hardcoded at two minutes for now.
         this.module = module;
         this.register(module, name);
     }
