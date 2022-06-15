@@ -4,6 +4,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.RecordItem;
 import svenhjol.charm.loader.CharmModule;
 
+@SuppressWarnings("unused")
 public class CharmRecordItem extends RecordItem implements ICharmItem {
     protected CharmModule module;
 
