@@ -2,6 +2,7 @@ package svenhjol.charm.module.wandering_trader_maps;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -13,8 +14,8 @@ import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.MapHelper;
-import svenhjol.charm.helper.StringHelper;
 import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.helper.WorldHelper;
 import svenhjol.charm.loader.CharmModule;
@@ -24,15 +25,15 @@ import java.util.List;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Wandering traders have a chance to sell maps to distant structures.")
 public class WanderingTraderMaps extends CharmModule {
-    @Config(name = "Structures", description = "List of structure IDs and structure tags.")
+    @Config(name = "Maps to structures", description = "List of structure tags.")
     public static List<String> structures = Arrays.asList(
-        "#minecraft:village", "#minecraft:mineshaft", "minecraft:swamp_hut", "minecraft:igloo"
+        "minecraft:village", "minecraft:mineshaft", "charm:swamp_hut", "charm:igloo"
     );
 
-    @Config(name = "Rare structures", description = "List of rarer structure IDs and structure tags.\n" +
+    @Config(name = "Maps to rare structures", description = "List of rarer structure tags.\n" +
         "These are more expensive and less likely to be sold.")
     public static List<String> rareStructures = Arrays.asList(
-        "minecraft:desert_pyramid", "minecraft:jungle_temple", "#minecraft:ocean_ruin", "minecraft:ancient_city"
+        "charm:desert_pyramid", "charm:jungle_temple", "minecraft:ocean_ruin"
     );
 
     @Override
@@ -46,11 +47,25 @@ public class WanderingTraderMaps extends CharmModule {
     }
 
     public static ItemStack makeTraderMap(String id, ServerLevel level, BlockPos pos, int distance, int color) {
-        var nearest = WorldHelper.findNearestMapFeature(id, level, pos, distance, true);
+        if (id.startsWith("#")) {
+            // Differentiating tags and raw strings is now deprecated - we only use tags now.
+            id = id.substring(1);
+        }
+        var res = new ResourceLocation(id);
+
+        LogHelper.debug(WanderingTraderMaps.class, "WT wants to sell: " + res);
+        var nearest = WorldHelper.findNearestStructure(res, level, pos, distance, true);
         if (nearest == null) return new ItemStack(Items.MAP);
 
-        var name = StringHelper.snakeToPretty(id.substring(id.indexOf(":") + 1), true);
-        var mapName = Component.translatable("filled_map.charm.trader_map", Component.literal(name));
+        var namespace = res.getNamespace();
+        var path = res.getPath();
+        var name = Component.translatable("structure." + namespace + "." + path);
+
+        if (name.getString().contains(".")) {
+            name = Component.translatable("filled_map.charm.structure");
+        }
+
+        var mapName = Component.translatable("filled_map.charm.trader_map", name);
         return MapHelper.create(level, nearest, mapName, MapDecoration.Type.TARGET_X, color);
     }
 
