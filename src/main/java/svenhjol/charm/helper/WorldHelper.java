@@ -21,14 +21,15 @@ import svenhjol.charm.registry.CommonRegistry;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @version 4.0.0-charm
  */
 @SuppressWarnings("unused")
 public class WorldHelper {
-    private static final Map<ResourceLocation, Boolean> CACHE_STRUCTURES = new HashMap<>();
-    private static final Map<ResourceLocation, Boolean> CACHE_BIOMES = new HashMap<>();
+    private static final Map<ResourceLocation, Boolean> CACHE_STRUCTURES = new ConcurrentHashMap<>();
+    private static final Map<ResourceLocation, Boolean> CACHE_BIOMES = new ConcurrentHashMap<>();
 
     public static boolean addForcedChunk(ServerLevel level, BlockPos pos) {
         ChunkPos chunkPos = new ChunkPos(pos);
