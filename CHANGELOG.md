@@ -3,6 +3,7 @@
 ## 4.1.3
 
 * Fixed disabling amethyst noteblock causing IllegalArgumentException crash (#745)
+* Removed player state polling due to lag issues.
 * Changed Automatic Recipe Unlock to be disabled by default.
 * Wandering Trader maps now only use structure tags and map names are now localised.
 
