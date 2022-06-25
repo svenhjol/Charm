@@ -6,7 +6,6 @@
 * Removed player state polling due to lag issues.
 * Changed Automatic Recipe Unlock to be disabled by default.
 * Wandering Trader maps now only use structure tags and map names are now localised.
-* Backported extra variant textures from 1.19.
 
 ## 4.1.2
 
