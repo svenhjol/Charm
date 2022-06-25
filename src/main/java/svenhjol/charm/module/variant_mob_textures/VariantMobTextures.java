@@ -34,7 +34,7 @@ public class VariantMobTextures extends CharmModule {
     @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
     public static boolean variantWolves = true;
 
-    @Config(name = "Variant wolves", description = "If true, wolves may spawn with different textures.")
+    @Config(name = "Variant wandering traders", description = "If true, wandering traders may spawn with different textures.")
     public static boolean variantWanderingTraders = true;
 
     @Config(name = "Rare variants", description = "If true, all animals have a chance to spawn as a rare variant.")
