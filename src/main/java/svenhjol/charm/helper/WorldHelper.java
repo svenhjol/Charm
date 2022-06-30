@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.ChunkPos;
@@ -30,10 +31,10 @@ public class WorldHelper {
     private static final Map<ResourceLocation, Boolean> CACHE_BIOMES = new ConcurrentHashMap<>();
 
     public static boolean addForcedChunk(ServerLevel level, BlockPos pos) {
-        ChunkPos chunkPos = new ChunkPos(pos);
+        var chunkPos = new ChunkPos(pos);
 
         // try a couple of times I guess?
-        boolean result = false;
+        var result = false;
         for (int i = 0; i <= 2; i++) {
             result = level.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), true);
             if (result) break;
@@ -47,8 +48,8 @@ public class WorldHelper {
     }
 
     public static boolean removeForcedChunk(ServerLevel level, BlockPos pos) {
-        ChunkPos chunkPos = new ChunkPos(pos);
-        boolean result = level.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), false);
+        var chunkPos = new ChunkPos(pos);
+        var result = level.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), false);
         if (!result) {
             LogHelper.error(WorldHelper.class, "Could not unload forced chunk - this is probably really bad.");
         } else {
@@ -84,15 +85,15 @@ public class WorldHelper {
         });
     }
 
-    public static BlockPos addRandomOffset(BlockPos pos, Random rand, int min, int max) {
-        int n = rand.nextInt(max - min) + min;
-        int e = rand.nextInt(max - min) + min;
-        int s = rand.nextInt(max - min) + min;
-        int w = rand.nextInt(max - min) + min;
-        pos = pos.north(rand.nextBoolean() ? n : -n);
-        pos = pos.east(rand.nextBoolean() ? e : -e);
-        pos = pos.south(rand.nextBoolean() ? s : -s);
-        pos = pos.west(rand.nextBoolean() ? w : -w);
+    public static BlockPos addRandomOffset(BlockPos pos, RandomSource random, int min, int max) {
+        int n = random.nextInt(max - min) + min;
+        int e = random.nextInt(max - min) + min;
+        int s = random.nextInt(max - min) + min;
+        int w = random.nextInt(max - min) + min;
+        pos = pos.north(random.nextBoolean() ? n : -n);
+        pos = pos.east(random.nextBoolean() ? e : -e);
+        pos = pos.south(random.nextBoolean() ? s : -s);
+        pos = pos.west(random.nextBoolean() ? w : -w);
         return pos;
     }
 
