@@ -12,11 +12,11 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.ConfigHelper;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.StringHelper;
+import svenhjol.charm.helper.TextHelper;
 import svenhjol.charm.loader.CharmModule;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.List;
 
 /**
  * @version 1.0.2-charm
@@ -32,7 +32,7 @@ public abstract class BaseModMenuPlugin<T extends CharmModule> implements ModMen
         return parent -> {
             ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(Component.translatable("cloth." + getModId() + ".title"));
+                .setTitle(TextHelper.translatable("cloth." + getModId() + ".title"));
 
             // get all the loader modules
             List<T> modules = new LinkedList<>(getModules());
@@ -42,19 +42,19 @@ public abstract class BaseModMenuPlugin<T extends CharmModule> implements ModMen
                 ConfigHelper.writeConfig(getModId(), modules);
             });
 
-            ConfigCategory mainCategory = builder.getOrCreateCategory(Component.translatable("cloth." + getModId() + ".category.title"));
+            ConfigCategory mainCategory = builder.getOrCreateCategory(TextHelper.translatable("cloth." + getModId() + ".category.title"));
 
             for (T module : modules) {
                 Map<Field, Object> properties = getModuleConfigProperties(module);
 
                 SubCategoryBuilder subcategory = builder.entryBuilder()
-                    .startSubCategory(Component.literal(module.getName()));
+                    .startSubCategory(TextHelper.literal(module.getName()));
 
                 if (!module.isAlwaysEnabled()) {
                     FieldBuilder<?, ?> enabledValue = builder.entryBuilder()
-                        .startBooleanToggle(Component.translatable("cloth." + getModId() + ".category.module_enabled"), module.isEnabledInConfig())
+                        .startBooleanToggle(TextHelper.translatable("cloth." + getModId() + ".category.module_enabled"), module.isEnabledInConfig())
                         .setDefaultValue(module.isEnabledByDefault()) // Used when user click "Reset"
-                        .setTooltip(Component.translatable(StringHelper.splitOverLines(module.getDescription()))) // Shown when the user hover over this option
+                        .setTooltip(TextHelper.translatable(StringHelper.splitOverLines(module.getDescription()))) // Shown when the user hover over this option
                         .setSaveConsumer(module::setEnabledInConfig)
                         .requireRestart();
 
@@ -70,8 +70,8 @@ public abstract class BaseModMenuPlugin<T extends CharmModule> implements ModMen
                     FieldBuilder<?, ?> propValue = null;
                     Config annotation = prop.getDeclaredAnnotation(Config.class);
 
-                    Component name = Component.literal(annotation.name());
-                    Component desc = Component.literal(StringHelper.splitOverLines(annotation.description()));
+                    Component name = TextHelper.literal(annotation.name());
+                    Component desc = TextHelper.literal(StringHelper.splitOverLines(annotation.description()));
 
                     if (value instanceof Boolean) {
                         propValue = propBuilder

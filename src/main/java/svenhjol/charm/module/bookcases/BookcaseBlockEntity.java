@@ -20,9 +20,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
+import svenhjol.charm.helper.TextHelper;
 import svenhjol.charm.helper.WorldHelper;
 
+import javax.annotation.Nullable;
 import java.util.stream.IntStream;
 
 public class BookcaseBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
@@ -86,7 +87,7 @@ public class BookcaseBlockEntity extends RandomizableContainerBlockEntity implem
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("container.charm.bookcase");
+        return TextHelper.translatable("container.charm.bookcase");
     }
 
     @Override

@@ -8,13 +8,14 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
+import svenhjol.charm.helper.TextHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.portable_crafting.network.ServerReceiveOpenCrafting;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
 public class PortableCrafting extends CharmModule {
-    private static final Component LABEL = Component.translatable("container.charm.portable_crafting_table");
+    private static final Component LABEL = TextHelper.translatable("container.charm.portable_crafting_table");
 
     public static ServerReceiveOpenCrafting SERVER_RECEIVE_OPEN_CRAFTING;
     public static final ResourceLocation TRIGGER_USED_CRAFTING_TABLE = new ResourceLocation(Charm.MOD_ID, "used_crafting_table");
