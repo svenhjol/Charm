@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -19,13 +18,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.block.ICharmBlock;
+import svenhjol.charm.helper.TextHelper;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 
 public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
     private final CharmModule module;
-    private static final Component TITLE = new TranslatableComponent("container.charm.woodcutter");
+    private static final Component TITLE = TextHelper.translatable("container.charm.woodcutter");
 
     public WoodcutterBlock(CharmModule module) {
         super(FabricBlockSettings

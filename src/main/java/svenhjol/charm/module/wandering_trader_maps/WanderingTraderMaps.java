@@ -1,7 +1,6 @@
 package svenhjol.charm.module.wandering_trader_maps;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -13,10 +12,7 @@ import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.helper.LogHelper;
-import svenhjol.charm.helper.MapHelper;
-import svenhjol.charm.helper.VillagerHelper;
-import svenhjol.charm.helper.WorldHelper;
+import svenhjol.charm.helper.*;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.Arrays;
@@ -59,13 +55,13 @@ public class WanderingTraderMaps extends CharmModule {
 
         var namespace = res.getNamespace();
         var path = res.getPath();
-        var name = new TranslatableComponent("structure." + namespace + "." + path);
+        var name = TextHelper.translatable("structure." + namespace + "." + path);
 
         if (name.getString().contains(".")) {
-            name = new TranslatableComponent("filled_map.charm.structure");
+            name = TextHelper.translatable("filled_map.charm.structure");
         }
 
-        var mapName = new TranslatableComponent("filled_map.charm.trader_map", name);
+        var mapName = TextHelper.translatable("filled_map.charm.trader_map", name);
         return MapHelper.create(level, nearest, mapName, MapDecoration.Type.TARGET_X, color);
     }
 

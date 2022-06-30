@@ -14,7 +14,7 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import svenhjol.charm.helper.TextHelper;
 
 import java.text.DecimalFormat;
 import java.util.Collections;
@@ -44,7 +44,7 @@ public class FiringCategory implements DisplayCategory<FiringDisplay> {
         widgets.add(Widgets.createBurningFire(new Point(startPoint.x + 1, startPoint.y + 20))
             .animationDurationMS(10000));
         widgets.add(Widgets.createLabel(new Point(bounds.x + bounds.width - 5, bounds.y + 5),
-            new TranslatableComponent("category.rei.cooking.time&xp", df.format(display.getXp()), df.format(cookingTime / 20d))).noShadow().rightAligned().color(0xFF404040, 0xFFBBBBBB));
+            TextHelper.translatable("category.rei.cooking.time&xp", df.format(display.getXp()), df.format(cookingTime / 20d))).noShadow().rightAligned().color(0xFF404040, 0xFFBBBBBB));
         widgets.add(Widgets.createArrow(new Point(startPoint.x + 24, startPoint.y + 8))
             .animationDurationTicks(cookingTime));
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 61, startPoint.y + 9))
@@ -79,6 +79,6 @@ public class FiringCategory implements DisplayCategory<FiringDisplay> {
 
     @Override
     public Component getTitle() {
-        return new TranslatableComponent(categoryName);
+        return TextHelper.translatable(categoryName);
     }
 }

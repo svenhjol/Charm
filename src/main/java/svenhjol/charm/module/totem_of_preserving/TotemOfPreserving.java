@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,6 +35,7 @@ import svenhjol.charm.api.event.PlayerDropInventoryCallback;
 import svenhjol.charm.api.event.TotemOfPreservingEvents;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.LogHelper;
+import svenhjol.charm.helper.TextHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.totem_works_from_inventory.TotemWorksFromInventory;
@@ -263,7 +263,7 @@ public class TotemOfPreserving extends CharmModule {
         }
 
         if (showDeathPosition) {
-            player.displayClientMessage(new TranslatableComponent("gui.charm.totem_of_preserving.deathpos", x, y, z), false);
+            player.displayClientMessage(TextHelper.translatable("gui.charm.totem_of_preserving.deathpos", x, y, z), false);
         }
 
         return InteractionResult.SUCCESS;
