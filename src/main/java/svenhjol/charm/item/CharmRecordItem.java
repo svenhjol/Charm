@@ -16,7 +16,11 @@ public class CharmRecordItem extends RecordItem implements ICharmItem {
     }
 
     public CharmRecordItem(CharmModule module, String name, SoundEvent sound, Properties properties, int redstoneStrength, int length) {
-        super(redstoneStrength, sound, properties, length);
+        super(redstoneStrength, sound, properties);
+
+        // For Minecraft 1.19.1:
+        //super(redstoneStrength, sound, properties, length);
+
         this.module = module;
         this.register(module, name);
     }
