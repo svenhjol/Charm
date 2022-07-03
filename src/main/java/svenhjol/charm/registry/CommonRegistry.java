@@ -2,6 +2,7 @@ package svenhjol.charm.registry;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -32,6 +33,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
@@ -62,10 +65,8 @@ public class CommonRegistry {
         return configuredFeature;
     }
 
-    public static ConfiguredFeature<?, ?> configuredStructureFeature(ResourceLocation id, ConfiguredFeature<?, ?> configuredFeature) {
-        ResourceKey<ConfiguredFeature<?, ?>> key = ResourceKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, id);
-        BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_FEATURE, key.location(), configuredFeature);
-        return configuredFeature;
+    public static <S extends Structure> StructureType<S> structure(ResourceLocation id, Codec<S> codec) {
+        return Registry.register(Registry.STRUCTURE_TYPES, id, () -> codec);
     }
 
     public static SimpleParticleType defaultParticleType(ResourceLocation id) {
