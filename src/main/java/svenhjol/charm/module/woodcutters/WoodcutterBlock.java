@@ -18,13 +18,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.block.ICharmBlock;
+import svenhjol.charm.helper.TextHelper;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
 
 public class WoodcutterBlock extends StonecutterBlock implements ICharmBlock {
     private final CharmModule module;
-    private static final Component TITLE = Component.translatable("container.charm.woodcutter");
+    private static final Component TITLE = TextHelper.translatable("container.charm.woodcutter");
 
     public WoodcutterBlock(CharmModule module) {
         super(FabricBlockSettings

@@ -158,7 +158,7 @@ public class VariantMobTexturesClient extends CharmModule {
             addCustomTextures(cows, MobType.COW, "cow" + i);
         }
 
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 4; i++) {
             addCustomTextures(wanderingTraders, MobType.WANDERING_TRADER, "wandering_trader" + i);
         }
 

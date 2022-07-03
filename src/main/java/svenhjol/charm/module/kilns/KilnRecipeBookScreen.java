@@ -6,12 +6,13 @@ import net.minecraft.client.gui.screens.recipebook.AbstractFurnaceRecipeBookComp
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import svenhjol.charm.helper.TextHelper;
 
 import java.util.Set;
 
 @Environment(EnvType.CLIENT)
 public class KilnRecipeBookScreen extends AbstractFurnaceRecipeBookComponent {
-    private static final Component text = Component.translatable("gui.charm.recipebook.toggleRecipes.fireable");
+    private static final Component text = TextHelper.translatable("gui.charm.recipebook.toggleRecipes.fireable");
 
     protected Component getRecipeFilterName() {
         return text;

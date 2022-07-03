@@ -12,7 +12,7 @@ import svenhjol.charm.loader.CharmModule;
 
 import java.util.Collection;
 
-@CommonModule(mod = Charm.MOD_ID, description = "Unlocks all vanilla recipes.")
+@CommonModule(mod = Charm.MOD_ID, description = "Unlocks all vanilla recipes.", enabledByDefault = false)
 public class AutomaticRecipeUnlock extends CharmModule {
     @Override
     public void runWhenEnabled() {
