@@ -27,6 +27,15 @@
     ],
     "client": [
       "svenhjol.charm.CharmClient"
+    ],
+    "rei_server": [
+      "svenhjol.charm.integration.rei.CharmReiServerPlugin"
+    ],
+    "rei_client": [
+      "svenhjol.charm.integration.rei.CharmReiClientPlugin"
+    ],
+    "modmenu": [
+      "svenhjol.charm.integration.modmenu.CharmModMenuPlugin"
     ]
   },
   "mixins": [
