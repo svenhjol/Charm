@@ -8,7 +8,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -51,10 +53,18 @@ public class BiomeHelper {
     }
 
     @Nullable
-    public static BlockPos locateBiome(ResourceKey<Biome> biome, ServerLevel level, BlockPos pos) {
-        var holder = getBiomeHolderFromBiomeKey(biome);
-        Predicate<Holder<Biome>> biomePredicate = r -> r.value().equals(holder.value());
-        var nearestBiome = level.findClosestBiome3d(biomePredicate, pos, 6400, 32, 64);
+    public static BlockPos locateBiome(ResourceLocation id, ServerLevel level, BlockPos pos) {
+        Predicate<Holder<Biome>> biomeCheck = holder -> holder.is(id);
+        return locateBiome(biomeCheck, level, pos);
+    }
+
+    public static BlockPos locateBiome(TagKey<Biome> tagKey, ServerLevel level, BlockPos pos) {
+        Predicate<Holder<Biome>> biomeCheck = holder -> holder.is(tagKey);
+        return locateBiome(biomeCheck, level, pos);
+    }
+
+    public static BlockPos locateBiome(Predicate<Holder<Biome>> biomeCheck, ServerLevel level, BlockPos pos) {
+        var nearestBiome = level.findClosestBiome3d(biomeCheck, pos, 6400, 32, 64);
         return nearestBiome != null ? nearestBiome.getFirst() : null;
     }
 

@@ -1,13 +1,13 @@
 package svenhjol.charm.helper;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.ChunkPos;
@@ -17,24 +17,24 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Material;
-import svenhjol.charm.Charm;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @version 4.0.0-charm
  */
 @SuppressWarnings("unused")
 public class WorldHelper {
-    private static final Map<ResourceLocation, Boolean> CACHE_STRUCTURES = new HashMap<>();
-    private static final Map<ResourceLocation, Boolean> CACHE_BIOMES = new HashMap<>();
+    private static final Map<ResourceLocation, Boolean> CACHE_STRUCTURES = new ConcurrentHashMap<>();
+    private static final Map<ResourceLocation, Boolean> CACHE_BIOMES = new ConcurrentHashMap<>();
 
     public static boolean addForcedChunk(ServerLevel level, BlockPos pos) {
-        ChunkPos chunkPos = new ChunkPos(pos);
+        var chunkPos = new ChunkPos(pos);
 
         // try a couple of times I guess?
-        boolean result = false;
+        var result = false;
         for (int i = 0; i <= 2; i++) {
             result = level.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), true);
             if (result) break;
@@ -48,8 +48,8 @@ public class WorldHelper {
     }
 
     public static boolean removeForcedChunk(ServerLevel level, BlockPos pos) {
-        ChunkPos chunkPos = new ChunkPos(pos);
-        boolean result = level.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), false);
+        var chunkPos = new ChunkPos(pos);
+        var result = level.setChunkForced(chunkPos.getMinBlockX(), chunkPos.getMinBlockZ(), false);
         if (!result) {
             LogHelper.error(WorldHelper.class, "Could not unload forced chunk - this is probably really bad.");
         } else {
@@ -85,15 +85,15 @@ public class WorldHelper {
         });
     }
 
-    public static BlockPos addRandomOffset(BlockPos pos, Random rand, int min, int max) {
-        int n = rand.nextInt(max - min) + min;
-        int e = rand.nextInt(max - min) + min;
-        int s = rand.nextInt(max - min) + min;
-        int w = rand.nextInt(max - min) + min;
-        pos = pos.north(rand.nextBoolean() ? n : -n);
-        pos = pos.east(rand.nextBoolean() ? e : -e);
-        pos = pos.south(rand.nextBoolean() ? s : -s);
-        pos = pos.west(rand.nextBoolean() ? w : -w);
+    public static BlockPos addRandomOffset(BlockPos pos, RandomSource random, int min, int max) {
+        int n = random.nextInt(max - min) + min;
+        int e = random.nextInt(max - min) + min;
+        int s = random.nextInt(max - min) + min;
+        int w = random.nextInt(max - min) + min;
+        pos = pos.north(random.nextBoolean() ? n : -n);
+        pos = pos.east(random.nextBoolean() ? e : -e);
+        pos = pos.south(random.nextBoolean() ? s : -s);
+        pos = pos.west(random.nextBoolean() ? w : -w);
         return pos;
     }
 
@@ -186,34 +186,17 @@ public class WorldHelper {
     }
 
     @Nullable
-    public static BlockPos findNearestMapFeature(String id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
-        if (id.startsWith("#")) {
-            var tagKey = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(id.substring(1)));
-            return findNearestMapFeature(tagKey, level, origin, distance, skipExploredChunks);
-        } else {
-            var res = new ResourceLocation(id);
-            return findNearestMapFeature(res, level, origin, distance, skipExploredChunks);
-        }
+    public static BlockPos findNearestStructure(String id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
+        return findNearestStructure(new ResourceLocation(id), level, origin, distance, skipExploredChunks);
+    }
+
+    public static BlockPos findNearestStructure(ResourceLocation id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
+        var tagKey = TagKey.create(Registry.STRUCTURE_REGISTRY, id);
+        return findNearestStructure(tagKey, level, origin, distance, skipExploredChunks);
     }
 
     @Nullable
-    public static BlockPos findNearestMapFeature(ResourceLocation id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
-        var configuredStructures = Registry.STRUCTURE_REGISTRY;
-        var registry = level.registryAccess().registryOrThrow(configuredStructures);
-        var resourceKey = ResourceKey.create(Registry.STRUCTURE_REGISTRY, id);
-
-        try {
-            var holderSet = registry.getHolder(resourceKey).map(HolderSet::direct).orElseThrow();
-            var destination = level.getChunkSource().getGenerator().findNearestMapStructure(level, holderSet, origin, distance, skipExploredChunks);
-            return destination != null ? destination.getFirst() : null;
-        } catch (Exception e) {
-            LogHelper.debug(Charm.MOD_ID, WorldHelper.class, "Failed to locate structure: " + id);
-            return null;
-        }
-    }
-
-    @Nullable
-    public static BlockPos findNearestMapFeature(TagKey<Structure> id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
+    public static BlockPos findNearestStructure(TagKey<Structure> id, ServerLevel level, BlockPos origin, int distance, boolean skipExploredChunks) {
         return level.findNearestMapStructure(id, origin, distance, skipExploredChunks);
     }
 }

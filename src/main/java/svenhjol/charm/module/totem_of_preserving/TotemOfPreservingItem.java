@@ -11,8 +11,9 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.helper.NbtHelper;
 import svenhjol.charm.helper.LogHelper;
+import svenhjol.charm.helper.NbtHelper;
+import svenhjol.charm.helper.TextHelper;
 import svenhjol.charm.helper.TotemHelper;
 import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.loader.CharmModule;
@@ -87,12 +88,12 @@ public class TotemOfPreservingItem extends CharmItem {
         CompoundTag items = getItems(stack);
 
         if (!message.isEmpty())
-            tooltip.add(Component.translatable(message));
+            tooltip.add(TextHelper.literal(message));
 
         if (!items.isEmpty()) {
             int size = items.size();
             String str = size == 1 ? "totem.charm.preserving.item" : "totem.charm.preserving.items";
-            tooltip.add(Component.translatable(I18n.get(str, size)));
+            tooltip.add(TextHelper.literal(I18n.get(str, size)));
         }
 
         super.appendHoverText(stack, level, tooltip, context);
