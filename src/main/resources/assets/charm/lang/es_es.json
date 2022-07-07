@@ -287,7 +287,7 @@
   "entity.charm.moobloom": "Floravaca",
   "entity.minecraft.villager.charm_beekeeper": "Apicultor",
   "entity.minecraft.villager.charm_lumberjack": "Maderero",
-  "filled_map.charm.trader_map": "Mapa de %s",
+  "filled_map.charm.explorer_map": "Mapa de %s",
   "gui.charm.cask_capacity": "Frascos: %s",
   "gui.charm.cooking_pot_capacity": "Cuencos: %s",
   "gui.charm.quadrants.locked": "Bloqueando la rotación a %s",

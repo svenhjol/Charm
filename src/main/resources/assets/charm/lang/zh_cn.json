@@ -288,7 +288,7 @@
   "entity.charm.moobloom": "哞花",
   "entity.minecraft.villager.charm_beekeeper": "养蜂人",
   "entity.minecraft.villager.charm_lumberjack": "伐木工",
-  "filled_map.charm.trader_map": "%s 地图",
+  "filled_map.charm.explorer_map": "%s 地图",
   "gui.charm.cask_capacity": "瓶：%s",
   "gui.charm.cooking_pot_capacity": "碗：%s",
   "gui.charm.quadrants.locked": "将方位锁定到%s",
