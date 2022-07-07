@@ -111,7 +111,7 @@
     "entity.charm.moobloom": "哞花",
     "entity.minecraft.villager.beekeeper": "養蜂人",
     "entity.minecraft.villager.lumberjack": "伐木工",
-    "filled_map.charm.trader_map": "%s地圖",
+    "filled_map.charm.explorer_map": "%s地圖",
     "gui.charm.recipebook.toggleRecipes.fireable": "顯示可燃",
     "item.charm.atlas": "地圖集",
     "item.charm.bat_bucket": "蝙蝠桶",
