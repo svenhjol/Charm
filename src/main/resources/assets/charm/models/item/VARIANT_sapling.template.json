@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "NAMESPACE:block/VARIANT_sapling"
+    }
+  },
+  "variants": "charm_wood_no_azalea"
+}
