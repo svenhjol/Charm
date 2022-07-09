@@ -37,6 +37,7 @@ import svenhjol.charm.module.bookcases.BookcaseBlock;
 import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.ebony_wood.EbonyBlocks.*;
 import svenhjol.charm.module.ebony_wood.EbonyItems.EbonySignItem;
+import svenhjol.charm.module.extra_boats.ExtraBoats;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
 import svenhjol.charm.module.variant_barrels.VariantBarrels;
 import svenhjol.charm.module.variant_bookshelves.VariantBookshelfBlock;
@@ -124,11 +125,8 @@ public class EbonyWood extends CharmModule {
 
         BOAT = new BoatItem(false, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
         CHEST_BOAT = new BoatItem(true, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
-        CommonRegistry.item(new ResourceLocation(Charm.MOD_ID, "ebony_boat"), BOAT);
-        CommonRegistry.item(new ResourceLocation(Charm.MOD_ID, "ebony_chest_boat"), CHEST_BOAT);
-
-        VariantChests.CHEST_BOATS.put(EbonyWood.BOAT, EbonyWood.CHEST_BOAT);
-        VariantChests.CHEST_LAYER_COLORS.put(CharmWoodMaterial.EBONY.getSerializedName(), 0x797980);
+        ExtraBoats.registerBoat(ID, BOAT_TYPE, BOAT, CHEST_BOAT);
+        VariantChests.CHEST_LAYER_COLORS.put(CharmWoodMaterial.EBONY.getSerializedName(), 0x595960);
 
         var treeConfiguration = new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(LOG.defaultBlockState()),

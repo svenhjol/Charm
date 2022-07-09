@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.module.azalea_wood.AzaleaWood;
+import svenhjol.charm.module.extra_boats.ExtraBoats;
 
 @Mixin(Boat.class)
 public abstract class GetBoatItemMixin {
@@ -19,8 +19,9 @@ public abstract class GetBoatItemMixin {
         cancellable = true
     )
     private void hookGetDropItem(CallbackInfoReturnable<Item> cir) {
-        if (this.getBoatType().equals(AzaleaWood.BOAT_TYPE)) {
-            cir.setReturnValue(AzaleaWood.BOAT);
+        var boatByType = ExtraBoats.getBoatByType(getBoatType());
+        if (boatByType != null ){
+            cir.setReturnValue(boatByType);
         }
     }
 }

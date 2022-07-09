@@ -11,6 +11,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ChestBlock;
 import svenhjol.charm.init.CharmTags;
 
 public class VariantChestBoatRecipe extends CustomRecipe {
@@ -32,10 +33,8 @@ public class VariantChestBoatRecipe extends CustomRecipe {
                 if (item instanceof BoatItem) {
                     ++i;
                 } else {
-                    if (!(Block.byItem(item) instanceof VariantChestBlock)) {
-                        return false;
-                    }
-
+                    var block = Block.byItem(item);
+                    if (!(block instanceof ChestBlock)) continue;
                     ++j;
                 }
 
@@ -63,7 +62,7 @@ public class VariantChestBoatRecipe extends CustomRecipe {
                     target = stackInSlot;
                 } else if (stackInSlot.is(CharmTags.CHESTS)) {
                     var block = Block.byItem(item);
-                    if (!(block instanceof VariantChestBlock)) continue;
+                    if (!(block instanceof ChestBlock)) continue;
                     chest = block;
                 }
             }
@@ -71,12 +70,16 @@ public class VariantChestBoatRecipe extends CustomRecipe {
 
         if (!target.isEmpty()) {
             var chestBoat = VariantChests.CHEST_BOATS.getOrDefault(target.getItem(), null);
-            if (chestBoat != null && chest instanceof VariantChestBlock variantChest) {
-                var out = new ItemStack(chestBoat);
-                var tag = new CompoundTag();
-                tag.putString(CHEST_TYPE_TAG, variantChest.getMaterialType().getSerializedName());
-                out.setTag(tag);
-                return out;
+            if (chestBoat != null) {
+                if (chest instanceof VariantChestBlock variantChest) {
+                    var out = new ItemStack(chestBoat);
+                    var tag = new CompoundTag();
+                    tag.putString(CHEST_TYPE_TAG, variantChest.getMaterialType().getSerializedName());
+                    out.setTag(tag);
+                    return out;
+                } else if (chest instanceof ChestBlock) {
+                    return new ItemStack(chestBoat);
+                }
             }
         }
 
