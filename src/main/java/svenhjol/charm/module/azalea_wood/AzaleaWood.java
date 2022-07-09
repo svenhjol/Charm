@@ -97,7 +97,6 @@ public class AzaleaWood extends CharmModule {
         TRAPPED_CHEST = VariantChests.registerTrappedChest(this, CharmWoodMaterial.AZALEA);
         BOOKCASE = Bookcases.registerBookcase(this, CharmWoodMaterial.AZALEA);
 
-        // Boat items must now be registered in the minecraft namespace.
         BOAT = new BoatItem(false, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
         CHEST_BOAT = new BoatItem(true, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
         CommonRegistry.item(new ResourceLocation(Charm.MOD_ID, "azalea_boat"), BOAT);

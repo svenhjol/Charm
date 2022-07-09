@@ -1,14 +1,13 @@
 package svenhjol.charm.module.ebony_wood;
 
 import net.minecraft.core.Holder;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.material.MaterialColor;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.block.*;
 import svenhjol.charm.loader.CharmModule;
-
-import java.util.Random;
 
 public class EbonyBlocks {
     public static class EbonyButtonBlock extends CharmWoodenButtonBlock {
@@ -76,7 +75,7 @@ public class EbonyBlocks {
             super(module, "ebony_sapling", new AbstractTreeGrower() {
                 @Nullable
                 @Override
-                protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random random, boolean bees) {
+                protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean bees) {
                     return EbonyWood.TREE;
                 }
             });

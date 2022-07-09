@@ -7,8 +7,8 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -31,15 +31,12 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.block.*;
 import svenhjol.charm.enums.CharmWoodMaterial;
-import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
 import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.ebony_wood.EbonyBlocks.*;
-import svenhjol.charm.module.ebony_wood.EbonyItems.EbonyBoatItem;
 import svenhjol.charm.module.ebony_wood.EbonyItems.EbonySignItem;
-import svenhjol.charm.module.extra_boats.ExtraBoats;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
 import svenhjol.charm.module.variant_barrels.VariantBarrels;
 import svenhjol.charm.module.variant_bookshelves.VariantBookshelfBlock;
@@ -55,7 +52,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.OptionalInt;
 
-@CommonModule(mod = Charm.MOD_ID, description = "Ebony is a very dark grey wood. Saplings can be found in Woodland Mansion chests.")
+@CommonModule(mod = Charm.MOD_ID, description = "Ebony is a very dark grey wood. Saplings can be found in Ancient City and Woodland Mansion chests.")
 public class EbonyWood extends CharmModule {
     private static final Map<ResourceLocation, Float> LOOT_TABLES = new HashMap<>();
 
@@ -85,7 +82,9 @@ public class EbonyWood extends CharmModule {
     public static VariantChestBlock CHEST;
     public static VariantLadderBlock LADDER;
     public static VariantTrappedChestBlock TRAPPED_CHEST;
-    public static CharmBoatItem BOAT;
+    public static BoatItem BOAT;
+    public static BoatItem CHEST_BOAT;
+    public static Boat.Type BOAT_TYPE;
     public static CharmSignItem SIGN_ITEM;
     public static LootItemFunctionType LOOT_FUNCTION;
     public static String EBONY = CharmWoodMaterial.EBONY.getSerializedName();
@@ -95,6 +94,10 @@ public class EbonyWood extends CharmModule {
         // must init these first, other blocks depend on them being registered
         SIGN_TYPE = CommonRegistry.signType(ID);
         PLANKS = new EbonyPlanksBlock(this);
+
+        // Enum references planks before they're registered. Re-register here.
+        BOAT_TYPE = Boat.Type.valueOf("EBONY");
+        BOAT_TYPE.planks = PLANKS;
 
         BUTTON = new EbonyButtonBlock(this);
         DOOR = new EbonyDoorBlock(this);
@@ -112,8 +115,6 @@ public class EbonyWood extends CharmModule {
         WALL_SIGN_BLOCK = new EbonyWallSignBlock(this);
         WOOD = new EbonyWoodBlock(this);
         STRIPPED_WOOD = new StrippedEbonyWoodBlock(this);
-
-        BOAT = new EbonyBoatItem(this);
         SIGN_ITEM = new EbonySignItem(this);
 
         BARREL = VariantBarrels.registerBarrel(this, CharmWoodMaterial.EBONY);
@@ -121,6 +122,14 @@ public class EbonyWood extends CharmModule {
         CHEST = VariantChests.registerChest(this, CharmWoodMaterial.EBONY);
         LADDER = VariantLadders.registerLadder(this, CharmWoodMaterial.EBONY);
         TRAPPED_CHEST = VariantChests.registerTrappedChest(this, CharmWoodMaterial.EBONY);
+
+        BOAT = new BoatItem(false, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
+        CHEST_BOAT = new BoatItem(true, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
+        CommonRegistry.item(new ResourceLocation(Charm.MOD_ID, "ebony_boat"), BOAT);
+        CommonRegistry.item(new ResourceLocation(Charm.MOD_ID, "ebony_chest_boat"), CHEST_BOAT);
+
+        VariantChests.CHEST_BOATS.put(EbonyWood.BOAT, EbonyWood.CHEST_BOAT);
+        VariantChests.CHEST_LAYER_COLORS.put(CharmWoodMaterial.EBONY.getSerializedName(), 0x797980);
 
         var treeConfiguration = new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(LOG.defaultBlockState()),
@@ -132,7 +141,6 @@ public class EbonyWood extends CharmModule {
 
         TREE = FeatureUtils.register(ID.toString(), Feature.TREE, treeConfiguration);
         BOOKCASE = Bookcases.registerBookcase(this, CharmWoodMaterial.EBONY);
-        ExtraBoats.registerBoat(EBONY, BOAT);
 
         LOOT_FUNCTION = CommonRegistry.lootFunctionType(
             new ResourceLocation(Charm.MOD_ID, "ebony_sapling_loot"),
@@ -144,6 +152,7 @@ public class EbonyWood extends CharmModule {
         CommonRegistry.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
         LootTableEvents.MODIFY.register(this::handleLootTables);
         registerLootTable(BuiltInLootTables.WOODLAND_MANSION, 0.25F);
+        registerLootTable(BuiltInLootTables.ANCIENT_CITY, 0.25F);
         AxeItem.STRIPPABLES.put(LOG, STRIPPED_LOG);
         AxeItem.STRIPPABLES.put(WOOD, STRIPPED_WOOD);
     }

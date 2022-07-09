@@ -35,7 +35,8 @@ public class EbonyWoodClient extends CharmModule {
         BlockRenderLayerMap.INSTANCE.putBlock(EbonyWood.TRAPDOOR, RenderType.cutout());
 
         // register boat model
-        ClientRegistry.entityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/ebony"), BoatModel.createBodyModel().bakeRoot());
+        ClientRegistry.entityModelLayer(new ResourceLocation(Charm.MOD_ID, "boat/ebony"), BoatModel.createBodyModel(false).bakeRoot());
+        ClientRegistry.entityModelLayer(new ResourceLocation(Charm.MOD_ID, "chest_boat/ebony"), BoatModel.createBodyModel(true).bakeRoot());
 
         // register sign material
         ClientRegistry.signMaterial(EbonyWood.SIGN_TYPE);
