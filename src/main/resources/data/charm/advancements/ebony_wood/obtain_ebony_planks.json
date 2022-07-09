@@ -18,7 +18,13 @@
   "criteria": {
     "has_ebony_planks": {
       "trigger": "minecraft:inventory_changed",
-      "conditions": {"items": [{"tag": "charm:ebony_planks"}]}
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:ebony_planks"]
+          }
+        ]
+      }
     }
   },
   "requirements": [
