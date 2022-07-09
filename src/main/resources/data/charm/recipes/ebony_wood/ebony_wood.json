@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "charm:ebony_log"
+    }
+  },
+  "result": {
+    "item": "charm:ebony_wood",
+    "count": 3
+  }
+}

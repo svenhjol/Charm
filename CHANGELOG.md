@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.0
+
+* Added ebony wood.
+
 ## 4.1.3
 
 * Fixed disabling amethyst noteblock causing IllegalArgumentException crash (#745)

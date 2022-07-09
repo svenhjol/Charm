@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/VARIANT_leaves"
+  },
+  "variants": "charm_wood_no_azalea"
+}

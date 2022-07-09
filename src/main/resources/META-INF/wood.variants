@@ -1,5 +1,4 @@
 NAMESPACE:VARIANT
-charm:azalea
 minecraft:acacia
 minecraft:birch
 minecraft:crimson
@@ -9,3 +8,5 @@ minecraft:mangrove
 minecraft:oak
 minecraft:spruce
 minecraft:warped
+charm:azalea
+charm:ebony

@@ -1,0 +1,10 @@
+{
+  "template": {
+    "variants": {
+      "": {
+        "model": "NAMESPACE:block/VARIANT_sapling"
+      }
+    }
+  },
+  "variants": "charm_wood_no_azalea"
+}
