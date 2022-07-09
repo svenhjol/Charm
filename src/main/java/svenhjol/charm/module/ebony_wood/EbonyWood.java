@@ -87,7 +87,6 @@ public class EbonyWood extends CharmModule {
     public static Boat.Type BOAT_TYPE;
     public static CharmSignItem SIGN_ITEM;
     public static LootItemFunctionType LOOT_FUNCTION;
-    public static String EBONY = CharmWoodMaterial.EBONY.getSerializedName();
 
     @Override
     public void register() {
@@ -96,7 +95,7 @@ public class EbonyWood extends CharmModule {
         PLANKS = new EbonyPlanksBlock(this);
 
         // Enum references planks before they're registered. Re-register here.
-        BOAT_TYPE = Boat.Type.valueOf("EBONY");
+        BOAT_TYPE = Boat.Type.valueOf(CharmWoodMaterial.EBONY.name());
         BOAT_TYPE.planks = PLANKS;
 
         BUTTON = new EbonyButtonBlock(this);

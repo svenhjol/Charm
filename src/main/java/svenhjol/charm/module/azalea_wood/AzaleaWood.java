@@ -71,7 +71,7 @@ public class AzaleaWood extends CharmModule {
         PLANKS = new AzaleaBlocks.AzaleaPlanksBlock(this);
 
         // Enum references planks before they're registered. Re-register here.
-        BOAT_TYPE = Boat.Type.valueOf("AZALEA");
+        BOAT_TYPE = Boat.Type.valueOf(CharmWoodMaterial.AZALEA.name());
         BOAT_TYPE.planks = PLANKS;
 
         BUTTON = new AzaleaBlocks.AzaleaButtonBlock(this);

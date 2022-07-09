@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import svenhjol.charm.module.azalea_wood.AzaleaWood;
+import svenhjol.charm.module.ebony_wood.EbonyWood;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +24,7 @@ public class AddBoatTypeMixin {
 
     static {
         addVariant("AZALEA", AzaleaWood.PLANKS, "charm_azalea");
+        addVariant("EBONY", EbonyWood.PLANKS, "charm_ebony");
     }
 
     @Invoker("<init>")
