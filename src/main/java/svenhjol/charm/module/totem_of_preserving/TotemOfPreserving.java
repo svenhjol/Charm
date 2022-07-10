@@ -240,15 +240,21 @@ public class TotemOfPreserving extends CharmModule {
             if (result == InteractionResult.FAIL) continue;
 
             ItemEntity totemEntity = new ItemEntity(serverLevel, x, y, z, stack);
-            totemEntity.setNoGravity(true);
+            totemEntity.setNoGravity(false);
             totemEntity.setDeltaMovement(0, 0, 0);
             totemEntity.setPosRaw(tx, ty, tz);
-            totemEntity.setExtendedLifetime();
+            totemEntity.setUnlimitedLifetime();
+            totemEntity.setPickUpDelay(40);
             totemEntity.setGlowingTag(true);
             totemEntity.setInvulnerable(true);
 
-            serverLevel.addFreshEntity(totemEntity);
-            TotemOfPreservingEvents.AFTER_CREATE.invoker().invoke(serverPlayer, totemEntity.blockPosition(), stack);
+            var spawned = serverLevel.addFreshEntity(totemEntity);
+            if (spawned) {
+                TotemOfPreservingEvents.AFTER_CREATE.invoker().invoke(serverPlayer, totemEntity.blockPosition(), stack);
+            } else {
+                LogHelper.warn(getClass(), "Did not spawn totem properly, splatting contents");
+                return InteractionResult.PASS;
+            }
         }
 
         BlockPos deathPos = new BlockPos(x, y, z);
