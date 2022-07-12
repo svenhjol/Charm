@@ -11,21 +11,22 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.NbtHelper;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.TextHelper;
 import svenhjol.charm.helper.TotemHelper;
 import svenhjol.charm.item.CharmItem;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class TotemOfPreservingItem extends CharmItem {
     public static final String MESSAGE_TAG = "message";
     public static final String ITEMS_TAG = "items";
     public static final String XP_TAG = "xp";
+    public static final String GLINT_TAG = "glint";
 
     public TotemOfPreservingItem(CharmModule module) {
         super(module, "totem_of_preserving", new Item.Properties()
@@ -42,7 +43,7 @@ public class TotemOfPreservingItem extends CharmItem {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        return hasItems(stack);
+        return hasGlint(stack);
     }
 
     @Override
@@ -64,19 +65,11 @@ public class TotemOfPreservingItem extends CharmItem {
         TotemHelper.destroy(user, totem);
 
         if (!level.isClientSide) {
-            Set<String> keys = items.getAllKeys();
-
-            keys.forEach(k -> {
-                var tag = items.get(k);
-                if (tag == null) {
-                    LogHelper.warn(this.getClass(), "Item tag missing from totem");
-                } else {
-                    var stack = ItemStack.of((CompoundTag) tag);
-                    var pos = user.blockPosition();
-                    var itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 0.5D, pos.getZ(), stack);
-                    level.addFreshEntity(itemEntity);
-                }
-            });
+            for (ItemStack stack : items) {
+                var pos = user.blockPosition();
+                var itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 0.5D, pos.getZ(), stack);
+                level.addFreshEntity(itemEntity);
+            }
         }
 
         return super.use(level, user, hand);
@@ -84,15 +77,15 @@ public class TotemOfPreservingItem extends CharmItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag context) {
-        String message = getMessage(stack);
-        CompoundTag items = getItems(stack);
+        var message = getMessage(stack);
+        var items = getItems(stack);
 
         if (!message.isEmpty())
             tooltip.add(TextHelper.literal(message));
 
         if (!items.isEmpty()) {
-            int size = items.size();
-            String str = size == 1 ? "totem.charm.preserving.item" : "totem.charm.preserving.items";
+            var size = items.size();
+            var str = size == 1 ? "totem.charm.preserving.item" : "totem.charm.preserving.items";
             tooltip.add(TextHelper.literal(I18n.get(str, size)));
         }
 
@@ -103,8 +96,19 @@ public class TotemOfPreservingItem extends CharmItem {
         NbtHelper.setString(totem, MESSAGE_TAG, message);
     }
 
-    public static void setItems(ItemStack totem, CompoundTag items) {
-        NbtHelper.setCompound(totem, ITEMS_TAG, items);
+    public static void setItems(ItemStack totem, List<ItemStack> items) {
+        var serialized = new CompoundTag();
+
+        for (int i = 0; i < items.size(); i++) {
+            var stack = items.get(i);
+            serialized.put(Integer.toString(i), stack.save(new CompoundTag()));
+        }
+
+        NbtHelper.setCompound(totem, ITEMS_TAG, serialized);
+    }
+
+    public static void setGlint(ItemStack totem, boolean shiny) {
+        NbtHelper.setBoolean(totem, GLINT_TAG, shiny);
     }
 
     public static void setXp(ItemStack totem, int xp) {
@@ -115,8 +119,26 @@ public class TotemOfPreservingItem extends CharmItem {
         return NbtHelper.getString(totem, MESSAGE_TAG, "");
     }
 
-    public static CompoundTag getItems(ItemStack totem) {
-        return NbtHelper.getCompound(totem, ITEMS_TAG);
+    public static boolean hasGlint(ItemStack totem) {
+        return NbtHelper.getBoolean(totem, GLINT_TAG, hasItems(totem));
+    }
+
+    public static List<ItemStack> getItems(ItemStack totem) {
+        List<ItemStack> items = new ArrayList<>();
+        var itemsTag = NbtHelper.getCompound(totem, ITEMS_TAG);
+        var keys = itemsTag.getAllKeys();
+
+        for (var key : keys) {
+            var tag = itemsTag.get(key);
+            if (tag == null) {
+                LogHelper.warn(TotemOfPreservingItem.class, "Missing item with key " + key);
+                continue;
+            }
+            var stack = ItemStack.of((CompoundTag)tag);
+            items.add(stack);
+        }
+
+        return items;
     }
 
     public static boolean hasItems(ItemStack totem) {

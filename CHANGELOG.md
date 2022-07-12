@@ -3,6 +3,7 @@
 ## 4.2.0
 
 * Added ebony wood.
+* Fixed issue with Totems not always spawning.
 
 ## 4.1.3
 
