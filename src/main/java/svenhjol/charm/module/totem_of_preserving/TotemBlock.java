@@ -29,7 +29,7 @@ public class TotemBlock extends CharmBlockWithEntity {
             .strength(-1.0f, 3600000.0f)
             .isValidSpawn((a, b, c, d) -> false)
             .noOcclusion()
-            .noDrops());
+            .noLootTable());
     }
 
     @Nullable
