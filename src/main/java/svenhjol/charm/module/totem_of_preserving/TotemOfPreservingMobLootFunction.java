@@ -17,12 +17,12 @@ public class TotemOfPreservingMobLootFunction extends LootItemConditionalFunctio
     @Override
     protected ItemStack run(ItemStack stack, LootContext context) {
         if (!Charm.LOADER.isEnabled(TotemOfPreserving.class)) return stack;
-        if (TotemOfPreserving.isGraveMode(context.getLevel().getDifficulty())) return stack;
+        if (TotemOfPreserving.graveMode) return stack;
 
         float val = 0.2F + context.getLuck();
         if (context.getRandom().nextFloat() > val) return stack;
 
-        return new ItemStack(TotemOfPreserving.TOTEM_OF_PRESERVING);
+        return new ItemStack(TotemOfPreserving.ITEM);
     }
 
     @Override

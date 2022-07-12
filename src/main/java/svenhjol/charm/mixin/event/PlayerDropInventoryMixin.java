@@ -31,7 +31,8 @@ public abstract class PlayerDropInventoryMixin {
     )
     private void hookDropInventory(CallbackInfo ci) {
         InteractionResult result = PlayerDropInventoryCallback.EVENT.invoker().interact((Player) (Object) this, this.inventory);
-        if (result == InteractionResult.SUCCESS)
+        if (result == InteractionResult.SUCCESS) {
             ci.cancel();
+        }
     }
 }
