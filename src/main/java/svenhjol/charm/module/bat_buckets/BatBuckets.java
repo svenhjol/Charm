@@ -26,7 +26,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.PlayerTickCallback;
-import svenhjol.charm.helper.NbtHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
@@ -94,7 +94,7 @@ public class BatBuckets extends CharmModule {
 
             ItemStack batBucket = new ItemStack(BAT_BUCKET_ITEM);
             CompoundTag tag = new CompoundTag();
-            NbtHelper.setCompound(batBucket, BatBucketItem.STORED_BAT_NBT, bat.saveWithoutId(tag));
+            ItemNbtHelper.setCompound(batBucket, BatBucketItem.STORED_BAT_NBT, bat.saveWithoutId(tag));
 
             if (held.getCount() == 1) {
                 player.setItemInHand(hand, batBucket);

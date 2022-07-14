@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.material.Fluids;
-import svenhjol.charm.helper.NbtHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.item.ICharmItem;
 import svenhjol.charm.loader.CharmModule;
@@ -43,7 +43,7 @@ public class CoralSquidBucketItem extends BucketItem implements ICharmItem {
     public void checkExtraContent(@Nullable Player playerEntity, Level level, ItemStack stack, BlockPos pos) {
         if (level instanceof ServerLevel) {
             MobHelper.spawn(CoralSquids.CORAL_SQUID, (ServerLevel) level, pos, MobSpawnType.BUCKET, coralSquid -> {
-                CompoundTag data = NbtHelper.getCompound(stack, STORED_CORAL_SQUID);
+                CompoundTag data = ItemNbtHelper.getCompound(stack, STORED_CORAL_SQUID);
                 if (!data.isEmpty()) {
                     coralSquid.readAdditionalSaveData(data);
                 }

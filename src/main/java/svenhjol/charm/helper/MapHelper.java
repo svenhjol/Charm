@@ -18,9 +18,9 @@ public class MapHelper {
         MapItemSavedData.addTargetDecoration(stack, pos, "+", targetType);
         stack.setHoverName(name);
 
-        CompoundTag nbt = NbtHelper.getCompound(stack, "display");
+        CompoundTag nbt = ItemNbtHelper.getCompound(stack, "display");
         nbt.putInt("MapColor", color);
-        NbtHelper.setCompound(stack, "display", nbt);
+        ItemNbtHelper.setCompound(stack, "display", nbt);
         return stack;
     }
 

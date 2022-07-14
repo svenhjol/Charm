@@ -11,7 +11,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.helper.NbtHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.TextHelper;
 import svenhjol.charm.helper.TotemHelper;
@@ -93,7 +93,7 @@ public class TotemOfPreservingItem extends CharmItem {
     }
 
     public static void setMessage(ItemStack totem, String message) {
-        NbtHelper.setString(totem, MESSAGE_TAG, message);
+        ItemNbtHelper.setString(totem, MESSAGE_TAG, message);
     }
 
     public static void setItems(ItemStack totem, List<ItemStack> items) {
@@ -104,28 +104,28 @@ public class TotemOfPreservingItem extends CharmItem {
             serialized.put(Integer.toString(i), stack.save(new CompoundTag()));
         }
 
-        NbtHelper.setCompound(totem, ITEMS_TAG, serialized);
+        ItemNbtHelper.setCompound(totem, ITEMS_TAG, serialized);
     }
 
     public static void setGlint(ItemStack totem, boolean shiny) {
-        NbtHelper.setBoolean(totem, GLINT_TAG, shiny);
+        ItemNbtHelper.setBoolean(totem, GLINT_TAG, shiny);
     }
 
     public static void setXp(ItemStack totem, int xp) {
-        NbtHelper.setInt(totem, XP_TAG, xp);
+        ItemNbtHelper.setInt(totem, XP_TAG, xp);
     }
 
     public static String getMessage(ItemStack totem) {
-        return NbtHelper.getString(totem, MESSAGE_TAG, "");
+        return ItemNbtHelper.getString(totem, MESSAGE_TAG, "");
     }
 
     public static boolean hasGlint(ItemStack totem) {
-        return NbtHelper.getBoolean(totem, GLINT_TAG, hasItems(totem));
+        return ItemNbtHelper.getBoolean(totem, GLINT_TAG, hasItems(totem));
     }
 
     public static List<ItemStack> getItems(ItemStack totem) {
         List<ItemStack> items = new ArrayList<>();
-        var itemsTag = NbtHelper.getCompound(totem, ITEMS_TAG);
+        var itemsTag = ItemNbtHelper.getCompound(totem, ITEMS_TAG);
         var keys = itemsTag.getAllKeys();
 
         for (var key : keys) {
@@ -146,6 +146,6 @@ public class TotemOfPreservingItem extends CharmItem {
     }
 
     public static int getXp(ItemStack totem) {
-        return NbtHelper.getInt(totem, XP_TAG, 0);
+        return ItemNbtHelper.getInt(totem, XP_TAG, 0);
     }
 }

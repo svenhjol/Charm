@@ -4,7 +4,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.helper.NbtHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.menu.CharmConditionalSlot;
 import svenhjol.charm.menu.CharmContainerMenu;
 
@@ -34,8 +34,8 @@ public class AtlasContainer extends CharmContainerMenu {
             this.addSlot(new Slot(player, i, 8 + i * 18, 142) {
                 @Override
                 public boolean mayPickup(Player playerIn) {
-                    return getItem().getItem() != Atlases.ATLAS_ITEM || !Objects.equals(NbtHelper.getUuid(getItem(), AtlasInventory.ID),
-                        NbtHelper.getUuid(atlasInventory.getAtlasItem(), AtlasInventory.ID));
+                    return getItem().getItem() != Atlases.ATLAS_ITEM || !Objects.equals(ItemNbtHelper.getUuid(getItem(), AtlasInventory.ID),
+                        ItemNbtHelper.getUuid(atlasInventory.getAtlasItem(), AtlasInventory.ID));
                 }
             });
         }
