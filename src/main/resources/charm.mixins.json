@@ -101,6 +101,7 @@
     "kilns.AddRecipeCategoryMixin",
     "kilns.GetCorrectCategoriesMixin",
     "kilns.GetCorrectCategoryMixin",
+    "no_chat_verified_nag.DisableToastMixin",
     "no_potion_glint.CheckPotionHasGlintMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
     "show_repair_cost.AddRepairCostToTooltipMixin",
