@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "twigs"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "twigs:polished_amethyst_bricks"
+  },
+  "result": "twigs:cracked_polished_amethyst_bricks",
+  "experience": 0.1,
+  "cookingtime": 100
+}

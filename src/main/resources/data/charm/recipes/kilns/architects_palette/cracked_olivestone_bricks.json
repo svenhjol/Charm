@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "architects_palette"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "architects_palette:olivestone_bricks"
+  },
+  "result": "architects_palette:cracked_olivestone_bricks",
+  "experience": 0.1,
+  "cookingtime": 100
+}

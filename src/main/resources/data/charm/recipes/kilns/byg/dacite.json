@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "byg:dacite_cobblestone"
+  },
+  "result": "byg:dacite",
+  "experience": 0.1,
+  "cookingtime": 100
+}

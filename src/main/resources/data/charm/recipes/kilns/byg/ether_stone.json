@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "byg:cobbled_ether_stone"
+  },
+  "result": "byg:ether_stone",
+  "experience": 0.1,
+  "cookingtime": 100
+}

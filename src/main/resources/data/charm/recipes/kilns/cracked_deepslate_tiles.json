@@ -1,0 +1,9 @@
+{
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "minecraft:deepslate_tiles"
+  },
+  "result": "minecraft:cracked_deepslate_tiles",
+  "experience": 0.1,
+  "cookingtime": 100
+}

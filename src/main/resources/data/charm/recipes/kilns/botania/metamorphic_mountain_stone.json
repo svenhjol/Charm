@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "botania"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "botania:metamorphic_mountain_cobblestone"
+  },
+  "result": "botania:metamorphic_mountain_stone",
+  "experience": 0.1,
+  "cookingtime": 100
+}

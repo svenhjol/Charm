@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "malum"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "malum:twisted_rock"
+  },
+  "result": "malum:smooth_twisted_rock",
+  "experience": 0.1,
+  "cookingtime": 100
+}

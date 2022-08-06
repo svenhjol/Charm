@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "the_aether"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "the_aether:carved_stone"
+  },
+  "result": "the_aether:cracked_carved_stone",
+  "experience": 0.1,
+  "cookingtime": 100
+}

@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "consistency_plus"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "consistency_plus:carved_andesite"
+  },
+  "result": "consistency_plus:cracked_carved_andesite",
+  "experience": 0.1,
+  "cookingtime": 100
+}
