@@ -3,6 +3,7 @@
 ## 4.2.0
 
 * Added ebony wood.
+* Added No Chat Verified Nag which disables the popup message when connecting to a server with `enforce-secure-profile` turned off.
 * Fixed issue with Totems not always spawning or being carried away by mobs.
 
 ## 4.1.3
