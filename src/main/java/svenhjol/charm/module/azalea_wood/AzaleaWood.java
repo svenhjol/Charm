@@ -15,6 +15,8 @@ import svenhjol.charm.enums.CharmWoodMaterial;
 import svenhjol.charm.item.CharmBoatItem;
 import svenhjol.charm.item.CharmSignItem;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.bookcases.BookcaseBlock;
+import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.extra_boats.ExtraBoats;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
 import svenhjol.charm.module.variant_barrels.VariantBarrels;
@@ -32,7 +34,6 @@ public class AzaleaWood extends CharmModule {
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "azalea");
 
     public static WoodType SIGN_TYPE;
-
     public static CharmWoodenButtonBlock BUTTON;
     public static CharmDoorBlock DOOR;
     public static CharmFenceBlock FENCE;
@@ -48,15 +49,14 @@ public class AzaleaWood extends CharmModule {
     public static CharmTrapdoorBlock TRAPDOOR;
     public static CharmWallSignBlock WALL_SIGN_BLOCK;
     public static CharmLogBlock WOOD;
-
     public static VariantBarrelBlock BARREL;
     public static VariantBookshelfBlock BOOKSHELF;
     public static VariantChestBlock CHEST;
     public static VariantLadderBlock LADDER;
     public static VariantTrappedChestBlock TRAPPED_CHEST;
-
     public static CharmBoatItem BOAT;
     public static CharmSignItem SIGN_ITEM;
+    public static BookcaseBlock BOOKCASE;
 
     public static final String AZALEA = CharmWoodMaterial.AZALEA.getSerializedName();
 
@@ -89,6 +89,8 @@ public class AzaleaWood extends CharmModule {
         CHEST = VariantChests.registerChest(this, CharmWoodMaterial.AZALEA);
         LADDER = VariantLadders.registerLadder(this, CharmWoodMaterial.AZALEA);
         TRAPPED_CHEST = VariantChests.registerTrappedChest(this, CharmWoodMaterial.AZALEA);
+
+        BOOKCASE = Bookcases.registerBookcase(this, CharmWoodMaterial.AZALEA);
 
         ExtraBoats.registerBoat(AZALEA, BOAT);
     }

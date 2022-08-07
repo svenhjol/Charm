@@ -23,7 +23,6 @@ runServer {
 }
 
 dependencies {
-	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.layered {
 		officialMojangMappings()
@@ -39,12 +38,9 @@ dependencies {
 	// This is required for javax.annotation.Nullable to work properly.
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
-	// REI and ClothConfig. Disable the modRuntime line if REI is broken.
+	// REI. Disable the modRuntime line if REI is broken.
 	modApi "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
 	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}" // <- disable this on server-side, it's breaking
-	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
-		exclude(group: "net.fabricmc.fabric-api")
-	}
 
 	// ModMenu
 	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
@@ -56,6 +52,10 @@ dependencies {
 	include "com.moandjiezana.toml:toml4j:${project.toml4j_version}"
 	include "com.electronwill.night-config:core:${project.tomlnc_version}"
 	include "com.electronwill.night-config:toml:${project.tomlnc_version}"
+
+	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 }
 
 processResources {

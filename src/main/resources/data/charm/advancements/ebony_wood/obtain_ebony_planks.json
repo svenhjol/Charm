@@ -1,0 +1,33 @@
+{
+  "parent": "charm:core/decoration",
+  "display": {
+    "icon": {
+      "item": "charm:ebony_planks"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_ebony_planks.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_ebony_planks.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_ebony_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:ebony_planks"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["has_ebony_planks"]
+  ]
+}

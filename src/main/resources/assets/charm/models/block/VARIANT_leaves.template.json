@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:block/leaves",
+    "textures": {
+      "all": "NAMESPACE:block/VARIANT_leaves"
+    }
+  },
+  "variants": "charm_wood_no_azalea"
+}

@@ -1,0 +1,67 @@
+{
+  "template": {
+    "variants": {
+      "capacity=0,facing=east": {
+        "model": "charm:block/VARIANT_bookcase_empty",
+        "y": 90
+      },
+      "capacity=0,facing=north": {
+        "model": "charm:block/VARIANT_bookcase_empty"
+      },
+      "capacity=0,facing=south": {
+        "model": "charm:block/VARIANT_bookcase_empty",
+        "y": 180
+      },
+      "capacity=0,facing=west": {
+        "model": "charm:block/VARIANT_bookcase_empty",
+        "y": 270
+      },
+      "capacity=1,facing=east": {
+        "model": "charm:block/VARIANT_bookcase_sparse",
+        "y": 90
+      },
+      "capacity=1,facing=north": {
+        "model": "charm:block/VARIANT_bookcase_sparse"
+      },
+      "capacity=1,facing=south": {
+        "model": "charm:block/VARIANT_bookcase_sparse",
+        "y": 180
+      },
+      "capacity=1,facing=west": {
+        "model": "charm:block/VARIANT_bookcase_sparse",
+        "y": 270
+      },
+      "capacity=2,facing=east": {
+        "model": "charm:block/VARIANT_bookcase_plenty",
+        "y": 90
+      },
+      "capacity=2,facing=north": {
+        "model": "charm:block/VARIANT_bookcase_plenty"
+      },
+      "capacity=2,facing=south": {
+        "model": "charm:block/VARIANT_bookcase_plenty",
+        "y": 180
+      },
+      "capacity=2,facing=west": {
+        "model": "charm:block/VARIANT_bookcase_plenty",
+        "y": 270
+      },
+      "capacity=3,facing=east": {
+        "model": "charm:block/VARIANT_bookcase_filled",
+        "y": 90
+      },
+      "capacity=3,facing=north": {
+        "model": "charm:block/VARIANT_bookcase_filled"
+      },
+      "capacity=3,facing=south": {
+        "model": "charm:block/VARIANT_bookcase_filled",
+        "y": 180
+      },
+      "capacity=3,facing=west": {
+        "model": "charm:block/VARIANT_bookcase_filled",
+        "y": 270
+      }
+    }
+  },
+  "variants": "wood"
+}

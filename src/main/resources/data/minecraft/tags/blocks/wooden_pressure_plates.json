@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "charm:azalea_pressure_plate"
+    "charm:azalea_pressure_plate",
+    "charm:ebony_pressure_plate"
   ]
 }

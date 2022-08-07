@@ -20,13 +20,13 @@ public class VariantBarrels extends CharmModule {
 
     @Override
     public void register() {
-        for (VanillaWoodMaterial type : VanillaWoodMaterial.values()) {
-            registerBarrel(this, type);
+        for (VanillaWoodMaterial material : VanillaWoodMaterial.values()) {
+            registerBarrel(this, material);
         }
     }
 
     public static VariantBarrelBlock registerBarrel(CharmModule module, IWoodMaterial material) {
-        VariantBarrelBlock barrel = new VariantBarrelBlock(module, material);
+        var barrel = new VariantBarrelBlock(module, material);
         BARREL_BLOCKS.put(material, barrel);
         CommonRegistry.addBlocksToBlockEntity(BlockEntityType.BARREL, barrel);
         WorldHelper.addBlockStatesToPointOfInterest(PoiType.FISHERMAN, barrel.getStateDefinition().getPossibleStates());

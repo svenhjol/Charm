@@ -5,9 +5,10 @@ Charm is a vanilla-plus mod for Minecraft, inspired by the Quark mod.
 
 It requires Fabric API, Minecraft 1.18.2 and Java 17.
 
-There is currently no Discord for Charm. It closed in 2020 due to maintainability. For all support, use Github Issues.
-
 There is a Forge version of Charm located [here](https://github.com/svenhjol/CharmForge).
+
+If you would like to participate in testing pre-release versions of Charm, please get in touch on [Discord](https://discord.gg/sYWnVtd8) (working invite link as of June 2022!)
+
 
 ### Why has my issue been closed?
 Sadly, we don't have the time to support versions earlier than **1.18.2**.  There's barely any time for supporting the latest version!

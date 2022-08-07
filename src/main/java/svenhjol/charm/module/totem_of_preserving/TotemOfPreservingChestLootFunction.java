@@ -17,8 +17,8 @@ public class TotemOfPreservingChestLootFunction extends LootItemConditionalFunct
     @Override
     protected ItemStack run(ItemStack stack, LootContext context) {
         if (!Charm.LOADER.isEnabled(TotemOfPreserving.class)) return stack;
-        if (TotemOfPreserving.isGraveMode(context.getLevel().getDifficulty())) return stack;
-        return new ItemStack(TotemOfPreserving.TOTEM_OF_PRESERVING);
+        if (TotemOfPreserving.graveMode) return stack;
+        return new ItemStack(TotemOfPreserving.ITEM);
     }
 
     @Override

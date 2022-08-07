@@ -1,13 +1,14 @@
 package svenhjol.charm.module.improved_mansion_loot;
 
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
@@ -44,13 +45,13 @@ public class ImprovedMansionLoot extends CharmModule {
         ));
 
         LOOT_FUNCTION = CommonRegistry.lootFunctionType(LOOT_ID, new LootItemFunctionType(new ImprovedMansionLootFunction.Serializer()));
-        LootTableLoadingCallback.EVENT.register(this::handleLootTables);
+        LootTableEvents.MODIFY.register(this::handleLootTables);
     }
 
-    private void handleLootTables(ResourceManager manager, LootTables tables, ResourceLocation id, FabricLootSupplierBuilder supplier, LootTableLoadingCallback.LootTableSetter setter) {
+    private void handleLootTables(ResourceManager resourceManager, LootTables lootTables, ResourceLocation id, LootTable.Builder supplier, LootTableSource source) {
         if (id.equals(BuiltInLootTables.WOODLAND_MANSION)) {
-            var builder = FabricLootPoolBuilder.builder()
-                .rolls(UniformGenerator.between((float)minRolls, (float)maxRolls));
+            var builder = LootPool.lootPool()
+                .setRolls(UniformGenerator.between((float)minRolls, (float)maxRolls));
 
             addItem(builder, Items.IRON_AXE, 10);
             addItem(builder, Items.IRON_CHESTPLATE, 10);
@@ -62,7 +63,7 @@ public class ImprovedMansionLoot extends CharmModule {
         }
     }
 
-    private void addItem(FabricLootPoolBuilder builder, Item item, int weight) {
-        builder.with(LootItem.lootTableItem(item).setWeight(weight).apply(() -> new ImprovedMansionLootFunction(new LootItemCondition[0])));
+    private void addItem(LootPool.Builder builder, Item item, int weight) {
+        builder.add(LootItem.lootTableItem(item).setWeight(weight).apply(() -> new ImprovedMansionLootFunction(new LootItemCondition[0])));
     }
 }

@@ -1,62 +1,76 @@
 package svenhjol.charm.module.wandering_trader_maps;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.helper.MapHelper;
-import svenhjol.charm.helper.StringHelper;
-import svenhjol.charm.helper.VillagerHelper;
-import svenhjol.charm.helper.WorldHelper;
+import svenhjol.charm.helper.*;
 import svenhjol.charm.loader.CharmModule;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Wandering traders have a chance to sell maps to distant structures.")
 public class WanderingTraderMaps extends CharmModule {
-    @Config(name = "Structures", description = "List of structure IDs and structure tags.")
-    public static List<String> structures = Arrays.asList(
-        "#minecraft:village", "#minecraft:mineshaft", "minecraft:swamp_hut", "minecraft:igloo"
+    private static final List<ResourceLocation> STRUCTURES = new ArrayList<>();
+
+    private static final List<ResourceLocation> RARE_STRUCTURES = new ArrayList<>();
+
+    @Config(name = "Maps to structures", description = "List of structure tags.")
+    public static List<String> configStructures = Arrays.asList(
+        "minecraft:village", "minecraft:mineshaft", "charm:swamp_hut", "charm:igloo"
     );
 
-    @Config(name = "Rare structures", description = "List of rarer structure IDs and structure tags.\n" +
+    @Config(name = "Maps to rare structures", description = "List of rarer structure tags.\n" +
         "These are more expensive and less likely to be sold.")
-    public static List<String> rareStructures = Arrays.asList(
-        "minecraft:desert_pyramid", "minecraft:jungle_temple", "#minecraft:ocean_ruin"
+    public static List<String> configRareStructures = Arrays.asList(
+        "charm:desert_pyramid", "charm:jungle_temple", "minecraft:ocean_ruin"
     );
 
     @Override
     public void runWhenEnabled() {
-        for (int i = 0; i < 3; i++) {
-            VillagerHelper.addWanderingTrade(new MapForEmeralds(), false);
+        for (String configStructure : configStructures) {
+            registerStructure(new ResourceLocation(configStructure));
         }
-        for (int i = 0; i < 3; i++) {
-            VillagerHelper.addWanderingTrade(new RareMapForEmeralds(), true);
+
+        for (String configRareStructure : configRareStructures) {
+            registerRareStructure(new ResourceLocation(configRareStructure));
+        }
+
+        if (!STRUCTURES.isEmpty()) {
+            for (int i = 0; i < 3; i++) {
+                VillagerHelper.addWanderingTrade(new MapForEmeralds(), false);
+            }
+        }
+
+        if (!RARE_STRUCTURES.isEmpty()) {
+            for (int i = 0; i < 3; i++) {
+                VillagerHelper.addWanderingTrade(new RareMapForEmeralds(), true);
+            }
         }
     }
 
-    public static ItemStack makeTraderMap(String id, ServerLevel level, BlockPos pos, int distance, int color) {
-        var nearest = WorldHelper.findNearestMapFeature(id, level, pos, distance, true);
-        if (nearest == null) return new ItemStack(Items.MAP);
+    public static void registerStructure(ResourceLocation id) {
+        STRUCTURES.add(id);
+    }
 
-        var name = StringHelper.snakeToPretty(id.substring(id.indexOf(":") + 1), true);
-        var mapName = new TranslatableComponent("filled_map.charm.trader_map", new TextComponent(name));
-        return MapHelper.create(level, nearest, mapName, MapDecoration.Type.TARGET_X, color);
+    public static void registerRareStructure(ResourceLocation id) {
+        RARE_STRUCTURES.add(id);
     }
 
     static class MapForEmeralds implements VillagerTrades.ItemListing {
         @Override
+        @Nullable
         public MerchantOffer getOffer(Entity trader, Random random) {
             if (!trader.level.isClientSide) {
                 var map = new Map();
@@ -75,6 +89,7 @@ public class WanderingTraderMaps extends CharmModule {
 
     static class RareMapForEmeralds implements VillagerTrades.ItemListing {
         @Override
+        @Nullable
         public MerchantOffer getOffer(Entity trader, Random random) {
             if (!trader.level.isClientSide) {
                 var map = new RareMap();
@@ -93,11 +108,13 @@ public class WanderingTraderMaps extends CharmModule {
 
     static class Map implements TraderMap {
         @Override
+        @Nullable
         public ItemStack getMap(ServerLevel level, BlockPos pos, Random random) {
             var color = 0x004466;
-            var id = structures.get(random.nextInt(structures.size()));
+            if (STRUCTURES.isEmpty()) return null;
+            var id = STRUCTURES.get(random.nextInt(STRUCTURES.size()));
 
-            return makeTraderMap(id, level, pos, 200, color);
+            return MapHelper.makeExplorerMap(id, level, pos, 200, color);
         }
 
         @Override
@@ -108,11 +125,13 @@ public class WanderingTraderMaps extends CharmModule {
 
     static class RareMap implements TraderMap {
         @Override
+        @Nullable
         public ItemStack getMap(ServerLevel level, BlockPos pos, Random random) {
             var color = 0x99AA00;
-            var id = rareStructures.get(random.nextInt(rareStructures.size()));
+            if (RARE_STRUCTURES.isEmpty()) return null;
+            var id = RARE_STRUCTURES.get(random.nextInt(RARE_STRUCTURES.size()));
 
-            return makeTraderMap(id, level, pos, 500, color);
+            return MapHelper.makeExplorerMap(id, level, pos, 500, color);
         }
 
         @Override
@@ -122,6 +141,7 @@ public class WanderingTraderMaps extends CharmModule {
     }
 
     interface TraderMap {
+        @Nullable
         ItemStack getMap(ServerLevel level, BlockPos pos, Random random);
 
         int getCost(Random random);

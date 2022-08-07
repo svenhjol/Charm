@@ -12,7 +12,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import svenhjol.charm.helper.TextHelper;
 import svenhjol.charm.module.woodcutters.Woodcutters;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class WoodcuttingCategory implements DisplayCategory<WoodcuttingDisplay> 
 
     @Override
     public Component getTitle() {
-        return new TranslatableComponent("rei.charm.category.woodcutting");
+        return TextHelper.translatable("rei.charm.category.woodcutting");
     }
 
     @Override

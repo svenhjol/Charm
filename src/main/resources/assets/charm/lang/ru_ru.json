@@ -288,7 +288,7 @@
   "entity.charm.moobloom": "Цветочная корова",
   "entity.minecraft.villager.charm_beekeeper": "Пчеловод",
   "entity.minecraft.villager.charm_lumberjack": "Лесоруб",
-  "filled_map.charm.trader_map": "Карта %s",
+  "filled_map.charm.explorer_map": "Карта %s",
   "gui.charm.cask_capacity": "Бутылей: %s",
   "gui.charm.cooking_pot_capacity": "Мисок: %s",
   "gui.charm.quadrants.locked": "Закрепленное положение: %s",

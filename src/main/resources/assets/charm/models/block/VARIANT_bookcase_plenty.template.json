@@ -1,0 +1,11 @@
+{
+  "template": {
+    "parent": "block/orientable",
+    "textures": {
+      "top": "NAMESPACE:block/VARIANT_planks",
+      "side": "NAMESPACE:block/VARIANT_planks",
+      "front": "charm:block/VARIANT_bookcase_plenty"
+    }
+  },
+  "variants": "wood"
+}

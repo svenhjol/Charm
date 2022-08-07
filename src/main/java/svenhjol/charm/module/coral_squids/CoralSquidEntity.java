@@ -40,7 +40,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.Charm;
-import svenhjol.charm.helper.NbtHelper;
+import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.PlayerHelper;
 
@@ -303,7 +303,7 @@ public class CoralSquidEntity extends WaterAnimal {
 
             ItemStack coralSquidBucket = new ItemStack(CoralSquids.CORAL_SQUID_BUCKET);
             CompoundTag nbt = new CompoundTag();
-            NbtHelper.setCompound(coralSquidBucket, CoralSquidBucketItem.STORED_CORAL_SQUID, this.saveWithoutId(nbt));
+            ItemNbtHelper.setCompound(coralSquidBucket, CoralSquidBucketItem.STORED_CORAL_SQUID, this.saveWithoutId(nbt));
 
             if (this.hasCustomName())
                 coralSquidBucket.setHoverName(this.getCustomName());

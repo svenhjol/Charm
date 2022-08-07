@@ -59,6 +59,32 @@
     ],
     "subtitle": "subtitles.charm.item.bat_bucket.release"
   },
+  "bookcase_open": {
+    "sounds": [
+      {
+        "name": "charm:bookcase_open1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:bookcase_open2",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.bookcase.open"
+  },
+  "bookcase_close": {
+    "sounds": [
+      {
+        "name": "charm:bookcase_close1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:bookcase_close2",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.bookcase.close"
+  },
   "portal_change_color": {
     "sounds": [
       {

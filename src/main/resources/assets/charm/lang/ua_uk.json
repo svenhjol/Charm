@@ -288,7 +288,7 @@
   "entity.charm.moobloom": "Мууцвіт",
   "entity.minecraft.villager.charm_beekeeper": "Пасічник",
   "entity.minecraft.villager.charm_lumberjack": "Лісоруб",
-  "filled_map.charm.trader_map": "Мапа %s",
+  "filled_map.charm.explorer_map": "Мапа %s",
   "gui.charm.cask_capacity": "Бутилочок: %s",
   "gui.charm.cooking_pot_capacity": "Мисок: %s",
   "gui.charm.quadrants.locked": "Закріплене обертання: %s",

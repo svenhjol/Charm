@@ -15,6 +15,11 @@ public class AmethystNoteBlock extends CharmModule {
     @Override
     public void register() {
         AMETHYST = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "amethyst"));
-        NoteBlockInstrument.valueOf("CHARM_AMETHYST").soundEvent = AMETHYST;
+        try {
+            var noteBlock = NoteBlockInstrument.valueOf("CHARM_AMETHYST");
+            noteBlock.soundEvent = AMETHYST;
+        } catch (IllegalArgumentException e) {
+            // Enum value not available when mixin disabled, just skip the noteblock assignment.
+        }
     }
 }

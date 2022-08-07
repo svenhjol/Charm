@@ -1,0 +1,22 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "###",
+      "#X#",
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "NAMESPACE:VARIANT_slab"
+      },
+      "X": {
+        "item": "charm:VARIANT_bookshelf"
+      }
+    },
+    "result": {
+      "item": "charm:VARIANT_bookcase"
+    }
+  },
+  "variants": "wood"
+}
