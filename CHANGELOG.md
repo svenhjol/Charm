@@ -3,6 +3,7 @@
 ## 4.2.1
 
 * Fix variant chest boats losing contents on relog. #800
+* Fix vanilla chest boat items not showing correct chest colors.
 
 ## 4.2.0
 

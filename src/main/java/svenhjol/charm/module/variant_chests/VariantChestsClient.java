@@ -12,9 +12,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.annotation.ClientModule;
-import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.api.event.RenderBlockItemCallback;
 import svenhjol.charm.api.event.StitchTextureCallback;
+import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.Set;
@@ -31,7 +31,10 @@ public class VariantChestsClient extends CharmModule {
 
         StitchTextureCallback.EVENT.register(this::handleTextureStitch);
         RenderBlockItemCallback.EVENT.register(this::handleBlockItemRender);
+    }
 
+    @Override
+    public void runWhenEnabled() {
         ColorProviderRegistry.ITEM.register(this::handleRegisterBoatLayerColors, VariantChests.CHEST_BOATS.values().toArray(new ItemLike[0]));
     }
 

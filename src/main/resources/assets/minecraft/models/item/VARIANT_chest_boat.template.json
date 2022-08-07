@@ -6,5 +6,5 @@
       "layer1": "charm:item/chest_boat_overlay"
     }
   },
-  "variants": "charm_chest_boats"
+  "variants": "vanilla_chest_boats"
 }
