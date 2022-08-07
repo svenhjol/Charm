@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.1
+
+* Fix variant chest boats losing contents on relog. #800
+
 ## 4.2.0
 
 * Added ebony wood.
