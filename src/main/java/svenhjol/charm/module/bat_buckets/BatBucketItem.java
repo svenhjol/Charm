@@ -42,10 +42,14 @@ public class BatBucketItem extends CharmItem {
             BlockPos spawnPos = new BlockPos(x, y, z);
 
             // spawn the bat
-            MobHelper.spawn(EntityType.BAT, (ServerLevel)level, spawnPos, MobSpawnType.BUCKET, mob -> {
+            MobHelper.spawn(EntityType.BAT, (ServerLevel) level, spawnPos, MobSpawnType.BUCKET, mob -> {
                 CompoundTag data = ItemNbtHelper.getCompound(held, STORED_BAT_NBT);
                 if (!data.isEmpty()) {
                     mob.readAdditionalSaveData(data);
+                }
+
+                if (held.hasCustomHoverName()) {
+                    mob.setCustomName(held.getHoverName());
                 }
 
                 BatBuckets.playReleaseSound((ServerLevel) level, player.blockPosition());
