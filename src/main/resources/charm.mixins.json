@@ -16,6 +16,7 @@
     "auto_restock.AddStatWhenAnimalConsumedMixin",
     "auto_restock.AddStatWhenCompostedMixin",
     "auto_restock.AddStatWhenParrotConsumedMixin",
+    "beekeepers.AddTicketsToBeehiveMixin",
     "block_of_ender_pearls.PreventRandomTeleportMixin",
     "chickens_drop_feathers.DropFeatherMixin",
     "collection_enchantment.AddDroppedItemToInventoryMixin",
