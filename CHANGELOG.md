@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.2
+
+* Fix custom profession registration. #802 #825 #832
+
 ## 4.2.0
 
 * Added ebony wood.
