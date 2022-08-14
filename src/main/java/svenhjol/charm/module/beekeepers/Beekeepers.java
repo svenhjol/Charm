@@ -1,6 +1,5 @@
 package svenhjol.charm.module.beekeepers;
 
-import net.minecraft.core.DefaultedRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -17,12 +16,6 @@ public class Beekeepers extends CharmModule {
     @Override
     public void runWhenEnabled() {
         BEEKEEPER = VillagerHelper.addProfession(ID, PoiTypes.BEEHIVE, SoundEvents.BEEHIVE_WORK);
-
-        // HACK: set ticketCount so that villager can use it as job site
-        var poiType = DefaultedRegistry.POINT_OF_INTEREST_TYPE.get(PoiTypes.BEEHIVE);
-        if (poiType != null) {
-            poiType.maxTickets = 1;
-        }
 
         // register beekeeper trades
         VillagerHelper.addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.EmeraldsForFlowers());
