@@ -157,7 +157,13 @@ public class CommonRegistry {
     }
 
     public static VillagerProfession villagerProfession(String id, ResourceKey<PoiType> poiType, ImmutableSet<Item> set1, ImmutableSet<Block> set2, @Nullable SoundEvent sound) {
-        return Registry.register(Registry.VILLAGER_PROFESSION, id, new VillagerProfession(id, holder -> holder.is(poiType), PoiType.NONE, set1, set2, sound));
+        return Registry.register(Registry.VILLAGER_PROFESSION, id, new VillagerProfession(
+            id,
+            holder -> holder.is(poiType),
+            holder -> holder.is(poiType),
+            set1,
+            set2,
+            sound));
     }
 
     public static void addBlocksToBlockEntity(BlockEntityType<?> type, Block... blocks) {
