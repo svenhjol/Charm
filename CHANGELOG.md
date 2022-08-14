@@ -3,6 +3,7 @@
 ## 4.2.2
 
 * Fix custom profession registration. #802 #825 #832
+* Fix lumberjack registration causing tag failures
 * Beehives now get their maxtickets increased for Beekeepers via mixin.
 
 ## 4.2.1
