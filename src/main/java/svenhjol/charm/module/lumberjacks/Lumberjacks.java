@@ -26,12 +26,13 @@ public class Lumberjacks extends CharmModule {
     @Override
     public void register() {
         VILLAGER_WORK_LUMBERJACK = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "lumberjack"));
+        POIT = CommonRegistry.pointOfInterestType(Woodcutters.BLOCK_ID, Woodcutters.WOODCUTTER, 1);
+
         addDependencyCheck(m -> Charm.LOADER.isEnabled(Woodcutters.class));
     }
 
     @Override
     public void runWhenEnabled() {
-        POIT = CommonRegistry.pointOfInterestType(Woodcutters.BLOCK_ID, Woodcutters.WOODCUTTER, 1);
         LUMBERJACK = VillagerHelper.addProfession(VILLAGER_ID, POIT, VILLAGER_WORK_LUMBERJACK);
 
         // register lumberjack trades

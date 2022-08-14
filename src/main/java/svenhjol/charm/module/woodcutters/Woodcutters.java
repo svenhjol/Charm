@@ -11,7 +11,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
-@CommonModule(mod = Charm.MOD_ID, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
+@CommonModule(mod = Charm.MOD_ID, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.", priority = 1)
 public class Woodcutters extends CharmModule {
     public static ResourceLocation RECIPE_ID = new ResourceLocation(Charm.MOD_ID, "woodcutting");
     public static ResourceLocation BLOCK_ID = new ResourceLocation(Charm.MOD_ID, "woodcutter");
