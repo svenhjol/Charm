@@ -1,6 +1,8 @@
 package svenhjol.charm.module.beekeepers;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.ai.behavior.GiveGiftToHero;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import svenhjol.charm.Charm;
@@ -12,10 +14,17 @@ import svenhjol.charm.loader.CharmModule;
 public class Beekeepers extends CharmModule {
     public static String ID = "charm_beekeeper";
     public static VillagerProfession BEEKEEPER;
+    public static ResourceLocation GIFT;
+
+    @Override
+    public void register() {
+        GIFT = new ResourceLocation(Charm.MOD_ID, "gameplay/hero_of_the_village/beekeeper_gift");
+    }
 
     @Override
     public void runWhenEnabled() {
         BEEKEEPER = VillagerHelper.addProfession(ID, PoiTypes.BEEHIVE, SoundEvents.BEEHIVE_WORK);
+        GiveGiftToHero.GIFTS.put(BEEKEEPER, GIFT);
 
         // register beekeeper trades
         VillagerHelper.addTrade(BEEKEEPER, 1, new BeekeeperTradeOffers.EmeraldsForFlowers());
