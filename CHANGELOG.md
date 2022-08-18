@@ -3,6 +3,7 @@
 ## 4.2.2
 
 * Fix custom profession registration. #802 #825 #832
+* Fix right click shulker item issue. #817
 
 ## 4.2.0
 
