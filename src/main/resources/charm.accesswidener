@@ -104,6 +104,7 @@ accessible field net/minecraft/server/MinecraftServer$ReloadableResources manage
 accessible field net/minecraft/world/level/biome/BiomeGenerationSettings features Ljava/util/List;
 accessible field net/minecraft/world/level/biome/MobSpawnSettings spawners Ljava/util/Map;
 accessible field net/minecraft/world/level/biome/MobSpawnSettings mobSpawnCosts Ljava/util/Map;
+accessible field net/minecraft/world/entity/ai/behavior/GiveGiftToHero GIFTS Ljava/util/Map;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
@@ -126,3 +127,4 @@ mutable    field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstrument soundEvent Lnet/minecraft/sounds/SoundEvent;
 mutable    field net/minecraft/world/level/biome/MobSpawnSettings spawners Ljava/util/Map;
 mutable    field net/minecraft/world/level/biome/MobSpawnSettings mobSpawnCosts Ljava/util/Map;
+mutable    field net/minecraft/world/entity/ai/behavior/GiveGiftToHero GIFTS Ljava/util/Map;

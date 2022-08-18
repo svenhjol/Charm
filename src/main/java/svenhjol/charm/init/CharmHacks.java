@@ -2,6 +2,7 @@ package svenhjol.charm.init;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.stats.RecipeBookSettings;
+import net.minecraft.world.entity.ai.behavior.GiveGiftToHero;
 import net.minecraft.world.item.AxeItem;
 
 import java.util.HashMap;
@@ -14,6 +15,10 @@ public class CharmHacks {
 
         if (AxeItem.STRIPPABLES instanceof ImmutableMap) {
             AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
+        }
+
+        if (GiveGiftToHero.GIFTS instanceof ImmutableMap) {
+            GiveGiftToHero.GIFTS = new HashMap<>(GiveGiftToHero.GIFTS);
         }
     }
 }
