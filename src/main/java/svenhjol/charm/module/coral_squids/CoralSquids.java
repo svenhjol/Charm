@@ -1,7 +1,6 @@
 package svenhjol.charm.module.coral_squids;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityDimensions;
@@ -44,7 +43,7 @@ public class CoralSquids extends CharmModule {
             .create(MobCategory.WATER_AMBIENT, CoralSquidEntity::new)
             .dimensions(EntityDimensions.fixed(0.54F, 0.54F)));
 
-        SpawnRestrictionAccessor.callRegister(CORAL_SQUID, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CoralSquidEntity::canSpawn);
+        SpawnPlacements.register(CORAL_SQUID, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CoralSquidEntity::canSpawn);
 
         // create a spawn egg for the squid
         SPAWN_EGG = new CharmSpawnEggItem(this, "coral_squid_spawn_egg", CORAL_SQUID, 0x0000FF, 0xFF00FF);

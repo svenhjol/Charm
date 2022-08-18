@@ -1,7 +1,6 @@
 package svenhjol.charm.module.mooblooms;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -42,7 +41,7 @@ public class Mooblooms extends CharmModule {
             .dimensions(EntityDimensions.fixed(0.9F, 1.4F))
             .trackRangeChunks(10));
 
-        SpawnRestrictionAccessor.callRegister(MOOBLOOM, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MoobloomEntity::canSpawn);
+        SpawnPlacements.register(MOOBLOOM, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MoobloomEntity::canSpawn);
 
         // create a spawn egg for the moobloom
         SPAWN_EGG = new CharmSpawnEggItem(this, "moobloom_spawn_egg", MOOBLOOM, 0xFFFF00, 0xFFFFFF);
