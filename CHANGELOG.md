@@ -4,6 +4,7 @@
 
 * Fix custom profession registration. #802 #825 #832
 * Fix right click shulker item issue. #817
+* Fix missing hero of the village loot for charm's villagers.
 
 ## 4.2.0
 
