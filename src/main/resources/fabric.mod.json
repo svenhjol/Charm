@@ -27,6 +27,15 @@
     ],
     "client": [
       "svenhjol.charm.CharmClient"
+    ],
+    "rei_server": [
+      "svenhjol.charm.integration.rei.CharmReiServerPlugin"
+    ],
+    "rei_client": [
+      "svenhjol.charm.integration.rei.CharmReiClientPlugin"
+    ],
+    "modmenu": [
+      "svenhjol.charm.integration.modmenu.CharmModMenuPlugin"
     ]
   },
   "mixins": [
@@ -36,7 +45,7 @@
 
   "depends": {
     "fabricloader": ">=0.12.12",
-    "fabric": "*",
+    "fabric": ">=0.60.0",
     "minecraft": ">=1.18",
     "fabric-key-binding-api-v1": "*",
     "java": ">=17"

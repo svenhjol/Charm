@@ -39,11 +39,11 @@ dependencies {
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
 	// REI. Disable the modRuntime line if REI is broken.
-//	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
 //	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}" // <- disable this on server-side, it's breaking
 
 	// ModMenu
-//	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	implementation "com.moandjiezana.toml:toml4j:${project.toml4j_version}"
 	implementation "com.electronwill.night-config:core:${project.tomlnc_version}"
