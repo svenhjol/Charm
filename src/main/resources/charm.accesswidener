@@ -57,6 +57,7 @@ accessible method net/minecraft/world/item/BlockItem updateBlockStateFromTag (Ln
 accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes createKey (Ljava/lang/String;)Lnet/minecraft/resources/ResourceKey;
 accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes register (Lnet/minecraft/core/Registry;Lnet/minecraft/resources/ResourceKey;Ljava/util/Set;II)Lnet/minecraft/world/entity/ai/village/poi/PoiType;
 accessible method net/minecraft/world/entity/npc/VillagerProfession register (Ljava/lang/String;Lnet/minecraft/resources/ResourceKey;Lcom/google/common/collect/ImmutableSet;Lcom/google/common/collect/ImmutableSet;Lnet/minecraft/sounds/SoundEvent;)Lnet/minecraft/world/entity/npc/VillagerProfession;
+accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
 
 # Inaccessible fields
 accessible field net/minecraft/client/Options mouseWheelSensitivity Lnet/minecraft/client/OptionInstance;
