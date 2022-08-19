@@ -10,7 +10,8 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.loader.CharmModule;
 
-@CommonModule(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
+@CommonModule(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.\n" +
+    "Disabling will leave villagers of the profession in an unemployed state with decrepit data.")
 public class Beekeepers extends CharmModule {
     public static String ID = "charm_beekeeper";
     public static VillagerProfession BEEKEEPER;
