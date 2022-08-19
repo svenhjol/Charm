@@ -56,7 +56,11 @@ public class ShulkerBoxDragDrop extends CharmModule {
 
     private boolean handleInventoryInteraction(Direction direction, ItemStack source, ItemStack dest, Slot slot, ClickAction clickAction, Player player, SlotAccess slotAccess) {
         if (clickAction != ClickAction.SECONDARY || !slot.allowModification(player)) return false;
-        if (source.isEmpty()) return false;
+//        if (source.isEmpty()) return false;
+
+        if (direction == Direction.STACKED_ON_OTHER && source.isEmpty()) {
+            return false;
+        }
 
         if (Block.byItem(dest.getItem()) instanceof ShulkerBoxBlock shulkerBoxBlock) {
             // check if the item is not in the blacklist
