@@ -16,7 +16,8 @@ import svenhjol.charm.registry.CommonRegistry;
 
 import static svenhjol.charm.helper.VillagerHelper.addTrade;
 
-@CommonModule(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.")
+@CommonModule(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.\n" +
+    "Disabling will leave villagers of the profession in an unemployed state with decrepit data.")
 public class Lumberjacks extends CharmModule {
     public static String VILLAGER_ID = "charm_lumberjack";
     public static VillagerProfession LUMBERJACK;
