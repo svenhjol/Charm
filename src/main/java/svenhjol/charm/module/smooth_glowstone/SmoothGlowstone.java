@@ -1,5 +1,6 @@
 package svenhjol.charm.module.smooth_glowstone;
 
+import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.loader.CharmModule;
