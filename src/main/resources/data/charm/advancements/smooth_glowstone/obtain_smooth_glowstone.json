@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/decoration",
+  "display": {
+    "icon": {
+      "item": "charm:smooth_glowstone"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_smooth_glowstone.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_smooth_glowstone.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "obtained_smooth_glowstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:smooth_glowstone"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_smooth_glowstone"
+    ]
+  ]
+}
