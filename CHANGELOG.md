@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.1
+
+* Reduced wandering trader map search distance.
+
 ## 4.3.0
 
 * Smooth Glowstone

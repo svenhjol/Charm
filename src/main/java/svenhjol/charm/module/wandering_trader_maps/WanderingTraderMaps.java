@@ -114,7 +114,7 @@ public class WanderingTraderMaps extends CharmModule {
             if (STRUCTURES.isEmpty()) return null;
             var id = STRUCTURES.get(random.nextInt(STRUCTURES.size()));
 
-            return MapHelper.makeExplorerMap(id, level, pos, 200, color);
+            return MapHelper.makeExplorerMap(id, level, pos, 100, color);
         }
 
         @Override
@@ -131,7 +131,7 @@ public class WanderingTraderMaps extends CharmModule {
             if (RARE_STRUCTURES.isEmpty()) return null;
             var id = RARE_STRUCTURES.get(random.nextInt(RARE_STRUCTURES.size()));
 
-            return MapHelper.makeExplorerMap(id, level, pos, 500, color);
+            return MapHelper.makeExplorerMap(id, level, pos, 100, color);
         }
 
         @Override
