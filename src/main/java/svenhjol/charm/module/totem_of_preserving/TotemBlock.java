@@ -18,6 +18,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.block.CharmBlockWithEntity;
+import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.loader.CharmModule;
 
@@ -72,13 +73,17 @@ public class TotemBlock extends CharmBlockWithEntity {
             && (!TotemOfPreserving.ownerOnly || totem.getOwner().equals(player.getUUID()))
         ) {
             // Create a new totem item and give it to player.
+            LogHelper.debug(getClass(), "Player has interacted with totem holder block at pos: " + pos + ", player: " + player);
             var totemItem = new ItemStack(TotemOfPreserving.ITEM);
             TotemOfPreservingItem.setItems(totemItem, totem.getItems());
             TotemOfPreservingItem.setMessage(totemItem, totem.getMessage());
             TotemOfPreservingItem.setXp(totemItem, totem.getXp());
+
+            LogHelper.debug(getClass(), "Adding totem item to player's inventory: " + player);
             PlayerHelper.addOrDropStack(player, totemItem);
 
             // Remove the totem block.
+            LogHelper.debug(getClass(), "Removing totem holder block and block entity: " + pos);
             level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         }
 
