@@ -185,6 +185,13 @@ public class TotemOfPreserving extends CharmModule {
         }
 
         if (!foundEmptyTotem && !graveMode) {
+            LogHelper.debug(getClass(), "No empty totem found (gravemode = false), giving up.");
+            return InteractionResult.PASS;
+        }
+
+        // Don't spawn if there are no items to add.
+        if (inventories.isEmpty()) {
+            LogHelper.debug(getClass(), "No items found to store in totem, giving up.");
             return InteractionResult.PASS;
         }
 
@@ -204,12 +211,14 @@ public class TotemOfPreserving extends CharmModule {
 
         // Adjust for void.
         if (pos.getY() < minHeight) {
+            LogHelper.debug(getClass(), "(Void check) Adjusting, new pos: " + pos);
             pos = new BlockPos(pos.getX(), serverLevel.getSeaLevel(), pos.getZ());
         }
 
         if (state.isAir() || fluid.is(FluidTags.WATER)) {
 
             // Air and water are valid spawn positions.
+            LogHelper.debug(getClass(), "(Standard check) Found an air/water block to spawn in: " + pos);
             spawnPos = pos;
 
         } else if (fluid.is(FluidTags.LAVA)) {
@@ -225,6 +234,7 @@ public class TotemOfPreserving extends CharmModule {
                 if (tryFluid.is(FluidTags.LAVA)) continue;
 
                 if (tryState.isAir() || tryFluid.is(FluidTags.WATER)) {
+                    LogHelper.debug(getClass(), "(Lava check) Found an air/water block to spawn in after checking " + tries + " times: " + pos);
                     spawnPos = tryPos;
                 }
 
@@ -233,6 +243,7 @@ public class TotemOfPreserving extends CharmModule {
 
             // If that failed, replace the lava with the totem.
             if (spawnPos == null) {
+                LogHelper.debug(getClass(), "(Lava check) Going to replace lava with totem at: " + pos);
                 spawnPos = pos;
             }
 
@@ -242,24 +253,24 @@ public class TotemOfPreserving extends CharmModule {
             List<Direction> directions = Arrays.asList(
                 Direction.UP, Direction.EAST, Direction.NORTH, Direction.WEST, Direction.SOUTH
             );
-            for (Direction direction : directions) {
+            for (var direction : directions) {
                 var tryPos = pos.relative(direction);
                 var tryState = serverLevel.getBlockState(tryPos);
                 var tryFluid = serverLevel.getFluidState(tryPos);
 
                 if (tryPos.getY() >= maxHeight) continue;
                 if (tryState.isAir() || tryFluid.is(FluidTags.WATER)) {
+                    LogHelper.debug(getClass(), "(Solid check) Found an air/water block to spawn in, direction: " + direction + ", pos: " + pos);
                     spawnPos = tryPos;
                     break;
                 }
             }
-
         }
 
         if (spawnPos == null) {
 
             // Try and find a valid pos within 8 blocks of the death position.
-            for (int tries = 0; tries < 8; tries++) {
+            for (var tries = 0; tries < 8; tries++) {
                 var x = pos.getX() + random.nextInt(tries + 1) - tries;
                 var z = pos.getZ() + random.nextInt(tries + 1) - tries;
 
@@ -275,6 +286,7 @@ public class TotemOfPreserving extends CharmModule {
                 var tryState = serverLevel.getBlockState(tryPos);
                 var tryFluid = serverLevel.getFluidState(tryPos);
                 if (tryState.isAir() || tryFluid.is(FluidTags.WATER)) {
+                    LogHelper.debug(getClass(), "(Distance check) Found an air/water block to spawn in after checking " + tries + " times: " + pos);
                     spawnPos = tryPos;
                     break;
                 }
@@ -293,6 +305,7 @@ public class TotemOfPreserving extends CharmModule {
 
         serverLevel.setBlockAndUpdate(spawnPos, BLOCK.defaultBlockState());
         if (!(serverLevel.getBlockEntity(spawnPos) instanceof TotemBlockEntity totem)) {
+            LogHelper.debug(getClass(), "Not a valid block entity at pos, giving up. Pos: " + pos);
             return InteractionResult.PASS;
         }
 
@@ -301,13 +314,14 @@ public class TotemOfPreserving extends CharmModule {
             LogHelper.debug(getClass(), "Preserving player XP in totem: " + xp);
             totem.setXp(xp);
         }
+
         totem.setItems(preserve);
         totem.setMessage(message);
         totem.setOwner(uuid);
         totem.setChanged();
 
         triggerUsedTotemOfPreserving(serverPlayer);
-        LogHelper.info(getClass(), "Spawned a totem at pos: " + spawnPos);
+        LogHelper.info(getClass(), "Spawned a totem at: " + spawnPos);
 
         // Clear all player's inventories.
         for (NonNullList<ItemStack> inv : inventories) {

@@ -3,6 +3,7 @@
 ## 4.3.1
 
 * Reduced wandering trader map search distance.
+* More debugging data added to Totems of Preserving.
 
 ## 4.3.0
 
