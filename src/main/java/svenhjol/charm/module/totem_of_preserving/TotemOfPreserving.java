@@ -190,7 +190,7 @@ public class TotemOfPreserving extends CharmModule {
         }
 
         // Don't spawn if there are no items to add.
-        if (inventories.isEmpty()) {
+        if (itemsFromAllInventories.isEmpty()) {
             LogHelper.debug(getClass(), "No items found to store in totem, giving up.");
             return InteractionResult.PASS;
         }
