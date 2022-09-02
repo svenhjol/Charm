@@ -59,6 +59,8 @@ public class TotemOfPreserving extends CharmModule {
     public static TotemBlock BLOCK;
     public static BlockEntityType<TotemBlockEntity> BLOCK_ENTITY;
 
+    public static Map<ResourceLocation, List<BlockPos>> PROTECT_POSITIONS = new HashMap<>();
+
     @Config(name = "Grave mode", description = "If true, a new totem will be spawned to preserve items upon dying.\n" +
         "Players do NOT need to be holding a Totem of Preserving.")
     public static boolean graveMode = true;
@@ -319,6 +321,10 @@ public class TotemOfPreserving extends CharmModule {
         totem.setMessage(message);
         totem.setOwner(uuid);
         totem.setChanged();
+
+        PROTECT_POSITIONS
+            .computeIfAbsent(serverLevel.dimension().location(), a -> new ArrayList<>())
+            .add(spawnPos);
 
         triggerUsedTotemOfPreserving(serverPlayer);
         LogHelper.info(getClass(), "Spawned a totem at: " + spawnPos);

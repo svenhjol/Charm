@@ -1,9 +1,13 @@
 # Changelog
 
+## 4.3.2
+
+* Totems of Preserving now immune to explosions.
+* More debugging data added to Totems of Preserving.
+
 ## 4.3.1
 
 * Reduced wandering trader map search distance.
-* More debugging data added to Totems of Preserving.
 
 ## 4.3.0
 
