@@ -1,5 +1,6 @@
 package svenhjol.charm.mixin.totem_of_preserving;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -15,10 +16,10 @@ import java.util.List;
 
 @Mixin(Explosion.class)
 public class ExplosionMixin {
-    @Shadow @Final private List<BlockPos> toBlow;
-
     @Shadow @Final
     public Level level;
+
+    @Shadow @Final private ObjectArrayList<BlockPos> toBlow;
 
     @Inject(
         method = "finalizeExplosion",
