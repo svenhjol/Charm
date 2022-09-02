@@ -105,6 +105,7 @@ accessible field net/minecraft/world/level/biome/BiomeGenerationSettings feature
 accessible field net/minecraft/world/level/biome/MobSpawnSettings spawners Ljava/util/Map;
 accessible field net/minecraft/world/level/biome/MobSpawnSettings mobSpawnCosts Ljava/util/Map;
 accessible field net/minecraft/world/entity/ai/behavior/GiveGiftToHero GIFTS Ljava/util/Map;
+accessible field net/minecraft/world/level/Explosion level Lnet/minecraft/world/level/Level;
 
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
