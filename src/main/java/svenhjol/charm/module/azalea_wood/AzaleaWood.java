@@ -30,6 +30,7 @@ import svenhjol.charm.module.variant_chests.VariantChests;
 import svenhjol.charm.module.variant_chests.VariantTrappedChestBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadders;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
@@ -112,5 +113,7 @@ public class AzaleaWood extends CharmModule {
         CommonRegistry.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
         AxeItem.STRIPPABLES.put(LOG, STRIPPED_LOG);
         AxeItem.STRIPPABLES.put(WOOD, STRIPPED_WOOD);
+
+        ExtraWanderingTrades.registerItem(LOG, 8, 5);
     }
 }

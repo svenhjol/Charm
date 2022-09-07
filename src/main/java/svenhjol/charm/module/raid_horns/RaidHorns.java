@@ -17,6 +17,7 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.EntityDropItemsCallback;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off or start raids.")
@@ -49,6 +50,7 @@ public class RaidHorns extends CharmModule {
     @Override
     public void runWhenEnabled() {
         EntityDropItemsCallback.AFTER.register(this::tryDrop);
+        ExtraWanderingTrades.registerRareItem(RAID_HORN, 1, 30);
     }
 
     public InteractionResult tryDrop(LivingEntity entity, DamageSource source, int lootingLevel) {

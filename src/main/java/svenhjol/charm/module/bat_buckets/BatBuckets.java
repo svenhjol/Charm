@@ -29,6 +29,7 @@ import svenhjol.charm.api.event.PlayerTickCallback;
 import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.List;
@@ -67,6 +68,7 @@ public class BatBuckets extends CharmModule {
     public void runWhenEnabled() {
         UseEntityCallback.EVENT.register(this::tryCapture);
         PlayerTickCallback.EVENT.register(this::handlePlayerTick);
+        ExtraWanderingTrades.registerRareItem(BAT_BUCKET_ITEM, 1, 8);
     }
 
     private void handlePlayerTick(Player player) {

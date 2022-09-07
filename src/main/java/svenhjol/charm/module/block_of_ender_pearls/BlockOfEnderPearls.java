@@ -25,6 +25,7 @@ import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.helper.WorldHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 
 import java.util.*;
 
@@ -59,6 +60,7 @@ public class BlockOfEnderPearls extends CharmModule {
     @Override
     public void runWhenEnabled() {
         AddEntityCallback.EVENT.register(this::addGoalToSilverfish);
+        ExtraWanderingTrades.registerRareItem(ENDER_PEARL_BLOCK, 1, 8);
     }
 
     public static boolean tryChorusTeleport(LivingEntity entity, ItemStack stack) {

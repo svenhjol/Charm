@@ -5,6 +5,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.hover_sorting.HoverSorting;
@@ -26,5 +27,12 @@ public class ColoredBundles extends CharmModule {
         }
 
         BUNDLE_COLORING_RECIPE = CommonRegistry.recipeSerializer(RECIPE_ID.toString(), new SimpleRecipeSerializer<>(BundleColoringRecipe::new));
+    }
+
+    @Override
+    public void runWhenEnabled() {
+        for (ColoredBundleItem bundle : COLORED_BUNDLES.values()) {
+            ExtraWanderingTrades.registerItem(bundle, 1, 6);
+        }
     }
 }

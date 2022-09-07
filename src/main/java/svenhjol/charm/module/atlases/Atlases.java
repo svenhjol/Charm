@@ -29,6 +29,7 @@ import svenhjol.charm.module.atlases.network.ServerReceiveSwapAtlas;
 import svenhjol.charm.module.atlases.network.ServerReceiveTransferAtlas;
 import svenhjol.charm.module.atlases.network.ServerSendSwappedSlot;
 import svenhjol.charm.module.atlases.network.ServerSendUpdateInventory;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.*;
@@ -84,6 +85,8 @@ public class Atlases extends CharmModule {
         SERVER_SEND_UPDATE_INVENTORY = new ServerSendUpdateInventory();
         SERVER_RECEIVE_SWAP_ATLAS = new ServerReceiveSwapAtlas();
         SERVER_RECEIVE_TRANSFER_ATLAS = new ServerReceiveTransferAtlas();
+
+        ExtraWanderingTrades.registerItem(ATLAS_ITEM, 1, 5);
     }
 
     public static boolean inventoryContainsMap(Inventory inventory, ItemStack stack) {
