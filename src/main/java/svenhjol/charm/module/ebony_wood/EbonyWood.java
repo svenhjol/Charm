@@ -49,6 +49,7 @@ import svenhjol.charm.module.variant_chests.VariantChests;
 import svenhjol.charm.module.variant_chests.VariantTrappedChestBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadders;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.HashMap;
@@ -146,6 +147,7 @@ public class EbonyWood extends CharmModule {
         registerLootTable(BuiltInLootTables.WOODLAND_MANSION, 0.25F);
         AxeItem.STRIPPABLES.put(LOG, STRIPPED_LOG);
         AxeItem.STRIPPABLES.put(WOOD, STRIPPED_WOOD);
+        ExtraWanderingTrades.registerRareItem(SAPLING, 1, 15);
     }
 
     private void handleLootTables(ResourceManager resourceManager, LootTables lootTables, ResourceLocation id, LootTable.Builder builder, LootTableSource lootTableSource) {

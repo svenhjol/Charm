@@ -5,6 +5,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.enums.ICoralMaterial;
 import svenhjol.charm.enums.VanillaLivingCoralMaterial;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +18,13 @@ public class CoralSeaLanterns extends CharmModule {
     public void register() {
         for (ICoralMaterial type : VanillaLivingCoralMaterial.getTypes()) {
             CORAL_SEA_LANTERNS.put(type, new CoralSeaLanternBlock(this, type));
+        }
+    }
+
+    @Override
+    public void runWhenEnabled() {
+        for (CoralSeaLanternBlock lantern : CORAL_SEA_LANTERNS.values()) {
+            ExtraWanderingTrades.registerRareItem(lantern, 3, 10);
         }
     }
 }

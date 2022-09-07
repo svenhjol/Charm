@@ -10,6 +10,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 
 @CommonModule(mod = Charm.MOD_ID, description = "A storage block for sugar. It obeys gravity and dissolves in water.")
@@ -22,6 +23,11 @@ public class BlockOfSugar extends CharmModule {
     public void register() {
         SUGAR_BLOCK = new SugarBlock(this);
         SUGAR_DISSOLVE_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "sugar_dissolve"));
+    }
+
+    @Override
+    public void runWhenEnabled() {
+        ExtraWanderingTrades.registerItem(SUGAR_BLOCK, 1, 5);
     }
 
     public static void triggerAdvancementForNearbyPlayers(ServerLevel level, BlockPos pos) {

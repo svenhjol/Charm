@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.4.0
+
+* Removed Wandering Trader Maps.
+* Added Extra Wandering Trades.
+
 ## 4.3.2
 
 * Totems of Preserving now immune to explosions.

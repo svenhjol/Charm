@@ -22,6 +22,7 @@ import svenhjol.charm.api.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Endermites drop endermite powder that can be used to locate an End City.")
@@ -52,8 +53,8 @@ public class EndermitePowder extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        // react to entity drops
         EntityDropItemsCallback.AFTER.register(this::tryDrop);
+        ExtraWanderingTrades.registerRareItem(ENDERMITE_POWDER, 3, 12);
     }
 
     private InteractionResult tryDrop(Entity entity, DamageSource source, int lootingLevel) {

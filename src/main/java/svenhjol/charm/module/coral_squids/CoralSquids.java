@@ -19,6 +19,7 @@ import svenhjol.charm.helper.BiomeHelper;
 import svenhjol.charm.helper.MobHelper;
 import svenhjol.charm.item.CharmSpawnEggItem;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.ArrayList;
@@ -63,5 +64,7 @@ public class CoralSquids extends CharmModule {
         biomes.forEach(biomeKey -> {
             BiomeHelper.addSpawnEntry(biomeKey, MobCategory.WATER_AMBIENT, CORAL_SQUID, spawnWeight, 2, 4);
         });
+
+        ExtraWanderingTrades.registerRareItem(CORAL_SQUID_BUCKET, 1, 10);
     }
 }
