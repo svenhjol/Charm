@@ -4,6 +4,7 @@
 
 * Removed Wandering Trader Maps.
 * Added Extra Wandering Trades.
+* Quick Replant now supports Collection enchantment.
 
 ## 4.3.2
 
