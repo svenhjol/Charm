@@ -22,8 +22,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
+import svenhjol.charm.helper.EnchantmentsHelper;
+import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.collection_enchantment.CollectionEnchantment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,6 +84,7 @@ public class QuickReplant extends CharmModule {
             if (!level.isClientSide) {
                 ServerPlayer serverPlayer = (ServerPlayer)player;
                 ServerLevel serverLevel = (ServerLevel)serverPlayer.level;
+                var hasCollection = Charm.LOADER.isEnabled(CollectionEnchantment.class) && EnchantmentsHelper.has(held, CollectionEnchantment.ENCHANTMENT);
 
                 List<ItemStack> drops = Block.getDrops(state, serverLevel, pos, null, player, ItemStack.EMPTY);
                 for (ItemStack drop : drops) {
@@ -89,7 +93,11 @@ public class QuickReplant extends CharmModule {
                     }
 
                     if (!drop.isEmpty()) {
-                        Block.popResource(level, pos, drop);
+                        if (hasCollection) {
+                            PlayerHelper.addOrDropStack(player, drop);
+                        } else {
+                            Block.popResource(level, pos, drop);
+                        }
                     }
                 }
 
