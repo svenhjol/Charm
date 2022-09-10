@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.1
+
+* Compass overlay also shows biome (optional).
+
 ## 4.4.0
 
 * Removed Wandering Trader Maps.

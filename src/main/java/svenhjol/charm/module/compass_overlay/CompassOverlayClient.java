@@ -52,14 +52,26 @@ public class CompassOverlayClient extends CharmModule {
         var facing = I18n.get("gui.charm.facing", direction.getName());
         var facingLength = font.width(facing);
         var facingColor = 0xFFEEDD;
+        var midX = gui.screenWidth / 2.0F;
 
         if (CompassOverlay.showFacing) {
-            renderText(poseStack, font, facing, gui.screenWidth / 2.0F, y, -facingLength / 2.0F, 0.0F, facingColor | alpha);
+            renderText(poseStack, font, facing, midX, y, -facingLength / 2.0F, 0.0F, facingColor | alpha);
             y += 12;
         }
 
         if (CompassOverlay.showCoords) {
-            renderText(poseStack, font, coords, gui.screenWidth / 2.0F, y, -coordsLength / 2.0F, 0.0F, coordsColor | alpha);
+            renderText(poseStack, font, coords, midX, y, -coordsLength / 2.0F, 0.0F, coordsColor | alpha);
+            y += 12;
+        }
+
+        if (CompassOverlay.showBiome) {
+            var biomeRes = player.level.getBiome(pos).unwrap().map(key -> key != null ? key.location() : null, unknown -> null);
+            if (biomeRes != null) {
+                var biomeName = I18n.get("biome." + biomeRes.getNamespace() + "." + biomeRes.getPath());
+                var biomeLength = font.width(biomeName);
+                var biomeColor = 0x9ACCAA;
+                renderText(poseStack, font, biomeName, midX, y, -biomeLength / 2.0F, 0.0F, biomeColor | alpha);
+            }
         }
     }
 
