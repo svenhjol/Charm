@@ -19,4 +19,9 @@ public class ServerReceiveOpenCrafting extends ServerReceiver {
             PortableCrafting.openContainer(player);
         });
     }
+
+    @Override
+    protected boolean showDebugMessages() {
+        return false;
+    }
 }

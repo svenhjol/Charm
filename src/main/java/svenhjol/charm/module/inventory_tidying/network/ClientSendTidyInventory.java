@@ -8,4 +8,9 @@ public class ClientSendTidyInventory extends ClientSender {
     public void send(int type) {
         super.send(buf -> buf.writeInt(type));
     }
+
+    @Override
+    protected boolean showDebugMessages() {
+        return false;
+    }
 }

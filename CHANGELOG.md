@@ -3,6 +3,7 @@
 ## 4.4.1
 
 * Compass overlay also shows biome (optional).
+* Removed some debug noise.
 
 ## 4.4.0
 
