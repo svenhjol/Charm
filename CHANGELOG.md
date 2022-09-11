@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.2
+
+* Fixed grindstone ignoring enchantment.
+
 ## 4.4.1
 
 * Compass overlay also shows biome (optional).

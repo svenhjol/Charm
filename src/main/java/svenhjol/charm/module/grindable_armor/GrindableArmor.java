@@ -78,6 +78,10 @@ public class GrindableArmor extends CharmModule {
         ItemStack slot0 = instance.input.getItem(0);
         ItemStack slot1 = instance.input.getItem(1);
 
+        if (slot0.isEnchanted() || slot1.isEnchanted()) {
+            return false;
+        }
+
         if (ARMOR_RECIPES.containsKey(slot0.getItem()) && slot0.getDamageValue() == 0 && slot1.isEmpty()) {
             instance.output.setItem(0, new ItemStack(ARMOR_RECIPES.get(slot0.getItem())));
         } else if (ARMOR_RECIPES.containsKey(slot1.getItem()) && slot1.getDamageValue() == 0 && slot0.isEmpty()) {
