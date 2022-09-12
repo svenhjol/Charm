@@ -16,6 +16,10 @@ public class ServerReceiveScrolledOnHover extends ServerReceiver {
         boolean direction = buffer.readBoolean();
 
         server.execute(() -> {
+            if (slotIndex >= player.containerMenu.slots.size() || slotIndex < 0) {
+                return;
+            }
+
             ItemStack itemInSlot = player.containerMenu.getSlot(slotIndex).getItem();
             HoverSortItemsCallback.EVENT.invoker().interact(player, itemInSlot, direction);
         });

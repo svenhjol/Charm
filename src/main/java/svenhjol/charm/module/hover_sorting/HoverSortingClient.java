@@ -61,7 +61,7 @@ public class HoverSortingClient extends CharmModule {
 
         Minecraft client = opt.get();
 
-        if (client.level != null && hoveredItem != null) {
+        if (client.level != null) {
             Screen screen = client.screen;
             if (screen instanceof AbstractContainerScreen) {
                 Slot hoveredSlot = ((AbstractContainerScreen<?>)screen).hoveredSlot;
