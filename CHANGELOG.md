@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.3
+
+* Fixed shulkerbox sorting in dedicated server.
+
 ## 4.4.2
 
 * Fixed grindstone ignoring enchantment.

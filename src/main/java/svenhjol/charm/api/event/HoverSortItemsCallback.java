@@ -17,6 +17,8 @@ public interface HoverSortItemsCallback {
     void interact(ServerPlayer player, ItemStack stack, boolean direction);
 
     static void sortByScrollDirection(List<ItemStack> contents, boolean direction) {
+        if (contents.isEmpty()) return;
+
         if (direction) {
             ItemStack last = contents.remove(contents.size() - 1);
             contents.add(0, last);
