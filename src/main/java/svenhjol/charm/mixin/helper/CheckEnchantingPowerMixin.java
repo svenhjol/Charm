@@ -11,7 +11,6 @@ import svenhjol.charm.annotation.CharmMixin;
 import svenhjol.charm.init.CharmTags;
 
 @Mixin(EnchantmentTableBlock.class)
-@CharmMixin(disableIfModsPresent = {"betterend"})
 public class CheckEnchantingPowerMixin {
     @Inject(
         method = "isValidBookShelf",
