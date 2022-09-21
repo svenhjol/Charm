@@ -63,6 +63,7 @@
     "stackable_stews.FinishEatingStewMixin",
     "strays_spawn_underground.AllowSpawningAnywhereMixin",
     "stronger_anvils.ReduceAnvilDamageMixin",
+    "totem_of_preserving.DestroyBlockMixin",
     "totem_of_preserving.ExplosionMixin",
     "totem_works_from_inventory.CheckInventoryMixin",
     "variant_ladders.ClimbTrapdoorMixin",

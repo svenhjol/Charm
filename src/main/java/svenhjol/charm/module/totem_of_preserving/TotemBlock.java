@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -66,9 +67,22 @@ public class TotemBlock extends CharmBlockWithEntity {
     }
 
     @Override
-    public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
+    public void onRemove(BlockState blockState, Level level, BlockPos pos, BlockState state, boolean bl) {
+        var dimension = level.dimension().location();
+        if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)
+            && TotemOfPreserving.PROTECT_POSITIONS.get(dimension).contains(pos)
+            && level.getBlockEntity(pos) instanceof TotemBlockEntity totem
+            && !level.isClientSide) {
+            
+            LogHelper.debug(getClass(), "Something wants to overwrite the totem block, emergency item drop");
+            var items = totem.getItems();
+            for (ItemStack stack : items) {
+                var itemEntity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack);
+                level.addFreshEntity(itemEntity);
+            }
+        }
         LogHelper.debug(getClass(), "Going to remove a totem block");
-        super.onRemove(blockState, level, blockPos, blockState2, bl);
+        super.onRemove(blockState, level, pos, state, bl);
     }
 
     @Override
@@ -91,14 +105,14 @@ public class TotemBlock extends CharmBlockWithEntity {
 
             LogHelper.debug(getClass(), "Adding totem item to player's inventory: " + player);
             PlayerHelper.addOrDropStack(player, totemItem);
-
-            // Remove the totem block.
-            LogHelper.debug(getClass(), "Removing totem holder block and block entity: " + pos);
-            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-
+            
             if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)) {
                 TotemOfPreserving.PROTECT_POSITIONS.get(dimension).remove(pos);
             }
+    
+            // Remove the totem block.
+            LogHelper.debug(getClass(), "Removing totem holder block and block entity: " + pos);
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         }
 
         super.entityInside(state, level, pos, entity);

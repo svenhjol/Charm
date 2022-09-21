@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.4.4
+
+* Removed BetterEnd check.
+* More totem protection when game removes or destroys blocks.
+* Emergency item drop if totem block gets overwritten.
+
 ## 4.4.3
 
 * Fixed shulkerbox sorting in dedicated server.
