@@ -23,19 +23,15 @@ import java.util.function.Predicate;
 @CommonModule(mod = Charm.MOD_ID, description = "Allows crafting from inventory if the player has a crafting table in their inventory.")
 public class PortableCrafting extends CharmModule {
     private static final Component LABEL = TextHelper.translatable("container.charm.portable_crafting_table");
-
-    public static ServerReceiveOpenCrafting RECEIVE_OPEN_CRAFTING;
-    public static final ResourceLocation TRIGGER_USED_CRAFTING_TABLE = new ResourceLocation(Charm.MOD_ID, "used_crafting_table");
-
-    public static final List<Predicate<Player>> INVENTORY_CHECKS = new ArrayList<>();
+    private static final ServerReceiveOpenCrafting RECEIVE_OPEN_CRAFTING = new ServerReceiveOpenCrafting();
+    private static final ResourceLocation TRIGGER_USED_CRAFTING_TABLE = new ResourceLocation(Charm.MOD_ID, "used_crafting_table");
+    private static final List<Predicate<Player>> INVENTORY_CHECKS = new ArrayList<>();
 
     @Config(name = "Enable keybind", description = "If true, sets a keybind for opening the portable crafting table (defaults to 'v').")
     public static boolean enableKeybind = true;
 
     @Override
     public void runWhenEnabled() {
-        RECEIVE_OPEN_CRAFTING = new ServerReceiveOpenCrafting();
-
         registerInventoryCheck(player -> {
             List<ItemStack> items = new ArrayList<>();
             items.addAll(player.inventory.items);
@@ -44,6 +40,10 @@ public class PortableCrafting extends CharmModule {
         });
     }
 
+    /**
+     * Use this method to register a callback to check a custom inventory
+     * for an item with the CRAFTING_TABLES tag.
+     */
     public static void registerInventoryCheck(Predicate<Player> predicate) {
         INVENTORY_CHECKS.add(predicate);
     }
