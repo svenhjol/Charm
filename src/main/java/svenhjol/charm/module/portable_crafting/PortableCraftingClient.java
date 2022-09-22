@@ -9,13 +9,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.api.event.RenderGuiCallback;
 import svenhjol.charm.api.event.SetupGuiCallback;
 import svenhjol.charm.init.CharmResources;
-import svenhjol.charm.init.CharmTags;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.portable_crafting.network.ClientSendOpenCrafting;
 
@@ -61,7 +59,7 @@ public class PortableCraftingClient extends CharmModule {
         this.craftingButton = new ImageButton(guiLeft + 130, height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click
             -> openCraftingTable());
 
-        this.craftingButton.visible = hasCrafting(client.player);
+        this.craftingButton.visible = PortableCrafting.hasCraftingTable(client.player);
         screen.addRenderableWidget(this.craftingButton);
     }
 
@@ -74,12 +72,8 @@ public class PortableCraftingClient extends CharmModule {
         }
 
         if (client.player.level.getGameTime() % 5 == 0) {
-            this.craftingButton.visible = hasCrafting(client.player);
+            this.craftingButton.visible = PortableCrafting.hasCraftingTable(client.player);
         }
-    }
-
-    private boolean hasCrafting(Player player) {
-        return player.inventory.contains(CharmTags.CRAFTING_TABLES);
     }
 
     private void openCraftingTable() {
