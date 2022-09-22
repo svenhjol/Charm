@@ -49,7 +49,7 @@ public class PortableCrafting extends CharmModule {
     }
 
     public static boolean hasCraftingTable(Player player) {
-        return PortableCrafting.INVENTORY_CHECKS.stream().anyMatch(check -> check.test(player));
+        return INVENTORY_CHECKS.stream().anyMatch(check -> check.test(player));
     }
 
     public static void handleReceiveOpenCrafting(ServerPlayer player) {
