@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.5.0
+
+* Added Enchantable horse armor (experimental!)
+
 ## 4.4.4
 
 * Removed BetterEnd check.
