@@ -2,6 +2,7 @@
 
 ## 4.5.0
 
+* Fixed ebony leaves and saplings not dropping
 * Added Enchantable horse armor (experimental!)
 
 ## 4.4.4
