@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
@@ -35,8 +34,6 @@ import java.util.stream.Collectors;
     A totem will always be spawned to preserve items upon dying.""")
 public class TotemOfPreserving extends CharmModule {
     public static TotemOfPreservingItem ITEM;
-    public static LootItemFunctionType CHEST_LOOT_FUNCTION;
-    public static LootItemFunctionType MOB_LOOT_FUNCTION;
     public static final ResourceLocation TRIGGER_USED_TOTEM_OF_PRESERVING = new ResourceLocation(Charm.MOD_ID, "used_totem_of_preserving");
     public static final ResourceLocation BLOCK_ID = new ResourceLocation(Charm.MOD_ID, "totem_block");
     public static TotemBlock BLOCK;

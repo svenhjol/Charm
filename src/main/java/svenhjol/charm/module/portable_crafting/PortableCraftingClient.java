@@ -23,7 +23,6 @@ import java.util.List;
 public class PortableCraftingClient extends CharmModule {
     public ImageButton craftingButton;
     public static KeyMapping keyBinding;
-
     public static ClientSendOpenCrafting CLIENT_SEND_OPEN_CRAFTING;
 
     @Override
@@ -56,7 +55,7 @@ public class PortableCraftingClient extends CharmModule {
 
         int guiLeft = screen.leftPos;
 
-        this.craftingButton = new ImageButton(guiLeft + 130, height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click
+        this.craftingButton = new ImageButton(guiLeft + 125, height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click
             -> openCraftingTable());
 
         this.craftingButton.visible = PortableCrafting.hasCraftingTable(client.player);
@@ -66,8 +65,7 @@ public class PortableCraftingClient extends CharmModule {
     private void handleRenderGui(Minecraft client, PoseStack matrices, int mouseX, int mouseY, float delta) {
         if (!(client.screen instanceof InventoryScreen)
             || this.craftingButton == null
-            || client.player == null
-        ) {
+            || client.player == null) {
             return;
         }
 
