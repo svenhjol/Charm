@@ -32,8 +32,9 @@ public abstract class CharmLeavesBlock extends LeavesBlock implements ICharmBloc
 
     @Override
     public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-        if (enabled())
+        if (enabled()) {
             super.fillItemCategory(group, items);
+        }
     }
 
     @Override

@@ -9,13 +9,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.annotation.ClientModule;
 import svenhjol.charm.api.event.RenderGuiCallback;
 import svenhjol.charm.api.event.SetupGuiCallback;
 import svenhjol.charm.init.CharmResources;
-import svenhjol.charm.init.CharmTags;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.portable_crafting.network.ClientSendOpenCrafting;
 
@@ -25,7 +23,6 @@ import java.util.List;
 public class PortableCraftingClient extends CharmModule {
     public ImageButton craftingButton;
     public static KeyMapping keyBinding;
-
     public static ClientSendOpenCrafting CLIENT_SEND_OPEN_CRAFTING;
 
     @Override
@@ -57,29 +54,25 @@ public class PortableCraftingClient extends CharmModule {
         if (!(client.screen instanceof InventoryScreen screen)) return;
 
         int guiLeft = screen.leftPos;
+        int midY = height / 2;
 
-        this.craftingButton = new ImageButton(guiLeft + 130, height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click
+        this.craftingButton = new ImageButton(guiLeft + 76, midY - 66, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click
             -> openCraftingTable());
 
-        this.craftingButton.visible = hasCrafting(client.player);
+        this.craftingButton.visible = PortableCrafting.hasCraftingTable(client.player);
         screen.addRenderableWidget(this.craftingButton);
     }
 
     private void handleRenderGui(Minecraft client, PoseStack matrices, int mouseX, int mouseY, float delta) {
         if (!(client.screen instanceof InventoryScreen)
             || this.craftingButton == null
-            || client.player == null
-        ) {
+            || client.player == null) {
             return;
         }
 
         if (client.player.level.getGameTime() % 5 == 0) {
-            this.craftingButton.visible = hasCrafting(client.player);
+            this.craftingButton.visible = PortableCrafting.hasCraftingTable(client.player);
         }
-    }
-
-    private boolean hasCrafting(Player player) {
-        return player.inventory.contains(CharmTags.CRAFTING_TABLES);
     }
 
     private void openCraftingTable() {
