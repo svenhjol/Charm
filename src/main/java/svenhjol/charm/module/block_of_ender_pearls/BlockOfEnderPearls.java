@@ -60,7 +60,7 @@ public class BlockOfEnderPearls extends CharmModule {
     @Override
     public void runWhenEnabled() {
         AddEntityCallback.EVENT.register(this::addGoalToSilverfish);
-        ExtraWanderingTrades.registerRareItem(ENDER_PEARL_BLOCK, 1, 8);
+        ExtraWanderingTrades.registerRareItem(ENDER_PEARL_BLOCK, 1, 16);
     }
 
     public static boolean tryChorusTeleport(LivingEntity entity, ItemStack stack) {
