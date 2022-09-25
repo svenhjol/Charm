@@ -54,8 +54,9 @@ public class PortableCraftingClient extends CharmModule {
         if (!(client.screen instanceof InventoryScreen screen)) return;
 
         int guiLeft = screen.leftPos;
+        int midY = height / 2;
 
-        this.craftingButton = new ImageButton(guiLeft + 125, height / 2 - 22, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click
+        this.craftingButton = new ImageButton(guiLeft + 76, midY - 66, 20, 18, 0, 0, 19, CharmResources.INVENTORY_BUTTONS, click
             -> openCraftingTable());
 
         this.craftingButton.visible = PortableCrafting.hasCraftingTable(client.player);
