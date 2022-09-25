@@ -2,7 +2,11 @@
 
 ## 4.5.0
 
-* Fixed ebony leaves and saplings not dropping
+* Ebony trees now spawn in savanna biomes again.
+* Fixed ebony leaves effective tool.
+* Fixed ebony saplings not dropping.
+* Moved portable crafting table button to the left of the 2x2 grid.
+* Totem of Preserving now always uses grave mode.
 * Added Enchantable horse armor (experimental!)
 
 ## 4.4.4
