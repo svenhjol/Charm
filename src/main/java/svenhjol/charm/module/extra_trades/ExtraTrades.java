@@ -31,6 +31,9 @@ public class ExtraTrades extends CharmModule {
     @Config(name = "Bundles", description = "If true, leatherworkers will sell bundles in return for emeralds.")
     public static boolean bundles = true;
 
+    @Config(name = "Phantom membrane", description = "If true, clerics will sell phantom membrane in return for emeralds.")
+    public static boolean phantomMembrane = true;
+
     @Override
     public void runWhenEnabled() {
 
@@ -87,6 +90,16 @@ public class ExtraTrades extends CharmModule {
                 Item out = Items.BUNDLE;
                 int cost = random.nextInt(10) + 12;
                 return new MerchantOffer(new ItemStack(in, cost), new ItemStack(out), 1, 30, 0.05F);
+            });
+        }
+
+        if (phantomMembrane) {
+            int tier = 4;
+            VillagerHelper.addTrade(VillagerProfession.CLERIC, tier, (entity, random) -> {
+                Item in = Items.EMERALD;
+                Item out = Items.PHANTOM_MEMBRANE;
+                int cost = random.nextInt(2) + 4;
+                return new MerchantOffer(new ItemStack(in, cost), new ItemStack(out), 8, 15, 0.05F);
             });
         }
     }
