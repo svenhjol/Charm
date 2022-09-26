@@ -11,6 +11,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 
 import java.util.Random;
 
@@ -31,8 +32,16 @@ public class ExtraTrades extends CharmModule {
     @Config(name = "Bundles", description = "If true, leatherworkers will sell bundles in return for emeralds.")
     public static boolean bundles = true;
 
-    @Config(name = "Phantom membrane", description = "If true, clerics will sell phantom membrane in return for emeralds.")
+    @Config(name = "Phantom membrane", description = "If true, clerics and wandering traders will sell phantom membrane in return for emeralds.")
     public static boolean phantomMembrane = true;
+
+    @Override
+    public void register() {
+        // Register phantom membrane with trader early.
+        if (phantomMembrane) {
+            ExtraWanderingTrades.registerItem(Items.PHANTOM_MEMBRANE, 5, 6);
+        }
+    }
 
     @Override
     public void runWhenEnabled() {
