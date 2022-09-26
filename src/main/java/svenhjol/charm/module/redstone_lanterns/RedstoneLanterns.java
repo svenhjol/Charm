@@ -12,10 +12,6 @@ public class RedstoneLanterns extends CharmModule {
     @Override
     public void register() {
         REDSTONE_LANTERN = new RedstoneLanternBlock(this);
-    }
-
-    @Override
-    public void runWhenEnabled() {
         ExtraWanderingTrades.registerItem(REDSTONE_LANTERN, 1, 5);
     }
 }

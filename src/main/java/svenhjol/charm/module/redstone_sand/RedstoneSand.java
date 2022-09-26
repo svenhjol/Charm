@@ -12,10 +12,7 @@ public class RedstoneSand extends CharmModule {
     @Override
     public void register() {
         REDSTONE_SAND = new RedstoneSandBlock(this);
-    }
-
-    @Override
-    public void runWhenEnabled() {
         ExtraWanderingTrades.registerItem(REDSTONE_SAND, 2, 5);
     }
+
 }

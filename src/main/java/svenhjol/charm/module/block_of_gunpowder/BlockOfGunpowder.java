@@ -23,10 +23,6 @@ public class BlockOfGunpowder extends CharmModule {
     public void register() {
         GUNPOWDER_BLOCK = new GunpowderBlock(this);
         GUNPOWDER_DISSOLVE_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "gunpowder_dissolve"));
-    }
-
-    @Override
-    public void runWhenEnabled() {
         ExtraWanderingTrades.registerItem(GUNPOWDER_BLOCK, 1, 5);
     }
 

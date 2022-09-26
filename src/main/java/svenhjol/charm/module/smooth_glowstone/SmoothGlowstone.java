@@ -12,10 +12,6 @@ public class SmoothGlowstone extends CharmModule {
     @Override
     public void register() {
         SMOOTH_GLOWSTONE = new SmoothGlowstoneBlock(this);
-    }
-
-    @Override
-    public void runWhenEnabled() {
         ExtraWanderingTrades.registerItem(SMOOTH_GLOWSTONE, 2, 5);
     }
 }

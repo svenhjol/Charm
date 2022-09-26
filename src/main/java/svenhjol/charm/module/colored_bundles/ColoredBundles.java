@@ -22,17 +22,12 @@ public class ColoredBundles extends CharmModule {
     @Override
     public void register() {
         for (DyeColor color : DyeColor.values()) {
-            COLORED_BUNDLES.put(color, new ColoredBundleItem(this, color));
-            HoverSorting.SORTABLE.add(COLORED_BUNDLES.get(color));
+            var bundle = new ColoredBundleItem(this, color);
+            COLORED_BUNDLES.put(color, bundle);
+            ExtraWanderingTrades.registerItem(bundle, 1, 6);
+            HoverSorting.SORTABLE.add(bundle);
         }
 
         BUNDLE_COLORING_RECIPE = CommonRegistry.recipeSerializer(RECIPE_ID.toString(), new SimpleRecipeSerializer<>(BundleColoringRecipe::new));
-    }
-
-    @Override
-    public void runWhenEnabled() {
-        for (ColoredBundleItem bundle : COLORED_BUNDLES.values()) {
-            ExtraWanderingTrades.registerItem(bundle, 1, 6);
-        }
     }
 }

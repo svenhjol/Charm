@@ -17,7 +17,6 @@ import java.util.Map;
 @CommonModule(mod = Charm.MOD_ID, description = "Adds Charm items as trades for the Wandering Trader.")
 public class ExtraWanderingTrades extends CharmModule {
     private static final Map<ItemLike, Pair<Integer, Integer>> ITEMS = new HashMap<>();
-
     private static final Map<ItemLike, Pair<Integer, Integer>> RARE_ITEMS = new HashMap<>();
 
     @Override

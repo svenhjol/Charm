@@ -12,10 +12,6 @@ public class PlayerPressurePlates extends CharmModule {
     @Override
     public void register() {
         PLAYER_PRESSURE_PLATE_BLOCK = new PlayerPressurePlateBlock(this);
-    }
-
-    @Override
-    public void runWhenEnabled() {
         ExtraWanderingTrades.registerItem(PLAYER_PRESSURE_PLATE_BLOCK, 2, 8);
     }
 }
