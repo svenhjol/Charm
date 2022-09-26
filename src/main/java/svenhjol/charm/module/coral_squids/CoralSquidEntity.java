@@ -41,7 +41,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.Charm;
 import svenhjol.charm.helper.ItemNbtHelper;
-import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.PlayerHelper;
 
 import javax.annotation.Nullable;
@@ -107,9 +106,9 @@ public class CoralSquidEntity extends WaterAnimal {
             && pos.getY() < level.getSeaLevel()
             && coralBelow;
 
-        if (canSpawn) {
-            LogHelper.debug(CoralSquidEntity.class, "Can spawn coral squid at pos: " + pos);
-        }
+//        if (canSpawn) {
+//            LogHelper.debug(CoralSquidEntity.class, "Can spawn coral squid at pos: " + pos);
+//        }
 
         return canSpawn;
     }
