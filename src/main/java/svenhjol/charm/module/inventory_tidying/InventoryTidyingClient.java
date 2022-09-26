@@ -7,7 +7,6 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.ClientModule;
@@ -25,12 +24,10 @@ import static svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler.PL
 @SuppressWarnings("rawtypes")
 @ClientModule(module = InventoryTidying.class)
 public class InventoryTidyingClient extends CharmModule {
+    private static final ClientSendTidyInventory SEND_TIDY_INVENTORY = new ClientSendTidyInventory();
     public static final int LEFT = 159;
     public static final int TOP = 12;
     public static final List<ImageButton> sortingButtons = new ArrayList<>();
-
-    public static ClientSendTidyInventory CLIENT_SEND_TIDY_INVENTORY;
-
     public final List<Class<? extends Screen>> BLOCK_ENTITY_SCREENS = new ArrayList<>();
     public final List<Class<? extends Screen>> BLACKLIST = new ArrayList<>();
     public final Map<Class<? extends Screen>, Map<Integer, Integer>> SCREEN_TWEAKS = new HashMap<>();
@@ -57,7 +54,6 @@ public class InventoryTidyingClient extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        CLIENT_SEND_TIDY_INVENTORY = new ClientSendTidyInventory();
         SetupGuiCallback.EVENT.register(this::handleGuiSetup);
         RenderGuiCallback.EVENT.register(this::handleRenderGui);
     }
@@ -70,7 +66,7 @@ public class InventoryTidyingClient extends CharmModule {
         sortingButtons.clear();
 
         Class<? extends AbstractContainerScreen> clazz = screen.getClass();
-        AbstractContainerMenu screenHandler = screen.getMenu();
+        var menu = screen.getMenu();
 
         int x = screen.leftPos + LEFT;
         int y = screen.topPos - TOP;
@@ -83,14 +79,14 @@ public class InventoryTidyingClient extends CharmModule {
             }
         }
 
-        List<Slot> slots = screenHandler.slots;
+        List<Slot> slots = menu.slots;
         for (Slot slot : slots) {
             if (BLOCK_ENTITY_SCREENS.contains(screen.getClass()) && slot.index == 0) {
-                addSortingButton(screen, x, y + slot.y, click -> CLIENT_SEND_TIDY_INVENTORY.send(BE));
+                addSortingButton(screen, x, y + slot.y, click -> SEND_TIDY_INVENTORY.send(BE));
             }
 
             if (slot.container == client.player.inventory) {
-                addSortingButton(screen, x, y + slot.y, click -> CLIENT_SEND_TIDY_INVENTORY.send(PLAYER));
+                addSortingButton(screen, x, y + slot.y, click -> SEND_TIDY_INVENTORY.send(PLAYER));
                 break;
             }
         }
