@@ -78,6 +78,7 @@
   "client": [
     "allow_too_expensive.StopShowingTooExpensiveMixin",
     "atlases.DrawAtlasOnCartographyTableMixin",
+    "colored_nether_portals.ChangeOverlayColorMixin",
     "core.OverrideBundleTooltipGridsizeMixin",
     "enchantable_horse_armor.HorseArmorGlintMixin",
     "event.AddEntityClientMixin",
