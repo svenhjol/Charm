@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.5.1
+
+* Colored nether portals now show the correct color overlay when teleporting.
+* Nether portal color can now be changed by right-clicking with dye as well as throwing dye.
+* Remove Coral Squid debug log spam.
+
 ## 4.5.0
 
 * Ebony trees now spawn in savanna biomes again.
