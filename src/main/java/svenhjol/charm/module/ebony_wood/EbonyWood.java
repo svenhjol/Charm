@@ -1,9 +1,15 @@
 package svenhjol.charm.module.ebony_wood;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -11,6 +17,7 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -18,6 +25,8 @@ import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSi
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -38,6 +47,7 @@ import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.ebony_wood.EbonyBlocks.*;
 import svenhjol.charm.module.ebony_wood.EbonyItems.EbonySignItem;
 import svenhjol.charm.module.extra_boats.ExtraBoats;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
 import svenhjol.charm.module.variant_barrels.VariantBarrels;
 import svenhjol.charm.module.variant_bookshelves.VariantBookshelfBlock;
@@ -47,7 +57,6 @@ import svenhjol.charm.module.variant_chests.VariantChests;
 import svenhjol.charm.module.variant_chests.VariantTrappedChestBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadders;
-import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 
 import java.util.HashMap;
@@ -60,6 +69,7 @@ public class EbonyWood extends CharmModule {
 
     public static ResourceLocation ID = new ResourceLocation(Charm.MOD_ID, "ebony");
     public static Holder<ConfiguredFeature<TreeConfiguration, ?>> TREE;
+    public static Holder<PlacedFeature> PLACED_TREE;
     public static WoodType SIGN_TYPE;
     public static CharmWoodenButtonBlock BUTTON;
     public static CharmDoorBlock DOOR;
@@ -138,11 +148,18 @@ public class EbonyWood extends CharmModule {
         ).build();
 
         TREE = FeatureUtils.register(ID.toString(), Feature.TREE, treeConfiguration);
+        PLACED_TREE = PlacementUtils.register("charm:ebony_checked", TREE,
+            VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(25), SAPLING));
         BOOKCASE = Bookcases.registerBookcase(this, CharmWoodMaterial.EBONY);
 
         LOOT_FUNCTION = CommonRegistry.lootFunctionType(
             new ResourceLocation(Charm.MOD_ID, "ebony_sapling_loot"),
             new LootItemFunctionType(new EbonySaplingLootFunction.Serializer()));
+    
+        BiomeModifications.create(new ResourceLocation(Charm.MOD_ID, "ebony_tree")).add(
+            ModificationPhase.ADDITIONS,
+            BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(ConventionalBiomeTags.SAVANNA)),
+            ctx -> ctx.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PLACED_TREE.unwrap().orThrow()));
     }
 
     @Override

@@ -62,7 +62,7 @@ public class InventoryButtonManager extends CharmModule {
                 this.recipeButton.visible = true;
                 this.hasHiddenRecipeButton = false;
             }
-            portableCraftingClient.craftingButton.setPosition(left + 125, portableCraftingClient.craftingButton.y);
+            portableCraftingClient.craftingButton.setPosition(left + 76, portableCraftingClient.craftingButton.y);
         }
     }
 }
