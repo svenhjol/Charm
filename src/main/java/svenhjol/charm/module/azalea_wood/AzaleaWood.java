@@ -21,6 +21,7 @@ import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.bookcases.BookcaseBlock;
 import svenhjol.charm.module.bookcases.Bookcases;
 import svenhjol.charm.module.extra_boats.ExtraBoats;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.module.variant_barrels.VariantBarrelBlock;
 import svenhjol.charm.module.variant_barrels.VariantBarrels;
 import svenhjol.charm.module.variant_bookshelves.VariantBookshelfBlock;
@@ -30,7 +31,6 @@ import svenhjol.charm.module.variant_chests.VariantChests;
 import svenhjol.charm.module.variant_chests.VariantTrappedChestBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadderBlock;
 import svenhjol.charm.module.variant_ladders.VariantLadders;
-import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
@@ -102,6 +102,7 @@ public class AzaleaWood extends CharmModule {
         BOAT = new BoatItem(false, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
         CHEST_BOAT = new BoatItem(true, BOAT_TYPE, new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_TRANSPORTATION));
         ExtraBoats.registerBoat(ID, BOAT_TYPE, BOAT, CHEST_BOAT);
+        ExtraWanderingTrades.registerItem(LOG, 8, 5);
         VariantChests.CHEST_LAYER_COLORS.put(CharmWoodMaterial.AZALEA.getSerializedName(), 0xffaf9f);
     }
 
@@ -113,7 +114,5 @@ public class AzaleaWood extends CharmModule {
         CommonRegistry.addBlocksToBlockEntity(BlockEntityType.SIGN, SIGN_BLOCK, WALL_SIGN_BLOCK);
         AxeItem.STRIPPABLES.put(LOG, STRIPPED_LOG);
         AxeItem.STRIPPABLES.put(WOOD, STRIPPED_WOOD);
-
-        ExtraWanderingTrades.registerItem(LOG, 8, 5);
     }
 }

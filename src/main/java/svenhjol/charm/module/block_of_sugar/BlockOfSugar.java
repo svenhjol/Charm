@@ -23,10 +23,6 @@ public class BlockOfSugar extends CharmModule {
     public void register() {
         SUGAR_BLOCK = new SugarBlock(this);
         SUGAR_DISSOLVE_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "sugar_dissolve"));
-    }
-
-    @Override
-    public void runWhenEnabled() {
         ExtraWanderingTrades.registerItem(SUGAR_BLOCK, 1, 5);
     }
 

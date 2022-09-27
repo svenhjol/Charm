@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.5.1
+
+* Fixed wandering trades not being registered early enough.
+* Colored nether portals now show the correct color overlay when teleporting.
+* Nether portal color can now be changed by right-clicking with dye as well as throwing dye.
+* Clerics and Wandering Traders now have a chance to sell phantom membranes as part of the Extra Trades module.
+* Removed coral squid debug log spam.
+* Removed smooth glowstone randomly exploding during the full moon.
+
 ## 4.5.0
 
 * Added Enchantable horse armor (experimental!)

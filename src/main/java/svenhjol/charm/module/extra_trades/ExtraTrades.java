@@ -12,6 +12,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.loader.CharmModule;
+import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Adds more villager trades.")
 public class ExtraTrades extends CharmModule {
@@ -39,6 +40,17 @@ public class ExtraTrades extends CharmModule {
      * - int villagerXp
      * - float priceMultiplier
      */
+
+    @Config(name = "Phantom membrane", description = "If true, clerics and wandering traders will sell phantom membrane in return for emeralds.")
+    public static boolean phantomMembrane = true;
+
+    @Override
+    public void register() {
+        // Register phantom membrane with trader early.
+        if (phantomMembrane) {
+            ExtraWanderingTrades.registerItem(Items.PHANTOM_MEMBRANE, 5, 6);
+        }
+    }
 
     @Override
     public void runWhenEnabled() {
@@ -85,6 +97,16 @@ public class ExtraTrades extends CharmModule {
                 Item out = Items.BUNDLE;
                 int cost = random.nextInt(10) + 12;
                 return new MerchantOffer(new ItemStack(in, cost), new ItemStack(out), 1, 30, 0.05F);
+            });
+        }
+
+        if (phantomMembrane) {
+            int tier = 4;
+            VillagerHelper.addTrade(VillagerProfession.CLERIC, tier, (entity, random) -> {
+                Item in = Items.EMERALD;
+                Item out = Items.PHANTOM_MEMBRANE;
+                int cost = random.nextInt(2) + 4;
+                return new MerchantOffer(new ItemStack(in, cost), new ItemStack(out), 8, 15, 0.05F);
             });
         }
     }

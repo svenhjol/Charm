@@ -74,6 +74,8 @@ public class Atlases extends CharmModule {
         ATLAS_OPEN_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "atlas_open"));
         ATLAS_CLOSE_SOUND = CommonRegistry.sound(new ResourceLocation(Charm.MOD_ID, "atlas_close"));
         MENU = CommonRegistry.menu(ID, (syncId, playerInventory) -> new AtlasContainer(syncId, playerInventory, findAtlas(playerInventory)));
+
+        ExtraWanderingTrades.registerItem(ATLAS_ITEM, 1, 5);
     }
 
     @Override
@@ -85,8 +87,6 @@ public class Atlases extends CharmModule {
         SERVER_SEND_UPDATE_INVENTORY = new ServerSendUpdateInventory();
         SERVER_RECEIVE_SWAP_ATLAS = new ServerReceiveSwapAtlas();
         SERVER_RECEIVE_TRANSFER_ATLAS = new ServerReceiveTransferAtlas();
-
-        ExtraWanderingTrades.registerItem(ATLAS_ITEM, 1, 5);
     }
 
     public static boolean inventoryContainsMap(Inventory inventory, ItemStack stack) {
