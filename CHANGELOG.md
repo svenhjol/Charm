@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.5.2
+
+* Actually apply the enchantable horse armor patch.
+
 ## 4.5.1
 
 * Fixed wandering trades not being registered early enough.
