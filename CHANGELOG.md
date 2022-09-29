@@ -2,6 +2,7 @@
 
 ## 4.5.2
 
+* Fix bumblezone integration mod check.
 * Actually apply the enchantable horse armor patch.
 
 ## 4.5.1
