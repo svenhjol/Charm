@@ -61,6 +61,7 @@
     "no_treasure_enchantment_trading.CheckIfTradeableMixin",
     "open_both_doors.ReactOnDoorOpenedMixin",
     "parrots_stay_on_shoulder.KeepShoulderEntitiesMixin",
+    "rare_enchantments.PreserveEnchantmentsMixin",
     "respawn_anchor_in_the_end.CheckIfCanSetSpawnMixin",
     "snow_accumulation.AllowBlockReplaceMixin",
     "snow_accumulation.PlaceMoreSnowMixin",
