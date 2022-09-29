@@ -14,9 +14,4 @@ public class ServerReceiveTidyInventory extends ServerReceiver {
         int type = buffer.readInt();
         server.execute(() -> InventoryTidying.serverCallback(player, type));
     }
-
-    @Override
-    protected boolean showDebugMessages() {
-        return false;
-    }
 }

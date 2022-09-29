@@ -8,18 +8,20 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.lumberjacks.LumberjackTradeOffers.*;
 import svenhjol.charm.module.woodcutters.Woodcutters;
 import svenhjol.charm.registry.CommonRegistry;
+
+import java.util.List;
 
 import static svenhjol.charm.helper.VillagerHelper.addTrade;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.\n" +
     "Disabling will leave villagers of the profession in an unemployed state with decrepit data.")
 public class Lumberjacks extends CharmModule {
-    public static String VILLAGER_ID = "charm_lumberjack";
+    // TODO: Register this with the correct namespace in Charm 5.
+    public static ResourceLocation VILLAGER_ID = new ResourceLocation("charm_lumberjack");
     public static VillagerProfession LUMBERJACK;
 
     public static ResourceKey<PoiType> POIT;
@@ -37,7 +39,7 @@ public class Lumberjacks extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        LUMBERJACK = VillagerHelper.addProfession(VILLAGER_ID, POIT, VILLAGER_WORK_LUMBERJACK);
+        LUMBERJACK = CommonRegistry.villagerProfession(VILLAGER_ID, POIT, List.of(), List.of(), VILLAGER_WORK_LUMBERJACK);
         GiveGiftToHero.GIFTS.put(LUMBERJACK, GIFT);
 
         // register lumberjack trades

@@ -4,7 +4,7 @@ import svenhjol.charm.module.atlases.Atlases;
 import svenhjol.charm.network.ClientSender;
 import svenhjol.charm.network.Id;
 
-@Id("strange:transfer_atlas")
+@Id("charm:transfer_atlas")
 public class ClientSendTransferAtlas extends ClientSender {
     public void send(int atlasSlot, int mapX, int mapZ, Atlases.MoveMode mode) {
         super.send(buf -> {
@@ -13,10 +13,5 @@ public class ClientSendTransferAtlas extends ClientSender {
             buf.writeInt(mapZ);
             buf.writeEnum(mode);
         });
-    }
-
-    @Override
-    protected boolean showDebugMessages() {
-        return false;
     }
 }

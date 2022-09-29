@@ -6,7 +6,7 @@ import svenhjol.charm.module.atlases.AtlasesClient;
 import svenhjol.charm.network.ClientReceiver;
 import svenhjol.charm.network.Id;
 
-@Id("strange:swapped_atlas_slot")
+@Id("charm:swapped_atlas_slot")
 public class ClientReceiveSwappedSlot extends ClientReceiver {
     @Override
     public void handle(Minecraft client, FriendlyByteBuf buffer) {

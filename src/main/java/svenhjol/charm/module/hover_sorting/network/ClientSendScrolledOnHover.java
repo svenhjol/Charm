@@ -11,9 +11,4 @@ public class ClientSendScrolledOnHover extends ClientSender {
             buf.writeBoolean(direction);
         });
     }
-
-    @Override
-    protected boolean showDebugMessages() {
-        return false;
-    }
 }

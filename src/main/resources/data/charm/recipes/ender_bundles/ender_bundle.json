@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "-#-",
+    "#o#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:phantom_membrane"
+    },
+    "-": {
+      "item": "minecraft:string"
+    },
+    "o": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "charm:ender_bundle"
+  }
+}

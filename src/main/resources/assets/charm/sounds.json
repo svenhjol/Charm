@@ -225,5 +225,18 @@
       }
     ],
     "subtitle": "subtitles.charm.block.woodcutter.use"
+  },
+  "waypoint_broadcasting": {
+    "sounds": [
+      {
+        "name": "charm:block/waypoint_broadcasting1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:block/waypoint_broadcasting2",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.waypoint.broadcast"
   }
 }

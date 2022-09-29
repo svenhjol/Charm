@@ -58,6 +58,7 @@ accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes createKey (
 accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes register (Lnet/minecraft/core/Registry;Lnet/minecraft/resources/ResourceKey;Ljava/util/Set;II)Lnet/minecraft/world/entity/ai/village/poi/PoiType;
 accessible method net/minecraft/world/entity/npc/VillagerProfession register (Ljava/lang/String;Lnet/minecraft/resources/ResourceKey;Lcom/google/common/collect/ImmutableSet;Lcom/google/common/collect/ImmutableSet;Lnet/minecraft/sounds/SoundEvent;)Lnet/minecraft/world/entity/npc/VillagerProfession;
 accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacements$Type;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
+accessible method net/minecraft/client/gui/Gui drawBackdrop (Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/gui/Font;III)V
 
 # Inaccessible fields
 accessible field net/minecraft/client/Options mouseWheelSensitivity Lnet/minecraft/client/OptionInstance;
@@ -116,6 +117,28 @@ accessible field net/minecraft/client/Options discreteMouseScroll Lnet/minecraft
 accessible field net/minecraft/world/entity/ai/behavior/GiveGiftToHero GIFTS Ljava/util/Map;
 accessible field net/minecraft/world/level/Explosion level Lnet/minecraft/world/level/Level;
 
+accessible field net/minecraft/client/renderer/RenderBuffers fixedBuffers Ljava/util/SortedMap;
+accessible field net/minecraft/client/renderer/RenderType ARMOR_GLINT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderType ARMOR_ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderType GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderType GLINT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderStateShard COLOR_WRITE Lnet/minecraft/client/renderer/RenderStateShard$WriteMaskStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard NO_CULL Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard EQUAL_DEPTH_TEST Lnet/minecraft/client/renderer/RenderStateShard$DepthTestStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard GLINT_TEXTURING Lnet/minecraft/client/renderer/RenderStateShard$TexturingStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard GLINT_TRANSPARENCY Lnet/minecraft/client/renderer/RenderStateShard$TransparencyStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard ENTITY_GLINT_TEXTURING Lnet/minecraft/client/renderer/RenderStateShard$TexturingStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard ITEM_ENTITY_TARGET Lnet/minecraft/client/renderer/RenderStateShard$OutputStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard VIEW_OFFSET_Z_LAYERING Lnet/minecraft/client/renderer/RenderStateShard$LayeringStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_GLINT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_ENTITY_GLINT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_ARMOR_GLINT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_ARMOR_ENTITY_GLINT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_GLINT_DIRECT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_ENTITY_GLINT_DIRECT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+
 mutable    field net/minecraft/util/random/WeightedRandomList items Lcom/google/common/collect/ImmutableList;
 mutable    field net/minecraft/util/random/WeightedRandomList totalWeight I
 mutable    field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
@@ -140,4 +163,25 @@ mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstr
 mutable    field net/minecraft/world/level/biome/MobSpawnSettings spawners Ljava/util/Map;
 mutable    field net/minecraft/world/level/biome/MobSpawnSettings mobSpawnCosts Ljava/util/Map;
 mutable    field net/minecraft/world/entity/ai/behavior/GiveGiftToHero GIFTS Ljava/util/Map;
+
+mutable    field net/minecraft/client/renderer/RenderType ARMOR_GLINT Lnet/minecraft/client/renderer/RenderType;
+mutable    field net/minecraft/client/renderer/RenderType ARMOR_ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
+mutable    field net/minecraft/client/renderer/RenderType GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
+mutable    field net/minecraft/client/renderer/RenderType ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
+mutable    field net/minecraft/client/renderer/RenderType ENTITY_GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
+mutable    field net/minecraft/client/renderer/RenderType GLINT Lnet/minecraft/client/renderer/RenderType;
+mutable    field net/minecraft/client/renderer/RenderStateShard COLOR_WRITE Lnet/minecraft/client/renderer/RenderStateShard$WriteMaskStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard NO_CULL Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard EQUAL_DEPTH_TEST Lnet/minecraft/client/renderer/RenderStateShard$DepthTestStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard GLINT_TEXTURING Lnet/minecraft/client/renderer/RenderStateShard$TexturingStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard GLINT_TRANSPARENCY Lnet/minecraft/client/renderer/RenderStateShard$TransparencyStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard ENTITY_GLINT_TEXTURING Lnet/minecraft/client/renderer/RenderStateShard$TexturingStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard ITEM_ENTITY_TARGET Lnet/minecraft/client/renderer/RenderStateShard$OutputStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard VIEW_OFFSET_Z_LAYERING Lnet/minecraft/client/renderer/RenderStateShard$LayeringStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_GLINT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_ENTITY_GLINT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_ARMOR_GLINT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_ARMOR_ENTITY_GLINT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_GLINT_DIRECT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
+mutable    field net/minecraft/client/renderer/RenderStateShard RENDERTYPE_ENTITY_GLINT_DIRECT_SHADER Lnet/minecraft/client/renderer/RenderStateShard$ShaderStateShard;
 mutable    field net/minecraft/world/entity/vehicle/Boat$Type planks Lnet/minecraft/world/level/block/Block;

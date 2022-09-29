@@ -13,7 +13,7 @@ import svenhjol.charm.network.Id;
 import svenhjol.charm.network.ServerReceiver;
 
 @SuppressWarnings("EnhancedSwitchMigration")
-@Id("strange:transfer_atlas")
+@Id("charm:transfer_atlas")
 public class ServerReceiveTransferAtlas extends ServerReceiver {
     @Override
     public void handle(MinecraftServer server, ServerPlayer player, FriendlyByteBuf buffer) {
@@ -62,10 +62,5 @@ public class ServerReceiveTransferAtlas extends ServerReceiver {
                     break;
             }
         });
-    }
-
-    @Override
-    protected boolean showDebugMessages() {
-        return false;
     }
 }

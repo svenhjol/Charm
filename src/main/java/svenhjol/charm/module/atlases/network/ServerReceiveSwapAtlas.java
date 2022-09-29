@@ -13,7 +13,7 @@ import svenhjol.charm.network.ServerReceiver;
 
 import java.util.function.Consumer;
 
-@Id("strange:swap_atlas")
+@Id("charm:swap_atlas")
 public class ServerReceiveSwapAtlas extends ServerReceiver {
     @Override
     public void handle(MinecraftServer server, ServerPlayer player, FriendlyByteBuf buffer) {

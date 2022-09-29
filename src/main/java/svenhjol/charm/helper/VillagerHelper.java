@@ -1,6 +1,5 @@
 package svenhjol.charm.helper;
 
-import com.google.common.collect.ImmutableSet;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.NonNullList;
@@ -8,14 +7,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
-import svenhjol.charm.registry.CommonRegistry;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -28,12 +25,6 @@ import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRA
  * @version 4.0.0-charm
  */
 public class VillagerHelper {
-    public static VillagerProfession addProfession(String id, ResourceKey<PoiType> poit, SoundEvent worksound) {
-        var profession = CommonRegistry.villagerProfession(id, poit, ImmutableSet.of(), ImmutableSet.of(), worksound);
-        TRADES.put(profession, new Int2ObjectOpenHashMap<>());
-        return profession;
-    }
-
     public static void addTrade(VillagerProfession profession, int level, ItemListing trade) {
         Int2ObjectMap<ItemListing[]> fixedTrades = TRADES.get(profession);
         Int2ObjectMap<List<ItemListing>> mutableTrades = new Int2ObjectOpenHashMap<>();

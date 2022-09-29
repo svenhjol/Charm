@@ -3,7 +3,9 @@ package svenhjol.charm.registry;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -40,10 +42,11 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
-import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.helper.StringHelper;
 
 import java.util.*;
+
+import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
 
 @SuppressWarnings({"unused", "UnusedReturnValue", "ConstantConditions"})
 public class CommonRegistry {
@@ -156,14 +159,23 @@ public class CommonRegistry {
         return Registry.register(Registry.STRUCTURE_PROCESSOR, id, type);
     }
 
-    public static VillagerProfession villagerProfession(String id, ResourceKey<PoiType> poiType, ImmutableSet<Item> set1, ImmutableSet<Block> set2, @Nullable SoundEvent sound) {
-        return Registry.register(Registry.VILLAGER_PROFESSION, id, new VillagerProfession(
-            id,
-            holder -> holder.is(poiType),
-            holder -> holder.is(poiType),
-            set1,
-            set2,
-            sound));
+    public static VillagerProfession villagerProfession(ResourceLocation id, ResourceKey<PoiType> jobSite, List<Block> secondaryJobSites, List<Item> harvestableItems, SoundEvent workSound) {
+        // Build profession using fabric API.
+        var profession = VillagerProfessionBuilder.create()
+            .id(id)
+            .workstation(jobSite)
+            .workSound(workSound)
+            .harvestableItems(harvestableItems)
+            .secondaryJobSites(secondaryJobSites)
+            .build();
+
+        // Register profession.
+        Registry.register(Registry.VILLAGER_PROFESSION, id, profession);
+
+        // Create a new empty trade set for the profession.
+        TRADES.put(profession, new Int2ObjectOpenHashMap<>());
+
+        return profession;
     }
 
     public static void addBlocksToBlockEntity(BlockEntityType<?> type, Block... blocks) {

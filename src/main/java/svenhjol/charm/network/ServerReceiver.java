@@ -49,7 +49,7 @@ public abstract class ServerReceiver {
     }
 
     protected boolean showDebugMessages() {
-        return true;
+        return false;
     }
 
     private void handleInternal(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl listener, FriendlyByteBuf buffer, PacketSender sender) {

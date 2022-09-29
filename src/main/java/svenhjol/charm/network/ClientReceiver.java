@@ -47,7 +47,7 @@ public abstract class ClientReceiver {
     }
 
     protected boolean showDebugMessages() {
-        return true;
+        return false;
     }
 
     protected void handleInternal(Minecraft client, ClientPacketListener listener, FriendlyByteBuf buffer, PacketSender sender) {

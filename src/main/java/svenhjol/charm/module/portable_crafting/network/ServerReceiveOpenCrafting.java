@@ -13,9 +13,4 @@ public class ServerReceiveOpenCrafting extends ServerReceiver {
     public void handle(MinecraftServer server, ServerPlayer player, FriendlyByteBuf buffer) {
         server.execute(() -> PortableCrafting.handleReceiveOpenCrafting(player));
     }
-
-    @Override
-    protected boolean showDebugMessages() {
-        return false;
-    }
 }

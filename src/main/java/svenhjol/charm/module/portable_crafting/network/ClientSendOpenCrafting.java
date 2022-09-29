@@ -8,8 +8,4 @@ import svenhjol.charm.network.Id;
  */
 @Id("charm:open_crafting")
 public class ClientSendOpenCrafting extends ClientSender {
-    @Override
-    protected boolean showDebugMessages() {
-        return false;
-    }
 }

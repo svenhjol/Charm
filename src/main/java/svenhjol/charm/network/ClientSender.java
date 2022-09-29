@@ -62,6 +62,6 @@ public abstract class ClientSender {
     }
 
     protected boolean showDebugMessages() {
-        return true;
+        return false;
     }
 }

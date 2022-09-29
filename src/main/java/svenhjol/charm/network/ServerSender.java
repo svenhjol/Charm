@@ -41,7 +41,7 @@ public abstract class ServerSender {
     }
 
     protected boolean showDebugMessages() {
-        return true;
+        return false;
     }
 
     /**

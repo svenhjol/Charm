@@ -24,9 +24,4 @@ public class ServerReceiveScrolledOnHover extends ServerReceiver {
             HoverSortItemsCallback.EVENT.invoker().interact(player, itemInSlot, direction);
         });
     }
-
-    @Override
-    protected boolean showDebugMessages() {
-        return false;
-    }
 }
