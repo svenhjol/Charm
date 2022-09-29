@@ -2,7 +2,6 @@ package svenhjol.charm.module.rare_enchantments;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -13,7 +12,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import svenhjol.charm.Charm;
 import svenhjol.charm.module.colored_glints.ColoredGlints;
 
-import java.util.List;
 import java.util.Map;
 
 public class RareEnchantmentLootFunction extends LootItemConditionalFunction {
@@ -41,9 +39,7 @@ public class RareEnchantmentLootFunction extends LootItemConditionalFunction {
         RareEnchantments.applyTag(book);
 
         if (Charm.LOADER.isEnabled(ColoredGlints.class)) {
-            var colors = List.of(DyeColor.values());
-            var color = colors.get(random.nextInt(colors.size()));
-            ColoredGlints.applyColoredGlint(book, color);
+            ColoredGlints.applyRandomGlint(book, random);
         }
 
         return book;

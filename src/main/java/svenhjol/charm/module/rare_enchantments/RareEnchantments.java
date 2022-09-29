@@ -146,7 +146,7 @@ public class RareEnchantments extends CharmModule {
                     color = ColoredGlints.getColoredGlint(slot1);
                 }
                 var dyeColor = DyeColor.byName(color, ColoredGlints.getDefaultGlintColor());
-                ColoredGlints.applyColoredGlint(output, dyeColor);
+                ColoredGlints.applyGlint(output, dyeColor);
             }
         }
     }
