@@ -116,6 +116,7 @@ accessible field net/minecraft/world/entity/vehicle/Boat$Type planks Lnet/minecr
 accessible field net/minecraft/client/Options discreteMouseScroll Lnet/minecraft/client/OptionInstance;
 accessible field net/minecraft/world/entity/ai/behavior/GiveGiftToHero GIFTS Ljava/util/Map;
 accessible field net/minecraft/world/level/Explosion level Lnet/minecraft/world/level/Level;
+accessible field net/minecraft/world/entity/npc/VillagerTrades$ItemsForEmeralds itemStack Lnet/minecraft/world/item/ItemStack;
 
 accessible field net/minecraft/client/renderer/RenderBuffers fixedBuffers Ljava/util/SortedMap;
 accessible field net/minecraft/client/renderer/RenderType ARMOR_GLINT Lnet/minecraft/client/renderer/RenderType;

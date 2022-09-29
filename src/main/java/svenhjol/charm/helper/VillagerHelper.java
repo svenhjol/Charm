@@ -3,8 +3,6 @@ package svenhjol.charm.helper;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -17,6 +15,7 @@ import net.minecraft.world.level.ItemLike;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
 import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRADES;
@@ -25,24 +24,22 @@ import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRA
  * @version 4.0.0-charm
  */
 public class VillagerHelper {
+    public static void removeTrade(VillagerProfession profession, int level, Predicate<ItemListing> match) {
+        var trades = getMutableTrades(profession);
+        trades.get(level).stream()
+            .filter(match)
+            .findFirst()
+            .ifPresent(trade -> {
+                LogHelper.debug(VillagerHelper.class, "Removing trade. Profession: " + profession.name() + ", level: " + level + ", trade: " + trade);
+                trades.get(level).remove(trade);
+                reassembleTrades(profession, trades);
+            });
+    }
+
     public static void addTrade(VillagerProfession profession, int level, ItemListing trade) {
-        Int2ObjectMap<ItemListing[]> fixedTrades = TRADES.get(profession);
-        Int2ObjectMap<List<ItemListing>> mutableTrades = new Int2ObjectOpenHashMap<>();
-
-        for (int i = 1; i <= 5; i++) {
-            mutableTrades.put(i, NonNullList.create());
-        }
-
-        fixedTrades.int2ObjectEntrySet().forEach(e
-            -> Arrays.stream(e.getValue()).forEach(a -> mutableTrades.get(e.getIntKey()).add(a)));
-
-        mutableTrades.get(level).add(trade);
-
-        Int2ObjectMap<ItemListing[]> mappedTrades = new Int2ObjectOpenHashMap<>();
-        mutableTrades.int2ObjectEntrySet().forEach(e
-            -> mappedTrades.put(e.getIntKey(), e.getValue().toArray(new ItemListing[0])));
-
-        TRADES.put(profession, mappedTrades);
+        var trades = getMutableTrades(profession);
+        trades.get(level).add(trade);
+        reassembleTrades(profession, trades);
     }
 
     public static void addWanderingTrade(ItemListing trade, boolean isRare) {
@@ -57,6 +54,29 @@ public class VillagerHelper {
             normalTrades.add(trade);
             WANDERING_TRADER_TRADES.put(1, normalTrades.toArray(new ItemListing[0]));
         }
+    }
+
+    private static Int2ObjectMap<List<ItemListing>> getMutableTrades(VillagerProfession profession) {
+        var fixedTrades = TRADES.get(profession);
+        Int2ObjectMap<List<ItemListing>> mutableTrades = new Int2ObjectOpenHashMap<>();
+
+        for (int i = 1; i <= 5; i++) {
+            mutableTrades.put(i, NonNullList.create());
+        }
+
+        fixedTrades.int2ObjectEntrySet().forEach(e
+            -> Arrays.stream(e.getValue())
+                .forEach(a -> mutableTrades.get(e.getIntKey()).add(a)));
+
+        return mutableTrades;
+    }
+
+    private static void reassembleTrades(VillagerProfession profession, Int2ObjectMap<List<ItemListing>> trades) {
+        Int2ObjectMap<ItemListing[]> mappedTrades = new Int2ObjectOpenHashMap<>();
+        trades.int2ObjectEntrySet().forEach(e
+            -> mappedTrades.put(e.getIntKey(), e.getValue().toArray(new ItemListing[0])));
+
+        TRADES.put(profession, mappedTrades);
     }
 
     public static class SingleItemTypeTrade implements ItemListing {
