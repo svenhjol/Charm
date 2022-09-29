@@ -1,5 +1,6 @@
 package svenhjol.charm.module.beekeepers;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.behavior.GiveGiftToHero;
@@ -10,8 +11,6 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.VillagerHelper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
-
-import java.util.List;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.\n" +
     "Disabling will leave villagers of the profession in an unemployed state with decrepit data.")
@@ -28,7 +27,7 @@ public class Beekeepers extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        BEEKEEPER = CommonRegistry.villagerProfession(ID, PoiTypes.BEEHIVE, List.of(), List.of(), SoundEvents.BEEHIVE_WORK);
+        BEEKEEPER = CommonRegistry.villagerProfession(ID, PoiTypes.BEEHIVE, ImmutableSet.of(), ImmutableSet.of(), SoundEvents.BEEHIVE_WORK);
         GiveGiftToHero.GIFTS.put(BEEKEEPER, GIFT);
 
         // register beekeeper trades

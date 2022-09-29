@@ -1,5 +1,6 @@
 package svenhjol.charm.module.lumberjacks;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -12,8 +13,6 @@ import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.lumberjacks.LumberjackTradeOffers.*;
 import svenhjol.charm.module.woodcutters.Woodcutters;
 import svenhjol.charm.registry.CommonRegistry;
-
-import java.util.List;
 
 import static svenhjol.charm.helper.VillagerHelper.addTrade;
 
@@ -39,7 +38,7 @@ public class Lumberjacks extends CharmModule {
 
     @Override
     public void runWhenEnabled() {
-        LUMBERJACK = CommonRegistry.villagerProfession(VILLAGER_ID, POIT, List.of(), List.of(), VILLAGER_WORK_LUMBERJACK);
+        LUMBERJACK = CommonRegistry.villagerProfession(VILLAGER_ID, POIT, ImmutableSet.of(), ImmutableSet.of(), VILLAGER_WORK_LUMBERJACK);
         GiveGiftToHero.GIFTS.put(LUMBERJACK, GIFT);
 
         // register lumberjack trades

@@ -5,7 +5,6 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -159,15 +158,15 @@ public class CommonRegistry {
         return Registry.register(Registry.STRUCTURE_PROCESSOR, id, type);
     }
 
-    public static VillagerProfession villagerProfession(ResourceLocation id, ResourceKey<PoiType> jobSite, List<Block> secondaryJobSites, List<Item> harvestableItems, SoundEvent workSound) {
+    public static VillagerProfession villagerProfession(ResourceLocation id, ResourceKey<PoiType> jobSite, ImmutableSet<Block> secondaryJobSites, ImmutableSet<Item> harvestableItems, SoundEvent workSound) {
         // Build profession using fabric API.
-        var profession = VillagerProfessionBuilder.create()
-            .id(id)
-            .workstation(jobSite)
-            .workSound(workSound)
-            .harvestableItems(harvestableItems)
-            .secondaryJobSites(secondaryJobSites)
-            .build();
+        var profession = VillagerProfession.register(
+            id.toString(),
+            jobSite,
+            harvestableItems,
+            secondaryJobSites,
+            workSound
+        );
 
         // Register profession.
         Registry.register(Registry.VILLAGER_PROFESSION, id, profession);
