@@ -11,7 +11,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.api.event.GrindstoneEvents;
 import svenhjol.charm.api.event.GrindstoneEvents.GrindstoneMenuInstance;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.HashMap;
@@ -99,6 +99,6 @@ public class GrindableArmor extends CharmModule {
     }
 
     public static void triggerRecycledArmor(ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_RECYCLED_ARMOR);
+        Advancements.triggerActionPerformed(player, TRIGGER_RECYCLED_ARMOR);
     }
 }

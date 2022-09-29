@@ -20,7 +20,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.EntityDropItemsCallback;
 import svenhjol.charm.helper.ItemHelper;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
@@ -68,6 +68,6 @@ public class EndermitePowder extends CharmModule {
     }
 
     public static void triggerAdvancement(ServerPlayer playerEntity) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(playerEntity, new ResourceLocation(Charm.MOD_ID, "used_endermite_powder"));
+        Advancements.triggerActionPerformed(playerEntity, new ResourceLocation(Charm.MOD_ID, "used_endermite_powder"));
     }
 }

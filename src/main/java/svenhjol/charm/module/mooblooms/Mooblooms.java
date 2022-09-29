@@ -17,8 +17,8 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.api.event.AddEntityCallback;
 import svenhjol.charm.helper.BiomeHelper;
 import svenhjol.charm.helper.MobHelper;
-import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.item.CharmSpawnEggItem;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -69,6 +69,6 @@ public class Mooblooms extends CharmModule {
     }
 
     public static void triggerMilkedMoobloom(ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_MILKED_MOOBLOOM);
+        Advancements.triggerActionPerformed(player, TRIGGER_MILKED_MOOBLOOM);
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -44,6 +44,6 @@ public class Kilns extends CharmModule {
     }
 
     public static void triggerFiredItem(ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_FIRED_ITEM);
+        Advancements.triggerActionPerformed(player, TRIGGER_FIRED_ITEM);
     }
 }

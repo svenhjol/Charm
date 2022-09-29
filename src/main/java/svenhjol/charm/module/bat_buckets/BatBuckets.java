@@ -27,7 +27,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.PlayerTickCallback;
 import svenhjol.charm.helper.ItemNbtHelper;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
@@ -130,10 +130,10 @@ public class BatBuckets extends CharmModule {
     }
 
     public static void triggerCapturedBat(ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_CAPTURED_BAT);
+        Advancements.triggerActionPerformed(player, TRIGGER_CAPTURED_BAT);
     }
 
     public static void triggerUsedBatBucket(ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_USED_BAT_BUCKET);
+        Advancements.triggerActionPerformed(player, TRIGGER_USED_BAT_BUCKET);
     }
 }

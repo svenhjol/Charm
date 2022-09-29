@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, description = "Right-click on a sign with an empty hand to edit its text.")
@@ -39,6 +39,6 @@ public class EditableSigns extends CharmModule {
     }
 
     public static void triggerEditedSign(ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_EDITED_SIGN);
+        Advancements.triggerActionPerformed(player, TRIGGER_EDITED_SIGN);
     }
 }

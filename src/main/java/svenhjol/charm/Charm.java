@@ -4,6 +4,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.helper.ConfigHelper;
 import svenhjol.charm.init.*;
+import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.lib.LogWrapper;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.loader.CommonLoader;
 import svenhjol.charm.module.core.Core;
@@ -28,7 +30,7 @@ public class Charm implements ModInitializer {
         CharmResources.init();
         CharmParticles.init();
         CharmTags.init();
-        CharmAdvancements.init();
+        Advancements.init();
 
         LOADER.init();
 

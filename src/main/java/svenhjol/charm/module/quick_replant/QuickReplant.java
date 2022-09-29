@@ -24,7 +24,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.EnchantmentsHelper;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.collection_enchantment.CollectionEnchantment;
 
@@ -133,6 +133,6 @@ public class QuickReplant extends CharmModule {
     }
 
     public static void triggerReplantedCrops(ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_REPLANTED_CROPS);
+        Advancements.triggerActionPerformed(player, TRIGGER_REPLANTED_CROPS);
     }
 }

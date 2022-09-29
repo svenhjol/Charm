@@ -17,7 +17,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
 import svenhjol.charm.helper.WorldHelper;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -107,6 +107,6 @@ public class ColoredNetherPortals extends CharmModule {
     }
 
     public static void triggerColoredPortal(ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_COLORED_PORTAL);
+        Advancements.triggerActionPerformed(player, TRIGGER_COLORED_PORTAL);
     }
 }

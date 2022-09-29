@@ -1,4 +1,4 @@
-package svenhjol.charm.init;
+package svenhjol.charm.lib;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

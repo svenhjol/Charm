@@ -8,7 +8,7 @@ import net.minecraft.sounds.SoundEvent;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.helper.PlayerHelper;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
@@ -28,6 +28,6 @@ public class BlockOfGunpowder extends CharmModule {
 
     public static void triggerAdvancementForNearbyPlayers(ServerLevel level, BlockPos pos) {
         PlayerHelper.getPlayersInRange(level, pos).forEach(player
-            -> CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayer)player, TRIGGER_DISSOLVED_GUNPOWDER));
+            -> Advancements.triggerActionPerformed((ServerPlayer)player, TRIGGER_DISSOLVED_GUNPOWDER));
     }
 }

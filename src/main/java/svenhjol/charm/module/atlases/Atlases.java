@@ -23,7 +23,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.PlayerTickCallback;
 import svenhjol.charm.helper.ItemNbtHelper;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.atlases.network.ServerReceiveSwapAtlas;
 import svenhjol.charm.module.atlases.network.ServerReceiveTransferAtlas;
@@ -192,7 +192,7 @@ public class Atlases extends CharmModule {
     }
 
     public static void triggerMadeMaps(ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_MADE_ATLAS_MAPS);
+        Advancements.triggerActionPerformed(player, TRIGGER_MADE_ATLAS_MAPS);
     }
 
     private void handlePlayerTick(Player player) {

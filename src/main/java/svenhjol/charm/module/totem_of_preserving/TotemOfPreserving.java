@@ -20,7 +20,7 @@ import svenhjol.charm.api.event.TotemOfPreservingEvents;
 import svenhjol.charm.helper.ItemHelper;
 import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.helper.TextHelper;
-import svenhjol.charm.init.CharmAdvancements;
+import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -279,6 +279,6 @@ public class TotemOfPreserving extends CharmModule {
     }
 
     public static void triggerUsedTotemOfPreserving(ServerPlayer player) {
-        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_USED_TOTEM_OF_PRESERVING);
+        Advancements.triggerActionPerformed(player, TRIGGER_USED_TOTEM_OF_PRESERVING);
     }
 }
