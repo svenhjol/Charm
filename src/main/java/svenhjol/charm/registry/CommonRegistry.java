@@ -1,7 +1,9 @@
 package svenhjol.charm.registry;
 
 import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -39,6 +41,8 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import svenhjol.charm.helper.StringHelper;
 
 import java.util.*;
+
+import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
 
 @SuppressWarnings({"unused", "UnusedReturnValue", "ConstantConditions"})
 public class CommonRegistry {
@@ -149,6 +153,25 @@ public class CommonRegistry {
 
     public static <T extends StructureProcessor> StructureProcessorType<T> structureProcessor(ResourceLocation id, StructureProcessorType<T> type) {
         return Registry.register(Registry.STRUCTURE_PROCESSOR, id, type);
+    }
+
+    public static VillagerProfession villagerProfession(ResourceLocation id, PoiType jobSite, List<Block> secondaryJobSites, List<Item> harvestableItems, SoundEvent workSound) {
+        // Build profession using fabric API.
+        var profession = VillagerProfessionBuilder.create()
+            .id(id)
+            .workstation(jobSite)
+            .workSound(workSound)
+            .harvestableItems(harvestableItems)
+            .secondaryJobSites(secondaryJobSites)
+            .build();
+
+        // Register profession.
+        Registry.register(Registry.VILLAGER_PROFESSION, id, profession);
+
+        // Create a new empty trade set for the profession.
+        TRADES.put(profession, new Int2ObjectOpenHashMap<>());
+
+        return profession;
     }
 
     public static VillagerProfession villagerProfession(String id, VillagerProfession profession) {
