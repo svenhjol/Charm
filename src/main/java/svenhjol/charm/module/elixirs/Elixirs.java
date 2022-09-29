@@ -16,7 +16,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.PlayerTickCallback;
@@ -26,7 +27,6 @@ import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
-import svenhjol.charm.Charm;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -48,16 +48,25 @@ public class Elixirs extends CharmModule {
     private static Advancement CACHED_ELIXIR_ADVANCEMENT = null;
 
     @Config(name = "Blacklist", description = "List of elixirs that will not be loaded. See wiki for details.")
-    public static List<String> configBlacklist = new ArrayList<>();
+    public static List<String> blacklist = new ArrayList<>();
 
     @Config(name = "Dungeon chest chance", description = "Chance (out of 1.0) of an elixir being found in a vanilla dungeon chest.")
     public static float dungeonChance = 0.05F;
 
     @Config(name = "Woodland mansion chest chance", description = "Chance (out of 1.0) of an elixir being found in a woodland mansion chest.")
-    public static float mansionChance = 0.5F;
+    public static float mansionChance = 1.0F;
 
     @Config(name = "Stronghold chest chance", description = "Chance (out of 1.0) of an elixir being found in stronghold corridor and crossing chests.")
     public static float strongholdChance = 0.5F;
+
+    @Config(name = "Ancient city chest chance", description = "Chance (out of 1.0) of an elixir being found in an ancient city chest.")
+    public static float ancientCityChance = 0.5F;
+
+    @Config(name = "Minimum elixirs per chest", description = "Minimum number of elixirs that will be in the chest.")
+    public static int minRolls = 1;
+
+    @Config(name = "Maximum elixirs per chest", description = "Maximum number of elixirs that will be in the chest.")
+    public static int maxRolls = 3;
 
     @Override
     public void register() {
@@ -71,6 +80,7 @@ public class Elixirs extends CharmModule {
 
         registerLootTable(BuiltInLootTables.SIMPLE_DUNGEON, dungeonChance);
         registerLootTable(BuiltInLootTables.WOODLAND_MANSION, mansionChance);
+        registerLootTable(BuiltInLootTables.ANCIENT_CITY, ancientCityChance);
         registerLootTable(BuiltInLootTables.STRONGHOLD_CORRIDOR, strongholdChance);
         registerLootTable(BuiltInLootTables.STRONGHOLD_CROSSING, strongholdChance);
 
@@ -80,7 +90,7 @@ public class Elixirs extends CharmModule {
                 var simpleClassName = className.substring(className.lastIndexOf(".") + 1);
                 try {
                     Class<?> clazz = Class.forName(className);
-                    if (configBlacklist.contains(simpleClassName)) continue;
+                    if (blacklist.contains(simpleClassName)) continue;
 
                     IElixir potion = (IElixir)clazz.getDeclaredConstructor().newInstance();
                     POTIONS.add(potion);
@@ -136,7 +146,7 @@ public class Elixirs extends CharmModule {
             var chance = LOOT_TABLES.get(id);
             var lootPool = LootPool.lootPool()
                 .when(LootItemRandomChanceCondition.randomChance(chance))
-                .setRolls(ConstantValue.exactly(1))
+                .setRolls(UniformGenerator.between((float)minRolls, (float)maxRolls))
                 .add(LootItem.lootTableItem(Items.GLASS_BOTTLE)
                     .setWeight(1)
                     .apply(() -> new ElixirsLootFunction(new LootItemCondition[0])));
