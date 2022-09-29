@@ -168,9 +168,6 @@ public class CommonRegistry {
             workSound
         );
 
-        // Register profession.
-        Registry.register(Registry.VILLAGER_PROFESSION, id, profession);
-
         // Create a new empty trade set for the profession.
         TRADES.put(profession, new Int2ObjectOpenHashMap<>());
 
