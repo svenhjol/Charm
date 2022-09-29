@@ -22,7 +22,7 @@ public class BumblezoneIntegration extends CharmModule {
 
     @Override
     public void register() {
-        this.addDependencyCheck(module -> ModHelper.isLoaded("bumblezone"));
+        this.addDependencyCheck(module -> ModHelper.isLoaded("the_bumblezone"));
     }
 
     /**
