@@ -15,7 +15,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.EntityDropItemsCallback;
-import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.extra_wandering_trades.ExtraWanderingTrades;
 import svenhjol.charm.registry.CommonRegistry;
@@ -70,10 +70,10 @@ public class RaidHorns extends CharmModule {
     }
 
     public static void triggerSummoned(ServerPlayer playerEntity) {
-        Advancements.triggerActionPerformed(playerEntity, TRIGGER_SUMMONED_PILLAGERS);
+        CharmAdvancements.ACTION_PERFORMED.trigger(playerEntity, TRIGGER_SUMMONED_PILLAGERS);
     }
 
     public static void triggerCalledOff(ServerPlayer playerEntity) {
-        Advancements.triggerActionPerformed(playerEntity, TRIGGER_CALLED_OFF_RAID);
+        CharmAdvancements.ACTION_PERFORMED.trigger(playerEntity, TRIGGER_CALLED_OFF_RAID);
     }
 }

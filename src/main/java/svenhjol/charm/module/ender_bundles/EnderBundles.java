@@ -13,7 +13,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.HoverSortItemsCallback;
 import svenhjol.charm.helper.TextHelper;
-import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.inventory_tidying.InventoryTidyingHandler;
 import svenhjol.charm.module.ender_bundles.network.ServerReceiveOpenEnderBundle;
@@ -78,7 +78,7 @@ public class EnderBundles extends CharmModule {
     }
     
     public static void triggerUsedEnderBundle(ServerPlayer player) {
-        Advancements.triggerActionPerformed(player, EnderBundles.TRIGGER_USED_ENDER_BUNDLE);
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, EnderBundles.TRIGGER_USED_ENDER_BUNDLE);
     }
     
     public static NonNullList<ItemStack> getEnderInventory(Player player) {

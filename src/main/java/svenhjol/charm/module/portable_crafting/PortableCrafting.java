@@ -11,8 +11,8 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.helper.TextHelper;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.init.CharmTags;
-import svenhjol.charm.lib.Advancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.portable_crafting.network.ServerReceiveOpenCrafting;
 
@@ -64,6 +64,6 @@ public class PortableCrafting extends CharmModule {
     }
 
     public static void triggerUsedCraftingTable(ServerPlayer player) {
-        Advancements.triggerActionPerformed(player, TRIGGER_USED_CRAFTING_TABLE);
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_USED_CRAFTING_TABLE);
     }
 }

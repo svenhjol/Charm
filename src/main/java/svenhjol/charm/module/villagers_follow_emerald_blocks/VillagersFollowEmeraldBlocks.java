@@ -15,7 +15,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.api.event.AddEntityCallback;
 import svenhjol.charm.api.event.PlayerTickCallback;
-import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.List;
@@ -55,6 +55,6 @@ public class VillagersFollowEmeraldBlocks extends CharmModule {
     }
 
     public static void triggerLuredVillager(ServerPlayer player) {
-        Advancements.triggerActionPerformed(player, TRIGGER_LURED_VILLAGER);
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_LURED_VILLAGER);
     }
 }

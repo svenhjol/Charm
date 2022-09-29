@@ -17,7 +17,7 @@ import svenhjol.charm.annotation.Config;
 import svenhjol.charm.api.event.GrindstoneEvents;
 import svenhjol.charm.api.event.GrindstoneEvents.GrindstoneMenuInstance;
 import svenhjol.charm.helper.ModHelper;
-import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
 import javax.annotation.Nullable;
@@ -190,6 +190,6 @@ public class ExtractEnchantments extends CharmModule {
     }
 
     public static void triggerExtractedEnchantment(ServerPlayer player) {
-        Advancements.triggerActionPerformed(player, TRIGGER_EXTRACTED_ENCHANTMENT);
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_EXTRACTED_ENCHANTMENT);
     }
 }

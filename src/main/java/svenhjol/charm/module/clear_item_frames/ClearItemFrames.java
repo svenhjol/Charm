@@ -18,7 +18,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.clear_item_frames.network.ServerSendAddAmethyst;
 import svenhjol.charm.module.clear_item_frames.network.ServerSendRemoveAmethyst;
@@ -58,7 +58,7 @@ public class ClearItemFrames extends CharmModule {
 
             if (!level.isClientSide) {
                 SERVER_SEND_ADD_AMETHYST.send((ServerPlayer) player, frame.blockPosition());
-                Advancements.triggerActionPerformed((ServerPlayer) player, TRIGGER_USED_AMETHYST_ON_FRAME);
+                CharmAdvancements.ACTION_PERFORMED.trigger((ServerPlayer) player, TRIGGER_USED_AMETHYST_ON_FRAME);
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide);

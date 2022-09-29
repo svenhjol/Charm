@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.helper.AdvancementHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class FilterAdvancementsMixin {
     )
     private HashMap<ResourceLocation, Advancement.Builder> hookAdd(Map<ResourceLocation, Advancement.Builder> map) {
         var newMap = new HashMap<>(map);
-        Advancements.filterAdvancements(newMap);
+        AdvancementHelper.filterAdvancements(newMap);
         return Maps.newHashMap(newMap);
     }
 }

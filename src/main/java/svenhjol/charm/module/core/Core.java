@@ -10,7 +10,7 @@ import net.minecraft.world.inventory.DataSlot;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
-import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 
 @CommonModule(mod = Charm.MOD_ID, priority = 100, alwaysEnabled = true, description = "Core configuration values.")
@@ -33,7 +33,7 @@ public class Core extends CharmModule {
 
     private void handleServerJoin(Entity entity, ServerLevel level) {
         if (entity instanceof ServerPlayer player) {
-            Advancements.triggerActionPerformed(player, ADVANCEMENT_PLAYER_JOINED);
+            CharmAdvancements.ACTION_PERFORMED.trigger(player, ADVANCEMENT_PLAYER_JOINED);
         }
     }
 

@@ -7,7 +7,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
-import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.module.inventory_tidying.network.ServerReceiveTidyInventory;
 
@@ -69,6 +69,6 @@ public class InventoryTidying extends CharmModule {
     }
 
     public static void triggerTidiedInventory(ServerPlayer player) {
-        Advancements.triggerActionPerformed(player, TRIGGER_TIDIED_INVENTORY);
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_TIDIED_INVENTORY);
     }
 }

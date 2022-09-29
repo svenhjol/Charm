@@ -13,7 +13,7 @@ import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.annotation.Config;
 import svenhjol.charm.enums.IWoodMaterial;
 import svenhjol.charm.enums.VanillaWoodMaterial;
-import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 
@@ -79,6 +79,6 @@ public class Bookcases extends CharmModule {
     }
 
     public static void triggerAddedBookToBookcase(ServerPlayer player) {
-        Advancements.triggerActionPerformed(player, TRIGGER_ADDED_BOOK_TO_BOOKCASE);
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_ADDED_BOOK_TO_BOOKCASE);
     }
 }

@@ -1,11 +1,7 @@
-package svenhjol.charm.lib;
+package svenhjol.charm.helper;
 
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import svenhjol.charm.advancement.ActionPerformedCriterion;
-import svenhjol.charm.helper.LogHelper;
 import svenhjol.charm.loader.CharmModule;
 
 import java.util.ArrayList;
@@ -13,20 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Advancements {
+/**
+ * @version 4.0.0-charm
+ */
+public class AdvancementHelper {
     private static final List<ResourceLocation> ADVANCEMENTS_TO_REMOVE = new ArrayList<>();
-    private static ActionPerformedCriterion ACTION_PERFORMED;
-
-    public static void init() {
-        ACTION_PERFORMED = CriteriaTriggers.register(new ActionPerformedCriterion());
-    }
-
-    public static void triggerActionPerformed(ServerPlayer player, ResourceLocation id) {
-        ACTION_PERFORMED.trigger(player, id);
-    }
 
     public static void removeAdvancement(ResourceLocation id) {
-        LogHelper.debug(Advancements.class, "Adding `" + id + "` to list of advancements to remove");
+        LogHelper.debug(AdvancementHelper.class, "Adding `" + id + "` to list of advancements to remove");
         ADVANCEMENTS_TO_REMOVE.add(id);
     }
 
@@ -39,7 +29,7 @@ public class Advancements {
             // remove exact matches
             AtomicInteger exactMatches = new AtomicInteger();
             keys.stream().filter(a -> a.equals(toRemove)).forEach(a -> {
-                LogHelper.debug(Advancements.class, "> Filtering out exact match `" + a + "`");
+                LogHelper.debug(AdvancementHelper.class, "> Filtering out exact match `" + a + "`");
                 exactMatches.getAndIncrement();
                 map.remove(a);
             });
@@ -51,7 +41,7 @@ public class Advancements {
                 .filter(a -> a.getNamespace().equals(toRemove.getNamespace()))
                 .filter(a -> a.getPath().startsWith(toRemove.getPath()))
                 .forEach(a -> {
-                    LogHelper.debug(Advancements.class, "> Filtering out fuzzy match `" + a + "`");
+                    LogHelper.debug(AdvancementHelper.class, "> Filtering out fuzzy match `" + a + "`");
                     map.remove(a);
                 });
         });

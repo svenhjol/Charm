@@ -23,7 +23,7 @@ import svenhjol.charm.api.event.PlayerTickCallback;
 import svenhjol.charm.helper.ClassHelper;
 import svenhjol.charm.helper.ItemNbtHelper;
 import svenhjol.charm.helper.LogHelper;
-import svenhjol.charm.lib.Advancements;
+import svenhjol.charm.init.CharmAdvancements;
 import svenhjol.charm.loader.CharmModule;
 import svenhjol.charm.registry.CommonRegistry;
 import svenhjol.charm.Charm;
@@ -96,7 +96,7 @@ public class Elixirs extends CharmModule {
     }
 
     public static void triggerFindElixir(ServerPlayer player) {
-        Advancements.triggerActionPerformed(player, TRIGGER_FIND_ELIXIR);
+        CharmAdvancements.ACTION_PERFORMED.trigger(player, TRIGGER_FIND_ELIXIR);
     }
 
     private void handlePlayerTick(Player player) {
