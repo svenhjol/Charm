@@ -3,19 +3,28 @@ package svenhjol.charm.module.elixirs.item;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
+import svenhjol.charm.Charm;
 import svenhjol.charm.helper.TextHelper;
+import svenhjol.charm.module.bat_buckets.BatBuckets;
 import svenhjol.charm.module.elixirs.IElixir;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MinersDelight implements IElixir {
     @Override
     public List<MobEffect> getValidStatusEffects() {
-        return Arrays.asList(
+        var effects = new ArrayList<>(Arrays.asList(
             MobEffects.NIGHT_VISION,
             MobEffects.DIG_SPEED
-        );
+        ));
+
+        if (Charm.LOADER.isEnabled(BatBuckets.class)) {
+            effects.add(BatBuckets.ECHOLOCATION);
+        }
+
+        return effects;
     }
 
     @Override
