@@ -30,6 +30,8 @@ public class Charm implements ModInitializer {
         CharmTags.init();
         CharmAdvancements.init();
 
+        setupDebugMode();
+
         LOADER.init();
 
         hasStartedCharm = true;
