@@ -32,8 +32,9 @@ public class RareEnchantmentLootFunction extends LootItemConditionalFunction {
         var random = context.getRandom();
         var enchantment = enchantments.get(random.nextInt(enchantments.size()));
         var maxLevel = enchantment.getMaxLevel();
+        var newLevel = Math.min(10, maxLevel + random.nextInt(RareEnchantments.extraLevels) + 1);
         var book = new ItemStack(Items.ENCHANTED_BOOK);
-        var map = Map.of(enchantment, maxLevel + 1);
+        var map = Map.of(enchantment, newLevel);
 
         EnchantmentHelper.setEnchantments(map, book);
         RareEnchantments.applyTag(book);

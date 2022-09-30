@@ -1,14 +1,13 @@
 package svenhjol.charm.mixin.rare_enchantments;
 
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AnvilMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.ItemCombinerMenu;
-import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import svenhjol.charm.module.rare_enchantments.RareEnchantments;
@@ -17,6 +16,8 @@ import java.util.Map;
 
 @Mixin(AnvilMenu.class)
 public abstract class PreserveEnchantmentsMixin extends ItemCombinerMenu {
+    @Shadow @Final private DataSlot cost;
+
     public PreserveEnchantmentsMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(type, syncId, playerInventory, context);
     }
@@ -32,10 +33,10 @@ public abstract class PreserveEnchantmentsMixin extends ItemCombinerMenu {
         var slot0 = this.inputSlots.getItem(0);
         var slot1 = this.inputSlots.getItem(1);
 
-        if (RareEnchantments.checkValidEnchantments(enchantment0, enchantment1, slot0, slot1)) {
+        if (RareEnchantments.checkValidEnchantment(enchantment0, enchantment1, slot0, slot1)) {
             return true;
         }
-        
+
         return enchantment0.isCompatibleWith(enchantment1);
     }
     
@@ -56,6 +57,9 @@ public abstract class PreserveEnchantmentsMixin extends ItemCombinerMenu {
         var slot0 = this.inputSlots.getItem(0);
         var slot1 = this.inputSlots.getItem(1);
         
-        RareEnchantments.preserveHighestLevelEnchantment(enchantments, slot0, slot1, outputStack);
+        var result = RareEnchantments.preserveHighestLevelEnchantment(enchantments, slot0, slot1, outputStack);
+        if (result) {
+            this.cost.set(RareEnchantments.applyCost);
+        }
     }
 }
