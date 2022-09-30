@@ -49,7 +49,7 @@ public class RareEnchantments extends CharmModule {
     public static float strongholdChance = 1.0F;
 
     @Config(name = "Ancient city chest chance", description = "Chance (out of 1.0) of a rare enchantment being found in an ancient city chest.")
-    public static float ancientCityChance = 0.5F;
+    public static float ancientCityChance = 0.25F;
 
     @Config(name = "Minimum books per chest", description = "Minimum number of rare enchanted books that will be in the chest.")
     public static int minRolls = 1;

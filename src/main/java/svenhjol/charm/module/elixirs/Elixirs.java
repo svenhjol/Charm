@@ -57,10 +57,10 @@ public class Elixirs extends CharmModule {
     public static float mansionChance = 1.0F;
 
     @Config(name = "Stronghold chest chance", description = "Chance (out of 1.0) of an elixir being found in stronghold corridor and crossing chests.")
-    public static float strongholdChance = 0.5F;
+    public static float strongholdChance = 0.25F;
 
     @Config(name = "Ancient city chest chance", description = "Chance (out of 1.0) of an elixir being found in an ancient city chest.")
-    public static float ancientCityChance = 0.5F;
+    public static float ancientCityChance = 0.25F;
 
     @Config(name = "Minimum elixirs per chest", description = "Minimum number of elixirs that will be in the chest.")
     public static int minRolls = 1;
