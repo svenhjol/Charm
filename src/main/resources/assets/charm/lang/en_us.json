@@ -1,0 +1,10 @@
+{
+  "gui.charm.facing": "Facing %s",
+  "gui.charm.north": "north",
+  "gui.charm.east": "east",
+  "gui.charm.south": "south",
+  "gui.charm.west": "west",
+  "gui.charm.coords": "X: %s   Y: %s   Z: %s",
+  "gui.charm.coords_only_xz": "X: %s   Z: %s",
+  "gui.charm.repair_cost": "Repair Cost: %s"
+}

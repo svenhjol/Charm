@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "charm",
+  "version": "${version}",
+  "name": "Charm (client)",
+  "description": "Client-only tweaks for Minecraft. Works on vanilla servers!",
+  "authors": [
+    "svenhjol"
+  ],
+  "icon": "icon.png",
+  "license": "MIT",
+  "environment": "*",
+  "mixins": [
+    "charm.mixins.json"
+  ],
+  "entrypoints": {
+    "client": [
+      "svenhjol.charm.ClientInitializer"
+    ]
+  },
+  "accessWidener": "charm.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "${minecraft_version}",
+    "java": ">=17"
+  }
+}
