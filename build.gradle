@@ -4,6 +4,8 @@ plugins {
 }
 
 apply from: "https://charmony.work/gradle/fabric.build.gradle"
+apply from: "https://charmony.work/gradle/fabric-tasks.build.gradle"
+
 
 // Load props from common gradle.properties.
 def props = new Properties()
