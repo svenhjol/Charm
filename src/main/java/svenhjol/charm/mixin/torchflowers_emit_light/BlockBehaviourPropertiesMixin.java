@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import svenhjol.charm.feature.torchflowers_emit_light.TorchflowersEmitLight;
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class BlockBehaviourPropertiesMixin {
@@ -20,7 +21,7 @@ public abstract class BlockBehaviourPropertiesMixin {
     )
     private void hookGetLightEmission(CallbackInfoReturnable<Integer> cir) {
         if (is(Blocks.TORCHFLOWER)) {
-            cir.setReturnValue(8);
+            cir.setReturnValue(TorchflowersEmitLight.lightLevel);
         }
     }
 }
