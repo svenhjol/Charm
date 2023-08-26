@@ -6,7 +6,6 @@
   "refmap": "${refmap_file}",
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "mixins": [
-    "gentle_potion_particles.LivingEntityMixin"
   ],
   "client": [
     "accessor.EntityRenderDispatcherAccessor",
@@ -16,10 +15,12 @@
     "accessor.ShulkerBoxBlockEntityAccessor",
     "accessor.SoundEngineAccessor",
     "accessor.SoundManagerAccessor",
+    "gentle_potion_particles.LivingEntityMixin",
     "no_chat_unverified_message.DisableToastMixin",
     "no_experimental_screen.WorldOpenFlowsMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
-    "show_repair_cost.AnvilScreenMixin"
+    "show_repair_cost.AnvilScreenMixin",
+    "torchflowers_emit_light.BlockBehaviourPropertiesMixin"
   ],
   "injectors": {
     "defaultRequire": 1
