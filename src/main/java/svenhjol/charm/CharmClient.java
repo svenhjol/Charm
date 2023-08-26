@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm_core.CharmCoreClient;
 import svenhjol.charm_core.Log;
 import svenhjol.charm_core.annotation.ClientFeature;
+import svenhjol.charm_core.base.CharmConfig;
 import svenhjol.charm_core.client.*;
 import svenhjol.charm_core.iface.*;
 
@@ -13,11 +14,11 @@ public class CharmClient {
     public static final String PREFIX = "svenhjol." + MOD_ID;
     public static final String FEATURE_PREFIX = PREFIX + ".feature";
     public static ILog LOG;
-    public static IConfig CONFIG;
     public static ILoader LOADER;
     public static IEvents EVENTS;
     public static IClientRegistry REGISTRY;
     public static IClientNetwork NETWORK;
+    public static CharmConfig CONFIG;
 
     public CharmClient() {
         LOG = new Log(MOD_ID);
