@@ -6,6 +6,9 @@
   "refmap": "${refmap_file}",
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "mixins": [
+    "auto_restock.AnimalMixin",
+    "auto_restock.ComposterBlockMixin",
+    "auto_restock.ParrotMixin"
   ],
   "client": [
   ],
