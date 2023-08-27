@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "charm",
+  "version": "${version}",
+  "name": "Charm (nano)",
+  "description": "Lightweight tweaks and enhancements to Minecraft. Charm Nano can be added or removed from vanilla Minecraft worlds without causing data corruption.",
+  "authors": [
+    "svenhjol"
+  ],
+  "icon": "icon.png",
+  "license": "MIT",
+  "environment": "*",
+  "mixins": [
+    "charm.mixins.json"
+  ],
+  "entrypoints": {
+    "main": [
+      "svenhjol.charm.Initializer"
+    ],
+    "client": [
+      "svenhjol.charm.ClientInitalizer"
+    ]
+  },
+  "accessWidener": "charm.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "${minecraft_version}",
+    "java": ">=17"
+  }
+}

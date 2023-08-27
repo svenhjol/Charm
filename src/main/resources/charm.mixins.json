@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "svenhjol.charm.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "${refmap_file}",
+  "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
