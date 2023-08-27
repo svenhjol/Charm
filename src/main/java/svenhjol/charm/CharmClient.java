@@ -1,5 +1,6 @@
 package svenhjol.charm;
 
+import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm_core.CharmCoreClient;
 import svenhjol.charm_core.Log;
 import svenhjol.charm_core.annotation.ClientFeature;
@@ -39,6 +40,10 @@ public class CharmClient {
             INSTANCE = new CharmClient();
             INSTANCE.run();
         }
+    }
+
+    public static ResourceLocation makeId(String id) {
+        return !id.contains(":") ? new ResourceLocation(MOD_ID, id) : new ResourceLocation(id);
     }
 
     public void run() {
