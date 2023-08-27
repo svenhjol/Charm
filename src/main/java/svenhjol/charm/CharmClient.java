@@ -27,7 +27,7 @@ public class CharmClient {
         LOADER = new ClientLoader(MOD_ID, LOG, CONFIG);
         REGISTRY = new ClientRegistry(MOD_ID, LOG);
         EVENTS = new ClientEvents(REGISTRY);
-        NETWORK = new ClientNetwork();
+        NETWORK = ClientNetwork.getInstance();
 
         // Autoload all annotated client features from the feature namespace.
         LOADER.init(FEATURE_PREFIX, ClientFeature.class);
