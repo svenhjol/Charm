@@ -30,9 +30,8 @@ public class Charm {
         CONFIG = new CommonConfig(MOD_ID, LOG);
         REGISTRY = new CommonRegistry(MOD_ID, LOG);
         EVENTS = new CommonEvents();
-        NETWORK = new ServerNetwork(LOG);
-        EVENTS = new CommonEvents();
         LOADER = new CommonLoader(MOD_ID, LOG, CONFIG);
+        NETWORK = ServerNetwork.getInstance();
 
         // Autoload all annotated features from the feature namespace.
         LOADER.init(FEATURE_PREFIX, Feature.class);
