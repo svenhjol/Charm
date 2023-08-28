@@ -6,12 +6,16 @@
   "refmap": "${refmap_file}",
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "mixins": [
+    "accessor.ItemAccessor",
     "auto_restock.AnimalMixin",
     "auto_restock.ComposterBlockMixin",
     "auto_restock.ParrotMixin",
     "enchantable_horse_armor.EnchantmentMixin",
     "enchantable_horse_armor.HorseMixin",
-    "extra_mob_drops.ChickenMixin"
+    "extra_mob_drops.ChickenMixin",
+    "extra_stackables.AnvilMenuMixin",
+    "extra_stackables.PotionItemMixin",
+    "extra_stackables.StewItemMixin"
   ],
   "client": [
     "accessor.EntityRenderDispatcherAccessor",
