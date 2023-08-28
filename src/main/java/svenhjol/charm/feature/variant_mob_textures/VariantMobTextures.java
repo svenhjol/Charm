@@ -332,6 +332,7 @@ public class VariantMobTextures extends CharmFeature {
         return CharmClient.makeId(TEXTURES + "/" + type.getSerializedName() + "/" + texture + ".png");
     }
 
+    @SuppressWarnings("NullableProblems")
     public enum MobType implements StringRepresentable {
         CHICKEN,
         COW,
