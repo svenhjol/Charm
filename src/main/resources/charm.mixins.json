@@ -26,6 +26,7 @@
     "accessor.SoundEngineAccessor",
     "accessor.SoundManagerAccessor",
     "enchantable_horse_armor.HorseArmorLayerMixin",
+    "extractable_enchantments.GrindstoneScreenMixin",
     "gentle_potion_particles.LivingEntityMixin",
     "no_chat_unverified_message.DisableToastMixin",
     "no_experimental_screen.WorldOpenFlowsMixin",
