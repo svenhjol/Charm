@@ -2,3 +2,7 @@ accessWidener v1 named
 
 ## Classes and interfaces
 accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
+
+# Fields
+accessible field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+mutable    field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
