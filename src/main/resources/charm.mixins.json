@@ -10,7 +10,8 @@
     "auto_restock.ComposterBlockMixin",
     "auto_restock.ParrotMixin",
     "enchantable_horse_armor.EnchantmentMixin",
-    "enchantable_horse_armor.HorseMixin"
+    "enchantable_horse_armor.HorseMixin",
+    "extra_mob_drops.ChickenMixin"
   ],
   "client": [
     "accessor.EntityRenderDispatcherAccessor",
