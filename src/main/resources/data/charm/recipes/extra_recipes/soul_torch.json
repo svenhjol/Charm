@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "X"
+  ],
+  "key": {
+    "X": {"item": "minecraft:stick"},
+    "S": {"tag": "minecraft:soul_fire_base_blocks"}
+  },
+  "result": {
+    "item": "minecraft:soul_torch",
+    "count": 2
+  }
+}
