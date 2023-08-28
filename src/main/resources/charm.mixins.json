@@ -8,7 +8,9 @@
   "mixins": [
     "auto_restock.AnimalMixin",
     "auto_restock.ComposterBlockMixin",
-    "auto_restock.ParrotMixin"
+    "auto_restock.ParrotMixin",
+    "enchantable_horse_armor.EnchantmentMixin",
+    "enchantable_horse_armor.HorseMixin"
   ],
   "client": [
     "accessor.EntityRenderDispatcherAccessor",
@@ -18,6 +20,7 @@
     "accessor.ShulkerBoxBlockEntityAccessor",
     "accessor.SoundEngineAccessor",
     "accessor.SoundManagerAccessor",
+    "enchantable_horse_armor.HorseArmorLayerMixin",
     "gentle_potion_particles.LivingEntityMixin",
     "no_chat_unverified_message.DisableToastMixin",
     "no_experimental_screen.WorldOpenFlowsMixin",
