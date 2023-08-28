@@ -22,7 +22,7 @@ import java.util.*;
 @ClientFeature(mod = CharmClient.MOD_ID, description = "Mobs may spawn with different textures.")
 public class VariantMobTextures extends CharmFeature {
     static final String TEXTURES = "textures/entity";
-    static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(TEXTURES + "//sheep/sheep.png");
+    static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(TEXTURES + "/sheep/sheep.png");
     static final List<ResourceLocation> CHICKENS = new ArrayList<>();
     static final List<ResourceLocation> COWS = new ArrayList<>();
     static final List<ResourceLocation> DOLPHINS = new ArrayList<>();
