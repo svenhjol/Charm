@@ -10,4 +10,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface ShulkerBoxBlockEntityAccessor {
     @Accessor("itemStacks")
     NonNullList<ItemStack> getItemStacks();
+
+    @Accessor("itemStacks")
+    void setItemStacks(NonNullList<ItemStack> itemStacks);
 }
