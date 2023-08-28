@@ -15,7 +15,7 @@
   ],
   "entrypoints": {
     "client": [
-      "svenhjol.charm.ClientInitializer"
+      "svenhjol.charm.fabric.ClientInitializer"
     ]
   },
   "accessWidener": "charm.accesswidener",
