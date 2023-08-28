@@ -1,7 +1,7 @@
-package svenhjol.charm;
+package svenhjol.charm.fabric;
 
 import net.fabricmc.api.ModInitializer;
-import svenhjol.charm_core.CharmCore;
+import svenhjol.charm.Charm;
 
 public class Initializer implements ModInitializer {
     @Override

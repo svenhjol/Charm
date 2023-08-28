@@ -1,7 +1,7 @@
 package svenhjol.charm;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm_core.CharmCore;
+import svenhjol.charm_core.Core;
 import svenhjol.charm_core.Log;
 import svenhjol.charm_core.annotation.Feature;
 import svenhjol.charm_core.base.CharmConfig;
@@ -39,7 +39,7 @@ public class Charm {
 
     public static void init() {
         // Start Core first.
-        CharmCore.init();
+        Core.init();
 
         if (INSTANCE == null) {
             INSTANCE = new Charm();

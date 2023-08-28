@@ -1,7 +1,7 @@
 package svenhjol.charm;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm_core.CharmCoreClient;
+import svenhjol.charm_core.CoreClient;
 import svenhjol.charm_core.Log;
 import svenhjol.charm_core.annotation.ClientFeature;
 import svenhjol.charm_core.base.CharmConfig;
@@ -20,7 +20,9 @@ public class CharmClient {
     public static ClientRegistry REGISTRY;
     public static ClientNetwork NETWORK;
     public static CharmConfig CONFIG;
+
     public CharmClient() {
+        // Initialize services.
         LOG = new Log(MOD_ID);
         CONFIG = new ClientConfig(MOD_ID, LOG);
         LOADER = new ClientLoader(MOD_ID, LOG, CONFIG);
@@ -34,7 +36,7 @@ public class CharmClient {
 
     public static void init() {
         // Start Core first.
-        CharmCoreClient.init();
+        CoreClient.init();
 
         if (INSTANCE == null) {
             INSTANCE = new CharmClient();
