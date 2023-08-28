@@ -12,8 +12,8 @@ import svenhjol.charm_core.iface.IPacketRequest;
 
 public class ClearItemFramesNetwork {
     public static void register() {
-        Charm.NETWORK.registerPacket(new AddAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
-        Charm.NETWORK.registerPacket(new RemoveAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
+        Charm.REGISTRY.packet(new AddAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
+        Charm.REGISTRY.packet(new RemoveAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
     }
 
     interface IItemFrameInteraction {
