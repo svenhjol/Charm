@@ -2,6 +2,7 @@ package svenhjol.charm.feature.hover_sorting;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.InteractionResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm_core.annotation.ClientFeature;
 import svenhjol.charm_api.event.ItemHoverSortEvent;
@@ -24,17 +25,23 @@ public class HoverSortingClient extends CharmFeature {
         MouseScrollEvent.ON_SCREEN.handle(this::handleMouseScroll);
     }
 
-    private void handleMouseScroll(double direction) {
+    private InteractionResult handleMouseScroll(double direction) {
         var client = Minecraft.getInstance();
-        if (client != null && client.level != null) {
+        if (client.level != null) {
             var screen = client.screen;
             if (screen instanceof AbstractContainerScreen<?> acs) {
                 var hoveredSlot = ((AbstractContainerScreenAccessor)acs).getHoveredSlot();
-                if (hoveredSlot == null) return;
+                if (hoveredSlot == null) {
+                    return InteractionResult.PASS;
+                }
 
                 HoverSortingNetwork.ScrollOnHover.send(hoveredSlot.index,
                     direction > 0 ? ItemHoverSortEvent.SortDirection.UP : ItemHoverSortEvent.SortDirection.DOWN);
+
+                return InteractionResult.SUCCESS;
             }
         }
+
+        return InteractionResult.PASS;
     }
 }
