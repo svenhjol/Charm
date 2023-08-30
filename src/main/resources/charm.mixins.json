@@ -17,7 +17,8 @@
     "extra_mob_drops.ChickenMixin",
     "extra_stackables.AnvilMenuMixin",
     "extra_stackables.PotionItemMixin",
-    "extra_stackables.StewItemMixin"
+    "extra_stackables.StewItemMixin",
+    "no_crop_trampling.FarmBlockMixin"
   ],
   "client": [
     "accessor.AbstractContainerScreenAccessor",
