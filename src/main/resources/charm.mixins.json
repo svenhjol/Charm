@@ -8,6 +8,7 @@
   "mixins": [
     "accessor.BundleItemAccessor",
     "accessor.ItemAccessor",
+    "accessor.NoteBlockAccessor",
     "auto_restock.AnimalMixin",
     "auto_restock.ComposterBlockMixin",
     "auto_restock.ParrotMixin",
