@@ -9,6 +9,7 @@
     "accessor.BundleItemAccessor",
     "accessor.ItemAccessor",
     "accessor.NoteBlockAccessor",
+    "accessor.PlayerAccessor",
     "auto_restock.AnimalMixin",
     "auto_restock.ComposterBlockMixin",
     "auto_restock.ParrotMixin",
@@ -19,7 +20,8 @@
     "extra_stackables.PotionItemMixin",
     "extra_stackables.StewItemMixin",
     "no_crop_trampling.FarmBlockMixin",
-    "open_both_doors.DoorBlockMixin"
+    "open_both_doors.DoorBlockMixin",
+    "parrots_stay_on_shoulder.PlayerMixin"
   ],
   "client": [
     "accessor.AbstractContainerScreenAccessor",
