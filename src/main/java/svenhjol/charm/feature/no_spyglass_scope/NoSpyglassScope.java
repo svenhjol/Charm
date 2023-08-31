@@ -10,6 +10,6 @@ import svenhjol.charm_core.base.CharmFeature;
 )
 public class NoSpyglassScope extends CharmFeature {
     public static boolean shouldRemoveHud() {
-        return CharmClient.LOADER.isEnabled(NoSpyglassScope.class);
+        return CharmClient.instance().loader().isEnabled(NoSpyglassScope.class);
     }
 }
