@@ -18,7 +18,8 @@
     "extra_stackables.AnvilMenuMixin",
     "extra_stackables.PotionItemMixin",
     "extra_stackables.StewItemMixin",
-    "no_crop_trampling.FarmBlockMixin"
+    "no_crop_trampling.FarmBlockMixin",
+    "open_both_doors.DoorBlockMixin"
   ],
   "client": [
     "accessor.AbstractContainerScreenAccessor",
