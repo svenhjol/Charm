@@ -13,7 +13,7 @@ import svenhjol.charm_core.helper.ConfigHelper;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Adds more blocks that can be used to build nether portal frames." +
+@Feature(mod = Charm.MOD_ID, description = "Adds more blocks that can be used to build nether portal frames.\n" +
     "By default this adds Crying Obsidian.")
 public class ExtraPortalFrames extends CharmFeature {
     public static TagKey<Block> NETHER_PORTAL_FRAMES;
