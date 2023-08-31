@@ -21,7 +21,8 @@
     "extra_stackables.StewItemMixin",
     "no_crop_trampling.FarmBlockMixin",
     "open_both_doors.DoorBlockMixin",
-    "parrots_stay_on_shoulder.PlayerMixin"
+    "parrots_stay_on_shoulder.PlayerMixin",
+    "stronger_anvils.AnvilBlockMixin"
   ],
   "client": [
     "accessor.AbstractContainerScreenAccessor",
