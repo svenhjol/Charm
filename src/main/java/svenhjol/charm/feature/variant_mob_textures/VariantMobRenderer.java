@@ -13,8 +13,8 @@ import svenhjol.charm.mixin.accessor.EntityRenderDispatcherAccessor;
 import svenhjol.charm.mixin.accessor.LivingEntityRendererAccessor;
 import svenhjol.charm.mixin.accessor.RenderLayerAccessor;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class VariantMobRenderer {
+    @SuppressWarnings("unchecked")
     private static <T extends LivingEntity, M extends EntityModel<T>> void fillLayersFromOld(EntityRendererProvider.Context context, LivingEntityRenderer<T, M> renderer, EntityType<T> type) {
         EntityRenderer<?> old = ((EntityRenderDispatcherAccessor)context.getEntityRenderDispatcher())
             .getRenderers().get(type);
@@ -102,9 +102,9 @@ public class VariantMobRenderer {
         }
     }
 
-    public static class RenderSquid extends SquidRenderer {
+    public static class RenderSquid extends SquidRenderer<Squid> {
         public RenderSquid(EntityRendererProvider.Context context) {
-            super(context, new SquidModel(context.bakeLayer(ModelLayers.SQUID)));
+            super(context, new SquidModel<>(context.bakeLayer(ModelLayers.SQUID)));
             fillLayersFromOld(context, this, EntityType.SQUID);
         }
 
