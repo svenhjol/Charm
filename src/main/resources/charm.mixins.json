@@ -23,7 +23,8 @@
     "open_both_doors.DoorBlockMixin",
     "parrots_stay_on_shoulder.PlayerMixin",
     "stronger_anvils.AnvilBlockMixin",
-    "totems_work_from_inventory.LivingEntityMixin"
+    "totems_work_from_inventory.LivingEntityMixin",
+    "unlimited_repair_cost.AnvilMenuMixin"
   ],
   "client": [
     "accessor.AbstractContainerScreenAccessor",
@@ -41,7 +42,8 @@
     "no_experimental_screen.WorldOpenFlowsMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
     "show_repair_cost.AnvilScreenMixin",
-    "torchflowers_emit_light.BlockBehaviourPropertiesMixin"
+    "torchflowers_emit_light.BlockBehaviourPropertiesMixin",
+    "unlimited_repair_cost.AnvilScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
