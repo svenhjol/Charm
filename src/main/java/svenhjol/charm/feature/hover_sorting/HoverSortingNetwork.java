@@ -10,7 +10,7 @@ import svenhjol.charm_core.iface.IPacketRequest;
 
 public class HoverSortingNetwork {
     public static void register() {
-        Charm.REGISTRY.packet(new ScrollOnHover(), () -> HoverSorting::handleScrollOnHover);
+        Charm.instance().registry().packet(new ScrollOnHover(), () -> HoverSorting::handleScrollOnHover);
     }
 
     @Packet(
@@ -28,7 +28,7 @@ public class HoverSortingNetwork {
             var message = new ScrollOnHover();
             message.slotIndex = slotIndex;
             message.sortDirection = sortDirection;
-            CharmClient.NETWORK.send(message);
+            CharmClient.instance().network().send(message);
         }
 
         @Override

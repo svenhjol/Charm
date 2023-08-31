@@ -43,47 +43,48 @@ public class ExtraTrades extends CharmFeature implements IProvidesWandererTrades
     @Override
     public void register() {
         CharmApi.registerProvider(this);
+        var registry = Charm.instance().registry();
 
         if (enchantedBooks) {
             var tier = 2;
             var xp = 5;
-            Charm.REGISTRY.villagerTrade(() -> VillagerProfession.LIBRARIAN, tier, () -> new GenericTradeOffers.EmeraldsForItems(
+            registry.villagerTrade(() -> VillagerProfession.LIBRARIAN, tier, () -> new GenericTradeOffers.EmeraldsForItems(
                 Items.ENCHANTED_BOOK, 1, 0, 5, 0, xp, 16));
         }
 
         if (repairedAnvils) {
             var tier = 2;
             var xp = 5;
-            Charm.REGISTRY.villagerTrade(() -> VillagerProfession.ARMORER, tier, () -> new AnvilRepair(tier, xp));
-            Charm.REGISTRY.villagerTrade(() -> VillagerProfession.WEAPONSMITH, tier, () -> new AnvilRepair(tier, xp));
-            Charm.REGISTRY.villagerTrade(() -> VillagerProfession.TOOLSMITH, tier, () -> new AnvilRepair(tier, xp));
+            registry.villagerTrade(() -> VillagerProfession.ARMORER, tier, () -> new AnvilRepair(tier, xp));
+            registry.villagerTrade(() -> VillagerProfession.WEAPONSMITH, tier, () -> new AnvilRepair(tier, xp));
+            registry.villagerTrade(() -> VillagerProfession.TOOLSMITH, tier, () -> new AnvilRepair(tier, xp));
         }
 
         if (leatherForRottenFlesh) {
             var tier = 3;
             var xp = 10;
-            Charm.REGISTRY.villagerTrade(() -> VillagerProfession.LEATHERWORKER, tier, () -> new GenericTradeOffers.ItemsForItems(
+            registry.villagerTrade(() -> VillagerProfession.LEATHERWORKER, tier, () -> new GenericTradeOffers.ItemsForItems(
                 Items.ROTTEN_FLESH, Items.LEATHER, 10, 5, 1, 0, xp, 8));
         }
 
         if (beefForRottenFlesh) {
             var tier = 3;
             var xp = 10;
-            Charm.REGISTRY.villagerTrade(() -> VillagerProfession.BUTCHER, tier, () -> new GenericTradeOffers.ItemsForItems(
+            registry.villagerTrade(() -> VillagerProfession.BUTCHER, tier, () -> new GenericTradeOffers.ItemsForItems(
                 Items.ROTTEN_FLESH, Items.BEEF, 8, 5, 1, 0, xp, 8));
         }
 
         if (phantomMembrane) {
             var tier = 4;
             var xp = 15;
-            Charm.REGISTRY.villagerTrade(() -> VillagerProfession.CLERIC, tier, () -> new GenericTradeOffers.EmeraldsForItems(
+            registry.villagerTrade(() -> VillagerProfession.CLERIC, tier, () -> new GenericTradeOffers.EmeraldsForItems(
                 Items.PHANTOM_MEMBRANE, 3, 3, 1, 0, xp, 8));
         }
 
         if (bundles) {
             var tier = 5;
             var xp = 30;
-            Charm.REGISTRY.villagerTrade(() -> VillagerProfession.LEATHERWORKER, tier, () -> new GenericTradeOffers.EmeraldsForItems(
+            registry.villagerTrade(() -> VillagerProfession.LEATHERWORKER, tier, () -> new GenericTradeOffers.EmeraldsForItems(
                 Items.BUNDLE, 12, 10, 1, 0, xp, 1));
         }
     }

@@ -40,7 +40,7 @@ public class InventoryTidyingClient extends CharmFeature
 
     @Override
     public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.LOADER.isEnabled(InventoryTidying.class));
+        return List.of(() -> Charm.instance().loader().isEnabled(InventoryTidying.class));
     }
 
     @Override

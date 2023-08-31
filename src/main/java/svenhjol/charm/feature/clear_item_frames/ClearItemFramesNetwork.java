@@ -12,8 +12,8 @@ import svenhjol.charm_core.iface.IPacketRequest;
 
 public class ClearItemFramesNetwork {
     public static void register() {
-        Charm.REGISTRY.packet(new AddAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
-        Charm.REGISTRY.packet(new RemoveAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
+        Charm.instance().registry().packet(new AddAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
+        Charm.instance().registry().packet(new RemoveAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
     }
 
     interface IItemFrameInteraction {
@@ -35,7 +35,7 @@ public class ClearItemFramesNetwork {
         public static void send(BlockPos pos, ServerPlayer player) {
             var message = new AddAmethyst();
             message.pos = pos;
-            Charm.NETWORK.send(message, player);
+            Charm.instance().network().send(message, player);
         }
 
         public BlockPos getPos() {
@@ -71,7 +71,7 @@ public class ClearItemFramesNetwork {
         public static void send(BlockPos pos, ServerPlayer player) {
             var message = new AddAmethyst();
             message.pos = pos;
-            Charm.NETWORK.send(message, player);
+            Charm.instance().network().send(message, player);
         }
 
         public BlockPos getPos() {

@@ -12,7 +12,7 @@ import svenhjol.charm_core.helper.AdvancementHelper;
 
 @Feature(mod = Charm.MOD_ID, description = "Button to automatically tidy inventories.")
 public class InventoryTidying extends CharmFeature {
-    private static final ResourceLocation ADVANCEMENT = Charm.makeId("tidied_inventory");
+    private static final ResourceLocation ADVANCEMENT = Charm.instance().makeId("tidied_inventory");
 
     @Override
     public void runWhenEnabled() {

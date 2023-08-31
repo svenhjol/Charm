@@ -1,57 +1,20 @@
 package svenhjol.charm;
 
-import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm_core.Core;
-import svenhjol.charm_core.Log;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmConfig;
-import svenhjol.charm_core.base.CharmLoader;
-import svenhjol.charm_core.common.CommonConfig;
-import svenhjol.charm_core.common.CommonEvents;
-import svenhjol.charm_core.common.CommonLoader;
-import svenhjol.charm_core.common.CommonRegistry;
-import svenhjol.charm_core.iface.ILog;
-import svenhjol.charm_core.server.ServerNetwork;
+import svenhjol.charm_core.base.DefaultMod;
 
-public class Charm {
-    public static Charm INSTANCE;
+public class Charm extends DefaultMod {
     public static final String MOD_ID = "charm";
-    public static final String PREFIX = "svenhjol." + MOD_ID;
-    public static final String FEATURE_PREFIX = PREFIX + ".feature";
-    public static ILog LOG;
-    public static CharmLoader LOADER;
-    public static CommonRegistry REGISTRY;
-    public static CommonEvents EVENTS;
-    public static ServerNetwork NETWORK;
-    public static CharmConfig CONFIG;
+    private static Charm instance;
 
-    public Charm() {
-        LOG = new Log(MOD_ID);
-        CONFIG = new CommonConfig(MOD_ID, LOG);
-        REGISTRY = new CommonRegistry(MOD_ID, LOG);
-        EVENTS = new CommonEvents();
-        LOADER = new CommonLoader(MOD_ID, LOG, CONFIG);
-        NETWORK = new ServerNetwork(LOG);
-
-        // Autoload all annotated features from the feature namespace.
-        LOADER.init(FEATURE_PREFIX, Feature.class);
-    }
-
-    public static void init() {
-        // Start Core first.
-        Core.init();
-
-        if (INSTANCE == null) {
-            INSTANCE = new Charm();
-            INSTANCE.run();
+    public static Charm instance() {
+        if (instance == null) {
+            instance = new Charm();
         }
+        return instance;
     }
 
-    public void run() {
-        LOADER.run();
-    }
-
-    public static ResourceLocation makeId(String id) {
-        return !id.contains(":") ? new ResourceLocation(MOD_ID, id) : new ResourceLocation(id);
+    @Override
+    public String modId() {
+        return MOD_ID;
     }
 }

@@ -30,7 +30,7 @@ public class ExtraRepairs extends CharmFeature {
     @Override
     public void register() {
         REPAIRABLE_USING_SCRAP = TagKey.create(BuiltInRegistries.ITEM.key(),
-            Charm.makeId("repairable_using_scrap"));
+            Charm.instance().makeId("repairable_using_scrap"));
     }
 
     @Override

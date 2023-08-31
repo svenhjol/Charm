@@ -29,7 +29,7 @@ import java.util.function.BooleanSupplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item onto an empty book using the grindstone.")
 public class ExtractableEnchantments extends CharmFeature {
-    private static final ResourceLocation EXTRACTED_ENCHANTMENT = Charm.makeId("extracted_enchantment");
+    private static final ResourceLocation EXTRACTED_ENCHANTMENT = Charm.instance().makeId("extracted_enchantment");
     @Configurable(name = "Initial cost", description = "Initial cost (in XP levels) of extraction before adding on the cost of the enchantment(s).")
     public static int initialCost = 5;
 

@@ -17,7 +17,7 @@ import java.util.function.BooleanSupplier;
 public class HoverSortingClient extends CharmFeature {
     @Override
     public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.LOADER.isEnabled(HoverSorting.class));
+        return List.of(() -> Charm.instance().loader().isEnabled(HoverSorting.class));
     }
 
     @Override

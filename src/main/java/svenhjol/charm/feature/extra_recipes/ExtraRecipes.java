@@ -77,7 +77,7 @@ public class ExtraRecipes extends CharmFeature implements IRemovesRecipes, IRemo
         if (!bundle) invalid.add("bundle");
 
         for (var recipe : invalid) {
-            INVALID.add(Charm.makeId("extra_recipes/" + recipe));
+            INVALID.add(Charm.instance().makeId("extra_recipes/" + recipe));
         }
     }
 

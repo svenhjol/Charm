@@ -25,7 +25,7 @@ public class ExtraPortalFrames extends CharmFeature {
 
     @Override
     public void register() {
-        NETHER_PORTAL_FRAMES = TagKey.create(BuiltInRegistries.BLOCK.key(), Charm.makeId("nether_portal_frames"));
+        NETHER_PORTAL_FRAMES = TagKey.create(BuiltInRegistries.BLOCK.key(), Charm.instance().makeId("nether_portal_frames"));
     }
 
     @Override

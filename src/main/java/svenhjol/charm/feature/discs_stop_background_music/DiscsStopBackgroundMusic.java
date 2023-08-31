@@ -73,7 +73,7 @@ public class DiscsStopBackgroundMusic extends CharmFeature {
             getPlayingSounds().forEach((category, s) -> {
                 if (category == SoundSource.RECORDS) {
                     musicToStop = sound;
-                    CharmClient.LOG.debug(getClass(), "Triggered background music while music disc playing");
+                    CharmClient.instance().log().debug(getClass(), "Triggered background music while music disc playing");
                 }
             });
         }

@@ -29,7 +29,7 @@ public class ClearItemFrames extends CharmFeature {
 
     @Override
     public void register() {
-        PARTICLE_TYPE = Charm.REGISTRY.particleType("apply_amethyst", ApplyAmethystParticleType::new);
+        PARTICLE_TYPE = Charm.instance().registry().particleType("apply_amethyst", ApplyAmethystParticleType::new);
         ClearItemFramesNetwork.register();
     }
 

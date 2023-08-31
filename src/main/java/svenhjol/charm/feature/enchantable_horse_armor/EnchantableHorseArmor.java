@@ -42,7 +42,7 @@ public class EnchantableHorseArmor extends CharmFeature implements IProvidesHors
             // Validate configured enchantments and cache them.
             for (var enchantment : enchantments) {
                 BuiltInRegistries.ENCHANTMENT.getOptional(new ResourceLocation(enchantment)).ifPresent(e -> {
-                    Charm.LOG.debug(getClass(), "Adding enchantment " + enchantment);
+                    Charm.instance().log().debug(getClass(), "Adding enchantment " + enchantment);
                     VALIDATED_ENCHANTMENTS.add(e);
                 });
             }

@@ -88,8 +88,8 @@ public class QuickReplant extends CharmFeature implements IProvidesHarvestables 
             var serverPlayer = (ServerPlayer)player;
             var serverLevel = (ServerLevel)serverPlayer.level();
             var drops = Block.getDrops(state, serverLevel, pos, null, player, ItemStack.EMPTY);
-            var hasCollection = Charm.LOADER.isEnabled("Collection")
-                && CharmEnchantmentHelper.itemHasEnchantment(held, Charm.makeId("collection"));
+            var hasCollection = Charm.instance().loader().isEnabled("Collection")
+                && CharmEnchantmentHelper.itemHasEnchantment(held, Charm.instance().makeId("collection"));
 
             for (var drop : drops) {
                 if (doReplant && drop.getItem() == blockItem ) {

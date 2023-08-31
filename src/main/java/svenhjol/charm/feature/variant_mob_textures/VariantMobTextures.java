@@ -10,6 +10,7 @@ import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm_api.event.ClientEntityJoinEvent;
 import svenhjol.charm_core.annotation.ClientFeature;
@@ -79,44 +80,56 @@ public class VariantMobTextures extends CharmFeature {
 
     @Override
     public void register() {
+        var registry = CharmClient.instance().registry();
+
         if (chickens) {
-            CharmClient.REGISTRY.entityRenderer(() -> EntityType.CHICKEN, () -> VariantMobRenderer.RenderChicken::new);
+            registry.entityRenderer(() -> EntityType.CHICKEN,
+                () -> VariantMobRenderer.RenderChicken::new);
         }
 
         if (cows) {
-            CharmClient.REGISTRY.entityRenderer(() -> EntityType.COW, () -> VariantMobRenderer.RenderCow::new);
+            registry.entityRenderer(() -> EntityType.COW,
+                () -> VariantMobRenderer.RenderCow::new);
         }
 
         if (dolphins) {
-            CharmClient.REGISTRY.entityRenderer(() -> EntityType.DOLPHIN, () -> VariantMobRenderer.RenderDolphin::new);
+            registry.entityRenderer(() -> EntityType.DOLPHIN,
+                () -> VariantMobRenderer.RenderDolphin::new);
         }
 
         if (pigs) {
-            CharmClient.REGISTRY.entityRenderer(() -> EntityType.PIG, () -> VariantMobRenderer.RenderPig::new);
+            registry.entityRenderer(() -> EntityType.PIG,
+                () -> VariantMobRenderer.RenderPig::new);
         }
 
         if (sheep) {
-            CharmClient.REGISTRY.entityRenderer(() -> EntityType.SHEEP, () -> VariantMobRenderer.RenderSheep::new);
+            registry.entityRenderer(() -> EntityType.SHEEP,
+                () -> VariantMobRenderer.RenderSheep::new);
         }
 
         if (snowGolems) {
-            CharmClient.REGISTRY.entityRenderer(() -> EntityType.SNOW_GOLEM, () -> VariantMobRenderer.RenderSnowGolem::new);
+            registry.entityRenderer(() -> EntityType.SNOW_GOLEM,
+                () -> VariantMobRenderer.RenderSnowGolem::new);
         }
 
         if (squids) {
-            CharmClient.REGISTRY.entityRenderer(() -> EntityType.SQUID, () -> VariantMobRenderer.RenderSquid::new);
+            registry.entityRenderer(() -> EntityType.SQUID,
+                () -> VariantMobRenderer.RenderSquid::new);
         }
 
         if (turtles) {
-            CharmClient.REGISTRY.entityRenderer(() -> EntityType.TURTLE, () -> VariantMobRenderer.RenderTurtle::new);
+            registry.entityRenderer(() -> EntityType.TURTLE,
+                () -> VariantMobRenderer.RenderTurtle::new);
         }
 
         if (wolves) {
-            CharmClient.REGISTRY.entityRenderer(() -> EntityType.WOLF, () -> VariantMobRenderer.RenderWolf::new);
+            registry.entityRenderer(() -> EntityType.WOLF,
+                () -> VariantMobRenderer.RenderWolf::new);
         }
 
         if (wanderingTraders) {
-            CharmClient.REGISTRY.entityRenderer(() -> EntityType.WANDERING_TRADER, () -> VariantMobRenderer.RenderWanderingTrader::new);
+            registry.entityRenderer(() -> EntityType.WANDERING_TRADER,
+                () -> VariantMobRenderer.RenderWanderingTrader::new);
         }
     }
 
@@ -126,7 +139,9 @@ public class VariantMobTextures extends CharmFeature {
     }
 
     public void handlePlayerJoin(Entity entity, Level level) {
-        if (!(entity instanceof LocalPlayer)) return;
+        if (!(entity instanceof LocalPlayer)) {
+            return;
+        }
 
         // Reset all textures.
         CHICKENS.clear();
@@ -329,10 +344,9 @@ public class VariantMobTextures extends CharmFeature {
     }
 
     private ResourceLocation createResource(MobType type, String texture) {
-        return CharmClient.makeId(TEXTURES + "/" + type.getSerializedName() + "/" + texture + ".png");
+        return CharmClient.instance().makeId(TEXTURES + "/" + type.getSerializedName() + "/" + texture + ".png");
     }
 
-    @SuppressWarnings("NullableProblems")
     public enum MobType implements StringRepresentable {
         CHICKEN,
         COW,
@@ -346,7 +360,7 @@ public class VariantMobTextures extends CharmFeature {
         WOLF;
 
         @Override
-        public String getSerializedName() {
+        public @NotNull String getSerializedName() {
             return this.name().toLowerCase(Locale.ROOT);
         }
     }

@@ -18,11 +18,11 @@ import java.util.function.BooleanSupplier;
 public class ExtractableEnchantmentsClient extends CharmFeature {
     @Override
     public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.LOADER.isEnabled(ExtractableEnchantments.class));
+        return List.of(() -> Charm.instance().loader().isEnabled(ExtractableEnchantments.class));
     }
 
     private static ExtractableEnchantments getParent() {
-        return Charm.LOADER.get(ExtractableEnchantments.class).orElseThrow();
+        return Charm.instance().loader().get(ExtractableEnchantments.class).orElseThrow();
     }
 
     public static void updateGrindstoneCost(GrindstoneScreen screen, Player player, GuiGraphics guiGraphics, Font font, int width) {

@@ -22,12 +22,12 @@ public class ClearItemFramesClient extends CharmFeature {
 
     @Override
     public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.LOADER.isEnabled(ClearItemFrames.class));
+        return List.of(() -> Charm.instance().loader().isEnabled(ClearItemFrames.class));
     }
 
     @Override
     public void register() {
-        PARTICLE = CharmClient.REGISTRY.particle(ClearItemFrames.PARTICLE_TYPE,
+        PARTICLE = CharmClient.instance().registry().particle(ClearItemFrames.PARTICLE_TYPE,
             () -> ApplyAmethystClientParticle::new);
     }
 

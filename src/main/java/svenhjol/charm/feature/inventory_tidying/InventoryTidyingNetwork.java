@@ -9,7 +9,7 @@ import svenhjol.charm_core.iface.IPacketRequest;
 
 public class InventoryTidyingNetwork {
     public static void register() {
-        Charm.REGISTRY.packet(new TidyInventory(), () -> InventoryTidying::handleTidyInventory);
+        Charm.instance().registry().packet(new TidyInventory(), () -> InventoryTidying::handleTidyInventory);
     }
 
     @Packet(
@@ -25,7 +25,7 @@ public class InventoryTidyingNetwork {
         public static void send(TidyType type) {
             var message = new TidyInventory();
             message.type = type;
-            CharmClient.NETWORK.send(message);
+            CharmClient.instance().network().send(message);
         }
 
         public TidyType getType() {
