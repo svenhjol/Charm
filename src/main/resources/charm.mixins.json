@@ -8,6 +8,7 @@
   "mixins": [
     "accessor.BundleItemAccessor",
     "accessor.ItemAccessor",
+    "accessor.MobAccessor",
     "accessor.NoteBlockAccessor",
     "accessor.PlayerAccessor",
     "auto_restock.AnimalMixin",
