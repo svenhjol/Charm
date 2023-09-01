@@ -7,7 +7,7 @@ import svenhjol.charm_core.base.CharmFeature;
 
 @Feature(
     mod = CharmClient.MOD_ID,
-    description = "Torchflowers emit ambient light. This light does not affect hostile mob spawning."
+    description = "Torchflowers emit ambient light."
 )
 public class TorchflowersEmitLight extends CharmFeature {
     @Configurable(
