@@ -6,5 +6,39 @@
         "volume": 0.35
       }
     ]
+  },
+  "atlas_open": {
+    "sounds": [
+      {
+        "name": "charm:atlas1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.atlas.open"
+  },
+  "atlas_close": {
+    "sounds": [
+      {
+        "name": "charm:atlas1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.atlas.close"
   }
 }
