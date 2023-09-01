@@ -1,0 +1,10 @@
+{
+  "amethyst": {
+    "sounds": [
+      {
+        "name": "charm:amethyst",
+        "volume": 0.35
+      }
+    ]
+  }
+}

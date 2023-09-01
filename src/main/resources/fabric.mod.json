@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "charm",
   "version": "${version}",
-  "name": "Charm (nano)",
-  "description": "Lightweight tweaks and enhancements to Minecraft. Charm Nano can be added or removed from vanilla Minecraft worlds without causing data corruption.",
+  "name": "Charm",
+  "description": "Tweaks and additions to Minecraft without changing core gameplay.",
   "authors": [
     "svenhjol"
   ],
