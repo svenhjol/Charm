@@ -1,11 +1,11 @@
 package svenhjol.charm.feature.torchflowers_emit_light;
 
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_core.annotation.ClientFeature;
 import svenhjol.charm_core.annotation.Configurable;
+import svenhjol.charm_core.annotation.Feature;
 import svenhjol.charm_core.base.CharmFeature;
 
-@ClientFeature(
+@Feature(
     mod = CharmClient.MOD_ID,
     description = "Torchflowers emit ambient light. This light does not affect hostile mob spawning."
 )
