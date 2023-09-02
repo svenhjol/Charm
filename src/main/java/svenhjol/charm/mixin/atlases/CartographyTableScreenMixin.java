@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import svenhjol.charm.feature.atlases.AtlasesClient;
 
 /**
- * Updates the cartography table renderer to show the atlas when placed on the table.
+ * Render the cartography table "scale" background when an atlas and an empty map are added to the slots.
  */
 @Mixin(CartographyTableScreen.class)
 public class CartographyTableScreenMixin {
@@ -17,7 +17,7 @@ public class CartographyTableScreenMixin {
             value = "INVOKE",
             target = "Lnet/minecraft/client/gui/screens/inventory/CartographyTableScreen;renderResultingMap(Lnet/minecraft/client/gui/GuiGraphics;Ljava/lang/Integer;Lnet/minecraft/world/level/saveddata/maps/MapItemSavedData;ZZZZ)V"
         ),
-        index = 3
+        index = 4 // the boolean flag to render the "scale" background
     )
     private boolean hookDrawBackground(boolean value) {
         if (AtlasesClient.shouldDrawAtlasCopy((CartographyTableScreen) (Object) this)) {
