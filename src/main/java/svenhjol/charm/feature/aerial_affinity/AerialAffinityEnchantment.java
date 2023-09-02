@@ -19,9 +19,4 @@ public class AerialAffinityEnchantment extends CharmEnchantment {
     public int getMaxCost(int level) {
         return this.getMinCost(level) + 40;
     }
-    
-    @Override
-    public boolean isTreasureOnly() {
-        return false;
-    }
 }

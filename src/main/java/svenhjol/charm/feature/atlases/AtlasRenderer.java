@@ -62,8 +62,11 @@ public class AtlasRenderer {
         pose.popPose(); // close
     }
 
+    /**
+     * Some copypasta from renderArmWithItem.
+     * @see net.minecraft.client.renderer.ItemInHandRenderer renderPlayerArm
+     */
     public void renderArm(LocalPlayer player, PoseStack pose, MultiBufferSource buffers, int light, float swing, float equip, HumanoidArm side) {
-        // copypasta from renderArmHoldingItem
         var flag = side != HumanoidArm.LEFT;
         float f = flag ? 1.0F : -1.0F;
         float f1 = Mth.sqrt(swing);
