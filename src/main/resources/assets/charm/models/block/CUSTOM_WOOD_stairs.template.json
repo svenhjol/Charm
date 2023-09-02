@@ -1,0 +1,11 @@
+{
+  "template": {
+    "parent": "minecraft:block/stairs",
+    "textures": {
+      "bottom": "NAMESPACE:block/CUSTOM_WOOD_planks",
+      "top": "NAMESPACE:block/CUSTOM_WOOD_planks",
+      "side": "NAMESPACE:block/CUSTOM_WOOD_planks"
+    }
+  },
+  "variants": "custom_wood"
+}

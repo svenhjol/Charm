@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:block/fence_post",
+    "textures": {
+      "texture": "NAMESPACE:block/CUSTOM_WOOD_planks"
+    }
+  },
+  "variants": "custom_wood"
+}

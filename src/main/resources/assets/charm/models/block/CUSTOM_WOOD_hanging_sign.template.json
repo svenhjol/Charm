@@ -1,0 +1,8 @@
+{
+  "template": {
+    "textures": {
+      "particle": "NAMESPACE:block/stripped_CUSTOM_WOOD_log"
+    }
+  },
+  "variants": "custom_wood"
+}

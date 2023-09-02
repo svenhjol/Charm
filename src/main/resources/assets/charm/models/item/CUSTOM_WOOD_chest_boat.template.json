@@ -1,0 +1,10 @@
+{
+  "template": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "NAMESPACE:item/CUSTOM_WOOD_chest_boat",
+      "layer1": "charm:item/chest_boat_overlay"
+    }
+  },
+  "variants": "custom_wood"
+}

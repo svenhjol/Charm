@@ -1,0 +1,13 @@
+{
+  "template": {
+    "variants": {
+      "powered=false": {
+        "model": "NAMESPACE:block/CUSTOM_WOOD_pressure_plate"
+      },
+      "powered=true": {
+        "model": "NAMESPACE:block/CUSTOM_WOOD_pressure_plate_down"
+      }
+    }
+  },
+  "variants": "custom_wood"
+}

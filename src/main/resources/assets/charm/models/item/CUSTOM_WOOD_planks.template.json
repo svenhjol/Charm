@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/CUSTOM_WOOD_planks"
+  },
+  "variants": "custom_wood"
+}

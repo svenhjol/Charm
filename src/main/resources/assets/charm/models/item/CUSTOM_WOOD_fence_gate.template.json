@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/CUSTOM_WOOD_fence_gate"
+  },
+  "variants": "custom_wood"
+}

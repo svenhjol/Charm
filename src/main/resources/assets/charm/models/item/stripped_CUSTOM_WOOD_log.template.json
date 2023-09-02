@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/stripped_CUSTOM_WOOD_log"
+  },
+  "variants": "custom_wood"
+}

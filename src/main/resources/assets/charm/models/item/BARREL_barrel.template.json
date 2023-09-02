@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "MOD:block/BARREL_barrel"
+  },
+  "variants": "barrel"
+}

@@ -1,0 +1,10 @@
+{
+  "template": {
+    "parent": "minecraft:block/cube_column_horizontal",
+    "textures": {
+      "end": "NAMESPACE:block/CUSTOM_WOOD_log_top",
+      "side": "NAMESPACE:block/CUSTOM_WOOD_log"
+    }
+  },
+  "variants": "custom_wood"
+}

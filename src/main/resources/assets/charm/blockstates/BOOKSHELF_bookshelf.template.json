@@ -1,0 +1,10 @@
+{
+  "template": {
+    "variants": {
+      "": {
+        "model": "MOD:block/BOOKSHELF_bookshelf"
+      }
+    }
+  },
+  "variants": "bookshelf"
+}

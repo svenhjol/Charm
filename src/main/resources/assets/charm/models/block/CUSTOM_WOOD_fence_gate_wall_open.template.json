@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:block/template_fence_gate_wall_open",
+    "textures": {
+      "texture": "NAMESPACE:block/CUSTOM_WOOD_planks"
+    }
+  },
+  "variants": "custom_wood"
+}

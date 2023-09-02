@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "MOD:block/chiseled_CHISELED_BOOKSHELF_bookshelf_inventory"
+  },
+  "variants": "chiseled_bookshelf"
+}

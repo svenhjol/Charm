@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "MOD:block/LADDER_ladder"
+    }
+  },
+  "variants": "ladder"
+}

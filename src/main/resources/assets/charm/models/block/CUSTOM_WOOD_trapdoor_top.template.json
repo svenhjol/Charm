@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:block/template_orientable_trapdoor_top",
+    "textures": {
+      "texture": "NAMESPACE:block/CUSTOM_WOOD_trapdoor"
+    }
+  },
+  "variants": "custom_wood"
+}
