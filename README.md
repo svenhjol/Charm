@@ -1,3 +1,21 @@
+# Charm: an update
+
+*3rd September 2023*
+
+Charm's not dead. I'm not dead. Please remember and respect that I offer these projects and my time entirely for free. I love building this stuff but it's been a busy year and modding has had to take second place to real life commitments. 
+
+I have been building a new version of Charm for Minecraft 1.20 that works on both Fabric and Forge. Developing this takes a lot of time for me, for Coranthes who has been working on the graphics and others who have been helping with game design and testing. Within the next two months I'll hopefully be more active on Github and Discord to get this version tested and released.
+
+I won't be able to support older versions of Charm any more. I don't play them and I haven't got the time to spare. As always I'm eager to work with developers and maintainers so let me know if you want to volunteer to support an older version.
+
+Thanks!
+
+--Sven
+
+
+
+--- OLDER STUFF FROM HERE ---
+
 # Charm for Minecraft 1.18.2
 
 ## Version 4.x
