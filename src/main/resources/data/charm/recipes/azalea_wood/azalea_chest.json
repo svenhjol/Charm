@@ -1,19 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "-#-",
+    "###",
     "# #",
     "###"
   ],
   "key": {
     "#": {
-      "item": "minecraft:leather"
-    },
-    "-": {
-      "item": "minecraft:string"
+      "item": "charm:azalea_planks"
     }
   },
   "result": {
-    "item": "minecraft:bundle"
+    "item": "charm:azalea_chest"
   }
 }

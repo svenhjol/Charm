@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:ladder",
+    "charm:acacia_ladder",
+    "charm:azalea_ladder",
+    "charm:bamboo_ladder",
+    "charm:birch_ladder",
+    "charm:cherry_ladder",
+    "charm:crimson_ladder",
+    "charm:dark_oak_ladder",
+    "charm:jungle_ladder",
+    "charm:mangrove_ladder",
+    "charm:oak_ladder",
+    "charm:spruce_ladder",
+    "charm:warped_ladder"
+  ]
+}

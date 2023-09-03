@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.note_block_enum;
+package svenhjol.charm.mixin.enums.note_block_enum;
 
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;

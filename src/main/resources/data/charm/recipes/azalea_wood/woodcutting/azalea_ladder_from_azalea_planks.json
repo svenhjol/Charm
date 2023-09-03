@@ -1,0 +1,8 @@
+{
+  "type": "charm:woodcutting",
+  "ingredient": {
+    "item": "charm:azalea_planks"
+  },
+  "result": "charm:azalea_ladder",
+  "count": 4
+}

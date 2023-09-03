@@ -20,18 +20,24 @@
     "auto_restock.ParrotMixin",
     "enchantable_horse_armor.EnchantmentMixin",
     "enchantable_horse_armor.HorseMixin",
+    "enums.boat_type_enum.BoatTypeMixin",
+    "enums.note_block_enum.NoteBlockInstrumentMixin",
     "extra_mob_drops.ChickenMixin",
     "extra_stackables.AnvilMenuMixin",
     "extra_stackables.PotionItemMixin",
     "extra_stackables.StewItemMixin",
     "no_crop_trampling.FarmBlockMixin",
-    "note_block_enum.NoteBlockInstrumentMixin",
     "open_both_doors.DoorBlockMixin",
     "parrots_stay_on_shoulder.PlayerMixin",
     "stronger_anvils.AnvilBlockMixin",
     "torchflowers_emit_light.BlockBehaviourPropertiesMixin",
     "totems_work_from_inventory.LivingEntityMixin",
-    "unlimited_repair_cost.AnvilMenuMixin"
+    "unlimited_repair_cost.AnvilMenuMixin",
+    "variant_chests.BoatItemMixin",
+    "variant_chests.ChestBoatMixin",
+    "variant_chests.ChestBoatSpawnMixin",
+    "wood.BoatMixin",
+    "wood.ChestBoatMixin"
   ],
   "client": [
     "accessor.AbstractContainerScreenAccessor",
@@ -50,7 +56,9 @@
     "no_experimental_screen.WorldOpenFlowsMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
     "show_repair_cost.AnvilScreenMixin",
-    "unlimited_repair_cost.AnvilScreenMixin"
+    "unlimited_repair_cost.AnvilScreenMixin",
+    "variant_chests.BoatRendererMixin",
+    "variant_chests.SheetsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

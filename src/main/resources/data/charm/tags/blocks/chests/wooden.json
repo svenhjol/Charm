@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    "charm:acacia_chest",
+    "charm:azalea_chest",
+    "charm:bamboo_chest",
+    "charm:birch_chest",
+    "charm:cherry_chest",
+    "charm:crimson_chest",
+    "charm:dark_oak_chest",
+    "charm:jungle_chest",
+    "charm:mangrove_chest",
+    "charm:oak_chest",
+    "charm:spruce_chest",
+    "charm:trapped_acacia_chest",
+    "charm:trapped_azalea_chest",
+    "charm:trapped_bamboo_chest",
+    "charm:trapped_birch_chest",
+    "charm:trapped_cherry_chest",
+    "charm:trapped_crimson_chest",
+    "charm:trapped_dark_oak_chest",
+    "charm:trapped_jungle_chest",
+    "charm:trapped_mangrove_chest",
+    "charm:trapped_oak_chest",
+    "charm:trapped_spruce_chest",
+    "charm:trapped_warped_chest",
+    "charm:warped_chest",
+    "minecraft:chest",
+    "minecraft:trapped_chest"
+  ]
+}

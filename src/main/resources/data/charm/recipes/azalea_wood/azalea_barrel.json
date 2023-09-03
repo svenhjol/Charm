@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP",
+    "P P",
+    "PSP"
+  ],
+  "key": {
+    "S": {
+      "item": "charm:azalea_slab"
+    },
+    "P": {
+      "item": "charm:azalea_planks"
+    }
+  },
+  "result": {
+    "item": "charm:azalea_barrel"
+  }
+}

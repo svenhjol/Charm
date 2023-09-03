@@ -1,0 +1,8 @@
+{
+  "type": "charm:woodcutting",
+  "ingredient": {
+    "item": "charm:azalea_log"
+  },
+  "result": "charm:azalea_wood",
+  "count": 1
+}

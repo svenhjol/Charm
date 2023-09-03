@@ -1,0 +1,12 @@
+{
+  "template": {
+    "replace": false,
+    "values": [
+      "NAMESPACE:CUSTOM_WOOD_log",
+      "NAMESPACE:CUSTOM_WOOD_wood",
+      "NAMESPACE:stripped_CUSTOM_WOOD_log",
+      "NAMESPACE:stripped_CUSTOM_WOOD_wood"
+    ]
+  },
+  "variants": "custom_wood"
+}

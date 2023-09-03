@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:trapped_chest",
+    "charm:trapped_acacia_chest",
+    "charm:trapped_azalea_chest",
+    "charm:trapped_bamboo_chest",
+    "charm:trapped_birch_chest",
+    "charm:trapped_cherry_chest",
+    "charm:trapped_crimson_chest",
+    "charm:trapped_dark_oak_chest",
+    "charm:trapped_jungle_chest",
+    "charm:trapped_mangrove_chest",
+    "charm:trapped_oak_chest",
+    "charm:trapped_spruce_chest",
+    "charm:trapped_warped_chest"
+  ]
+}
