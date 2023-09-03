@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "tag": "charm:bamboo_planks"
+    },
+    "X": {
+      "tag": "charm:bamboo_slab"
+    }
+  },
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "result": {
+    "item": "charm:chiseled_bamboo_bookshelf"
+  },
+  "show_notification": true
+}
