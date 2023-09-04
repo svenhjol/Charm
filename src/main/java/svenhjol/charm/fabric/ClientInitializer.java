@@ -6,6 +6,6 @@ import svenhjol.charmony.fabric.CharmonyModLoader;
 public class ClientInitializer implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        CharmonyModLoader.clientModLoader("charm");
+        CharmonyModLoader.clientMods("charm");
     }
 }
