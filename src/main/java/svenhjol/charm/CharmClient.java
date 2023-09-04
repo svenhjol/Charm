@@ -1,6 +1,6 @@
 package svenhjol.charm;
 
-import svenhjol.charm_core.base.DefaultClientMod;
+import svenhjol.charmony.base.DefaultClientMod;
 
 public class CharmClient extends DefaultClientMod {
     public static final String MOD_ID = "charm";

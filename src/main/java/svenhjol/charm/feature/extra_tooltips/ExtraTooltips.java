@@ -16,12 +16,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
-import svenhjol.charm_api.event.TooltipComponentEvent;
-import svenhjol.charm_api.event.TooltipItemHoverEvent;
-import svenhjol.charm_api.event.TooltipRenderEvent;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.annotation.Configurable;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.api.event.TooltipComponentEvent;
+import svenhjol.charmony.api.event.TooltipItemHoverEvent;
+import svenhjol.charmony.api.event.TooltipRenderEvent;
+import svenhjol.charmony.base.CharmFeature;
 
 import javax.annotation.Nullable;
 import java.util.List;

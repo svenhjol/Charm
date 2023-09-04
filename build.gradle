@@ -10,10 +10,3 @@ apply from: "https://charmony.work/gradle/fabric-tasks.build.gradle"
 // Load props from common gradle.properties.
 def props = new Properties()
 file("gradle.properties").withInputStream { props.load(it) }
-
-build.dependsOn downloadCore
-
-dependencies {
-    include "svenhjol.charm:charm_core-fabric-${props.minecraft_version}:${props.core_version}"
-    modImplementation "svenhjol.charm:charm_core-fabric-${props.minecraft_version}:${props.core_version}"
-}

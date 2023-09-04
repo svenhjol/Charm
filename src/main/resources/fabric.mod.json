@@ -21,6 +21,7 @@
   "accessWidener": "charm.accesswidener",
   "depends": {
     "fabricloader": ">=${loader_version}",
+    "charmony": ">=${charmony_version}",
     "minecraft": "${minecraft_version}",
     "java": ">=17"
   }

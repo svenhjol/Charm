@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.no_chat_unverified_message;
 
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
 
 @ClientFeature(
     mod = CharmClient.MOD_ID,

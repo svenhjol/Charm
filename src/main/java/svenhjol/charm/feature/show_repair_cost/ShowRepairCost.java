@@ -4,9 +4,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.TextHelper;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.TextHelper;
 
 import java.util.List;
 
