@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm_core.helper.MobHelper;
+import svenhjol.charmony.helper.MobHelper;
 
 import java.util.EnumSet;
 

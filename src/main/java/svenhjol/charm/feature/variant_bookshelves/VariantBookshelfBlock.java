@@ -3,11 +3,11 @@ package svenhjol.charm.feature.variant_bookshelves;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.iface.IVariantMaterial;
-import svenhjol.charm_core.base.CharmBlockItem;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.iface.IFuelProvider;
-import svenhjol.charm_core.iface.IIgniteProvider;
+import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmony.base.CharmBlockItem;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.iface.IFuelProvider;
+import svenhjol.charmony.iface.IIgniteProvider;
 
 import java.util.function.Supplier;
 

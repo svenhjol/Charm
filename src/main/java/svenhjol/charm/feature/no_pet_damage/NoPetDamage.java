@@ -10,10 +10,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_api.event.EntityAttackEvent;
-import svenhjol.charm_api.event.EntityHurtEvent;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.event.EntityAttackEvent;
+import svenhjol.charmony.api.event.EntityHurtEvent;
+import svenhjol.charmony.base.CharmFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.")
 public class NoPetDamage extends CharmFeature {

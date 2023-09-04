@@ -16,10 +16,10 @@ import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.atlases.CartographyTableScreenMixin;
-import svenhjol.charm_api.event.HeldItemRenderEvent;
-import svenhjol.charm_api.event.KeyPressEvent;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.api.event.HeldItemRenderEvent;
+import svenhjol.charmony.api.event.KeyPressEvent;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;

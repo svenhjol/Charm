@@ -8,9 +8,9 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.GenericTradeOffers;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.GenericTradeOffers;
 
 import java.util.List;
 import java.util.function.Supplier;

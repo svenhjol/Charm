@@ -3,11 +3,11 @@ package svenhjol.charm.feature.variant_chiseled_bookshelves;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_chiseled_bookshelves.VariantChiseledBookshelfBlock.BlockItem;
-import svenhjol.charm_api.iface.IVariantMaterial;
-import svenhjol.charm_api.iface.IVariantWoodMaterial;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.iface.ICommonRegistry;
+import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantWoodMaterial;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.iface.ICommonRegistry;
 
 import java.util.HashMap;
 import java.util.List;

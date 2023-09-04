@@ -3,10 +3,10 @@ package svenhjol.charm.feature.variant_chiseled_bookshelves;
 import net.minecraft.world.level.block.ChiseledBookShelfBlock;
 import net.minecraft.world.level.block.SoundType;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.iface.IVariantMaterial;
-import svenhjol.charm_api.iface.IVariantWoodMaterial;
-import svenhjol.charm_core.base.CharmBlockItem;
-import svenhjol.charm_core.iface.IFuelProvider;
+import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantWoodMaterial;
+import svenhjol.charmony.base.CharmBlockItem;
+import svenhjol.charmony.iface.IFuelProvider;
 
 import java.util.function.Supplier;
 

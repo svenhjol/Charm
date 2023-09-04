@@ -9,8 +9,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.base.CharmItem;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmItem;
 
 public class AtlasItem extends CharmItem {
     public AtlasItem(CharmFeature feature) {

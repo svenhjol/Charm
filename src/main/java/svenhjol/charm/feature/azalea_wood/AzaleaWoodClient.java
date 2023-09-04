@@ -6,8 +6,8 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.RenderType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;

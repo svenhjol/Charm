@@ -3,7 +3,7 @@ package svenhjol.charm.feature.azalea_wood;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm_api.iface.IVariantWoodMaterial;
+import svenhjol.charmony.api.iface.IVariantWoodMaterial;
 
 import java.util.Locale;
 

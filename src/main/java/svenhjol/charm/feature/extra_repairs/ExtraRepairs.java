@@ -9,10 +9,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.event.AnvilRepairEvent;
-import svenhjol.charm_core.annotation.Configurable;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.api.event.AnvilRepairEvent;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "More ways to repair items using different materials.")
 public class ExtraRepairs extends CharmFeature {

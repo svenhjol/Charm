@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charm_core.base.CharmBlockItem;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.base.CharmBlockItem;
+import svenhjol.charmony.base.CharmFeature;
 
 @SuppressWarnings({"deprecation", "BooleanMethodIsAlwaysInverted", "unused"})
 public class GunpowderBlock extends FallingBlock {

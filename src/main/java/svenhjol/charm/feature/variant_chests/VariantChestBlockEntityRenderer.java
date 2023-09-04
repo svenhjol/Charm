@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import svenhjol.charm_api.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;

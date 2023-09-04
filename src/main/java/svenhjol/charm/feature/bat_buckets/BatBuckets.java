@@ -17,20 +17,20 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.CharmApi;
-import svenhjol.charm_api.event.EntityUseEvent;
-import svenhjol.charm_api.iface.IProvidesWandererTrades;
-import svenhjol.charm_api.iface.IWandererTrade;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.ItemNbtHelper;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.EntityUseEvent;
+import svenhjol.charmony.api.iface.IWandererTradeProvider;
+import svenhjol.charmony.api.iface.IWandererTrade;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.ItemNbtHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
-public class BatBuckets extends CharmFeature implements IProvidesWandererTrades {
+public class BatBuckets extends CharmFeature implements IWandererTradeProvider {
     static Supplier<BatBucketItem> BAT_BUCKET_ITEM;
     private static Supplier<SoundEvent> GRAB_SOUND;
     private static Supplier<SoundEvent> RELEASE_SOUND;
@@ -44,7 +44,7 @@ public class BatBuckets extends CharmFeature implements IProvidesWandererTrades 
         GRAB_SOUND = registry.soundEvent("bat_bucket_grab");
         RELEASE_SOUND = registry.soundEvent("bat_bucket_release");
 
-        CharmApi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     @Override
@@ -116,10 +116,5 @@ public class BatBuckets extends CharmFeature implements IProvidesWandererTrades 
                 return 8;
             }
         });
-    }
-
-    @Override
-    public List<IWandererTrade> getRareWandererTrades() {
-        return List.of();
     }
 }

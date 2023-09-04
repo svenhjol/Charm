@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm_api.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 
 import javax.annotation.Nullable;
 

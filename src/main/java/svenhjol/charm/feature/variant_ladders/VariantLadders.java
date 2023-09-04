@@ -1,10 +1,10 @@
 package svenhjol.charm.feature.variant_ladders;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.iface.IVariantMaterial;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.iface.ICommonRegistry;
+import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.iface.ICommonRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -5,7 +5,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.IStorageBlockFeature;
-import svenhjol.charm_core.annotation.Configurable;
+import svenhjol.charmony.annotation.Configurable;
 
 import java.util.function.Supplier;
 

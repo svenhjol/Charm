@@ -12,9 +12,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
-import svenhjol.charm_core.helper.GenericTradeOffers;
-import svenhjol.charm_core.helper.TagHelper;
-import svenhjol.charm_core.helper.TextHelper;
+import svenhjol.charmony.helper.GenericTradeOffers;
+import svenhjol.charmony.helper.TagHelper;
+import svenhjol.charmony.helper.TextHelper;
 
 import javax.annotation.Nullable;
 public class BeekeeperTradeOffers {

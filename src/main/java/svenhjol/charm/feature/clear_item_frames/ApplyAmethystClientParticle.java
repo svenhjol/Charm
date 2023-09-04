@@ -6,8 +6,8 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
-import svenhjol.charm_core.base.CharmParticle;
-import svenhjol.charm_core.mixin.accessor.ParticleAccessor;
+import svenhjol.charmony.base.CharmParticle;
+import svenhjol.charmony.mixin.accessor.ParticleAccessor;
 
 @SuppressWarnings("ConstantConditions")
 public class ApplyAmethystClientParticle implements ParticleProvider<SimpleParticleType> {

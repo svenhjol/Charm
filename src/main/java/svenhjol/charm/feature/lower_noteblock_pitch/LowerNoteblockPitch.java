@@ -10,9 +10,9 @@ import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.NoteBlockAccessor;
-import svenhjol.charm_api.event.BlockUseEvent;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.api.event.BlockUseEvent;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Use a noteblock while sneaking to lower its pitch by one semitone.")
 public class LowerNoteblockPitch extends CharmFeature {

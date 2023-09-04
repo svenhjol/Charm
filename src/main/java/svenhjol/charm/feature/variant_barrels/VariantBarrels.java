@@ -4,10 +4,10 @@ import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_barrels.VariantBarrelBlock.BlockItem;
-import svenhjol.charm_api.iface.IVariantMaterial;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.iface.ICommonRegistry;
+import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.iface.ICommonRegistry;
 
 import java.util.HashMap;
 import java.util.List;

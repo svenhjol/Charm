@@ -9,9 +9,9 @@ import net.minecraft.world.item.MapItem;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.accessor.MapItemSavedDataAccessor;
-import svenhjol.charm_core.annotation.Packet;
-import svenhjol.charm_core.enums.PacketDirection;
-import svenhjol.charm_core.iface.IPacketRequest;
+import svenhjol.charmony.annotation.Packet;
+import svenhjol.charmony.enums.PacketDirection;
+import svenhjol.charmony.iface.IPacketRequest;
 
 public class AtlasesNetwork {
     public static void register() {

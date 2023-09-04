@@ -16,21 +16,21 @@ import svenhjol.charm.feature.variant_barrels.VariantBarrels;
 import svenhjol.charm.feature.variant_chests.VariantChests;
 import svenhjol.charm.feature.variant_ladders.VariantLadders;
 import svenhjol.charm.feature.wood.Wood;
-import svenhjol.charm_api.CharmApi;
-import svenhjol.charm_api.event.LevelLoadEvent;
-import svenhjol.charm_api.iface.IRemovesRecipes;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.block.CharmDoorBlock;
-import svenhjol.charm_core.block.CharmLogBlock;
-import svenhjol.charm_core.block.CharmTrapdoorBlock;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.LevelLoadEvent;
+import svenhjol.charmony.api.iface.IRecipeRemoveProvider;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.block.CharmDoorBlock;
+import svenhjol.charmony.block.CharmLogBlock;
+import svenhjol.charmony.block.CharmTrapdoorBlock;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
-public class AzaleaWood extends CharmFeature implements IRemovesRecipes {
+public class AzaleaWood extends CharmFeature implements IRecipeRemoveProvider {
     static Supplier<BlockSetType> BLOCK_SET_TYPE;
     static Supplier<WoodType> WOOD_TYPE;
     static Supplier<CharmDoorBlock> DOOR_BLOCK;
@@ -67,7 +67,7 @@ public class AzaleaWood extends CharmFeature implements IRemovesRecipes {
         Wood.registerTrappedChest(registry, material);
         Wood.registerLadder(registry, material);
 
-        CharmApi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     @Override

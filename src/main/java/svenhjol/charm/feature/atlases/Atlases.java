@@ -19,16 +19,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.atlases.MapItemSavedDataMixin;
-import svenhjol.charm_api.CharmApi;
-import svenhjol.charm_api.event.PlayerLoginEvent;
-import svenhjol.charm_api.event.PlayerTickEvent;
-import svenhjol.charm_api.iface.IProvidesWandererTrades;
-import svenhjol.charm_api.iface.IWandererTrade;
-import svenhjol.charm_core.annotation.Configurable;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.AdvancementHelper;
-import svenhjol.charm_core.helper.ItemNbtHelper;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.PlayerLoginEvent;
+import svenhjol.charmony.api.event.PlayerTickEvent;
+import svenhjol.charmony.api.iface.IWandererTradeProvider;
+import svenhjol.charmony.api.iface.IWandererTrade;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.AdvancementHelper;
+import svenhjol.charmony.helper.ItemNbtHelper;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +36,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Storage for maps that automatically updates the displayed map as you explore.")
-public class Atlases extends CharmFeature implements IProvidesWandererTrades {
+public class Atlases extends CharmFeature implements IWandererTradeProvider {
     public static Supplier<Item> ITEM;
     public static Supplier<MenuType<AtlasContainer>> MENU_TYPE;
     public static Supplier<SoundEvent> OPEN_SOUND;
@@ -59,7 +59,7 @@ public class Atlases extends CharmFeature implements IProvidesWandererTrades {
         CLOSE_SOUND = registry.soundEvent("atlas_close");
 
         AtlasesNetwork.register();
-        CharmApi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     @Override
@@ -260,10 +260,5 @@ public class Atlases extends CharmFeature implements IProvidesWandererTrades {
                 return 5;
             }
         });
-    }
-
-    @Override
-    public List<IWandererTrade> getRareWandererTrades() {
-        return List.of();
     }
 }

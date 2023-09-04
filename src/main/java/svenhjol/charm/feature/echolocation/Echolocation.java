@@ -5,9 +5,9 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.event.PlayerTickEvent;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.api.event.PlayerTickEvent;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.function.Supplier;
 

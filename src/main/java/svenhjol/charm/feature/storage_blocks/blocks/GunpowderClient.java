@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.storage_blocks.blocks;
 
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
 
 @ClientFeature
 public class GunpowderClient extends CharmFeature {

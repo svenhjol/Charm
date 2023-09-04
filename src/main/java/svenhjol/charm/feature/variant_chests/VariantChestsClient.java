@@ -10,10 +10,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_api.event.BlockItemRenderEvent;
-import svenhjol.charm_api.iface.IVariantMaterial;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.api.event.BlockItemRenderEvent;
+import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.List;
 import java.util.Optional;

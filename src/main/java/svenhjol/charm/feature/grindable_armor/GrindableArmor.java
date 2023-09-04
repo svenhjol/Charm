@@ -7,13 +7,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.CharmApi;
-import svenhjol.charm_api.event.GrindstoneEvents;
-import svenhjol.charm_api.event.GrindstoneEvents.GrindstoneMenuInstance;
-import svenhjol.charm_api.iface.IProvidesGrindableItems;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.ApiHelper;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.GrindstoneEvents;
+import svenhjol.charmony.api.event.GrindstoneEvents.GrindstoneMenuInstance;
+import svenhjol.charmony.api.iface.IProvidesGrindableItems;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.ApiHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +26,7 @@ public class GrindableArmor extends CharmFeature implements IProvidesGrindableIt
 
     @Override
     public void register() {
-        CharmApi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     @Override
@@ -35,8 +35,9 @@ public class GrindableArmor extends CharmFeature implements IProvidesGrindableIt
         GrindstoneEvents.CALCULATE_OUTPUT.handle(this::handleCalculateOutput);
         GrindstoneEvents.ON_TAKE.handle(this::handleOnTake);
 
-        ApiHelper.getProviderData(IProvidesGrindableItems.class, provider -> provider.getItemGrindResults().stream())
-            .forEach(p -> RECIPES.put(p.getFirst(), p.getSecond()));
+        ApiHelper.addConsumer(IProvidesGrindableItems.class,
+            provider -> provider.getItemGrindResults().forEach(
+                result -> RECIPES.put(result.getFirst(), result.getSecond())));
     }
 
     private boolean handleOnTake(GrindstoneMenuInstance instance, Player player, ItemStack stack) {

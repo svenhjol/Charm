@@ -3,10 +3,10 @@ package svenhjol.charm.feature.hover_sorting;
 import net.minecraft.network.FriendlyByteBuf;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_core.annotation.Packet;
-import svenhjol.charm_api.event.ItemHoverSortEvent;
-import svenhjol.charm_core.enums.PacketDirection;
-import svenhjol.charm_core.iface.IPacketRequest;
+import svenhjol.charmony.annotation.Packet;
+import svenhjol.charmony.api.event.ItemHoverSortEvent;
+import svenhjol.charmony.enums.PacketDirection;
+import svenhjol.charmony.iface.IPacketRequest;
 
 public class HoverSortingNetwork {
     public static void register() {

@@ -12,10 +12,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.echolocation.Echolocation;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.base.CharmItem;
-import svenhjol.charm_core.helper.ItemNbtHelper;
-import svenhjol.charm_core.helper.MobHelper;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmItem;
+import svenhjol.charmony.helper.ItemNbtHelper;
+import svenhjol.charmony.helper.MobHelper;
 
 public class BatBucketItem extends CharmItem {
     static final String STORED_BAT_TAG = "stored_bat";

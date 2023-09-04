@@ -8,8 +8,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -23,13 +25,14 @@ import svenhjol.charm.feature.hover_sorting.HoverSortingNetwork.ScrollOnHover;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
 import svenhjol.charm.mixin.accessor.BundleItemAccessor;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
-import svenhjol.charm_api.event.ItemHoverSortEvent;
-import svenhjol.charm_api.event.LevelLoadEvent;
-import svenhjol.charm_api.iface.IHoverSorting;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.ApiHelper;
-import svenhjol.charm_core.helper.TagHelper;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.ItemHoverSortEvent;
+import svenhjol.charmony.api.event.LevelLoadEvent;
+import svenhjol.charmony.api.iface.IHoverSortableItemProvider;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.ApiHelper;
+import svenhjol.charmony.helper.TagHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,17 +41,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Feature(mod = Charm.MOD_ID, description = "Scroll the mouse while hovering over a bundle or shulker box to change the order of its contents.")
-public class HoverSorting extends CharmFeature {
-    static final List<ItemLike> SORTABLE = new ArrayList<>();
+public class HoverSorting extends CharmFeature implements IHoverSortableItemProvider {
+    private final List<ItemLike> cachedSortables = new ArrayList<>();
+    private final List<TagKey<Block>> cachedBlockTags = new ArrayList<>();
+    private final List<TagKey<Item>> cachedItemTags = new ArrayList<>();
+    private final List<ItemLike> sortables = new ArrayList<>();
 
     @Override
     public void register() {
+        ApiHelper.addConsumer(IHoverSortableItemProvider.class,
+            provider -> {
+                cachedSortables.addAll(provider.getHoverSortableItems());
+                cachedBlockTags.addAll(provider.getHoverSortableBlockTags());
+                cachedItemTags.addAll(provider.getHoverSortableItemTags());
+            });
+
         HoverSortingNetwork.register();
+        CharmonyApi.registerProvider(this);
     }
 
     @Override
     public void runWhenEnabled() {
-        HoverSorting.addSortable(Items.BUNDLE);
         LevelLoadEvent.INSTANCE.handle(this::handleLevelLoad);
         ItemHoverSortEvent.INSTANCE.handle(this::handleBundleSorting);
         ItemHoverSortEvent.INSTANCE.handle(this::handleShulkerBoxSorting);
@@ -73,7 +86,7 @@ public class HoverSorting extends CharmFeature {
     }
 
     private void handleBundleSorting(ServerPlayer player, ItemStack stack, ItemHoverSortEvent.SortDirection direction) {
-        if (stack.is(Items.BUNDLE) && SORTABLE.contains(Items.BUNDLE)) {
+        if (stack.is(Items.BUNDLE) && sortables.contains(Items.BUNDLE)) {
             var itemsTag = BundleItemAccessor.getTagItems();
             var contents = BundleItemAccessor.invokeGetContents(stack)
                 .collect(Collectors.toCollection(LinkedList::new));
@@ -99,7 +112,7 @@ public class HoverSorting extends CharmFeature {
     }
 
     private void handleShulkerBoxSorting(ServerPlayer player, ItemStack stack, ItemHoverSortEvent.SortDirection direction) {
-        if (Block.byItem(stack.getItem()) instanceof ShulkerBoxBlock block && SORTABLE.contains(block)) {
+        if (Block.byItem(stack.getItem()) instanceof ShulkerBoxBlock block && sortables.contains(block)) {
             var tag = BlockItem.getBlockEntityData(stack);
             BlockEntity blockEntity;
 
@@ -131,24 +144,36 @@ public class HoverSorting extends CharmFeature {
 
     private void handleLevelLoad(MinecraftServer server, ServerLevel level) {
         if (level.dimension() == Level.OVERWORLD) {
+            var registryAccess = level.registryAccess();
+            List<ItemLike> holder = new ArrayList<>();
 
-            // Add all blocks from the minecraft:shulker_boxes tag to the sortable API.
-            var shulkerBoxes = BlockTags.SHULKER_BOXES;
-            var values = TagHelper.getValues(level.registryAccess().registryOrThrow(shulkerBoxes.registry()), shulkerBoxes);
+            cachedBlockTags.forEach(
+                blockTagKey -> holder.addAll(TagHelper.getValues(registryAccess
+                    .registryOrThrow(blockTagKey.registry()), blockTagKey)));
 
-            for (Block shulkerBox : values) {
-                HoverSorting.addSortable(shulkerBox);
-            }
+            cachedItemTags.forEach(
+                itemTagKey -> holder.addAll(TagHelper.getValues(registryAccess
+                    .registryOrThrow(itemTagKey.registry()), itemTagKey)));
 
-            // Add everything from the API.
-            var sortables = ApiHelper.getProviderData(IHoverSorting.class, s -> s.getSortables().stream());
-            for (ItemLike sortable : sortables) {
-                HoverSorting.addSortable(sortable);
-            }
+            holder.addAll(cachedSortables);
+
+            // Clear all sortables and add collected items back to it.
+            sortables.clear();
+            holder.forEach(item -> {
+                if (!sortables.contains(item)) {
+                    sortables.add(item);
+                }
+            });
         }
     }
 
-    public static void addSortable(ItemLike item) {
-        SORTABLE.add(item);
+    @Override
+    public List<ItemLike> getHoverSortableItems() {
+        return List.of(Items.BUNDLE);
+    }
+
+    @Override
+    public List<TagKey<Block>> getHoverSortableBlockTags() {
+        return List.of(BlockTags.SHULKER_BOXES);
     }
 }

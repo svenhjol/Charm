@@ -7,8 +7,8 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.ArrayList;
 import java.util.List;

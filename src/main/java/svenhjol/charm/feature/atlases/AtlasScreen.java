@@ -21,10 +21,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.joml.Matrix4f;
-import svenhjol.charm_core.base.CharmContainerScreen;
-import svenhjol.charm_core.helper.KeyboardHelper;
-import svenhjol.charm_core.helper.ResourceHelper;
-import svenhjol.charm_core.mixin.accessor.ScreenAccessor;
+import svenhjol.charmony.base.CharmContainerScreen;
+import svenhjol.charmony.helper.KeyboardHelper;
+import svenhjol.charmony.helper.ResourceHelper;
+import svenhjol.charmony.mixin.accessor.ScreenAccessor;
 
 import java.util.EnumMap;
 import java.util.EnumSet;

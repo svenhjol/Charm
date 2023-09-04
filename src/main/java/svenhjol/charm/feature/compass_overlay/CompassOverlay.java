@@ -8,10 +8,10 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.accessor.GuiAccessor;
-import svenhjol.charm_api.event.HudRenderEvent;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.annotation.Configurable;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.api.event.HudRenderEvent;
+import svenhjol.charmony.base.CharmFeature;
 
 @SuppressWarnings({"resource"})
 @ClientFeature(

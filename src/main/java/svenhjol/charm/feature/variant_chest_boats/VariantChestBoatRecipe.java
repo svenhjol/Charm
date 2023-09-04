@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChestBlock;
 import svenhjol.charm.feature.variant_chests.VariantChestBlock;
-import svenhjol.charm_core.helper.TagHelper;
+import svenhjol.charmony.helper.TagHelper;
 
 public class VariantChestBoatRecipe extends CustomRecipe {
     public static final String CHEST_TYPE_TAG = "chest_type";

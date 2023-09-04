@@ -4,9 +4,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Items;
-import svenhjol.charm_core.base.CharmConditionalSlot;
-import svenhjol.charm_core.base.CharmContainerMenu;
-import svenhjol.charm_core.helper.ItemNbtHelper;
+import svenhjol.charmony.base.CharmConditionalSlot;
+import svenhjol.charmony.base.CharmContainerMenu;
+import svenhjol.charmony.helper.ItemNbtHelper;
 
 import java.util.Objects;
 

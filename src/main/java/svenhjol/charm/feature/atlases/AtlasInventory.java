@@ -29,7 +29,7 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
-import svenhjol.charm_core.helper.ItemNbtHelper;
+import svenhjol.charmony.helper.ItemNbtHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -12,10 +12,10 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_api.event.ClientEntityJoinEvent;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.annotation.Configurable;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.api.event.ClientEntityJoinEvent;
+import svenhjol.charmony.base.CharmFeature;
 
 import javax.annotation.Nullable;
 import java.util.*;

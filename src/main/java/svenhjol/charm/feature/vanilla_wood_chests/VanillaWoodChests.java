@@ -4,9 +4,9 @@ import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_chest_boats.VariantChestBoats;
 import svenhjol.charm.feature.variant_chests.VariantChests;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.enums.VanillaWood;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.enums.VanillaWood;
 
 @Feature(mod = Charm.MOD_ID, description = "Chests in all vanilla wood types.")
 public class VanillaWoodChests extends CharmFeature {

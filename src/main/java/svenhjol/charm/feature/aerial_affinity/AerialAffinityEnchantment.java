@@ -2,8 +2,8 @@ package svenhjol.charm.feature.aerial_affinity;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import svenhjol.charm_core.base.CharmEnchantment;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.base.CharmEnchantment;
+import svenhjol.charmony.base.CharmFeature;
 
 public class AerialAffinityEnchantment extends CharmEnchantment {
     public AerialAffinityEnchantment(CharmFeature feature) {

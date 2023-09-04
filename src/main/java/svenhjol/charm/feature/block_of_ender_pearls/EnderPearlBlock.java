@@ -7,9 +7,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.base.CharmBlock;
-import svenhjol.charm_core.base.CharmBlockItem;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.base.CharmBlock;
+import svenhjol.charmony.base.CharmBlockItem;
+import svenhjol.charmony.base.CharmFeature;
 
 public class EnderPearlBlock extends CharmBlock {
     public EnderPearlBlock() {

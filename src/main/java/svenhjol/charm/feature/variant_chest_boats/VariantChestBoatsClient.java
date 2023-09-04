@@ -3,8 +3,8 @@ package svenhjol.charm.feature.variant_chest_boats;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.ArrayList;
 import java.util.List;

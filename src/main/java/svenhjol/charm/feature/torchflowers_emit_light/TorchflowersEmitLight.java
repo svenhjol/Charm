@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.torchflowers_emit_light;
 
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_core.annotation.Configurable;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.base.CharmFeature;
 
 @Feature(
     mod = CharmClient.MOD_ID,

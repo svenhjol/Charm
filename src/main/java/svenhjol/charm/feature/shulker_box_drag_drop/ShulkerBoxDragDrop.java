@@ -23,12 +23,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
-import svenhjol.charm_api.event.ItemDragDropEvent;
-import svenhjol.charm_api.event.ItemDragDropEvent.StackType;
-import svenhjol.charm_api.event.LevelLoadEvent;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.TagHelper;
+import svenhjol.charmony.api.event.ItemDragDropEvent;
+import svenhjol.charmony.api.event.ItemDragDropEvent.StackType;
+import svenhjol.charmony.api.event.LevelLoadEvent;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.TagHelper;
 
 import java.util.ArrayList;
 import java.util.List;

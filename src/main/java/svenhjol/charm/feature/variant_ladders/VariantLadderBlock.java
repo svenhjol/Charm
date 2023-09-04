@@ -4,9 +4,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LadderBlock;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.iface.IVariantMaterial;
-import svenhjol.charm_core.base.CharmBlockItem;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmony.base.CharmBlockItem;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.function.Supplier;
 
