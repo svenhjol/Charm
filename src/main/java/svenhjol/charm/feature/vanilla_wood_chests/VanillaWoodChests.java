@@ -3,21 +3,24 @@ package svenhjol.charm.feature.vanilla_wood_chests;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_chest_boats.VariantChestBoats;
-import svenhjol.charm.feature.variant_chests.VariantChests;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.iface.IVariantChestProvider;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.enums.VanillaWood;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Feature(mod = Charm.MOD_ID, description = "Chests in all vanilla wood types.")
-public class VanillaWoodChests extends CharmFeature {
+public class VanillaWoodChests extends CharmFeature implements IVariantChestProvider {
     @Override
     public void register() {
-        var registry = Charm.instance().registry();
-
-        for (var material : VanillaWood.getTypes()) {
-            VariantChests.registerChest(registry, material);
-            VariantChests.registerTrappedChest(registry, material);
-        }
+//        for (var material : VanillaWood.getTypes()) {
+//            VariantChests.registerChest(registry, material);
+//            VariantChests.registerTrappedChest(registry, material);
+//        }
 
         VariantChestBoats.registerChestBoat(() -> Items.ACACIA_BOAT, () -> Items.ACACIA_CHEST_BOAT);
         VariantChestBoats.registerChestBoat(() -> Items.BAMBOO_RAFT, () -> Items.BAMBOO_CHEST_RAFT);
@@ -32,5 +35,12 @@ public class VanillaWoodChests extends CharmFeature {
         for (var material : VanillaWood.values()) {
             VariantChestBoats.registerChestLayerColor(material);
         }
+
+        CharmonyApi.registerProvider(this);
+    }
+
+    @Override
+    public List<IVariantMaterial> getVariantChests() {
+        return new ArrayList<>(VanillaWood.getTypes());
     }
 }

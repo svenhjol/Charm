@@ -17,14 +17,12 @@ import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import svenhjol.charm.Charm;
-import svenhjol.charm.feature.variant_barrels.VariantBarrels;
 import svenhjol.charm.feature.variant_bookshelves.VariantBookshelves;
 import svenhjol.charm.feature.variant_chest_boats.VariantChestBoats;
-import svenhjol.charm.feature.variant_chests.VariantChests;
 import svenhjol.charm.feature.variant_chiseled_bookshelves.VariantChiseledBookshelves;
 import svenhjol.charm.feature.variant_ladders.VariantLadders;
-import svenhjol.charmony.api.iface.IVariantWoodMaterial;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.iface.IVariantWoodMaterial;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.block.*;
 import svenhjol.charmony.iface.ICommonRegistry;
@@ -301,9 +299,9 @@ public class Wood extends CharmFeature {
         return Pair.of(trapdoor, trapdoorItem);
     }
 
-    public static void registerBarrel(ICommonRegistry registry, IVariantWoodMaterial material) {
-        VariantBarrels.registerBarrel(registry, material);
-    }
+//    public static void registerBarrel(ICommonRegistry registry, IVariantWoodMaterial material) {
+//        VariantBarrels.registerBarrel(registry, material);
+//    }
 
     public static void registerBookshelf(ICommonRegistry registry, IVariantWoodMaterial material) {
         VariantBookshelves.registerBookshelf(registry, material);
@@ -313,13 +311,13 @@ public class Wood extends CharmFeature {
         VariantChiseledBookshelves.registerChiseledBookshelf(registry, material);
     }
 
-    public static void registerChest(ICommonRegistry registry, IVariantWoodMaterial material) {
-        VariantChests.registerChest(registry, material);
-    }
-
-    public static void registerTrappedChest(ICommonRegistry registry, IVariantWoodMaterial material) {
-        VariantChests.registerTrappedChest(registry, material);
-    }
+//    public static void registerChest(ICommonRegistry registry, IVariantWoodMaterial material) {
+//        VariantChests.registerChest(registry, material);
+//    }
+//
+//    public static void registerTrappedChest(ICommonRegistry registry, IVariantWoodMaterial material) {
+//        VariantChests.registerTrappedChest(registry, material);
+//    }
 
     public static void registerLadder(ICommonRegistry registry, IVariantWoodMaterial material) {
         VariantLadders.registerLadder(registry, material);

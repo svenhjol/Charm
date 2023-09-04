@@ -20,6 +20,9 @@ import svenhjol.charmony.api.CharmonyApi;
 import svenhjol.charmony.api.event.LevelLoadEvent;
 import svenhjol.charmony.api.iface.IRecipeRemoveProvider;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.iface.IVariantBarrelProvider;
+import svenhjol.charmony.api.iface.IVariantChestProvider;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.block.CharmDoorBlock;
 import svenhjol.charmony.block.CharmLogBlock;
@@ -30,7 +33,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
-public class AzaleaWood extends CharmFeature implements IRecipeRemoveProvider {
+public class AzaleaWood extends CharmFeature
+    implements IRecipeRemoveProvider, IVariantBarrelProvider, IVariantChestProvider {
     static Supplier<BlockSetType> BLOCK_SET_TYPE;
     static Supplier<WoodType> WOOD_TYPE;
     static Supplier<CharmDoorBlock> DOOR_BLOCK;
@@ -60,11 +64,11 @@ public class AzaleaWood extends CharmFeature implements IRecipeRemoveProvider {
         Wood.registerHangingSign(registry, this, material);
         Wood.registerPressurePlate(registry, this, material);
 
-        Wood.registerBarrel(registry, material);
+//        Wood.registerBarrel(registry, material);
         Wood.registerBookshelf(registry, material);
         Wood.registerChiseledBookshelf(registry, material);
-        Wood.registerChest(registry, material);
-        Wood.registerTrappedChest(registry, material);
+//        Wood.registerChest(registry, material);
+//        Wood.registerTrappedChest(registry, material);
         Wood.registerLadder(registry, material);
 
         CharmonyApi.registerProvider(this);
@@ -109,5 +113,15 @@ public class AzaleaWood extends CharmFeature implements IRecipeRemoveProvider {
         }
 
         return remove;
+    }
+
+    @Override
+    public List<IVariantMaterial> getVariantBarrels() {
+        return List.of(AzaleaMaterial.AZALEA);
+    }
+
+    @Override
+    public List<IVariantMaterial> getVariantChests() {
+        return List.of(AzaleaMaterial.AZALEA);
     }
 }

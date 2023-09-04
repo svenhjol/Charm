@@ -3,11 +3,12 @@ package svenhjol.charm.feature.variant_chests;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_chests.VariantTrappedChestBlock.BlockItem;
-import svenhjol.charmony.api.event.EntityUseEvent;
-import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.event.EntityUseEvent;
+import svenhjol.charmony.api.iface.IVariantChestProvider;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.iface.ICommonRegistry;
+import svenhjol.charmony.helper.ApiHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,13 @@ public class VariantChests extends CharmFeature {
     public void register() {
         NORMAL_BLOCK_ENTITY = Charm.instance().registry().blockEntity("variant_chest", () -> VariantChestBlockEntity::new);
         TRAPPED_BLOCK_ENTITY = Charm.instance().registry().blockEntity("variant_trapped_chest", () -> VariantTrappedChestBlockEntity::new);
+
+        ApiHelper.addConsumer(IVariantChestProvider.class,
+            provider -> provider.getVariantChests().forEach(
+                chest -> {
+                    registerChest(chest);
+                    registerTrappedChest(chest);
+                }));
     }
 
     @Override
@@ -35,7 +43,8 @@ public class VariantChests extends CharmFeature {
         EntityUseEvent.INSTANCE.handle(AnimalInteraction::handle);
     }
 
-    public static void registerChest(ICommonRegistry registry, IVariantMaterial material) {
+    private void registerChest(IVariantMaterial material) {
+        var registry = Charm.instance().registry();
         var id = material.getSerializedName() + "_chest";
 
         var block = registry.block(id, () -> new VariantChestBlock(material));
@@ -49,7 +58,8 @@ public class VariantChests extends CharmFeature {
         registry.fuel(blockItem);
     }
 
-    public static void registerTrappedChest(ICommonRegistry registry, IVariantMaterial material) {
+    private void registerTrappedChest(IVariantMaterial material) {
+        var registry = Charm.instance().registry();
         var id = "trapped_" + material.getSerializedName() + "_chest";
 
         var block = registry.block(id, () -> new VariantTrappedChestBlock(material));
