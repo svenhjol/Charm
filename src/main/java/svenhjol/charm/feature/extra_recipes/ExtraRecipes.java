@@ -2,19 +2,19 @@ package svenhjol.charm.feature.extra_recipes;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.CharmApi;
-import svenhjol.charm_api.iface.IRemovesAdvancements;
-import svenhjol.charm_api.iface.IRemovesRecipes;
-import svenhjol.charm_core.annotation.Configurable;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.iface.IAdvancementRemoveProvider;
+import svenhjol.charmony.api.iface.IRecipeRemoveProvider;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Feature(mod = Charm.MOD_ID, description = "More ways to craft items using different materials.")
-public class ExtraRecipes extends CharmFeature implements IRemovesRecipes, IRemovesAdvancements {
+public class ExtraRecipes extends CharmFeature implements IRecipeRemoveProvider, IAdvancementRemoveProvider {
     private static final List<ResourceLocation> INVALID = new ArrayList<>();
 
     @Configurable(name = "Ore block from raw ore block", description = "If true, adds a blast furnace recipe for smelting raw ore blocks into ore blocks.")
@@ -52,7 +52,7 @@ public class ExtraRecipes extends CharmFeature implements IRemovesRecipes, IRemo
 
     @Override
     public void register() {
-        CharmApi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     @Override

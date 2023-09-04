@@ -13,10 +13,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_api.event.EntityJoinEvent;
-import svenhjol.charm_api.event.PlayerTickEvent;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.event.EntityJoinEvent;
+import svenhjol.charmony.api.event.PlayerTickEvent;
+import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charm.mixin.accessor.MobAccessor;
 
 import java.util.List;

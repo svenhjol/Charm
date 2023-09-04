@@ -2,9 +2,9 @@ package svenhjol.charm.feature.auto_recipe_unlock;
 
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.event.PlayerLoginEvent;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.api.event.PlayerLoginEvent;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
 
 @Feature(
     mod = Charm.MOD_ID,

@@ -3,7 +3,7 @@ package svenhjol.charm.feature.extra_tooltips;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.inventory.tooltip.BundleTooltip;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm_core.iface.ITooltipGrid;
+import svenhjol.charmony.iface.ITooltipGrid;
 
 public class ShulkerBoxItemTooltip extends BundleTooltip implements ITooltipGrid {
     public ShulkerBoxItemTooltip(NonNullList<ItemStack> items) {

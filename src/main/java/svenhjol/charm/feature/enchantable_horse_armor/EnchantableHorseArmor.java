@@ -4,23 +4,23 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.CharmApi;
-import svenhjol.charm_api.iface.IProvidesHorseArmorEnchantments;
-import svenhjol.charm_core.annotation.Configurable;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.ApiHelper;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.iface.IHorseArmorEnchantmentProvider;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.ApiHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Feature(mod = Charm.MOD_ID, description = "Horse armor can be enchanted.")
-public class EnchantableHorseArmor extends CharmFeature implements IProvidesHorseArmorEnchantments {
-    private static final List<Enchantment> VALIDATED_ENCHANTMENTS = new ArrayList<>();
+public class EnchantableHorseArmor extends CharmFeature implements IHorseArmorEnchantmentProvider {
+    static final List<Enchantment> ENCHANTMENTS = new ArrayList<>();
     
     @Configurable(name = "Enchantments", description = "Enchantments that will function on horse armor.")
-    public static List<String> enchantments = Arrays.asList(
+    public static List<String> configEnchantments = Arrays.asList(
         "minecraft:protection",
         "minecraft:fire_protection",
         "minecraft:blast_protection",
@@ -33,26 +33,41 @@ public class EnchantableHorseArmor extends CharmFeature implements IProvidesHors
 
     @Override
     public void register() {
-        CharmApi.registerProvider(this);
+        ApiHelper.addConsumer(IHorseArmorEnchantmentProvider.class,
+            provider -> provider.getEnchantments().forEach(this::addEnchantment));
+
+        CharmonyApi.registerProvider(this);
     }
 
+    private void addEnchantment(Enchantment enchantment) {
+        if (!ENCHANTMENTS.contains(enchantment)) {
+            Charm.instance().log().debug(getClass(), "Adding enchantment " + enchantment);
+            ENCHANTMENTS.add(enchantment);
+        }
+    }
+
+    /**
+     * Resolves config enchantments into registered enchantments.
+     * @return List of resolved enchantments.
+     */
     @Override
     public List<Enchantment> getEnchantments() {
-        if (VALIDATED_ENCHANTMENTS.isEmpty()) {
-            // Validate configured enchantments and cache them.
-            for (var enchantment : enchantments) {
-                BuiltInRegistries.ENCHANTMENT.getOptional(new ResourceLocation(enchantment)).ifPresent(e -> {
-                    Charm.instance().log().debug(getClass(), "Adding enchantment " + enchantment);
-                    VALIDATED_ENCHANTMENTS.add(e);
-                });
-            }
+        List<Enchantment> validatedEnchantments = new ArrayList<>();
+
+        // Validate configured enchantments and cache them.
+        for (var enchantment : configEnchantments) {
+            BuiltInRegistries.ENCHANTMENT.getOptional(new ResourceLocation(enchantment))
+                .ifPresent(validatedEnchantments::add);
         }
 
-        return VALIDATED_ENCHANTMENTS;
+        return validatedEnchantments;
     }
 
+    /**
+     * Used by the mixin to fetch the total set of possible horse armor enchantments.
+     * @return Complete list of horse armor enchantments.
+     */
     public static List<Enchantment> getAllEnchantments() {
-        return ApiHelper.getProviderData(IProvidesHorseArmorEnchantments.class,
-                provider -> provider.getEnchantments().stream());
+        return ENCHANTMENTS;
     }
 }

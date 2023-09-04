@@ -9,8 +9,8 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;

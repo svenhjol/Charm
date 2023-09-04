@@ -20,11 +20,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.accessor.SoundEngineAccessor;
 import svenhjol.charm.mixin.accessor.SoundManagerAccessor;
-import svenhjol.charm_api.event.BlockUseEvent;
-import svenhjol.charm_api.event.ClientTickEvent;
-import svenhjol.charm_api.event.SoundPlayEvent;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.api.event.BlockUseEvent;
+import svenhjol.charmony.api.event.ClientTickEvent;
+import svenhjol.charmony.api.event.SoundPlayEvent;
+import svenhjol.charmony.base.CharmFeature;
 
 @ClientFeature(
     mod = CharmClient.MOD_ID,

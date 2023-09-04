@@ -6,9 +6,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingNetwork.TidyInventory;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.AdvancementHelper;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.AdvancementHelper;
 
 @Feature(mod = Charm.MOD_ID, description = "Button to automatically tidy inventories.")
 public class InventoryTidying extends CharmFeature {

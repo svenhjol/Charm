@@ -1,7 +1,7 @@
 package svenhjol.charm.mixin;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.base.CharmMixinConfigPlugin;
+import svenhjol.charmony.base.CharmMixinConfigPlugin;
 
 public class MixinConfigPlugin extends CharmMixinConfigPlugin {
     @Override

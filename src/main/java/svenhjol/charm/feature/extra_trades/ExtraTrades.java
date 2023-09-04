@@ -9,19 +9,19 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.Charm;
-import svenhjol.charm_api.CharmApi;
-import svenhjol.charm_api.iface.IProvidesWandererTrades;
-import svenhjol.charm_api.iface.IWandererTrade;
-import svenhjol.charm_core.annotation.Configurable;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.GenericTradeOffers;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.iface.IWandererTradeProvider;
+import svenhjol.charmony.api.iface.IWandererTrade;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.GenericTradeOffers;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 @Feature(mod = Charm.MOD_ID, description = "Adds more villager trades.")
-public class ExtraTrades extends CharmFeature implements IProvidesWandererTrades {
+public class ExtraTrades extends CharmFeature implements IWandererTradeProvider {
     @Configurable(name = "Enchanted books", description = "If true, librarians will buy any enchanted book in return for emeralds.")
     public static boolean enchantedBooks = true;
 
@@ -42,7 +42,6 @@ public class ExtraTrades extends CharmFeature implements IProvidesWandererTrades
 
     @Override
     public void register() {
-        CharmApi.registerProvider(this);
         var registry = Charm.instance().registry();
 
         if (enchantedBooks) {
@@ -87,11 +86,8 @@ public class ExtraTrades extends CharmFeature implements IProvidesWandererTrades
             registry.villagerTrade(() -> VillagerProfession.LEATHERWORKER, tier, () -> new GenericTradeOffers.EmeraldsForItems(
                 Items.BUNDLE, 12, 10, 1, 0, xp, 1));
         }
-    }
 
-    @Override
-    public List<IWandererTrade> getWandererTrades() {
-        return List.of();
+        CharmonyApi.registerProvider(this);
     }
 
     @Override

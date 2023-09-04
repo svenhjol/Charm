@@ -9,18 +9,18 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.AbstractContainerScreenAccessor;
-import svenhjol.charm_api.CharmApi;
-import svenhjol.charm_api.event.ScreenRenderEvent;
-import svenhjol.charm_api.event.ScreenSetupEvent;
-import svenhjol.charm_api.iface.IHasBlacklistedScreens;
-import svenhjol.charm_api.iface.IHasBlockEntityScreens;
-import svenhjol.charm_api.iface.IHasScreenOffsetTweaks;
-import svenhjol.charm_api.iface.IScreenOffsetTweak;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_core.base.CharmFeature;
-import svenhjol.charm_core.helper.ApiHelper;
-import svenhjol.charm_core.helper.ResourceHelper;
-import svenhjol.charm_core.helper.ScreenHelper;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.ScreenRenderEvent;
+import svenhjol.charmony.api.event.ScreenSetupEvent;
+import svenhjol.charmony.api.iface.IInventoryTidyingBlacklistProvider;
+import svenhjol.charmony.api.iface.IHasScreenOffsetTweaks;
+import svenhjol.charmony.api.iface.IScreenOffsetTweakProvider;
+import svenhjol.charmony.api.iface.IInventoryTidyingWhitelistProvider;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.ApiHelper;
+import svenhjol.charmony.helper.ResourceHelper;
+import svenhjol.charmony.helper.ScreenHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,11 +30,11 @@ import java.util.function.BooleanSupplier;
 
 @ClientFeature
 public class InventoryTidyingClient extends CharmFeature
-    implements IHasScreenOffsetTweaks, IHasBlockEntityScreens, IHasBlacklistedScreens {
+    implements IHasScreenOffsetTweaks, IInventoryTidyingWhitelistProvider, IInventoryTidyingBlacklistProvider {
     private static final int LEFT = 159;
     private static final int TOP = 12;
     private static final List<ImageButton> SORTING_BUTTONS = new ArrayList<>();
-    private static final List<Class<? extends Screen>> BLOCK_ENTITY_SCREENS = new ArrayList<>();
+    private static final List<Class<? extends Screen>> WHITELISTED_SCREENS = new ArrayList<>();
     private static final List<Class<? extends Screen>> BLACKLISTED_SCREENS = new ArrayList<>();
     private static final Map<Class<? extends Screen>, Pair<Integer, Integer>> SCREEN_TWEAKS = new HashMap<>();
 
@@ -45,22 +45,24 @@ public class InventoryTidyingClient extends CharmFeature
 
     @Override
     public void register() {
-        CharmApi.registerProvider(this);
+        // TODO: IHasBlockEntityScreens and IHasBlacklistedScreens need to be more specific to inventory tidying.
+        ApiHelper.addConsumer(IHasScreenOffsetTweaks.class,
+            provider -> provider.getScreenOffsetTweaks().forEach(
+                tweak -> SCREEN_TWEAKS.put(tweak.getScreen(), tweak.getOffset())));
+
+        ApiHelper.addConsumer(IInventoryTidyingWhitelistProvider.class,
+            provider -> WHITELISTED_SCREENS.addAll(provider.getWhitelistedInventoryTidyingScreens()));
+
+        ApiHelper.addConsumer(IInventoryTidyingBlacklistProvider.class,
+            provider -> BLACKLISTED_SCREENS.addAll(provider.getBlacklistedInventoryTidyingScreens()));
+
+        CharmonyApi.registerProvider(this);
     }
 
     @Override
     public void runWhenEnabled() {
         ScreenSetupEvent.INSTANCE.handle(this::handleScreenSetup);
         ScreenRenderEvent.INSTANCE.handle(this::handleScreenRender);
-
-        ApiHelper.getProviderData(IHasScreenOffsetTweaks.class, provider -> provider.getScreenOffsetTweaks().stream())
-            .forEach(t -> SCREEN_TWEAKS.put(t.getScreen(), t.getOffset()));
-
-        BLOCK_ENTITY_SCREENS.addAll(ApiHelper.getProviderData(IHasBlockEntityScreens.class,
-            provider -> provider.getBlockEntityScreens().stream()));
-
-        BLACKLISTED_SCREENS.addAll(ApiHelper.getProviderData(IHasBlacklistedScreens.class,
-            provider -> provider.getBlacklistedScreens().stream()));
     }
 
     private void handleScreenSetup(Screen screen) {
@@ -85,7 +87,7 @@ public class InventoryTidyingClient extends CharmFeature
 
         var slots = menu.slots;
         for (var slot : slots) {
-            if (BLOCK_ENTITY_SCREENS.contains(containerScreen.getClass()) && slot.index == 0) {
+            if (WHITELISTED_SCREENS.contains(containerScreen.getClass()) && slot.index == 0) {
                 addSortingButton(screen, x, y + slot.y,
                     click -> InventoryTidyingNetwork.TidyInventory.send(TidyType.CONTAINER));
             }
@@ -113,10 +115,10 @@ public class InventoryTidyingClient extends CharmFeature
     }
 
     @Override
-    public List<IScreenOffsetTweak> getScreenOffsetTweaks() {
+    public List<IScreenOffsetTweakProvider> getScreenOffsetTweaks() {
         // Offset the button by these X and Y coordinates on these screens.
         return List.of(
-            new IScreenOffsetTweak() {
+            new IScreenOffsetTweakProvider() {
                 @Override
                 public Class<? extends Screen> getScreen() {
                     return MerchantScreen.class;
@@ -127,7 +129,7 @@ public class InventoryTidyingClient extends CharmFeature
                     return Pair.of(100, 0);
                 }
             },
-            new IScreenOffsetTweak() {
+            new IScreenOffsetTweakProvider() {
                 @Override
                 public Class<? extends Screen> getScreen() {
                     return InventoryScreen.class;
@@ -142,7 +144,7 @@ public class InventoryTidyingClient extends CharmFeature
     }
 
     @Override
-    public List<Class<? extends Screen>> getBlacklistedScreens() {
+    public List<Class<? extends Screen>> getBlacklistedInventoryTidyingScreens() {
         // Don't show the button on these screens.
         return List.of(
             CreativeModeInventoryScreen.class,
@@ -151,7 +153,7 @@ public class InventoryTidyingClient extends CharmFeature
     }
 
     @Override
-    public List<Class<? extends AbstractContainerScreen<?>>> getBlockEntityScreens() {
+    public List<Class<? extends Screen>> getWhitelistedInventoryTidyingScreens() {
         // Add two sorting buttons to screens with a container.
         return List.of(
             ContainerScreen.class,

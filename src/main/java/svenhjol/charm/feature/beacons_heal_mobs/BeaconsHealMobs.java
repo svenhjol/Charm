@@ -8,9 +8,9 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_api.event.ApplyBeaconEffectsEvent;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.event.ApplyBeaconEffectsEvent;
+import svenhjol.charmony.base.CharmFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Passive and friendly mobs will heal themselves within range of a beacon with the regeneration effect.")
 public class BeaconsHealMobs extends CharmFeature {

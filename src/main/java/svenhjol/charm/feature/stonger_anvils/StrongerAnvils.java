@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.stonger_anvils;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.Random;
 

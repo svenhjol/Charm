@@ -4,10 +4,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.InteractionResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.annotation.ClientFeature;
-import svenhjol.charm_api.event.ItemHoverSortEvent;
-import svenhjol.charm_api.event.MouseScrollEvent;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.api.event.ItemHoverSortEvent;
+import svenhjol.charmony.api.event.MouseScrollEvent;
+import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charm.mixin.accessor.AbstractContainerScreenAccessor;
 
 import java.util.List;

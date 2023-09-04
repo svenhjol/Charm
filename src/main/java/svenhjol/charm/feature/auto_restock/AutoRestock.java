@@ -7,9 +7,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_api.event.PlayerTickEvent;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.event.PlayerTickEvent;
+import svenhjol.charmony.base.CharmFeature;
 
 import java.util.EnumMap;
 import java.util.Map;

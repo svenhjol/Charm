@@ -6,8 +6,8 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.annotation.Feature;
-import svenhjol.charm_core.base.CharmFeature;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Automatically opens double doors.")
 public class OpenBothDoors extends CharmFeature {

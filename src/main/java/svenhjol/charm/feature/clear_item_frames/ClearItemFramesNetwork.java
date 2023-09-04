@@ -6,9 +6,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import svenhjol.charm.Charm;
-import svenhjol.charm_core.annotation.Packet;
-import svenhjol.charm_core.enums.PacketDirection;
-import svenhjol.charm_core.iface.IPacketRequest;
+import svenhjol.charmony.annotation.Packet;
+import svenhjol.charmony.enums.PacketDirection;
+import svenhjol.charmony.iface.IPacketRequest;
 
 public class ClearItemFramesNetwork {
     public static void register() {

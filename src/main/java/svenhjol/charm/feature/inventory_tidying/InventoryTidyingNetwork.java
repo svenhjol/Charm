@@ -3,9 +3,9 @@ package svenhjol.charm.feature.inventory_tidying;
 import net.minecraft.network.FriendlyByteBuf;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm_core.annotation.Packet;
-import svenhjol.charm_core.enums.PacketDirection;
-import svenhjol.charm_core.iface.IPacketRequest;
+import svenhjol.charmony.annotation.Packet;
+import svenhjol.charmony.enums.PacketDirection;
+import svenhjol.charmony.iface.IPacketRequest;
 
 public class InventoryTidyingNetwork {
     public static void register() {
