@@ -86,7 +86,7 @@ public class HoverSorting extends CharmFeature implements IHoverSortableItemProv
     }
 
     private void handleBundleSorting(ServerPlayer player, ItemStack stack, ItemHoverSortEvent.SortDirection direction) {
-        if (stack.is(Items.BUNDLE) && cachedSortables.contains(Items.BUNDLE)) {
+        if (stack.is(Items.BUNDLE) && sortables.contains(Items.BUNDLE)) {
             var itemsTag = BundleItemAccessor.getTagItems();
             var contents = BundleItemAccessor.invokeGetContents(stack)
                 .collect(Collectors.toCollection(LinkedList::new));
@@ -112,7 +112,7 @@ public class HoverSorting extends CharmFeature implements IHoverSortableItemProv
     }
 
     private void handleShulkerBoxSorting(ServerPlayer player, ItemStack stack, ItemHoverSortEvent.SortDirection direction) {
-        if (Block.byItem(stack.getItem()) instanceof ShulkerBoxBlock block && cachedSortables.contains(block)) {
+        if (Block.byItem(stack.getItem()) instanceof ShulkerBoxBlock block && sortables.contains(block)) {
             var tag = BlockItem.getBlockEntityData(stack);
             BlockEntity blockEntity;
 
