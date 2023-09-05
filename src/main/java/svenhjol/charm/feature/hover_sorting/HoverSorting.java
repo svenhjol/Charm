@@ -49,7 +49,7 @@ public class HoverSorting extends CharmFeature implements IHoverSortableItemProv
 
     @Override
     public void register() {
-        ApiHelper.addConsumer(IHoverSortableItemProvider.class,
+        ApiHelper.consume(IHoverSortableItemProvider.class,
             provider -> {
                 cachedSortables.addAll(provider.getHoverSortableItems());
                 cachedBlockTags.addAll(provider.getHoverSortableBlockTags());

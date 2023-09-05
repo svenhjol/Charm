@@ -40,7 +40,7 @@ public class QuickReplant extends CharmFeature implements IQuickReplantProvider 
 
     @Override
     public void register() {
-        ApiHelper.addConsumer(IQuickReplantProvider.class,
+        ApiHelper.consume(IQuickReplantProvider.class,
             provider -> provider.getHarvestableBlocks().forEach(
                 supplier -> REPLANTABLE.add(supplier.get())));
 
