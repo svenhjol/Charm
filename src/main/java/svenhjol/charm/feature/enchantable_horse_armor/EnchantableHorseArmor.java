@@ -33,7 +33,7 @@ public class EnchantableHorseArmor extends CharmFeature implements IHorseArmorEn
 
     @Override
     public void register() {
-        ApiHelper.addConsumer(IHorseArmorEnchantmentProvider.class,
+        ApiHelper.consume(IHorseArmorEnchantmentProvider.class,
             provider -> provider.getEnchantments().forEach(this::addEnchantment));
 
         CharmonyApi.registerProvider(this);

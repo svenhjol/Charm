@@ -23,7 +23,7 @@ public class TotemsWorkFromInventory extends CharmFeature implements ITotemInven
 
     @Override
     public void register() {
-        ApiHelper.addConsumer(ITotemInventoryCheckProvider.class,
+        ApiHelper.consume(ITotemInventoryCheckProvider.class,
             provider -> inventoryChecks.addAll(provider.getTotemInventoryChecks()));
 
         CharmonyApi.registerProvider(this);

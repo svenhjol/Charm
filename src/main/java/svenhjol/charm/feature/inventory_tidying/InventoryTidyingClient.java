@@ -46,14 +46,14 @@ public class InventoryTidyingClient extends CharmFeature
     @Override
     public void register() {
         // TODO: IHasBlockEntityScreens and IHasBlacklistedScreens need to be more specific to inventory tidying.
-        ApiHelper.addConsumer(IHasScreenOffsetTweaks.class,
+        ApiHelper.consume(IHasScreenOffsetTweaks.class,
             provider -> provider.getScreenOffsetTweaks().forEach(
                 tweak -> SCREEN_TWEAKS.put(tweak.getScreen(), tweak.getOffset())));
 
-        ApiHelper.addConsumer(IInventoryTidyingWhitelistProvider.class,
+        ApiHelper.consume(IInventoryTidyingWhitelistProvider.class,
             provider -> WHITELISTED_SCREENS.addAll(provider.getWhitelistedInventoryTidyingScreens()));
 
-        ApiHelper.addConsumer(IInventoryTidyingBlacklistProvider.class,
+        ApiHelper.consume(IInventoryTidyingBlacklistProvider.class,
             provider -> BLACKLISTED_SCREENS.addAll(provider.getBlacklistedInventoryTidyingScreens()));
 
         CharmonyApi.registerProvider(this);

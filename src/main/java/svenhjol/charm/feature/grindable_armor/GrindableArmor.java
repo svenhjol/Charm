@@ -35,7 +35,7 @@ public class GrindableArmor extends CharmFeature implements IProvidesGrindableIt
         GrindstoneEvents.CALCULATE_OUTPUT.handle(this::handleCalculateOutput);
         GrindstoneEvents.ON_TAKE.handle(this::handleOnTake);
 
-        ApiHelper.addConsumer(IProvidesGrindableItems.class,
+        ApiHelper.consume(IProvidesGrindableItems.class,
             provider -> provider.getItemGrindResults().forEach(
                 result -> RECIPES.put(result.getFirst(), result.getSecond())));
     }
