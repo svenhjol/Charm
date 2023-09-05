@@ -29,7 +29,7 @@ public class VariantChests extends CharmFeature {
         NORMAL_BLOCK_ENTITY = Charm.instance().registry().blockEntity("variant_chest", () -> VariantChestBlockEntity::new);
         TRAPPED_BLOCK_ENTITY = Charm.instance().registry().blockEntity("variant_trapped_chest", () -> VariantTrappedChestBlockEntity::new);
 
-        ApiHelper.addConsumer(IVariantChestProvider.class,
+        ApiHelper.consume(IVariantChestProvider.class,
             provider -> provider.getVariantChests().forEach(
                 chest -> {
                     registerChest(chest);

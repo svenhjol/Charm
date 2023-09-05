@@ -22,7 +22,7 @@ public class VariantBarrels extends CharmFeature {
 
     @Override
     public void register() {
-        ApiHelper.addConsumer(IVariantBarrelProvider.class,
+        ApiHelper.consume(IVariantBarrelProvider.class,
             provider -> provider.getVariantBarrels().forEach(this::registerBarrel));
     }
 
