@@ -21,10 +21,11 @@ public class AzaleaWoodClient extends CharmFeature {
     public void register() {
         var registry = CharmClient.instance().registry();
         var holder = CustomWood.getHolder(AzaleaMaterial.AZALEA);
+
         var door = holder.getDoor().orElseThrow();
         var trapdoor = holder.getTrapdoor().orElseThrow();
 
-        // Cut out transparent areas of blocks.
+        // Cut out transparent areas of doors and trapdoors.
         registry.blockRenderType(door.block, RenderType::cutout);
         registry.blockRenderType(trapdoor.block, RenderType::cutout);
     }
