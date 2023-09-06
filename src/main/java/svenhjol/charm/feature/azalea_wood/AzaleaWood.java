@@ -37,8 +37,7 @@ public class AzaleaWood extends CharmFeature implements
     IVariantChestProvider,
     IVariantChestBoatProvider,
     IVariantChiseledBookshelfProvider,
-    IVariantLadderProvider,
-    ICustomWoodDefinitionProvider
+    IVariantLadderProvider
 {
     static Supplier<BlockSetType> blockSetType;
     static Supplier<WoodType> woodType;
@@ -60,6 +59,7 @@ public class AzaleaWood extends CharmFeature implements
         woodType = registry.woodType(material.getSerializedName(), material);
 
         CharmonyApi.registerProvider(this);
+        CustomWood.registerWood(this, registry, new AzaleaWoodDefinition());
     }
 
     @Override
@@ -129,11 +129,6 @@ public class AzaleaWood extends CharmFeature implements
     @Override
     public List<IVariantMaterial> getVariantLadders() {
         return List.of(material);
-    }
-
-    @Override
-    public ICustomWoodDefinition getWoodDefinition() {
-        return new AzaleaWoodDefinition();
     }
 
     @Override

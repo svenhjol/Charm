@@ -3,11 +3,10 @@ package svenhjol.charm.feature.custom_wood;
 import net.minecraft.core.registries.BuiltInRegistries;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.ICustomWoodDefinition;
-import svenhjol.charm.api.ICustomWoodDefinitionProvider;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.api.iface.IVariantWoodMaterial;
 import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.helper.ApiHelper;
+import svenhjol.charmony.iface.ICommonRegistry;
 import svenhjol.charmony.mixin.accessor.BlockItemAccessor;
 import svenhjol.charmony.mixin.accessor.StandingAndWallBlockItemAccessor;
 
@@ -18,12 +17,6 @@ import java.util.Optional;
 @Feature(mod = Charm.MOD_ID, canBeDisabled = false, description = "Handles custom wood.")
 public class CustomWood extends CharmFeature {
     static final Map<IVariantWoodMaterial, CustomWoodHolder> REGISTERED_WOOD = new HashMap<>();
-
-    @Override
-    public void register() {
-        ApiHelper.consume(ICustomWoodDefinitionProvider.class,
-            provider -> registerWood(provider.getWoodDefinition()));
-    }
 
     @Override
     public void runWhenEnabled() {
@@ -55,10 +48,8 @@ public class CustomWood extends CharmFeature {
         return REGISTERED_WOOD;
     }
 
-    private void registerWood(ICustomWoodDefinition definition) {
-        var registry = Charm.instance().registry();
-        var holder = new CustomWoodHolder(this, registry, definition);
-
+    public static void registerWood(CharmFeature feature, ICommonRegistry registry, ICustomWoodDefinition definition) {
+        var holder = new CustomWoodHolder(feature, registry, definition);
         REGISTERED_WOOD.put(definition.getMaterial(), holder);
     }
 }
