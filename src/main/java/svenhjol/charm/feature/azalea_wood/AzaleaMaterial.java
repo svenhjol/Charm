@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.azalea_wood;
 
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charmony.api.iface.IVariantWoodMaterial;
@@ -22,21 +23,26 @@ public enum AzaleaMaterial implements IVariantWoodMaterial {
 
     @Override
     public int chestBoatColor() {
-        return 0xffaf9f;
+        return 0x9577b1;
     }
 
     @Override
     public BlockSetType getBlockSetType() {
-        return AzaleaWood.BLOCK_SET_TYPE.get();
+        return AzaleaWood.blockSetType.get();
     }
 
     @Override
     public WoodType getWoodType() {
-        return AzaleaWood.WOOD_TYPE.get();
+        return AzaleaWood.woodType.get();
     }
 
     @Override
     public SoundType soundType() {
         return SoundType.WOOD;
+    }
+
+    @Override
+    public BlockBehaviour.Properties blockProperties() {
+        return IVariantWoodMaterial.super.blockProperties().noOcclusion();
     }
 }

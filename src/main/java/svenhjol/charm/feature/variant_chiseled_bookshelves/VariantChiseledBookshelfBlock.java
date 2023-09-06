@@ -4,16 +4,15 @@ import net.minecraft.world.level.block.ChiseledBookShelfBlock;
 import net.minecraft.world.level.block.SoundType;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.api.iface.IVariantMaterial;
-import svenhjol.charmony.api.iface.IVariantWoodMaterial;
 import svenhjol.charmony.base.CharmBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
 
 import java.util.function.Supplier;
 
 public class VariantChiseledBookshelfBlock extends ChiseledBookShelfBlock {
-    private final IVariantWoodMaterial variantMaterial;
+    private final IVariantMaterial variantMaterial;
 
-    public VariantChiseledBookshelfBlock(IVariantWoodMaterial material) {
+    public VariantChiseledBookshelfBlock(IVariantMaterial material) {
         super(material.blockProperties()
             .strength(1.5F)
             .sound(SoundType.CHISELED_BOOKSHELF));
@@ -21,7 +20,7 @@ public class VariantChiseledBookshelfBlock extends ChiseledBookShelfBlock {
         this.variantMaterial = material;
     }
 
-    public IVariantWoodMaterial getMaterial() {
+    public IVariantMaterial getMaterial() {
         return variantMaterial;
     }
 

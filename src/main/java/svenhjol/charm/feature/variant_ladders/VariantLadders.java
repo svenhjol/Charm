@@ -1,10 +1,11 @@
 package svenhjol.charm.feature.variant_ladders;
 
 import svenhjol.charm.Charm;
-import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charm.api.IVariantLadderProvider;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.iface.ICommonRegistry;
+import svenhjol.charmony.helper.ApiHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,14 @@ public class VariantLadders extends CharmFeature {
     public static final Map<IVariantMaterial, Supplier<VariantLadderBlock>> LADDER_BLOCKS = new HashMap<>();
     public static final Map<IVariantMaterial, Supplier<VariantLadderBlock.BlockItem>> LADDER_BLOCK_ITEMS = new HashMap<>();
 
-    public static void registerLadder(ICommonRegistry registry, IVariantMaterial material) {
+    @Override
+    public void register() {
+        ApiHelper.consume(IVariantLadderProvider.class,
+            provider -> provider.getVariantLadders().forEach(this::registerLadder));
+    }
+
+    private void registerLadder(IVariantMaterial material) {
+        var registry = Charm.instance().registry();
         var id = material.getSerializedName() + "_ladder";
 
         var block = registry.block(id, () -> new VariantLadderBlock(material));

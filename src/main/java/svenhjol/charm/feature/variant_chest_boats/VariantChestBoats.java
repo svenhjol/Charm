@@ -4,9 +4,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.IVariantChestBoatProvider;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.ApiHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,12 +26,16 @@ public class VariantChestBoats extends CharmFeature {
             () -> new SimpleCraftingRecipeSerializer<>(VariantChestBoatRecipe::new));
     }
 
-    public static void registerChestBoat(Supplier<? extends ItemLike> boatItem, Supplier<? extends ItemLike> chestBoatItem) {
-        VariantChestBoats.CHEST_BOAT_MAP_SUPPLIER.put(boatItem, chestBoatItem);
-    }
+    @Override
+    public void runWhenEnabled() {
+        ApiHelper.consume(IVariantChestBoatProvider.class,
+            provider -> {
+                provider.getVariantChestBoatPairs().forEach(
+                    pair -> VariantChestBoats.CHEST_BOAT_MAP_SUPPLIER.put(pair.getFirst(), pair.getSecond()));
 
-    public static void registerChestLayerColor(IVariantWoodMaterial material) {
-        VariantChestBoats.CHEST_LAYER_COLORS.put(material.getSerializedName(), material.chestBoatColor());
+                provider.getVariantChestLayerColors().forEach(
+                    material -> VariantChestBoats.CHEST_LAYER_COLORS.put(material.getSerializedName(), material.chestBoatColor()));
+            });
     }
 
     public static int getLayerColor(ItemStack stack) {

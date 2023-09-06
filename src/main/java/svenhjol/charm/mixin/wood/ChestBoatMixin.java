@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.wood.Wood;
+import svenhjol.charm.feature.custom_wood.CustomWoodHelper;
 
 @Mixin(ChestBoat.class)
 public abstract class ChestBoatMixin extends Boat {
@@ -23,7 +23,7 @@ public abstract class ChestBoatMixin extends Boat {
         cancellable = true
     )
     private void hookGetDropItem(CallbackInfoReturnable<Item> cir) {
-        var boatByType = Wood.getChestBoatByType(getVariant());
+        var boatByType = CustomWoodHelper.getChestBoatByType(getVariant());
         if (boatByType != null ){
             cir.setReturnValue(boatByType);
         }

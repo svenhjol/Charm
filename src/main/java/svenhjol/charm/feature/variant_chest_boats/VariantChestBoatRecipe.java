@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChestBlock;
 import svenhjol.charm.feature.variant_chests.VariantChestBlock;
-import svenhjol.charmony.helper.TagHelper;
+import svenhjol.charm.CharmTags;
 
 public class VariantChestBoatRecipe extends CustomRecipe {
     public static final String CHEST_TYPE_TAG = "chest_type";
@@ -64,7 +64,7 @@ public class VariantChestBoatRecipe extends CustomRecipe {
 
                 if (item instanceof BoatItem) {
                     target = stackInSlot;
-                } else if (stackInSlot.is(TagHelper.CHESTS)) {
+                } else if (stackInSlot.is(CharmTags.CHESTS)) {
                     var block = Block.byItem(item);
                     if (!(block instanceof ChestBlock)) continue;
                     chest = block;

@@ -1,75 +1,63 @@
 package svenhjol.charm.feature.azalea_wood;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import svenhjol.charm.Charm;
+import svenhjol.charm.api.*;
+import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.variant_barrels.VariantBarrels;
 import svenhjol.charm.feature.variant_chests.VariantChests;
 import svenhjol.charm.feature.variant_ladders.VariantLadders;
-import svenhjol.charm.feature.wood.Wood;
+import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.api.CharmonyApi;
 import svenhjol.charmony.api.event.LevelLoadEvent;
-import svenhjol.charmony.api.iface.IRecipeRemoveProvider;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.iface.IVariantBarrelProvider;
-import svenhjol.charmony.api.iface.IVariantChestProvider;
-import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.*;
 import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.block.CharmDoorBlock;
-import svenhjol.charmony.block.CharmLogBlock;
-import svenhjol.charmony.block.CharmTrapdoorBlock;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
-public class AzaleaWood extends CharmFeature
-    implements IRecipeRemoveProvider, IVariantBarrelProvider, IVariantChestProvider {
-    static Supplier<BlockSetType> BLOCK_SET_TYPE;
-    static Supplier<WoodType> WOOD_TYPE;
-    static Supplier<CharmDoorBlock> DOOR_BLOCK;
-    static Supplier<CharmTrapdoorBlock> TRAPDOOR_BLOCK;
-    static Supplier<CharmLogBlock> LOG_BLOCK;
+public class AzaleaWood extends CharmFeature implements
+    IRecipeRemoveProvider,
+    IVariantBarrelProvider,
+    IVariantBookshelfProvider,
+    IVariantChestProvider,
+    IVariantChestBoatProvider,
+    IVariantChiseledBookshelfProvider,
+    IVariantLadderProvider,
+    ICustomWoodDefinitionProvider
+{
+    static Supplier<BlockSetType> blockSetType;
+    static Supplier<WoodType> woodType;
+    static IVariantWoodMaterial material;
+
+    @SuppressWarnings("unused")
+    @Override
+    public void preRegister() {
+        // TODO: Hack to inject the boat type enums early.
+        var boatTypeValues = Boat.Type.values();
+    }
 
     @Override
     public void register() {
-        var material = AzaleaMaterial.AZALEA;
-        var values = Boat.Type.values(); // TODO: Hack to inject the boat type enums early, fixme.
         var registry = Charm.instance().registry();
 
-        BLOCK_SET_TYPE = registry.blockSetType(material);
-        WOOD_TYPE = Wood.registerWoodType(registry, material);
-        DOOR_BLOCK = Wood.registerDoor(registry, this, material).getFirst();
-        TRAPDOOR_BLOCK = Wood.registerTrapdoor(registry, this, material).getFirst();
-        LOG_BLOCK = Wood.registerLog(registry, this, material).get("azalea_log").getFirst();
-
-        Wood.registerBoat(registry, this, material);
-
-        Wood.registerButton(registry, this, material);
-        Wood.registerFence(registry, this, material);
-        Wood.registerGate(registry, this, material);
-
-        Wood.registerPlanksSlabsAndStairs(registry, this, material);
-        Wood.registerSign(registry, this, material);
-        Wood.registerHangingSign(registry, this, material);
-        Wood.registerPressurePlate(registry, this, material);
-
-//        Wood.registerBarrel(registry, material);
-        Wood.registerBookshelf(registry, material);
-        Wood.registerChiseledBookshelf(registry, material);
-//        Wood.registerChest(registry, material);
-//        Wood.registerTrappedChest(registry, material);
-        Wood.registerLadder(registry, material);
+        material = AzaleaMaterial.AZALEA;
+        blockSetType = registry.blockSetType(material);
+        woodType = registry.woodType(material.getSerializedName(), material);
 
         CharmonyApi.registerProvider(this);
     }
@@ -79,15 +67,18 @@ public class AzaleaWood extends CharmFeature
         LevelLoadEvent.INSTANCE.handle(this::handleLevelLoad);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "unused"})
     private void handleLevelLoad(MinecraftServer server, ServerLevel level) {
+        var holder = CustomWood.getHolder(material);
+        var log = holder.getLog().orElseThrow();
+
         // Make naturally occurring azalea trees use Charm's azalea log.
         var configuredFeatures = server.registryAccess().registry(Registries.CONFIGURED_FEATURE).orElseThrow();
         ConfiguredFeature<?, ?> feature
             = configuredFeatures.getOrThrow(TreeFeatures.AZALEA_TREE);
 
         ((ConfiguredFeature<TreeConfiguration, ?>)feature).config().trunkProvider
-            = new SimpleStateProvider(LOG_BLOCK.get().defaultBlockState());
+            = new SimpleStateProvider(log.block.get().defaultBlockState());
     }
 
     @Override
@@ -117,11 +108,45 @@ public class AzaleaWood extends CharmFeature
 
     @Override
     public List<IVariantMaterial> getVariantBarrels() {
-        return List.of(AzaleaMaterial.AZALEA);
+        return List.of(material);
+    }
+
+    @Override
+    public List<IVariantMaterial> getVariantBookshelves() {
+        return List.of(material);
     }
 
     @Override
     public List<IVariantMaterial> getVariantChests() {
-        return List.of(AzaleaMaterial.AZALEA);
+        return List.of(material);
+    }
+
+    @Override
+    public List<IVariantMaterial> getVariantChiseledBookshelves() {
+        return List.of(material);
+    }
+
+    @Override
+    public List<IVariantMaterial> getVariantLadders() {
+        return List.of(material);
+    }
+
+    @Override
+    public ICustomWoodDefinition getWoodDefinition() {
+        return new AzaleaWoodDefinition();
+    }
+
+    @Override
+    public List<Pair<Supplier<? extends ItemLike>, Supplier<? extends ItemLike>>> getVariantChestBoatPairs() {
+        var holder = CustomWood.getHolder(material).getBoat().orElseThrow();
+
+        return List.of(
+            Pair.of(holder.boat, holder.chestBoat)
+        );
+    }
+
+    @Override
+    public List<IVariantWoodMaterial> getVariantChestLayerColors() {
+        return List.of(material);
     }
 }

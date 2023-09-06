@@ -1,11 +1,9 @@
 package svenhjol.charm.feature.azalea_wood;
 
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.RenderType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
+import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.base.CharmFeature;
 
@@ -22,21 +20,12 @@ public class AzaleaWoodClient extends CharmFeature {
     @Override
     public void register() {
         var registry = CharmClient.instance().registry();
+        var holder = CustomWood.getHolder(AzaleaMaterial.AZALEA);
+        var door = holder.getDoor().orElseThrow();
+        var trapdoor = holder.getTrapdoor().orElseThrow();
 
         // Cut out transparent areas of blocks.
-        registry.blockRenderType(AzaleaWood.DOOR_BLOCK, RenderType::cutout);
-        registry.blockRenderType(AzaleaWood.TRAPDOOR_BLOCK, RenderType::cutout);
-
-        // Register boat models.
-        registry.modelLayer(
-            () -> new ModelLayerLocation(Charm.instance().makeId("boat/azalea"), "main"),
-            BoatModel::createBodyModel);
-
-        registry.modelLayer(
-            () -> new ModelLayerLocation(Charm.instance().makeId("chest_boat/azalea"), "main"),
-            ChestBoatModel::createBodyModel);
-
-        // Register sign material.
-        registry.signMaterial(AzaleaWood.WOOD_TYPE);
+        registry.blockRenderType(door.block, RenderType::cutout);
+        registry.blockRenderType(trapdoor.block, RenderType::cutout);
     }
 }
