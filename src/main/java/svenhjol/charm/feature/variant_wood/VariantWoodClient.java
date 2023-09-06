@@ -34,6 +34,7 @@ import java.util.function.BooleanSupplier;
 public class VariantWoodClient extends CharmFeature {
     private VariantChestBlockEntity cachedNormalChest;
     private VariantTrappedChestBlockEntity cachedTrappedChest;
+    private static final int DEFAULT_CHEST_BOAT_LAYER_COLOR = 0xdf9f43;
 
     @Override
     public List<BooleanSupplier> checks() {
@@ -85,6 +86,7 @@ public class VariantWoodClient extends CharmFeature {
     }
 
     private void registerChests(IClientRegistry registry) {
+        // Bind the chest block entities to their custom renderers.
         registry.blockEntityRenderer(CustomChest.blockEntity,
             () -> VariantChestBlockEntityRenderer::new);
         registry.blockEntityRenderer(CustomTrappedChest.blockEntity,
@@ -92,6 +94,7 @@ public class VariantWoodClient extends CharmFeature {
     }
 
     private void registerChestBoats(IClientRegistry registry) {
+        // Assign a handler method to each of the chest boat item icons.
         registry.itemColor(this::handleChestBoatLayerColor,
             new ArrayList<>(CustomChestBoat.boatPairs.values()));
     }
@@ -105,7 +108,7 @@ public class VariantWoodClient extends CharmFeature {
     }
 
     private void runChests(CharmClient client) {
-        // Cache the chest block entities for fast lookup by the renderer
+        // Cache the chest block entities for fast lookup by the renderer.
         cachedNormalChest = new VariantChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState());
         cachedTrappedChest = new VariantTrappedChestBlockEntity(BlockPos.ZERO, Blocks.TRAPPED_CHEST.defaultBlockState());
 
@@ -149,14 +152,12 @@ public class VariantWoodClient extends CharmFeature {
     private int handleChestBoatLayerColor(ItemStack stack, int layer) {
         if (layer == 0) return -1;
 
-        var defaultColor = 0xdf9f43; // this is the default color when there's no variant chest tag
         var tag = stack.getTag();
-
         if (tag != null && tag.contains(VariantChestBoatRecipe.CHEST_TYPE_TAG)) {
             var type = tag.getString(VariantChestBoatRecipe.CHEST_TYPE_TAG);
-            return CustomChestBoat.layerColors.getOrDefault(type, defaultColor);
+            return CustomChestBoat.layerColors.getOrDefault(type, DEFAULT_CHEST_BOAT_LAYER_COLOR);
         }
 
-        return defaultColor;
+        return DEFAULT_CHEST_BOAT_LAYER_COLOR;
     }
 }
