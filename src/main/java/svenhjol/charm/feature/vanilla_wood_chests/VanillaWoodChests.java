@@ -21,25 +21,6 @@ import java.util.function.Supplier;
 public class VanillaWoodChests extends CharmFeature implements IVariantChestProvider, IVariantChestBoatProvider {
     @Override
     public void register() {
-//        for (var material : VanillaWood.getTypes()) {
-//            VariantChests.registerChest(registry, material);
-//            VariantChests.registerTrappedChest(registry, material);
-//        }
-
-//        VariantChestBoats.addChestBoatPair(() -> Items.ACACIA_BOAT, () -> Items.ACACIA_CHEST_BOAT);
-//        VariantChestBoats.addChestBoatPair(() -> Items.BAMBOO_RAFT, () -> Items.BAMBOO_CHEST_RAFT);
-//        VariantChestBoats.addChestBoatPair(() -> Items.BIRCH_BOAT, () -> Items.BIRCH_CHEST_BOAT);
-//        VariantChestBoats.addChestBoatPair(() -> Items.CHERRY_BOAT, () -> Items.CHERRY_CHEST_BOAT);
-//        VariantChestBoats.addChestBoatPair(() -> Items.DARK_OAK_BOAT, () -> Items.DARK_OAK_CHEST_BOAT);
-//        VariantChestBoats.addChestBoatPair(() -> Items.JUNGLE_BOAT, () -> Items.JUNGLE_CHEST_BOAT);
-//        VariantChestBoats.addChestBoatPair(() -> Items.MANGROVE_BOAT, () -> Items.MANGROVE_CHEST_BOAT);
-//        VariantChestBoats.addChestBoatPair(() -> Items.OAK_BOAT, () -> Items.OAK_CHEST_BOAT);
-//        VariantChestBoats.addChestBoatPair(() -> Items.SPRUCE_BOAT, () -> Items.SPRUCE_CHEST_BOAT);
-//
-//        for (var material : VanillaWood.values()) {
-//            VariantChestBoats.addChestLayerColorFromMaterial(material);
-//        }
-
         CharmonyApi.registerProvider(this);
     }
 
