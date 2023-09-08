@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.block_of_ender_pearls;
+package svenhjol.charm.feature.storage_blocks.ender_pearls;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -7,6 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
+import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charmony.base.CharmBlock;
 import svenhjol.charmony.base.CharmBlockItem;
 import svenhjol.charmony.base.CharmFeature;
@@ -19,7 +20,7 @@ public class EnderPearlBlock extends CharmBlock {
     }
 
     public static CharmFeature getParent() {
-        return Charm.instance().loader().get(BlockOfEnderPearls.class).orElseThrow();
+        return Charm.instance().loader().get(StorageBlocks.class).orElseThrow();
     }
 
     /**
@@ -35,7 +36,7 @@ public class EnderPearlBlock extends CharmBlock {
 
     static class BlockItem extends CharmBlockItem {
         public BlockItem() {
-            super(getParent(), BlockOfEnderPearls.BLOCK, new Properties());
+            super(getParent(), EnderPearls.block, new Properties());
         }
     }
 }

@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.block_of_ender_pearls;
+package svenhjol.charm.feature.storage_blocks.ender_pearls;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,7 +40,7 @@ public class FormEndermiteGoal extends RandomStrollGoal {
                 BlockPos pos = getPosition(silverfish).relative(facing);
                 BlockState state = silverfish.getCommandSenderWorld().getBlockState(pos);
 
-                if (state.is(BlockOfEnderPearls.BLOCK.get())) {
+                if (state.is(EnderPearls.block.get())) {
                     merge = true;
                     return true;
                 }
@@ -70,7 +70,7 @@ public class FormEndermiteGoal extends RandomStrollGoal {
         var state = level.getBlockState(relative);
         var entityPos = new BlockPos((int) (relative.getX() + 0.5), (int) (relative.getY() + 0.5), (int) (relative.getZ() + 0.5));
 
-        if (state.is(BlockOfEnderPearls.BLOCK.get())) {
+        if (state.is(EnderPearls.block.get())) {
              MobHelper.spawn(EntityType.ENDERMITE, serverLevel, entityPos, MobSpawnType.CONVERSION, m -> {
                 level.removeBlock(relative, false);
                 silverfish.spawnAnim();

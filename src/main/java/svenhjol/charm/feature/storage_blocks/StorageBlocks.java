@@ -15,20 +15,32 @@ import java.util.Optional;
 
 @Feature(mod = Charm.MOD_ID, description = "More item blocks.")
 public class StorageBlocks extends CharmFeature {
-    static Map<Class<? extends IStorageBlockFeature>, IStorageBlockFeature> LOADED_STORAGE_BLOCKS = new HashMap<>();
+    static final Map<Class<? extends IStorageBlockFeature>, IStorageBlockFeature> LOADED_STORAGE_BLOCKS = new HashMap<>();
 
     public static Optional<IStorageBlockFeature> getStorageBlock(Class<? extends IStorageBlockFeature> clazz) {
         return Optional.ofNullable(LOADED_STORAGE_BLOCKS.get(clazz));
     }
 
-    @Configurable(name = "Ender pearls", description = "If true, ender pearl blocks will be enabled.")
-    public static boolean enderPearls = true;
+    @Configurable(name = "Ender pearls",
+        description = "If true, ender pearl blocks will be enabled.")
+    public static boolean enderPearlsEnabled = true;
 
-    @Configurable(name = "Gunpowder", description = "If true, gunpowder blocks will be enabled.")
-    public static boolean gunpowder = true;
+    @Configurable(name = "Gunpowder",
+        description = "If true, gunpowder blocks will be enabled.")
+    public static boolean gunpowderEnabled = true;
 
-    @Configurable(name = "Sugar", description = "If true, sugar blocks will be enabled.")
-    public static boolean sugar = true;
+    @Configurable(name = "Sugar",
+        description = "If true, sugar blocks will be enabled.")
+    public static boolean sugarEnabled = true;
+
+    @Configurable(name = "Ender pearl blocks convert silverfish",
+        description = "If true, ender pearl blocks will convert silverfish to endermites.")
+    public static boolean enderPearlBlocksConvertSilverfish = true;
+
+    @Configurable(name = "Ender pearl blocks are teleport location",
+        description = "If true, eating a chorus fruit within 8 blocks of an ender pearl block will teleport the player to it.")
+    public static boolean enderPearlBlocksAreTeleportLocation = true;
+
 
     @Override
     public void register() {

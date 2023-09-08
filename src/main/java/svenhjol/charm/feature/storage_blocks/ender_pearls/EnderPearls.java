@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.block_of_ender_pearls;
+package svenhjol.charm.feature.storage_blocks.ender_pearls;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -14,35 +14,41 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
+import svenhjol.charm.api.IStorageBlockFeature;
+import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charm.mixin.accessor.MobAccessor;
 import svenhjol.charmony.api.event.EntityJoinEvent;
-import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Ender Pearl storage block. It can convert silverfish to endermites and eating a chorus fruit teleports the player to the closest block.")
-public class BlockOfEnderPearls extends CharmFeature {
+public class EnderPearls implements IStorageBlockFeature {
     private static final int RANGE = 8;
     private static final String ID = "ender_pearl_block";
-    static Supplier<Block> BLOCK;
-    static Supplier<Item> BLOCK_ITEM;
-
-    @Configurable(name = "Convert silverfish", description = "If true, ender pearl blocks will convert silverfish to endermites.")
-    public static boolean convertSilverfish = true;
-
-    @Configurable(name = "Teleport location", description = "If true, eating a chorus fruit within 8 blocks of an ender pearl block will teleport the player to it.")
-    public static boolean teleportLocation = true;
+    static Supplier<Block> block;
+    static Supplier<Item> blockItem;
+    static boolean enabled;
 
     @Override
     public void register() {
         var registry = Charm.instance().registry();
-        BLOCK = registry.block(ID, EnderPearlBlock::new);
-        BLOCK_ITEM = registry.item(ID, EnderPearlBlock.BlockItem::new);
+        block = registry.block(ID, EnderPearlBlock::new);
+        blockItem = registry.item(ID, EnderPearlBlock.BlockItem::new);
+        enabled = checks().stream().allMatch(BooleanSupplier::getAsBoolean);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public List<BooleanSupplier> checks() {
+        return List.of(() -> StorageBlocks.enderPearlsEnabled);
     }
 
     @Override
@@ -51,10 +57,14 @@ public class BlockOfEnderPearls extends CharmFeature {
     }
 
     private void handleEntityJoin(Entity entity, Level level) {
-        if (!convertSilverfish) return;
+        if (!StorageBlocks.enderPearlBlocksConvertSilverfish) {
+            return;
+        }
 
         // Must be a silverfish.
-        if (!(entity instanceof Silverfish silverfish)) return;
+        if (!(entity instanceof Silverfish silverfish)) {
+            return;
+        }
 
         var goalSelector = ((MobAccessor) silverfish).getGoalSelector();
 
@@ -66,8 +76,13 @@ public class BlockOfEnderPearls extends CharmFeature {
     }
 
     public static boolean tryChorusTeleport(LivingEntity entity, ItemStack stack) {
-        if (!teleportLocation) return false;
-        if (entity.level().isClientSide) return false;
+        if (!StorageBlocks.enderPearlBlocksAreTeleportLocation) {
+            return false;
+        }
+
+        if (entity.level().isClientSide) {
+            return false;
+        }
 
         var pos = entity.blockPosition();
         var level = (ServerLevel)entity.level();
@@ -82,7 +97,7 @@ public class BlockOfEnderPearls extends CharmFeature {
             var state = level.getBlockState(p);
 
             // Must be an ender pearl block.
-            if (!state.is(BLOCK.get())) return;
+            if (!state.is(block.get())) return;
 
             // Can't teleport the player to the same position.
             if (above.equals(pos)) return;

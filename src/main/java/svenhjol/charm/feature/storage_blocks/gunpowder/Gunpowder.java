@@ -5,7 +5,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.IStorageBlockFeature;
+import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 
+import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
@@ -24,6 +26,11 @@ public class Gunpowder implements IStorageBlockFeature {
         blockItem = registry.item(ID, GunpowderBlock.BlockItem::new);
         dissolveSound = registry.soundEvent("gunpowder_dissolve");
         enabled = checks().stream().allMatch(BooleanSupplier::getAsBoolean);
+    }
+
+    @Override
+    public List<BooleanSupplier> checks() {
+        return List.of(() -> StorageBlocks.gunpowderEnabled);
     }
 
     @Override
