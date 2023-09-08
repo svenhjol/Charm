@@ -1,11 +1,9 @@
 package svenhjol.charm.feature.vanilla_wood_variants;
 
-import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.*;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.iface.IRecipeRemoveProvider;
 import svenhjol.charmony.api.iface.IVariantBarrelProvider;
 import svenhjol.charmony.api.iface.IVariantChestProvider;
 import svenhjol.charmony.api.iface.IVariantMaterial;
@@ -22,8 +20,7 @@ public class VanillaWoodVariants extends CharmFeature implements
     IVariantChestProvider,
     IVariantChestBoatProvider,
     IVariantChiseledBookshelfProvider,
-    IVariantLadderProvider,
-    IRecipeRemoveProvider
+    IVariantLadderProvider
 {
     private static final List<IVariantMaterial> TYPES = new ArrayList<>(VanillaWood.getTypes());
 
@@ -72,18 +69,5 @@ public class VanillaWoodVariants extends CharmFeature implements
     @Override
     public List<IVariantMaterial> getVariantLadders() {
         return TYPES;
-    }
-
-    @Override
-    public List<ResourceLocation> getRecipesToRemove() {
-        List<ResourceLocation> recipes = new ArrayList<>();
-        var charm = Charm.instance();
-        var woodcuttersEnabled = charm.loader().isEnabled("Woodcutters");
-
-        if (!woodcuttersEnabled) {
-            recipes.add(charm.makeId("vanilla_wood_variants/woodcutting"));
-        }
-
-        return recipes;
     }
 }
