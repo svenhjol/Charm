@@ -5,9 +5,7 @@ import net.minecraft.world.item.Items;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.api.IStorageBlockFeature;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charmony.annotation.ClientFeature;
 
-@ClientFeature
 public class GunpowderClient implements IStorageBlockFeature {
     @Override
     public void runWhenEnabled() {

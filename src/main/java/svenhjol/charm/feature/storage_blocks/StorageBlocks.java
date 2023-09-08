@@ -22,13 +22,13 @@ public class StorageBlocks extends CharmFeature {
     }
 
     @Configurable(name = "Ender pearls", description = "If true, ender pearl blocks will be enabled.")
-    public static boolean enderPearls;
+    public static boolean enderPearls = true;
 
     @Configurable(name = "Gunpowder", description = "If true, gunpowder blocks will be enabled.")
-    public static boolean gunpowder;
+    public static boolean gunpowder = true;
 
     @Configurable(name = "Sugar", description = "If true, sugar blocks will be enabled.")
-    public static boolean sugar;
+    public static boolean sugar = true;
 
     @Override
     public void register() {
@@ -48,6 +48,7 @@ public class StorageBlocks extends CharmFeature {
                 }));
 
         CharmonyApi.registerProvider(new StorageBlockFeatures());
+        CharmonyApi.registerProvider(new StorageBlockRecipeFilters());
     }
 
     @Override
