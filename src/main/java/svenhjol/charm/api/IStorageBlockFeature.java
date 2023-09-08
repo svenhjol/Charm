@@ -1,10 +1,12 @@
-package svenhjol.charm.feature.storage_blocks;
+package svenhjol.charm.api;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
 public interface IStorageBlockFeature {
-    void register();
+    default void register() {}
+
+    boolean isEnabled();
 
     default void preRegister() {}
 

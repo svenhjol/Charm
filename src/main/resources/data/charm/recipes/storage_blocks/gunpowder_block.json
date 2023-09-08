@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {"item": "minecraft:gunpowder"}
+  },
+  "result": {
+    "item": "charm:gunpowder_block"
+  }
+}
