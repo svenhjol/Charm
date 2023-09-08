@@ -30,14 +30,14 @@ public class EnderPearls implements IStorageBlockFeature {
     private static final int RANGE = 8;
     private static final String ID = "ender_pearl_block";
     static Supplier<Block> block;
-    static Supplier<Item> blockItem;
+    static Supplier<Item> item;
     static boolean enabled;
 
     @Override
     public void register() {
         var registry = Charm.instance().registry();
         block = registry.block(ID, EnderPearlBlock::new);
-        blockItem = registry.item(ID, EnderPearlBlock.BlockItem::new);
+        item = registry.item(ID, EnderPearlBlock.BlockItem::new);
         enabled = checks().stream().allMatch(BooleanSupplier::getAsBoolean);
     }
 

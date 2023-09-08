@@ -10,7 +10,7 @@ public class EnderPearlsClient implements IStorageBlockFeature {
     @Override
     public void runWhenEnabled() {
         CharmClient.instance().registry().itemTab(
-            EnderPearls.blockItem,
+            EnderPearls.item,
             CreativeModeTabs.FUNCTIONAL_BLOCKS,
             Items.ENDER_EYE
         );

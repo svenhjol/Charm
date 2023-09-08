@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.storage_blocks.gunpowder;
+package svenhjol.charm.feature.storage_blocks.sugar;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-public class Gunpowder implements IStorageBlockFeature {
-    private static final String ID = "gunpowder_block";
+public class Sugar implements IStorageBlockFeature {
+    private static final String ID = "sugar_block";
     static Supplier<Block> block;
     static Supplier<Item> item;
     static Supplier<SoundEvent> dissolveSound;
@@ -21,20 +21,19 @@ public class Gunpowder implements IStorageBlockFeature {
     @Override
     public void register() {
         var registry = Charm.instance().registry();
-
-        block = registry.block(ID, GunpowderBlock::new);
-        item = registry.item(ID, GunpowderBlock.BlockItem::new);
-        dissolveSound = registry.soundEvent("gunpowder_dissolve");
+        block = registry.block(ID, SugarBlock::new);
+        item = registry.item(ID, SugarBlock.BlockItem::new);
+        dissolveSound = registry.soundEvent("sugar_dissolve");
         enabled = checks().stream().allMatch(BooleanSupplier::getAsBoolean);
-    }
-
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> StorageBlocks.gunpowderEnabled);
     }
 
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @Override
+    public List<BooleanSupplier> checks() {
+        return List.of(() -> StorageBlocks.sugarEnabled);
     }
 }

@@ -33,6 +33,19 @@ public class StorageBlockRecipeFilters implements IRecipeRemoveProvider {
                 public List<String> removes() {
                     return List.of("storage_blocks/gunpowder*");
                 }
+            },
+
+            // Remove sugar block recipes.
+            new IRecipeFilter() {
+                @Override
+                public boolean test() {
+                    return !StorageBlocks.sugarEnabled;
+                }
+
+                @Override
+                public List<String> removes() {
+                    return List.of("storage_blocks/sugar*");
+                }
             }
         );
     }

@@ -6,6 +6,8 @@ import svenhjol.charm.feature.storage_blocks.ender_pearls.EnderPearls;
 import svenhjol.charm.feature.storage_blocks.ender_pearls.EnderPearlsClient;
 import svenhjol.charm.feature.storage_blocks.gunpowder.Gunpowder;
 import svenhjol.charm.feature.storage_blocks.gunpowder.GunpowderClient;
+import svenhjol.charm.feature.storage_blocks.sugar.Sugar;
+import svenhjol.charm.feature.storage_blocks.sugar.SugarClient;
 
 import java.util.List;
 
@@ -14,7 +16,8 @@ public class StorageBlockFeatures implements IStorageBlockProvider {
     public List<Class<? extends IStorageBlockFeature>> getStorageBlockFeatures() {
         return List.of(
             EnderPearls.class,
-            Gunpowder.class
+            Gunpowder.class,
+            Sugar.class
         );
     }
 
@@ -22,7 +25,8 @@ public class StorageBlockFeatures implements IStorageBlockProvider {
     public List<Class<? extends IStorageBlockFeature>> getStorageBlockClientFeatures() {
         return List.of(
             EnderPearlsClient.class,
-            GunpowderClient.class
+            GunpowderClient.class,
+            SugarClient.class
         );
     }
 }

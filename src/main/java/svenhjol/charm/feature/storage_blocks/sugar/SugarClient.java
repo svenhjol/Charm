@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.storage_blocks.gunpowder;
+package svenhjol.charm.feature.storage_blocks.sugar;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
@@ -6,11 +6,11 @@ import svenhjol.charm.CharmClient;
 import svenhjol.charm.api.IStorageBlockFeature;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 
-public class GunpowderClient implements IStorageBlockFeature {
+public class SugarClient implements IStorageBlockFeature {
     @Override
     public void runWhenEnabled() {
         CharmClient.instance().registry().itemTab(
-            Gunpowder.item,
+            Sugar.item,
             CreativeModeTabs.REDSTONE_BLOCKS,
             Items.HONEY_BLOCK
         );
@@ -18,7 +18,7 @@ public class GunpowderClient implements IStorageBlockFeature {
 
     @Override
     public boolean isEnabled() {
-        return StorageBlocks.getStorageBlock(Gunpowder.class)
+        return StorageBlocks.getStorageBlock(Sugar.class)
             .map(IStorageBlockFeature::isEnabled)
             .orElse(false);
     }
