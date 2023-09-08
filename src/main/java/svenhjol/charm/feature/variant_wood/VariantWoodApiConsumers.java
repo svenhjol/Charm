@@ -1,11 +1,6 @@
 package svenhjol.charm.feature.variant_wood;
 
-import svenhjol.charm.api.IVariantBookshelfProvider;
-import svenhjol.charm.api.IVariantChestBoatProvider;
-import svenhjol.charm.api.IVariantChiseledBookshelfProvider;
-import svenhjol.charm.api.IVariantLadderProvider;
-import svenhjol.charmony.api.iface.IVariantBarrelProvider;
-import svenhjol.charmony.api.iface.IVariantChestProvider;
+import svenhjol.charmony.api.iface.*;
 import svenhjol.charmony.helper.ApiHelper;
 
 public class VariantWoodApiConsumers {

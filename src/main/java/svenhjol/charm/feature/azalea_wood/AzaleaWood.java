@@ -10,16 +10,12 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import svenhjol.charm.Charm;
-import svenhjol.charm.api.*;
-import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.api.CharmonyApi;
 import svenhjol.charmony.api.event.LevelLoadEvent;
-import svenhjol.charmony.api.iface.IVariantBarrelProvider;
-import svenhjol.charmony.api.iface.IVariantChestProvider;
-import svenhjol.charmony.api.iface.IVariantMaterial;
-import svenhjol.charmony.api.iface.IVariantWoodMaterial;
+import svenhjol.charmony.api.iface.*;
 import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.feature.custom_wood.CustomWood;
 
 import java.util.List;
 import java.util.function.Supplier;
