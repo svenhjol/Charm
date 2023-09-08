@@ -1,22 +1,13 @@
 package svenhjol.charm.feature.extra_recipes;
 
-import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.iface.IAdvancementRemoveProvider;
-import svenhjol.charmony.api.iface.IRecipeRemoveProvider;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.CharmonyApi;
 import svenhjol.charmony.base.CharmFeature;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 @Feature(mod = Charm.MOD_ID, description = "More ways to craft items using different materials.")
-public class ExtraRecipes extends CharmFeature implements IRecipeRemoveProvider, IAdvancementRemoveProvider {
-    private static final List<ResourceLocation> INVALID = new ArrayList<>();
-
+public class ExtraRecipes extends CharmFeature {
     @Configurable(name = "Ore block from raw ore block", description = "If true, adds a blast furnace recipe for smelting raw ore blocks into ore blocks.")
     public static boolean rawOreBlocks = true;
 
@@ -52,42 +43,7 @@ public class ExtraRecipes extends CharmFeature implements IRecipeRemoveProvider,
 
     @Override
     public void register() {
+        CharmonyApi.registerProvider(new ExtraRecipesRecipeFilters());
         CharmonyApi.registerProvider(this);
-    }
-
-    @Override
-    public void runWhenEnabled() {
-        // Remove recipes that are not valid according to the config.
-        List<String> invalid = new ArrayList<>();
-
-        if (!rawOreBlocks) invalid.addAll(Arrays.asList(
-            "copper_block_from_blasting_raw_copper_block",
-            "gold_block_from_blasting_raw_gold_block",
-            "iron_block_from_blasting_raw_iron_block"
-        ));
-        if (!gildedBlackstone) invalid.add("gilded_blackstone");
-        if (!snowballs) invalid.add("snowballs_from_snow_block");
-        if (!quartz) invalid.add("quartz_from_quartz_block");
-        if (!clay) invalid.add("clay_balls_from_clay_block");
-        if (!cyanDye) invalid.add("cyan_dye");
-        if (!greenDye) invalid.add("green_dye");
-        if (!soulTorch) invalid.add("soul_torch");
-        if (!bread) invalid.add("bread");
-        if (!paper) invalid.add("paper");
-        if (!bundle) invalid.add("bundle");
-
-        for (var recipe : invalid) {
-            INVALID.add(Charm.instance().makeId("extra_recipes/" + recipe));
-        }
-    }
-
-    @Override
-    public List<ResourceLocation> getAdvancementsToRemove() {
-        return INVALID;
-    }
-
-    @Override
-    public List<ResourceLocation> getRecipesToRemove() {
-        return INVALID;
     }
 }
