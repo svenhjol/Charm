@@ -1,0 +1,19 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "XXX",
+      "XXX",
+      "XXX"
+    ],
+    "key": {
+      "X": {
+        "item": "ITEM_NAMESPACE:ITEM"
+      }
+    },
+    "result": {
+      "item": "MOD:STORAGE_BLOCK_block"
+    }
+  },
+  "variants": "storage_block"
+}

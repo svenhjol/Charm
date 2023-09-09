@@ -1,0 +1,11 @@
+{
+  "template": {
+    "type": "charmony:woodcutting",
+    "ingredient": {
+      "item": "minecraft:VANILLA_WOOD_log"
+    },
+    "result": "minecraft:VANILLA_WOOD_wood",
+    "count": 1
+  },
+  "variants": "overworld_wood"
+}

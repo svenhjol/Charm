@@ -1,0 +1,26 @@
+{
+  "template": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "MOD:STORAGE_BLOCK_block"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "variants": [
+    "MOD:STORAGE_BLOCK",
+    "charm:gunpowder",
+    "charm:sugar"
+  ]
+}

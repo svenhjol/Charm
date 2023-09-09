@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.storage_blocks;
 
-import svenhjol.charm.api.IStorageBlockFeature;
-import svenhjol.charm.api.IStorageBlockProvider;
 import svenhjol.charm.feature.storage_blocks.ender_pearls.EnderPearls;
 import svenhjol.charm.feature.storage_blocks.ender_pearls.EnderPearlsClient;
 import svenhjol.charm.feature.storage_blocks.gunpowder.Gunpowder;
 import svenhjol.charm.feature.storage_blocks.gunpowder.GunpowderClient;
 import svenhjol.charm.feature.storage_blocks.sugar.Sugar;
 import svenhjol.charm.feature.storage_blocks.sugar.SugarClient;
+import svenhjol.charmony.api.iface.IStorageBlockFeature;
+import svenhjol.charmony.api.iface.IStorageBlockProvider;
 
 import java.util.List;
 

@@ -40,5 +40,155 @@
       }
     ],
     "subtitle": "subtitles.charm.item.atlas.close"
+  },
+  "bat_bucket_grab": {
+    "sounds": [
+      {
+        "name": "charm:bat_bucket_grab",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.bat_bucket.grab"
+  },
+  "bat_bucket_release": {
+    "sounds": [
+      {
+        "name": "charm:bat_bucket_release",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.bat_bucket.release"
+  },
+  "endermite_powder_launch": {
+    "sounds": [
+      {
+        "name": "charm:endermite_powder",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.endermite_powder.launch"
+  },
+  "gunpowder_dissolve": {
+    "sounds": [
+      {
+        "name": "charm:dissolve",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.gunpowder_block.dissolve"
+  },
+  "kiln_bake": {
+    "sounds": [
+      {
+        "name": "minecraft:block/smoker/smoker1"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker2"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker3"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker4"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker5"
+      }
+    ],
+    "subtitle": "subtitles.charm.block.kiln.bake"
+  },
+  "lumberjack": {
+    "sounds": [
+      {
+        "name": "charm:lumberjack1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:lumberjack2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:lumberjack3",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:lumberjack4",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.entity.villager.work_lumberjack"
+  },
+  "raid_horn_call_off_raid": {
+    "sounds": [
+      {
+        "name": "charm:horn_long",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.raid_horn.call_off_raid"
+  },
+  "raid_horn_call_patrol": {
+    "sounds": [
+      {
+        "name": "minecraft:event/raid/raidhorn_01",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:event/raid/raidhorn_02",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:event/raid/raidhorn_03",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:event/raid/raidhorn_04",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.raid_horn.call_patrol"
+  },
+  "raid_horn_squeak": {
+    "sounds": [
+      {
+        "name": "charm:horn_squeak1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:horn_squeak2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:horn_squeak3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.raid_horn.squeak"
+  },
+  "sugar_dissolve": {
+    "sounds": [
+      {
+        "name": "charm:dissolve",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.sugar_block.dissolve"
+  },
+  "woodcutter_use": {
+    "sounds": [
+      {
+        "name": "charm:woodcutter1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:woodcutter2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:woodcutter3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.woodcutter.use"
   }
 }

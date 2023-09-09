@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "block/cube_all",
+    "textures": {
+      "all": "MOD:block/STORAGE_BLOCK_block"
+    }
+  },
+  "variants": "storage_block"
+}

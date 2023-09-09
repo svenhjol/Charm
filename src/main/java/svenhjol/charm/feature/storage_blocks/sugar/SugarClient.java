@@ -3,8 +3,8 @@ package svenhjol.charm.feature.storage_blocks.sugar;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm.api.IStorageBlockFeature;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
+import svenhjol.charmony.api.iface.IStorageBlockFeature;
 
 public class SugarClient implements IStorageBlockFeature {
     @Override

@@ -1,5 +1,5 @@
 {
-  "type": "charm:woodcutting",
+  "type": "charmony:woodcutting",
   "ingredient": {
     "item": "charm:azalea_wood"
   },

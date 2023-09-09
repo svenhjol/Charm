@@ -1,0 +1,15 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+      {
+        "item": "MOD:STORAGE_BLOCK_block"
+      }
+    ],
+    "result": {
+      "item": "ITEM_NAMESPACE:ITEM",
+      "count": 9
+    }
+  },
+  "variants": "storage_block"
+}

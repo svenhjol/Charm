@@ -16,6 +16,7 @@ import svenhjol.charmony.api.event.LevelLoadEvent;
 import svenhjol.charmony.api.iface.*;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.feature.custom_wood.CustomWood;
+import svenhjol.charmony.feature.woodcutting.Woodcutting;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -35,6 +36,9 @@ public class AzaleaWood extends CharmFeature implements
 
     @Override
     public void register() {
+        // Must register Charmony's woodcutting recipe serializer as a dependency or woodcutting recipes will fail.
+        Woodcutting.registerDependency();
+
         var registry = Charm.instance().registry();
 
         material = AzaleaMaterial.AZALEA;
@@ -42,7 +46,9 @@ public class AzaleaWood extends CharmFeature implements
         woodType = registry.woodType(material.getSerializedName(), material);
 
         CustomWood.registerWood(this, registry, new AzaleaWoodDefinition());
+
         CharmonyApi.registerProvider(this);
+        CharmonyApi.registerProvider(new AzaleaWoodRecipeFilter());
     }
 
     @Override
