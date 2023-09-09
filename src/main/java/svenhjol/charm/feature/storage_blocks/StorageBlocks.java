@@ -33,11 +33,11 @@ public class StorageBlocks extends CharmFeature {
         description = "If true, sugar blocks will be enabled.")
     public static boolean sugarEnabled = true;
 
-    @Configurable(name = "Ender pearl blocks convert silverfish",
+    @Configurable(name = "Ender pearl block converts silverfish",
         description = "If true, ender pearl blocks will convert silverfish to endermites.")
     public static boolean enderPearlBlocksConvertSilverfish = true;
 
-    @Configurable(name = "Ender pearl blocks are teleport location",
+    @Configurable(name = "Ender pearl block is teleport location",
         description = "If true, eating a chorus fruit within 8 blocks of an ender pearl block will teleport the player to it.")
     public static boolean enderPearlBlocksAreTeleportLocation = true;
 
