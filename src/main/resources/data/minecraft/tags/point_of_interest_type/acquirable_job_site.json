@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:beehive"
+    "minecraft:beehive",
+    "charm:woodcutter"
   ]
 }
