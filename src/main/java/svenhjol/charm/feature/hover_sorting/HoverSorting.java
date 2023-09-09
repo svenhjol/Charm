@@ -40,7 +40,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Feature(mod = Charm.MOD_ID, description = "Scroll the mouse while hovering over a bundle or shulker box to change the order of its contents.")
+@Feature(mod = Charm.MOD_ID, description = "Scroll the mouse while hovering over a bundle or shulker box to cycle the order of its contents.")
 public class HoverSorting extends CharmFeature implements IHoverSortableItemProvider {
     private final List<ItemLike> cachedSortables = new ArrayList<>();
     private final List<TagKey<Block>> cachedBlockTags = new ArrayList<>();
