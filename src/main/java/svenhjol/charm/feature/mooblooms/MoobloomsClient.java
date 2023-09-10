@@ -29,11 +29,13 @@ public class MoobloomsClient extends CharmFeature {
         layer = registry.modelLayer(
             () -> new ModelLayerLocation(Charm.instance().makeId("moobloom"), "main"), CowModel::createBodyLayer);
 
-        registry.entityRenderer(Mooblooms.entity, () ->
-            ctx -> new MoobloomEntityRenderer<>(ctx, new CowModel<>(ctx.bakeLayer(layer.get()))));
+        registry.entityRenderer(Mooblooms.entity,
+            () -> ctx -> new MoobloomEntityRenderer<>(ctx, new CowModel<>(ctx.bakeLayer(layer.get()))));
+    }
 
-        if (isEnabled()) {
-            registry.itemTab(Mooblooms.spawnEggItem, CreativeModeTabs.SPAWN_EGGS, Items.AXOLOTL_SPAWN_EGG);
-        }
+    @Override
+    public void runWhenEnabled() {
+        CharmClient.instance().registry()
+            .itemTab(Mooblooms.spawnEggItem, CreativeModeTabs.SPAWN_EGGS, Items.AXOLOTL_SPAWN_EGG);
     }
 }

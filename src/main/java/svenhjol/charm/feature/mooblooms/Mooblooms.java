@@ -26,8 +26,8 @@ public class Mooblooms extends CharmFeature {
     static Supplier<EntityType<MoobloomEntity>> entity;
     public static final TagKey<Biome> SPAWNS_COMMON_MOOBLOOMS
         = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_common_mooblooms"));
-    public static final TagKey<Biome> SPAWNS_PINK_PETAL_MOOBLOOMS
-        = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_pink_petal_mooblooms"));
+    public static final TagKey<Biome> SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS
+        = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_cherry_blossom_mooblooms"));
     public static final TagKey<Biome> SPAWNS_OXEYE_DAISY_MOOBLOOMS
         = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_oxeye_daisy_mooblooms"));
 
@@ -45,7 +45,7 @@ public class Mooblooms extends CharmFeature {
         registry.biomeSpawn(holder -> holder.is(SPAWNS_COMMON_MOOBLOOMS),
             MobCategory.CREATURE, entity, 30, 1, 3);
 
-        registry.biomeSpawn(holder -> holder.is(SPAWNS_PINK_PETAL_MOOBLOOMS),
+        registry.biomeSpawn(holder -> holder.is(SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS),
             MobCategory.CREATURE, entity, 5, 1, 1);
 
         registry.biomeSpawn(holder -> holder.is(SPAWNS_OXEYE_DAISY_MOOBLOOMS),

@@ -118,6 +118,23 @@
     ],
     "subtitle": "subtitles.charm.entity.villager.work_lumberjack"
   },
+  "moobloom_milk": {
+    "sounds": [
+      {
+        "name": "minecraft:mob/mooshroom/milk1",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:mob/mooshroom/milk2",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:mob/mooshroom/milk3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.entity.moobloom.milk"
+  },
   "raid_horn_call_off_raid": {
     "sounds": [
       {

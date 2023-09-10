@@ -30,7 +30,7 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Ren
             var state = entity.getMoobloomType().getFlower();
 
             if (state.getBlock() == Blocks.PINK_PETALS) {
-                renderPinkPetalMoobloom(pose, state, dispatcher, bufferSource, light, coords, entity);
+                renderCherryBlossomMoobloom(pose, state, dispatcher, bufferSource, light, coords, entity);
             } else {
                 renderDefaultMoobloom(pose, state, dispatcher, bufferSource, light, coords, entity);
             }
@@ -79,8 +79,8 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Ren
         }
     }
 
-    public void renderPinkPetalMoobloom(PoseStack pose, BlockState state, BlockRenderDispatcher dispatcher,
-                                        MultiBufferSource bufferSource, int light, int coords, T entity) {
+    public void renderCherryBlossomMoobloom(PoseStack pose, BlockState state, BlockRenderDispatcher dispatcher,
+                                            MultiBufferSource bufferSource, int light, int coords, T entity) {
         var x = -0.25D;
         var y = -0.15D;
         var z = -0.25D;

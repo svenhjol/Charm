@@ -17,13 +17,13 @@ public enum MoobloomType {
     ALLIUM("allium", Blocks.ALLIUM.defaultBlockState()),
     AZURE_BLUET("azure_bluet", Blocks.AZURE_BLUET.defaultBlockState()),
     BLUE_ORCHID("blue_orchid", Blocks.BLUE_ORCHID.defaultBlockState()),
+    CHERRY_BLOSSOM("cherry_blossom", Blocks.PINK_PETALS.defaultBlockState()
+        .setValue(PinkPetalsBlock.AMOUNT, 1)),
     CORNFLOWER("cornflower", Blocks.CORNFLOWER.defaultBlockState()),
     DANDELION("dandelion", Blocks.DANDELION.defaultBlockState()),
     LILY_OF_THE_VALLEY("lily_of_the_valley", Blocks.LILY_OF_THE_VALLEY.defaultBlockState()),
     ORANGE_TULIP("orange_tulip", Blocks.ORANGE_TULIP.defaultBlockState()),
     OXEYE_DAISY("oxeye_daisy", Blocks.OXEYE_DAISY.defaultBlockState()),
-    PINK_PETALS("pink_petals", Blocks.PINK_PETALS.defaultBlockState()
-        .setValue(PinkPetalsBlock.AMOUNT, 1)),
     PINK_TULIP("pink_tulip", Blocks.PINK_TULIP.defaultBlockState()),
     POPPY("poppy", Blocks.POPPY.defaultBlockState()),
     RED_TULIP("red_tulip", Blocks.RED_TULIP.defaultBlockState()),
@@ -33,7 +33,7 @@ public enum MoobloomType {
     private final BlockState flower;
     private final ResourceLocation texture;
 
-    private static final int PINK_PETALS_HEALING_DURATION = 2;
+    private static final int CHERRY_BLOSSOM_HEALING_DURATION = 2;
 
     public final static List<MoobloomType> COMMON_TYPES = List.of(
         ALLIUM, AZURE_BLUET, BLUE_ORCHID, CORNFLOWER, DANDELION,
@@ -55,8 +55,8 @@ public enum MoobloomType {
         var block = flower.getBlock();
         if (block instanceof FlowerBlock flowerBlock) {
             return Optional.of(Pair.of(flowerBlock.getSuspiciousEffect(), flowerBlock.getEffectDuration()));
-        } else if (this.equals(PINK_PETALS)) {
-            return Optional.of(Pair.of(MobEffects.HEAL, PINK_PETALS_HEALING_DURATION * 20));
+        } else if (this.equals(CHERRY_BLOSSOM)) {
+            return Optional.of(Pair.of(MobEffects.HEAL, CHERRY_BLOSSOM_HEALING_DURATION * 20));
         }
 
         return Optional.empty();

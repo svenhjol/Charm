@@ -45,8 +45,8 @@ public class MoobloomEntity extends Cow implements Shearable {
         List<MoobloomType> types;
         var biome = level.getBiome(blockPosition());
 
-        if (biome.is(Mooblooms.SPAWNS_PINK_PETAL_MOOBLOOMS)) {
-            types = List.of(MoobloomType.PINK_PETALS);
+        if (biome.is(Mooblooms.SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS)) {
+            types = List.of(MoobloomType.CHERRY_BLOSSOM);
         } else if (biome.is(Mooblooms.SPAWNS_OXEYE_DAISY_MOOBLOOMS)) {
             types = List.of(MoobloomType.OXEYE_DAISY);
         } else {
