@@ -10,8 +10,10 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends RenderLayer<T, CowModel<T>> {
     public MoobloomFlowerFeatureRenderer(RenderLayerParent<T, CowModel<T>> context) {
@@ -31,9 +33,13 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Ren
 
             if (state.getBlock() == Blocks.PINK_PETALS) {
                 renderCherryBlossomMoobloom(pose, state, dispatcher, bufferSource, light, coords, entity);
-            } else {
-                renderDefaultMoobloom(pose, state, dispatcher, bufferSource, light, coords, entity);
+                return;
+            } else if (state.getBlock() == Blocks.SUNFLOWER) {
+                state = Blocks.SUNFLOWER.defaultBlockState()
+                    .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER);
             }
+
+            renderDefaultMoobloom(pose, state, dispatcher, bufferSource, light, coords, entity);
         }
     }
 

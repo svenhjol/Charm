@@ -27,13 +27,15 @@ public enum MoobloomType {
     PINK_TULIP("pink_tulip", Blocks.PINK_TULIP.defaultBlockState()),
     POPPY("poppy", Blocks.POPPY.defaultBlockState()),
     RED_TULIP("red_tulip", Blocks.RED_TULIP.defaultBlockState()),
+    SUNFLOWER("sunflower", Blocks.SUNFLOWER.defaultBlockState()),
     WHITE_TULIP("white_tulip", Blocks.WHITE_TULIP.defaultBlockState());
 
     private final String name;
     private final BlockState flower;
     private final ResourceLocation texture;
 
-    private static final int CHERRY_BLOSSOM_HEALING_DURATION = 2;
+    private static final int CHERRY_BLOSSOM_HEALING_DURATION = 4;
+    private static final int SUNFLOWER_HEALTH_DURATION = 12;
 
     public final static List<MoobloomType> COMMON_TYPES = List.of(
         ALLIUM, AZURE_BLUET, BLUE_ORCHID, CORNFLOWER, DANDELION,
@@ -55,6 +57,8 @@ public enum MoobloomType {
         var block = flower.getBlock();
         if (block instanceof FlowerBlock flowerBlock) {
             return Optional.of(Pair.of(flowerBlock.getSuspiciousEffect(), flowerBlock.getEffectDuration()));
+        } else if (this.equals(SUNFLOWER)) {
+            return Optional.of(Pair.of(MobEffects.HEALTH_BOOST, SUNFLOWER_HEALTH_DURATION * 20));
         } else if (this.equals(CHERRY_BLOSSOM)) {
             return Optional.of(Pair.of(MobEffects.HEAL, CHERRY_BLOSSOM_HEALING_DURATION * 20));
         }

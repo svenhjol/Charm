@@ -47,8 +47,8 @@ public class MoobloomEntity extends Cow implements Shearable {
 
         if (biome.is(Mooblooms.SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS)) {
             types = List.of(MoobloomType.CHERRY_BLOSSOM);
-        } else if (biome.is(Mooblooms.SPAWNS_OXEYE_DAISY_MOOBLOOMS)) {
-            types = List.of(MoobloomType.OXEYE_DAISY);
+        } else if (biome.is(Mooblooms.SPAWNS_SUNFLOWER_MOOBLOOMS)) {
+            types = List.of(MoobloomType.SUNFLOWER);
         } else {
             // Get all common moobloom types.
             types = MoobloomType.COMMON_TYPES;
@@ -89,12 +89,12 @@ public class MoobloomEntity extends Cow implements Shearable {
                     var duration = effectFromFlower.getRight() * 2;
 
                     stew = new ItemStack(Items.SUSPICIOUS_STEW);
-                    playSound(SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY, 1.0F, 1.0F);
                     SuspiciousStewItem.saveMobEffect(stew, effect, duration);
                 } else {
                     stew = new ItemStack(Items.MUSHROOM_STEW);
-                    playSound(SoundEvents.MOOSHROOM_MILK, 1.0F, 1.0F);
                 }
+
+                playSound(Mooblooms.milkingSound.get(), 1.0F, 1.0F);
 
                 var out = ItemUtils.createFilledResult(held, player, stew, false);
                 player.setItemInHand(hand, out);

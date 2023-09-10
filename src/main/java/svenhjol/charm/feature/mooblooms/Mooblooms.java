@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.mooblooms;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -24,12 +25,13 @@ public class Mooblooms extends CharmFeature {
     static final String ID = "moobloom";
     static Supplier<Item> spawnEggItem;
     static Supplier<EntityType<MoobloomEntity>> entity;
+    static Supplier<SoundEvent> milkingSound;
     public static final TagKey<Biome> SPAWNS_COMMON_MOOBLOOMS
         = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_common_mooblooms"));
     public static final TagKey<Biome> SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS
         = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_cherry_blossom_mooblooms"));
-    public static final TagKey<Biome> SPAWNS_OXEYE_DAISY_MOOBLOOMS
-        = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_oxeye_daisy_mooblooms"));
+    public static final TagKey<Biome> SPAWNS_SUNFLOWER_MOOBLOOMS
+        = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_sunflower_mooblooms"));
 
     @Override
     public void register() {
@@ -40,6 +42,8 @@ public class Mooblooms extends CharmFeature {
             .sized(0.9F, 1.4F)
             .clientTrackingRange(10));
 
+        milkingSound = registry.soundEvent("moobloom_milk");
+
         spawnEggItem = registry.spawnEggItem("moobloom_spawn_egg", entity, 0xFFFF00, 0xFFFFFF, new Item.Properties());
 
         registry.biomeSpawn(holder -> holder.is(SPAWNS_COMMON_MOOBLOOMS),
@@ -48,7 +52,7 @@ public class Mooblooms extends CharmFeature {
         registry.biomeSpawn(holder -> holder.is(SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS),
             MobCategory.CREATURE, entity, 5, 1, 1);
 
-        registry.biomeSpawn(holder -> holder.is(SPAWNS_OXEYE_DAISY_MOOBLOOMS),
+        registry.biomeSpawn(holder -> holder.is(SPAWNS_SUNFLOWER_MOOBLOOMS),
             MobCategory.CREATURE, entity, 10, 1, 2);
 
         registry.entitySpawnPlacement(entity, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MoobloomEntity::canSpawn);
