@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,14 +28,14 @@ public class MoobloomFlowerFeatureRenderer<T extends MoobloomEntity> extends Ren
         if (!entity.isBaby() && !entity.isInvisible()) {
             var coords = LivingEntityRenderer.getOverlayCoords(entity, 0.0F);
             var dispatcher = Minecraft.getInstance().getBlockRenderer();
-            var state = entity.getMoobloomType().getFlower();
+            var flower = entity.getMoobloomType().getFlower();
+            var state = flower.getBlockState();
 
-            if (state.getBlock() == Blocks.PINK_PETALS) {
+            if (flower.equals(FlowerBlockState.PINK_PETALS)) {
                 renderCherryBlossomMoobloom(pose, state, dispatcher, bufferSource, light, coords, entity);
                 return;
-            } else if (state.getBlock() == Blocks.SUNFLOWER) {
-                state = Blocks.SUNFLOWER.defaultBlockState()
-                    .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER);
+            } else if (flower.equals(FlowerBlockState.SUNFLOWER)) {
+                state = state.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER);
             }
 
             renderDefaultMoobloom(pose, state, dispatcher, bufferSource, light, coords, entity);

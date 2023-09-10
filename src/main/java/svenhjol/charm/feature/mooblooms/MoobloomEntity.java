@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.mooblooms;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,16 +19,16 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SuspiciousStewItem;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.PinkPetalsBlock;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 @SuppressWarnings("unused")
 public class MoobloomEntity extends Cow implements Shearable {
@@ -42,21 +43,11 @@ public class MoobloomEntity extends Cow implements Shearable {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnReason, @Nullable SpawnGroupData entityData, @Nullable CompoundTag entityTag) {
         entityData = super.finalizeSpawn(level, difficulty, spawnReason, entityData, entityTag);
-        List<MoobloomType> types;
-        var biome = level.getBiome(blockPosition());
 
-        if (biome.is(Mooblooms.SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS)) {
-            types = List.of(MoobloomType.CHERRY_BLOSSOM);
-        } else if (biome.is(Mooblooms.SPAWNS_SUNFLOWER_MOOBLOOMS)) {
-            types = List.of(MoobloomType.SUNFLOWER);
-        } else {
-            // Get all common moobloom types.
-            types = MoobloomType.COMMON_TYPES;
-        }
-
+        var types = MoobloomType.getTypesForPos(level, blockPosition());
         var type = types.get(random.nextInt(types.size()));
-        setMoobloomType(type);
 
+        setMoobloomType(type);
         return entityData;
     }
 
@@ -81,7 +72,7 @@ public class MoobloomEntity extends Cow implements Shearable {
         if (held.getItem() == Items.BOWL && !isBaby()) {
             if (!level.isClientSide() && isPollinated()) {
                 ItemStack stew;
-                var optional = getMoobloomType().getEffect();
+                var optional = getMoobloomType().getFlower().getEffect();
 
                 if (optional.isPresent()) {
                     var effectFromFlower = optional.get();
@@ -173,6 +164,24 @@ public class MoobloomEntity extends Cow implements Shearable {
 
     public static boolean canSpawn(EntityType<MoobloomEntity> type, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
         return level.getRawBrightness(pos, 0) > 8;
+    }
+
+    public void plantFlower() {
+        var level = level();
+        var pos = blockPosition();
+        var flower = getMoobloomType().getFlower();
+
+        if (flower.equals(FlowerBlockState.PINK_PETALS)) {
+            level.setBlock(pos, flower.getBlockState().setValue(PinkPetalsBlock.AMOUNT,
+                level.getRandom().nextInt(3) + 1), 2);
+        } else if (flower.equals(FlowerBlockState.SUNFLOWER)) {
+            ((BlockItem)Items.SUNFLOWER)
+                .place(new DirectionalPlaceContext(level, pos, Direction.NORTH, ItemStack.EMPTY, Direction.NORTH));
+        } else {
+            level.setBlock(pos, flower.getBlockState(), 2);
+        }
+
+        level.levelEvent(2001, pos, Block.getId(Blocks.GRASS_BLOCK.defaultBlockState()));
     }
 
     /**

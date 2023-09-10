@@ -1,69 +1,45 @@
 package svenhjol.charm.feature.mooblooms;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FlowerBlock;
-import net.minecraft.world.level.block.PinkPetalsBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import org.apache.commons.lang3.tuple.Pair;
+import net.minecraft.world.level.LevelAccessor;
 import svenhjol.charm.Charm;
 
 import java.util.List;
-import java.util.Optional;
 
 public enum MoobloomType {
-    ALLIUM("allium", Blocks.ALLIUM.defaultBlockState()),
-    AZURE_BLUET("azure_bluet", Blocks.AZURE_BLUET.defaultBlockState()),
-    BLUE_ORCHID("blue_orchid", Blocks.BLUE_ORCHID.defaultBlockState()),
-    CHERRY_BLOSSOM("cherry_blossom", Blocks.PINK_PETALS.defaultBlockState()
-        .setValue(PinkPetalsBlock.AMOUNT, 1)),
-    CORNFLOWER("cornflower", Blocks.CORNFLOWER.defaultBlockState()),
-    DANDELION("dandelion", Blocks.DANDELION.defaultBlockState()),
-    LILY_OF_THE_VALLEY("lily_of_the_valley", Blocks.LILY_OF_THE_VALLEY.defaultBlockState()),
-    ORANGE_TULIP("orange_tulip", Blocks.ORANGE_TULIP.defaultBlockState()),
-    OXEYE_DAISY("oxeye_daisy", Blocks.OXEYE_DAISY.defaultBlockState()),
-    PINK_TULIP("pink_tulip", Blocks.PINK_TULIP.defaultBlockState()),
-    POPPY("poppy", Blocks.POPPY.defaultBlockState()),
-    RED_TULIP("red_tulip", Blocks.RED_TULIP.defaultBlockState()),
-    SUNFLOWER("sunflower", Blocks.SUNFLOWER.defaultBlockState()),
-    WHITE_TULIP("white_tulip", Blocks.WHITE_TULIP.defaultBlockState());
+    ALLIUM("allium", FlowerBlockState.ALLIUM),
+    AZURE_BLUET("azure_bluet", FlowerBlockState.AZURE_BLUET),
+    BLUE_ORCHID("blue_orchid", FlowerBlockState.BLUE_ORCHID),
+    CHERRY_BLOSSOM("cherry_blossom", FlowerBlockState.PINK_PETALS),
+    CORNFLOWER("cornflower", FlowerBlockState.CORNFLOWER),
+    DANDELION("dandelion", FlowerBlockState.DANDELION),
+    LILY_OF_THE_VALLEY("lily_of_the_valley", FlowerBlockState.LILY_OF_THE_VALLEY),
+    ORANGE_TULIP("orange_tulip", FlowerBlockState.ORANGE_TULIP),
+    OXEYE_DAISY("oxeye_daisy", FlowerBlockState.OXEYE_DAISY),
+    PINK_TULIP("pink_tulip", FlowerBlockState.PINK_TULIP),
+    POPPY("poppy", FlowerBlockState.POPPY),
+    RED_TULIP("red_tulip", FlowerBlockState.RED_TULIP),
+    SUNFLOWER("sunflower", FlowerBlockState.SUNFLOWER),
+    WHITE_TULIP("white_tulip", FlowerBlockState.WHITE_TULIP);
 
     private final String name;
-    private final BlockState flower;
+    private final FlowerBlockState flower;
     private final ResourceLocation texture;
-
-    private static final int CHERRY_BLOSSOM_HEALING_DURATION = 4;
-    private static final int SUNFLOWER_HEALTH_DURATION = 12;
-
     public final static List<MoobloomType> COMMON_TYPES = List.of(
         ALLIUM, AZURE_BLUET, BLUE_ORCHID, CORNFLOWER, DANDELION,
         LILY_OF_THE_VALLEY, ORANGE_TULIP, OXEYE_DAISY, PINK_TULIP,
         POPPY, RED_TULIP, WHITE_TULIP
     );
 
-    MoobloomType(String name, BlockState flower) {
+    MoobloomType(String name, FlowerBlockState flower) {
         this.name = name;
         this.flower = flower;
         this.texture = Charm.instance().makeId("textures/entity/moobloom/" + name + ".png");
     }
 
-    public BlockState getFlower() {
-        return this.flower;
-    }
-
-    public Optional<Pair<MobEffect, Integer>> getEffect() {
-        var block = flower.getBlock();
-        if (block instanceof FlowerBlock flowerBlock) {
-            return Optional.of(Pair.of(flowerBlock.getSuspiciousEffect(), flowerBlock.getEffectDuration()));
-        } else if (this.equals(SUNFLOWER)) {
-            return Optional.of(Pair.of(MobEffects.HEALTH_BOOST, SUNFLOWER_HEALTH_DURATION * 20));
-        } else if (this.equals(CHERRY_BLOSSOM)) {
-            return Optional.of(Pair.of(MobEffects.HEAL, CHERRY_BLOSSOM_HEALING_DURATION * 20));
-        }
-
-        return Optional.empty();
+    public FlowerBlockState getFlower() {
+        return flower;
     }
 
     public String getName() {
@@ -82,5 +58,20 @@ public enum MoobloomType {
         }
 
         return ALLIUM;
+    }
+
+    public static List<MoobloomType> getTypesForPos(LevelAccessor level, BlockPos pos) {
+        List<MoobloomType> types;
+        var biome = level.getBiome(pos);
+
+        if (biome.is(Mooblooms.SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS)) {
+            types = List.of(MoobloomType.CHERRY_BLOSSOM);
+        } else if (biome.is(Mooblooms.SPAWNS_SUNFLOWER_MOOBLOOMS)) {
+            types = List.of(MoobloomType.SUNFLOWER);
+        } else {
+            types = MoobloomType.COMMON_TYPES;
+        }
+
+        return types;
     }
 }
