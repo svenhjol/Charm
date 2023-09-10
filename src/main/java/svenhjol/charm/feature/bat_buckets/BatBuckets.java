@@ -31,18 +31,18 @@ import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
 public class BatBuckets extends CharmFeature implements IWandererTradeProvider {
-    static Supplier<BatBucketItem> BAT_BUCKET_ITEM;
-    private static Supplier<SoundEvent> GRAB_SOUND;
-    private static Supplier<SoundEvent> RELEASE_SOUND;
+    static Supplier<BatBucketItem> bucketItem;
+    private static Supplier<SoundEvent> grabSound;
+    private static Supplier<SoundEvent> releaseSound;
     static final int GLOW_TIME = 10; // In seconds.
 
     @Override
     public void register() {
         var registry = Charm.instance().registry();
-        BAT_BUCKET_ITEM = registry.item("bat_bucket", () -> new BatBucketItem(this));
 
-        GRAB_SOUND = registry.soundEvent("bat_bucket_grab");
-        RELEASE_SOUND = registry.soundEvent("bat_bucket_release");
+        bucketItem = registry.item("bat_bucket", () -> new BatBucketItem(this));
+        grabSound = registry.soundEvent("bat_bucket_grab");
+        releaseSound = registry.soundEvent("bat_bucket_release");
 
         CharmonyApi.registerProvider(this);
     }
@@ -53,11 +53,11 @@ public class BatBuckets extends CharmFeature implements IWandererTradeProvider {
     }
 
     static void playGrabSound(ServerLevel level, BlockPos pos) {
-        level.playSound(null, pos, GRAB_SOUND.get(), SoundSource.PLAYERS, 0.6F, 0.95F + level.getRandom().nextFloat() * 0.2F);
+        level.playSound(null, pos, grabSound.get(), SoundSource.PLAYERS, 0.6F, 0.95F + level.getRandom().nextFloat() * 0.2F);
     }
 
     static void playReleaseSound(ServerLevel level, BlockPos pos) {
-        level.playSound(null, pos, RELEASE_SOUND.get(), SoundSource.PLAYERS, 0.6F, 0.95F + level.getRandom().nextFloat() * 0.2F);
+        level.playSound(null, pos, releaseSound.get(), SoundSource.PLAYERS, 0.6F, 0.95F + level.getRandom().nextFloat() * 0.2F);
     }
 
     static void playLaunchSound(ServerLevel level, BlockPos pos) {
@@ -75,7 +75,7 @@ public class BatBuckets extends CharmFeature implements IWandererTradeProvider {
                 return InteractionResult.PASS;
             }
 
-            var batBucket = new ItemStack(BAT_BUCKET_ITEM.get());
+            var batBucket = new ItemStack(bucketItem.get());
             var tag = new CompoundTag();
             ItemNbtHelper.setCompound(batBucket, BatBucketItem.STORED_BAT_TAG, bat.saveWithoutId(tag));
 
@@ -87,7 +87,7 @@ public class BatBuckets extends CharmFeature implements IWandererTradeProvider {
             }
 
             playGrabSound((ServerLevel)bat.level(), bat.blockPosition());
-            player.getCooldowns().addCooldown(BAT_BUCKET_ITEM.get(), 30);
+            player.getCooldowns().addCooldown(bucketItem.get(), 30);
             player.swing(hand);
             entity.discard();
 
@@ -103,7 +103,7 @@ public class BatBuckets extends CharmFeature implements IWandererTradeProvider {
         return List.of(new IWandererTrade() {
             @Override
             public ItemLike getItem() {
-                return BAT_BUCKET_ITEM.get();
+                return bucketItem.get();
             }
 
             @Override

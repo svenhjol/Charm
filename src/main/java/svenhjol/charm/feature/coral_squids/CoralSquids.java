@@ -48,11 +48,6 @@ public class CoralSquids extends CharmFeature implements IWandererTradeProvider 
     }
 
     @Override
-    public List<IWandererTrade> getWandererTrades() {
-        return List.of();
-    }
-
-    @Override
     public List<IWandererTrade> getRareWandererTrades() {
         return List.of(new IWandererTrade() {
             @Override

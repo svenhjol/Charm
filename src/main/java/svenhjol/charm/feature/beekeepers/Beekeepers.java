@@ -19,15 +19,15 @@ import java.util.function.Supplier;
 public class Beekeepers extends CharmFeature {
     private static final String VILLAGER_ID = "beekeeper";
     private static final String BLOCK_ID = "minecraft:beehive";
-    public static Supplier<VillagerProfession> VILLAGER_PROFESSION;
     static final TagKey<Item> BEEKEEPER_SELLS_FLOWERS = TagKey.create(BuiltInRegistries.ITEM.key(),
         Charm.instance().makeId("beekeeper_sells_flowers"));
+    public static Supplier<VillagerProfession> profession;
 
     @Override
     public void register() {
         var registry = Charm.instance().registry();
 
-        VILLAGER_PROFESSION = registry.villagerProfession(
+        profession = registry.villagerProfession(
             VILLAGER_ID, BLOCK_ID, List.of(), () -> SoundEvents.BEEHIVE_WORK);
 
         registry.villagerGift(VILLAGER_ID);
@@ -42,36 +42,36 @@ public class Beekeepers extends CharmFeature {
 
         // Tier 1
 
-        registry.villagerTrade(VILLAGER_PROFESSION, 1, () -> new BeekeeperTradeOffers.EmeraldsForFlowers(
+        registry.villagerTrade(profession, 1, () -> new BeekeeperTradeOffers.EmeraldsForFlowers(
             3, 13, 1, 0, 2, 20));
 
-        registry.villagerTrade(VILLAGER_PROFESSION, 1, () -> new GenericTradeOffers.ItemsForEmeralds(
+        registry.villagerTrade(profession, 1, () -> new GenericTradeOffers.ItemsForEmeralds(
             Items.GLASS_BOTTLE, 2, 4, 1, 0, 2, 20));
 
         // Tier 2
 
-        registry.villagerTrade(VILLAGER_PROFESSION, 2, () -> new GenericTradeOffers.EmeraldsForItems(
+        registry.villagerTrade(profession, 2, () -> new GenericTradeOffers.EmeraldsForItems(
             Items.CHARCOAL, 13, 3, 1, 0, 5, 20));
 
-        registry.villagerTrade(VILLAGER_PROFESSION, 2, () -> new GenericTradeOffers.TagForEmeralds<>(
+        registry.villagerTrade(profession, 2, () -> new GenericTradeOffers.TagForEmeralds<>(
             ItemTags.CANDLES, 3, 0, 1, 0, 5, 20));
 
         // Tier 3
 
-        registry.villagerTrade(VILLAGER_PROFESSION, 3, () -> new GenericTradeOffers.EmeraldsForItems(
+        registry.villagerTrade(profession, 3, () -> new GenericTradeOffers.EmeraldsForItems(
             Items.HONEYCOMB, 10, 0, 1, 2, 10, 20));
 
-        registry.villagerTrade(VILLAGER_PROFESSION, 3, () -> new GenericTradeOffers.ItemsForEmeralds(
+        registry.villagerTrade(profession, 3, () -> new GenericTradeOffers.ItemsForEmeralds(
             Items.CAMPFIRE, 1, 0, 1, 0, 10, 20));
 
         // Tier 4
 
-        registry.villagerTrade(VILLAGER_PROFESSION, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
+        registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
             Items.LEAD, 6, 0, 1, 0, 15, 10));
 
         // Tier 5
 
-        registry.villagerTrade(VILLAGER_PROFESSION, 5, () -> new BeekeeperTradeOffers.PopulatedBeehiveForEmeralds(
+        registry.villagerTrade(profession, 5, () -> new BeekeeperTradeOffers.PopulatedBeehiveForEmeralds(
             21, 14, 30, 1));
     }
 }

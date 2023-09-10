@@ -21,7 +21,7 @@ public class BatBucketsClient extends CharmFeature {
     public void register() {
         if (isEnabled()) {
             CharmClient.instance().registry().itemTab(
-                BatBuckets.BAT_BUCKET_ITEM,
+                BatBuckets.bucketItem,
                 CreativeModeTabs.TOOLS_AND_UTILITIES,
                 Items.TADPOLE_BUCKET
             );

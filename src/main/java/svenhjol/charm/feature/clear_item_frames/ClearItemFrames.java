@@ -25,11 +25,11 @@ import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Add amethyst shards to item frames to make them invisible.")
 public class ClearItemFrames extends CharmFeature {
-    static Supplier<SimpleParticleType> PARTICLE_TYPE;
+    static Supplier<SimpleParticleType> particleType;
 
     @Override
     public void register() {
-        PARTICLE_TYPE = Charm.instance().registry().particleType("apply_amethyst", ApplyAmethystParticleType::new);
+        particleType = Charm.instance().registry().particleType("apply_amethyst", ApplyAmethystParticleType::new);
         ClearItemFramesNetwork.register();
     }
 
