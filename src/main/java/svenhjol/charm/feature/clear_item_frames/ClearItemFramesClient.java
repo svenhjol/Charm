@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 @ClientFeature
 public class ClearItemFramesClient extends CharmFeature {
-    static Supplier<SpriteParticleRegistration<SimpleParticleType>> PAparticleTICLE;
+    static Supplier<SpriteParticleRegistration<SimpleParticleType>> particle;
 
     @Override
     public List<BooleanSupplier> checks() {
@@ -27,7 +27,7 @@ public class ClearItemFramesClient extends CharmFeature {
 
     @Override
     public void register() {
-        PAparticleTICLE = CharmClient.instance().registry().particle(ClearItemFrames.particleType,
+        particle = CharmClient.instance().registry().particle(ClearItemFrames.particleType,
             () -> ApplyAmethystClientParticle::new);
     }
 
