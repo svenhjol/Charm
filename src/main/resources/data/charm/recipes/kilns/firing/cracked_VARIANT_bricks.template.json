@@ -1,0 +1,16 @@
+{
+  "template": {
+    "type": "charmony:firing",
+    "ingredient": {
+      "item": "minecraft:VARIANT_bricks"
+    },
+    "result": "minecraft:cracked_VARIANT_bricks",
+    "experience": 0.1,
+    "cookingtime": 100
+  },
+  "variants": [
+    "nether",
+    "polished_blackstone",
+    "stone"
+  ]
+}

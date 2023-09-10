@@ -1,0 +1,12 @@
+{
+  "template": {
+    "type": "charmony:firing",
+    "ingredient": {
+      "item": "minecraft:COLOR_terracotta"
+    },
+    "result": "minecraft:COLOR_glazed_terracotta",
+    "experience": 0.1,
+    "cookingtime": 100
+  },
+  "variants": "color"
+}

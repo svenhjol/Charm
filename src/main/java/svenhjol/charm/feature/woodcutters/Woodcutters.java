@@ -9,18 +9,19 @@ import net.minecraft.world.inventory.RecipeBookType;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.feature.woodcutting.Woodcutting;
 
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, priority = 1, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
 public class Woodcutters extends CharmFeature {
     public static final String BLOCK_ID = "woodcutter";
-    public static Supplier<WoodcutterBlock> BLOCK;
-    public static Supplier<WoodcutterBlock.BlockItem> BLOCK_ITEM;
-    public static Supplier<MenuType<WoodcutterMenu>> MENU;
-    public static Supplier<PoiType> POI_TYPE;
-    public static Supplier<SoundEvent> USE_SOUND;
-    public static Supplier<RecipeBookType> RECIPE_BOOK_TYPE;
+    public static Supplier<WoodcutterBlock> block;
+    public static Supplier<WoodcutterBlock.BlockItem> blockItem;
+    public static Supplier<MenuType<WoodcutterMenu>> menu;
+    public static Supplier<PoiType> poiType;
+    public static Supplier<SoundEvent> useSound;
+    public static Supplier<RecipeBookType> recipeBookType;
 
     @Override
     public void preRegister() {
@@ -29,20 +30,23 @@ public class Woodcutters extends CharmFeature {
 
     @Override
     public void register() {
+        // Must register Charmony's woodcutting recipe serializer as a dependency or woodcutting recipes will fail.
+        Woodcutting.registerDependency();
+
         var registry = Charm.instance().registry();
 
-        BLOCK = registry.block(BLOCK_ID,
+        block = registry.block(BLOCK_ID,
             () -> new WoodcutterBlock(this));
-        BLOCK_ITEM = registry.item(BLOCK_ID,
-            () -> new WoodcutterBlock.BlockItem(this, BLOCK));
+        blockItem = registry.item(BLOCK_ID,
+            () -> new WoodcutterBlock.BlockItem(this, block));
 
-        POI_TYPE = registry.pointOfInterestType(BLOCK_ID,
-            () -> new PoiType(ImmutableSet.copyOf(BLOCK.get().getStateDefinition().getPossibleStates()), 1, 1));
+        poiType = registry.pointOfInterestType(BLOCK_ID,
+            () -> new PoiType(ImmutableSet.copyOf(block.get().getStateDefinition().getPossibleStates()), 1, 1));
 
-        RECIPE_BOOK_TYPE = registry.recipeBookType(BLOCK_ID);
-        MENU = registry.menuType(BLOCK_ID,
+        recipeBookType = registry.recipeBookType(BLOCK_ID);
+        menu = registry.menuType(BLOCK_ID,
             () -> new MenuType<>(WoodcutterMenu::new, FeatureFlags.VANILLA_SET));
 
-        USE_SOUND = registry.soundEvent("woodcutter_use");
+        useSound = registry.soundEvent("woodcutter_use");
     }
 }

@@ -35,7 +35,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     }
 
     public WoodcutterMenu(int syncId, Inventory playerInventory, final ContainerLevelAccess context) {
-        super(Woodcutters.MENU.get(), syncId);
+        super(Woodcutters.menu.get(), syncId);
         this.selectedRecipe = DataSlot.standalone();
         this.availableRecipes = Lists.newArrayList();
         this.inputStack = ItemStack.EMPTY;
@@ -68,7 +68,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
                 context.execute((level, blockPos) -> {
                     long l = level.getGameTime();
                     if (WoodcutterMenu.this.lastTakeTime != l) {
-                        level.playSound(null, blockPos, Woodcutters.USE_SOUND.get(), SoundSource.BLOCKS, 0.4F, 1.0F);
+                        level.playSound(null, blockPos, Woodcutters.useSound.get(), SoundSource.BLOCKS, 0.4F, 1.0F);
                         WoodcutterMenu.this.lastTakeTime = l;
                     }
                 });
@@ -110,7 +110,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     }
 
     public boolean stillValid(Player player) {
-        return stillValid(this.context, player, Woodcutters.BLOCK.get());
+        return stillValid(this.context, player, Woodcutters.block.get());
     }
 
     public boolean clickMenuButton(Player player, int id) {
@@ -158,7 +158,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
     }
 
     public MenuType<?> getType() {
-        return Woodcutters.MENU.get();
+        return Woodcutters.menu.get();
     }
 
     public void setContentsChangedListener(Runnable runnable) {
