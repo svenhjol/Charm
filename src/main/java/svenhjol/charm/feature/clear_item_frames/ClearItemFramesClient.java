@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 @ClientFeature
 public class ClearItemFramesClient extends CharmFeature {
-    static Supplier<SpriteParticleRegistration<SimpleParticleType>> PARTICLE;
+    static Supplier<SpriteParticleRegistration<SimpleParticleType>> PAparticleTICLE;
 
     @Override
     public List<BooleanSupplier> checks() {
@@ -27,7 +27,7 @@ public class ClearItemFramesClient extends CharmFeature {
 
     @Override
     public void register() {
-        PARTICLE = CharmClient.instance().registry().particle(ClearItemFrames.PARTICLE_TYPE,
+        PAparticleTICLE = CharmClient.instance().registry().particle(ClearItemFrames.particleType,
             () -> ApplyAmethystClientParticle::new);
     }
 
@@ -42,7 +42,7 @@ public class ClearItemFramesClient extends CharmFeature {
     }
 
     static void createParticle(Level level, BlockPos pos) {
-        var particleType = ClearItemFrames.PARTICLE_TYPE.get();
+        var particleType = ClearItemFrames.particleType.get();
 
         float[] col = DyeColor.PURPLE.getTextureDiffuseColors();
         var x = (double) pos.getX() + 0.5D;
