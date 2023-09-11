@@ -9,6 +9,7 @@
     "cookingtime": 100
   },
   "variants": [
+    "VARIANT",
     "red_sandstone",
     "sandstone",
     "stone"

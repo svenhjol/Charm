@@ -9,6 +9,7 @@
     "cookingtime": 100
   },
   "variants": [
+    "VARIANT",
     "nether",
     "polished_blackstone",
     "stone"
