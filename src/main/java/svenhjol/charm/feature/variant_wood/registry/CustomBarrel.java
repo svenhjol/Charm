@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.variant_wood.registry;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.feature.variant_wood.block.VariantBarrelBlock;
@@ -26,6 +27,6 @@ public class CustomBarrel {
         registry.blockEntityBlocks(() -> BlockEntityType.BARREL, List.of(block));
 
         // Add this barrel to the Fisherman's point of interest.
-        registry.pointOfInterestBlockStates(() -> PoiTypes.FISHERMAN, () -> block.get().getStateDefinition().getPossibleStates());
+        registry.pointOfInterestBlockStates(() -> BuiltInRegistries.POINT_OF_INTEREST_TYPE.getOrThrow(PoiTypes.FISHERMAN), () -> block.get().getStateDefinition().getPossibleStates());
     }
 }
