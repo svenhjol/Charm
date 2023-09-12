@@ -7,18 +7,16 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.iface.IWandererTradeProvider;
-import svenhjol.charmony.api.iface.IWandererTrade;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.iface.IWandererTradeProvider;
 import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.GenericTradeOffers;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 @Feature(mod = Charm.MOD_ID, description = "Adds more villager trades.")
 public class ExtraTrades extends CharmFeature implements IWandererTradeProvider {
@@ -37,8 +35,11 @@ public class ExtraTrades extends CharmFeature implements IWandererTradeProvider 
     @Configurable(name = "Bundles", description = "If true, leatherworkers will sell bundles in return for emeralds.")
     public static boolean bundles = true;
 
-    @Configurable(name = "Phantom membrane", description = "If true, clerics and wandering traders will sell phantom membrane in return for emeralds.")
+    @Configurable(name = "Phantom membrane", description = "If true, clerics will sell phantom membrane in return for emeralds.")
     public static boolean phantomMembrane = true;
+
+    @Configurable(name = "Charm mod items", description = "If true, wandering traders have a chance to sell various items from Charm mods.")
+    public static boolean charmModItems = true;
 
     @Override
     public void register() {
@@ -87,29 +88,20 @@ public class ExtraTrades extends CharmFeature implements IWandererTradeProvider 
                 Items.BUNDLE, 12, 10, 1, 0, xp, 1));
         }
 
+        if (charmModItems) {
+            ApiHelper.consume(IWandererTradeProvider.class,
+                provider -> {
+                    provider.getWandererTrades().forEach(
+                        trade -> registry.wandererTrade(
+                            () -> new GenericTradeOffers.ItemsForEmeralds(trade.getItem(), trade.getCost(), trade.getCount(), 0, 1), false));
+
+                    provider.getRareWandererTrades().forEach(
+                        trade -> registry.wandererTrade(
+                            () -> new GenericTradeOffers.ItemsForEmeralds(trade.getItem(), trade.getCost(), trade.getCount(), 0, 1), true));
+                });
+        }
+
         CharmonyApi.registerProvider(this);
-    }
-
-    @Override
-    public List<IWandererTrade> getRareWandererTrades() {
-        return phantomMembrane ? List.of(
-            new IWandererTrade() {
-                @Override
-                public ItemLike getItem() {
-                    return Items.PHANTOM_MEMBRANE;
-                }
-
-                @Override
-                public int getCount() {
-                    return 5;
-                }
-
-                @Override
-                public int getCost() {
-                    return 10;
-                }
-            }
-        ) : List.of();
     }
 
     static class AnvilRepair implements VillagerTrades.ItemListing {
