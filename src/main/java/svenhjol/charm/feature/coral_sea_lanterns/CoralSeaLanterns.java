@@ -35,7 +35,7 @@ public class CoralSeaLanterns extends CharmFeature implements IWandererTradeProv
     }
 
     @Override
-    public List<IWandererTrade> getRareWandererTrades() {
+    public List<IWandererTrade> getWandererTrades() {
         List<IWandererTrade> out = new ArrayList<>();
 
         for (Supplier<CoralSeaLanternBlock> block : BLOCKS.values()) {
