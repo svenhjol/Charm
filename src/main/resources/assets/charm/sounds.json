@@ -139,7 +139,7 @@
     "sounds": [
       {
         "name": "charm:horn_long",
-        "volume": 1.0
+        "volume": 0.9
       }
     ],
     "subtitle": "subtitles.charm.item.raid_horn.call_off_raid"
