@@ -29,10 +29,10 @@ import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Raid horns are sometimes dropped from raid leaders and can be used to call off raids or summon pillagers.")
 public class RaidHorns extends CharmFeature implements IWandererTradeProvider {
-    public static Supplier<RaidHornItem> ITEM;
-    public static Supplier<SoundEvent> CALL_PATROL_SOUND;
-    public static Supplier<SoundEvent> CALL_OFF_RAID_SOUND;
-    public static Supplier<SoundEvent> FAIL_SOUND;
+    public static Supplier<RaidHornItem> item;
+    public static Supplier<SoundEvent> callPatrolSound;
+    public static Supplier<SoundEvent> callOffRaidSound;
+    public static Supplier<SoundEvent> failSound;
     public static final double DROP_CHANCE = 0.05D;
     public static final double LOOT_BONUS = 0.1D;
     public static final int DURABILITY = 4;
@@ -42,10 +42,10 @@ public class RaidHorns extends CharmFeature implements IWandererTradeProvider {
     public void register() {
         var registry = Charm.instance().registry();
 
-        ITEM = registry.item("raid_horn", () -> new RaidHornItem(this));
-        CALL_PATROL_SOUND = registry.soundEvent("raid_horn_call_patrol");
-        CALL_OFF_RAID_SOUND = registry.soundEvent("raid_horn_call_off_raid");
-        FAIL_SOUND = registry.soundEvent("raid_horn_squeak");
+        item = registry.item("raid_horn", () -> new RaidHornItem(this));
+        callPatrolSound = registry.soundEvent("raid_horn_call_patrol");
+        callOffRaidSound = registry.soundEvent("raid_horn_call_off_raid");
+        failSound = registry.soundEvent("raid_horn_squeak");
 
         CharmonyApi.registerProvider(this);
     }
@@ -63,7 +63,7 @@ public class RaidHorns extends CharmFeature implements IWandererTradeProvider {
         ) {
             if (patroller.isPatrolLeader()) {
                 var pos = patroller.blockPosition();
-                var horn = new ItemStack(ITEM.get());
+                var horn = new ItemStack(item.get());
                 patroller.level().addFreshEntity(new ItemEntity(entity.getCommandSenderWorld(), pos.getX(), pos.getY(), pos.getZ(), horn));
             }
         }
@@ -132,7 +132,7 @@ public class RaidHorns extends CharmFeature implements IWandererTradeProvider {
         return List.of(new IWandererTrade() {
             @Override
             public ItemLike getItem() {
-                return ITEM.get();
+                return item.get();
             }
 
             @Override

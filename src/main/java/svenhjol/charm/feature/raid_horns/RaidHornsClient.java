@@ -25,14 +25,14 @@ public class RaidHornsClient extends CharmFeature {
     public void register() {
         var registry = CharmClient.instance().registry();
         registry.itemProperties("minecraft:tooting",
-            RaidHorns.ITEM, () -> this::handleTooting);
+            RaidHorns.item, () -> this::handleTooting);
     }
 
     @Override
     public void runWhenEnabled() {
         var registry = CharmClient.instance().registry();
         registry.itemTab(
-            RaidHorns.ITEM,
+            RaidHorns.item,
             CreativeModeTabs.TOOLS_AND_UTILITIES,
             Items.TNT_MINECART
         );

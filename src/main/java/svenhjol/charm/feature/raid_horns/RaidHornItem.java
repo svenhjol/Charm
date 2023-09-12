@@ -39,20 +39,20 @@ public class RaidHornItem extends CharmItem {
                 var raid = serverLevel.getRaidAt(pos);
                 if (raid != null) {
                     raid.stop();
-                    sound = RaidHorns.CALL_OFF_RAID_SOUND;
+                    sound = RaidHorns.callOffRaidSound;
                     // TODO: advancement.
                 }
             } else {
                 // Try and summon pillagers.
                 var result = RaidHorns.trySpawnPillagers(serverLevel, pos);
                 if (result) {
-                    sound = RaidHorns.CALL_PATROL_SOUND;
+                    sound = RaidHorns.callPatrolSound;
                     // TODO: advancement.
                 }
             }
 
             if (sound == null) {
-                sound = RaidHorns.FAIL_SOUND;
+                sound = RaidHorns.failSound;
             }
 
             player.startUsingItem(hand);
