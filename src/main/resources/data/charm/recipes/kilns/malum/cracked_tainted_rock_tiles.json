@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "malum"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "malum:tainted_rock_tiles"
+  },
+  "result": "malum:cracked_tainted_rock_tiles",
+  "experience": 0.1,
+  "cookingtime": 100
+}

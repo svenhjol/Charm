@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "byg"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "byg:blue_sand"
+  },
+  "result": "minecraft:blue_stained_glass",
+  "experience": 0.1,
+  "cookingtime": 100
+}

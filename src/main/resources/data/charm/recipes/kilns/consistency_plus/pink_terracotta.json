@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "consistency_plus"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "consistency_plus:cobbled_pink_terracotta"
+  },
+  "result": "minecraft:pink_terracotta",
+  "experience": 0.1,
+  "cookingtime": 100
+}

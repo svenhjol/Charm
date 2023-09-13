@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "ae2"
+      ]
+    }
+  ],
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "ae2:sky_stone_block"
+  },
+  "result": "ae2:smooth_sky_stone_block",
+  "experience": 0.35,
+  "cookingtime": 100
+}
