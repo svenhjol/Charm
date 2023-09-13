@@ -24,6 +24,7 @@
     "beekeepers.PoiTypesMixin",
     "collection.BlockMixin",
     "collection.ServerPlayerGameModeMixin",
+    "deepslate_dungeons.MonsterRoomFeatureMixin",
     "enchantable_horse_armor.EnchantmentMixin",
     "enchantable_horse_armor.HorseMixin",
     "enums.boat_type_enum.BoatTypeMixin",
