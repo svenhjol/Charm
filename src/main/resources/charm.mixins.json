@@ -14,6 +14,7 @@
     "auto_restock.AnimalMixin",
     "auto_restock.ComposterBlockMixin",
     "auto_restock.ParrotMixin",
+    "deepslate_dungeons.MonsterRoomFeatureMixin",
     "enchantable_horse_armor.EnchantmentMixin",
     "enchantable_horse_armor.HorseMixin",
     "extra_mob_drops.ChickenMixin",
