@@ -5,7 +5,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.annotation.CommonModule;
 import svenhjol.charm.loader.CharmModule;
 
-@CommonModule(mod = Charm.MOD_ID, enabledByDefault = false, description = "The repsawn anchor can be used in the End.\n" +
+@CommonModule(mod = Charm.MOD_ID, enabledByDefault = false, description = "The respawn anchor can be used in the End.\n" +
     "This is an opinionated feature that changes core gameplay and so is disabled by default.")
 public class RespawnAnchorInTheEnd extends CharmModule {
     public static boolean canSetSpawn(Level level) {
