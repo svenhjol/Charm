@@ -4,6 +4,7 @@ accessWidener v1 named
 accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
 accessible class net/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type
 accessible class net/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker
+accessible class net/minecraft/world/level/levelgen/structure/structures/MineshaftPieces$MineShaftPiece
 
 ## Constructors
 accessible method net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
