@@ -17,6 +17,7 @@
     "auto_restock.AnimalMixin",
     "auto_restock.ComposterBlockMixin",
     "auto_restock.ParrotMixin",
+    "campfires_boost_health.CampfireBlockEntityMixin",
     "deepslate_dungeons.MonsterRoomFeatureMixin",
     "enchantable_horse_armor.EnchantmentMixin",
     "enchantable_horse_armor.HorseMixin",
