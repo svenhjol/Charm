@@ -34,6 +34,7 @@ public class PiglinsFollowGoldBlocks extends CharmFeature {
             && player.getMainHandItem().getItem() == Items.GOLD_BLOCK
         ) {
             List<Piglin> piglins = player.level().getEntitiesOfClass(Piglin.class, new AABB(player.blockPosition()).inflate(8.0D));
+            // TODO: advancement
         }
     }
 
