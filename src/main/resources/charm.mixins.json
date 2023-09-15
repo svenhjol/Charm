@@ -7,6 +7,7 @@
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "mixins": [
     "accessor.BeeAccessor",
+    "accessor.BrushableBlockEntityAccessor",
     "accessor.BundleItemAccessor",
     "accessor.ItemAccessor",
     "accessor.MapItemSavedDataAccessor",

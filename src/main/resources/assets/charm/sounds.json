@@ -118,6 +118,23 @@
     ],
     "subtitle": "subtitles.charm.entity.villager.work_lumberjack"
   },
+  "make_suspicious_block": {
+    "sounds": [
+      {
+        "name": "block/suspicious_gravel/place1"
+      },
+      {
+        "name": "block/suspicious_gravel/place2"
+      },
+      {
+        "name": "block/suspicious_gravel/place3"
+      },
+      {
+        "name": "block/suspicious_gravel/place4"
+      }
+    ],
+    "subtitle": "subtitles.charm.block.suspicious_block.make"
+  },
   "moobloom_milk": {
     "sounds": [
       {
