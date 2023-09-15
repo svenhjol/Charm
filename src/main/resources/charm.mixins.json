@@ -30,6 +30,7 @@
     "no_crop_trampling.FarmBlockMixin",
     "open_both_doors.DoorBlockMixin",
     "parrots_stay_on_shoulder.PlayerMixin",
+    "pigs_find_mushrooms.PigMixin",
     "stronger_anvils.AnvilBlockMixin",
     "torchflowers_emit_light.BlockBehaviourPropertiesMixin",
     "totems_work_from_inventory.LivingEntityMixin",
@@ -50,6 +51,7 @@
     "no_chat_unverified_message.DisableToastMixin",
     "no_experimental_screen.WorldOpenFlowsMixin",
     "no_spyglass_scope.RemoveSpyglassHudMixin",
+    "pigs_find_mushrooms.PigModelMixin",
     "show_repair_cost.AnvilScreenMixin",
     "unlimited_repair_cost.AnvilScreenMixin"
   ],

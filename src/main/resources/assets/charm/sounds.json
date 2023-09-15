@@ -1,0 +1,11 @@
+{
+  "pig_sniffing": {
+    "sounds": [
+      {
+        "name": "charm:pig_sniffing",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.charm.entity.pig_sniffing"
+  }
+}

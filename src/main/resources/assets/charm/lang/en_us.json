@@ -6,5 +6,6 @@
   "gui.charm.west": "west",
   "gui.charm.coords": "X: %s   Y: %s   Z: %s",
   "gui.charm.coords_only_xz": "X: %s   Z: %s",
-  "gui.charm.repair_cost": "Repair Cost: %s"
+  "gui.charm.repair_cost": "Repair Cost: %s",
+  "subtitles.charm.entity.pig_sniffing": "Pig searches for mushrooms"
 }
