@@ -5,6 +5,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -30,13 +31,15 @@ public class NoPetDamage extends CharmFeature {
 
             Player player = null;
 
-            if (source instanceof Player) player = (Player) source;
-            if (attacker instanceof Player) player = (Player) attacker;
+            if (source instanceof Player) {
+                player = (Player) source;
+            }
+            if (attacker instanceof Player) {
+                player = (Player) attacker;
+            }
 
-            if (player != null && !player.getAbilities().instabuild) {
-                if (entity instanceof TamableAnimal && ((TamableAnimal) entity).isTame()) {
-                    return InteractionResult.FAIL; // the positive outcome!
-                }
+            if (player != null && !player.getAbilities().instabuild && isPet(entity)) {
+                return InteractionResult.FAIL; // the positive outcome!
             }
         }
 
@@ -44,13 +47,15 @@ public class NoPetDamage extends CharmFeature {
     }
 
     private InteractionResult handleEntityAttack(Player player, Level level, InteractionHand hand, Entity target, EntityHitResult hitResult) {
-        if (target instanceof TamableAnimal
-            && ((TamableAnimal)target).isTame()
-            && !player.isCreative()
-        ) {
+        if (!player.getAbilities().instabuild && isPet(target)) {
             return InteractionResult.FAIL; // the positive outcome!
         }
 
         return InteractionResult.PASS;
+    }
+
+    private boolean isPet(Entity entity) {
+        return (entity instanceof TamableAnimal && ((TamableAnimal) entity).isTame())
+            || (entity instanceof OwnableEntity && ((OwnableEntity) entity).getOwnerUUID() != null);
     }
 }
