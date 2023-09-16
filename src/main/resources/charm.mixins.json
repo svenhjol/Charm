@@ -6,6 +6,7 @@
   "refmap": "${refmap_file}",
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "mixins": [
+    "accessor.AbstractHorseAccessor",
     "accessor.BeeAccessor",
     "accessor.BrushableBlockEntityAccessor",
     "accessor.BundleItemAccessor",
@@ -44,6 +45,7 @@
     "open_both_doors.DoorBlockMixin",
     "parrots_stay_on_shoulder.PlayerMixin",
     "pigs_find_mushrooms.PigMixin",
+    "revive_pets.NameTagItemMixin",
     "storage_blocks.ChorusFruitItemMixin",
     "stronger_anvils.AnvilBlockMixin",
     "torchflowers_emit_light.BlockBehaviourPropertiesMixin",
