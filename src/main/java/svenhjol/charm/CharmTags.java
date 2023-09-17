@@ -7,4 +7,6 @@ import net.minecraft.world.item.Item;
 public class CharmTags {
     public static final TagKey<Item> CHESTS = TagKey.create(BuiltInRegistries.ITEM.key(),
         Charm.instance().makeId("chests/normal"));
+    public static final TagKey<Item> COLORED_DYES = TagKey.create(BuiltInRegistries.ITEM.key(),
+        Charm.instance().makeId("colored_dyes"));
 }
