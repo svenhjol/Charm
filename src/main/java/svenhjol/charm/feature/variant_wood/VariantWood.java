@@ -3,12 +3,12 @@ package svenhjol.charm.feature.variant_wood;
 import net.minecraft.world.entity.vehicle.Boat;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.registry.*;
+import svenhjol.charmapi.Charmapi;
+import svenhjol.charmapi.event.EntityUseEvent;
+import svenhjol.charmapi.iface.IVariantChestBoatDefinition;
+import svenhjol.charmapi.iface.IVariantMaterial;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.event.EntityUseEvent;
-import svenhjol.charmony.api.iface.IVariantChestBoatDefinition;
-import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.iface.ICommonRegistry;
 
@@ -52,7 +52,7 @@ public class VariantWood extends CharmFeature {
         new VariantWoodApiConsumers(this);
 
         // Register recipe removal.
-        CharmonyApi.registerProvider(new VariantWoodRecipeFilters());
+        Charmapi.registerProvider(new VariantWoodRecipeFilters());
     }
 
     @Override

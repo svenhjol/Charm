@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.variant_wood;
 
-import svenhjol.charmony.api.iface.*;
+import svenhjol.charmapi.iface.*;
 import svenhjol.charmony.helper.ApiHelper;
 
 public class VariantWoodApiConsumers {

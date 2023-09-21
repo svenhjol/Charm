@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.azalea_wood;
 
-import svenhjol.charmony.api.iface.ICustomWoodDefinition;
-import svenhjol.charmony.api.iface.IVariantWoodMaterial;
+import svenhjol.charmapi.iface.ICustomWoodDefinition;
+import svenhjol.charmapi.iface.IVariantWoodMaterial;
 
 public class AzaleaWoodDefinition implements ICustomWoodDefinition {
     @Override

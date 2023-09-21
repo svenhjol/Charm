@@ -11,7 +11,7 @@ import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwor
 import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenWorkstationSelectorScreen;
 import svenhjol.charm.feature.proximity_workstations.client.SelectWorkstationScreen;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.api.event.KeyPressEvent;
+import svenhjol.charmapi.event.KeyPressEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.function.Supplier;

@@ -18,7 +18,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.event.EntityKilledDropEvent;
+import svenhjol.charmapi.event.EntityKilledDropEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Some mobs have a chance to drop additional items.")

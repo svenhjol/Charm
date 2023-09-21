@@ -4,4 +4,5 @@ plugins {
 }
 
 apply from: "https://charmony.work/gradle/fabric.build.gradle"
+apply from: "https://charmony.work/gradle/fabric-with-charmapi.build.gradle"
 apply from: "https://charmony.work/gradle/fabric-with-charmony.build.gradle"

@@ -21,9 +21,9 @@ import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.accessor.SoundEngineAccessor;
 import svenhjol.charm.mixin.accessor.SoundManagerAccessor;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.api.event.BlockUseEvent;
-import svenhjol.charmony.api.event.ClientTickEvent;
-import svenhjol.charmony.api.event.SoundPlayEvent;
+import svenhjol.charmapi.event.BlockUseEvent;
+import svenhjol.charmapi.event.ClientTickEvent;
+import svenhjol.charmapi.event.SoundPlayEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 @ClientFeature(

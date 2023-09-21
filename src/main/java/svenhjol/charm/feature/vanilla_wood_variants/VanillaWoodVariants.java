@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.vanilla_wood_variants;
 
 import svenhjol.charm.Charm;
+import svenhjol.charmapi.Charmapi;
+import svenhjol.charmapi.iface.*;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.iface.*;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.enums.VanillaWood;
 
@@ -35,7 +35,7 @@ public class VanillaWoodVariants extends CharmFeature implements
 
     @Override
     public void register() {
-        CharmonyApi.registerProvider(this);
+        Charmapi.registerProvider(this);
     }
 
     @Override

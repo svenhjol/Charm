@@ -25,11 +25,11 @@ import svenhjol.charm.feature.hover_sorting.HoverSortingNetwork.ScrollOnHover;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
 import svenhjol.charm.mixin.accessor.BundleItemAccessor;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
+import svenhjol.charmapi.Charmapi;
+import svenhjol.charmapi.event.ItemHoverSortEvent;
+import svenhjol.charmapi.event.LevelLoadEvent;
+import svenhjol.charmapi.iface.IHoverSortableItemProvider;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.event.ItemHoverSortEvent;
-import svenhjol.charmony.api.event.LevelLoadEvent;
-import svenhjol.charmony.api.iface.IHoverSortableItemProvider;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.TagHelper;
@@ -57,7 +57,7 @@ public class HoverSorting extends CharmFeature implements IHoverSortableItemProv
             });
 
         HoverSortingNetwork.register();
-        CharmonyApi.registerProvider(this);
+        Charmapi.registerProvider(this);
     }
 
     @Override

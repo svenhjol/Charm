@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.variant_wood;
 
-import svenhjol.charmony.api.iface.IRecipeFilter;
-import svenhjol.charmony.api.iface.IRecipeRemoveProvider;
+import svenhjol.charmapi.iface.IRecipeFilter;
+import svenhjol.charmapi.iface.IRecipeRemoveProvider;
 
 import java.util.ArrayList;
 import java.util.List;

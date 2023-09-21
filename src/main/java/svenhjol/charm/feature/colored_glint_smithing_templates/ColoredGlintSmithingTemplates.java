@@ -16,9 +16,9 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.event.LootTableModifyEvent;
-import svenhjol.charmony.api.event.SmithingTableEvents;
-import svenhjol.charmony.api.event.SmithingTableEvents.SmithingTableInstance;
+import svenhjol.charmapi.event.LootTableModifyEvent;
+import svenhjol.charmapi.event.SmithingTableEvents;
+import svenhjol.charmapi.event.SmithingTableEvents.SmithingTableInstance;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.feature.colored_glints.ColoredGlints;
 

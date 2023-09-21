@@ -3,8 +3,8 @@ package svenhjol.charm.feature.storage_blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.api.iface.IStorageBlockFeature;
-import svenhjol.charmony.api.iface.IStorageBlockProvider;
+import svenhjol.charmapi.iface.IStorageBlockFeature;
+import svenhjol.charmapi.iface.IStorageBlockProvider;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
 

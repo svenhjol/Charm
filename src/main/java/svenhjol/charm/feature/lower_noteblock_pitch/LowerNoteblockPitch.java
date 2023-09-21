@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.NoteBlockAccessor;
-import svenhjol.charmony.api.event.BlockUseEvent;
+import svenhjol.charmapi.event.BlockUseEvent;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 

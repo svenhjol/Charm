@@ -5,8 +5,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.iface.IWandererTrade;
-import svenhjol.charmony.api.iface.IWandererTradeProvider;
+import svenhjol.charmapi.iface.IWandererTrade;
+import svenhjol.charmapi.iface.IWandererTradeProvider;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.List;

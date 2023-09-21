@@ -18,8 +18,8 @@ import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.AbstractHorseAccessor;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.event.EntityKilledEvent;
-import svenhjol.charmony.api.event.ItemUseEvent;
+import svenhjol.charmapi.event.EntityKilledEvent;
+import svenhjol.charmapi.event.ItemUseEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "A named pet drops its nametag on death.\n" +

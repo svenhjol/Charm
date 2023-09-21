@@ -14,7 +14,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.event.EntityJoinEvent;
+import svenhjol.charmapi.event.EntityJoinEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.function.Supplier;

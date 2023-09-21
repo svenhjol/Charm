@@ -17,11 +17,11 @@ import net.minecraft.world.level.levelgen.PatrolSpawner;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.PatrolSpawnerAccessor;
 import svenhjol.charm.mixin.accessor.ServerLevelAccessor;
+import svenhjol.charmapi.Charmapi;
+import svenhjol.charmapi.event.EntityKilledDropEvent;
+import svenhjol.charmapi.iface.IWandererTrade;
+import svenhjol.charmapi.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.event.EntityKilledDropEvent;
-import svenhjol.charmony.api.iface.IWandererTrade;
-import svenhjol.charmony.api.iface.IWandererTradeProvider;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public class RaidHorns extends CharmFeature implements IWandererTradeProvider {
         callOffRaidSound = registry.soundEvent("raid_horn_call_off_raid");
         failSound = registry.soundEvent("raid_horn_squeak");
 
-        CharmonyApi.registerProvider(this);
+        Charmapi.registerProvider(this);
     }
 
     @Override

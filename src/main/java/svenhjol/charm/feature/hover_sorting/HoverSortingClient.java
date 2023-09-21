@@ -5,8 +5,8 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.InteractionResult;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.api.event.ItemHoverSortEvent;
-import svenhjol.charmony.api.event.MouseScrollEvent;
+import svenhjol.charmapi.event.ItemHoverSortEvent;
+import svenhjol.charmapi.event.MouseScrollEvent;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charm.mixin.accessor.AbstractContainerScreenAccessor;
 

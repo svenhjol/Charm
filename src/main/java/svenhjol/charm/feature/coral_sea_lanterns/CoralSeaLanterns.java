@@ -2,10 +2,10 @@ package svenhjol.charm.feature.coral_sea_lanterns;
 
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.Charm;
+import svenhjol.charmapi.Charmapi;
+import svenhjol.charmapi.iface.IWandererTrade;
+import svenhjol.charmapi.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.iface.IWandererTrade;
-import svenhjol.charmony.api.iface.IWandererTradeProvider;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class CoralSeaLanterns extends CharmFeature implements IWandererTradeProv
             BLOCK_ITEMS.put(material, blockItem);
         }
 
-        CharmonyApi.registerProvider(this);
+        Charmapi.registerProvider(this);
     }
 
     @Override

@@ -3,7 +3,7 @@ package svenhjol.charm.feature.variant_wood.registry;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.feature.variant_wood.block.VariantTrappedChestBlock;
 import svenhjol.charm.feature.variant_wood.entity.VariantTrappedChestBlockEntity;
-import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmapi.iface.IVariantMaterial;
 import svenhjol.charmony.iface.ICommonRegistry;
 
 import java.util.List;

@@ -7,10 +7,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.event.GrindstoneEvents;
-import svenhjol.charmony.api.event.GrindstoneEvents.GrindstoneMenuInstance;
-import svenhjol.charmony.api.iface.IProvidesGrindableItems;
+import svenhjol.charmapi.Charmapi;
+import svenhjol.charmapi.event.GrindstoneEvents;
+import svenhjol.charmapi.event.GrindstoneEvents.GrindstoneMenuInstance;
+import svenhjol.charmapi.iface.IProvidesGrindableItems;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
@@ -26,7 +26,7 @@ public class GrindableArmor extends CharmFeature implements IProvidesGrindableIt
 
     @Override
     public void register() {
-        CharmonyApi.registerProvider(this);
+        Charmapi.registerProvider(this);
     }
 
     @Override

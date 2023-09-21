@@ -2,7 +2,7 @@ package svenhjol.charm.feature.auto_recipe_unlock;
 
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.api.event.PlayerLoginEvent;
+import svenhjol.charmapi.event.PlayerLoginEvent;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 

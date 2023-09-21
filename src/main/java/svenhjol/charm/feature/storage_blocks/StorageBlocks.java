@@ -1,11 +1,11 @@
 package svenhjol.charm.feature.storage_blocks;
 
 import svenhjol.charm.Charm;
+import svenhjol.charmapi.Charmapi;
+import svenhjol.charmapi.iface.IStorageBlockFeature;
+import svenhjol.charmapi.iface.IStorageBlockProvider;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.iface.IStorageBlockFeature;
-import svenhjol.charmony.api.iface.IStorageBlockProvider;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
 
@@ -59,8 +59,8 @@ public class StorageBlocks extends CharmFeature {
                     }
                 }));
 
-        CharmonyApi.registerProvider(new StorageBlockFeatures());
-        CharmonyApi.registerProvider(new StorageBlockRecipeFilters());
+        Charmapi.registerProvider(new StorageBlockFeatures());
+        Charmapi.registerProvider(new StorageBlockRecipeFilters());
     }
 
     @Override

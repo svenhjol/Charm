@@ -4,7 +4,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charmony.api.iface.IStorageBlockFeature;
+import svenhjol.charmapi.iface.IStorageBlockFeature;
 
 public class EnderPearlsClient implements IStorageBlockFeature {
     @Override
