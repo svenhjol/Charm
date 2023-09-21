@@ -1,19 +1,20 @@
 package svenhjol.charm.feature.colored_glint_smithing_templates;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootDataManager;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
+import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.api.event.LootTableModifyEvent;
 import svenhjol.charmony.api.event.SmithingTableEvents;
@@ -28,9 +29,22 @@ import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Smithing template that changes the glint color of any enchanted item.")
 public class ColoredGlintSmithingTemplates extends CharmFeature {
-    static List<ResourceLocation> emptyDyes = new ArrayList<>();
+    public static final String ITEM_ID = "colored_glint_smithing_template";
 
+    static List<ResourceLocation> emptyDyes = new ArrayList<>();
     public static Supplier<Item> item;
+
+    @Configurable(
+        name = "Loot table",
+        description = "Loot table in which a colored glint smithing template will be added."
+    )
+    public static String lootTable = "minecraft:chests/stronghold_library";
+
+    @Configurable(
+        name = "Loot chance",
+        description = "Chance (out of 1.0) of a colored glint smithing template appearing in loot."
+    )
+    public static double lootChance = 1.0D;
 
     @Override
     public void register() {
@@ -43,7 +57,7 @@ public class ColoredGlintSmithingTemplates extends CharmFeature {
             Charm.instance().makeId("item/empty_dye_04")
         ));
 
-        item = registry.item("colored_glint_smithing_template",
+        item = registry.item(ITEM_ID,
             ColoredGlintTemplateItem::new);
     }
 
@@ -56,9 +70,12 @@ public class ColoredGlintSmithingTemplates extends CharmFeature {
     }
 
     private Optional<LootPool.Builder> handleLootTableModify(LootDataManager manager, ResourceLocation id) {
-        if (id.equals(BuiltInLootTables.ANCIENT_CITY)) {
-            var builder = LootPool.lootPool()
-                .setRolls(UniformGenerator.between(0, 1));
+        if (id.toString().equals(lootTable)) {
+            var builder = LootPool.lootPool();
+
+            if (RandomSource.create().nextDouble() < lootChance) {
+                builder.setRolls(ConstantValue.exactly(1));
+            }
 
             builder.add(LootItem.lootTableItem(item.get()).setWeight(1));
             return Optional.of(builder);
