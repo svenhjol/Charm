@@ -72,15 +72,11 @@ public class MoobloomEntity extends Cow implements Shearable {
         if (held.getItem() == Items.BOWL && !isBaby()) {
             if (!level.isClientSide() && isPollinated()) {
                 ItemStack stew;
-                var optional = getMoobloomType().getFlower().getEffect();
+                var effects = getMoobloomType().getFlower().getEffects();
 
-                if (optional.isPresent()) {
-                    var effectFromFlower = optional.get();
-                    var effect = effectFromFlower.getLeft();
-                    var duration = effectFromFlower.getRight() * 2;
-
+                if (!effects.isEmpty()) {
                     stew = new ItemStack(Items.SUSPICIOUS_STEW);
-                    SuspiciousStewItem.saveMobEffect(stew, effect, duration);
+                    SuspiciousStewItem.saveMobEffects(stew, effects);
                 } else {
                     stew = new ItemStack(Items.MUSHROOM_STEW);
                 }

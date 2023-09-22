@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.atlases;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -79,7 +78,6 @@ public class AtlasRenderer {
         float f6 = Mth.sin(f1 * (float)Math.PI);
         pose.mulPose(Axis.YP.rotationDegrees(f * f6 * 70.0F));
         pose.mulPose(Axis.ZP.rotationDegrees(f * f5 * -20.0F));
-        RenderSystem.setShaderTexture(0, player.getSkinTextureLocation());
         pose.translate(f * -1.0F, 3.6F, 3.5D);
         pose.mulPose(Axis.ZP.rotationDegrees(f * 120.0F));
         pose.mulPose(Axis.XP.rotationDegrees(200.0F));

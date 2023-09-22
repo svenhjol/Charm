@@ -1,14 +1,13 @@
 package svenhjol.charm.feature.mooblooms;
 
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraft.world.level.block.state.BlockState;
-import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Optional;
+import java.util.List;
 
 public enum FlowerBlockState {
     ALLIUM(Blocks.ALLIUM.defaultBlockState()),
@@ -42,16 +41,17 @@ public enum FlowerBlockState {
         return flowerBlockState.getBlock();
     }
 
-    public Optional<Pair<MobEffect, Integer>> getEffect() {
+    public List<SuspiciousEffectHolder.EffectEntry> getEffects() {
         var block = flowerBlockState.getBlock();
+
         if (block instanceof FlowerBlock flowerBlock) {
-            return Optional.of(Pair.of(flowerBlock.getSuspiciousEffect(), flowerBlock.getEffectDuration()));
+            return flowerBlock.getSuspiciousEffects();
         } else if (this.equals(SUNFLOWER)) {
-            return Optional.of(Pair.of(MobEffects.HEALTH_BOOST, SUNFLOWER_HEALTH_DURATION * 20));
+            return List.of(new SuspiciousEffectHolder.EffectEntry(MobEffects.HEALTH_BOOST, SUNFLOWER_HEALTH_DURATION * 20));
         } else if (this.equals(PINK_PETALS)) {
-            return Optional.of(Pair.of(MobEffects.HEAL, CHERRY_BLOSSOM_HEALING_DURATION * 20));
+            return List.of(new SuspiciousEffectHolder.EffectEntry(MobEffects.HEAL, CHERRY_BLOSSOM_HEALING_DURATION * 20));
         }
 
-        return Optional.empty();
+        return List.of();
     }
 }

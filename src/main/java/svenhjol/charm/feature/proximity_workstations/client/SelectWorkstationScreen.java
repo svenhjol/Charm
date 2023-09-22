@@ -26,7 +26,7 @@ public class SelectWorkstationScreen extends Screen {
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
         super.render(guiGraphics, mouseX, mouseY, tickDelta);
-        renderBackground(guiGraphics);
+        renderBackground(guiGraphics, mouseX, mouseY, tickDelta);
 
         var midX = width / 2;
         var midY = height / 2;
@@ -86,7 +86,7 @@ public class SelectWorkstationScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics) {
+    public void renderBackground(GuiGraphics guiGraphics, int x, int y, float delta) {
         var midX = (width - backgroundWidth) / 2;
         var midY = (height - backgroundHeight) / 2;
 

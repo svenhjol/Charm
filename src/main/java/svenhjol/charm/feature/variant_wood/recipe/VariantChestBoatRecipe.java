@@ -2,7 +2,6 @@ package svenhjol.charm.feature.variant_wood.recipe;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.ItemStack;
@@ -26,8 +25,8 @@ public class VariantChestBoatRecipe extends CustomRecipe {
     public static final String CHEST_TYPE_TAG = "chest_type";
     static Map<ItemLike, ItemLike> cachedBoatPairs = new HashMap<>();
 
-    public VariantChestBoatRecipe(ResourceLocation id, CraftingBookCategory category) {
-        super(id, category);
+    public VariantChestBoatRecipe(CraftingBookCategory category) {
+        super(category);
         cachedBoatPairs.clear();
     }
 

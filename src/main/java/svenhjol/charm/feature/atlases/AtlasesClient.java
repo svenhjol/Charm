@@ -2,6 +2,7 @@ package svenhjol.charm.feature.atlases;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.CartographyTableScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -27,15 +28,24 @@ import java.util.function.Supplier;
 
 @ClientFeature
 public class AtlasesClient extends CharmFeature {
-    public static final RenderType ATLAS_BACKGROUND =
+    static final RenderType ATLAS_BACKGROUND =
         RenderType.text(Charm.instance().makeId("textures/map/atlas.png"));
-    public static final RenderType MAP_BACKGROUND =
+    static final RenderType MAP_BACKGROUND =
         RenderType.text(new ResourceLocation("textures/map/map_background.png"));
+    static final RenderType MAP_DECORATIONS
+        = RenderType.text(new ResourceLocation("textures/map/map_icons.png"));
     static final ResourceLocation CONTAINER_BACKGROUND =
         Charm.instance().makeId("textures/gui/atlas.png");
+    static final WidgetSprites UP_BUTTON = makeButton("up");
+    static final WidgetSprites DOWN_BUTTON = makeButton("down");
+    static final WidgetSprites LEFT_BUTTON = makeButton("left");
+    static final WidgetSprites RIGHT_BUTTON = makeButton("right");
+    static final WidgetSprites BACK_BUTTON = makeButton("back");
+    static final WidgetSprites ZOOM_IN_BUTTON = makeButton("zoom_in");
+    static final WidgetSprites ZOOM_OUT_BUTTON = makeButton("zoom_out");
+
     private AtlasRenderer renderer;
     private static int swappedSlot = -1;
-
     public static Supplier<String> OPEN_ATLAS_KEY;
 
     @Override
@@ -103,5 +113,14 @@ public class AtlasesClient extends CharmFeature {
 
     public static void handleSwappedSlot(AtlasesNetwork.SwappedAtlasSlot packet, Player player) {
         swappedSlot = packet.getSlot();
+    }
+
+    private static WidgetSprites makeButton(String name) {
+        var instance = Charm.instance();
+
+        return new WidgetSprites(
+            instance.makeId("widget/atlases/" + name + "_button"),
+            instance.makeId("widget/atlases/" + name + "_button_disabled"),
+            instance.makeId("widget/atlases/" + name + "_button_highlighted"));
     }
 }

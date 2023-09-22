@@ -2,7 +2,6 @@ package svenhjol.charm.feature.colored_glint_smithing_templates;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Container;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeItem;
@@ -14,11 +13,11 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
-import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmapi.event.LootTableModifyEvent;
 import svenhjol.charmapi.event.SmithingTableEvents;
 import svenhjol.charmapi.event.SmithingTableEvents.SmithingTableInstance;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.feature.colored_glints.ColoredGlints;
 
@@ -114,10 +113,8 @@ public class ColoredGlintSmithingTemplates extends CharmFeature {
         return false;
     }
 
-    private boolean handleCanPlace(Container inputs, int slotNumber, ItemStack stack) {
-        var template = ColoredGlintSmithingTemplates.item.get();
-
-        if (slotNumber == 0 && stack.is(template)) {
+    private boolean handleCanPlace(ItemStack template, int slotNumber, ItemStack stack) {
+        if (slotNumber == 0 && stack.is(template.getItem())) {
             return true;
         } else if (slotNumber == 1 && stack.isEnchanted()) {
             return true;

@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
 import svenhjol.charm.Charm;
@@ -19,7 +20,6 @@ import svenhjol.charmapi.iface.IScreenOffsetTweakProvider;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
-import svenhjol.charmony.helper.ResourceHelper;
 import svenhjol.charmony.helper.ScreenHelper;
 
 import java.util.ArrayList;
@@ -37,6 +37,10 @@ public class InventoryTidyingClient extends CharmFeature
     private static final List<Class<? extends Screen>> WHITELISTED_SCREENS = new ArrayList<>();
     private static final List<Class<? extends Screen>> BLACKLISTED_SCREENS = new ArrayList<>();
     private static final Map<Class<? extends Screen>, Pair<Integer, Integer>> SCREEN_TWEAKS = new HashMap<>();
+    static final WidgetSprites TIDY_BUTTON = new WidgetSprites(
+        Charm.instance().makeId("widget/inventory_tidying/tidy_button"),
+        Charm.instance().makeId("widget/inventory_tidying/tidy_button_highlighted")
+    );
 
     @Override
     public List<BooleanSupplier> checks() {
@@ -103,7 +107,7 @@ public class InventoryTidyingClient extends CharmFeature
     }
 
     private void addSortingButton(Screen screen, int x, int y, Button.OnPress callback) {
-        SORTING_BUTTONS.add(new ImageButton(x, y, 10, 10, 40, 0, 10, ResourceHelper.INVENTORY_BUTTONS, callback));
+        SORTING_BUTTONS.add(new ImageButton(x, y, 10, 10, TIDY_BUTTON, callback));
     }
 
     private void handleScreenRender(AbstractContainerScreen<?> screen, GuiGraphics guiGraphics, int mouseX, int mouseY) {

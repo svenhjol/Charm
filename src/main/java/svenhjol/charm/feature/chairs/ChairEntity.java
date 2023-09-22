@@ -54,7 +54,7 @@ public class ChairEntity extends Entity {
     }
 
     @Override
-    public double getPassengersRidingOffset() {
+    public float ridingOffset(Entity entity) {
         return -0.25F;
     }
 

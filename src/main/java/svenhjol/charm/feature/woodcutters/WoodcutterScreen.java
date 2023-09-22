@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import svenhjol.charmony.feature.woodcutting.WoodcuttingRecipe;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
 
    protected void renderBg(GuiGraphics guiGraphics, float delta, int mouseX, int mouseY) {
       var pose = guiGraphics.pose();
-      this.renderBackground(guiGraphics);
+      this.renderBackground(guiGraphics, mouseX, mouseY, delta);
       RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
       RenderSystem.setShaderTexture(0, TEXTURE);
       int i = this.getX();
@@ -60,14 +61,16 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
          int i = this.getX() + 52;
          int j = this.getY() + 14;
          int k = this.scrollOffset + 12;
-         List<WoodcuttingRecipe> list = (this.menu).getAvailableRecipes();
+         List<RecipeHolder<WoodcuttingRecipe>> list = (this.menu).getRecipes();
 
          for (int l = this.scrollOffset; l < k && l < (this.menu).getAvailableRecipeCount(); ++l) {
             int m = l - this.scrollOffset;
             int n = i + m % 4 * 16;
             int o = j + m / 4 * 18 + 2;
             if (x >= n && x < n + 16 && y >= o && y < o + 18) {
-               guiGraphics.renderTooltip(this.font, list.get(l).getResultItem(this.minecraft.level.registryAccess()), x, y);
+               guiGraphics.renderTooltip(this.font, list.get(l)
+                   .value()
+                   .getResultItem(this.minecraft.level.registryAccess()), x, y);
             }
          }
       }
@@ -92,15 +95,15 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
    }
 
    private void renderRecipeIcons(GuiGraphics guiGraphics, int x, int y, int scrollOffset) {
-      List<WoodcuttingRecipe> list = (this.menu).getAvailableRecipes();
+      var list = this.menu.getRecipes();
       if (this.minecraft == null || this.minecraft.level == null) return;
 
-      for (int i = this.scrollOffset; i < scrollOffset && i < (this.menu).getAvailableRecipeCount(); ++i) {
+      for (var i = this.scrollOffset; i < scrollOffset && i < (this.menu).getAvailableRecipeCount(); ++i) {
          int j = i - this.scrollOffset;
          int k = x + j % 4 * 16;
          int l = j / 4;
          int m = y + l * 18 + 2;
-         guiGraphics.renderItem(list.get(i).getResultItem(this.minecraft.level.registryAccess()), k, m);
+         guiGraphics.renderItem(list.get(i).value().getResultItem(this.minecraft.level.registryAccess()), k, m);
       }
    }
 
