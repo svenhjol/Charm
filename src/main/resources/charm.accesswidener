@@ -10,6 +10,12 @@ accessible class net/minecraft/world/level/levelgen/structure/structures/Minesha
 accessible method net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
 accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer <init> (Lnet/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker;)V
 
+## Methods
+accessible method net/minecraft/world/level/block/piston/PistonHeadBlock isFittingBase (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)Z
+extendable method net/minecraft/world/level/block/piston/PistonHeadBlock isFittingBase (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)Z
+
+accessible method net/minecraft/world/level/block/piston/PistonBaseBlock checkIfExtend (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+extendable method net/minecraft/world/level/block/piston/PistonBaseBlock checkIfExtend (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
 
 ## Fields
 accessible field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
