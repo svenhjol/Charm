@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.variant_wood.registry;
 
 import svenhjol.charm.feature.variant_wood.block.VariantLadderBlock;
-import svenhjol.charmapi.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.iface.ICommonRegistry;
 
 import java.util.function.Supplier;

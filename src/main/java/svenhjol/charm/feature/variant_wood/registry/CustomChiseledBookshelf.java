@@ -2,7 +2,7 @@ package svenhjol.charm.feature.variant_wood.registry;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.feature.variant_wood.block.VariantChiseledBookshelfBlock;
-import svenhjol.charmapi.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.iface.ICommonRegistry;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.azalea_wood;
 
 import svenhjol.charmony.Charmony;
-import svenhjol.charmapi.iface.IRecipeFilter;
-import svenhjol.charmapi.iface.IRecipeRemoveProvider;
+import svenhjol.charmony.api.iface.IRecipeFilter;
+import svenhjol.charmony.api.iface.IRecipeRemoveProvider;
 import svenhjol.charmony.feature.woodcutting.Woodcutting;
 
 import java.util.List;

@@ -25,7 +25,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.MineshaftPieceAccessor;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmapi.event.LevelLoadEvent;
+import svenhjol.charmony.api.event.LevelLoadEvent;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.mixin.accessor.BlockItemAccessor;
 

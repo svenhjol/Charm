@@ -7,8 +7,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.Charm;
-import svenhjol.charmapi.Charmapi;
-import svenhjol.charmapi.iface.ITotemInventoryCheckProvider;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.iface.ITotemInventoryCheckProvider;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
@@ -26,7 +26,7 @@ public class TotemsWorkFromInventory extends CharmFeature implements ITotemInven
         ApiHelper.consume(ITotemInventoryCheckProvider.class,
             provider -> inventoryChecks.addAll(provider.getTotemInventoryChecks()));
 
-        Charmapi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     public static ItemStack tryUsingTotemFromInventory(LivingEntity entity) {

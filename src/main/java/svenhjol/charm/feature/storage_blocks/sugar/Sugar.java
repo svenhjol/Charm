@@ -5,7 +5,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charmapi.iface.IStorageBlockFeature;
+import svenhjol.charmony.api.iface.IStorageBlockFeature;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;

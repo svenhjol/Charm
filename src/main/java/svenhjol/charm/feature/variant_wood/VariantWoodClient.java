@@ -21,7 +21,7 @@ import svenhjol.charm.feature.variant_wood.registry.CustomChestBoat;
 import svenhjol.charm.feature.variant_wood.registry.CustomTrappedChest;
 import svenhjol.charm.feature.variant_wood.renderer.VariantChestBlockEntityRenderer;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmapi.event.BlockItemRenderEvent;
+import svenhjol.charmony.api.event.BlockItemRenderEvent;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.iface.IClientRegistry;
 

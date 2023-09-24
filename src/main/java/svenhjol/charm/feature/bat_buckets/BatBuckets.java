@@ -17,10 +17,10 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charmapi.Charmapi;
-import svenhjol.charmapi.event.EntityUseEvent;
-import svenhjol.charmapi.iface.IWandererTrade;
-import svenhjol.charmapi.iface.IWandererTradeProvider;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.EntityUseEvent;
+import svenhjol.charmony.api.iface.IWandererTrade;
+import svenhjol.charmony.api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ItemNbtHelper;
@@ -44,7 +44,7 @@ public class BatBuckets extends CharmFeature implements IWandererTradeProvider {
         grabSound = registry.soundEvent("bat_bucket_grab");
         releaseSound = registry.soundEvent("bat_bucket_release");
 
-        Charmapi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     @Override

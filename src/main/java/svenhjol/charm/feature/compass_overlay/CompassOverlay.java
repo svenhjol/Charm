@@ -10,7 +10,7 @@ import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.accessor.GuiAccessor;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmapi.event.HudRenderEvent;
+import svenhjol.charmony.api.event.HudRenderEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 @SuppressWarnings({"resource"})

@@ -15,9 +15,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charmapi.Charmapi;
-import svenhjol.charmapi.event.BlockUseEvent;
-import svenhjol.charmapi.iface.IQuickReplantProvider;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.BlockUseEvent;
+import svenhjol.charmony.api.iface.IQuickReplantProvider;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
@@ -44,7 +44,7 @@ public class QuickReplant extends CharmFeature implements IQuickReplantProvider 
             provider -> provider.getHarvestableBlocks().forEach(
                 supplier -> REPLANTABLE.add(supplier.get())));
 
-        Charmapi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     @Override

@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.PlayerAccessor;
-import svenhjol.charmapi.event.PlayerTickEvent;
+import svenhjol.charmony.api.event.PlayerTickEvent;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 
