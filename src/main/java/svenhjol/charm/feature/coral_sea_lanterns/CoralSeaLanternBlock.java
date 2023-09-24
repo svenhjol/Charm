@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.coral_sea_lanterns;
 
 import net.minecraft.world.level.block.Block;
-import svenhjol.charmapi.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmBlock;
 import svenhjol.charmony.base.CharmBlockItem;
 import svenhjol.charmony.base.CharmFeature;

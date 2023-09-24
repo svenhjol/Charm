@@ -3,8 +3,8 @@ package svenhjol.charm.feature.player_pressure_plates;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmapi.iface.IWandererTrade;
-import svenhjol.charmapi.iface.IWandererTradeProvider;
+import svenhjol.charmony.api.iface.IWandererTrade;
+import svenhjol.charmony.api.iface.IWandererTradeProvider;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.List;

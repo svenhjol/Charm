@@ -10,9 +10,9 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import svenhjol.charm.Charm;
-import svenhjol.charmapi.Charmapi;
-import svenhjol.charmapi.event.LevelLoadEvent;
-import svenhjol.charmapi.iface.*;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.LevelLoadEvent;
+import svenhjol.charmony.api.iface.*;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.feature.custom_wood.CustomWood;
@@ -47,8 +47,8 @@ public class AzaleaWood extends CharmFeature implements
 
         CustomWood.registerWood(this, registry, new AzaleaWoodDefinition());
 
-        Charmapi.registerProvider(this);
-        Charmapi.registerProvider(new AzaleaWoodRecipeFilter());
+        CharmonyApi.registerProvider(this);
+        CharmonyApi.registerProvider(new AzaleaWoodRecipeFilter());
     }
 
     @Override

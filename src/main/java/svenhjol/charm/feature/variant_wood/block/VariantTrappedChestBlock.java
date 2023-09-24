@@ -10,7 +10,7 @@ import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.variant_wood.entity.VariantTrappedChestBlockEntity;
 import svenhjol.charm.feature.variant_wood.iface.IVariantChest;
 import svenhjol.charm.feature.variant_wood.registry.CustomTrappedChest;
-import svenhjol.charmapi.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
 

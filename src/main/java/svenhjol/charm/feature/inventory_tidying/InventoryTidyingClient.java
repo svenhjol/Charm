@@ -10,13 +10,13 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.AbstractContainerScreenAccessor;
-import svenhjol.charmapi.Charmapi;
-import svenhjol.charmapi.event.ScreenRenderEvent;
-import svenhjol.charmapi.event.ScreenSetupEvent;
-import svenhjol.charmapi.iface.IHasScreenOffsetTweaks;
-import svenhjol.charmapi.iface.IInventoryTidyingBlacklistProvider;
-import svenhjol.charmapi.iface.IInventoryTidyingWhitelistProvider;
-import svenhjol.charmapi.iface.IScreenOffsetTweakProvider;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.ScreenRenderEvent;
+import svenhjol.charmony.api.event.ScreenSetupEvent;
+import svenhjol.charmony.api.iface.IHasScreenOffsetTweaks;
+import svenhjol.charmony.api.iface.IInventoryTidyingBlacklistProvider;
+import svenhjol.charmony.api.iface.IInventoryTidyingWhitelistProvider;
+import svenhjol.charmony.api.iface.IScreenOffsetTweakProvider;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
@@ -60,7 +60,7 @@ public class InventoryTidyingClient extends CharmFeature
         ApiHelper.consume(IInventoryTidyingBlacklistProvider.class,
             provider -> BLACKLISTED_SCREENS.addAll(provider.getBlacklistedInventoryTidyingScreens()));
 
-        Charmapi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     @Override

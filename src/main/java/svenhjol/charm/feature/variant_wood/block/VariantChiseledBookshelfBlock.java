@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.ChiseledBookShelfBlock;
 import net.minecraft.world.level.block.SoundType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.VariantWood;
-import svenhjol.charmapi.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
 

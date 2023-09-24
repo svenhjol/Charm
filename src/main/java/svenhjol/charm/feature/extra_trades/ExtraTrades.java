@@ -8,8 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import svenhjol.charm.Charm;
-import svenhjol.charmapi.Charmapi;
-import svenhjol.charmapi.iface.IWandererTradeProvider;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
@@ -101,7 +101,7 @@ public class ExtraTrades extends CharmFeature implements IWandererTradeProvider 
                 });
         }
 
-        Charmapi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     static class AnvilRepair implements VillagerTrades.ItemListing {

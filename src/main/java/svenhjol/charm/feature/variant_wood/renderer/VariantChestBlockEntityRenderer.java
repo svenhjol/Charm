@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.feature.variant_wood.entity.VariantChestBlockEntity;
 import svenhjol.charm.feature.variant_wood.entity.VariantTrappedChestBlockEntity;
-import svenhjol.charmapi.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;

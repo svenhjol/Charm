@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.extra_recipes;
 
 import svenhjol.charm.Charm;
-import svenhjol.charmapi.Charmapi;
+import svenhjol.charmony.api.CharmonyApi;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
@@ -43,7 +43,7 @@ public class ExtraRecipes extends CharmFeature {
 
     @Override
     public void register() {
-        Charmapi.registerProvider(new ExtraRecipesRecipeFilters());
-        Charmapi.registerProvider(this);
+        CharmonyApi.registerProvider(new ExtraRecipesRecipeFilters());
+        CharmonyApi.registerProvider(this);
     }
 }

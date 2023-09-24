@@ -15,7 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.BrushableBlockEntityAccessor;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmapi.event.BlockUseEvent;
+import svenhjol.charmony.api.event.BlockUseEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.HashMap;

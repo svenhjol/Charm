@@ -13,8 +13,8 @@ import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.MobAccessor;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmapi.event.EntityJoinEvent;
-import svenhjol.charmapi.event.PlayerTickEvent;
+import svenhjol.charmony.api.event.EntityJoinEvent;
+import svenhjol.charmony.api.event.PlayerTickEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.List;

@@ -3,8 +3,8 @@ package svenhjol.charm.feature.vanilla_wood_variants;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import svenhjol.charmapi.iface.IVariantChestBoatDefinition;
-import svenhjol.charmapi.iface.IVariantWoodMaterial;
+import svenhjol.charmony.api.iface.IVariantChestBoatDefinition;
+import svenhjol.charmony.api.iface.IVariantWoodMaterial;
 import svenhjol.charmony.enums.VanillaWood;
 
 import java.util.function.Supplier;

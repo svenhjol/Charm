@@ -4,7 +4,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.feature.variant_wood.block.VariantBarrelBlock;
-import svenhjol.charmapi.iface.IVariantMaterial;
+import svenhjol.charmony.api.iface.IVariantMaterial;
 import svenhjol.charmony.iface.ICommonRegistry;
 
 import java.util.List;

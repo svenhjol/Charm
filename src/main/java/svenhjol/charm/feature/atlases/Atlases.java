@@ -19,11 +19,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.atlases.MapItemSavedDataMixin;
-import svenhjol.charmapi.Charmapi;
-import svenhjol.charmapi.event.PlayerLoginEvent;
-import svenhjol.charmapi.event.PlayerTickEvent;
-import svenhjol.charmapi.iface.IWandererTrade;
-import svenhjol.charmapi.iface.IWandererTradeProvider;
+import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony.api.event.PlayerLoginEvent;
+import svenhjol.charmony.api.event.PlayerTickEvent;
+import svenhjol.charmony.api.iface.IWandererTrade;
+import svenhjol.charmony.api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
@@ -59,7 +59,7 @@ public class Atlases extends CharmFeature implements IWandererTradeProvider {
         CLOSE_SOUND = registry.soundEvent("atlas_close");
 
         AtlasesNetwork.register();
-        Charmapi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     @Override

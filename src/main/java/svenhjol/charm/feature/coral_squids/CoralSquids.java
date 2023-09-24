@@ -12,8 +12,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmapi.iface.IWandererTrade;
-import svenhjol.charmapi.iface.IWandererTradeProvider;
+import svenhjol.charmony.api.iface.IWandererTrade;
+import svenhjol.charmony.api.iface.IWandererTradeProvider;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.List;

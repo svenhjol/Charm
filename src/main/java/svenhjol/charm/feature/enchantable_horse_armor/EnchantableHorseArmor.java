@@ -4,10 +4,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
 import svenhjol.charm.Charm;
-import svenhjol.charmapi.Charmapi;
+import svenhjol.charmony.api.CharmonyApi;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmapi.iface.IHorseArmorEnchantmentProvider;
+import svenhjol.charmony.api.iface.IHorseArmorEnchantmentProvider;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
 
@@ -36,7 +36,7 @@ public class EnchantableHorseArmor extends CharmFeature implements IHorseArmorEn
         ApiHelper.consume(IHorseArmorEnchantmentProvider.class,
             provider -> provider.getEnchantments().forEach(this::addEnchantment));
 
-        Charmapi.registerProvider(this);
+        CharmonyApi.registerProvider(this);
     }
 
     private void addEnchantment(Enchantment enchantment) {

@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import svenhjol.charm.Charm;
-import svenhjol.charmapi.event.AnvilRepairEvent;
+import svenhjol.charmony.api.event.AnvilRepairEvent;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
