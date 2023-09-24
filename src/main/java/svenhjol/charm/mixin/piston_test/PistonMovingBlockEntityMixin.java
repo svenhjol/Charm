@@ -12,16 +12,4 @@ public abstract class PistonMovingBlockEntityMixin extends BlockEntity {
     public PistonMovingBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
     }
-
-//    @Inject(
-//        method = "getCollisionRelatedBlockState",
-//        at = @At("RETURN"),
-//        cancellable = true
-//    )
-//    private void hookGetCollisionRelatedBlockState(CallbackInfoReturnable<BlockState> cir) {
-//        if (this.getBlockState().is(PistonTest.movingCopperPistonBlock.get())) {
-//            var opt = PistonTest.tryMapState(cir.getReturnValue());
-//            opt.ifPresent(cir::setReturnValue);
-//        }
-//    }
 }
