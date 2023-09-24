@@ -9,4 +9,6 @@ public class CharmTags {
         Charm.instance().makeId("chests/normal"));
     public static final TagKey<Item> COLORED_DYES = TagKey.create(BuiltInRegistries.ITEM.key(),
         Charm.instance().makeId("colored_dyes"));
+    public static final TagKey<Item> HAS_SUSPICIOUS_EFFECTS = TagKey.create(BuiltInRegistries.ITEM.key(),
+        Charm.instance().makeId("has_suspicious_effects"));
 }
