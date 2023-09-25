@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "charm",
-  "version": "${version}",
+  "version": "${mod_version}",
   "name": "Charm",
   "description": "Tweaks and additions to Minecraft without changing core gameplay.",
   "authors": [
