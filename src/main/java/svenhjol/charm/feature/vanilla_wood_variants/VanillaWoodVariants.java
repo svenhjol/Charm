@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.vanilla_wood_variants;
 
 import svenhjol.charm.Charm;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.iface.*;
+import svenhjol.charmony_api.CharmonyApi;
+import svenhjol.charmony_api.iface.*;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.enums.VanillaWood;

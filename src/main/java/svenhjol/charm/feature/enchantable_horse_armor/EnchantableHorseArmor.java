@@ -4,10 +4,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.iface.IHorseArmorEnchantmentProvider;
+import svenhjol.charmony_api.iface.IHorseArmorEnchantmentProvider;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
 

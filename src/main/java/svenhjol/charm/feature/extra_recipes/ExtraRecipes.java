@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.extra_recipes;
 
 import svenhjol.charm.Charm;
-import svenhjol.charmony.api.CharmonyApi;
+import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;

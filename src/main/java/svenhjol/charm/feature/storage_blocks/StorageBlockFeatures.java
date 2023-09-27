@@ -6,8 +6,8 @@ import svenhjol.charm.feature.storage_blocks.gunpowder.Gunpowder;
 import svenhjol.charm.feature.storage_blocks.gunpowder.GunpowderClient;
 import svenhjol.charm.feature.storage_blocks.sugar.Sugar;
 import svenhjol.charm.feature.storage_blocks.sugar.SugarClient;
-import svenhjol.charmony.api.iface.IStorageBlockFeature;
-import svenhjol.charmony.api.iface.IStorageBlockProvider;
+import svenhjol.charmony_api.iface.IStorageBlockFeature;
+import svenhjol.charmony_api.iface.IStorageBlockProvider;
 
 import java.util.List;
 

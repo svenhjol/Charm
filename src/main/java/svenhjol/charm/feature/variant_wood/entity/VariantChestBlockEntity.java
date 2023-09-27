@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.feature.variant_wood.iface.IVariantChest;
 import svenhjol.charm.feature.variant_wood.registry.CustomChest;
-import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmony_api.iface.IVariantMaterial;
 
 import javax.annotation.Nullable;
 

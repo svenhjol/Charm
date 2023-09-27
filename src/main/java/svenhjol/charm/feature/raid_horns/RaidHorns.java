@@ -17,10 +17,10 @@ import net.minecraft.world.level.levelgen.PatrolSpawner;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.PatrolSpawnerAccessor;
 import svenhjol.charm.mixin.accessor.ServerLevelAccessor;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.event.EntityKilledDropEvent;
-import svenhjol.charmony.api.iface.IWandererTrade;
-import svenhjol.charmony.api.iface.IWandererTradeProvider;
+import svenhjol.charmony_api.CharmonyApi;
+import svenhjol.charmony_api.event.EntityKilledDropEvent;
+import svenhjol.charmony_api.iface.IWandererTrade;
+import svenhjol.charmony_api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 

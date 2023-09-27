@@ -3,8 +3,8 @@ package svenhjol.charm.feature.variant_wood.registry;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.feature.variant_wood.recipe.VariantChestBoatRecipe;
-import svenhjol.charmony.api.iface.IVariantChestBoatDefinition;
-import svenhjol.charmony.api.iface.IVariantWoodMaterial;
+import svenhjol.charmony_api.iface.IVariantChestBoatDefinition;
+import svenhjol.charmony_api.iface.IVariantWoodMaterial;
 import svenhjol.charmony.iface.ICommonRegistry;
 
 import java.util.HashMap;

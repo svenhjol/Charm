@@ -12,7 +12,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.MobAccessor;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.event.EntityJoinEvent;
+import svenhjol.charmony_api.event.EntityJoinEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.UUID;

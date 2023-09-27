@@ -17,8 +17,8 @@ import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.atlases.CartographyTableScreenMixin;
-import svenhjol.charmony.api.event.HeldItemRenderEvent;
-import svenhjol.charmony.api.event.KeyPressEvent;
+import svenhjol.charmony_api.event.HeldItemRenderEvent;
+import svenhjol.charmony_api.event.KeyPressEvent;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.base.CharmFeature;
 

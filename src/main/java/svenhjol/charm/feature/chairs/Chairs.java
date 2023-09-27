@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.event.BlockUseEvent;
+import svenhjol.charmony_api.event.BlockUseEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.function.Supplier;

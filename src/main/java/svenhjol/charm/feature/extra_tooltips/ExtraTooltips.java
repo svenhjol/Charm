@@ -18,9 +18,9 @@ import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.api.event.TooltipComponentEvent;
-import svenhjol.charmony.api.event.TooltipItemHoverEvent;
-import svenhjol.charmony.api.event.TooltipRenderEvent;
+import svenhjol.charmony_api.event.TooltipComponentEvent;
+import svenhjol.charmony_api.event.TooltipItemHoverEvent;
+import svenhjol.charmony_api.event.TooltipRenderEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 import javax.annotation.Nullable;

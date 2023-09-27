@@ -14,10 +14,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.api.CharmonyApi;
-import svenhjol.charmony.api.event.EntityKilledDropEvent;
-import svenhjol.charmony.api.iface.IWandererTrade;
-import svenhjol.charmony.api.iface.IWandererTradeProvider;
+import svenhjol.charmony_api.CharmonyApi;
+import svenhjol.charmony_api.event.EntityKilledDropEvent;
+import svenhjol.charmony_api.iface.IWandererTrade;
+import svenhjol.charmony_api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 
