@@ -2,7 +2,7 @@
   "parent": "minecraft:block/template_piston_head",
   "textures": {
     "platform": "charm:block/copper_piston_top",
-    "side": "minecraft:block/piston_side",
+    "side": "charm:block/copper_piston_side",
     "unsticky": "charm:block/copper_piston_top"
   }
 }
