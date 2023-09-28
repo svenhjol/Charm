@@ -40,30 +40,30 @@ public class CopperPistons extends CharmFeature {
 
     public static boolean alsoCheckTags(BlockState state, Block block) {
         var defaultState = block.defaultBlockState();
+        boolean found = false;
 
         if (defaultState.is(Blocks.MOVING_PISTON)) {
             debug("found in moving_pistons tag: " + block);
-            return state.is(CharmTags.MOVING_PISTONS);
+            found = state.is(CharmTags.MOVING_PISTONS);
         }
         if (defaultState.is(Blocks.PISTON)) {
             debug("found in pistons tag: " + block);
-            return state.is(CharmTags.PISTONS);
+            found = state.is(CharmTags.PISTONS);
         }
         if (defaultState.is(Blocks.STICKY_PISTON)) {
             debug("found in sticky_pistons tag: " + block);
-            return state.is(CharmTags.STICKY_PISTONS);
-        }
-        if (defaultState.is(Blocks.MOVING_PISTON)) {
-            debug("found in moving_pistons tag: " + block);
-            return state.is(CharmTags.MOVING_PISTONS);
+            found = state.is(CharmTags.STICKY_PISTONS);
         }
         if (defaultState.is(Blocks.PISTON_HEAD)) {
             debug("found in piston_heads tag: " + block);
-            return state.is(CharmTags.PISTON_HEADS);
+            found = state.is(CharmTags.PISTON_HEADS);
         }
+
+        if (found) return true;
 
         // Fallthrough to default behavior
         return state.is(block);
+
     }
 
     public static void debug(String message) {

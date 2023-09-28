@@ -3,6 +3,6 @@
   "textures": {
     "bottom": "minecraft:block/piston_bottom",
     "platform": "charm:block/copper_piston_top_sticky",
-    "side": "minecraft:block/piston_side"
+    "side": "charm:block/copper_piston_side"
   }
 }

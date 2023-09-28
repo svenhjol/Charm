@@ -48,7 +48,7 @@ public class PistonBaseBlockMixin {
         cancellable = true
     )
     private void hookReturnEarlyFromGetNeighbourSignal(SignalGetter signalGetter, BlockPos blockPos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
-        if (isCopperPistonBlock() || isStickyCopperPistonBlock()) {
+        if (false && (isCopperPistonBlock() || isStickyCopperPistonBlock())) {
             cir.setReturnValue(false);
         }
     }
