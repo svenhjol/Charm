@@ -2,6 +2,7 @@ package svenhjol.charm.feature.atlases;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.CartographyTableScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -17,8 +18,8 @@ import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.atlases.CartographyTableScreenMixin;
-import svenhjol.charmony.api.event.HeldItemRenderEvent;
-import svenhjol.charmony.api.event.KeyPressEvent;
+import svenhjol.charmony_api.event.HeldItemRenderEvent;
+import svenhjol.charmony_api.event.KeyPressEvent;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.base.CharmFeature;
 
@@ -77,7 +78,7 @@ public class AtlasesClient extends CharmFeature {
     }
 
     private void handleKeyPress(String id) {
-        if (id.equals(OPEN_ATLAS_KEY.get())) {
+        if (Minecraft.getInstance().level != null && id.equals(OPEN_ATLAS_KEY.get())) {
             AtlasesNetwork.SwapAtlasSlot.send(swappedSlot);
         }
     }

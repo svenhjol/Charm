@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.extra_recipes;
 
-import svenhjol.charmony.api.iface.IRecipeFilter;
-import svenhjol.charmony.api.iface.IRecipeRemoveProvider;
+import svenhjol.charmony_api.iface.IRecipeFilter;
+import svenhjol.charmony_api.iface.IRecipeRemoveProvider;
 
 import java.util.List;
 

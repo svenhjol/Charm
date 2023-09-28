@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charm.mixin.accessor.MobAccessor;
-import svenhjol.charmony.api.event.EntityJoinEvent;
-import svenhjol.charmony.api.iface.IStorageBlockFeature;
+import svenhjol.charmony_api.event.EntityJoinEvent;
+import svenhjol.charmony_api.iface.IStorageBlockFeature;
 
 import java.util.Collections;
 import java.util.HashMap;

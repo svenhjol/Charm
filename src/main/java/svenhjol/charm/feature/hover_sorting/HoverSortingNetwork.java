@@ -4,7 +4,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.Packet;
-import svenhjol.charmony.api.event.ItemHoverSortEvent;
+import svenhjol.charmony_api.event.ItemHoverSortEvent;
 import svenhjol.charmony.enums.PacketDirection;
 import svenhjol.charmony.iface.IPacketRequest;
 

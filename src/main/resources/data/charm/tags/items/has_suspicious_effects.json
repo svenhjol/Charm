@@ -1,0 +1,8 @@
+{
+  "replace": true,
+  "values": [
+    "#minecraft:small_flowers",
+    "minecraft:pitcher_plant",
+    "minecraft:sunflower"
+  ]
+}

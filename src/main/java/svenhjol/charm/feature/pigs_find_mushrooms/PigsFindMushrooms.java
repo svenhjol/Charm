@@ -12,7 +12,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.accessor.MobAccessor;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.api.event.EntityJoinEvent;
+import svenhjol.charmony_api.event.EntityJoinEvent;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.UUID;
@@ -38,7 +38,7 @@ public class PigsFindMushrooms extends CharmFeature {
         name = "Chance to erode block",
         description = "Chance (out of 1.0) of a block being converted to dirt when a pig finds a mushroom."
     )
-    public static float erodeChance = 0.25f;
+    public static double erodeChance = 0.25d;
 
     @Override
     public void register() {

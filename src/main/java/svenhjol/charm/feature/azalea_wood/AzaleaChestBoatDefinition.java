@@ -2,8 +2,8 @@ package svenhjol.charm.feature.azalea_wood;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.level.ItemLike;
-import svenhjol.charmony.api.iface.IVariantChestBoatDefinition;
-import svenhjol.charmony.api.iface.IVariantWoodMaterial;
+import svenhjol.charmony_api.iface.IVariantChestBoatDefinition;
+import svenhjol.charmony_api.iface.IVariantWoodMaterial;
 import svenhjol.charmony.feature.custom_wood.CustomWood;
 
 import java.util.function.Supplier;

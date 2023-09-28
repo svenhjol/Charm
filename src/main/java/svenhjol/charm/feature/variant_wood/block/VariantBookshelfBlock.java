@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.VariantWood;
-import svenhjol.charmony.api.iface.IVariantMaterial;
+import svenhjol.charmony_api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
 import svenhjol.charmony.iface.IIgniteProvider;
