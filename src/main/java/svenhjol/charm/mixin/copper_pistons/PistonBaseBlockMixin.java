@@ -1,13 +1,16 @@
 package svenhjol.charm.mixin.copper_pistons;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.SignalGetter;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
 
 @Mixin(PistonBaseBlock.class)
@@ -35,22 +38,19 @@ public class PistonBaseBlockMixin {
         return newState != null ? newState : originalState;
     }
 
-    /**
-     * Vanilla behavior is to check the block above the piston for signal.
-     * Copper pistons prevent that quasi-connectivity behaviour so redirect the pos to itself.
-     */
-    @Redirect(
+    @Inject(
         method = "getNeighborSignal",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;"
-        )
+            target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;",
+            shift = At.Shift.AFTER
+        ),
+        cancellable = true
     )
-    private BlockPos redirectCheckAbove(BlockPos pos) {
+    private void hookReturnEarlyFromGetNeighbourSignal(SignalGetter signalGetter, BlockPos blockPos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
         if (isCopperPistonBlock() || isStickyCopperPistonBlock()) {
-            return pos;
+            cir.setReturnValue(false);
         }
-        return pos.above(); // default behavior
     }
 
     @Unique
