@@ -38,7 +38,7 @@ public class PigsFindMushrooms extends CharmFeature {
         name = "Chance to erode block",
         description = "Chance (out of 1.0) of a block being converted to dirt when a pig finds a mushroom."
     )
-    public static float erodeChance = 0.25f;
+    public static double erodeChance = 0.25d;
 
     @Override
     public void register() {
