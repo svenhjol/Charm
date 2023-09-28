@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.piston_test;
+package svenhjol.charm.feature.copper_pistons;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;

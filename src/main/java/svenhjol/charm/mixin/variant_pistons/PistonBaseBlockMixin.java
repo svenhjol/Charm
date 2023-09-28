@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.feature.piston_test.PistonTest;
+import svenhjol.charm.feature.copper_pistons.CopperPistons;
 
 @Mixin(PistonBaseBlock.class)
 public class PistonBaseBlockMixin {
@@ -18,7 +18,7 @@ public class PistonBaseBlockMixin {
         )
     )
     private boolean redirectBlockStateChecks(BlockState state, Block block) {
-        return PistonTest.alsoCheckTags(state, block);
+        return CopperPistons.alsoCheckTags(state, block);
     }
 
     @Redirect(
@@ -29,6 +29,6 @@ public class PistonBaseBlockMixin {
         )
     )
     private static boolean redirectStaticBlockStateChecks(BlockState state, Block block) {
-        return PistonTest.alsoCheckTags(state, block);
+        return CopperPistons.alsoCheckTags(state, block);
     }
 }

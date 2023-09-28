@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.piston_test;
+package svenhjol.charm.mixin.copper_pistons;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.feature.piston_test.PistonTest;
+import svenhjol.charm.feature.copper_pistons.CopperPistons;
 
 @Mixin(PistonBaseBlock.class)
 public class PistonBaseBlockMixin {
@@ -26,12 +26,13 @@ public class PistonBaseBlockMixin {
         index = 2
     )
     private BlockState modifyPistonHead(BlockState originalState) {
-        if (isCopperPistonBlock()) {
-            var newState = PistonTest.copperPistonHeadBlock.get()
-                .withPropertiesOf(originalState);
-            return newState;
+        BlockState newState = null;
+
+        if (isCopperPistonBlock() || isStickyCopperPistonBlock()) {
+            newState = CopperPistons.copperPistonHeadBlock.get().withPropertiesOf(originalState);
         }
-        return originalState; // default behavior
+
+        return newState != null ? newState : originalState;
     }
 
     /**
@@ -46,7 +47,7 @@ public class PistonBaseBlockMixin {
         )
     )
     private BlockPos redirectCheckAbove(BlockPos pos) {
-        if (isCopperPistonBlock()) {
+        if (isCopperPistonBlock() || isStickyCopperPistonBlock()) {
             return pos;
         }
         return pos.above(); // default behavior
@@ -55,6 +56,12 @@ public class PistonBaseBlockMixin {
     @Unique
     private boolean isCopperPistonBlock() {
         var pistonBlockState = ((PistonBaseBlock)(Object)this).defaultBlockState();
-        return pistonBlockState.is(PistonTest.copperPistonBlock.get());
+        return pistonBlockState.is(CopperPistons.copperPistonBlock.get());
+    }
+
+    @Unique
+    private boolean isStickyCopperPistonBlock() {
+        var pistonBlockState = ((PistonBaseBlock)(Object)this).defaultBlockState();
+        return pistonBlockState.is(CopperPistons.stickyCopperPistonBlock.get());
     }
 }

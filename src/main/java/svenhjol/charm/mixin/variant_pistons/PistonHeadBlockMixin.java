@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.piston_test.PistonTest;
+import svenhjol.charm.feature.copper_pistons.CopperPistons;
 
 @Mixin(PistonHeadBlock.class)
 public class PistonHeadBlockMixin {
@@ -30,7 +30,7 @@ public class PistonHeadBlockMixin {
         )
     )
     private boolean redirectBlockStateChecks(BlockState state, Block block) {
-        return PistonTest.alsoCheckTags(state, block);
+        return CopperPistons.alsoCheckTags(state, block);
     }
 
     @Inject(
@@ -40,11 +40,11 @@ public class PistonHeadBlockMixin {
     )
     private void hookGetCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, CallbackInfoReturnable<ItemStack> cir) {
         if (isCopperPistonBlock()) {
-            PistonTest.debug("changing itemstack to copper");
+            CopperPistons.debug("changing itemstack to copper");
             var newStack = new ItemStack(
                 blockState.getValue(TYPE) == PistonType.STICKY
-                    ? PistonTest.stickyCopperPistonBlock.get()
-                    : PistonTest.copperPistonBlock.get()
+                    ? CopperPistons.stickyCopperPistonBlock.get()
+                    : CopperPistons.copperPistonBlock.get()
             );
             cir.setReturnValue(newStack);
         }
@@ -53,6 +53,6 @@ public class PistonHeadBlockMixin {
     @Unique
     private boolean isCopperPistonBlock() {
         var pistonBlockState = ((PistonHeadBlock)(Object)this).defaultBlockState();
-        return pistonBlockState.is(PistonTest.copperPistonHeadBlock.get());
+        return pistonBlockState.is(CopperPistons.copperPistonBlock.get());
     }
 }

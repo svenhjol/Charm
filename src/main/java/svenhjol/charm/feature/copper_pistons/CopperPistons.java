@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.piston_test;
+package svenhjol.charm.feature.copper_pistons;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -11,11 +11,10 @@ import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, canBeDisabled = false)
-public class PistonTest extends CharmFeature {
+public class CopperPistons extends CharmFeature {
     public static Supplier<Block> copperPistonBlock;
     public static Supplier<Block> copperPistonHeadBlock;
     public static Supplier<Block> movingCopperPistonBlock;
@@ -67,20 +66,8 @@ public class PistonTest extends CharmFeature {
         return state.is(block);
     }
 
-    public static Optional<BlockState> tryMapState(BlockState defaultState) {
-        if (defaultState.is(Blocks.PISTON_HEAD)) {
-            debug("remapping piston_head to copper_piston_head");
-            return Optional.of(PistonTest.copperPistonHeadBlock.get().withPropertiesOf(defaultState));
-        }
-        if (defaultState.is(Blocks.MOVING_PISTON)) {
-            debug("remapping moving_piston to moving_copper_piston");
-            return Optional.of(PistonTest.movingCopperPistonBlock.get().withPropertiesOf(defaultState));
-        }
-        return Optional.empty();
-    }
-
     public static void debug(String message) {
         var log = Charm.instance().log();
-        log.debug(PistonTest.class, message);
+        log.debug(CopperPistons.class, message);
     }
 }

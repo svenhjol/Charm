@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.piston_test;
+package svenhjol.charm.mixin.copper_pistons;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
