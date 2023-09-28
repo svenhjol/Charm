@@ -43,7 +43,7 @@ public class PistonBaseBlockMixin {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;",
-            shift = At.Shift.AFTER
+            shift = At.Shift.BEFORE // Nudge back by 1 to avoid conflict with carpet
         ),
         cancellable = true
     )
