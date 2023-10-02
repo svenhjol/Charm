@@ -15,32 +15,46 @@ public class CharmTags {
 
     public static final TagKey<Item> CHESTS = TagKey.create(ITEM_KEY,
         Charm.instance().makeId("chests/normal"));
+
     public static final TagKey<Item> COLORED_DYES = TagKey.create(ITEM_KEY,
         Charm.instance().makeId("colored_dyes"));
+
     public static final TagKey<Item> HAS_SUSPICIOUS_EFFECTS = TagKey.create(ITEM_KEY,
         Charm.instance().makeId("has_suspicious_effects"));
+
     public static final TagKey<EntityType<?>> SPAWNER_DROPS_BLAZE_RODS = TagKey.create(ENTITY_TYPE_KEY,
         Charm.instance().makeId("spawners/drops_blaze_rods"));
+
     public static final TagKey<EntityType<?>> SPAWNER_DROPS_BONES = TagKey.create(ENTITY_TYPE_KEY,
         Charm.instance().makeId("spawners/drops_bones"));
+
     public static final TagKey<EntityType<?>> SPAWNER_DROPS_GUNPOWDER = TagKey.create(ENTITY_TYPE_KEY,
         Charm.instance().makeId("spawners/drops_gunpowder"));
+
     public static final TagKey<EntityType<?>> SPAWNER_DROPS_MAGMA_CREAM = TagKey.create(ENTITY_TYPE_KEY,
         Charm.instance().makeId("spawners/drops_magma_cream"));
+
     public static final TagKey<EntityType<?>> SPAWNER_DROPS_ROTTEN_FLESH = TagKey.create(ENTITY_TYPE_KEY,
         Charm.instance().makeId("spawners/drops_rotten_flesh"));
+
     public static final TagKey<EntityType<?>> SPAWNER_DROPS_SLIME_BALLS = TagKey.create(ENTITY_TYPE_KEY,
         Charm.instance().makeId("spawners/drops_slime_balls"));
+
     public static final TagKey<EntityType<?>> SPAWNER_DROPS_SPIDER_EYES = TagKey.create(ENTITY_TYPE_KEY,
         Charm.instance().makeId("spawners/drops_spider_eyes"));
+
     public static final TagKey<EntityType<?>> SPAWNER_DROPS_STRING = TagKey.create(ENTITY_TYPE_KEY,
         Charm.instance().makeId("spawners/drops_string"));
+
     public static final TagKey<Block> PISTONS = TagKey.create(BLOCK_KEY,
         Charm.instance().makeId("pistons"));
+
     public static final TagKey<Block> STICKY_PISTONS = TagKey.create(BLOCK_KEY,
         Charm.instance().makeId("sticky_pistons"));
+
     public static final TagKey<Block> PISTON_HEADS = TagKey.create(BLOCK_KEY,
         Charm.instance().makeId("piston_heads"));
+
     public static final TagKey<Block> MOVING_PISTONS = TagKey.create(BLOCK_KEY,
         Charm.instance().makeId("moving_pistons"));
 }
