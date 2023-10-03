@@ -157,6 +157,8 @@
   "subtitles.charm.item.bat_bucket.grab": "Bat grabbed in bucket",
   "subtitles.charm.item.bat_bucket.release": "Bat escapes from bucket",
   "subtitles.charm.item.endermite_powder.launch": "Endermite powder launches",
+  "subtitles.charm.item.path.convert_from_dirt": "Shovel flattens",
+  "subtitles.charm.item.path.convert_to_dirt": "Hoe works path",
   "subtitles.charm.item.raid_horn.squeak": "Horn fails",
   "subtitles.charm.item.raid_horn.call_patrol": "Horn calls patrol",
   "subtitles.charm.item.raid_horn.call_off_raid": "Horn calls off raid"

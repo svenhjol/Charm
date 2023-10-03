@@ -59,6 +59,27 @@
     ],
     "subtitle": "subtitles.charm.item.bat_bucket.release"
   },
+  "dirt_to_path": {
+    "sounds": [
+      {
+        "name": "minecraft:item/shovel/flatten1",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten2",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten3",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten4",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.path.convert_from_dirt"
+  },
   "endermite_powder_launch": {
     "sounds": [
       {
@@ -151,6 +172,27 @@
       }
     ],
     "subtitle": "subtitles.charm.entity.moobloom.milk"
+  },
+  "path_to_dirt": {
+    "sounds": [
+      {
+        "name": "minecraft:item/shovel/flatten1",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten2",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten3",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten4",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.path.convert_to_dirt"
   },
   "pig_sniffing": {
     "sounds": [
