@@ -159,7 +159,16 @@
         "volume": 0.8
       }
     ],
-    "subtitle": "subtitles.charm.entity.pig_sniffing"
+    "subtitle": "subtitles.charm.entity.pig.sniffing"
+  },
+  "pot_item_place": {
+    "sounds": [
+      {
+        "name": "charm:pot_item_place",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.pot.item_place"
   },
   "raid_horn_call_off_raid": {
     "sounds": [
