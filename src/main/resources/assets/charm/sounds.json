@@ -212,53 +212,6 @@
     ],
     "subtitle": "subtitles.charm.block.pot.item_place"
   },
-  "raid_horn_call_off_raid": {
-    "sounds": [
-      {
-        "name": "charm:horn_long",
-        "volume": 0.9
-      }
-    ],
-    "subtitle": "subtitles.charm.item.raid_horn.call_off_raid"
-  },
-  "raid_horn_call_patrol": {
-    "sounds": [
-      {
-        "name": "minecraft:event/raid/raidhorn_01",
-        "volume": 1.0
-      },
-      {
-        "name": "minecraft:event/raid/raidhorn_02",
-        "volume": 1.0
-      },
-      {
-        "name": "minecraft:event/raid/raidhorn_03",
-        "volume": 1.0
-      },
-      {
-        "name": "minecraft:event/raid/raidhorn_04",
-        "volume": 1.0
-      }
-    ],
-    "subtitle": "subtitles.charm.item.raid_horn.call_patrol"
-  },
-  "raid_horn_squeak": {
-    "sounds": [
-      {
-        "name": "charm:horn_squeak1",
-        "volume": 1.0
-      },
-      {
-        "name": "charm:horn_squeak2",
-        "volume": 1.0
-      },
-      {
-        "name": "charm:horn_squeak3",
-        "volume": 1.0
-      }
-    ],
-    "subtitle": "subtitles.charm.item.raid_horn.squeak"
-  },
   "sugar_dissolve": {
     "sounds": [
       {
