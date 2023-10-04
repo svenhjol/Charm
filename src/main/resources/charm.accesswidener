@@ -20,6 +20,9 @@ mutable    field net/minecraft/world/entity/vehicle/Boat$Type CODEC Lnet/minecra
 accessible field net/minecraft/world/entity/vehicle/Boat$Type BY_ID Ljava/util/function/IntFunction;
 mutable    field net/minecraft/world/entity/vehicle/Boat$Type BY_ID Ljava/util/function/IntFunction;
 
+# Atlases
+accessible method net/minecraft/world/level/saveddata/maps/MapItemSavedData setColorsDirty (II)V
+
 # AzaleaWood
 accessible field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
 mutable    field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;

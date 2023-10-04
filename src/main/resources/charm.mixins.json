@@ -6,7 +6,6 @@
   "refmap": "${refmap_file}",
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "mixins": [
-    "accessor.MapItemSavedDataAccessor",
     "accessor.MineshaftCorridorAccessor",
     "accessor.MineshaftPieceAccessor",
     "accessor.MobAccessor",

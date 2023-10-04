@@ -8,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm.mixin.accessor.MapItemSavedDataAccessor;
 import svenhjol.charmony.annotation.Packet;
 import svenhjol.charmony.enums.PacketDirection;
 import svenhjol.charmony.iface.IPacketRequest;
@@ -32,7 +31,7 @@ public class AtlasesNetwork {
                     return;
                 }
 
-                ((MapItemSavedDataAccessor)mapData).invokeSetColorsDirty(0, 0);
+                mapData.setColorsDirty(0, 0);
             }
 
             map.getItem().inventoryTick(map, player.level(), player, -1, true);
