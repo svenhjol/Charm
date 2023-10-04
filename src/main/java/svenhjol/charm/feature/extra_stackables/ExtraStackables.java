@@ -6,7 +6,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charm.mixin.accessor.ItemAccessor;
 
 @Feature(mod = Charm.MOD_ID, description = "Allows some unstackable items to stack.")
 public class ExtraStackables extends CharmFeature {
@@ -31,24 +30,24 @@ public class ExtraStackables extends CharmFeature {
     @Override
     public void register() {
         if (enchantedBookStackSize > 1) {
-            ((ItemAccessor)Items.ENCHANTED_BOOK).setMaxStackSize(enchantedBookStackSize);
+            Items.ENCHANTED_BOOK.maxStackSize = enchantedBookStackSize;
         }
         if (potionStackSize > 1) {
-            ((ItemAccessor)Items.POTION).setMaxStackSize(potionStackSize);
+            Items.POTION.maxStackSize = potionStackSize;
         }
         if (splashPotionStackSize > 1) {
-            ((ItemAccessor)Items.SPLASH_POTION).setMaxStackSize(splashPotionStackSize);
+            Items.SPLASH_POTION.maxStackSize = splashPotionStackSize;
         }
         if (lingeringPotionStackSize > 1) {
-            ((ItemAccessor)Items.LINGERING_POTION).setMaxStackSize(lingeringPotionStackSize);
+            Items.LINGERING_POTION.maxStackSize = lingeringPotionStackSize;
         }
         if (stewStackSize > 1) {
-            ((ItemAccessor)Items.MUSHROOM_STEW).setMaxStackSize(stewStackSize);
-            ((ItemAccessor)Items.RABBIT_STEW).setMaxStackSize(stewStackSize);
-            ((ItemAccessor)Items.BEETROOT_SOUP).setMaxStackSize(stewStackSize);
+            Items.MUSHROOM_STEW.maxStackSize = stewStackSize;
+            Items.RABBIT_STEW.maxStackSize = stewStackSize;
+            Items.BEETROOT_SOUP.maxStackSize = stewStackSize;
         }
         if (suspiciousStewStackSize > 1) {
-            ((ItemAccessor)Items.SUSPICIOUS_STEW).setMaxStackSize(suspiciousStewStackSize);
+            Items.SUSPICIOUS_STEW.maxStackSize = suspiciousStewStackSize;
         }
     }
 

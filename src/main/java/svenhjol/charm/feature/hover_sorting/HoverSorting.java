@@ -10,10 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -23,7 +20,6 @@ import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.hover_sorting.HoverSortingNetwork.ScrollOnHover;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
-import svenhjol.charm.mixin.accessor.BundleItemAccessor;
 import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.ItemHoverSortEvent;
@@ -87,8 +83,8 @@ public class HoverSorting extends CharmFeature implements IHoverSortableItemProv
 
     private void handleBundleSorting(ServerPlayer player, ItemStack stack, ItemHoverSortEvent.SortDirection direction) {
         if (stack.is(Items.BUNDLE) && sortables.contains(Items.BUNDLE)) {
-            var itemsTag = BundleItemAccessor.getTagItems();
-            var contents = BundleItemAccessor.invokeGetContents(stack)
+            var itemsTag = BundleItem.TAG_ITEMS;
+            var contents = BundleItem.getContents(stack)
                 .collect(Collectors.toCollection(LinkedList::new));
 
             if (contents.isEmpty()) {

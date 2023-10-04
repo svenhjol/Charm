@@ -34,7 +34,15 @@ extendable method net/minecraft/world/level/block/piston/PistonBaseBlock checkIf
 accessible field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
 mutable    field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
 
-# InventoryTidyingClient and HoverSortingClient
+# ExtraStackables
+accessible field net/minecraft/world/item/Item maxStackSize I
+mutable    field net/minecraft/world/item/Item maxStackSize I
+
+# HoverSorting
+accessible field net/minecraft/world/item/BundleItem TAG_ITEMS Ljava/lang/String;
+accessible method net/minecraft/world/item/BundleItem getContents (Lnet/minecraft/world/item/ItemStack;)Ljava/util/stream/Stream;
+
+# HoverSortingClient and InventoryTidyingClient
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
