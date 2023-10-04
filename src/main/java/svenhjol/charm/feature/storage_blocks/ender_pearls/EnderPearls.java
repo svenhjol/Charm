@@ -15,7 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charm.mixin.accessor.MobAccessor;
 import svenhjol.charmony_api.event.EntityJoinEvent;
 import svenhjol.charmony_api.iface.IStorageBlockFeature;
 
@@ -66,7 +65,7 @@ public class EnderPearls implements IStorageBlockFeature {
             return;
         }
 
-        var goalSelector = ((MobAccessor) silverfish).getGoalSelector();
+        var goalSelector = silverfish.goalSelector;
 
         // Add the ender pearl block burrowing goal if it isn't already present in the silverfish AI.
         var hasGoal = goalSelector.getRunningGoals().anyMatch(g -> g.getGoal() instanceof FormEndermiteGoal);

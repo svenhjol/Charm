@@ -20,15 +20,14 @@ import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.hover_sorting.HoverSortingNetwork.ScrollOnHover;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
-import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
-import svenhjol.charmony_api.CharmonyApi;
-import svenhjol.charmony_api.event.ItemHoverSortEvent;
-import svenhjol.charmony_api.event.LevelLoadEvent;
-import svenhjol.charmony_api.iface.IHoverSortableItemProvider;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.TagHelper;
+import svenhjol.charmony_api.CharmonyApi;
+import svenhjol.charmony_api.event.ItemHoverSortEvent;
+import svenhjol.charmony_api.event.LevelLoadEvent;
+import svenhjol.charmony_api.iface.IHoverSortableItemProvider;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,7 +120,7 @@ public class HoverSorting extends CharmFeature implements IHoverSortableItemProv
             }
 
             if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBox) {
-                var itemStacks = ((ShulkerBoxBlockEntityAccessor) shulkerBox).getItemStacks();
+                var itemStacks = shulkerBox.itemStacks;
                 if (itemStacks.isEmpty()) return;
 
                 // Merge and sort contents.
@@ -132,7 +131,7 @@ public class HoverSorting extends CharmFeature implements IHoverSortableItemProv
                 // Write contents back to shulker box.
                 NonNullList<ItemStack> list = NonNullList.create();
                 list.addAll(stacks);
-                ((ShulkerBoxBlockEntityAccessor)shulkerBox).setItemStacks(list);
+                shulkerBox.itemStacks = list;
                 shulkerBox.saveToItem(stack);
             }
         }

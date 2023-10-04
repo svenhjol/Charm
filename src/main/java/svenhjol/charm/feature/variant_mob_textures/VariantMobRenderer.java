@@ -9,23 +9,19 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.npc.WanderingTrader;
-import svenhjol.charm.mixin.accessor.EntityRenderDispatcherAccessor;
-import svenhjol.charm.mixin.accessor.LivingEntityRendererAccessor;
-import svenhjol.charm.mixin.accessor.RenderLayerAccessor;
 
 public class VariantMobRenderer {
     @SuppressWarnings("unchecked")
     private static <T extends LivingEntity, M extends EntityModel<T>> void fillLayersFromOld(EntityRendererProvider.Context context, LivingEntityRenderer<T, M> renderer, EntityType<T> type) {
-        EntityRenderer<?> old = ((EntityRenderDispatcherAccessor)context.getEntityRenderDispatcher())
-            .getRenderers().get(type);
+        EntityRenderer<?> old = context.getEntityRenderDispatcher().renderers.get(type);
 
         if (old != null) {
-            var layerRenderers = ((LivingEntityRendererAccessor<T, M>)renderer).getLayers();
+            var layerRenderers = renderer.layers;
             layerRenderers.clear();
 
-            ((LivingEntityRendererAccessor<T, M>)old).getLayers()
+            ((LivingEntityRenderer<T, M>)old).layers
                 .stream()
-                .peek(layer -> ((RenderLayerAccessor<T, M>)layer).setRenderer(renderer))
+                .peek(layer -> layer.renderer = renderer)
                 .forEach(layerRenderers::add);
         }
     }

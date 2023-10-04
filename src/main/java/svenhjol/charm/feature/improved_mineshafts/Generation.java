@@ -16,9 +16,6 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces;
-import svenhjol.charm.mixin.accessor.MineshaftCorridorAccessor;
-import svenhjol.charm.mixin.accessor.MineshaftPieceAccessor;
-import svenhjol.charm.mixin.accessor.StructurePieceAccessor;
 
 import java.util.List;
 
@@ -31,22 +28,22 @@ public class Generation {
                 }
 
                 for (var z = 0; z < 7; z++) {
-                    var validCeiling = ((MineshaftPieceAccessor)piece).invokeIsSupportingBox(level, box, x, x, 2, z);
+                    var validCeiling = piece.isSupportingBox(level, box, x, x, 2, z);
                     var validFloor = validFloorBlock(piece, level, x, 0, z, box);
                     if (!validCeiling) continue;
 
-                    if (validFloor && !ImprovedMineshafts.FLOOR_BLOCKS.isEmpty() && rand.nextFloat() < ImprovedMineshafts.floorBlockChance && ((MineshaftCorridorAccessor)piece).invokeHasSturdyNeighbours(level, box, x, 0, z, 2)) {
+                    if (validFloor && !ImprovedMineshafts.FLOOR_BLOCKS.isEmpty() && rand.nextFloat() < ImprovedMineshafts.floorBlockChance && piece.hasSturdyNeighbours(level, box, x, 0, z, 2)) {
                         var state = getRandom(ImprovedMineshafts.FLOOR_BLOCKS, rand);
-                        ((StructurePieceAccessor)piece).invokePlaceBlock(level, state, x, 0, z, box);
-                    } else if (!ImprovedMineshafts.CEILING_BLOCKS.isEmpty() && rand.nextFloat() < ImprovedMineshafts.ceilingBlockChance && ((MineshaftCorridorAccessor)piece).invokeHasSturdyNeighbours(level, box, x, 2, z, 2)) {
+                        piece.placeBlock(level, state, x, 0, z, box);
+                    } else if (!ImprovedMineshafts.CEILING_BLOCKS.isEmpty() && rand.nextFloat() < ImprovedMineshafts.ceilingBlockChance && piece.hasSturdyNeighbours(level, box, x, 2, z, 2)) {
                         var state = getRandom(ImprovedMineshafts.CEILING_BLOCKS, rand);
 
                         // if the ceiling block is a chain then attach a hanging lantern to it
                         if (state.getBlock() == Blocks.CHAIN) {
-                            ((StructurePieceAccessor)piece).invokePlaceBlock(level, Blocks.LANTERN.defaultBlockState().setValue(LanternBlock.HANGING, true), x, 1, z, box);
+                            piece.placeBlock(level, Blocks.LANTERN.defaultBlockState().setValue(LanternBlock.HANGING, true), x, 1, z, box);
                         }
 
-                        ((StructurePieceAccessor)piece).invokePlaceBlock(level, state, x, 2, z, box);
+                        piece.placeBlock(level, state, x, 2, z, box);
                     }
                 }
             }
@@ -64,7 +61,7 @@ public class Generation {
                             var valid = validFloorBlock(piece, level, ix, iy, iz, box);
                             if (valid && rand.nextFloat() < 0.7F) {
                                 var useState = rand.nextBoolean() ? state1 : state2;
-                                ((StructurePieceAccessor)piece).invokePlaceBlock(level, useState, ix, iy, iz, box);
+                                piece.placeBlock(level, useState, ix, iy, iz, box);
                             }
                         }
                     }
@@ -73,16 +70,16 @@ public class Generation {
         }
 
         if (!ImprovedMineshafts.MINECART_LOOT.isEmpty() && rand.nextFloat() < ImprovedMineshafts.minecartChance) {
-            var y = ((StructurePieceAccessor)piece).invokeGetWorldY(0);
-            var x = ((StructurePieceAccessor)piece).invokeGetWorldX(1, 0);
-            var z = ((StructurePieceAccessor)piece).invokeGetWorldZ(1, 0);
+            var y = piece.getWorldY(0);
+            var x = piece.getWorldX(1, 0);
+            var z = piece.getWorldZ(1, 0);
             var cartPos = new BlockPos(x, y, z);
             var loot = ImprovedMineshafts.MINECART_LOOT
                 .get(rand.nextInt(ImprovedMineshafts.MINECART_LOOT.size()));
 
             if (box.isInside(cartPos) && level.getBlockState(cartPos).isAir() && !level.getBlockState(cartPos.below()).isAir()) {
                 var blockState = Blocks.RAIL.defaultBlockState().setValue(RailBlock.SHAPE, rand.nextBoolean() ? RailShape.NORTH_SOUTH : RailShape.EAST_WEST);
-                ((StructurePieceAccessor)piece).invokePlaceBlock(level, blockState, x, y, z, box);
+                piece.placeBlock(level, blockState, x, y, z, box);
 
                 AbstractMinecart minecart;
                 var serverLevel = level.getLevel();
@@ -142,9 +139,9 @@ public class Generation {
 
     static boolean validFloorBlock(StructurePiece piece, WorldGenLevel level, int x, int y, int z, BoundingBox box) {
         var blockpos = new BlockPos(
-            ((StructurePieceAccessor)piece).invokeGetWorldX(x, z),
-            ((StructurePieceAccessor)piece).invokeGetWorldY(y),
-            ((StructurePieceAccessor)piece).invokeGetWorldZ(x, z)
+            piece.getWorldX(x, z),
+            piece.getWorldY(y),
+            piece.getWorldZ(x, z)
         );
 
         var vecInside = box.isInside(blockpos);

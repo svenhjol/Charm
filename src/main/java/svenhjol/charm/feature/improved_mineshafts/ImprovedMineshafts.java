@@ -22,12 +22,11 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import svenhjol.charm.Charm;
-import svenhjol.charm.mixin.accessor.MineshaftPieceAccessor;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony_api.event.LevelLoadEvent;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.mixin.accessor.BlockItemAccessor;
+import svenhjol.charmony_api.event.LevelLoadEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +81,7 @@ public class ImprovedMineshafts extends CharmFeature {
 
     public static void generatePiece(StructurePiece piece, WorldGenLevel level, StructureManager accessor, ChunkGenerator chunkGenerator, RandomSource rand, BoundingBox box, ChunkPos chunkPos, BlockPos blockPos) {
         // Don't add any decoration to mesa mineshafts.
-        if (((MineshaftPieceAccessor)piece).getType() == MineshaftStructure.Type.MESA) return;
+        if (((MineshaftPieces.MineShaftPiece)piece).type == MineshaftStructure.Type.MESA) return;
 
         if (piece instanceof MineshaftPieces.MineShaftCorridor) {
             Generation.decorateCorridor((MineshaftPieces.MineShaftCorridor)piece, level, accessor, chunkGenerator, rand, box, chunkPos, blockPos);

@@ -5,7 +5,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charm.mixin.accessor.PlayerAccessor;
 import svenhjol.charmony_api.event.PlayerTickEvent;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
@@ -30,12 +29,12 @@ public class ParrotsStayOnShoulder extends CharmFeature {
         ) {
             var serverPlayer = (ServerPlayer)player;
             if (!serverPlayer.getShoulderEntityLeft().isEmpty()) {
-                ((PlayerAccessor)serverPlayer).invokeRespawnEntityOnShoulder(serverPlayer.getShoulderEntityLeft());
-                ((PlayerAccessor)serverPlayer).invokeSetShoulderEntityLeft(new CompoundTag());
+                serverPlayer.respawnEntityOnShoulder(serverPlayer.getShoulderEntityLeft());
+                serverPlayer.setShoulderEntityLeft(new CompoundTag());
             }
             if (!serverPlayer.getShoulderEntityRight().isEmpty()) {
-                ((PlayerAccessor)serverPlayer).invokeRespawnEntityOnShoulder(serverPlayer.getShoulderEntityRight());
-                ((PlayerAccessor)serverPlayer).invokeSetShoulderEntityRight(new CompoundTag());
+                serverPlayer.respawnEntityOnShoulder(serverPlayer.getShoulderEntityRight());
+                serverPlayer.setShoulderEntityRight(new CompoundTag());
             }
         }
     }

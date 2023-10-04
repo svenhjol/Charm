@@ -15,13 +15,12 @@ import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm.mixin.accessor.ShulkerBoxBlockEntityAccessor;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony_api.event.TooltipComponentEvent;
 import svenhjol.charmony_api.event.TooltipItemHoverEvent;
 import svenhjol.charmony_api.event.TooltipRenderEvent;
-import svenhjol.charmony.base.CharmFeature;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -132,7 +131,7 @@ public class ExtraTooltips extends CharmFeature {
                 var blockEntity = BlockEntity.loadStatic(BlockPos.ZERO, shulkerBoxBlock.defaultBlockState(), tag);
 
                 if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBox) {
-                    NonNullList<ItemStack> items = ((ShulkerBoxBlockEntityAccessor)shulkerBox).getItemStacks();
+                    NonNullList<ItemStack> items = shulkerBox.itemStacks;
                     return Optional.of(new ShulkerBoxItemTooltip(items));
                 }
             }

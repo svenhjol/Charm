@@ -7,7 +7,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm.mixin.accessor.GuiAccessor;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony_api.event.HudRenderEvent;
@@ -74,7 +73,7 @@ public class CompassOverlay extends CharmFeature {
         var facing = I18n.get("gui.charm.facing", direction.getName());
         var facingLength = font.width(facing);
         var facingColor = 0xFFEEDD;
-        var midX = ((GuiAccessor)gui).getScreenWidth() / 2.0F;
+        var midX = gui.screenWidth / 2.0F;
 
         if (CompassOverlay.showFacing) {
             renderText(guiGraphics, font, facing, midX, y, -facingLength / 2, 0, facingColor | alpha);

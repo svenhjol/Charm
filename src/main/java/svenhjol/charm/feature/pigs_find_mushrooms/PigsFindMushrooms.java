@@ -9,11 +9,10 @@ import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
-import svenhjol.charm.mixin.accessor.MobAccessor;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony_api.event.EntityJoinEvent;
 import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony_api.event.EntityJoinEvent;
 
 import java.util.UUID;
 import java.util.WeakHashMap;
@@ -54,7 +53,7 @@ public class PigsFindMushrooms extends CharmFeature {
 
     private void handleEntityJoin(Entity entity, Level level) {
         if (entity instanceof Pig pig) {
-            var goalSelector = ((MobAccessor) pig).getGoalSelector();
+            var goalSelector = pig.goalSelector;
             if (goalSelector.getAvailableGoals().stream().noneMatch(
                 g -> g.getGoal() instanceof FindMushroomGoal)) {
                 goalSelector.addGoal(3, new FindMushroomGoal(pig));

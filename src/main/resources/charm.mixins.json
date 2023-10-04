@@ -6,12 +6,6 @@
   "refmap": "${refmap_file}",
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "mixins": [
-    "accessor.MineshaftCorridorAccessor",
-    "accessor.MineshaftPieceAccessor",
-    "accessor.MobAccessor",
-    "accessor.NoteBlockAccessor",
-    "accessor.PlayerAccessor",
-    "accessor.StructurePieceAccessor",
     "amethyst_note_block.BlockBehaviourPropertiesMixin",
     "atlases.CartographyTableMenuMixin",
     "atlases.MapItemSavedDataMixin",
@@ -60,13 +54,6 @@
     "wood.ChestBoatMixin"
   ],
   "client": [
-    "accessor.EntityRenderDispatcherAccessor",
-    "accessor.GuiAccessor",
-    "accessor.LivingEntityRendererAccessor",
-    "accessor.RenderLayerAccessor",
-    "accessor.ShulkerBoxBlockEntityAccessor",
-    "accessor.SoundEngineAccessor",
-    "accessor.SoundManagerAccessor",
     "atlases.CartographyTableScreenMixin",
     "enchantable_horse_armor.HorseArmorLayerMixin",
     "extractable_enchantments.GrindstoneScreenMixin",
