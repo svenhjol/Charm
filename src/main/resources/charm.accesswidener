@@ -39,5 +39,9 @@ accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScr
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
 
+# Mooblooms
+accessible method net/minecraft/world/entity/animal/Bee pathfindRandomlyTowards (Lnet/minecraft/core/BlockPos;)V
+accessible method net/minecraft/world/entity/animal/Bee setHasNectar (Z)V
+
 # RevivePets
 accessible field net/minecraft/world/entity/animal/horse/AbstractHorse inventory Lnet/minecraft/world/SimpleContainer;
