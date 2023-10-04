@@ -16,14 +16,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charm.mixin.accessor.AbstractHorseAccessor;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.event.EntityKilledEvent;
 import svenhjol.charmony_api.event.ItemUseEvent;
 import svenhjol.charmony.base.CharmFeature;
 
-@Feature(mod = Charm.MOD_ID, description = "A named pet drops its nametag on death.\n" +
-    "Right-click (use) the nametag while holding a Totem of Undying to revive the pet and consume the totem.")
+@Feature(mod = Charm.MOD_ID, description = "A named pet drops its name tag on death.\n" +
+    "Right-click (use) the name tag while holding a Totem of Undying to revive the pet and consume the totem.")
 public class RevivePets extends CharmFeature {
     public static final String REVIVABLE_TAG = "charm_revivable_pet";
 
@@ -93,7 +92,7 @@ public class RevivePets extends CharmFeature {
 
             // It's possible to dupe saddles because abstract horses drop them on death but don't remove saddle in slot0.
             if (entity instanceof AbstractHorse abstractHorse) {
-                ((AbstractHorseAccessor)abstractHorse).getInventory().setItem(0, ItemStack.EMPTY);
+                abstractHorse.inventory.setItem(0, ItemStack.EMPTY);
             }
 
             var stack = new ItemStack(Items.NAME_TAG);

@@ -6,7 +6,6 @@
   "refmap": "${refmap_file}",
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "mixins": [
-    "accessor.AbstractHorseAccessor",
     "accessor.BeeAccessor",
     "accessor.BrushableBlockEntityAccessor",
     "accessor.BundleItemAccessor",

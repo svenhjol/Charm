@@ -38,3 +38,6 @@ mutable    field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecra
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
+
+# RevivePets
+accessible field net/minecraft/world/entity/animal/horse/AbstractHorse inventory Lnet/minecraft/world/SimpleContainer;
