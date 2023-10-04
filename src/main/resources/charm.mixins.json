@@ -64,7 +64,6 @@
     "wood.ChestBoatMixin"
   ],
   "client": [
-    "accessor.AbstractContainerScreenAccessor",
     "accessor.EntityRenderDispatcherAccessor",
     "accessor.GuiAccessor",
     "accessor.LivingEntityRendererAccessor",

@@ -10,25 +10,31 @@ accessible class net/minecraft/world/level/levelgen/structure/structures/Minesha
 accessible method net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
 accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer <init> (Lnet/minecraft/world/item/crafting/SingleItemRecipe$Serializer$SingleItemMaker;)V
 
-## Methods
-accessible method net/minecraft/world/level/block/piston/PistonHeadBlock isFittingBase (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)Z
-extendable method net/minecraft/world/level/block/piston/PistonHeadBlock isFittingBase (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)Z
-
-accessible method net/minecraft/world/level/block/piston/PistonBaseBlock checkIfExtend (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
-extendable method net/minecraft/world/level/block/piston/PistonBaseBlock checkIfExtend (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
-
 ## Fields
-accessible field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
-mutable    field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
-
 accessible field net/minecraft/world/entity/vehicle/Boat$Type planks Lnet/minecraft/world/level/block/Block;
 mutable    field net/minecraft/world/entity/vehicle/Boat$Type planks Lnet/minecraft/world/level/block/Block;
-
-accessible field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
-mutable    field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
 
 accessible field net/minecraft/world/entity/vehicle/Boat$Type CODEC Lnet/minecraft/util/StringRepresentable$EnumCodec;
 mutable    field net/minecraft/world/entity/vehicle/Boat$Type CODEC Lnet/minecraft/util/StringRepresentable$EnumCodec;
 
 accessible field net/minecraft/world/entity/vehicle/Boat$Type BY_ID Ljava/util/function/IntFunction;
 mutable    field net/minecraft/world/entity/vehicle/Boat$Type BY_ID Ljava/util/function/IntFunction;
+
+# AzaleaWood
+accessible field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
+mutable    field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
+
+# CopperPistons
+accessible method net/minecraft/world/level/block/piston/PistonHeadBlock isFittingBase (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)Z
+extendable method net/minecraft/world/level/block/piston/PistonHeadBlock isFittingBase (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)Z
+accessible method net/minecraft/world/level/block/piston/PistonBaseBlock checkIfExtend (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+extendable method net/minecraft/world/level/block/piston/PistonBaseBlock checkIfExtend (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+
+# ExtraPortalFrames
+accessible field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+mutable    field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+
+# InventoryTidyingClient and HoverSortingClient
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I

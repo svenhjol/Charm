@@ -5,10 +5,9 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.InteractionResult;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony_api.event.ItemHoverSortEvent;
 import svenhjol.charmony_api.event.MouseScrollEvent;
-import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charm.mixin.accessor.AbstractContainerScreenAccessor;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
@@ -30,7 +29,7 @@ public class HoverSortingClient extends CharmFeature {
         if (client.level != null) {
             var screen = client.screen;
             if (screen instanceof AbstractContainerScreen<?> acs) {
-                var hoveredSlot = ((AbstractContainerScreenAccessor)acs).getHoveredSlot();
+                var hoveredSlot = acs.hoveredSlot;
                 if (hoveredSlot == null) {
                     return InteractionResult.PASS;
                 }

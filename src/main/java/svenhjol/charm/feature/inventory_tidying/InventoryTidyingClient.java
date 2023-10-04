@@ -9,7 +9,10 @@ import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
 import svenhjol.charm.Charm;
-import svenhjol.charm.mixin.accessor.AbstractContainerScreenAccessor;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.helper.ApiHelper;
+import svenhjol.charmony.helper.ScreenHelper;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.ScreenRenderEvent;
 import svenhjol.charmony_api.event.ScreenSetupEvent;
@@ -17,10 +20,6 @@ import svenhjol.charmony_api.iface.IHasScreenOffsetTweaks;
 import svenhjol.charmony_api.iface.IInventoryTidyingBlacklistProvider;
 import svenhjol.charmony_api.iface.IInventoryTidyingWhitelistProvider;
 import svenhjol.charmony_api.iface.IScreenOffsetTweakProvider;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.helper.ApiHelper;
-import svenhjol.charmony.helper.ScreenHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,8 +79,8 @@ public class InventoryTidyingClient extends CharmFeature
 
         var clazz = containerScreen.getClass();
         var menu = containerScreen.getMenu();
-        var x = ((AbstractContainerScreenAccessor)containerScreen).getLeftPos() + LEFT;
-        var y = ((AbstractContainerScreenAccessor)containerScreen).getTopPos() - TOP;
+        var x = containerScreen.leftPos + LEFT;
+        var y = containerScreen.topPos - TOP;
 
         if (SCREEN_TWEAKS.containsKey(clazz)) {
             var pair = SCREEN_TWEAKS.get(clazz);
@@ -114,7 +113,7 @@ public class InventoryTidyingClient extends CharmFeature
         if (BLACKLISTED_SCREENS.contains(screen.getClass())) return;
 
         // Re-render when recipe is opened/closed.
-        var x = ((AbstractContainerScreenAccessor)screen).getLeftPos();
+        var x = screen.leftPos;
         SORTING_BUTTONS.forEach(button -> button.setPosition(x + LEFT, button.getY()));
     }
 
