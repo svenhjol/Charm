@@ -39,6 +39,12 @@ accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScr
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
 
+# MakeSuspiciousBlocks
+accessible field net/minecraft/world/level/block/entity/BrushableBlockEntity lootTable Lnet/minecraft/resources/ResourceLocation;
+mutable    field net/minecraft/world/level/block/entity/BrushableBlockEntity lootTable Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/world/level/block/entity/BrushableBlockEntity item Lnet/minecraft/world/item/ItemStack;
+mutable    field net/minecraft/world/level/block/entity/BrushableBlockEntity item Lnet/minecraft/world/item/ItemStack;
+
 # Mooblooms
 accessible method net/minecraft/world/entity/animal/Bee pathfindRandomlyTowards (Lnet/minecraft/core/BlockPos;)V
 accessible method net/minecraft/world/entity/animal/Bee setHasNectar (Z)V

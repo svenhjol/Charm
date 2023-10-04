@@ -11,9 +11,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charm.mixin.accessor.BrushableBlockEntityAccessor;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.event.BlockUseEvent;
 import svenhjol.charmony.base.CharmFeature;
@@ -61,9 +61,9 @@ public class MakeSuspiciousBlocks extends CharmFeature {
 
         var optional = level.getBlockEntity(pos, BlockEntityType.BRUSHABLE_BLOCK);
         if (optional.isPresent()) {
-            var wrapper = (BrushableBlockEntityAccessor) optional.get();
-            wrapper.setLootTable(null);
-            wrapper.setItem(mainHand.copy());
+            var brushable = (BrushableBlockEntity) optional.get();
+            brushable.lootTable = null;
+            brushable.item = mainHand.copy();
 
             if (!player.getAbilities().instabuild) {
                 mainHand.shrink(mainHand.getCount());
