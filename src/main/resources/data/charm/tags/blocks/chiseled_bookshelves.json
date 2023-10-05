@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:chiseled_bookshelf",
     "charm:chiseled_acacia_bookshelf",
     "charm:chiseled_azalea_bookshelf",
     "charm:chiseled_bamboo_bookshelf",

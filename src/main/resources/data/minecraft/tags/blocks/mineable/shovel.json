@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "charm:gunpowder_block",
+    "charm:redstone_sand",
+    "charm:sugar_block"
+  ]
+}
