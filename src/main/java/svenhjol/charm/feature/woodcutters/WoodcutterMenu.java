@@ -95,7 +95,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
         this.addDataSlot(this.selectedRecipe);
     }
 
-    public int getSelectedRecipe() {
+    public int getSelectedRecipeIndex() {
         return this.selectedRecipe.get();
     }
 
@@ -103,7 +103,7 @@ public class WoodcutterMenu extends AbstractContainerMenu {
         return this.recipes;
     }
 
-    public int getAvailableRecipeCount() {
+    public int getNumRecipes() {
         return this.recipes.size();
     }
 
