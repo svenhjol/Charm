@@ -106,6 +106,10 @@ public class WoodcutterScreen extends AbstractContainerScreen<WoodcutterMenu> {
 
    public boolean mouseClicked(double mouseX, double mouseY, int button) {
       this.scrolling = false;
+      if (this.minecraft == null || this.minecraft.player == null || this.minecraft.gameMode == null) {
+         return false;
+      }
+
       if (this.displayRecipes) {
          int i = this.leftPos + 52;
          int j = this.topPos + 14;
