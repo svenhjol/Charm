@@ -53,7 +53,7 @@ public class VariantWoodClient extends CharmFeature {
             if (VariantWood.variantBarrels) {
                 VariantWood.BARRELS.forEach((material, barrel) -> {
                     registry.itemTab(barrel.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.BARREL);
-                    registry.itemTab(barrel.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.BARREL);
+                    registry.itemTab(barrel.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.REDSTONE_ORE);
                 });
             }
 
@@ -65,16 +65,16 @@ public class VariantWoodClient extends CharmFeature {
             if (VariantWood.variantChests) {
                 VariantWood.CHESTS.forEach((material, chest) -> {
                     registry.itemTab(chest.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.CHEST);
-                    registry.itemTab(chest.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.CHEST);
+                    registry.itemTab(chest.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.REDSTONE_ORE);
                 });
                 VariantWood.TRAPPED_CHESTS.forEach((material, trappedChest) ->
-                    registry.itemTab(trappedChest.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.TRAPPED_CHEST));
+                    registry.itemTab(trappedChest.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.REDSTONE_ORE));
             }
 
             if (VariantWood.variantChiseledBookshelves) {
                 VariantWood.CHISELED_BOOKSHELVES.forEach((material, chiseledBookshelf) -> {
                     registry.itemTab(chiseledBookshelf.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.CHISELED_BOOKSHELF);
-                    registry.itemTab(chiseledBookshelf.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.CHISELED_BOOKSHELF);
+                    registry.itemTab(chiseledBookshelf.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.REDSTONE_ORE);
                 });
             }
 
