@@ -10,7 +10,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.feature.variant_wood.block.VariantChestBlock;
-import svenhjol.charmony.mixin.accessor.AbstractHorseAccessor;
 
 import javax.annotation.Nullable;
 
@@ -34,7 +33,7 @@ public class AnimalInteraction {
                     held.shrink(1);
                 }
 
-                ((AbstractHorseAccessor)horse).invokeCreateInventory();
+                horse.createInventory();
                 return InteractionResult.sidedSuccess(level.isClientSide);
             }
         }

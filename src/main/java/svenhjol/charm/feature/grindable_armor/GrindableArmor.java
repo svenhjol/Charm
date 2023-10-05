@@ -10,7 +10,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.GrindstoneEvents;
 import svenhjol.charmony_api.event.GrindstoneEvents.GrindstoneMenuInstance;
-import svenhjol.charmony_api.iface.IProvidesGrindableItems;
+import svenhjol.charmony_api.iface.IGrindableItemProvider;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
 import svenhjol.charmony.helper.ApiHelper;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 @SuppressWarnings("unused")
 @Feature(mod = Charm.MOD_ID, description = "Armor returns a single ingot, leather or diamond when used on the grindstone.")
-public class GrindableArmor extends CharmFeature implements IProvidesGrindableItems {
+public class GrindableArmor extends CharmFeature implements IGrindableItemProvider {
     static final Map<ItemLike, ItemLike> RECIPES = new HashMap<>();
 
     @Override
@@ -35,7 +35,7 @@ public class GrindableArmor extends CharmFeature implements IProvidesGrindableIt
         GrindstoneEvents.CALCULATE_OUTPUT.handle(this::handleCalculateOutput);
         GrindstoneEvents.ON_TAKE.handle(this::handleOnTake);
 
-        ApiHelper.consume(IProvidesGrindableItems.class,
+        ApiHelper.consume(IGrindableItemProvider.class,
             provider -> provider.getItemGrindResults().forEach(
                 result -> RECIPES.put(result.getFirst(), result.getSecond())));
     }

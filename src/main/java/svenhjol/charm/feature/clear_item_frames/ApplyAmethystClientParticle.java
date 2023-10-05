@@ -7,7 +7,6 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 import svenhjol.charmony.base.CharmParticle;
-import svenhjol.charmony.mixin.accessor.ParticleAccessor;
 
 @SuppressWarnings("ConstantConditions")
 public class ApplyAmethystClientParticle implements ParticleProvider<SimpleParticleType> {
@@ -23,9 +22,9 @@ public class ApplyAmethystClientParticle implements ParticleProvider<SimpleParti
             0.5D - RANDOM.nextDouble(), 0.5D - RANDOM.nextDouble(), 0.5D - RANDOM.nextDouble(), this.spriteProvider);
         particle.setLifetime(4 + RANDOM.nextInt(4));
         particle.setColor((float)r, (float)g, (float)b);
-        ((ParticleAccessor)particle).invokeSetAlpha((RANDOM.nextFloat() * 0.2F) + 0.8F);
-        ((ParticleAccessor)particle).setFriction(0.8F); // some multiplier for velocity, idk
-        ((ParticleAccessor)particle).setSpeedUpWhenYMotionIsBlocked(true); // idk
+        particle.setAlpha((RANDOM.nextFloat() * 0.2F) + 0.8F);
+        particle.friction = 0.8F; // some multiplier for velocity, idk
+        particle.speedUpWhenYMotionIsBlocked = true; // idk
         return particle;
     }
 }

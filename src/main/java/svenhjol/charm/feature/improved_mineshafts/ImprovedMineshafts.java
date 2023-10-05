@@ -25,7 +25,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.mixin.accessor.BlockItemAccessor;
 import svenhjol.charmony_api.event.LevelLoadEvent;
 
 import java.util.ArrayList;
@@ -129,7 +128,7 @@ public class ImprovedMineshafts extends CharmFeature {
                 var prop = definition.getProperty(key);
                 if (prop == null) continue;
                 var propString = Objects.requireNonNull(blockStateTag.get(key)).getAsString();
-                state = BlockItemAccessor.invokeUpdateState(state, prop, propString);
+                state = BlockItem.updateState(state, prop, propString);
             }
         }
 

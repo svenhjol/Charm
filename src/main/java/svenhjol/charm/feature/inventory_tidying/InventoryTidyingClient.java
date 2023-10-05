@@ -16,10 +16,10 @@ import svenhjol.charmony.helper.ScreenHelper;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.ScreenRenderEvent;
 import svenhjol.charmony_api.event.ScreenSetupEvent;
-import svenhjol.charmony_api.iface.IHasScreenOffsetTweaks;
+import svenhjol.charmony_api.iface.IContainerOffsetTweak;
 import svenhjol.charmony_api.iface.IInventoryTidyingBlacklistProvider;
 import svenhjol.charmony_api.iface.IInventoryTidyingWhitelistProvider;
-import svenhjol.charmony_api.iface.IScreenOffsetTweakProvider;
+import svenhjol.charmony_api.iface.IContainerOffsetTweakProvider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ import java.util.function.BooleanSupplier;
 
 @ClientFeature
 public class InventoryTidyingClient extends CharmFeature
-    implements IHasScreenOffsetTweaks, IInventoryTidyingWhitelistProvider, IInventoryTidyingBlacklistProvider {
+    implements IInventoryTidyingWhitelistProvider, IInventoryTidyingBlacklistProvider, IContainerOffsetTweakProvider {
     private static final int LEFT = 159;
     private static final int TOP = 12;
     private static final List<ImageButton> SORTING_BUTTONS = new ArrayList<>();
@@ -49,8 +49,8 @@ public class InventoryTidyingClient extends CharmFeature
     @Override
     public void register() {
         // TODO: IHasBlockEntityScreens and IHasBlacklistedScreens need to be more specific to inventory tidying.
-        ApiHelper.consume(IHasScreenOffsetTweaks.class,
-            provider -> provider.getScreenOffsetTweaks().forEach(
+        ApiHelper.consume(IContainerOffsetTweakProvider.class,
+            provider -> provider.getContainerOffsetTweaks().forEach(
                 tweak -> SCREEN_TWEAKS.put(tweak.getScreen(), tweak.getOffset())));
 
         ApiHelper.consume(IInventoryTidyingWhitelistProvider.class,
@@ -118,10 +118,10 @@ public class InventoryTidyingClient extends CharmFeature
     }
 
     @Override
-    public List<IScreenOffsetTweakProvider> getScreenOffsetTweaks() {
+    public List<IContainerOffsetTweak> getContainerOffsetTweaks() {
         // Offset the button by these X and Y coordinates on these screens.
         return List.of(
-            new IScreenOffsetTweakProvider() {
+            new IContainerOffsetTweak() {
                 @Override
                 public Class<? extends Screen> getScreen() {
                     return MerchantScreen.class;
@@ -132,7 +132,7 @@ public class InventoryTidyingClient extends CharmFeature
                     return Pair.of(100, 0);
                 }
             },
-            new IScreenOffsetTweakProvider() {
+            new IContainerOffsetTweak() {
                 @Override
                 public Class<? extends Screen> getScreen() {
                     return InventoryScreen.class;

@@ -22,7 +22,6 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.joml.Matrix4f;
 import svenhjol.charmony.base.CharmContainerScreen;
 import svenhjol.charmony.helper.KeyboardHelper;
-import svenhjol.charmony.mixin.accessor.ScreenAccessor;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -146,7 +145,7 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
             button.visible = mapGui.buttonVisible(direction);
             if (button.visible) {
                 button.active = mapGui.buttonEnabled(direction);
-                if (!((ScreenAccessor)this).getNarratables().contains(button)) {
+                if (!(this.narratables.contains(button))) {
                     addRenderableWidget(button);
                 }
             } else {
@@ -156,8 +155,8 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
     }
 
     private void removeButton(AbstractWidget button) {
-        ((ScreenAccessor)this).getNarratables().remove(button);
-        ((ScreenAccessor)this).getChildren().remove(button);
+        this.narratables.remove(button);
+        this.children.remove(button);
     }
 
     @Override
