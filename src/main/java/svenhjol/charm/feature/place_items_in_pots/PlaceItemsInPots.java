@@ -23,7 +23,7 @@ import svenhjol.charmony_api.event.BlockUseEvent;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Add an item to a decorated pot while sneaking. Break the pot to get the item back.")
+@Feature(mod = Charm.MOD_ID, description = "Add an item to the top of a decorated pot. Break the pot to get the item back.")
 public class PlaceItemsInPots extends CharmFeature {
     public static final String ITEM_STACK_TAG = "item_stack";
 
@@ -42,11 +42,10 @@ public class PlaceItemsInPots extends CharmFeature {
     private InteractionResult handleBlockUse(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
         var held = player.getItemInHand(hand);
         var direction = hitResult.getDirection();
-        var isCrouching = player.isCrouching();
         var pos = hitResult.getBlockPos();
         var state = level.getBlockState(pos);
 
-        if (held.isEmpty() || !isCrouching || direction != Direction.UP) {
+        if (held.isEmpty() || direction != Direction.UP) {
             return InteractionResult.PASS;
         }
 
