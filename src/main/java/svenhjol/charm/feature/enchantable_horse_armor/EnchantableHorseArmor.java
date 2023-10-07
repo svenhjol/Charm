@@ -1,13 +1,20 @@
 package svenhjol.charm.feature.enchantable_horse_armor;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.HorseArmorItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ApiHelper;
+import svenhjol.charmony.helper.PlayerHelper;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.iface.IHorseArmorEnchantmentProvider;
 
@@ -64,10 +71,25 @@ public class EnchantableHorseArmor extends CharmonyFeature implements IHorseArmo
     }
 
     /**
+     * Called by mixin.
+     * Check if the itemstack can be enchanted with the given enchantment.
+     * The itemstack should always be checked to see if it's horse armor.
+     */
+    public static boolean canEnchant(ItemStack stack, Enchantment enchantment) {
+        return stack.getItem() instanceof HorseArmorItem && getAllEnchantments().contains(enchantment);
+    }
+
+    /**
      * Used by the mixin to fetch the total set of possible horse armor enchantments.
      * @return Complete list of horse armor enchantments.
      */
     public static List<Enchantment> getAllEnchantments() {
         return ENCHANTMENTS;
+    }
+
+    public static void triggerAddEnchantmentToHorseArmor(ServerLevel level, BlockPos pos) {
+        var players = PlayerHelper.getPlayersInRange(level, pos, 4.0d);
+        players.forEach(
+            player -> Advancements.trigger(Charm.instance().makeId("equipped_enchanted_horse_armor"), (ServerPlayer) player));
     }
 }

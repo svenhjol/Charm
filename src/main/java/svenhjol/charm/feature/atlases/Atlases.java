@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.atlases;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
@@ -42,8 +41,7 @@ public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
     public static Supplier<MenuType<AtlasContainer>> MENU_TYPE;
     public static Supplier<SoundEvent> OPEN_SOUND;
     public static Supplier<SoundEvent> CLOSE_SOUND;
-    private static final int NUMBER_OF_MAPS_FOR_ACHIEVEMENT = 10;
-    private static final ResourceLocation TRIGGER_MADE_MAPS = Charm.instance().makeId("made_atlas_maps");
+    private static final int NUMBER_OF_MAPS_FOR_ACHIEVEMENT = 1;
 
     @Configurable(name = "Open in off hand", description = "Allow opening the atlas while it is in the off-hand.")
     public static boolean offHandOpen = false;
@@ -265,6 +263,6 @@ public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
     }
 
     public static void triggerMadeMaps(ServerPlayer serverPlayer) {
-        Advancements.trigger(TRIGGER_MADE_MAPS, serverPlayer);
+        Advancements.trigger(Charm.instance().makeId("made_atlas_maps"), serverPlayer);
     }
 }

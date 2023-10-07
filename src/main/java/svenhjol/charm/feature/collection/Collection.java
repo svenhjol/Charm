@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.collection;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -9,6 +10,7 @@ import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.CharmonyEnchantmentHelper;
 
 import java.util.Map;
@@ -46,11 +48,16 @@ public class Collection extends CharmonyFeature {
                 var player = level.getPlayerByUUID(BREAKING.get(pos));
                 if (player != null) {
                     player.getInventory().placeItemBackInInventory(stack);
+                    triggerUseCollection((ServerPlayer) player);
                     return true;
                 }
             }
         }
         
         return false;
+    }
+
+    public static void triggerUseCollection(ServerPlayer player) {
+        Advancements.trigger(Charm.instance().makeId("used_collection"), player);
     }
 }

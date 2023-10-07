@@ -1,0 +1,32 @@
+{
+  "parent": "charm:core/enchantments",
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_horse_armor",
+      "nbt": "{Enchantments:[{id:\"minecraft:frost_walker\",lvl:2s}]}"
+    },
+    "title": {
+      "translate": "advancements.charm.equip_enchanted_horse_armor.title"
+    },
+    "description": {
+      "translate": "advancements.charm.equip_enchanted_horse_armor.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "equipped_enchanted_horse_armor": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:equipped_enchanted_horse_armor"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "equipped_enchanted_horse_armor"
+    ]
+  ]
+}
