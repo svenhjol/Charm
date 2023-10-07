@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "charm:copper_piston"
+        "recipe": "charm:copper_pistons/copper_piston"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "charm:copper_piston"
+      "charm:copper_pistons/copper_piston"
     ]
   },
   "sends_telemetry_event": false
