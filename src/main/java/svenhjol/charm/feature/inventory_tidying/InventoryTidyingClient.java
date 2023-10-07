@@ -35,7 +35,7 @@ public class InventoryTidyingClient extends CharmonyFeature
     private static final List<ImageButton> SORTING_BUTTONS = new ArrayList<>();
     private static final List<Class<? extends Screen>> WHITELISTED_SCREENS = new ArrayList<>();
     private static final List<Class<? extends Screen>> BLACKLISTED_SCREENS = new ArrayList<>();
-    private static final Map<Class<? extends Screen>, Pair<Integer, Integer>> SCREEN_TWEAKS = new HashMap<>();
+    private static final Map<Class<? extends Screen>, Pair<Integer, Integer>> CONTAINER_OFFSETS = new HashMap<>();
     static final WidgetSprites TIDY_BUTTON = new WidgetSprites(
         Charm.instance().makeId("widget/inventory_tidying/tidy_button"),
         Charm.instance().makeId("widget/inventory_tidying/tidy_button_highlighted")
@@ -43,10 +43,9 @@ public class InventoryTidyingClient extends CharmonyFeature
 
     @Override
     public void register() {
-        // TODO: IHasBlockEntityScreens and IHasBlacklistedScreens need to be more specific to inventory tidying.
         ApiHelper.consume(IContainerOffsetTweakProvider.class,
             provider -> provider.getContainerOffsetTweaks().forEach(
-                tweak -> SCREEN_TWEAKS.put(tweak.getScreen(), tweak.getOffset())));
+                tweak -> CONTAINER_OFFSETS.put(tweak.getScreen(), tweak.getOffset())));
 
         ApiHelper.consume(IInventoryTidyingWhitelistProvider.class,
             provider -> WHITELISTED_SCREENS.addAll(provider.getWhitelistedInventoryTidyingScreens()));
@@ -77,8 +76,8 @@ public class InventoryTidyingClient extends CharmonyFeature
         var x = containerScreen.leftPos + LEFT;
         var y = containerScreen.topPos - TOP;
 
-        if (SCREEN_TWEAKS.containsKey(clazz)) {
-            var pair = SCREEN_TWEAKS.get(clazz);
+        if (CONTAINER_OFFSETS.containsKey(clazz)) {
+            var pair = CONTAINER_OFFSETS.get(clazz);
             x += pair.getFirst();
             y += pair.getSecond();
         }

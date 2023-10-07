@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.quick_replant;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -15,13 +16,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.helper.ApiHelper;
+import svenhjol.charmony.helper.CharmonyEnchantmentHelper;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.BlockUseEvent;
 import svenhjol.charmony_api.iface.IQuickReplantProvider;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
-import svenhjol.charmony.helper.ApiHelper;
-import svenhjol.charmony.helper.CharmonyEnchantmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ public class QuickReplant extends CharmonyFeature implements IQuickReplantProvid
         Blocks.PITCHER_CROP,
         Blocks.PITCHER_PLANT
     );
+    static final ResourceLocation TRIGGER_REPLANTED_CROPS = Charm.instance().makeId("replanted_crops");
 
     @Override
     public void register() {
@@ -115,7 +118,7 @@ public class QuickReplant extends CharmonyFeature implements IQuickReplantProvid
             level.setBlockAndUpdate(pos, newState);
             level.playSound(null, pos, SoundEvents.CROP_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 
-            // TODO: advancement.
+            triggerReplantedCrops(serverPlayer);
 
             // Damage the hoe a bit.
             if (!player.getAbilities().instabuild) {
@@ -148,5 +151,9 @@ public class QuickReplant extends CharmonyFeature implements IQuickReplantProvid
             .forEach(s -> harvestables.add(() -> s));
 
         return harvestables;
+    }
+
+    public static void triggerReplantedCrops(ServerPlayer player) {
+        Advancements.trigger(TRIGGER_REPLANTED_CROPS, player);
     }
 }

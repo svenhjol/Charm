@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.endermite_powder;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -39,6 +40,7 @@ public class EndermitePowderItem extends CharmonyItem {
             level.playSound(player, x, y, z, EndermitePowder.launchSound.get(), SoundSource.PLAYERS, 0.4F, 0.9F + level.random.nextFloat() * 0.2F);
         } else {
             var serverLevel = (ServerLevel)level;
+            var serverPlayer = (ServerPlayer)player;
             var pos = serverLevel.findNearestMapStructure(EndermitePowder.ENDERMITE_POWDER_LOCATED, player.blockPosition(), 1500, false);
             if (pos != null) {
                 var entity = new EndermitePowderEntity(level, pos.getX(), pos.getZ());
@@ -46,7 +48,7 @@ public class EndermitePowderItem extends CharmonyItem {
                 entity.setPosRaw(x + look.x * 2, y + 0.5, z + look.z * 2);
                 level.addFreshEntity(entity);
 
-                // TODO: advancement.
+                EndermitePowder.triggerAdvancement(serverPlayer);
                 return InteractionResultHolder.pass(stack);
             }
         }

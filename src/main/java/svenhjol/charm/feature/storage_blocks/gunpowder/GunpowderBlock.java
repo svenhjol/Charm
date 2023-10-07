@@ -67,7 +67,7 @@ public class GunpowderBlock extends FallingBlock {
         }
 
         if (!level.isClientSide()) {
-            // TODO: advancement.
+            triggerAdvancementForNearbyPlayers((ServerLevel)level, pos);
         }
 
         return lavaBelow;

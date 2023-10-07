@@ -2,7 +2,9 @@ package svenhjol.charm.feature.bat_buckets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -17,13 +19,14 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.helper.ItemNbtHelper;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.EntityUseEvent;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
-import svenhjol.charmony.helper.ItemNbtHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -35,6 +38,8 @@ public class BatBuckets extends CharmonyFeature implements IWandererTradeProvide
     private static Supplier<SoundEvent> grabSound;
     private static Supplier<SoundEvent> releaseSound;
     static final int GLOW_TIME = 10; // In seconds.
+    static final ResourceLocation TRIGGER_CAPTURED_BAT = Charm.instance().makeId("captured_bat");
+    static final ResourceLocation TRIGGER_USED_BAT_BUCKET = Charm.instance().makeId("used_bat_bucket");
 
     @Override
     public void register() {
@@ -91,7 +96,7 @@ public class BatBuckets extends CharmonyFeature implements IWandererTradeProvide
             player.swing(hand);
             entity.discard();
 
-            // TODO: advancement.
+            triggerCapturedBat((ServerPlayer) player);
             return InteractionResult.CONSUME;
         }
 
@@ -116,5 +121,13 @@ public class BatBuckets extends CharmonyFeature implements IWandererTradeProvide
                 return 8;
             }
         });
+    }
+
+    public static void triggerCapturedBat(ServerPlayer player) {
+        Advancements.trigger(TRIGGER_CAPTURED_BAT, player);
+    }
+
+    public static void triggerUsedBatBucket(ServerPlayer player) {
+        Advancements.trigger(TRIGGER_USED_BAT_BUCKET, player);
     }
 }

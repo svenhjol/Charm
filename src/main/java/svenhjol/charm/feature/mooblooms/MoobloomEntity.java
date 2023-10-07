@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -87,7 +88,7 @@ public class MoobloomEntity extends Cow implements Shearable {
                 player.setItemInHand(hand, out);
                 entityData.set(POLLINATED, false);
 
-                // TODO: Advancement
+                Mooblooms.triggerMilkedMoobloom((ServerPlayer)player);
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide());

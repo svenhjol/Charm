@@ -1,13 +1,14 @@
 package svenhjol.charm.feature.storage_blocks.ender_pearls;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Silverfish;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -15,6 +16,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
+import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.helper.PlayerHelper;
 import svenhjol.charmony_api.event.EntityJoinEvent;
 import svenhjol.charmony_api.iface.IStorageBlockFeature;
 
@@ -31,6 +34,8 @@ public class EnderPearls implements IStorageBlockFeature {
     static Supplier<Block> block;
     static Supplier<Item> item;
     static boolean enabled;
+    static final ResourceLocation TRIGGER_CONVERTED_SILVERFISH = Charm.instance().makeId("converted_silverfish");
+    static final ResourceLocation TRIGGER_TELEPORTED_TO_ENDER_PEARL_BLOCK = Charm.instance().makeId("teleported_to_ender_pearl_block");
 
     @Override
     public List<BooleanSupplier> checks() {
@@ -127,11 +132,11 @@ public class EnderPearls implements IStorageBlockFeature {
         level.playSound(null, x, y, z, sound, SoundSource.PLAYERS, 1.0F, 1.0F); // At old location
         entity.playSound(sound, 1.0F, 1.0F); // At new location
 
-        if (entity instanceof Player player) {
-            player.getCooldowns().addCooldown(Items.CHORUS_FRUIT, 20);
-            if (!player.getAbilities().instabuild) {
+        if (entity instanceof ServerPlayer serverPlayer) {
+            serverPlayer.getCooldowns().addCooldown(Items.CHORUS_FRUIT, 20);
+            if (!serverPlayer.getAbilities().instabuild) {
                 stack.shrink(1);
-                // TODO: advancement.
+                triggerTeleported(serverPlayer);
             }
         }
 
@@ -144,5 +149,14 @@ public class EnderPearls implements IStorageBlockFeature {
         double d2 = d0 - pos2.getX();
         double d3 = d1 - pos2.getZ();
         return d2 * d2 + d3 * d3;
+    }
+
+    public static void triggerConvertedSilverfishForNearbyPlayers(ServerLevel level, BlockPos pos) {
+        PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(
+            player -> Advancements.trigger(TRIGGER_CONVERTED_SILVERFISH, (ServerPlayer) player));
+    }
+
+    public static void triggerTeleported(ServerPlayer player) {
+        Advancements.trigger(TRIGGER_TELEPORTED_TO_ENDER_PEARL_BLOCK, player);
     }
 }

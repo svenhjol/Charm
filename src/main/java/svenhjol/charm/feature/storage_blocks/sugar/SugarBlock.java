@@ -3,6 +3,7 @@ package svenhjol.charm.feature.storage_blocks.sugar;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -78,7 +79,7 @@ public class SugarBlock extends FallingBlock {
             }
 
             if (!level.isClientSide()) {
-                // TODO: advancement.
+                Sugar.triggerAdvancementForNearbyPlayers((ServerLevel) level, pos);
             }
         }
 
