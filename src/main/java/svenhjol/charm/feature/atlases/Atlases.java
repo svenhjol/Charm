@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.atlases;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
@@ -19,16 +20,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.atlases.MapItemSavedDataMixin;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.helper.ItemNbtHelper;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.PlayerLoginEvent;
 import svenhjol.charmony_api.event.PlayerTickEvent;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
-import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
-import svenhjol.charmony.helper.ItemNbtHelper;
 
 import java.util.List;
 import java.util.UUID;
@@ -42,6 +43,7 @@ public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
     public static Supplier<SoundEvent> OPEN_SOUND;
     public static Supplier<SoundEvent> CLOSE_SOUND;
     private static final int NUMBER_OF_MAPS_FOR_ACHIEVEMENT = 10;
+    private static final ResourceLocation TRIGGER_MADE_MAPS = Charm.instance().makeId("made_atlas_maps");
 
     @Configurable(name = "Open in off hand", description = "Allow opening the atlas while it is in the off-hand.")
     public static boolean offHandOpen = false;
@@ -130,7 +132,7 @@ public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
                         AtlasesNetwork.UpdateInventory.send(player, slot);
 
                         if (inventory.getMapInfos().size() >= NUMBER_OF_MAPS_FOR_ACHIEVEMENT) {
-                            Advancements.trigger(Charm.instance().makeId("made_atlas_maps"), serverPlayer);
+                            triggerMadeMaps(serverPlayer);
                         }
                     }
                 }
@@ -260,5 +262,9 @@ public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
                 return 5;
             }
         });
+    }
+
+    public static void triggerMadeMaps(ServerPlayer serverPlayer) {
+        Advancements.trigger(TRIGGER_MADE_MAPS, serverPlayer);
     }
 }
