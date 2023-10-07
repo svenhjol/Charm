@@ -22,7 +22,7 @@ import svenhjol.charmony_api.event.EntityUseEvent;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ItemNbtHelper;
 
 import javax.annotation.Nullable;
@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
-public class BatBuckets extends CharmFeature implements IWandererTradeProvider {
+public class BatBuckets extends CharmonyFeature implements IWandererTradeProvider {
     static Supplier<BatBucketItem> bucketItem;
     private static Supplier<SoundEvent> grabSound;
     private static Supplier<SoundEvent> releaseSound;

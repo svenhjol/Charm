@@ -2,6 +2,9 @@ package svenhjol.charm.feature.storage_blocks.gunpowder;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -11,18 +14,22 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charmony.base.CharmBlockItem;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyBlockItem;
+import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.helper.PlayerHelper;
 
 @SuppressWarnings({"deprecation", "BooleanMethodIsAlwaysInverted", "unused"})
 public class GunpowderBlock extends FallingBlock {
+    public static final ResourceLocation TRIGGER_DISSOLVED_GUNPOWDER = Charm.instance().makeId("dissolved_gunpowder");
+
     public GunpowderBlock() {
         super(Properties.of()
             .sound(SoundType.SAND)
-            .strength(0.5F));
+            .strength(0.5f));
     }
 
-    public static CharmFeature getParent() {
+    public static CharmonyFeature getParent() {
         return Charm.instance().loader().get(StorageBlocks.class).orElseThrow();
     }
 
@@ -66,9 +73,14 @@ public class GunpowderBlock extends FallingBlock {
         return lavaBelow;
     }
 
-    static class BlockItem extends CharmBlockItem {
+    static class BlockItem extends CharmonyBlockItem {
         public BlockItem() {
             super(getParent(), Gunpowder.block, new Properties());
         }
+    }
+
+    static void triggerAdvancementForNearbyPlayers(ServerLevel level, BlockPos pos) {
+        PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(player
+            -> Advancements.trigger(TRIGGER_DISSOLVED_GUNPOWDER, (ServerPlayer)player));
     }
 }

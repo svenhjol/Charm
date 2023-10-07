@@ -9,14 +9,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.GenericTradeOffers;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
-public class Beekeepers extends CharmFeature {
+public class Beekeepers extends CharmonyFeature {
     private static final String VILLAGER_ID = "beekeeper";
     private static final String BLOCK_ID = "minecraft:beehive";
     static final TagKey<Item> BEEKEEPER_SELLS_FLOWERS = TagKey.create(BuiltInRegistries.ITEM.key(),

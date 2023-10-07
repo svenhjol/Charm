@@ -6,7 +6,7 @@ import svenhjol.charmony_api.iface.IStorageBlockFeature;
 import svenhjol.charmony_api.iface.IStorageBlockProvider;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ApiHelper;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Feature(mod = Charm.MOD_ID, description = "More item blocks.")
-public class StorageBlocks extends CharmFeature {
+public class StorageBlocks extends CharmonyFeature {
     static final Map<Class<? extends IStorageBlockFeature>, IStorageBlockFeature> LOADED_STORAGE_BLOCKS = new HashMap<>();
 
     public static Optional<IStorageBlockFeature> getStorageBlock(Class<? extends IStorageBlockFeature> clazz) {

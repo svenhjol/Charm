@@ -6,7 +6,7 @@ import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Coral can be combined with sea lanterns to make colored variants.")
-public class CoralSeaLanterns extends CharmFeature implements IWandererTradeProvider {
+public class CoralSeaLanterns extends CharmonyFeature implements IWandererTradeProvider {
     public static final Map<CoralMaterial, Supplier<CoralSeaLanternBlock>> BLOCKS = new HashMap<>();
     public static final Map<CoralMaterial, Supplier<CoralSeaLanternBlock.BlockItem>> BLOCK_ITEMS = new HashMap<>();
 

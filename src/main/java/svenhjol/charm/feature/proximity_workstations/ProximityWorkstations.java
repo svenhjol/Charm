@@ -19,14 +19,14 @@ import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwor
 import svenhjol.charm.feature.proximity_workstations.menu.*;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.TagHelper;
 
 import java.util.*;
 import java.util.function.Function;
 
 @Feature(mod = Charm.MOD_ID, description = "Use workstations such as crafting tables when in range of the block.")
-public class ProximityWorkstations extends CharmFeature {
+public class ProximityWorkstations extends CharmonyFeature {
     static final Map<Block, Function<BlockPos, MenuProvider>> MENU_PROVIDERS = new LinkedHashMap<>();
     static final Map<UUID, Map<Block, BlockPos>> WORKSTATIONS_IN_RANGE = new WeakHashMap<>();
     static final Map<UUID, Long> LAST_WORKSTATION_CHECK = new WeakHashMap<>();

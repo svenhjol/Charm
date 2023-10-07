@@ -27,14 +27,14 @@ import svenhjol.charmony_api.event.ItemDragDropEvent;
 import svenhjol.charmony_api.event.ItemDragDropEvent.StackType;
 import svenhjol.charmony_api.event.LevelLoadEvent;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.TagHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Feature(mod = Charm.MOD_ID, description = "Drag and drop items into a shulkerbox from within your inventory.")
-public class ShulkerBoxDragDrop extends CharmFeature {
+public class ShulkerBoxDragDrop extends CharmonyFeature {
     public static final List<ItemLike> BLACKLIST = new ArrayList<>();
 
     @Override

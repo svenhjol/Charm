@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.GenericTradeOffers;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.")
-public class Lumberjacks extends CharmFeature {
+public class Lumberjacks extends CharmonyFeature {
     private static final String VILLAGER_ID = "lumberjack";
     public static Supplier<VillagerProfession> profession;
     public static Supplier<SoundEvent> workSound;

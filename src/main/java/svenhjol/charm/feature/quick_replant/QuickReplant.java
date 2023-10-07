@@ -19,9 +19,9 @@ import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.BlockUseEvent;
 import svenhjol.charmony_api.iface.IQuickReplantProvider;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ApiHelper;
-import svenhjol.charmony.helper.CharmEnchantmentHelper;
+import svenhjol.charmony.helper.CharmonyEnchantmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 @Feature(mod = Charm.MOD_ID, description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.")
-public class QuickReplant extends CharmFeature implements IQuickReplantProvider {
+public class QuickReplant extends CharmonyFeature implements IQuickReplantProvider {
     static final List<BlockState> REPLANTABLE = new ArrayList<>();
     static final List<Block> NOT_REPLANTABLE = List.of(
         Blocks.TORCHFLOWER,
@@ -90,7 +90,7 @@ public class QuickReplant extends CharmFeature implements IQuickReplantProvider 
             var serverLevel = (ServerLevel)serverPlayer.level();
             var drops = Block.getDrops(state, serverLevel, pos, null, player, ItemStack.EMPTY);
             var hasCollection = Charm.instance().loader().isEnabled("Collection")
-                && CharmEnchantmentHelper.itemHasEnchantment(held, Charm.instance().makeId("collection"));
+                && CharmonyEnchantmentHelper.itemHasEnchantment(held, Charm.instance().makeId("collection"));
 
             for (var drop : drops) {
                 if (doReplant && drop.getItem() == blockItem ) {

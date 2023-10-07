@@ -7,11 +7,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingNetwork.TidyInventory;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.helper.AdvancementHelper;
+import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
 
 @Feature(mod = Charm.MOD_ID, description = "Button to automatically tidy inventories.")
-public class InventoryTidying extends CharmFeature {
+public class InventoryTidying extends CharmonyFeature {
     private static final ResourceLocation ADVANCEMENT = Charm.instance().makeId("tidied_inventory");
 
     @Override
@@ -53,7 +53,7 @@ public class InventoryTidying extends CharmFeature {
         }
 
         if (hasItemsInContainer) {
-            AdvancementHelper.trigger(ADVANCEMENT, serverPlayer);
+            Advancements.trigger(ADVANCEMENT, serverPlayer);
         }
     }
 }

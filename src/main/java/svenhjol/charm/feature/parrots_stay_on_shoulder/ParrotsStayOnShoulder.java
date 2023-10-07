@@ -7,10 +7,10 @@ import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charmony_api.event.PlayerTickEvent;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Parrots stay on player's shoulder when jumping and falling. Crouch to make them dismount.")
-public class ParrotsStayOnShoulder extends CharmFeature {
+public class ParrotsStayOnShoulder extends CharmonyFeature {
     private static final long STAY_MOUNTED_TIME = 20L;
 
     @Override

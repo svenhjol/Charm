@@ -18,7 +18,7 @@ import svenhjol.charmony_api.event.SmithingTableEvents;
 import svenhjol.charmony_api.event.SmithingTableEvents.SmithingTableInstance;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.feature.colored_glints.ColoredGlints;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Smithing template that changes the glint color of any enchanted item.")
-public class ColoredGlintSmithingTemplates extends CharmFeature {
+public class ColoredGlintSmithingTemplates extends CharmonyFeature {
     public static final String ITEM_ID = "colored_glint_smithing_template";
 
     static List<ResourceLocation> emptyDyes = new ArrayList<>();

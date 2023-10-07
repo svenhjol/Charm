@@ -33,6 +33,11 @@ public class EnderPearls implements IStorageBlockFeature {
     static boolean enabled;
 
     @Override
+    public List<BooleanSupplier> checks() {
+        return List.of(() -> StorageBlocks.enderPearlsEnabled);
+    }
+
+    @Override
     public void register() {
         var registry = Charm.instance().registry();
         block = registry.block(ID, EnderPearlBlock::new);
@@ -43,11 +48,6 @@ public class EnderPearls implements IStorageBlockFeature {
     @Override
     public boolean isEnabled() {
         return enabled;
-    }
-
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> StorageBlocks.enderPearlsEnabled);
     }
 
     @Override

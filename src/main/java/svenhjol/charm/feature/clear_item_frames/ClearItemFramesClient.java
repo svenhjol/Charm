@@ -7,23 +7,15 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
-import java.util.List;
-import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-@ClientFeature
-public class ClearItemFramesClient extends CharmFeature {
+@ClientFeature(mod = CharmClient.MOD_ID, feature = ClearItemFrames.class)
+public class ClearItemFramesClient extends CharmonyFeature {
     static Supplier<SpriteParticleRegistration<SimpleParticleType>> particle;
-
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.instance().loader().isEnabled(ClearItemFrames.class));
-    }
 
     @Override
     public void register() {

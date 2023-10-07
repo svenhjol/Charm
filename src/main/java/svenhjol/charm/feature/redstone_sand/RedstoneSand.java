@@ -7,13 +7,13 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "A block that acts like sand but is powered like a block of redstone.")
-public class RedstoneSand extends CharmFeature implements IWandererTradeProvider {
+public class RedstoneSand extends CharmonyFeature implements IWandererTradeProvider {
     private static final String ID = "redstone_sand";
     static Supplier<Block> block;
     static Supplier<Item> blockItem;

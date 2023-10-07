@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.portal.PortalShape;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ConfigHelper;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.function.BooleanSupplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Adds more blocks that can be used to build nether portal frames.\n" +
     "By default this adds Crying Obsidian.")
-public class ExtraPortalFrames extends CharmFeature {
+public class ExtraPortalFrames extends CharmonyFeature {
     public static TagKey<Block> NETHER_PORTAL_FRAMES;
 
     @Override

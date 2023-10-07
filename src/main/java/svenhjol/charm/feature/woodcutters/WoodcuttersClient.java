@@ -3,22 +3,13 @@ package svenhjol.charm.feature.woodcutters;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.feature.woodcutting.Woodcutting;
 
-import java.util.List;
-import java.util.function.BooleanSupplier;
-
-@ClientFeature
-public class WoodcuttersClient extends CharmFeature {
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.instance().loader().isEnabled(Woodcutters.class));
-    }
-
+@ClientFeature(mod = CharmClient.MOD_ID, feature = Woodcutters.class)
+public class WoodcuttersClient extends CharmonyFeature {
     @Override
     public void preRegister() {
         var registry = CharmClient.instance().registry();

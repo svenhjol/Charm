@@ -18,17 +18,15 @@ import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.atlases.CartographyTableScreenMixin;
+import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony_api.event.HeldItemRenderEvent;
 import svenhjol.charmony_api.event.KeyPressEvent;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmFeature;
 
-import java.util.List;
-import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-@ClientFeature
-public class AtlasesClient extends CharmFeature {
+@ClientFeature(mod = CharmClient.MOD_ID, feature = Atlases.class)
+public class AtlasesClient extends CharmonyFeature {
     static final RenderType ATLAS_BACKGROUND =
         RenderType.text(Charm.instance().makeId("textures/map/atlas.png"));
     static final RenderType MAP_BACKGROUND =
@@ -48,11 +46,6 @@ public class AtlasesClient extends CharmFeature {
     private AtlasRenderer renderer;
     private static int swappedSlot = -1;
     public static Supplier<String> OPEN_ATLAS_KEY;
-
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.instance().loader().isEnabled(Atlases.class));
-    }
 
     @Override
     public void register() {

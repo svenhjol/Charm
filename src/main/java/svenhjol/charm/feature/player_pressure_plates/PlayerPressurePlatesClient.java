@@ -2,21 +2,12 @@ package svenhjol.charm.feature.player_pressure_plates;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
-import java.util.List;
-import java.util.function.BooleanSupplier;
-
-@ClientFeature
-public class PlayerPressurePlatesClient extends CharmFeature {
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.instance().loader().isEnabled(PlayerPressurePlates.class));
-    }
-
+@ClientFeature(mod = CharmClient.MOD_ID, feature = PlayerPressurePlates.class)
+public class PlayerPressurePlatesClient extends CharmonyFeature {
     @Override
     public void runWhenEnabled() {
         var registry = CharmClient.instance().registry();

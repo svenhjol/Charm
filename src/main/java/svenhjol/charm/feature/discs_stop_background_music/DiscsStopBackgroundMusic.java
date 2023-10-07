@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony_api.event.BlockUseEvent;
 import svenhjol.charmony_api.event.ClientTickEvent;
 import svenhjol.charmony_api.event.SoundPlayEvent;
@@ -28,7 +28,7 @@ import svenhjol.charmony_api.event.SoundPlayEvent;
     mod = CharmClient.MOD_ID,
     description = "Playing a music disc in a jukebox prevents background music from playing at the same time."
 )
-public class DiscsStopBackgroundMusic extends CharmFeature {
+public class DiscsStopBackgroundMusic extends CharmonyFeature {
     private static final int CHECK_TICKS = 10;
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;

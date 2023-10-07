@@ -7,20 +7,15 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
+import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 
-@ClientFeature
-public class ExtractableEnchantmentsClient extends CharmFeature {
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.instance().loader().isEnabled(ExtractableEnchantments.class));
-    }
-
+@ClientFeature(mod = CharmClient.MOD_ID, feature = ExtractableEnchantments.class)
+public class ExtractableEnchantmentsClient extends CharmonyFeature {
     private static ExtractableEnchantments getParent() {
         return Charm.instance().loader().get(ExtractableEnchantments.class).orElseThrow();
     }

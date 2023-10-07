@@ -10,7 +10,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.iface.ITotemInventoryCheckProvider;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ApiHelper;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 @Feature(mod = Charm.MOD_ID, description = "A totem will work from anywhere in the player's inventory as well as held in the main or offhand.")
-public class TotemsWorkFromInventory extends CharmFeature implements ITotemInventoryCheckProvider {
+public class TotemsWorkFromInventory extends CharmonyFeature implements ITotemInventoryCheckProvider {
     static List<BiFunction<Player, ItemLike, ItemStack>> inventoryChecks = new ArrayList<>();
 
     @Override

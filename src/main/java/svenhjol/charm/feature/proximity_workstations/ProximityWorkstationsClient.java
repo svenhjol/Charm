@@ -12,12 +12,12 @@ import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwor
 import svenhjol.charm.feature.proximity_workstations.client.SelectWorkstationScreen;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony_api.event.KeyPressEvent;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.function.Supplier;
 
-@ClientFeature(mod = Charm.MOD_ID, canBeDisabled = false)
-public class ProximityWorkstationsClient extends CharmFeature {
+@ClientFeature(mod = CharmClient.MOD_ID)
+public class ProximityWorkstationsClient extends CharmonyFeature {
     public static Supplier<String> openWorkstationSelectorKey;
     public static ResourceLocation selectWorkstationScreenBackground;
 

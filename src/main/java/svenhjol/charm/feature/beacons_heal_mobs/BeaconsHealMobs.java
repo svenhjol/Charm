@@ -10,10 +10,10 @@ import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.event.ApplyBeaconEffectsEvent;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Passive and friendly mobs will heal themselves within range of a beacon with the regeneration effect.")
-public class BeaconsHealMobs extends CharmFeature {
+public class BeaconsHealMobs extends CharmonyFeature {
     @Override
     public void runWhenEnabled() {
         ApplyBeaconEffectsEvent.INSTANCE.handle(this::handleApplyBeaconEffects);

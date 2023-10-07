@@ -9,14 +9,14 @@ import svenhjol.charmony_api.iface.IVariantChestBoatDefinition;
 import svenhjol.charmony_api.iface.IVariantMaterial;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.iface.ICommonRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Feature(mod = Charm.MOD_ID, description = "Variant wood features such as barrels, chests and ladders.")
-public class VariantWood extends CharmFeature {
+public class VariantWood extends CharmonyFeature {
     static final Map<IVariantMaterial, CustomBarrel> BARRELS = new HashMap<>();
     static final Map<IVariantMaterial, CustomBookshelf> BOOKSHELVES = new HashMap<>();
     static final Map<IVariantMaterial, CustomChest> CHESTS = new HashMap<>();

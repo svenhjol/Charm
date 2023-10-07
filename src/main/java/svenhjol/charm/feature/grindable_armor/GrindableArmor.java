@@ -1,19 +1,22 @@
 package svenhjol.charm.feature.grindable_armor;
 
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.Charm;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.GrindstoneEvents;
 import svenhjol.charmony_api.event.GrindstoneEvents.GrindstoneMenuInstance;
 import svenhjol.charmony_api.iface.IGrindableItemProvider;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.helper.ApiHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +24,9 @@ import java.util.Map;
 
 @SuppressWarnings("unused")
 @Feature(mod = Charm.MOD_ID, description = "Armor returns a single ingot, leather or diamond when used on the grindstone.")
-public class GrindableArmor extends CharmFeature implements IGrindableItemProvider {
+public class GrindableArmor extends CharmonyFeature implements IGrindableItemProvider {
     static final Map<ItemLike, ItemLike> RECIPES = new HashMap<>();
+    static final ResourceLocation TRIGGER_RECYCLED_ARMOR = new ResourceLocation(Charm.MOD_ID, "recycled_armor");
 
     @Override
     public void register() {
@@ -47,7 +51,7 @@ public class GrindableArmor extends CharmFeature implements IGrindableItemProvid
         var slot1 = instance.input.getItem(1);
 
         if (RECIPES.containsKey(slot0.getItem()) || RECIPES.containsKey(slot1.getItem())) {
-            // TODO: advancement.
+            triggerRecycledArmor((ServerPlayer)player);
         }
 
         return false;
@@ -110,5 +114,9 @@ public class GrindableArmor extends CharmFeature implements IGrindableItemProvid
             Pair.of(Items.NETHERITE_LEGGINGS, Items.NETHERITE_SCRAP),
             Pair.of(Items.NETHERITE_BOOTS, Items.NETHERITE_SCRAP)
         );
+    }
+
+    public static void triggerRecycledArmor(ServerPlayer player) {
+        Advancements.trigger(TRIGGER_RECYCLED_ARMOR, player);
     }
 }

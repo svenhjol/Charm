@@ -8,12 +8,12 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.base.CharmBlockItem;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyBlockItem;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @SuppressWarnings("deprecation")
 public class RedstoneSandBlock extends FallingBlock {
-    public static CharmFeature getParent() {
+    public static CharmonyFeature getParent() {
         return Charm.instance().loader().get(RedstoneSand.class).orElseThrow();
     }
 
@@ -34,7 +34,7 @@ public class RedstoneSandBlock extends FallingBlock {
         return 15;
     }
 
-    static class BlockItem extends CharmBlockItem {
+    static class BlockItem extends CharmonyBlockItem {
         public BlockItem() {
             super(getParent(), RedstoneSand.block, new Properties());
         }

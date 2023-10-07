@@ -3,22 +3,14 @@ package svenhjol.charm.feature.hover_sorting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.InteractionResult;
-import svenhjol.charm.Charm;
+import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony_api.event.ItemHoverSortEvent;
 import svenhjol.charmony_api.event.MouseScrollEvent;
 
-import java.util.List;
-import java.util.function.BooleanSupplier;
-
-@ClientFeature
-public class HoverSortingClient extends CharmFeature {
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.instance().loader().isEnabled(HoverSorting.class));
-    }
-
+@ClientFeature(mod = CharmClient.MOD_ID, feature = HoverSorting.class)
+public class HoverSortingClient extends CharmonyFeature {
     @Override
     public void runWhenEnabled() {
         MouseScrollEvent.ON_SCREEN.handle(this::handleMouseScroll);

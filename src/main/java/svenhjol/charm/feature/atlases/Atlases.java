@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.atlases.MapItemSavedDataMixin;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.PlayerLoginEvent;
 import svenhjol.charmony_api.event.PlayerTickEvent;
@@ -26,8 +27,7 @@ import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.helper.AdvancementHelper;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ItemNbtHelper;
 
 import java.util.List;
@@ -36,7 +36,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Storage for maps that automatically updates the displayed map as you explore.")
-public class Atlases extends CharmFeature implements IWandererTradeProvider {
+public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
     public static Supplier<Item> ITEM;
     public static Supplier<MenuType<AtlasContainer>> MENU_TYPE;
     public static Supplier<SoundEvent> OPEN_SOUND;
@@ -130,7 +130,7 @@ public class Atlases extends CharmFeature implements IWandererTradeProvider {
                         AtlasesNetwork.UpdateInventory.send(player, slot);
 
                         if (inventory.getMapInfos().size() >= NUMBER_OF_MAPS_FOR_ACHIEVEMENT) {
-                            AdvancementHelper.trigger(Charm.instance().makeId("made_atlas_maps"), serverPlayer);
+                            Advancements.trigger(Charm.instance().makeId("made_atlas_maps"), serverPlayer);
                         }
                     }
                 }

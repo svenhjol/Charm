@@ -14,13 +14,13 @@ import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Coral Squids spawn near coral in warm oceans.")
-public class CoralSquids extends CharmFeature implements IWandererTradeProvider {
+public class CoralSquids extends CharmonyFeature implements IWandererTradeProvider {
     private static final String ID = "coral_squid";
     public final static TagKey<Biome> SPAWNS_CORAL_SQUIDS =
         TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_coral_squids"));

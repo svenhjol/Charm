@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.SoundType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charmony_api.iface.IVariantMaterial;
-import svenhjol.charmony.base.CharmBlockItem;
+import svenhjol.charmony.base.CharmonyBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
 
 import java.util.function.Supplier;
@@ -29,7 +29,7 @@ public class VariantChiseledBookshelfBlock extends ChiseledBookShelfBlock {
         return Charm.instance().loader().get(VariantWood.class).orElseThrow();
     }
 
-    public static class BlockItem extends CharmBlockItem implements IFuelProvider {
+    public static class BlockItem extends CharmonyBlockItem implements IFuelProvider {
         IVariantMaterial material;
 
         public BlockItem(Supplier<VariantChiseledBookshelfBlock> block) {

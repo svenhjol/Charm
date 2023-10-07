@@ -2,21 +2,12 @@ package svenhjol.charm.feature.bat_buckets;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
-import java.util.List;
-import java.util.function.BooleanSupplier;
-
-@ClientFeature
-public class BatBucketsClient extends CharmFeature {
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.instance().loader().isEnabled(BatBuckets.class));
-    }
-
+@ClientFeature(mod = CharmClient.MOD_ID, feature = BatBuckets.class)
+public class BatBucketsClient extends CharmonyFeature {
     @Override
     public void register() {
         if (isEnabled()) {

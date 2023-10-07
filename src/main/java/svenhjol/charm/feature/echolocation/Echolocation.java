@@ -7,12 +7,12 @@ import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.Charm;
 import svenhjol.charmony_api.event.PlayerTickEvent;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, canBeDisabled = false, description = "A status effect that causes all living entities around the player to glow.")
-public class Echolocation extends CharmFeature {
+public class Echolocation extends CharmonyFeature {
     private static final String ID = "echolocation";
     private static final int CHECK_TICKS = 10;
     private static final int GLOW_RANGE = 24;

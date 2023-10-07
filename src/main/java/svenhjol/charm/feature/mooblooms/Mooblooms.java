@@ -15,13 +15,13 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.event.EntityJoinEvent;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Mooblooms are cow-like mobs that come in a variety of flower types.\n" +
     "They spawn flowers where they walk and can be milked for suspicious stew.")
-public class Mooblooms extends CharmFeature {
+public class Mooblooms extends CharmonyFeature {
     static final String ID = "moobloom";
     static Supplier<Item> spawnEggItem;
     static Supplier<EntityType<MoobloomEntity>> entity;

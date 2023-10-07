@@ -8,13 +8,13 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.feature.woodcutting.Woodcutting;
 
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, priority = 1, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
-public class Woodcutters extends CharmFeature {
+public class Woodcutters extends CharmonyFeature {
     public static final String BLOCK_ID = "woodcutter";
     public static Supplier<WoodcutterBlock> block;
     public static Supplier<WoodcutterBlock.BlockItem> blockItem;

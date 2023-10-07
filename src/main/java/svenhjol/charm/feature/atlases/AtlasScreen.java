@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.joml.Matrix4f;
-import svenhjol.charmony.base.CharmContainerScreen;
+import svenhjol.charmony.base.CharmonyContainerScreen;
 import svenhjol.charmony.helper.KeyboardHelper;
 
 import java.util.EnumMap;
@@ -35,7 +35,7 @@ import java.util.stream.Collector;
  * @since 28.12.2020
  */
 @SuppressWarnings("ConstantConditions")
-public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
+public class AtlasScreen extends CharmonyContainerScreen<AtlasContainer> {
 
     private static final int SIZE = 48;
     private static final int LEFT = 74;

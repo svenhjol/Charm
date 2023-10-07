@@ -12,10 +12,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony_api.event.AnvilRepairEvent;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "More ways to repair items using different materials.")
-public class ExtraRepairs extends CharmFeature {
+public class ExtraRepairs extends CharmonyFeature {
     public static TagKey<Item> REPAIRABLE_USING_SCRAP;
 
     @Configurable(name = "Repair tridents using prismarine", description = "Use prismarine shards to repair trident damage.")

@@ -19,13 +19,13 @@ import svenhjol.charmony_api.event.EntityKilledDropEvent;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Endermites drop endermite powder that can be used to locate an End City.")
-public class EndermitePowder extends CharmFeature implements IWandererTradeProvider {
+public class EndermitePowder extends CharmonyFeature implements IWandererTradeProvider {
     static final String ID = "endermite_powder";
     static Supplier<EntityType<EndermitePowderEntity>> entity;
     static Supplier<EndermitePowderItem> item;

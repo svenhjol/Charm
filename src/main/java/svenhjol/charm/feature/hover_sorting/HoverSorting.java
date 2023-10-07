@@ -21,7 +21,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.feature.hover_sorting.HoverSortingNetwork.ScrollOnHover;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.TagHelper;
 import svenhjol.charmony_api.CharmonyApi;
@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Feature(mod = Charm.MOD_ID, description = "Scroll the mouse while hovering over a bundle or shulker box to cycle the order of its contents.")
-public class HoverSorting extends CharmFeature implements IHoverSortableItemProvider {
+public class HoverSorting extends CharmonyFeature implements IHoverSortableItemProvider {
     private final List<ItemLike> cachedSortables = new ArrayList<>();
     private final List<TagKey<Block>> cachedBlockTags = new ArrayList<>();
     private final List<TagKey<Item>> cachedItemTags = new ArrayList<>();

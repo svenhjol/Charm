@@ -8,13 +8,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, canBeDisabled = false)
-public class CopperPistons extends CharmFeature {
+public class CopperPistons extends CharmonyFeature {
     public static Supplier<Block> copperPistonBlock;
     public static Supplier<Block> copperPistonHeadBlock;
     public static Supplier<Block> movingCopperPistonBlock;

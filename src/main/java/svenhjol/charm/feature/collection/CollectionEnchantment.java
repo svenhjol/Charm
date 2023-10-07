@@ -4,11 +4,11 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import svenhjol.charmony.base.CharmEnchantment;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyEnchantment;
+import svenhjol.charmony.base.CharmonyFeature;
 
-public class CollectionEnchantment extends CharmEnchantment {
-    public CollectionEnchantment(CharmFeature feature) {
+public class CollectionEnchantment extends CharmonyEnchantment {
+    public CollectionEnchantment(CharmonyFeature feature) {
         super(feature, Rarity.UNCOMMON, EnchantmentCategory.DIGGER, new EquipmentSlot[] { EquipmentSlot.MAINHAND});
     }
     

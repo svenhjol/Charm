@@ -2,11 +2,11 @@ package svenhjol.charm.feature.aerial_affinity;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import svenhjol.charmony.base.CharmEnchantment;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyEnchantment;
+import svenhjol.charmony.base.CharmonyFeature;
 
-public class AerialAffinityEnchantment extends CharmEnchantment {
-    public AerialAffinityEnchantment(CharmFeature feature) {
+public class AerialAffinityEnchantment extends CharmonyEnchantment {
+    public AerialAffinityEnchantment(CharmonyFeature feature) {
         super(feature, Rarity.RARE, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[] { EquipmentSlot.FEET });
     }
     

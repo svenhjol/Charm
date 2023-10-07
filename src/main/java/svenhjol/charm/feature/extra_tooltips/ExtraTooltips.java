@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony_api.event.TooltipComponentEvent;
 import svenhjol.charmony_api.event.TooltipItemHoverEvent;
 import svenhjol.charmony_api.event.TooltipRenderEvent;
@@ -30,7 +30,7 @@ import java.util.Optional;
     mod = CharmClient.MOD_ID,
     description = "Adds hover tooltips for some items that have content."
 )
-public class ExtraTooltips extends CharmFeature {
+public class ExtraTooltips extends CharmonyFeature {
     public static final RenderType MAP_BACKGROUND =
         RenderType.text(new ResourceLocation("textures/map/map_background.png"));
 

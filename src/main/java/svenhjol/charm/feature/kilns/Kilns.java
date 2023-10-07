@@ -8,14 +8,14 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.feature.firing.Firing;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "A functional block that speeds up cooking of clay, glass, bricks and terracotta.")
-public class Kilns extends CharmFeature {
+public class Kilns extends CharmonyFeature {
     private static final String BLOCK_ID = "kiln";
     public static Supplier<KilnBlock> block;
     public static Supplier<BlockItem> blockItem;

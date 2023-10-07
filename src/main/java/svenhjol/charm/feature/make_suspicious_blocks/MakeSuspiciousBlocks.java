@@ -16,14 +16,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.event.BlockUseEvent;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Add an item to sand and gravel when holding a brush in your offhand.")
-public class MakeSuspiciousBlocks extends CharmFeature {
+public class MakeSuspiciousBlocks extends CharmonyFeature {
     static final Map<Block, Block> SUSPICIOUS_BLOCK_CONVERSIONS = new HashMap<>();
     static Supplier<SoundEvent> addItemSound;
 

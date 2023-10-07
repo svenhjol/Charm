@@ -5,13 +5,13 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.EnumHelper;
 
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Place a block of amethyst under a note block to play its placement sound.")
-public class AmethystNoteBlock extends CharmFeature {
+public class AmethystNoteBlock extends CharmonyFeature {
     public static final String NOTE_BLOCK_ID = "charm_amethyst";
     private static Supplier<SoundEvent> AMETHYST_SOUND;
 

@@ -6,7 +6,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.iface.IHorseArmorEnchantmentProvider;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Feature(mod = Charm.MOD_ID, description = "Horse armor can be enchanted.")
-public class EnchantableHorseArmor extends CharmFeature implements IHorseArmorEnchantmentProvider {
+public class EnchantableHorseArmor extends CharmonyFeature implements IHorseArmorEnchantmentProvider {
     static final List<Enchantment> ENCHANTMENTS = new ArrayList<>();
     
     @Configurable(name = "Enchantments", description = "Enchantments that will function on horse armor.")

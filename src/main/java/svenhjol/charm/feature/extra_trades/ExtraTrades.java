@@ -12,14 +12,14 @@ import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.GenericTradeOffers;
 
 import javax.annotation.Nullable;
 
 @Feature(mod = Charm.MOD_ID, description = "Adds more villager trades.")
-public class ExtraTrades extends CharmFeature implements IWandererTradeProvider {
+public class ExtraTrades extends CharmonyFeature implements IWandererTradeProvider {
     @Configurable(name = "Enchanted books", description = "If true, librarians will buy any enchanted book in return for emeralds.")
     public static boolean enchantedBooks = true;
 

@@ -1,9 +1,9 @@
 package svenhjol.charm.mixin;
 
 import svenhjol.charm.Charm;
-import svenhjol.charmony.base.CharmMixinConfigPlugin;
+import svenhjol.charmony.base.CharmonyMixinConfigPlugin;
 
-public class MixinConfigPlugin extends CharmMixinConfigPlugin {
+public class MixinConfigPlugin extends CharmonyMixinConfigPlugin {
     @Override
     protected String getModId() {
         return Charm.MOD_ID;

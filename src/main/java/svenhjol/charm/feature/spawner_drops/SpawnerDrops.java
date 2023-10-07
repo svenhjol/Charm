@@ -19,7 +19,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony_api.event.BlockBreakEvent;
 
 import javax.annotation.Nullable;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Feature(mod = Charm.MOD_ID, description = "Spawners drop mob-related items when broken.")
-public class SpawnerDrops extends CharmFeature {
+public class SpawnerDrops extends CharmonyFeature {
     static final int ITEMS_PER_STACK = 64;
     static final Table<TagKey<EntityType<?>>, Item, Integer> DROP_TYPES = HashBasedTable.create();
 

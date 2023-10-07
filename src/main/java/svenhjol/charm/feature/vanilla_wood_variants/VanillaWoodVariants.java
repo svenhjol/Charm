@@ -4,14 +4,14 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.iface.*;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.enums.VanillaWood;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Feature(mod = Charm.MOD_ID, description = "Barrels, bookcases, chests and ladders in all vanilla wood types.")
-public class VanillaWoodVariants extends CharmFeature implements
+public class VanillaWoodVariants extends CharmonyFeature implements
     IVariantBarrelProvider,
     IVariantBookshelfProvider,
     IVariantChestProvider,

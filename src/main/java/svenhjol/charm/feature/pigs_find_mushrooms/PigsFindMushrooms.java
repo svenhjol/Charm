@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony_api.event.EntityJoinEvent;
 
 import java.util.UUID;
@@ -19,7 +19,7 @@ import java.util.WeakHashMap;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Pigs have a chance to find mushrooms from mycelium and podzol blocks.")
-public class PigsFindMushrooms extends CharmFeature {
+public class PigsFindMushrooms extends CharmonyFeature {
     /**
      * Tracks the animation ticks for a pig UUID.
      */

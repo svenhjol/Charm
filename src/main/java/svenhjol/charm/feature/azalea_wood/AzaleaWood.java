@@ -14,7 +14,7 @@ import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.LevelLoadEvent;
 import svenhjol.charmony_api.iface.*;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.feature.custom_wood.CustomWood;
 import svenhjol.charmony.feature.woodcutting.Woodcutting;
 
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
-public class AzaleaWood extends CharmFeature implements
+public class AzaleaWood extends CharmonyFeature implements
     IVariantBarrelProvider,
     IVariantBookshelfProvider,
     IVariantChestProvider,

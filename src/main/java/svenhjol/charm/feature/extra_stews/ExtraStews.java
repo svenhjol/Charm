@@ -5,10 +5,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.feature.longer_suspicious_effects.LongerSuspiciousEffects;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Suspicious stews can be crafted from pitcher plants and sunflowers.")
-public class ExtraStews extends CharmFeature {
+public class ExtraStews extends CharmonyFeature {
     @Configurable(name = "Pitcher plant effect duration", description = "Number of seconds of strength and regeneration from a pitcher plant.")
     public static int pitcherPlantEffectDuration = 8;
 

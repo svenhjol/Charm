@@ -19,10 +19,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.event.EntityKilledDropEvent;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Some mobs have a chance to drop additional items.")
-public class ExtraMobDrops extends CharmFeature {
+public class ExtraMobDrops extends CharmonyFeature {
     private static final double LOOTING_BOOST = 0.1D;
 
     @Configurable(name = "Maximum sand drops", description = "Maximum sand blocks dropped when a husk is killed.")

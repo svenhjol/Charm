@@ -1,5 +1,7 @@
 package svenhjol.charm.feature.piglins_follow_gold_blocks;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -12,7 +14,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.EntityJoinEvent;
 import svenhjol.charmony_api.event.PlayerTickEvent;
 
@@ -20,7 +23,9 @@ import java.util.List;
 
 @SuppressWarnings("UnusedReturnValue")
 @Feature(mod = Charm.MOD_ID, description = "Piglins are attracted when the player holds a block of gold.")
-public class PiglinsFollowGoldBlocks extends CharmFeature {
+public class PiglinsFollowGoldBlocks extends CharmonyFeature {
+    public static final ResourceLocation TRIGGER_LURED_PIGLIN = new ResourceLocation(Charm.MOD_ID, "lured_piglin");
+
     @Override
     public void runWhenEnabled() {
         EntityJoinEvent.INSTANCE.handle(this::handleEntityJoin);
@@ -33,7 +38,9 @@ public class PiglinsFollowGoldBlocks extends CharmFeature {
             && player.getMainHandItem().getItem() == Items.GOLD_BLOCK
         ) {
             List<Piglin> piglins = player.level().getEntitiesOfClass(Piglin.class, new AABB(player.blockPosition()).inflate(8.0D));
-            // TODO: advancement
+            if (!piglins.isEmpty()) {
+                triggerLuredPiglin((ServerPlayer)player);
+            }
         }
     }
 
@@ -50,4 +57,7 @@ public class PiglinsFollowGoldBlocks extends CharmFeature {
         return InteractionResult.PASS;
     }
 
+    public static void triggerLuredPiglin(ServerPlayer player) {
+        Advancements.trigger(TRIGGER_LURED_PIGLIN, player);
+    }
 }

@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.material.Fluids;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ItemNbtHelper;
 import svenhjol.charmony.helper.MobHelper;
 
@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 public class CoralSquidBucketItem extends BucketItem {
     public static final String STORED_CORAL_SQUID = "stored_coral_squid";
 
-    public CoralSquidBucketItem(CharmFeature feature) {
+    public CoralSquidBucketItem(CharmonyFeature feature) {
         super(Fluids.WATER, new Properties()
             .stacksTo(1));
     }

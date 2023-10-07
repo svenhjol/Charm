@@ -10,14 +10,14 @@ import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony_api.event.HudRenderEvent;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @SuppressWarnings({"resource"})
 @ClientFeature(
     mod = CharmClient.MOD_ID,
     description = "Shows cardinal points and XYZ coordinates when holding a compass."
 )
-public class CompassOverlay extends CharmFeature {
+public class CompassOverlay extends CharmonyFeature {
     @Configurable(name = "Facing", description = "If true, shows the cardinal direction that the player is facing.")
     public static boolean showFacing = true;
 

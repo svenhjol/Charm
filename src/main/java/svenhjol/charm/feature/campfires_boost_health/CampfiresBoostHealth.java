@@ -12,11 +12,11 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Standing within range and sight of a lit campfire provides a small regeneration boost.\n" +
     "It does not work if there are enemies nearby.")
-public class CampfiresBoostHealth extends CharmFeature {
+public class CampfiresBoostHealth extends CharmonyFeature {
     public static final int INTERVAL_CHECK = 200;
     public static final int LENGTH_OF_REGENERATION = 2;
     public static final int DISTANCE_TO_FIRE = 6;

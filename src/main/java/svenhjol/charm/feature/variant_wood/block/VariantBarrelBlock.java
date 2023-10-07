@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charmony_api.iface.IVariantMaterial;
-import svenhjol.charmony.base.CharmBlockItem;
+import svenhjol.charmony.base.CharmonyBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
 
 import javax.annotation.Nullable;
@@ -43,7 +43,7 @@ public class VariantBarrelBlock extends BarrelBlock {
         return Charm.instance().loader().get(VariantWood.class).orElseThrow();
     }
 
-    public static class BlockItem extends CharmBlockItem implements IFuelProvider {
+    public static class BlockItem extends CharmonyBlockItem implements IFuelProvider {
         private final IVariantMaterial material;
 
         public BlockItem(Supplier<VariantBarrelBlock> block) {

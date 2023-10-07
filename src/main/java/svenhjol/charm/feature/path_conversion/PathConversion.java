@@ -13,13 +13,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony_api.event.BlockUseEvent;
 
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID)
-public class PathConversion extends CharmFeature {
+public class PathConversion extends CharmonyFeature {
     static Supplier<SoundEvent> dirtToPathSound;
     static Supplier<SoundEvent> pathToDirtSound;
 

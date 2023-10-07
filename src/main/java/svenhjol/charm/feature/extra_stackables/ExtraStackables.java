@@ -5,10 +5,10 @@ import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Allows some unstackable items to stack.")
-public class ExtraStackables extends CharmFeature {
+public class ExtraStackables extends CharmonyFeature {
     @Configurable(name = "Enchanted book", description = "Enchanted book maximum stack size.")
     public static int enchantedBookStackSize = 16;
 

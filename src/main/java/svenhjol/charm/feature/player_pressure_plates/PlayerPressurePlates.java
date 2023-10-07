@@ -5,13 +5,13 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Player-only pressure plates crafted using gilded blackstone.")
-public class PlayerPressurePlates extends CharmFeature implements IWandererTradeProvider {
+public class PlayerPressurePlates extends CharmonyFeature implements IWandererTradeProvider {
     static final String ID = "player_pressure_plate";
     static Supplier<PlayerPressurePlateBlock> block;
     static Supplier<PlayerPressurePlateBlock.BlockItem> blockItem;

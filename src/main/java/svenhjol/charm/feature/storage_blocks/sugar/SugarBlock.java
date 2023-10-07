@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charmony.base.CharmBlockItem;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyBlockItem;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +26,7 @@ public class SugarBlock extends FallingBlock {
             .strength(0.5F));
     }
 
-    public static CharmFeature getParent() {
+    public static CharmonyFeature getParent() {
         return Charm.instance().loader().get(StorageBlocks.class).orElseThrow();
     }
 
@@ -85,7 +85,7 @@ public class SugarBlock extends FallingBlock {
         return waterBelow;
     }
 
-    static class BlockItem extends CharmBlockItem {
+    static class BlockItem extends CharmonyBlockItem {
         public BlockItem() {
             super(getParent(), Sugar.block, new Properties());
         }

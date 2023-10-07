@@ -7,10 +7,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Automatically opens double doors.")
-public class OpenBothDoors extends CharmFeature {
+public class OpenBothDoors extends CharmonyFeature {
     public static void tryOpenNeighbour(Level level, BlockState state, BlockPos pos, boolean isClosed) {
         var facing = state.getValue(DoorBlock.FACING);
         var hinge = state.getValue(DoorBlock.HINGE);

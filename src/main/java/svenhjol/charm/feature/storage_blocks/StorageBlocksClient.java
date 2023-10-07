@@ -1,18 +1,17 @@
 package svenhjol.charm.feature.storage_blocks;
 
-import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony_api.iface.IStorageBlockFeature;
 import svenhjol.charmony_api.iface.IStorageBlockProvider;
-import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.helper.ApiHelper;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@ClientFeature(mod = Charm.MOD_ID)
-public class StorageBlocksClient extends CharmFeature {
+@ClientFeature(mod = CharmClient.MOD_ID, feature = StorageBlocks.class)
+public class StorageBlocksClient extends CharmonyFeature {
     static Map<Class<? extends IStorageBlockFeature>, IStorageBlockFeature> LOADED_STORAGE_BLOCKS = new HashMap<>();
 
     @Override

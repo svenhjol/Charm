@@ -14,10 +14,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.event.EntityAttackEvent;
 import svenhjol.charmony_api.event.EntityHurtEvent;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.")
-public class NoPetDamage extends CharmFeature {
+public class NoPetDamage extends CharmonyFeature {
     @Override
     public void runWhenEnabled() {
         EntityAttackEvent.INSTANCE.handle(this::handleEntityAttack);

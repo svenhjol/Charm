@@ -19,11 +19,11 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony_api.event.EntityKilledEvent;
 import svenhjol.charmony_api.event.ItemUseEvent;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "A named pet drops its name tag on death.\n" +
     "Right-click (use) the name tag while holding a Totem of Undying to revive the pet and consume the totem.")
-public class RevivePets extends CharmFeature {
+public class RevivePets extends CharmonyFeature {
     public static final String REVIVABLE_TAG = "charm_revivable_pet";
 
     @Override

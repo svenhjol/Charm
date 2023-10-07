@@ -19,6 +19,11 @@ public class Gunpowder implements IStorageBlockFeature {
     static boolean enabled;
 
     @Override
+    public List<BooleanSupplier> checks() {
+        return List.of(() -> StorageBlocks.gunpowderEnabled);
+    }
+
+    @Override
     public void register() {
         var registry = Charm.instance().registry();
 
@@ -26,11 +31,6 @@ public class Gunpowder implements IStorageBlockFeature {
         item = registry.item(ID, GunpowderBlock.BlockItem::new);
         dissolveSound = registry.soundEvent("gunpowder_dissolve");
         enabled = checks().stream().allMatch(BooleanSupplier::getAsBoolean);
-    }
-
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> StorageBlocks.gunpowderEnabled);
     }
 
     @Override

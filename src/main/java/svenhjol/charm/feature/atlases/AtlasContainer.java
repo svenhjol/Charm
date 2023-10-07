@@ -4,13 +4,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Items;
-import svenhjol.charmony.base.CharmConditionalSlot;
-import svenhjol.charmony.base.CharmContainerMenu;
+import svenhjol.charmony.base.CharmonyConditionalSlot;
+import svenhjol.charmony.base.CharmonyContainerMenu;
 import svenhjol.charmony.helper.ItemNbtHelper;
 
 import java.util.Objects;
 
-public class AtlasContainer extends CharmContainerMenu {
+public class AtlasContainer extends CharmonyContainerMenu {
     private final AtlasInventory inventory;
 
     public AtlasContainer(int syncId, Inventory playerInventory) {
@@ -23,7 +23,7 @@ public class AtlasContainer extends CharmContainerMenu {
 
         // Container's inventory slots.
         for (int r = 0; r < 3; ++r) {
-            this.addSlot(new CharmConditionalSlot(stack -> stack.getItem() == Items.MAP, atlasInventory, r, 8, 18 + r * 18));
+            this.addSlot(new CharmonyConditionalSlot(stack -> stack.getItem() == Items.MAP, atlasInventory, r, 8, 18 + r * 18));
         }
 
         // Player's main inventory slots.

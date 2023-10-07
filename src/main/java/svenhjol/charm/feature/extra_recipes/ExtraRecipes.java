@@ -4,10 +4,10 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "More ways to craft items using different materials.")
-public class ExtraRecipes extends CharmFeature {
+public class ExtraRecipes extends CharmonyFeature {
     @Configurable(name = "Ore block from raw ore block", description = "If true, adds a blast furnace recipe for smelting raw ore blocks into ore blocks.")
     public static boolean rawOreBlocks = true;
 

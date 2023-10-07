@@ -9,11 +9,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.base.CharmItem;
+import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.base.CharmonyItem;
 
-public class AtlasItem extends CharmItem {
-    public AtlasItem(CharmFeature feature) {
+public class AtlasItem extends CharmonyItem {
+    public AtlasItem(CharmonyFeature feature) {
         super(feature, new Properties()
             .stacksTo(1));
     }

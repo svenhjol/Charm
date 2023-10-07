@@ -2,14 +2,14 @@ package svenhjol.charm.feature.coral_sea_lanterns;
 
 import net.minecraft.world.level.block.Block;
 import svenhjol.charmony_api.iface.IVariantMaterial;
-import svenhjol.charmony.base.CharmBlock;
-import svenhjol.charmony.base.CharmBlockItem;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyBlock;
+import svenhjol.charmony.base.CharmonyBlockItem;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.function.Supplier;
 
-public class CoralSeaLanternBlock extends CharmBlock {
-    public CoralSeaLanternBlock(CharmFeature feature, IVariantMaterial material) {
+public class CoralSeaLanternBlock extends CharmonyBlock {
+    public CoralSeaLanternBlock(CharmonyFeature feature, IVariantMaterial material) {
         super(feature, Properties.of()
             .strength(0.3F)
             .sound(material.soundType())
@@ -17,8 +17,8 @@ public class CoralSeaLanternBlock extends CharmBlock {
             .lightLevel(blockState -> 15));
     }
 
-    public static class BlockItem extends CharmBlockItem {
-        public <T extends Block> BlockItem(CharmFeature feature, Supplier<T> block) {
+    public static class BlockItem extends CharmonyBlockItem {
+        public <T extends Block> BlockItem(CharmonyFeature feature, Supplier<T> block) {
             super(feature, block, new Properties());
         }
     }

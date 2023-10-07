@@ -12,12 +12,12 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import svenhjol.charm.Charm;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.GrindstoneEvents;
 import svenhjol.charmony_api.event.GrindstoneEvents.GrindstoneMenuInstance;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmFeature;
-import svenhjol.charmony.helper.AdvancementHelper;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.helper.ConfigHelper;
 
 import javax.annotation.Nullable;
@@ -28,7 +28,7 @@ import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item onto an empty book using the grindstone.")
-public class ExtractableEnchantments extends CharmFeature {
+public class ExtractableEnchantments extends CharmonyFeature {
     private static final ResourceLocation EXTRACTED_ENCHANTMENT = Charm.instance().makeId("extracted_enchantment");
     @Configurable(name = "Initial cost", description = "Initial cost (in XP levels) of extraction before adding on the cost of the enchantment(s).")
     public static int initialCost = 5;
@@ -86,7 +86,7 @@ public class ExtractableEnchantments extends CharmFeature {
                 }
 
                 if (!level.isClientSide) {
-                    AdvancementHelper.trigger(EXTRACTED_ENCHANTMENT, (ServerPlayer)player);
+                    Advancements.trigger(EXTRACTED_ENCHANTMENT, (ServerPlayer)player);
                 }
             }
             level.levelEvent(1042, pos, 0);

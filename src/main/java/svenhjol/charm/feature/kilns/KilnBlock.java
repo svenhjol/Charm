@@ -14,17 +14,17 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
-import svenhjol.charmony.base.CharmBlockItem;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyBlockItem;
+import svenhjol.charmony.base.CharmonyFeature;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.function.Supplier;
 
 public class KilnBlock extends AbstractFurnaceBlock {
-    protected CharmFeature feature;
+    protected CharmonyFeature feature;
 
-    public KilnBlock(CharmFeature feature) {
+    public KilnBlock(CharmonyFeature feature) {
         super(Properties.of()
             .strength(3.5F)
             .lightLevel(l -> l.getValue(BlockStateProperties.LIT) ? 13 : 0));
@@ -75,8 +75,8 @@ public class KilnBlock extends AbstractFurnaceBlock {
         }
     }
 
-    static class BlockItem extends CharmBlockItem {
-        public BlockItem(CharmFeature feature, Supplier<KilnBlock> block) {
+    static class BlockItem extends CharmonyBlockItem {
+        public BlockItem(CharmonyFeature feature, Supplier<KilnBlock> block) {
             super(feature, block, new Properties());
         }
     }

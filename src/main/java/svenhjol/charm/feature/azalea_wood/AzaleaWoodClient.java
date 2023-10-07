@@ -1,22 +1,13 @@
 package svenhjol.charm.feature.azalea_wood;
 
 import net.minecraft.client.renderer.RenderType;
-import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmFeature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.feature.custom_wood.CustomWood;
 
-import java.util.List;
-import java.util.function.BooleanSupplier;
-
-@ClientFeature
-public class AzaleaWoodClient extends CharmFeature {
-    @Override
-    public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.instance().loader().isEnabled(AzaleaWood.class));
-    }
-
+@ClientFeature(mod = CharmClient.MOD_ID, feature = AzaleaWood.class)
+public class AzaleaWoodClient extends CharmonyFeature {
     @Override
     public void register() {
         var registry = CharmClient.instance().registry();

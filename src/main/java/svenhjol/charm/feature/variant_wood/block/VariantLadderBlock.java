@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.LadderBlock;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charmony_api.iface.IVariantMaterial;
-import svenhjol.charmony.base.CharmBlockItem;
+import svenhjol.charmony.base.CharmonyBlockItem;
 
 import java.util.function.Supplier;
 
@@ -19,7 +19,7 @@ public class VariantLadderBlock extends LadderBlock {
         return Charm.instance().loader().get(VariantWood.class).orElseThrow();
     }
 
-    public static class BlockItem extends CharmBlockItem {
+    public static class BlockItem extends CharmonyBlockItem {
         public <T extends Block> BlockItem(Supplier<T> block) {
             super(getParent(), block, new Properties());
         }

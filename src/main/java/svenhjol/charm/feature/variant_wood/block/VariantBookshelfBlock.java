@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charmony_api.iface.IVariantMaterial;
-import svenhjol.charmony.base.CharmBlockItem;
+import svenhjol.charmony.base.CharmonyBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
 import svenhjol.charmony.iface.IIgniteProvider;
 
@@ -37,7 +37,7 @@ public class VariantBookshelfBlock extends Block implements IIgniteProvider {
         return material.burnChance();
     }
 
-    public static class BlockItem extends CharmBlockItem implements IFuelProvider {
+    public static class BlockItem extends CharmonyBlockItem implements IFuelProvider {
         private final IVariantMaterial material;
 
         public BlockItem(Supplier<VariantBookshelfBlock> block) {
