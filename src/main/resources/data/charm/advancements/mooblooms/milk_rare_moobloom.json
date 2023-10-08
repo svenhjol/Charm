@@ -1,0 +1,31 @@
+{
+  "parent": "charm:mooblooms/milk_moobloom",
+  "display": {
+    "icon": {
+      "item": "minecraft:suspicious_stew"
+    },
+    "title": {
+      "translate": "advancements.charm.milk_rare_moobloom.title"
+    },
+    "description": {
+      "translate": "advancements.charm.milk_rare_moobloom.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "milked_rare_moobloom": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:milked_rare_moobloom"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "milked_rare_moobloom"
+    ]
+  ]
+}

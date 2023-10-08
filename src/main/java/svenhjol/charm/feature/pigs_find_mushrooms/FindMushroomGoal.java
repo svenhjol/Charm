@@ -79,6 +79,8 @@ public class FindMushroomGoal extends Goal {
             var stack = new ItemStack(random.nextBoolean() ? Items.RED_MUSHROOM : Items.BROWN_MUSHROOM, 1);
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack));
             level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 1.0f, 1.0f);
+
+            PigsFindMushrooms.triggerUnearthedMushroom(level, pos);
         }
     }
 }

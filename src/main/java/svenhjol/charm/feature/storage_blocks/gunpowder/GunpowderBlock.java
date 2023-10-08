@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -16,8 +15,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charmony.base.CharmonyBlockItem;
 import svenhjol.charmony.base.CharmonyFeature;
-import svenhjol.charmony.feature.advancements.Advancements;
-import svenhjol.charmony.helper.PlayerHelper;
 
 @SuppressWarnings({"deprecation", "BooleanMethodIsAlwaysInverted", "unused"})
 public class GunpowderBlock extends FallingBlock {
@@ -67,7 +64,7 @@ public class GunpowderBlock extends FallingBlock {
         }
 
         if (!level.isClientSide()) {
-            triggerAdvancementForNearbyPlayers((ServerLevel)level, pos);
+            Gunpowder.triggerDissolvedGunpowder((ServerLevel)level, pos);
         }
 
         return lavaBelow;
@@ -77,10 +74,5 @@ public class GunpowderBlock extends FallingBlock {
         public BlockItem() {
             super(getParent(), Gunpowder.block, new Properties());
         }
-    }
-
-    static void triggerAdvancementForNearbyPlayers(ServerLevel level, BlockPos pos) {
-        PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(player
-            -> Advancements.trigger(TRIGGER_DISSOLVED_GUNPOWDER, (ServerPlayer)player));
     }
 }

@@ -1,14 +1,14 @@
 {
-  "parent": "charm:core/tweaks",
+  "parent": "charm:core/mobs",
   "display": {
     "icon": {
-      "item": "minecraft:spruce_stairs"
+      "item": "minecraft:bowl"
     },
     "title": {
-      "translate": "advancements.charm.sit_on_chair.title"
+      "translate": "advancements.charm.milk_moobloom.title"
     },
     "description": {
-      "translate": "advancements.charm.sit_on_chair.description"
+      "translate": "advancements.charm.milk_moobloom.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "sat_on_chair": {
+    "milked_moobloom": {
       "trigger": "charmony_action_performed",
       "conditions": {
-        "action": "charm:sat_on_chair"
+        "action": "charm:milked_moobloom"
       }
     }
   },
   "requirements": [
     [
-      "sat_on_chair"
+      "milked_moobloom"
     ]
   ]
 }

@@ -2,13 +2,13 @@
   "parent": "charm:core/tweaks",
   "display": {
     "icon": {
-      "item": "minecraft:spruce_stairs"
+      "item": "minecraft:decorated_pot"
     },
     "title": {
-      "translate": "advancements.charm.sit_on_chair.title"
+      "translate": "advancements.charm.place_item_in_pot.title"
     },
     "description": {
-      "translate": "advancements.charm.sit_on_chair.description"
+      "translate": "advancements.charm.place_item_in_pot.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "sat_on_chair": {
+    "placed_item_in_pot": {
       "trigger": "charmony_action_performed",
       "conditions": {
-        "action": "charm:sat_on_chair"
+        "action": "charm:placed_item_in_pot"
       }
     }
   },
   "requirements": [
     [
-      "sat_on_chair"
+      "placed_item_in_pot"
     ]
   ]
 }

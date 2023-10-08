@@ -1,10 +1,14 @@
 package svenhjol.charm.feature.storage_blocks.gunpowder;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
+import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.helper.PlayerHelper;
 import svenhjol.charmony_api.iface.IStorageBlockFeature;
 
 import java.util.List;
@@ -36,5 +40,10 @@ public class Gunpowder implements IStorageBlockFeature {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    static void triggerDissolvedGunpowder(ServerLevel level, BlockPos pos) {
+        PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(player
+            -> Advancements.trigger(Charm.instance().makeId("dissolved_gunpowder"), player));
     }
 }

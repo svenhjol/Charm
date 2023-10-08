@@ -1,8 +1,6 @@
 package svenhjol.charm.feature.endermite_powder;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
@@ -12,17 +10,18 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import svenhjol.charm.Charm;
+import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.EntityKilledDropEvent;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -35,8 +34,6 @@ public class EndermitePowder extends CharmonyFeature implements IWandererTradePr
     static Supplier<SoundEvent> launchSound;
     public static final TagKey<Structure> ENDERMITE_POWDER_LOCATED = TagKey.create(Registries.STRUCTURE,
         Charm.instance().makeId("endermite_powder_located"));
-
-    static final ResourceLocation TRIGGER_USED_ENDERMITE_POWER = Charm.instance().makeId("used_endermite_powder");
 
     @Override
     public void register() {
@@ -90,7 +87,7 @@ public class EndermitePowder extends CharmonyFeature implements IWandererTradePr
         });
     }
 
-    public static void triggerAdvancement(ServerPlayer playerEntity) {
-        Advancements.trigger(TRIGGER_USED_ENDERMITE_POWER, playerEntity);
+    public static void triggerUsedEndermitePowder(Player player) {
+        Advancements.trigger(Charm.instance().makeId("used_endermite_powder"), player);
     }
 }

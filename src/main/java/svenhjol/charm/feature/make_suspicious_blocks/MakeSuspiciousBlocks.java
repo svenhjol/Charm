@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.BlockUseEvent;
 import svenhjol.charmony.base.CharmonyFeature;
 
@@ -73,19 +74,24 @@ public class MakeSuspiciousBlocks extends CharmonyFeature {
                 var random = level.getRandom();
                 for (int i = 0; i < 18; i++) {
                     level.addParticle(ParticleTypes.ASH,
-                        pos.getX() + (random.nextDouble() * 1.25D),
-                        pos.getY() + 1.08D,
-                        pos.getZ() + (random.nextDouble() * 1.25D),
-                        0.0D, 0.0D, 0.0D);
+                        pos.getX() + (random.nextDouble() * 1.25d),
+                        pos.getY() + 1.08d,
+                        pos.getZ() + (random.nextDouble() * 1.25d),
+                        0.0d, 0.0d, 0.0d);
                 }
             }
 
-            level.playSound(null, pos, addItemSound.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(null, pos, addItemSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             player.swing(InteractionHand.OFF_HAND);
+            triggerMadeSuspiciousBlock(player);
             
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
 
         return InteractionResult.PASS;
+    }
+
+    public static void triggerMadeSuspiciousBlock(Player player) {
+        Advancements.trigger(Charm.instance().makeId("made_suspicious_block"), player);
     }
 }

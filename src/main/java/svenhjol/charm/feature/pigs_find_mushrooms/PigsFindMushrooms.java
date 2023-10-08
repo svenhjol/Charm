@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.pigs_find_mushrooms;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
@@ -12,6 +13,8 @@ import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.helper.PlayerHelper;
 import svenhjol.charmony_api.event.EntityJoinEvent;
 
 import java.util.UUID;
@@ -85,5 +88,11 @@ public class PigsFindMushrooms extends CharmonyFeature {
             return 0.63f;
         }
         return pig.getXRot() * ((float)Math.PI / 180);
+    }
+
+    public static void triggerUnearthedMushroom(Level level, BlockPos pos) {
+        PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(
+            player -> Advancements.trigger(Charm.instance().makeId("unearthed_mushroom"), player));
+
     }
 }

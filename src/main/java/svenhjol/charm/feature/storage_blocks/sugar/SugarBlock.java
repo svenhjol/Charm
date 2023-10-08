@@ -79,7 +79,7 @@ public class SugarBlock extends FallingBlock {
             }
 
             if (!level.isClientSide()) {
-                Sugar.triggerAdvancementForNearbyPlayers((ServerLevel) level, pos);
+                Sugar.triggerDissolvedSugar((ServerLevel) level, pos);
             }
         }
 

@@ -18,6 +18,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.helper.PlayerHelper;
 import svenhjol.charmony_api.event.BlockUseEvent;
 
 import java.util.Optional;
@@ -74,6 +76,7 @@ public class PlaceItemsInPots extends CharmonyFeature {
         // Particle and sound effects
         if (!level.isClientSide) {
             level.playSound(null, pos, sound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+            triggerPlacedItemInPot(player);
         } else {
             var random = level.getRandom();
             for (int i = 0; i < 8; i++) {
@@ -94,6 +97,7 @@ public class PlaceItemsInPots extends CharmonyFeature {
             var stack = opt.get();
             var itemEntity = new ItemEntity(level, pos.getX() + 0.5d, pos.getY() + 0.5d, pos.getZ() + 0.5d, stack);
             level.addFreshEntity(itemEntity);
+            triggerBrokenPotWithItem(level, pos);
         }
     }
 
@@ -105,5 +109,14 @@ public class PlaceItemsInPots extends CharmonyFeature {
 
         var stack = ItemStack.of(tag.getCompound(ITEM_STACK_TAG));
         return Optional.of(stack);
+    }
+
+    public static void triggerBrokenPotWithItem(Level level, BlockPos pos) {
+        PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(
+            player -> Advancements.trigger(Charm.instance().makeId("broken_pot_with_item"), player));
+    }
+
+    public static void triggerPlacedItemInPot(Player player) {
+        Advancements.trigger(Charm.instance().makeId("placed_item_in_pot"), player);
     }
 }

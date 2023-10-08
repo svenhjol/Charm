@@ -1,9 +1,7 @@
 package svenhjol.charm.feature.storage_blocks.sugar;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -23,7 +21,6 @@ public class Sugar implements IStorageBlockFeature {
     static Supplier<Item> item;
     static Supplier<SoundEvent> dissolveSound;
     static boolean enabled;
-    static final ResourceLocation TRIGGER_DISSOLVED_SUGAR = Charm.instance().makeId("dissolved_sugar");
 
     @Override
     public List<BooleanSupplier> checks() {
@@ -44,8 +41,8 @@ public class Sugar implements IStorageBlockFeature {
         return enabled;
     }
 
-    public static void triggerAdvancementForNearbyPlayers(ServerLevel level, BlockPos pos) {
+    static void triggerDissolvedSugar(ServerLevel level, BlockPos pos) {
         PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(
-            player -> Advancements.trigger(TRIGGER_DISSOLVED_SUGAR, (ServerPlayer)player));
+            player -> Advancements.trigger(Charm.instance().makeId("dissolved_sugar"), player));
     }
 }

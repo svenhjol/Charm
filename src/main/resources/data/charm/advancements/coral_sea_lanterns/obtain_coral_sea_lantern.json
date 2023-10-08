@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/decoration",
+  "parent": "charm:coral_squids/obtain_coral_squid_bucket",
   "display": {
     "icon": {
       "item": "charm:brain_sea_lantern"

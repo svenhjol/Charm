@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/automation",
+  "parent": "charm:core/decoration",
   "display": {
     "icon": {
       "item": "charm:smooth_glowstone"
@@ -16,7 +16,7 @@
     "hidden": false
   },
   "criteria": {
-    "obtained_redstone_sand": {
+    "obtained_smooth_glowstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [

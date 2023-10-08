@@ -1,14 +1,14 @@
 {
-  "parent": "charm:core/mobs",
+  "parent": "charm:core/decoration",
   "display": {
     "icon": {
-      "item": "charm:coral_squid_bucket"
+      "item": "charm:woodcutter"
     },
     "title": {
-      "translate": "advancements.charm.obtain_coral_squid_bucket.title"
+      "translate": "advancements.charm.obtain_woodcutter.title"
     },
     "description": {
-      "translate": "advancements.charm.obtain_coral_squid_bucket.description"
+      "translate": "advancements.charm.obtain_woodcutter.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,12 +16,12 @@
     "hidden": false
   },
   "criteria": {
-    "obtained_coral_squid": {
+    "obtained_woodcutter": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["charm:coral_squid_bucket"]
+            "items": ["charm:woodcutter"]
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "obtained_coral_squid"
+      "obtained_woodcutter"
     ]
   ]
 }

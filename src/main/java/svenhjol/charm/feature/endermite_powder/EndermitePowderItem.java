@@ -48,7 +48,7 @@ public class EndermitePowderItem extends CharmonyItem {
                 entity.setPosRaw(x + look.x * 2, y + 0.5, z + look.z * 2);
                 level.addFreshEntity(entity);
 
-                EndermitePowder.triggerAdvancement(serverPlayer);
+                EndermitePowder.triggerUsedEndermitePowder(serverPlayer);
                 return InteractionResultHolder.pass(stack);
             }
         }

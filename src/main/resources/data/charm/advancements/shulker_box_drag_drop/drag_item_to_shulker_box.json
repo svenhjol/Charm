@@ -1,0 +1,31 @@
+{
+  "parent": "charm:hover_sorting/sort_item",
+  "display": {
+    "icon": {
+      "item": "minecraft:white_shulker_box"
+    },
+    "title": {
+      "translate": "advancements.charm.drag_item_to_shulker_box.title"
+    },
+    "description": {
+      "translate": "advancements.charm.drag_item_to_shulker_box.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "dragged_item_to_shulker_box": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:dragged_item_to_shulker_box"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "dragged_item_to_shulker_box"
+    ]
+  ]
+}

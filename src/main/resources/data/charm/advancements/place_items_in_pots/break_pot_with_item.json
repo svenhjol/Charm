@@ -1,0 +1,31 @@
+{
+  "parent": "charm:place_items_in_pots/place_item_in_pot",
+  "display": {
+    "icon": {
+      "item": "minecraft:archer_pottery_sherd"
+    },
+    "title": {
+      "translate": "advancements.charm.break_pot_with_item.title"
+    },
+    "description": {
+      "translate": "advancements.charm.break_pot_with_item.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "broken_pot_with_item": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:broken_pot_with_item"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "broken_pot_with_item"
+    ]
+  ]
+}

@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.ItemDragDropEvent;
 import svenhjol.charmony_api.event.ItemDragDropEvent.StackType;
 import svenhjol.charmony_api.event.LevelLoadEvent;
@@ -129,6 +130,7 @@ public class ShulkerBoxDragDrop extends CharmonyFeature {
                 }
 
                 shulkerBox.saveToItem(dest);
+                triggerDraggedItemToShulkerBox(player);
                 return InteractionResult.SUCCESS;
             }
         }
@@ -160,5 +162,9 @@ public class ShulkerBoxDragDrop extends CharmonyFeature {
         entity.playSound(SoundEvents.SHULKER_BOX_OPEN,
             0.1f + entity.level().getRandom().nextFloat() * 0.3f,
             0.67f + entity.level().getRandom().nextFloat() * 0.4f);
+    }
+
+    public static void triggerDraggedItemToShulkerBox(Player player) {
+        Advancements.trigger(Charm.instance().makeId("dragged_item_to_shulker_box"), player);
     }
 }

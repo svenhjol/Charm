@@ -1,14 +1,14 @@
 {
-  "parent": "charm:core/tweaks",
+  "parent": "charm:core/mobs",
   "display": {
     "icon": {
-      "item": "minecraft:spruce_stairs"
+      "item": "minecraft:emerald_block"
     },
     "title": {
-      "translate": "advancements.charm.sit_on_chair.title"
+      "translate": "advancements.charm.lure_villager.title"
     },
     "description": {
-      "translate": "advancements.charm.sit_on_chair.description"
+      "translate": "advancements.charm.lure_villager.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "sat_on_chair": {
+    "lured_villager": {
       "trigger": "charmony_action_performed",
       "conditions": {
-        "action": "charm:sat_on_chair"
+        "action": "charm:lured_villager"
       }
     }
   },
   "requirements": [
     [
-      "sat_on_chair"
+      "lured_villager"
     ]
   ]
 }

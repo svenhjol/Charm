@@ -3,12 +3,14 @@ package svenhjol.charm.feature.lumberjacks;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.GenericTradeOffers;
 
 import java.util.List;
@@ -32,7 +34,6 @@ public class Lumberjacks extends CharmonyFeature {
 
         workSound = registry.soundEvent("lumberjack");
         profession = registry.villagerProfession(VILLAGER_ID, Woodcutters.BLOCK_ID, List.of(Woodcutters.block), workSound);
-//        registry.pointOfInterestBlockStates(() -> poitKey, () -> Woodcutters.block.get().getStateDefinition().getPossibleStates());
         registry.villagerGift(VILLAGER_ID);
 
         if (isEnabled()) {
@@ -118,5 +119,9 @@ public class Lumberjacks extends CharmonyFeature {
 
         registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
             Woodcutters.block.get(), 5, 1, 30, 20));
+    }
+
+    public static void triggerTradedWithLumberjack(Player player) {
+        Advancements.trigger(Charm.instance().makeId("traded_with_lumberjack"), player);
     }
 }

@@ -1,8 +1,6 @@
 package svenhjol.charm.feature.mooblooms;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -10,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
@@ -29,7 +28,6 @@ public class Mooblooms extends CharmonyFeature {
     static Supplier<Item> spawnEggItem;
     static Supplier<EntityType<MoobloomEntity>> entity;
     static Supplier<SoundEvent> milkingSound;
-    static final ResourceLocation TRIGGER_MILKED_MOOBLOOM = Charm.instance().makeId("milked_moobloom");
     public static final TagKey<Biome> SPAWNS_COMMON_MOOBLOOMS
         = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_common_mooblooms"));
     public static final TagKey<Biome> SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS
@@ -79,7 +77,11 @@ public class Mooblooms extends CharmonyFeature {
         }
     }
 
-    public static void triggerMilkedMoobloom(ServerPlayer player) {
-        Advancements.trigger(TRIGGER_MILKED_MOOBLOOM, player);
+    public static void triggerMilkedMoobloom(Player player) {
+        Advancements.trigger(Charm.instance().makeId("milked_moobloom"), player);
+    }
+
+    public static void triggerMilkedRareMoobloom(Player player) {
+        Advancements.trigger(Charm.instance().makeId("milked_rare_moobloom"), player);
     }
 }

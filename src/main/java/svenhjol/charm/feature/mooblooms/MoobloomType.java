@@ -32,6 +32,10 @@ public enum MoobloomType {
         POPPY, RED_TULIP, WHITE_TULIP
     );
 
+    public final static List<MoobloomType> RARE_TYPES = List.of(
+        SUNFLOWER, CHERRY_BLOSSOM
+    );
+
     MoobloomType(String name, FlowerBlockState flower) {
         this.name = name;
         this.flower = flower;

@@ -22,6 +22,7 @@ import svenhjol.charm.feature.hover_sorting.HoverSortingNetwork.ScrollOnHover;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.TagHelper;
 import svenhjol.charmony_api.CharmonyApi;
@@ -103,6 +104,8 @@ public class HoverSorting extends CharmonyFeature implements IHoverSortableItemP
                 itemStack.save(t);
                 list.add(0, t);
             });
+
+            triggerSortedItems(player);
         }
     }
 
@@ -133,6 +136,8 @@ public class HoverSorting extends CharmonyFeature implements IHoverSortableItemP
                 list.addAll(stacks);
                 shulkerBox.itemStacks = list;
                 shulkerBox.saveToItem(stack);
+
+                triggerSortedItems(player);
             }
         }
     }
@@ -170,5 +175,9 @@ public class HoverSorting extends CharmonyFeature implements IHoverSortableItemP
     @Override
     public List<TagKey<Block>> getHoverSortableBlockTags() {
         return List.of(BlockTags.SHULKER_BOXES);
+    }
+
+    public static void triggerSortedItems(Player player) {
+        Advancements.trigger(Charm.instance().makeId("sorted_items"), player);
     }
 }

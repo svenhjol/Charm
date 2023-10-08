@@ -17,9 +17,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.EntityKilledEvent;
 import svenhjol.charmony_api.event.ItemUseEvent;
-import svenhjol.charmony.base.CharmonyFeature;
 
 @Feature(mod = Charm.MOD_ID, description = "A named pet drops its name tag on death.\n" +
     "Right-click (use) the name tag while holding a Totem of Undying to revive the pet and consume the totem.")
@@ -74,6 +75,8 @@ public class RevivePets extends CharmonyFeature {
                 }
 
                 stack.shrink(stack.getCount());
+
+                triggerRevivedAnimal(player);
                 return InteractionResultHolder.consume(stack);
             }
         }
@@ -103,5 +106,9 @@ public class RevivePets extends CharmonyFeature {
 
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack));
         }
+    }
+
+    public static void triggerRevivedAnimal(Player player) {
+        Advancements.trigger(Charm.instance().makeId("revived_animal"), player);
     }
 }

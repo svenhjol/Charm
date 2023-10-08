@@ -1,0 +1,31 @@
+{
+  "parent": "charm:woodcutters/obtain_woodcutter",
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_axe"
+    },
+    "title": {
+      "translate": "advancements.charm.trade_with_lumberjack.title"
+    },
+    "description": {
+      "translate": "advancements.charm.trade_with_lumberjack.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "traded_with_lumberjack": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:traded_with_lumberjack"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "traded_with_lumberjack"
+    ]
+  ]
+}
