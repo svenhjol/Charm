@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.PlayerTickEvent;
 import svenhjol.charmony.base.CharmonyFeature;
 
@@ -61,6 +62,7 @@ public class AutoRestock extends CharmonyFeature {
                 && Objects.equals(stackData.enchantments, possibleReplacement.getEnchantmentTags())) {
                 player.setItemInHand(hand, possibleReplacement.copy());
                 inventory.removeItem(i, inventory.getMaxStackSize());
+                triggerRestockCurrentItem(player);
                 break;
             }
         }
@@ -85,5 +87,9 @@ public class AutoRestock extends CharmonyFeature {
             stackData.enchantments = enchantments;
             stackData.used = used;
         }
+    }
+
+    public static void triggerRestockCurrentItem(ServerPlayer player) {
+        Advancements.trigger(Charm.instance().makeId("restocked_current_item"), player);
     }
 }

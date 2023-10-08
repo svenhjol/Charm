@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/tools",
+  "display": {
+    "icon": {
+      "item": "minecraft:bucket"
+    },
+    "title": {
+      "translate": "advancements.charm.capture_bat.title"
+    },
+    "description": {
+      "translate": "advancements.charm.capture_bat.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "captured_bat": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:captured_bat"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "captured_bat"
+    ]
+  ]
+}

@@ -1,12 +1,17 @@
 package svenhjol.charm.feature.amethyst_note_block;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.EnumHelper;
+import svenhjol.charmony.helper.PlayerHelper;
 
 import java.util.function.Supplier;
 
@@ -36,5 +41,11 @@ public class AmethystNoteBlock extends CharmonyFeature {
                     holder,
                     NoteBlockInstrument.Type.BASE_BLOCK
                 ));
+    }
+
+    public static void triggerPlayAmethystNoteBlock(ServerLevel level, BlockPos pos) {
+        PlayerHelper.getPlayersInRange(level, pos, 4.0D).forEach(
+            player -> Advancements.trigger(Charm.instance().makeId("played_amethyst_note_block"), (ServerPlayer) player)
+        );
     }
 }

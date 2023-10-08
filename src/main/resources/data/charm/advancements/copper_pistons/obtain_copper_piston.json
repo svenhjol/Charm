@@ -1,0 +1,38 @@
+{
+  "parent": "charm:core/automation",
+  "display": {
+    "icon": {
+      "item": "charm:copper_piston"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_copper_piston.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_copper_piston.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_copper_piston": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "charm:copper_piston",
+              "charm:sticky_copper_piston"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_copper_piston"
+    ]
+  ]
+}

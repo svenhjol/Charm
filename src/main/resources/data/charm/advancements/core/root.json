@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "charm:birch_barrel"
+      "item": "charm:azalea_chest"
     },
     "title": {
       "translate": "advancements.charm.root.title"

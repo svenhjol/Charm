@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/decoration",
+  "display": {
+    "icon": {
+      "item": "minecraft:amethyst_block"
+    },
+    "title": {
+      "translate": "advancements.charm.play_amethyst_note_block.title"
+    },
+    "description": {
+      "translate": "advancements.charm.play_amethyst_note_block.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "played_amethyst_note_block": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:played_amethyst_note_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "played_amethyst_note_block"
+    ]
+  ]
+}

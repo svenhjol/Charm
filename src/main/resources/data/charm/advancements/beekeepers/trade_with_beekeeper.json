@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/mobs",
+  "display": {
+    "icon": {
+      "item": "minecraft:beehive"
+    },
+    "title": {
+      "translate": "advancements.charm.trade_with_beekeeper.title"
+    },
+    "description": {
+      "translate": "advancements.charm.trade_with_beekeeper.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "traded_with_beekeeper": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:traded_with_beekeeper"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "traded_with_beekeeper"
+    ]
+  ]
+}

@@ -2,7 +2,6 @@ package svenhjol.charm.feature.bat_buckets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -38,8 +37,6 @@ public class BatBuckets extends CharmonyFeature implements IWandererTradeProvide
     private static Supplier<SoundEvent> grabSound;
     private static Supplier<SoundEvent> releaseSound;
     static final int GLOW_TIME = 10; // In seconds.
-    static final ResourceLocation TRIGGER_CAPTURED_BAT = Charm.instance().makeId("captured_bat");
-    static final ResourceLocation TRIGGER_USED_BAT_BUCKET = Charm.instance().makeId("used_bat_bucket");
 
     @Override
     public void register() {
@@ -124,10 +121,10 @@ public class BatBuckets extends CharmonyFeature implements IWandererTradeProvide
     }
 
     public static void triggerCapturedBat(ServerPlayer player) {
-        Advancements.trigger(TRIGGER_CAPTURED_BAT, player);
+        Advancements.trigger(Charm.instance().makeId("captured_bat"), player);
     }
 
     public static void triggerUsedBatBucket(ServerPlayer player) {
-        Advancements.trigger(TRIGGER_USED_BAT_BUCKET, player);
+        Advancements.trigger(Charm.instance().makeId("used_bat_bucket"), player);
     }
 }
