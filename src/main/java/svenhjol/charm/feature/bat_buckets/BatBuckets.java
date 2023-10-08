@@ -3,7 +3,6 @@ package svenhjol.charm.feature.bat_buckets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -93,7 +92,7 @@ public class BatBuckets extends CharmonyFeature implements IWandererTradeProvide
             player.swing(hand);
             entity.discard();
 
-            triggerCapturedBat((ServerPlayer) player);
+            triggerCapturedBat(player);
             return InteractionResult.CONSUME;
         }
 
@@ -120,11 +119,11 @@ public class BatBuckets extends CharmonyFeature implements IWandererTradeProvide
         });
     }
 
-    public static void triggerCapturedBat(ServerPlayer player) {
+    public static void triggerCapturedBat(Player player) {
         Advancements.trigger(Charm.instance().makeId("captured_bat"), player);
     }
 
-    public static void triggerUsedBatBucket(ServerPlayer player) {
+    public static void triggerUsedBatBucket(Player player) {
         Advancements.trigger(Charm.instance().makeId("used_bat_bucket"), player);
     }
 }

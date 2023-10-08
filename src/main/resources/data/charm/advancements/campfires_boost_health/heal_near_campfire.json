@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/tweaks",
+  "display": {
+    "icon": {
+      "item": "minecraft:campfire"
+    },
+    "title": {
+      "translate": "advancements.charm.heal_near_campfire.title"
+    },
+    "description": {
+      "translate": "advancements.charm.heal_near_campfire.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "healed_near_campfire": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:healed_near_campfire"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "healed_near_campfire"
+    ]
+  ]
+}

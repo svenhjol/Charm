@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.BlockUseEvent;
 import svenhjol.charmony.base.CharmonyFeature;
 
@@ -66,10 +67,15 @@ public class Chairs extends CharmonyFeature {
                     log.debug(getClass(), "Moved player to chair pos");
                 }
 
+                triggerSatOnChair(player);
                 return InteractionResult.SUCCESS;
             }
         }
 
         return InteractionResult.PASS;
+    }
+
+    public static void triggerSatOnChair(Player player) {
+        Advancements.trigger(Charm.instance().makeId("sat_on_chair"), player);
     }
 }

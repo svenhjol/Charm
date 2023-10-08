@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/mobs",
+  "display": {
+    "icon": {
+      "item": "minecraft:beacon"
+    },
+    "title": {
+      "translate": "advancements.charm.heal_near_beacon.title"
+    },
+    "description": {
+      "translate": "advancements.charm.heal_near_beacon.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "healed_near_beacon": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:healed_near_beacon"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "healed_near_beacon"
+    ]
+  ]
+}

@@ -62,7 +62,7 @@ public class AutoRestock extends CharmonyFeature {
                 && Objects.equals(stackData.enchantments, possibleReplacement.getEnchantmentTags())) {
                 player.setItemInHand(hand, possibleReplacement.copy());
                 inventory.removeItem(i, inventory.getMaxStackSize());
-                triggerRestockCurrentItem(player);
+                triggerRestockedCurrentItem(player);
                 break;
             }
         }
@@ -89,7 +89,7 @@ public class AutoRestock extends CharmonyFeature {
         }
     }
 
-    public static void triggerRestockCurrentItem(ServerPlayer player) {
+    public static void triggerRestockedCurrentItem(Player player) {
         Advancements.trigger(Charm.instance().makeId("restocked_current_item"), player);
     }
 }

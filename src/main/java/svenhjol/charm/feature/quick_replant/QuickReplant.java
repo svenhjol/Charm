@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.quick_replant;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -39,7 +38,6 @@ public class QuickReplant extends CharmonyFeature implements IQuickReplantProvid
         Blocks.PITCHER_CROP,
         Blocks.PITCHER_PLANT
     );
-    static final ResourceLocation TRIGGER_REPLANTED_CROPS = Charm.instance().makeId("replanted_crops");
 
     @Override
     public void register() {
@@ -153,7 +151,7 @@ public class QuickReplant extends CharmonyFeature implements IQuickReplantProvid
         return harvestables;
     }
 
-    public static void triggerReplantedCrops(ServerPlayer player) {
-        Advancements.trigger(TRIGGER_REPLANTED_CROPS, player);
+    public static void triggerReplantedCrops(Player player) {
+        Advancements.trigger(Charm.instance().makeId("replanted_crops"), player);
     }
 }

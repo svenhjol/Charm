@@ -1,11 +1,11 @@
 package svenhjol.charm.feature.beekeepers;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
@@ -77,7 +77,7 @@ public class Beekeepers extends CharmonyFeature {
             21, 14, 30, 1));
     }
 
-    public static void triggerTradeWithBeekeeper(ServerPlayer player) {
+    public static void triggerTradedWithBeekeeper(Player player) {
         Advancements.trigger(Charm.instance().makeId("traded_with_beekeeper"), player);
     }
 }

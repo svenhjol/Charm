@@ -1,7 +1,6 @@
 package svenhjol.charm.mixin.amethyst_note_block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.NoteBlock;
@@ -33,9 +32,8 @@ public class NoteBlockMixin {
     private void hookPlayNote(Entity entity, BlockState state, Level level, BlockPos pos, CallbackInfo ci) {
         var instrument = state.getValue(INSTRUMENT);
         var name = instrument.getSerializedName();
-        if (name.equals(AmethystNoteBlock.NOTE_BLOCK_ID)
-            && level instanceof ServerLevel serverLevel) {
-            AmethystNoteBlock.triggerPlayAmethystNoteBlock(serverLevel, pos);
+        if (name.equals(AmethystNoteBlock.NOTE_BLOCK_ID)) {
+            AmethystNoteBlock.triggerPlayedAmethystNoteBlock(level, pos);
         }
     }
 }

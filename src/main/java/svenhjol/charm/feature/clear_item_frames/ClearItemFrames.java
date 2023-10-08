@@ -1,7 +1,6 @@
 package svenhjol.charm.feature.clear_item_frames;
 
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,7 +27,6 @@ import java.util.function.Supplier;
 @Feature(mod = Charm.MOD_ID, description = "Add amethyst shards to item frames to make them invisible.")
 public class ClearItemFrames extends CharmonyFeature {
     static Supplier<SimpleParticleType> particleType;
-    static final ResourceLocation TRIGGER_USED_AMETHYST_ON_FRAME = Charm.instance().makeId("used_amethyst_on_frame");
 
     @Override
     public void register() {
@@ -86,7 +84,7 @@ public class ClearItemFrames extends CharmonyFeature {
             if (!level.isClientSide()) {
                 var serverPlayer = (ServerPlayer)player;
                 AddAmethyst.send(frame.blockPosition(), serverPlayer);
-                triggerUsedAmethystOnFrame(serverPlayer);
+                triggerMadeClearItemFrame(serverPlayer);
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide());
@@ -95,7 +93,7 @@ public class ClearItemFrames extends CharmonyFeature {
         return InteractionResult.PASS;
     }
 
-    public static void triggerUsedAmethystOnFrame(ServerPlayer player) {
-        Advancements.trigger(TRIGGER_USED_AMETHYST_ON_FRAME, player);
+    public static void triggerMadeClearItemFrame(Player player) {
+        Advancements.trigger(Charm.instance().makeId("made_clear_item_frame"), player);
     }
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "charm:colored_glint_smithing_templates/obtain_colored_glint_template",
+  "display": {
+    "icon": {
+      "item": "minecraft:netherite_sword",
+      "nbt": "{Enchantments:[{id:\"charm:aerial_affinity\",lvl:1s}],charmony_glint:\"blue\"}"
+    },
+    "title": {
+      "translate": "advancements.charm.apply_colored_glint_template.title"
+    },
+    "description": {
+      "translate": "advancements.charm.apply_colored_glint_template.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "applied_colored_glint_template": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:applied_colored_glint_template"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "applied_colored_glint_template"
+    ]
+  ]
+}

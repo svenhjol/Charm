@@ -1,7 +1,5 @@
 package svenhjol.charm.feature.extractable_enchantments;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -12,13 +10,13 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.feature.advancements.Advancements;
-import svenhjol.charmony_api.event.GrindstoneEvents;
-import svenhjol.charmony_api.event.GrindstoneEvents.GrindstoneMenuInstance;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ConfigHelper;
+import svenhjol.charmony_api.event.GrindstoneEvents;
+import svenhjol.charmony_api.event.GrindstoneEvents.GrindstoneMenuInstance;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -29,7 +27,6 @@ import java.util.function.BooleanSupplier;
 
 @Feature(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item onto an empty book using the grindstone.")
 public class ExtractableEnchantments extends CharmonyFeature {
-    private static final ResourceLocation EXTRACTED_ENCHANTMENT = Charm.instance().makeId("extracted_enchantment");
     @Configurable(name = "Initial cost", description = "Initial cost (in XP levels) of extraction before adding on the cost of the enchantment(s).")
     public static int initialCost = 5;
 
@@ -84,10 +81,7 @@ public class ExtractableEnchantments extends CharmonyFeature {
                     int cost = getCost(stack);
                     player.giveExperienceLevels(-cost);
                 }
-
-                if (!level.isClientSide) {
-                    Advancements.trigger(EXTRACTED_ENCHANTMENT, (ServerPlayer)player);
-                }
+                triggerExtractedEnchantment(player);
             }
             level.levelEvent(1042, pos, 0);
         });
@@ -183,5 +177,9 @@ public class ExtractableEnchantments extends CharmonyFeature {
         }
 
         return cost;
+    }
+
+    public static void triggerExtractedEnchantment(Player player) {
+        Advancements.trigger(Charm.instance().makeId("extracted_enchantment"), player);
     }
 }

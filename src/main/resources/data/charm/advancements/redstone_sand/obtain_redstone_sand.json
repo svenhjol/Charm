@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/automation",
+  "display": {
+    "icon": {
+      "item": "charm:redstone_sand"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_redstone_sand.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_redstone_sand.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_redstone_sand": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:redstone_sand"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_redstone_sand"
+    ]
+  ]
+}

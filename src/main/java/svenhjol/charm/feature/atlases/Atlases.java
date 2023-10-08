@@ -41,7 +41,7 @@ public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
     public static Supplier<MenuType<AtlasContainer>> MENU_TYPE;
     public static Supplier<SoundEvent> OPEN_SOUND;
     public static Supplier<SoundEvent> CLOSE_SOUND;
-    private static final int NUMBER_OF_MAPS_FOR_ACHIEVEMENT = 1;
+    private static final int NUMBER_OF_MAPS_FOR_ACHIEVEMENT = 10;
 
     @Configurable(name = "Open in off hand", description = "Allow opening the atlas while it is in the off-hand.")
     public static boolean offHandOpen = false;
@@ -130,7 +130,7 @@ public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
                         AtlasesNetwork.UpdateInventory.send(player, slot);
 
                         if (inventory.getMapInfos().size() >= NUMBER_OF_MAPS_FOR_ACHIEVEMENT) {
-                            triggerMadeMaps(serverPlayer);
+                            triggerMadeAtlasMaps(serverPlayer);
                         }
                     }
                 }
@@ -262,7 +262,7 @@ public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
         });
     }
 
-    public static void triggerMadeMaps(ServerPlayer serverPlayer) {
-        Advancements.trigger(Charm.instance().makeId("made_atlas_maps"), serverPlayer);
+    public static void triggerMadeAtlasMaps(Player player) {
+        Advancements.trigger(Charm.instance().makeId("made_atlas_maps"), player);
     }
 }

@@ -1,6 +1,5 @@
 package svenhjol.charm.mixin.beekeepers;
 
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.player.Player;
@@ -24,9 +23,8 @@ public abstract class VillagerMixin {
     )
     private void hookStartTrading(Player player, CallbackInfo ci) {
         var data = getVillagerData();
-        if (data.getProfession() == Beekeepers.profession.get()
-            && player instanceof ServerPlayer serverPlayer) {
-            Beekeepers.triggerTradeWithBeekeeper(serverPlayer);
+        if (data.getProfession() == Beekeepers.profession.get()) {
+            Beekeepers.triggerTradedWithBeekeeper(player);
         }
     }
 }

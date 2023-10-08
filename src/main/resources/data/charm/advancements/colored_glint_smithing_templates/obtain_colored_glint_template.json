@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/world",
+  "display": {
+    "icon": {
+      "item": "charm:colored_glint_smithing_template"
+    },
+    "title": {
+      "translate": "advancements.charm.obtain_colored_glint_template.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtain_colored_glint_template.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_colored_glint_template": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:colored_glint_smithing_template"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_colored_glint_template"
+    ]
+  ]
+}

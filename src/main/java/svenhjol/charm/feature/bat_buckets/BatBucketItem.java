@@ -2,7 +2,6 @@ package svenhjol.charm.feature.bat_buckets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -57,7 +56,7 @@ public class BatBucketItem extends CharmonyItem {
         player.swing(hand);
 
         if (!player.level().isClientSide()) {
-            BatBuckets.triggerUsedBatBucket((ServerPlayer)player);
+            BatBuckets.triggerUsedBatBucket(player);
             player.addEffect(new MobEffectInstance(Echolocation.MOB_EFFECT.get(), BatBuckets.GLOW_TIME * 20));
         }
 
