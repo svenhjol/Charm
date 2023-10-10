@@ -17,11 +17,11 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class VariantBarrelBlock extends BarrelBlock {
-    private final IVariantMaterial variantMaterial;
+    private final IVariantMaterial material;
 
     public VariantBarrelBlock(IVariantMaterial material) {
         super(Properties.copy(Blocks.BARREL));
-        this.variantMaterial = material;
+        this.material = material;
 
         this.registerDefaultState(this.getStateDefinition()
             .any()
@@ -36,7 +36,7 @@ public class VariantBarrelBlock extends BarrelBlock {
     }
 
     public IVariantMaterial getMaterial() {
-        return variantMaterial;
+        return material;
     }
 
     static VariantWood getParent() {

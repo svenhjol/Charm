@@ -15,5 +15,8 @@ public class CustomLadder {
 
         block = registry.block(id, () -> new VariantLadderBlock(material));
         item = registry.item(id, () -> new VariantLadderBlock.BlockItem(block));
+
+        // Ladders can be used as furnace fuel.
+        registry.fuel(item);
     }
 }
