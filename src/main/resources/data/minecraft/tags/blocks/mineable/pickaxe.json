@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "charm:copper_piston",
+    "charm:copper_piston_head",
     "charm:ender_pearl_block",
     "charm:kiln",
     "charm:player_pressure_plate",
