@@ -13,7 +13,7 @@ import svenhjol.charmony.base.CharmonyFeature;
 import java.util.List;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, canBeDisabled = false)
+@Feature(mod = Charm.MOD_ID, description = "Copper Pistons do not have quasi-connectivity.")
 public class CopperPistons extends CharmonyFeature {
     public static Supplier<Block> copperPistonBlock;
     public static Supplier<Block> copperPistonHeadBlock;
