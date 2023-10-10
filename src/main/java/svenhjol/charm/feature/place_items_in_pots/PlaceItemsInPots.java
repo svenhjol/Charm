@@ -46,8 +46,9 @@ public class PlaceItemsInPots extends CharmonyFeature {
         var direction = hitResult.getDirection();
         var pos = hitResult.getBlockPos();
         var state = level.getBlockState(pos);
+        var isCrouching = player.isCrouching();
 
-        if (held.isEmpty() || direction != Direction.UP) {
+        if (held.isEmpty() || direction != Direction.UP || isCrouching) {
             return InteractionResult.PASS;
         }
 
@@ -91,6 +92,10 @@ public class PlaceItemsInPots extends CharmonyFeature {
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
+    /**
+     * Might use this again in future. Drop the item stack from the pot as an entity.
+     */
+    @SuppressWarnings("unused")
     public static void dropItemStack(Level level, BlockPos pos, DecoratedPotBlockEntity pot) {
         var opt = getItemStack(pot);
         if (opt.isPresent()) {
