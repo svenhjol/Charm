@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/tweaks",
+  "display": {
+    "icon": {
+      "item": "minecraft:crafting_table"
+    },
+    "title": {
+      "translate": "advancements.charm.use_proximity_crafting_table.title"
+    },
+    "description": {
+      "translate": "advancements.charm.use_proximity_crafting_table.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "used_proximity_crafting_table": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:used_proximity_crafting_table"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "used_proximity_crafting_table"
+    ]
+  ]
+}

@@ -20,6 +20,7 @@ import svenhjol.charm.feature.proximity_workstations.menu.*;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.TagHelper;
 
 import java.util.*;
@@ -112,6 +113,7 @@ public class ProximityWorkstations extends CharmonyFeature {
         return WORKSTATIONS_IN_RANGE.getOrDefault(uuid, new HashMap<>());
     }
 
+    @SuppressWarnings("unused")
     static void handleOpenedSelector(OpenWorkstationSelector message, Player player) {
         var workstations = getWorkstationsInRange(player);
         var blocks = new LinkedList<>(workstations.keySet());
@@ -142,6 +144,14 @@ public class ProximityWorkstations extends CharmonyFeature {
             player.closeContainer();
             var provider = MENU_PROVIDERS.get(block);
             player.openMenu(provider.apply(pos));
+
+            if (block == Blocks.CRAFTING_TABLE) {
+                triggerUsedProximityCraftingTable(player);
+            }
         }
+    }
+
+    static void triggerUsedProximityCraftingTable(Player player) {
+        Advancements.trigger(Charm.instance().makeId("used_proximity_crafting_table"), player);
     }
 }
