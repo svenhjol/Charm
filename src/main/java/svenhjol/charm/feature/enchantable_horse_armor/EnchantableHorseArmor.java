@@ -35,7 +35,8 @@ public class EnchantableHorseArmor extends CharmonyFeature implements IHorseArmo
         "minecraft:thorns",
         "minecraft:frost_walker",
         "minecraft:feather_falling",
-        "minecraft:respiration"
+        "minecraft:respiration",
+        "minecraft:soul_speed"
     );
 
     @Override
