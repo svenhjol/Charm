@@ -61,10 +61,10 @@ public class GunpowderBlock extends FallingBlock {
             level.globalLevelEvent(2001, pos, Block.getId(level.getBlockState(pos)));
             level.removeBlock(pos, true);
             level.playSound(null, pos, Gunpowder.dissolveSound.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
-        }
 
-        if (!level.isClientSide()) {
-            Gunpowder.triggerDissolvedGunpowder((ServerLevel)level, pos);
+            if (!level.isClientSide()) {
+                Gunpowder.triggerDissolvedGunpowder((ServerLevel)level, pos);
+            }
         }
 
         return lavaBelow;
