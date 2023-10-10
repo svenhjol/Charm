@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/world",
+  "parent": "charm:core/decoration",
   "display": {
     "icon": {
       "item": "charm:colored_glint_smithing_template"
