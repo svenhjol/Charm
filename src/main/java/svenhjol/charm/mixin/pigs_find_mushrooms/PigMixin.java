@@ -25,7 +25,7 @@ public abstract class PigMixin extends Animal {
     @Override
     public void aiStep() {
         var uuid = getUUID();
-        if (!level().isClientSide && PigsFindMushrooms.PIG_ANIMATION_TICKS.containsKey(uuid)) {
+        if (PigsFindMushrooms.PIG_ANIMATION_TICKS.containsKey(uuid)) {
             var ticks = PigsFindMushrooms.PIG_ANIMATION_TICKS.get(uuid);
             PigsFindMushrooms.PIG_ANIMATION_TICKS.put(uuid, ticks - 1);
         }
