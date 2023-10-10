@@ -11,5 +11,5 @@ public class LongerSuspiciousEffects extends CharmonyFeature {
         name = "Effect multiplier",
         description = "Beneficial suspicious effect duration will be multiplied by this number."
     )
-    public static int effectMultiplier = 5;
+    public static int effectMultiplier = 4;
 }
