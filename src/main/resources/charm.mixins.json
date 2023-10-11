@@ -39,8 +39,6 @@
     "open_both_doors.DoorBlockMixin",
     "parrots_stay_on_shoulder.PlayerMixin",
     "pigs_find_mushrooms.PigMixin",
-    "place_items_in_pots.DecoratedPotBlockEntityMixin",
-    "place_items_in_pots.DecoratedPotBlockMixin",
     "revive_pets.NameTagItemMixin",
     "storage_blocks.ChorusFruitItemMixin",
     "stronger_anvils.AnvilBlockMixin",
