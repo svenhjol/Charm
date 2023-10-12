@@ -14,9 +14,7 @@ import svenhjol.charm.feature.variant_wood.block.VariantChestBlock;
 import svenhjol.charm.feature.variant_wood.block.VariantTrappedChestBlock;
 import svenhjol.charm.feature.variant_wood.entity.VariantChestBlockEntity;
 import svenhjol.charm.feature.variant_wood.entity.VariantTrappedChestBlockEntity;
-import svenhjol.charm.feature.variant_wood.recipe.VariantChestBoatRecipe;
 import svenhjol.charm.feature.variant_wood.registry.CustomChest;
-import svenhjol.charm.feature.variant_wood.registry.CustomChestBoat;
 import svenhjol.charm.feature.variant_wood.registry.CustomTrappedChest;
 import svenhjol.charm.feature.variant_wood.renderer.VariantChestBlockEntityRenderer;
 import svenhjol.charmony.annotation.ClientFeature;
@@ -24,21 +22,18 @@ import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.iface.IClientRegistry;
 import svenhjol.charmony_api.event.BlockItemRenderEvent;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @ClientFeature(feature = VariantWood.class)
 public class VariantWoodClient extends CharmonyFeature {
     private VariantChestBlockEntity cachedNormalChest;
     private VariantTrappedChestBlockEntity cachedTrappedChest;
-    private static final int DEFAULT_CHEST_BOAT_LAYER_COLOR = 0xdf9f43;
 
     @Override
     public void register() {
         var registry = CharmClient.instance().registry();
 
         registerChests(registry);
-        registerChestBoats(registry);
 
         // Add items to the creative menu.
         if (isEnabled()) {
@@ -83,12 +78,6 @@ public class VariantWoodClient extends CharmonyFeature {
             () -> VariantChestBlockEntityRenderer::new);
         registry.blockEntityRenderer(CustomTrappedChest.blockEntity,
             () -> VariantChestBlockEntityRenderer::new);
-    }
-
-    private void registerChestBoats(IClientRegistry registry) {
-        // Assign a handler method to each of the chest boat item icons.
-        registry.itemColor(this::handleChestBoatLayerColor,
-            new ArrayList<>(CustomChestBoat.boatPairs.values()));
     }
 
     @Override
@@ -139,17 +128,5 @@ public class VariantWoodClient extends CharmonyFeature {
         }
 
         return Optional.empty();
-    }
-
-    private int handleChestBoatLayerColor(ItemStack stack, int layer) {
-        if (layer == 0) return -1;
-
-        var tag = stack.getTag();
-        if (tag != null && tag.contains(VariantChestBoatRecipe.CHEST_TYPE_TAG)) {
-            var type = tag.getString(VariantChestBoatRecipe.CHEST_TYPE_TAG);
-            return CustomChestBoat.layerColors.getOrDefault(type, DEFAULT_CHEST_BOAT_LAYER_COLOR);
-        }
-
-        return DEFAULT_CHEST_BOAT_LAYER_COLOR;
     }
 }

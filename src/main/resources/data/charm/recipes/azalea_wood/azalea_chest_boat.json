@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "chest_boat",
+  "ingredients": [
+    {
+      "tag": "charm:chests/normal"
+    },
+    {
+      "item": "charm:azalea_boat"
+    }
+  ],
+  "result": {
+    "item": "charm:azalea_chest_boat"
+  }
+}

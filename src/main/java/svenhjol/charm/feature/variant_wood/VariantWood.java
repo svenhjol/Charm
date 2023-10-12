@@ -3,14 +3,13 @@ package svenhjol.charm.feature.variant_wood;
 import net.minecraft.world.entity.vehicle.Boat;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.registry.*;
-import svenhjol.charmony_api.CharmonyApi;
-import svenhjol.charmony_api.event.EntityUseEvent;
-import svenhjol.charmony_api.iface.IVariantChestBoatDefinition;
-import svenhjol.charmony_api.iface.IVariantMaterial;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.iface.ICommonRegistry;
+import svenhjol.charmony_api.CharmonyApi;
+import svenhjol.charmony_api.event.EntityUseEvent;
+import svenhjol.charmony_api.iface.IVariantMaterial;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +19,6 @@ public class VariantWood extends CharmonyFeature {
     static final Map<IVariantMaterial, CustomBarrel> BARRELS = new HashMap<>();
     static final Map<IVariantMaterial, CustomBookshelf> BOOKSHELVES = new HashMap<>();
     static final Map<IVariantMaterial, CustomChest> CHESTS = new HashMap<>();
-    static final Map<IVariantMaterial, CustomChestBoat> CHEST_BOATS = new HashMap<>();
     static final Map<IVariantMaterial, CustomChiseledBookshelf> CHISELED_BOOKSHELVES = new HashMap<>();
     static final Map<IVariantMaterial, CustomLadder> LADDERS = new HashMap<>();
     static final Map<IVariantMaterial, CustomTrappedChest> TRAPPED_CHESTS = new HashMap<>();
@@ -70,10 +68,6 @@ public class VariantWood extends CharmonyFeature {
 
     void registerChest(IVariantMaterial material) {
         CHESTS.put(material, new CustomChest(getRegistry(), material));
-    }
-
-    void registerChestBoat(IVariantChestBoatDefinition definition) {
-        CHEST_BOATS.put(definition.getMaterial(), new CustomChestBoat(getRegistry(), definition));
     }
 
     void registerChiseledBookshelf(IVariantMaterial material) {

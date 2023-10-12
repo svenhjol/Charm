@@ -48,9 +48,6 @@
     "variant_pistons.PistonBaseBlockMixin",
     "variant_pistons.PistonHeadBlockMixin",
     "variant_pistons.PistonMovingBlockEntityMixin",
-    "variant_wood.BoatItemMixin",
-    "variant_wood.ChestBoatMixin",
-    "variant_wood.ChestBoatSpawnMixin",
     "wood.BoatMixin",
     "wood.ChestBoatMixin"
   ],
@@ -65,7 +62,6 @@
     "pigs_find_mushrooms.PigModelMixin",
     "show_repair_cost.AnvilScreenMixin",
     "unlimited_repair_cost.AnvilScreenMixin",
-    "variant_wood.BoatRendererMixin",
     "variant_wood.SheetsMixin"
   ],
   "injectors": {

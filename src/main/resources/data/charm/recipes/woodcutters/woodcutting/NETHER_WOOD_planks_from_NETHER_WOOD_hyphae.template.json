@@ -1,0 +1,11 @@
+{
+  "template": {
+    "type": "charmony:woodcutting",
+    "ingredient": {
+      "item": "minecraft:NETHER_WOOD_hyphae"
+    },
+    "result": "minecraft:NETHER_WOOD_planks",
+    "count": 4
+  },
+  "variants": "nether_wood"
+}
