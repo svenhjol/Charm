@@ -13,9 +13,6 @@ public class CharmTags {
     static final ResourceKey<? extends Registry<Block>> BLOCK_KEY = BuiltInRegistries.BLOCK.key();
     static final ResourceKey<? extends Registry<EntityType<?>>> ENTITY_TYPE_KEY = BuiltInRegistries.ENTITY_TYPE.key();
 
-    public static final TagKey<Item> CHESTS = TagKey.create(ITEM_KEY,
-        Charm.instance().makeId("chests/normal"));
-
     public static final TagKey<Item> COLORED_DYES = TagKey.create(ITEM_KEY,
         Charm.instance().makeId("colored_dyes"));
 
