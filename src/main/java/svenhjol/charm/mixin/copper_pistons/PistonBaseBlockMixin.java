@@ -3,6 +3,7 @@ package svenhjol.charm.mixin.copper_pistons;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.SignalGetter;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,9 +11,11 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
 
+@SuppressWarnings("UnnecessaryLocalVariable")
 @Mixin(PistonBaseBlock.class)
 public class PistonBaseBlockMixin {
     /**
@@ -36,6 +39,24 @@ public class PistonBaseBlockMixin {
         }
 
         return newState != null ? newState : originalState;
+    }
+
+    @Redirect(
+        method = "triggerEvent",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/level/block/Block;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
+        )
+    )
+    private BlockState modifyMovingPiston(Block originalInstance) {
+        Block newInstance = null;
+
+        if (isCopperPistonBlock() || isStickyCopperPistonBlock()) {
+            newInstance = CopperPistons.movingCopperPistonBlock.get();
+        }
+
+        var state = (newInstance != null ? newInstance : originalInstance).defaultBlockState();
+        return state;
     }
 
     @Inject(

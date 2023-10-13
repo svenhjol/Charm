@@ -19,6 +19,7 @@
     "collection.BlockMixin",
     "collection.ServerPlayerGameModeMixin",
     "copper_pistons.PistonBaseBlockMixin",
+    "copper_pistons.PistonHeadBlockMixin",
     "copper_pistons.PistonMovingBlockEntityMixin",
     "deepslate_dungeons.MonsterRoomFeatureMixin",
     "enchantable_horse_armor.EnchantmentMixin",
@@ -53,6 +54,7 @@
   ],
   "client": [
     "atlases.CartographyTableScreenMixin",
+    "copper_pistons.PistonHeadRendererMixin",
     "enchantable_horse_armor.HorseArmorLayerMixin",
     "extractable_enchantments.GrindstoneScreenMixin",
     "gentle_potion_particles.LivingEntityMixin",
@@ -62,6 +64,7 @@
     "pigs_find_mushrooms.PigModelMixin",
     "show_repair_cost.AnvilScreenMixin",
     "unlimited_repair_cost.AnvilScreenMixin",
+    "variant_pistons.PistonHeadRendererMixin",
     "variant_wood.SheetsMixin"
   ],
   "injectors": {
