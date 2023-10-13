@@ -134,8 +134,8 @@ public class EnderPearls implements IStorageBlockFeature {
             serverPlayer.getCooldowns().addCooldown(Items.CHORUS_FRUIT, 20);
             if (!serverPlayer.getAbilities().instabuild) {
                 stack.shrink(1);
-                triggerTeleportedToEnderPearlBlock(serverPlayer);
             }
+            triggerTeleportedToEnderPearlBlock(serverPlayer);
         }
 
         return true;
