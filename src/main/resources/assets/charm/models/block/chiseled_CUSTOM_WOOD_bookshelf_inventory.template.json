@@ -1,0 +1,83 @@
+{
+  "template": {
+    "parent": "block/block",
+    "textures": {
+      "top": "NAMESPACE:block/chiseled_CUSTOM_WOOD_bookshelf_top",
+      "side": "NAMESPACE:block/chiseled_CUSTOM_WOOD_bookshelf_side",
+      "front": "NAMESPACE:block/chiseled_CUSTOM_WOOD_bookshelf_empty",
+      "particle": "#top"
+    },
+    "elements": [
+      {
+        "name": "chiseled_bookshelf_body",
+        "from": [
+          0,
+          0,
+          0
+        ],
+        "to": [
+          16,
+          16,
+          16
+        ],
+        "faces": {
+          "north": {
+            "uv": [
+              0,
+              0,
+              16,
+              16
+            ],
+            "texture": "#front"
+          },
+          "east": {
+            "uv": [
+              0,
+              0,
+              16,
+              16
+            ],
+            "texture": "#side"
+          },
+          "south": {
+            "uv": [
+              0,
+              0,
+              16,
+              16
+            ],
+            "texture": "#side"
+          },
+          "west": {
+            "uv": [
+              0,
+              0,
+              16,
+              16
+            ],
+            "texture": "#side"
+          },
+          "up": {
+            "uv": [
+              0,
+              0,
+              16,
+              16
+            ],
+            "texture": "#top"
+          },
+          "down": {
+            "uv": [
+              0,
+              0,
+              16,
+              16
+            ],
+            "texture": "#top"
+          }
+        }
+      }
+    ]
+  },
+  "variants": "custom_wood"
+}

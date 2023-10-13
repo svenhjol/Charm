@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/chiseled_CUSTOM_WOOD_bookshelf_inventory"
+  },
+  "variants": "custom_wood"
+}

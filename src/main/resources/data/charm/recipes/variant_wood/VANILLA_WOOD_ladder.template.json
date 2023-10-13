@@ -1,0 +1,25 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "P": {
+        "item": "minecraft:VANILLA_WOOD_planks"
+      }
+    },
+    "pattern": [
+      "# #",
+      "#P#",
+      "# #"
+    ],
+    "result": {
+      "count": 3,
+      "item": "charm:VANILLA_WOOD_ladder"
+    },
+    "show_notification": true
+  },
+  "variants": "vanilla_wood"
+}

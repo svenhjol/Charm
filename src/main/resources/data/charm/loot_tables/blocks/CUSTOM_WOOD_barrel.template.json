@@ -1,0 +1,28 @@
+{
+  "template": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "functions": [
+              {
+                "function": "minecraft:copy_name",
+                "source": "block_entity"
+              }
+            ],
+            "name": "NAMESPACE:CUSTOM_WOOD_barrel"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "variants": "custom_wood"
+}

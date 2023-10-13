@@ -1,0 +1,8 @@
+{
+  "template": {
+    "textures": {
+      "particle": "minecraft:block/VANILLA_WOOD_planks"
+    }
+  },
+  "variants": "vanilla_wood"
+}

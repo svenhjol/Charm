@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:block/template_chiseled_bookshelf_slot_bottom_right",
+    "textures": {
+      "texture": "charm:block/chiseled_VANILLA_WOOD_bookshelf_empty"
+    }
+  },
+  "variants": "vanilla_wood"
+}

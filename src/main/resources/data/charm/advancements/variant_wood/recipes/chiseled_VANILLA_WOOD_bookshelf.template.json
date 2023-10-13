@@ -1,0 +1,50 @@
+{
+  "template": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_the_recipe": {
+        "conditions": {
+          "recipe": "charm:variant_wood/chiseled_VANILLA_WOOD_bookshelf"
+        },
+        "trigger": "minecraft:recipe_unlocked"
+      },
+      "has_planks": {
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:VANILLA_WOOD_planks"
+              ]
+            }
+          ]
+        },
+        "trigger": "minecraft:inventory_changed"
+      },
+      "has_slab": {
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:VANILLA_WOOD_slab"
+              ]
+            }
+          ]
+        },
+        "trigger": "minecraft:inventory_changed"
+      }
+    },
+    "requirements": [
+      [
+        "has_planks",
+        "has_slab",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "charm:variant_wood/chiseled_VANILLA_WOOD_bookshelf"
+      ]
+    }
+  },
+  "variants": "vanilla_wood"
+}

@@ -1,0 +1,10 @@
+{
+  "template": {
+    "variants": {
+      "": {
+        "model": "charm:block/VANILLA_WOOD_chest"
+      }
+    }
+  },
+  "variants": "vanilla_wood"
+}

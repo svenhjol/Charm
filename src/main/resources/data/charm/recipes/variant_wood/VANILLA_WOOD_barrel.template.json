@@ -1,0 +1,22 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "PSP",
+      "P P",
+      "PSP"
+    ],
+    "key": {
+      "S": {
+        "item": "minecraft:VANILLA_WOOD_slab"
+      },
+      "P": {
+        "item": "minecraft:VANILLA_WOOD_planks"
+      }
+    },
+    "result": {
+      "item": "charm:VANILLA_WOOD_barrel"
+    }
+  },
+  "variants": "vanilla_wood"
+}
