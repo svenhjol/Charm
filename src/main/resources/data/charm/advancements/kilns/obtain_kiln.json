@@ -11,7 +11,7 @@
       "translate": "advancements.charm.obtain_kiln.description"
     },
     "frame": "task",
-    "show_toast": false,
+    "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
