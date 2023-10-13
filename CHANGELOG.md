@@ -14,7 +14,7 @@
 - Hanging azalea sign texture fix
 - Strip out variant chest boats, was too brittle
 - Fix wood recipe naming
-- 
+
 ## 6.0.1
 
 - Don't add items to pots when sneaking (https://trello.com/c/LbofOmP3)
