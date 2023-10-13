@@ -1,5 +1,5 @@
 {
-  "parent": "charm:hover_sorting/sort_item",
+  "parent": "charm:hover_sorting/sort_items",
   "display": {
     "icon": {
       "item": "minecraft:white_shulker_box"
