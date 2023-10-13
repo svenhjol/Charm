@@ -1,0 +1,8 @@
+{
+  "type": "charmony:woodcutting",
+  "ingredient": {
+    "item": "minecraft:bamboo_planks"
+  },
+  "result": "minecraft:bamboo_raft",
+  "count": 1
+}
