@@ -27,7 +27,7 @@ public class CopperPistons extends CharmonyFeature {
         var registry = Charm.instance().registry();
         copperPistonBlock = registry.block("copper_piston", CopperPistonBaseBlock::new);
         copperPistonHeadBlock = registry.block("copper_piston_head", CopperPistonHeadBlock::new);
-        movingCopperPistonBlock = registry.block("moving_copper_piston", MovingCopperPiston::new);
+        movingCopperPistonBlock = registry.block("moving_copper_piston", MovingCopperPistonBlock::new);
         stickyCopperPistonBlock = registry.block("sticky_copper_piston", StickyCopperPistonBaseBlock::new);
 
         copperPistonBlockItem = registry.item("copper_piston",
