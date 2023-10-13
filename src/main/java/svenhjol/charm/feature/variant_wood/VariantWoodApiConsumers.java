@@ -17,9 +17,6 @@ public class VariantWoodApiConsumers {
                 feature.registerTrappedChest(chest);
             }));
 
-        ApiHelper.consume(IVariantChestBoatProvider.class,
-            provider -> provider.getVariantChestBoatDefinitions().forEach(feature::registerChestBoat));
-
         ApiHelper.consume(IVariantChiseledBookshelfProvider.class,
             provider -> provider.getVariantChiseledBookshelves().forEach(feature::registerChiseledBookshelf));
 

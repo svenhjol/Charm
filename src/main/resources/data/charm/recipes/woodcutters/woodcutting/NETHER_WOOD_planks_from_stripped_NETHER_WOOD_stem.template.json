@@ -1,0 +1,11 @@
+{
+  "template": {
+    "type": "charmony:woodcutting",
+    "ingredient": {
+      "item": "minecraft:stripped_NETHER_WOOD_stem"
+    },
+    "result": "minecraft:NETHER_WOOD_planks",
+    "count": 4
+  },
+  "variants": "nether_wood"
+}

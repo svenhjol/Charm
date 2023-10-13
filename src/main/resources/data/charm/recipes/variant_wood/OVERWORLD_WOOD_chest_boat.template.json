@@ -1,0 +1,19 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "group": "chest_boat",
+    "ingredients": [
+      {
+        "tag": "charm:chests/normal"
+      },
+      {
+        "item": "minecraft:OVERWORLD_WOOD_boat"
+      }
+    ],
+    "result": {
+      "item": "minecraft:OVERWORLD_WOOD_chest_boat"
+    }
+  },
+  "variants": "overworld_wood"
+}
