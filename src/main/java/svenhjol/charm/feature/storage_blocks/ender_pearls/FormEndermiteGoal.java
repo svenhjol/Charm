@@ -75,7 +75,7 @@ public class FormEndermiteGoal extends RandomStrollGoal {
                 level.removeBlock(relative, false);
                 silverfish.spawnAnim();
                 silverfish.discard();
-                EnderPearls.triggerConvertedSilverfishForNearbyPlayers((ServerLevel)level, pos);
+                EnderPearls.triggerConvertedSilverfish(level, pos);
             });
         }
     }

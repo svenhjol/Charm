@@ -5,10 +5,10 @@
       "item": "minecraft:brown_shulker_box"
     },
     "title": {
-      "translate": "advancements.charm.sort_item.title"
+      "translate": "advancements.charm.sort_items.title"
     },
     "description": {
-      "translate": "advancements.charm.sort_item.description"
+      "translate": "advancements.charm.sort_items.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "sorted_item": {
+    "sorted_items": {
       "trigger": "charmony_action_performed",
       "conditions": {
-        "action": "charm:sorted_item"
+        "action": "charm:sorted_items"
       }
     }
   },
   "requirements": [
     [
-      "sorted_item"
+      "sorted_items"
     ]
   ]
 }
