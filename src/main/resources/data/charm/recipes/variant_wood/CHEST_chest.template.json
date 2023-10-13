@@ -1,0 +1,21 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "WOOD_SRC:WOOD_NAME_planks"
+      }
+    },
+    "pattern": [
+      "###",
+      "# #",
+      "###"
+    ],
+    "result": {
+      "item": "MOD:CHEST_chest"
+    },
+    "show_notification": true
+  },
+  "variants": "chest"
+}

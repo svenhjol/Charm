@@ -3,10 +3,10 @@
   "category": "building",
   "key": {
     "#": {
-      "tag": "charm:azalea_planks"
+      "item": "charm:azalea_planks"
     },
     "X": {
-      "tag": "charm:azalea_slab"
+      "item": "charm:azalea_slab"
     }
   },
   "pattern": [

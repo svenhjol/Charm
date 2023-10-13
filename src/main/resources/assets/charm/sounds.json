@@ -203,15 +203,6 @@
     ],
     "subtitle": "subtitles.charm.entity.pig.sniffing"
   },
-  "pot_item_place": {
-    "sounds": [
-      {
-        "name": "charm:pot_item_place",
-        "volume": 1.0
-      }
-    ],
-    "subtitle": "subtitles.charm.block.pot.item_place"
-  },
   "sugar_dissolve": {
     "sounds": [
       {

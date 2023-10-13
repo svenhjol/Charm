@@ -1,0 +1,24 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "key": {
+      "#": {
+        "item": "WOOD_SRC:WOOD_NAME_planks"
+      },
+      "X": {
+        "item": "minecraft:book"
+      }
+    },
+    "pattern": [
+      "###",
+      "XXX",
+      "###"
+    ],
+    "result": {
+      "item": "MOD:BOOKSHELF_bookshelf"
+    },
+    "show_notification": true
+  },
+  "variants": "bookshelf"
+}

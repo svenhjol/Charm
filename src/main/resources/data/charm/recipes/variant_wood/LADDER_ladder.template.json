@@ -1,0 +1,25 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": {
+        "item": "minecraft:stick"
+      },
+      "P": {
+        "item": "WOOD_SRC:WOOD_NAME_planks"
+      }
+    },
+    "pattern": [
+      "# #",
+      "#P#",
+      "# #"
+    ],
+    "result": {
+      "count": 3,
+      "item": "MOD:LADDER_ladder"
+    },
+    "show_notification": true
+  },
+  "variants": "ladder"
+}

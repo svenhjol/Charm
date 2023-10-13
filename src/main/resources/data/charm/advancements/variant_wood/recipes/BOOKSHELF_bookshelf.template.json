@@ -1,0 +1,50 @@
+{
+  "template": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_the_recipe": {
+        "conditions": {
+          "recipe": "MOD:variant_wood/BOOKSHELF_bookshelf"
+        },
+        "trigger": "minecraft:recipe_unlocked"
+      },
+      "has_planks": {
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "WOOD_SRC:WOOD_NAME_planks"
+              ]
+            }
+          ]
+        },
+        "trigger": "minecraft:inventory_changed"
+      },
+      "has_book": {
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:book"
+              ]
+            }
+          ]
+        },
+        "trigger": "minecraft:inventory_changed"
+      }
+    },
+    "requirements": [
+      [
+        "has_planks",
+        "has_book",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "MOD:variant_wood/BOOKSHELF_bookshelf"
+      ]
+    }
+  },
+  "variants": "bookshelf"
+}

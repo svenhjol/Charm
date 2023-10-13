@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "charm:colored_glint_smithing_template"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "charm:colored_glint_smithing_templates/colored_glint_smithing_template"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "charm:colored_glint_smithing_templates/colored_glint_smithing_template"
+    ]
+  },
+  "sends_telemetry_event": false
+}

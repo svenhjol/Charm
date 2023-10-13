@@ -1,0 +1,22 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "PSP",
+      "P P",
+      "PSP"
+    ],
+    "key": {
+      "S": {
+        "item": "WOOD_SRC:WOOD_NAME_slab"
+      },
+      "P": {
+        "item": "WOOD_SRC:WOOD_NAME_planks"
+      }
+    },
+    "result": {
+      "item": "MOD:BARREL_barrel"
+    }
+  },
+  "variants": "barrel"
+}

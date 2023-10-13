@@ -1,0 +1,24 @@
+{
+  "template":{
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "key": {
+      "#": {
+        "item": "WOOD_SRC:WOOD_NAME_planks"
+      },
+      "X": {
+        "item": "WOOD_SRC:WOOD_NAME_slab"
+      }
+    },
+    "pattern": [
+      "###",
+      "XXX",
+      "###"
+    ],
+    "result": {
+      "item": "MOD:chiseled_CHISELED_BOOKSHELF_bookshelf"
+    },
+    "show_notification": true
+    },
+  "variants": "chiseled_bookshelf"
+}
