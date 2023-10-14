@@ -14,14 +14,15 @@ import svenhjol.charm.feature.variant_wood.block.VariantChestBlock;
 import svenhjol.charm.feature.variant_wood.block.VariantTrappedChestBlock;
 import svenhjol.charm.feature.variant_wood.entity.VariantChestBlockEntity;
 import svenhjol.charm.feature.variant_wood.entity.VariantTrappedChestBlockEntity;
-import svenhjol.charm.feature.variant_wood.registry.CustomChest;
-import svenhjol.charm.feature.variant_wood.registry.CustomTrappedChest;
+import svenhjol.charm.feature.variant_wood.registry.*;
 import svenhjol.charm.feature.variant_wood.renderer.VariantChestBlockEntityRenderer;
 import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.iface.IClientRegistry;
 import svenhjol.charmony_api.event.BlockItemRenderEvent;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 @ClientFeature(feature = VariantWood.class)
@@ -38,36 +39,54 @@ public class VariantWoodClient extends CharmonyFeature {
         // Add items to the creative menu.
         if (isEnabled()) {
             if (VariantWood.variantBarrels) {
-                VariantWood.BARRELS.forEach((material, barrel) -> {
+                var barrels = new ArrayList<>(VariantWood.BARRELS.values());
+                Collections.reverse(barrels);
+
+                for (CustomBarrel barrel : barrels) {
                     registry.itemTab(barrel.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.BARREL);
-                    registry.itemTab(barrel.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.REDSTONE_ORE);
-                });
+                }
             }
 
             if (VariantWood.variantBookshelves) {
-                VariantWood.BOOKSHELVES.forEach((material, bookshelf) ->
-                    registry.itemTab(bookshelf.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.BOOKSHELF));
+                var bookshelves = new ArrayList<>(VariantWood.BOOKSHELVES.values());
+                Collections.reverse(bookshelves);
+
+                for (CustomBookshelf bookshelf : bookshelves) {
+                    registry.itemTab(bookshelf.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.BOOKSHELF);
+                }
             }
 
             if (VariantWood.variantChests) {
-                VariantWood.CHESTS.forEach((material, chest) -> {
+                var chests = new ArrayList<>(VariantWood.CHESTS.values());
+                var trappedChests = new ArrayList<>(VariantWood.TRAPPED_CHESTS.values());
+
+                Collections.reverse(chests);
+                Collections.reverse(trappedChests);
+
+                for (CustomTrappedChest trappedChest : trappedChests) {
+                    registry.itemTab(trappedChest.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.CHEST);
+                }
+                for (CustomChest chest : chests) {
                     registry.itemTab(chest.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.CHEST);
-                    registry.itemTab(chest.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.REDSTONE_ORE);
-                });
-                VariantWood.TRAPPED_CHESTS.forEach((material, trappedChest) ->
-                    registry.itemTab(trappedChest.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.REDSTONE_ORE));
+                }
             }
 
             if (VariantWood.variantChiseledBookshelves) {
-                VariantWood.CHISELED_BOOKSHELVES.forEach((material, chiseledBookshelf) -> {
+                var chiseledBookshelves = new ArrayList<>(VariantWood.CHISELED_BOOKSHELVES.values());
+                Collections.reverse(chiseledBookshelves);
+
+                for (CustomChiseledBookshelf chiseledBookshelf : chiseledBookshelves) {
                     registry.itemTab(chiseledBookshelf.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.CHISELED_BOOKSHELF);
-                    registry.itemTab(chiseledBookshelf.item, CreativeModeTabs.REDSTONE_BLOCKS, Items.REDSTONE_ORE);
-                });
+                }
             }
 
             if (VariantWood.variantLadders) {
-                VariantWood.LADDERS.forEach((material, ladder) ->
-                    registry.itemTab(ladder.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.LADDER));
+                var ladders = new ArrayList<>(VariantWood.LADDERS.values());
+                Collections.reverse(ladders);
+
+                for (CustomLadder ladder : ladders) {
+                    registry.itemTab(ladder.item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.LADDER);
+                }
             }
         }
     }

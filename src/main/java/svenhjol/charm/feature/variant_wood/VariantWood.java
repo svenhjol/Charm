@@ -11,17 +11,17 @@ import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.EntityUseEvent;
 import svenhjol.charmony_api.iface.IVariantMaterial;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Feature(mod = Charm.MOD_ID, description = "Variant wood features such as barrels, chests and ladders.")
 public class VariantWood extends CharmonyFeature {
-    static final Map<IVariantMaterial, CustomBarrel> BARRELS = new HashMap<>();
-    static final Map<IVariantMaterial, CustomBookshelf> BOOKSHELVES = new HashMap<>();
-    static final Map<IVariantMaterial, CustomChest> CHESTS = new HashMap<>();
-    static final Map<IVariantMaterial, CustomChiseledBookshelf> CHISELED_BOOKSHELVES = new HashMap<>();
-    static final Map<IVariantMaterial, CustomLadder> LADDERS = new HashMap<>();
-    static final Map<IVariantMaterial, CustomTrappedChest> TRAPPED_CHESTS = new HashMap<>();
+    static final Map<IVariantMaterial, CustomBarrel> BARRELS = new LinkedHashMap<>();
+    static final Map<IVariantMaterial, CustomBookshelf> BOOKSHELVES = new LinkedHashMap<>();
+    static final Map<IVariantMaterial, CustomChest> CHESTS = new LinkedHashMap<>();
+    static final Map<IVariantMaterial, CustomChiseledBookshelf> CHISELED_BOOKSHELVES = new LinkedHashMap<>();
+    static final Map<IVariantMaterial, CustomLadder> LADDERS = new LinkedHashMap<>();
+    static final Map<IVariantMaterial, CustomTrappedChest> TRAPPED_CHESTS = new LinkedHashMap<>();
 
     @Configurable(name = "Variant barrels", description = "If true, enables barrels made from different kinds of wood.")
     public static boolean variantBarrels = true;

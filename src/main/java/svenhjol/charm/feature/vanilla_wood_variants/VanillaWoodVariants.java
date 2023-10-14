@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.vanilla_wood_variants;
 
 import svenhjol.charm.Charm;
-import svenhjol.charmony_api.CharmonyApi;
-import svenhjol.charmony_api.iface.*;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.enums.VanillaWood;
+import svenhjol.charmony_api.CharmonyApi;
+import svenhjol.charmony_api.iface.*;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Feature(mod = Charm.MOD_ID, description = "Barrels, bookcases, chests and ladders in all vanilla wood types.")
@@ -19,7 +19,7 @@ public class VanillaWoodVariants extends CharmonyFeature implements
     IVariantChiseledBookshelfProvider,
     IVariantLadderProvider
 {
-    private static final List<IVariantMaterial> TYPES = new ArrayList<>(VanillaWood.getTypes());
+    private static final List<IVariantMaterial> TYPES = new LinkedList<>(VanillaWood.getTypes());
 
     private static final List<IVariantChestBoatDefinition> CHEST_BOAT_DEFINITIONS = List.of(
         new ChestBoatDefinitions.Acacia(),

@@ -14,10 +14,10 @@ public class CoralSeaLanternsClient extends CharmonyFeature {
     @Override
     public void runWhenEnabled() {
         var registry = CharmClient.instance().registry();
-        var values = new ArrayList<>(CoralSeaLanterns.BLOCK_ITEMS.values());
-        Collections.reverse(values);
+        var lanterns = new ArrayList<>(CoralSeaLanterns.BLOCK_ITEMS.values());
+        Collections.reverse(lanterns);
 
-        values.forEach(value -> {
+        lanterns.forEach(value -> {
             registry.itemTab(value, CreativeModeTabs.BUILDING_BLOCKS, Items.SEA_LANTERN);
             registry.itemTab(value, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.SEA_LANTERN);
         });
