@@ -1,5 +1,15 @@
 # Changelog
 
+## 6.0.4
+
+- Modmenu support (https://trello.com/c/UBcTGamJ)
+- Remove variant wood blocks from redstone tab (https://trello.com/c/7smSvwuv)
+- Organise creative menu blocks alphabetically.
+- Add fabric convention tags (https://trello.com/c/HBBzTy1R)
+- Add example items for base item smithing slot (https://trello.com/c/USg5rw67)
+- Add REI integration for kilns and woodcutters (https://trello.com/c/USg5rw67)
+- Frame invisibility now only set/unset when an item is present (https://trello.com/c/gTqEF2lt)
+
 ## 6.0.3
 
 - Split out cracked and smooth into variant files
