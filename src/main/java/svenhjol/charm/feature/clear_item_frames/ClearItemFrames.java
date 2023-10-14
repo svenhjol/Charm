@@ -40,11 +40,18 @@ public class ClearItemFrames extends CharmonyFeature {
         EntityAttackEvent.INSTANCE.handle(this::handleEntityAttack);
     }
 
+    /**
+     * Try and remove an amethyst shard from an itemframe.
+     */
     private InteractionResult handleEntityAttack(Player player, Level level, InteractionHand hand, Entity entity, @Nullable EntityHitResult hitResult) {
         if (entity instanceof ItemFrame frame) {
             var pos = frame.blockPosition();
 
-            if (frame.isInvisible() && frame.getItem().isEmpty()) {
+            if (frame.isInvisible()) {
+                if (frame.getItem().isEmpty()) {
+                    return InteractionResult.PASS;
+                }
+
                 var shard = new ItemStack(Items.AMETHYST_SHARD);
                 var itemEntity = new ItemEntity(level, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, shard);
                 itemEntity.setDefaultPickUpDelay();
@@ -62,6 +69,9 @@ public class ClearItemFrames extends CharmonyFeature {
         return InteractionResult.PASS;
     }
 
+    /**
+     * Try and an amethyst shard to an itemframe.
+     */
     private InteractionResult handleEntityUse(Player player, Level level, InteractionHand hand, Entity entity, @Nullable EntityHitResult hitResult) {
         var held = player.getItemInHand(hand);
         if (held.getItem() != Items.AMETHYST_SHARD) {
@@ -70,7 +80,12 @@ public class ClearItemFrames extends CharmonyFeature {
 
         // GlowItemFrameEntity extends ItemFrameEntity so this comparison is safe for both.
         if (entity instanceof ItemFrame frame) {
-            // Already invisible, pass.
+            // If there's no item yet, pass.
+            if (frame.getItem().isEmpty()) {
+                return InteractionResult.PASS;
+            }
+
+            // If already invisible, pass.
             if (frame.isInvisible()) {
                 return InteractionResult.PASS;
             }
