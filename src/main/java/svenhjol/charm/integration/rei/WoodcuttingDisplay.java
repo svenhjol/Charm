@@ -16,8 +16,9 @@ import java.util.Optional;
  * See me.shedaniel.rei.plugin.common.displays.DefaultStoneCuttingDisplay
  * for reference implementation.
  */
-@SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "UnstableApiUsage"})
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class WoodcuttingDisplay extends BasicDisplay {
+    @SuppressWarnings("UnstableApiUsage")
     public WoodcuttingDisplay(RecipeHolder<WoodcuttingRecipe> recipe) {
         this(EntryIngredients.ofIngredients(recipe.value().getIngredients()),
             Collections.singletonList(EntryIngredients.of(recipe.value().getResultItem(BasicDisplay.registryAccess()))),

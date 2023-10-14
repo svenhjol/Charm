@@ -20,12 +20,13 @@ import java.util.Optional;
  * See me.shedaniel.rei.plugin.common.displays.cooking.DefaultSmokingDisplay
  * for reference implementation.
  */
-@SuppressWarnings({"unused", "UnstableApiUsage"})
+@SuppressWarnings("unused")
 public class FiringDisplay extends BasicDisplay implements SimpleGridMenuDisplay {
     private final RecipeHolder<?> recipe;
     private final float xp;
     private final double cookTime;
 
+    @SuppressWarnings("UnstableApiUsage")
     public FiringDisplay(RecipeHolder<? extends AbstractCookingRecipe> recipe) {
         this(EntryIngredients.ofIngredients(recipe.value().getIngredients()),
             Collections.singletonList(EntryIngredients.of(recipe.value().getResultItem(BasicDisplay.registryAccess()))),

@@ -17,6 +17,7 @@ import svenhjol.charmony.feature.woodcutting.Woodcutting;
 import svenhjol.charmony.feature.woodcutting.WoodcuttingRecipe;
 
 @Environment(EnvType.CLIENT)
+@SuppressWarnings({"UnstableApiUsage", "unchecked", "unsafe", "RedundantSuppression"})
 public class CharmReiClientPlugin implements REIClientPlugin, ICharmReiClientPlugin {
     @Override
     public void registerDisplays(DisplayRegistry registry) {
