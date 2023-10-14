@@ -5,7 +5,10 @@
   "name": "Charm",
   "description": "Tweaks and additions to Minecraft without changing core gameplay.",
   "authors": [
-    "svenhjol"
+    "svenhjol",
+    "Coranthes",
+    "WarlordWossman",
+    "F43nd1r"
   ],
   "icon": "icon.png",
   "license": "MIT",
@@ -33,5 +36,17 @@
     "charmony": ">=${charmony_version}",
     "minecraft": "${minecraft_version}",
     "java": ">=17"
+  },
+  "contact": {
+    "homepage": "https://svenhjol.github.io/Charm",
+    "sources": "https://github.com/svenhjol/Charm"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "${discord_link}"
+      },
+      "update_checker": true
+    }
   }
 }
