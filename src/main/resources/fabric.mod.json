@@ -19,6 +19,12 @@
     ],
     "client": [
       "svenhjol.charm.fabric.ClientInitializer"
+    ],
+    "rei_common": [
+      "svenhjol.charm.integration.rei.CharmReiPlugin"
+    ],
+    "rei_client": [
+      "svenhjol.charm.integration.rei.CharmReiClientPlugin"
     ]
   },
   "accessWidener": "charm.accesswidener",
