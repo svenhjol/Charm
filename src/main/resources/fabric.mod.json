@@ -28,6 +28,9 @@
     ],
     "rei_client": [
       "svenhjol.charm.integration.rei.CharmReiClientPlugin"
+    ],
+    "modmenu": [
+      "svenhjol.charm.integration.modmenu.CharmModMenuPlugin"
     ]
   },
   "accessWidener": "charm.accesswidener",
