@@ -1,5 +1,21 @@
 # Changelog
 
+## 6.0.3
+
+- Split out cracked and smooth into variant files
+- Trigger ender pearl achievement for creative players too
+- Variant pistons now a fully qualified feature
+- Rename custom copper piston class for consistency
+- Rework wood recipe variants and templates (https://trello.com/c/oC08ISnD)
+- Add recipe advancements for kiln recipes (https://trello.com/c/Q8vHCASO)
+- Add missing bamboo raft woodcutting recipe (https://trello.com/c/82Naz4qa)
+- Add variant ladders to woodcutter recipes
+- Fix incorrect advancement ref
+- Fix sign blockitem reference (https://trello.com/c/xri4aCtf)
+- Recipes now sorted to fix woodcutter order (https://trello.com/c/82Naz4qa)
+- Mixin PistonHeadRenderer to fix incorrect texture (https://trello.com/c/iLmVqgru)
+- Don't spam menu with fixed advancements (https://trello.com/c/XNzObEY3)
+
 ## 6.0.2
 
 - Remove "Place items in pots" feature, Mojang added it (https://www.minecraft.net/en-us/article/minecraft-snapshot-23w41a)
