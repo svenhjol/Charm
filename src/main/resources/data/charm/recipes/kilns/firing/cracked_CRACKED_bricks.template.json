@@ -1,0 +1,12 @@
+{
+  "template": {
+    "type": "charmony:firing",
+    "ingredient": {
+      "item": "minecraft:CRACKED_bricks"
+    },
+    "result": "minecraft:cracked_CRACKED_bricks",
+    "experience": 0.1,
+    "cookingtime": 100
+  },
+  "variants": "cracked"
+}

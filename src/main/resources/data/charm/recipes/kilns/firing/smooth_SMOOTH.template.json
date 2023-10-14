@@ -1,0 +1,12 @@
+{
+  "template": {
+    "type": "charmony:firing",
+    "ingredient": {
+      "item": "minecraft:SMOOTH"
+    },
+    "result": "minecraft:smooth_SMOOTH",
+    "experience": 0.1,
+    "cookingtime": 100
+  },
+  "variants": "smooth"
+}
