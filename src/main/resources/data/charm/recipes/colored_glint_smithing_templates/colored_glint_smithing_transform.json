@@ -4,7 +4,7 @@
     "tag": "charm:colored_dyes"
   },
   "base": {
-    "item": "charm:colored_glint_smithing_template"
+    "tag": "charm:enchantable_items"
   },
   "result": {
     "item": "charm:colored_glint_smithing_template"
