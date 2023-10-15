@@ -98,7 +98,7 @@ public class Lumberjacks extends CharmonyFeature {
             List.of(Items.ACACIA_SAPLING, Items.DARK_OAK_SAPLING), 3, 0, 10,  20));
 
         registry.villagerTrade(profession, 3, () -> new LumberjackTradeOffers.BarkForLogs(
-            10, 12, 1, 0, 10, 10));
+            10, 12, 10, 10));
 
         registry.villagerTrade(profession, 3, () -> new GenericTradeOffers.TagForEmeralds<>(
             BlockTags.WOODEN_DOORS, 2, 1, 10, 20));

@@ -51,20 +51,16 @@ public class LumberjackTradeOffers {
         private final int villagerXp;
         private final int baseCost;
         private final int extraCost;
-        private final int baseEmeralds;
-        private final int extraEmeralds;
         private final int maxUses;
 
         @SuppressWarnings("unused")
-        public BarkForLogs(int baseCost, int baseEmeralds, int villagerXp, int maxUses) {
-            this(baseCost, 0, baseEmeralds, 0, villagerXp, maxUses);
+        public BarkForLogs(int baseCost, int villagerXp, int maxUses) {
+            this(baseCost, 0, villagerXp, maxUses);
         }
 
-        public BarkForLogs(int baseCost, int extraCost, int baseEmeralds, int extraEmeralds, int villagerXp, int maxUses) {
+        public BarkForLogs(int baseCost, int extraCost, int villagerXp, int maxUses) {
             this.baseCost = baseCost;
             this.extraCost = extraCost;
-            this.baseEmeralds = baseEmeralds;
-            this.extraEmeralds = extraEmeralds;
             this.villagerXp = villagerXp;
             this.maxUses = maxUses;
         }
@@ -88,11 +84,9 @@ public class LumberjackTradeOffers {
             var log = logs.get(index);
             var wood = map.get(log);
             var cost = baseCost + random.nextInt(extraCost + 1);
-            var emeralds = baseEmeralds + random.nextInt(extraEmeralds + 1);
 
             return new MerchantOffer(
                 new ItemStack(log, cost),
-                new ItemStack(Items.EMERALD, emeralds),
                 new ItemStack(wood, cost),
                 maxUses,
                 villagerXp,
