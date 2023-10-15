@@ -55,6 +55,7 @@ public class LumberjackTradeOffers {
         private final int extraEmeralds;
         private final int maxUses;
 
+        @SuppressWarnings("unused")
         public BarkForLogs(int baseCost, int baseEmeralds, int villagerXp, int maxUses) {
             this(baseCost, 0, baseEmeralds, 0, villagerXp, maxUses);
         }
