@@ -86,6 +86,7 @@ public class LumberjackTradeOffers {
             var cost = baseCost + random.nextInt(extraCost + 1);
 
             return new MerchantOffer(
+                new ItemStack(Items.EMERALD, 1),
                 new ItemStack(log, cost),
                 new ItemStack(wood, cost),
                 maxUses,
