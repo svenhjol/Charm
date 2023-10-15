@@ -61,14 +61,8 @@ public class Lumberjacks extends CharmonyFeature {
         registry.villagerTrade(profession, 1, () -> new GenericTradeOffers.EmeraldsForTag<>(
             BlockTags.OVERWORLD_NATURAL_LOGS, 8, 1, 1, 0, 2, 20));
 
-        registry.villagerTrade(profession, 1, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.OAK_SAPLING, 1, 1, 2, 20));
-
-        registry.villagerTrade(profession, 1, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.BIRCH_SAPLING, 1, 1, 2, 20));
-
-        registry.villagerTrade(profession, 1, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.SPRUCE_SAPLING, 1, 1, 2, 20));
+        registry.villagerTrade(profession, 3, () -> new LumberjackTradeOffers.SaplingsForEmeralds(
+            List.of(Items.OAK_SAPLING, Items.BIRCH_SAPLING, Items.SPRUCE_SAPLING), 1, 0, 2,  20));
 
         if (useVariantLadders) {
             registry.villagerTrade(profession, 1, () -> new GenericTradeOffers.TagForEmeralds<>(
@@ -100,11 +94,8 @@ public class Lumberjacks extends CharmonyFeature {
         registry.villagerTrade(profession, 3, () -> new GenericTradeOffers.EmeraldsForTag<>(
             BlockTags.CRIMSON_STEMS, 7, 1, 1, 0, 10, 20));
 
-        registry.villagerTrade(profession, 3, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.ACACIA_SAPLING, 3, 1, 10, 20));
-
-        registry.villagerTrade(profession, 3, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.DARK_OAK_SAPLING, 3, 1, 10, 20));
+        registry.villagerTrade(profession, 3, () -> new LumberjackTradeOffers.SaplingsForEmeralds(
+            List.of(Items.ACACIA_SAPLING, Items.DARK_OAK_SAPLING), 3, 0, 10,  20));
 
         registry.villagerTrade(profession, 3, () -> new LumberjackTradeOffers.BarkForLogs(
             10, 12, 1, 0, 10, 10));

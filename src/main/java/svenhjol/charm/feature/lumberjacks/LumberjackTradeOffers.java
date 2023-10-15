@@ -3,18 +3,50 @@ package svenhjol.charm.feature.lumberjacks;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import svenhjol.charmony.helper.GenericTradeOffers;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LumberjackTradeOffers {
+    public static class SaplingsForEmeralds implements VillagerTrades.ItemListing {
+        private final int villagerXp;
+        private final int baseEmeralds;
+        private final int extraEmeralds;
+        private final int maxUses;
+        private final List<Item> saplings;
+
+        public SaplingsForEmeralds(List<Item> saplings, int baseEmeralds, int extraEmeralds, int villagerXp, int maxUses) {
+            this.baseEmeralds = baseEmeralds;
+            this.extraEmeralds = extraEmeralds;
+            this.villagerXp = villagerXp;
+            this.maxUses = maxUses;
+            this.saplings = saplings;
+        }
+
+        @Nullable
+        @Override
+        public MerchantOffer getOffer(Entity entity, RandomSource random) {
+            var sapling = new ItemStack(saplings.get(random.nextInt(saplings.size())));
+
+            return new MerchantOffer(
+                GenericTradeOffers.getStack(random, Items.EMERALD, baseEmeralds, extraEmeralds),
+                sapling,
+                maxUses,
+                villagerXp,
+                0.2F
+            );
+        }
+    }
     public static class BarkForLogs implements VillagerTrades.ItemListing {
         private final int villagerXp;
         private final int baseCost;
