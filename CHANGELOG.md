@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.0.6
+
+- Lumberjack bark for logs trade now expects one emerald
+- Fix lumberjack trades (https://trello.com/c/9XAfucm2)
+- Fix swapped cracked bricks recipe ingredients (https://trello.com/c/EDftfJo6)
+- Add Potion of Radiance (https://trello.com/c/pl2DNRO5)
+- Brewing recipe registry uses suppliers
+
 ## 6.0.5
 
 - Balance lumberjack and beekeeper recipes (https://trello.com/c/leCo6jlD)
