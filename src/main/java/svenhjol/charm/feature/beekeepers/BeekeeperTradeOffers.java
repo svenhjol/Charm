@@ -57,6 +57,7 @@ public class BeekeeperTradeOffers {
     }
 
     public static class PopulatedBeehiveForEmeralds implements VillagerTrades.ItemListing {
+        static final int NUMBER_OF_BEES = 2;
         private final int villagerXp;
         private final int baseEmeralds;
         private final int extraEmeralds;
@@ -79,7 +80,9 @@ public class BeekeeperTradeOffers {
             var beesTag = new CompoundTag();
             var honeyTag = new CompoundTag();
 
-            beehive.addOccupantWithPresetTicks(bee, false, 0);
+            for (int i = 0; i < NUMBER_OF_BEES; i++) {
+                beehive.addOccupantWithPresetTicks(bee, false, 0);
+            }
             beesTag.put("Bees", beehive.writeBees());
             honeyTag.putInt("honey_level", 0);
             out.addTagElement("BlockEntityTag", beesTag);

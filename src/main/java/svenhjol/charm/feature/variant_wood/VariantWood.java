@@ -14,7 +14,7 @@ import svenhjol.charmony_api.iface.IVariantMaterial;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Feature(mod = Charm.MOD_ID, description = "Variant wood features such as barrels, chests and ladders.")
+@Feature(mod = Charm.MOD_ID, description = "Variant wood features such as barrels, chests and ladders.", priority = 1)
 public class VariantWood extends CharmonyFeature {
     static final Map<IVariantMaterial, CustomBarrel> BARRELS = new LinkedHashMap<>();
     static final Map<IVariantMaterial, CustomBookshelf> BOOKSHELVES = new LinkedHashMap<>();

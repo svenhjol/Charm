@@ -13,11 +13,23 @@ public class CharmTags {
     static final ResourceKey<? extends Registry<Block>> BLOCK_KEY = BuiltInRegistries.BLOCK.key();
     static final ResourceKey<? extends Registry<EntityType<?>>> ENTITY_TYPE_KEY = BuiltInRegistries.ENTITY_TYPE.key();
 
+    public static final TagKey<Block> BARRELS = TagKey.create(BLOCK_KEY,
+        Charm.instance().makeId("barrels"));
+
+    public static final TagKey<Block> BOOKSHELVES = TagKey.create(BLOCK_KEY,
+        Charm.instance().makeId("bookshelves"));
+
     public static final TagKey<Item> COLORED_DYES = TagKey.create(ITEM_KEY,
         Charm.instance().makeId("colored_dyes"));
 
     public static final TagKey<Item> HAS_SUSPICIOUS_EFFECTS = TagKey.create(ITEM_KEY,
         Charm.instance().makeId("has_suspicious_effects"));
+
+    public static final TagKey<Block> LADDERS = TagKey.create(BLOCK_KEY,
+        Charm.instance().makeId("ladders"));
+
+    public static final TagKey<Block> OVERWORLD_STRIPPED_LOGS = TagKey.create(BLOCK_KEY,
+        Charm.instance().makeId("overworld_stripped_logs"));
 
     public static final TagKey<EntityType<?>> SPAWNER_DROPS_BLAZE_RODS = TagKey.create(ENTITY_TYPE_KEY,
         Charm.instance().makeId("spawners/drops_blaze_rods"));

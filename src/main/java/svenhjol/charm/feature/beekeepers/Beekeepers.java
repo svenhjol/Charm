@@ -45,36 +45,42 @@ public class Beekeepers extends CharmonyFeature {
         // Tier 1
 
         registry.villagerTrade(profession, 1, () -> new BeekeeperTradeOffers.EmeraldsForFlowers(
-            3, 13, 1, 0, 2, 20));
+            14, 2, 1, 0, 2, 20));
 
         registry.villagerTrade(profession, 1, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.GLASS_BOTTLE, 2, 4, 1, 0, 2, 20));
+            Items.GLASS_BOTTLE, 1, 4, 2, 20));
 
         // Tier 2
 
         registry.villagerTrade(profession, 2, () -> new GenericTradeOffers.EmeraldsForItems(
-            Items.CHARCOAL, 13, 3, 1, 0, 5, 20));
+            Items.CHARCOAL, 15, 2, 1, 0, 5, 20));
 
         registry.villagerTrade(profession, 2, () -> new GenericTradeOffers.TagForEmeralds<>(
-            ItemTags.CANDLES, 3, 0, 1, 0, 5, 20));
+            ItemTags.CANDLES, 3, 1, 5, 20));
 
         // Tier 3
 
         registry.villagerTrade(profession, 3, () -> new GenericTradeOffers.EmeraldsForItems(
-            Items.HONEYCOMB, 10, 0, 1, 2, 10, 20));
+            Items.HONEYCOMB, 9, 2, 1, 0, 10, 20));
 
         registry.villagerTrade(profession, 3, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.CAMPFIRE, 1, 0, 1, 0, 10, 20));
+            Items.CAMPFIRE, 2, 1, 10, 20));
 
         // Tier 4
 
+        registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.EmeraldsForItems(
+            Items.FLOWERING_AZALEA_LEAVES, 7, 1, 1, 0, 15, 20));
+
         registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.LEAD, 6, 0, 1, 0, 15, 10));
+            Items.LEAD, 6, 1, 15, 20));
 
         // Tier 5
 
         registry.villagerTrade(profession, 5, () -> new BeekeeperTradeOffers.PopulatedBeehiveForEmeralds(
-            21, 14, 30, 1));
+            47, 0, 30, 10));
+
+        registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
+            Items.SOUL_CAMPFIRE, 5, 1, 30, 20));
     }
 
     public static void triggerTradedWithBeekeeper(Player player) {
