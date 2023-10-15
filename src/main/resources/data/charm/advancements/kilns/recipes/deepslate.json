@@ -3,16 +3,16 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "charm:kilns/firing/smooth_quartz"
+        "recipe": "charm:kilns/firing/deepslate"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_quartz_block": {
+    "has_cobbled_deepslate": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:quartz_block"
+              "minecraft:cobbled_deepslate"
             ]
           }
         ]
@@ -22,13 +22,13 @@
   },
   "requirements": [
     [
-      "has_quartz_block",
+      "has_cobbled_deepslate",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "charm:kilns/firing/smooth_quartz"
+      "charm:kilns/firing/deepslate"
     ]
   }
 }

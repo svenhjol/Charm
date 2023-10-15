@@ -4,16 +4,16 @@
     "criteria": {
       "has_the_recipe": {
         "conditions": {
-          "recipe": "charm:kilns/firing/cracked_CRACKED_bricks"
+          "recipe": "charm:kilns/firing/SMOOTH"
         },
         "trigger": "minecraft:recipe_unlocked"
       },
-      "has_CRACKED_bricks": {
+      "has_NOT_SMOOTH": {
         "conditions": {
           "items": [
             {
               "items": [
-                "minecraft:CRACKED_bricks"
+                "minecraft:NOT_SMOOTH"
               ]
             }
           ]
@@ -23,15 +23,15 @@
     },
     "requirements": [
       [
-        "has_CRACKED_bricks",
+        "has_NOT_SMOOTH",
         "has_the_recipe"
       ]
     ],
     "rewards": {
       "recipes": [
-        "charm:kilns/firing/cracked_CRACKED_bricks"
+        "charm:kilns/firing/SMOOTH"
       ]
     }
   },
-  "variants": "cracked"
+  "variants": "smooth"
 }

@@ -1,9 +1,9 @@
 {
   "type": "charmony:firing",
   "ingredient": {
-    "item": "minecraft:quartz_block"
+    "item": "minecraft:cobbled_deepslate"
   },
-  "result": "minecraft:smooth_quartz",
+  "result": "minecraft:deepslate",
   "experience": 0.1,
   "cookingtime": 100
 }
