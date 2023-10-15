@@ -4,16 +4,16 @@
     "criteria": {
       "has_the_recipe": {
         "conditions": {
-          "recipe": "charm:kilns/firing/NOT_CRACKED"
+          "recipe": "charm:kilns/firing/CRACKED"
         },
         "trigger": "minecraft:recipe_unlocked"
       },
-      "has_CRACKED": {
+      "has_NOT_CRACKED": {
         "conditions": {
           "items": [
             {
               "items": [
-                "minecraft:CRACKED"
+                "minecraft:NOT_CRACKED"
               ]
             }
           ]
@@ -23,13 +23,13 @@
     },
     "requirements": [
       [
-        "has_CRACKED",
+        "has_NOT_CRACKED",
         "has_the_recipe"
       ]
     ],
     "rewards": {
       "recipes": [
-        "charm:kilns/firing/NOT_CRACKED"
+        "charm:kilns/firing/CRACKED"
       ]
     }
   },
