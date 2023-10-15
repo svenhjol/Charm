@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.0.5
+
+- Balance lumberjack and beekeeper recipes (https://trello.com/c/leCo6jlD)
+- Changed number of ladders when woodcutting from 4 to 3 (https://trello.com/c/Fs8LdFBN)
+- Additional smooth+cracked kiln recipes (https://trello.com/c/LTjfMfp5)
+- Can now craft chest minecarts using variant chests (https://trello.com/c/LSxJ2rqD)
+- Add shears and tallflower trades to beekeepers
+
 ## 6.0.4
 
 - Modmenu support (https://trello.com/c/UBcTGamJ)
