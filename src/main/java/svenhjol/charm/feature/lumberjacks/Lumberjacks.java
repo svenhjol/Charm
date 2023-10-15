@@ -81,10 +81,10 @@ public class Lumberjacks extends CharmonyFeature {
             BlockTags.BEDS, 4, 1, 7, 20));
 
         registry.villagerTrade(profession, 2, () -> new GenericTradeOffers.TagForEmeralds<>(
-            BlockTags.WOODEN_FENCES, 4, 2, 6, 20));
+            BlockTags.WOODEN_FENCES, 4, 1, 6, 20));
 
         registry.villagerTrade(profession, 2, () -> new GenericTradeOffers.TagForEmeralds<>(
-            BlockTags.FENCE_GATES, 2, 2, 6, 20));
+            BlockTags.FENCE_GATES, 2, 1, 6, 20));
 
         // Tier 3
 
@@ -115,7 +115,7 @@ public class Lumberjacks extends CharmonyFeature {
 
         if (usevariantBookshelves) {
             registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.TagForEmeralds<>(
-                CharmTags.BOOKSHELVES, 4, 1, 15, 20));
+                CharmTags.CHISELED_BOOKSHELVES, 4, 1, 15, 20));
         } else {
             registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
                 Items.BOOKSHELF, 4, 1, 15, 20));
@@ -126,7 +126,7 @@ public class Lumberjacks extends CharmonyFeature {
 
         // Tier 5
 
-        registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
+        registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
             Blocks.JUKEBOX, 9, 1, 15, 20));
 
         registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(

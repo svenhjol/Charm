@@ -16,8 +16,8 @@ public class CharmTags {
     public static final TagKey<Block> BARRELS = TagKey.create(BLOCK_KEY,
         Charm.instance().makeId("barrels"));
 
-    public static final TagKey<Block> BOOKSHELVES = TagKey.create(BLOCK_KEY,
-        Charm.instance().makeId("bookshelves"));
+    public static final TagKey<Block> CHISELED_BOOKSHELVES = TagKey.create(BLOCK_KEY,
+        Charm.instance().makeId("chiseled_bookshelves"));
 
     public static final TagKey<Item> COLORED_DYES = TagKey.create(ITEM_KEY,
         Charm.instance().makeId("colored_dyes"));
