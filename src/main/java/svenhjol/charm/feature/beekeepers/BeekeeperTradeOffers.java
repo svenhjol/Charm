@@ -76,11 +76,11 @@ public class BeekeeperTradeOffers {
             var out = new ItemStack(Items.BEEHIVE);
 
             var beehive = new BeehiveBlockEntity(BlockPos.ZERO, Blocks.BEEHIVE.defaultBlockState());
-            var bee = new Bee(EntityType.BEE, merchant.level());
             var beesTag = new CompoundTag();
             var honeyTag = new CompoundTag();
 
             for (int i = 0; i < NUMBER_OF_BEES; i++) {
+                var bee = new Bee(EntityType.BEE, merchant.level());
                 beehive.addOccupantWithPresetTicks(bee, false, 0);
             }
             beesTag.put("Bees", beehive.writeBees());
