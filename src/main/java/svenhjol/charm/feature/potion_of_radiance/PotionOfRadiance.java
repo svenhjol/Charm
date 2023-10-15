@@ -20,13 +20,8 @@ public class PotionOfRadiance extends CharmonyFeature {
 
         potion = registry.potion("charm_radiance", RadiancePotion::new);
         longPotion = registry.potion("charm_long_radiance", LongRadiancePotion::new);
-    }
 
-    @Override
-    public void runWhenEnabled() {
-        var registry = Charm.instance().registry();
-
-        registry.brewingRecipe(Potions.AWKWARD, Items.TORCHFLOWER, potion.get());
-        registry.brewingRecipe(potion.get(), Items.REDSTONE, longPotion.get());
+        registry.brewingRecipe(() -> Potions.AWKWARD, () -> Items.TORCHFLOWER, potion);
+        registry.brewingRecipe(potion, () -> Items.REDSTONE, longPotion);
     }
 }
