@@ -74,6 +74,9 @@ public class Beekeepers extends CharmonyFeature {
         registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
             Items.LEAD, 6, 1, 15, 20));
 
+        registry.villagerTrade(profession, 4, () -> new BeekeeperTradeOffers.TallFlowerForEmeralds(
+            3, 0, 15, 20));
+
         // Tier 5
 
         registry.villagerTrade(profession, 5, () -> new BeekeeperTradeOffers.PopulatedBeehiveForEmeralds(
@@ -81,6 +84,9 @@ public class Beekeepers extends CharmonyFeature {
 
         registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
             Items.SOUL_CAMPFIRE, 5, 1, 30, 20));
+
+        registry.villagerTrade(profession, 5, () -> new BeekeeperTradeOffers.EnchantedShearsForEmeralds(
+            6, 0, 15, 20));
     }
 
     public static void triggerTradedWithBeekeeper(Player player) {
