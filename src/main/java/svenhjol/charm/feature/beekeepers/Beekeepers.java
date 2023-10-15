@@ -75,7 +75,7 @@ public class Beekeepers extends CharmonyFeature {
             Items.LEAD, 6, 1, 15, 20));
 
         registry.villagerTrade(profession, 4, () -> new BeekeeperTradeOffers.TallFlowerForEmeralds(
-            3, 0, 15, 20));
+            3, 1, 15, 20));
 
         // Tier 5
 
