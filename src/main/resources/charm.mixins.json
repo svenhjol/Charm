@@ -44,6 +44,8 @@
     "storage_blocks.ChorusFruitItemMixin",
     "stronger_anvils.AnvilBlockMixin",
     "torchflowers_emit_light.BlockBehaviourPropertiesMixin",
+    "totem_of_preserving.ExplosionMixin",
+    "totem_of_preserving.LevelMixin",
     "totems_work_from_inventory.LivingEntityMixin",
     "unlimited_repair_cost.AnvilMenuMixin",
     "variant_pistons.PistonBaseBlockMixin",

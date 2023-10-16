@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:echo_shard"
+    },
+    "X": {
+      "item": "minecraft:totem_of_undying"
+    }
+  },
+  "result": {
+    "item": "charm:totem_of_preserving"
+  }
+}

@@ -197,6 +197,7 @@
   "block.charm.stripped_azalea_log": "Stripped Azalea Log",
   "block.charm.stripped_azalea_wood": "Stripped Azalea Wood",
   "block.charm.sugar_block": "Sugar Block",
+  "block.charm.totem_of_preserving_holder": "Totem of Preserving",
   "block.charm.trapped_acacia_chest": "Trapped Acacia Chest",
   "block.charm.trapped_azalea_chest": "Trapped Azalea Chest",
   "block.charm.trapped_bamboo_chest": "Trapped Bamboo Chest",
@@ -241,6 +242,7 @@
   "gui.charm.coords_only_xz": "X: %s   Z: %s",
   "gui.charm.recipebook.toggleRecipes.fireable": "Showing Fireable",
   "gui.charm.repair_cost": "Repair Cost: %s",
+  "gui.charm.totem_of_preserving.deathpos": "Your totem is near %s %s %s",
   "gui.charm.workstation_selector.title": "Choose workstation",
   "item.charm.atlas": "Atlas",
   "item.charm.azalea_boat": "Azalea Boat",
@@ -252,6 +254,7 @@
   "item.charm.moobloom_spawn_egg": "Moobloom Spawn Egg",
   "item.charm.colored_glint_smithing_template": "Colored Glint Template",
   "item.charm.populated_beehive": "Honey Farm Starter Pack",
+  "item.charm.totem_of_preserving": "Totem of Preserving",
   "item.minecraft.potion.effect.charm_radiance": "Potion of Radiance",
   "item.minecraft.potion.effect.charm_long_radiance": "Potion of Radiance",
   "item.minecraft.splash_potion.effect.charm_radiance": "Splash Potion of Radiance",
@@ -282,5 +285,7 @@
   "subtitles.charm.item.bat_bucket.release": "Bat escapes from bucket",
   "subtitles.charm.item.endermite_powder.launch": "Endermite powder launches",
   "subtitles.charm.item.path.convert_from_dirt": "Shovel flattens",
-  "subtitles.charm.item.path.convert_to_dirt": "Hoe works path"
+  "subtitles.charm.item.path.convert_to_dirt": "Hoe works path",
+  "totem_of_preserving.charm.item": "Preserving one item",
+  "totem_of_preserving.charm.items": "Preserving %s items"
 }
