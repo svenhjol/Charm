@@ -111,6 +111,8 @@
   "advancements.charm.revive_animal.description": "Revive an animal from its nametag using a Totem of Undying",
   "advancements.charm.drag_item_to_shulker_box.title": "Drag and Drop",
   "advancements.charm.drag_item_to_shulker_box.description": "Drag an item to a shulker box inside your inventory",
+  "advancements.charm.use_totem_of_preserving.title": "Safe Hands",
+  "advancements.charm.use_totem_of_preserving.description": "Use a Totem of Preserving to store all your items when you die",
   "block.charm.acacia_barrel": "Acacia Barrel",
   "block.charm.acacia_bookshelf": "Acacia Bookshelf",
   "block.charm.acacia_chest": "Acacia Chest",

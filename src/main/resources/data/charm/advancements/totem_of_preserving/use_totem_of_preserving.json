@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/tools",
+  "display": {
+    "icon": {
+      "item": "charm:totem_of_preserving"
+    },
+    "title": {
+      "translate": "advancements.charm.use_totem_of_preserving.title"
+    },
+    "description": {
+      "translate": "advancements.charm.use_totem_of_preserving.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "used_totem_of_preserving": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:used_totem_of_preserving"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "used_totem_of_preserving"
+    ]
+  ]
+}

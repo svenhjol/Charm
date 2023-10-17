@@ -79,7 +79,7 @@ public class TotemOfPreserving extends CharmonyFeature {
             () -> new TotemItem(this));
 
         CharmonyApi.registerProvider(new TotemInventoryProvider());
-        CharmonyApi.registerProvider(new TotemRecipeRemoveProvider());
+        CharmonyApi.registerProvider(new TotemDataRemoveProvider());
     }
 
     @Override
