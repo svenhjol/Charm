@@ -242,7 +242,7 @@
   "gui.charm.coords_only_xz": "X: %s   Z: %s",
   "gui.charm.recipebook.toggleRecipes.fireable": "Showing Fireable",
   "gui.charm.repair_cost": "Repair Cost: %s",
-  "gui.charm.totem_of_preserving.deathpos": "Your totem is near %s %s %s",
+  "gui.charm.totem_of_preserving.death_position": "Your totem is near %s %s %s",
   "gui.charm.workstation_selector.title": "Choose workstation",
   "item.charm.atlas": "Atlas",
   "item.charm.azalea_boat": "Azalea Boat",

@@ -10,9 +10,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
+import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.base.CharmonyFeature;
@@ -20,6 +22,7 @@ import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.TextHelper;
 import svenhjol.charmony_api.CharmonyApi;
+import svenhjol.charmony_api.event.AnvilUpdateEvent;
 import svenhjol.charmony_api.event.PlayerInventoryDropEvent;
 import svenhjol.charmony_api.iface.ITotemPreservingProvider;
 
@@ -32,6 +35,23 @@ public class TotemOfPreserving extends CharmonyFeature {
     static Supplier<Block> block;
     static Supplier<BlockEntityType<TotemBlockEntity>> blockEntity;
     public static Map<ResourceLocation, List<BlockPos>> PROTECT_POSITIONS = new HashMap<>();
+
+    @Configurable(
+        name = "Grave mode",
+        description = "If true, a totem of preserving will always be created when you die.\n" +
+            "If false, you must be holding a totem of preserving to preserve your items on death."
+    )
+    public static boolean graveMode = false;
+
+    @Configurable(
+        name = "Durability",
+        description = """
+            The maximum number of times a single totem can be used. Once a totem runs out of uses it is destroyed.
+            A value of -1 means that the totem is never destroyed.
+            You can add an echo shard on an anvil to increase the durability of the totem.
+            Note: Durability has no effect if 'Grave mode' is enabled."""
+    )
+    public static int durability = -1;
 
     @Configurable(
         name = "Owner only",
@@ -59,11 +79,25 @@ public class TotemOfPreserving extends CharmonyFeature {
             () -> new TotemItem(this));
 
         CharmonyApi.registerProvider(new TotemInventoryProvider());
+        CharmonyApi.registerProvider(new TotemRecipeRemoveProvider());
     }
 
     @Override
     public void runWhenEnabled() {
         PlayerInventoryDropEvent.INSTANCE.handle(this::handlePlayerInventoryDrop);
+        AnvilUpdateEvent.INSTANCE.handle(this::handleAnvilUpdate);
+    }
+
+    private Optional<AnvilUpdateEvent.AnvilRecipe> handleAnvilUpdate(Player player, ItemStack input, ItemStack material, int cost) {
+        if (input.is(item.get()) && input.isDamaged() && material.is(Items.ECHO_SHARD)) {
+            var recipe = new AnvilUpdateEvent.AnvilRecipe();
+            recipe.output = input.copy();
+            recipe.output.setDamageValue(input.getDamageValue() - 1);
+            recipe.experienceCost = 1;
+            recipe.materialCost = 1;
+            return Optional.of(recipe);
+        }
+        return Optional.empty();
     }
 
     private InteractionResult handlePlayerInventoryDrop(Player player, Inventory inventory) {
@@ -71,6 +105,7 @@ public class TotemOfPreserving extends CharmonyFeature {
             return InteractionResult.PASS;
         }
 
+        var damage = 0; // Track how much damage the totem has taken
         var log = Charm.instance().log();
         var serverPlayer = (ServerPlayer)player;
         List<ItemStack> preserve = new ArrayList<>();
@@ -79,25 +114,73 @@ public class TotemOfPreserving extends CharmonyFeature {
         ApiHelper.consume(ITotemPreservingProvider.class,
             provider -> preserve.addAll(provider.getInventoryItemsForTotem(player)));
 
+        // Give up if the player doesn't have anything to preserve.
         if (preserve.isEmpty()) {
             log.debug(getClass(), "No items to store in totem, giving up");
             return InteractionResult.PASS;
         }
 
-        // Place a totem in the world.
-        var result = tryCreateTotemBlock(serverPlayer, preserve);
+        // When not in grave mode, look through inventory items for the first empty totem of preserving.
+        if (!graveMode) {
+
+            // If totem works from inventory not set, check the player is holding an empty totem in any hand.
+            var totemWorksFromInventory = Charm.instance().loader().isEnabled(TotemsWorkFromInventory.class);
+
+            boolean found = false;
+            if (!totemWorksFromInventory) {
+                for (var held : player.getHandSlots()) {
+                    if (!held.is(item.get()) || TotemItem.hasItems(held)) {
+                        continue;
+                    }
+
+                    // Found totem
+                    found = true;
+                    damage = held.getDamageValue();
+                    held.shrink(held.getCount());
+                    break;
+                }
+                if (!found) {
+                    log.debug(getClass(), "Not holding an empty totem, giving up");
+                    return InteractionResult.PASS;
+                }
+            }
+
+            // Search the rest of the player inventories for an empty totem.
+            if (!found) {
+                for (int i = 0; i < preserve.size(); i++) {
+                    var stack = preserve.get(i);
+                    if (!stack.is(item.get()) || TotemItem.hasItems(stack)) {
+                        continue;
+                    }
+
+                    // Found totem
+                    found = true;
+                    damage = stack.getDamageValue();
+                    preserve.set(i, ItemStack.EMPTY);
+                    break;
+                }
+            }
+
+            if (!found) {
+                log.debug(getClass(), "Could not find an empty totem, giving up");
+                return InteractionResult.PASS;
+            }
+        }
+
+        // Place a totem block in the world.
+        var result = tryCreateTotemBlock(serverPlayer, preserve, damage);
         if (!result) {
             return InteractionResult.PASS;
         }
 
-        // Delete inventory items on demand.
+        // Delete player inventory items on demand.
         ApiHelper.consume(ITotemPreservingProvider.class,
             provider -> provider.deleteInventoryItems(player));
 
         return InteractionResult.SUCCESS;
     }
 
-    private boolean tryCreateTotemBlock(ServerPlayer player, List<ItemStack> preserve) {
+    private boolean tryCreateTotemBlock(ServerPlayer player, List<ItemStack> preserve, int damage) {
         var log = Charm.instance().log();
 
         var level = player.level();
@@ -121,10 +204,9 @@ public class TotemOfPreserving extends CharmonyFeature {
 
         // Adjust for void.
         if (pos.getY() < minHeight) {
-            log.debug(getClass(), "(Void check) Adjusting, new pos: " + pos);
             pos = new BlockPos(pos.getX(), level.getSeaLevel(), pos.getZ());
+            log.debug(getClass(), "(Void check) Adjusting, new pos: " + pos);
         }
-
 
         if (state.isAir() || fluid.is(FluidTags.WATER)) {
 
@@ -218,6 +300,7 @@ public class TotemOfPreserving extends CharmonyFeature {
         totem.setItems(preserve);
         totem.setMessage(message);
         totem.setOwner(uuid);
+        totem.setDamage(damage);
         totem.setChanged();
 
         PROTECT_POSITIONS
@@ -233,7 +316,7 @@ public class TotemOfPreserving extends CharmonyFeature {
             var y = spawnPos.getY();
             var z = spawnPos.getZ();
 
-            player.displayClientMessage(TextHelper.translatable("gui.charm.totem_of_preserving.deathpos", x, y, z), false);
+            player.displayClientMessage(TextHelper.translatable("gui.charm.totem_of_preserving.death_position", x, y, z), false);
         }
 
         return true;

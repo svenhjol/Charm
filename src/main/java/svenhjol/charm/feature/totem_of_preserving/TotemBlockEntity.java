@@ -15,11 +15,13 @@ public class TotemBlockEntity extends BlockEntity {
     static final String OWNER_TAG = "owner";
     static final String ITEMS_TAG = "items";
     static final String MESSAGE_TAG = "message";
+    static final String DAMAGE_TAG = "damage";
 
     List<ItemStack> items = new ArrayList<>();
     String message;
     UUID owner;
     float rotateTicks = 0f;
+    int damage = 0;
 
     public TotemBlockEntity(BlockPos pos, BlockState state) {
         super(TotemOfPreserving.blockEntity.get(), pos, state);
@@ -38,6 +40,7 @@ public class TotemBlockEntity extends BlockEntity {
 
         message = tag.getString(MESSAGE_TAG);
         owner = tag.getUUID(OWNER_TAG);
+        damage = tag.getInt(DAMAGE_TAG);
     }
 
     @Override
@@ -53,6 +56,7 @@ public class TotemBlockEntity extends BlockEntity {
         tag.put(ITEMS_TAG, itemsList);
         tag.putString(MESSAGE_TAG, message);
         tag.putUUID(OWNER_TAG, owner);
+        tag.putInt(DAMAGE_TAG, damage);
     }
 
     public void setItems(List<ItemStack> items) {
@@ -61,6 +65,10 @@ public class TotemBlockEntity extends BlockEntity {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public void setOwner(UUID owner) {
@@ -77,5 +85,9 @@ public class TotemBlockEntity extends BlockEntity {
 
     public UUID getOwner() {
         return owner;
+    }
+
+    public int getDamage() {
+        return damage;
     }
 }

@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
-@Feature(mod = Charm.MOD_ID, description = "A totem will work from anywhere in the player's inventory as well as held in the main or offhand.")
+@Feature(mod = Charm.MOD_ID, description = "A totem will work from anywhere in the player's inventory as well as held in the main or offhand.\n" +
+    "This includes the Totem of Preserving, if enabled.")
 public class TotemsWorkFromInventory extends CharmonyFeature implements ITotemInventoryCheckProvider {
     static List<BiFunction<Player, ItemLike, ItemStack>> inventoryChecks = new ArrayList<>();
 

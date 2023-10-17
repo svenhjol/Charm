@@ -2,6 +2,8 @@ package svenhjol.charm.feature.totem_of_preserving;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -91,7 +93,8 @@ public class TotemBlock extends CharmonyBlockWithEntity {
             && !player.level().isClientSide()
             && player.isAlive()
             && level.getBlockEntity(pos) instanceof TotemBlockEntity totem
-            && (!TotemOfPreserving.ownerOnly || totem.getOwner().equals(player.getUUID()))
+            && (!TotemOfPreserving.ownerOnly
+                || (totem.getOwner().equals(player.getUUID()) || player.getAbilities().instabuild))
         ) {
             var log = Charm.instance().log();
             var serverLevel = (ServerLevel)level;
@@ -100,12 +103,16 @@ public class TotemBlock extends CharmonyBlockWithEntity {
             // Create a new totem item and give it to player.
             log.debug(getClass(), "Player has interacted with totem holder block at pos: " + pos + ", player: " + player);
             var totemItem = new ItemStack(TotemOfPreserving.item.get());
+
             TotemItem.setItems(totemItem, totem.getItems());
             TotemItem.setMessage(totemItem, totem.getMessage());
+            TotemItem.setDamage(totemItem, totem.getDamage());
             TotemItem.setGlint(totemItem, true);
 
             log.debug(getClass(), "Adding totem item to player's inventory: " + player);
             player.getInventory().add(totemItem);
+
+            level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.6f, 1.0f);
 
             if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)) {
                 TotemOfPreserving.PROTECT_POSITIONS.get(dimension).remove(pos);

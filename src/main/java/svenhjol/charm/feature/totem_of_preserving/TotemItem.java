@@ -3,6 +3,8 @@ package svenhjol.charm.feature.totem_of_preserving;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -29,6 +31,7 @@ public class TotemItem extends CharmonyItem {
     public TotemItem(CharmonyFeature feature) {
         super(feature, new Item.Properties()
             .stacksTo(1)
+            .durability(TotemOfPreserving.durability)
             .rarity(Rarity.UNCOMMON));
     }
 
@@ -43,8 +46,15 @@ public class TotemItem extends CharmonyItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand hand) {
-        ItemStack totem = user.getItemInHand(hand);
+    public boolean isValidRepairItem(ItemStack item, ItemStack repair) {
+        return TotemOfPreserving.durability > 1 && !TotemOfPreserving.graveMode
+            && (repair.is(Items.ECHO_SHARD) || super.isValidRepairItem(item, repair));
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        var totem = player.getItemInHand(hand);
+        var pos = player.blockPosition();
 
         // Don't break totem if it's empty.
         if (!hasItems(totem)) {
@@ -52,21 +62,57 @@ public class TotemItem extends CharmonyItem {
         }
 
         var items = getItems(totem);
-        var pos = user.blockPosition();
+        level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.8f, 1.0f);
+
+        if (TotemOfPreserving.graveMode) {
+
+            // Always destroy totem in Grave Mode.
+            destroyTotem(totem, player);
+
+        } else if (TotemOfPreserving.durability <= 0) {
+
+            givePlayerCleanTotem(player, hand);
+
+        } else {
+
+            // Durability config of 1 or more causes damage to the totem.
+            var damage = totem.getDamageValue();
+            if (damage < totem.getMaxDamage() && (totem.getMaxDamage() - damage > 1)) {
+
+                var newTotem = givePlayerCleanTotem(player, hand);
+                newTotem.setDamageValue(damage + 1);
+
+            } else {
+                destroyTotem(totem, player);
+            }
+        }
 
         if (!level.isClientSide) {
-            TotemHelper.destroy(user, totem);
+
+            // Add totem items to the world.
             for (var stack : items) {
                 var itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 0.5d, pos.getZ(), stack);
                 level.addFreshEntity(itemEntity);
             }
-        } else {
-            ClientEffectHelper.destroyTotem(pos);
+
         }
 
-        return super.use(level, user, hand);
+        return super.use(level, player, hand);
     }
 
+    private void destroyTotem(ItemStack stack, Player player) {
+        if (!player.level().isClientSide) {
+            TotemHelper.destroy(player, stack);
+        } else {
+            ClientEffectHelper.destroyTotem(player.blockPosition());
+        }
+    }
+
+    private ItemStack givePlayerCleanTotem(Player player, InteractionHand hand) {
+        var stack = new ItemStack(TotemOfPreserving.item.get());
+        player.setItemInHand(hand, stack);
+        return stack;
+    }
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag context) {
@@ -94,6 +140,7 @@ public class TotemItem extends CharmonyItem {
 
         for (int i = 0; i < items.size(); i++) {
             var stack = items.get(i);
+            if (stack.isEmpty()) continue;
             serialized.put(Integer.toString(i), stack.save(new CompoundTag()));
         }
 
@@ -103,6 +150,10 @@ public class TotemItem extends CharmonyItem {
     public static void setGlint(ItemStack totem, boolean flag) {
         ItemNbtHelper.setBoolean(totem, GLINT_TAG, flag);
         ColoredGlints.applyColoredGlint(totem, DyeColor.CYAN);
+    }
+
+    public static void setDamage(ItemStack totem, int damage) {
+        totem.setDamageValue(damage);
     }
 
     public static String getMessage(ItemStack totem) {
