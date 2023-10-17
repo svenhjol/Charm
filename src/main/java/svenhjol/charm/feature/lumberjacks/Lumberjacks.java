@@ -51,7 +51,6 @@ public class Lumberjacks extends CharmonyFeature {
         var useVariantBarrels = loader.isEnabled(VariantWood.class) && VariantWood.variantBarrels;
         var usevariantBookshelves = loader.isEnabled(VariantWood.class) && VariantWood.variantBookshelves;
         var useVariantLadders = loader.isEnabled(VariantWood.class) && VariantWood.variantLadders;
-        var useWoodcutters = loader.isEnabled(Woodcutters.class); // I don't know how you'd get a lumberjack without a woodcutter but just in case
 
         // Tier 1
 
