@@ -216,7 +216,7 @@
     "sounds": [
       {
         "name": "charm:totem_release_items",
-        "volume": 0.9
+        "volume": 1.0
       }
     ],
     "subtitle": "subtitles.charm.block.totem_of_preserving.release_items"

@@ -55,6 +55,7 @@ public class TotemItem extends CharmonyItem {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         var totem = player.getItemInHand(hand);
         var pos = player.blockPosition();
+        var destroyTotem = false;
 
         // Don't break totem if it's empty.
         if (!hasItems(totem)) {
@@ -63,12 +64,11 @@ public class TotemItem extends CharmonyItem {
 
         var items = getItems(totem);
         level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.6f, 1.0f);
-        level.playSound(null, pos, TotemOfPreserving.sound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
 
         if (TotemOfPreserving.graveMode) {
 
             // Always destroy totem in Grave Mode.
-            destroyTotem(totem, player);
+            destroyTotem = true;
 
         } else if (TotemOfPreserving.durability <= 0) {
 
@@ -84,8 +84,14 @@ public class TotemItem extends CharmonyItem {
                 newTotem.setDamageValue(damage + 1);
 
             } else {
-                destroyTotem(totem, player);
+                destroyTotem = true;
             }
+        }
+
+        if (!destroyTotem) {
+            level.playSound(null, pos, TotemOfPreserving.sound.get(), SoundSource.PLAYERS, 0.8f, 1.0f);
+        } else {
+            destroyTotem(totem, player);
         }
 
         if (!level.isClientSide) {
