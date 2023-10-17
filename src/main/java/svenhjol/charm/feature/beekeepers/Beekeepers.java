@@ -48,7 +48,7 @@ public class Beekeepers extends CharmonyFeature {
             14, 2, 1, 0, 2, 20));
 
         registry.villagerTrade(profession, 1, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.GLASS_BOTTLE, 1, 4, 2, 20));
+            Items.GLASS_BOTTLE, 1, 0, 3, 2, 2, 20));
 
         // Tier 2
 
@@ -56,7 +56,7 @@ public class Beekeepers extends CharmonyFeature {
             Items.CHARCOAL, 15, 2, 1, 0, 5, 20));
 
         registry.villagerTrade(profession, 2, () -> new GenericTradeOffers.TagForEmeralds<>(
-            ItemTags.CANDLES, 3, 1, 5, 20));
+            ItemTags.CANDLES, 3, 1, 1, 0, 5, 20));
 
         // Tier 3
 
@@ -64,7 +64,7 @@ public class Beekeepers extends CharmonyFeature {
             Items.HONEYCOMB, 9, 2, 1, 0, 10, 20));
 
         registry.villagerTrade(profession, 3, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.CAMPFIRE, 2, 1, 10, 20));
+            Items.CAMPFIRE, 2, 1, 1, 0, 10, 20));
 
         // Tier 4
 
@@ -72,7 +72,7 @@ public class Beekeepers extends CharmonyFeature {
             Items.FLOWERING_AZALEA_LEAVES, 7, 1, 1, 0, 15, 20));
 
         registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.LEAD, 6, 1, 15, 20));
+            Items.LEAD, 6, 1, 1, 0, 15, 20));
 
         registry.villagerTrade(profession, 4, () -> new BeekeeperTradeOffers.TallFlowerForEmeralds(
             3, 1, 15, 20));
@@ -80,10 +80,10 @@ public class Beekeepers extends CharmonyFeature {
         // Tier 5
 
         registry.villagerTrade(profession, 5, () -> new BeekeeperTradeOffers.PopulatedBeehiveForEmeralds(
-            47, 0, 30, 10));
+            47, 5, 30, 10));
 
         registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Items.SOUL_CAMPFIRE, 5, 1, 30, 20));
+            Items.SOUL_CAMPFIRE, 5, 1, 1, 0, 30, 20));
 
         registry.villagerTrade(profession, 5, () -> new BeekeeperTradeOffers.EnchantedShearsForEmeralds(
             6, 0, 15, 20));

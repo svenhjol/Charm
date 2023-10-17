@@ -78,13 +78,13 @@ public class Lumberjacks extends CharmonyFeature {
             Items.BONE, 23, 2, 1, 0, 5, 20));
 
         registry.villagerTrade(profession, 2, () -> new GenericTradeOffers.TagForEmeralds<>(
-            BlockTags.BEDS, 4, 1, 7, 20));
+            BlockTags.BEDS, 3, 2, 1, 0, 7, 20));
 
         registry.villagerTrade(profession, 2, () -> new GenericTradeOffers.TagForEmeralds<>(
-            BlockTags.WOODEN_FENCES, 4, 1, 6, 20));
+            BlockTags.WOODEN_FENCES, 2, 1, 1, 0, 6, 20));
 
         registry.villagerTrade(profession, 2, () -> new GenericTradeOffers.TagForEmeralds<>(
-            BlockTags.FENCE_GATES, 2, 1, 6, 20));
+            BlockTags.FENCE_GATES, 2, 1, 1, 0, 6, 20));
 
         // Tier 3
 
@@ -95,19 +95,19 @@ public class Lumberjacks extends CharmonyFeature {
             BlockTags.CRIMSON_STEMS, 7, 1, 1, 0, 10, 20));
 
         registry.villagerTrade(profession, 3, () -> new LumberjackTradeOffers.SaplingsForEmeralds(
-            List.of(Items.ACACIA_SAPLING, Items.DARK_OAK_SAPLING), 3, 0, 10,  20));
+            List.of(Items.ACACIA_SAPLING, Items.DARK_OAK_SAPLING), 2, 1, 10,  20));
 
         registry.villagerTrade(profession, 3, () -> new LumberjackTradeOffers.BarkForLogs(
             10, 12, 10, 10));
 
         registry.villagerTrade(profession, 3, () -> new GenericTradeOffers.TagForEmeralds<>(
-            BlockTags.WOODEN_DOORS, 2, 1, 10, 20));
+            BlockTags.WOODEN_DOORS, 2, 1, 1, 0, 10, 20));
 
         // Tier 4
 
         if (useVariantBarrels) {
             registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.TagForEmeralds<>(
-                CharmTags.BARRELS, 4, 1, 15, 20));
+                CharmTags.BARRELS, 4, 1, 1, 0, 15, 20));
         } else {
             registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
                 Items.BARREL, 4, 1, 15, 20));
@@ -115,36 +115,28 @@ public class Lumberjacks extends CharmonyFeature {
 
         if (usevariantBookshelves) {
             registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.TagForEmeralds<>(
-                CharmTags.CHISELED_BOOKSHELVES, 4, 1, 15, 20));
+                CharmTags.CHISELED_BOOKSHELVES, 4, 1, 1, 0, 15, 20));
         } else {
             registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
                 Items.BOOKSHELF, 4, 1, 15, 20));
         }
 
         registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Blocks.NOTE_BLOCK, 7, 1, 15, 20));
+            Blocks.NOTE_BLOCK, 7, 1, 1, 0, 15, 20));
 
         // Tier 5
 
         registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Blocks.JUKEBOX, 9, 1, 15, 20));
+            Blocks.JUKEBOX, 11, 3, 1, 0, 15, 20));
 
         registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Blocks.FLETCHING_TABLE, 5, 1, 30, 20));
+            Blocks.CARTOGRAPHY_TABLE, 5, 1, 1, 0, 30, 20));
 
         registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Blocks.CARTOGRAPHY_TABLE, 5, 1, 30, 20));
+            Blocks.LOOM, 4, 1, 1, 0, 30, 20));
 
         registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Blocks.LOOM, 4, 1, 30, 20));
-
-        registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
-            Blocks.COMPOSTER, 4, 1, 30, 20));
-
-        if (useWoodcutters) {
-            registry.villagerTrade(profession, 5, () -> new GenericTradeOffers.ItemsForEmeralds(
-                Woodcutters.block.get(), 5, 1, 30, 20));
-        }
+            Blocks.COMPOSTER, 3, 1, 1, 0, 30, 20));
     }
 
     public static void triggerTradedWithLumberjack(Player player) {
