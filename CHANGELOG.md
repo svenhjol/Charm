@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.0.7
+
+- Lumberjack and beekeeper balance fixes (https://trello.com/c/9XAfucm2, https://trello.com/c/leCo6jlD)
+- Port totem of preserving code
+- Totem of Preserving functionality (https://trello.com/c/U4Tj4Oz4)
+- Advancement and recipe handling for totem
+- Add totem sound
+
 ## 6.0.6
 
 - Lumberjack bark for logs trade now expects one emerald
