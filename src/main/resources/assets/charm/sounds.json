@@ -212,6 +212,15 @@
     ],
     "subtitle": "subtitles.charm.block.sugar_block.dissolve"
   },
+  "totem_release_items": {
+    "sounds": [
+      {
+        "name": "charm:totem_release_items",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.charm.block.totem_of_preserving.release_items"
+  },
   "woodcutter_use": {
     "sounds": [
       {

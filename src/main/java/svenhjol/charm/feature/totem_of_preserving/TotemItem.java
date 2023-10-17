@@ -62,7 +62,8 @@ public class TotemItem extends CharmonyItem {
         }
 
         var items = getItems(totem);
-        level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.8f, 1.0f);
+        level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.6f, 1.0f);
+        level.playSound(null, pos, TotemOfPreserving.sound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
 
         if (TotemOfPreserving.graveMode) {
 

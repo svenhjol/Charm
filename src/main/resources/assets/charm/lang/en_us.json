@@ -288,6 +288,7 @@
   "subtitles.charm.item.endermite_powder.launch": "Endermite powder launches",
   "subtitles.charm.item.path.convert_from_dirt": "Shovel flattens",
   "subtitles.charm.item.path.convert_to_dirt": "Hoe works path",
+  "subtitles.charm.block.totem_of_preserving.release_items": "Totem releases items",
   "totem_of_preserving.charm.item": "Preserving one item",
   "totem_of_preserving.charm.items": "Preserving %s items"
 }

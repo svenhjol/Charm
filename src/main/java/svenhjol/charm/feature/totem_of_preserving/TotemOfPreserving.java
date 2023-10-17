@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
@@ -34,6 +35,7 @@ public class TotemOfPreserving extends CharmonyFeature {
     static Supplier<Item> item;
     static Supplier<Block> block;
     static Supplier<BlockEntityType<TotemBlockEntity>> blockEntity;
+    static Supplier<SoundEvent> sound;
     public static Map<ResourceLocation, List<BlockPos>> PROTECT_POSITIONS = new HashMap<>();
 
     @Configurable(
@@ -77,6 +79,7 @@ public class TotemOfPreserving extends CharmonyFeature {
             () -> TotemBlockEntity::new, List.of(block));
         item = registry.item("totem_of_preserving",
             () -> new TotemItem(this));
+        sound = registry.soundEvent("totem_release_items");
 
         CharmonyApi.registerProvider(new TotemInventoryProvider());
         CharmonyApi.registerProvider(new TotemDataRemoveProvider());
