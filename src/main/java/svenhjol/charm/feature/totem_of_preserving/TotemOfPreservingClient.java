@@ -19,7 +19,7 @@ public class TotemOfPreservingClient extends CharmonyFeature {
 
         registry.blockRenderType(
             TotemOfPreserving.block,
-            RenderType::translucent);
+            RenderType::cutout);
     }
 
     @Override

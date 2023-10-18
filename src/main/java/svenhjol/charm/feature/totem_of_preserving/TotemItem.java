@@ -59,7 +59,9 @@ public class TotemItem extends CharmonyItem {
 
         // Don't break totem if it's empty.
         if (!hasItems(totem)) {
-            return InteractionResultHolder.pass(totem);
+            var newTotem = givePlayerCleanTotem(player, hand);
+            newTotem.setDamageValue(totem.getDamageValue());
+            return InteractionResultHolder.pass(newTotem);
         }
 
         var items = getItems(totem);

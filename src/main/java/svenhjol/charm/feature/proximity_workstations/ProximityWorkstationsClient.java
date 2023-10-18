@@ -35,6 +35,7 @@ public class ProximityWorkstationsClient extends CharmonyFeature {
     }
 
     private void handleKeyPress(String id) {
+        if (Minecraft.getInstance().level == null) return;
         if (id.equals(openWorkstationSelectorKey.get())) {
             openWorkstationSelector();
         }

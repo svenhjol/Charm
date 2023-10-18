@@ -53,7 +53,7 @@ public class TotemOfPreserving extends CharmonyFeature {
             You can add an echo shard on an anvil to increase the durability of the totem.
             Note: Durability has no effect if 'Grave mode' is enabled."""
     )
-    public static int durability = -1;
+    public static int durability = 3;
 
     @Configurable(
         name = "Owner only",
@@ -111,14 +111,17 @@ public class TotemOfPreserving extends CharmonyFeature {
         var damage = 0; // Track how much damage the totem has taken
         var log = Charm.instance().log();
         var serverPlayer = (ServerPlayer)player;
-        List<ItemStack> preserve = new ArrayList<>();
+        List<ItemStack> itemsFromApi = new ArrayList<>();
 
         // Fetch items from all inventories on demand.
         ApiHelper.consume(ITotemPreservingProvider.class,
-            provider -> preserve.addAll(provider.getInventoryItemsForTotem(player)));
+            provider -> itemsFromApi.addAll(provider.getInventoryItemsForTotem(player)));
 
-        // Give up if the player doesn't have anything to preserve.
-        if (preserve.isEmpty()) {
+        // Remove all empty items
+        var preserve = new ArrayList<>(itemsFromApi.stream().filter(i -> !i.isEmpty()).toList());
+
+        // Give up if the player doesn't have anything to preserve
+        if (preserve.isEmpty() || preserve.size() == 1) {
             log.debug(getClass(), "No items to store in totem, giving up");
             return InteractionResult.PASS;
         }
