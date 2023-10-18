@@ -28,8 +28,9 @@ public class TotemBlock extends CharmonyBlockWithEntity {
     static final VoxelShape SHAPE = Block.box(2, 2, 2, 14, 14, 14);
 
     public TotemBlock(CharmonyFeature feature) {
-        super(feature, Properties.copy(Blocks.AIR)
+        super(feature, Properties.copy(Blocks.GLASS)
             .strength(-1.0f, 3600000.0f)
+            .noCollission()
             .noOcclusion()
             .noLootTable());
     }
