@@ -175,53 +175,6 @@ public class TotemOfPreserving extends CharmonyFeature {
             return InteractionResult.PASS;
         }
 
-//        // When not in grave mode, look through inventory items for the first empty totem of preserving.
-//        if (!graveMode) {
-//
-//            // If totem works from inventory not set, check the player is holding an empty totem in any hand.
-//            var totemWorksFromInventory = Charm.instance().loader().isEnabled(TotemsWorkFromInventory.class);
-//
-//            boolean found = false;
-//            if (!totemWorksFromInventory) {
-//                for (var held : player.getHandSlots()) {
-//                    if (!held.is(item.get()) || TotemItem.hasItems(held)) {
-//                        continue;
-//                    }
-//
-//                    // Found totem
-//                    found = true;
-//                    damage = held.getDamageValue();
-//                    held.shrink(held.getCount());
-//                    break;
-//                }
-//                if (!found) {
-//                    log.debug(getClass(), "Not holding an empty totem, giving up");
-//                    return InteractionResult.PASS;
-//                }
-//            }
-//
-//            // Search the rest of the player inventories for an empty totem.
-//            if (!found) {
-//                for (int i = 0; i < preserveItems.size(); i++) {
-//                    var stack = preserveItems.get(i);
-//                    if (!stack.is(item.get()) || TotemItem.hasItems(stack)) {
-//                        continue;
-//                    }
-//
-//                    // Found totem
-//                    found = true;
-//                    damage = stack.getDamageValue();
-//                    preserveItems.set(i, ItemStack.EMPTY);
-//                    break;
-//                }
-//            }
-//
-//            if (!found) {
-//                log.debug(getClass(), "Could not find an empty totem, giving up");
-//                return InteractionResult.PASS;
-//            }
-//        }
-
         // Place a totem block in the world.
         var result = tryCreateTotemBlock(serverPlayer, preserveItems, damage);
         if (!result) {
