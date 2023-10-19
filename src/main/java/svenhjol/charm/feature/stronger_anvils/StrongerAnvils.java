@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.stonger_anvils;
+package svenhjol.charm.feature.stronger_anvils;
 
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Feature;
