@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:leather"
+    },
+    "-": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "-#-",
+    "# #",
+    "###"
+  ],
+  "result": {
+    "item": "minecraft:bundle"
+  },
+  "show_notification": true
+}
