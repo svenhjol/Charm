@@ -83,9 +83,9 @@ public class ProximityWorkstations extends CharmonyFeature {
         var gametime = level.getGameTime();
         var pos = player.blockPosition();
 
-        if (!WORKSTATIONS_IN_RANGE.containsKey(uuid)
-            || !LAST_WORKSTATION_CHECK.containsKey(uuid)
-            || LAST_WORKSTATION_CHECK.get(uuid) < gametime - 40
+        if (!LAST_WORKSTATION_CHECK.containsKey(uuid)
+            || LAST_WORKSTATION_CHECK.get(uuid) < gametime - 10
+            || !WORKSTATIONS_IN_RANGE.containsKey(uuid)
         ) {
             Map<Block, BlockPos> workstations = new LinkedHashMap<>();
             TagHelper.getValues(BuiltInRegistries.BLOCK, validWorkstations).forEach(
@@ -117,6 +117,7 @@ public class ProximityWorkstations extends CharmonyFeature {
     static void handleOpenedSelector(OpenWorkstationSelector message, Player player) {
         var workstations = getWorkstationsInRange(player);
         var blocks = new LinkedList<>(workstations.keySet());
+        Charm.instance().log().debug(ProximityWorkstations.class, "There are " + blocks.size() + " block(s) in range");
 
         if (blocks.size() == 1) {
             var block = blocks.get(0);
@@ -140,6 +141,7 @@ public class ProximityWorkstations extends CharmonyFeature {
     }
 
     static void openContainer(ServerPlayer player, Block block, BlockPos pos) {
+        Charm.instance().log().debug(ProximityWorkstations.class, "Going to try and open a workstation for " + block);
         if (MENU_PROVIDERS.containsKey(block)) {
             player.closeContainer();
             var provider = MENU_PROVIDERS.get(block);

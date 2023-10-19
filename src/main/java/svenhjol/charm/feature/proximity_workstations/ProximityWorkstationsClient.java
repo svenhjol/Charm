@@ -42,6 +42,7 @@ public class ProximityWorkstationsClient extends CharmonyFeature {
     }
 
     private void openWorkstationSelector() {
+        CharmClient.instance().log().debug(getClass(), "Sending OpenWorkstationSelector packet");
         OpenWorkstationSelector.send();
     }
 
