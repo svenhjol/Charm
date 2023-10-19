@@ -23,8 +23,10 @@ import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.TextHelper;
 import svenhjol.charmony_api.CharmonyApi;
+import svenhjol.charmony_api.enums.TotemType;
 import svenhjol.charmony_api.event.AnvilUpdateEvent;
 import svenhjol.charmony_api.event.PlayerInventoryDropEvent;
+import svenhjol.charmony_api.iface.ITotemInventoryCheckProvider;
 import svenhjol.charmony_api.iface.ITotemPreservingProvider;
 
 import java.util.*;
@@ -36,6 +38,9 @@ public class TotemOfPreserving extends CharmonyFeature {
     static Supplier<Block> block;
     static Supplier<BlockEntityType<TotemBlockEntity>> blockEntity;
     static Supplier<SoundEvent> sound;
+
+    static List<ITotemPreservingProvider> preservingProviders = new ArrayList<>();
+    static List<ITotemInventoryCheckProvider> inventoryCheckProviders = new ArrayList<>();
     public static Map<ResourceLocation, List<BlockPos>> PROTECT_POSITIONS = new HashMap<>();
 
     @Configurable(
@@ -81,12 +86,14 @@ public class TotemOfPreserving extends CharmonyFeature {
             () -> new TotemItem(this));
         sound = registry.soundEvent("totem_release_items");
 
-        CharmonyApi.registerProvider(new TotemInventoryProvider());
-        CharmonyApi.registerProvider(new TotemDataRemoveProvider());
+        CharmonyApi.registerProvider(new TotemDataProviders());
     }
 
     @Override
     public void runWhenEnabled() {
+        ApiHelper.consume(ITotemPreservingProvider.class, provider -> preservingProviders.add(provider));
+        ApiHelper.consume(ITotemInventoryCheckProvider.class, provider -> inventoryCheckProviders.add(provider));
+
         PlayerInventoryDropEvent.INSTANCE.handle(this::handlePlayerInventoryDrop);
         AnvilUpdateEvent.INSTANCE.handle(this::handleAnvilUpdate);
     }
@@ -108,80 +115,123 @@ public class TotemOfPreserving extends CharmonyFeature {
             return InteractionResult.PASS;
         }
 
+        ItemStack found = null;
         var damage = 0; // Track how much damage the totem has taken
         var log = Charm.instance().log();
+        var loader = Charm.instance().loader();
         var serverPlayer = (ServerPlayer)player;
-        List<ItemStack> itemsFromApi = new ArrayList<>();
-
-        // Fetch items from all inventories on demand.
-        ApiHelper.consume(ITotemPreservingProvider.class,
-            provider -> itemsFromApi.addAll(provider.getInventoryItemsForTotem(player)));
-
-        // Remove all empty items
-        var preserve = new ArrayList<>(itemsFromApi.stream().filter(i -> !i.isEmpty()).toList());
-
-        // Give up if the player doesn't have anything to preserve
-        if (preserve.isEmpty() || preserve.size() == 1) {
-            log.debug(getClass(), "No items to store in totem, giving up");
-            return InteractionResult.PASS;
-        }
 
         // When not in grave mode, look through inventory items for the first empty totem of preserving.
         if (!graveMode) {
+            var totemWorksFromInventory = loader.isEnabled(TotemsWorkFromInventory.class);
 
-            // If totem works from inventory not set, check the player is holding an empty totem in any hand.
-            var totemWorksFromInventory = Charm.instance().loader().isEnabled(TotemsWorkFromInventory.class);
-
-            boolean found = false;
             if (!totemWorksFromInventory) {
                 for (var held : player.getHandSlots()) {
                     if (!held.is(item.get()) || TotemItem.hasItems(held)) {
                         continue;
                     }
 
-                    // Found totem
-                    found = true;
+                    // Found totem in hand.
+                    log.debug(getClass(), "Found totem in hand");
                     damage = held.getDamageValue();
-                    held.shrink(held.getCount());
+                    found = held;
                     break;
                 }
-                if (!found) {
-                    log.debug(getClass(), "Not holding an empty totem, giving up");
-                    return InteractionResult.PASS;
-                }
-            }
+            } else {
+                for (var provider : inventoryCheckProviders) {
+                    var item = provider.findTotemFromInventory(player, TotemType.PRESERVING);
 
-            // Search the rest of the player inventories for an empty totem.
-            if (!found) {
-                for (int i = 0; i < preserve.size(); i++) {
-                    var stack = preserve.get(i);
-                    if (!stack.is(item.get()) || TotemItem.hasItems(stack)) {
-                        continue;
+                    if (item.isPresent()) {
+                        // Found totem in inventory.
+                        log.debug(getClass(), "Found totem in inventory");
+                        found = item.get();
+                        damage = found.getDamageValue();
+                        break;
                     }
-
-                    // Found totem
-                    found = true;
-                    damage = stack.getDamageValue();
-                    preserve.set(i, ItemStack.EMPTY);
-                    break;
                 }
             }
 
-            if (!found) {
+            if (found == null) {
                 log.debug(getClass(), "Could not find an empty totem, giving up");
                 return InteractionResult.PASS;
             }
+
+            // Remove the totem from the inventory so it doesn't get included in the preserved items.
+            found.shrink(found.getCount());
         }
 
+        // Get items to preserve.
+        List<ItemStack> preserveItems = new ArrayList<>();
+        for (var provider : preservingProviders) {
+            preserveItems.addAll(provider
+                .getInventoryItemsForTotem(player)
+                .stream().filter(i -> !i.isEmpty())
+                .toList());
+        }
+
+        // Give up if the player doesn't have anything to preserve
+        if (preserveItems.isEmpty()) {
+            log.debug(getClass(), "No items to store in totem, giving up");
+            return InteractionResult.PASS;
+        }
+
+//        // When not in grave mode, look through inventory items for the first empty totem of preserving.
+//        if (!graveMode) {
+//
+//            // If totem works from inventory not set, check the player is holding an empty totem in any hand.
+//            var totemWorksFromInventory = Charm.instance().loader().isEnabled(TotemsWorkFromInventory.class);
+//
+//            boolean found = false;
+//            if (!totemWorksFromInventory) {
+//                for (var held : player.getHandSlots()) {
+//                    if (!held.is(item.get()) || TotemItem.hasItems(held)) {
+//                        continue;
+//                    }
+//
+//                    // Found totem
+//                    found = true;
+//                    damage = held.getDamageValue();
+//                    held.shrink(held.getCount());
+//                    break;
+//                }
+//                if (!found) {
+//                    log.debug(getClass(), "Not holding an empty totem, giving up");
+//                    return InteractionResult.PASS;
+//                }
+//            }
+//
+//            // Search the rest of the player inventories for an empty totem.
+//            if (!found) {
+//                for (int i = 0; i < preserveItems.size(); i++) {
+//                    var stack = preserveItems.get(i);
+//                    if (!stack.is(item.get()) || TotemItem.hasItems(stack)) {
+//                        continue;
+//                    }
+//
+//                    // Found totem
+//                    found = true;
+//                    damage = stack.getDamageValue();
+//                    preserveItems.set(i, ItemStack.EMPTY);
+//                    break;
+//                }
+//            }
+//
+//            if (!found) {
+//                log.debug(getClass(), "Could not find an empty totem, giving up");
+//                return InteractionResult.PASS;
+//            }
+//        }
+
         // Place a totem block in the world.
-        var result = tryCreateTotemBlock(serverPlayer, preserve, damage);
+        var result = tryCreateTotemBlock(serverPlayer, preserveItems, damage);
         if (!result) {
             return InteractionResult.PASS;
         }
 
-        // Delete player inventory items on demand.
-        ApiHelper.consume(ITotemPreservingProvider.class,
-            provider -> provider.deleteInventoryItems(player));
+        // Delete player inventory items.
+        for (var provider : preservingProviders) {
+            provider.deleteInventoryItems(player);
+        }
 
         return InteractionResult.SUCCESS;
     }
