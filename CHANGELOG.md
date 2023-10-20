@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.0.10
+
+- Fix grave mode not dropping a totem when only one item in inventory
+- Add missing description to PathConversion
+- Translations from previous version
+- Update documentation
+- Move bumblezone integration to covalent. Sugar block dissolving now uses a charmony API event. Require charmony API 6.4.2
+
 ## 6.0.9
 
 - Fix totem not dropping if it's the only item in the inventory.
