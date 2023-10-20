@@ -18,7 +18,7 @@ import svenhjol.charmony_api.event.BlockUseEvent;
 
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID)
+@Feature(mod = Charm.MOD_ID, description = "Use a shovel or hoe to convert dirt and path blocks.")
 public class PathConversion extends CharmonyFeature {
     static Supplier<SoundEvent> dirtToPathSound;
     static Supplier<SoundEvent> pathToDirtSound;
