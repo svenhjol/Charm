@@ -221,6 +221,15 @@
     ],
     "subtitle": "subtitles.charm.block.totem_of_preserving.release_items"
   },
+  "totem_store_items": {
+    "sounds": [
+      {
+        "name": "charm:totem_store_items",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.totem_of_preserving.store_items"
+  },
   "woodcutter_use": {
     "sounds": [
       {
