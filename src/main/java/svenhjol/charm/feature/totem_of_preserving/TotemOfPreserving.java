@@ -123,6 +123,15 @@ public class TotemOfPreserving extends CharmonyFeature {
         var loader = Charm.instance().loader();
         var serverPlayer = (ServerPlayer)player;
 
+        // Get items to preserve.
+        List<ItemStack> preserveItems = new ArrayList<>();
+        for (var provider : preservingProviders) {
+            preserveItems.addAll(provider
+                .getInventoryItemsForTotem(player)
+                .stream().filter(i -> !i.isEmpty())
+                .toList());
+        }
+
         // When not in grave mode, look through inventory items for the first empty totem of preserving.
         if (!graveMode) {
             var totemWorksFromInventory = loader.isEnabled(TotemsWorkFromInventory.class);
@@ -157,20 +166,17 @@ public class TotemOfPreserving extends CharmonyFeature {
                 log.debug(getClass(), "Could not find an empty totem, giving up");
                 return InteractionResult.PASS;
             }
-        }
 
-        // Get items to preserve.
-        List<ItemStack> preserveItems = new ArrayList<>();
-        for (var provider : preservingProviders) {
-            preserveItems.addAll(provider
-                .getInventoryItemsForTotem(player)
-                .stream().filter(i -> !i.isEmpty())
-                .toList());
+            // Give up if the player doesn't have anything to preserve
+            if (preserveItems.isEmpty() || preserveItems.size() == 1) {
+                log.debug(getClass(), "No items to store in totem (graveMode = false), giving up");
+                return InteractionResult.PASS;
+            }
         }
 
         // Give up if the player doesn't have anything to preserve
-        if (preserveItems.isEmpty() || preserveItems.size() == 1) {
-            log.debug(getClass(), "No items to store in totem, giving up");
+        if (preserveItems.isEmpty()) {
+            log.debug(getClass(), "No items to store in totem (graveMode = true), giving up");
             return InteractionResult.PASS;
         }
 
