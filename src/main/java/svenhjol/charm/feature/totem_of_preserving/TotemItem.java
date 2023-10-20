@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.totem_of_preserving;
 
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -9,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
@@ -22,6 +24,7 @@ import svenhjol.charmony.helper.TotemHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TotemItem extends CharmonyItem {
     static final String MESSAGE_TAG = "message";
@@ -140,6 +143,17 @@ public class TotemItem extends CharmonyItem {
         super.appendHoverText(stack, level, tooltip, context);
     }
 
+    @Override
+    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+        var heldItems = TotemItem.getItems(stack);
+        if (heldItems.isEmpty()) {
+            return Optional.empty();
+        }
+        NonNullList<ItemStack> items = NonNullList.create();
+        items.addAll(heldItems);
+        return Optional.of(new TotemOfPreservingTooltip(items));
+    }
+
     public static void setMessage(ItemStack totem, String message) {
         ItemNbtHelper.setString(totem, MESSAGE_TAG, message);
     }
@@ -182,6 +196,10 @@ public class TotemItem extends CharmonyItem {
                 continue;
             }
             var stack = ItemStack.of((CompoundTag)tag);
+            if (stack.isEmpty()) {
+                continue;
+            }
+
             items.add(stack);
         }
 
