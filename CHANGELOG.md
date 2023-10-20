@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.0.9
+
+- Fix totem not dropping if it's the only item in the inventory.
+- Totem of preserving block holder now has glass particles when attacked in creative
+- Fix missing azalea hanging sign drop (https://trello.com/c/viGFHWm2)
+- Add sound when totem stores items on death
+
 ## 6.0.8
 
 - Rewrite totem inventory checking API (https://trello.com/c/MEONBUqx)
