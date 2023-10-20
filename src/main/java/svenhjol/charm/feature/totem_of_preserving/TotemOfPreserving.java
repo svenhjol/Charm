@@ -38,7 +38,6 @@ public class TotemOfPreserving extends CharmonyFeature {
     static Supplier<Block> block;
     static Supplier<BlockEntityType<TotemBlockEntity>> blockEntity;
     static Supplier<SoundEvent> sound;
-
     static List<ITotemPreservingProvider> preservingProviders = new ArrayList<>();
     static List<ITotemInventoryCheckProvider> inventoryCheckProviders = new ArrayList<>();
     public static Map<ResourceLocation, List<BlockPos>> PROTECT_POSITIONS = new HashMap<>();

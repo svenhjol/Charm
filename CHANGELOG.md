@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.0.8
+
+- Rewrite totem inventory checking API (https://trello.com/c/MEONBUqx)
+- Totem of Preserving now uses the new inventory checking API (https://trello.com/c/MEONBUqx)
+- Totems of Preserving now show their contents on tooltip hover
+- Totem holder block now inherits from glass rather than air, because sodium
+- Add missing bundle recipe
+- Fix stronger anvils not working because of a typo in the feature name
+- Limit proximity workstations to just crafting table for now
+- Move last workstation check first in conditions checking to avoid ghost menu
+
 ## 6.0.7
 
 - Lumberjack and beekeeper balance fixes (https://trello.com/c/9XAfucm2, https://trello.com/c/leCo6jlD)
