@@ -1,0 +1,24 @@
+{
+  "template": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "bonus_rolls": 0.0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "NAMESPACE:CUSTOM_WOOD_hanging_sign"
+          }
+        ],
+        "rolls": 1.0
+      }
+    ],
+    "random_sequence": "NAMESPACE:blocks/CUSTOM_WOOD_hanging_sign"
+  },
+  "variants": "custom_wood"
+}
