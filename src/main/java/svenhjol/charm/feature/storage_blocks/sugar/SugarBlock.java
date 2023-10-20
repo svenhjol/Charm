@@ -2,9 +2,7 @@ package svenhjol.charm.feature.storage_blocks.sugar;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,9 +13,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charmony.base.CharmonyBlockItem;
 import svenhjol.charmony.base.CharmonyFeature;
-
-import java.util.HashSet;
-import java.util.Set;
+import svenhjol.charmony_api.event.SugarDissolveEvent;
 
 @SuppressWarnings({"deprecation", "BooleanMethodIsAlwaysInverted", "unused"})
 public class SugarBlock extends FallingBlock {
@@ -61,22 +57,7 @@ public class SugarBlock extends FallingBlock {
         if (waterBelow) {
             level.globalLevelEvent(2001, pos, Block.getId(level.getBlockState(pos)));
 
-            if (BumblezoneIntegration.enabled()) {
-                if (BumblezoneIntegration.bumblezoneFluid == null) {
-                    BumblezoneIntegration.bumblezoneFluid = BuiltInRegistries.BLOCK.get(BumblezoneIntegration.BUMBLEZONE_FLUID_ID);
-                }
-
-                level.setBlock(pos, BumblezoneIntegration.bumblezoneFluid.defaultBlockState(), 3);
-
-                // Find all water blocks in contact recursively. Uses a set since we do not need duplicate positions
-                Set<BlockPos> positionsToChange = BumblezoneIntegration.recursiveReplaceWater(level, pos, 0, 3, new HashSet<>());
-
-                // Now change to sugar water after we found all water in range. Prevents weird shapes from being made when we delay this
-                positionsToChange.forEach(waterPos -> level.setBlock(waterPos, BumblezoneIntegration.bumblezoneFluid.defaultBlockState(), 3));
-            } else {
-                level.removeBlock(pos, true);
-                level.playSound(null, pos, Sugar.dissolveSound.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
-            }
+            SugarDissolveEvent.INSTANCE.invoke(level, pos);
 
             if (!level.isClientSide()) {
                 Sugar.triggerDissolvedSugar((ServerLevel) level, pos);

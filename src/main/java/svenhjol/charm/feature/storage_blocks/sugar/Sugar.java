@@ -3,12 +3,16 @@ package svenhjol.charm.feature.storage_blocks.sugar;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.PlayerHelper;
+import svenhjol.charmony_api.enums.EventResult;
+import svenhjol.charmony_api.event.SugarDissolveEvent;
 import svenhjol.charmony_api.iface.IStorageBlockFeature;
 
 import java.util.List;
@@ -39,6 +43,17 @@ public class Sugar implements IStorageBlockFeature {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @Override
+    public void runWhenEnabled() {
+        SugarDissolveEvent.INSTANCE.handle(this::handleSugarDissolve, 0);
+    }
+
+    private EventResult handleSugarDissolve(Level level, BlockPos pos) {
+        level.removeBlock(pos, true);
+        level.playSound(null, pos, Sugar.dissolveSound.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+        return EventResult.PASS;
     }
 
     static void triggerDissolvedSugar(ServerLevel level, BlockPos pos) {
