@@ -94,7 +94,7 @@ public class TotemItem extends CharmonyItem {
         }
 
         if (!destroyTotem) {
-            level.playSound(null, pos, TotemOfPreserving.sound.get(), SoundSource.PLAYERS, 0.8f, 1.0f);
+            level.playSound(null, pos, TotemOfPreserving.releaseSound.get(), SoundSource.PLAYERS, 0.8f, 1.0f);
         } else {
             destroyTotem(totem, player);
         }

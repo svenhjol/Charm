@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
@@ -37,7 +38,8 @@ public class TotemOfPreserving extends CharmonyFeature {
     static Supplier<Item> item;
     static Supplier<Block> block;
     static Supplier<BlockEntityType<TotemBlockEntity>> blockEntity;
-    static Supplier<SoundEvent> sound;
+    static Supplier<SoundEvent> releaseSound;
+    static Supplier<SoundEvent> storeSound;
     static List<ITotemPreservingProvider> preservingProviders = new ArrayList<>();
     static List<ITotemInventoryCheckProvider> inventoryCheckProviders = new ArrayList<>();
     public static Map<ResourceLocation, List<BlockPos>> PROTECT_POSITIONS = new HashMap<>();
@@ -83,7 +85,8 @@ public class TotemOfPreserving extends CharmonyFeature {
             () -> TotemBlockEntity::new, List.of(block));
         item = registry.item("totem_of_preserving",
             () -> new TotemItem(this));
-        sound = registry.soundEvent("totem_release_items");
+        releaseSound = registry.soundEvent("totem_release_items");
+        storeSound = registry.soundEvent("totem_store_items");
 
         CharmonyApi.registerProvider(new TotemDataProviders());
     }
@@ -114,7 +117,7 @@ public class TotemOfPreserving extends CharmonyFeature {
             return InteractionResult.PASS;
         }
 
-        ItemStack found = null;
+        ItemStack found = ItemStack.EMPTY;
         var damage = 0; // Track how much damage the totem has taken
         var log = Charm.instance().log();
         var loader = Charm.instance().loader();
@@ -150,13 +153,10 @@ public class TotemOfPreserving extends CharmonyFeature {
                 }
             }
 
-            if (found == null) {
+            if (found.isEmpty()) {
                 log.debug(getClass(), "Could not find an empty totem, giving up");
                 return InteractionResult.PASS;
             }
-
-            // Remove the totem from the inventory so it doesn't get included in the preserved items.
-            found.shrink(found.getCount());
         }
 
         // Get items to preserve.
@@ -169,9 +169,15 @@ public class TotemOfPreserving extends CharmonyFeature {
         }
 
         // Give up if the player doesn't have anything to preserve
-        if (preserveItems.isEmpty()) {
+        if (preserveItems.isEmpty() || preserveItems.size() == 1) {
             log.debug(getClass(), "No items to store in totem, giving up");
             return InteractionResult.PASS;
+        }
+
+        // Remove the totem from the inventory so it doesn't get included in the preserved items.
+        // This doesn't do anything in graveMode because found is always empty.
+        if (!found.isEmpty()) {
+            found.shrink(found.getCount());
         }
 
         // Place a totem block in the world.
@@ -317,6 +323,7 @@ public class TotemOfPreserving extends CharmonyFeature {
 
         log.info(getClass(), "Spawned a totem at: " + spawnPos);
         triggerUsedTotemOfPreserving(player);
+        level.playSound(null, spawnPos, storeSound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
 
         // Show the death position as chat message.
         if (showDeathPositionInChat) {
