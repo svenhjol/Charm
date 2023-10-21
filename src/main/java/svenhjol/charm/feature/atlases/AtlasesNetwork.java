@@ -7,18 +7,28 @@ import net.minecraft.world.item.ComplexItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
 import svenhjol.charm.Charm;
-import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.Packet;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.enums.PacketDirection;
+import svenhjol.charmony.iface.IClientNetwork;
 import svenhjol.charmony.iface.IPacketRequest;
+import svenhjol.charmony.iface.IServerNetwork;
 
 public class AtlasesNetwork {
     public static void register() {
-        var registry = Charm.instance().registry();
+        var registry = Mods.common(Charm.ID).registry();
         registry.packet(new TransferAtlas(), () -> Atlases::handleTransferAtlas);
         registry.packet(new SwapAtlasSlot(), () -> Atlases::handleSwappedSlot);
         registry.packet(new SwappedAtlasSlot(), () -> AtlasesClient::handleSwappedSlot);
         registry.packet(new UpdateInventory(), () -> AtlasesClient::handleUpdateInventory);
+    }
+
+    public static IClientNetwork getClientNetwork() {
+        return Mods.client(Charm.ID).network();
+    }
+
+    public static IServerNetwork getServerNetwork() {
+        return Mods.common(Charm.ID).network();
     }
 
     public static void sendMapToClient(ServerPlayer player, ItemStack map, boolean markDirty) {
@@ -55,7 +65,7 @@ public class AtlasesNetwork {
         public static void send(int slot) {
             var message = new SwapAtlasSlot();
             message.slot = slot;
-            CharmClient.instance().network().send(message);
+            getClientNetwork().send(message);
         }
 
         public int getSlot() {
@@ -85,7 +95,7 @@ public class AtlasesNetwork {
         public static void send(Player player, int slot) {
             var message = new SwappedAtlasSlot();
             message.slot = slot;
-            Charm.instance().network().send(message, player);
+            getServerNetwork().send(message, player);
         }
 
         public int getSlot() {
@@ -137,7 +147,7 @@ public class AtlasesNetwork {
             message.mapX = mapX;
             message.mapZ = mapZ;
             message.moveMode = moveMode;
-            CharmClient.instance().network().send(message);
+            getClientNetwork().send(message);
         }
 
         @Override
@@ -170,7 +180,7 @@ public class AtlasesNetwork {
         public static void send(Player player, int slot) {
             var message = new UpdateInventory();
             message.slot = slot;
-            Charm.instance().network().send(message, player);
+            getServerNetwork().send(message, player);
         }
 
         @Override

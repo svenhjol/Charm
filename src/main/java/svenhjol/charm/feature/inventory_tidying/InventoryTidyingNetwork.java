@@ -2,14 +2,14 @@ package svenhjol.charm.feature.inventory_tidying;
 
 import net.minecraft.network.FriendlyByteBuf;
 import svenhjol.charm.Charm;
-import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.Packet;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.enums.PacketDirection;
 import svenhjol.charmony.iface.IPacketRequest;
 
 public class InventoryTidyingNetwork {
     public static void register() {
-        Charm.instance().registry().packet(new TidyInventory(), () -> InventoryTidying::handleTidyInventory);
+        Mods.common(Charm.ID).registry().packet(new TidyInventory(), () -> InventoryTidying::handleTidyInventory);
     }
 
     @Packet(
@@ -25,7 +25,7 @@ public class InventoryTidyingNetwork {
         public static void send(TidyType type) {
             var message = new TidyInventory();
             message.type = type;
-            CharmClient.instance().network().send(message);
+            Mods.client(Charm.ID).network().send(message);
         }
 
         public TidyType getType() {

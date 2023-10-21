@@ -1,17 +1,22 @@
 package svenhjol.charm.feature.auto_recipe_unlock;
 
 import net.minecraft.world.entity.player.Player;
-import svenhjol.charm.Charm;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.PlayerLoginEvent;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
 
-@Feature(
-    mod = Charm.MOD_ID,
-    description = "Unlocks all vanilla recipes.\nThis opinionated feature is disabled by default.",
-    enabledByDefault = false
-)
-public class AutoRecipeUnlock extends CharmonyFeature {
+public class AutoRecipeUnlock extends CommonFeature {
+    @Override
+    public String description() {
+        return """
+            Unlocks all vanilla recipes.
+            This opinionated feature is disabled by default.""";
+    }
+
+    @Override
+    public boolean isEnabledByDefault() {
+        return false;
+    }
+
     @Override
     public void runWhenEnabled() {
         PlayerLoginEvent.INSTANCE.handle(this::handlePlayerLogin);

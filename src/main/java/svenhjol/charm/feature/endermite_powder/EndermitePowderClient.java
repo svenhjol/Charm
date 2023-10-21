@@ -2,23 +2,23 @@ package svenhjol.charm.feature.endermite_powder;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = EndermitePowder.class)
-public class EndermitePowderClient extends CharmonyFeature {
+public class EndermitePowderClient extends ClientFeature {
+    @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return EndermitePowder.class;
+    }
+
     @Override
     public void register() {
-        var registry = CharmClient.instance().registry();
-        registry.entityRenderer(EndermitePowder.entity, () -> EndermitePowderEntityRenderer::new);
+        mod().registry().entityRenderer(EndermitePowder.entity, () -> EndermitePowderEntityRenderer::new);
     }
 
     @Override
     public void runWhenEnabled() {
-        var registry = CharmClient.instance().registry();
-
-        registry.itemTab(
+        mod().registry().itemTab(
             EndermitePowder.item,
             CreativeModeTabs.TOOLS_AND_UTILITIES,
             Items.ENDER_EYE

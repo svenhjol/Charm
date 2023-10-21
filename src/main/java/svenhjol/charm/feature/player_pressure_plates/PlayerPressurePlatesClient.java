@@ -2,15 +2,18 @@ package svenhjol.charm.feature.player_pressure_plates;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = PlayerPressurePlates.class)
-public class PlayerPressurePlatesClient extends CharmonyFeature {
+public class PlayerPressurePlatesClient extends ClientFeature {
+    @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return PlayerPressurePlates.class;
+    }
+
     @Override
     public void runWhenEnabled() {
-        var registry = CharmClient.instance().registry();
+        var registry = mod().registry();
 
         // Add to the Building Blocks menu tab.
         registry.itemTab(

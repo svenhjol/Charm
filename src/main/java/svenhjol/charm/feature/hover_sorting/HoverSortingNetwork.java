@@ -2,15 +2,15 @@ package svenhjol.charm.feature.hover_sorting;
 
 import net.minecraft.network.FriendlyByteBuf;
 import svenhjol.charm.Charm;
-import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.Packet;
-import svenhjol.charmony_api.event.ItemHoverSortEvent;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.enums.PacketDirection;
 import svenhjol.charmony.iface.IPacketRequest;
+import svenhjol.charmony_api.event.ItemHoverSortEvent;
 
 public class HoverSortingNetwork {
     public static void register() {
-        Charm.instance().registry().packet(new ScrollOnHover(), () -> HoverSorting::handleScrollOnHover);
+        Mods.common(Charm.ID).registry().packet(new ScrollOnHover(), () -> HoverSorting::handleScrollOnHover);
     }
 
     @Packet(
@@ -28,7 +28,7 @@ public class HoverSortingNetwork {
             var message = new ScrollOnHover();
             message.slotIndex = slotIndex;
             message.sortDirection = sortDirection;
-            CharmClient.instance().network().send(message);
+            Mods.client(Charm.ID).network().send(message);
         }
 
         @Override

@@ -5,12 +5,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
-import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@Feature(mod = Charm.MOD_ID, description = "Automatically opens double doors.")
-public class OpenBothDoors extends CharmonyFeature {
+public class OpenBothDoors extends CommonFeature {
+    @Override
+    public String description() {
+        return "Automatically opens double doors.";
+    }
+
     public static void tryOpenNeighbour(Level level, BlockState state, BlockPos pos, boolean isClosed) {
         var facing = state.getValue(DoorBlock.FACING);
         var hinge = state.getValue(DoorBlock.HINGE);

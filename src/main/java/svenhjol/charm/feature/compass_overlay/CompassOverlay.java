@@ -6,18 +6,11 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.client.ClientFeature;
 import svenhjol.charmony_api.event.HudRenderEvent;
-import svenhjol.charmony.base.CharmonyFeature;
 
-@SuppressWarnings({"resource"})
-@ClientFeature(
-    mod = CharmClient.MOD_ID,
-    description = "Shows cardinal points and XYZ coordinates when holding a compass."
-)
-public class CompassOverlay extends CharmonyFeature {
+public class CompassOverlay extends ClientFeature {
     @Configurable(name = "Facing", description = "If true, shows the cardinal direction that the player is facing.")
     public static boolean showFacing = true;
 
@@ -32,6 +25,11 @@ public class CompassOverlay extends CharmonyFeature {
 
     @Configurable(name = "Show when sneaking", description = "If true, only show the compass overlay if the player is sneaking.")
     public static boolean onlyShowWhenSneaking = false;
+
+    @Override
+    public String description() {
+        return "Shows cardinal points and XYZ coordinates when holding a compass.";
+    }
 
     @Override
     public void runWhenEnabled() {

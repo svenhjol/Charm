@@ -10,7 +10,8 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charmony.base.CharmonyBlock;
 import svenhjol.charmony.base.CharmonyBlockItem;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.common.CommonFeature;
 
 public class EnderPearlBlock extends CharmonyBlock {
     public EnderPearlBlock() {
@@ -19,8 +20,8 @@ public class EnderPearlBlock extends CharmonyBlock {
             .strength(2.0F));
     }
 
-    public static CharmonyFeature getParent() {
-        return Charm.instance().loader().get(StorageBlocks.class).orElseThrow();
+    public static CommonFeature getParent() {
+        return Mods.common(Charm.ID).loader().get(StorageBlocks.class).orElseThrow();
     }
 
     /**

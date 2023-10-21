@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.lumberjacks;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -10,8 +11,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.GenericTradeOffers;
 
@@ -19,24 +19,33 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.", priority = -1)
-public class Lumberjacks extends CharmonyFeature {
-    private static final String VILLAGER_ID = "lumberjack";
+public class Lumberjacks extends CommonFeature {
+    private static final String ID = "lumberjack";
     public static Supplier<VillagerProfession> profession;
     public static Supplier<SoundEvent> workSound;
 
     @Override
+    public String description() {
+        return "Lumberjacks are villagers that trade wooden items. Their job site is the woodcutter.";
+    }
+
+    @Override
+    public int priority() {
+        return -1;
+    }
+
+    @Override
     public List<BooleanSupplier> checks() {
-        return List.of(() -> Charm.instance().loader().isEnabled(Woodcutters.class));
+        return List.of(() -> mod().loader().isEnabled(Woodcutters.class));
     }
 
     @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         workSound = registry.soundEvent("lumberjack");
-        profession = registry.villagerProfession(VILLAGER_ID, Woodcutters.BLOCK_ID, List.of(Woodcutters.block), workSound);
-        registry.villagerGift(VILLAGER_ID);
+        profession = registry.villagerProfession(ID, Woodcutters.BLOCK_ID, List.of(Woodcutters.block), workSound);
+        registry.villagerGift(ID);
 
         if (isEnabled()) {
             addTrades();
@@ -44,7 +53,7 @@ public class Lumberjacks extends CharmonyFeature {
     }
 
     private void addTrades() {
-        var charm = Charm.instance();
+        var charm = mod();
         var registry = charm.registry();
         var loader = charm.loader();
 
@@ -139,6 +148,6 @@ public class Lumberjacks extends CharmonyFeature {
     }
 
     public static void triggerTradedWithLumberjack(Player player) {
-        Advancements.trigger(Charm.instance().makeId("traded_with_lumberjack"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "traded_with_lumberjack"), player);
     }
 }

@@ -1,11 +1,9 @@
 package svenhjol.charm.feature.variant_wood;
 
 import net.minecraft.world.entity.vehicle.Boat;
-import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.registry.*;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.iface.ICommonRegistry;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.EntityUseEvent;
@@ -14,8 +12,7 @@ import svenhjol.charmony_api.iface.IVariantMaterial;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Feature(mod = Charm.MOD_ID, description = "Variant wood features such as barrels, chests and ladders.", priority = 1)
-public class VariantWood extends CharmonyFeature {
+public class VariantWood extends CommonFeature {
     static final Map<IVariantMaterial, CustomBarrel> BARRELS = new LinkedHashMap<>();
     static final Map<IVariantMaterial, CustomBookshelf> BOOKSHELVES = new LinkedHashMap<>();
     static final Map<IVariantMaterial, CustomChest> CHESTS = new LinkedHashMap<>();
@@ -37,6 +34,16 @@ public class VariantWood extends CharmonyFeature {
 
     @Configurable(name = "Variant ladders", description = "If true, enables ladders made from different kinds of wood.")
     public static boolean variantLadders = true;
+
+    @Override
+    public String description() {
+        return "Variant wood features such as barrels, chests and ladders.";
+    }
+
+    @Override
+    public int priority() {
+        return 1;
+    }
 
     @SuppressWarnings("unused")
     @Override
@@ -83,6 +90,6 @@ public class VariantWood extends CharmonyFeature {
     }
 
     private ICommonRegistry getRegistry() {
-        return Charm.instance().registry();
+        return mod().registry();
     }
 }

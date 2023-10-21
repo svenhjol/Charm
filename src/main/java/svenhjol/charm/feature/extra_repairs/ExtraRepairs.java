@@ -8,14 +8,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
-import svenhjol.charm.Charm;
-import svenhjol.charmony_api.event.AnvilRepairEvent;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
+import svenhjol.charmony_api.event.AnvilRepairEvent;
 
-@Feature(mod = Charm.MOD_ID, description = "More ways to repair items using different materials.")
-public class ExtraRepairs extends CharmonyFeature {
+public class ExtraRepairs extends CommonFeature {
     public static TagKey<Item> REPAIRABLE_USING_SCRAP;
 
     @Configurable(name = "Repair tridents using prismarine", description = "Use prismarine shards to repair trident damage.")
@@ -28,9 +25,14 @@ public class ExtraRepairs extends CharmonyFeature {
     public static boolean netherite = true;
 
     @Override
+    public String description() {
+        return "More ways to repair items using different materials.";
+    }
+
+    @Override
     public void register() {
         REPAIRABLE_USING_SCRAP = TagKey.create(BuiltInRegistries.ITEM.key(),
-            Charm.instance().makeId("repairable_using_scrap"));
+            mod().id("repairable_using_scrap"));
     }
 
     @Override

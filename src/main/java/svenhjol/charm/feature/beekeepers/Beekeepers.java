@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.beekeepers;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -9,25 +10,28 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.GenericTradeOffers;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
-public class Beekeepers extends CharmonyFeature {
+public class Beekeepers extends CommonFeature {
     private static final String VILLAGER_ID = "beekeeper";
     private static final String BLOCK_ID = "minecraft:beehive";
     static final TagKey<Item> BEEKEEPER_SELLS_FLOWERS = TagKey.create(BuiltInRegistries.ITEM.key(),
-        Charm.instance().makeId("beekeeper_sells_flowers"));
+        new ResourceLocation(Charm.ID, "beekeeper_sells_flowers"));
     public static Supplier<VillagerProfession> profession;
 
     @Override
+    public String description() {
+        return "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         profession = registry.villagerProfession(
             VILLAGER_ID, BLOCK_ID, List.of(), () -> SoundEvents.BEEHIVE_WORK);
@@ -40,7 +44,7 @@ public class Beekeepers extends CharmonyFeature {
     }
 
     private void addTrades() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         // Tier 1
 
@@ -90,6 +94,6 @@ public class Beekeepers extends CharmonyFeature {
     }
 
     public static void triggerTradedWithBeekeeper(Player player) {
-        Advancements.trigger(Charm.instance().makeId("traded_with_beekeeper"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "traded_with_beekeeper"), player);
     }
 }

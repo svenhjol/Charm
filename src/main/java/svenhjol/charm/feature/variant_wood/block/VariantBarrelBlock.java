@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.VariantWood;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony_api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmonyBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
@@ -40,7 +41,7 @@ public class VariantBarrelBlock extends BarrelBlock {
     }
 
     static VariantWood getParent() {
-        return Charm.instance().loader().get(VariantWood.class).orElseThrow();
+        return Mods.common(Charm.ID).loader().get(VariantWood.class).orElseThrow();
     }
 
     public static class BlockItem extends CharmonyBlockItem implements IFuelProvider {

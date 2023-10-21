@@ -1,15 +1,16 @@
 package svenhjol.charm.feature.no_spyglass_scope;
 
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charm.Charm;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.client.ClientFeature;
 
-@ClientFeature(
-    mod = CharmClient.MOD_ID,
-    description = "Removes the dark outer overlay when zooming in with the spyglass, giving you the full view."
-)
-public class NoSpyglassScope extends CharmonyFeature {
+public class NoSpyglassScope extends ClientFeature {
+    @Override
+    public String description() {
+        return "Removes the dark outer overlay when zooming in with the spyglass, giving you the full view.";
+    }
+
     public static boolean shouldRemoveHud() {
-        return CharmClient.instance().loader().isEnabled(NoSpyglassScope.class);
+        return Mods.client(Charm.ID).loader().isEnabled(NoSpyglassScope.class);
     }
 }

@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.extractable_enchantments;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -11,8 +12,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ConfigHelper;
 import svenhjol.charmony_api.event.GrindstoneEvents;
@@ -25,8 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Extract enchantments from any enchanted item onto an empty book using the grindstone.")
-public class ExtractableEnchantments extends CharmonyFeature {
+public class ExtractableEnchantments extends CommonFeature {
     @Configurable(name = "Initial cost", description = "Initial cost (in XP levels) of extraction before adding on the cost of the enchantment(s).")
     public static int initialCost = 5;
 
@@ -35,6 +34,11 @@ public class ExtractableEnchantments extends CharmonyFeature {
 
     @Configurable(name = "Add item repair cost", description = "If true, the item's repair cost will be added to the cost of extraction.")
     public static boolean addRepairCost = true;
+
+    @Override
+    public String description() {
+        return "Extract enchantments from any enchanted item onto an empty book using the grindstone.";
+    }
 
     @Override
     public List<BooleanSupplier> checks() {
@@ -180,6 +184,6 @@ public class ExtractableEnchantments extends CharmonyFeature {
     }
 
     public static void triggerExtractedEnchantment(Player player) {
-        Advancements.trigger(Charm.instance().makeId("extracted_enchantment"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "extracted_enchantment"), player);
     }
 }

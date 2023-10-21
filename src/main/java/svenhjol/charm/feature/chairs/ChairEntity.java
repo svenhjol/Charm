@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.StairBlock;
 import org.joml.Vector3f;
 import svenhjol.charm.Charm;
+import svenhjol.charmony.base.Mods;
 
 public class ChairEntity extends Entity {
     public ChairEntity(EntityType<ChairEntity> entityType, Level level) {
@@ -31,13 +32,13 @@ public class ChairEntity extends Entity {
     public void tick() {
         super.tick();
 
-        var log = Charm.instance().log();
         var level = level();
         var pos = blockPosition();
         var state = level.getBlockState(pos);
         var block = state.getBlock();
 
         if (!level.isClientSide()) {
+            var log = Mods.common(Charm.ID).log();
             var stateAbove = level.getBlockState(pos.above());
 
             if (!(block instanceof StairBlock)) {

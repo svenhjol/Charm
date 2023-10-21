@@ -39,7 +39,7 @@ public enum MoobloomType {
     MoobloomType(String name, FlowerBlockState flower) {
         this.name = name;
         this.flower = flower;
-        this.texture = Charm.instance().makeId("textures/entity/moobloom/" + name + ".png");
+        this.texture = new ResourceLocation(Charm.ID, "textures/entity/moobloom/" + name + ".png");
     }
 
     public FlowerBlockState getFlower() {

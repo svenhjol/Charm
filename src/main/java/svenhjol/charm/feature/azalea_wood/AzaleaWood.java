@@ -9,20 +9,17 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
-import svenhjol.charm.Charm;
+import svenhjol.charmony.common.CommonFeature;
+import svenhjol.charmony.feature.custom_wood.CustomWood;
+import svenhjol.charmony.feature.woodcutting.Woodcutting;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.LevelLoadEvent;
 import svenhjol.charmony_api.iface.*;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
-import svenhjol.charmony.feature.custom_wood.CustomWood;
-import svenhjol.charmony.feature.woodcutting.Woodcutting;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
-public class AzaleaWood extends CharmonyFeature implements
+public class AzaleaWood extends CommonFeature implements
     IVariantBarrelProvider,
     IVariantBookshelfProvider,
     IVariantChestProvider,
@@ -35,17 +32,20 @@ public class AzaleaWood extends CharmonyFeature implements
     static IVariantWoodMaterial material;
 
     @Override
+    public String description() {
+        return "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.";
+    }
+
+    @Override
     public void register() {
         // Must register Charmony's woodcutting recipe serializer as a dependency or woodcutting recipes will fail.
         Woodcutting.registerDependency();
 
-        var registry = Charm.instance().registry();
-
         material = AzaleaMaterial.AZALEA;
-        blockSetType = registry.blockSetType(material);
-        woodType = registry.woodType(material.getSerializedName(), material);
+        blockSetType = mod().registry().blockSetType(material);
+        woodType = mod().registry().woodType(material.getSerializedName(), material);
 
-        CustomWood.registerWood(this, registry, new AzaleaWoodDefinition());
+        CustomWood.registerWood(this, mod().registry(), new AzaleaWoodDefinition());
 
         CharmonyApi.registerProvider(this);
         CharmonyApi.registerProvider(new AzaleaWoodRecipeFilter());

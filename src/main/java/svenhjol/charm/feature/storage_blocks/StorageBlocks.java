@@ -1,21 +1,23 @@
 package svenhjol.charm.feature.storage_blocks;
 
-import svenhjol.charm.Charm;
+import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.common.CommonFeature;
+import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.iface.IStorageBlockFeature;
 import svenhjol.charmony_api.iface.IStorageBlockProvider;
-import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
-import svenhjol.charmony.helper.ApiHelper;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Feature(mod = Charm.MOD_ID, description = "More item blocks.")
-public class StorageBlocks extends CharmonyFeature {
+public class StorageBlocks extends CommonFeature {
     static final Map<Class<? extends IStorageBlockFeature>, IStorageBlockFeature> LOADED_STORAGE_BLOCKS = new HashMap<>();
+
+    @Override
+    public String description() {
+        return "More item blocks.";
+    }
 
     public static Optional<IStorageBlockFeature> getStorageBlock(Class<? extends IStorageBlockFeature> clazz) {
         return Optional.ofNullable(LOADED_STORAGE_BLOCKS.get(clazz));
@@ -44,7 +46,7 @@ public class StorageBlocks extends CharmonyFeature {
 
     @Override
     public void register() {
-        var log = Charm.instance().log();
+        var log = mod().log();
 
         ApiHelper.consume(IStorageBlockProvider.class,
             provider -> provider.getStorageBlockFeatures().forEach(

@@ -32,29 +32,19 @@ import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
 import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
 import svenhjol.charm.feature.variant_wood.VariantWoodClient;
 import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
-import svenhjol.charmony.base.CharmonyFeature;
-import svenhjol.charmony.base.DefaultClientMod;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.client.ClientMod;
 
 import java.util.List;
 
-public class CharmClient extends DefaultClientMod {
-    public static final String MOD_ID = "charm";
-    private static CharmClient instance;
-
-    public static CharmClient instance() {
-        if (instance == null) {
-            instance = new CharmClient();
-        }
-        return instance;
-    }
-
+public class CharmClient extends ClientMod {
     @Override
     public String modId() {
-        return MOD_ID;
+        return Charm.ID;
     }
 
     @Override
-    public List<Class<? extends CharmonyFeature>> features() {
+    public List<Class<? extends ClientFeature>> features() {
         return List.of(
             AtlasesClient.class,
             AzaleaWoodClient.class,

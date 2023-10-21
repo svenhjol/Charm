@@ -3,23 +3,25 @@ package svenhjol.charm.feature.coral_squids;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.Charm;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 
 import java.util.function.Supplier;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = CoralSquids.class)
-public class CoralSquidsClient extends CharmonyFeature {
+public class CoralSquidsClient extends ClientFeature {
     static Supplier<ModelLayerLocation> layer;
 
     @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return CoralSquids.class;
+    }
+
+    @Override
     public void register() {
-        var registry = CharmClient.instance().registry();
+        var registry = mod().registry();
 
         layer = registry.modelLayer(
-            () -> new ModelLayerLocation(Charm.instance().makeId("coral_squid"), "main"), CoralSquidEntityModel::getTexturedModelData);
+            () -> new ModelLayerLocation(mod().id("coral_squid"), "main"), CoralSquidEntityModel::getTexturedModelData);
 
         registry.entityRenderer(CoralSquids.entity, () ->
             ctx -> new CoralSquidEntityRenderer<>(ctx, new CoralSquidEntityModel<>(ctx.bakeLayer(layer.get()))));

@@ -14,8 +14,9 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.base.CharmonyItem;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.colored_glints.ColoredGlints;
 import svenhjol.charmony.helper.ClientEffectHelper;
 import svenhjol.charmony.helper.ItemNbtHelper;
@@ -31,7 +32,7 @@ public class TotemItem extends CharmonyItem {
     static final String ITEMS_TAG = "items";
     static final String GLINT_TAG = "glint";
 
-    public TotemItem(CharmonyFeature feature) {
+    public TotemItem(CommonFeature feature) {
         super(feature, new Item.Properties()
             .stacksTo(1)
             .durability(TotemOfPreserving.durability)
@@ -185,7 +186,7 @@ public class TotemItem extends CharmonyItem {
 
     public static List<ItemStack> getItems(ItemStack totem) {
         List<ItemStack> items = new ArrayList<>();
-        var log = Charm.instance().log();
+        var log = Mods.common(Charm.ID).log();
         var itemsTag = ItemNbtHelper.getCompound(totem, ITEMS_TAG);
         var keys = itemsTag.getAllKeys();
 

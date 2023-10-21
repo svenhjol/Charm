@@ -2,15 +2,18 @@ package svenhjol.charm.feature.copper_pistons;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = CopperPistons.class)
-public class CopperPistonsClient extends CharmonyFeature {
+public class CopperPistonsClient extends ClientFeature {
+    @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return CopperPistons.class;
+    }
+
     @Override
     public void runWhenEnabled() {
-        var registry = CharmClient.instance().registry();
+        var registry = mod().registry();
 
         registry.itemTab(
             CopperPistons.stickyCopperPistonBlockItem,

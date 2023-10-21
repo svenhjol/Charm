@@ -4,14 +4,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.Charm;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.PlayerTickEvent;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
 
-@Feature(mod = Charm.MOD_ID, description = "Parrots stay on player's shoulder when jumping and falling. Crouch to make them dismount.")
-public class ParrotsStayOnShoulder extends CharmonyFeature {
+public class ParrotsStayOnShoulder extends CommonFeature {
     private static final long STAY_MOUNTED_TIME = 20L;
+
+    @Override
+    public String description() {
+        return "Parrots stay on player's shoulder when jumping and falling. Crouch to make them dismount.";
+    }
 
     @Override
     public void runWhenEnabled() {

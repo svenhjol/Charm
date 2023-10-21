@@ -9,8 +9,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
-import svenhjol.charm.CharmClient;
 import svenhjol.charmony.annotation.Packet;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.enums.PacketDirection;
 import svenhjol.charmony.iface.IPacketRequest;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ProximityWorkstationsNetwork {
     public static void register() {
-        var registry = Charm.instance().registry();
+        var registry = Mods.common(Charm.ID).registry();
 
         registry.packet(new OpenWorkstationSelector(),
             () -> ProximityWorkstations::handleOpenedSelector);
@@ -40,7 +40,7 @@ public class ProximityWorkstationsNetwork {
         private OpenWorkstationSelector() {}
 
         public static void send() {
-            CharmClient.instance().network().send(new OpenWorkstationSelector());
+            Mods.client(Charm.ID).network().send(new OpenWorkstationSelector());
         }
     }
 
@@ -57,7 +57,7 @@ public class ProximityWorkstationsNetwork {
         public static void send(Block workstation) {
             var message = new OpenSpecificWorkstation();
             message.workstation = workstation;
-            CharmClient.instance().network().send(message);
+            Mods.client(Charm.ID).network().send(message);
         }
 
         @Override
@@ -90,7 +90,7 @@ public class ProximityWorkstationsNetwork {
         public static void send(Player player, List<Block> workstations) {
             var message = new OpenWorkstationSelectorScreen();
             message.workstations = workstations;
-            Charm.instance().network().send(message, player);
+            Mods.common(Charm.ID).network().send(message, player);
         }
 
         @Override

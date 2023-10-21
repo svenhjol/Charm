@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.atlases;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
@@ -20,8 +21,7 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.atlases.MapItemSavedDataMixin;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ItemNbtHelper;
 import svenhjol.charmony_api.CharmonyApi;
@@ -35,8 +35,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Storage for maps that automatically updates the displayed map as you explore.")
-public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
+public class Atlases extends CommonFeature implements IWandererTradeProvider {
     public static Supplier<Item> ITEM;
     public static Supplier<MenuType<AtlasContainer>> MENU_TYPE;
     public static Supplier<SoundEvent> OPEN_SOUND;
@@ -50,8 +49,13 @@ public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
     public static int defaultScale = 0;
 
     @Override
+    public String description() {
+        return "Storage for maps that automatically updates the displayed map as you explore.";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         ITEM = registry.item("atlas", () -> new AtlasItem(this));
         MENU_TYPE = registry.menuType("atlas", () -> new MenuType<>(AtlasContainer::new, FeatureFlags.VANILLA_SET));
@@ -263,6 +267,6 @@ public class Atlases extends CharmonyFeature implements IWandererTradeProvider {
     }
 
     public static void triggerMadeAtlasMaps(Player player) {
-        Advancements.trigger(Charm.instance().makeId("made_atlas_maps"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "made_atlas_maps"), player);
     }
 }

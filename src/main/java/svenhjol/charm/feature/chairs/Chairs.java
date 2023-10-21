@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.chairs;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -10,23 +11,26 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.BlockUseEvent;
-import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.function.Supplier;
 
 /**
  * Inspired by Quark's SitInStairs module.
  */
-@Feature(mod = Charm.MOD_ID, description = "Right-click (with empty hand) on any stairs block to sit down.")
-public class Chairs extends CharmonyFeature {
+public class Chairs extends CommonFeature {
     static Supplier<EntityType<ChairEntity>> entity;
 
     @Override
+    public String description() {
+        return "Right-click (with empty hand) on any stairs block to sit down.";
+    }
+
+    @Override
     public void register() {
-        entity = Charm.instance().registry().entity("chair", () -> EntityType.Builder
+        entity = mod().registry().entity("chair", () -> EntityType.Builder
             .<ChairEntity>of(ChairEntity::new, MobCategory.MISC)
             .sized(0.25F, 0.25F)
             .clientTrackingRange(1)
@@ -39,7 +43,7 @@ public class Chairs extends CharmonyFeature {
     }
 
     private InteractionResult handleBlockUse(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
-        var log = Charm.instance().log();
+        var log = mod().log();
 
         if (!level.isClientSide()
             && player.getMainHandItem().isEmpty()
@@ -76,6 +80,6 @@ public class Chairs extends CharmonyFeature {
     }
 
     public static void triggerSatOnChair(Player player) {
-        Advancements.trigger(Charm.instance().makeId("sat_on_chair"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "sat_on_chair"), player);
     }
 }

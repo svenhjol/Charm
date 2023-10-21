@@ -15,14 +15,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
-import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.EntityKilledDropEvent;
-import svenhjol.charmony.base.CharmonyFeature;
 
-@Feature(mod = Charm.MOD_ID, description = "Some mobs have a chance to drop additional items.")
-public class ExtraMobDrops extends CharmonyFeature {
+public class ExtraMobDrops extends CommonFeature {
     private static final double LOOTING_BOOST = 0.1D;
 
     @Configurable(name = "Maximum sand drops", description = "Maximum sand blocks dropped when a husk is killed.")
@@ -35,10 +32,15 @@ public class ExtraMobDrops extends CharmonyFeature {
     public static int maxCobwebDrops = 2;
 
     @Configurable(name = "Luck drop chance", description = "Chance (out of 1.0) of a witch dropping a Potion of Luck when killed.")
-    public static double luckDropChance = 0.05D;
+    public static double luckDropChance = 0.05d;
 
     @Configurable(name = "Feather drop chance", description = "Chance (out of 1.0) of a chicken dropping a feather at the same time as an egg.")
-    public static double featherDropChance = 0.33D;
+    public static double featherDropChance = 0.33d;
+
+    @Override
+    public String description() {
+        return "Some mobs have a chance to drop additional items.";
+    }
 
     @Override
     public void runWhenEnabled() {
@@ -76,7 +78,7 @@ public class ExtraMobDrops extends CharmonyFeature {
             && !chicken.isChickenJockey()
             && chicken.level().random.nextFloat() < featherDropChance
         ) {
-            chicken.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (chicken.level().random.nextFloat() - chicken.level().random.nextFloat()) * 0.2F + 1.0F);
+            chicken.playSound(SoundEvents.CHICKEN_EGG, 1.0f, (chicken.level().random.nextFloat() - chicken.level().random.nextFloat()) * 0.2F + 1.0F);
             chicken.spawnAtLocation(Items.FEATHER);
             chicken.eggTime = chicken.level().random.nextInt(3000) + 3000;
         }

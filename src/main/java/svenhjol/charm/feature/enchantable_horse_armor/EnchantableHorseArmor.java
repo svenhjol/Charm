@@ -4,14 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.HorseArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.PlayerHelper;
@@ -22,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Feature(mod = Charm.MOD_ID, description = "Horse armor can be enchanted.")
-public class EnchantableHorseArmor extends CharmonyFeature implements IHorseArmorEnchantmentProvider {
+public class EnchantableHorseArmor extends CommonFeature implements IHorseArmorEnchantmentProvider {
     static final List<Enchantment> ENCHANTMENTS = new ArrayList<>();
     
     @Configurable(name = "Enchantments", description = "Enchantments that will function on horse armor.")
@@ -40,6 +37,11 @@ public class EnchantableHorseArmor extends CharmonyFeature implements IHorseArmo
     );
 
     @Override
+    public String description() {
+        return "Horse armor can be enchanted.";
+    }
+
+    @Override
     public void register() {
         ApiHelper.consume(IHorseArmorEnchantmentProvider.class,
             provider -> provider.getEnchantments().forEach(this::addEnchantment));
@@ -49,7 +51,7 @@ public class EnchantableHorseArmor extends CharmonyFeature implements IHorseArmo
 
     private void addEnchantment(Enchantment enchantment) {
         if (!ENCHANTMENTS.contains(enchantment)) {
-            Charm.instance().log().debug(getClass(), "Adding enchantment " + enchantment);
+            mod().log().debug(getClass(), "Adding enchantment " + enchantment);
             ENCHANTMENTS.add(enchantment);
         }
     }
@@ -91,6 +93,6 @@ public class EnchantableHorseArmor extends CharmonyFeature implements IHorseArmo
     public static void triggerAddEnchantmentToHorseArmor(ServerLevel level, BlockPos pos) {
         var players = PlayerHelper.getPlayersInRange(level, pos, 4.0d);
         players.forEach(
-            player -> Advancements.trigger(Charm.instance().makeId("equipped_enchanted_horse_armor"), (ServerPlayer) player));
+            player -> Advancements.trigger(new ResourceLocation(Charm.ID, "equipped_enchanted_horse_armor"), player));
     }
 }

@@ -9,15 +9,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import svenhjol.charm.CharmClient;
+import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.block.VariantChestBlock;
 import svenhjol.charm.feature.variant_wood.block.VariantTrappedChestBlock;
 import svenhjol.charm.feature.variant_wood.entity.VariantChestBlockEntity;
 import svenhjol.charm.feature.variant_wood.entity.VariantTrappedChestBlockEntity;
 import svenhjol.charm.feature.variant_wood.registry.*;
 import svenhjol.charm.feature.variant_wood.renderer.VariantChestBlockEntityRenderer;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
+import svenhjol.charmony.iface.IClientMod;
 import svenhjol.charmony.iface.IClientRegistry;
 import svenhjol.charmony_api.event.BlockItemRenderEvent;
 
@@ -25,14 +27,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 
-@ClientFeature(feature = VariantWood.class)
-public class VariantWoodClient extends CharmonyFeature {
+public class VariantWoodClient extends ClientFeature {
     private VariantChestBlockEntity cachedNormalChest;
     private VariantTrappedChestBlockEntity cachedTrappedChest;
 
     @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return VariantWood.class;
+    }
+
+    @Override
     public void register() {
-        var registry = CharmClient.instance().registry();
+        var registry = mod().registry();
 
         registerChests(registry);
 
@@ -101,13 +107,13 @@ public class VariantWoodClient extends CharmonyFeature {
 
     @Override
     public void runAlways() {
-        var client = CharmClient.instance();
+        var client = Mods.client(Charm.ID);
 
         runChests(client);
         runLadders(client);
     }
 
-    private void runChests(CharmClient client) {
+    private void runChests(IClientMod client) {
         // Cache the chest block entities for fast lookup by the renderer.
         cachedNormalChest = new VariantChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState());
         cachedTrappedChest = new VariantTrappedChestBlockEntity(BlockPos.ZERO, Blocks.TRAPPED_CHEST.defaultBlockState());
@@ -121,7 +127,7 @@ public class VariantWoodClient extends CharmonyFeature {
             for (var base : bases) {
                 for (var chestType : chestTypes) {
                     var chestTypeName = chestType == ChestType.SINGLE ? "" : "_" + chestType.getSerializedName().toLowerCase();
-                    var textureId = client.makeId("entity/chest/" + material.getSerializedName() + "_" + base + chestTypeName);
+                    var textureId = client.id("entity/chest/" + material.getSerializedName() + "_" + base + chestTypeName);
 
                     // Store the texture reference in the chest renderer.
                     VariantChestBlockEntityRenderer.addTexture(material, chestType, textureId, base.equals("trapped"));
@@ -130,7 +136,7 @@ public class VariantWoodClient extends CharmonyFeature {
         });
     }
 
-    private void runLadders(CharmClient client) {
+    private void runLadders(IClientMod client) {
         // Cut out transparent areas of the ladder.
         VariantWood.LADDERS.forEach(
             (material, ladder) -> client.registry().blockRenderType(ladder.block, RenderType::cutout));

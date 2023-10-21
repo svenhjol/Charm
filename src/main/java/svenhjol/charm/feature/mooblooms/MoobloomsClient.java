@@ -4,23 +4,25 @@ import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.Charm;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 
 import java.util.function.Supplier;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = Mooblooms.class)
-public class MoobloomsClient extends CharmonyFeature {
+public class MoobloomsClient extends ClientFeature {
     static Supplier<ModelLayerLocation> layer;
 
     @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return Mooblooms.class;
+    }
+
+    @Override
     public void register() {
-        var registry = CharmClient.instance().registry();
+        var registry = mod().registry();
 
         layer = registry.modelLayer(
-            () -> new ModelLayerLocation(Charm.instance().makeId("moobloom"), "main"), CowModel::createBodyLayer);
+            () -> new ModelLayerLocation(mod().id("moobloom"), "main"), CowModel::createBodyLayer);
 
         registry.entityRenderer(Mooblooms.entity,
             () -> ctx -> new MoobloomEntityRenderer<>(ctx, new CowModel<>(ctx.bakeLayer(layer.get()))));
@@ -28,7 +30,7 @@ public class MoobloomsClient extends CharmonyFeature {
 
     @Override
     public void runWhenEnabled() {
-        CharmClient.instance().registry()
+        mod().registry()
             .itemTab(Mooblooms.spawnEggItem, CreativeModeTabs.SPAWN_EGGS, Items.AXOLOTL_SPAWN_EGG);
     }
 }

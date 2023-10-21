@@ -16,25 +16,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.Charm;
-import svenhjol.charm.CharmClient;
 import svenhjol.charm.mixin.atlases.CartographyTableScreenMixin;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.Charmony;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.HeldItemRenderEvent;
 import svenhjol.charmony_api.event.KeyPressEvent;
 
 import java.util.function.Supplier;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = Atlases.class)
-public class AtlasesClient extends CharmonyFeature {
-    static final RenderType ATLAS_BACKGROUND =
-        RenderType.text(Charm.instance().makeId("textures/map/atlas.png"));
-    static final RenderType MAP_BACKGROUND =
-        RenderType.text(new ResourceLocation("textures/map/map_background.png"));
-    static final RenderType MAP_DECORATIONS
-        = RenderType.text(new ResourceLocation("textures/map/map_icons.png"));
-    static final ResourceLocation CONTAINER_BACKGROUND =
-        Charm.instance().makeId("textures/gui/atlas.png");
+public class AtlasesClient extends ClientFeature {
+    static final RenderType ATLAS_BACKGROUND = RenderType.text(new ResourceLocation(Charmony.ID, "textures/map/atlas.png"));
+    static final RenderType MAP_BACKGROUND = RenderType.text(new ResourceLocation("textures/map/map_background.png"));
+    static final RenderType MAP_DECORATIONS = RenderType.text(new ResourceLocation("textures/map/map_icons.png"));
+    static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(Charmony.ID, "textures/gui/atlas.png");
     static final WidgetSprites UP_BUTTON = makeButton("up");
     static final WidgetSprites DOWN_BUTTON = makeButton("down");
     static final WidgetSprites LEFT_BUTTON = makeButton("left");
@@ -42,14 +38,18 @@ public class AtlasesClient extends CharmonyFeature {
     static final WidgetSprites BACK_BUTTON = makeButton("back");
     static final WidgetSprites ZOOM_IN_BUTTON = makeButton("zoom_in");
     static final WidgetSprites ZOOM_OUT_BUTTON = makeButton("zoom_out");
-
     private AtlasRenderer renderer;
     private static int swappedSlot = -1;
     public static Supplier<String> OPEN_ATLAS_KEY;
 
     @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return Atlases.class;
+    }
+
+    @Override
     public void register() {
-        var registry = CharmClient.instance().registry();
+        var registry = mod().registry();
         registry.menuScreen(Atlases.MENU_TYPE, () -> AtlasScreen::new);
 
         OPEN_ATLAS_KEY = registry.key("open_atlas",
@@ -110,11 +110,11 @@ public class AtlasesClient extends CharmonyFeature {
     }
 
     private static WidgetSprites makeButton(String name) {
-        var instance = Charm.instance();
+        var instance = Mods.client(Charm.ID);
 
         return new WidgetSprites(
-            instance.makeId("widget/atlases/" + name + "_button"),
-            instance.makeId("widget/atlases/" + name + "_button_disabled"),
-            instance.makeId("widget/atlases/" + name + "_button_highlighted"));
+            instance.id("widget/atlases/" + name + "_button"),
+            instance.id("widget/atlases/" + name + "_button_disabled"),
+            instance.id("widget/atlases/" + name + "_button_highlighted"));
     }
 }

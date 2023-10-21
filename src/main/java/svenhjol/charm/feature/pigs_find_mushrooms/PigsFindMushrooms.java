@@ -2,6 +2,7 @@ package svenhjol.charm.feature.pigs_find_mushrooms;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -11,8 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.PlayerHelper;
 import svenhjol.charmony_api.event.EntityJoinEvent;
@@ -21,8 +21,7 @@ import java.util.UUID;
 import java.util.WeakHashMap;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Pigs have a chance to find mushrooms from mycelium and podzol blocks.")
-public class PigsFindMushrooms extends CharmonyFeature {
+public class PigsFindMushrooms extends CommonFeature {
     /**
      * Tracks the animation ticks for a pig UUID.
      */
@@ -32,21 +31,28 @@ public class PigsFindMushrooms extends CharmonyFeature {
 
     @Configurable(
         name = "Chance to find mushroom",
-        description = "Approximately 1 in X chance of a pig finding a mushroom per game tick."
+        description = "Approximately 1 in X chance of a pig finding a mushroom per game tick.",
+        requireRestart = false
     )
     public static int findChance = 1000;
 
     @Configurable(
         name = "Chance to erode block",
-        description = "Chance (out of 1.0) of a block being converted to dirt when a pig finds a mushroom."
+        description = "Chance (out of 1.0) of a block being converted to dirt when a pig finds a mushroom.",
+        requireRestart = false
     )
     public static double erodeChance = 0.25d;
 
     @Override
+    public String description() {
+        return "Pigs have a chance to find mushrooms from mycelium and podzol blocks.";
+    }
+
+    @Override
     public void register() {
-        sniffingSound = Charm.instance().registry().soundEvent("pig_sniffing");
+        sniffingSound = mod().registry().soundEvent("pig_sniffing");
         validBlocks = TagKey.create(BuiltInRegistries.BLOCK.key(),
-            Charm.instance().makeId("pigs_find_mushrooms"));
+            mod().id("pigs_find_mushrooms"));
     }
 
     @Override
@@ -92,7 +98,6 @@ public class PigsFindMushrooms extends CharmonyFeature {
 
     public static void triggerUnearthedMushroom(Level level, BlockPos pos) {
         PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(
-            player -> Advancements.trigger(Charm.instance().makeId("unearthed_mushroom"), player));
-
+            player -> Advancements.trigger(new ResourceLocation(Charm.ID, "unearthed_mushroom"), player));
     }
 }

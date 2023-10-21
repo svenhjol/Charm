@@ -8,11 +8,11 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.base.CharmonyItem;
+import svenhjol.charmony.common.CommonFeature;
 
 public class EndermitePowderItem extends CharmonyItem {
-    public EndermitePowderItem(CharmonyFeature feature) {
+    public EndermitePowderItem(CommonFeature feature) {
         super(feature, new Properties());
     }
 

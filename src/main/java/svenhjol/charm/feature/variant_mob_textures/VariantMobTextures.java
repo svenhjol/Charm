@@ -11,17 +11,14 @@ import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.annotation.Configurable;
+import svenhjol.charmony.client.ClientFeature;
 import svenhjol.charmony_api.event.ClientEntityJoinEvent;
-import svenhjol.charmony.base.CharmonyFeature;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
-@ClientFeature(mod = CharmClient.MOD_ID, description = "Mobs may spawn with different textures.")
-public class VariantMobTextures extends CharmonyFeature {
+public class VariantMobTextures extends ClientFeature {
     static final String TEXTURES = "textures/entity";
     static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(TEXTURES + "/sheep/sheep.png");
     static final List<ResourceLocation> CHICKENS = new ArrayList<>();
@@ -79,8 +76,13 @@ public class VariantMobTextures extends CharmonyFeature {
     public static int rareVariantChance = 1000;
 
     @Override
+    public String description() {
+        return "Mobs may spawn with different textures.";
+    }
+
+    @Override
     public void register() {
-        var registry = CharmClient.instance().registry();
+        var registry = mod().registry();
 
         if (chickens) {
             registry.entityRenderer(() -> EntityType.CHICKEN,
@@ -344,7 +346,7 @@ public class VariantMobTextures extends CharmonyFeature {
     }
 
     private ResourceLocation createResource(MobType type, String texture) {
-        return CharmClient.instance().makeId(TEXTURES + "/" + type.getSerializedName() + "/" + texture + ".png");
+        return mod().id(TEXTURES + "/" + type.getSerializedName() + "/" + texture + ".png");
     }
 
     public enum MobType implements StringRepresentable {

@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.clear_item_frames;
 
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,8 +16,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFramesNetwork.AddAmethyst;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFramesNetwork.RemoveAmethyst;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.EntityAttackEvent;
 import svenhjol.charmony_api.event.EntityUseEvent;
@@ -24,13 +24,17 @@ import svenhjol.charmony_api.event.EntityUseEvent;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Add amethyst shards to item frames to make them invisible.")
-public class ClearItemFrames extends CharmonyFeature {
+public class ClearItemFrames extends CommonFeature {
     static Supplier<SimpleParticleType> particleType;
 
     @Override
+    public String description() {
+        return "Add amethyst shards to item frames to make them invisible.";
+    }
+
+    @Override
     public void register() {
-        particleType = Charm.instance().registry().particleType("apply_amethyst", ApplyAmethystParticleType::new);
+        particleType = mod().registry().particleType("apply_amethyst", ApplyAmethystParticleType::new);
         ClearItemFramesNetwork.register();
     }
 
@@ -109,6 +113,6 @@ public class ClearItemFrames extends CharmonyFeature {
     }
 
     public static void triggerMadeClearItemFrame(Player player) {
-        Advancements.trigger(Charm.instance().makeId("made_clear_item_frame"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "made_clear_item_frame"), player);
     }
 }

@@ -1,16 +1,19 @@
 package svenhjol.charm.feature.azalea_wood;
 
 import net.minecraft.client.renderer.RenderType;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.custom_wood.CustomWood;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = AzaleaWood.class)
-public class AzaleaWoodClient extends CharmonyFeature {
+public class AzaleaWoodClient extends ClientFeature {
+    @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return AzaleaWood.class;
+    }
+
     @Override
     public void register() {
-        var registry = CharmClient.instance().registry();
+        var registry = mod().registry();
         var holder = CustomWood.getHolder(AzaleaMaterial.AZALEA);
 
         var door = holder.getDoor().orElseThrow();

@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.collection;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -8,8 +9,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.CharmonyEnchantmentHelper;
 
@@ -18,14 +18,18 @@ import java.util.UUID;
 import java.util.WeakHashMap;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Tools with the Collection enchantment automatically pick up drops.")
-public class Collection extends CharmonyFeature {
+public class Collection extends CommonFeature {
     private static final Map<BlockPos, UUID> BREAKING = new WeakHashMap<>();
     public static Supplier<Enchantment> enchantment;
-    
+
+    @Override
+    public String description() {
+        return "Tools with the Collection enchantment automatically pick up drops.";
+    }
+
     @Override
     public void register() {
-        enchantment = Charm.instance().registry()
+        enchantment = mod().registry()
             .enchantment("collection", () -> new CollectionEnchantment(this));
     }
     
@@ -58,6 +62,6 @@ public class Collection extends CharmonyFeature {
     }
 
     public static void triggerUseCollection(ServerPlayer player) {
-        Advancements.trigger(Charm.instance().makeId("used_collection"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "used_collection"), player);
     }
 }

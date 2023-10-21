@@ -19,15 +19,14 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import svenhjol.charm.Charm;
 import svenhjol.charmony.base.CharmonyBlockWithEntity;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 
 @SuppressWarnings("deprecation")
 public class TotemBlock extends CharmonyBlockWithEntity {
     static final VoxelShape SHAPE = Block.box(2, 2, 2, 14, 14, 14);
 
-    public TotemBlock(CharmonyFeature feature) {
+    public TotemBlock(CommonFeature feature) {
         super(feature, Properties.copy(Blocks.GLASS)
             .strength(-1.0f, 3600000.0f)
             .noCollission()
@@ -66,7 +65,7 @@ public class TotemBlock extends CharmonyBlockWithEntity {
      */
     @Override
     public void onRemove(BlockState blockState, Level level, BlockPos pos, BlockState state, boolean bl) {
-        var log = Charm.instance().log();
+        var log = feature.mod().log();
         var dimension = level.dimension().location();
 
         if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)
@@ -97,7 +96,7 @@ public class TotemBlock extends CharmonyBlockWithEntity {
             && (!TotemOfPreserving.ownerOnly
                 || (totem.getOwner().equals(player.getUUID()) || player.getAbilities().instabuild))
         ) {
-            var log = Charm.instance().log();
+            var log = feature.mod().log();
             var serverLevel = (ServerLevel)level;
             var dimension = serverLevel.dimension().location();
 

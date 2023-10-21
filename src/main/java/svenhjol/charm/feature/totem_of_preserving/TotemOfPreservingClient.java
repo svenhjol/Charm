@@ -3,15 +3,18 @@ package svenhjol.charm.feature.totem_of_preserving;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = TotemOfPreserving.class)
-public class TotemOfPreservingClient extends CharmonyFeature {
+public class TotemOfPreservingClient extends ClientFeature {
+    @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return TotemOfPreserving.class;
+    }
+
     @Override
     public void register() {
-        var registry = CharmClient.instance().registry();
+        var registry = mod().registry();
 
         registry.blockEntityRenderer(
             TotemOfPreserving.blockEntity,
@@ -24,7 +27,7 @@ public class TotemOfPreservingClient extends CharmonyFeature {
 
     @Override
     public void runWhenEnabled() {
-        var registry = CharmClient.instance().registry();
+        var registry = mod().registry();
 
         registry.itemTab(
             TotemOfPreserving.item,

@@ -7,13 +7,15 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Packet;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.enums.PacketDirection;
 import svenhjol.charmony.iface.IPacketRequest;
 
 public class ClearItemFramesNetwork {
     public static void register() {
-        Charm.instance().registry().packet(new AddAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
-        Charm.instance().registry().packet(new RemoveAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
+        var registry = Mods.common(Charm.ID).registry();
+        registry.packet(new AddAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
+        registry.packet(new RemoveAmethyst(), () -> ClearItemFramesClient::handleItemFrameInteraction);
     }
 
     interface IItemFrameInteraction {
@@ -35,7 +37,7 @@ public class ClearItemFramesNetwork {
         public static void send(BlockPos pos, ServerPlayer player) {
             var message = new AddAmethyst();
             message.pos = pos;
-            Charm.instance().network().send(message, player);
+            Mods.common(Charm.ID).network().send(message, player);
         }
 
         public BlockPos getPos() {
@@ -71,7 +73,7 @@ public class ClearItemFramesNetwork {
         public static void send(BlockPos pos, ServerPlayer player) {
             var message = new AddAmethyst();
             message.pos = pos;
-            Charm.instance().network().send(message, player);
+            Mods.common(Charm.ID).network().send(message, player);
         }
 
         public BlockPos getPos() {

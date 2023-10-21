@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.mooblooms;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -14,30 +15,34 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.EntityJoinEvent;
 
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Mooblooms are cow-like mobs that come in a variety of flower types.\n" +
-    "They spawn flowers where they walk and can be milked for suspicious stew.")
-public class Mooblooms extends CharmonyFeature {
+public class Mooblooms extends CommonFeature {
     static final String ID = "moobloom";
     static Supplier<Item> spawnEggItem;
     static Supplier<EntityType<MoobloomEntity>> entity;
     static Supplier<SoundEvent> milkingSound;
     public static final TagKey<Biome> SPAWNS_COMMON_MOOBLOOMS
-        = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_common_mooblooms"));
+        = TagKey.create(Registries.BIOME, new ResourceLocation(Charm.ID, "spawns_common_mooblooms"));
     public static final TagKey<Biome> SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS
-        = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_cherry_blossom_mooblooms"));
+        = TagKey.create(Registries.BIOME, new ResourceLocation(Charm.ID, "spawns_cherry_blossom_mooblooms"));
     public static final TagKey<Biome> SPAWNS_SUNFLOWER_MOOBLOOMS
-        = TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_sunflower_mooblooms"));
+        = TagKey.create(Registries.BIOME, new ResourceLocation(Charm.ID, "spawns_sunflower_mooblooms"));
+
+    @Override
+    public String description() {
+        return """
+            Mooblooms are cow-like mobs that come in a variety of flower types.
+            They spawn flowers where they walk and can be milked for suspicious stew.""";
+    }
 
     @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         entity = registry.entity(ID, () -> EntityType.Builder
             .of(MoobloomEntity::new, MobCategory.CREATURE)
@@ -78,10 +83,10 @@ public class Mooblooms extends CharmonyFeature {
     }
 
     public static void triggerMilkedMoobloom(Player player) {
-        Advancements.trigger(Charm.instance().makeId("milked_moobloom"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "milked_moobloom"), player);
     }
 
     public static void triggerMilkedRareMoobloom(Player player) {
-        Advancements.trigger(Charm.instance().makeId("milked_rare_moobloom"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "milked_rare_moobloom"), player);
     }
 }

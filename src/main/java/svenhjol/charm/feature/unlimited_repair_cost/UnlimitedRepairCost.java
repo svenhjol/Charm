@@ -1,8 +1,10 @@
 package svenhjol.charm.feature.unlimited_repair_cost;
 
-import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@Feature(mod = Charm.MOD_ID, description = "Allows anvil repair of items with repair cost 39 or more.")
-public class UnlimitedRepairCost extends CharmonyFeature { }
+public class UnlimitedRepairCost extends CommonFeature {
+    @Override
+    public String description() {
+        return "Allows anvil repair of items with repair cost 39 or more.";
+    }
+}

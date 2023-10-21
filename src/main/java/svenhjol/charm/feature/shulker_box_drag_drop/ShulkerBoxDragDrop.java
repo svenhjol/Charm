@@ -2,6 +2,7 @@ package svenhjol.charm.feature.shulker_box_drag_drop;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -23,20 +24,23 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.helper.TagHelper;
 import svenhjol.charmony_api.event.ItemDragDropEvent;
 import svenhjol.charmony_api.event.ItemDragDropEvent.StackType;
 import svenhjol.charmony_api.event.LevelLoadEvent;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
-import svenhjol.charmony.helper.TagHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Feature(mod = Charm.MOD_ID, description = "Drag and drop items into a shulkerbox from within your inventory.")
-public class ShulkerBoxDragDrop extends CharmonyFeature {
-    public static final List<ItemLike> BLACKLIST = new ArrayList<>();
+public class ShulkerBoxDragDrop extends CommonFeature {
+    static final List<ItemLike> BLACKLIST = new ArrayList<>();
+
+    @Override
+    public String description() {
+        return "Drag and drop items into a shulkerbox from within your inventory.";
+    }
 
     @Override
     public void runWhenEnabled() {
@@ -165,6 +169,6 @@ public class ShulkerBoxDragDrop extends CharmonyFeature {
     }
 
     public static void triggerDraggedItemToShulkerBox(Player player) {
-        Advancements.trigger(Charm.instance().makeId("dragged_item_to_shulker_box"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "dragged_item_to_shulker_box"), player);
     }
 }

@@ -14,10 +14,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
 import svenhjol.charmony_api.event.TooltipComponentEvent;
 import svenhjol.charmony_api.event.TooltipItemHoverEvent;
 import svenhjol.charmony_api.event.TooltipRenderEvent;
@@ -26,11 +24,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-@ClientFeature(
-    mod = CharmClient.MOD_ID,
-    description = "Adds hover tooltips for some items that have content."
-)
-public class ExtraTooltips extends CharmonyFeature {
+public class ExtraTooltips extends ClientFeature {
     public static final RenderType MAP_BACKGROUND =
         RenderType.text(new ResourceLocation("textures/map/map_background.png"));
 
@@ -41,6 +35,11 @@ public class ExtraTooltips extends CharmonyFeature {
         name = "Shulker boxes",
         description = "If true, the contents of a shulker box will be shown when hovering over the item.")
     public static boolean showShulkerBoxes = true;
+
+    @Override
+    public String description() {
+        return "Adds hover tooltips for some items that have content.";
+    }
 
     @Override
     public void runWhenEnabled() {

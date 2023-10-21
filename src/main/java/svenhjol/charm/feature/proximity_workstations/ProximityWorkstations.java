@@ -3,6 +3,7 @@ package svenhjol.charm.feature.proximity_workstations;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -18,16 +19,15 @@ import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwor
 import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenWorkstationSelectorScreen;
 import svenhjol.charm.feature.proximity_workstations.menu.*;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.TagHelper;
 
 import java.util.*;
 import java.util.function.Function;
 
-@Feature(mod = Charm.MOD_ID, description = "Use workstations such as crafting tables when in range of the block.")
-public class ProximityWorkstations extends CharmonyFeature {
+public class ProximityWorkstations extends CommonFeature {
     static final Map<Block, Function<BlockPos, MenuProvider>> MENU_PROVIDERS = new LinkedHashMap<>();
     static final Map<UUID, Map<Block, BlockPos>> WORKSTATIONS_IN_RANGE = new WeakHashMap<>();
     static final Map<UUID, Long> LAST_WORKSTATION_CHECK = new WeakHashMap<>();
@@ -42,11 +42,16 @@ public class ProximityWorkstations extends CharmonyFeature {
     public static int distance = 10;
 
     @Override
+    public String description() {
+        return "Use workstations such as crafting tables when in range of the block.";
+    }
+
+    @Override
     public void register() {
         ProximityWorkstationsNetwork.register();
 
         validWorkstations = TagKey.create(BuiltInRegistries.BLOCK.key(),
-            Charm.instance().makeId("proximity_workstations"));
+            mod().id("proximity_workstations"));
 
         registerBlockMenu(Blocks.CRAFTING_TABLE, pos -> new SimpleMenuProvider(
             (i, inv, p) -> new ProximityCraftingMenu(i, inv,
@@ -117,7 +122,7 @@ public class ProximityWorkstations extends CharmonyFeature {
     static void handleOpenedSelector(OpenWorkstationSelector message, Player player) {
         var workstations = getWorkstationsInRange(player);
         var blocks = new LinkedList<>(workstations.keySet());
-        Charm.instance().log().debug(ProximityWorkstations.class, "There are " + blocks.size() + " block(s) in range");
+        Mods.common(Charm.ID).log().debug(ProximityWorkstations.class, "There are " + blocks.size() + " block(s) in range");
 
         if (blocks.size() == 1) {
             var block = blocks.get(0);
@@ -141,7 +146,7 @@ public class ProximityWorkstations extends CharmonyFeature {
     }
 
     static void openContainer(ServerPlayer player, Block block, BlockPos pos) {
-        Charm.instance().log().debug(ProximityWorkstations.class, "Going to try and open a workstation for " + block);
+        Mods.common(Charm.ID).log().debug(ProximityWorkstations.class, "Going to try and open a workstation for " + block);
         if (MENU_PROVIDERS.containsKey(block)) {
             player.closeContainer();
             var provider = MENU_PROVIDERS.get(block);
@@ -154,6 +159,6 @@ public class ProximityWorkstations extends CharmonyFeature {
     }
 
     static void triggerUsedProximityCraftingTable(Player player) {
-        Advancements.trigger(Charm.instance().makeId("used_proximity_crafting_table"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "used_proximity_crafting_table"), player);
     }
 }

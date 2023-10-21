@@ -14,11 +14,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charmony.base.CharmonyBlockItem;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.common.CommonFeature;
 
 @SuppressWarnings({"deprecation", "BooleanMethodIsAlwaysInverted", "unused"})
 public class GunpowderBlock extends FallingBlock {
-    public static final ResourceLocation TRIGGER_DISSOLVED_GUNPOWDER = Charm.instance().makeId("dissolved_gunpowder");
+    public static final ResourceLocation TRIGGER_DISSOLVED_GUNPOWDER = new ResourceLocation(Charm.ID, "dissolved_gunpowder");
 
     public GunpowderBlock() {
         super(Properties.of()
@@ -26,8 +27,8 @@ public class GunpowderBlock extends FallingBlock {
             .strength(0.5f));
     }
 
-    public static CharmonyFeature getParent() {
-        return Charm.instance().loader().get(StorageBlocks.class).orElseThrow();
+    public static CommonFeature getParent() {
+        return Mods.common(Charm.ID).loader().get(StorageBlocks.class).orElseThrow();
     }
 
     @Override

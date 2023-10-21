@@ -4,12 +4,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@Feature(mod = Charm.MOD_ID, description = "Dungeons in the deepslate layer will be constructed of deepslate bricks and cobbled deepslate.")
-public class DeepslateDungeons extends CharmonyFeature {
+public class DeepslateDungeons extends CommonFeature {
+    @Override
+    public String description() {
+        return "Dungeons in the deepslate layer will be constructed of deepslate bricks and cobbled deepslate.";
+    }
+
     public static BlockState changeBlockState(WorldGenLevel level, BlockPos pos, BlockState state) {
         if (level.getMinBuildHeight() < 0 && pos.getY() < 0) {
             var random = level.getRandom();

@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.coral_squids;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -11,19 +12,17 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
-import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Coral Squids spawn near coral in warm oceans.")
-public class CoralSquids extends CharmonyFeature implements IWandererTradeProvider {
+public class CoralSquids extends CommonFeature implements IWandererTradeProvider {
     private static final String ID = "coral_squid";
     public final static TagKey<Biome> SPAWNS_CORAL_SQUIDS =
-        TagKey.create(Registries.BIOME, Charm.instance().makeId("spawns_coral_squids"));
+        TagKey.create(Registries.BIOME, new ResourceLocation(Charm.ID, "spawns_coral_squids"));
     public static Supplier<Item> spawnEggItem;
     public static Supplier<Item> bucketItem;
     public static Supplier<EntityType<CoralSquidEntity>> entity;
@@ -32,15 +31,20 @@ public class CoralSquids extends CharmonyFeature implements IWandererTradeProvid
     public static double dropChance = 0.2D;
 
     @Override
+    public String description() {
+        return "Coral Squids spawn near coral in warm oceans.";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         entity = registry.entity(ID, () -> EntityType.Builder
             .of(CoralSquidEntity::new, MobCategory.WATER_AMBIENT)
-            .sized(0.54F, 0.54F));
+            .sized(0.54f, 0.54f));
 
-        spawnEggItem = registry.spawnEggItem("coral_squid_spawn_egg", entity, 0x0000FF, 0xFF00FF, new Item.Properties());
-        bucketItem = registry.item("coral_squid_bucket", () -> new CoralSquidBucketItem(this));
+        spawnEggItem = registry.spawnEggItem("coral_squid_spawn_egg", entity, 0x0000ff, 0xff00ff, new Item.Properties());
+        bucketItem = registry.item("coral_squid_bucket", CoralSquidBucketItem::new);
 
         registry.biomeSpawn(holder -> holder.is(SPAWNS_CORAL_SQUIDS), MobCategory.WATER_AMBIENT, entity, 50, 2, 4);
         registry.entitySpawnPlacement(entity, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CoralSquidEntity::canSpawn);

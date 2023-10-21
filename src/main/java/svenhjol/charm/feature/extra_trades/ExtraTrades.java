@@ -7,19 +7,16 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
-import svenhjol.charm.Charm;
-import svenhjol.charmony_api.CharmonyApi;
-import svenhjol.charmony_api.iface.IWandererTradeProvider;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.GenericTradeOffers;
+import svenhjol.charmony_api.CharmonyApi;
+import svenhjol.charmony_api.iface.IWandererTradeProvider;
 
 import javax.annotation.Nullable;
 
-@Feature(mod = Charm.MOD_ID, description = "Adds more villager trades.")
-public class ExtraTrades extends CharmonyFeature implements IWandererTradeProvider {
+public class ExtraTrades extends CommonFeature implements IWandererTradeProvider {
     @Configurable(name = "Enchanted books", description = "If true, librarians will buy any enchanted book in return for emeralds.")
     public static boolean enchantedBooks = true;
 
@@ -42,8 +39,13 @@ public class ExtraTrades extends CharmonyFeature implements IWandererTradeProvid
     public static boolean charmModItems = true;
 
     @Override
+    public String description() {
+        return "Adds more villager trades.";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         if (enchantedBooks) {
             var tier = 2;

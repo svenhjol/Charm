@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.campfires_boost_health;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.monster.Monster;
@@ -11,16 +12,20 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 
-@Feature(mod = Charm.MOD_ID, description = "Standing within range and sight of a lit campfire provides a small regeneration boost.\n" +
-    "It does not work if there are enemies nearby.")
-public class CampfiresBoostHealth extends CharmonyFeature {
+public class CampfiresBoostHealth extends CommonFeature {
     public static final int INTERVAL_CHECK = 200;
     public static final int LENGTH_OF_REGENERATION = 2;
     public static final int DISTANCE_TO_FIRE = 6;
+
+    @Override
+    public String description() {
+        return """
+            Standing within range and sight of a lit campfire provides a small regeneration boost.
+            It does not work if there are enemies nearby.""";
+    }
 
     public static void tryRegeneratePlayersAroundFire(Level level, BlockPos pos) {
         if (level.getGameTime() % CampfiresBoostHealth.INTERVAL_CHECK == 0) {
@@ -46,6 +51,6 @@ public class CampfiresBoostHealth extends CharmonyFeature {
     }
 
     public static void triggerHealNearCampfire(Player player) {
-        Advancements.trigger(Charm.instance().makeId("healed_near_campfire"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "healed_near_campfire"), player);
     }
 }

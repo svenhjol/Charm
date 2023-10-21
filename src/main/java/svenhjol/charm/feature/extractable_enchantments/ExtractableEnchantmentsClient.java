@@ -7,17 +7,21 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = ExtractableEnchantments.class)
-public class ExtractableEnchantmentsClient extends CharmonyFeature {
+public class ExtractableEnchantmentsClient extends ClientFeature {
+    @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return ExtractableEnchantments.class;
+    }
+
     private static ExtractableEnchantments getParent() {
-        return Charm.instance().loader().get(ExtractableEnchantments.class).orElseThrow();
+        return Mods.common(Charm.ID).loader().get(ExtractableEnchantments.class).orElseThrow();
     }
 
     public static void updateGrindstoneCost(GrindstoneScreen screen, Player player, GuiGraphics guiGraphics, Font font, int width) {

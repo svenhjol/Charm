@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.endermite_powder;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
@@ -15,8 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.EntityKilledDropEvent;
@@ -26,18 +26,22 @@ import svenhjol.charmony_api.iface.IWandererTradeProvider;
 import java.util.List;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Endermites drop endermite powder that can be used to locate an End City.")
-public class EndermitePowder extends CharmonyFeature implements IWandererTradeProvider {
+public class EndermitePowder extends CommonFeature implements IWandererTradeProvider {
     static final String ID = "endermite_powder";
     static Supplier<EntityType<EndermitePowderEntity>> entity;
     static Supplier<EndermitePowderItem> item;
     static Supplier<SoundEvent> launchSound;
     public static final TagKey<Structure> ENDERMITE_POWDER_LOCATED = TagKey.create(Registries.STRUCTURE,
-        Charm.instance().makeId("endermite_powder_located"));
+        new ResourceLocation(Charm.ID, "endermite_powder_located"));
+
+    @Override
+    public String description() {
+        return "Endermites drop endermite powder that can be used to locate an End City.";
+    }
 
     @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
         item = registry.item(ID, () -> new EndermitePowderItem(this));
         launchSound = registry.soundEvent("endermite_powder_launch");
 
@@ -88,6 +92,6 @@ public class EndermitePowder extends CharmonyFeature implements IWandererTradePr
     }
 
     public static void triggerUsedEndermitePowder(Player player) {
-        Advancements.trigger(Charm.instance().makeId("used_endermite_powder"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "used_endermite_powder"), player);
     }
 }

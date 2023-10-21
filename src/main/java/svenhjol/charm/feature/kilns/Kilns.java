@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.kilns;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlags;
@@ -8,16 +9,14 @@ import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.feature.firing.Firing;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "A functional block that speeds up cooking of clay, glass, bricks and terracotta.")
-public class Kilns extends CharmonyFeature {
+public class Kilns extends CommonFeature {
     private static final String BLOCK_ID = "kiln";
     public static Supplier<KilnBlock> block;
     public static Supplier<BlockItem> blockItem;
@@ -27,8 +26,13 @@ public class Kilns extends CharmonyFeature {
     public static Supplier<SoundEvent> bakeSound;
 
     @Override
+    public String description() {
+        return "A functional block that speeds up cooking of clay, glass, bricks and terracotta.";
+    }
+
+    @Override
     public void preRegister() {
-        Charm.instance().registry().recipeBookTypeEnum("kiln");
+        mod().registry().recipeBookTypeEnum("kiln");
     }
 
     @Override
@@ -36,7 +40,7 @@ public class Kilns extends CharmonyFeature {
         // Must register Charmony's firing recipe serializer as a dependency or firing recipes will fail.
         Firing.registerDependency();
 
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         block = registry.block(BLOCK_ID, () -> new KilnBlock(this));
         blockItem = registry.item(BLOCK_ID, () -> new KilnBlock.BlockItem(this, block));
@@ -49,6 +53,6 @@ public class Kilns extends CharmonyFeature {
     }
 
     public static void triggerFiredItem(Player player) {
-        Advancements.trigger(Charm.instance().makeId("fired_item"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "fired_item"), player);
     }
 }

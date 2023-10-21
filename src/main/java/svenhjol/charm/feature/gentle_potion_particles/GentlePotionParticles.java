@@ -1,11 +1,10 @@
 package svenhjol.charm.feature.gentle_potion_particles;
 
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
 
-@ClientFeature(
-    mod = CharmClient.MOD_ID,
-    description = "Potion effect particles are less obtrusive."
-)
-public class GentlePotionParticles extends CharmonyFeature { }
+public class GentlePotionParticles extends ClientFeature {
+    @Override
+    public String description() {
+        return "Potion effect particles are less obtrusive.";
+    }
+}

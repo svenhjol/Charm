@@ -23,42 +23,45 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.LevelLoadEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Feature(mod = Charm.MOD_ID, description = "Adds decoration and more ores to mineshafts.")
-public class ImprovedMineshafts extends CharmonyFeature {
+public class ImprovedMineshafts extends CommonFeature {
     static final List<BlockState> FLOOR_BLOCKS = new ArrayList<>();
     static final List<BlockState> CEILING_BLOCKS = new ArrayList<>();
     static final List<BlockState> PILE_BLOCKS = new ArrayList<>();
     static final List<BlockState> ROOM_BLOCKS = new ArrayList<>();
     static final List<BlockState> ROOM_DECORATIONS = new ArrayList<>();
     static final List<ResourceLocation> MINECART_LOOT = new ArrayList<>();
-    static final ResourceLocation FLOOR_BLOCK_LOOT = Charm.instance().makeId("improved_mineshafts/floor_blocks");
-    static final ResourceLocation PILE_BLOCK_LOOT = Charm.instance().makeId("improved_mineshafts/pile_blocks");
-    static final ResourceLocation CEILING_BLOCK_LOOT = Charm.instance().makeId("improved_mineshafts/ceiling_blocks");
-    static final ResourceLocation ROOM_BLOCK_LOOT = Charm.instance().makeId("improved_mineshafts/room_blocks");
-    static final ResourceLocation ROOM_DECORATION_LOOT = Charm.instance().makeId("improved_mineshafts/room_decorations");
+    static final ResourceLocation FLOOR_BLOCK_LOOT = new ResourceLocation(Charm.ID, "improved_mineshafts/floor_blocks");
+    static final ResourceLocation PILE_BLOCK_LOOT = new ResourceLocation(Charm.ID, "improved_mineshafts/pile_blocks");
+    static final ResourceLocation CEILING_BLOCK_LOOT = new ResourceLocation(Charm.ID, "improved_mineshafts/ceiling_blocks");
+    static final ResourceLocation ROOM_BLOCK_LOOT = new ResourceLocation(Charm.ID, "improved_mineshafts/room_blocks");
+    static final ResourceLocation ROOM_DECORATION_LOOT = new ResourceLocation(Charm.ID, "improved_mineshafts/room_decorations");
 
     @Configurable(name = "Corridor floor blocks", description = "Chance (out of 1.0) of blocks such as candles and ores spawning on the floor of corridors.")
-    public static double floorBlockChance = 0.03D;
+    public static double floorBlockChance = 0.03d;
 
     @Configurable(name = "Corridor ceiling blocks", description = "Chance (out of 1.0) of blocks such as lanterns spawning on the ceiling of corridors.")
-    public static double ceilingBlockChance = 0.02D;
+    public static double ceilingBlockChance = 0.02d;
 
     @Configurable(name = "Corridor block piles", description = "Chance (out of 1.0) of stone, gravel and ore spawning at the entrance of corridors.")
-    public static double blockPileChance = 0.2D;
+    public static double blockPileChance = 0.2d;
 
     @Configurable(name = "Room blocks", description = "Chance (out of 1.0) for a moss or precious ore block to spawn on a single block of the central mineshaft room.")
-    public static double roomBlockChance = 0.25D;
+    public static double roomBlockChance = 0.25d;
 
     @Configurable(name = "Extra minecarts", description = "Chance (out of 1.0) for a minecart to spawn in a corridor. Minecart loot is chosen from the 'Minecart loot tables'.")
-    public static double minecartChance = 0.2D;
+    public static double minecartChance = 0.2d;
+
+    @Override
+    public String description() {
+        return "Adds decoration and more ores to mineshafts.";
+    }
 
     @Override
     public void register() {

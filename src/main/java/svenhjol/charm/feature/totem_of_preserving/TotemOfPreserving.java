@@ -18,8 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.TextHelper;
@@ -33,8 +32,7 @@ import svenhjol.charmony_api.iface.ITotemPreservingProvider;
 import java.util.*;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Preserves your items on death.")
-public class TotemOfPreserving extends CharmonyFeature {
+public class TotemOfPreserving extends CommonFeature {
     static Supplier<Item> item;
     static Supplier<Block> block;
     static Supplier<BlockEntityType<TotemBlockEntity>> blockEntity;
@@ -76,8 +74,13 @@ public class TotemOfPreserving extends CharmonyFeature {
     public static boolean showDeathPositionInChat = false;
 
     @Override
+    public String description() {
+        return "Preserves your items on death.";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         block = registry.block("totem_of_preserving_holder",
             () -> new TotemBlock(this));
@@ -119,8 +122,8 @@ public class TotemOfPreserving extends CharmonyFeature {
 
         ItemStack found = ItemStack.EMPTY;
         var damage = 0; // Track how much damage the totem has taken
-        var log = Charm.instance().log();
-        var loader = Charm.instance().loader();
+        var log = mod().log();
+        var loader = mod().loader();
         var serverPlayer = (ServerPlayer)player;
 
         // Get items to preserve.
@@ -201,7 +204,7 @@ public class TotemOfPreserving extends CharmonyFeature {
     }
 
     private boolean tryCreateTotemBlock(ServerPlayer player, List<ItemStack> preserve, int damage) {
-        var log = Charm.instance().log();
+        var log = mod().log();
 
         var level = player.level();
         var random = player.getRandom();
@@ -344,6 +347,6 @@ public class TotemOfPreserving extends CharmonyFeature {
     }
 
     public static void triggerUsedTotemOfPreserving(Player player) {
-        Advancements.trigger(Charm.instance().makeId("used_totem_of_preserving"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "used_totem_of_preserving"), player);
     }
 }

@@ -17,6 +17,7 @@ import svenhjol.charm.feature.variant_wood.entity.VariantTrappedChestBlockEntity
 import svenhjol.charm.feature.variant_wood.iface.IVariantChest;
 import svenhjol.charm.feature.variant_wood.registry.CustomTrappedChest;
 import svenhjol.charmony.base.CharmonyBlockItem;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.iface.IFuelProvider;
 import svenhjol.charmony_api.iface.IVariantMaterial;
 
@@ -60,8 +61,7 @@ public class VariantTrappedChestBlock extends ChestBlock implements IVariantChes
     @SuppressWarnings("deprecation")
     @Override
     public int getSignal(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
-        var c = Mth.clamp(VariantTrappedChestBlockEntity.getOpenCount(blockGetter, blockPos), 0, 15);
-        return c;
+        return Mth.clamp(VariantTrappedChestBlockEntity.getOpenCount(blockGetter, blockPos), 0, 15);
     }
 
     /**
@@ -77,7 +77,7 @@ public class VariantTrappedChestBlock extends ChestBlock implements IVariantChes
     }
 
     static VariantWood getParent() {
-        return Charm.instance().loader().get(VariantWood.class).orElseThrow();
+        return Mods.common(Charm.ID).loader().get(VariantWood.class).orElseThrow();
     }
 
     public static class BlockItem extends CharmonyBlockItem implements IFuelProvider {

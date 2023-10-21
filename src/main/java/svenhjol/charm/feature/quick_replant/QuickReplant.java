@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.quick_replant;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -15,8 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.CharmonyEnchantmentHelper;
@@ -29,15 +29,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-@SuppressWarnings({"unchecked", "rawtypes"})
-@Feature(mod = Charm.MOD_ID, description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.")
-public class QuickReplant extends CharmonyFeature implements IQuickReplantProvider {
+public class QuickReplant extends CommonFeature implements IQuickReplantProvider {
     static final List<BlockState> REPLANTABLE = new ArrayList<>();
     static final List<Block> NOT_REPLANTABLE = List.of(
         Blocks.TORCHFLOWER,
         Blocks.PITCHER_CROP,
         Blocks.PITCHER_PLANT
     );
+
+    @Override
+    public String description() {
+        return "Right-click with a hoe to quickly harvest and replant a fully-grown crop.";
+    }
 
     @Override
     public void register() {
@@ -53,6 +56,7 @@ public class QuickReplant extends CharmonyFeature implements IQuickReplantProvid
         BlockUseEvent.INSTANCE.handle(this::handleBlockUse);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private InteractionResult handleBlockUse(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
         var mainhand = player.getMainHandItem();
         var offhand = player.getOffhandItem();
@@ -90,8 +94,8 @@ public class QuickReplant extends CharmonyFeature implements IQuickReplantProvid
             var serverPlayer = (ServerPlayer)player;
             var serverLevel = (ServerLevel)serverPlayer.level();
             var drops = Block.getDrops(state, serverLevel, pos, null, player, ItemStack.EMPTY);
-            var hasCollection = Charm.instance().loader().isEnabled("Collection")
-                && CharmonyEnchantmentHelper.itemHasEnchantment(held, Charm.instance().makeId("collection"));
+            var hasCollection = mod().loader().isEnabled("Collection")
+                && CharmonyEnchantmentHelper.itemHasEnchantment(held, mod().id("collection"));
 
             for (var drop : drops) {
                 if (doReplant && drop.getItem() == blockItem ) {
@@ -152,6 +156,6 @@ public class QuickReplant extends CharmonyFeature implements IQuickReplantProvid
     }
 
     public static void triggerReplantedCrops(Player player) {
-        Advancements.trigger(Charm.instance().makeId("replanted_crops"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "replanted_crops"), player);
     }
 }

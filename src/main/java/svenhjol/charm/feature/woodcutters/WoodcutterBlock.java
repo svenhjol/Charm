@@ -13,18 +13,18 @@ import net.minecraft.world.level.block.StonecutterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charmony.base.CharmonyBlockItem;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.helper.TextHelper;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class WoodcutterBlock extends StonecutterBlock {
-    private static final Component TITLE = TextHelper.translatable("container.charm.woodcutter");
-    private final CharmonyFeature feature;
+    static final Component TITLE = TextHelper.translatable("container.charm.woodcutter");
+    final CommonFeature feature;
 
-    public WoodcutterBlock(CharmonyFeature feature) {
-        super(Properties.of().strength(3.5F));
+    public WoodcutterBlock(CommonFeature feature) {
+        super(Properties.of().strength(3.5f));
         this.feature = feature;
     }
 
@@ -49,7 +49,7 @@ public class WoodcutterBlock extends StonecutterBlock {
     }
 
     public static class BlockItem extends CharmonyBlockItem {
-        public BlockItem(CharmonyFeature feature, Supplier<WoodcutterBlock> block) {
+        public BlockItem(CommonFeature feature, Supplier<WoodcutterBlock> block) {
             super(feature, block, new Properties());
         }
     }

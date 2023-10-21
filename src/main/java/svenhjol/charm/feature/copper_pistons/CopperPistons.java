@@ -3,15 +3,12 @@ package svenhjol.charm.feature.copper_pistons;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Copper Pistons do not have quasi-connectivity.")
-public class CopperPistons extends CharmonyFeature {
+public class CopperPistons extends CommonFeature {
     public static Supplier<Block> copperPistonBlock;
     public static Supplier<Block> copperPistonHeadBlock;
     public static Supplier<Block> movingCopperPistonBlock;
@@ -20,8 +17,13 @@ public class CopperPistons extends CharmonyFeature {
     public static Supplier<Item> stickyCopperPistonBlockItem;
 
     @Override
+    public String description() {
+        return "Copper Pistons do not have quasi-connectivity.";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
         copperPistonBlock = registry.block("copper_piston", CopperPistonBaseBlock::new);
         copperPistonHeadBlock = registry.block("copper_piston_head", CopperPistonHeadBlock::new);
         movingCopperPistonBlock = registry.block("moving_copper_piston", MovingCopperPistonBlock::new);

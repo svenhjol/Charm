@@ -1,18 +1,17 @@
 package svenhjol.charm.feature.torchflowers_emit_light;
 
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.Feature;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@Feature(
-    mod = CharmClient.MOD_ID,
-    description = "Torchflowers emit ambient light."
-)
-public class TorchflowersEmitLight extends CharmonyFeature {
+public class TorchflowersEmitLight extends CommonFeature {
     @Configurable(
         name = "Light level",
         description = "Amount of light emitted by a Torchflower. Valid values between 0-15."
     )
     public static int lightLevel = 8;
+
+    @Override
+    public String description() {
+        return "Torchflowers emit ambient light.";
+    }
 }

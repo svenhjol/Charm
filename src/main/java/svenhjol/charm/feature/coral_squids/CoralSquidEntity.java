@@ -48,13 +48,13 @@ public class CoralSquidEntity extends WaterAnimal {
     public static final String CORAL_SQUID_TYPE_TAG = "CoralSquidType";
     public static final String CORAL_SQUID_FROM_BUCKET_TAG = "FromBucket";
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CoralSquidEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> CORAL_SQUID_TYPE = SynchedEntityData.defineId(CoralSquidEntity.class, EntityDataSerializers.INT);;
+    private static final EntityDataAccessor<Integer> CORAL_SQUID_TYPE = SynchedEntityData.defineId(CoralSquidEntity.class, EntityDataSerializers.INT);
     public static final Map<Integer, ResourceLocation> TEXTURES = Util.make(Maps.newHashMap(), map -> {
-        map.put(0, new ResourceLocation(Charm.MOD_ID, "textures/entity/coral_squid/tube.png"));
-        map.put(1, new ResourceLocation(Charm.MOD_ID, "textures/entity/coral_squid/brain.png"));
-        map.put(2, new ResourceLocation(Charm.MOD_ID, "textures/entity/coral_squid/bubble.png"));
-        map.put(3, new ResourceLocation(Charm.MOD_ID, "textures/entity/coral_squid/fire.png"));
-        map.put(4, new ResourceLocation(Charm.MOD_ID, "textures/entity/coral_squid/horn.png"));
+        map.put(0, new ResourceLocation(Charm.ID, "textures/entity/coral_squid/tube.png"));
+        map.put(1, new ResourceLocation(Charm.ID, "textures/entity/coral_squid/brain.png"));
+        map.put(2, new ResourceLocation(Charm.ID, "textures/entity/coral_squid/bubble.png"));
+        map.put(3, new ResourceLocation(Charm.ID, "textures/entity/coral_squid/fire.png"));
+        map.put(4, new ResourceLocation(Charm.ID, "textures/entity/coral_squid/horn.png"));
     });
     public static final Map<Integer, Item> DROPS = Util.make(Maps.newHashMap(), map -> {
         map.put(0, Items.TUBE_CORAL);

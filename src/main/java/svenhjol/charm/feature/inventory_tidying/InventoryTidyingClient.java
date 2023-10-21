@@ -8,10 +8,10 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
+import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.ScreenHelper;
 import svenhjol.charmony_api.CharmonyApi;
@@ -27,8 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = InventoryTidying.class)
-public class InventoryTidyingClient extends CharmonyFeature
+public class InventoryTidyingClient extends ClientFeature
     implements IInventoryTidyingWhitelistProvider, IInventoryTidyingBlacklistProvider, IContainerOffsetTweakProvider {
     private static final int LEFT = 159;
     private static final int TOP = 12;
@@ -37,9 +36,14 @@ public class InventoryTidyingClient extends CharmonyFeature
     private static final List<Class<? extends Screen>> BLACKLISTED_SCREENS = new ArrayList<>();
     private static final Map<Class<? extends Screen>, Pair<Integer, Integer>> CONTAINER_OFFSETS = new HashMap<>();
     static final WidgetSprites TIDY_BUTTON = new WidgetSprites(
-        Charm.instance().makeId("widget/inventory_tidying/tidy_button"),
-        Charm.instance().makeId("widget/inventory_tidying/tidy_button_highlighted")
+        new ResourceLocation(Charm.ID, "widget/inventory_tidying/tidy_button"),
+        new ResourceLocation(Charm.ID, "widget/inventory_tidying/tidy_button_highlighted")
     );
+
+    @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return InventoryTidying.class;
+    }
 
     @Override
     public void register() {

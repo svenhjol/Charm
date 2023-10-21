@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.make_suspicious_blocks;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -14,23 +15,26 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.BlockUseEvent;
-import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Add an item to sand and gravel when holding a brush in your offhand.")
-public class MakeSuspiciousBlocks extends CharmonyFeature {
+public class MakeSuspiciousBlocks extends CommonFeature {
     static final Map<Block, Block> SUSPICIOUS_BLOCK_CONVERSIONS = new HashMap<>();
     static Supplier<SoundEvent> addItemSound;
 
     @Override
+    public String description() {
+        return "Add an item to sand and gravel when holding a brush in your offhand.";
+    }
+
+    @Override
     public void register() {
-        addItemSound = Charm.instance().registry().soundEvent("make_suspicious_block");
+        addItemSound = mod().registry().soundEvent("make_suspicious_block");
         registerSuspiciousBlockConversion(Blocks.SAND, Blocks.SUSPICIOUS_SAND);
         registerSuspiciousBlockConversion(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL);
     }
@@ -92,6 +96,6 @@ public class MakeSuspiciousBlocks extends CharmonyFeature {
     }
 
     public static void triggerMadeSuspiciousBlock(Player player) {
-        Advancements.trigger(Charm.instance().makeId("made_suspicious_block"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "made_suspicious_block"), player);
     }
 }

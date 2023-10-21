@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.storage_blocks.ender_pearls;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.PlayerHelper;
 import svenhjol.charmony_api.event.EntityJoinEvent;
@@ -42,7 +44,7 @@ public class EnderPearls implements IStorageBlockFeature {
 
     @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = Mods.common(Charm.ID).registry();
         block = registry.block(ID, EnderPearlBlock::new);
         item = registry.item(ID, EnderPearlBlock.BlockItem::new);
         enabled = checks().stream().allMatch(BooleanSupplier::getAsBoolean);
@@ -151,10 +153,10 @@ public class EnderPearls implements IStorageBlockFeature {
 
     public static void triggerConvertedSilverfish(Level level, BlockPos pos) {
         PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(
-            player -> Advancements.trigger(Charm.instance().makeId("converted_silverfish"), player));
+            player -> Advancements.trigger(new ResourceLocation(Charm.ID, "converted_silverfish"), player));
     }
 
     public static void triggerTeleportedToEnderPearlBlock(Player player) {
-        Advancements.trigger(Charm.instance().makeId("teleported_to_ender_pearl_block"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "teleported_to_ender_pearl_block"), player);
     }
 }

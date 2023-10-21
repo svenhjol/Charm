@@ -2,16 +2,19 @@ package svenhjol.charm.feature.bat_buckets;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = BatBuckets.class)
-public class BatBucketsClient extends CharmonyFeature {
+public class BatBucketsClient extends ClientFeature {
+    @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return BatBuckets.class;
+    }
+
     @Override
     public void register() {
         if (isEnabled()) {
-            CharmClient.instance().registry().itemTab(
+            mod().registry().itemTab(
                 BatBuckets.bucketItem,
                 CreativeModeTabs.TOOLS_AND_UTILITIES,
                 Items.TADPOLE_BUCKET

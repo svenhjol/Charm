@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,8 +21,7 @@ import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.hover_sorting.HoverSortingNetwork.ScrollOnHover;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony.helper.TagHelper;
@@ -36,12 +36,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Feature(mod = Charm.MOD_ID, description = "Scroll the mouse while hovering over a bundle or shulker box to cycle the order of its contents.")
-public class HoverSorting extends CharmonyFeature implements IHoverSortableItemProvider {
+public class HoverSorting extends CommonFeature implements IHoverSortableItemProvider {
     private final List<ItemLike> cachedSortables = new ArrayList<>();
     private final List<TagKey<Block>> cachedBlockTags = new ArrayList<>();
     private final List<TagKey<Item>> cachedItemTags = new ArrayList<>();
     private final List<ItemLike> sortables = new ArrayList<>();
+
+    @Override
+    public String description() {
+        return "Scroll the mouse while hovering over a bundle or shulker box to cycle the order of its contents.";
+    }
 
     @Override
     public void register() {
@@ -178,6 +182,6 @@ public class HoverSorting extends CharmonyFeature implements IHoverSortableItemP
     }
 
     public static void triggerSortedItems(Player player) {
-        Advancements.trigger(Charm.instance().makeId("sorted_items"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "sorted_items"), player);
     }
 }

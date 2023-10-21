@@ -9,8 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ApiHelper;
 import svenhjol.charmony_api.CharmonyApi;
@@ -23,10 +22,14 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-@Feature(mod = Charm.MOD_ID, description = "Armor returns a single ingot, leather or diamond when used on the grindstone.")
-public class GrindableArmor extends CharmonyFeature implements IGrindableItemProvider {
+public class GrindableArmor extends CommonFeature implements IGrindableItemProvider {
     static final Map<ItemLike, ItemLike> RECIPES = new HashMap<>();
-    static final ResourceLocation TRIGGER_RECYCLED_ARMOR = new ResourceLocation(Charm.MOD_ID, "recycled_armor");
+    static final ResourceLocation TRIGGER_RECYCLED_ARMOR = new ResourceLocation(Charm.ID, "recycled_armor");
+
+    @Override
+    public String description() {
+        return "Armor returns a single ingot, leather or diamond when used on the grindstone.";
+    }
 
     @Override
     public void register() {

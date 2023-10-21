@@ -10,6 +10,7 @@ import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.variant_wood.entity.VariantChestBlockEntity;
 import svenhjol.charm.feature.variant_wood.iface.IVariantChest;
 import svenhjol.charm.feature.variant_wood.registry.CustomChest;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony_api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmonyBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
@@ -35,7 +36,7 @@ public class VariantChestBlock extends ChestBlock implements IVariantChest {
     }
 
     static VariantWood getParent() {
-        return Charm.instance().loader().get(VariantWood.class).orElseThrow();
+        return Mods.common(Charm.ID).loader().get(VariantWood.class).orElseThrow();
     }
 
     public static class BlockItem extends CharmonyBlockItem implements IFuelProvider {

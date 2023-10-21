@@ -13,16 +13,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.EntityJoinEvent;
 import svenhjol.charmony_api.event.PlayerTickEvent;
 
-@SuppressWarnings("UnusedReturnValue")
-@Feature(mod = Charm.MOD_ID, description = "Villagers are attracted when the player holds a block of emeralds.")
-public class VillagersFollowEmeraldBlocks extends CharmonyFeature {
-    public static final ResourceLocation TRIGGER_LURED_VILLAGER = new ResourceLocation(Charm.MOD_ID, "lured_villager");
+public class VillagersFollowEmeraldBlocks extends CommonFeature {
+    @Override
+    public String description() {
+        return "Villagers are attracted when the player holds a block of emeralds.";
+    }
 
     @Override
     public void runWhenEnabled() {
@@ -30,6 +30,7 @@ public class VillagersFollowEmeraldBlocks extends CharmonyFeature {
         PlayerTickEvent.INSTANCE.handle(this::handlePlayerTick);
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     private InteractionResult handleEntityJoin(Entity entity, Level level) {
         if (entity instanceof Villager villager) {
             var ingredient = Ingredient.of(Blocks.EMERALD_BLOCK);
@@ -56,6 +57,6 @@ public class VillagersFollowEmeraldBlocks extends CharmonyFeature {
     }
 
     public static void triggerLuredVillager(ServerPlayer player) {
-        Advancements.trigger(TRIGGER_LURED_VILLAGER, player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "lured_villager"), player);
     }
 }

@@ -1,9 +1,10 @@
 package svenhjol.charm.feature.azalea_wood;
 
-import svenhjol.charmony.Charmony;
+import svenhjol.charm.Charm;
+import svenhjol.charm.feature.woodcutters.Woodcutters;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony_api.iface.IRecipeFilter;
 import svenhjol.charmony_api.iface.IRecipeRemoveProvider;
-import svenhjol.charmony.feature.woodcutting.Woodcutting;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class AzaleaWoodRecipeFilter implements IRecipeRemoveProvider {
             new IRecipeFilter() {
                 @Override
                 public boolean test() {
-                    return !Charmony.instance().loader().isEnabled(Woodcutting.class);
+                    return !Mods.common(Charm.ID).loader().isEnabled(Woodcutters.class);
                 }
 
                 @Override

@@ -10,16 +10,13 @@ import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
-import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.BlockUseEvent;
 
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Use a shovel or hoe to convert dirt and path blocks.")
-public class PathConversion extends CharmonyFeature {
+public class PathConversion extends CommonFeature {
     static Supplier<SoundEvent> dirtToPathSound;
     static Supplier<SoundEvent> pathToDirtSound;
 
@@ -36,8 +33,13 @@ public class PathConversion extends CharmonyFeature {
     public static boolean pathToDirt = true;
 
     @Override
+    public String description() {
+        return "Use a shovel or hoe to convert dirt and path blocks.";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
         dirtToPathSound = registry.soundEvent("dirt_to_path");
         pathToDirtSound = registry.soundEvent("path_to_dirt");
     }

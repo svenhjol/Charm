@@ -5,28 +5,30 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import org.lwjgl.glfw.GLFW;
-import svenhjol.charm.Charm;
-import svenhjol.charm.CharmClient;
 import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenWorkstationSelector;
 import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenWorkstationSelectorScreen;
 import svenhjol.charm.feature.proximity_workstations.client.SelectWorkstationScreen;
-import svenhjol.charmony.annotation.ClientFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.KeyPressEvent;
-import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.function.Supplier;
 
-@ClientFeature(mod = CharmClient.MOD_ID)
-public class ProximityWorkstationsClient extends CharmonyFeature {
+public class ProximityWorkstationsClient extends ClientFeature {
     public static Supplier<String> openWorkstationSelectorKey;
     public static ResourceLocation selectWorkstationScreenBackground;
 
     @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return ProximityWorkstations.class;
+    }
+
+    @Override
     public void register() {
-        openWorkstationSelectorKey = CharmClient.instance().registry().key("open_workstation_selector",
+        openWorkstationSelectorKey = mod().registry().key("open_workstation_selector",
             () -> new KeyMapping("key.charm.open_workstation_selector", GLFW.GLFW_KEY_V, "key.categories.inventory"));
 
-        selectWorkstationScreenBackground = Charm.instance().makeId("textures/gui/workstation_selector.png");
+        selectWorkstationScreenBackground = mod().id("textures/gui/workstation_selector.png");
     }
 
     @Override
@@ -42,7 +44,7 @@ public class ProximityWorkstationsClient extends CharmonyFeature {
     }
 
     private void openWorkstationSelector() {
-        CharmClient.instance().log().debug(getClass(), "Sending OpenWorkstationSelector packet");
+        mod().log().debug(getClass(), "Sending OpenWorkstationSelector packet");
         OpenWorkstationSelector.send();
     }
 

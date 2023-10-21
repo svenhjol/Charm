@@ -12,15 +12,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.echolocation.Echolocation;
-import svenhjol.charmony.base.CharmonyFeature;
 import svenhjol.charmony.base.CharmonyItem;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.helper.ItemNbtHelper;
 import svenhjol.charmony.helper.MobHelper;
 
 public class BatBucketItem extends CharmonyItem {
     static final String STORED_BAT_TAG = "stored_bat";
 
-    public BatBucketItem(CharmonyFeature feature) {
+    public BatBucketItem(CommonFeature feature) {
         super(feature, new Properties().stacksTo(1));
     }
 

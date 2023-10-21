@@ -5,21 +5,25 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.BlockBreakSpeedEvent;
 
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Aerial Affinity is a boots enchantment that increases mining rate when not on the ground.")
-public class AerialAffinity extends CharmonyFeature {
+public class AerialAffinity extends CommonFeature {
     private static final String ID = "aerial_affinity";
     private static Supplier<Enchantment> ENCHANTMENT;
-    
+
+    @Override
+    public String description() {
+        return "Aerial Affinity is a boots enchantment that increases mining rate when not on the ground.";
+    }
+
     @Override
     public void register() {
-        ENCHANTMENT = Charm.instance().registry().enchantment(ID,
+        ENCHANTMENT = mod().registry().enchantment(ID,
             () -> new AerialAffinityEnchantment(this));
     }
     
@@ -38,6 +42,6 @@ public class AerialAffinity extends CharmonyFeature {
     }
 
     public static void triggerUsedAerialAffinity(Player player) {
-        Advancements.trigger(Charm.instance().makeId("used_aerial_affinity"), player);
+        Advancements.trigger(Mods.common(Charm.ID).id("used_aerial_affinity"), player);
     }
 }

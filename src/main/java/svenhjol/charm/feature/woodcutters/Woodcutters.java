@@ -6,15 +6,12 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
-import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.woodcutting.Woodcutting;
 
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, priority = 1, description = "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.")
-public class Woodcutters extends CharmonyFeature {
+public class Woodcutters extends CommonFeature {
     public static final String BLOCK_ID = "woodcutter";
     public static Supplier<WoodcutterBlock> block;
     public static Supplier<WoodcutterBlock.BlockItem> blockItem;
@@ -24,8 +21,18 @@ public class Woodcutters extends CharmonyFeature {
     public static Supplier<RecipeBookType> recipeBookType;
 
     @Override
+    public String description() {
+        return "A functional block that adds more efficient recipes for crafting wooden stairs and slabs.";
+    }
+
+    @Override
+    public int priority() {
+        return 1;
+    }
+
+    @Override
     public void preRegister() {
-        Charm.instance().registry().recipeBookTypeEnum("woodcutter");
+        mod().registry().recipeBookTypeEnum("woodcutter");
     }
 
     @Override
@@ -33,7 +40,7 @@ public class Woodcutters extends CharmonyFeature {
         // Must register Charmony's woodcutting recipe serializer as a dependency or woodcutting recipes will fail.
         Woodcutting.registerDependency();
 
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         block = registry.block(BLOCK_ID,
             () -> new WoodcutterBlock(this));

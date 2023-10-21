@@ -17,21 +17,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.phys.BlockHitResult;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
 import svenhjol.charmony_api.event.BlockUseEvent;
 import svenhjol.charmony_api.event.ClientTickEvent;
 import svenhjol.charmony_api.event.SoundPlayEvent;
 
-@ClientFeature(
-    mod = CharmClient.MOD_ID,
-    description = "Playing a music disc in a jukebox prevents background music from playing at the same time."
-)
-public class DiscsStopBackgroundMusic extends CharmonyFeature {
+public class DiscsStopBackgroundMusic extends ClientFeature {
     private static final int CHECK_TICKS = 10;
     private SoundInstance musicToStop = null;
     private int ticksBeforeStop = 0;
+
+    @Override
+    public String description() {
+        return "Playing a music disc in a jukebox prevents background music from playing at the same time.";
+    }
 
     @Override
     public void register() {
@@ -71,7 +70,7 @@ public class DiscsStopBackgroundMusic extends CharmonyFeature {
             getPlayingSounds().forEach((category, s) -> {
                 if (category == SoundSource.RECORDS) {
                     musicToStop = sound;
-                    CharmClient.instance().log().debug(getClass(), "Triggered background music while music disc playing");
+                    mod().log().debug(getClass(), "Triggered background music while music disc playing");
                 }
             });
         }

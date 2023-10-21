@@ -1,12 +1,14 @@
 package svenhjol.charm.feature.storage_blocks.gunpowder;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.PlayerHelper;
 import svenhjol.charmony_api.iface.IStorageBlockFeature;
@@ -29,7 +31,7 @@ public class Gunpowder implements IStorageBlockFeature {
 
     @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = Mods.common(Charm.ID).registry();
 
         block = registry.block(ID, GunpowderBlock::new);
         item = registry.item(ID, GunpowderBlock.BlockItem::new);
@@ -44,6 +46,6 @@ public class Gunpowder implements IStorageBlockFeature {
 
     static void triggerDissolvedGunpowder(ServerLevel level, BlockPos pos) {
         PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(player
-            -> Advancements.trigger(Charm.instance().makeId("dissolved_gunpowder"), player));
+            -> Advancements.trigger(new ResourceLocation(Charm.ID, "dissolved_gunpowder"), player));
     }
 }

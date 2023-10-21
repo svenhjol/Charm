@@ -2,6 +2,7 @@ package svenhjol.charm.feature.bat_buckets;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -17,8 +18,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.ItemNbtHelper;
 import svenhjol.charmony_api.CharmonyApi;
@@ -30,16 +30,22 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Right-click a bat with a bucket to capture it. Right-click again to release it and locate entities around you.")
-public class BatBuckets extends CharmonyFeature implements IWandererTradeProvider {
+public class BatBuckets extends CommonFeature implements IWandererTradeProvider {
     static Supplier<BatBucketItem> bucketItem;
     private static Supplier<SoundEvent> grabSound;
     private static Supplier<SoundEvent> releaseSound;
     static final int GLOW_TIME = 10; // In seconds.
 
     @Override
+    public String description() {
+        return """
+            Right-click a bat with a bucket to capture it.
+            Right-click again to release it and locate entities around you.""";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         bucketItem = registry.item("bat_bucket", () -> new BatBucketItem(this));
         grabSound = registry.soundEvent("bat_bucket_grab");
@@ -120,10 +126,10 @@ public class BatBuckets extends CharmonyFeature implements IWandererTradeProvide
     }
 
     public static void triggerCapturedBat(Player player) {
-        Advancements.trigger(Charm.instance().makeId("captured_bat"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "captured_bat"), player);
     }
 
     public static void triggerUsedBatBucket(Player player) {
-        Advancements.trigger(Charm.instance().makeId("used_bat_bucket"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "used_bat_bucket"), player);
     }
 }

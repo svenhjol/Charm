@@ -66,7 +66,7 @@ public class FindMushroomGoal extends Goal {
         var tick = PigsFindMushrooms.PIG_ANIMATION_TICKS.getOrDefault(uuid, 0);
         pig.getNavigation().stop();
 
-        if (tick != adjustedTickDelay(4)) {
+        if (tick > 4) {
             return;
         }
 
@@ -77,7 +77,7 @@ public class FindMushroomGoal extends Goal {
                 level.levelEvent(2001, pos, Block.getId(Blocks.DIRT.defaultBlockState()));
             }
             var stack = new ItemStack(random.nextBoolean() ? Items.RED_MUSHROOM : Items.BROWN_MUSHROOM, 1);
-            level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack));
+            level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5d, pos.getY() + 0.5d, pos.getZ() + 0.5d, stack));
             level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 1.0f, 1.0f);
 
             PigsFindMushrooms.triggerUnearthedMushroom(level, pos);

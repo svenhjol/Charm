@@ -8,8 +8,8 @@ import svenhjol.charm.Charm;
  */
 public interface ICharmReiPlugin {
     CategoryIdentifier<WoodcuttingDisplay> WOODCUTTING
-        = CategoryIdentifier.of(Charm.MOD_ID, "plugins/woodcutting");
+        = CategoryIdentifier.of(Charm.ID, "plugins/woodcutting");
 
     CategoryIdentifier<FiringDisplay> FIRING
-        = CategoryIdentifier.of(Charm.MOD_ID, "plugins/firing");
+        = CategoryIdentifier.of(Charm.ID, "plugins/firing");
 }

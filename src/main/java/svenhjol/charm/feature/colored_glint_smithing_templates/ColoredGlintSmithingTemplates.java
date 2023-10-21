@@ -14,8 +14,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.feature.colored_glints.ColoredGlints;
 import svenhjol.charmony_api.event.LootTableModifyEvent;
@@ -27,10 +26,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Smithing template that changes the glint color of any enchanted item.")
-public class ColoredGlintSmithingTemplates extends CharmonyFeature {
+public class ColoredGlintSmithingTemplates extends CommonFeature {
     public static final String ITEM_ID = "colored_glint_smithing_template";
-
     static List<ResourceLocation> emptyDyes = new ArrayList<>();
     public static Supplier<Item> item;
 
@@ -47,14 +44,19 @@ public class ColoredGlintSmithingTemplates extends CharmonyFeature {
     public static double lootChance = 1.0D;
 
     @Override
+    public String description() {
+        return "Smithing template that changes the glint color of any enchanted item.";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
 
         emptyDyes.addAll(List.of(
-            Charm.instance().makeId("item/empty_dye_01"),
-            Charm.instance().makeId("item/empty_dye_02"),
-            Charm.instance().makeId("item/empty_dye_03"),
-            Charm.instance().makeId("item/empty_dye_04")
+            mod().id("item/empty_dye_01"),
+            mod().id("item/empty_dye_02"),
+            mod().id("item/empty_dye_03"),
+            mod().id("item/empty_dye_04")
         ));
 
         item = registry.item(ITEM_ID,
@@ -139,6 +141,6 @@ public class ColoredGlintSmithingTemplates extends CharmonyFeature {
     }
 
     public static void triggerAppliedColoredGlintTemplate(Player player) {
-        Advancements.trigger(Charm.instance().makeId("applied_colored_glint_template"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "applied_colored_glint_template"), player);
     }
 }

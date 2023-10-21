@@ -1,13 +1,10 @@
 package svenhjol.charm.feature.extra_recipes;
 
-import svenhjol.charm.Charm;
-import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
+import svenhjol.charmony_api.CharmonyApi;
 
-@Feature(mod = Charm.MOD_ID, description = "More ways to craft items using different materials.")
-public class ExtraRecipes extends CharmonyFeature {
+public class ExtraRecipes extends CommonFeature {
     @Configurable(name = "Ore block from raw ore block", description = "If true, adds a blast furnace recipe for smelting raw ore blocks into ore blocks.")
     public static boolean rawOreBlocks = true;
 
@@ -40,6 +37,11 @@ public class ExtraRecipes extends CharmonyFeature {
 
     @Configurable(name = "Bundle from leather", description = "If true, adds a recipe for crafting bundles from leather.")
     public static boolean bundle = true;
+
+    @Override
+    public String description() {
+        return "More ways to craft items using different materials.";
+    }
 
     @Override
     public void register() {

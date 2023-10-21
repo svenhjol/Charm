@@ -3,24 +3,26 @@ package svenhjol.charm.feature.redstone_sand;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
-import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "A block that acts like sand but is powered like a block of redstone.")
-public class RedstoneSand extends CharmonyFeature implements IWandererTradeProvider {
+public class RedstoneSand extends CommonFeature implements IWandererTradeProvider {
     private static final String ID = "redstone_sand";
     static Supplier<Block> block;
     static Supplier<Item> blockItem;
 
     @Override
+    public String description() {
+        return "A block that acts like sand but is powered like a block of redstone.";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
         block = registry.block(ID, RedstoneSandBlock::new);
         blockItem = registry.item(ID, RedstoneSandBlock.BlockItem::new);
     }

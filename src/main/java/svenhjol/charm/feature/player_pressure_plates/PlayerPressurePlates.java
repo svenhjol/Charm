@@ -1,24 +1,26 @@
 package svenhjol.charm.feature.player_pressure_plates;
 
 import net.minecraft.world.level.ItemLike;
-import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.iface.IWandererTrade;
 import svenhjol.charmony_api.iface.IWandererTradeProvider;
-import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-@Feature(mod = Charm.MOD_ID, description = "Player-only pressure plates crafted using gilded blackstone.")
-public class PlayerPressurePlates extends CharmonyFeature implements IWandererTradeProvider {
+public class PlayerPressurePlates extends CommonFeature implements IWandererTradeProvider {
     static final String ID = "player_pressure_plate";
     static Supplier<PlayerPressurePlateBlock> block;
     static Supplier<PlayerPressurePlateBlock.BlockItem> blockItem;
 
     @Override
+    public String description() {
+        return "Player-only pressure plates crafted using gilded blackstone.";
+    }
+
+    @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = mod().registry();
         block = registry.block(ID, () -> new PlayerPressurePlateBlock(this));
         blockItem = registry.item(ID, () -> new PlayerPressurePlateBlock.BlockItem(this, block));
     }

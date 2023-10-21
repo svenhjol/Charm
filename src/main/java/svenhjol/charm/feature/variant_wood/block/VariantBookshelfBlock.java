@@ -4,6 +4,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.variant_wood.VariantWood;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony_api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmonyBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
@@ -24,7 +25,7 @@ public class VariantBookshelfBlock extends Block implements IIgniteProvider {
     }
 
     static VariantWood getParent() {
-        return Charm.instance().loader().get(VariantWood.class).orElseThrow();
+        return Mods.common(Charm.ID).loader().get(VariantWood.class).orElseThrow();
     }
 
     @Override

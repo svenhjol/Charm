@@ -2,13 +2,10 @@ package svenhjol.charm.feature.extra_stackables;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@Feature(mod = Charm.MOD_ID, description = "Allows some unstackable items to stack.")
-public class ExtraStackables extends CharmonyFeature {
+public class ExtraStackables extends CommonFeature {
     @Configurable(name = "Enchanted book", description = "Enchanted book maximum stack size.")
     public static int enchantedBookStackSize = 16;
 
@@ -26,6 +23,11 @@ public class ExtraStackables extends CharmonyFeature {
 
     @Configurable(name = "Suspicious stew", description = "Suspicious stew maximum stack size.")
     public static int suspiciousStewStackSize = 1;
+
+    @Override
+    public String description() {
+        return "Allows some unstackable items to stack.";
+    }
 
     @Override
     public void register() {

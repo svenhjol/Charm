@@ -67,29 +67,21 @@ import svenhjol.charm.feature.variant_pistons.VariantPistons;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.villagers_follow_emerald_blocks.VillagersFollowEmeraldBlocks;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
-import svenhjol.charmony.base.CharmonyFeature;
-import svenhjol.charmony.base.DefaultMod;
+import svenhjol.charmony.common.CommonFeature;
+import svenhjol.charmony.common.CommonMod;
 
 import java.util.List;
 
-public class Charm extends DefaultMod {
-    public static final String MOD_ID = "charm";
-    private static Charm instance;
-
-    public static Charm instance() {
-        if (instance == null) {
-            instance = new Charm();
-        }
-        return instance;
-    }
+public class Charm extends CommonMod {
+    public static final String ID = "charm";
 
     @Override
     public String modId() {
-        return MOD_ID;
+        return ID;
     }
 
     @Override
-    public List<Class<? extends CharmonyFeature>> features() {
+    public List<Class<? extends CommonFeature>> features() {
         return List.of(
             AerialAffinity.class,
             AmethystNoteBlock.class,

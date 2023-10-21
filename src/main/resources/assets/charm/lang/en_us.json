@@ -222,7 +222,7 @@
   "category.rei.charm.woodcutting": "Wood Cutting",
   "cloth.charm.title": "Charm configuration",
   "cloth.category.charm.title": "Charm",
-  "cloth.category.charm.feature_enabled": "Feature enabled",
+  "cloth.category.charm.feature_enabled": "%s enabled",
   "container.charm.kiln": "Kiln",
   "container.charm.woodcutter": "Woodcutter",
   "container.charm.portable_crafting_table": "Portable Crafting",

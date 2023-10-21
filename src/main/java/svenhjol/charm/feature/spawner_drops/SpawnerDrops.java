@@ -15,24 +15,26 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.BlockBreakEvent;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Feature(mod = Charm.MOD_ID, description = "Spawners drop mob-related items when broken.")
-public class SpawnerDrops extends CharmonyFeature {
+public class SpawnerDrops extends CommonFeature {
     static final int ITEMS_PER_STACK = 64;
     static final Table<TagKey<EntityType<?>>, Item, Integer> DROP_TYPES = HashBasedTable.create();
 
     @Configurable(name = "Peaceful only", description = "Spawners only drop items when the game difficulty is set to peaceful.")
     public static boolean onlyPeaceful = true;
+
+    @Override
+    public String description() {
+        return "Spawners drop mob-related items when broken.";
+    }
 
     @Override
     public void register() {

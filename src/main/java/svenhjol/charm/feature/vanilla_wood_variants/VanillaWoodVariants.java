@@ -1,8 +1,6 @@
 package svenhjol.charm.feature.vanilla_wood_variants;
 
-import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.enums.VanillaWood;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.iface.*;
@@ -10,28 +8,19 @@ import svenhjol.charmony_api.iface.*;
 import java.util.LinkedList;
 import java.util.List;
 
-@Feature(mod = Charm.MOD_ID, description = "Barrels, bookcases, chests and ladders in all vanilla wood types.")
-public class VanillaWoodVariants extends CharmonyFeature implements
+public class VanillaWoodVariants extends CommonFeature implements
     IVariantBarrelProvider,
     IVariantBookshelfProvider,
     IVariantChestProvider,
-    IVariantChestBoatProvider,
     IVariantChiseledBookshelfProvider,
     IVariantLadderProvider
 {
     private static final List<IVariantMaterial> TYPES = new LinkedList<>(VanillaWood.getTypes());
 
-    private static final List<IVariantChestBoatDefinition> CHEST_BOAT_DEFINITIONS = List.of(
-        new ChestBoatDefinitions.Acacia(),
-        new ChestBoatDefinitions.Bamboo(),
-        new ChestBoatDefinitions.Birch(),
-        new ChestBoatDefinitions.Cherry(),
-        new ChestBoatDefinitions.DarkOak(),
-        new ChestBoatDefinitions.Jungle(),
-        new ChestBoatDefinitions.Mangrove(),
-        new ChestBoatDefinitions.Oak(),
-        new ChestBoatDefinitions.Spruce()
-    );
+    @Override
+    public String description() {
+        return "Barrels, bookcases, chests and ladders in all vanilla wood types.";
+    }
 
     @Override
     public void register() {
@@ -51,11 +40,6 @@ public class VanillaWoodVariants extends CharmonyFeature implements
     @Override
     public List<IVariantMaterial> getVariantChests() {
         return TYPES;
-    }
-
-    @Override
-    public List<IVariantChestBoatDefinition> getVariantChestBoatDefinitions() {
-        return CHEST_BOAT_DEFINITIONS;
     }
 
     @Override

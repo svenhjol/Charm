@@ -6,11 +6,15 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.common.CommonFeature;
 
-@Feature(mod = Charm.MOD_ID, canBeDisabled = false)
-public class VariantPistons extends CharmonyFeature {
+public class VariantPistons extends CommonFeature {
+    @Override
+    public boolean canBeDisabled() {
+        return false;
+    }
+
     public static boolean alsoCheckTags(BlockState state, Block block) {
         var defaultState = block.defaultBlockState();
         boolean found = false;
@@ -39,7 +43,7 @@ public class VariantPistons extends CharmonyFeature {
     }
 
     public static void debug(String message) {
-        var log = Charm.instance().log();
+        var log = Mods.common(Charm.ID).log();
         log.debug(VariantPistons.class, message);
     }
 }

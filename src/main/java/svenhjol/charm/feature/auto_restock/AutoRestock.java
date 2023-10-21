@@ -7,20 +7,24 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony_api.event.PlayerTickEvent;
-import svenhjol.charmony.base.CharmonyFeature;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
-@Feature(mod = Charm.MOD_ID, description = "Refills hotbar from your inventory.")
-public class AutoRestock extends CharmonyFeature {
+public class AutoRestock extends CommonFeature {
     // Remember which items were in our hands and how often they were used.
     private final Map<Player, EnumMap<InteractionHand, StackData>> handCache = new WeakHashMap<>();
+
+    @Override
+    public String description() {
+        return "Refills hotbar from your inventory.";
+    }
 
     @Override
     public void runWhenEnabled() {
@@ -90,6 +94,6 @@ public class AutoRestock extends CharmonyFeature {
     }
 
     public static void triggerRestockedCurrentItem(Player player) {
-        Advancements.trigger(Charm.instance().makeId("restocked_current_item"), player);
+        Advancements.trigger(Mods.common(Charm.ID).id("restocked_current_item"), player);
     }
 }

@@ -4,16 +4,20 @@ import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.longer_suspicious_effects.LongerSuspiciousEffects;
 import svenhjol.charmony.annotation.Configurable;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.common.CommonFeature;
 
-@Feature(mod = Charm.MOD_ID, description = "Suspicious stews can be crafted from pitcher plants and sunflowers.")
-public class ExtraStews extends CharmonyFeature {
+public class ExtraStews extends CommonFeature {
     @Configurable(name = "Pitcher plant effect duration", description = "Number of seconds of strength and regeneration from a pitcher plant.")
     public static int pitcherPlantEffectDuration = 8;
 
     @Configurable(name = "Sunflower effect duration", description = "Number of seconds of health boost from a sunflower.")
     public static int sunflowerEffectDuration = 8;
+
+    @Override
+    public String description() {
+        return "Suspicious stews can be crafted from pitcher plants and sunflowers.";
+    }
 
     public static int getPitcherPlantEffectDuration() {
         return pitcherPlantEffectDuration * getMultiplier();
@@ -24,7 +28,7 @@ public class ExtraStews extends CharmonyFeature {
     }
 
     private static int getMultiplier() {
-        return Charm.instance().loader().isEnabled(new ResourceLocation("charm:longer_suspicious_effects"))
+        return Mods.common(Charm.ID).loader().isEnabled(new ResourceLocation("charm:longer_suspicious_effects"))
             ? LongerSuspiciousEffects.effectMultiplier
             : 1;
     }

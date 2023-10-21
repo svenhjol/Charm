@@ -10,14 +10,16 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
-import svenhjol.charm.Charm;
-import svenhjol.charmony.annotation.Feature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.EntityAttackEvent;
 import svenhjol.charmony_api.event.EntityHurtEvent;
-import svenhjol.charmony.base.CharmonyFeature;
 
-@Feature(mod = Charm.MOD_ID, description = "Tamed animals do not take direct damage from players.")
-public class NoPetDamage extends CharmonyFeature {
+public class NoPetDamage extends CommonFeature {
+    @Override
+    public String description() {
+        return "Tamed animals do not take direct damage from players.";
+    }
+
     @Override
     public void runWhenEnabled() {
         EntityAttackEvent.INSTANCE.handle(this::handleEntityAttack);

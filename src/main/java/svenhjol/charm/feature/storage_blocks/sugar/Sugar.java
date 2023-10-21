@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.storage_blocks.sugar;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -9,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
+import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.PlayerHelper;
 import svenhjol.charmony_api.enums.EventResult;
@@ -33,7 +35,7 @@ public class Sugar implements IStorageBlockFeature {
 
     @Override
     public void register() {
-        var registry = Charm.instance().registry();
+        var registry = Mods.common(Charm.ID).registry();
         block = registry.block(ID, SugarBlock::new);
         item = registry.item(ID, SugarBlock.BlockItem::new);
         dissolveSound = registry.soundEvent("sugar_dissolve");
@@ -58,6 +60,6 @@ public class Sugar implements IStorageBlockFeature {
 
     static void triggerDissolvedSugar(ServerLevel level, BlockPos pos) {
         PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(
-            player -> Advancements.trigger(Charm.instance().makeId("dissolved_sugar"), player));
+            player -> Advancements.trigger(new ResourceLocation(Charm.ID, "dissolved_sugar"), player));
     }
 }

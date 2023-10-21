@@ -2,15 +2,18 @@ package svenhjol.charm.feature.redstone_sand;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.CharmClient;
-import svenhjol.charmony.annotation.ClientFeature;
-import svenhjol.charmony.base.CharmonyFeature;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 
-@ClientFeature(mod = CharmClient.MOD_ID, feature = RedstoneSand.class)
-public class RedstoneSandClient extends CharmonyFeature {
+public class RedstoneSandClient extends ClientFeature {
+    @Override
+    public Class<? extends CommonFeature> commonFeature() {
+        return RedstoneSand.class;
+    }
+
     @Override
     public void runWhenEnabled() {
-        CharmClient.instance().registry().itemTab(
+        mod().registry().itemTab(
             RedstoneSand.block,
             CreativeModeTabs.REDSTONE_BLOCKS,
             Items.REDSTONE_BLOCK

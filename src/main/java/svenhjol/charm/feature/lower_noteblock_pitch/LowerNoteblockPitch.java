@@ -8,13 +8,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.phys.BlockHitResult;
-import svenhjol.charm.Charm;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.BlockUseEvent;
-import svenhjol.charmony.annotation.Feature;
-import svenhjol.charmony.base.CharmonyFeature;
 
-@Feature(mod = Charm.MOD_ID, description = "Use a noteblock while sneaking to lower its pitch by one semitone.")
-public class LowerNoteblockPitch extends CharmonyFeature {
+public class LowerNoteblockPitch extends CommonFeature {
+    @Override
+    public String description() {
+        return "Use a noteblock while sneaking to lower its pitch by one semitone.";
+    }
+
     @Override
     public void runWhenEnabled() {
         BlockUseEvent.INSTANCE.handle(this::handleUseBlock);
