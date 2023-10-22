@@ -41,7 +41,7 @@
     "parrots_stay_on_shoulder.PlayerMixin",
     "pigs_find_mushrooms.PigMixin",
     "revive_pets.NameTagItemMixin",
-    "storage_blocks.ChorusFruitItemMixin",
+    "chorus_teleport.ChorusFruitItemMixin",
     "stronger_anvils.AnvilBlockMixin",
     "torchflowers_emit_light.BlockBehaviourPropertiesMixin",
     "totem_of_preserving.ExplosionMixin",

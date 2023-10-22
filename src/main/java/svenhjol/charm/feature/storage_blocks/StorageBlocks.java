@@ -39,10 +39,6 @@ public class StorageBlocks extends CommonFeature {
         description = "If true, ender pearl blocks will convert silverfish to endermites.")
     public static boolean enderPearlBlocksConvertSilverfish = true;
 
-    @Configurable(name = "Ender pearl block is teleport location",
-        description = "If true, eating a chorus fruit within 8 blocks of an ender pearl block will teleport the player to it.")
-    public static boolean enderPearlBlocksAreTeleportLocation = true;
-
 
     @Override
     public void register() {

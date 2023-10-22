@@ -1,0 +1,31 @@
+{
+  "parent": "charm:endermite_powder/obtain_endermite_powder",
+  "display": {
+    "icon": {
+      "item": "charm:chiseled_arcane_purpur_block"
+    },
+    "title": {
+      "translate": "advancements.charm.teleport_to_block.title"
+    },
+    "description": {
+      "translate": "advancements.charm.teleport_to_block.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "teleported_to_block": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:teleported_to_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "teleported_to_block"
+    ]
+  ]
+}

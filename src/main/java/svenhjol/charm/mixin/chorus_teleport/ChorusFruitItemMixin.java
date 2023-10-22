@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.storage_blocks;
+package svenhjol.charm.mixin.chorus_teleport;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ChorusFruitItem;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.storage_blocks.ender_pearls.EnderPearls;
+import svenhjol.charm.feature.chorus_teleport.ChorusTeleport;
 
 @Mixin(ChorusFruitItem.class)
 public class ChorusFruitItemMixin {
@@ -18,7 +18,7 @@ public class ChorusFruitItemMixin {
         cancellable = true
     )
     private void hookFinishUsing(ItemStack stack, Level world, LivingEntity entity, CallbackInfoReturnable<ItemStack> cir) {
-        if (EnderPearls.tryChorusTeleport(entity, stack)) {
+        if (ChorusTeleport.tryChorusTeleport(entity, stack)) {
             cir.setReturnValue(stack);
         }
     }

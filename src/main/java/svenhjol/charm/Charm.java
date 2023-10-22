@@ -12,6 +12,7 @@ import svenhjol.charm.feature.beacons_heal_mobs.BeaconsHealMobs;
 import svenhjol.charm.feature.beekeepers.Beekeepers;
 import svenhjol.charm.feature.campfires_boost_health.CampfiresBoostHealth;
 import svenhjol.charm.feature.chairs.Chairs;
+import svenhjol.charm.feature.chorus_teleport.ChorusTeleport;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFrames;
 import svenhjol.charm.feature.collection.Collection;
 import svenhjol.charm.feature.colored_glint_smithing_templates.ColoredGlintSmithingTemplates;
@@ -96,6 +97,7 @@ public class Charm extends CommonMod {
             Beekeepers.class,
             CampfiresBoostHealth.class,
             Chairs.class,
+            ChorusTeleport.class,
             ClearItemFrames.class,
             Collection.class,
             ColoredGlintSmithingTemplates.class,
