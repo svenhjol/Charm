@@ -3,6 +3,7 @@
 ## 6.0.10
 
 - Add Arcane Purpur blocks
+- Add Chorus Teleport feature (migrate from Ender pearl blocks)
 - Fix grave mode not dropping a totem when only one item in inventory
 - Fix modmenu reloading settings that don't need reloading
 - Add missing description to PathConversion
