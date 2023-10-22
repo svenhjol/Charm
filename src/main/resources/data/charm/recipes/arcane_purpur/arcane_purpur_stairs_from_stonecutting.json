@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "charm:arcane_purpur_block"
+  },
+  "result": "charm:arcane_purpur_stairs"
+}

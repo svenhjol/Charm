@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:purpur_block"
+    },
+    "E": {
+      "item": "charm:endermite_powder"
+    }
+  },
+  "pattern": [
+    "###",
+    "#E#",
+    "###"
+  ],
+  "result": {
+    "item": "charm:arcane_purpur_block",
+    "count": 8
+  },
+  "show_notification": true
+}

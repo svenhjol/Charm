@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "charm:arcane_purpur_block",
+    "charm:arcane_purpur_slab",
+    "charm:arcane_purpur_stairs",
     "charm:copper_piston",
     "charm:copper_piston_head",
     "charm:ender_pearl_block",

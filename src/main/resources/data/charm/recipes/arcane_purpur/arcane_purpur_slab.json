@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "charm:arcane_purpur_block"
+    }
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "item": "charm:arcane_purpur_slab",
+    "count": 6
+  },
+  "show_notification": true
+}

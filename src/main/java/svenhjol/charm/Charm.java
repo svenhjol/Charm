@@ -2,6 +2,7 @@ package svenhjol.charm;
 
 import svenhjol.charm.feature.aerial_affinity.AerialAffinity;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
+import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.auto_recipe_unlock.AutoRecipeUnlock;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
@@ -85,6 +86,7 @@ public class Charm extends CommonMod {
         return List.of(
             AerialAffinity.class,
             AmethystNoteBlock.class,
+            ArcanePurpur.class,
             Atlases.class,
             AutoRecipeUnlock.class,
             AutoRestock.class,

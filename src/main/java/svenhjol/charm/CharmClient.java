@@ -1,5 +1,6 @@
 package svenhjol.charm;
 
+import svenhjol.charm.feature.arcane_purpur.ArcanePurpurClient;
 import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.azalea_wood.AzaleaWoodClient;
 import svenhjol.charm.feature.bat_buckets.BatBucketsClient;
@@ -46,6 +47,7 @@ public class CharmClient extends ClientMod {
     @Override
     public List<Class<? extends ClientFeature>> features() {
         return List.of(
+            ArcanePurpurClient.class,
             AtlasesClient.class,
             AzaleaWoodClient.class,
             BatBucketsClient.class,
