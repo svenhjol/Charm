@@ -34,8 +34,7 @@ public class ArcanePurpur extends CommonFeature {
         return """
             Arcane Purpur is a decorative block made from Purpur and Endermite Powder.
             If the ChorusTeleport feature is enabled, a Chiseled Arcane Purpur block
-            allows teleportation when a chorus fruit is eaten within range of the block.
-            """;
+            allows teleportation when a chorus fruit is eaten within range of the block.""";
     }
 
     @Override
