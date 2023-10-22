@@ -21,6 +21,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChorusTeleport extends CommonFeature {
+    @Override
+    public String description() {
+        return """
+            Eating a chorus fruit within range of a chiseled arcane purpur block teleports the player to the block.
+            """;
+    }
+
     @Configurable(
         name = "Range",
         description = "Range (in blocks) in which a player will be teleported."
