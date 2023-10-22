@@ -21,7 +21,7 @@ import java.util.*;
  * ModMenuConfig v1.0.0
  */
 public class CharmModMenuPlugin implements ModMenuApi {
-    public ICommonMod charm() {
+    public ICommonMod mod() {
         return Mods.common(Charm.ID);
     }
 
@@ -30,15 +30,15 @@ public class CharmModMenuPlugin implements ModMenuApi {
     }
 
     public ILog log() {
-        return charm().log();
+        return mod().log();
     }
 
     public CharmonyConfig config() {
-        return (CharmonyConfig) charm().config();
+        return (CharmonyConfig) mod().config();
     }
 
     public List<? extends DefaultFeature> getFeatures() {
-        return charm().loader().getFeatures();
+        return mod().loader().getFeatures();
     }
 
     @SuppressWarnings("unchecked")
