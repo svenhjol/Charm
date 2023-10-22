@@ -20,8 +20,8 @@ public class CharmTags {
     public static final TagKey<Block> CHISELED_BOOKSHELVES = TagKey.create(BLOCK_KEY,
         new ResourceLocation(Charm.ID, "chiseled_bookshelves"));
 
-    public static final TagKey<Block> CHORUS_TELEPORT_BLOCKS = TagKey.create(BLOCK_KEY,
-        new ResourceLocation(Charm.ID, "chorus_teleport_blocks"));
+    public static final TagKey<Block> CHORUS_TELEPORT = TagKey.create(BLOCK_KEY,
+        new ResourceLocation(Charm.ID, "chorus_teleport"));
 
     public static final TagKey<Item> COLORED_DYES = TagKey.create(ITEM_KEY,
         new ResourceLocation(Charm.ID, "colored_dyes"));
