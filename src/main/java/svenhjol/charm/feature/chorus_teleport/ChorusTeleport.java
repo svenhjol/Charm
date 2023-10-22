@@ -53,7 +53,7 @@ public class ChorusTeleport extends CommonFeature {
             var state = level.getBlockState(p);
 
             // Must be a valid chorus teleport block.
-            if (!state.is(CharmTags.CHORUS_TELEPORT)) {
+            if (!state.is(CharmTags.CHORUS_TELEPORTS)) {
                 return;
             }
 
