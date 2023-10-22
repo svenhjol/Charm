@@ -175,8 +175,10 @@ public class TotemItem extends CharmonyItem {
         ItemNbtHelper.setBoolean(totem, GLINT_TAG, flag);
         ColoredGlints.applyColoredGlint(totem, DyeColor.CYAN);
     }
-
-    public static void setDamage(ItemStack totem, int damage) {
+    /**
+     * This has to be called something other than setDamage or it collides with a Forge interface..
+     */
+    public static void setTotemDamage(ItemStack totem, int damage) {
         totem.setDamageValue(damage);
     }
 

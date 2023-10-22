@@ -106,7 +106,7 @@ public class TotemBlock extends CharmonyBlockWithEntity {
 
             TotemItem.setItems(totemItem, totem.getItems());
             TotemItem.setMessage(totemItem, totem.getMessage());
-            TotemItem.setDamage(totemItem, totem.getDamage());
+            TotemItem.setTotemDamage(totemItem, totem.getDamage());
             TotemItem.setGlint(totemItem, true);
 
             log.debug(getClass(), "Adding totem item to player's inventory: " + player);
