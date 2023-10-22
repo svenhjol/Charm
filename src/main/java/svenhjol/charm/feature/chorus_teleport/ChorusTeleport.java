@@ -24,8 +24,7 @@ public class ChorusTeleport extends CommonFeature {
     @Override
     public String description() {
         return """
-            Eating a chorus fruit within range of a chiseled arcane purpur block teleports the player to the block.
-            """;
+            Eating a chorus fruit within range of a chiseled arcane purpur block teleports the player to the block.""";
     }
 
     @Configurable(
