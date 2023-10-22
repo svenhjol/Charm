@@ -1,10 +1,8 @@
 package svenhjol.charm.feature.extra_portal_frames;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.portal.PortalShape;
+import svenhjol.charm.CharmTags;
 import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.helper.ConfigHelper;
 
@@ -12,8 +10,6 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 
 public class ExtraPortalFrames extends CommonFeature {
-    public static TagKey<Block> NETHER_PORTAL_FRAMES;
-
     @Override
     public String description() {
         return """
@@ -27,16 +23,11 @@ public class ExtraPortalFrames extends CommonFeature {
     }
 
     @Override
-    public void register() {
-        NETHER_PORTAL_FRAMES = TagKey.create(BuiltInRegistries.BLOCK.key(), mod().id("nether_portal_frames"));
-    }
-
-    @Override
     public void runWhenEnabled() {
         PortalShape.FRAME = (blockState, blockView, blockPos) -> isValidBlockState(blockState);
     }
 
     public static boolean isValidBlockState(BlockState state) {
-        return state.is(NETHER_PORTAL_FRAMES);
+        return state.is(CharmTags.NETHER_PORTAL_FRAMES);
     }
 }

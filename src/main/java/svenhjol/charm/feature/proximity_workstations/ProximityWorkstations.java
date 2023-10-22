@@ -6,7 +6,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -14,6 +13,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
+import svenhjol.charm.CharmTags;
 import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenSpecificWorkstation;
 import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenWorkstationSelector;
 import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenWorkstationSelectorScreen;
@@ -36,7 +36,6 @@ public class ProximityWorkstations extends CommonFeature {
     static final Component ANVIL_MENU_TITLE = Component.translatable("container.repair");
     static final Component STONECUTTER_MENU_TITLE = Component.translatable("container.stonecutter");
     static final Component ENCHANTMENT_MENU_TITLE = Component.translatable("container.enchant");
-    static TagKey<Block> validWorkstations;
 
     @Configurable(name = "Distance", description = "Range from which player can access a workstation.")
     public static int distance = 10;
@@ -49,9 +48,6 @@ public class ProximityWorkstations extends CommonFeature {
     @Override
     public void register() {
         ProximityWorkstationsNetwork.register();
-
-        validWorkstations = TagKey.create(BuiltInRegistries.BLOCK.key(),
-            mod().id("proximity_workstations"));
 
         registerBlockMenu(Blocks.CRAFTING_TABLE, pos -> new SimpleMenuProvider(
             (i, inv, p) -> new ProximityCraftingMenu(i, inv,
@@ -93,7 +89,7 @@ public class ProximityWorkstations extends CommonFeature {
             || !WORKSTATIONS_IN_RANGE.containsKey(uuid)
         ) {
             Map<Block, BlockPos> workstations = new LinkedHashMap<>();
-            TagHelper.getValues(BuiltInRegistries.BLOCK, validWorkstations).forEach(
+            TagHelper.getValues(BuiltInRegistries.BLOCK, CharmTags.PROXIMITY_WORKSTATIONS).forEach(
                 workstation -> {
                     var existingBlocks = workstations.keySet();
                     var result = BlockPos.findClosestMatch(pos, distance, distance, p -> level.getBlockState(p).is(workstation));

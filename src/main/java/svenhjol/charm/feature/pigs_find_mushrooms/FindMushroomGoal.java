@@ -12,6 +12,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import svenhjol.charm.CharmTags;
 
 public class FindMushroomGoal extends Goal {
     private final Pig pig;
@@ -24,7 +25,7 @@ public class FindMushroomGoal extends Goal {
 
     private boolean isValidBlock(BlockPos pos) {
         var state = level.getBlockState(pos);
-        return state.is(PigsFindMushrooms.validBlocks);
+        return state.is(CharmTags.PIGS_FIND_MUSHROOMS);
     }
 
     @Override

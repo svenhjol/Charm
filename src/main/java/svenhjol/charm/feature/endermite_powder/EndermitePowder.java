@@ -1,9 +1,7 @@
 package svenhjol.charm.feature.endermite_powder;
 
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -14,7 +12,6 @@ import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.levelgen.structure.Structure;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
@@ -31,8 +28,6 @@ public class EndermitePowder extends CommonFeature implements IWandererTradeProv
     static Supplier<EntityType<EndermitePowderEntity>> entity;
     static Supplier<EndermitePowderItem> item;
     static Supplier<SoundEvent> launchSound;
-    public static final TagKey<Structure> ENDERMITE_POWDER_LOCATED = TagKey.create(Registries.STRUCTURE,
-        new ResourceLocation(Charm.ID, "endermite_powder_located"));
 
     @Override
     public String description() {

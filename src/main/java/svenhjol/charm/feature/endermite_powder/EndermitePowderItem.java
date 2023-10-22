@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.CharmTags;
 import svenhjol.charmony.base.CharmonyItem;
 import svenhjol.charmony.common.CommonFeature;
 
@@ -41,7 +42,7 @@ public class EndermitePowderItem extends CharmonyItem {
         } else {
             var serverLevel = (ServerLevel)level;
             var serverPlayer = (ServerPlayer)player;
-            var pos = serverLevel.findNearestMapStructure(EndermitePowder.ENDERMITE_POWDER_LOCATED, player.blockPosition(), 1500, false);
+            var pos = serverLevel.findNearestMapStructure(CharmTags.ENDERMITE_POWDER_LOCATED, player.blockPosition(), 1500, false);
             if (pos != null) {
                 var entity = new EndermitePowderEntity(level, pos.getX(), pos.getZ());
                 var look = player.getLookAngle();

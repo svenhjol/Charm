@@ -1,15 +1,12 @@
 package svenhjol.charm.feature.pigs_find_mushrooms;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.common.CommonFeature;
@@ -26,7 +23,6 @@ public class PigsFindMushrooms extends CommonFeature {
      * Tracks the animation ticks for a pig UUID.
      */
     public static final WeakHashMap<UUID, Integer> PIG_ANIMATION_TICKS = new WeakHashMap<>();
-    public static TagKey<Block> validBlocks;
     public static Supplier<SoundEvent> sniffingSound;
 
     @Configurable(
@@ -51,8 +47,6 @@ public class PigsFindMushrooms extends CommonFeature {
     @Override
     public void register() {
         sniffingSound = mod().registry().soundEvent("pig_sniffing");
-        validBlocks = TagKey.create(BuiltInRegistries.BLOCK.key(),
-            mod().id("pigs_find_mushrooms"));
     }
 
     @Override

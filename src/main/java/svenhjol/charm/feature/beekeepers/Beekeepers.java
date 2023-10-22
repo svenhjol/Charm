@@ -1,13 +1,10 @@
 package svenhjol.charm.feature.beekeepers;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.common.CommonFeature;
@@ -20,8 +17,6 @@ import java.util.function.Supplier;
 public class Beekeepers extends CommonFeature {
     private static final String VILLAGER_ID = "beekeeper";
     private static final String BLOCK_ID = "minecraft:beehive";
-    static final TagKey<Item> BEEKEEPER_SELLS_FLOWERS = TagKey.create(BuiltInRegistries.ITEM.key(),
-        new ResourceLocation(Charm.ID, "beekeeper_sells_flowers"));
     public static Supplier<VillagerProfession> profession;
 
     @Override

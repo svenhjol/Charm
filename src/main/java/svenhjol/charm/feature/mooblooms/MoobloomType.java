@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.LevelAccessor;
 import svenhjol.charm.Charm;
+import svenhjol.charm.CharmTags;
 
 import java.util.List;
 
@@ -68,9 +69,9 @@ public enum MoobloomType {
         List<MoobloomType> types;
         var biome = level.getBiome(pos);
 
-        if (biome.is(Mooblooms.SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS)) {
+        if (biome.is(CharmTags.SPAWNS_CHERRY_BLOSSOM_MOOBLOOMS)) {
             types = List.of(MoobloomType.CHERRY_BLOSSOM);
-        } else if (biome.is(Mooblooms.SPAWNS_SUNFLOWER_MOOBLOOMS)) {
+        } else if (biome.is(CharmTags.SPAWNS_SUNFLOWER_MOOBLOOMS)) {
             types = List.of(MoobloomType.SUNFLOWER);
         } else {
             types = MoobloomType.COMMON_TYPES;

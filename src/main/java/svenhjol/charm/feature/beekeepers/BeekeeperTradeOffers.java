@@ -15,6 +15,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
+import svenhjol.charm.CharmTags;
 import svenhjol.charmony.helper.GenericTradeOffers;
 import svenhjol.charmony.helper.TagHelper;
 import svenhjol.charmony.helper.TextHelper;
@@ -46,7 +47,7 @@ public class BeekeeperTradeOffers {
         @Override
         public MerchantOffer getOffer(Entity merchant, RandomSource random) {
             var registryAccess = merchant.level().registryAccess();
-            var tag = Beekeepers.BEEKEEPER_SELLS_FLOWERS;
+            var tag = CharmTags.BEEKEEPER_SELLS_FLOWERS;
             var flowers = TagHelper.getValues(registryAccess.registryOrThrow(tag.registry()), tag);
             var index = random.nextInt(flowers.size());
             var flower = flowers.get(index);
