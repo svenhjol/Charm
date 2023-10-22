@@ -30,7 +30,8 @@ public class ChorusTeleport extends CommonFeature {
 
     @Configurable(
         name = "Range",
-        description = "Range (in blocks) in which a player will be teleported."
+        description = "Range (in blocks) in which a player will be teleported.",
+        requireRestart = false
     )
     public static int range = 8;
 
