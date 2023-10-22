@@ -16,17 +16,37 @@ public class ArcanePurpurClient extends ClientFeature {
         var registry = mod().registry();
 
         registry.itemTab(
-            ArcanePurpur.arcanePurpurSlab,
+            ArcanePurpur.chiseledGlyphBlock,
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.PURPUR_SLAB
         );
         registry.itemTab(
-            ArcanePurpur.arcanePurpurStairs,
+            ArcanePurpur.chiseledBlock,
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.PURPUR_SLAB
         );
         registry.itemTab(
-            ArcanePurpur.arcanePurpurBlock,
+            ArcanePurpur.glyphBlock,
+            CreativeModeTabs.BUILDING_BLOCKS,
+            Items.PURPUR_SLAB
+        );
+        registry.itemTab(
+            ArcanePurpur.block,
+            CreativeModeTabs.BUILDING_BLOCKS,
+            Items.PURPUR_SLAB
+        );
+        registry.itemTab(
+            ArcanePurpur.slab,
+            CreativeModeTabs.BUILDING_BLOCKS,
+            Items.PURPUR_SLAB
+        );
+        registry.itemTab(
+            ArcanePurpur.stairs,
+            CreativeModeTabs.BUILDING_BLOCKS,
+            Items.PURPUR_SLAB
+        );
+        registry.itemTab(
+            ArcanePurpur.block,
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.PURPUR_SLAB
         );

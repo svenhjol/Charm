@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "charm:arcane_purpur/arcane_purpur_glyph_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_arcane_purpur_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "charm:arcane_purpur_block"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_arcane_purpur_block",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "charm:arcane_purpur/arcane_purpur_glyph_block"
+    ]
+  }
+}

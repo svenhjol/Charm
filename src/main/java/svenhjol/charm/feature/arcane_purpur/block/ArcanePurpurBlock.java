@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.arcane_purpur;
+package svenhjol.charm.feature.arcane_purpur.block;
 
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charmony.base.CharmonyBlock;
@@ -12,8 +12,8 @@ public class ArcanePurpurBlock extends CharmonyBlock {
         super(feature, Properties.copy(Blocks.PURPUR_BLOCK));
     }
 
-    public static class BlockItem extends CharmonyBlockItem {
-        public BlockItem(CommonFeature feature, Supplier<ArcanePurpurBlock> block) {
+    public static class BlockItem<T extends ArcanePurpurBlock> extends CharmonyBlockItem {
+        public BlockItem(CommonFeature feature, Supplier<T> block) {
             super(feature, block, new Properties());
         }
     }

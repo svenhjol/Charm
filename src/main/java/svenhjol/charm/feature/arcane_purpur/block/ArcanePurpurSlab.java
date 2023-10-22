@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.arcane_purpur;
+package svenhjol.charm.feature.arcane_purpur.block;
 
 import svenhjol.charmony.block.CharmonySlabBlock;
 import svenhjol.charmony.common.CommonFeature;

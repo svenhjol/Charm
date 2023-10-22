@@ -6,7 +6,20 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import svenhjol.charmony_api.iface.IVariantMaterial;
 
-public class ArcanePurpurMaterial implements IVariantMaterial {
+import java.util.Locale;
+
+public enum ArcanePurpurMaterial implements IVariantMaterial {
+    ARCANE_PURPUR(SoundType.STONE),
+    ARCANE_PURPUR_GLYPH(SoundType.STONE),
+    CHISELED_ARCANE_PURPUR(SoundType.STONE),
+    CHISELED_ARCANE_PURPUR_GLYPH(SoundType.STONE);
+
+    final SoundType soundType;
+
+    ArcanePurpurMaterial(SoundType soundType) {
+        this.soundType = soundType;
+    }
+
     @Override
     public boolean isFlammable() {
         return false;
@@ -14,7 +27,7 @@ public class ArcanePurpurMaterial implements IVariantMaterial {
 
     @Override
     public SoundType soundType() {
-        return SoundType.STONE;
+        return soundType;
     }
 
     @Override
@@ -31,6 +44,6 @@ public class ArcanePurpurMaterial implements IVariantMaterial {
 
     @Override
     public String getSerializedName() {
-        return "arcane_purpur";
+        return name().toLowerCase(Locale.ROOT);
     }
 }

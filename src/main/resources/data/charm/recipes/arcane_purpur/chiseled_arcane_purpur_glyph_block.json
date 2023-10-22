@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "charm:chiseled_arcane_purpur_block"
+    }
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "item": "charm:chiseled_arcane_purpur_glyph_block",
+    "count": 4
+  },
+  "show_notification": true
+}
