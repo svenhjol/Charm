@@ -5,14 +5,12 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.impl.builders.FieldBuilder;
 import net.minecraft.network.chat.Component;
-import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.base.CharmonyConfig;
 import svenhjol.charmony.base.DefaultFeature;
-import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.helper.TextHelper;
-import svenhjol.charmony.iface.ICommonMod;
 import svenhjol.charmony.iface.ILog;
+import svenhjol.charmony.iface.IMod;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -20,26 +18,18 @@ import java.util.*;
 /**
  * ModMenuConfig v1.0.0
  */
-public class CharmModMenuPlugin implements ModMenuApi {
-    public ICommonMod mod() {
-        return Mods.common(Charm.ID);
-    }
+public abstract class BaseModMenuPlugin<M extends IMod<F>, F extends DefaultFeature> implements ModMenuApi {
+    public abstract M mod();
 
     public String modId() {
         return mod().modId();
     }
 
-    public ILog log() {
-        return mod().log();
-    }
+    public abstract ILog log();
 
-    public CharmonyConfig config() {
-        return (CharmonyConfig) mod().config();
-    }
+    public abstract CharmonyConfig config();
 
-    public List<? extends DefaultFeature> getFeatures() {
-        return mod().loader().getFeatures();
-    }
+    public abstract List<F> getFeatures();
 
     @SuppressWarnings("unchecked")
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
@@ -49,7 +39,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
                 .setTitle(TextHelper.translatable("cloth." + modId() + ".title"));
 
             var features = new LinkedList<>(getFeatures());
-            features.sort(Comparator.comparing(DefaultFeature::name));
+            features.sort(Comparator.comparing(F::name));
 
             // Serialise the config into the config file. This is called after all variables are updated.
             builder.setSavingRunnable(() -> config().writeConfig(features));
@@ -145,7 +135,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
         };
     }
 
-    private Map<Field, Object> getFeatureConfigProperties(DefaultFeature feature) {
+    private Map<Field, Object> getFeatureConfigProperties(F feature) {
         Map<Field, Object> properties = new LinkedHashMap<>();
 
         // Get and set feature config options
