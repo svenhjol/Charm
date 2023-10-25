@@ -55,7 +55,7 @@ public class CompassOverlay extends ClientFeature {
 
     @Configurable(
         name = "Compact view",
-        description = "If true, the overlay will be shown in smaller text  and in top left of the screen.",
+        description = "If true, the overlay will be shown in smaller text and in top left of the screen.",
         requireRestart = false
     )
     public static boolean compactView = false;
