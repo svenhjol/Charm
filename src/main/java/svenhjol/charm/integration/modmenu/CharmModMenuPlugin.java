@@ -5,12 +5,18 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.impl.builders.FieldBuilder;
 import net.minecraft.network.chat.Component;
+import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.base.CharmonyConfig;
 import svenhjol.charmony.base.DefaultFeature;
+import svenhjol.charmony.base.Log;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.client.ClientFeature;
+import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.helper.TextHelper;
+import svenhjol.charmony.iface.IClientMod;
+import svenhjol.charmony.iface.ICommonMod;
 import svenhjol.charmony.iface.ILog;
-import svenhjol.charmony.iface.IMod;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -18,18 +24,33 @@ import java.util.*;
 /**
  * ModMenuConfig v1.0.0
  */
-public abstract class BaseModMenuPlugin<M extends IMod<F>, F extends DefaultFeature> implements ModMenuApi {
-    public abstract M mod();
-
+public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi {
     public String modId() {
-        return mod().modId();
+        return Charm.ID;
     }
 
-    public abstract ILog log();
+    public Optional<IClientMod> client() {
+        return Mods.optionalClient(modId());
+    }
 
-    public abstract CharmonyConfig config();
+    public Optional<ICommonMod> common() {
+        return Mods.optionalCommon(modId());
+    }
 
-    public abstract List<F> getFeatures();
+    public ILog log() {
+        return Mods.optionalCommon(modId()).map(ICommonMod::log).orElse(new Log(modId()));
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<F> getFeatures() {
+        List<DefaultFeature> features = new ArrayList<>();
+
+        common().ifPresent(m -> features.addAll(m.loader().getFeatures()));
+        client().ifPresent(m -> features.addAll(m.loader().getFeatures()));
+
+        features.sort(Comparator.comparing(DefaultFeature::name));
+        return (List<F>) features;
+    }
 
     @SuppressWarnings("unchecked")
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
@@ -42,7 +63,21 @@ public abstract class BaseModMenuPlugin<M extends IMod<F>, F extends DefaultFeat
             features.sort(Comparator.comparing(F::name));
 
             // Serialise the config into the config file. This is called after all variables are updated.
-            builder.setSavingRunnable(() -> config().writeConfig(features));
+            builder.setSavingRunnable(() -> {
+                List<CommonFeature> commonFeatures = new LinkedList<>();
+                List<ClientFeature> clientFeatures = new LinkedList<>();
+
+                for (F feature : features) {
+                    if (feature instanceof CommonFeature common) {
+                        commonFeatures.add(common);
+                    } else if (feature instanceof ClientFeature client) {
+                        clientFeatures.add(client);
+                    }
+                }
+
+                common().ifPresent(m -> m.config().writeConfig(commonFeatures));
+                client().ifPresent(m -> m.config().writeConfig(clientFeatures));
+            });
 
             builder.setGlobalized(true);
             builder.setGlobalizedExpanded(false);

@@ -30,8 +30,7 @@
       "svenhjol.charm.integration.rei.CharmReiClientPlugin"
     ],
     "modmenu": [
-      "svenhjol.charm.integration.modmenu.CharmCommonModMenuPlugin",
-      "svenhjol.charm.integration.modmenu.CharmClientModMenuPlugin"
+      "svenhjol.charm.integration.modmenu.CharmModMenuPlugin"
     ]
   },
   "accessWidener": "charm.accesswidener",
