@@ -17,7 +17,6 @@ import net.minecraft.world.item.Items;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.Charm;
 import svenhjol.charm.mixin.atlases.CartographyTableScreenMixin;
-import svenhjol.charmony.Charmony;
 import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.client.ClientFeature;
 import svenhjol.charmony.common.CommonFeature;
@@ -27,10 +26,10 @@ import svenhjol.charmony_api.event.KeyPressEvent;
 import java.util.function.Supplier;
 
 public class AtlasesClient extends ClientFeature {
-    static final RenderType ATLAS_BACKGROUND = RenderType.text(new ResourceLocation(Charmony.ID, "textures/map/atlas.png"));
+    static final RenderType ATLAS_BACKGROUND = RenderType.text(new ResourceLocation(Charm.ID, "textures/map/atlas.png"));
     static final RenderType MAP_BACKGROUND = RenderType.text(new ResourceLocation("textures/map/map_background.png"));
     static final RenderType MAP_DECORATIONS = RenderType.text(new ResourceLocation("textures/map/map_icons.png"));
-    static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(Charmony.ID, "textures/gui/atlas.png");
+    static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(Charm.ID, "textures/gui/atlas.png");
     static final WidgetSprites UP_BUTTON = makeButton("up");
     static final WidgetSprites DOWN_BUTTON = makeButton("down");
     static final WidgetSprites LEFT_BUTTON = makeButton("left");
@@ -105,6 +104,7 @@ public class AtlasesClient extends ClientFeature {
             && screen.getMenu().getSlot(1).getItem().getItem() == Items.MAP;
     }
 
+    @SuppressWarnings("unused")
     public static void handleSwappedSlot(AtlasesNetwork.SwappedAtlasSlot packet, Player player) {
         swappedSlot = packet.getSlot();
     }
