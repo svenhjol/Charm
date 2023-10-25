@@ -5,7 +5,7 @@ import svenhjol.charmony.base.CharmonyMixinConfigPlugin;
 
 public class MixinConfigPlugin extends CharmonyMixinConfigPlugin {
     @Override
-    protected String getModId() {
+    protected String modId() {
         return Charm.ID;
     }
 }
