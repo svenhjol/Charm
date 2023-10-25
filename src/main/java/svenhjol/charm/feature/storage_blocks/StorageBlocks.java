@@ -72,6 +72,20 @@ public class StorageBlocks extends CommonFeature {
         });
     }
 
+    @SuppressWarnings("unused")
+    public boolean isEnderPearlsEnabled() {
+        return this.isEnabled() && enderPearlsEnabled;
+    }
+
+    public boolean isGunpowderEnabled() {
+        return this.isEnabled() && gunpowderEnabled;
+    }
+
+    @SuppressWarnings("unused")
+    public boolean isSugarEnabled() {
+        return this.isEnabled() && sugarEnabled;
+    }
+
     @Override
     public void runWhenDisabled() {
         LOADED_STORAGE_BLOCKS.values().forEach(IStorageBlockFeature::runWhenDisabled);

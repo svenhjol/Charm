@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "charm:extra_recipes/tnt_from_gunpowder_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_sand": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:sand"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_gunpowder_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "charm:gunpowder_block"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_sand",
+      "has_gunpowder_block",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "charm:extra_recipes/tnt_from_gunpowder_block"
+    ]
+  }
+}

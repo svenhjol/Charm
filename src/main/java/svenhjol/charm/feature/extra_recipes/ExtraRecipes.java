@@ -35,6 +35,9 @@ public class ExtraRecipes extends CommonFeature {
     @Configurable(name = "Shapeless paper", description = "If true, adds a shapeless recipe for paper.")
     public static boolean paper = true;
 
+    @Configurable(name = "TNT from gunpowder block and sand", description = "If true, adds a recipe for TNT using a gunpowder block (if enabled) and any sand.")
+    public static boolean tntFromGunpowderBlock = true;
+
     @Configurable(name = "Bundle from leather", description = "If true, adds a recipe for crafting bundles from leather.")
     public static boolean bundle = true;
 
@@ -45,7 +48,7 @@ public class ExtraRecipes extends CommonFeature {
 
     @Override
     public void register() {
-        CharmonyApi.registerProvider(new ExtraRecipesRecipeFilters());
+        CharmonyApi.registerProvider(new ExtraRecipesFilters());
         CharmonyApi.registerProvider(this);
     }
 }
