@@ -61,6 +61,11 @@ public class CompassOverlay extends ClientFeature {
     public static boolean compactView = false;
 
     @Override
+    public boolean canBeDisabled() {
+        return true;
+    }
+
+    @Override
     public String description() {
         return "Shows cardinal points and XYZ coordinates when holding a compass.";
     }

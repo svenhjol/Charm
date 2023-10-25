@@ -37,6 +37,11 @@ public class ExtraTooltips extends ClientFeature {
     public static boolean showShulkerBoxes = true;
 
     @Override
+    public boolean canBeDisabled() {
+        return true;
+    }
+
+    @Override
     public String description() {
         return "Adds hover tooltips for some items that have content.";
     }

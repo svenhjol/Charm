@@ -76,6 +76,11 @@ public class VariantMobTextures extends ClientFeature {
     public static int rareVariantChance = 1000;
 
     @Override
+    public boolean canBeDisabled() {
+        return true;
+    }
+
+    @Override
     public String description() {
         return "Mobs may spawn with different textures.";
     }
