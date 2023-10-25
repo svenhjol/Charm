@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": [
+      {
+        "item": "minecraft:sand"
+      },
+      {
+        "item": "minecraft:red_sand"
+      }
+    ],
+    "G": {
+      "item": "charm:gunpowder_block"
+    }
+  },
+  "pattern": [
+    "###",
+    "#G#",
+    "###"
+  ],
+  "result": {
+    "item": "minecraft:tnt",
+    "count": 2
+  },
+  "show_notification": true
+}

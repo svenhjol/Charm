@@ -1,12 +1,21 @@
 package svenhjol.charm.feature.extra_recipes;
 
+import svenhjol.charm.Charm;
+import svenhjol.charm.feature.storage_blocks.StorageBlocks;
+import svenhjol.charmony.base.Mods;
+import svenhjol.charmony.common.CommonLoader;
+import svenhjol.charmony_api.iface.IAdvancementFilter;
+import svenhjol.charmony_api.iface.IAdvancementRemoveProvider;
 import svenhjol.charmony_api.iface.IRecipeFilter;
 import svenhjol.charmony_api.iface.IRecipeRemoveProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
-    static final String PREFIX = "extra_recipes/";
+public class ExtraRecipesFilters implements IRecipeRemoveProvider, IAdvancementRemoveProvider {
+    static final String RECIPE_PREFIX = "extra_recipes/";
+    static final String ADVANCEMENT_PREFIX = "extra_recipes/recipes/";
+
     @Override
     public List<IRecipeFilter> getRecipeFilters() {
         return List.of(
@@ -18,7 +27,7 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "*from_blasting_raw_*_block");
+                    return List.of(RECIPE_PREFIX + "*from_blasting_raw_*_block");
                 }
             },
 
@@ -30,7 +39,7 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "gilded_blackstone");
+                    return List.of(RECIPE_PREFIX + "gilded_blackstone");
                 }
             },
 
@@ -42,7 +51,7 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "snowballs_from_snow_block");
+                    return List.of(RECIPE_PREFIX + "snowballs_from_snow_block");
                 }
             },
 
@@ -54,7 +63,7 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "quartz_from_quartz_block");
+                    return List.of(RECIPE_PREFIX + "quartz_from_quartz_block");
                 }
             },
 
@@ -66,7 +75,7 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "clay_balls_from_clay_block");
+                    return List.of(RECIPE_PREFIX + "clay_balls_from_clay_block");
                 }
             },
 
@@ -78,7 +87,7 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "cyan_dye");
+                    return List.of(RECIPE_PREFIX + "cyan_dye");
                 }
             },
 
@@ -90,7 +99,7 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "green_dye");
+                    return List.of(RECIPE_PREFIX + "green_dye");
                 }
             },
 
@@ -102,7 +111,7 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "soul_torch");
+                    return List.of(RECIPE_PREFIX + "soul_torch");
                 }
             },
 
@@ -114,7 +123,7 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "bread");
+                    return List.of(RECIPE_PREFIX + "bread");
                 }
             },
 
@@ -126,10 +135,23 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "paper");
+                    return List.of(RECIPE_PREFIX + "paper");
                 }
             },
 
+            new IRecipeFilter() {
+                @Override
+                public boolean test() {
+                    var gunpowderEnabled = loader().get(StorageBlocks.class)
+                        .map(StorageBlocks::isGunpowderEnabled).orElse(false);
+                    return !ExtraRecipes.tntFromGunpowderBlock || !gunpowderEnabled;
+                }
+
+                @Override
+                public List<String> removes() {
+                    return List.of(RECIPE_PREFIX + "tnt_from_gunpowder_block");
+                }
+            },
             new IRecipeFilter() {
                 @Override
                 public boolean test() {
@@ -138,9 +160,42 @@ public class ExtraRecipesRecipeFilters implements IRecipeRemoveProvider {
 
                 @Override
                 public List<String> removes() {
-                    return List.of(PREFIX + "bundle");
+                    return List.of(RECIPE_PREFIX + "bundle");
                 }
             }
         );
+    }
+
+    /**
+     * The advancement filters are basically the same as recipe filters just with a different prefix.
+     */
+    @Override
+    public List<IAdvancementFilter> getAdvancementFilters() {
+        List<IAdvancementFilter> advancementFilters = new ArrayList<>();
+        var recipeFilters = getRecipeFilters();
+
+        for (var recipeFilter : recipeFilters) {
+            advancementFilters.add(new IAdvancementFilter() {
+                @Override
+                public boolean test() {
+                    return recipeFilter.test();
+                }
+
+                @Override
+                public List<String> removes() {
+                    var list = recipeFilter.removes();
+                    return list.stream().map(i -> i.replace(RECIPE_PREFIX, ADVANCEMENT_PREFIX)).toList();
+                }
+            });
+        }
+
+        return advancementFilters;
+    }
+
+    /**
+     * Helper to get the current charm loader.
+     */
+    private CommonLoader loader() {
+        return Mods.common(Charm.ID).loader();
     }
 }
