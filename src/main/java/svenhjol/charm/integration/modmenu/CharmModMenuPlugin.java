@@ -26,7 +26,7 @@ public class CharmModMenuPlugin implements ModMenuApi {
     }
 
     public String modId() {
-        return Charm.ID;
+        return mod().modId();
     }
 
     public ILog log() {
