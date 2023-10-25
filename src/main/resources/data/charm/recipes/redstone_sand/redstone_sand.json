@@ -1,7 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "RRR", "RSR", "RRR"
+    "RRR",
+    "R#R",
+    "RRR"
   ],
   "key": {
     "R": {"item": "minecraft:redstone"},
