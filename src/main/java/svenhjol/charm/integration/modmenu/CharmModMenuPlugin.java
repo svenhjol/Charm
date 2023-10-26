@@ -4,6 +4,7 @@ import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.impl.builders.FieldBuilder;
+import me.shedaniel.clothconfig2.impl.builders.SubCategoryBuilder;
 import net.minecraft.network.chat.Component;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
@@ -79,18 +80,19 @@ public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi 
                 client().ifPresent(m -> m.config().writeConfig(clientFeatures));
             });
 
-            builder.setGlobalized(true);
-            builder.setGlobalizedExpanded(false);
+            var category = builder.getOrCreateCategory(TextHelper.translatable("cloth.category.charm.title"));
 
             for (var feature : features) {
+                SubCategoryBuilder subcategory = null;
                 var enabled = false;
                 var name = feature.name();
                 var description = feature.description();
                 var properties = getFeatureConfigProperties(feature);
 
                 if (feature.canBeDisabled()) {
-                    var category = builder.getOrCreateCategory(Component.literal(name));
-                    category.addEntry(builder.entryBuilder()
+                    subcategory = startSubcategory(builder, name);
+
+                    subcategory.add(builder.entryBuilder()
                         .startTextDescription(Component.literal(description))
                         .build());
 
@@ -105,12 +107,15 @@ public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi 
 
                     if (featureEntryBuilder != null) {
                         featureEntryBuilder.requireRestart();
-                        category.addEntry(featureEntryBuilder.build());
+                        subcategory.add(featureEntryBuilder.build());
                     }
                 }
 
                 for (Map.Entry<Field, Object> entry : properties.entrySet()) {
-                    var category = builder.getOrCreateCategory(Component.literal(name));
+                    if (subcategory == null) {
+                        subcategory = startSubcategory(builder, name);
+                    }
+
                     var prop = entry.getKey();
                     var value = entry.getValue();
 
@@ -161,8 +166,12 @@ public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi 
 
                     if (fieldBuilder != null) {
                         fieldBuilder.requireRestart(requireRestart);
-                        category.addEntry(fieldBuilder.build());
+                        subcategory.add(fieldBuilder.build());
                     }
+                }
+
+                if (subcategory != null) {
+                    category.addEntry(subcategory.build());
                 }
             }
 
@@ -203,5 +212,9 @@ public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi 
         return CharmonyConfig.
             getDefaultFieldValues()
             .getOrDefault(prop, null);
+    }
+
+    private SubCategoryBuilder startSubcategory(ConfigBuilder builder, String name) {
+        return builder.entryBuilder().startSubCategory(Component.literal(name));
     }
 }
