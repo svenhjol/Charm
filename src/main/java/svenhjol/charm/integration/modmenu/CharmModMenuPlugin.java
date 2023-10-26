@@ -92,10 +92,6 @@ public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi 
                 if (feature.canBeDisabled()) {
                     subcategory = startSubcategory(builder, name, description);
 
-                    subcategory.add(builder.entryBuilder()
-                        .startTextDescription(Component.literal(description))
-                        .build());
-
                     var toggleFeatureName = TextHelper.translatable("cloth.category." + modId() + ".feature_enabled", name);
                     var defaultValue = feature.isEnabledByDefault();
                     enabled = feature.isEnabledInConfig();
