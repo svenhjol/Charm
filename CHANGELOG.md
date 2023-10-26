@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.0.12
+
+- Revert modmenu to subcategory view
+- Texture changes for spruce barrels and chests
+
 ## 6.0.11
 
 - Fix incorrect atlas texture (https://trello.com/c/RtHvEJ6H)
