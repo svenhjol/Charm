@@ -4,6 +4,7 @@
 
 - Revert modmenu to subcategory view
 - Texture changes for spruce barrels and chests
+- Fix typo in redstone sand recipe
 
 ## 6.0.11
 
