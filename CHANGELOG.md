@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.0.11
+
+- Fix incorrect atlas texture (https://trello.com/c/RtHvEJ6H)
+- Add TNT from gunpowder block recipe (https://trello.com/c/uQEdI4vo)
+- Client-only features can now be edited in modmenu
+- All configurable client features can now be disabled
+- Added "always show" and "compact view" to compass overlay
+- Texture changes for cherry and azalea chests
+
 ## 6.0.10
 
 - Add Arcane Purpur blocks
