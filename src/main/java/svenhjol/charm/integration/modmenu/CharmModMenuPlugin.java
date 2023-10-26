@@ -90,7 +90,7 @@ public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi 
                 var properties = getFeatureConfigProperties(feature);
 
                 if (feature.canBeDisabled()) {
-                    subcategory = startSubcategory(builder, name);
+                    subcategory = startSubcategory(builder, name, description);
 
                     subcategory.add(builder.entryBuilder()
                         .startTextDescription(Component.literal(description))
@@ -113,7 +113,7 @@ public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi 
 
                 for (Map.Entry<Field, Object> entry : properties.entrySet()) {
                     if (subcategory == null) {
-                        subcategory = startSubcategory(builder, name);
+                        subcategory = startSubcategory(builder, name, description);
                     }
 
                     var prop = entry.getKey();
@@ -214,7 +214,12 @@ public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi 
             .getOrDefault(prop, null);
     }
 
-    private SubCategoryBuilder startSubcategory(ConfigBuilder builder, String name) {
-        return builder.entryBuilder().startSubCategory(Component.literal(name));
+    private SubCategoryBuilder startSubcategory(ConfigBuilder builder, String name, String description) {
+        var subcategory = builder.entryBuilder().startSubCategory(Component.literal(name));
+        subcategory.add(builder.entryBuilder()
+            .startTextDescription(Component.literal(description))
+            .build());
+
+        return subcategory;
     }
 }
