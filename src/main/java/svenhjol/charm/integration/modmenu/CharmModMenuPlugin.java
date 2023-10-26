@@ -80,7 +80,7 @@ public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi 
                 client().ifPresent(m -> m.config().writeConfig(clientFeatures));
             });
 
-            var category = builder.getOrCreateCategory(TextHelper.translatable("cloth.category.charm.title"));
+            var category = builder.getOrCreateCategory(TextHelper.translatable("cloth.category." + modId() + ".title"));
 
             for (var feature : features) {
                 SubCategoryBuilder subcategory = null;
