@@ -23,7 +23,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 /**
- * ModMenuConfig v1.0.0
+ * ModMenuConfig v1.0.1
  */
 public class CharmModMenuPlugin<F extends DefaultFeature> implements ModMenuApi {
     public String modId() {
