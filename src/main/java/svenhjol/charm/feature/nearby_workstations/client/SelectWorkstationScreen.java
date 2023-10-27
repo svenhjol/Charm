@@ -1,11 +1,11 @@
-package svenhjol.charm.feature.proximity_workstations.client;
+package svenhjol.charm.feature.nearby_workstations.client;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsClient;
-import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenSpecificWorkstation;
+import svenhjol.charm.feature.nearby_workstations.NearbyWorkstationsClient;
+import svenhjol.charm.feature.nearby_workstations.NearbyWorkstationsNetwork.OpenSpecificWorkstation;
 import svenhjol.charmony.helper.TextHelper;
 
 import java.util.List;
@@ -91,7 +91,7 @@ public class SelectWorkstationScreen extends Screen {
         var midY = (height - backgroundHeight) / 2;
 
         guiGraphics.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        guiGraphics.blit(ProximityWorkstationsClient.selectWorkstationScreenBackground,
+        guiGraphics.blit(NearbyWorkstationsClient.selectWorkstationScreenBackground,
             midX, midY, 0, 0, backgroundWidth, backgroundHeight);
     }
 

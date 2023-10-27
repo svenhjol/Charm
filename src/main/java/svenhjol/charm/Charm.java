@@ -51,7 +51,7 @@ import svenhjol.charm.feature.piglins_follow_gold_blocks.PiglinsFollowGoldBlocks
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlates;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
-import svenhjol.charm.feature.proximity_workstations.ProximityWorkstations;
+import svenhjol.charm.feature.nearby_workstations.NearbyWorkstations;
 import svenhjol.charm.feature.quick_replant.QuickReplant;
 import svenhjol.charm.feature.redstone_sand.RedstoneSand;
 import svenhjol.charm.feature.revive_pets.RevivePets;
@@ -136,7 +136,7 @@ public class Charm extends CommonMod {
             PigsFindMushrooms.class,
             PlayerPressurePlates.class,
             PotionOfRadiance.class,
-            ProximityWorkstations.class,
+            NearbyWorkstations.class,
             QuickReplant.class,
             RedstoneSand.class,
             RevivePets.class,

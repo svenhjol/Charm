@@ -37,6 +37,9 @@ public class CharmTags {
     public static final TagKey<Block> MOVING_PISTONS = TagKey.create(Registries.BLOCK,
         new ResourceLocation(Charm.ID, "moving_pistons"));
 
+    public static final TagKey<Block> NEARBY_WORKSTATIONS = TagKey.create(Registries.BLOCK,
+        new ResourceLocation(Charm.ID, "nearby_workstations"));
+
     public static final TagKey<Block> NETHER_PORTAL_FRAMES = TagKey.create(Registries.BLOCK,
         new ResourceLocation(Charm.ID, "nether_portal_frames"));
 
@@ -51,9 +54,6 @@ public class CharmTags {
 
     public static final TagKey<Block> PISTON_HEADS = TagKey.create(Registries.BLOCK,
         new ResourceLocation(Charm.ID, "piston_heads"));
-
-    public static final TagKey<Block> PROXIMITY_WORKSTATIONS = TagKey.create(Registries.BLOCK,
-        new ResourceLocation(Charm.ID, "proximity_workstations"));
 
     public static final TagKey<Item> REPAIRABLE_USING_SCRAP = TagKey.create(Registries.ITEM,
         new ResourceLocation(Charm.ID, "repairable_using_scrap"));

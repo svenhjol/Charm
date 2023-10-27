@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.proximity_workstations;
+package svenhjol.charm.feature.nearby_workstations;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,10 +14,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
-import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenSpecificWorkstation;
-import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenWorkstationSelector;
-import svenhjol.charm.feature.proximity_workstations.ProximityWorkstationsNetwork.OpenWorkstationSelectorScreen;
-import svenhjol.charm.feature.proximity_workstations.menu.*;
+import svenhjol.charm.feature.nearby_workstations.NearbyWorkstationsNetwork.OpenSpecificWorkstation;
+import svenhjol.charm.feature.nearby_workstations.NearbyWorkstationsNetwork.OpenWorkstationSelector;
+import svenhjol.charm.feature.nearby_workstations.NearbyWorkstationsNetwork.OpenWorkstationSelectorScreen;
+import svenhjol.charm.feature.nearby_workstations.menu.*;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.common.CommonFeature;
@@ -27,7 +27,7 @@ import svenhjol.charmony.helper.TagHelper;
 import java.util.*;
 import java.util.function.Function;
 
-public class ProximityWorkstations extends CommonFeature {
+public class NearbyWorkstations extends CommonFeature {
     static final Map<Block, Function<BlockPos, MenuProvider>> MENU_PROVIDERS = new LinkedHashMap<>();
     static final Map<UUID, Map<Block, BlockPos>> WORKSTATIONS_IN_RANGE = new WeakHashMap<>();
     static final Map<UUID, Long> LAST_WORKSTATION_CHECK = new WeakHashMap<>();
@@ -47,18 +47,18 @@ public class ProximityWorkstations extends CommonFeature {
 
     @Override
     public void register() {
-        ProximityWorkstationsNetwork.register();
+        NearbyWorkstationsNetwork.register();
 
         registerBlockMenu(Blocks.CRAFTING_TABLE, pos -> new SimpleMenuProvider(
-            (i, inv, p) -> new ProximityCraftingMenu(i, inv,
+            (i, inv, p) -> new NearbyCraftingMenu(i, inv,
                 ContainerLevelAccess.create(p.level(), p.blockPosition()), pos), CRAFTING_MENU_TITLE));
 
         registerBlockMenu(Blocks.SMITHING_TABLE, pos -> new SimpleMenuProvider(
-            (i, inv, p) -> new ProximitySmithingMenu(i, inv,
+            (i, inv, p) -> new NearbySmithingMenu(i, inv,
                 ContainerLevelAccess.create(p.level(), p.blockPosition()), pos), SMITHING_MENU_TITLE));
 
         Function<BlockPos, MenuProvider> anvilMenuProvider = pos -> new SimpleMenuProvider(
-            (i, inv, p) -> new ProximityAnvilMenu(i, inv,
+            (i, inv, p) -> new NearbyAnvilMenu(i, inv,
                 ContainerLevelAccess.create(p.level(), p.blockPosition()), pos), ANVIL_MENU_TITLE);
 
         registerBlockMenu(Blocks.ANVIL, anvilMenuProvider);
@@ -66,11 +66,11 @@ public class ProximityWorkstations extends CommonFeature {
         registerBlockMenu(Blocks.DAMAGED_ANVIL, anvilMenuProvider);
 
         registerBlockMenu(Blocks.STONECUTTER, pos -> new SimpleMenuProvider(
-            (i, inv, p) -> new ProximityStonecutterMenu(i, inv,
+            (i, inv, p) -> new NearbyStonecutterMenu(i, inv,
                 ContainerLevelAccess.create(p.level(), p.blockPosition()), pos), STONECUTTER_MENU_TITLE));
 
         registerBlockMenu(Blocks.ENCHANTING_TABLE, pos -> new SimpleMenuProvider(
-            (i, inv, p) -> new ProximityEnchantingMenu(i, inv,
+            (i, inv, p) -> new NearbyEnchantingMenu(i, inv,
                 ContainerLevelAccess.create(p.level(), p.blockPosition()), pos), ENCHANTMENT_MENU_TITLE));
     }
 
@@ -89,7 +89,7 @@ public class ProximityWorkstations extends CommonFeature {
             || !WORKSTATIONS_IN_RANGE.containsKey(uuid)
         ) {
             Map<Block, BlockPos> workstations = new LinkedHashMap<>();
-            TagHelper.getValues(BuiltInRegistries.BLOCK, CharmTags.PROXIMITY_WORKSTATIONS).forEach(
+            TagHelper.getValues(BuiltInRegistries.BLOCK, CharmTags.NEARBY_WORKSTATIONS).forEach(
                 workstation -> {
                     var existingBlocks = workstations.keySet();
                     var result = BlockPos.findClosestMatch(pos, distance, distance, p -> level.getBlockState(p).is(workstation));
@@ -118,7 +118,7 @@ public class ProximityWorkstations extends CommonFeature {
     static void handleOpenedSelector(OpenWorkstationSelector message, Player player) {
         var workstations = getWorkstationsInRange(player);
         var blocks = new LinkedList<>(workstations.keySet());
-        Mods.common(Charm.ID).log().debug(ProximityWorkstations.class, "There are " + blocks.size() + " block(s) in range");
+        Mods.common(Charm.ID).log().debug(NearbyWorkstations.class, "There are " + blocks.size() + " block(s) in range");
 
         if (blocks.size() == 1) {
             var block = blocks.get(0);
@@ -142,7 +142,7 @@ public class ProximityWorkstations extends CommonFeature {
     }
 
     static void openContainer(ServerPlayer player, Block block, BlockPos pos) {
-        Mods.common(Charm.ID).log().debug(ProximityWorkstations.class, "Going to try and open a workstation for " + block);
+        Mods.common(Charm.ID).log().debug(NearbyWorkstations.class, "Going to try and open a workstation for " + block);
         if (MENU_PROVIDERS.containsKey(block)) {
             player.closeContainer();
             var provider = MENU_PROVIDERS.get(block);
@@ -155,6 +155,6 @@ public class ProximityWorkstations extends CommonFeature {
     }
 
     static void triggerUsedProximityCraftingTable(Player player) {
-        Advancements.trigger(new ResourceLocation(Charm.ID, "used_proximity_crafting_table"), player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "used_nearby_crafting_table"), player);
     }
 }

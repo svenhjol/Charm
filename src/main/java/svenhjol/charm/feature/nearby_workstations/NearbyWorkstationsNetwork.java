@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.proximity_workstations;
+package svenhjol.charm.feature.nearby_workstations;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -17,18 +17,18 @@ import svenhjol.charmony.iface.IPacketRequest;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ProximityWorkstationsNetwork {
+public class NearbyWorkstationsNetwork {
     public static void register() {
         var registry = Mods.common(Charm.ID).registry();
 
         registry.packet(new OpenWorkstationSelector(),
-            () -> ProximityWorkstations::handleOpenedSelector);
+            () -> NearbyWorkstations::handleOpenedSelector);
 
         registry.packet(new OpenSpecificWorkstation(),
-            () -> ProximityWorkstations::handleOpenedSpecificWorkstation);
+            () -> NearbyWorkstations::handleOpenedSpecificWorkstation);
 
         registry.packet(new OpenWorkstationSelectorScreen(),
-            () -> ProximityWorkstationsClient::handleOpenedSelectorScreen);
+            () -> NearbyWorkstationsClient::handleOpenedSelectorScreen);
     }
 
     @Packet(
