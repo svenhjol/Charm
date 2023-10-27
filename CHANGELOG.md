@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.0.13
+
+- ProximityWorkstations now called NearbyWorkstations
+- Fix incorrect language string keys
+- Update nether wood barrel and chest textures
+- Update jungle chest texture
+
 ## 6.0.12
 
 - Revert modmenu to subcategory view

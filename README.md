@@ -199,7 +199,7 @@ Player-only pressure plates crafted using gilded blackstone.
 
 Potion of Radiance gives the glowing effect. It is brewed using a torchflower.
 
-**ProximityWorkstations**
+**NearbyWorkstations**
 
 Use workstations such as crafting tables when in range of the block.
 
