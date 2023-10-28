@@ -3,6 +3,7 @@
 ## 6.0.14
 
 - Bump to Charmony 6.7.4 to fix a mixin config issue
+- Update ladder textures
 
 ## 6.0.13
 
