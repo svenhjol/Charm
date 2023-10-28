@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.14
+
+- Bump to Charmony 6.7.4 to fix a mixin config issue
+
 ## 6.0.13
 
 - ProximityWorkstations now called NearbyWorkstations
