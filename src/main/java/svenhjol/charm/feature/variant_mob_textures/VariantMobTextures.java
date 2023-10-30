@@ -11,6 +11,7 @@ import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import svenhjol.charm.Charm;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.client.ClientFeature;
 import svenhjol.charmony_api.event.ClientEntityJoinEvent;
@@ -20,6 +21,8 @@ import java.util.*;
 
 public class VariantMobTextures extends ClientFeature {
     static final String TEXTURES = "textures/entity";
+    static final String TEXTURE_TAG = "charm_texture";
+    static final Map<UUID, ResourceLocation> CACHED_TEXTURE = new WeakHashMap<>();
     static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(TEXTURES + "/sheep/sheep.png");
     static final List<ResourceLocation> CHICKENS = new ArrayList<>();
     static final List<ResourceLocation> COWS = new ArrayList<>();
@@ -38,8 +41,6 @@ public class VariantMobTextures extends ClientFeature {
     static final List<ResourceLocation> RARE_PIGS = new ArrayList<>();
     static final List<ResourceLocation> RARE_TURTLES = new ArrayList<>();
     static final List<ResourceLocation> RARE_WOLVES = new ArrayList<>();
-    static final Map<ResourceLocation, ResourceLocation> TAME_WOLVES = new HashMap<>();
-    static final Map<ResourceLocation, ResourceLocation> ANGRY_WOLVES = new HashMap<>();
 
     @Configurable(name = "Cows", description = "If true, cows may spawn with different textures.")
     public static boolean cows = true;
@@ -159,8 +160,6 @@ public class VariantMobTextures extends ClientFeature {
         SQUIDS.clear();
         TURTLES.clear();
         WOLVES.clear();
-        TAME_WOLVES.clear();
-        ANGRY_WOLVES.clear();
         WANDERING_TRADERS.clear();
 
         RARE_CHICKENS.clear();
@@ -183,8 +182,6 @@ public class VariantMobTextures extends ClientFeature {
 
         var wolf = new ResourceLocation(TEXTURES + "/wolf/wolf.png");
         WOLVES.add(wolf);
-        TAME_WOLVES.put(wolf, new ResourceLocation(TEXTURES + "/wolf/wolf_tame.png"));
-        ANGRY_WOLVES.put(wolf, new ResourceLocation(TEXTURES + "/wolf/wolf_angry.png"));
 
         for (var i = 1; i <= 5; i++) {
             addCustomTextures(CHICKENS, MobType.CHICKEN, "chicken" + i);
@@ -265,32 +262,27 @@ public class VariantMobTextures extends ClientFeature {
         textures.forEach(texture -> {
             var res = createResource(type, texture);
             set.add(res);
-
-            if (type == MobType.WOLF) {
-                TAME_WOLVES.put(res, createResource(type, texture + "_tame"));
-                ANGRY_WOLVES.put(res, createResource(type, texture + "_angry"));
-            }
         });
     }
 
     @Nullable
     public static ResourceLocation getChickenTexture(Chicken entity) {
-        return getRandomTexture(entity, CHICKENS, RARE_CHICKENS);
+        return getTexture(entity, CHICKENS, RARE_CHICKENS);
     }
 
     @Nullable
     public static ResourceLocation getCowTexture(Cow entity) {
-        return getRandomTexture(entity, COWS, RARE_COWS);
+        return getTexture(entity, COWS, RARE_COWS);
     }
 
     @Nullable
     public static ResourceLocation getDolphinTexture(Dolphin entity) {
-        return getRandomTexture(entity, DOLPHINS, RARE_DOLPHINS);
+        return getTexture(entity, DOLPHINS, RARE_DOLPHINS);
     }
 
     @Nullable
     public static ResourceLocation getPigTexture(Pig entity) {
-        return getRandomTexture(entity, PIGS, RARE_PIGS);
+        return getTexture(entity, PIGS, RARE_PIGS);
     }
 
     public static ResourceLocation getSheepTexture(Sheep entity) {
@@ -300,43 +292,76 @@ public class VariantMobTextures extends ClientFeature {
 
     @Nullable
     public static ResourceLocation getSnowGolemTexture(SnowGolem entity) {
-        return getRandomTexture(entity, SNOW_GOLEMS, ImmutableList.of());
+        return getTexture(entity, SNOW_GOLEMS, ImmutableList.of());
     }
 
     @Nullable
     public static ResourceLocation getWanderingTraderTexture(WanderingTrader entity) {
-        return getRandomTexture(entity, WANDERING_TRADERS, ImmutableList.of());
+        return getTexture(entity, WANDERING_TRADERS, ImmutableList.of());
     }
 
     @Nullable
     public static ResourceLocation getSquidTexture(Squid entity) {
-        return getRandomTexture(entity, SQUIDS, RARE_SQUIDS);
+        return getTexture(entity, SQUIDS, RARE_SQUIDS);
     }
 
     @Nullable
     public static ResourceLocation getTurtleTexture(Turtle entity) {
-        return getRandomTexture(entity, TURTLES, RARE_TURTLES);
+        return getTexture(entity, TURTLES, RARE_TURTLES);
     }
 
     @Nullable
     public static ResourceLocation getWolfTexture(Wolf entity) {
-        var res = getRandomTexture(entity, WOLVES, RARE_WOLVES);
+        var res = getTexture(entity, WOLVES, RARE_WOLVES);
         if (res == null) {
             return null;
         }
 
         if (entity.isTame()) {
-            res = TAME_WOLVES.get(res);
-        } else if (entity.isAngryAtAllPlayers(entity.level())) {
-            res = ANGRY_WOLVES.get(res);
+            var path = res.getPath().split("\\.")[0] + "_tame.png";
+            res = new ResourceLocation(res.getNamespace(), path);
+        } else if (entity.isAngry()) {
+            var path = res.getPath().split("\\.")[0] + "_angry.png";
+            res = new ResourceLocation(res.getNamespace(), path);
         }
 
         return res;
     }
 
     @Nullable
-    public static ResourceLocation getRandomTexture(Entity entity, List<ResourceLocation> normalSet, List<ResourceLocation> rareSet) {
+    public static ResourceLocation getTexture(Entity entity, List<ResourceLocation> normalSet, List<ResourceLocation> rareSet) {
         var id = entity.getUUID();
+
+        if (CACHED_TEXTURE.containsKey(id)) {
+            var val = CACHED_TEXTURE.get(id);
+            if (val != null) {
+                return val;
+            }
+        } else {
+            var defined = "";
+            var tags = entity.getTags();
+
+            for (var tag : tags) {
+                if (tag.startsWith(TEXTURE_TAG)) {
+                    defined = tag.split("=")[1];
+                }
+            }
+
+            if (defined.isEmpty()) {
+                CACHED_TEXTURE.put(id, null);
+            } else {
+                ResourceLocation res;
+                if (defined.contains(":")) {
+                    var s = defined.split(":");
+                    res = new ResourceLocation(s[0], TEXTURES + "/" + s[1]);
+                } else {
+                    res = new ResourceLocation(Charm.ID, TEXTURES + "/" + defined);
+                }
+                CACHED_TEXTURE.put(id, res);
+                return res;
+            }
+        }
+
         var isRare = rareVariantChance > 0
             && !rareSet.isEmpty()
             && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % rareVariantChance == 0;
