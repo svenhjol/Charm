@@ -4,162 +4,161 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.common.CommonLoader;
-import svenhjol.charmony_api.iface.IAdvancementFilter;
-import svenhjol.charmony_api.iface.IAdvancementRemoveProvider;
-import svenhjol.charmony_api.iface.IRecipeFilter;
-import svenhjol.charmony_api.iface.IRecipeRemoveProvider;
+import svenhjol.charmony_api.iface.IConditionalAdvancement;
+import svenhjol.charmony_api.iface.IConditionalAdvancementProvider;
+import svenhjol.charmony_api.iface.IConditionalRecipe;
+import svenhjol.charmony_api.iface.IConditionalRecipeProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtraRecipesFilters implements IRecipeRemoveProvider, IAdvancementRemoveProvider {
+public class ExtraRecipesProviders implements IConditionalRecipeProvider, IConditionalAdvancementProvider {
     static final String RECIPE_PREFIX = "extra_recipes/";
     static final String ADVANCEMENT_PREFIX = "extra_recipes/recipes/";
 
-    @Override
-    public List<IRecipeFilter> getRecipeFilters() {
+    public List<IConditionalRecipe> getRecipeConditions() {
         return List.of(
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.rawOreBlocks;
+                    return ExtraRecipes.rawOreBlocks;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "*from_blasting_raw_*_block");
                 }
             },
 
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.gildedBlackstone;
+                    return ExtraRecipes.gildedBlackstone;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "gilded_blackstone");
                 }
             },
 
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.snowballs;
+                    return ExtraRecipes.snowballs;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "snowballs_from_snow_block");
                 }
             },
 
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.quartz;
+                    return ExtraRecipes.quartz;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "quartz_from_quartz_block");
                 }
             },
 
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.clay;
+                    return ExtraRecipes.clay;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "clay_balls_from_clay_block");
                 }
             },
 
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.cyanDye;
+                    return ExtraRecipes.cyanDye;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "cyan_dye");
                 }
             },
 
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.greenDye;
+                    return ExtraRecipes.greenDye;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "green_dye");
                 }
             },
 
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.soulTorch;
+                    return ExtraRecipes.soulTorch;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "soul_torch");
                 }
             },
 
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.bread;
+                    return ExtraRecipes.bread;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "bread");
                 }
             },
 
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.paper;
+                    return ExtraRecipes.paper;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "paper");
                 }
             },
 
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
                     var gunpowderEnabled = loader().get(StorageBlocks.class)
                         .map(StorageBlocks::isGunpowderEnabled).orElse(false);
-                    return !ExtraRecipes.tntFromGunpowderBlock || !gunpowderEnabled;
+                    return ExtraRecipes.tntFromGunpowderBlock && gunpowderEnabled;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "tnt_from_gunpowder_block");
                 }
             },
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !ExtraRecipes.bundle;
+                    return ExtraRecipes.bundle;
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of(RECIPE_PREFIX + "bundle");
                 }
             }
@@ -167,29 +166,29 @@ public class ExtraRecipesFilters implements IRecipeRemoveProvider, IAdvancementR
     }
 
     /**
-     * The advancement filters are basically the same as recipe filters just with a different prefix.
+     * The advancement conditions are basically the same as recipe conditions just with a different prefix.
      */
     @Override
-    public List<IAdvancementFilter> getAdvancementFilters() {
-        List<IAdvancementFilter> advancementFilters = new ArrayList<>();
-        var recipeFilters = getRecipeFilters();
+    public List<IConditionalAdvancement> getAdvancementConditions() {
+        List<IConditionalAdvancement> advancements = new ArrayList<>();
+        var recipes = getRecipeConditions();
 
-        for (var recipeFilter : recipeFilters) {
-            advancementFilters.add(new IAdvancementFilter() {
+        for (var recipe : recipes) {
+            advancements.add(new IConditionalAdvancement() {
                 @Override
                 public boolean test() {
-                    return recipeFilter.test();
+                    return recipe.test();
                 }
 
                 @Override
-                public List<String> removes() {
-                    var list = recipeFilter.removes();
+                public List<String> advancements() {
+                    var list = recipe.recipes();
                     return list.stream().map(i -> i.replace(RECIPE_PREFIX, ADVANCEMENT_PREFIX)).toList();
                 }
             });
         }
 
-        return advancementFilters;
+        return advancements;
     }
 
     /**

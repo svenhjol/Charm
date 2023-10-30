@@ -48,7 +48,7 @@ public class AzaleaWood extends CommonFeature implements
         CustomWood.registerWood(this, mod().registry(), new AzaleaWoodDefinition());
 
         CharmonyApi.registerProvider(this);
-        CharmonyApi.registerProvider(new AzaleaWoodRecipeFilter());
+        CharmonyApi.registerProvider(new AzaleaWoodRecipeProvider());
     }
 
     @Override

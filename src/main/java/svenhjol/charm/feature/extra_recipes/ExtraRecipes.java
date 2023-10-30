@@ -48,7 +48,7 @@ public class ExtraRecipes extends CommonFeature {
 
     @Override
     public void register() {
-        CharmonyApi.registerProvider(new ExtraRecipesFilters());
+        CharmonyApi.registerProvider(new ExtraRecipesProviders());
         CharmonyApi.registerProvider(this);
     }
 }

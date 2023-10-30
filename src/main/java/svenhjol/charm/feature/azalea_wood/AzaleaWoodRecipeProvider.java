@@ -3,23 +3,23 @@ package svenhjol.charm.feature.azalea_wood;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charmony.base.Mods;
-import svenhjol.charmony_api.iface.IRecipeFilter;
-import svenhjol.charmony_api.iface.IRecipeRemoveProvider;
+import svenhjol.charmony_api.iface.IConditionalRecipe;
+import svenhjol.charmony_api.iface.IConditionalRecipeProvider;
 
 import java.util.List;
 
-public class AzaleaWoodRecipeFilter implements IRecipeRemoveProvider {
+public class AzaleaWoodRecipeProvider implements IConditionalRecipeProvider {
     @Override
-    public List<IRecipeFilter> getRecipeFilters() {
+    public List<IConditionalRecipe> getRecipeConditions() {
         return List.of(
-            new IRecipeFilter() {
+            new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return !Mods.common(Charm.ID).loader().isEnabled(Woodcutters.class);
+                    return Mods.common(Charm.ID).loader().isEnabled(Woodcutters.class);
                 }
 
                 @Override
-                public List<String> removes() {
+                public List<String> recipes() {
                     return List.of("azalea_wood/woodcutting/*");
                 }
             }

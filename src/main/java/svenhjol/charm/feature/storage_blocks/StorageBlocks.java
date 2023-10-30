@@ -58,7 +58,7 @@ public class StorageBlocks extends CommonFeature {
                 }));
 
         CharmonyApi.registerProvider(new StorageBlockFeatures());
-        CharmonyApi.registerProvider(new StorageBlockRecipeFilters());
+        CharmonyApi.registerProvider(new StorageBlockRecipeProviders());
     }
 
     @Override

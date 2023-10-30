@@ -12,8 +12,8 @@ import java.util.Optional;
 public class TotemDataProviders implements
     ITotemPreservingProvider,
     ITotemInventoryCheckProvider,
-    IRecipeRemoveProvider,
-    IAdvancementRemoveProvider
+    IConditionalRecipeProvider,
+    IConditionalAdvancementProvider
 {
     @Override
     public List<ItemStack> getInventoryItemsForTotem(Player player) {
@@ -62,15 +62,15 @@ public class TotemDataProviders implements
     }
 
     @Override
-    public List<IRecipeFilter> getRecipeFilters() {
-        return List.of(new IRecipeFilter() {
+    public List<IConditionalRecipe> getRecipeConditions() {
+        return List.of(new IConditionalRecipe() {
             @Override
             public boolean test() {
-                return TotemOfPreserving.graveMode;
+                return !TotemOfPreserving.graveMode;
             }
 
             @Override
-            public List<String> removes() {
+            public List<String> recipes() {
                 return List.of(
                     "charm:totem_of_preserving/*"
                 );
@@ -79,15 +79,15 @@ public class TotemDataProviders implements
     }
 
     @Override
-    public List<IAdvancementFilter> getAdvancementFilters() {
-        return List.of(new IAdvancementFilter() {
+    public List<IConditionalAdvancement> getAdvancementConditions() {
+        return List.of(new IConditionalAdvancement() {
             @Override
             public boolean test() {
-                return TotemOfPreserving.graveMode;
+                return !TotemOfPreserving.graveMode;
             }
 
             @Override
-            public List<String> removes() {
+            public List<String> advancements() {
                 return List.of(
                     "charm:totem_of_preserving/recipes/*"
                 );
