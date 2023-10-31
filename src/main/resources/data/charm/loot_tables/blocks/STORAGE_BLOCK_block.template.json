@@ -19,8 +19,8 @@
     ]
   },
   "variants": [
-    "MOD:STORAGE_BLOCK",
-    "charm:gunpowder",
-    "charm:sugar"
+    "MOD|STORAGE_BLOCK",
+    "charm|gunpowder",
+    "charm|sugar"
   ]
 }
