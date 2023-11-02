@@ -14,4 +14,8 @@ public class TorchflowersEmitLight extends CommonFeature {
     public String description() {
         return "Torchflowers emit ambient light.";
     }
+
+    public static int getLightLevel() {
+        return Math.max(0, Math.min(15, lightLevel));
+    }
 }
