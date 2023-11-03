@@ -49,4 +49,16 @@ public class DoorBlockMixin {
     private void hookNeighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos pos2, boolean bl, CallbackInfo ci) {
         OpenBothDoors.tryOpenNeighbour(level, state, pos, !state.getValue(DoorBlock.OPEN));
     }
+
+    @Inject(
+        method = "playSound",
+        at = @At("HEAD"),
+        cancellable = true
+    )
+    private void hookPlaySound(Entity entity, Level level, BlockPos pos, boolean isClosed, CallbackInfo ci) {
+        if (OpenBothDoors.NEIGHBOURS.contains(pos)) {
+            OpenBothDoors.NEIGHBOURS.remove(pos);
+            ci.cancel();
+        }
+    }
 }

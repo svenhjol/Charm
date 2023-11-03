@@ -7,7 +7,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import svenhjol.charmony.common.CommonFeature;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OpenBothDoors extends CommonFeature {
+    public static final List<BlockPos> NEIGHBOURS = new ArrayList<>();
+
     @Override
     public String description() {
         return "Automatically opens double doors.";
@@ -39,6 +44,8 @@ public class OpenBothDoors extends CommonFeature {
         var neighborHinge = neighborState.getValue(DoorBlock.HINGE);
         if (neighborHinge == hinge) return;
 
+        NEIGHBOURS.add(neighborPos);
         neighbor.setOpen(null, level, neighborState, neighborPos, isClosed);
+        NEIGHBOURS.remove(neighborPos);
     }
 }
