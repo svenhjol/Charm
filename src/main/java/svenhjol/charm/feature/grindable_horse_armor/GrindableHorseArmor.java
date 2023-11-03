@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.grindable_armor;
+package svenhjol.charm.feature.grindable_horse_armor;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
@@ -22,13 +22,12 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class GrindableArmor extends CommonFeature implements IGrindableItemProvider {
+public class GrindableHorseArmor extends CommonFeature implements IGrindableItemProvider {
     static final Map<ItemLike, ItemLike> RECIPES = new HashMap<>();
-    static final ResourceLocation TRIGGER_RECYCLED_ARMOR = new ResourceLocation(Charm.ID, "recycled_armor");
 
     @Override
     public String description() {
-        return "Armor returns a single ingot, leather or diamond when used on the grindstone.";
+        return "Horse armor returns a single ingot, leather or diamond when used on the grindstone.";
     }
 
     @Override
@@ -47,6 +46,7 @@ public class GrindableArmor extends CommonFeature implements IGrindableItemProvi
                 result -> RECIPES.put(result.getFirst(), result.getSecond())));
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean handleOnTake(GrindstoneMenuInstance instance, Player player, ItemStack stack) {
         if (player.level().isClientSide()) return false;
 
@@ -89,37 +89,13 @@ public class GrindableArmor extends CommonFeature implements IGrindableItemProvi
         return List.of(
             Pair.of(Items.SADDLE, Items.LEATHER),
             Pair.of(Items.LEATHER_HORSE_ARMOR, Items.LEATHER),
-            Pair.of(Items.LEATHER_HELMET, Items.LEATHER),
-            Pair.of(Items.LEATHER_CHESTPLATE, Items.LEATHER),
-            Pair.of(Items.LEATHER_LEGGINGS, Items.LEATHER),
-            Pair.of(Items.LEATHER_BOOTS, Items.LEATHER),
             Pair.of(Items.IRON_HORSE_ARMOR, Items.IRON_INGOT),
-            Pair.of(Items.IRON_HELMET, Items.IRON_INGOT),
-            Pair.of(Items.IRON_CHESTPLATE, Items.IRON_INGOT),
-            Pair.of(Items.IRON_LEGGINGS, Items.IRON_INGOT),
-            Pair.of(Items.IRON_BOOTS, Items.IRON_INGOT),
-            Pair.of(Items.CHAINMAIL_HELMET, Items.IRON_INGOT),
-            Pair.of(Items.CHAINMAIL_CHESTPLATE, Items.IRON_INGOT),
-            Pair.of(Items.CHAINMAIL_LEGGINGS, Items.IRON_INGOT),
-            Pair.of(Items.CHAINMAIL_BOOTS, Items.IRON_INGOT),
             Pair.of(Items.GOLDEN_HORSE_ARMOR, Items.GOLD_INGOT),
-            Pair.of(Items.GOLDEN_HELMET, Items.GOLD_INGOT),
-            Pair.of(Items.GOLDEN_CHESTPLATE, Items.GOLD_INGOT),
-            Pair.of(Items.GOLDEN_LEGGINGS, Items.GOLD_INGOT),
-            Pair.of(Items.GOLDEN_BOOTS, Items.GOLD_INGOT),
-            Pair.of(Items.DIAMOND_HORSE_ARMOR, Items.DIAMOND),
-            Pair.of(Items.DIAMOND_HELMET, Items.DIAMOND),
-            Pair.of(Items.DIAMOND_CHESTPLATE, Items.DIAMOND),
-            Pair.of(Items.DIAMOND_LEGGINGS, Items.DIAMOND),
-            Pair.of(Items.DIAMOND_BOOTS, Items.DIAMOND),
-            Pair.of(Items.NETHERITE_HELMET, Items.NETHERITE_SCRAP),
-            Pair.of(Items.NETHERITE_CHESTPLATE, Items.NETHERITE_SCRAP),
-            Pair.of(Items.NETHERITE_LEGGINGS, Items.NETHERITE_SCRAP),
-            Pair.of(Items.NETHERITE_BOOTS, Items.NETHERITE_SCRAP)
+            Pair.of(Items.DIAMOND_HORSE_ARMOR, Items.DIAMOND)
         );
     }
 
     public static void triggerRecycledArmor(ServerPlayer player) {
-        Advancements.trigger(TRIGGER_RECYCLED_ARMOR, player);
+        Advancements.trigger(new ResourceLocation(Charm.ID, "recycled_horse_armor"), player);
     }
 }

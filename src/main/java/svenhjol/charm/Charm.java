@@ -32,7 +32,7 @@ import svenhjol.charm.feature.extra_stackables.ExtraStackables;
 import svenhjol.charm.feature.extra_stews.ExtraStews;
 import svenhjol.charm.feature.extra_trades.ExtraTrades;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
-import svenhjol.charm.feature.grindable_armor.GrindableArmor;
+import svenhjol.charm.feature.grindable_horse_armor.GrindableHorseArmor;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.feature.improved_mineshafts.ImprovedMineshafts;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
@@ -117,7 +117,7 @@ public class Charm extends CommonMod {
             ExtraStews.class,
             ExtraTrades.class,
             ExtractableEnchantments.class,
-            GrindableArmor.class,
+            GrindableHorseArmor.class,
             HoverSorting.class,
             ImprovedMineshafts.class,
             InventoryTidying.class,

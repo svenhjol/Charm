@@ -2,13 +2,13 @@
   "parent": "charm:core/smithing",
   "display": {
     "icon": {
-      "item": "minecraft:leather_chestplate"
+      "item": "minecraft:leather_horse_armor"
     },
     "title": {
-      "translate": "advancements.charm.recycle_armor.title"
+      "translate": "advancements.charm.recycle_horse_armor.title"
     },
     "description": {
-      "translate": "advancements.charm.recycle_armor.description"
+      "translate": "advancements.charm.recycle_horse_armor.description"
     },
     "frame": "goal",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "recycled_armor": {
+    "recycled_horse_armor": {
       "trigger": "charmony_action_performed",
       "conditions": {
-        "action": "charm:recycled_armor"
+        "action": "charm:recycled_horse_armor"
       }
     }
   },
   "requirements": [
     [
-      "recycled_armor"
+      "recycled_horse_armor"
     ]
   ]
 }
