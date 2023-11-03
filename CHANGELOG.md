@@ -2,11 +2,13 @@
 
 ## 6.0.15
 
-- Torchflowers in pots now emit light
+- GrindableArmor is now GrindableHorseArmor (https://trello.com/c/0VeuSsOH)
+- Don't play sound for neighbouring door (https://trello.com/c/R6goch5l)
+- Torchflowers in pots now emit light (https://trello.com/c/kMDReAYw)
 - Torchflowers in second stage of growth emith half light
-- Bump to Charmony 6.8.0 to use new conditional filtering
 - Specific variant texture can now be tied to an entity using entity tags
 - Update variant wolf tame and angry state texture fetching
+- Bump to Charmony 6.8.0 to use new conditional filtering
 
 ## 6.0.14
 
