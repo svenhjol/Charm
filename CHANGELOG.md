@@ -5,7 +5,7 @@
 - GrindableArmor is now GrindableHorseArmor (https://trello.com/c/0VeuSsOH)
 - Don't play sound for neighbouring door (https://trello.com/c/R6goch5l)
 - Torchflowers in pots now emit light (https://trello.com/c/kMDReAYw)
-- Torchflowers in second stage of growth emith half light
+- Torchflowers in second stage of growth emit half light
 - Restore ability to disable client features
 - Specific variant texture can now be tied to an entity using entity tags
 - Update variant wolf tame and angry state texture fetching
