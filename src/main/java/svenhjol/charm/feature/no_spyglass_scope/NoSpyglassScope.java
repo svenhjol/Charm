@@ -10,6 +10,11 @@ public class NoSpyglassScope extends ClientFeature {
         return "Removes the dark outer overlay when zooming in with the spyglass, giving you the full view.";
     }
 
+    @Override
+    public boolean canBeDisabled() {
+        return true;
+    }
+
     public static boolean shouldRemoveHud() {
         return Mods.client(Charm.ID).loader().isEnabled(NoSpyglassScope.class);
     }

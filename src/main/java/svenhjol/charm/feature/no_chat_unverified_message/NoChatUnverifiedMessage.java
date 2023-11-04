@@ -7,4 +7,9 @@ public class NoChatUnverifiedMessage extends ClientFeature {
     public String description() {
         return "Disables the 'Chat messages can't be verified' nag when the server does not enforce secure profile.";
     }
+
+    @Override
+    public boolean canBeDisabled() {
+        return true;
+    }
 }

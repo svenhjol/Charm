@@ -14,6 +14,11 @@ public class ShowRepairCost extends ClientFeature {
         return "An item's repair cost is shown in their tooltip when looking at the anvil screen.";
     }
 
+    @Override
+    public boolean canBeDisabled() {
+        return true;
+    }
+
     public static List<Component> addRepairCostToTooltip(ItemStack stack, List<Component> tooltip) {
         var repairCost = stack.getBaseRepairCost();
         if (repairCost > 0) {

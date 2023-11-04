@@ -33,6 +33,11 @@ public class DiscsStopBackgroundMusic extends ClientFeature {
     }
 
     @Override
+    public boolean canBeDisabled() {
+        return true;
+    }
+
+    @Override
     public void register() {
         BlockUseEvent.INSTANCE.handle(this::handleBlockUse);
         SoundPlayEvent.INSTANCE.handle(this::handleSoundPlay);

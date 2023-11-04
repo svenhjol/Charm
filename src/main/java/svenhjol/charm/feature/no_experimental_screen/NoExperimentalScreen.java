@@ -8,4 +8,9 @@ public class NoExperimentalScreen extends ClientFeature {
     public String description() {
         return "Prevents the 'Experimental World' screen from showing with customized worldgen or tags present.";
     }
+
+    @Override
+    public boolean canBeDisabled() {
+        return true;
+    }
 }

@@ -7,4 +7,9 @@ public class GentlePotionParticles extends ClientFeature {
     public String description() {
         return "Potion effect particles are less obtrusive.";
     }
+
+    @Override
+    public boolean canBeDisabled() {
+        return true;
+    }
 }
