@@ -19,7 +19,7 @@ public class PlayerPressurePlatesClient extends ClientFeature {
         registry.itemTab(
             PlayerPressurePlates.blockItem,
             CreativeModeTabs.BUILDING_BLOCKS,
-            Items.GILDED_BLACKSTONE
+            Items.SMOOTH_BASALT
         );
         // Add to the Redstone Blocks menu tab.
         registry.itemTab(

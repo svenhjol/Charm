@@ -15,7 +15,7 @@ public class PlayerPressurePlates extends CommonFeature implements IWandererTrad
 
     @Override
     public String description() {
-        return "Player-only pressure plates crafted using gilded blackstone.";
+        return "Player-only pressure plates crafted using smooth basalt.";
     }
 
     @Override

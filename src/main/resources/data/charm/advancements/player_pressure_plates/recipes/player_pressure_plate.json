@@ -7,12 +7,12 @@
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_gilded_blackstone": {
+    "has_smooth_basalt": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:gilded_blackstone"
+              "minecraft:smooth_basalt"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_gilded_blackstone",
+      "has_smooth_basalt",
       "has_the_recipe"
     ]
   ],

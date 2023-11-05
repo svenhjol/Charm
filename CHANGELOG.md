@@ -4,6 +4,7 @@
 
 - Items spready properly when breaking spawner (https://trello.com/c/vEf4uuzN)
 - Blacklist NoChatUnverifiedMessage when mod chatsigninghider is present
+- Player pressure plates now crafted using smooth basalt
 - Fixed forge loot tables
 
 ## 6.0.15
