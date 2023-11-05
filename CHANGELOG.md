@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.16
+
+- Blacklist NoChatUnverifiedMessage when mod chatsigninghider is present
+
 ## 6.0.15
 
 - GrindableArmor is now GrindableHorseArmor (https://trello.com/c/0VeuSsOH)
