@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.CharmTags;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.common.CommonFeature;
@@ -75,7 +76,12 @@ public class SpawnerDrops extends CommonFeature {
                 DROP_TYPES.row(dropType).forEach((item, amount) -> {
                     var stacks = getItemStacks(item, amount);
                     for (var stack : stacks) {
-                        level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack));
+                        for (var i = 0; i < amount; i++) {
+                            var singleStack = new ItemStack(stack.getItem());
+                            Vec3 vec3 = Vec3.atLowerCornerWithOffset(pos, 0.5d, 0.5d, 0.5d).offsetRandom(level.random, 0.7f);
+                            var itemEntity = new ItemEntity(level, vec3.x(), vec3.y(), vec3.z(), singleStack);
+                            level.addFreshEntity(itemEntity);
+                        }
                     }
                 });
             }
