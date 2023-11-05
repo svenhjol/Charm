@@ -2,15 +2,15 @@
   "template": {
     "variants": {
       "axis=x": {
-        "model": "charm:block/CUSTOM_WOOD_log_horizontal",
+        "model": "NAMESPACE:block/CUSTOM_WOOD_log_horizontal",
         "x": 90,
         "y": 90
       },
       "axis=y": {
-        "model": "charm:block/CUSTOM_WOOD_log"
+        "model": "NAMESPACE:block/CUSTOM_WOOD_log"
       },
       "axis=z": {
-        "model": "charm:block/CUSTOM_WOOD_log_horizontal",
+        "model": "NAMESPACE:block/CUSTOM_WOOD_log_horizontal",
         "x": 90
       }
     }
