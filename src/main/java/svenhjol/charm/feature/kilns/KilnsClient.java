@@ -2,9 +2,9 @@ package svenhjol.charm.feature.kilns;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charmony.client.ClientFeature;
 import svenhjol.charmony.common.CommonFeature;
-import svenhjol.charmony.feature.firing.Firing;
 
 public class KilnsClient extends ClientFeature {
     @Override

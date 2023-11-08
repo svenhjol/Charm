@@ -7,7 +7,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charmony.feature.firing.Firing;
+import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charmony.helper.TextHelper;
 
 public class KilnBlockEntity extends AbstractFurnaceBlockEntity {

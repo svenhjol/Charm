@@ -32,6 +32,7 @@ import svenhjol.charm.feature.extra_stackables.ExtraStackables;
 import svenhjol.charm.feature.extra_stews.ExtraStews;
 import svenhjol.charm.feature.extra_trades.ExtraTrades;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
+import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.grindable_horse_armor.GrindableHorseArmor;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.feature.improved_mineshafts.ImprovedMineshafts;
@@ -42,6 +43,7 @@ import svenhjol.charm.feature.lower_noteblock_pitch.LowerNoteblockPitch;
 import svenhjol.charm.feature.lumberjacks.Lumberjacks;
 import svenhjol.charm.feature.make_suspicious_blocks.MakeSuspiciousBlocks;
 import svenhjol.charm.feature.mooblooms.Mooblooms;
+import svenhjol.charm.feature.nearby_workstations.NearbyWorkstations;
 import svenhjol.charm.feature.no_crop_trampling.NoCropTrampling;
 import svenhjol.charm.feature.no_pet_damage.NoPetDamage;
 import svenhjol.charm.feature.open_both_doors.OpenBothDoors;
@@ -51,7 +53,6 @@ import svenhjol.charm.feature.piglins_follow_gold_blocks.PiglinsFollowGoldBlocks
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlates;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
-import svenhjol.charm.feature.nearby_workstations.NearbyWorkstations;
 import svenhjol.charm.feature.quick_replant.QuickReplant;
 import svenhjol.charm.feature.redstone_sand.RedstoneSand;
 import svenhjol.charm.feature.revive_pets.RevivePets;
@@ -69,6 +70,7 @@ import svenhjol.charm.feature.variant_pistons.VariantPistons;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.villagers_follow_emerald_blocks.VillagersFollowEmeraldBlocks;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
+import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.common.CommonMod;
 
@@ -117,6 +119,7 @@ public class Charm extends CommonMod {
             ExtraStews.class,
             ExtraTrades.class,
             ExtractableEnchantments.class,
+            Firing.class,
             GrindableHorseArmor.class,
             HoverSorting.class,
             ImprovedMineshafts.class,
@@ -153,7 +156,8 @@ public class Charm extends CommonMod {
             VariantPistons.class,
             VariantWood.class,
             VillagersFollowEmeraldBlocks.class,
-            Woodcutters.class
+            Woodcutters.class,
+            Woodcutting.class
         );
     }
 }

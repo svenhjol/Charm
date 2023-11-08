@@ -11,7 +11,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.custom_wood.CustomWood;
-import svenhjol.charmony.feature.woodcutting.Woodcutting;
 import svenhjol.charmony_api.CharmonyApi;
 import svenhjol.charmony_api.event.LevelLoadEvent;
 import svenhjol.charmony_api.iface.*;
@@ -38,9 +37,6 @@ public class AzaleaWood extends CommonFeature implements
 
     @Override
     public void register() {
-        // Must register Charmony's woodcutting recipe serializer as a dependency or woodcutting recipes will fail.
-        Woodcutting.registerDependency();
-
         material = AzaleaMaterial.AZALEA;
         blockSetType = mod().registry().blockSetType(material);
         woodType = mod().registry().woodType(material.getSerializedName(), material);

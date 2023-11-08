@@ -6,7 +6,7 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import svenhjol.charmony.feature.woodcutting.WoodcuttingRecipe;
+import svenhjol.charm.feature.woodcutting.WoodcuttingRecipe;
 
 import java.util.Collections;
 import java.util.List;

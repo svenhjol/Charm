@@ -7,7 +7,7 @@ import net.minecraft.world.inventory.AbstractFurnaceMenu;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeBookType;
-import svenhjol.charmony.feature.firing.Firing;
+import svenhjol.charm.feature.firing.Firing;
 
 public class KilnMenu extends AbstractFurnaceMenu {
     public KilnMenu(int syncId, Inventory playerInventory) {

@@ -8,13 +8,13 @@ import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import svenhjol.charm.feature.firing.Firing;
+import svenhjol.charm.feature.firing.FiringRecipe;
 import svenhjol.charm.feature.kilns.KilnScreen;
 import svenhjol.charm.feature.kilns.Kilns;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
-import svenhjol.charmony.feature.firing.Firing;
-import svenhjol.charmony.feature.firing.FiringRecipe;
-import svenhjol.charmony.feature.woodcutting.Woodcutting;
-import svenhjol.charmony.feature.woodcutting.WoodcuttingRecipe;
+import svenhjol.charm.feature.woodcutting.Woodcutting;
+import svenhjol.charm.feature.woodcutting.WoodcuttingRecipe;
 
 @Environment(EnvType.CLIENT)
 @SuppressWarnings({"UnstableApiUsage", "unchecked", "unsafe", "RedundantSuppression"})

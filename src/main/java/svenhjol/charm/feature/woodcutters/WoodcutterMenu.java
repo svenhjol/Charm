@@ -10,8 +10,8 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import svenhjol.charmony.feature.woodcutting.Woodcutting;
-import svenhjol.charmony.feature.woodcutting.WoodcuttingRecipe;
+import svenhjol.charm.feature.woodcutting.Woodcutting;
+import svenhjol.charm.feature.woodcutting.WoodcuttingRecipe;
 
 import java.util.List;
 

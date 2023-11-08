@@ -3,9 +3,9 @@ package svenhjol.charm.feature.woodcutters;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charmony.client.ClientFeature;
 import svenhjol.charmony.common.CommonFeature;
-import svenhjol.charmony.feature.woodcutting.Woodcutting;
 
 public class WoodcuttersClient extends ClientFeature {
     @Override

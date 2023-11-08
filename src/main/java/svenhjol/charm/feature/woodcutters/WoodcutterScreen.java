@@ -10,7 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import svenhjol.charmony.feature.woodcutting.WoodcuttingRecipe;
+import svenhjol.charm.feature.woodcutting.WoodcuttingRecipe;
 
 import java.util.List;
 

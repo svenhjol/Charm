@@ -1,5 +1,5 @@
 {
-  "type": "charmony:firing",
+  "type": "charm:firing",
   "ingredient": {
     "item": "minecraft:glowstone"
   },

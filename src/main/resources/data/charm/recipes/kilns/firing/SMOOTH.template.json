@@ -1,6 +1,6 @@
 {
   "template": {
-    "type": "charmony:firing",
+    "type": "charm:firing",
     "ingredient": {
       "item": "minecraft:NOT_SMOOTH"
     },

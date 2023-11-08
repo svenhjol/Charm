@@ -1,6 +1,6 @@
 {
   "template": {
-    "type": "charmony:woodcutting",
+    "type": "charm:woodcutting",
     "ingredient": {
       "item": "minecraft:VANILLA_WOOD_planks"
     },
