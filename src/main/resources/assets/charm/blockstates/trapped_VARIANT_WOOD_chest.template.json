@@ -1,0 +1,10 @@
+{
+  "template": {
+    "variants": {
+      "": {
+        "model": "charm:block/VARIANT_WOOD_chest"
+      }
+    }
+  },
+  "variants": "variant_wood"
+}

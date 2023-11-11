@@ -1,6 +1,0 @@
-{
-  "template": {
-    "parent": "charm:block/chiseled_VANILLA_WOOD_bookshelf_inventory"
-  },
-  "variants": "vanilla_wood"
-}

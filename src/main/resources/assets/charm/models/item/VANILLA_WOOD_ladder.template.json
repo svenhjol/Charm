@@ -1,9 +1,0 @@
-{
-  "template": {
-    "parent": "minecraft:item/generated",
-    "textures": {
-      "layer0": "charm:block/VANILLA_WOOD_ladder"
-    }
-  },
-  "variants": "vanilla_wood"
-}

@@ -1,0 +1,6 @@
+{
+  "template": {
+    "type": "minecraft:block"
+  },
+  "variants": "variant_wood"
+}
