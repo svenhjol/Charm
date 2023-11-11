@@ -3,6 +3,7 @@ package svenhjol.charm.feature.azalea_wood;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charmony_api.iface.IVariantWoodMaterial;
 
@@ -43,6 +44,8 @@ public enum AzaleaMaterial implements IVariantWoodMaterial {
 
     @Override
     public BlockBehaviour.Properties blockProperties() {
-        return IVariantWoodMaterial.super.blockProperties().noOcclusion();
+        return IVariantWoodMaterial.super.blockProperties()
+            .noOcclusion()
+            .instrument(NoteBlockInstrument.BASS);
     }
 }
