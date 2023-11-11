@@ -6,6 +6,7 @@
 - Move firing and woodcutting recipe serializers into Charm (from Charmony)
 - Smooth glowstone recipes now properly disabled when firing is disabled
 - Bump to Charmony 6.9.0 to fix non-deterministic recipe and advancement condition filters
+- Use charm tags for minecraft axe and climbable block tags
 
 ## 6.0.16
 
