@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.0.17
+
+- Azalea material now has "bass" note block instrument to match vanilla wood
+- Move firing and woodcutting recipe serializers into Charm (from Charmony)
+- Smooth glowstone recipes now properly disabled when firing is disabled
+- Bump to Charmony 6.9.0 to fix non-deterministic recipe and advancement condition filters
+
 ## 6.0.16
 
 - Items spready properly when breaking spawner (https://trello.com/c/vEf4uuzN)
