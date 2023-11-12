@@ -30,9 +30,9 @@ public class CopperPistons extends CommonFeature {
         stickyCopperPistonBlock = registry.block("sticky_copper_piston", StickyCopperPistonBaseBlock::new);
 
         copperPistonBlockItem = registry.item("copper_piston",
-            () -> new CopperPistonBaseBlock.BlockItem(this, copperPistonBlock));
+            () -> new CopperPistonBaseBlock.BlockItem(copperPistonBlock));
         stickyCopperPistonBlockItem = registry.item("sticky_copper_piston",
-            () -> new StickyCopperPistonBaseBlock.BlockItem(this, stickyCopperPistonBlock));
+            () -> new StickyCopperPistonBaseBlock.BlockItem(stickyCopperPistonBlock));
 
         registry.blockEntityBlocks(() -> BlockEntityType.PISTON, List.of(movingCopperPistonBlock));
     }

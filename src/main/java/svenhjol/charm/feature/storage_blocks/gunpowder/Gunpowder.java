@@ -7,22 +7,23 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
+import svenhjol.charm.feature.storage_blocks.IStorageBlockFeature;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.PlayerHelper;
-import svenhjol.charmony_api.iface.IStorageBlockFeature;
+import svenhjol.charmony.iface.ICommonRegistry;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-public class Gunpowder implements IStorageBlockFeature {
+public class Gunpowder implements IStorageBlockFeature<ICommonRegistry> {
     private static final String ID = "gunpowder_block";
     static Supplier<Block> block;
     static Supplier<Item> item;
     static Supplier<SoundEvent> dissolveSound;
     static boolean enabled;
+    ICommonRegistry registry;
 
     @Override
     public List<BooleanSupplier> checks() {
@@ -30,9 +31,12 @@ public class Gunpowder implements IStorageBlockFeature {
     }
 
     @Override
-    public void register() {
-        var registry = Mods.common(Charm.ID).registry();
+    public void preRegister(ICommonRegistry registry) {
+        this.registry = registry;
+    }
 
+    @Override
+    public void register() {
         block = registry.block(ID, GunpowderBlock::new);
         item = registry.item(ID, GunpowderBlock.BlockItem::new);
         dissolveSound = registry.soundEvent("gunpowder_dissolve");

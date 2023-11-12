@@ -2,13 +2,10 @@ package svenhjol.charm.feature.variant_wood.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import svenhjol.charm.Charm;
-import svenhjol.charm.feature.variant_wood.VariantWood;
-import svenhjol.charmony.base.Mods;
-import svenhjol.charmony_api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmonyBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
 import svenhjol.charmony.iface.IIgniteProvider;
+import svenhjol.charmony_api.iface.IVariantMaterial;
 
 import java.util.function.Supplier;
 
@@ -22,10 +19,6 @@ public class VariantBookshelfBlock extends Block implements IIgniteProvider {
 
     public IVariantMaterial getMaterial() {
         return material;
-    }
-
-    static VariantWood getParent() {
-        return Mods.common(Charm.ID).loader().get(VariantWood.class).orElseThrow();
     }
 
     @Override
@@ -42,13 +35,8 @@ public class VariantBookshelfBlock extends Block implements IIgniteProvider {
         private final IVariantMaterial material;
 
         public BlockItem(Supplier<VariantBookshelfBlock> block) {
-            super(getParent(), block, new Properties());
+            super(block, new Properties());
             this.material = block.get().getMaterial();
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return super.isEnabled() && VariantWood.variantBookshelves;
         }
 
         @Override

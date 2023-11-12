@@ -9,11 +9,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.Charm;
-import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charmony.base.CharmonyBlockItem;
-import svenhjol.charmony.base.Mods;
-import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony_api.event.SugarDissolveEvent;
 
 @SuppressWarnings({"deprecation", "BooleanMethodIsAlwaysInverted", "unused"})
@@ -22,10 +18,6 @@ public class SugarBlock extends FallingBlock {
         super(Properties.of()
             .sound(SoundType.SAND)
             .strength(0.5F));
-    }
-
-    public static CommonFeature getParent() {
-        return Mods.common(Charm.ID).loader().get(StorageBlocks.class).orElseThrow();
     }
 
     @Override
@@ -70,7 +62,7 @@ public class SugarBlock extends FallingBlock {
 
     static class BlockItem extends CharmonyBlockItem {
         public BlockItem() {
-            super(getParent(), Sugar.block, new Properties());
+            super(Sugar.block, new Properties());
         }
     }
 }

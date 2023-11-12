@@ -25,8 +25,8 @@ public class SmoothGlowstone extends CommonFeature implements IConditionalRecipe
     @Override
     public void register() {
         var registry = mod().registry();
-        block = registry.block(ID, () -> new SmoothGlowstoneBlock(this));
-        blockItem = registry.item(ID, () -> new SmoothGlowstoneBlock.BlockItem(this, block));
+        block = registry.block(ID, SmoothGlowstoneBlock::new);
+        blockItem = registry.item(ID, () -> new SmoothGlowstoneBlock.BlockItem(block));
 
         CharmonyApi.registerProvider(this);
     }

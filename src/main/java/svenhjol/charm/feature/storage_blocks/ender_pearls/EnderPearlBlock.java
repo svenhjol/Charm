@@ -6,22 +6,14 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.Charm;
-import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charmony.base.CharmonyBlock;
 import svenhjol.charmony.base.CharmonyBlockItem;
-import svenhjol.charmony.base.Mods;
-import svenhjol.charmony.common.CommonFeature;
 
 public class EnderPearlBlock extends CharmonyBlock {
     public EnderPearlBlock() {
-        super(getParent(), Properties.of()
+        super(Properties.of()
             .sound(SoundType.GLASS)
             .strength(2.0F));
-    }
-
-    public static CommonFeature getParent() {
-        return Mods.common(Charm.ID).loader().get(StorageBlocks.class).orElseThrow();
     }
 
     /**
@@ -37,7 +29,7 @@ public class EnderPearlBlock extends CharmonyBlock {
 
     static class BlockItem extends CharmonyBlockItem {
         public BlockItem() {
-            super(getParent(), EnderPearls.block, new Properties());
+            super(EnderPearls.block, new Properties());
         }
     }
 }

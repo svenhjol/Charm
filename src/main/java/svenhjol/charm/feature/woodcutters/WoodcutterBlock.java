@@ -49,8 +49,8 @@ public class WoodcutterBlock extends StonecutterBlock {
     }
 
     public static class BlockItem extends CharmonyBlockItem {
-        public BlockItem(CommonFeature feature, Supplier<WoodcutterBlock> block) {
-            super(feature, block, new Properties());
+        public BlockItem(Supplier<WoodcutterBlock> block) {
+            super(block, new Properties());
         }
     }
 }

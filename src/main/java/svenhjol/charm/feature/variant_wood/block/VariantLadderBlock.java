@@ -2,10 +2,7 @@ package svenhjol.charm.feature.variant_wood.block;
 
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LadderBlock;
-import svenhjol.charm.Charm;
-import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charmony.base.CharmonyBlockItem;
-import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.iface.IFuelProvider;
 import svenhjol.charmony_api.iface.IVariantMaterial;
 
@@ -22,21 +19,12 @@ public class VariantLadderBlock extends LadderBlock {
         return material;
     }
 
-    static VariantWood getParent() {
-        return Mods.common(Charm.ID).loader().get(VariantWood.class).orElseThrow();
-    }
-
     public static class BlockItem extends CharmonyBlockItem implements IFuelProvider {
         private final IVariantMaterial material;
 
         public BlockItem(Supplier<VariantLadderBlock> block) {
-            super(getParent(), block, new Properties());
+            super(block, new Properties());
             this.material = block.get().getMaterial();
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return super.isEnabled() && VariantWood.variantLadders;
         }
 
         @Override

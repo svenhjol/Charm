@@ -9,14 +9,13 @@ import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.MapColor;
 import svenhjol.charmony.base.CharmonyBlockItem;
-import svenhjol.charmony.common.CommonFeature;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Supplier;
 
 public class PlayerPressurePlateBlock extends PressurePlateBlock {
-    public PlayerPressurePlateBlock(CommonFeature feature) {
+    public PlayerPressurePlateBlock() {
         super(Sensitivity.MOBS, Properties.of()
             .requiresCorrectToolForDrops()
             .noCollission()
@@ -33,8 +32,8 @@ public class PlayerPressurePlateBlock extends PressurePlateBlock {
     }
 
     public static class BlockItem extends CharmonyBlockItem {
-        public <T extends Block> BlockItem(CommonFeature feature, Supplier<T> block) {
-            super(feature, block, new Properties());
+        public <T extends Block> BlockItem(Supplier<T> block) {
+            super(block, new Properties());
         }
     }
 }

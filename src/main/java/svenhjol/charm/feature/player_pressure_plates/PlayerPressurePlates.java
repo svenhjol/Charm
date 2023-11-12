@@ -21,8 +21,8 @@ public class PlayerPressurePlates extends CommonFeature implements IWandererTrad
     @Override
     public void register() {
         var registry = mod().registry();
-        block = registry.block(ID, () -> new PlayerPressurePlateBlock(this));
-        blockItem = registry.item(ID, () -> new PlayerPressurePlateBlock.BlockItem(this, block));
+        block = registry.block(ID, PlayerPressurePlateBlock::new);
+        blockItem = registry.item(ID, () -> new PlayerPressurePlateBlock.BlockItem(block));
     }
 
     @Override

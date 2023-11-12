@@ -27,8 +27,8 @@ public class CoralSeaLanterns extends CommonFeature implements IWandererTradePro
 
         for (var material : CoralMaterial.values()) {
             var id = material.getSerializedName() + "_sea_lantern";
-            var block = registry.block(id, () -> new CoralSeaLanternBlock(this, material));
-            var blockItem = registry.item(id, () -> new CoralSeaLanternBlock.BlockItem(this, block));
+            var block = registry.block(id, () -> new CoralSeaLanternBlock(material));
+            var blockItem = registry.item(id, () -> new CoralSeaLanternBlock.BlockItem(block));
             BLOCKS.put(material, block);
             BLOCK_ITEMS.put(material, blockItem);
         }

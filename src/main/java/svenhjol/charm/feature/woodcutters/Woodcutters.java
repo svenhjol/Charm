@@ -41,7 +41,7 @@ public class Woodcutters extends CommonFeature {
         block = registry.block(BLOCK_ID,
             () -> new WoodcutterBlock(this));
         blockItem = registry.item(BLOCK_ID,
-            () -> new WoodcutterBlock.BlockItem(this, block));
+            () -> new WoodcutterBlock.BlockItem(block));
 
         poiType = registry.pointOfInterestType(BLOCK_ID,
             () -> new PoiType(ImmutableSet.copyOf(block.get().getStateDefinition().getPossibleStates()), 1, 1));

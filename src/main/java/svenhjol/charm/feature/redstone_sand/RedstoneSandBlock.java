@@ -7,17 +7,10 @@ import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
-import svenhjol.charm.Charm;
 import svenhjol.charmony.base.CharmonyBlockItem;
-import svenhjol.charmony.base.Mods;
-import svenhjol.charmony.common.CommonFeature;
 
 @SuppressWarnings("deprecation")
 public class RedstoneSandBlock extends FallingBlock {
-    public static CommonFeature getParent() {
-        return Mods.common(Charm.ID).loader().get(RedstoneSand.class).orElseThrow();
-    }
-
     public RedstoneSandBlock() {
         super(Properties.of()
             .mapColor(MapColor.COLOR_RED)
@@ -37,7 +30,7 @@ public class RedstoneSandBlock extends FallingBlock {
 
     static class BlockItem extends CharmonyBlockItem {
         public BlockItem() {
-            super(getParent(), RedstoneSand.block, new Properties());
+            super(RedstoneSand.block, new Properties());
         }
     }
 }

@@ -2,19 +2,25 @@ package svenhjol.charm.feature.storage_blocks.gunpowder;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.Charm;
+import svenhjol.charm.feature.storage_blocks.IStorageBlockFeature;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charmony.base.Mods;
-import svenhjol.charmony_api.iface.IStorageBlockFeature;
+import svenhjol.charmony.iface.IClientRegistry;
 
-public class GunpowderClient implements IStorageBlockFeature {
+public class GunpowderClient implements IStorageBlockFeature<IClientRegistry> {
+    IClientRegistry registry;
+
     @Override
     public void runWhenEnabled() {
-        Mods.client(Charm.ID).registry().itemTab(
+        registry.itemTab(
             Gunpowder.item,
             CreativeModeTabs.REDSTONE_BLOCKS,
             Items.HONEY_BLOCK
         );
+    }
+
+    @Override
+    public void preRegister(IClientRegistry registry) {
+        this.registry = registry;
     }
 
     @Override

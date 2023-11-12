@@ -76,8 +76,8 @@ public class KilnBlock extends AbstractFurnaceBlock {
     }
 
     static class BlockItem extends CharmonyBlockItem {
-        public BlockItem(CommonFeature feature, Supplier<KilnBlock> block) {
-            super(feature, block, new Properties());
+        public BlockItem(Supplier<KilnBlock> block) {
+            super(block, new Properties());
         }
     }
 }

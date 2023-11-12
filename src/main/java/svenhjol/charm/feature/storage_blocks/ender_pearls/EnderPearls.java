@@ -8,22 +8,23 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
+import svenhjol.charm.feature.storage_blocks.IStorageBlockFeature;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charmony.base.Mods;
 import svenhjol.charmony.feature.advancements.Advancements;
 import svenhjol.charmony.helper.PlayerHelper;
+import svenhjol.charmony.iface.ICommonRegistry;
 import svenhjol.charmony_api.event.EntityJoinEvent;
-import svenhjol.charmony_api.iface.IStorageBlockFeature;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-public class EnderPearls implements IStorageBlockFeature {
+public class EnderPearls implements IStorageBlockFeature<ICommonRegistry> {
     private static final String ID = "ender_pearl_block";
     static Supplier<Block> block;
     static Supplier<Item> item;
     static boolean enabled;
+    ICommonRegistry registry;
 
     @Override
     public List<BooleanSupplier> checks() {
@@ -31,8 +32,12 @@ public class EnderPearls implements IStorageBlockFeature {
     }
 
     @Override
+    public void preRegister(ICommonRegistry registry) {
+        this.registry = registry;
+    }
+
+    @Override
     public void register() {
-        var registry = Mods.common(Charm.ID).registry();
         block = registry.block(ID, EnderPearlBlock::new);
         item = registry.item(ID, EnderPearlBlock.BlockItem::new);
         enabled = checks().stream().allMatch(BooleanSupplier::getAsBoolean);

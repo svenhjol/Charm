@@ -42,31 +42,31 @@ public class ArcanePurpur extends CommonFeature {
         var registry = mod().registry();
 
         block = registry.block(BLOCK_ID,
-            () -> new ArcanePurpurBlock(this));
+            ArcanePurpurBlock::new);
         blockItem = registry.item(BLOCK_ID,
-            () -> new ArcanePurpurBlock.BlockItem<>(this, block));
+            () -> new ArcanePurpurBlock.BlockItem<>(block));
         slab = registry.block(SLAB_ID,
-            () -> new ArcanePurpurSlab(this, ARCANE_PURPUR));
+            () -> new ArcanePurpurSlab(ARCANE_PURPUR));
         slabItem = registry.item(SLAB_ID,
-            () -> new ArcanePurpurSlab.BlockItem(this, slab));
+            () -> new ArcanePurpurSlab.BlockItem(slab));
 
         // Stairs register differently.
         var stairs = registry.stairsBlock(STAIRS_ID,
-            this, ARCANE_PURPUR, () -> block.get().defaultBlockState());
+            ARCANE_PURPUR, () -> block.get().defaultBlockState());
         ArcanePurpur.stairs = stairs.getFirst();
         stairsItem = stairs.getSecond();
 
         glyphBlock = registry.block(GLYPH_BLOCK_ID,
-            () -> new ArcanePurpurGlyphBlock(this));
+            ArcanePurpurGlyphBlock::new);
         glyphBlockItem = registry.item(GLYPH_BLOCK_ID,
-            () -> new ArcanePurpurGlyphBlock.BlockItem<>(this, glyphBlock));
+            () -> new ArcanePurpurGlyphBlock.BlockItem<>(glyphBlock));
         chiseledBlock = registry.block(CHISELED_BLOCK_ID,
-            () -> new ChiseledArcanePurpurBlock(this));
+            ChiseledArcanePurpurBlock::new);
         chiseledBlockItem = registry.item(CHISELED_BLOCK_ID,
-            () -> new ChiseledArcanePurpurBlock.BlockItem<>(this, chiseledBlock));
+            () -> new ChiseledArcanePurpurBlock.BlockItem<>(chiseledBlock));
         chiseledGlyphBlock = registry.block(CHISELED_GLYPH_BLOCK_ID,
-            () -> new ChiseledArcanePurpurGlyphBlock(this));
+            ChiseledArcanePurpurGlyphBlock::new);
         chiseledGlyphBlockItem = registry.item(CHISELED_GLYPH_BLOCK_ID,
-            () -> new ChiseledArcanePurpurGlyphBlock.BlockItem<>(this, chiseledGlyphBlock));
+            () -> new ChiseledArcanePurpurGlyphBlock.BlockItem<>(chiseledGlyphBlock));
     }
 }

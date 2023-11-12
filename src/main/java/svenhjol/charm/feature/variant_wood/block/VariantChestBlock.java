@@ -5,15 +5,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.Charm;
-import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.variant_wood.entity.VariantChestBlockEntity;
 import svenhjol.charm.feature.variant_wood.iface.IVariantChest;
 import svenhjol.charm.feature.variant_wood.registry.CustomChest;
-import svenhjol.charmony.base.Mods;
-import svenhjol.charmony_api.iface.IVariantMaterial;
 import svenhjol.charmony.base.CharmonyBlockItem;
 import svenhjol.charmony.iface.IFuelProvider;
+import svenhjol.charmony_api.iface.IVariantMaterial;
 
 import java.util.function.Supplier;
 
@@ -35,26 +32,17 @@ public class VariantChestBlock extends ChestBlock implements IVariantChest {
         return material;
     }
 
-    static VariantWood getParent() {
-        return Mods.common(Charm.ID).loader().get(VariantWood.class).orElseThrow();
-    }
-
     public static class BlockItem extends CharmonyBlockItem implements IFuelProvider {
         private final IVariantMaterial material;
 
         public BlockItem(Supplier<VariantChestBlock> block) {
-            super(getParent(), block, new Properties());
+            super(block, new Properties());
             this.material = block.get().getMaterial();
         }
 
         @Override
         public int fuelTime() {
             return material.fuelTime();
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return super.isEnabled() && VariantWood.variantChests;
         }
     }
 }

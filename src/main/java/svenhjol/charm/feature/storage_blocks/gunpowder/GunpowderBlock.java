@@ -12,10 +12,7 @@ import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.Charm;
-import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charmony.base.CharmonyBlockItem;
-import svenhjol.charmony.base.Mods;
-import svenhjol.charmony.common.CommonFeature;
 
 @SuppressWarnings({"deprecation", "BooleanMethodIsAlwaysInverted", "unused"})
 public class GunpowderBlock extends FallingBlock {
@@ -25,10 +22,6 @@ public class GunpowderBlock extends FallingBlock {
         super(Properties.of()
             .sound(SoundType.SAND)
             .strength(0.5f));
-    }
-
-    public static CommonFeature getParent() {
-        return Mods.common(Charm.ID).loader().get(StorageBlocks.class).orElseThrow();
     }
 
     @Override
@@ -73,7 +66,7 @@ public class GunpowderBlock extends FallingBlock {
 
     static class BlockItem extends CharmonyBlockItem {
         public BlockItem() {
-            super(getParent(), Gunpowder.block, new Properties());
+            super(Gunpowder.block, new Properties());
         }
     }
 }
