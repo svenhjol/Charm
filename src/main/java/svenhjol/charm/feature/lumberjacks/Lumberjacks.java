@@ -9,10 +9,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmTags;
-import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
+import svenhjol.charmony.CharmonyTags;
 import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
+import svenhjol.charmony.feature.variant_wood.VariantWood;
 import svenhjol.charmony.helper.GenericTradeOffers;
 
 import java.util.List;
@@ -55,11 +56,10 @@ public class Lumberjacks extends CommonFeature {
     private void addTrades() {
         var charm = mod();
         var registry = charm.registry();
-        var loader = charm.loader();
 
-        var useVariantBarrels = loader.isEnabled(VariantWood.class) && VariantWood.variantBarrels;
-        var usevariantBookshelves = loader.isEnabled(VariantWood.class) && VariantWood.variantBookshelves;
-        var useVariantLadders = loader.isEnabled(VariantWood.class) && VariantWood.variantLadders;
+        var useVariantBarrels = VariantWood.variantBarrels;
+        var usevariantBookshelves = VariantWood.variantBookshelves;
+        var useVariantLadders = VariantWood.variantLadders;
 
         // Tier 1
 
@@ -74,7 +74,7 @@ public class Lumberjacks extends CommonFeature {
 
         if (useVariantLadders) {
             registry.villagerTrade(profession, 1, () -> new GenericTradeOffers.TagForEmeralds<>(
-                CharmTags.LADDERS, 1, 1, 2, 20));
+                CharmonyTags.LADDERS, 1, 1, 2, 20));
         } else {
             registry.villagerTrade(profession, 1, () -> new GenericTradeOffers.ItemsForEmeralds(
                 Items.LADDER, 1, 1, 2, 20));
@@ -115,7 +115,7 @@ public class Lumberjacks extends CommonFeature {
 
         if (useVariantBarrels) {
             registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.TagForEmeralds<>(
-                CharmTags.BARRELS, 4, 1, 1, 0, 15, 20));
+                CharmonyTags.BARRELS, 4, 1, 1, 0, 15, 20));
         } else {
             registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
                 Items.BARREL, 4, 1, 15, 20));
@@ -123,7 +123,7 @@ public class Lumberjacks extends CommonFeature {
 
         if (usevariantBookshelves) {
             registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.TagForEmeralds<>(
-                CharmTags.CHISELED_BOOKSHELVES, 4, 1, 1, 0, 15, 20));
+                CharmonyTags.CHISELED_BOOKSHELVES, 4, 1, 1, 0, 15, 20));
         } else {
             registry.villagerTrade(profession, 4, () -> new GenericTradeOffers.ItemsForEmeralds(
                 Items.BOOKSHELF, 4, 1, 15, 20));

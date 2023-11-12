@@ -20,18 +20,17 @@ import svenhjol.charm.feature.hover_sorting.HoverSortingClient;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingClient;
 import svenhjol.charm.feature.kilns.KilnsClient;
 import svenhjol.charm.feature.mooblooms.MoobloomsClient;
+import svenhjol.charm.feature.nearby_workstations.NearbyWorkstationsClient;
 import svenhjol.charm.feature.no_chat_unverified_message.NoChatUnverifiedMessage;
 import svenhjol.charm.feature.no_experimental_screen.NoExperimentalScreen;
 import svenhjol.charm.feature.no_spyglass_scope.NoSpyglassScope;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlatesClient;
-import svenhjol.charm.feature.nearby_workstations.NearbyWorkstationsClient;
 import svenhjol.charm.feature.redstone_sand.RedstoneSandClient;
 import svenhjol.charm.feature.show_repair_cost.ShowRepairCost;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
 import svenhjol.charm.feature.storage_blocks.StorageBlocksClient;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
 import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
-import svenhjol.charm.feature.variant_wood.VariantWoodClient;
 import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
 import svenhjol.charmony.client.ClientFeature;
 import svenhjol.charmony.client.ClientMod;
@@ -78,7 +77,6 @@ public class CharmClient extends ClientMod {
             StorageBlocksClient.class,
             TotemOfPreservingClient.class,
             VariantMobTextures.class,
-            VariantWoodClient.class,
             WoodcuttersClient.class
         );
     }

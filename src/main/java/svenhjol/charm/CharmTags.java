@@ -10,14 +10,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class CharmTags {
-    public static final TagKey<Block> BARRELS = TagKey.create(Registries.BLOCK,
-        new ResourceLocation(Charm.ID, "barrels"));
-
     public static final TagKey<Item> BEEKEEPER_SELLS_FLOWERS = TagKey.create(Registries.ITEM,
         new ResourceLocation(Charm.ID, "beekeeper_sells_flowers"));
-
-    public static final TagKey<Block> CHISELED_BOOKSHELVES = TagKey.create(Registries.BLOCK,
-        new ResourceLocation(Charm.ID, "chiseled_bookshelves"));
 
     public static final TagKey<Block> CHORUS_TELEPORTS = TagKey.create(Registries.BLOCK,
         new ResourceLocation(Charm.ID, "chorus_teleports"));
@@ -30,9 +24,6 @@ public class CharmTags {
 
     public static final TagKey<Item> HAS_SUSPICIOUS_EFFECTS = TagKey.create(Registries.ITEM,
         new ResourceLocation(Charm.ID, "has_suspicious_effects"));
-
-    public static final TagKey<Block> LADDERS = TagKey.create(Registries.BLOCK,
-        new ResourceLocation(Charm.ID, "ladders"));
 
     public static final TagKey<Block> MOVING_PISTONS = TagKey.create(Registries.BLOCK,
         new ResourceLocation(Charm.ID, "moving_pistons"));

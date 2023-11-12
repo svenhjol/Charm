@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.vanilla_wood_variants;
 
-import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.enums.VanillaWood;
+import svenhjol.charmony.feature.variant_wood.VariantWood;
 import svenhjol.charmony_api.CharmonyApi;
 
 public class VanillaWoodVariants extends CommonFeature {

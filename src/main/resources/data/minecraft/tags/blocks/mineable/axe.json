@@ -24,11 +24,6 @@
     "charm:stripped_azalea_log",
     "charm:stripped_azalea_wood",
     "charm:trapped_acacia_chest",
-    "charm:woodcutter",
-    "#charm:barrels",
-    "#charm:bookshelves",
-    "#charm:chests/wooden",
-    "#charm:chiseled_bookshelves",
-    "#charm:ladders"
+    "charm:woodcutter"
   ]
 }

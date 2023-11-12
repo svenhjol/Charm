@@ -66,8 +66,7 @@
     "pigs_find_mushrooms.PigModelMixin",
     "show_repair_cost.AnvilScreenMixin",
     "unlimited_repair_cost.AnvilScreenMixin",
-    "variant_pistons.PistonHeadRendererMixin",
-    "variant_wood.SheetsMixin"
+    "variant_pistons.PistonHeadRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

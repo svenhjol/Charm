@@ -107,6 +107,3 @@ accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher ren
 accessible field net/minecraft/client/renderer/entity/LivingEntityRenderer layers Ljava/util/List;
 accessible field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
 mutable    field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
-
-# VariantWood
-accessible method net/minecraft/world/entity/animal/horse/AbstractHorse createInventory ()V
