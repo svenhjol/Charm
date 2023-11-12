@@ -1,13 +1,15 @@
 package svenhjol.charm.feature.storage_blocks;
 
+import svenhjol.charm.feature.storage_blocks.ender_pearls.EnderPearls;
+import svenhjol.charm.feature.storage_blocks.gunpowder.Gunpowder;
+import svenhjol.charm.feature.storage_blocks.sugar.Sugar;
 import svenhjol.charmony.annotation.Configurable;
 import svenhjol.charmony.common.CommonFeature;
-import svenhjol.charmony.helper.ApiHelper;
+import svenhjol.charmony.iface.ICommonRegistry;
 import svenhjol.charmony_api.CharmonyApi;
-import svenhjol.charmony_api.iface.IStorageBlockFeature;
-import svenhjol.charmony_api.iface.IStorageBlockProvider;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -42,23 +44,19 @@ public class StorageBlocks extends CommonFeature {
 
     @Override
     public void register() {
-        var log = mod().log();
+        var registry = mod().registry();
 
-        ApiHelper.consume(IStorageBlockProvider.class,
-            provider -> provider.getStorageBlockFeatures().forEach(
-                clazz -> {
-                    try {
-                        var instance = (IStorageBlockFeature)clazz.getDeclaredConstructor().newInstance();
-                        instance.preRegister();
-                        instance.register();
-                        LOADED_STORAGE_BLOCKS.put(clazz, instance);
-                    } catch (Exception e) {
-                        log.warn(getClass(), "Error loading storage block " + clazz + ", skipping: " + e.getMessage());
-                    }
-                }));
+        var features = List.of(
+            EnderPearls.class,
+            Gunpowder.class,
+            Sugar.class
+        );
 
-        CharmonyApi.registerProvider(new StorageBlockFeatures());
-        CharmonyApi.registerProvider(new StorageBlockRecipeProviders());
+        for (var feature : features) {
+            register(registry, feature);
+        }
+
+        CharmonyApi.registerProvider(new StorageBlockDataProviders());
     }
 
     @Override
@@ -70,6 +68,19 @@ public class StorageBlocks extends CommonFeature {
                 block.runWhenDisabled();
             }
         });
+    }
+
+    public static void register(ICommonRegistry registry, Class<? extends IStorageBlockFeature<ICommonRegistry>> feature) {
+        var log = registry.getLog();
+
+        try {
+            var instance = feature.getDeclaredConstructor().newInstance();
+            instance.preRegister(registry);
+            instance.register();
+            LOADED_STORAGE_BLOCKS.put(feature, instance);
+        } catch (Exception e) {
+            log.warn(StorageBlocks.class, "Error loading storage block " + feature + ", skipping: " + e.getMessage());
+        }
     }
 
     @SuppressWarnings("unused")

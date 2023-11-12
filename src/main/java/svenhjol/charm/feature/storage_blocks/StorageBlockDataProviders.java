@@ -5,7 +5,7 @@ import svenhjol.charmony_api.iface.IConditionalRecipeProvider;
 
 import java.util.List;
 
-public class StorageBlockRecipeProviders implements IConditionalRecipeProvider {
+public class StorageBlockDataProviders implements IConditionalRecipeProvider {
     @Override
     public List<IConditionalRecipe> getRecipeConditions() {
         return List.of(
