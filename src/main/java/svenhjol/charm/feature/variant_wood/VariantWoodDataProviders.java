@@ -6,7 +6,7 @@ import svenhjol.charmony_api.iface.IConditionalRecipeProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VariantWoodRecipeFilters implements IConditionalRecipeProvider {
+public class VariantWoodDataProviders implements IConditionalRecipeProvider {
     @Override
     public List<IConditionalRecipe> getRecipeConditions() {
         return List.of(

@@ -54,10 +54,7 @@ public class VariantWood extends CommonFeature {
 
     @Override
     public void register() {
-        new VariantWoodApiConsumers(this);
-
-        // Register recipe removal.
-        CharmonyApi.registerProvider(new VariantWoodRecipeFilters());
+        CharmonyApi.registerProvider(new VariantWoodDataProviders());
     }
 
     @Override
@@ -65,31 +62,12 @@ public class VariantWood extends CommonFeature {
         EntityUseEvent.INSTANCE.handle(AnimalInteraction::handle);
     }
 
-    void registerBarrel(IVariantMaterial material) {
-        BARRELS.put(material, new CustomBarrel(getRegistry(), material));
-    }
-
-    void registerBookshelf(IVariantMaterial material) {
-        BOOKSHELVES.put(material, new CustomBookshelf(getRegistry(), material));
-    }
-
-    void registerChest(IVariantMaterial material) {
-        CHESTS.put(material, new CustomChest(getRegistry(), material));
-    }
-
-    void registerChiseledBookshelf(IVariantMaterial material) {
-        CHISELED_BOOKSHELVES.put(material, new CustomChiseledBookshelf(getRegistry(), material));
-    }
-
-    void registerLadder(IVariantMaterial material) {
-        LADDERS.put(material, new CustomLadder(getRegistry(), material));
-    }
-
-    void registerTrappedChest(IVariantMaterial material) {
-        TRAPPED_CHESTS.put(material, new CustomTrappedChest(getRegistry(), material));
-    }
-
-    private ICommonRegistry getRegistry() {
-        return mod().registry();
+    public static void registerWood(ICommonRegistry registry, IVariantMaterial material) {
+        BARRELS.put(material, new CustomBarrel(registry, material));
+        BOOKSHELVES.put(material, new CustomBookshelf(registry, material));
+        CHESTS.put(material, new CustomChest(registry, material));
+        CHISELED_BOOKSHELVES.put(material, new CustomChiseledBookshelf(registry, material));
+        LADDERS.put(material, new CustomLadder(registry, material));
+        TRAPPED_CHESTS.put(material, new CustomTrappedChest(registry, material));
     }
 }
