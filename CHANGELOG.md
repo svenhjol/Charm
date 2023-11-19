@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.0.18
+
+- Fix soul sand being a tag instead of an item in advancement
+- Fix missing tags for bamboo and cheery barrels and bookshelves
+- Fix dedicated server crash
+- Registration changes for variant wood
+
 ## 6.0.17
 
 - Azalea material now has "bass" note block instrument to match vanilla wood
