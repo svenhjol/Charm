@@ -16,8 +16,8 @@ public class MixinConfigPlugin extends CharmonyMixinConfigPlugin {
     @Override
     protected List<Predicate<String>> runtimeBlacklist() {
         return List.of(
-            // Disable NoChatUnverifiedMessage if chatsigninghider mod is present.
-            feature -> feature.equals("NoChatUnverifiedMessage") && ConfigHelper.isModLoaded("chatsigninghider")
+            feature -> feature.equals("NoChatUnverifiedMessage") && ConfigHelper.isModLoaded("chatsigninghider"),
+            feature -> feature.equals("ExtraStackables") && ConfigHelper.isModLoaded("allstackable")
         );
     }
 }
