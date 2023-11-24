@@ -6,6 +6,7 @@
 - Fix missing tags for bamboo and cheery barrels and bookshelves
 - Fix dedicated server crash
 - Registration changes for variant wood
+- Blacklist ExtraStackables when 'allstackable' present
 
 ## 6.0.17
 
