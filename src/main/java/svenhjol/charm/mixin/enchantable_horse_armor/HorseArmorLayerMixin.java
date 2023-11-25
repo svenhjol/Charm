@@ -11,6 +11,7 @@ import net.minecraft.world.item.HorseArmorItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import svenhjol.charmony.feature.colored_glints.ColoredGlintsClient;
 
 @Mixin(HorseArmorLayer.class)
 public class HorseArmorLayerMixin {
@@ -24,6 +25,7 @@ public class HorseArmorLayerMixin {
     private VertexConsumer hookRender(MultiBufferSource instance, RenderType renderType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, Horse horse) {
         var armor = horse.getArmor();
         var item = (HorseArmorItem)armor.getItem();
+        ColoredGlintsClient.targetStack = armor;
         return ItemRenderer.getArmorFoilBuffer(multiBufferSource, RenderType.armorCutoutNoCull(item.getTexture()), false, armor.hasFoil());
     }
 }
