@@ -1,6 +1,8 @@
 package svenhjol.charm.feature.chairs;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -9,7 +11,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.Charm;
 import svenhjol.charmony.common.CommonFeature;
 import svenhjol.charmony.feature.advancements.Advancements;
@@ -44,20 +49,24 @@ public class Chairs extends CommonFeature {
 
     private InteractionResult handleBlockUse(Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
         var log = mod().log();
+        var pos = hitResult.getBlockPos();
 
         if (!level.isClientSide()
             && player.getMainHandItem().isEmpty()
             && !player.isPassenger()
             && !player.isCrouching()
+            && isReachableChair(player, pos)
         ) {
-            var pos = hitResult.getBlockPos();
             var state = level.getBlockState(pos);
             var stateAbove = level.getBlockState(pos.above());
             var block = state.getBlock();
+            var aabb = AABB.of(new BoundingBox(pos));
+            var existingChairs = level.getEntities(null, aabb).stream().filter(e -> e instanceof ChairEntity).toList();
 
             if (block instanceof StairBlock
                 && state.getValue(StairBlock.HALF) == Half.BOTTOM
-                && !stateAbove.isCollisionShapeFullBlock(level, pos.above())
+                && (stateAbove.isAir() || stateAbove.getFluidState().is(FluidTags.WATER))
+                && existingChairs.isEmpty()
             ) {
                 var chair = new ChairEntity(level, pos);
                 level.addFreshEntity(chair);
@@ -81,5 +90,10 @@ public class Chairs extends CommonFeature {
 
     public static void triggerSatOnChair(Player player) {
         Advancements.trigger(new ResourceLocation(Charm.ID, "sat_on_chair"), player);
+    }
+
+    private boolean isReachableChair(Player player, BlockPos chair) {
+        Vec3 vec3 = Vec3.atBottomCenterOf(chair);
+        return Math.abs(player.getX() - vec3.x()) <= 3.0 && Math.abs(player.getY() - vec3.y()) <= 2.0 && Math.abs(player.getZ() - vec3.z()) <= 3.0;
     }
 }
