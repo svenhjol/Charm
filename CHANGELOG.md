@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.0.19
+
+- Horses wearing armor with custom enchantment color now properly display the given color
+- Fix issues with chair activation and multiple players occupying the same chair
+
 ## 6.0.18
 
 - Fix soul sand being a tag instead of an item in advancement
