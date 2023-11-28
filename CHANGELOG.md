@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.20
+
+- Don't allow unenchanted item to be added to middle slot of smithing table
+
 ## 6.0.19
 
 - Horses wearing armor with custom enchantment color now properly display the given color
