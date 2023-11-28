@@ -3,6 +3,7 @@
 ## 6.0.20
 
 - Don't allow unenchanted item to be added to middle slot of smithing table
+- New item icon for Bucket of Coral Squid
 
 ## 6.0.19
 
