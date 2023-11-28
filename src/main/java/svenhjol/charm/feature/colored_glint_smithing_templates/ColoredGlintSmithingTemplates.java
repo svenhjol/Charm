@@ -102,10 +102,12 @@ public class ColoredGlintSmithingTemplates extends CommonFeature {
         var slot1 = input.getItem(1);
         var slot2 = input.getItem(2);
 
-        if (slot0.is(ColoredGlintSmithingTemplates.item.get())
-            && slot1.isEnchanted()
-            && slot2.is(CharmTags.COLORED_DYES)
-        ) {
+        if (slot0.is(ColoredGlintSmithingTemplates.item.get())) {
+            if (!slot1.isEnchanted() || !slot2.is(CharmTags.COLORED_DYES)) {
+                instance.output.setItem(0, ItemStack.EMPTY);
+                return true;
+            }
+
             var dyeColor = ((DyeItem)slot2.getItem()).getDyeColor();
             var itemToChange = slot1.copy();
 
