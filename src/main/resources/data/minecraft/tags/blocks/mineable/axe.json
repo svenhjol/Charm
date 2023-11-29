@@ -1,10 +1,6 @@
 {
   "replace": false,
   "values": [
-    "charm:acacia_barrel",
-    "charm:acacia_bookshelf",
-    "charm:acacia_chest",
-    "charm:acacia_ladder",
     "charm:azalea_barrel",
     "charm:azalea_bookshelf",
     "charm:azalea_button",
@@ -23,7 +19,7 @@
     "charm:azalea_wood",
     "charm:stripped_azalea_log",
     "charm:stripped_azalea_wood",
-    "charm:trapped_acacia_chest",
+    "charm:trapped_azalea_chest",
     "charm:woodcutter"
   ]
 }
