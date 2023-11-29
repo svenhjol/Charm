@@ -5,6 +5,7 @@
 - Don't allow unenchanted item to be added to middle slot of smithing table
 - New item icon for Bucket of Coral Squid
 - Updated dark oak and birch textures
+- Update ender pearl block texture
 - Fix missing azalea axe tags
 
 ## 6.0.19
