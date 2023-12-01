@@ -2,10 +2,11 @@
 
 ## 6.0.20
 
-- Don't allow unenchanted item to be added to middle slot of smithing table
-- New item icon for Bucket of Coral Squid
-- Updated dark oak and birch textures
+- Fix for unenchanted items being added to middle slot of smithing table
+- Variant Pistons foundation feature moved to Charmony; Copper Pistons unchanged
+- Update wood textures for ladders and chests
 - Update ender pearl block texture
+- Update Bucket of Coral Squid item texture
 - Fix missing azalea axe tags
 
 ## 6.0.19
