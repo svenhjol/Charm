@@ -25,9 +25,6 @@ public class CharmTags {
     public static final TagKey<Item> HAS_SUSPICIOUS_EFFECTS = TagKey.create(Registries.ITEM,
         new ResourceLocation(Charm.ID, "has_suspicious_effects"));
 
-    public static final TagKey<Block> MOVING_PISTONS = TagKey.create(Registries.BLOCK,
-        new ResourceLocation(Charm.ID, "moving_pistons"));
-
     public static final TagKey<Block> NEARBY_WORKSTATIONS = TagKey.create(Registries.BLOCK,
         new ResourceLocation(Charm.ID, "nearby_workstations"));
 
@@ -39,12 +36,6 @@ public class CharmTags {
 
     public static final TagKey<Block> PIGS_FIND_MUSHROOMS = TagKey.create(Registries.BLOCK,
         new ResourceLocation(Charm.ID, "pigs_find_mushrooms"));
-
-    public static final TagKey<Block> PISTONS = TagKey.create(Registries.BLOCK,
-        new ResourceLocation(Charm.ID, "pistons"));
-
-    public static final TagKey<Block> PISTON_HEADS = TagKey.create(Registries.BLOCK,
-        new ResourceLocation(Charm.ID, "piston_heads"));
 
     public static final TagKey<Item> REPAIRABLE_USING_SCRAP = TagKey.create(Registries.ITEM,
         new ResourceLocation(Charm.ID, "repairable_using_scrap"));
@@ -84,7 +75,4 @@ public class CharmTags {
 
     public static final TagKey<Biome> SPAWNS_SUNFLOWER_MOOBLOOMS = TagKey.create(Registries.BIOME,
         new ResourceLocation(Charm.ID, "spawns_sunflower_mooblooms"));
-
-    public static final TagKey<Block> STICKY_PISTONS = TagKey.create(Registries.BLOCK,
-        new ResourceLocation(Charm.ID, "sticky_pistons"));
 }

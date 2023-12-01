@@ -66,7 +66,6 @@ import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
 import svenhjol.charm.feature.unlimited_repair_cost.UnlimitedRepairCost;
 import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
-import svenhjol.charm.feature.variant_pistons.VariantPistons;
 import svenhjol.charm.feature.villagers_follow_emerald_blocks.VillagersFollowEmeraldBlocks;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
@@ -152,7 +151,6 @@ public class Charm extends CommonMod {
             TotemsWorkFromInventory.class,
             UnlimitedRepairCost.class,
             VanillaWoodVariants.class,
-            VariantPistons.class,
             VillagersFollowEmeraldBlocks.class,
             Woodcutters.class,
             Woodcutting.class

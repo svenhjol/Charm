@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:sticky_piston",
     "charm:sticky_copper_piston"
   ]
 }

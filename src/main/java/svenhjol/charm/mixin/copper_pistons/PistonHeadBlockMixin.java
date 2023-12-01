@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
-import svenhjol.charm.feature.variant_pistons.VariantPistons;
+import svenhjol.charmony.feature.variant_pistons.VariantPistons;
 
 @Mixin(PistonHeadBlock.class)
 public class PistonHeadBlockMixin {

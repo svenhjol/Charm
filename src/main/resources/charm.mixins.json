@@ -48,9 +48,6 @@
     "totem_of_preserving.LevelMixin",
     "totems_work_from_inventory.LivingEntityMixin",
     "unlimited_repair_cost.AnvilMenuMixin",
-    "variant_pistons.PistonBaseBlockMixin",
-    "variant_pistons.PistonHeadBlockMixin",
-    "variant_pistons.PistonMovingBlockEntityMixin",
     "wood.BoatMixin",
     "wood.ChestBoatMixin"
   ],
@@ -65,8 +62,7 @@
     "no_spyglass_scope.RemoveSpyglassHudMixin",
     "pigs_find_mushrooms.PigModelMixin",
     "show_repair_cost.AnvilScreenMixin",
-    "unlimited_repair_cost.AnvilScreenMixin",
-    "variant_pistons.PistonHeadRendererMixin"
+    "unlimited_repair_cost.AnvilScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
