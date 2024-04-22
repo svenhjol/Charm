@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "charm",
+  "version": "${mod_version}",
+
+  "name": "Charm",
+  "description": "Small tweaks and additions to Minecraft without changing core gameplay.",
+  "authors": [
+    "svenhjol",
+    "Coranthes",
+    "WarlordWossman"
+  ],
+  "icon": "icon.png",
+
+  "license": "MIT",
+  "environment": "*",
+  "mixins": [
+    "charm.mixins.json"
+  ],
+
+  "entrypoints": {
+    "main": [
+      "svenhjol.charm.fabric.CommonInitializer"
+    ],
+    "client": [
+      "svenhjol.charm.fabric.ClientInitializer"
+    ]
+  },
+
+  "accessWidener": "charm.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "*",
+    "java": ">=17"
+  },
+
+  "custom": {
+    "modmenu": {
+      "badges": [ "library" ]
+    }
+  }
+}

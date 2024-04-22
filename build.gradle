@@ -1,0 +1,7 @@
+plugins {
+    id 'fabric-loom' version '1.6-SNAPSHOT'
+    id 'maven-publish'
+}
+
+apply from: "https://charmony.work/gradle/fabric.build.gradle"
+apply from: "https://charmony.work/gradle/fabric-include-toml.build.gradle"

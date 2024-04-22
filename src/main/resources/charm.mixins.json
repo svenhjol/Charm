@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "svenhjol.charm.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "${refmap_file}",
+  "mixins": [],
+  "client": [
+    "feature.colored_glints.ElytraLayerMixin",
+    "feature.colored_glints.HumanoidArmorLayerMixin",
+    "feature.colored_glints.ItemRendererMixin",
+    "feature.colored_glints.RenderBuffersMixin",
+    "feature.colored_glints.RenderTypeMixin"
+  ],
+  "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
