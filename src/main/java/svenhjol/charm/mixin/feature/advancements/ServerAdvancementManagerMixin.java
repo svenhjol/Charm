@@ -8,7 +8,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.spongepowered.asm.mixin.Mixin;
-import svenhjol.charm.feature.advancements.Advancements;
+import svenhjol.charm.feature.advancements.CommonCallbacks;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ public abstract class ServerAdvancementManagerMixin extends SimpleJsonResourceRe
         var map = super.prepare(resourceManager, profilerFiller);
         var copy = new HashMap<>(map);
         map.forEach((key, val) -> {
-            if (Advancements.shouldRemove(key)) {
+            if (CommonCallbacks.shouldRemove(key)) {
                 copy.remove(key);
             }
         });

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.recipes.RecipesClient;
+import svenhjol.charm.feature.recipes.ClientCallbacks;
 
 @Mixin(ClientRecipeBook.class)
 public class ClientRecipeBookMixin {
@@ -20,7 +20,7 @@ public class ClientRecipeBookMixin {
         cancellable = true
     )
     private static void hookGetCategory(RecipeHolder<?> recipeHolder, CallbackInfoReturnable<RecipeBookCategories> cir) {
-        var opt = RecipesClient.getCustomRecipeCategory(recipeHolder);
+        var opt = ClientCallbacks.getCustomRecipeCategory(recipeHolder);
         opt.ifPresent(cir::setReturnValue);
     }
 }

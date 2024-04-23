@@ -15,13 +15,17 @@ public abstract class Loader<T extends Feature> {
     protected LinkedList<T> features = new LinkedList<>();
     protected Log log;
 
-    protected Loader(String id, Log log) {
+    protected Loader(String id) {
         this.id = id;
-        this.log = log;
+        this.log = new Log(id, "Loader");
     }
 
     public String id() {
         return this.id;
+    }
+
+    public ResourceLocation id(String path) {
+        return new ResourceLocation(this.id, path);
     }
 
     /**
@@ -86,11 +90,11 @@ public abstract class Loader<T extends Feature> {
      */
     public void setup(List<Class<? extends T>> classes) {
         if (classes.isEmpty()) {
-            log.info(getClass(), "No features to load for " + id);
+            log.info("No features to load for " + id);
             return;
         } else {
             var size = classes.size();
-            log.info(getClass(), "Loading " + size + " class" + (size > 1 ? "es" : "") + " for " + id);
+            log.info("Loading " + size + " class" + (size > 1 ? "es" : "") + " for " + id);
         }
 
         instantiate(classes);
@@ -124,7 +128,7 @@ public abstract class Loader<T extends Feature> {
             } catch (Exception e) {
                 var cause = e.getCause();
                 var message = cause != null ? cause.getMessage() : e.getMessage();
-                log.error(getClass(), "Failed to initialize feature " + clazz + ": " + message);
+                log.error("Failed to initialize feature " + clazz + ": " + message);
                 throw new RuntimeException(message);
             }
         }
@@ -161,13 +165,13 @@ public abstract class Loader<T extends Feature> {
             feature.setEnabled(enabledInConfig && passedCheck);
 
             if (!enabledInConfig) {
-                if (debug) log.warn(getClass(), "Disabled in configuration: " + feature.name());
+                if (debug) log.warn("Disabled in configuration: " + feature.name());
             } else if (!passedCheck) {
-                if (debug) log.warn(getClass(), "Failed check: " + feature.name());
+                if (debug) log.warn("Failed check: " + feature.name());
             } else if (!feature.isEnabled()) {
-                if (debug) log.warn(getClass(), "Disabled automatically: " + feature.name());
+                if (debug) log.warn("Disabled automatically: " + feature.name());
             } else {
-                log.info(getClass(), "Enabled " + feature.name());
+                log.info("Enabled " + feature.name());
             }
         }
     }
@@ -223,12 +227,12 @@ public abstract class Loader<T extends Feature> {
         if (features.isEmpty()) return;
 
         for (T feature : getEnabledFeatures()) {
-            log.info(getClass(), "Running " + feature.name());
+            log.info("Running " + feature.name());
             feature.onEnabled();
         }
 
         for (T feature : getDisabledFeatures()) {
-            log.info(getClass(), "Running disabled tasks for " + feature.name());
+            log.info("Running disabled tasks for " + feature.name());
             feature.onDisabled();
         }
     }

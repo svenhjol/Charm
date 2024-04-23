@@ -9,16 +9,19 @@ import java.util.Comparator;
 
 public class CommonLoader extends Loader<CommonFeature> {
     private final CommonConfig config;
+    private final CommonRegistry registry;
 
-    protected CommonLoader(String id, Log log, CommonConfig config) {
-        super(id, log);
+    protected CommonLoader(String id, CommonConfig config, CommonRegistry registry) {
+        super(id);
+        this.log = new Log(id, "CommonLoader");
         this.config = config;
+        this.registry = registry;
     }
 
     public static CommonLoader create(String id) {
-        var log = new Log(id);
-        var config = new CommonConfig(id, log);
-        var loader = new CommonLoader(id, log, config);
+        var config = new CommonConfig(id);
+        var registry = new CommonRegistry(id);
+        var loader = new CommonLoader(id, config, registry);
 
         CommonEvents.runOnce(); // Safe to call multiple times; ensures global events are set up.
 
@@ -33,5 +36,9 @@ public class CommonLoader extends Loader<CommonFeature> {
 
         config.readConfig(features);
         config.writeConfig(features);
+    }
+
+    public CommonRegistry registry() {
+        return registry;
     }
 }

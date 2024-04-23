@@ -2,6 +2,7 @@ package svenhjol.charm.foundation.helper;
 
 import svenhjol.charm.Charm;
 import svenhjol.charm.foundation.Globals;
+import svenhjol.charm.foundation.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import java.util.function.Consumer;
 
 @SuppressWarnings({"unchecked", "unused"})
 public class ApiHelper {
+    private static final Log LOGGER = new Log("ApiHelper");
+
     /**
      * All consumers keyed by the interface they process.
      */
@@ -33,7 +36,6 @@ public class ApiHelper {
      * @param provider API provider.
      */
     public static void registerProvider(Object provider) {
-        var log = Globals.COMMON_LOADERS.get(Charm.ID).log();
         var interfaces = provider.getClass().getInterfaces();
 
         for (var iface : interfaces) {
@@ -50,13 +52,13 @@ public class ApiHelper {
 
                     // If the provider has never been consumed, consume now and add to this map so it won't be consumed again.
                     if (!CONSUMED_PROVIDERS.containsKey(consumer) || !CONSUMED_PROVIDERS.get(consumer).contains(provider)) {
-                        log.debug(ApiHelper.class, "registerProvider(): " + providerName + " consumed by " + consumerName);
+                        LOGGER.debug("registerProvider(): " + providerName + " consumed by " + consumerName);
                         consumer.accept(provider);
                         CONSUMED_PROVIDERS
                             .computeIfAbsent(consumer, a -> new ArrayList<>())
                             .add(provider);
                     } else {
-                        log.debug(ApiHelper.class, "registerProvider(): " + providerName + " already consumed by " + consumerName + ", ignoring.");
+                        LOGGER.debug("registerProvider(): " + providerName + " already consumed by " + consumerName + ", ignoring.");
                     }
                 }
             }
@@ -86,13 +88,13 @@ public class ApiHelper {
 
                 // If the provider has never been consumed, consume now and add to this map so it won't be consumed again.
                 if (!CONSUMED_PROVIDERS.containsKey(consumer) || !CONSUMED_PROVIDERS.get(consumer).contains(provider)) {
-                    log.debug(ApiHelper.class, "consume(): " + providerName + " consumed by " + consumerName);
+                    log.debug("consume(): " + providerName + " consumed by " + consumerName);
                     consumer.accept((T)provider);
                     CONSUMED_PROVIDERS
                         .computeIfAbsent((Consumer<Object>) consumer, a -> new ArrayList<>())
                         .add(provider);
                 } else {
-                    log.debug(ApiHelper.class, "consume(): " + providerName + " already consumed by " + consumerName + ", ignoring.");
+                    log.debug("consume(): " + providerName + " already consumed by " + consumerName + ", ignoring.");
                 }
             }
         }

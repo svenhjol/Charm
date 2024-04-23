@@ -19,7 +19,7 @@ public class Core extends CommonFeature {
 
     @Override
     public List<? extends Register<? extends Feature>> register() {
-        return List.of(new RegisterCommon(this));
+        return List.of(new CommonRegister(this));
     }
 
     void handlePlayerLogin(Player player) {

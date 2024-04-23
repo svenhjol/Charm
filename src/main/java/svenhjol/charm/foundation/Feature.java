@@ -11,8 +11,12 @@ public abstract class Feature {
 
     public void onInit(Loader<? extends Feature> loader) {
         this.loader = loader;
-        this.log = loader.log();
+        this.log = new Log(name());
     }
+
+    public abstract Loader<? extends Feature> loader();
+
+    public abstract Registry registry();
 
     public List<? extends Register<? extends Feature>> register() {
         return List.of();

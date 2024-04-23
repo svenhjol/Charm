@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.foundation.helper.ClientRegistryHelper;
+import svenhjol.charm.foundation.client.ClientRegistry;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class RecipeBookLookupMixin {
         cancellable = true
     )
     private static void hookGetCategories(RecipeBookType recipeBookType, CallbackInfoReturnable<List<RecipeBookCategories>> cir) {
-        var byType = ClientRegistryHelper.getRecipeBookCategoryByType();
+        var byType = ClientRegistry.getRecipeBookCategoryByType();
 
         if (byType.containsKey(recipeBookType)) {
             cir.setReturnValue(byType.get(recipeBookType));

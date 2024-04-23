@@ -8,30 +8,31 @@ import svenhjol.charm.foundation.helper.ConfigHelper;
 public class Log {
     private final Logger log;
 
-    public Log(String namespace) {
-        log = LogManager.getFormatterLogger(snakeToUpperCamel(namespace));
+    public Log(String id) {
+        log = LogManager.getFormatterLogger(snakeToUpperCamel(id));
     }
 
-    public void info(Class<?> source, String message, Object... args) {
-        log.info(message(source, message), args);
+    public Log(String id, String suffix) {
+        var name = snakeToUpperCamel(id) + "/" + suffix;
+        log = LogManager.getFormatterLogger(name);
     }
 
-    public void warn(Class<?> source, String message, Object... args) {
-        log.warn(message(source, message), args);
+    public void info(String message, Object... args) {
+        log.info(message, args);
     }
 
-    public void error(Class<?> source, String message, Object... args) {
-        log.error(message(source, message), args);
+    public void warn(String message, Object... args) {
+        log.warn(message, args);
     }
 
-    public void debug(Class<?> source, String message, Object... args) {
+    public void error(String message, Object... args) {
+        log.error(message, args);
+    }
+
+    public void debug(String message, Object... args) {
         if (ConfigHelper.isDebugEnabled()) {
-            info(source, message, args);
+            info(message, args);
         }
-    }
-
-    private String message(Class<?> source, String message) {
-        return "[" + source.getSimpleName() + "] " + message;
     }
 
     private String snakeToUpperCamel(String string) {

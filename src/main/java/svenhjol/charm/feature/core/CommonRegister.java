@@ -3,8 +3,8 @@ package svenhjol.charm.feature.core;
 import svenhjol.charm.api.event.PlayerLoginEvent;
 import svenhjol.charm.foundation.Register;
 
-public class RegisterCommon extends Register<Core> {
-    public RegisterCommon(Core feature) {
+public class CommonRegister extends Register<Core> {
+    public CommonRegister(Core feature) {
         super(feature);
     }
 

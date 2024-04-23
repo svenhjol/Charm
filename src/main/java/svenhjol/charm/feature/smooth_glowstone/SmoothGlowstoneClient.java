@@ -15,6 +15,6 @@ public class SmoothGlowstoneClient extends ClientFeature {
 
     @Override
     public List<? extends Register<? extends Feature>> register() {
-        return List.of(new RegisterClient(this));
+        return List.of(new ClientRegister(this));
     }
 }

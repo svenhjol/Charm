@@ -9,7 +9,6 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import svenhjol.charm.Charm;
-import svenhjol.charm.foundation.Globals;
 
 import java.util.Map;
 
@@ -29,11 +28,11 @@ public class SortingRecipeManager extends SimpleJsonResourceReloadListener imple
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         if (Recipes.managerHolder != null) {
-            Globals.common(Charm.ID).log().debug(getClass(), "Holding recipe manager reference: " + Recipes.managerHolder.toString());
+            Recipes.LOGGER.debug("Holding recipe manager reference: " + Recipes.managerHolder);
             var byType = Recipes.managerHolder.byType;
 
             if (!byType.isEmpty()) {
-                Recipes.managerHolder.byType = Recipes.sortAndFilter(byType);
+                Recipes.managerHolder.byType = CommonCallbacks.sortAndFilter(byType);
             }
         }
     }

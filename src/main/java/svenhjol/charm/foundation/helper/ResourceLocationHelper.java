@@ -1,13 +1,14 @@
 package svenhjol.charm.foundation.helper;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.Charm;
 import svenhjol.charm.foundation.Globals;
+import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.enums.Side;
 
 import java.util.List;
 
 public class ResourceLocationHelper {
+    private static final Log LOGGER = new Log("ResourceLocationHelper");
 
     /**
      * Check whether the resource is a valid+enabled Charm feature according to the following criteria:
@@ -19,7 +20,6 @@ public class ResourceLocationHelper {
      */
     @SuppressWarnings("unused")
     public static boolean isDisabledCharmonyFeature(ResourceLocation res) {
-        var log = Globals.common(Charm.ID).log();
         var namespace = res.getNamespace();
         var path = res.getPath();
 
@@ -33,7 +33,7 @@ public class ResourceLocationHelper {
         // Remove for disabled charm features.
         var loader = Globals.common(namespace);
         if (!loader.isEnabled(featureName)) {
-            log.debug(ResourceLocationHelper.class, "Feature " + featureName + " not enabled for " + res);
+            LOGGER.debug("Feature " + featureName + " not enabled for " + res);
             return true;
         }
 
@@ -51,7 +51,6 @@ public class ResourceLocationHelper {
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean match(ResourceLocation res, List<String> exactMatches, List<String> fuzzyMatches) {
         String path;
-        var log = Globals.common(Charm.ID).log();
         var id = res.toString();
 
         if (id.contains(":")) {
@@ -64,7 +63,7 @@ public class ResourceLocationHelper {
 
         // Exact string match.
         if (exactMatches.contains(id)) {
-            log.debug(ResourceLocationHelper.class, "Removed " + id + ": exact id match was found");
+            LOGGER.debug("Removed " + id + ": exact id match was found");
             return true;
         }
 
@@ -72,7 +71,7 @@ public class ResourceLocationHelper {
         for (var str : fuzzyMatches) {
             var pattern = TextHelper.createRegexFromGlob(str);
             if (id.matches(pattern) || ( !str.contains(":") && path.matches(pattern)) ) {
-                log.debug(ResourceLocationHelper.class, "Removed " + id + ": fuzzy match was found (" + str + ")");
+                LOGGER.debug("Removed " + id + ": fuzzy match was found (" + str + ")");
                 return true;
             }
         }

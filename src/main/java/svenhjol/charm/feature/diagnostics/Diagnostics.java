@@ -30,7 +30,7 @@ public class Diagnostics extends CommonFeature {
     @Override
     public void onEnabled() {
         if (compat) {
-            log.warn(getClass(), """
+            log.warn("""
             
             
             -----------------------------------------------------------------

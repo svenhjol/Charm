@@ -22,8 +22,8 @@ public abstract class Config {
     private static final Map<Field, Object> DEFAULT_FIELD_VALUES = new HashMap<>();
     private boolean hasAppliedConfig = false;
 
-    public Config(String filename, Log log) {
-        this.log = log;
+    public Config(String filename) {
+        this.log = new Log("config", filename);
         this.filename = filename;
     }
 
@@ -91,14 +91,14 @@ public abstract class Config {
 
                             // Set the class property.
                             if (ConfigHelper.isDebugEnabled()) {
-                                log.info(getClass(), "In feature " + featureName + ": setting `" + fieldName + "` to `" + configValue + "`");
+                                log.info("In feature " + featureName + ": setting `" + fieldName + "` to `" + configValue + "`");
                             }
                             field.set(null, configValue);
                         }
                     }
 
                 } catch (Exception e) {
-                    log.warn(getClass(), "Failed to read config field in feature " + featureName + ": " + e.getMessage());
+                    log.warn("Failed to read config field in feature " + featureName + ": " + e.getMessage());
                 }
             }
         }
@@ -139,7 +139,7 @@ public abstract class Config {
                     config.add(featureConfigName, fieldValue);
 
                 } catch (Exception e) {
-                    log.error(getClass(), "Failed to write config property `" + field.getName() + "` in `" + feature.name() + "`");
+                    log.error("Failed to write config property `" + field.getName() + "` in `" + feature.name() + "`");
                 }
             }
         }
@@ -176,9 +176,9 @@ public abstract class Config {
 
             tomlWriter.write(toml, buffer);
             buffer.close();
-            log.debug(getClass(), "Written config to disk");
+            log.debug( "Written config to disk");
         } catch (Exception e) {
-            log.error(getClass(), "Failed to write config: " + e.getMessage());
+            log.error( "Failed to write config: " + e.getMessage());
         }
     }
 

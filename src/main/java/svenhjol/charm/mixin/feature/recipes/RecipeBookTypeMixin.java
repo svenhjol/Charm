@@ -3,7 +3,7 @@ package svenhjol.charm.mixin.feature.recipes;
 import net.minecraft.world.inventory.RecipeBookType;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.foundation.helper.CommonRegistryHelper;
+import svenhjol.charm.foundation.common.CommonRegistry;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class RecipeBookTypeMixin {
     private static RecipeBookType[] $VALUES;
 
     static {
-        var types = CommonRegistryHelper.getRecipeBookTypeEnums();
+        var types = CommonRegistry.getRecipeBookTypeEnums();
         for (String type : types) {
             addVariant(type);
         }

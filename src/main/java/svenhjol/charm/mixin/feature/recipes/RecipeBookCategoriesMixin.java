@@ -4,7 +4,7 @@ import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.foundation.helper.ClientRegistryHelper;
+import svenhjol.charm.foundation.client.ClientRegistry;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +25,7 @@ public class RecipeBookCategoriesMixin {
     private static RecipeBookCategories[] $VALUES;
 
     static {
-        var categories = ClientRegistryHelper.getRecipeBookCategoryEnums();
+        var categories = ClientRegistry.getRecipeBookCategoryEnums();
         for (var pair : categories) {
             addVariant(pair.getFirst(), new ItemStack(pair.getSecond()));
         }

@@ -1,7 +1,5 @@
 package svenhjol.charm.feature.smooth_glowstone;
 
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.api.iface.IConditionalRecipe;
@@ -11,25 +9,18 @@ import svenhjol.charm.foundation.Register;
 
 import java.util.List;
 
-public class RegisterCommon extends Register<SmoothGlowstone> implements IConditionalRecipeProvider {
+public class CommonRegister extends Register<SmoothGlowstone> implements IConditionalRecipeProvider {
     public static final String BLOCK_ID = "smooth_glowstone";
 
-    public RegisterCommon(SmoothGlowstone feature) {
+    public CommonRegister(SmoothGlowstone feature) {
         super(feature);
     }
 
     @Override
     public void onRegister() {
-        var block = Registry.register(BuiltInRegistries.BLOCK,
-            Charm.id(BLOCK_ID),
-            new SmoothGlowstoneBlock());
-
-        var blockItem = Registry.register(BuiltInRegistries.ITEM,
-            Charm.id(BLOCK_ID),
-            new SmoothGlowstoneBlock.BlockItem(block));
-
-        SmoothGlowstone.block = () -> block;
-        SmoothGlowstone.blockItem = () -> blockItem;
+        SmoothGlowstone.block = feature.registry().block(BLOCK_ID, SmoothGlowstoneBlock::new);
+        SmoothGlowstone.blockItem = feature.registry().item(BLOCK_ID,
+            () -> new SmoothGlowstoneBlock.BlockItem(SmoothGlowstone.block.get()));
 
         CharmApi.registerProvider(this);
     }

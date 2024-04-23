@@ -3,10 +3,10 @@ package svenhjol.charm.feature.advancements;
 import net.minecraft.advancements.CriteriaTriggers;
 import svenhjol.charm.foundation.Register;
 
-public class RegisterCommon extends Register<Advancements> {
+public class CommonRegister extends Register<Advancements> {
     public static final String CRITERIA_ID = "charmony_action_performed";
 
-    public RegisterCommon(Advancements feature) {
+    public CommonRegister(Advancements feature) {
         super(feature);
     }
 

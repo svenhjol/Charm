@@ -1,4 +1,4 @@
-package svenhjol.charm.foundation.helper;
+package svenhjol.charm.foundation.client;
 
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -9,15 +9,26 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.Registry;
+import svenhjol.charm.foundation.helper.EnumHelper;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Supplier;
 
-public final class ClientRegistryHelper {
+public final class ClientRegistry implements Registry {
     private static final List<Pair<String, ItemLike>> RECIPE_BOOK_CATEGORY_ENUMS = new ArrayList<>();
     private static final Map<RecipeBookType, List<RecipeBookCategories>> RECIPE_BOOK_CATEGORY_BY_TYPE = new HashMap<>();
     private static final Map<RecipeType<?>, RecipeBookCategories> RECIPE_BOOK_MAIN_CATEGORY = new HashMap<>();
+
+    private final String id;
+    private final Log log;
+
+    public ClientRegistry(String id) {
+        this.id = id;
+        this.log = new Log(id, "ClientRegistry");
+    }
 
     public static Map<RecipeType<?>, RecipeBookCategories> getRecipeBookMainCategory() {
         return RECIPE_BOOK_MAIN_CATEGORY;
@@ -31,7 +42,7 @@ public final class ClientRegistryHelper {
         return RECIPE_BOOK_CATEGORY_BY_TYPE;
     }
 
-    public static <T extends ItemLike> void itemTab(Supplier<T> item, ResourceKey<CreativeModeTab> key, @Nullable ItemLike showAfter) {
+    public <T extends ItemLike> void itemTab(Supplier<T> item, ResourceKey<CreativeModeTab> key, @Nullable ItemLike showAfter) {
         if (showAfter != null) {
             ItemGroupEvents.modifyEntriesEvent(key)
                 .register(entries -> entries.addAfter(showAfter, item.get()));

@@ -8,7 +8,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.RecipeManager;
 import org.spongepowered.asm.mixin.Mixin;
-import svenhjol.charm.feature.recipes.Recipes;
+import svenhjol.charm.feature.recipes.CommonCallbacks;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ public abstract class RecipeManagerMixin extends SimpleJsonResourceReloadListene
         var map = super.prepare(resourceManager, profilerFiller);
         var copy = new HashMap<>(map);
         map.forEach((key, val) -> {
-            if (Recipes.shouldRemove(key)) {
+            if (CommonCallbacks.shouldRemove(key)) {
                 copy.remove(key);
             }
         });
