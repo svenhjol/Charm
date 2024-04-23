@@ -20,6 +20,8 @@ public class CommonLoader extends Loader<CommonFeature> {
         var config = new CommonConfig(id, log);
         var loader = new CommonLoader(id, log, config);
 
+        CommonEvents.runOnce(); // Safe to call multiple times; ensures global events are set up.
+
         Globals.COMMON_LOADERS.put(id, loader);
         return loader;
     }
