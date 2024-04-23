@@ -11,5 +11,15 @@ public abstract class Register<T extends Feature> {
         return 0;
     }
 
-    public abstract void onRegister();
+    public void onRegister() {
+        // no op
+    }
+
+    public void onEnabled() {
+        // no op
+    }
+
+    public void onDisabled() {
+        // no op
+    }
 }
