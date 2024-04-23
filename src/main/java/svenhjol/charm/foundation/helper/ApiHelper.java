@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 @SuppressWarnings({"unchecked", "unused"})
-public class ApiHelper {
+public final class ApiHelper {
     private static final Log LOGGER = new Log("ApiHelper");
 
     /**

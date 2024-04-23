@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.enums.Side;
 
 import java.util.List;
 
-public class ResourceLocationHelper {
+public final class ResourceLocationHelper {
     private static final Log LOGGER = new Log("ResourceLocationHelper");
 
     /**
