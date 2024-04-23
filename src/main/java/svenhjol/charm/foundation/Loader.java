@@ -1,6 +1,9 @@
 package svenhjol.charm.foundation;
 
+import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.foundation.enums.Side;
 import svenhjol.charm.foundation.helper.ConfigHelper;
+import svenhjol.charm.foundation.helper.TextHelper;
 
 import java.util.*;
 import java.util.function.BooleanSupplier;
@@ -19,6 +22,45 @@ public abstract class Loader<T extends Feature> {
 
     public String id() {
         return this.id;
+    }
+
+    /**
+     * Checks if a feature is enabled in this loader by its class name.
+     * @param feature Name of feature in pascal case.
+     * @return True if feature is enabled in this loader.
+     */
+    @SuppressWarnings("unused")
+    public boolean isEnabled(Class<? extends T> feature) {
+        return getFeatures().stream().anyMatch(
+            m -> m.getClass().equals(feature) && m.isEnabled());
+    }
+
+    /**
+     * Checks if a feature is enabled in this loader by its name.
+     * @param name Name of feature in pascal case.
+     * @return True if feature is enabled in this loader.
+     */
+    public boolean isEnabled(String name) {
+        return getFeatures().stream().anyMatch(
+            m -> m.name().equals(name) && m.isEnabled());
+    }
+
+    /**
+     * Checks whether a loader contains a given feature and the feature is enabled.
+     * @param id ResourceLocation of feature, e.g. {namespace:"charm", path:"smooth_glowstone"}
+     * @return True if feature is present enabled in the specified loader.
+     */
+    @SuppressWarnings("unused")
+    public boolean isEnabled(ResourceLocation id) {
+        var namespace = id.getNamespace();
+        var path = id.getPath();
+
+        if (Globals.has(Side.COMMON, namespace)) {
+            return Globals.COMMON_LOADERS.get(namespace)
+                .isEnabled(TextHelper.snakeToUpperCamel(path));
+        }
+
+        return false;
     }
 
     public Optional<T> get(Class<? extends T> clazz) {
@@ -146,6 +188,9 @@ public abstract class Loader<T extends Feature> {
         registers.sort(Comparator.comparingInt(Register::priority));
         Collections.reverse(registers);
         registers.forEach(Register::onRegister);
+
+        registers.stream().filter(r -> r.feature.isEnabled()).forEach(Register::onEnabled);
+        registers.stream().filter(r -> !r.feature.isEnabled()).forEach(Register::onDisabled);
     }
 
     /**
@@ -165,6 +210,9 @@ public abstract class Loader<T extends Feature> {
         networks.sort(Comparator.comparingInt(Network::priority));
         Collections.reverse(networks);
         networks.forEach(Network::onRegister);
+
+        networks.stream().filter(r -> r.feature.isEnabled()).forEach(Network::onEnabled);
+        networks.stream().filter(r -> !r.feature.isEnabled()).forEach(Network::onDisabled);
     }
 
     /**
