@@ -17,7 +17,7 @@ public abstract class Loader<T extends Feature> {
 
     protected Loader(String id) {
         this.id = id;
-        this.log = new Log(id, "Loader");
+        this.log = new Log(id, this);
     }
 
     public String id() {

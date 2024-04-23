@@ -11,7 +11,7 @@ public abstract class Feature {
 
     public void onInit(Loader<? extends Feature> loader) {
         this.loader = loader;
-        this.log = new Log(name());
+        this.log = new Log(loader.id(), name());
     }
 
     public abstract Loader<? extends Feature> loader();

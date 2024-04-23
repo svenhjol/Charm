@@ -13,7 +13,7 @@ public class ClientLoader extends Loader<ClientFeature> {
 
     protected ClientLoader(String id, ClientConfig config, ClientRegistry registry) {
         super(id);
-        this.log = new Log(id, "ClientLoader");
+        this.log = new Log(id, this);
         this.config = config;
         this.registry = registry;
     }

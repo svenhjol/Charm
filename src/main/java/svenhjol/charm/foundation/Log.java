@@ -17,6 +17,10 @@ public class Log {
         log = LogManager.getFormatterLogger(name);
     }
 
+    public Log(String id, Object object) {
+        this(id, object.getClass().getSimpleName());
+    }
+
     public void info(String message, Object... args) {
         log.info(message, args);
     }

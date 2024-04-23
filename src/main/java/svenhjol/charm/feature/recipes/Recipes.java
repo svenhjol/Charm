@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.recipes;
 
 import net.minecraft.world.item.crafting.RecipeManager;
+import svenhjol.charm.Charm;
 import svenhjol.charm.api.iface.IConditionalRecipe;
 import svenhjol.charm.api.iface.IConditionalRecipeProvider;
 import svenhjol.charm.foundation.Log;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class Recipes extends CommonFeature {
     static final List<IConditionalRecipe> CONDITIONS = new ArrayList<>();
-    static final Log LOGGER = new Log("Recipes");
+    static final Log LOGGER = new Log(Charm.ID, "Recipes");
 
     /**
      * Holds a reference to the global RecipeManager.

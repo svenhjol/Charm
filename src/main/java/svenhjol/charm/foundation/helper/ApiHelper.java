@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 @SuppressWarnings({"unchecked", "unused"})
 public final class ApiHelper {
-    private static final Log LOGGER = new Log("ApiHelper");
+    private static final Log LOGGER = new Log(Charm.ID, "ApiHelper");
 
     /**
      * All consumers keyed by the interface they process.

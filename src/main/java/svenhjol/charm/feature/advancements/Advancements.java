@@ -3,6 +3,7 @@ package svenhjol.charm.feature.advancements;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import svenhjol.charm.Charm;
 import svenhjol.charm.api.iface.IConditionalAdvancement;
 import svenhjol.charm.api.iface.IConditionalAdvancementProvider;
 import svenhjol.charm.foundation.Feature;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class Advancements extends CommonFeature {
     static final List<IConditionalAdvancement> CONDITIONS = new ArrayList<>();
-    static final Log LOGGER = new Log("Advancements");
+    static final Log LOGGER = new Log(Charm.ID, "Advancements");
 
     static ActionPerformed actionPerformed;
 

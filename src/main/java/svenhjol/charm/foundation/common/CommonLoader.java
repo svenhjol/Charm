@@ -13,7 +13,7 @@ public class CommonLoader extends Loader<CommonFeature> {
 
     protected CommonLoader(String id, CommonConfig config, CommonRegistry registry) {
         super(id);
-        this.log = new Log(id, "CommonLoader");
+        this.log = new Log(id, this);
         this.config = config;
         this.registry = registry;
     }

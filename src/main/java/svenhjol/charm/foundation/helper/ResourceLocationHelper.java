@@ -1,6 +1,7 @@
 package svenhjol.charm.foundation.helper;
 
 import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.Charm;
 import svenhjol.charm.foundation.Globals;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.enums.Side;
@@ -8,7 +9,7 @@ import svenhjol.charm.foundation.enums.Side;
 import java.util.List;
 
 public final class ResourceLocationHelper {
-    private static final Log LOGGER = new Log("ResourceLocationHelper");
+    private static final Log LOGGER = new Log(Charm.ID, "ResourceLocationHelper");
 
     /**
      * Check whether the resource is a valid+enabled Charm feature according to the following criteria:

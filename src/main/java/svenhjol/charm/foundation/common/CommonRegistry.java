@@ -17,7 +17,7 @@ public final class CommonRegistry implements Registry {
 
     public CommonRegistry(String id) {
         this.id = id;
-        this.log = new Log(id, "CommonRegistry");
+        this.log = new Log(id, this);
     }
 
     private static final List<String> RECIPE_BOOK_TYPE_ENUMS = new ArrayList<>();

@@ -27,7 +27,7 @@ public final class ClientRegistry implements Registry {
 
     public ClientRegistry(String id) {
         this.id = id;
-        this.log = new Log(id, "ClientRegistry");
+        this.log = new Log(id, this);
     }
 
     public static Map<RecipeType<?>, RecipeBookCategories> getRecipeBookMainCategory() {
