@@ -6,14 +6,21 @@
   "mixins": [
     "feature.advancements.AdvancementTreeMixin",
     "feature.advancements.ServerAdvancementManagerMixin",
-    "feature.advancements.ServerPackSourceMixin"
+    "feature.advancements.ServerPackSourceMixin",
+    "feature.recipes.RecipeBookTypeMixin",
+    "feature.recipes.RecipeManagerMixin",
+    "feature.recipes.ReloadableServerResourcesMixin",
+    "feature.recipes.ServerPackSourceMixin"
   ],
   "client": [
     "feature.colored_glints.ElytraLayerMixin",
     "feature.colored_glints.HumanoidArmorLayerMixin",
     "feature.colored_glints.ItemRendererMixin",
     "feature.colored_glints.RenderBuffersMixin",
-    "feature.colored_glints.RenderTypeMixin"
+    "feature.colored_glints.RenderTypeMixin",
+    "feature.recipes.ClientRecipeBookMixin",
+    "feature.recipes.RecipeBookCategoriesMixin",
+    "feature.recipes.RecipeBookLookupMixin"
   ],
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "injectors": {

@@ -12,3 +12,14 @@ accessible field net/minecraft/client/renderer/RenderType GLINT_DIRECT Lnet/mine
 accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/client/renderer/RenderType GLINT Lnet/minecraft/client/renderer/RenderType;
+
+# Recipes
+### RecipeBookCategories AGGREGATE_CATEGORIES non-final map so we can add new categories.
+accessible field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;
+mutable    field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;
+### RecipeBookSettings TAG_FIELDS mutable for custom recipe types.
+accessible field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Map;
+mutable    field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Map;
+### RecipeManager byType mutable to sort and filter recipes.
+accessible field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
+mutable    field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
