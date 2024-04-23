@@ -16,7 +16,7 @@ public class ColoredGlints extends CommonFeature {
     /**
      * Set the enchanted item's glint to the dye color.
      */
-    public static void applyColoredGlint(ItemStack stack, DyeColor color) {
+    public static void apply(ItemStack stack, DyeColor color) {
         stack.set(DataComponents.BASE_COLOR, color);
     }
 }

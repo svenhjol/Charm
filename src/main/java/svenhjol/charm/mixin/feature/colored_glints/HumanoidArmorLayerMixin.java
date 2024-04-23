@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
+import svenhjol.charm.feature.colored_glints.ClientCallbacks;
 
 @Mixin(HumanoidArmorLayer.class)
 public class HumanoidArmorLayerMixin<T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> {
@@ -24,6 +24,6 @@ public class HumanoidArmorLayerMixin<T extends LivingEntity, M extends HumanoidM
     )
     private void hookRenderArmor(PoseStack matrices, MultiBufferSource vertexConsumers, T livingEntity, EquipmentSlot equipmentSlot, int i, A bipedEntityModel, CallbackInfo ci) {
         // take a reference to the item being rendered, this is needed for the glint consumer
-        ColoredGlintsClient.targetStack = livingEntity.getItemBySlot(equipmentSlot);
+        ClientCallbacks.targetStack = livingEntity.getItemBySlot(equipmentSlot);
     }
 }

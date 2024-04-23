@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
+import svenhjol.charm.feature.colored_glints.ClientCallbacks;
 
 @Mixin(ElytraLayer.class)
 public class ElytraLayerMixin<T extends LivingEntity> {
@@ -22,6 +22,6 @@ public class ElytraLayerMixin<T extends LivingEntity> {
         at = @At("HEAD")
     )
     private void hookRender(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
-        ColoredGlintsClient.targetStack = livingEntity.getItemBySlot(EquipmentSlot.CHEST);
+        ClientCallbacks.targetStack = livingEntity.getItemBySlot(EquipmentSlot.CHEST);
     }
 }

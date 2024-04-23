@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
+import svenhjol.charm.feature.colored_glints.ClientCallbacks;
 
 @Mixin(ItemRenderer.class)
 public class ItemRendererMixin {
@@ -26,6 +26,6 @@ public class ItemRendererMixin {
         )
     )
     private void hookRenderItem(ItemStack stack, ItemDisplayContext context, boolean leftHanded, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo ci) {
-        ColoredGlintsClient.targetStack = stack;
+        ClientCallbacks.targetStack = stack;
     }
 }

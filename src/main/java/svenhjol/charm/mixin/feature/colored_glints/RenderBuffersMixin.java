@@ -8,21 +8,21 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
+import svenhjol.charm.feature.colored_glints.ClientCallbacks;
 
 import java.util.SortedMap;
 
 @Mixin(RenderBuffers.class)
 public class RenderBuffersMixin {
     /**
-     * Capture a reference to the buffer source map so we can add new elements to it.
+     * Capture a reference to the buffer builders so we can add new elements to it.
      */
     @Inject(
         method = "<init>",
         at = @At("TAIL"),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookInit(int i, CallbackInfo ci, SortedMap<RenderType, BufferBuilder> sortedMap) {
-        ColoredGlintsClient.renderBufferBuilders = sortedMap;
+    private void hookInit(int i, CallbackInfo ci, SortedMap<RenderType, BufferBuilder> builders) {
+        ClientCallbacks.builders = builders;
     }
 }
