@@ -1,8 +1,11 @@
 package svenhjol.charm;
 
 import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
+import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.diagnostics.Diagnostics;
+import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.foundation.common.CommonFeature;
 
 import java.util.List;
@@ -16,8 +19,11 @@ public class Charm {
 
     public static List<Class<? extends CommonFeature>> features() {
         return List.of(
+            Advancements.class,
             ColoredGlints.class,
-            Diagnostics.class
+            Core.class,
+            Diagnostics.class,
+            SmoothGlowstone.class
         );
     }
 }

@@ -3,7 +3,11 @@
   "package": "svenhjol.charm.mixin",
   "compatibilityLevel": "JAVA_21",
   "refmap": "${refmap_file}",
-  "mixins": [],
+  "mixins": [
+    "feature.advancements.AdvancementTreeMixin",
+    "feature.advancements.ServerAdvancementManagerMixin",
+    "feature.advancements.ServerPackSourceMixin"
+  ],
   "client": [
     "feature.colored_glints.ElytraLayerMixin",
     "feature.colored_glints.HumanoidArmorLayerMixin",
