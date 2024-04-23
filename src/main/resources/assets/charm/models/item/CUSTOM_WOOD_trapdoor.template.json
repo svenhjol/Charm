@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/CUSTOM_WOOD_trapdoor_bottom"
+  },
+  "variants": "custom_wood"
+}

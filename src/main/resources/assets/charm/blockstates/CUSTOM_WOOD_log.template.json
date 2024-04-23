@@ -1,0 +1,19 @@
+{
+  "template": {
+    "variants": {
+      "axis=x": {
+        "model": "NAMESPACE:block/CUSTOM_WOOD_log_horizontal",
+        "x": 90,
+        "y": 90
+      },
+      "axis=y": {
+        "model": "NAMESPACE:block/CUSTOM_WOOD_log"
+      },
+      "axis=z": {
+        "model": "NAMESPACE:block/CUSTOM_WOOD_log_horizontal",
+        "x": 90
+      }
+    }
+  },
+  "variants": "custom_wood"
+}

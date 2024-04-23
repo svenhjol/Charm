@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "NAMESPACE:block/CUSTOM_WOOD_pressure_plate"
+  },
+  "variants": "custom_wood"
+}

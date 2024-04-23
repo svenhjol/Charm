@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/template_piston",
+  "textures": {
+    "bottom": "minecraft:block/piston_bottom",
+    "platform": "charm:block/copper_piston_top",
+    "side": "charm:block/copper_piston_side"
+  }
+}

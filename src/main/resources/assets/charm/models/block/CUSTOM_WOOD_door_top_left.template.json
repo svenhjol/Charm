@@ -1,0 +1,10 @@
+{
+  "template": {
+    "parent": "minecraft:block/door_top_left",
+    "textures": {
+      "top": "NAMESPACE:block/CUSTOM_WOOD_door_top",
+      "bottom": "NAMESPACE:block/CUSTOM_WOOD_door_bottom"
+    }
+  },
+  "variants": "custom_wood"
+}

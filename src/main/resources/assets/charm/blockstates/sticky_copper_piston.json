@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "extended=false,facing=down": {
+      "model": "charm:block/sticky_copper_piston",
+      "x": 90
+    },
+    "extended=false,facing=east": {
+      "model": "charm:block/sticky_copper_piston",
+      "y": 90
+    },
+    "extended=false,facing=north": {
+      "model": "charm:block/sticky_copper_piston"
+    },
+    "extended=false,facing=south": {
+      "model": "charm:block/sticky_copper_piston",
+      "y": 180
+    },
+    "extended=false,facing=up": {
+      "model": "charm:block/sticky_copper_piston",
+      "x": 270
+    },
+    "extended=false,facing=west": {
+      "model": "charm:block/sticky_copper_piston",
+      "y": 270
+    },
+    "extended=true,facing=down": {
+      "model": "charm:block/copper_piston_base",
+      "x": 90
+    },
+    "extended=true,facing=east": {
+      "model": "charm:block/copper_piston_base",
+      "y": 90
+    },
+    "extended=true,facing=north": {
+      "model": "charm:block/copper_piston_base"
+    },
+    "extended=true,facing=south": {
+      "model": "charm:block/copper_piston_base",
+      "y": 180
+    },
+    "extended=true,facing=up": {
+      "model": "charm:block/copper_piston_base",
+      "x": 270
+    },
+    "extended=true,facing=west": {
+      "model": "charm:block/copper_piston_base",
+      "y": 270
+    }
+  }
+}

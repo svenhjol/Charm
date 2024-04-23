@@ -1,0 +1,10 @@
+{
+  "template": {
+    "variants": {
+      "": {
+        "model": "MOD:block/STORAGE_BLOCK_block"
+      }
+    }
+  },
+  "variants": "storage_block"
+}

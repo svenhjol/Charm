@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "charm:block/CORAL_sea_lantern"
+  },
+  "variants": "coral"
+}

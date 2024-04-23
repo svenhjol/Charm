@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "NAMESPACE:item/CUSTOM_WOOD_boat"
+    }
+  },
+  "variants": "custom_wood"
+}

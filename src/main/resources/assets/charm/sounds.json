@@ -1,0 +1,250 @@
+{
+  "amethyst": {
+    "sounds": [
+      {
+        "name": "charm:amethyst",
+        "volume": 0.35
+      }
+    ]
+  },
+  "atlas_open": {
+    "sounds": [
+      {
+        "name": "charm:atlas1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.atlas.open"
+  },
+  "atlas_close": {
+    "sounds": [
+      {
+        "name": "charm:atlas1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:atlas3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.atlas.close"
+  },
+  "bat_bucket_grab": {
+    "sounds": [
+      {
+        "name": "charm:bat_bucket_grab",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.bat_bucket.grab"
+  },
+  "bat_bucket_release": {
+    "sounds": [
+      {
+        "name": "charm:bat_bucket_release",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.bat_bucket.release"
+  },
+  "dirt_to_path": {
+    "sounds": [
+      {
+        "name": "minecraft:item/shovel/flatten1",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten2",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten3",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten4",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.path.convert_from_dirt"
+  },
+  "endermite_powder_launch": {
+    "sounds": [
+      {
+        "name": "charm:endermite_powder",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.endermite_powder.launch"
+  },
+  "gunpowder_dissolve": {
+    "sounds": [
+      {
+        "name": "charm:dissolve",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.gunpowder_block.dissolve"
+  },
+  "kiln_bake": {
+    "sounds": [
+      {
+        "name": "minecraft:block/smoker/smoker1"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker2"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker3"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker4"
+      },
+      {
+        "name": "minecraft:block/smoker/smoker5"
+      }
+    ],
+    "subtitle": "subtitles.charm.block.kiln.bake"
+  },
+  "lumberjack": {
+    "sounds": [
+      {
+        "name": "charm:lumberjack1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:lumberjack2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:lumberjack3",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:lumberjack4",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.entity.villager.work_lumberjack"
+  },
+  "make_suspicious_block": {
+    "sounds": [
+      {
+        "name": "block/suspicious_gravel/place1"
+      },
+      {
+        "name": "block/suspicious_gravel/place2"
+      },
+      {
+        "name": "block/suspicious_gravel/place3"
+      },
+      {
+        "name": "block/suspicious_gravel/place4"
+      }
+    ],
+    "subtitle": "subtitles.charm.block.suspicious_block.make"
+  },
+  "moobloom_milk": {
+    "sounds": [
+      {
+        "name": "minecraft:mob/mooshroom/milk1",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:mob/mooshroom/milk2",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:mob/mooshroom/milk3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.entity.moobloom.milk"
+  },
+  "path_to_dirt": {
+    "sounds": [
+      {
+        "name": "minecraft:item/shovel/flatten1",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten2",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten3",
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:item/shovel/flatten4",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.item.path.convert_to_dirt"
+  },
+  "pig_sniffing": {
+    "sounds": [
+      {
+        "name": "charm:pig_sniffing",
+        "volume": 0.8
+      }
+    ],
+    "subtitle": "subtitles.charm.entity.pig.sniffing"
+  },
+  "sugar_dissolve": {
+    "sounds": [
+      {
+        "name": "charm:dissolve",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.sugar_block.dissolve"
+  },
+  "totem_release_items": {
+    "sounds": [
+      {
+        "name": "charm:totem_release_items",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.totem_of_preserving.release_items"
+  },
+  "totem_store_items": {
+    "sounds": [
+      {
+        "name": "charm:totem_store_items",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.totem_of_preserving.store_items"
+  },
+  "woodcutter_use": {
+    "sounds": [
+      {
+        "name": "charm:woodcutter1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:woodcutter2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:woodcutter3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.woodcutter.use"
+  }
+}

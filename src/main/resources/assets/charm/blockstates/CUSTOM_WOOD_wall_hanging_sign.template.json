@@ -1,0 +1,10 @@
+{
+  "template": {
+    "variants": {
+      "": {
+        "model": "NAMESPACE:block/CUSTOM_WOOD_hanging_sign"
+      }
+    }
+  },
+  "variants": "custom_wood"
+}

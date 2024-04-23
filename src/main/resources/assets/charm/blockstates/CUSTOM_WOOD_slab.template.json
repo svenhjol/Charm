@@ -1,0 +1,16 @@
+{
+  "template": {
+    "variants": {
+      "type=bottom": {
+        "model": "NAMESPACE:block/CUSTOM_WOOD_slab"
+      },
+      "type=double": {
+        "model": "NAMESPACE:block/CUSTOM_WOOD_planks"
+      },
+      "type=top": {
+        "model": "NAMESPACE:block/CUSTOM_WOOD_slab_top"
+      }
+    }
+  },
+  "variants": "custom_wood"
+}

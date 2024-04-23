@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "charm:block/VARIANT_WOOD_bookshelf"
+  },
+  "variants": "variant_wood"
+}
