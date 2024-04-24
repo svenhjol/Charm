@@ -5,6 +5,7 @@ import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.diagnostics.Diagnostics;
+import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.recipes.Recipes;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
@@ -25,6 +26,7 @@ public class Charm {
             ColoredGlints.class,
             Core.class,
             Diagnostics.class,
+            Firing.class,
             Recipes.class,
             SmoothGlowstone.class,
             Woodcutting.class
