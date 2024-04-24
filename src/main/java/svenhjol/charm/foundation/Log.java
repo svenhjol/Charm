@@ -35,7 +35,7 @@ public class Log {
 
     public void debug(String message, Object... args) {
         if (ConfigHelper.isDebugEnabled()) {
-            info(message, args);
+            info("[Debug] " + message, args);
         }
     }
 
