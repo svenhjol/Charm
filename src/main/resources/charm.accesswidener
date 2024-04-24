@@ -2,6 +2,7 @@ accessWidener v1 named
 
 # Registry
 accessible method net/minecraft/core/component/DataComponents register (Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/core/component/DataComponentType;
+accessible field net/minecraft/world/entity/ai/village/poi/PoiTypes TYPE_BY_STATE Ljava/util/Map;
 
 # ColoredGlints
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
@@ -23,6 +24,12 @@ mutable    field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Ma
 ### RecipeManager byType mutable to sort and filter recipes.
 accessible field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
 mutable    field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
+
+# VariantWood
+accessible method net/minecraft/world/level/block/state/BlockBehaviour$Properties <init> ()V
+accessible method net/minecraft/world/entity/animal/horse/AbstractHorse createInventory ()V
+accessible field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
+mutable    field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
 
 # Woodcutting
 accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer <init> (Lnet/minecraft/world/item/crafting/SingleItemRecipe$Factory;)V

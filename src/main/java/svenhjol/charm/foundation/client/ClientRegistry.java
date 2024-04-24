@@ -1,14 +1,21 @@
 package svenhjol.charm.foundation.client;
 
 import com.mojang.datafixers.util.Pair;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.RecipeBookCategories;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.Registry;
 import svenhjol.charm.foundation.helper.EnumHelper;
@@ -28,6 +35,14 @@ public final class ClientRegistry implements Registry {
     public ClientRegistry(String id) {
         this.id = id;
         this.log = new Log(id, this);
+    }
+
+    public <T extends BlockEntity> void blockEntityRenderer(Supplier<BlockEntityType<T>> supplier, Supplier<BlockEntityRendererProvider<T>> provider) {
+        BlockEntityRenderers.register(supplier.get(), provider.get());
+    }
+
+    public <T extends Block> void blockRenderType(Supplier<T> block, Supplier<RenderType> renderType) {
+        BlockRenderLayerMap.INSTANCE.putBlock(block.get(), renderType.get());
     }
 
     public static Map<RecipeType<?>, RecipeBookCategories> getRecipeBookMainCategory() {

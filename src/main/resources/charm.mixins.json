@@ -13,6 +13,7 @@
     "feature.recipes.ServerPackSourceMixin"
   ],
   "client": [
+    "event.render_block_item.BlockEntityWithoutLevelRendererMixin",
     "feature.colored_glints.ElytraLayerMixin",
     "feature.colored_glints.HumanoidArmorLayerMixin",
     "feature.colored_glints.ItemRendererMixin",
@@ -20,7 +21,8 @@
     "feature.colored_glints.RenderTypeMixin",
     "feature.recipes.ClientRecipeBookMixin",
     "feature.recipes.RecipeBookCategoriesMixin",
-    "feature.recipes.RecipeBookLookupMixin"
+    "feature.recipes.RecipeBookLookupMixin",
+    "feature.variant_wood.SheetsMixin"
   ],
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "injectors": {

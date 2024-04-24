@@ -8,6 +8,8 @@ import svenhjol.charm.feature.diagnostics.Diagnostics;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.recipes.Recipes;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
+import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
+import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.common.CommonFeature;
 
@@ -29,6 +31,8 @@ public class Charm {
             Firing.class,
             Recipes.class,
             SmoothGlowstone.class,
+            VanillaWoodVariants.class,
+            VariantWood.class,
             Woodcutting.class
         );
     }
