@@ -7,6 +7,7 @@ import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.diagnostics.Diagnostics;
 import svenhjol.charm.feature.recipes.Recipes;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
+import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.common.CommonFeature;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class Charm {
             Core.class,
             Diagnostics.class,
             Recipes.class,
-            SmoothGlowstone.class
+            SmoothGlowstone.class,
+            Woodcutting.class
         );
     }
 }

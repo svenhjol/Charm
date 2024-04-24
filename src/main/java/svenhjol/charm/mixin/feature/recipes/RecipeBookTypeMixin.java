@@ -24,7 +24,7 @@ public class RecipeBookTypeMixin {
     private static RecipeBookType[] $VALUES;
 
     static {
-        var types = CommonRegistry.getRecipeBookTypeEnums();
+        var types = CommonRegistry.recipeBookTypeEnums();
         for (String type : types) {
             addVariant(type);
         }
