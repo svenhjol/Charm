@@ -4,9 +4,13 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "${refmap_file}",
   "mixins": [
+    "enums.boat_type_enum.BoatTypeMixin",
+    "enums.note_block_enum.NoteBlockInstrumentMixin",
     "feature.advancements.AdvancementTreeMixin",
     "feature.advancements.ServerAdvancementManagerMixin",
     "feature.advancements.ServerPackSourceMixin",
+    "feature.amethyst_note_block.BlockBehaviourPropertiesMixin",
+    "feature.amethyst_note_block.NoteBlockMixin",
     "feature.recipes.RecipeBookTypeMixin",
     "feature.recipes.RecipeManagerMixin",
     "feature.recipes.ReloadableServerResourcesMixin",

@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class AzaleaWood extends CommonFeature {
+    public static final String BOAT_ID = "charm_azalea";
+
     static Supplier<BlockSetType> blockSetType;
     static Supplier<WoodType> woodType;
     static IVariantWoodMaterial material;

@@ -3,9 +3,11 @@ package svenhjol.charm.foundation.common;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.item.AxeItem;
@@ -159,6 +161,21 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         log.debug("Registering recipe type " + id);
         var registered = RecipeType.register(makeId(id).toString());
         return () -> (RecipeType<R>) registered;
+    }
+
+    public <T extends SoundEvent> Supplier<T> soundEvent(String id, Supplier<T> supplier) {
+        log.debug("Registering sound event " + id);
+        var registered = Registry.register(BuiltInRegistries.SOUND_EVENT, makeId(id), supplier.get());
+        return () -> registered;
+    }
+
+    public Supplier<SoundEvent> soundEvent(String id) {
+        if (id.contains(":")) {
+            var res = new ResourceLocation(id);
+            return soundEvent(res.getPath(), () -> SoundEvent.createVariableRangeEvent(res));
+        } else {
+            return soundEvent(id, () -> SoundEvent.createVariableRangeEvent(makeId(id)));
+        }
     }
 
     @SuppressWarnings("unchecked")
