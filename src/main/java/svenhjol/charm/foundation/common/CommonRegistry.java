@@ -1,27 +1,36 @@
 package svenhjol.charm.foundation.common;
 
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.iface.IFuelProvider;
 import svenhjol.charm.api.iface.IIgniteProvider;
+import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.IVariantWoodMaterial;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.Registry;
+import svenhjol.charm.foundation.block.CharmStairBlock;
+import svenhjol.charm.foundation.block.CharmWallHangingSignBlock;
+import svenhjol.charm.foundation.block.CharmWallSignBlock;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Supplier;
@@ -69,6 +78,13 @@ public final class CommonRegistry implements Registry {
         supplier.get().validBlocks = new HashSet<>(mutable);
     }
 
+    public <I extends ItemLike, D extends DispenseItemBehavior> Supplier<D> dispenserBehavior(Supplier<I> item, Supplier<D> dispenserBehavior) {
+        var behavior = dispenserBehavior.get();
+        log.debug("Registering dispenser behavior " + behavior.toString());
+        DispenserBlock.registerBehavior(item.get(), behavior);
+        return dispenserBehavior;
+    }
+
     public <T extends IFuelProvider> void fuel(Supplier<T> provider) {
         var item = provider.get();
         FuelRegistry.INSTANCE.add((ItemLike) item, item.fuelTime());
@@ -89,7 +105,7 @@ public final class CommonRegistry implements Registry {
         return () -> registered;
     }
 
-    private ResourceLocation makeId(String path) {
+    public ResourceLocation makeId(String path) {
         return new ResourceLocation(this.id, path);
     }
 
@@ -121,5 +137,33 @@ public final class CommonRegistry implements Registry {
         log.debug("Registering recipe type " + id);
         var registered = RecipeType.register(makeId(id).toString());
         return () -> (RecipeType<R>) registered;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <B extends StairBlock & IIgniteProvider, I extends BlockItem> Pair<Supplier<B>, Supplier<I>> stairsBlock(String id, IVariantMaterial material, Supplier<BlockState> state) {
+        log.debug("Registering stairs block " + id);
+        var block = block(id, () -> new CharmStairBlock(material, state.get()));
+        var item = item(id, () -> new CharmStairBlock.BlockItem(block));
+        return Pair.of((Supplier<B>)block, (Supplier<I>)item);
+    }
+
+    public <B extends Block, S extends Block> void strippable(Supplier<B> block, Supplier<S> strippedBlock) {
+        // Make axe strippables map mutable.
+        AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
+        AxeItem.STRIPPABLES.put(block.get(), strippedBlock.get());
+    }
+
+    @SuppressWarnings("unchecked")
+    public <W extends WallHangingSignBlock, S extends CeilingHangingSignBlock> Supplier<W> wallHangingSignBlock(String id, IVariantWoodMaterial material, Supplier<S> drops, WoodType type) {
+        log.debug("Registering wall hanging sign block " + id);
+        var block = block(id, () -> new CharmWallHangingSignBlock(material, drops.get(), type));
+        return (Supplier<W>)block;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <W extends WallSignBlock, S extends SignBlock> Supplier<W> wallSignBlock(String id, IVariantWoodMaterial material, Supplier<S> drops, WoodType type) {
+        log.debug("Registering wall sign block " + id);
+        var block = block(id, () -> new CharmWallSignBlock(material, drops.get(), type));
+        return (Supplier<W>)block;
     }
 }

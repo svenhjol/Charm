@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
 import svenhjol.charm.feature.core.Core;
+import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.diagnostics.Diagnostics;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.recipes.Recipes;
@@ -27,6 +28,7 @@ public class Charm {
             Advancements.class,
             ColoredGlints.class,
             Core.class,
+            CustomWood.class,
             Diagnostics.class,
             Firing.class,
             Recipes.class,

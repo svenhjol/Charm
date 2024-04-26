@@ -3,6 +3,8 @@ accessWidener v1 named
 # Registry
 accessible method net/minecraft/core/component/DataComponents register (Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/core/component/DataComponentType;
 accessible field net/minecraft/world/entity/ai/village/poi/PoiTypes TYPE_BY_STATE Ljava/util/Map;
+accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
+mutable    field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 
 # ColoredGlints
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
@@ -13,6 +15,16 @@ accessible field net/minecraft/client/renderer/RenderType GLINT_DIRECT Lnet/mine
 accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/client/renderer/RenderType GLINT Lnet/minecraft/client/renderer/RenderType;
+
+# CustomWood
+accessible field net/minecraft/world/entity/vehicle/Boat$Type planks Lnet/minecraft/world/level/block/Block;
+mutable    field net/minecraft/world/entity/vehicle/Boat$Type planks Lnet/minecraft/world/level/block/Block;
+accessible field net/minecraft/world/item/StandingAndWallBlockItem wallBlock Lnet/minecraft/world/level/block/Block;
+mutable    field net/minecraft/world/item/StandingAndWallBlockItem wallBlock Lnet/minecraft/world/level/block/Block;
+accessible field net/minecraft/world/item/BlockItem block Lnet/minecraft/world/level/block/Block;
+mutable    field net/minecraft/world/item/BlockItem block Lnet/minecraft/world/level/block/Block;
+accessible field net/minecraft/world/level/block/Block item Lnet/minecraft/world/item/Item;
+mutable    field net/minecraft/world/level/block/Block item Lnet/minecraft/world/item/Item;
 
 # Recipes
 ### RecipeBookCategories AGGREGATE_CATEGORIES non-final map so we can add new categories.
