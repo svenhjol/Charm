@@ -7,12 +7,17 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.stats.RecipeBookSettings;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -37,14 +42,13 @@ import svenhjol.charm.foundation.block.CharmStairBlock;
 import svenhjol.charm.foundation.block.CharmWallHangingSignBlock;
 import svenhjol.charm.foundation.block.CharmWallSignBlock;
 import svenhjol.charm.foundation.deferred.DeferredPotionMix;
+import svenhjol.charm.foundation.helper.EnumHelper;
+import svenhjol.charm.foundation.helper.TextHelper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public final class CommonRegistry implements svenhjol.charm.foundation.Registry {
     private final String id;
     private final Log log;
@@ -63,6 +67,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         return () -> registered;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     public <T extends BlockEntity, U extends Block> Supplier<BlockEntityType<T>> blockEntity(String id, Supplier<BlockEntityType.BlockEntitySupplier<T>> builder, List<Supplier<U>> blocks) {
         log.debug("Registering block entity " + id);
         var registered = net.minecraft.core.Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id(id),
@@ -144,6 +149,25 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         return () -> registered;
     }
 
+    public <T extends MenuType<U>, U extends AbstractContainerMenu> Supplier<T> menuType(String id, Supplier<T> supplier) {
+        log.debug("Registering menu type " + id);
+        var registered = Registry.register(BuiltInRegistries.MENU, id(id), supplier.get());
+        return () -> registered;
+    }
+
+    public Supplier<PoiType> pointOfInterestType(String id, Supplier<PoiType> supplier) {
+        var poiType = supplier.get();
+        var poitKey = ResourceKey.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE.key(), id(id));
+
+        Registry.register(BuiltInRegistries.POINT_OF_INTEREST_TYPE, poitKey, poiType);
+
+        var holder = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(poitKey);
+        var blockStates = holder.value().matchingStates();
+        PoiTypes.registerBlockStates(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(poitKey), blockStates);
+
+        return () -> poiType;
+    }
+
     public void pointOfInterestBlockStates(Supplier<PoiType> poiType, Supplier<List<BlockState>> states) {
         var resourceKey = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(poiType.get()).orElseThrow();
         var holder = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(resourceKey);
@@ -154,12 +178,23 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public Holder<Potion> potion(String id, Supplier<Potion> supplier) {
-        var potion = net.minecraft.core.Registry.registerForHolder(BuiltInRegistries.POTION, id(id), supplier.get());
-        return potion;
+        return Registry.registerForHolder(BuiltInRegistries.POTION, id(id), supplier.get());
     }
 
     public List<DeferredPotionMix> potionMixes() {
         return deferredPotionMixes;
+    }
+
+    public Supplier<RecipeBookType> recipeBookType(String id) {
+        var upper = id.toUpperCase(Locale.ROOT);
+        var capitalized = TextHelper.capitalize(id.toLowerCase(Locale.ROOT));
+
+        RecipeBookType type = EnumHelper.getValueOrDefault(() -> RecipeBookType.valueOf(upper), RecipeBookType.CRAFTING);
+        var tagFields = new HashMap<>(RecipeBookSettings.TAG_FIELDS);
+        tagFields.put(type, Pair.of("is" + capitalized + "GuiOpen", "is" + capitalized + "FilteringCraftable"));
+        RecipeBookSettings.TAG_FIELDS = tagFields;
+
+        return () -> type;
     }
 
     public void recipeBookTypeEnum(String name) {

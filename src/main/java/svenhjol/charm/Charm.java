@@ -16,6 +16,7 @@ import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
 import svenhjol.charm.feature.variant_pistons.VariantPistons;
 import svenhjol.charm.feature.variant_wood.VariantWood;
+import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.common.CommonFeature;
 
@@ -45,6 +46,7 @@ public class Charm {
             VariantPistons.class,
             VanillaWoodVariants.class,
             VariantWood.class,
+            Woodcutters.class,
             Woodcutting.class
         );
     }

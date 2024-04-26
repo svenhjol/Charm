@@ -6,6 +6,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.RecipeBookCategories;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.RenderType;
@@ -18,6 +21,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.crafting.Recipe;
@@ -35,6 +40,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Supplier;
 
+@SuppressWarnings("UnusedReturnValue")
 public final class ClientRegistry implements Registry {
     private static final List<Pair<String, ItemLike>> RECIPE_BOOK_CATEGORY_ENUMS = new ArrayList<>();
     private static final Map<RecipeBookType, List<RecipeBookCategories>> RECIPE_BOOK_CATEGORY_BY_TYPE = new HashMap<>();
@@ -74,7 +80,12 @@ public final class ClientRegistry implements Registry {
         }
     }
 
+    public <T extends AbstractContainerMenu, U extends Screen & MenuAccess<T>> void menuScreen(Supplier<MenuType<T>> menuType, Supplier<MenuScreens.ScreenConstructor<T, U>> screenConstructor) {
+        MenuScreens.register(menuType.get(), screenConstructor.get());
+    }
+
     public Supplier<ModelLayerLocation> modelLayer(Supplier<ModelLayerLocation> location, Supplier<LayerDefinition> definition) {
+        log.debug("Registering model layer " + location.get());
         EntityModelLayerRegistry.registerModelLayer(location.get(), definition::get);
         return location;
     }
@@ -90,6 +101,10 @@ public final class ClientRegistry implements Registry {
         var aggregateCategories = new HashMap<>(RecipeBookCategories.AGGREGATE_CATEGORIES);
         aggregateCategories.put(searchCategory, List.of(mainCategory));
         RecipeBookCategories.AGGREGATE_CATEGORIES = aggregateCategories;
+    }
+
+    public void recipeBookCategoryEnum(String name, Supplier<? extends ItemLike> menuIcon) {
+        RECIPE_BOOK_CATEGORY_ENUMS.add(Pair.of(name, menuIcon.get()));
     }
 
     public static List<Pair<String, ItemLike>> recipeBookCategoryEnums() {
