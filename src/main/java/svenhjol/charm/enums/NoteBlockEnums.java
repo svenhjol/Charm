@@ -8,6 +8,7 @@ public class NoteBlockEnums {
     /**
      * Custom note blocks to inject into the NoteBlockInstrument enum.
      * {@link net.minecraft.world.level.block.state.properties.NoteBlockInstrument}
+     * Register all feature note block instruments here!
      */
     public static final List<String> NOTE_BLOCK_ENUMS = List.of(
         AmethystNoteBlock.NOTE_BLOCK_ID
