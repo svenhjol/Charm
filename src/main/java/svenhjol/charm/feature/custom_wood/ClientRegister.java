@@ -26,11 +26,11 @@ public class ClientRegister extends Register<CustomWoodClient> {
                 // Register boat models.
                 holder.getBoat().ifPresent(boat -> {
                     registry.modelLayer(
-                        () -> new ModelLayerLocation(registry.makeId("boat/" + materialName), "main"),
+                        () -> new ModelLayerLocation(registry.id("boat/" + materialName), "main"),
                         BoatModel::createBodyModel);
 
                     registry.modelLayer(
-                        () -> new ModelLayerLocation(registry.makeId("chest_boat/" + materialName), "main"),
+                        () -> new ModelLayerLocation(registry.id("chest_boat/" + materialName), "main"),
                         ChestBoatModel::createBodyModel);
                 });
 

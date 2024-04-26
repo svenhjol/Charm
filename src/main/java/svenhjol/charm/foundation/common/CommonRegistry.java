@@ -1,6 +1,7 @@
 package svenhjol.charm.foundation.common;
 
 import com.mojang.datafixers.util.Pair;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -8,6 +9,8 @@ import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.item.AxeItem;
@@ -24,6 +27,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.api.iface.IFuelProvider;
 import svenhjol.charm.api.iface.IIgniteProvider;
 import svenhjol.charm.api.iface.IVariantMaterial;
@@ -55,13 +59,13 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     public <B extends Block> Supplier<B> block(String id, Supplier<B> supplier) {
         log.debug("Registering block " + id);
-        var registered = net.minecraft.core.Registry.register(BuiltInRegistries.BLOCK, makeId(id), supplier.get());
+        var registered = net.minecraft.core.Registry.register(BuiltInRegistries.BLOCK, id(id), supplier.get());
         return () -> registered;
     }
 
     public <T extends BlockEntity, U extends Block> Supplier<BlockEntityType<T>> blockEntity(String id, Supplier<BlockEntityType.BlockEntitySupplier<T>> builder, List<Supplier<U>> blocks) {
         log.debug("Registering block entity " + id);
-        var registered = net.minecraft.core.Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, makeId(id),
+        var registered = net.minecraft.core.Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id(id),
             BlockEntityType.Builder.of(builder.get(), blocks.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
         return () -> registered;
     }
@@ -100,6 +104,21 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         return dispenserBehavior;
     }
 
+    public <T extends Entity> Supplier<EntityType<T>> entity(String id, Supplier<EntityType.Builder<T>> builder) {
+        log.debug("Registering entity " + id);
+        var registered = Registry.register(BuiltInRegistries.ENTITY_TYPE, id(id), builder.get().build(id(id).toString()));
+        return () -> registered;
+    }
+
+    public <T extends LivingEntity> void entityAttributes(Supplier<EntityType<T>> entity, Supplier<AttributeSupplier.Builder> builder) {
+        FabricDefaultAttributeRegistry.register(entity.get(), builder.get());
+    }
+
+    public <T extends Mob> void entitySpawnPlacement(Supplier<EntityType<T>> entity, SpawnPlacementType placementType,
+                                                     Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate) {
+        SpawnPlacements.register(entity.get(), placementType, heightmapType, predicate);
+    }
+
     public <T extends IFuelProvider> void fuel(Supplier<T> provider) {
         var item = provider.get();
         FuelRegistry.INSTANCE.add((ItemLike) item, item.fuelTime());
@@ -109,6 +128,11 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         return this.id;
     }
 
+    public ResourceLocation id(String path) {
+        return new ResourceLocation(this.id, path);
+    }
+
+
     public <T extends IIgniteProvider> void ignite(Supplier<T> provider) {
         var block = provider.get();
         ((FireBlock) Blocks.FIRE).setFlammable((Block)block, block.igniteChance(), block.burnChance());
@@ -116,12 +140,8 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     public <I extends Item> Supplier<I> item(String id, Supplier<I> supplier) {
         log.debug("Registering item " + id);
-        var registered = net.minecraft.core.Registry.register(BuiltInRegistries.ITEM, makeId(id), supplier.get());
+        var registered = net.minecraft.core.Registry.register(BuiltInRegistries.ITEM, id(id), supplier.get());
         return () -> registered;
-    }
-
-    public ResourceLocation makeId(String path) {
-        return new ResourceLocation(this.id, path);
     }
 
     public void pointOfInterestBlockStates(Supplier<PoiType> poiType, Supplier<List<BlockState>> states) {
@@ -134,7 +154,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public Holder<Potion> potion(String id, Supplier<Potion> supplier) {
-        var potion = net.minecraft.core.Registry.registerForHolder(BuiltInRegistries.POTION, makeId(id), supplier.get());
+        var potion = net.minecraft.core.Registry.registerForHolder(BuiltInRegistries.POTION, id(id), supplier.get());
         return potion;
     }
 
@@ -152,20 +172,20 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     public <S extends RecipeSerializer<T>, T extends Recipe<?>> Supplier<S> recipeSerializer(String id, Supplier<S> serializer) {
         log.debug("Registering recipe serializer " + id);
-        var registered = RecipeSerializer.register(makeId(id).toString(), serializer.get());
+        var registered = RecipeSerializer.register(id(id).toString(), serializer.get());
         return () -> registered;
     }
 
     @SuppressWarnings("unchecked")
     public <R extends Recipe<?>> Supplier<RecipeType<R>> recipeType(String id) {
         log.debug("Registering recipe type " + id);
-        var registered = RecipeType.register(makeId(id).toString());
+        var registered = RecipeType.register(id(id).toString());
         return () -> (RecipeType<R>) registered;
     }
 
     public <T extends SoundEvent> Supplier<T> soundEvent(String id, Supplier<T> supplier) {
         log.debug("Registering sound event " + id);
-        var registered = Registry.register(BuiltInRegistries.SOUND_EVENT, makeId(id), supplier.get());
+        var registered = Registry.register(BuiltInRegistries.SOUND_EVENT, id(id), supplier.get());
         return () -> registered;
     }
 
@@ -174,7 +194,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
             var res = new ResourceLocation(id);
             return soundEvent(res.getPath(), () -> SoundEvent.createVariableRangeEvent(res));
         } else {
-            return soundEvent(id, () -> SoundEvent.createVariableRangeEvent(makeId(id)));
+            return soundEvent(id, () -> SoundEvent.createVariableRangeEvent(id(id)));
         }
     }
 
@@ -208,7 +228,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     @SuppressWarnings("unchecked")
     public <T extends WoodType> Supplier<T> woodType(String id, IVariantWoodMaterial material) {
-        var registered = WoodType.register(new WoodType(makeId(id).toString().replace(":", "_"), material.blockSetType()));
+        var registered = WoodType.register(new WoodType(id(id).toString().replace(":", "_"), material.blockSetType()));
         return () -> (T)registered;
     }
 }

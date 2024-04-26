@@ -3,6 +3,7 @@ package svenhjol.charm.foundation.client;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -11,9 +12,12 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.crafting.Recipe;
@@ -52,16 +56,12 @@ public final class ClientRegistry implements Registry {
         BlockRenderLayerMap.INSTANCE.putBlock(block.get(), renderType.get());
     }
 
-    public static Map<RecipeType<?>, RecipeBookCategories> getRecipeBookMainCategory() {
-        return RECIPE_BOOK_MAIN_CATEGORY;
+    public <T extends Entity> void entityRenderer(Supplier<EntityType<T>> entity, Supplier<EntityRendererProvider<T>> provider) {
+        EntityRendererRegistry.register(entity.get(), provider.get());
     }
 
-    public static List<Pair<String, ItemLike>> getRecipeBookCategoryEnums() {
-        return RECIPE_BOOK_CATEGORY_ENUMS;
-    }
-
-    public static Map<RecipeBookType, List<RecipeBookCategories>> getRecipeBookCategoryByType() {
-        return RECIPE_BOOK_CATEGORY_BY_TYPE;
+    public ResourceLocation id(String path) {
+        return new ResourceLocation(this.id, path);
     }
 
     public <T extends ItemLike> void itemTab(Supplier<T> item, ResourceKey<CreativeModeTab> key, @Nullable ItemLike showAfter) {
@@ -72,10 +72,6 @@ public final class ClientRegistry implements Registry {
             ItemGroupEvents.modifyEntriesEvent(key)
                 .register(entries -> entries.accept(item.get()));
         }
-    }
-
-    public ResourceLocation makeId(String path) {
-        return new ResourceLocation(this.id, path);
     }
 
     public Supplier<ModelLayerLocation> modelLayer(Supplier<ModelLayerLocation> location, Supplier<LayerDefinition> definition) {
@@ -94,6 +90,18 @@ public final class ClientRegistry implements Registry {
         var aggregateCategories = new HashMap<>(RecipeBookCategories.AGGREGATE_CATEGORIES);
         aggregateCategories.put(searchCategory, List.of(mainCategory));
         RecipeBookCategories.AGGREGATE_CATEGORIES = aggregateCategories;
+    }
+
+    public static List<Pair<String, ItemLike>> recipeBookCategoryEnums() {
+        return RECIPE_BOOK_CATEGORY_ENUMS;
+    }
+
+    public static Map<RecipeBookType, List<RecipeBookCategories>> recipeBookCategoryByType() {
+        return RECIPE_BOOK_CATEGORY_BY_TYPE;
+    }
+
+    public static Map<RecipeType<?>, RecipeBookCategories> recipeBookMainCategory() {
+        return RECIPE_BOOK_MAIN_CATEGORY;
     }
 
     public void signMaterial(Supplier<WoodType> woodType) {

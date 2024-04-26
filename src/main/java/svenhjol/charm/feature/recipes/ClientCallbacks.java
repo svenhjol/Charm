@@ -13,7 +13,7 @@ public final class ClientCallbacks {
      * @see svenhjol.charm.mixin.feature.recipes.ClientRecipeBookMixin
      */
     public static Optional<RecipeBookCategories> getCustomRecipeCategory(RecipeHolder<?> recipeHolder) {
-        var getMainCategory = ClientRegistry.getRecipeBookMainCategory();
+        var getMainCategory = ClientRegistry.recipeBookMainCategory();
         RecipeType<?> recipeType = recipeHolder.value().getType();
 
         if (getMainCategory.containsKey(recipeType)) {

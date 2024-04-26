@@ -18,7 +18,7 @@ public class RecipeBookLookupMixin {
         cancellable = true
     )
     private static void hookGetCategories(RecipeBookType recipeBookType, CallbackInfoReturnable<List<RecipeBookCategories>> cir) {
-        var byType = ClientRegistry.getRecipeBookCategoryByType();
+        var byType = ClientRegistry.recipeBookCategoryByType();
 
         if (byType.containsKey(recipeBookType)) {
             cir.setReturnValue(byType.get(recipeBookType));

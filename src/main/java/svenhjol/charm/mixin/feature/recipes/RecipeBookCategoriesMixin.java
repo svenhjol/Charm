@@ -25,7 +25,7 @@ public class RecipeBookCategoriesMixin {
     private static RecipeBookCategories[] $VALUES;
 
     static {
-        var categories = ClientRegistry.getRecipeBookCategoryEnums();
+        var categories = ClientRegistry.recipeBookCategoryEnums();
         for (var pair : categories) {
             addVariant(pair.getFirst(), new ItemStack(pair.getSecond()));
         }

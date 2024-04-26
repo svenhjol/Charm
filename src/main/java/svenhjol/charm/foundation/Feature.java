@@ -14,6 +14,10 @@ public abstract class Feature {
         this.log = new Log(loader.id(), name());
     }
 
+    public Log log() {
+        return log;
+    }
+
     public abstract Loader<? extends Feature> loader();
 
     public abstract Registry registry();
