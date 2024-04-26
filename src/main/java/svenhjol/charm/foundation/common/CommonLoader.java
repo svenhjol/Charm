@@ -10,18 +10,21 @@ import java.util.Comparator;
 public class CommonLoader extends Loader<CommonFeature> {
     private final CommonConfig config;
     private final CommonRegistry registry;
+    private final CommonEvents events;
 
-    protected CommonLoader(String id, CommonConfig config, CommonRegistry registry) {
+    protected CommonLoader(String id, CommonConfig config, CommonRegistry registry, CommonEvents events) {
         super(id);
         this.log = new Log(id, this);
         this.config = config;
         this.registry = registry;
+        this.events = events;
     }
 
     public static CommonLoader create(String id) {
         var config = new CommonConfig(id);
         var registry = new CommonRegistry(id);
-        var loader = new CommonLoader(id, config, registry);
+        var events = new CommonEvents(registry);
+        var loader = new CommonLoader(id, config, registry, events);
 
         CommonEvents.runOnce(); // Safe to call multiple times; ensures global events are set up.
 

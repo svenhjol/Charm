@@ -2,6 +2,7 @@ package svenhjol.charm.foundation.common;
 
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -25,10 +27,10 @@ import svenhjol.charm.api.iface.IIgniteProvider;
 import svenhjol.charm.api.iface.IVariantMaterial;
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
 import svenhjol.charm.foundation.Log;
-import svenhjol.charm.foundation.Registry;
 import svenhjol.charm.foundation.block.CharmStairBlock;
 import svenhjol.charm.foundation.block.CharmWallHangingSignBlock;
 import svenhjol.charm.foundation.block.CharmWallSignBlock;
+import svenhjol.charm.foundation.deferred.DeferredPotionMix;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,16 +39,17 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class CommonRegistry implements Registry {
+public final class CommonRegistry implements svenhjol.charm.foundation.Registry {
     private final String id;
     private final Log log;
+
+    private static final List<String> RECIPE_BOOK_TYPE_ENUMS = new ArrayList<>();
+    private final List<DeferredPotionMix> deferredPotionMixes = new ArrayList<>();
 
     public CommonRegistry(String id) {
         this.id = id;
         this.log = new Log(id, this);
     }
-
-    private static final List<String> RECIPE_BOOK_TYPE_ENUMS = new ArrayList<>();
 
     public <B extends Block> Supplier<B> block(String id, Supplier<B> supplier) {
         log.debug("Registering block " + id);
@@ -82,6 +85,10 @@ public final class CommonRegistry implements Registry {
     public Supplier<BlockSetType> blockSetType(IVariantWoodMaterial material) {
         var registered = BlockSetType.register(new BlockSetType(material.getSerializedName()));
         return () -> registered;
+    }
+
+    public void brewingRecipe(Holder<Potion> input, Supplier<Item> reagent, Holder<Potion> output) {
+        deferredPotionMixes.add(new DeferredPotionMix(input, reagent, output));
     }
 
     public <I extends ItemLike, D extends DispenseItemBehavior> Supplier<D> dispenserBehavior(Supplier<I> item, Supplier<D> dispenserBehavior) {
@@ -122,6 +129,15 @@ public final class CommonRegistry implements Registry {
         blockStates.addAll(states.get());
 
         blockStates.forEach(state -> PoiTypes.TYPE_BY_STATE.put(state, holder));
+    }
+
+    public Holder<Potion> potion(String id, Supplier<Potion> supplier) {
+        var potion = net.minecraft.core.Registry.registerForHolder(BuiltInRegistries.POTION, makeId(id), supplier.get());
+        return potion;
+    }
+
+    public List<DeferredPotionMix> potionMixes() {
+        return deferredPotionMixes;
     }
 
     public void recipeBookTypeEnum(String name) {
