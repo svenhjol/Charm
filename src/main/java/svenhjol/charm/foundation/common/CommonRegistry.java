@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.iface.IFuelProvider;
 import svenhjol.charm.api.iface.IIgniteProvider;
@@ -76,6 +77,11 @@ public final class CommonRegistry implements Registry {
         }
 
         supplier.get().validBlocks = new HashSet<>(mutable);
+    }
+
+    public Supplier<BlockSetType> blockSetType(IVariantWoodMaterial material) {
+        var registered = BlockSetType.register(new BlockSetType(material.getSerializedName()));
+        return () -> registered;
     }
 
     public <I extends ItemLike, D extends DispenseItemBehavior> Supplier<D> dispenserBehavior(Supplier<I> item, Supplier<D> dispenserBehavior) {
@@ -165,5 +171,11 @@ public final class CommonRegistry implements Registry {
         log.debug("Registering wall sign block " + id);
         var block = block(id, () -> new CharmWallSignBlock(material, drops.get(), type));
         return (Supplier<W>)block;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends WoodType> Supplier<T> woodType(String id, IVariantWoodMaterial material) {
+        var registered = WoodType.register(new WoodType(makeId(id).toString().replace(":", "_"), material.blockSetType()));
+        return () -> (T)registered;
     }
 }

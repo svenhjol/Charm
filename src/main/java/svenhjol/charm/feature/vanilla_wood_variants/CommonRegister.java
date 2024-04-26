@@ -15,7 +15,7 @@ public class CommonRegister extends Register<VanillaWoodVariants> {
         CharmApi.registerProvider(this);
 
         for (var variant : VanillaWood.getTypes()) {
-            VariantWood.register(feature.registry(), variant);
+            VariantWood.registerWood(feature.registry(), variant);
         }
     }
 }

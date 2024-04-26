@@ -56,7 +56,7 @@ public class VariantWood extends CommonFeature {
     /**
      * API method for other mods/features to register their own custom wood variant.
      */
-    public static void register(CommonRegistry registry, IVariantMaterial material) {
+    public static void registerWood(CommonRegistry registry, IVariantMaterial material) {
         BARRELS.put(material, new CustomBarrel(registry, material));
         BOOKSHELVES.put(material, new CustomBookshelf(registry, material));
         CHESTS.put(material, new CustomChest(registry, material));

@@ -2,6 +2,7 @@ package svenhjol.charm;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.feature.advancements.Advancements;
+import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
@@ -26,6 +27,7 @@ public class Charm {
     public static List<Class<? extends CommonFeature>> features() {
         return List.of(
             Advancements.class,
+            AzaleaWood.class,
             ColoredGlints.class,
             Core.class,
             CustomWood.class,

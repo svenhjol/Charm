@@ -1,5 +1,6 @@
 package svenhjol.charm;
 
+import svenhjol.charm.feature.azalea_wood.AzaleaWoodClient;
 import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.recipes.RecipesClient;
@@ -12,6 +13,7 @@ import java.util.List;
 public class CharmClient {
     public static List<Class<? extends ClientFeature>> features() {
         return List.of(
+            AzaleaWoodClient.class,
             ColoredGlintsClient.class,
             CustomWoodClient.class,
             RecipesClient.class,
