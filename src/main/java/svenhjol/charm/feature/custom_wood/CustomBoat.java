@@ -1,12 +1,10 @@
-package svenhjol.charm.feature.custom_wood.registry;
+package svenhjol.charm.feature.custom_wood;
 
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
-import svenhjol.charm.feature.custom_wood.CustomWoodHelper;
-import svenhjol.charm.feature.custom_wood.CustomWoodHolder;
 import svenhjol.charm.foundation.helper.EnumHelper;
 
 import java.util.Locale;

@@ -4,7 +4,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
-import svenhjol.charm.feature.custom_wood.registry.*;
 import svenhjol.charm.foundation.common.CommonRegistry;
 
 import java.util.Optional;

@@ -14,6 +14,7 @@ import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
 import svenhjol.charm.feature.recipes.Recipes;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
+import svenhjol.charm.feature.variant_pistons.VariantPistons;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.common.CommonFeature;
@@ -41,6 +42,7 @@ public class Charm {
             PotionOfRadiance.class,
             Recipes.class,
             SmoothGlowstone.class,
+            VariantPistons.class,
             VanillaWoodVariants.class,
             VariantWood.class,
             Woodcutting.class

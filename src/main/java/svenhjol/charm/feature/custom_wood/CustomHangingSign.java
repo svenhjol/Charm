@@ -1,8 +1,6 @@
-package svenhjol.charm.feature.custom_wood.registry;
+package svenhjol.charm.feature.custom_wood;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import svenhjol.charm.feature.custom_wood.CustomWoodHelper;
-import svenhjol.charm.feature.custom_wood.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmCeilingHangingSignBlock;
 import svenhjol.charm.foundation.block.CharmWallHangingSignBlock;
 import svenhjol.charm.foundation.item.CharmHangingSignItem;

@@ -1,9 +1,7 @@
-package svenhjol.charm.feature.custom_wood.registry;
+package svenhjol.charm.feature.custom_wood;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.StairBlock;
-import svenhjol.charm.feature.custom_wood.CustomWoodHelper;
-import svenhjol.charm.feature.custom_wood.CustomWoodHolder;
 
 import java.util.function.Supplier;
 

@@ -1,7 +1,5 @@
-package svenhjol.charm.feature.custom_wood.registry;
+package svenhjol.charm.feature.custom_wood;
 
-import svenhjol.charm.feature.custom_wood.CustomWoodHelper;
-import svenhjol.charm.feature.custom_wood.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmWoodenPressurePlateBlock;
 
 import java.util.function.Supplier;

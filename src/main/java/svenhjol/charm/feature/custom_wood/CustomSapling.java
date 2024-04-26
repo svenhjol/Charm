@@ -1,8 +1,6 @@
-package svenhjol.charm.feature.custom_wood.registry;
+package svenhjol.charm.feature.custom_wood;
 
 import net.minecraft.world.level.block.grower.TreeGrower;
-import svenhjol.charm.feature.custom_wood.CustomWoodHelper;
-import svenhjol.charm.feature.custom_wood.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmSaplingBlock;
 
 import java.util.Optional;
