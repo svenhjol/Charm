@@ -2,10 +2,10 @@ package svenhjol.charm.feature.azalea_wood;
 
 import net.minecraft.client.renderer.RenderType;
 import svenhjol.charm.feature.custom_wood.CustomWood;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 
-public class ClientRegister extends Register<AzaleaWoodClient> {
-    public ClientRegister(AzaleaWoodClient feature) {
+public class ClientRegistration extends Registration<AzaleaWoodClient> {
+    public ClientRegistration(AzaleaWoodClient feature) {
         super(feature);
     }
 

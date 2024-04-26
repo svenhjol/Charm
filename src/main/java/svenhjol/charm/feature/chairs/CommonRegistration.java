@@ -15,11 +15,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.api.event.BlockUseEvent;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 
-public class CommonRegister extends Register<Chairs> {
+public class CommonRegistration extends Registration<Chairs> {
 
-    public CommonRegister(Chairs feature) {
+    public CommonRegistration(Chairs feature) {
         super(feature);
     }
 

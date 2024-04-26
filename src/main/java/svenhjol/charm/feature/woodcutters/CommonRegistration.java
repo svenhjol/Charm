@@ -4,9 +4,9 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 
-public class CommonRegistration extends Register<Woodcutters> {
+public class CommonRegistration extends Registration<Woodcutters> {
     public static final String BLOCK_ID = "woodcutter";
 
     public CommonRegistration(Woodcutters feature) {

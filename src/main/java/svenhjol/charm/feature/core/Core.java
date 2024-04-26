@@ -4,10 +4,10 @@ import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.common.CommonFeature;
 
-import java.util.List;
+import java.util.Optional;
 
 public class Core extends CommonFeature {
     public static final String PLAYER_JOINED = "player_joined";
@@ -18,8 +18,8 @@ public class Core extends CommonFeature {
     }
 
     @Override
-    public List<? extends Register<? extends Feature>> register() {
-        return List.of(new CommonRegister(this));
+    public Optional<Registration<? extends Feature>> registration() {
+        return Optional.of(new CommonRegistration(this));
     }
 
     void handlePlayerLogin(Player player) {

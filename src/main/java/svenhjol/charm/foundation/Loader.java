@@ -181,20 +181,18 @@ public abstract class Loader<T extends Feature> {
      * and executes the onRegister() method.
      */
     protected void registers() {
-        LinkedList<Register<T>> registers = new LinkedList<>();
+        LinkedList<Registration<T>> registrations = new LinkedList<>();
 
         for (T feature : getFeatures()) {
-            for (var register : feature.register()) {
-                registers.add((Register<T>) register);
-            }
+            feature.registration().ifPresent(register -> registrations.add((Registration<T>)register));
         }
 
-        registers.sort(Comparator.comparingInt(Register::priority));
-        Collections.reverse(registers);
-        registers.forEach(Register::onRegister);
+        registrations.sort(Comparator.comparingInt(Registration::priority));
+        Collections.reverse(registrations);
+        registrations.forEach(Registration::onRegister);
 
-        registers.stream().filter(r -> r.feature.isEnabled()).forEach(Register::onEnabled);
-        registers.stream().filter(r -> !r.feature.isEnabled()).forEach(Register::onDisabled);
+        registrations.stream().filter(r -> r.feature.isEnabled()).forEach(Registration::onEnabled);
+        registrations.stream().filter(r -> !r.feature.isEnabled()).forEach(Registration::onDisabled);
     }
 
     /**
@@ -206,9 +204,7 @@ public abstract class Loader<T extends Feature> {
         LinkedList<Network<T>> networks = new LinkedList<>();
 
         for (T feature : getFeatures()) {
-            for (var network : feature.network()) {
-                networks.add((Network<T>) network);
-            }
+            feature.network().ifPresent(network -> networks.add((Network<T>)network));
         }
 
         networks.sort(Comparator.comparingInt(Network::priority));

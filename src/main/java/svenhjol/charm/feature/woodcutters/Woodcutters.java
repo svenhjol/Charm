@@ -5,10 +5,10 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.common.CommonFeature;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class Woodcutters extends CommonFeature {
@@ -30,7 +30,7 @@ public class Woodcutters extends CommonFeature {
     }
 
     @Override
-    public List<? extends Register<? extends Feature>> register() {
-        return List.of(new CommonRegistration(this));
+    public Optional<Registration<? extends Feature>> registration() {
+        return Optional.of(new CommonRegistration(this));
     }
 }

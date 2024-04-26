@@ -1,10 +1,10 @@
 package svenhjol.charm.feature.vanilla_wood_variants;
 
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.common.CommonFeature;
 
-import java.util.List;
+import java.util.Optional;
 
 public class VanillaWoodVariants extends CommonFeature {
     @Override
@@ -13,7 +13,7 @@ public class VanillaWoodVariants extends CommonFeature {
     }
 
     @Override
-    public List<? extends Register<? extends Feature>> register() {
-        return List.of(new CommonRegister(this));
+    public Optional<Registration<? extends Feature>> registration() {
+        return Optional.of(new CommonRegistration(this));
     }
 }

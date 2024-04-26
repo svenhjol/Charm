@@ -11,10 +11,10 @@ import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.api.event.LevelLoadEvent;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.variant_wood.VariantWood;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 
-public class CommonRegister extends Register<AzaleaWood> {
-    public CommonRegister(AzaleaWood feature) {
+public class CommonRegistration extends Registration<AzaleaWood> {
+    public CommonRegistration(AzaleaWood feature) {
         super(feature);
     }
 

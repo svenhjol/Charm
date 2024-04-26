@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.firing;
 
 import net.minecraft.world.item.crafting.SimpleCookingSerializer;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 
-public class CommonRegister extends Register<Firing> {
+public class CommonRegistration extends Registration<Firing> {
     public static final String RECIPE_ID = "firing";
 
-    public CommonRegister(Firing feature) {
+    public CommonRegistration(Firing feature) {
         super(feature);
     }
 

@@ -1,6 +1,7 @@
 package svenhjol.charm.foundation;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 public abstract class Feature {
@@ -22,12 +23,12 @@ public abstract class Feature {
 
     public abstract Registry registry();
 
-    public List<? extends Register<? extends Feature>> register() {
-        return List.of();
+    public Optional<Registration<? extends Feature>> registration() {
+        return Optional.empty();
     }
 
-    public List<? extends Network<? extends Feature>> network() {
-        return List.of();
+    public Optional<Network<? extends Feature>> network() {
+        return Optional.empty();
     }
 
     public void onEnabled() {

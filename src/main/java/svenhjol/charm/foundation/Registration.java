@@ -1,10 +1,10 @@
 package svenhjol.charm.foundation;
 
-public abstract class Register<T extends Feature> {
+public abstract class Registration<T extends Feature> {
     protected T feature;
     protected Log log;
 
-    public Register(T feature) {
+    public Registration(T feature) {
         this.feature = feature;
     }
 

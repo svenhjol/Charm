@@ -4,9 +4,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 
-public class ClientRegistration extends Register<WoodcuttersClient> {
+public class ClientRegistration extends Registration<WoodcuttersClient> {
     public ClientRegistration(WoodcuttersClient feature) {
         super(feature);
 

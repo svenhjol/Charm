@@ -4,10 +4,10 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.common.CommonFeature;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class AzaleaWood extends CommonFeature {
@@ -23,7 +23,7 @@ public class AzaleaWood extends CommonFeature {
     }
 
     @Override
-    public List<? extends Register<? extends Feature>> register() {
-        return List.of(new CommonRegister(this));
+    public Optional<Registration<? extends Feature>> registration() {
+        return Optional.of(new CommonRegistration(this));
     }
 }

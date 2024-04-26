@@ -2,11 +2,11 @@ package svenhjol.charm.feature.vanilla_wood_variants;
 
 import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.feature.variant_wood.VariantWood;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.enums.VanillaWood;
 
-public class CommonRegister extends Register<VanillaWoodVariants> {
-    public CommonRegister(VanillaWoodVariants feature) {
+public class CommonRegistration extends Registration<VanillaWoodVariants> {
+    public CommonRegistration(VanillaWoodVariants feature) {
         super(feature);
     }
 

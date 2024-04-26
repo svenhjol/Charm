@@ -3,10 +3,10 @@ package svenhjol.charm.feature.potion_of_radiance;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.alchemy.Potion;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.common.CommonFeature;
 
-import java.util.List;
+import java.util.Optional;
 
 public class PotionOfRadiance extends CommonFeature {
     static Holder<Potion> potion;
@@ -18,7 +18,7 @@ public class PotionOfRadiance extends CommonFeature {
     }
 
     @Override
-    public List<? extends Register<? extends Feature>> register() {
-        return List.of(new CommonRegister(this));
+    public Optional<Registration<? extends Feature>> registration() {
+        return Optional.of(new CommonRegistration(this));
     }
 }

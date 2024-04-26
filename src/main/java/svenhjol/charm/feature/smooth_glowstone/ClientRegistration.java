@@ -2,10 +2,10 @@ package svenhjol.charm.feature.smooth_glowstone;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 
-public class ClientRegister extends Register<SmoothGlowstoneClient> {
-    public ClientRegister(SmoothGlowstoneClient feature) {
+public class ClientRegistration extends Registration<SmoothGlowstoneClient> {
+    public ClientRegistration(SmoothGlowstoneClient feature) {
         super(feature);
     }
 

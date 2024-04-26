@@ -11,17 +11,17 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.api.event.BlockItemRenderEvent;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 
-public class ClientRegister extends Register<VariantWoodClient> {
+public class ClientRegistration extends Registration<VariantWoodClient> {
     private VariantChestBlockEntity cachedNormalChest;
     private VariantTrappedChestBlockEntity cachedTrappedChest;
 
-    public ClientRegister(VariantWoodClient feature) {
+    public ClientRegistration(VariantWoodClient feature) {
         super(feature);
     }
 

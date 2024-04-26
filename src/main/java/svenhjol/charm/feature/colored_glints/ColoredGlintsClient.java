@@ -5,7 +5,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.common.CommonFeature;
@@ -14,6 +14,7 @@ import svenhjol.charm.foundation.helper.EnumHelper;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 public class ColoredGlintsClient extends ClientFeature {
@@ -80,8 +81,8 @@ public class ColoredGlintsClient extends ClientFeature {
     }
 
     @Override
-    public List<? extends Register<? extends Feature>> register() {
-        return List.of(new ClientRegister(this));
+    public Optional<Registration<? extends Feature>> registration() {
+        return Optional.of(new ClientRegistration(this));
     }
 
     @Override

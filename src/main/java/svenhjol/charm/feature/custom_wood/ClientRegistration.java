@@ -5,12 +5,12 @@ import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.foundation.Register;
+import svenhjol.charm.foundation.Registration;
 
 import java.util.Optional;
 
-public class ClientRegister extends Register<CustomWoodClient> {
-    public ClientRegister(CustomWoodClient feature) {
+public class ClientRegistration extends Registration<CustomWoodClient> {
+    public ClientRegistration(CustomWoodClient feature) {
         super(feature);
     }
 
