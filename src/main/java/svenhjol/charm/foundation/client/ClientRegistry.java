@@ -102,12 +102,15 @@ public final class ClientRegistry implements Registry {
         return location;
     }
 
-    public <T extends CustomPacketPayload> void packet(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec, BiConsumer<Player, T> handler) {
-        log.debug("Registering packet " + type.id());
-
-        PayloadTypeRegistry.playS2C().register(type, codec);
+    public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, BiConsumer<Player, T> handler) {
+        log.debug("Registering packet receiver " + type.id());
         ClientPlayNetworking.registerGlobalReceiver(type,
             (packet, context) -> context.client().execute(() -> handler.accept(context.player(), packet)));
+    }
+
+    public <T extends CustomPacketPayload> void packetSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
+        log.debug("Registering packet sender " + type.id());
+        PayloadTypeRegistry.playC2S().register(type, codec);
     }
 
     public Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particle(Supplier<SimpleParticleType> particleType,

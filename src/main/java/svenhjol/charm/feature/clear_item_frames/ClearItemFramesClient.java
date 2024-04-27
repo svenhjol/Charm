@@ -34,7 +34,7 @@ public class ClearItemFramesClient extends ClientFeature {
         return Optional.of(new ClientNetworking(this));
     }
 
-    static void handleAddToItemFrame(Player player, ServerNetworking.AddAmethyst packet) {
+    static void handleAddToItemFrame(Player player, CommonNetworking.AddAmethyst packet) {
         var pos = packet.getPos();
         var sound = packet.getSound();
         player.level().playSound(player, pos, sound, SoundSource.PLAYERS, 1.0f, 1.0f);
@@ -44,7 +44,7 @@ public class ClearItemFramesClient extends ClientFeature {
         }
     }
 
-    static void handleRemoveFromItemFrame(Player player, ServerNetworking.RemoveAmethyst message) {
+    static void handleRemoveFromItemFrame(Player player, CommonNetworking.RemoveAmethyst message) {
         var pos = message.getPos();
         var sound = message.getSound();
         player.level().playSound(player, pos, sound, SoundSource.PLAYERS, 1.0f, 1.0f);

@@ -9,9 +9,9 @@ public class ClientNetworking extends Networking<ClearItemFramesClient> {
 
     @Override
     public void onRegister() {
-        feature.registry().packet(ServerNetworking.AddAmethyst.TYPE, ServerNetworking.AddAmethyst.CODEC,
+        feature.registry().packetReceiver(CommonNetworking.AddAmethyst.TYPE,
             ClearItemFramesClient::handleAddToItemFrame);
-        feature.registry().packet(ServerNetworking.RemoveAmethyst.TYPE, ServerNetworking.RemoveAmethyst.CODEC,
+        feature.registry().packetReceiver(CommonNetworking.RemoveAmethyst.TYPE,
             ClearItemFramesClient::handleRemoveFromItemFrame);
     }
 }

@@ -28,7 +28,7 @@ public class ClearItemFrames extends CommonFeature {
 
     @Override
     public Optional<Networking<? extends Feature>> networking() {
-        return Optional.of(new ServerNetworking(this));
+        return Optional.of(new CommonNetworking(this));
     }
 
     public static void triggerMadeClearItemFrame(Player player) {

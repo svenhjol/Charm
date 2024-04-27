@@ -10,9 +10,15 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import svenhjol.charm.foundation.Networking;
 
-public class ServerNetworking extends Networking<ClearItemFrames> {
-    public ServerNetworking(ClearItemFrames feature) {
+public class CommonNetworking extends Networking<ClearItemFrames> {
+    public CommonNetworking(ClearItemFrames feature) {
         super(feature);
+    }
+
+    @Override
+    public void onRegister() {
+        feature.registry().packetSender(CommonNetworking.AddAmethyst.TYPE, CommonNetworking.AddAmethyst.CODEC);
+        feature.registry().packetSender(CommonNetworking.RemoveAmethyst.TYPE, CommonNetworking.RemoveAmethyst.CODEC);
     }
 
     interface ItemFrameInteraction {

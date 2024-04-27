@@ -51,7 +51,7 @@ public class CommonRegistration extends Registration<ClearItemFrames> {
                 level.addFreshEntity(itemEntity);
 
                 if (!level.isClientSide()) {
-                    ServerNetworking.RemoveAmethyst.send((ServerPlayer)player, frame.blockPosition());
+                    CommonNetworking.RemoveAmethyst.send((ServerPlayer)player, frame.blockPosition());
                 }
 
                 frame.setInvisible(false);
@@ -91,7 +91,7 @@ public class CommonRegistration extends Registration<ClearItemFrames> {
 
             if (!level.isClientSide()) {
                 var serverPlayer = (ServerPlayer)player;
-                ServerNetworking.AddAmethyst.send(serverPlayer, frame.blockPosition());
+                CommonNetworking.AddAmethyst.send(serverPlayer, frame.blockPosition());
                 ClearItemFrames.triggerMadeClearItemFrame(serverPlayer);
             }
 
