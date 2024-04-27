@@ -201,18 +201,18 @@ public abstract class Loader<T extends Feature> {
      * onRegister() in a network class should be used to register the network packets.
      */
     protected void networks() {
-        LinkedList<Network<T>> networks = new LinkedList<>();
+        LinkedList<Networking<T>> networkings = new LinkedList<>();
 
         for (T feature : getFeatures()) {
-            feature.network().ifPresent(network -> networks.add((Network<T>)network));
+            feature.networking().ifPresent(networking -> networkings.add((Networking<T>) networking));
         }
 
-        networks.sort(Comparator.comparingInt(Network::priority));
-        Collections.reverse(networks);
-        networks.forEach(Network::onRegister);
+        networkings.sort(Comparator.comparingInt(Networking::priority));
+        Collections.reverse(networkings);
+        networkings.forEach(Networking::onRegister);
 
-        networks.stream().filter(r -> r.feature.isEnabled()).forEach(Network::onEnabled);
-        networks.stream().filter(r -> !r.feature.isEnabled()).forEach(Network::onDisabled);
+        networkings.stream().filter(r -> r.feature.isEnabled()).forEach(Networking::onEnabled);
+        networkings.stream().filter(r -> !r.feature.isEnabled()).forEach(Networking::onDisabled);
     }
 
     /**

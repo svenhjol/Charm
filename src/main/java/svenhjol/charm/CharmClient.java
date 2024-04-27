@@ -2,6 +2,7 @@ package svenhjol.charm;
 
 import svenhjol.charm.feature.azalea_wood.AzaleaWoodClient;
 import svenhjol.charm.feature.chairs.ChairsClient;
+import svenhjol.charm.feature.clear_item_frames.ClearItemFramesClient;
 import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.recipes.RecipesClient;
@@ -17,6 +18,7 @@ public class CharmClient {
         return List.of(
             AzaleaWoodClient.class,
             ChairsClient.class,
+            ClearItemFramesClient.class,
             ColoredGlintsClient.class,
             CustomWoodClient.class,
             RecipesClient.class,

@@ -1,9 +1,9 @@
 package svenhjol.charm.foundation;
 
-public abstract class Network<T extends Feature> {
+public abstract class Networking<T extends Feature> {
     protected T feature;
 
-    public Network(T feature) {
+    public Networking(T feature) {
         this.feature = feature;
     }
 

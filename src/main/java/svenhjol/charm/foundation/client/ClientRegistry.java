@@ -2,25 +2,33 @@ package svenhjol.charm.foundation.client;
 
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
@@ -34,10 +42,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.Registry;
+import svenhjol.charm.foundation.deferred.DeferredParticle;
 import svenhjol.charm.foundation.helper.EnumHelper;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -45,6 +55,8 @@ public final class ClientRegistry implements Registry {
     private static final List<Pair<String, ItemLike>> RECIPE_BOOK_CATEGORY_ENUMS = new ArrayList<>();
     private static final Map<RecipeBookType, List<RecipeBookCategories>> RECIPE_BOOK_CATEGORY_BY_TYPE = new HashMap<>();
     private static final Map<RecipeType<?>, RecipeBookCategories> RECIPE_BOOK_MAIN_CATEGORY = new HashMap<>();
+
+    private final List<DeferredParticle> deferredParticles = new ArrayList<>();
 
     private final String id;
     private final Log log;
@@ -88,6 +100,20 @@ public final class ClientRegistry implements Registry {
         log.debug("Registering model layer " + location.get());
         EntityModelLayerRegistry.registerModelLayer(location.get(), definition::get);
         return location;
+    }
+
+    public <T extends CustomPacketPayload> void packet(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec, BiConsumer<Player, T> handler) {
+        log.debug("Registering packet " + type.id());
+
+        PayloadTypeRegistry.playS2C().register(type, codec);
+        ClientPlayNetworking.registerGlobalReceiver(type,
+            (packet, context) -> context.client().execute(() -> handler.accept(context.player(), packet)));
+    }
+
+    public Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particle(Supplier<SimpleParticleType> particleType,
+                                                                                            Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particleProvider) {
+        deferredParticles.add(new DeferredParticle(particleType, particleProvider));
+        return particleProvider;
     }
 
     public <R extends Recipe<?>> void recipeBookCategory(String id, Supplier<RecipeType<R>> recipeType, Supplier<RecipeBookType> recipeBookType) {

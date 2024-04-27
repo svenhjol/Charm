@@ -6,5 +6,4 @@ import net.minecraft.world.item.alchemy.Potion;
 
 import java.util.function.Supplier;
 
-public record DeferredPotionMix(Holder<Potion> input, Supplier<Item> reagent, Holder<Potion> output) {
-}
+public record DeferredPotionMix(Holder<Potion> input, Supplier<Item> reagent, Holder<Potion> output) { }

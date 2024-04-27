@@ -1,12 +1,18 @@
 package svenhjol.charm.foundation.common;
 
 import com.mojang.datafixers.util.Pair;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -15,6 +21,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
@@ -44,8 +51,10 @@ import svenhjol.charm.foundation.block.CharmWallSignBlock;
 import svenhjol.charm.foundation.deferred.DeferredPotionMix;
 import svenhjol.charm.foundation.helper.EnumHelper;
 import svenhjol.charm.foundation.helper.TextHelper;
+import svenhjol.charm.foundation.network.CharmPacket;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
@@ -55,6 +64,8 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     private static final List<String> RECIPE_BOOK_TYPE_ENUMS = new ArrayList<>();
     private final List<DeferredPotionMix> deferredPotionMixes = new ArrayList<>();
+
+    public static final List<CharmPacket<?>> CLIENT_PACKETS = new ArrayList<>();
 
     public CommonRegistry(String id) {
         this.id = id;
@@ -100,6 +111,10 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     public void brewingRecipe(Holder<Potion> input, Supplier<Item> reagent, Holder<Potion> output) {
         deferredPotionMixes.add(new DeferredPotionMix(input, reagent, output));
+    }
+
+    public List<CharmPacket<?>> clientPackets() {
+        return CLIENT_PACKETS;
     }
 
     public <I extends ItemLike, D extends DispenseItemBehavior> Supplier<D> dispenserBehavior(Supplier<I> item, Supplier<D> dispenserBehavior) {
@@ -152,6 +167,20 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     public <T extends MenuType<U>, U extends AbstractContainerMenu> Supplier<T> menuType(String id, Supplier<T> supplier) {
         log.debug("Registering menu type " + id);
         var registered = Registry.register(BuiltInRegistries.MENU, id(id), supplier.get());
+        return () -> registered;
+    }
+
+    public <T extends CustomPacketPayload> void packet(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec, BiConsumer<Player, T> handler) {
+        log.debug("Registering packet " + type.id());
+
+        PayloadTypeRegistry.playC2S().register(type, codec);
+        ServerPlayNetworking.registerGlobalReceiver(type,
+            (packet, context) -> context.player().server.execute(() -> handler.accept(context.player(), packet)));
+    }
+
+    public Supplier<SimpleParticleType> particleType(String id, Supplier<SimpleParticleType> supplier) {
+        log.debug("Registering particle type " + id);
+        var registered = Registry.register(BuiltInRegistries.PARTICLE_TYPE, id(id), supplier.get());
         return () -> registered;
     }
 

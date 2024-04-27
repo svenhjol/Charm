@@ -5,6 +5,7 @@ import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.chairs.Chairs;
+import svenhjol.charm.feature.clear_item_frames.ClearItemFrames;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
@@ -35,6 +36,7 @@ public class Charm {
             AmethystNoteBlock.class,
             AzaleaWood.class,
             Chairs.class,
+            ClearItemFrames.class,
             ColoredGlints.class,
             Core.class,
             CustomWood.class,

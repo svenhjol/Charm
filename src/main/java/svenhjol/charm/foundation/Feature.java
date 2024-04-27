@@ -27,7 +27,7 @@ public abstract class Feature {
         return Optional.empty();
     }
 
-    public Optional<Network<? extends Feature>> network() {
+    public Optional<Networking<? extends Feature>> networking() {
         return Optional.empty();
     }
 

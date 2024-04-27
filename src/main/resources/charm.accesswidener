@@ -1,13 +1,18 @@
 accessWidener v1 named
 
 # Registry
+### Classes
+accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
 accessible class net/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type
+### Methods
 accessible method net/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type <init> (Ljava/lang/String;I)V
 accessible method net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
 accessible method net/minecraft/core/component/DataComponents register (Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/core/component/DataComponentType;
 accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes registerBlockStates (Lnet/minecraft/core/Holder;Ljava/util/Set;)V
+accessible method net/minecraft/client/particle/Particle setAlpha (F)V
+### Fields
 accessible field net/minecraft/world/entity/ai/village/poi/PoiTypes TYPE_BY_STATE Ljava/util/Map;
 accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 mutable    field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
@@ -21,6 +26,8 @@ accessible field net/minecraft/world/entity/vehicle/Boat$Type CODEC Lnet/minecra
 mutable    field net/minecraft/world/entity/vehicle/Boat$Type CODEC Lnet/minecraft/util/StringRepresentable$EnumCodec;
 accessible field net/minecraft/world/entity/vehicle/Boat$Type BY_ID Ljava/util/function/IntFunction;
 mutable    field net/minecraft/world/entity/vehicle/Boat$Type BY_ID Ljava/util/function/IntFunction;
+accessible field net/minecraft/client/particle/Particle friction F
+accessible field net/minecraft/client/particle/Particle speedUpWhenYMotionIsBlocked Z
 
 # ColoredGlints
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
