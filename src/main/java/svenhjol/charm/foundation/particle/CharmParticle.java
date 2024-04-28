@@ -15,10 +15,10 @@ public class CharmParticle extends TextureSheetParticle {
      */
     public CharmParticle(ClientLevel level, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteProvider) {
         super(level, x, y, z, vx, vy, vz);
-        this.friction = 0.6F;
+        this.friction = 0.6f;
         this.speedUpWhenYMotionIsBlocked = false;
         this.spriteProvider = spriteProvider;
-        this.quadSize *= 0.78F;
+        this.quadSize *= 0.78f;
         this.hasPhysics = false;
         this.setSpriteFromAge(spriteProvider);
     }
@@ -40,7 +40,7 @@ public class CharmParticle extends TextureSheetParticle {
         f *= f;
         var j = i & 255;
         var k = i >> 16 & 255;
-        k += (int) (f * 15.0F * 16.0F);
+        k += (int) (f * 15.0f * 16.0f);
         if (k > 240) {
             k = 240;
         }
