@@ -11,16 +11,16 @@ import svenhjol.charm.foundation.particle.CharmParticle;
 @SuppressWarnings("ConstantConditions")
 public class ApplyAmethystClientParticle implements ParticleProvider<SimpleParticleType> {
     private static final RandomSource RANDOM = RandomSource.create();
-    private final SpriteSet spriteProvider;
+    private final SpriteSet sprite;
 
-    public ApplyAmethystClientParticle(SpriteSet spriteProvider) {
-        this.spriteProvider = spriteProvider;
+    public ApplyAmethystClientParticle(SpriteSet sprite) {
+        this.sprite = sprite;
     }
 
     public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double r, double g, double b) {
         var particle = new CharmParticle(level, x, y, z,
-            0.5D - RANDOM.nextDouble(), 0.5D - RANDOM.nextDouble(), 0.5D - RANDOM.nextDouble(), this.spriteProvider);
-        particle.setLifetime(4 + RANDOM.nextInt(4));
+            0.5d - RANDOM.nextDouble(), 0.5d - RANDOM.nextDouble(), 0.5d - RANDOM.nextDouble(), this.sprite);
+        particle.setLifetime(10 + RANDOM.nextInt(10));
         particle.setColor((float)r, (float)g, (float)b);
         particle.setAlpha((RANDOM.nextFloat() * 0.2F) + 0.8F);
         particle.friction = 0.8F; // some multiplier for velocity, idk

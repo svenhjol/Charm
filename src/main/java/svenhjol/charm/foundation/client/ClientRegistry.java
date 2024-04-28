@@ -55,8 +55,7 @@ public final class ClientRegistry implements Registry {
     private static final List<Pair<String, ItemLike>> RECIPE_BOOK_CATEGORY_ENUMS = new ArrayList<>();
     private static final Map<RecipeBookType, List<RecipeBookCategories>> RECIPE_BOOK_CATEGORY_BY_TYPE = new HashMap<>();
     private static final Map<RecipeType<?>, RecipeBookCategories> RECIPE_BOOK_MAIN_CATEGORY = new HashMap<>();
-
-    private final List<DeferredParticle> deferredParticles = new ArrayList<>();
+    private static final List<DeferredParticle> PARTICLES = new ArrayList<>();
 
     private final String id;
     private final Log log;
@@ -115,8 +114,16 @@ public final class ClientRegistry implements Registry {
 
     public Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particle(Supplier<SimpleParticleType> particleType,
                                                                                             Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particleProvider) {
-        deferredParticles.add(new DeferredParticle(particleType, particleProvider));
+        PARTICLES.add(new DeferredParticle(particleType, particleProvider));
         return particleProvider;
+    }
+
+    /**
+     * Particles are registered via mixin.
+     * @see svenhjol.charm.mixin.registry.particle_engine.ParticleEngineMixin
+     */
+    public static List<DeferredParticle> particles() {
+        return PARTICLES;
     }
 
     public <R extends Recipe<?>> void recipeBookCategory(String id, Supplier<RecipeType<R>> recipeType, Supplier<RecipeBookType> recipeBookType) {

@@ -30,7 +30,8 @@
     "feature.recipes.RecipeBookCategoriesMixin",
     "feature.recipes.RecipeBookLookupMixin",
     "feature.variant_pistons.PistonHeadRendererMixin",
-    "feature.variant_wood.SheetsMixin"
+    "feature.variant_wood.SheetsMixin",
+    "registry.particle_engine.ParticleEngineMixin"
   ],
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "injectors": {

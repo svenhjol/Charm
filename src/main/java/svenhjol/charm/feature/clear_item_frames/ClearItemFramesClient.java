@@ -62,6 +62,6 @@ public class ClearItemFramesClient extends ClientFeature {
         var y = (double) pos.getY() + 0.5d;
         var z = (double) pos.getZ() + 0.5d;
 
-        level.addAlwaysVisibleParticle(particleType, x, y, z, col[0], col[1], col[2]);
+        level.addParticle(particleType, x, y, z, col[0], col[1], col[2]);
     }
 }
