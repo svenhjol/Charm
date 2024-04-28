@@ -1,6 +1,9 @@
 package svenhjol.charm.foundation.common;
 
 import com.mojang.datafixers.util.Pair;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -28,18 +31,22 @@ import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import svenhjol.charm.api.iface.IFuelProvider;
 import svenhjol.charm.api.iface.IIgniteProvider;
 import svenhjol.charm.api.iface.IVariantMaterial;
@@ -49,12 +56,14 @@ import svenhjol.charm.foundation.block.CharmStairBlock;
 import svenhjol.charm.foundation.block.CharmWallHangingSignBlock;
 import svenhjol.charm.foundation.block.CharmWallSignBlock;
 import svenhjol.charm.foundation.deferred.DeferredPotionMix;
+import svenhjol.charm.foundation.helper.DispenserHelper;
 import svenhjol.charm.foundation.helper.EnumHelper;
 import svenhjol.charm.foundation.helper.TextHelper;
 import svenhjol.charm.foundation.network.CharmPacket;
 
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
@@ -70,6 +79,19 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     public CommonRegistry(String id) {
         this.id = id;
         this.log = new Log(id, this);
+    }
+
+    public <E extends Entity> void biomeSpawn(Predicate<Holder<Biome>> predicate, MobCategory category, Supplier<EntityType<E>> entity, int weight, int minGroupSize, int maxGroupSize) {
+        Predicate<BiomeSelectionContext> biomeSelectionContext = c -> predicate.test(c.getBiomeRegistryEntry());
+        BiomeModifications.addSpawn(biomeSelectionContext, category, entity.get(), weight, minGroupSize, maxGroupSize);
+    }
+
+    public void biomeAddition(String id, Predicate<Holder<Biome>> predicate, GenerationStep.Decoration step, ResourceKey<PlacedFeature> feature) {
+        Predicate<BiomeSelectionContext> biomeSelectionContext = c -> predicate.test(c.getBiomeRegistryEntry());
+        BiomeModifications.create(id(id + "_biome_addition")).add(
+            ModificationPhase.ADDITIONS,
+            biomeSelectionContext,
+            ctx -> ctx.getGenerationSettings().addFeature(step, feature));
     }
 
     public <B extends Block> Supplier<B> block(String id, Supplier<B> supplier) {
@@ -263,6 +285,13 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         } else {
             return soundEvent(id, () -> SoundEvent.createVariableRangeEvent(id(id)));
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public <I extends Item, E extends EntityType<? extends Mob>> Supplier<I> spawnEggItem(String id, Supplier<E> entity, int primaryColor, int secondaryColor, Item.Properties properties) {
+        var item = (Supplier<I>) item(id, () -> new SpawnEggItem(entity.get(), primaryColor, secondaryColor, properties));
+        dispenserBehavior(item, DispenserHelper::getDefaultDispenseBehavior);
+        return item;
     }
 
     @SuppressWarnings("unchecked")

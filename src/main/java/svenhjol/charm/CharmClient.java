@@ -4,6 +4,7 @@ import svenhjol.charm.feature.azalea_wood.AzaleaWoodClient;
 import svenhjol.charm.feature.chairs.ChairsClient;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFramesClient;
 import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
+import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.recipes.RecipesClient;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
@@ -20,6 +21,7 @@ public class CharmClient {
             ChairsClient.class,
             ClearItemFramesClient.class,
             ColoredGlintsClient.class,
+            CoralSquidsClient.class,
             CustomWoodClient.class,
             RecipesClient.class,
             SmoothGlowstoneClient.class,
