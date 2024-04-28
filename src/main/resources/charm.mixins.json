@@ -15,6 +15,9 @@
     "feature.recipes.RecipeManagerMixin",
     "feature.recipes.ReloadableServerResourcesMixin",
     "feature.recipes.ServerPackSourceMixin",
+    "feature.silence_microsoft.YggdrasilMinecraftSessionServiceMixin",
+    "feature.silence_microsoft.YggdrasilServicesKeyInfoMixin",
+    "feature.silence_microsoft.YggdrasilUserApiServiceMixin",
     "feature.variant_pistons.PistonBaseBlockMixin",
     "feature.variant_pistons.PistonHeadBlockMixin",
     "feature.variant_pistons.PistonMovingBlockEntityMixin"
@@ -29,6 +32,8 @@
     "feature.recipes.ClientRecipeBookMixin",
     "feature.recipes.RecipeBookCategoriesMixin",
     "feature.recipes.RecipeBookLookupMixin",
+    "feature.silence_microsoft.DisableToastMixin",
+    "feature.silence_microsoft.RealmsAvailabilityMixin",
     "feature.variant_pistons.PistonHeadRendererMixin",
     "feature.variant_wood.SheetsMixin",
     "registry.particle_engine.ParticleEngineMixin"
