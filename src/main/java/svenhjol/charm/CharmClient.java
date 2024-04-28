@@ -8,6 +8,7 @@ import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.recipes.RecipesClient;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
+import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
 import svenhjol.charm.feature.variant_wood.VariantWoodClient;
 import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
 import svenhjol.charm.foundation.client.ClientFeature;
@@ -25,6 +26,7 @@ public class CharmClient {
             CustomWoodClient.class,
             RecipesClient.class,
             SmoothGlowstoneClient.class,
+            VariantMobTextures.class,
             VariantWoodClient.class,
             WoodcuttersClient.class
         );
