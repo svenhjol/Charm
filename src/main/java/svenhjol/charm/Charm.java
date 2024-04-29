@@ -3,6 +3,7 @@ package svenhjol.charm;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
+import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.chairs.Chairs;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFrames;
@@ -36,6 +37,7 @@ public class Charm {
         return List.of(
             Advancements.class,
             AmethystNoteBlock.class,
+            Atlases.class,
             AzaleaWood.class,
             Chairs.class,
             ClearItemFrames.class,

@@ -1,5 +1,6 @@
 package svenhjol.charm;
 
+import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.azalea_wood.AzaleaWoodClient;
 import svenhjol.charm.feature.chairs.ChairsClient;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFramesClient;
@@ -18,6 +19,7 @@ import java.util.List;
 public class CharmClient {
     public static List<Class<? extends ClientFeature>> features() {
         return List.of(
+            AtlasesClient.class,
             AzaleaWoodClient.class,
             ChairsClient.class,
             ClearItemFramesClient.class,
