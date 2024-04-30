@@ -17,8 +17,9 @@ public class CommonNetworking extends Networking<ClearItemFrames> {
 
     @Override
     public void onRegister() {
-        feature.registry().packetSender(CommonNetworking.AddAmethyst.TYPE, CommonNetworking.AddAmethyst.CODEC);
-        feature.registry().packetSender(CommonNetworking.RemoveAmethyst.TYPE, CommonNetworking.RemoveAmethyst.CODEC);
+        var registry = feature.registry();
+        registry.serverPacketSender(AddAmethyst.TYPE, AddAmethyst.CODEC);
+        registry.serverPacketSender(RemoveAmethyst.TYPE, RemoveAmethyst.CODEC);
     }
 
     interface ItemFrameInteraction {
@@ -26,6 +27,7 @@ public class CommonNetworking extends Networking<ClearItemFrames> {
         SoundEvent getSound();
     }
 
+    // Server-to-client
     record AddAmethyst(BlockPos pos) implements CustomPacketPayload, ItemFrameInteraction {
         static CustomPacketPayload.Type<AddAmethyst> TYPE = CustomPacketPayload.createType("charm:add_amethyst_to_item_frame");
         static StreamCodec<FriendlyByteBuf, AddAmethyst> CODEC = StreamCodec.of(AddAmethyst::encode, AddAmethyst::decode);
@@ -56,6 +58,7 @@ public class CommonNetworking extends Networking<ClearItemFrames> {
         }
     }
 
+    // Server-to-client
     record RemoveAmethyst(BlockPos pos) implements CustomPacketPayload, ItemFrameInteraction {
         static CustomPacketPayload.Type<RemoveAmethyst> TYPE = CustomPacketPayload.createType("charm:remove_amethyst_from_item_frame");
         static StreamCodec<FriendlyByteBuf, RemoveAmethyst> CODEC = StreamCodec.of(RemoveAmethyst::encode, RemoveAmethyst::decode);

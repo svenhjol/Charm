@@ -17,7 +17,7 @@ public class AtlasContainer extends CharmContainerMenu {
     }
 
     public AtlasContainer(int syncId, Inventory playerInventory, AtlasInventory atlasInventory) {
-        super(Atlases.MENU_TYPE.get(), syncId, playerInventory, atlasInventory);
+        super(Atlases.menuType.get(), syncId, playerInventory, atlasInventory);
         this.inventory = atlasInventory;
 
         // Container's inventory slots.
@@ -37,8 +37,10 @@ public class AtlasContainer extends CharmContainerMenu {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142) {
                 @Override
                 public boolean mayPickup(Player playerIn) {
-                    return getItem().getItem() != Atlases.ITEM.get() || !Objects.equals(ItemNbtHelper.getUuid(getItem(), AtlasInventory.ID),
-                        ItemNbtHelper.getUuid(AtlasContainer.this.inventory.getAtlasItem(), AtlasInventory.ID));
+                    var itemData = AtlasData.get(getItem());
+                    var containerData = AtlasData.get(AtlasContainer.this.inventory.getAtlasItem());
+                    return getItem().getItem() != Atlases.item.get()
+                        || !Objects.equals(itemData.getId(), containerData.getId());
                 }
             });
         }

@@ -32,6 +32,9 @@ accessible field net/minecraft/client/gui/screens/Screen narratables Ljava/util/
 accessible field net/minecraft/client/particle/Particle friction F
 accessible field net/minecraft/client/particle/Particle speedUpWhenYMotionIsBlocked Z
 
+# Atlases
+accessible method net/minecraft/world/level/saveddata/maps/MapItemSavedData setColorsDirty (II)V
+
 # ColoredGlints
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
 accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard

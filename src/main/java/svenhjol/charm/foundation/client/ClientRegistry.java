@@ -2,11 +2,12 @@ package svenhjol.charm.foundation.client;
 
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
@@ -21,8 +22,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -52,6 +51,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("UnusedReturnValue")
 public final class ClientRegistry implements Registry {
+    private final Map<String, KeyMapping> keyMappings = new HashMap<>();
     private static final List<Pair<String, ItemLike>> RECIPE_BOOK_CATEGORY_ENUMS = new ArrayList<>();
     private static final Map<RecipeBookType, List<RecipeBookCategories>> RECIPE_BOOK_CATEGORY_BY_TYPE = new HashMap<>();
     private static final Map<RecipeType<?>, RecipeBookCategories> RECIPE_BOOK_MAIN_CATEGORY = new HashMap<>();
@@ -91,6 +91,17 @@ public final class ClientRegistry implements Registry {
         }
     }
 
+    public Supplier<String> key(String id, Supplier<KeyMapping> supplier) {
+        log.debug("Registering key mapping " + id);
+        var mapping = KeyBindingHelper.registerKeyBinding(supplier.get());
+        keyMappings.put(id, mapping);
+        return () -> id;
+    }
+
+    public Map<String, KeyMapping> keyMappings() {
+        return keyMappings;
+    }
+
     public <T extends AbstractContainerMenu, U extends Screen & MenuAccess<T>> void menuScreen(Supplier<MenuType<T>> menuType, Supplier<MenuScreens.ScreenConstructor<T, U>> screenConstructor) {
         MenuScreens.register(menuType.get(), screenConstructor.get());
     }
@@ -105,11 +116,6 @@ public final class ClientRegistry implements Registry {
         log.debug("Registering packet receiver " + type.id());
         ClientPlayNetworking.registerGlobalReceiver(type,
             (packet, context) -> context.client().execute(() -> handler.accept(context.player(), packet)));
-    }
-
-    public <T extends CustomPacketPayload> void packetSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
-        log.debug("Registering packet sender " + type.id());
-        PayloadTypeRegistry.playC2S().register(type, codec);
     }
 
     public Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particle(Supplier<SimpleParticleType> particleType,

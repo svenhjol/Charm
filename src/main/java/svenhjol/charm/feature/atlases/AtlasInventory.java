@@ -2,19 +2,12 @@ package svenhjol.charm.feature.atlases;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-import com.mojang.serialization.Dynamic;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -30,49 +23,41 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
-import svenhjol.charmony.helper.ItemNbtHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class AtlasInventory implements MenuProvider, Container {
-    public static final String EMPTY_MAPS = "empty_maps";
-    public static final String FILLED_MAPS = "filled_maps";
-    public static final String ACTIVE_MAP = "active_map";
-    public static final String SCALE = "scale";
-    public static final String ID = "id";
-    public static final int EMPTY_MAP_SLOTS = 3;
     private static final Map<UUID, AtlasInventory> SERVER_CACHE = new HashMap<>();
     private static final Map<UUID, AtlasInventory> CLIENT_CACHE = new HashMap<>();
     private final Table<ResourceKey<Level>, Index, MapInfo> mapInfos;
-    private final NonNullList<ItemStack> emptyMaps;
+    private List<ItemStack> emptyMaps;
     private int diameter;
     private ItemStack atlas;
     private int scale;
     private boolean isOpen = false;
+    private @Nullable MapId lastActiveMap;
 
     public AtlasInventory(ItemStack atlas) {
         this.atlas = atlas;
         this.scale = Atlases.defaultScale;
         this.diameter = 128;
-        this.emptyMaps = NonNullList.withSize(EMPTY_MAP_SLOTS, ItemStack.EMPTY);
+        this.emptyMaps = NonNullList.withSize(Atlases.EMPTY_MAP_SLOTS, ItemStack.EMPTY);
         this.mapInfos = HashBasedTable.create();
+        this.lastActiveMap = null;
         load();
     }
 
     public static AtlasInventory find(Inventory inventory) {
         for (var hand : InteractionHand.values()) {
             var held = inventory.player.getItemInHand(hand);
-            if (held.getItem() == Atlases.ITEM.get()) {
+            if (held.getItem() == Atlases.item.get()) {
                 return get(inventory.player.level(), held);
             }
         }
@@ -80,12 +65,14 @@ public class AtlasInventory implements MenuProvider, Container {
     }
 
     public static AtlasInventory get(Level level, ItemStack stack) {
-        var id = stack.get(Atlases.atlasData.get()).getId();
-        //var id = ItemNbtHelper.getUuid(stack, AtlasInventory.ID);
+        UUID id;
 
-        if (id == null) {
+        if (AtlasData.has(stack)) {
+            id = AtlasData.get(stack).getId();
+        } else {
             id = UUID.randomUUID();
-            ItemNbtHelper.setUuid(stack, AtlasInventory.ID, id);
+            var created = AtlasData.create(id);
+            AtlasData.set(stack, created);
         }
 
         var cache = level.isClientSide ? CLIENT_CACHE : SERVER_CACHE;
@@ -111,13 +98,21 @@ public class AtlasInventory implements MenuProvider, Container {
     }
 
     private void load() {
-        scale = ItemNbtHelper.getInt(atlas, SCALE, Atlases.defaultScale);
+        var data = AtlasData.get(atlas);
+        scale = data.getScale();
+//        scale = ItemNbtHelper.getInt(atlas, SCALE, Atlases.defaultScale);
         diameter = 128 * (1 << scale);
-        ContainerHelper.loadAllItems(ItemNbtHelper.getCompound(atlas, EMPTY_MAPS), emptyMaps);
-        var list = ItemNbtHelper.getList(atlas, FILLED_MAPS);
-        for (int i = 0; i < list.size(); ++i) {
-            putMapInfo(MapInfo.readFrom(list.getCompound(i)));
+        emptyMaps = data.getEmptyMaps();
+
+        for (var filledMap : data.getFilledMaps()) {
+            putMapInfo(MapInfo.readFrom(filledMap));
         }
+
+//        ContainerHelper.loadAllItems(ItemNbtHelper.getCompound(atlas, EMPTY_MAPS), emptyMaps);
+//        var list = ItemNbtHelper.getList(atlas, FILLED_MAPS);
+//        for (int i = 0; i < list.size(); ++i) {
+//            putMapInfo(MapInfo.readFrom(list.getCompound(i)));
+//        }
     }
 
     public boolean isOpen() {
@@ -142,14 +137,20 @@ public class AtlasInventory implements MenuProvider, Container {
 
     @Nullable
     private static MapInfo createMapInfo(Level level, ItemStack map) {
-        Integer mapId = MapItem.getMapId(map);
+//        Integer mapId = MapItem.getMapId(map);
+//        if (mapId == null) {
+//            return null;
+//        }
+
+//        MapItemSavedData mapData = MapItem.getSavedData(mapId, level);
+        var mapId = map.get(DataComponents.MAP_ID);
         if (mapId == null) {
             return null;
         }
 
-        MapItemSavedData mapData = MapItem.getSavedData(mapId, level);
+        var mapData = MapItem.getSavedData(mapId, level);
         if (mapData != null) {
-            return new MapInfo(mapData.centerX, mapData.centerZ, MapItem.getMapId(map), map, mapData.dimension);
+            return new MapInfo(mapData.centerX, mapData.centerZ, mapId, map, mapData.dimension);
         }
 
         return null;
@@ -164,18 +165,23 @@ public class AtlasInventory implements MenuProvider, Container {
             madeNewMap = activeMap != null;
         }
 
+
+        if (madeNewMap || (activeMap != null && activeMap.mapId != lastActiveMap)) {
+            var mutable = AtlasData.getMutable(atlas);
+            mutable.setActiveMap(activeMap.mapId);
+            AtlasData.set(atlas, mutable);
+            lastActiveMap = activeMap.mapId;
+        }
+
         if (activeMap != null) {
-            AtlasesNetwork.sendMapToClient(player, activeMap.map, false);
-            ItemNbtHelper.setInt(atlas, ACTIVE_MAP, activeMap.id);
-        } else {
-            ItemNbtHelper.setInt(atlas, ACTIVE_MAP, -1);
+            CommonNetworking.sendMapToClient(player, activeMap.map, false);
         }
 
         return madeNewMap;
     }
 
     private MapInfo makeNewMap(ServerPlayer player, int x, int z) {
-        for (int i = 0; i < EMPTY_MAP_SLOTS; ++i) {
+        for (int i = 0; i < Atlases.EMPTY_MAP_SLOTS; ++i) {
             ItemStack stack = emptyMaps.get(i);
             if (stack.getItem() == Items.MAP) {
                 if (!player.isCreative()) {
@@ -196,25 +202,19 @@ public class AtlasInventory implements MenuProvider, Container {
     }
 
     @Nullable
-    public MapId getActiveMapId() {
-        return atlas.get(Atlases.atlasData.get()).getActiveMap();
+    public MapId getActiveMapId(Level level) {
+        if (AtlasData.has(atlas)) {
+            return AtlasData.get(atlas).getActiveMap();
+        }
+        return null;
     }
 
     @Nullable
     public MapItemSavedData getActiveMap(Level level) {
-        var mapId = getActiveMapId();
+        var mapId = getActiveMapId(level);
         if (mapId == null) return null;
 
         return level.getMapData(mapId);
-    }
-
-    @Nullable
-    public ItemStack getLastActiveMapItem() {
-        var activeId = getActiveMapId();
-        // int activeId = ItemNbtHelper.getInt(atlas, ACTIVE_MAP, -1);
-        if (activeId == null) return null;
-
-        return mapInfos.values().stream().filter(it -> it.id == activeId).findAny().map(it -> it.map).orElse(null);
     }
 
     @Override
@@ -231,7 +231,7 @@ public class AtlasInventory implements MenuProvider, Container {
 
     @Override
     public int getContainerSize() {
-        return EMPTY_MAP_SLOTS;
+        return Atlases.EMPTY_MAP_SLOTS;
     }
 
     @Override
@@ -290,27 +290,41 @@ public class AtlasInventory implements MenuProvider, Container {
 
     @Override
     public void setChanged() {
-        ItemNbtHelper.setInt(atlas, SCALE, scale);
-        CompoundTag emptyMapNBT = new CompoundTag();
-        ContainerHelper.saveAllItems(emptyMapNBT, emptyMaps, false);
-        ItemNbtHelper.setCompound(atlas, EMPTY_MAPS, emptyMapNBT);
-        ListTag listNBT = new ListTag();
+        var mutable = AtlasData.getMutable(atlas);
+        mutable.setScale(scale);
+        mutable.setEmptyMaps(emptyMaps);
 
+        List<MapData> list = new ArrayList<>();
         for (MapInfo mapInfo : mapInfos.values()) {
-            CompoundTag nbt = new CompoundTag();
-            mapInfo.writeTo(nbt);
-            listNBT.add(nbt);
+            list.add(MapData.fromMapInfo(mapInfo));
         }
 
-        ItemNbtHelper.setList(atlas, FILLED_MAPS, listNBT);
+        mutable.setFilledMaps(list);
+        AtlasData.set(atlas, mutable);
+
+//        ItemNbtHelper.setInt(atlas, SCALE, scale);
+//        CompoundTag emptyMapNBT = new CompoundTag();
+//        ContainerHelper.saveAllItems(emptyMapNBT, emptyMaps, false);
+//        ItemNbtHelper.setCompound(atlas, EMPTY_MAPS, emptyMapNBT);
+//        ListTag listNBT = new ListTag();
+//
+//        for (MapInfo mapInfo : mapInfos.values()) {
+//            CompoundTag nbt = new CompoundTag();
+//            mapInfo.writeTo(nbt);
+//            listNBT.add(nbt);
+//        }
+//
+//        ItemNbtHelper.setList(atlas, FILLED_MAPS, listNBT);
     }
 
     @Override
     public boolean stillValid(@Nonnull Player player) {
+        var data = AtlasData.get(atlas);
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack heldItem = player.getItemInHand(hand);
-            if (heldItem.getItem() == Atlases.ITEM.get() && Objects.equals(ItemNbtHelper.getUuid(atlas, ID), ItemNbtHelper.getUuid(heldItem, ID))) {
-                return true;
+            if (heldItem.getItem() == Atlases.item.get()) {
+                return Objects.equals(data.getId(), AtlasData.get(heldItem).getId());
+//                return true;
             }
         }
 
@@ -327,7 +341,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public void startOpen(Player player) {
         isOpen = true;
         if (!player.level().isClientSide) {
-            player.playNotifySound(Atlases.OPEN_SOUND.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
+            player.playNotifySound(Atlases.openSound.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
         }
     }
 
@@ -335,8 +349,12 @@ public class AtlasInventory implements MenuProvider, Container {
     public void stopOpen(Player player) {
         isOpen = false;
         if (!player.level().isClientSide) {
-            player.playNotifySound(Atlases.CLOSE_SOUND.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
+            player.playNotifySound(Atlases.closeSound.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
         }
+    }
+
+    public boolean matches(Predicate<ItemStack> predicate) {
+        return mapInfos.values().stream().anyMatch(i -> predicate.test(i.map));
     }
 
     public boolean hasItemStack(ItemStack stack) {
@@ -360,51 +378,45 @@ public class AtlasInventory implements MenuProvider, Container {
         return scale;
     }
 
-    @SuppressWarnings("deprecation")
     public static class MapInfo {
-        private static final String X = "x";
-        private static final String Z = "z";
-        private static final String ID = "id";
-        private static final String MAP = "map";
-        private static final String DIMENSION = "dimension";
         public final int x;
         public final int z;
-        public final MapId id;
+        public final MapId mapId;
         public final ItemStack map;
         public final ResourceKey<Level> dimension;
 
-        private MapInfo(int x, int z, MapId id, ItemStack map, ResourceKey<Level> dimension) {
+        private MapInfo(int x, int z, MapId mapId, ItemStack map, ResourceKey<Level> dimension) {
             this.x = x;
             this.z = z;
-            this.id = id;
+            this.mapId = mapId;
             this.map = map;
             this.dimension = dimension;
         }
 
-        public static MapInfo readFrom(ItemStack stack) {
-            var data = stack.get(Atlases.mapData.get());
+        public static MapInfo readFrom(MapData data) {
             return new MapInfo(
-                data.getX(),
-                data.getZ(),
-                data.getId(),
-                stack,
-            )
+                data.x(),
+                data.z(),
+                data.mapId(),
+                data.map(),
+                data.dimension()
+            );
         }
 
-        public static MapInfo readFrom(CompoundTag tag) {
-            return new MapInfo(tag.getInt(X), tag.getInt(Z), tag.getInt(ID), ItemStack.of(tag.getCompound(MAP)),
-                DimensionType.parseLegacy(new Dynamic<>(NbtOps.INSTANCE, tag.get(DIMENSION))).result().orElse(Level.OVERWORLD));
-        }
+//        public static MapInfo readFrom(CompoundTag tag) {
+//            return new MapInfo(tag.getInt(X), tag.getInt(Z), tag.getInt(ID), ItemStack.of(tag.getCompound(MAP)),
+//                DimensionType.parseLegacy(new Dynamic<>(NbtOps.INSTANCE, tag.get(DIMENSION))).result().orElse(Level.OVERWORLD));
+//        }
 
-        public void writeTo(CompoundTag tag) {
-            tag.putInt(X, x);
-            tag.putInt(Z, z);
-            tag.putInt(ID, id);
-            CompoundTag mapNBT = new CompoundTag();
-            map.save(mapNBT);
-            tag.put(MAP, mapNBT);
-            ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, dimension.location()).result().ifPresent(it -> tag.put(DIMENSION, it));
-        }
+//        public void writeTo(CompoundTag tag) {
+//            tag.putInt(X, x);
+//            tag.putInt(Z, z);
+//            tag.putInt(ID, mapId);
+//            CompoundTag mapNBT = new CompoundTag();
+//            map.save(mapNBT);
+//            tag.put(MAP, mapNBT);
+//            ResourceLocation.CODEC.encodeStart(NbtOps.INSTANCE, dimension.location()).result().ifPresent(it -> tag.put(DIMENSION, it));
+//        }
     }
 
     public static class Index {

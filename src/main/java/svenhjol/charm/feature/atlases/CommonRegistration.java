@@ -1,12 +1,10 @@
 package svenhjol.charm.feature.atlases;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
-import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.api.event.PlayerLoginEvent;
 import svenhjol.charm.api.event.PlayerTickEvent;
 import svenhjol.charm.foundation.Registration;
@@ -20,27 +18,23 @@ public class CommonRegistration extends Registration<Atlases> {
     public void onRegister() {
         var registry = feature.registry();
 
-        Atlases.atlasData = DataComponents.register("charm_atlas_data", builder -> builder.)
-
-        Atlases.ITEM = registry.item("atlas", AtlasItem::new);
-        Atlases.MENU_TYPE = registry.menuType("atlas", () -> new MenuType<>(AtlasContainer::new, FeatureFlags.VANILLA_SET));
-        Atlases.OPEN_SOUND = registry.soundEvent("atlas_open");
-        Atlases.CLOSE_SOUND = registry.soundEvent("atlas_close");
-
-        AtlasesNetwork.register();
-        CharmApi.registerProvider(this);
+        Atlases.atlasData = registry.dataComponent("charm_atlas_data", () -> builder -> builder.persistent(AtlasData.CODEC).networkSynchronized(AtlasData.STREAM_CODEC));
+        Atlases.mapData = registry.dataComponent("charm_map_data", () -> builder -> builder.persistent(MapData.CODEC).networkSynchronized(MapData.STREAM_CODEC));
+        Atlases.item = registry.item("atlas", AtlasItem::new);
+        Atlases.menuType = registry.menuType("atlas", () -> new MenuType<>(AtlasContainer::new, FeatureFlags.VANILLA_SET));
+        Atlases.openSound = registry.soundEvent("atlas_open");
+        Atlases.closeSound = registry.soundEvent("atlas_close");
     }
 
     @Override
     public void onEnabled() {
-        // TODO: register these events in CommonEvents
         PlayerLoginEvent.INSTANCE.handle(this::handlePlayerLogin);
         PlayerTickEvent.INSTANCE.handle(this::handlePlayerTick);
     }
 
     private void handlePlayerLogin(Player player) {
         if (!player.level().isClientSide()) {
-            AtlasesNetwork.SwappedAtlasSlot.send(player, -1);
+            CommonNetworking.SwappedAtlasSlot.send((ServerPlayer)player, -1);
         }
     }
 
@@ -51,11 +45,11 @@ public class CommonRegistration extends Registration<Atlases> {
             for (var hand : InteractionHand.values()) {
                 var held = serverPlayer.getItemInHand(hand);
 
-                if (held.getItem() == Atlases.ITEM.get()) {
+                if (held.getItem() == Atlases.item.get()) {
                     var inventory = AtlasInventory.get(serverPlayer.level(), held);
                     if (inventory.updateActiveMap(serverPlayer)) {
                         var slot = getSlotFromHand(serverPlayer, hand);
-                        AtlasesNetwork.UpdateInventory.send(player, slot);
+                        CommonNetworking.UpdateInventory.send(serverPlayer, slot);
 
                         if (inventory.getMapInfos().size() >= Atlases.NUMBER_OF_MAPS_FOR_ACHIEVEMENT) {
                             Atlases.triggerMadeAtlasMaps(serverPlayer);

@@ -2,46 +2,42 @@ package svenhjol.charm.feature.atlases;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.CartographyTableMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.ResultContainer;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
+import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.api.iface.IWandererTrade;
 import svenhjol.charm.api.iface.IWandererTradeProvider;
 import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.foundation.Feature;
+import svenhjol.charm.foundation.Networking;
 import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.mixin.feature.atlases.MapItemSavedDataMixin;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class Atlases extends CommonFeature implements IWandererTradeProvider {
+    public static final int EMPTY_MAP_SLOTS = 3;
     static Supplier<DataComponentType<AtlasData>> atlasData;
-    static Supplier<DataComponentType<AtlasMapData>> mapData;
+    static Supplier<DataComponentType<MapData>> mapData;
 
     // TODO: make non static final variables lowercase
-    public static Supplier<Item> ITEM;
-    public static Supplier<MenuType<AtlasContainer>> MENU_TYPE;
-    public static Supplier<SoundEvent> OPEN_SOUND;
-    public static Supplier<SoundEvent> CLOSE_SOUND;
+    public static Supplier<Item> item;
+    public static Supplier<MenuType<AtlasContainer>> menuType;
+    public static Supplier<SoundEvent> openSound;
+    public static Supplier<SoundEvent> closeSound;
     public static final int NUMBER_OF_MAPS_FOR_ACHIEVEMENT = 10;
 
     @Configurable(name = "Open in off hand", description = "Allow opening the atlas while it is in the off-hand.")
@@ -57,113 +53,16 @@ public class Atlases extends CommonFeature implements IWandererTradeProvider {
 
     @Override
     public Optional<Registration<? extends Feature>> registration() {
+        CharmApi.registerProvider(this);
         return Optional.of(new CommonRegistration(this));
     }
 
-    public static void handleTransferAtlas(AtlasesNetwork.TransferAtlas request, Player player) {
-        var atlasSlot = request.getAtlasSlot();
-        var mapX = request.getMapX();
-        var mapZ = request.getMapZ();
-        var inventory = AtlasInventory.get(player.level(), player.getInventory().getItem(atlasSlot));
-
-        switch (request.getMoveMode()) {
-            case TO_HAND -> {
-                player.containerMenu.setCarried(inventory.removeMapByCoords(player.level(), mapX, mapZ).map);
-                AtlasesNetwork.UpdateInventory.send(player, atlasSlot);
-            }
-            case TO_INVENTORY -> {
-                player.addItem(inventory.removeMapByCoords(player.level(), mapX, mapZ).map);
-                AtlasesNetwork.UpdateInventory.send(player, atlasSlot);
-            }
-            case FROM_HAND -> {
-                ItemStack heldItem = player.containerMenu.getCarried();
-                if (heldItem.getItem() == Items.FILLED_MAP) {
-                    var mapId = MapItem.getMapId(heldItem);
-                    MapItemSavedData mapState = MapItem.getSavedData(mapId, player.level());
-                    if (mapState != null && mapState.scale == inventory.getScale()) {
-                        inventory.addToInventory(player.level(), heldItem);
-                        player.containerMenu.setCarried(ItemStack.EMPTY);
-                        AtlasesNetwork.UpdateInventory.send(player, atlasSlot);
-                    }
-                }
-            }
-            case FROM_INVENTORY -> {
-                ItemStack stack = player.getInventory().getItem(mapX);
-                if (stack.getItem() == Items.FILLED_MAP) {
-                    var mapId = MapItem.getMapId(stack);
-                    MapItemSavedData mapState = MapItem.getSavedData(mapId, player.level());
-                    if (mapState != null && mapState.scale == inventory.getScale()) {
-                        inventory.addToInventory(player.level(), stack);
-                        player.getInventory().removeItemNoUpdate(mapX);
-                        AtlasesNetwork.UpdateInventory.send(player, atlasSlot);
-                    }
-                }
-            }
-        }
+    @Override
+    public Optional<Networking<? extends Feature>> networking() {
+        return Optional.of(new CommonNetworking(this));
     }
 
-    /**
-     * Callback from {@link MapItemSavedDataMixin} to check
-     * if player is holding a map or a player is holding an atlas that contains a map.
-     * @param inventory Inventory to check.
-     * @param stack Map.
-     * @return True if the player has a map or the player has an atlas that has a map.
-     */
-    public static boolean doesAtlasContainMap(Inventory inventory, ItemStack stack) {
-        if (inventory.contains(stack)) {
-            return true;
-        }
-
-        for (var hand : InteractionHand.values()) {
-            var atlasStack = inventory.player.getItemInHand(hand);
-            if (atlasStack.getItem() == ITEM.get()) {
-                var inv = AtlasInventory.get(inventory.player.level(), atlasStack);
-                if (inv.hasItemStack(stack)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public static void setupAtlasUpscale(Inventory playerInventory, CartographyTableMenu container) {
-        var oldSlot = container.slots.get(0);
-        container.slots.set(0, new Slot(oldSlot.container, oldSlot.index, oldSlot.x, oldSlot.y) {
-            @Override
-            public boolean mayPlace(ItemStack stack) {
-                return oldSlot.mayPlace(stack) || stack.getItem() == ITEM.get()
-                    && AtlasInventory.get(playerInventory.player.level(), stack).getMapInfos().isEmpty();
-            }
-        });
-    }
-
-    public static boolean makeAtlasUpscaleOutput(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, Level level,
-                                                 ResultContainer craftResultInventory, CartographyTableMenu cartographyContainer) {
-        if (topStack.getItem() == ITEM.get()) {
-            ItemStack output;
-            var inventory = AtlasInventory.get(level, topStack);
-
-            if (inventory.getMapInfos().isEmpty() && bottomStack.getItem() == Items.MAP && inventory.getScale() < 4) {
-                output = topStack.copy();
-                ItemNbtHelper.setUuid(output, AtlasInventory.ID, UUID.randomUUID());
-                ItemNbtHelper.setInt(output, AtlasInventory.SCALE, inventory.getScale() + 1);
-            } else {
-                output = ItemStack.EMPTY;
-            }
-
-            if (!ItemStack.matches(output, outputStack)) {
-                craftResultInventory.setItem(2, output);
-                cartographyContainer.broadcastChanges();
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public static void handleSwappedSlot(AtlasesNetwork.SwapAtlasSlot request, Player player) {
+    public static void handleSwappedSlot(Player player, ClientNetworking.SwapAtlasSlot request) {
         var swappedSlot = request.getSlot();
         var offhandItem = player.getOffhandItem().copy();
         var mainHandItem = player.getMainHandItem().copy();
@@ -173,7 +72,7 @@ public class Atlases extends CommonFeature implements IWandererTradeProvider {
             var swap = inventory.getItem(i).copy();
             inventory.setItem(i, mainHandItem);
             player.setItemInHand(InteractionHand.MAIN_HAND, swap);
-            AtlasesNetwork.SwappedAtlasSlot.send(player, i);
+            CommonNetworking.SwappedAtlasSlot.send((ServerPlayer)player, i);
         };
 
         if (mainHandItem.getItem() instanceof AtlasItem) {
@@ -198,12 +97,57 @@ public class Atlases extends CommonFeature implements IWandererTradeProvider {
         doSwap.accept(slot);
     }
 
+    public static void handleTransferAtlas(Player player, ClientNetworking.TransferAtlas request) {
+        var serverPlayer = (ServerPlayer)player;
+        var atlasSlot = request.getAtlasSlot();
+        var mapX = request.getMapX();
+        var mapZ = request.getMapZ();
+        var inventory = AtlasInventory.get(serverPlayer.level(), serverPlayer.getInventory().getItem(atlasSlot));
+
+        switch (request.getMoveMode()) {
+            case TO_HAND -> {
+                serverPlayer.containerMenu.setCarried(inventory.removeMapByCoords(serverPlayer.level(), mapX, mapZ).map);
+                CommonNetworking.UpdateInventory.send(serverPlayer, atlasSlot);
+            }
+            case TO_INVENTORY -> {
+                serverPlayer.addItem(inventory.removeMapByCoords(serverPlayer.level(), mapX, mapZ).map);
+                CommonNetworking.UpdateInventory.send(serverPlayer, atlasSlot);
+            }
+            case FROM_HAND -> {
+                ItemStack stack = serverPlayer.containerMenu.getCarried();
+                if (stack.getItem() == Items.FILLED_MAP) {
+                    var mapState = MapItem.getSavedData(stack, serverPlayer.level());
+//                    var mapId = MapItem.getMapId(heldItem);
+//                    MapItemSavedData mapState = MapItem.getSavedData(mapId, serverPlayer.level());
+                    if (mapState != null && mapState.scale == inventory.getScale()) {
+                        inventory.addToInventory(serverPlayer.level(), stack);
+                        serverPlayer.containerMenu.setCarried(ItemStack.EMPTY);
+                        CommonNetworking.UpdateInventory.send(serverPlayer, atlasSlot);
+                    }
+                }
+            }
+            case FROM_INVENTORY -> {
+                ItemStack stack = serverPlayer.getInventory().getItem(mapX);
+                if (stack.getItem() == Items.FILLED_MAP) {
+//                    var mapId = MapItem.getMapId(stack);
+//                    MapItemSavedData mapState = MapItem.getSavedData(mapId, serverPlayer.level());
+                    var mapState = MapItem.getSavedData(stack, serverPlayer.level());
+                    if (mapState != null && mapState.scale == inventory.getScale()) {
+                        inventory.addToInventory(serverPlayer.level(), stack);
+                        serverPlayer.getInventory().removeItemNoUpdate(mapX);
+                        CommonNetworking.UpdateInventory.send(serverPlayer, atlasSlot);
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public List<IWandererTrade> getWandererTrades() {
         return List.of(new IWandererTrade() {
             @Override
             public ItemLike getItem() {
-                return ITEM.get();
+                return item.get();
             }
 
             @Override

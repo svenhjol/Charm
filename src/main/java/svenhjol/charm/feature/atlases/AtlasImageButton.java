@@ -18,10 +18,10 @@ public class AtlasImageButton extends ImageButton {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         setX(x.get());
         setY(y.get());
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        super.renderWidget(guiGraphics, mouseX, mouseY, partialTicks);
     }
 
     @Override

@@ -6,11 +6,15 @@
   "mixins": [
     "enums.boat_type_enum.BoatTypeMixin",
     "enums.note_block_enum.NoteBlockInstrumentMixin",
+    "event.player_login_callback.PlayerListMixin",
+    "event.player_tick_callback.ServerPlayerMixin",
     "feature.advancements.AdvancementTreeMixin",
     "feature.advancements.ServerAdvancementManagerMixin",
     "feature.advancements.ServerPackSourceMixin",
     "feature.amethyst_note_block.BlockBehaviourPropertiesMixin",
     "feature.amethyst_note_block.NoteBlockMixin",
+    "feature.atlases.CartographyTableMenuMixin",
+    "feature.atlases.MapItemSavedDataMixin",
     "feature.recipes.RecipeBookTypeMixin",
     "feature.recipes.RecipeManagerMixin",
     "feature.recipes.ReloadableServerResourcesMixin",
@@ -23,7 +27,10 @@
     "feature.variant_pistons.PistonMovingBlockEntityMixin"
   ],
   "client": [
+    "event.player_tick_callback.LocalPlayerMixin",
     "event.render_block_item.BlockEntityWithoutLevelRendererMixin",
+    "event.render_held_item_callback.ItemInHandRendererMixin",
+    "feature.atlases.CartographyTableScreenMixin",
     "feature.colored_glints.ElytraLayerMixin",
     "feature.colored_glints.HumanoidArmorLayerMixin",
     "feature.colored_glints.ItemRendererMixin",

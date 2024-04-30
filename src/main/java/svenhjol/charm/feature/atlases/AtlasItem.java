@@ -30,7 +30,7 @@ public class AtlasItem extends Item {
 
         var inventory = AtlasInventory.get(level, held);
         inventory.getCurrentDimensionMapInfos(level).values().forEach(mapInfo
-            -> AtlasesNetwork.sendMapToClient((ServerPlayer)player, mapInfo.map, true));
+            -> CommonNetworking.sendMapToClient((ServerPlayer)player, mapInfo.map, true));
 
         player.openMenu(inventory);
         return InteractionResultHolder.consume(held);

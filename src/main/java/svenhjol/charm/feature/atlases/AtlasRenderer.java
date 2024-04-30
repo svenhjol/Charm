@@ -54,7 +54,7 @@ public class AtlasRenderer {
         pose.pushPose();
         transformPageForHand(pose, buffers, light, swing, equip, handSide);
 
-        int mapId = inventory.getActiveMapId(level);
+        var mapId = inventory.getActiveMapId(level);
         MapItemSavedData mapState = inventory.getActiveMap(level);
         renderAtlasMap(mapId, mapState, pose, buffers, light);
         pose.popPose();

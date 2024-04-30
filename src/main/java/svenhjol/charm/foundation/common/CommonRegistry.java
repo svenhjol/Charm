@@ -10,6 +10,8 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -59,12 +61,12 @@ import svenhjol.charm.foundation.deferred.DeferredPotionMix;
 import svenhjol.charm.foundation.helper.DispenserHelper;
 import svenhjol.charm.foundation.helper.EnumHelper;
 import svenhjol.charm.foundation.helper.TextHelper;
-import svenhjol.charm.foundation.network.CharmPacket;
 
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public final class CommonRegistry implements svenhjol.charm.foundation.Registry {
@@ -73,8 +75,6 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     private static final List<String> RECIPE_BOOK_TYPE_ENUMS = new ArrayList<>();
     private final List<DeferredPotionMix> deferredPotionMixes = new ArrayList<>();
-
-    public static final List<CharmPacket<?>> CLIENT_PACKETS = new ArrayList<>();
 
     public CommonRegistry(String id) {
         this.id = id;
@@ -135,8 +135,18 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         deferredPotionMixes.add(new DeferredPotionMix(input, reagent, output));
     }
 
-    public List<CharmPacket<?>> clientPackets() {
-        return CLIENT_PACKETS;
+    public <T extends CustomPacketPayload> void clientPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
+        log.debug("Registering packet sender " + type.id());
+        PayloadTypeRegistry.playC2S().register(type, codec);
+    }
+
+    public <T> Supplier<DataComponentType<T>> dataComponent(
+        String id,
+        Supplier<UnaryOperator<DataComponentType.Builder<T>>> dataComponent
+    ) {
+        log.debug("Registering data component " + id);
+        var registered = DataComponents.register(id, dataComponent.get());
+        return () -> registered;
     }
 
     public <I extends ItemLike, D extends DispenseItemBehavior> Supplier<D> dispenserBehavior(Supplier<I> item, Supplier<D> dispenserBehavior) {
@@ -198,7 +208,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
             (packet, context) -> context.player().server.execute(() -> handler.accept(context.player(), packet)));
     }
 
-    public <T extends CustomPacketPayload> void packetSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
+    public <T extends CustomPacketPayload> void serverPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
         log.debug("Registering packet sender " + type.id());
         PayloadTypeRegistry.playS2C().register(type, codec);
     }

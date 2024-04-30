@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.feature.atlases.Atlases;
+import svenhjol.charm.feature.atlases.CommonCallbacks;
 
 /**
  * Scale atlases on cartography table.
@@ -28,7 +28,7 @@ public class CartographyTableMenuMixin {
         at = @At("TAIL")
     )
     private void hookConstructor(int syncId, Inventory inventory, ContainerLevelAccess context, CallbackInfo ci) {
-        Atlases.setupAtlasUpscale(inventory, (CartographyTableMenu) (Object) this);
+        CommonCallbacks.setupAtlasUpscale(inventory, (CartographyTableMenu) (Object) this);
     }
 
     @Inject(
@@ -39,7 +39,7 @@ public class CartographyTableMenuMixin {
     private void hookUpdateResult(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, CallbackInfo ci) {
         Level level = access.evaluate((w, b) -> w).orElse(null);
         if (level == null) return;
-        if (Atlases.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, level, resultContainer, (CartographyTableMenu) (Object) this)) {
+        if (CommonCallbacks.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, level, resultContainer, (CartographyTableMenu) (Object) this)) {
             ci.cancel();
         }
     }

@@ -9,78 +9,158 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.saveddata.maps.MapId;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class AtlasData {
     public static final Codec<AtlasData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-        ItemStack.CODEC.listOf().fieldOf("empty_maps")
+        ItemStack.OPTIONAL_CODEC.listOf().fieldOf("empty_maps")
             .forGetter(a -> a.emptyMaps),
-        ItemStack.CODEC.listOf().fieldOf("filled_maps")
+        MapData.CODEC.listOf().fieldOf("filled_maps")
             .forGetter(a -> a.filledMaps),
-        MapId.CODEC.fieldOf("active_map")
-            .forGetter(a -> a.activeMap),
         Codec.STRING.fieldOf("id")
             .forGetter(a -> a.id),
         Codec.INT.fieldOf("scale")
-            .forGetter(a -> a.scale)
+            .forGetter(a -> a.scale),
+        Codec.INT.optionalFieldOf("active_map", -1)
+            .forGetter(a -> a.activeMap)
     ).apply(instance, AtlasData::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AtlasData> STREAM_CODEC = StreamCodec.composite(
-        ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()),
+        ItemStack.OPTIONAL_STREAM_CODEC.apply(ByteBufCodecs.list()),
             a -> a.emptyMaps,
-        ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()),
+        MapData.STREAM_CODEC.apply(ByteBufCodecs.list()),
             a -> a.filledMaps,
-        MapId.STREAM_CODEC,
-            a -> a.activeMap,
         ByteBufCodecs.STRING_UTF8,
             a -> a.id,
         ByteBufCodecs.INT,
             a -> a.scale,
+        ByteBufCodecs.INT,
+            a -> a.activeMap,
         AtlasData::new
     );
 
     private final NonNullList<ItemStack> emptyMaps;
-    private final NonNullList<ItemStack> filledMaps;
-    private final MapId activeMap;
+    private final List<MapData> filledMaps;
+    private final int activeMap;
     private final String id;
     private final int scale;
 
-    public AtlasData(List<ItemStack> emptyMaps, List<ItemStack> filledMaps, MapId active, String id, int scale) {
+    public AtlasData(List<ItemStack> emptyMaps, List<MapData> filledMaps, String id, int scale, int active) {
         this.activeMap = active;
         this.id = id;
         this.scale = scale;
+        this.emptyMaps = NonNullList.withSize(Atlases.EMPTY_MAP_SLOTS, ItemStack.EMPTY);
+        for (int i = 0; i < emptyMaps.size(); i++) {
+            this.emptyMaps.set(i, emptyMaps.get(i));
+        }
+        this.filledMaps = filledMaps;
+    }
 
-        this.emptyMaps = NonNullList.withSize(AtlasInventory.EMPTY_MAP_SLOTS, ItemStack.EMPTY);
-        this.filledMaps = NonNullList.withSize(AtlasInventory.EMPTY_MAP_SLOTS, ItemStack.EMPTY);
-        this.emptyMaps.addAll(emptyMaps);
-        this.filledMaps.addAll(filledMaps);
+    public static AtlasData.Mutable create(UUID id) {
+        List<ItemStack> emptyMaps = new ArrayList<>();
+        for (int i = 0; i < Atlases.EMPTY_MAP_SLOTS; i++) {
+            emptyMaps.add(i, ItemStack.EMPTY);
+        }
+        return new AtlasData.Mutable(new AtlasData(emptyMaps, List.of(), id.toString(), 0, -1));
+    }
+
+    public static boolean has(ItemStack stack) {
+        return stack.has(Atlases.atlasData.get());
+    }
+
+    public static AtlasData get(ItemStack stack) {
+        return stack.get(Atlases.atlasData.get());
+    }
+
+    public static AtlasData.Mutable getMutable(ItemStack stack) {
+        return new AtlasData.Mutable(get(stack));
+    }
+
+    public static ItemStack set(ItemStack stack, AtlasData.Mutable data) {
+        var immutable = data.toImmutable();
+        stack.set(Atlases.atlasData.get(), immutable);
+        return stack;
+    }
+
+    public List<ItemStack> getEmptyMaps() {
+        return emptyMaps;
+    }
+
+    public List<MapData> getFilledMaps() {
+        return filledMaps;
     }
 
     public UUID getId() {
         return UUID.fromString(id);
     }
 
-    public MapId getActiveMap() {
-        return activeMap;
+    public @Nullable MapId getActiveMap() {
+        return activeMap > -1 ? new MapId(activeMap) : null;
+    }
+
+    public int getScale() {
+        return scale;
     }
 
     public static class Mutable {
-        private final List<ItemStack> emptyMaps;
-        private final List<ItemStack> filledMaps;
-        private MapId activeMap;
-        private final String id;
+        private List<ItemStack> emptyMaps;
+        private List<MapData> filledMaps;
+        private int activeMap;
+        private String id;
         private int scale;
+
+        public Mutable(AtlasData data) {
+            this.emptyMaps = new ArrayList<>(data.emptyMaps);
+            this.filledMaps = new ArrayList<>(data.filledMaps);
+            this.activeMap = data.activeMap;
+            this.id = data.id;
+            this.scale = data.scale;
+        }
 
         public AtlasData toImmutable() {
             return new AtlasData(
                 emptyMaps,
                 filledMaps,
-                activeMap,
-                id,
-                scale);
+                id, scale, activeMap
+            );
         }
 
-        public
+        public void save(ItemStack stack) {
+            AtlasData.set(stack, this);
+        }
+
+        public void setId(UUID id) {
+            this.id = id.toString();
+        }
+
+        public void setActiveMap(@Nullable MapId activeMap) {
+            this.activeMap = activeMap == null ? -1 : activeMap.id();
+        }
+
+        public void setEmptyMaps(List<ItemStack> emptyMaps) {
+            if (emptyMaps.isEmpty() || emptyMaps.size() > Atlases.EMPTY_MAP_SLOTS) {
+                throw new RuntimeException("Invalid emptyMaps size");
+            }
+            this.emptyMaps = emptyMaps;
+        }
+
+        public void setFilledMaps(List<MapData> filledMaps) {
+            this.filledMaps = filledMaps;
+        }
+
+        public void clearEmptyMaps() {
+            this.emptyMaps.clear();
+        }
+
+        public void clearFilledMaps() {
+            this.filledMaps.clear();
+        }
+
+        public void setScale(int scale) {
+            this.scale = scale;
+        }
     }
 }

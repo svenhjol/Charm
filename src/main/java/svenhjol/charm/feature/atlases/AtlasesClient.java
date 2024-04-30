@@ -1,27 +1,19 @@
 package svenhjol.charm.feature.atlases;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.WidgetSprites;
-import net.minecraft.client.gui.screens.inventory.CartographyTableScreen;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.Charm;
-import svenhjol.charm.api.event.HeldItemRenderEvent;
-import svenhjol.charm.api.event.KeyPressEvent;
+import svenhjol.charm.foundation.Feature;
+import svenhjol.charm.foundation.Globals;
+import svenhjol.charm.foundation.Networking;
+import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.mixin.feature.atlases.CartographyTableScreenMixin;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class AtlasesClient extends ClientFeature {
@@ -36,9 +28,9 @@ public class AtlasesClient extends ClientFeature {
     static final WidgetSprites BACK_BUTTON = makeButton("back");
     static final WidgetSprites ZOOM_IN_BUTTON = makeButton("zoom_in");
     static final WidgetSprites ZOOM_OUT_BUTTON = makeButton("zoom_out");
-    private AtlasRenderer renderer;
-    private static int swappedSlot = -1;
-    public static Supplier<String> OPEN_ATLAS_KEY;
+
+    static int swappedSlot = -1;
+    static Supplier<String> OPEN_ATLAS_KEY;
 
     @Override
     public Class<? extends CommonFeature> commonFeature() {
@@ -46,70 +38,28 @@ public class AtlasesClient extends ClientFeature {
     }
 
     @Override
-    public void register() {
-        var registry = mod().registry();
-        registry.menuScreen(Atlases.MENU_TYPE, () -> AtlasScreen::new);
-
-        OPEN_ATLAS_KEY = registry.key("open_atlas",
-            () -> new KeyMapping("key.charm.open_atlas", GLFW.GLFW_KEY_R, "key.categories.inventory"));
-
-        if (isEnabled()) {
-            registry.itemTab(
-                Atlases.ITEM,
-                CreativeModeTabs.TOOLS_AND_UTILITIES,
-                Items.MAP
-            );
-        }
+    public Optional<Registration<? extends Feature>> registration() {
+        return Optional.of(new ClientRegistration(this));
     }
 
     @Override
-    public void runWhenEnabled() {
-        KeyPressEvent.INSTANCE.handle(this::handleKeyPress);
-        HeldItemRenderEvent.INSTANCE.handle(this::handleRenderHeldItem);
+    public Optional<Networking<? extends Feature>> networking() {
+        return Optional.of(new ClientNetworking(this));
     }
 
-    private void handleKeyPress(String id) {
-        if (Minecraft.getInstance().level != null && id.equals(OPEN_ATLAS_KEY.get())) {
-            AtlasesNetwork.SwapAtlasSlot.send(swappedSlot);
-        }
-    }
-
-    private InteractionResult handleRenderHeldItem(float tickDelta, float pitch, InteractionHand hand, float swingProgress, ItemStack itemStack, float equipProgress, PoseStack poseStack, MultiBufferSource multiBufferSource, int light) {
-        if (itemStack.getItem() == Atlases.ITEM.get()) {
-            if (renderer == null) {
-                renderer = new AtlasRenderer();
-            }
-            renderer.renderAtlas(poseStack, multiBufferSource, light, hand, equipProgress, swingProgress, itemStack);
-            return InteractionResult.SUCCESS;
-        }
-
-        return InteractionResult.PASS;
-    }
-
-    public static void handleUpdateInventory(AtlasesNetwork.UpdateInventory request, Player player) {
-        var slot = request.getSlot();
+    public static void handleUpdateInventory(Player player, CommonNetworking.UpdateInventory packet) {
+        var slot = packet.getSlot();
         ItemStack atlas = player.getInventory().getItem(slot);
         AtlasInventory.get(player.level(), atlas).reload(atlas);
     }
 
-    /**
-     * Callback from {@link CartographyTableScreenMixin} to check
-     * if the cartography table contains a map or an atlas.
-     * @param screen The cartography table screen.
-     * @return True if the cartography table contains a map or an atlas.
-     */
-    public static boolean shouldDrawAtlasCopy(CartographyTableScreen screen) {
-        return screen.getMenu().getSlot(0).getItem().getItem() == Atlases.ITEM.get()
-            && screen.getMenu().getSlot(1).getItem().getItem() == Items.MAP;
-    }
-
     @SuppressWarnings("unused")
-    public static void handleSwappedSlot(AtlasesNetwork.SwappedAtlasSlot packet, Player player) {
+    public static void handleSwappedSlot(Player player, CommonNetworking.SwappedAtlasSlot packet) {
         swappedSlot = packet.getSlot();
     }
 
     private static WidgetSprites makeButton(String name) {
-        var instance = Mods.client(Charm.ID);
+        var instance = Globals.client(Charm.ID);
 
         return new WidgetSprites(
             instance.id("widget/atlases/" + name + "_button"),

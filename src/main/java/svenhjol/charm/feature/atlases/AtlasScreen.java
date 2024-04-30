@@ -15,14 +15,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
+import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.joml.Matrix4f;
+import svenhjol.charm.foundation.helper.KeyboardHelper;
 import svenhjol.charm.foundation.screen.CharmContainerScreen;
-import svenhjol.charmony.base.CharmonyContainerScreen;
-import svenhjol.charmony.helper.KeyboardHelper;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -32,6 +31,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collector;
 
 /**
+ * Original by Lukas, shitmixed by Sven
  * @author Lukas
  * @since 28.12.2020
  */
@@ -171,7 +171,7 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
     @Override
     protected void slotClicked(Slot slot, int slotId, int mouseButton, ClickType type) {
         if (type == ClickType.QUICK_MOVE) {
-            AtlasesNetwork.TransferAtlas.send(this.slot, slot.index, -1, MoveMode.FROM_INVENTORY);
+            ClientNetworking.TransferAtlas.send(this.slot, slot.index, -1, MoveMode.FROM_INVENTORY);
         } else {
             super.slotClicked(slot, slotId, mouseButton, type);
         }
@@ -181,8 +181,14 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
         mapGui = gui;
     }
 
+    /**
+     * MapRenderer#draw
+     * @see MapRenderer
+     */
     private void renderDecorations(PoseStack pose, MultiBufferSource buffer, MapItemSavedData mapData, float relativeScale, Predicate<MapDecoration> filter) {
         int k = 0;
+
+        var mapDecorationTextures = Minecraft.getInstance().getMapDecorationTextures();
 
         for (var decoration : mapData.getDecorations()) {
             if (!filter.test(decoration)) continue;
@@ -192,11 +198,11 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
             pose.mulPose(Axis.ZP.rotationDegrees(decoration.rot() * 22.5f));
             pose.scale(relativeScale * 4, relativeScale * 4, 3);
             pose.translate(-0.125, 0.125, 0);
-            byte b0 = decoration.getImage();
-            float f1 = (float) (b0 % 16) / 16f;
-            float f2 = (float) (b0 / 16) / 16f;
-            float f3 = (float) (b0 % 16 + 1) / 16f;
-            float f4 = (float) (b0 / 16 + 1) / 16f;
+            var textureAtlasSprite = mapDecorationTextures.get(decoration);
+            float f1 = textureAtlasSprite.getU0();
+            float f2 = textureAtlasSprite.getV0();
+            float f3 = textureAtlasSprite.getU1();
+            float f4 = textureAtlasSprite.getV1();
             Matrix4f matrix4f = pose.last().pose();
             VertexConsumer builder = buffer.getBuffer(AtlasesClient.MAP_DECORATIONS);
             float z = k * 0.001f;
@@ -338,8 +344,9 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
                 if (corner != null && (corner.x > key.x || key.x >= corner.x + mapDistance || corner.y > key.y || key.y >= corner.y + mapDistance)) {
                     continue;
                 }
-                int mapId = mapInfo.getValue().id;
-                MapItemSavedData mapData = level.getMapData(MapItem.makeKey(mapId));
+                var mapId = mapInfo.getValue().mapId;
+                var mapData = level.getMapData(mapId);
+//                MapItemSavedData mapData = level.getMapData(MapItem.makeKey(mapId));
                 if (mapData != null) {
                     var pose = guiGraphics.pose();
                     pose.pushPose();
@@ -348,8 +355,8 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
                     mapItemRenderer.render(pose, bufferSource, mapId, mapData, false, LIGHT);
                     pose.translate(0, 0, 0.2);
                     renderDecorations(pose, bufferSource, mapData, 1.5f * mapDistance,
-                        it -> it.type() != MapDecoration.Type.PLAYER_OFF_MAP && it.type() != MapDecoration.Type.PLAYER_OFF_LIMITS &&
-                            (it.type() != MapDecoration.Type.PLAYER || key.equals(playerIndex)));
+                        it -> it.type() != MapDecorationTypes.PLAYER_OFF_MAP && it.type() != MapDecorationTypes.PLAYER_OFF_LIMITS &&
+                            (it.type() != MapDecorationTypes.PLAYER || key.equals(playerIndex)));
                     pose.popPose();
                 }
             }
@@ -379,7 +386,7 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
             if (button == 0 && 0 <= normX && normX < 1 && 0 <= normY && normY < 1) {
                 ItemStack heldItem = menu.getCarried();
                 if (!heldItem.isEmpty()) {
-                    AtlasesNetwork.TransferAtlas.send(slot, -1, -1, MoveMode.FROM_HAND);
+                    ClientNetworking.TransferAtlas.send(slot, -1, -1, MoveMode.FROM_HAND);
                 } else {
                     if (updateExtremes()) {
                         AtlasInventory.Index currentMin = corner != null ? corner : extremes.min;
@@ -388,7 +395,7 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
                         AtlasInventory.MapInfo mapInfo = mapInfos.get(index);
                         if (mapInfo != null) {
                             if (KeyboardHelper.isHoldingShift()) {
-                                AtlasesNetwork.TransferAtlas.send(slot, mapInfo.x, mapInfo.z, MoveMode.TO_INVENTORY);
+                                ClientNetworking.TransferAtlas.send(slot, mapInfo.x, mapInfo.z, MoveMode.TO_INVENTORY);
                             } else {
                                 changeGui(getSingleMap(mapInfo));
                             }
@@ -469,8 +476,8 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
             }
 
             if (mapInfo != null) {
-                var mapId = mapInfo.id;
-                var mapData = level.getMapData(MapItem.makeKey(mapId));
+                var mapId = mapInfo.mapId;
+                var mapData = level.getMapData(mapId);
 
                 if (mapData != null) {
                     var pose = guiGraphics.pose();
@@ -520,12 +527,12 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
             if (button == 0 && getX() + LEFT <= mouseX && mouseX < getX() + LEFT + SIZE && getY() + TOP <= mouseY && mouseY < getY() + TOP + SIZE) {
                 ItemStack heldItem = menu.getCarried();
                 if (!heldItem.isEmpty()) {
-                    AtlasesNetwork.TransferAtlas.send(slot, -1, -1, MoveMode.FROM_HAND);
+                    ClientNetworking.TransferAtlas.send(slot, -1, -1, MoveMode.FROM_HAND);
                 } else if (mapInfo != null) {
                     if (KeyboardHelper.isHoldingShift()) {
-                        AtlasesNetwork.TransferAtlas.send(slot, mapInfo.x, mapInfo.z, MoveMode.TO_INVENTORY);
+                        ClientNetworking.TransferAtlas.send(slot, mapInfo.x, mapInfo.z, MoveMode.TO_INVENTORY);
                     } else {
-                        AtlasesNetwork.TransferAtlas.send(slot, mapInfo.x, mapInfo.z, MoveMode.TO_HAND);
+                        ClientNetworking.TransferAtlas.send(slot, mapInfo.x, mapInfo.z, MoveMode.TO_HAND);
                     }
                     changeGui(getSingleMap(null));
                 }

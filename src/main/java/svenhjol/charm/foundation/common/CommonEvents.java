@@ -17,11 +17,10 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import svenhjol.charm.api.event.BlockUseEvent;
-import svenhjol.charm.api.event.EntityAttackEvent;
-import svenhjol.charm.api.event.EntityUseEvent;
-import svenhjol.charm.api.event.LevelLoadEvent;
+import svenhjol.charm.api.event.*;
 import svenhjol.charm.feature.recipes.SortingRecipeManager;
+import svenhjol.charm.foundation.event.PlayerLoginCallback;
+import svenhjol.charm.foundation.event.PlayerTickCallback;
 
 import javax.annotation.Nullable;
 
@@ -47,6 +46,8 @@ public final class CommonEvents {
         // These are global Fabric events that any mod/feature can observe.
         AttackEntityCallback.EVENT.register(CommonEvents::handleAttackEntity);
         ServerWorldEvents.LOAD.register(CommonEvents::handleServerWorldLoad);
+        PlayerLoginCallback.EVENT.register(CommonEvents::handlePlayerLogin);
+        PlayerTickCallback.EVENT.register(CommonEvents::handlePlayerTick);
         UseBlockCallback.EVENT.register(CommonEvents::handleUseBlock);
         UseEntityCallback.EVENT.register(CommonEvents::handleUseEntity);
 
@@ -66,6 +67,14 @@ public final class CommonEvents {
     private static InteractionResult handleAttackEntity(Player player, Level level, InteractionHand handle,
                                                         Entity entity, @Nullable EntityHitResult hitResult) {
         return EntityAttackEvent.INSTANCE.invoke(player, level, handle, entity, hitResult);
+    }
+
+    private static void handlePlayerLogin(Player player) {
+        PlayerLoginEvent.INSTANCE.invoke(player);
+    }
+
+    private static void handlePlayerTick(Player player) {
+        PlayerTickEvent.INSTANCE.invoke(player);
     }
 
     private static void handleServerWorldLoad(MinecraftServer server, ServerLevel level) {

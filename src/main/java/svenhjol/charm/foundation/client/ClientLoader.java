@@ -10,18 +10,21 @@ import java.util.Comparator;
 public class ClientLoader extends Loader<ClientFeature> {
     private final ClientConfig config;
     private final ClientRegistry registry;
+    private final ClientEvents events;
 
-    protected ClientLoader(String id, ClientConfig config, ClientRegistry registry) {
+    protected ClientLoader(String id, ClientConfig config, ClientRegistry registry, ClientEvents events) {
         super(id);
         this.log = new Log(id, this);
         this.config = config;
         this.registry = registry;
+        this.events = events;
     }
 
     public static ClientLoader create(String id) {
         var config = new ClientConfig(id);
         var registry = new ClientRegistry(id);
-        var loader = new ClientLoader(id, config, registry);
+        var events = new ClientEvents(registry);
+        var loader = new ClientLoader(id, config, registry, events);
 
         ClientEvents.runOnce(); // Safe to call multiple times; ensures global events are set up.
 
