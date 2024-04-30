@@ -132,35 +132,32 @@ public class AtlasData {
             AtlasData.set(stack, this);
         }
 
-        public void setId(UUID id) {
+        public Mutable setId(UUID id) {
             this.id = id.toString();
+            return this;
         }
 
-        public void setActiveMap(@Nullable MapId activeMap) {
+        public Mutable setActiveMap(@Nullable MapId activeMap) {
             this.activeMap = activeMap == null ? -1 : activeMap.id();
+            return this;
         }
 
-        public void setEmptyMaps(List<ItemStack> emptyMaps) {
+        public Mutable setEmptyMaps(List<ItemStack> emptyMaps) {
             if (emptyMaps.isEmpty() || emptyMaps.size() > Atlases.EMPTY_MAP_SLOTS) {
                 throw new RuntimeException("Invalid emptyMaps size");
             }
             this.emptyMaps = emptyMaps;
+            return this;
         }
 
-        public void setFilledMaps(List<MapData> filledMaps) {
+        public Mutable setFilledMaps(List<MapData> filledMaps) {
             this.filledMaps = filledMaps;
+            return this;
         }
 
-        public void clearEmptyMaps() {
-            this.emptyMaps.clear();
-        }
-
-        public void clearFilledMaps() {
-            this.filledMaps.clear();
-        }
-
-        public void setScale(int scale) {
+        public Mutable setScale(int scale) {
             this.scale = scale;
+            return this;
         }
     }
 }

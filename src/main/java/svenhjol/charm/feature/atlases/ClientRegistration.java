@@ -12,6 +12,7 @@ import net.minecraft.world.item.Items;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.api.event.HeldItemRenderEvent;
 import svenhjol.charm.api.event.KeyPressEvent;
+import svenhjol.charm.feature.atlases.CommonNetworking.C2SSwapAtlasSlot;
 import svenhjol.charm.foundation.Registration;
 
 public class ClientRegistration extends Registration<AtlasesClient> {
@@ -26,7 +27,7 @@ public class ClientRegistration extends Registration<AtlasesClient> {
         var registry = feature.registry();
         registry.menuScreen(Atlases.menuType, () -> AtlasScreen::new);
 
-        AtlasesClient.OPEN_ATLAS_KEY = registry.key("open_atlas",
+        AtlasesClient.openAtlasKey = registry.key("open_atlas",
             () -> new KeyMapping("key.charm.open_atlas", GLFW.GLFW_KEY_R, "key.categories.inventory"));
     }
 
@@ -43,8 +44,8 @@ public class ClientRegistration extends Registration<AtlasesClient> {
     }
 
     private void handleKeyPress(String id) {
-        if (Minecraft.getInstance().level != null && id.equals(AtlasesClient.OPEN_ATLAS_KEY.get())) {
-            ClientNetworking.SwapAtlasSlot.send(AtlasesClient.swappedSlot);
+        if (Minecraft.getInstance().level != null && id.equals(AtlasesClient.openAtlasKey.get())) {
+            C2SSwapAtlasSlot.send(AtlasesClient.swappedSlot);
         }
     }
 

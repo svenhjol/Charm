@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
+@SuppressWarnings("unused")
 public class AtlasRenderer {
     private final MapRenderer mapItemRenderer;
     private final EntityRenderDispatcher renderManager;

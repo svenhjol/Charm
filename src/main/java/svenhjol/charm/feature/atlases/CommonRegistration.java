@@ -34,7 +34,7 @@ public class CommonRegistration extends Registration<Atlases> {
 
     private void handlePlayerLogin(Player player) {
         if (!player.level().isClientSide()) {
-            CommonNetworking.SwappedAtlasSlot.send((ServerPlayer)player, -1);
+            CommonNetworking.S2CSwappedAtlasSlot.send((ServerPlayer)player, -1);
         }
     }
 
@@ -49,7 +49,7 @@ public class CommonRegistration extends Registration<Atlases> {
                     var inventory = AtlasInventory.get(serverPlayer.level(), held);
                     if (inventory.updateActiveMap(serverPlayer)) {
                         var slot = getSlotFromHand(serverPlayer, hand);
-                        CommonNetworking.UpdateInventory.send(serverPlayer, slot);
+                        CommonNetworking.S2CUpdateInventory.send(serverPlayer, slot);
 
                         if (inventory.getMapInfos().size() >= Atlases.NUMBER_OF_MAPS_FOR_ACHIEVEMENT) {
                             Atlases.triggerMadeAtlasMaps(serverPlayer);

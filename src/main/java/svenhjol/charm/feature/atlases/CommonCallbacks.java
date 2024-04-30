@@ -58,12 +58,11 @@ public class CommonCallbacks {
 
             if (inventory.getMapInfos().isEmpty() && bottomStack.getItem() == Items.MAP && inventory.getScale() < 4) {
                 output = topStack.copy();
-                var mutable = AtlasData.getMutable(output);
-                mutable.setId(UUID.randomUUID());
-                mutable.setScale(inventory.getScale() + 1);
-                AtlasData.set(output, mutable);
-//                ItemNbtHelper.setUuid(output, AtlasInventory.ID, UUID.randomUUID());
-//                ItemNbtHelper.setInt(output, AtlasInventory.SCALE, inventory.getScale() + 1);
+
+                AtlasData.getMutable(output)
+                    .setId(UUID.randomUUID())
+                    .setScale(inventory.getScale() + 1)
+                    .save(output);
             } else {
                 output = ItemStack.EMPTY;
             }

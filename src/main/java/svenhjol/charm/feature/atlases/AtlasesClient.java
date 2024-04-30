@@ -17,10 +17,9 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public class AtlasesClient extends ClientFeature {
-    static final RenderType ATLAS_BACKGROUND = RenderType.text(new ResourceLocation(Charm.ID, "textures/map/atlas.png"));
+    static final RenderType ATLAS_BACKGROUND = RenderType.text(Charm.id("textures/map/atlas.png"));
     static final RenderType MAP_BACKGROUND = RenderType.text(new ResourceLocation("textures/map/map_background.png"));
-    static final RenderType MAP_DECORATIONS = RenderType.text(new ResourceLocation("textures/map/map_icons.png"));
-    static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(Charm.ID, "textures/gui/atlas.png");
+    static final ResourceLocation CONTAINER_BACKGROUND = Charm.id("textures/gui/atlas.png");
     static final WidgetSprites UP_BUTTON = makeButton("up");
     static final WidgetSprites DOWN_BUTTON = makeButton("down");
     static final WidgetSprites LEFT_BUTTON = makeButton("left");
@@ -29,8 +28,8 @@ public class AtlasesClient extends ClientFeature {
     static final WidgetSprites ZOOM_IN_BUTTON = makeButton("zoom_in");
     static final WidgetSprites ZOOM_OUT_BUTTON = makeButton("zoom_out");
 
+    static Supplier<String> openAtlasKey;
     static int swappedSlot = -1;
-    static Supplier<String> OPEN_ATLAS_KEY;
 
     @Override
     public Class<? extends CommonFeature> commonFeature() {
@@ -47,14 +46,14 @@ public class AtlasesClient extends ClientFeature {
         return Optional.of(new ClientNetworking(this));
     }
 
-    public static void handleUpdateInventory(Player player, CommonNetworking.UpdateInventory packet) {
+    public static void handleUpdateInventory(Player player, CommonNetworking.S2CUpdateInventory packet) {
         var slot = packet.getSlot();
         ItemStack atlas = player.getInventory().getItem(slot);
         AtlasInventory.get(player.level(), atlas).reload(atlas);
     }
 
     @SuppressWarnings("unused")
-    public static void handleSwappedSlot(Player player, CommonNetworking.SwappedAtlasSlot packet) {
+    public static void handleSwappedSlot(Player player, CommonNetworking.S2CSwappedAtlasSlot packet) {
         swappedSlot = packet.getSlot();
     }
 

@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapId;
 
+@SuppressWarnings("unused")
 public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Level> dimension) {
     public static final Codec<MapData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.fieldOf("map")
@@ -86,24 +87,33 @@ public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Leve
             return new MapData(map, mapId, x, z, dimension);
         }
 
-        public void setDimension(ResourceKey<Level> dimension) {
+        public void save(ItemStack stack) {
+            MapData.set(stack, this);
+        }
+
+        public Mutable setDimension(ResourceKey<Level> dimension) {
             this.dimension = dimension;
+            return this;
         }
 
-        public void setMap(ItemStack map) {
+        public Mutable setMap(ItemStack map) {
             this.map = map;
+            return this;
         }
 
-        public void setMapId(MapId mapId) {
+        public Mutable setMapId(MapId mapId) {
             this.mapId = mapId;
+            return this;
         }
 
-        public void setX(int x) {
+        public Mutable setX(int x) {
             this.x = x;
+            return this;
         }
 
-        public void setZ(int z) {
+        public Mutable setZ(int z) {
             this.z = z;
+            return this;
         }
     }
 }
