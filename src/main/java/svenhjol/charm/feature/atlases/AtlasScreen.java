@@ -9,6 +9,7 @@ import net.minecraft.client.gui.MapRenderer;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -204,7 +205,7 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
             float f3 = textureAtlasSprite.getU1();
             float f4 = textureAtlasSprite.getV1();
             Matrix4f matrix4f = pose.last().pose();
-            VertexConsumer builder = buffer.getBuffer(AtlasesClient.MAP_DECORATIONS);
+            VertexConsumer builder = buffer.getBuffer(RenderType.text(textureAtlasSprite.atlasLocation()));
             float z = k * 0.001f;
             builder.vertex(matrix4f, -1, 1, z).color(255, 255, 255, 255).uv(f1, f2).uv2(LIGHT).endVertex();
             builder.vertex(matrix4f, 1, 1, z).color(255, 255, 255, 255).uv(f3, f2).uv2(LIGHT).endVertex();
