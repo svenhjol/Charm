@@ -18,6 +18,7 @@ public class ColoredGlints extends CommonFeature {
 
     /**
      * Set the enchanted item's glint to the dye color.
+     * Probably should only apply it to a stack with foil...
      */
     public static void apply(ItemStack stack, DyeColor color) {
         stack.set(DataComponents.BASE_COLOR, color);
@@ -28,7 +29,7 @@ public class ColoredGlints extends CommonFeature {
      * If it isn't set then return the configured default.
      */
     public static DyeColor get(@Nullable ItemStack stack) {
-        if (!has(stack)) {
+        if (!stackHasFoilAndColor(stack)) {
             return getDefault();
         }
 
@@ -39,8 +40,8 @@ public class ColoredGlints extends CommonFeature {
      * Check if stack has a colored glint.
      */
     @SuppressWarnings("unused")
-    public static boolean has(@Nullable ItemStack stack) {
-        return stack != null && stack.has(DataComponents.BASE_COLOR);
+    public static boolean stackHasFoilAndColor(@Nullable ItemStack stack) {
+        return stack != null && stack.hasFoil() && stack.has(DataComponents.BASE_COLOR);
     }
 
     /**
@@ -48,8 +49,10 @@ public class ColoredGlints extends CommonFeature {
      */
     @SuppressWarnings("unused")
     public static DyeColor getDefault() {
-        // TODO: cache me
-        return EnumHelper.getValueOrDefault(
-            () -> DyeColor.valueOf(ColoredGlintsClient.defaultGlintColor), DyeColor.PURPLE);
+        if (ColoredGlintsClient.cachedGlintColor == null) {
+            ColoredGlintsClient.cachedGlintColor = EnumHelper.getValueOrDefault(
+                () -> DyeColor.valueOf(ColoredGlintsClient.defaultGlintColor), DyeColor.PURPLE);
+        }
+        return ColoredGlintsClient.cachedGlintColor;
     }
 }

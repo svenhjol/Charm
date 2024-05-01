@@ -14,7 +14,8 @@ import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 public class ColoredGlintsClient extends ClientFeature {
-    public static boolean enabled = false;
+    static boolean enabled = false;
+    static DyeColor cachedGlintColor;
 
     @Configurable(
         name = "Default glint color",
