@@ -4,17 +4,23 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.api.event.*;
@@ -45,13 +51,18 @@ public final class CommonEvents {
 
         // These are global Fabric events that any mod/feature can observe.
         AttackEntityCallback.EVENT.register(CommonEvents::handleAttackEntity);
-        ServerWorldEvents.LOAD.register(CommonEvents::handleServerWorldLoad);
+        LootTableEvents.MODIFY.register(CommonEvents::handleLootTableModify);
         PlayerLoginCallback.EVENT.register(CommonEvents::handlePlayerLogin);
         PlayerTickCallback.EVENT.register(CommonEvents::handlePlayerTick);
+        ServerWorldEvents.LOAD.register(CommonEvents::handleServerWorldLoad);
         UseBlockCallback.EVENT.register(CommonEvents::handleUseBlock);
         UseEntityCallback.EVENT.register(CommonEvents::handleUseEntity);
 
         initialized = true;
+    }
+
+    private static void handleLootTableModify(ResourceKey<LootTable> key, LootTable.Builder builder, LootTableSource source) {
+        LootTableModifyEvent.INSTANCE.invoke(key, source, builder);
     }
 
     public String id() {
@@ -67,6 +78,10 @@ public final class CommonEvents {
     private static InteractionResult handleAttackEntity(Player player, Level level, InteractionHand handle,
                                                         Entity entity, @Nullable EntityHitResult hitResult) {
         return EntityAttackEvent.INSTANCE.invoke(player, level, handle, entity, hitResult);
+    }
+
+    private static void handleLootTableModify(ResourceManager resourceManager, ResourceLocation tableId,
+                                              LootTable.Builder supplier, LootTableSource lootTableSource) {
     }
 
     private static void handlePlayerLogin(Player player) {

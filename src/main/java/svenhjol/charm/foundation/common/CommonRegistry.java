@@ -15,6 +15,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -49,6 +50,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.storage.loot.LootTable;
 import svenhjol.charm.api.iface.IFuelProvider;
 import svenhjol.charm.api.iface.IIgniteProvider;
 import svenhjol.charm.api.iface.IVariantMaterial;
@@ -194,6 +196,10 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         log.debug("Registering item " + id);
         var registered = net.minecraft.core.Registry.register(BuiltInRegistries.ITEM, id(id), supplier.get());
         return () -> registered;
+    }
+
+    public ResourceKey<LootTable> lootTable(String resource) {
+        return ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(resource));
     }
 
     public <T extends MenuType<U>, U extends AbstractContainerMenu> Supplier<T> menuType(String id, Supplier<T> supplier) {

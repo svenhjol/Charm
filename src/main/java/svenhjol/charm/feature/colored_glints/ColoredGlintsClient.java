@@ -1,17 +1,13 @@
 package svenhjol.charm.feature.colored_glints;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.helper.EnumHelper;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -48,36 +44,6 @@ public class ColoredGlintsClient extends ClientFeature {
     @Override
     public void onEnabled() {
         enabled = true;
-    }
-
-    /**
-     * Get the enchanted item's glint color.
-     * If it isn't set then return the configured default.
-     */
-    public static DyeColor get(@Nullable ItemStack stack) {
-        if (!has(stack)) {
-            return getDefault();
-        }
-
-        return stack.get(DataComponents.BASE_COLOR);
-    }
-
-    /**
-     * Check if stack has a colored glint.
-     */
-    @SuppressWarnings("unused")
-    public static boolean has(@Nullable ItemStack stack) {
-        return stack != null && stack.has(DataComponents.BASE_COLOR);
-    }
-
-    /**
-     * Get the configured default dye color.
-     */
-    @SuppressWarnings("unused")
-    public static DyeColor getDefault() {
-        // TODO: cache me
-        return EnumHelper.getValueOrDefault(
-            () -> DyeColor.valueOf(defaultGlintColor), DyeColor.PURPLE);
     }
 
     @Override

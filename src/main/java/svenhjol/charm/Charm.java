@@ -7,6 +7,7 @@ import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.chairs.Chairs;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFrames;
+import svenhjol.charm.feature.colored_glint_smithing_templates.ColoredGlintSmithingTemplates;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
 import svenhjol.charm.feature.core.Core;
@@ -42,6 +43,7 @@ public class Charm {
             Chairs.class,
             ClearItemFrames.class,
             ColoredGlints.class,
+            ColoredGlintSmithingTemplates.class,
             CoralSquids.class,
             Core.class,
             CustomWood.class,
