@@ -32,7 +32,7 @@ public class AtlasesClient extends ClientFeature {
     static int swappedSlot = -1;
 
     @Override
-    public Class<? extends CommonFeature> commonFeature() {
+    public Class<? extends CommonFeature> commonClass() {
         return Atlases.class;
     }
 

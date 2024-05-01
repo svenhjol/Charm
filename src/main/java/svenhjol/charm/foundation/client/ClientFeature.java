@@ -19,7 +19,7 @@ public class ClientFeature extends Feature {
         return false;
     }
 
-    public Class<? extends CommonFeature> commonFeature() {
+    public Class<? extends CommonFeature> commonClass() {
         return null;
     }
 }

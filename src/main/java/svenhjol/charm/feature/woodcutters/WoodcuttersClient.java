@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class WoodcuttersClient extends ClientFeature {
     @Override
-    public Class<? extends CommonFeature> commonFeature() {
+    public Class<? extends CommonFeature> commonClass() {
         return Woodcutters.class;
     }
 

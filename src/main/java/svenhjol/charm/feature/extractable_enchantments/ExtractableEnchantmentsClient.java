@@ -1,11 +1,11 @@
-package svenhjol.charm.feature.recipes;
+package svenhjol.charm.feature.extractable_enchantments;
 
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.common.CommonFeature;
 
-public class RecipesClient extends ClientFeature {
+public class ExtractableEnchantmentsClient extends ClientFeature {
     @Override
     public Class<? extends CommonFeature> commonClass() {
-        return Recipes.class;
+        return ExtractableEnchantments.class;
     }
 }

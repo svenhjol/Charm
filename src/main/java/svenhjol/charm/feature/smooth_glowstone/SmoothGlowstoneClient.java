@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class SmoothGlowstoneClient extends ClientFeature {
     @Override
-    public Class<? extends CommonFeature> commonFeature() {
+    public Class<? extends CommonFeature> commonClass() {
         return SmoothGlowstone.class;
     }
 

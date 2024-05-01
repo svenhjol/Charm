@@ -13,6 +13,7 @@ import svenhjol.charm.feature.coral_squids.CoralSquids;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.diagnostics.Diagnostics;
+import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
 import svenhjol.charm.feature.recipes.Recipes;
@@ -48,6 +49,7 @@ public class Charm {
             Core.class,
             CustomWood.class,
             Diagnostics.class,
+            ExtractableEnchantments.class,
             Firing.class,
             PotionOfRadiance.class,
             Recipes.class,

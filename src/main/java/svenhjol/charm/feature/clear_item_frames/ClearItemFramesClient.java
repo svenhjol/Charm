@@ -20,7 +20,7 @@ public class ClearItemFramesClient extends ClientFeature {
     static Supplier<SpriteParticleRegistration<SimpleParticleType>> particle;
 
     @Override
-    public Class<? extends CommonFeature> commonFeature() {
+    public Class<? extends CommonFeature> commonClass() {
         return ClearItemFrames.class;
     }
 

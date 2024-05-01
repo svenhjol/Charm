@@ -6,6 +6,9 @@
   "mixins": [
     "enums.boat_type_enum.BoatTypeMixin",
     "enums.note_block_enum.NoteBlockInstrumentMixin",
+    "event.grindstone.GrindstoneMenuInputMixin",
+    "event.grindstone.GrindstoneMenuMixin",
+    "event.grindstone.GrindstoneMenuOutputMixin",
     "event.player_login_callback.PlayerListMixin",
     "event.player_tick_callback.ServerPlayerMixin",
     "event.smithing_table.SmithingMenuMixin",
@@ -38,6 +41,7 @@
     "feature.colored_glints.ItemRendererMixin",
     "feature.colored_glints.RenderBuffersMixin",
     "feature.colored_glints.RenderTypeMixin",
+    "feature.extractable_enchantments.GrindstoneScreenMixin",
     "feature.recipes.ClientRecipeBookMixin",
     "feature.recipes.RecipeBookCategoriesMixin",
     "feature.recipes.RecipeBookLookupMixin",

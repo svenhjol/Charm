@@ -37,7 +37,7 @@ public class ClientLoader extends Loader<ClientFeature> {
         super.featureInit(feature); // Ensure that loader gets added to the feature.
 
         // If the associated common feature is disabled, also disable this client feature.
-        var clazz = feature.commonFeature();
+        var clazz = feature.commonClass();
         var loader = Globals.COMMON_LOADERS.get(feature.modId());
         if (clazz != null && loader != null) {
             loader.get(clazz).ifPresent(common -> feature.setEnabled(common.isEnabled()));
