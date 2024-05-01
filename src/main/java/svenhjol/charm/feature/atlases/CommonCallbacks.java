@@ -13,7 +13,7 @@ import svenhjol.charm.mixin.feature.atlases.MapItemSavedDataMixin;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class CommonCallbacks {
+public final class CommonCallbacks {
     /**
      * Callback from {@link MapItemSavedDataMixin} to check
      * if player is holding a map or a player is holding an atlas that contains a map.

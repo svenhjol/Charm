@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class CommonCallbacks {
+public final class CommonCallbacks {
     static boolean shouldExtract(List<ItemStack> stacks) {
         return getEnchantedItemFromStacks(stacks).isPresent() &&
             stacks.stream().anyMatch(i -> i.is(Items.BOOK));
