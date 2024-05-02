@@ -65,7 +65,7 @@ public class Atlases extends CommonFeature implements IWandererTradeProvider {
     }
 
     public static void handleSwappedSlot(Player player, C2SSwapAtlasSlot request) {
-        var swappedSlot = request.getSlot();
+        var swappedSlot = request.slot();
         var offhandItem = player.getOffhandItem().copy();
         var mainHandItem = player.getMainHandItem().copy();
         var inventory = player.getInventory();
@@ -101,12 +101,12 @@ public class Atlases extends CommonFeature implements IWandererTradeProvider {
 
     public static void handleTransferAtlas(Player player, C2STransferAtlas request) {
         var serverPlayer = (ServerPlayer)player;
-        var atlasSlot = request.getAtlasSlot();
-        var mapX = request.getMapX();
-        var mapZ = request.getMapZ();
+        var atlasSlot = request.atlasSlot();
+        var mapX = request.mapX();
+        var mapZ = request.mapZ();
         var inventory = AtlasInventory.get(serverPlayer.level(), serverPlayer.getInventory().getItem(atlasSlot));
 
-        switch (request.getMoveMode()) {
+        switch (request.moveMode()) {
             case TO_HAND -> {
                 serverPlayer.containerMenu.setCarried(inventory.removeMapByCoords(serverPlayer.level(), mapX, mapZ).map);
                 S2CUpdateInventory.send(serverPlayer, atlasSlot);

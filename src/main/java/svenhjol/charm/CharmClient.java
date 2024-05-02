@@ -9,6 +9,7 @@ import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantmentsClient;
+import svenhjol.charm.feature.inventory_tidying.InventoryTidyingClient;
 import svenhjol.charm.feature.recipes.RecipesClient;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
 import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
@@ -30,6 +31,7 @@ public class CharmClient {
             CoralSquidsClient.class,
             CustomWoodClient.class,
             ExtractableEnchantmentsClient.class,
+            InventoryTidyingClient.class,
             RecipesClient.class,
             SmoothGlowstoneClient.class,
             VariantMobTextures.class,

@@ -35,6 +35,8 @@
     "event.player_tick_callback.LocalPlayerMixin",
     "event.render_block_item.BlockEntityWithoutLevelRendererMixin",
     "event.render_held_item_callback.ItemInHandRendererMixin",
+    "event.render_screen_callback.AbstractContainerScreenMixin",
+    "event.setup_screen_callback.ScreenMixin",
     "feature.atlases.CartographyTableScreenMixin",
     "feature.colored_glints.ElytraLayerMixin",
     "feature.colored_glints.HumanoidArmorLayerMixin",

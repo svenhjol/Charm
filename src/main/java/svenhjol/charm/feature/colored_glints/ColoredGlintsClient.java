@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 public class ColoredGlintsClient extends ClientFeature {
-    static boolean enabled = false;
     static DyeColor cachedGlintColor;
 
     @Configurable(
@@ -44,7 +43,7 @@ public class ColoredGlintsClient extends ClientFeature {
 
     @Override
     public void onEnabled() {
-        enabled = true;
+        ClientCallbacks.enabled = true;
     }
 
     @Override

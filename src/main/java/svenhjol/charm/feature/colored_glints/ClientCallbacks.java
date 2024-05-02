@@ -9,6 +9,7 @@ import java.util.SortedMap;
 public class ClientCallbacks {
     public static SortedMap<RenderType, BufferBuilder> builders;
     public static ItemStack targetStack;
+    public static boolean enabled = false;
 
     public static RenderType getArmorGlintRenderLayer() {
         return ClientHandler.ARMOR_GLINT

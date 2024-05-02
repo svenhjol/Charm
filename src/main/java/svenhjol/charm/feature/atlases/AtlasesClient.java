@@ -47,14 +47,14 @@ public class AtlasesClient extends ClientFeature {
     }
 
     public static void handleUpdateInventory(Player player, CommonNetworking.S2CUpdateInventory packet) {
-        var slot = packet.getSlot();
+        var slot = packet.slot();
         ItemStack atlas = player.getInventory().getItem(slot);
         AtlasInventory.get(player.level(), atlas).reload(atlas);
     }
 
     @SuppressWarnings("unused")
     public static void handleSwappedSlot(Player player, CommonNetworking.S2CSwappedAtlasSlot packet) {
-        swappedSlot = packet.getSlot();
+        swappedSlot = packet.slot();
     }
 
     private static WidgetSprites makeButton(String name) {

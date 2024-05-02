@@ -15,6 +15,7 @@ import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.diagnostics.Diagnostics;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
 import svenhjol.charm.feature.firing.Firing;
+import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
 import svenhjol.charm.feature.recipes.Recipes;
 import svenhjol.charm.feature.silence_microsoft.SilenceMicrosoft;
@@ -51,6 +52,7 @@ public class Charm {
             Diagnostics.class,
             ExtractableEnchantments.class,
             Firing.class,
+            InventoryTidying.class,
             PotionOfRadiance.class,
             Recipes.class,
             SilenceMicrosoft.class,

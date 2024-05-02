@@ -59,8 +59,10 @@ public class CommonNetworking extends Networking<Atlases> {
     // Server-to-client
     public record S2CSwappedAtlasSlot(int slot) implements CustomPacketPayload {
         static final String ID = "charm:swapped_atlas_slot";
-        static CustomPacketPayload.Type<S2CSwappedAtlasSlot> TYPE = CustomPacketPayload.createType(ID);
-        static StreamCodec<FriendlyByteBuf, S2CSwappedAtlasSlot> CODEC = StreamCodec.of(S2CSwappedAtlasSlot::encode, S2CSwappedAtlasSlot::decode);
+        static CustomPacketPayload.Type<S2CSwappedAtlasSlot> TYPE
+            = CustomPacketPayload.createType(ID);
+        static StreamCodec<FriendlyByteBuf, S2CSwappedAtlasSlot> CODEC
+            = StreamCodec.of(S2CSwappedAtlasSlot::encode, S2CSwappedAtlasSlot::decode);
 
         public static void send(ServerPlayer player, int slot) {
             ServerPlayNetworking.send(player, new S2CSwappedAtlasSlot(slot));
@@ -69,10 +71,6 @@ public class CommonNetworking extends Networking<Atlases> {
         @Override
         public Type<? extends CustomPacketPayload> type() {
             return TYPE;
-        }
-
-        public int getSlot() {
-            return slot;
         }
 
         private static void encode(FriendlyByteBuf buf, S2CSwappedAtlasSlot self) {
@@ -97,10 +95,6 @@ public class CommonNetworking extends Networking<Atlases> {
         @Override
         public Type<? extends CustomPacketPayload> type() {
             return TYPE;
-        }
-
-        public int getSlot() {
-            return slot;
         }
 
         private static void encode(FriendlyByteBuf buf, S2CUpdateInventory self) {
@@ -129,10 +123,6 @@ public class CommonNetworking extends Networking<Atlases> {
             return TYPE;
         }
 
-        public int getSlot() {
-            return slot;
-        }
-
         private static void encode(FriendlyByteBuf buf, C2SSwapAtlasSlot self) {
             buf.writeInt(self.slot);
         }
@@ -155,22 +145,6 @@ public class CommonNetworking extends Networking<Atlases> {
         @Override
         public Type<? extends CustomPacketPayload> type() {
             return TYPE;
-        }
-
-        public int getAtlasSlot() {
-            return atlasSlot;
-        }
-
-        public int getMapX() {
-            return mapX;
-        }
-
-        public int getMapZ() {
-            return mapZ;
-        }
-
-        public MoveMode getMoveMode() {
-            return moveMode;
         }
 
         public static void encode(FriendlyByteBuf buf, C2STransferAtlas self) {

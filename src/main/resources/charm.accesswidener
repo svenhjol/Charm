@@ -55,6 +55,11 @@ mutable    field net/minecraft/world/item/BlockItem block Lnet/minecraft/world/l
 accessible field net/minecraft/world/level/block/Block item Lnet/minecraft/world/item/Item;
 mutable    field net/minecraft/world/level/block/Block item Lnet/minecraft/world/item/Item;
 
+# HoverSorting and InventoryTidying
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
+
 # Recipes
 ### RecipeBookCategories AGGREGATE_CATEGORIES non-final map so we can add new categories.
 accessible field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;

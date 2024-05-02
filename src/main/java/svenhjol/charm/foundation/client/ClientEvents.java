@@ -5,6 +5,9 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.InteractionHand;
@@ -12,12 +15,11 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
-import svenhjol.charm.api.event.ClientEntityJoinEvent;
-import svenhjol.charm.api.event.ClientStartEvent;
-import svenhjol.charm.api.event.HeldItemRenderEvent;
-import svenhjol.charm.api.event.KeyPressEvent;
+import svenhjol.charm.api.event.*;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.event.RenderHeldItemCallback;
+import svenhjol.charm.foundation.event.RenderScreenCallback;
+import svenhjol.charm.foundation.event.SetupScreenCallback;
 
 public final class ClientEvents {
     private static final Log LOGGER = new Log(Charm.ID, "ClientEvents");
@@ -38,6 +40,8 @@ public final class ClientEvents {
         ClientEntityEvents.ENTITY_LOAD.register(ClientEvents::handleClientEntityLoad);
         ClientLifecycleEvents.CLIENT_STARTED.register(ClientEvents::handleClientStarted);
         RenderHeldItemCallback.EVENT.register(ClientEvents::handleRenderHeldItem);
+        RenderScreenCallback.EVENT.register(ClientEvents::handleRenderScreen);
+        SetupScreenCallback.EVENT.register(ClientEvents::handleSetupScreen);
 
         initialized = true;
     }
@@ -58,6 +62,16 @@ public final class ClientEvents {
             }
         }
         return InteractionResult.PASS;
+    }
+
+    private static void handleRenderScreen(AbstractContainerScreen<?> container, GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        ScreenRenderEvent.INSTANCE.getHandlers().forEach(
+            handler -> handler.run(container, guiGraphics, mouseX, mouseY));
+    }
+
+    private static void handleSetupScreen(Screen screen) {
+        ScreenSetupEvent.INSTANCE.getHandlers().forEach(
+            handler -> handler.run(screen));
     }
 
     private void handleKeyPresses(Minecraft client) {

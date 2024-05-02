@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.colored_glints.ClientCallbacks;
-import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
 
 @Mixin(RenderType.class)
 public class RenderTypeMixin {
@@ -16,7 +15,7 @@ public class RenderTypeMixin {
         cancellable = true
     )
     private static void hookGetArmorGlint(CallbackInfoReturnable<RenderType> cir) {
-        if (ColoredGlintsClient.enabled) {
+        if (ClientCallbacks.enabled) {
             cir.setReturnValue(ClientCallbacks.getArmorGlintRenderLayer());
         }
     }
@@ -27,7 +26,7 @@ public class RenderTypeMixin {
         cancellable = true
     )
     private static void hookGetArmorEntityGlint(CallbackInfoReturnable<RenderType> cir) {
-        if (ColoredGlintsClient.enabled) {
+        if (ClientCallbacks.enabled) {
             cir.setReturnValue(ClientCallbacks.getArmorEntityGlintRenderLayer());
         }
     }
@@ -38,7 +37,7 @@ public class RenderTypeMixin {
         cancellable = true
     )
     private static void hookGetEntityGlint(CallbackInfoReturnable<RenderType> cir) {
-        if (ColoredGlintsClient.enabled) {
+        if (ClientCallbacks.enabled) {
             cir.setReturnValue(ClientCallbacks.getEntityGlintRenderLayer());
         }
     }
@@ -49,7 +48,7 @@ public class RenderTypeMixin {
         cancellable = true
     )
     private static void hookGetEntityGlintDirect(CallbackInfoReturnable<RenderType> cir) {
-        if (ColoredGlintsClient.enabled) {
+        if (ClientCallbacks.enabled) {
             cir.setReturnValue(ClientCallbacks.getDirectEntityGlintRenderLayer());
         }
     }
@@ -60,7 +59,7 @@ public class RenderTypeMixin {
         cancellable = true
     )
     private static void hookGetGlint(CallbackInfoReturnable<RenderType> cir) {
-        if (ColoredGlintsClient.enabled) {
+        if (ClientCallbacks.enabled) {
             cir.setReturnValue(ClientCallbacks.getGlintRenderLayer());
         }
     }
@@ -71,7 +70,7 @@ public class RenderTypeMixin {
         cancellable = true
     )
     private static void hookGetGlintDirect(CallbackInfoReturnable<RenderType> cir) {
-        if (ColoredGlintsClient.enabled) {
+        if (ClientCallbacks.enabled) {
             cir.setReturnValue(ClientCallbacks.getDirectGlintRenderLayer());
         }
     }
