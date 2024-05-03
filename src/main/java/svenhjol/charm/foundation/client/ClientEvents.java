@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.InteractionHand;
@@ -19,7 +20,10 @@ import svenhjol.charm.api.event.*;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.event.RenderHeldItemCallback;
 import svenhjol.charm.foundation.event.RenderScreenCallback;
+import svenhjol.charm.foundation.event.RenderTooltipCallback;
 import svenhjol.charm.foundation.event.SetupScreenCallback;
+
+import java.util.List;
 
 public final class ClientEvents {
     private static final Log LOGGER = new Log(Charm.ID, "ClientEvents");
@@ -41,6 +45,7 @@ public final class ClientEvents {
         ClientLifecycleEvents.CLIENT_STARTED.register(ClientEvents::handleClientStarted);
         RenderHeldItemCallback.EVENT.register(ClientEvents::handleRenderHeldItem);
         RenderScreenCallback.EVENT.register(ClientEvents::handleRenderScreen);
+        RenderTooltipCallback.EVENT.register(ClientEvents::handleRenderTooltip);
         SetupScreenCallback.EVENT.register(ClientEvents::handleSetupScreen);
 
         initialized = true;
@@ -72,6 +77,10 @@ public final class ClientEvents {
     private static void handleSetupScreen(Screen screen) {
         ScreenSetupEvent.INSTANCE.getHandlers().forEach(
             handler -> handler.run(screen));
+    }
+
+    private static void handleRenderTooltip(GuiGraphics guiGraphics, ItemStack itemStack, List<ClientTooltipComponent> lines, int x, int y) {
+        TooltipRenderEvent.INSTANCE.invoke(guiGraphics, lines, x, y, itemStack);
     }
 
     private void handleKeyPresses(Minecraft client) {

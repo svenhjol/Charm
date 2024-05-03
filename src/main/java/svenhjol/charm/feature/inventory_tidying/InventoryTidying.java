@@ -29,11 +29,11 @@ public class InventoryTidying extends CommonFeature {
         return Optional.of(new CommonNetworking(this));
     }
 
-    public static void handleTidyInventory(Player player, CommonNetworking.C2STidyInventory message) {
+    public static void handleTidyInventory(Player player, CommonNetworking.C2STidyInventory packet) {
         if (!(player instanceof ServerPlayer serverPlayer)) return;
         if (player.isSpectator()) return;
 
-        var type = message.tidyType();
+        var type = packet.tidyType();
         AbstractContainerMenu useContainer;
 
         switch (type) {

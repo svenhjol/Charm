@@ -2,6 +2,7 @@ package svenhjol.charm.api.event;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.feature.hover_sorting.SortDirection;
 
 import java.util.List;
 
@@ -35,10 +36,5 @@ public class ItemHoverSortEvent extends CharmEvent<ItemHoverSortEvent.Handler> {
     @FunctionalInterface
     public interface Handler {
         void run(ServerPlayer player, ItemStack stack, SortDirection direction);
-    }
-
-    public enum SortDirection {
-        UP,
-        DOWN
     }
 }

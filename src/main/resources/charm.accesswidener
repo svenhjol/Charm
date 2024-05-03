@@ -55,6 +55,10 @@ mutable    field net/minecraft/world/item/BlockItem block Lnet/minecraft/world/l
 accessible field net/minecraft/world/level/block/Block item Lnet/minecraft/world/item/Item;
 mutable    field net/minecraft/world/level/block/Block item Lnet/minecraft/world/item/Item;
 
+# ExtraTooltips and HoverSorting
+accessible field net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity itemStacks Lnet/minecraft/core/NonNullList;
+mutable    field net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity itemStacks Lnet/minecraft/core/NonNullList;
+
 # HoverSorting and InventoryTidying
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
