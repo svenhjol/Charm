@@ -5,7 +5,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.foundation.Registration;
 
-public class ClientRegistration extends Registration<CoralSquidsClient> {
+public final class ClientRegistration extends Registration<CoralSquidsClient> {
     public ClientRegistration(CoralSquidsClient feature) {
         super(feature);
     }

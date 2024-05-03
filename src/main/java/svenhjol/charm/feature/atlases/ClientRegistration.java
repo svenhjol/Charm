@@ -15,7 +15,7 @@ import svenhjol.charm.api.event.KeyPressEvent;
 import svenhjol.charm.feature.atlases.CommonNetworking.C2SSwapAtlasSlot;
 import svenhjol.charm.foundation.Registration;
 
-public class ClientRegistration extends Registration<AtlasesClient> {
+public final class ClientRegistration extends Registration<AtlasesClient> {
     private AtlasRenderer renderer;
 
     public ClientRegistration(AtlasesClient feature) {

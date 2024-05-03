@@ -9,7 +9,7 @@ import svenhjol.charm.foundation.Registration;
 
 import java.util.Optional;
 
-public class ClientRegistration extends Registration<CustomWoodClient> {
+public final class ClientRegistration extends Registration<CustomWoodClient> {
     public ClientRegistration(CustomWoodClient feature) {
         super(feature);
     }

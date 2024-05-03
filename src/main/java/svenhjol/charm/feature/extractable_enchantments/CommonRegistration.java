@@ -10,7 +10,7 @@ import svenhjol.charm.api.event.GrindstoneEvents;
 import svenhjol.charm.api.event.GrindstoneEvents.GrindstoneMenuInstance;
 import svenhjol.charm.foundation.Registration;
 
-public class CommonRegistration extends Registration<ExtractableEnchantments> {
+public final class CommonRegistration extends Registration<ExtractableEnchantments> {
     public CommonRegistration(ExtractableEnchantments feature) {
         super(feature);
     }

@@ -2,7 +2,7 @@ package svenhjol.charm.feature.clear_item_frames;
 
 import svenhjol.charm.foundation.Networking;
 
-public class ClientNetworking extends Networking<ClearItemFramesClient> {
+public final class ClientNetworking extends Networking<ClearItemFramesClient> {
     public ClientNetworking(ClearItemFramesClient feature) {
         super(feature);
     }

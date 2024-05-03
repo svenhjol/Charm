@@ -8,7 +8,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.Tags;
 
-public class CommonRegistration extends Registration<CoralSquids> {
+public final class CommonRegistration extends Registration<CoralSquids> {
     static final String ID = "coral_squid";
 
     public CommonRegistration(CoralSquids feature) {

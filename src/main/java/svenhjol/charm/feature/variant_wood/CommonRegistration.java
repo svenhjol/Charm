@@ -6,7 +6,7 @@ import svenhjol.charm.api.event.EntityUseEvent;
 import svenhjol.charm.foundation.Registration;
 
 @SuppressWarnings("unused")
-public class CommonRegistration extends Registration<VariantWood> {
+public final class CommonRegistration extends Registration<VariantWood> {
     public CommonRegistration(VariantWood feature) {
         super(feature);
 

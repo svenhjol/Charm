@@ -3,7 +3,7 @@ package svenhjol.charm.feature.firing;
 import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import svenhjol.charm.foundation.Registration;
 
-public class CommonRegistration extends Registration<Firing> {
+public final class CommonRegistration extends Registration<Firing> {
     public static final String RECIPE_ID = "firing";
 
     public CommonRegistration(Firing feature) {

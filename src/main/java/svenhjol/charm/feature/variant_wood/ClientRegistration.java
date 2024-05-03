@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 
-public class ClientRegistration extends Registration<VariantWoodClient> {
+public final class ClientRegistration extends Registration<VariantWoodClient> {
     private VariantChestBlockEntity cachedNormalChest;
     private VariantTrappedChestBlockEntity cachedTrappedChest;
 

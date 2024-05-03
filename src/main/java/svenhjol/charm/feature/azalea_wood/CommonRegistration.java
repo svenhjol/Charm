@@ -13,7 +13,7 @@ import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.foundation.Registration;
 
-public class CommonRegistration extends Registration<AzaleaWood> {
+public final class CommonRegistration extends Registration<AzaleaWood> {
     public CommonRegistration(AzaleaWood feature) {
         super(feature);
     }

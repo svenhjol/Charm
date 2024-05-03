@@ -4,7 +4,7 @@ import net.minecraft.client.gui.screens.inventory.CartographyTableScreen;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.mixin.feature.atlases.CartographyTableScreenMixin;
 
-public class ClientCallbacks {
+public final class ClientCallbacks {
     /**
      * Callback from {@link CartographyTableScreenMixin} to check
      * if the cartography table contains a map or an atlas.

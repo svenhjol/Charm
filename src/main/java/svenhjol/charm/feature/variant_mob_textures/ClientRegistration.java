@@ -11,7 +11,7 @@ import svenhjol.charm.foundation.Registration;
 
 import java.util.*;
 
-public class ClientRegistration extends Registration<VariantMobTextures> {
+public final class ClientRegistration extends Registration<VariantMobTextures> {
     static final String TEXTURES = "textures/entity";
     static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(TEXTURES + "/sheep/sheep.png");
     static final List<ResourceLocation> CHICKENS = new ArrayList<>();

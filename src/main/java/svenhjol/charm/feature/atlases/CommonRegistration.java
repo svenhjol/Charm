@@ -9,7 +9,7 @@ import svenhjol.charm.api.event.PlayerLoginEvent;
 import svenhjol.charm.api.event.PlayerTickEvent;
 import svenhjol.charm.foundation.Registration;
 
-public class CommonRegistration extends Registration<Atlases> {
+public final class CommonRegistration extends Registration<Atlases> {
     public CommonRegistration(Atlases feature) {
         super(feature);
     }

@@ -6,7 +6,7 @@ import net.minecraft.world.InteractionResult;
 import svenhjol.charm.api.event.MouseScrollEvent;
 import svenhjol.charm.foundation.Registration;
 
-public class ClientRegistration extends Registration<HoverSortingClient> {
+public final class ClientRegistration extends Registration<HoverSortingClient> {
     public ClientRegistration(HoverSortingClient feature) {
         super(feature);
     }

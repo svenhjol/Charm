@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CommonRegistration extends Registration<HoverSorting> {
+public final class CommonRegistration extends Registration<HoverSorting> {
     List<ItemLike> cachedSortables = new ArrayList<>();
     List<TagKey<Block>> cachedBlockTags = new ArrayList<>();
     List<TagKey<Item>> cachedItemTags = new ArrayList<>();

@@ -4,7 +4,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
 import svenhjol.charm.foundation.Registration;
 
-public class CommonRegistration extends Registration<PotionOfRadiance> {
+public final class CommonRegistration extends Registration<PotionOfRadiance> {
     public CommonRegistration(PotionOfRadiance feature) {
         super(feature);
     }

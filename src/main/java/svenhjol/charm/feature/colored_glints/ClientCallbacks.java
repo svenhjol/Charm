@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.SortedMap;
 
-public class ClientCallbacks {
+public final class ClientCallbacks {
     public static SortedMap<RenderType, BufferBuilder> builders;
     public static ItemStack targetStack;
     public static boolean enabled = false;

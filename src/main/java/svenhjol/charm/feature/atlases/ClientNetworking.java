@@ -3,7 +3,7 @@ package svenhjol.charm.feature.atlases;
 import svenhjol.charm.feature.atlases.CommonNetworking.*;
 import svenhjol.charm.foundation.Networking;
 
-public class ClientNetworking extends Networking<AtlasesClient> {
+public final class ClientNetworking extends Networking<AtlasesClient> {
     public ClientNetworking(AtlasesClient feature) {
         super(feature);
     }

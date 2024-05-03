@@ -7,7 +7,7 @@ import net.minecraft.world.level.Level;
 import svenhjol.charm.api.event.LevelLoadEvent;
 import svenhjol.charm.foundation.Registration;
 
-public class CommonRegistration extends Registration<CustomWood> {
+public final class CommonRegistration extends Registration<CustomWood> {
     public CommonRegistration(CustomWood feature) {
         super(feature);
     }

@@ -22,7 +22,7 @@ import java.util.List;
 
 import static svenhjol.charm.feature.inventory_tidying.CommonNetworking.C2STidyInventory.*;
 
-public class ClientRegistration extends Registration<InventoryTidyingClient> {
+public final class ClientRegistration extends Registration<InventoryTidyingClient> {
     static final int LEFT = 159;
     static final int TOP = 12;
     static final List<ImageButton> SORTING_BUTTONS = new ArrayList<>();

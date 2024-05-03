@@ -4,7 +4,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.foundation.Registration;
 
-public class ClientRegistration extends Registration<ColoredGlintSmithingTemplatesClient> {
+public final class ClientRegistration extends Registration<ColoredGlintSmithingTemplatesClient> {
     public ClientRegistration(ColoredGlintSmithingTemplatesClient feature) {
         super(feature);
     }

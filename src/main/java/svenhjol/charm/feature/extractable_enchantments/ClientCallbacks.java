@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientCallbacks {
+public final class ClientCallbacks {
     public static void updateGrindstoneCost(GrindstoneScreen screen, Player player, GuiGraphics guiGraphics, Font font, int width) {
         var menu = screen.getMenu();
 

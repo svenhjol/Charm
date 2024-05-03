@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.helper.EnumHelper;
 
-public class CommonRegistration extends Registration<AmethystNoteBlock> {
+public final class CommonRegistration extends Registration<AmethystNoteBlock> {
     public CommonRegistration(AmethystNoteBlock feature) {
         super(feature);
     }

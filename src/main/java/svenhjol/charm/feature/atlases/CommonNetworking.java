@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
 import svenhjol.charm.foundation.Networking;
 
-public class CommonNetworking extends Networking<Atlases> {
+public final class CommonNetworking extends Networking<Atlases> {
     public CommonNetworking(Atlases feature) {
         super(feature);
     }

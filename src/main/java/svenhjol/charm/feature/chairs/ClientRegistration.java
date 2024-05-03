@@ -2,7 +2,7 @@ package svenhjol.charm.feature.chairs;
 
 import svenhjol.charm.foundation.Registration;
 
-public class ClientRegistration extends Registration<ChairsClient> {
+public final class ClientRegistration extends Registration<ChairsClient> {
     public ClientRegistration(ChairsClient feature) {
         super(feature);
     }

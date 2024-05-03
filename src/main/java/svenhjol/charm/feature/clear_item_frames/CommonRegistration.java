@@ -17,7 +17,7 @@ import svenhjol.charm.foundation.Registration;
 
 import javax.annotation.Nullable;
 
-public class CommonRegistration extends Registration<ClearItemFrames> {
+public final class CommonRegistration extends Registration<ClearItemFrames> {
     public CommonRegistration(ClearItemFrames feature) {
         super(feature);
     }

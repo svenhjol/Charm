@@ -10,7 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import svenhjol.charm.foundation.Networking;
 
-public class CommonNetworking extends Networking<ClearItemFrames> {
+public final class CommonNetworking extends Networking<ClearItemFrames> {
     public CommonNetworking(ClearItemFrames feature) {
         super(feature);
     }

@@ -2,7 +2,7 @@ package svenhjol.charm.feature.woodcutting;
 
 import svenhjol.charm.foundation.Registration;
 
-public class CommonRegistration extends Registration<Woodcutting> {
+public final class CommonRegistration extends Registration<Woodcutting> {
     public static final String RECIPE_ID = "woodcutting";
 
     public CommonRegistration(Woodcutting feature) {

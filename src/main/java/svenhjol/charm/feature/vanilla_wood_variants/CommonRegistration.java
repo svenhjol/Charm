@@ -5,7 +5,7 @@ import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.enums.VanillaWood;
 
-public class CommonRegistration extends Registration<VanillaWoodVariants> {
+public final class CommonRegistration extends Registration<VanillaWoodVariants> {
     public CommonRegistration(VanillaWoodVariants feature) {
         super(feature);
     }

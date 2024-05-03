@@ -6,7 +6,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import svenhjol.charm.foundation.Networking;
 
-public class CommonNetworking extends Networking<InventoryTidying> {
+public final class CommonNetworking extends Networking<InventoryTidying> {
     public CommonNetworking(InventoryTidying feature) {
         super(feature);
     }

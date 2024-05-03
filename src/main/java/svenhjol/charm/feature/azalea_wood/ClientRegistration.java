@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.RenderType;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.foundation.Registration;
 
-public class ClientRegistration extends Registration<AzaleaWoodClient> {
+public final class ClientRegistration extends Registration<AzaleaWoodClient> {
     public ClientRegistration(AzaleaWoodClient feature) {
         super(feature);
     }

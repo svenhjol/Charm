@@ -4,7 +4,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.foundation.Registration;
 
-public class ClientRegistration extends Registration<SmoothGlowstoneClient> {
+public final class ClientRegistration extends Registration<SmoothGlowstoneClient> {
     public ClientRegistration(SmoothGlowstoneClient feature) {
         super(feature);
     }

@@ -3,7 +3,7 @@ package svenhjol.charm.feature.colored_glints;
 import svenhjol.charm.api.event.ClientStartEvent;
 import svenhjol.charm.foundation.Registration;
 
-public class ClientRegistration extends Registration<ColoredGlintsClient> {
+public final class ClientRegistration extends Registration<ColoredGlintsClient> {
     public ClientRegistration(ColoredGlintsClient feature) {
         super(feature);
     }

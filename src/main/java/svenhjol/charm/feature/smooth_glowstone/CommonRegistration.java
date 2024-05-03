@@ -9,7 +9,7 @@ import svenhjol.charm.foundation.Registration;
 
 import java.util.List;
 
-public class CommonRegistration extends Registration<SmoothGlowstone> implements IConditionalRecipeProvider {
+public final class CommonRegistration extends Registration<SmoothGlowstone> implements IConditionalRecipeProvider {
     public static final String BLOCK_ID = "smooth_glowstone";
 
     public CommonRegistration(SmoothGlowstone feature) {

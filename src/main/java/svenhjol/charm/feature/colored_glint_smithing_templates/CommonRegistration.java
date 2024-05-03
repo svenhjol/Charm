@@ -21,7 +21,7 @@ import svenhjol.charm.foundation.Tags;
 import java.util.List;
 import java.util.Optional;
 
-public class CommonRegistration extends Registration<ColoredGlintSmithingTemplates> {
+public final class CommonRegistration extends Registration<ColoredGlintSmithingTemplates> {
     static final String ITEM_ID = "colored_glint_smithing_template";
 
     public CommonRegistration(ColoredGlintSmithingTemplates feature) {

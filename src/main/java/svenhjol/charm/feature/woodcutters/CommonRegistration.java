@@ -6,7 +6,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import svenhjol.charm.foundation.Registration;
 
-public class CommonRegistration extends Registration<Woodcutters> {
+public final class CommonRegistration extends Registration<Woodcutters> {
     public static final String BLOCK_ID = "woodcutter";
 
     public CommonRegistration(Woodcutters feature) {

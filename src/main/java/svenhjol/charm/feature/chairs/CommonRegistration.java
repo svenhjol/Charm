@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.api.event.BlockUseEvent;
 import svenhjol.charm.foundation.Registration;
 
-public class CommonRegistration extends Registration<Chairs> {
+public final class CommonRegistration extends Registration<Chairs> {
 
     public CommonRegistration(Chairs feature) {
         super(feature);

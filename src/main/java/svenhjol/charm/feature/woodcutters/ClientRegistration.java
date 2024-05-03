@@ -6,7 +6,7 @@ import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.Registration;
 
-public class ClientRegistration extends Registration<WoodcuttersClient> {
+public final class ClientRegistration extends Registration<WoodcuttersClient> {
     public ClientRegistration(WoodcuttersClient feature) {
         super(feature);
 
