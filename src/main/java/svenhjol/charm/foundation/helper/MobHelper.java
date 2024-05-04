@@ -27,6 +27,7 @@ public class MobHelper {
         if (mob != null) {
             beforeAddToLevel.accept(mob);
             level.addFreshEntity(mob);
+            mob.setPos(pos.getX() + 0.5d, pos.getY() + 1.0d, pos.getZ() + 0.5d);
         }
 
         return mob;

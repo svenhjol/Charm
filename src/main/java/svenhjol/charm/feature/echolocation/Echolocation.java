@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public class Echolocation extends CommonFeature {
-    static Supplier<Holder<MobEffect>> mobEffect;
+    public static Supplier<Holder<MobEffect>> mobEffect;
 
     @Override
     public String description() {

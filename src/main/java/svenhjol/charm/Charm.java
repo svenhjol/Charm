@@ -5,6 +5,7 @@ import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
+import svenhjol.charm.feature.bat_buckets.BatBuckets;
 import svenhjol.charm.feature.chairs.Chairs;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFrames;
 import svenhjol.charm.feature.colored_glint_smithing_templates.ColoredGlintSmithingTemplates;
@@ -46,6 +47,7 @@ public class Charm {
             AmethystNoteBlock.class,
             Atlases.class,
             AzaleaWood.class,
+            BatBuckets.class,
             Chairs.class,
             ClearItemFrames.class,
             ColoredGlints.class,
