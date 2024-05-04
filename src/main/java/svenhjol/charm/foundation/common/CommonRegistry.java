@@ -40,6 +40,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
@@ -157,6 +158,12 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         log.debug("Registering dispenser behavior " + behavior.toString());
         DispenserBlock.registerBehavior(item.get(), behavior);
         return dispenserBehavior;
+    }
+
+    public <T extends Enchantment> Supplier<T> enchantment(String id, Supplier<T> enchantment) {
+        log.debug("Registering enchantment " + id);
+        var registered = Registry.register(BuiltInRegistries.ENCHANTMENT, id(id), enchantment.get());
+        return () -> registered;
     }
 
     public <T extends Entity> Supplier<EntityType<T>> entity(String id, Supplier<EntityType.Builder<T>> builder) {

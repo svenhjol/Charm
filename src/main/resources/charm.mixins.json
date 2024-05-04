@@ -23,6 +23,8 @@
     "feature.amethyst_note_block.NoteBlockMixin",
     "feature.atlases.CartographyTableMenuMixin",
     "feature.atlases.MapItemSavedDataMixin",
+    "feature.collection.BlockMixin",
+    "feature.collection.ServerPlayerGameModeMixin",
     "feature.copper_pistons.PistonBaseBlockMixin",
     "feature.copper_pistons.PistonHeadBlockMixin",
     "feature.copper_pistons.PistonMovingBlockEntityMixin",

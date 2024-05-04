@@ -1,7 +1,6 @@
 package svenhjol.charm.foundation;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -41,6 +40,9 @@ public class Tags {
 
     public static final TagKey<Item> COLORED_DYES = TagKey.create(Registries.ITEM,
         Charm.id("colored_dyes"));
+
+    public static final TagKey<Item> COLLECTION_ENCHANTABLE = TagKey.create(Registries.ITEM,
+        Charm.id("enchantable/collection"));
 
     public static final TagKey<Structure> ENDERMITE_POWDER_LOCATED = TagKey.create(Registries.STRUCTURE,
         Charm.id("endermite_powder_located"));
