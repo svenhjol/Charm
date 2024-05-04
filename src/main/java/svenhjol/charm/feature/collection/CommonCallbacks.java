@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.foundation.helper.ItemHelper;
+import svenhjol.charm.foundation.helper.EnchantmentHelper;
 
 import java.util.Map;
 import java.util.UUID;
@@ -17,7 +17,7 @@ public final class CommonCallbacks {
 
     public static void startBreaking(Player player, BlockPos pos) {
         var held = player.getMainHandItem();
-        if (ItemHelper.hasEnchantment(held, Collection.enchantment.get())) {
+        if (EnchantmentHelper.hasEnchantment(held, Collection.enchantment.get())) {
             BREAKING.put(pos, player.getUUID());
         }
     }

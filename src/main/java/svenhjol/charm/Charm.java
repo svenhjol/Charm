@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.feature.atlases.Atlases;
+import svenhjol.charm.feature.auto_restock.AutoRestock;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.bat_buckets.BatBuckets;
 import svenhjol.charm.feature.chairs.Chairs;
@@ -48,6 +49,7 @@ public class Charm {
             Advancements.class,
             AmethystNoteBlock.class,
             Atlases.class,
+            AutoRestock.class,
             AzaleaWood.class,
             BatBuckets.class,
             Chairs.class,
