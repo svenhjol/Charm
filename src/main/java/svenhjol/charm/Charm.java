@@ -14,6 +14,7 @@ import svenhjol.charm.feature.coral_squids.CoralSquids;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.diagnostics.Diagnostics;
+import svenhjol.charm.feature.echolocation.Echolocation;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
@@ -54,6 +55,7 @@ public class Charm {
             Core.class,
             CustomWood.class,
             Diagnostics.class,
+            Echolocation.class,
             ExtractableEnchantments.class,
             Firing.class,
             HoverSorting.class,

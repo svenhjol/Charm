@@ -19,11 +19,11 @@ public final class CommonRegistration extends Registration<PotionOfRadiance> {
         registry.brewingRecipe(
             Potions.AWKWARD,
             () -> Items.TORCHFLOWER,
-            PotionOfRadiance.potion);
+            PotionOfRadiance.potion.get());
 
         registry.brewingRecipe(
-            PotionOfRadiance.potion,
+            PotionOfRadiance.potion.get(),
             () -> Items.REDSTONE,
-            PotionOfRadiance.longPotion);
+            PotionOfRadiance.longPotion.get());
     }
 }

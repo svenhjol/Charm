@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.stats.RecipeBookSettings;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -208,6 +209,12 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         return () -> registered;
     }
 
+    public Supplier<Holder<MobEffect>> mobEffect(String id, Supplier<MobEffect> supplier) {
+        log.debug("Registering mob effect " + id);
+        var registered = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, id(id), supplier.get());
+        return () -> registered;
+    }
+
     public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, BiConsumer<Player, T> handler) {
         log.debug("Registering packet receiver " + type.id());
         ServerPlayNetworking.registerGlobalReceiver(type,
@@ -247,8 +254,9 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         blockStates.forEach(state -> PoiTypes.TYPE_BY_STATE.put(state, holder));
     }
 
-    public Holder<Potion> potion(String id, Supplier<Potion> supplier) {
-        return Registry.registerForHolder(BuiltInRegistries.POTION, id(id), supplier.get());
+    public Supplier<Holder<Potion>> potion(String id, Supplier<Potion> supplier) {
+        var registered = Registry.registerForHolder(BuiltInRegistries.POTION, id(id), supplier.get());
+        return () -> registered;
     }
 
     public List<DeferredPotionMix> potionMixes() {
