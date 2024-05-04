@@ -19,6 +19,7 @@ import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
 import svenhjol.charm.feature.recipes.Recipes;
+import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
 import svenhjol.charm.feature.silence_microsoft.SilenceMicrosoft;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
@@ -57,6 +58,7 @@ public class Charm {
             InventoryTidying.class,
             PotionOfRadiance.class,
             Recipes.class,
+            ShulkerBoxDragDrop.class,
             SilenceMicrosoft.class,
             SmoothGlowstone.class,
             VariantPistons.class,

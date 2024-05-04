@@ -9,6 +9,7 @@
     "event.grindstone.GrindstoneMenuInputMixin",
     "event.grindstone.GrindstoneMenuMixin",
     "event.grindstone.GrindstoneMenuOutputMixin",
+    "event.item_drag_drop.ItemMixin",
     "event.item_tooltip_image.ItemStackMixin",
     "event.player_login_callback.PlayerListMixin",
     "event.player_tick_callback.ServerPlayerMixin",
