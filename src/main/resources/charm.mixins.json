@@ -26,6 +26,7 @@
     "feature.copper_pistons.PistonBaseBlockMixin",
     "feature.copper_pistons.PistonHeadBlockMixin",
     "feature.copper_pistons.PistonMovingBlockEntityMixin",
+    "feature.deepslate_dungeons.MonsterRoomFeatureMixin",
     "feature.recipes.RecipeBookTypeMixin",
     "feature.recipes.RecipeManagerMixin",
     "feature.recipes.ReloadableServerResourcesMixin",

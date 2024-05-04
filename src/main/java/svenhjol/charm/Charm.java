@@ -14,6 +14,7 @@ import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
+import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
 import svenhjol.charm.feature.diagnostics.Diagnostics;
 import svenhjol.charm.feature.echolocation.Echolocation;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
@@ -56,6 +57,7 @@ public class Charm {
             CoralSquids.class,
             Core.class,
             CustomWood.class,
+            DeepslateDungeons.class,
             Diagnostics.class,
             Echolocation.class,
             ExtractableEnchantments.class,
