@@ -21,6 +21,7 @@ public class MobHelper {
      * @return New mob instance.
      * @param <T> Mob type.
      */
+    @SuppressWarnings("UnusedReturnValue")
     @Nullable
     public static <T extends Mob> T spawn(EntityType<T> type, ServerLevel level, BlockPos pos, MobSpawnType reason, Consumer<T> beforeAddToLevel) {
         T mob = type.create(level);
