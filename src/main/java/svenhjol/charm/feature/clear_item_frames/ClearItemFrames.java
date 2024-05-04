@@ -32,6 +32,6 @@ public class ClearItemFrames extends CommonFeature {
     }
 
     public static void triggerMadeClearItemFrame(Player player) {
-        Advancements.trigger(new ResourceLocation(Charm.ID, "made_clear_item_frame"), player);
+        Advancements.trigger(Charm.id("made_clear_item_frame"), player);
     }
 }

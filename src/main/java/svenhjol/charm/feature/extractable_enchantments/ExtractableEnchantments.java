@@ -40,6 +40,6 @@ public class ExtractableEnchantments extends CommonFeature {
     }
 
     public static void triggerExtractedEnchantment(Player player) {
-        Advancements.trigger(new ResourceLocation(Charm.ID, "extracted_enchantment"), player);
+        Advancements.trigger(Charm.id("extracted_enchantment"), player);
     }
 }

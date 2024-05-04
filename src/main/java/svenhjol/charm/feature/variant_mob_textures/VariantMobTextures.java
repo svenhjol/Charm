@@ -138,7 +138,7 @@ public class VariantMobTextures extends ClientFeature {
                     var s = defined.split(":");
                     res = new ResourceLocation(s[0], ClientRegistration.TEXTURES + "/" + s[1]);
                 } else {
-                    res = new ResourceLocation(Charm.ID, ClientRegistration.TEXTURES + "/" + defined);
+                    res = Charm.id(ClientRegistration.TEXTURES + "/" + defined);
                 }
                 CACHED_TEXTURE.put(id, res);
                 return res;

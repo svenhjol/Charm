@@ -67,6 +67,6 @@ public class InventoryTidying extends CommonFeature {
     }
 
     public static void triggerTidiedInventory(Player player) {
-        Advancements.trigger(new ResourceLocation(Charm.ID, "tidied_inventory"), player);
+        Advancements.trigger(Charm.id("tidied_inventory"), player);
     }
 }

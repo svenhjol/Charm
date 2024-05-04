@@ -29,6 +29,6 @@ public class Chairs extends CommonFeature {
     }
 
     public static void triggerSatOnChair(Player player) {
-        Advancements.trigger(new ResourceLocation(Charm.ID, "sat_on_chair"), player);
+        Advancements.trigger(Charm.id("sat_on_chair"), player);
     }
 }
