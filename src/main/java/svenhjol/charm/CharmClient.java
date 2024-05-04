@@ -6,6 +6,7 @@ import svenhjol.charm.feature.chairs.ChairsClient;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFramesClient;
 import svenhjol.charm.feature.colored_glint_smithing_templates.ColoredGlintSmithingTemplatesClient;
 import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
+import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.extra_tooltips.ExtraTooltips;
@@ -30,6 +31,7 @@ public class CharmClient {
             ClearItemFramesClient.class,
             ColoredGlintsClient.class,
             ColoredGlintSmithingTemplatesClient.class,
+            CopperPistonsClient.class,
             CoralSquidsClient.class,
             CustomWoodClient.class,
             ExtractableEnchantmentsClient.class,

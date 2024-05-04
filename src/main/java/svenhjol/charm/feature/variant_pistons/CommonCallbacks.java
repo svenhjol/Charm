@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.Tags;
 
 public final class CommonCallbacks {
-    static final Log LOGGER = new Log(Charm.ID, "VariantPistons");
+    public static final Log LOGGER = new Log(Charm.ID, "VariantPistons");
 
     public static boolean alsoCheckTags(BlockState state, Block block) {
         var defaultState = block.defaultBlockState();

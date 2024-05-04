@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:piston_head",
+    "charm:copper_piston_head"
+  ]
+}
