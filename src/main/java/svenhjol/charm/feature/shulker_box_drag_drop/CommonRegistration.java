@@ -31,7 +31,7 @@ import svenhjol.charm.foundation.helper.TagHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommonRegistration extends Registration<ShulkerBoxDragDrop> {
+public final class CommonRegistration extends Registration<ShulkerBoxDragDrop> {
     static final List<ItemLike> BLACKLIST = new ArrayList<>();
 
     public CommonRegistration(ShulkerBoxDragDrop feature) {
