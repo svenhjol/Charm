@@ -1,0 +1,11 @@
+{
+  "type": "charm:firing",
+  "ingredient": {
+    "item": "minecraft:clay_ball"
+  },
+  "result": {
+    "id": "minecraft:brick"
+  },
+  "experience": 0.35,
+  "cookingtime": 100
+}
