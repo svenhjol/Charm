@@ -29,12 +29,12 @@ public record ShulkerBoxItemTooltip(List<ItemStack> items) implements ClientTool
 
     @Override
     public int getHeight() {
-        return this.backgroundHeight() + MARGIN_Y;
+        return this.gridSizeY() * SLOT_SIZE_Y + MARGIN_Y;
     }
 
     @Override
     public int getWidth(Font font) {
-        return this.backgroundWidth();
+        return this.gridSizeX() * SLOT_SIZE_X + 2;
     }
 
     @Override
