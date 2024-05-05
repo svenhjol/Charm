@@ -44,6 +44,7 @@
     "feature.silence_microsoft.YggdrasilUserApiServiceMixin",
     "feature.totem_of_preserving.ExplosionMixin",
     "feature.totem_of_preserving.LevelMixin",
+    "feature.totems_work_from_inventory.LivingEntityMixin",
     "feature.variant_pistons.PistonBaseBlockMixin",
     "feature.variant_pistons.PistonHeadBlockMixin",
     "feature.variant_pistons.PistonMovingBlockEntityMixin"

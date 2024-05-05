@@ -45,8 +45,9 @@ public abstract class Loader<T extends Feature> {
      * @return True if feature is enabled in this loader.
      */
     public boolean isEnabled(String name) {
+        var upper = TextHelper.snakeToUpperCamel(name);
         return getFeatures().stream().anyMatch(
-            m -> m.name().equals(name) && m.isEnabled());
+            m -> m.name().equals(upper) && m.isEnabled());
     }
 
     /**
