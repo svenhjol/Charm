@@ -14,8 +14,8 @@ import svenhjol.charm.api.iface.IHoverSortableItemProvider;
 import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.feature.hover_sorting.CommonNetworking.C2SScrollOnHover;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Networking;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Network;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.common.CommonFeature;
 
 import java.util.List;
@@ -28,13 +28,13 @@ public class HoverSorting extends CommonFeature implements IHoverSortableItemPro
     }
 
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         CharmApi.registerProvider(this);
         return Optional.of(new CommonRegistration(this));
     }
 
     @Override
-    public Optional<Networking<? extends Feature>> networking() {
+    public Optional<Network<? extends Feature>> networking() {
         return Optional.of(new CommonNetworking(this));
     }
 

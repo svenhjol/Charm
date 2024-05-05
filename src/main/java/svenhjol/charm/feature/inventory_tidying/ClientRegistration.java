@@ -13,7 +13,7 @@ import svenhjol.charm.api.event.ScreenSetupEvent;
 import svenhjol.charm.api.iface.IContainerOffsetTweakProvider;
 import svenhjol.charm.api.iface.IInventoryTidyingBlacklistProvider;
 import svenhjol.charm.api.iface.IInventoryTidyingWhitelistProvider;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.helper.ApiHelper;
 import svenhjol.charm.foundation.helper.ScreenHelper;
 
@@ -22,7 +22,7 @@ import java.util.List;
 
 import static svenhjol.charm.feature.inventory_tidying.CommonNetworking.C2STidyInventory.*;
 
-public final class ClientRegistration extends Registration<InventoryTidyingClient> {
+public final class ClientRegistration extends Register<InventoryTidyingClient> {
     static final int LEFT = 159;
     static final int TOP = 12;
     static final List<ImageButton> SORTING_BUTTONS = new ArrayList<>();

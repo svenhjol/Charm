@@ -8,7 +8,7 @@ import svenhjol.charm.api.iface.IConditionalAdvancement;
 import svenhjol.charm.api.iface.IConditionalAdvancementProvider;
 import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.Log;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.helper.ApiHelper;
 
@@ -35,7 +35,7 @@ public class Advancements extends CommonFeature {
     }
 
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         return Optional.of(new CommonRegistration(this));
     }
 

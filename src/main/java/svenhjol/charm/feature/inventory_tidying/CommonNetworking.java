@@ -4,9 +4,9 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import svenhjol.charm.foundation.Networking;
+import svenhjol.charm.foundation.feature.Network;
 
-public final class CommonNetworking extends Networking<InventoryTidying> {
+public final class CommonNetworking extends Network<InventoryTidying> {
     public CommonNetworking(InventoryTidying feature) {
         super(feature);
     }

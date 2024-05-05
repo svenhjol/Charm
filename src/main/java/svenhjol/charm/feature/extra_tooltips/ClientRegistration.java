@@ -17,13 +17,13 @@ import net.minecraft.world.level.block.ShulkerBoxBlock;
 import svenhjol.charm.api.event.TooltipComponentEvent;
 import svenhjol.charm.api.event.TooltipItemHoverEvent;
 import svenhjol.charm.api.event.TooltipRenderEvent;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public final class ClientRegistration extends Registration<ExtraTooltips> {
+public final class ClientRegistration extends Register<ExtraTooltips> {
     public static final RenderType MAP_BACKGROUND
         = RenderType.text(new ResourceLocation("textures/map/map_background.png"));
 

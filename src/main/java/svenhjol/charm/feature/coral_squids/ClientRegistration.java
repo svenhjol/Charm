@@ -3,9 +3,9 @@ package svenhjol.charm.feature.coral_squids;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class ClientRegistration extends Registration<CoralSquidsClient> {
+public final class ClientRegistration extends Register<CoralSquidsClient> {
     public ClientRegistration(CoralSquidsClient feature) {
         super(feature);
     }

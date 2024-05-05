@@ -6,7 +6,7 @@ import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.api.iface.IWandererTrade;
 import svenhjol.charm.api.iface.IWandererTradeProvider;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.common.CommonFeature;
 
@@ -28,7 +28,7 @@ public class CoralSquids extends CommonFeature implements IWandererTradeProvider
     }
 
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         return Optional.of(new CommonRegistration(this));
     }
 

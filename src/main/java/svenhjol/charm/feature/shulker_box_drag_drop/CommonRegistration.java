@@ -25,13 +25,13 @@ import svenhjol.charm.api.event.ItemDragDropEvent;
 import svenhjol.charm.api.event.ItemDragDropEvent.StackType;
 import svenhjol.charm.api.event.LevelLoadEvent;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.helper.TagHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class CommonRegistration extends Registration<ShulkerBoxDragDrop> {
+public final class CommonRegistration extends Register<ShulkerBoxDragDrop> {
     static final List<ItemLike> BLACKLIST = new ArrayList<>();
 
     public CommonRegistration(ShulkerBoxDragDrop feature) {

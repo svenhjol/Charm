@@ -54,7 +54,7 @@ public abstract class LevelMixin {
     @Unique
     private boolean isProtected(BlockPos pos) {
         var dimension = this.dimension().location();
-        return TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)
-            && TotemOfPreserving.PROTECT_POSITIONS.get(dimension).contains(pos);
+        return TotemOfPreserving.handlers.protectedPositions.containsKey(dimension)
+            && TotemOfPreserving.handlers.protectedPositions.get(dimension).contains(pos);
     }
 }

@@ -7,14 +7,14 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import svenhjol.charm.api.event.PlayerTickEvent;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.helper.EnchantmentHelper;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public final class CommonRegistration extends Registration<AutoRestock> {
+public final class CommonRegistration extends Register<AutoRestock> {
     // Remember which items were in our hands and how often they were used.
     private final Map<Player, EnumMap<InteractionHand, StackData>> handCache = new WeakHashMap<>();
 

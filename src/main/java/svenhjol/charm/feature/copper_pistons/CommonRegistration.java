@@ -1,11 +1,11 @@
 package svenhjol.charm.feature.copper_pistons;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
 import java.util.List;
 
-public final class CommonRegistration extends Registration<CopperPistons> {
+public final class CommonRegistration extends Register<CopperPistons> {
     public CommonRegistration(CopperPistons feature) {
         super(feature);
     }

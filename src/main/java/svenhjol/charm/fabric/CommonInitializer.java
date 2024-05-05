@@ -16,7 +16,7 @@ public class CommonInitializer implements ModInitializer {
         if (initialized) return;
 
         var loader = CommonLoader.create(Charm.ID);
-        loader.setup(Charm.features());
+        loader.setupFeatures(Charm.features());
         loader.run();
 
         initialized = true;

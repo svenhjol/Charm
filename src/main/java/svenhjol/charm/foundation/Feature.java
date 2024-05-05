@@ -1,5 +1,10 @@
 package svenhjol.charm.foundation;
 
+import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.foundation.feature.Network;
+import svenhjol.charm.foundation.feature.Register;
+import svenhjol.charm.foundation.feature.Setup;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
@@ -23,12 +28,25 @@ public abstract class Feature {
 
     public abstract Registry registry();
 
-    public Optional<Registration<? extends Feature>> registration() {
+    @Deprecated
+    public Optional<Setup<? extends Feature>> setup() { return Optional.empty(); }
+
+    @Deprecated
+    public Optional<Register<? extends Feature>> registration() {
         return Optional.empty();
     }
 
-    public Optional<Networking<? extends Feature>> networking() {
+    @Deprecated
+    public Optional<Network<? extends Feature>> networking() {
         return Optional.empty();
+    }
+
+    public void setups() {
+        // no op
+    }
+
+    public void registers() {
+        // no op
     }
 
     public void onEnabled() {
@@ -37,6 +55,10 @@ public abstract class Feature {
 
     public void onDisabled() {
         // no op
+    }
+
+    public ResourceLocation id(String id) {
+        return loader.id(id);
     }
 
     public String modId() {

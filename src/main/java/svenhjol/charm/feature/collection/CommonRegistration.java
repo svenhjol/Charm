@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.collection;
 
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class CommonRegistration extends Registration<Collection> {
+public final class CommonRegistration extends Register<Collection> {
     public CommonRegistration(Collection feature) {
         super(feature);
     }

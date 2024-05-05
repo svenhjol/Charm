@@ -7,9 +7,9 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import svenhjol.charm.api.event.PlayerLoginEvent;
 import svenhjol.charm.api.event.PlayerTickEvent;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class CommonRegistration extends Registration<Atlases> {
+public final class CommonRegistration extends Register<Atlases> {
     public CommonRegistration(Atlases feature) {
         super(feature);
     }

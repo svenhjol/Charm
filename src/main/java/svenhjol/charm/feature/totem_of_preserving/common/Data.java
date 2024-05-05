@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.totem_of_preserving;
+package svenhjol.charm.feature.totem_of_preserving.common;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -6,33 +6,34 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 
 import java.util.List;
 
-public record TotemData(List<ItemStack> items, String message) {
-    public static final Codec<TotemData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+public record Data(List<ItemStack> items, String message) {
+    public static final Codec<Data> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.listOf().fieldOf("items")
-            .forGetter(TotemData::items),
+            .forGetter(Data::items),
         Codec.STRING.fieldOf("message")
-            .forGetter(TotemData::message)
-    ).apply(instance, TotemData::new));
+            .forGetter(Data::message)
+    ).apply(instance, Data::new));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, TotemData> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, Data> STREAM_CODEC = StreamCodec.composite(
         ItemStack.OPTIONAL_STREAM_CODEC.apply(ByteBufCodecs.list()),
-            TotemData::items,
+            Data::items,
         ByteBufCodecs.STRING_UTF8,
-            TotemData::message,
-        TotemData::new
+            Data::message,
+        Data::new
     );
 
-    public static final TotemData EMPTY = new TotemData(List.of(), "");
+    public static final Data EMPTY = new Data(List.of(), "");
 
     public static Mutable create() {
         return new Mutable(EMPTY);
     }
 
-    public static TotemData get(ItemStack stack) {
-        return stack.getOrDefault(TotemOfPreserving.data.get(), EMPTY);
+    public static Data get(ItemStack stack) {
+        return stack.getOrDefault(TotemOfPreserving.registers.data.get(), EMPTY);
     }
 
     public static Mutable mutable(ItemStack stack) {
@@ -40,24 +41,24 @@ public record TotemData(List<ItemStack> items, String message) {
     }
 
     public static void set(ItemStack stack, Mutable mutable) {
-        stack.set(TotemOfPreserving.data.get(), mutable.toImmutable());
+        stack.set(TotemOfPreserving.registers.data.get(), mutable.toImmutable());
     }
 
     public static class Mutable {
         private List<ItemStack> items;
         private String message;
 
-        public Mutable(TotemData data) {
+        public Mutable(Data data) {
             this.items = data.items();
             this.message = data.message();
         }
 
-        public TotemData toImmutable() {
-            return new TotemData(items, message);
+        public Data toImmutable() {
+            return new Data(items, message);
         }
 
         public void save(ItemStack stack) {
-            TotemData.set(stack, this);
+            Data.set(stack, this);
         }
 
         public Mutable setMessage(String message) {

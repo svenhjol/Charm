@@ -1,8 +1,9 @@
-package svenhjol.charm.feature.totem_of_preserving;
+package svenhjol.charm.feature.totem_of_preserving.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -23,24 +24,26 @@ import svenhjol.charm.api.enums.EventResult;
 import svenhjol.charm.api.enums.EventResultWithItemStack;
 import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.event.AnvilUpdateEvent;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.foundation.Globals;
-import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.feature.Handler;
 import svenhjol.charm.foundation.helper.ClientEffectHelper;
 import svenhjol.charm.foundation.helper.TotemHelper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-public final class CommonHandlers {
-    static final Log LOGGER = new Log(Charm.ID, "TotemCommonHandlers");
+public class Handlers extends Handler<TotemOfPreserving> {
+    public Map<ResourceLocation, List<BlockPos>> protectedPositions = new HashMap<>();
 
-    static void handlePlayerEnteredBlock(Level level, BlockPos pos, Entity entity) {
+    public Handlers(TotemOfPreserving feature) {
+        super(feature);
+    }
+
+    public void playerEnteredBlock(Level level, BlockPos pos, Entity entity) {
         if (entity instanceof Player player
             && !player.level().isClientSide()
             && player.isAlive()
-            && level.getBlockEntity(pos) instanceof TotemBlockEntity totemBlockEntity
+            && level.getBlockEntity(pos) instanceof BlockEntity totemBlockEntity
             && (!TotemOfPreserving.ownerOnly
             || (totemBlockEntity.getOwner().equals(player.getUUID())
             || player.getAbilities().instabuild))
@@ -49,8 +52,8 @@ public final class CommonHandlers {
             var dimension = serverLevel.dimension().location();
 
             // Create a new totem item and give it to player.
-            LOGGER.debug("Player has interacted with totem holder block at pos: " + pos + ", player: " + player);
-            var totem = new ItemStack(TotemOfPreserving.item.get());
+            log().debug("Player has interacted with totem holder block at pos: " + pos + ", player: " + player);
+            var totem = new ItemStack(TotemOfPreserving.registers.item.get());
 
             // Get the data out of the block entity.
             var items = totemBlockEntity.getItems();
@@ -58,48 +61,48 @@ public final class CommonHandlers {
             var damage = totemBlockEntity.getDamage();
 
             // Set data for the totem.
-            TotemData.create()
+            Data.create()
                 .setItems(items)
                 .setMessage(message)
                 .save(totem);
 
             totem.setDamageValue(damage);
-            TotemItem.setGlint(totem);
+            Item.setGlint(totem);
 
-            LOGGER.debug("Adding totem item to player's inventory: " + player);
+            log().debug("Adding totem item to player's inventory: " + player);
             player.getInventory().add(totem);
 
             level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.6f, 1.0f);
 
-            if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)) {
-                TotemOfPreserving.PROTECT_POSITIONS.get(dimension).remove(pos);
+            if (TotemOfPreserving.handlers.protectedPositions.containsKey(dimension)) {
+                TotemOfPreserving.handlers.protectedPositions.get(dimension).remove(pos);
             }
 
             // Remove the totem block.
-            LOGGER.debug("Removing totem holder block and block entity: " + pos);
+            log().debug("Removing totem holder block and block entity: " + pos);
             level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         }
     }
 
-    static void handleServerWantsToRemoveBlock(Level level, BlockPos pos) {
+    public void serverWantsToRemoveBlock(Level level, BlockPos pos) {
         var dimension = level.dimension().location();
 
-        if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)
-            && TotemOfPreserving.PROTECT_POSITIONS.get(dimension).contains(pos)
-            && level.getBlockEntity(pos) instanceof TotemBlockEntity totem
+        if (TotemOfPreserving.handlers.protectedPositions.containsKey(dimension)
+            && TotemOfPreserving.handlers.protectedPositions.get(dimension).contains(pos)
+            && level.getBlockEntity(pos) instanceof BlockEntity totem
             && !level.isClientSide) {
 
-            LOGGER.debug("Something wants to overwrite the totem block, emergency item drop");
+            log().debug("Something wants to overwrite the totem block, emergency item drop");
             var items = totem.getItems();
             for (ItemStack stack : items) {
                 var itemEntity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack);
                 level.addFreshEntity(itemEntity);
             }
         }
-        LOGGER.debug("Going to remove a totem block");
+        log().debug("Going to remove a totem block");
     }
 
-    static InteractionResult handlePlayerInventoryDrop(Player player, Inventory inventory) {
+    public InteractionResult playerInventoryDrop(Player player, Inventory inventory) {
         if (player.level().isClientSide) {
             return InteractionResult.PASS;
         }
@@ -111,7 +114,7 @@ public final class CommonHandlers {
 
         // Get items to preserve.
         List<ItemStack> preserveItems = new ArrayList<>();
-        for (var provider : TotemOfPreserving.preservingProviders) {
+        for (var provider : TotemOfPreserving.registers.preservingProviders) {
             preserveItems.addAll(provider
                 .getInventoryItemsForTotem(player)
                 .stream().filter(i -> !i.isEmpty())
@@ -124,28 +127,28 @@ public final class CommonHandlers {
 
             if (!totemWorksFromInventory) {
                 for (var held : player.getHandSlots()) {
-                    if (!held.is(TotemOfPreserving.item.get())) {
+                    if (!held.is(TotemOfPreserving.registers.item.get())) {
                         continue;
                     }
 
-                    var data = TotemData.get(held);
+                    var data = Data.get(held);
                     if (!data.items().isEmpty()) {
                         continue;
                     }
 
                     // Found totem in hand.
-                    LOGGER.debug("Found totem in hand");
+                    log().debug("Found totem in hand");
                     damage = held.getDamageValue();
                     found = held;
                     break;
                 }
             } else {
-                for (var provider : TotemOfPreserving.inventoryCheckProviders) {
+                for (var provider : TotemOfPreserving.registers.inventoryCheckProviders) {
                     var item = provider.findTotemFromInventory(player, TotemType.PRESERVING);
 
                     if (item.isPresent()) {
                         // Found totem in inventory.
-                        LOGGER.debug("Found totem in inventory");
+                        log().debug("Found totem in inventory");
                         found = item.get();
                         damage = found.getDamageValue();
                         break;
@@ -154,20 +157,20 @@ public final class CommonHandlers {
             }
 
             if (found.isEmpty()) {
-                LOGGER.debug("Could not find an empty totem, giving up");
+                log().debug("Could not find an empty totem, giving up");
                 return InteractionResult.PASS;
             }
 
             // Give up if the player doesn't have anything to preserve
             if (preserveItems.isEmpty() || preserveItems.size() == 1) {
-                LOGGER.debug("No items to store in totem (graveMode = false), giving up");
+                log().debug("No items to store in totem (graveMode = false), giving up");
                 return InteractionResult.PASS;
             }
         }
 
         // Give up if the player doesn't have anything to preserve
         if (preserveItems.isEmpty()) {
-            LOGGER.debug("No items to store in totem (graveMode = true), giving up");
+            log().debug("No items to store in totem (graveMode = true), giving up");
             return InteractionResult.PASS;
         }
 
@@ -185,14 +188,14 @@ public final class CommonHandlers {
         }
 
         // Delete player inventory items.
-        for (var provider : TotemOfPreserving.preservingProviders) {
+        for (var provider : TotemOfPreserving.registers.preservingProviders) {
             provider.deleteInventoryItems(player);
         }
 
         return InteractionResult.SUCCESS;
     }
 
-    static boolean tryCreateTotemBlock(ServerPlayer player, List<ItemStack> preserve, int damage) {
+    public boolean tryCreateTotemBlock(ServerPlayer player, List<ItemStack> preserve, int damage) {
         var level = player.level();
         var random = player.getRandom();
         var uuid = player.getUUID();
@@ -215,13 +218,13 @@ public final class CommonHandlers {
         // Adjust for void.
         if (pos.getY() < minHeight) {
             pos = new BlockPos(pos.getX(), level.getSeaLevel(), pos.getZ());
-            LOGGER.debug("(Void check) Adjusting, new pos: " + pos);
+            log().debug("(Void check) Adjusting, new pos: " + pos);
         }
 
         if (state.isAir() || fluid.is(FluidTags.WATER)) {
 
             // Air and water are valid spawn positions.
-            LOGGER.debug("(Standard check) Found an air/water block to spawn in: " + pos);
+            log().debug("(Standard check) Found an air/water block to spawn in: " + pos);
             spawnPos = pos;
 
         } else if (fluid.is(FluidTags.LAVA)) {
@@ -237,7 +240,7 @@ public final class CommonHandlers {
                 if (tryFluid.is(FluidTags.LAVA)) continue;
 
                 if (tryState.isAir() || tryFluid.is(FluidTags.WATER)) {
-                    LOGGER.debug("(Lava check) Found an air/water block to spawn in after checking " + tries + " times: " + pos);
+                    log().debug("(Lava check) Found an air/water block to spawn in after checking " + tries + " times: " + pos);
                     spawnPos = tryPos;
                 }
 
@@ -246,7 +249,7 @@ public final class CommonHandlers {
 
             // If that failed, replace the lava with the totem.
             if (spawnPos == null) {
-                LOGGER.debug("(Lava check) Going to replace lava with totem at: " + pos);
+                log().debug("(Lava check) Going to replace lava with totem at: " + pos);
                 spawnPos = pos;
             }
 
@@ -263,7 +266,7 @@ public final class CommonHandlers {
 
                 if (tryPos.getY() >= maxHeight) continue;
                 if (tryState.isAir() || tryFluid.is(FluidTags.WATER)) {
-                    LOGGER.debug("(Solid check) Found an air/water block to spawn in, direction: " + direction + ", pos: " + pos);
+                    log().debug("(Solid check) Found an air/water block to spawn in, direction: " + direction + ", pos: " + pos);
                     spawnPos = tryPos;
                     break;
                 }
@@ -289,7 +292,7 @@ public final class CommonHandlers {
                 var tryState = level.getBlockState(tryPos);
                 var tryFluid = level.getFluidState(tryPos);
                 if (tryState.isAir() || tryFluid.is(FluidTags.WATER)) {
-                    LOGGER.debug("(Distance check) Found an air/water block to spawn in after checking " + tries + " times: " + pos);
+                    log().debug("(Distance check) Found an air/water block to spawn in after checking " + tries + " times: " + pos);
                     spawnPos = tryPos;
                     break;
                 }
@@ -297,13 +300,13 @@ public final class CommonHandlers {
         }
 
         if (spawnPos == null) {
-            LOGGER.debug("Could not find a block to spawn totem, giving up.");
+            log().debug("Could not find a block to spawn totem, giving up.");
             return false;
         }
 
-        level.setBlockAndUpdate(spawnPos, TotemOfPreserving.block.get().defaultBlockState());
-        if (!(level.getBlockEntity(spawnPos) instanceof TotemBlockEntity totemBlockEntity)) {
-            LOGGER.debug("Not a valid block entity at pos, giving up. Pos: " + pos);
+        level.setBlockAndUpdate(spawnPos, TotemOfPreserving.registers.block.get().defaultBlockState());
+        if (!(level.getBlockEntity(spawnPos) instanceof BlockEntity totemBlockEntity)) {
+            log().debug("Not a valid block entity at pos, giving up. Pos: " + pos);
             return false;
         }
 
@@ -314,13 +317,13 @@ public final class CommonHandlers {
         totemBlockEntity.setChanged();
         totemBlockEntity.setDirty();
 
-        TotemOfPreserving.PROTECT_POSITIONS
+        TotemOfPreserving.handlers.protectedPositions
             .computeIfAbsent(level.dimension().location(), a -> new ArrayList<>())
             .add(spawnPos);
 
-        LOGGER.info("Spawned a totem at: " + spawnPos);
-        TotemOfPreserving.triggerUsedTotemOfPreserving(player);
-        level.playSound(null, spawnPos, TotemOfPreserving.storeSound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        log().info("Spawned a totem at: " + spawnPos);
+        TotemOfPreserving.advancements.usedTotem(player);
+        level.playSound(null, spawnPos, TotemOfPreserving.registers.storeSound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
 
         // Show the death position as chat message.
         if (TotemOfPreserving.showDeathPositionInChat) {
@@ -334,8 +337,8 @@ public final class CommonHandlers {
         return true;
     }
 
-    static Optional<AnvilUpdateEvent.AnvilRecipe> handleAnvilUpdate(Player player, ItemStack input, ItemStack material, long cost) {
-        if (input.is(TotemOfPreserving.item.get()) && input.isDamaged() && material.is(Items.ECHO_SHARD)) {
+    public Optional<AnvilUpdateEvent.AnvilRecipe> anvilUpdate(Player player, ItemStack input, ItemStack material, long cost) {
+        if (input.is(TotemOfPreserving.registers.item.get()) && input.isDamaged() && material.is(Items.ECHO_SHARD)) {
             var recipe = new AnvilUpdateEvent.AnvilRecipe();
             recipe.output = input.copy();
             recipe.output.setDamageValue(input.getDamageValue() - 1);
@@ -346,9 +349,9 @@ public final class CommonHandlers {
         return Optional.empty();
     }
 
-    static EventResultWithItemStack handleUseTotemInHand(Level level, Player player, InteractionHand hand) {
+    public EventResultWithItemStack useTotemInHand(Level level, Player player, InteractionHand hand) {
         var totem = player.getItemInHand(hand);
-        var data = TotemData.get(totem);
+        var data = Data.get(totem);
         var pos = player.blockPosition();
         var destroyTotem = false;
 
@@ -385,7 +388,7 @@ public final class CommonHandlers {
         }
 
         if (!destroyTotem) {
-            level.playSound(null, pos, TotemOfPreserving.releaseSound.get(), SoundSource.PLAYERS, 0.8f, 1.0f);
+            level.playSound(null, pos, TotemOfPreserving.registers.releaseSound.get(), SoundSource.PLAYERS, 0.8f, 1.0f);
         } else {
             destroyTotem(totem, player);
         }
@@ -402,13 +405,13 @@ public final class CommonHandlers {
     }
 
 
-    private static ItemStack givePlayerCleanTotem(Player player, InteractionHand hand) {
-        var stack = new ItemStack(TotemOfPreserving.item.get());
+    private ItemStack givePlayerCleanTotem(Player player, InteractionHand hand) {
+        var stack = new ItemStack(TotemOfPreserving.registers.item.get());
         player.setItemInHand(hand, stack);
         return stack;
     }
 
-    private static void destroyTotem(ItemStack stack, Player player) {
+    private void destroyTotem(ItemStack stack, Player player) {
         if (!player.level().isClientSide) {
             TotemHelper.destroy(player, stack);
         } else {

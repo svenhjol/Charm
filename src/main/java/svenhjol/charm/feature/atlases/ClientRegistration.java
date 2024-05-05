@@ -13,9 +13,9 @@ import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.api.event.HeldItemRenderEvent;
 import svenhjol.charm.api.event.KeyPressEvent;
 import svenhjol.charm.feature.atlases.CommonNetworking.C2SSwapAtlasSlot;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class ClientRegistration extends Registration<AtlasesClient> {
+public final class ClientRegistration extends Register<AtlasesClient> {
     private AtlasRenderer renderer;
 
     public ClientRegistration(AtlasesClient feature) {

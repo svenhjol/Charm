@@ -4,9 +4,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.InteractionResult;
 import svenhjol.charm.api.event.MouseScrollEvent;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class ClientRegistration extends Registration<HoverSortingClient> {
+public final class ClientRegistration extends Register<HoverSortingClient> {
     public ClientRegistration(HoverSortingClient feature) {
         super(feature);
     }

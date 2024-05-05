@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.totem_of_preserving;
+package svenhjol.charm.feature.totem_of_preserving.client;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @see net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent#create(TooltipComponent)
  */
-public record TotemOfPreservingTooltip(List<ItemStack> items) implements ClientTooltipComponent, CharmTooltip {
+public record Tooltip(List<ItemStack> items) implements ClientTooltipComponent, CharmTooltip {
     @Override
     public int getWidth(Font font) {
         return this.gridSizeX() * SLOT_SIZE_X + 2;

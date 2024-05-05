@@ -21,8 +21,8 @@ import svenhjol.charm.feature.atlases.CommonNetworking.C2STransferAtlas;
 import svenhjol.charm.feature.atlases.CommonNetworking.S2CSwappedAtlasSlot;
 import svenhjol.charm.feature.atlases.CommonNetworking.S2CUpdateInventory;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Networking;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Network;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.common.CommonFeature;
 
@@ -54,13 +54,13 @@ public class Atlases extends CommonFeature implements IWandererTradeProvider {
     }
 
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         CharmApi.registerProvider(this);
         return Optional.of(new CommonRegistration(this));
     }
 
     @Override
-    public Optional<Networking<? extends Feature>> networking() {
+    public Optional<Network<? extends Feature>> networking() {
         return Optional.of(new CommonNetworking(this));
     }
 

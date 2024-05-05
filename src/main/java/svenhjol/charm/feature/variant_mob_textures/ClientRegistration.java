@@ -7,11 +7,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.api.event.ClientEntityJoinEvent;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
 import java.util.*;
 
-public final class ClientRegistration extends Registration<VariantMobTextures> {
+public final class ClientRegistration extends Register<VariantMobTextures> {
     static final String TEXTURES = "textures/entity";
     static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(TEXTURES + "/sheep/sheep.png");
     static final List<ResourceLocation> CHICKENS = new ArrayList<>();

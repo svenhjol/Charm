@@ -8,9 +8,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.api.event.GrindstoneEvents;
 import svenhjol.charm.api.event.GrindstoneEvents.GrindstoneMenuInstance;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class CommonRegistration extends Registration<ExtractableEnchantments> {
+public final class CommonRegistration extends Register<ExtractableEnchantments> {
     public CommonRegistration(ExtractableEnchantments feature) {
         super(feature);
     }

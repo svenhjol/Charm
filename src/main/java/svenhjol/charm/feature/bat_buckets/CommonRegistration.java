@@ -9,11 +9,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.api.event.EntityUseEvent;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
 import javax.annotation.Nullable;
 
-public final class CommonRegistration extends Registration<BatBuckets> {
+public final class CommonRegistration extends Register<BatBuckets> {
     public CommonRegistration(BatBuckets feature) {
         super(feature);
     }

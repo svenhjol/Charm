@@ -8,8 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.Globals;
-import svenhjol.charm.foundation.Networking;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Network;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.common.CommonFeature;
 
@@ -37,12 +37,12 @@ public class AtlasesClient extends ClientFeature {
     }
 
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         return Optional.of(new ClientRegistration(this));
     }
 
     @Override
-    public Optional<Networking<? extends Feature>> networking() {
+    public Optional<Network<? extends Feature>> networking() {
         return Optional.of(new ClientNetworking(this));
     }
 

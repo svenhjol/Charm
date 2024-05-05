@@ -3,10 +3,10 @@ package svenhjol.charm.feature.variant_wood;
 import net.minecraft.world.entity.vehicle.Boat;
 import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.api.event.EntityUseEvent;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
 @SuppressWarnings("unused")
-public final class CommonRegistration extends Registration<VariantWood> {
+public final class CommonRegistration extends Register<VariantWood> {
     public CommonRegistration(VariantWood feature) {
         super(feature);
 

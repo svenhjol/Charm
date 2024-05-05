@@ -2,9 +2,9 @@ package svenhjol.charm.feature.potion_of_radiance;
 
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class CommonRegistration extends Registration<PotionOfRadiance> {
+public final class CommonRegistration extends Register<PotionOfRadiance> {
     public CommonRegistration(PotionOfRadiance feature) {
         super(feature);
     }

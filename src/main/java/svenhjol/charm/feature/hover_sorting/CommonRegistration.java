@@ -18,7 +18,7 @@ import svenhjol.charm.api.event.ItemHoverSortEvent;
 import svenhjol.charm.api.event.LevelLoadEvent;
 import svenhjol.charm.api.iface.IHoverSortableItemProvider;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingHandler;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.helper.ApiHelper;
 import svenhjol.charm.foundation.helper.TagHelper;
 
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class CommonRegistration extends Registration<HoverSorting> {
+public final class CommonRegistration extends Register<HoverSorting> {
     List<ItemLike> cachedSortables = new ArrayList<>();
     List<TagKey<Block>> cachedBlockTags = new ArrayList<>();
     List<TagKey<Item>> cachedItemTags = new ArrayList<>();

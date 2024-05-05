@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.clear_item_frames;
 
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class ClientRegistration extends Registration<ClearItemFramesClient> {
+public final class ClientRegistration extends Register<ClearItemFramesClient> {
     public ClientRegistration(ClearItemFramesClient feature) {
         super(feature);
     }

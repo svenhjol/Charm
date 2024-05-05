@@ -5,10 +5,10 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.levelgen.Heightmap;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.Tags;
 
-public final class CommonRegistration extends Registration<CoralSquids> {
+public final class CommonRegistration extends Register<CoralSquids> {
     static final String ID = "coral_squid";
 
     public CommonRegistration(CoralSquids feature) {

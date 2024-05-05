@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.core;
 
 import svenhjol.charm.api.event.PlayerLoginEvent;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class CommonRegistration extends Registration<Core> {
+public final class CommonRegistration extends Register<Core> {
     public CommonRegistration(Core feature) {
         super(feature);
     }

@@ -4,7 +4,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.helper.EnumHelper;
 
@@ -23,7 +23,7 @@ public class ColoredGlints extends CommonFeature {
     }
 
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         return Optional.of(new CommonRegistration(this));
     }
 

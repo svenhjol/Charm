@@ -5,11 +5,11 @@ import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.api.iface.IConditionalRecipe;
 import svenhjol.charm.api.iface.IConditionalRecipeProvider;
 import svenhjol.charm.foundation.Globals;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
 import java.util.List;
 
-public final class CommonRegistration extends Registration<SmoothGlowstone> implements IConditionalRecipeProvider {
+public final class CommonRegistration extends Register<SmoothGlowstone> implements IConditionalRecipeProvider {
     public static final String BLOCK_ID = "smooth_glowstone";
 
     public CommonRegistration(SmoothGlowstone feature) {

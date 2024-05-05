@@ -26,8 +26,8 @@ public class ExplosionMixin {
     )
     private void hookFinalizeExplosion(boolean bl, CallbackInfo ci) {
         var dimension = this.level.dimension().location();
-        if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)) {
-            for (BlockPos pos : TotemOfPreserving.PROTECT_POSITIONS.get(dimension)) {
+        if (TotemOfPreserving.handlers.protectedPositions.containsKey(dimension)) {
+            for (BlockPos pos : TotemOfPreserving.handlers.protectedPositions.get(dimension)) {
                 this.toBlow.remove(pos);
             }
         }

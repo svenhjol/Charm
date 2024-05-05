@@ -15,13 +15,13 @@ import svenhjol.charm.api.event.LootTableModifyEvent;
 import svenhjol.charm.api.event.SmithingTableEvents;
 import svenhjol.charm.api.event.SmithingTableEvents.SmithingTableInstance;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.Tags;
 
 import java.util.List;
 import java.util.Optional;
 
-public final class CommonRegistration extends Registration<ColoredGlintSmithingTemplates> {
+public final class CommonRegistration extends Register<ColoredGlintSmithingTemplates> {
     static final String ITEM_ID = "colored_glint_smithing_template";
 
     public CommonRegistration(ColoredGlintSmithingTemplates feature) {

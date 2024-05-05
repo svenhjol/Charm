@@ -1,21 +1,23 @@
-package svenhjol.charm.feature.totem_of_preserving;
+package svenhjol.charm.feature.totem_of_preserving.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.feature.totem_of_preserving.common.Item;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
+import svenhjol.charm.feature.totem_of_preserving.common.BlockEntity;
 
-public class TotemBlockEntityRenderer<T extends TotemBlockEntity> implements BlockEntityRenderer<T> {
+public class BlockEntityRenderer<T extends BlockEntity> implements net.minecraft.client.renderer.blockentity.BlockEntityRenderer<T> {
     private final ItemStack stack;
 
-    public TotemBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        this.stack = new ItemStack(TotemOfPreserving.item.get());
-        TotemItem.setGlint(this.stack);
+    public BlockEntityRenderer(BlockEntityRendererProvider.Context context) {
+        this.stack = new ItemStack(TotemOfPreserving.registers.item.get());
+        Item.setGlint(this.stack);
     }
 
     @Override
@@ -28,12 +30,15 @@ public class TotemBlockEntityRenderer<T extends TotemBlockEntity> implements Blo
         var itemRenderer = Minecraft.getInstance().getItemRenderer();
         var level = Minecraft.getInstance().level;
 
-        entity.rotateTicks += 0.25f;
-        if (entity.rotateTicks >= 360f) {
-            entity.rotateTicks = 0f;
+        var rotateTicks = entity.getRotateTicks();
+        entity.setRotateTicks(rotateTicks += 0.25f);
+
+        if (rotateTicks >= 360f) {
+            rotateTicks = 0f;
+            entity.setRotateTicks(rotateTicks);
         }
 
-        poseStack.mulPose(Axis.YP.rotationDegrees(entity.rotateTicks));
+        poseStack.mulPose(Axis.YP.rotationDegrees(rotateTicks));
         itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, 0xf000f0, OverlayTexture.NO_OVERLAY, poseStack, bufferSource, level, entity.hashCode());
         poseStack.popPose();
     }

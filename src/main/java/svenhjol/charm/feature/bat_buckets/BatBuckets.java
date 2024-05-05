@@ -13,7 +13,7 @@ import svenhjol.charm.api.iface.IWandererTrade;
 import svenhjol.charm.api.iface.IWandererTradeProvider;
 import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.common.CommonFeature;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class BatBuckets extends CommonFeature implements IWandererTradeProvider 
             Right-click again to release it and locate entities around you.""";
     }
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         CharmApi.registerProvider(this);
         return Optional.of(new CommonRegistration(this));
     }

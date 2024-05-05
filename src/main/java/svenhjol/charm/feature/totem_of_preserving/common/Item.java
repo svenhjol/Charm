@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.totem_of_preserving;
+package svenhjol.charm.feature.totem_of_preserving.common;
 
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.NonNullList;
@@ -11,13 +11,17 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.api.enums.EventResult;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
+import svenhjol.charm.feature.totem_of_preserving.client.Tooltip;
 
 import java.util.List;
 import java.util.Optional;
 
-public class TotemItem extends Item {
-    public TotemItem() {
-        super(new Item.Properties()
+public class Item extends net.minecraft.world.item.Item {
+    private static final Handlers HANDLERS = TotemOfPreserving.handlers;
+
+    public Item() {
+        super(new Properties()
             .stacksTo(1)
             .durability(TotemOfPreserving.durability)
             .rarity(Rarity.UNCOMMON));
@@ -41,7 +45,7 @@ public class TotemItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        var result = CommonHandlers.handleUseTotemInHand(level, player, hand);
+        var result = HANDLERS.useTotemInHand(level, player, hand);
 
         if (result.result() == EventResult.PASS) {
             return InteractionResultHolder.pass(result.stack());
@@ -52,7 +56,7 @@ public class TotemItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack totem, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        var data = TotemData.get(totem);
+        var data = Data.get(totem);
 
         if (!data.message().isEmpty()) {
             tooltip.add(Component.literal(data.message()));
@@ -69,14 +73,13 @@ public class TotemItem extends Item {
 
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack totem) {
-        var data = TotemData.get(totem);
+        var data = Data.get(totem);
         if (data.items().isEmpty()) {
             return Optional.empty();
         }
         NonNullList<ItemStack> items = NonNullList.create();
-        items.addAll(data.items())
-        ;
-        return Optional.of(new TotemOfPreservingTooltip(items));
+        items.addAll(data.items());
+        return Optional.of(new Tooltip(items));
     }
 
     public static void setGlint(ItemStack totem) {

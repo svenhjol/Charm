@@ -9,9 +9,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ComplexItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
-import svenhjol.charm.foundation.Networking;
+import svenhjol.charm.foundation.feature.Network;
 
-public final class CommonNetworking extends Networking<Atlases> {
+public final class CommonNetworking extends Network<Atlases> {
     public CommonNetworking(Atlases feature) {
         super(feature);
     }

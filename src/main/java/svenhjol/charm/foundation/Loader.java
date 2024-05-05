@@ -2,6 +2,8 @@ package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.foundation.enums.Side;
+import svenhjol.charm.foundation.feature.Network;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.helper.ConfigHelper;
 import svenhjol.charm.foundation.helper.TextHelper;
 
@@ -13,6 +15,7 @@ import java.util.stream.Collectors;
 public abstract class Loader<T extends Feature> {
     protected String id;
     protected LinkedList<T> features = new LinkedList<>();
+    protected LinkedList<Register<?>> registrations = new LinkedList<>();
     protected Log log;
 
     protected Loader(String id) {
@@ -89,7 +92,7 @@ public abstract class Loader<T extends Feature> {
     /**
      * Instantiates and registers feature classes.
      */
-    public void setup(List<Class<? extends T>> classes) {
+    public void setupFeatures(List<Class<? extends T>> classes) {
         if (classes.isEmpty()) {
             log.info("No features to load for " + id);
             return;
@@ -98,17 +101,22 @@ public abstract class Loader<T extends Feature> {
             log.info("Loading " + size + " class" + (size > 1 ? "es" : "") + " for " + id);
         }
 
+        // Create objects for each feature class. Pass this loader to each of the objects.
         instantiate(classes);
 
+        // Load configuration state for the features.
         configure();
 
-        // Checks before registration. Last chance for feature to set itself as enabled/disabled.
+        // Early setup for features that initialise enums or other pre-registration tasks.
+        setups();
+
+        // Final checks before registration. Last chance for feature to set itself as enabled/disabled.
         checks();
 
-        // Sorts and executes all registrations. Registers are executed even if the feature is disabled.
+        // Create references to feature register classes. Registers are executed even if the feature is disabled.
         registers();
 
-        // Sorts and executes all network packets. Networks are executed even if the feature is disabled.
+        // To be removed.
         networks();
     }
 
@@ -178,42 +186,66 @@ public abstract class Loader<T extends Feature> {
     }
 
     /**
-     * Gets the register classes for ALL features (including disabled) organising by priority,
-     * and executes the onRegister() method.
+     * Gets the setup classes for ALL features (including disabled) organising by feature priority.
+     * A setup failure will bail.
      */
-    protected void registers() {
-        LinkedList<Registration<T>> registrations = new LinkedList<>();
+    protected void setups() {
+        sortFeaturesByPriority();
 
         for (T feature : getFeatures()) {
-            feature.registration().ifPresent(register -> registrations.add((Registration<T>)register));
+            try {
+                feature.setups();
+            } catch (Exception e) {
+                log().error("Setups failed for " + feature.name() + ": " + e.getMessage());
+                throw new RuntimeException(e);
+            }
         }
-
-        registrations.sort(Comparator.comparingInt(Registration::priority));
-        Collections.reverse(registrations);
-        registrations.forEach(Registration::onRegister);
-
-        registrations.stream().filter(r -> r.feature.isEnabled()).forEach(Registration::onEnabled);
-        registrations.stream().filter(r -> !r.feature.isEnabled()).forEach(Registration::onDisabled);
     }
 
     /**
-     * Gets the network classes for ALL features (including disabled) organising by priority,
-     * and executes the onRegister() method.
-     * onRegister() in a network class should be used to register the network packets.
+     * Gets the register classes for ALL features (including disabled) organising by feature priority.
+     * A registration failure will bail.
      */
-    protected void networks() {
-        LinkedList<Networking<T>> networkings = new LinkedList<>();
+    protected void registers() {
+        sortFeaturesByPriority();
+        LinkedList<Register<T>> local = new LinkedList<>();
 
         for (T feature : getFeatures()) {
-            feature.networking().ifPresent(networking -> networkings.add((Networking<T>) networking));
+            try {
+                feature.registers();
+                feature.registration().ifPresent(register -> local.add((Register<T>) register));
+            } catch (Exception e) {
+                log().error("Registrations failed for " + feature.name() + ": " + e.getMessage());
+                throw new RuntimeException(e);
+            }
         }
 
-        networkings.sort(Comparator.comparingInt(Networking::priority));
-        Collections.reverse(networkings);
-        networkings.forEach(Networking::onRegister);
+        local.forEach(Register::onRegister);
+//        registrations.stream().filter(r -> r.feature().isEnabled()).forEach(Register::onEnabled);
+//        registrations.stream().filter(r -> !r.feature().isEnabled()).forEach(Register::onDisabled);
 
-        networkings.stream().filter(r -> r.feature.isEnabled()).forEach(Networking::onEnabled);
-        networkings.stream().filter(r -> !r.feature.isEnabled()).forEach(Networking::onDisabled);
+        this.registrations.stream().filter(r -> r.feature().isEnabled()).forEach(Register::onEnabled);
+        this.registrations.stream().filter(r -> !r.feature().isEnabled()).forEach(Register::onDisabled);
+    }
+
+    /**
+     * Gets the network classes for ALL features (including disabled) organising by feature priority.
+     */
+    @Deprecated
+    protected void networks() {
+        sortFeaturesByPriority();
+        LinkedList<Network<T>> networkings = new LinkedList<>();
+
+        for (T feature : getFeatures()) {
+            try {
+                feature.networking().ifPresent(networking -> networkings.add((Network<T>) networking));
+            } catch (Exception e) {
+                log().error("Networks failed for " + feature.name() + ": " + e.getMessage());
+                throw new RuntimeException();
+            }
+        }
+
+        networkings.forEach(Network::onRegister);
     }
 
     /**
@@ -240,5 +272,18 @@ public abstract class Loader<T extends Feature> {
      */
     public Log log() {
         return log;
+    }
+
+    public void onRegisterComplete(Register<?> registration) {
+        registrations.add(registration);
+    }
+
+    protected void sortFeaturesByPriority() {
+        features.sort(Comparator.comparingInt(Feature::priority));
+        Collections.reverse(features);
+    }
+
+    protected void sortFeaturesByName() {
+        features.sort(Comparator.comparing(Feature::name));
     }
 }

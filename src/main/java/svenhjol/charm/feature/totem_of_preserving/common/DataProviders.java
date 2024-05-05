@@ -1,15 +1,16 @@
-package svenhjol.charm.feature.totem_of_preserving;
+package svenhjol.charm.feature.totem_of_preserving.common;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.iface.*;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TotemDataProviders implements
+public final class DataProviders implements
     ITotemPreservingProvider,
     ITotemInventoryCheckProvider,
     IConditionalRecipeProvider,
@@ -39,7 +40,7 @@ public class TotemDataProviders implements
     @Override
     public Optional<ItemStack> findTotemFromInventory(Player player, TotemType totemType) {
         if (totemType == TotemType.PRESERVING) {
-            var totem = TotemOfPreserving.item.get();
+            var totem = TotemOfPreserving.registers.item.get();
 
             var mainHand = player.getMainHandItem();
             if (mainHand.is(totem)) {

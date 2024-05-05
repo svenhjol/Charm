@@ -9,7 +9,7 @@ import svenhjol.charm.api.iface.IContainerOffsetTweakProvider;
 import svenhjol.charm.api.iface.IInventoryTidyingBlacklistProvider;
 import svenhjol.charm.api.iface.IInventoryTidyingWhitelistProvider;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.common.CommonFeature;
 
@@ -27,7 +27,7 @@ public class InventoryTidyingClient extends ClientFeature
     }
 
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         CharmApi.registerProvider(this);
         return Optional.of(new ClientRegistration(this));
     }

@@ -1,11 +1,8 @@
 package svenhjol.charm.foundation.common;
 
-import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.Globals;
 import svenhjol.charm.foundation.Loader;
 import svenhjol.charm.foundation.Log;
-
-import java.util.Comparator;
 
 public class CommonLoader extends Loader<CommonFeature> {
     private final CommonConfig config;
@@ -34,8 +31,7 @@ public class CommonLoader extends Loader<CommonFeature> {
 
     @Override
     protected void configure() {
-        // Sort features alphabetically for configuration.
-        features.sort(Comparator.comparing(Feature::name));
+        sortFeaturesByName();
 
         config.readConfig(features);
         config.writeConfig(features);

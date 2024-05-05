@@ -8,7 +8,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.api.iface.ITotemInventoryCheckProvider;
 import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.common.CommonFeature;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class TotemsWorkFromInventory extends CommonFeature {
     }
 
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         return Optional.of(new CommonRegistration(this));
     }
 

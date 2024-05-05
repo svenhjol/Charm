@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.totem_of_preserving;
+package svenhjol.charm.feature.totem_of_preserving.common;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -6,21 +6,20 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 
-public class TotemBlock extends BaseEntityBlock {
-    static final MapCodec<TotemBlock> CODEC = simpleCodec(TotemBlock::new);
-    static final VoxelShape SHAPE = Block.box(2, 2, 2, 14, 14, 14);
+public class Block extends BaseEntityBlock {
+    static final MapCodec<Block> CODEC = simpleCodec(Block::new);
+    static final VoxelShape SHAPE = net.minecraft.world.level.block.Block.box(2, 2, 2, 14, 14, 14);
 
-    public TotemBlock() {
+    public Block() {
         this(Properties.ofFullCopy(Blocks.GLASS)
             .strength(-1.0f, 3600000.0f)
             .noCollission()
@@ -28,7 +27,7 @@ public class TotemBlock extends BaseEntityBlock {
             .noLootTable());
     }
 
-    private TotemBlock(Properties properties) {
+    private Block(Properties properties) {
         super(properties);
     }
 
@@ -39,8 +38,8 @@ public class TotemBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new TotemBlockEntity(pos, state);
+    public net.minecraft.world.level.block.entity.BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new BlockEntity(pos, state);
     }
 
     @Override
@@ -68,7 +67,7 @@ public class TotemBlock extends BaseEntityBlock {
      */
     @Override
     public void onRemove(BlockState blockState, Level level, BlockPos pos, BlockState state, boolean bl) {
-        CommonHandlers.handleServerWantsToRemoveBlock(level, pos);
+        TotemOfPreserving.handlers.serverWantsToRemoveBlock(level, pos);
         super.onRemove(blockState, level, pos, state, bl);
     }
 
@@ -77,7 +76,7 @@ public class TotemBlock extends BaseEntityBlock {
      */
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        CommonHandlers.handlePlayerEnteredBlock(level, pos, entity);
+        TotemOfPreserving.handlers.playerEnteredBlock(level, pos, entity);
         super.entityInside(state, level, pos, entity);
     }
 }

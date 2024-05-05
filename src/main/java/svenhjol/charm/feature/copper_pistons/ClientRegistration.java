@@ -2,9 +2,9 @@ package svenhjol.charm.feature.copper_pistons;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class ClientRegistration extends Registration<CopperPistonsClient> {
+public final class ClientRegistration extends Register<CopperPistonsClient> {
     public ClientRegistration(CopperPistonsClient feature) {
         super(feature);
     }

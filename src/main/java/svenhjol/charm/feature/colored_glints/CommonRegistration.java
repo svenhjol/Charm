@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.colored_glints;
 
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class CommonRegistration extends Registration<ColoredGlints> {
+public final class CommonRegistration extends Register<ColoredGlints> {
     public CommonRegistration(ColoredGlints feature) {
         super(feature);
     }

@@ -3,7 +3,7 @@ package svenhjol.charm.feature.colored_glints;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.common.CommonFeature;
@@ -47,7 +47,7 @@ public class ColoredGlintsClient extends ClientFeature {
     }
 
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         return Optional.of(new ClientRegistration(this));
     }
 

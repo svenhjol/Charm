@@ -5,9 +5,9 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.api.event.PlayerTickEvent;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
-public final class CommonRegistration extends Registration<Echolocation> {
+public final class CommonRegistration extends Register<Echolocation> {
     static final String ID = "echolocation";
     static final int CHECK_TICKS = 10;
     static final int GLOW_RANGE = 24;

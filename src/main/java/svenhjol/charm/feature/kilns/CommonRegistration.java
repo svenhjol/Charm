@@ -2,11 +2,11 @@ package svenhjol.charm.feature.kilns;
 
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 
 import java.util.List;
 
-public final class CommonRegistration extends Registration<Kilns> {
+public final class CommonRegistration extends Register<Kilns> {
     static final String BLOCK_ID = "kiln";
 
     public CommonRegistration(Kilns feature) {

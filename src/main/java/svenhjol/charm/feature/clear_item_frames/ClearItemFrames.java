@@ -1,13 +1,12 @@
 package svenhjol.charm.feature.clear_item_frames;
 
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Networking;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Network;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.common.CommonFeature;
 
 import java.util.Optional;
@@ -22,12 +21,12 @@ public class ClearItemFrames extends CommonFeature {
     }
 
     @Override
-    public Optional<Registration<? extends Feature>> registration() {
+    public Optional<Register<? extends Feature>> registration() {
         return Optional.of(new CommonRegistration(this));
     }
 
     @Override
-    public Optional<Networking<? extends Feature>> networking() {
+    public Optional<Network<? extends Feature>> networking() {
         return Optional.of(new CommonNetworking(this));
     }
 

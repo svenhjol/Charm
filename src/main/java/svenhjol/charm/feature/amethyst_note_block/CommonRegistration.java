@@ -2,10 +2,10 @@ package svenhjol.charm.feature.amethyst_note_block;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import svenhjol.charm.foundation.Registration;
+import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.helper.EnumHelper;
 
-public final class CommonRegistration extends Registration<AmethystNoteBlock> {
+public final class CommonRegistration extends Register<AmethystNoteBlock> {
     public CommonRegistration(AmethystNoteBlock feature) {
         super(feature);
     }

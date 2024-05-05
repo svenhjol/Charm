@@ -8,9 +8,9 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import svenhjol.charm.foundation.Networking;
+import svenhjol.charm.foundation.feature.Network;
 
-public final class CommonNetworking extends Networking<ClearItemFrames> {
+public final class CommonNetworking extends Network<ClearItemFrames> {
     public CommonNetworking(ClearItemFrames feature) {
         super(feature);
     }

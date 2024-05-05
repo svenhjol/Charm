@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.totem_of_preserving;
+package svenhjol.charm.feature.totem_of_preserving.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -6,15 +6,15 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TotemBlockEntity extends BlockEntity {
+public class BlockEntity extends net.minecraft.world.level.block.entity.BlockEntity {
     static final String OWNER_TAG = "owner";
     static final String MESSAGE_TAG = "message";
     static final String DAMAGE_TAG = "damage";
@@ -25,8 +25,16 @@ public class TotemBlockEntity extends BlockEntity {
     float rotateTicks = 0f;
     int damage = 0;
 
-    public TotemBlockEntity(BlockPos pos, BlockState state) {
-        super(TotemOfPreserving.blockEntity.get(), pos, state);
+    public BlockEntity(BlockPos pos, BlockState state) {
+        super(TotemOfPreserving.registers.blockEntity.get(), pos, state);
+    }
+
+    public float getRotateTicks() {
+        return rotateTicks;
+    }
+
+    public void setRotateTicks(float rotateTicks) {
+        this.rotateTicks = rotateTicks;
     }
 
     // NonNullLists don't support addAll()
