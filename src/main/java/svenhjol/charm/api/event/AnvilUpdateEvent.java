@@ -15,7 +15,7 @@ public class AnvilUpdateEvent extends CharmEvent<AnvilUpdateEvent.Handler> {
 
     private AnvilUpdateEvent() {}
 
-    public Optional<AnvilRecipe> invoke(Player player, ItemStack input, ItemStack material, int cost) {
+    public Optional<AnvilRecipe> invoke(Player player, ItemStack input, ItemStack material, long cost) {
         for (var handler : getHandlers()) {
             var result = handler.run(player, input, material, cost);
 
@@ -30,7 +30,7 @@ public class AnvilUpdateEvent extends CharmEvent<AnvilUpdateEvent.Handler> {
 
     @FunctionalInterface
     public interface Handler {
-        Optional<AnvilRecipe> run(Player player, ItemStack input, ItemStack material, int cost);
+        Optional<AnvilRecipe> run(Player player, ItemStack input, ItemStack material, long cost);
     }
 
     public static class AnvilRecipe {

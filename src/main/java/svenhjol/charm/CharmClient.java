@@ -17,6 +17,7 @@ import svenhjol.charm.feature.inventory_tidying.InventoryTidyingClient;
 import svenhjol.charm.feature.kilns.KilnsClient;
 import svenhjol.charm.feature.recipes.RecipesClient;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
 import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
 import svenhjol.charm.feature.variant_wood.VariantWoodClient;
 import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
@@ -44,6 +45,7 @@ public class CharmClient {
             KilnsClient.class,
             RecipesClient.class,
             SmoothGlowstoneClient.class,
+            TotemOfPreservingClient.class,
             VariantMobTextures.class,
             VariantWoodClient.class,
             WoodcuttersClient.class

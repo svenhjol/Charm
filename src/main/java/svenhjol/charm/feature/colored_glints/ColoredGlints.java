@@ -24,6 +24,10 @@ public class ColoredGlints extends CommonFeature {
         stack.set(DataComponents.BASE_COLOR, color);
     }
 
+    public static void remove(ItemStack stack) {
+        stack.remove(DataComponents.BASE_COLOR);
+    }
+
     /**
      * Get the enchanted item's glint color.
      * If it isn't set then return the configured default.

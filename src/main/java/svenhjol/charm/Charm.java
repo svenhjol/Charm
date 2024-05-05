@@ -29,6 +29,7 @@ import svenhjol.charm.feature.recipes.Recipes;
 import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
 import svenhjol.charm.feature.silence_microsoft.SilenceMicrosoft;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
 import svenhjol.charm.feature.variant_pistons.VariantPistons;
 import svenhjol.charm.feature.variant_wood.VariantWood;
@@ -75,6 +76,7 @@ public class Charm {
             ShulkerBoxDragDrop.class,
             SilenceMicrosoft.class,
             SmoothGlowstone.class,
+            TotemOfPreserving.class,
             VariantPistons.class,
             VanillaWoodVariants.class,
             VariantWood.class,

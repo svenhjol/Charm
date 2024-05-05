@@ -6,11 +6,14 @@
   "mixins": [
     "enums.boat_type_enum.BoatTypeMixin",
     "enums.note_block_enum.NoteBlockInstrumentMixin",
+    "event.anvil_repair.AnvilMenuMixin",
+    "event.anvil_update.AnvilMenuMixin",
     "event.grindstone.GrindstoneMenuInputMixin",
     "event.grindstone.GrindstoneMenuMixin",
     "event.grindstone.GrindstoneMenuOutputMixin",
     "event.item_drag_drop.ItemMixin",
     "event.item_tooltip_image.ItemStackMixin",
+    "event.player_inventory_drop.PlayerMixin",
     "event.player_login_callback.PlayerListMixin",
     "event.player_tick_callback.ServerPlayerMixin",
     "event.smithing_table.SmithingMenuMixin",
@@ -39,6 +42,8 @@
     "feature.silence_microsoft.YggdrasilMinecraftSessionServiceMixin",
     "feature.silence_microsoft.YggdrasilServicesKeyInfoMixin",
     "feature.silence_microsoft.YggdrasilUserApiServiceMixin",
+    "feature.totem_of_preserving.ExplosionMixin",
+    "feature.totem_of_preserving.LevelMixin",
     "feature.variant_pistons.PistonBaseBlockMixin",
     "feature.variant_pistons.PistonHeadBlockMixin",
     "feature.variant_pistons.PistonMovingBlockEntityMixin"
